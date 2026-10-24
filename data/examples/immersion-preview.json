@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "evidence": "Authored conversation preview with authored lexical correspondences. Demonstrates rendering, native token boundaries and controls; not live translation, a production lexicon, or independent linguistic acceptance.",
+  "languages": {
+    "en": {
+      "text": "Coffee tomorrow? I know a little place by the river.",
+      "words": {
+        "coffee": {
+          "surface": "Coffee"
+        },
+        "tomorrow": {
+          "surface": "tomorrow"
+        },
+        "river": {
+          "surface": "river"
+        }
+      }
+    },
+    "es": {
+      "text": "¿Tomamos un café mañana? Conozco un pequeño lugar junto al río.",
+      "words": {
+        "coffee": {
+          "surface": "café"
+        },
+        "tomorrow": {
+          "surface": "mañana"
+        },
+        "river": {
+          "surface": "río"
+        }
+      }
+    },
+    "fr": {
+      "text": "Un café demain ? Je connais un petit endroit au bord de la rivière.",
+      "words": {
+        "coffee": {
+          "surface": "café"
+        },
+        "tomorrow": {
+          "surface": "demain"
+        },
+        "river": {
+          "surface": "rivière"
+        }
+      }
+    },
+    "de": {
+      "text": "Morgen einen Kaffee? Ich kenne ein kleines Café am Fluss.",
+      "words": {
+        "coffee": {
+          "surface": "Kaffee"
+        },
+        "tomorrow": {
+          "surface": "Morgen"
+        },
+        "river": {
+          "surface": "Fluss"
+        }
+      }
+    },
+    "it": {
+      "text": "Un caffè domani? Conosco un posticino vicino al fiume.",
+      "words": {
+        "coffee": {
+          "surface": "caffè"
+        },
+        "tomorrow": {
+          "surface": "domani"
+        },
+        "river": {
+          "surface": "fiume"
+        }
+      }
+    },
+    "pt": {
+      "text": "Vamos tomar um café amanhã? Conheço um lugar pequeno perto do rio.",
+      "words": {
+        "coffee": {
+          "surface": "café"
+        },
+        "tomorrow": {
+          "surface": "amanhã"
+        },
+        "river": {
+          "surface": "rio"
+        }
+      }
+    },
+    "ar": {
+      "text": "هل نشرب القهوة غدًا؟ أعرف مكانًا صغيرًا قرب النهر.",
+      "words": {
+        "coffee": {
+          "surface": "القهوة",
+          "reading": "al-qahwa"
+        },
+        "tomorrow": {
+          "surface": "غدًا",
+          "reading": "ghadan"
+        },
+        "river": {
+          "surface": "النهر",
+          "reading": "an-nahr"
+        }
+      },
+      "reading": "Hal nashrab al-qahwa ghadan? A'rif makanan saghiran qurb an-nahr."
+    },
+    "zh": {
+      "text": "明天一起喝咖啡吗？我知道河边有个小地方。",
+      "words": {
+        "coffee": {
+          "surface": "咖啡",
+          "reading": "kafei"
+        },
+        "tomorrow": {
+          "surface": "明天",
+          "reading": "mingtian"
+        },
+        "river": {
+          "surface": "河",
+          "reading": "he"
+        }
+      },
+      "reading": "Mingtian yiqi he kafei ma? Wo zhidao hebian you ge xiao difang."
+    },
+    "ja": {
+      "text": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",
+      "words": {
+        "coffee": {
+          "surface": "コーヒー",
+          "reading": "koohii"
+        },
+        "tomorrow": {
+          "surface": "明日",
+          "reading": "ashita"
+        },
+        "river": {
+          "surface": "川",
+          "reading": "kawa"
+        }
+      },
+      "reading": "Ashita, koohii demo dou? Kawa no soba ni chiisana omise o shitte iru yo."
+    },
+    "ko": {
+      "text": "내일 커피 마실래? 강 옆에 작은 카페를 알고 있어.",
+      "words": {
+        "coffee": {
+          "surface": "커피",
+          "reading": "keopi"
+        },
+        "tomorrow": {
+          "surface": "내일",
+          "reading": "naeil"
+        },
+        "river": {
+          "surface": "강",
+          "reading": "gang"
+        }
+      },
+      "reading": "Naeil keopi masillae? Gang yeope jageun kapereul algo isseo."
+    }
+  }
+}

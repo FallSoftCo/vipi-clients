@@ -23,7 +23,12 @@ targets:
   Vipi:
     type: application
     platform: iOS
-    sources: [Vipi]
+    sources:
+      - Vipi
+      - path: ../data/examples/immersion-preview.json
+        buildPhase: resources
+      - path: ../qa/immersion/corpus.json
+        buildPhase: resources
     dependencies:
       - package: VipiCore
       - package: WorkOS

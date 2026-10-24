@@ -6,6 +6,7 @@ struct OnboardingView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var previewMode: ReadingMode = .immersed
     @State private var search = ""
+    @State private var scrolling = false
     @State private var acceptedTerms = false
     @State private var speech = SpeechPlayback()
     @Environment(\.scenePhase) private var scenePhase
@@ -33,6 +34,7 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
+            .onScrollPhaseChange { _, phase in scrolling = phase != .idle }
             .safeAreaInset(edge: .bottom) { bottomAction }
             .toolbar {
                 if state.onboarding != .welcome {
@@ -50,13 +52,13 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 30) {
             IntroHeading(eyebrow: "A little more language. A lot more life.", title: "Your conversations.\nA new language.", detail: "Chat about what matters to you. Pick up another language along the way.")
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "hand.tap") }.foregroundStyle(VipiDesign.secondary)
-                ImmersionBubble(result: ImmersionPreview.result, mode: previewMode, speech: speech)
+                HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
+                ImmersionBubble(result: ImmersionPreview.result, mode: previewMode, speech: speech, interactionPaused: scrolling)
                 if let error = speech.error {
                     Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary)
                     if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
                 }
-                Text("Tap an underlined word. Its meaning is right there.").font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
+                Text("Words switch between Spanish and their meaning. Just keep reading.").font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
                 Button {
                     withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) {
                         previewMode = previewMode == .translation ? .immersed : .translation
@@ -92,22 +94,14 @@ struct OnboardingView: View {
                     }
             }
             Text("I want to pick up").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
-            VStack(spacing: 0) {
+            Picker("I want to pick up", selection: $state.targetLanguage) {
                 ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
-                    Button { state.targetLanguage = language.id } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(language.name).font(.body.weight(.medium)).foregroundStyle(.primary)
-                                Text(language.localName).font(.footnote).foregroundStyle(VipiDesign.secondary)
-                            }
-                            Spacer()
-                            Image(systemName: state.targetLanguage == language.id ? "checkmark.circle.fill" : "circle")
-                                .font(.title3).foregroundStyle(state.targetLanguage == language.id ? VipiDesign.highlight : Color.secondary.opacity(0.35))
-                        }.padding(.horizontal, 18).padding(.vertical, 14).contentShape(Rectangle())
-                    }.buttonStyle(.plain).accessibilityAddTraits(state.targetLanguage == language.id ? .isSelected : [])
-                    if language.id != VipiLanguage.initial.last?.id { Divider().padding(.leading, 18) }
+                    Text("\(language.name) · \(language.localName)").tag(language.id)
                 }
-            }.background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
+            }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
+                .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+            ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
+                .id("\(state.knownLanguage)-\(state.targetLanguage)")
             Label("Language downloads stay on your phone. You choose when to download them.", systemImage: "arrow.down.circle")
                 .font(.footnote).foregroundStyle(VipiDesign.secondary)
         }

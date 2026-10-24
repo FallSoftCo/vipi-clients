@@ -24,6 +24,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    sourceSets.getByName("main").assets.srcDir("../../data/examples")
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
         // mobile implementation. They are not part of the Android runtime.

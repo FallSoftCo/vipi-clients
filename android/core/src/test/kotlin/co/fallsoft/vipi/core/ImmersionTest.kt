@@ -6,6 +6,17 @@ import org.junit.Test
 
 class ImmersionTest {
     private val engine = ImmersionEngine()
+    @Test fun nativeWordBoundariesSupportUnspacedScriptsWithoutPartialMatches() {
+        val entry = VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf("kafei")))
+        val result = engine.align("Want coffee?", "明天喝咖啡。", listOf(entry), 1.0, "zh", targetBoundaries = setOf(0, 2, 3, 5))
+        assertEquals("咖啡", result.spans.single().translated)
+        val partial = VocabularyEntry("coffee", listOf("咖"), mapOf("咖" to listOf("ka")))
+        assertTrue(engine.align("Want coffee?", "明天喝咖啡。", listOf(partial), 1.0, "zh", targetBoundaries = setOf(0, 2, 3, 5)).spans.isEmpty())
+    }
+    @Test fun protectedTargetIsNotContextEvidence() {
+        for (translation in listOf("https://example.test/cafe", "`cafe`", "@cafe"))
+            assertTrue(engine.align("coffee", translation, listOf(VocabularyEntry("coffee", listOf("cafe"))), 1.0).spans.isEmpty())
+    }
     @Test fun mandatoryReadingIsSeparateFromSpeechAndMissingReadingsAbstain() {
         val entry = VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf("kafei")))
         val result = engine.align("Want coffee?", "咖啡", listOf(entry), 1.0, targetLanguage = "zh")

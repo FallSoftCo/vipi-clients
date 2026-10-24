@@ -6,8 +6,14 @@ import SwiftUI
     var body: some Scene {
         WindowGroup {
             Group {
+                #if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
+                else if state.isAuthenticated { HomeView() }
+                else { OnboardingView() }
+                #else
                 if state.isAuthenticated { HomeView() }
                 else { OnboardingView() }
+                #endif
             }
             .environment(state)
             .environment(authentication)

@@ -6,6 +6,17 @@ Every gate needs a retained command/build/device receipt. A screenshot proves ap
 
 Demonstrate the core immersion UX across at least ten major languages and every directed pair, including transliteration for non-Roman scripts. Initial qualification set: English, Spanish, French, German, Italian, Portuguese, Arabic, Mandarin Chinese, Japanese and Korean. This is 90 directions per platform, 180 platform/direction combinations. Do not substitute a download/availability check, English-only pivot example or isolated welcome screenshot for this proof. See IMMERSION_ACCEPTANCE.md. Infrastructure work already started is retained, but broader deployment and store work follow this gate.
 
+### Current language UX implementation
+
+- [x] Continuous native vocabulary alternation, optional immediate reveal, pause, three pace settings, and a single full-translation reading surface.
+- [x] Ten-language authored previews with mandatory readings for Arabic, Chinese, Japanese and Korean; native tokenization and paragraph component coverage for all 90 directions.
+- [x] Native selection/copy and reserved paragraph geometry across three widths and three text sizes. This does not establish full conversation layout or human usability.
+- [x] Native preview speech/reading interaction checks on both clients, including a fixed visible snapshot during audio.
+- [ ] Physical speech/reading and actual VoiceOver/TalkBack qualification.
+- [ ] Actual Apple local translation on the user's iPad; device connection and signing key access remain prerequisites.
+- [ ] Production multilingual pack compilation, contextual reading generation and held-out meaning/coverage evaluation.
+- [ ] Real conversation integration, lifecycle/accessibility/composer and scrolling qualification beyond the previews.
+
 ## 1. Foundations and decisions
 
 - [x] Record product, architecture, data boundaries and release sequence.

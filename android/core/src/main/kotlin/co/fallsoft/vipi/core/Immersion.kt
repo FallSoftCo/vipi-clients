@@ -26,16 +26,19 @@ class ImmersionEngine {
     private data class Candidate(val span: ImmersionSpan, val target: IntRange)
 
     fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double,
-              targetLanguage: String? = null): ImmersionResult {
+              targetLanguage: String? = null, sourceBoundaries: Set<Int>? = null,
+              targetBoundaries: Set<Int>? = null, sourceTokenCount: Int? = null): ImmersionResult {
         val empty = ImmersionResult(original, translation, emptyList())
         if (original.isEmpty() || translation.isEmpty() || !density.isFinite() || density <= 0 || original.length > 16_384 || translation.length > 32_768) return empty
         val protectedRanges = protected.findAll(original).map { it.range }.toList()
+        val protectedTargetRanges = protected.findAll(translation).map { it.range }.toList()
         val candidates = entries.mapNotNull { entry ->
             if (entry.source.isEmpty() || entry.source.length > 128) return@mapNotNull null
-            val source = occurrences(entry.source, original).singleOrNull() ?: return@mapNotNull null
+            val source = occurrences(entry.source, original, sourceBoundaries).singleOrNull() ?: return@mapNotNull null
             if (protectedRanges.any { overlaps(it, source) }) return@mapNotNull null
-            val targets = entry.targets.distinct().filter { it.isNotEmpty() && it.length <= 128 }.flatMap { occurrences(it, translation) }.distinct()
+            val targets = entry.targets.distinct().filter { it.isNotEmpty() && it.length <= 128 }.flatMap { occurrences(it, translation, targetBoundaries) }.distinct()
             val target = targets.singleOrNull() ?: return@mapNotNull null
+            if (protectedTargetRanges.any { overlaps(it, target) }) return@mapNotNull null
             val sourceSurface = original.substring(source)
             val targetSurface = translation.substring(target)
             if (sourceSurface.equals(targetSurface, ignoreCase = true)) return@mapNotNull null
@@ -54,7 +57,7 @@ class ImmersionEngine {
                     !overlaps(other.span.start until other.span.end, candidate.span.start until candidate.span.end) && overlaps(other.target, candidate.target))
             }
         }.sortedWith(compareByDescending<Candidate> { it.span.end - it.span.start }.thenBy { it.span.start })
-        val budget = maxOf(1, (words.findAll(original).count() * density.coerceAtMost(1.0)).toInt())
+        val budget = maxOf(1, ((sourceTokenCount ?: words.findAll(original).count()) * density.coerceAtMost(1.0)).toInt())
         var used = 0
         val selected = mutableListOf<ImmersionSpan>()
         for (candidate in unique) {
@@ -66,7 +69,10 @@ class ImmersionEngine {
         return ImmersionResult(original, translation, selected.sortedBy { it.start })
     }
 
-    private fun occurrences(phrase: String, text: String): List<IntRange> =
-        Regex("(?<![\\p{L}\\p{M}\\p{N}_])" + Regex.escape(phrase) + "(?![\\p{L}\\p{M}\\p{N}_])", RegexOption.IGNORE_CASE).findAll(text).map { it.range }.toList()
+    private fun occurrences(phrase: String, text: String, boundaries: Set<Int>? = null): List<IntRange> {
+        val pattern = if (boundaries == null) "(?<![\\p{L}\\p{M}\\p{N}_])" + Regex.escape(phrase) + "(?![\\p{L}\\p{M}\\p{N}_])" else Regex.escape(phrase)
+        return Regex(pattern, RegexOption.IGNORE_CASE).findAll(text).map { it.range }
+            .filter { boundaries == null || (it.first in boundaries && it.last + 1 in boundaries) }.toList()
+    }
     private fun overlaps(a: IntRange, b: IntRange) = a.first <= b.last && b.first <= a.last
 }

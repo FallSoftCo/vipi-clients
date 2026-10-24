@@ -2,6 +2,21 @@ import Foundation
 import Testing
 @testable import VipiCore
 
+@Test func nativeWordBoundariesSupportUnspacedScriptsWithoutPartialMatches() {
+    let entry = VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["kafei"]])
+    let result = ImmersionEngine().align(original: "Want coffee?", translation: "明天喝咖啡。", entries: [entry], density: 1, targetLanguage: "zh", targetBoundaries: [0, 2, 3, 5])
+    #expect(result.spans.first?.translated == "咖啡")
+    let partial = VocabularyEntry(source: "coffee", targets: ["咖"], romanizations: ["咖": ["ka"]])
+    #expect(ImmersionEngine().align(original: "Want coffee?", translation: "明天喝咖啡。", entries: [partial], density: 1, targetLanguage: "zh", targetBoundaries: [0, 2, 3, 5]).spans.isEmpty)
+}
+
+@Test func protectedTargetIsNotContextEvidence() {
+    let entry = VocabularyEntry(source: "coffee", targets: ["cafe"])
+    for translated in ["https://example.test/cafe", "`cafe`", "@cafe"] {
+        #expect(ImmersionEngine().align(original: "coffee", translation: translated, entries: [entry], density: 1).spans.isEmpty)
+    }
+}
+
 @Test func mandatoryReadingRemainsSeparateFromSpeech() {
     let entry = VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["kafei"]])
     let engine = ImmersionEngine()

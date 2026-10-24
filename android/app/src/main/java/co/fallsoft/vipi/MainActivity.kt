@@ -59,6 +59,12 @@ class MainActivity : ComponentActivity() {
                 "translation" -> model.navigate(Screen.LANGUAGE_DOWNLOAD)
             }
         }
+        if (BuildConfig.DEBUG) {
+            val source = intent.getStringExtra("vipi_source")
+            val target = intent.getStringExtra("vipi_target")
+            if (source in initialLanguages.map { it.code }) model.selectKnown(source!!)
+            if (target in initialLanguages.map { it.code } && target != model.knownLanguage) model.selectTarget(target!!)
+        }
         setContent { VipiTheme(model.appearance) { VipiApp(model) } }
     }
     override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); setIntent(intent); handleCallback(intent) }
@@ -84,15 +90,16 @@ private val Green = Color(0xFF33644F)
 
 @Composable private fun VipiApp(model: VipiModel) {
     LaunchedEffect(model.authentication.userID) { if (model.authentication.userID != null) model.navigate(Screen.HOME) }
+    val scrollState = rememberScrollState()
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding) OnboardingAction(model) }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(28.dp)) {
+        Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(28.dp)) {
             TopBar(model)
             when (model.screen) {
-                Screen.WELCOME -> Welcome()
-                Screen.LANGUAGE -> LanguageSelection(model)
+                Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
+                Screen.LANGUAGE -> LanguageSelection(model, scrollState.isScrollInProgress)
                 Screen.ACCOUNT -> AccountView()
                 Screen.HOME -> HomeView(model)
                 Screen.SETTINGS -> SettingsView(model)
@@ -141,7 +148,7 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun Welcome() {
+@Composable private fun Welcome(scrolling: Boolean) {
     var mode by rememberSaveable { mutableStateOf(ReadingMode.IMMERSED) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -157,7 +164,7 @@ private val Green = Color(0xFF33644F)
     Heading("A little more language. A lot more life.", "Your conversations.\nA new language.", "Chat about what matters to you. Pick up another language along the way.")
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text("TRY A LITTLE SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
-        ImmersionBubble(immersionPreview, mode, speech = speech)
+        ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
         if (speech.state == SpeechState.UNAVAILABLE) {
             Text(speech.error ?: "Voices aren’t ready.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Row {
@@ -165,7 +172,7 @@ private val Green = Color(0xFF33644F)
                 TextButton(onClick = { speech.prepare(warmups) }) { Text("Retry") }
             }
         } else speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        Text("Tap an underlined word. Its meaning is right there.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Words switch between Spanish and their meaning. Just keep reading.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
             Text(if (mode == ReadingMode.TRANSLATION) "Back to a little Spanish" else "See the whole thought in Spanish", fontSize = 13.sp)
@@ -177,50 +184,8 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun ImmersionBubble(result: ImmersionResult, mode: ReadingMode, speech: SpeechPlayback? = null, source: String = "en", target: String = "es") {
-    var revealed by remember(result) { mutableStateOf(setOf<Int>()) }
-    LaunchedEffect(result, mode) { speech?.stop() }
-    val color = MaterialTheme.colorScheme.primary
-    val text = buildAnnotatedString {
-        when (mode) {
-            ReadingMode.ORIGINAL -> append(result.original)
-            ReadingMode.TRANSLATION -> append(result.translation)
-            ReadingMode.IMMERSED -> {
-                var cursor = 0
-                for (span in result.spans) {
-                    append(result.original.substring(cursor, span.start))
-                    withLink(LinkAnnotation.Clickable("word-${span.id}", styles = TextLinkStyles(style = SpanStyle(color = color, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)), linkInteractionListener = {
-                        speech?.stop()
-                        revealed = if (span.id in revealed) revealed - span.id else revealed + span.id
-                    })) { append(if (span.id in revealed) span.original else span.displayedTarget) }
-                    cursor = span.end
-                }
-                append(result.original.substring(cursor))
-            }
-        }
-    }
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp)).padding(start = 20.dp, end = 12.dp, top = 20.dp, bottom = 6.dp)) {
-        Text(text, fontSize = 17.sp, lineHeight = 27.sp)
-        if (speech != null) {
-            val active = speech.activeMessage == "onboarding-example"
-            TextButton(onClick = {
-                val spans = when (mode) {
-                    ReadingMode.ORIGINAL -> listOf(SpeechSpan(result.original, source))
-                    ReadingMode.TRANSLATION -> listOf(SpeechSpan(result.translation, target))
-                    ReadingMode.IMMERSED -> result.speech(source, target, revealed)
-                }
-                speech.toggle("onboarding-example", spans)
-            }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), modifier = Modifier.align(Alignment.End)) {
-                if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
-                else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
-                Spacer(Modifier.width(7.dp))
-                Text(if (active) "Stop" else if (speech.state == SpeechState.PREPARING) "Preparing voices" else "Listen", fontSize = 13.sp)
-            }
-        }
-    }
-}
-
-@Composable private fun LanguageSelection(model: VipiModel) {
+@Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
+    var targetMenu by remember { mutableStateOf(false) }
     var knownMenu by remember { mutableStateOf(false) }
     Heading("Make it your world", "What language\nwill you live in?", "Start with one. You can change it whenever you like.")
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -235,16 +200,15 @@ private val Green = Color(0xFF33644F)
         }
     }
     Text("I want to pick up", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
-        initialLanguages.filter { it.code != model.knownLanguage }.forEachIndexed { index, language ->
-            Row(Modifier.fillMaxWidth().clickable { model.selectTarget(language.code) }.semantics { selected = language.code == model.targetLanguage; role = Role.RadioButton }.padding(horizontal = 18.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
-                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) { Text(language.name, fontWeight = FontWeight.Medium); Text(language.localName, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                Spacer(Modifier.weight(1f))
-                Icon(if (language.code == model.targetLanguage) Icons.Outlined.CheckCircle else Icons.Outlined.RadioButtonUnchecked, null, tint = if (language.code == model.targetLanguage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
-            }
-            if (index < initialLanguages.size - 2) HorizontalDivider(Modifier.padding(start = 18.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .4f))
+    Box {
+        Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { targetMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(languageName(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, "Choose your immersion language")
+        }
+        DropdownMenu(expanded = targetMenu, onDismissRequest = { targetMenu = false }) {
+            initialLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${language.name} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
         }
     }
+    key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling) }
     Text("Language downloads stay on your phone. You choose when to download them.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 

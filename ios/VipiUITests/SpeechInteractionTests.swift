@@ -5,6 +5,7 @@ import XCTest
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-welcome"]
         app.launch()
+        app.buttons["immersionPause"].tap()
         let listen = app.buttons["messageListen"]
         XCTAssertTrue(listen.waitForExistence(timeout: 10))
         let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true AND label == 'Listen'"), object: listen)
@@ -31,6 +32,7 @@ import XCTest
             let revealed = XCTAttachment(screenshot: app.screenshot()); revealed.name = "Word revealed — audio stopped"; revealed.lifetime = .keepAlways; add(revealed)
         }
         app.buttons["Find your language"].tap()
-        XCTAssertFalse(listen.exists)
+        XCTAssertTrue(app.staticTexts["I already speak"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.staticTexts["TRY A LITTLE SPANISH"].exists)
     }
 }
