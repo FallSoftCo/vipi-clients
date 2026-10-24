@@ -1,0 +1,76 @@
+name: Vipi
+options:
+  bundleIdPrefix: co.fallsoft
+  deploymentTarget:
+    iOS: '18.0'
+settings:
+  base:
+    SWIFT_VERSION: '6.0'
+    DEVELOPMENT_TEAM: 3TNL2455JT
+    MARKETING_VERSION: '0.1.0'
+    CURRENT_PROJECT_VERSION: '1'
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+packages:
+  VipiCore:
+    path: VipiCore
+  WorkOS:
+    url: https://github.com/workos/workos-ios
+    exactVersion: 0.8.0
+  LibSignalClient:
+    path: ../vendor/libsignal/source/swift
+targets:
+  Vipi:
+    type: application
+    platform: iOS
+    sources: [Vipi]
+    dependencies:
+      - package: VipiCore
+      - package: WorkOS
+    info:
+      path: Vipi/Info.plist
+      properties:
+        CFBundleURLTypes:
+          - CFBundleURLSchemes: [co.fallsoft.vipi]
+            CFBundleURLName: co.fallsoft.vipi.auth
+        WorkOSClientID: $(WORKOS_CLIENT_ID)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: co.fallsoft.vipi
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Vipi
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.social-networking
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        TARGETED_DEVICE_FAMILY: '1,2'
+        SUPPORTS_MACCATALYST: NO
+        SWIFT_STRICT_CONCURRENCY: complete
+      configs:
+        Debug:
+          WORKOS_CLIENT_ID: client_01M5QPQSVXQDEJGQ1CYZ75MSGS
+        Release:
+          WORKOS_CLIENT_ID: ''
+  VipiCryptoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - VipiCryptoTests
+      - path: ../qa/immersion/corpus.json
+        buildPhase: resources
+    dependencies:
+      - target: Vipi
+      - package: LibSignalClient
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
+        'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
+schemes:
+  Vipi:
+    build:
+      targets:
+        Vipi: all
+    test:
+      targets: [VipiCryptoTests]

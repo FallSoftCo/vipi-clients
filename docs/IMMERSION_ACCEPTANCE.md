@@ -1,0 +1,49 @@
+# Immersion acceptance
+
+User requirement, 2026-10-24: demonstrate the core UX across at least ten major languages and all pairs; prove transliteration for non-Roman languages. This is the immediate implementation priority.
+
+Explicit user corrections: transliteration is mandatory for immersion, not optional. Non-Roman target languages need readable transliteration in the default in-place immersion display, with original script accessible. Missing or incorrect transliteration fails acceptance. Audio provides pronunciation; written pronunciation glyphs/IPA are not the user experience. Do not turn this into pronunciation notation or a lesson.
+
+## Qualification set
+
+English (en), Spanish (es), French (fr), German (de), Italian (it), Portuguese (pt), Arabic (ar), Mandarin Chinese (zh), Japanese (ja), Korean (ko). Ten languages yield 90 directed source→target pairs, independently exercised on Android and iOS. Self-pairs are not translation cases. Regional/script assumptions must be explicit; Mandarin initially uses Simplified Chinese, Portuguese variant must follow the model's declared capability.
+
+## What a direction must demonstrate
+
+1. A familiar conversation screen containing meaningful multi-message context, with immutable originals and local persistence. A labelled synthetic conversation is allowed for reproducible engineering QA, but must not be represented as real friend traffic.
+2. Actual full-message local translation, then context-supported vocabulary replacements. Preserve source grammar in mixed mode. Low-confidence cases abstain. Do not count standalone dictionary substitutions as context proof.
+3. In-place word reveal and restore, and full-sentence original/translation switching in the same bubble. No second translation stack. Verify line wrapping, scroll anchor, selection/copy, long messages and incoming/outgoing behavior.
+4. Mandatory readable transliteration of non-Roman target text in the default in-place immersion display, with original script recoverable without a second stacked translation. Validate context-sensitive readings internally, including Chinese polyphonic characters, Japanese contextual readings/inflections and Arabic unvowelled ambiguity. Select and document a readable transliteration convention; no IPA/phonetic glyphs in the chat. Unknown readings must not be presented as certain. Native-script-only output or full translation is not a substitute for this requirement.
+5. Local TTS uses the actual visible reading state and the intended language of each span. Romanized text is a display aid: pronunciation must use the underlying target-language text/readings, not an English voice reading Latin letters. Prepare both local voices for the chosen pair before playback. Render language spans into one continuous audio playback where latency permits; otherwise buffer the beginning and stream the remaining rendered segments through the same playback stream. Measure cold/warm first-audio latency and voice-transition gaps. Never assume the platform actually keeps both voice models resident. Explicitly test source word reveals, whole-message switching, replay, cancellation and stale-audio invalidation. Missing downloaded voices must have an honest, usable fallback.
+6. Offline after preparation, with measured cold/warm latency, storage and memory. No network translator, model provider or transliteration fallback. Record the actual model/runtime versions and network state.
+7. Accessibility: discoverable inline actions, screen-reader reading order/language, large type, reduced motion, RTL/mixed-direction punctuation, keyboard/composer and navigation restoration. Reuse the same interaction through onboarding and real chats.
+
+## Evidence levels
+
+- Availability: platform reports a pair supported. This is not execution evidence.
+- Functional: the actual native pipeline runs locally and interactions preserve state.
+- Linguistic: inspect expected meanings/readings against an authored reference corpus, recording wrong replacements, abstention/coverage and translation failures. A translation model's own output is not an independent gold reference.
+- Usability: demonstrated tasks and observed failures in sustained conversation. Automated taps are not a human usability study.
+- Acquisition: learning efficacy requires longitudinal user evidence and cannot be established by engineering tests. No efficacy claim follows from this acceptance gate alone.
+
+Every matrix cell links the platform/build, exact source and target, originals, actual translations, selected spans, transliteration/readings, speech segmentation, network state, timing and interaction captures. Record failed/blocked/not-run separately. No placeholder passes, inferred symmetry, extrapolation from English→Spanish or silently excluded unsupported pairs.
+
+## Corpus and review
+
+Use a shared authored conversational corpus with independent expected senses/readings, then additional held-out cases. Include plans, food, family, work, travel, emotions, polysemy, idioms, negation, names, dates/numbers, URLs/code, emojis, repeated words, spelling variation, morphology and multi-sentence context. Review every selected replacement in the engineering set. Report precision and coverage separately; abstaining everywhere is not success. Thresholds must be stated before results are accepted and must not be relaxed to make a failing run pass.
+
+The first prototype's dictionary/translation-presence heuristic has no broad quality evidence. Its failure analysis comes before selecting a richer local alignment model. Reusing model data or maintained native ML runtimes does not authorize a shared custom application/immersion engine.
+
+## Platform limitation to resolve
+
+Apple Translation cannot run in an iOS simulator. A macOS availability probe is currently the only Apple-side API evidence. Actual execution must be demonstrated through an available supported device or a qualified fully local translation engine runnable in the target environment; simulator screenshots with canned translations do not satisfy this gate.
+
+## UX reference use
+
+Mobbin examples inspected on 2026-10-24:
+- https://mobbin.com/screens/371ce83e-ec3b-4268-92f2-2fb17a3afcf2 — Bolt explains translation within the conversation while retaining the familiar composer.
+- https://mobbin.com/screens/7e76c664-baed-4a74-8198-47bc5e690c2f — DoorDash states the other person's language and the automatic behavior in the empty conversation.
+
+Use these for concise contextual explanation, not as proof that immersion works. Neither inspected screen demonstrates Vipi's in-place vocabulary interaction.
+
+Built for Mars critique sources: https://builtformars.com/ux-bites/your-sound-is-off , https://builtformars.com/ux-bites/fake-fields-during-onboarding , https://builtformars.com/ux-bites/reactive-and-interactive-onboarding . Apply discoverable, reversible interaction and honest audio feedback. Avoid extra onboarding overlays or lesson-like activities. BFM explicitly does not establish linguistic or acquisition quality.

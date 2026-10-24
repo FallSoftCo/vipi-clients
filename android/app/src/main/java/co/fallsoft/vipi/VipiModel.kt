@@ -1,0 +1,92 @@
+package co.fallsoft.vipi
+
+import android.app.Application
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import co.fallsoft.vipi.core.ImmersionEngine
+import co.fallsoft.vipi.core.VocabularyEntry
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
+
+data class VipiLanguage(val code: String, val name: String, val localName: String)
+val initialLanguages = listOf(
+    VipiLanguage("en", "English", "English"), VipiLanguage("es", "Spanish", "Español"),
+    VipiLanguage("fr", "French", "Français"), VipiLanguage("de", "German", "Deutsch"),
+    VipiLanguage("it", "Italian", "Italiano"), VipiLanguage("pt", "Portuguese", "Português"),
+    VipiLanguage("ja", "Japanese", "日本語"), VipiLanguage("ko", "Korean", "한국어"),
+    VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية")
+)
+fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
+enum class Appearance { SYSTEM, LIGHT, DARK }
+enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD }
+enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
+
+class VipiModel(application: Application) : AndroidViewModel(application) {
+    val authentication = Authentication(application)
+    private val prefs = application.getSharedPreferences("preferences", 0)
+    var screen by mutableStateOf(runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME))
+        private set
+    var knownLanguage by mutableStateOf(prefs.getString("knownLanguage", "en")!!)
+        private set
+    var targetLanguage by mutableStateOf(prefs.getString("targetLanguage", "es")!!)
+        private set
+    var appearance by mutableStateOf(runCatching { Appearance.valueOf(prefs.getString("appearance", "SYSTEM")!!) }.getOrDefault(Appearance.SYSTEM))
+        private set
+    var density by mutableDoubleStateOf(prefs.getFloat("density", .25f).toDouble())
+        private set
+    var modelBusy by mutableStateOf(false)
+        private set
+    var modelMessage by mutableStateOf<String?>(null)
+        private set
+    var translatedText by mutableStateOf<String?>(null)
+        private set
+    private val translator = LocalTranslation()
+
+    fun navigate(value: Screen) {
+        screen = value
+        if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
+    }
+    fun selectKnown(code: String) {
+        knownLanguage = code
+        if (targetLanguage == code) selectTarget(if (code == "es") "en" else "es")
+        prefs.edit().putString("knownLanguage", code).apply()
+    }
+    fun selectTarget(code: String) { targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply() }
+    fun changeAppearance(value: Appearance) { appearance = value; prefs.edit().putString("appearance", value.name).apply() }
+    fun changeDensity(value: Double) { density = value; prefs.edit().putFloat("density", value.toFloat()).apply() }
+    fun back() { navigate(when (screen) {
+        Screen.LANGUAGE -> Screen.WELCOME
+        Screen.ACCOUNT -> Screen.LANGUAGE
+        Screen.LANGUAGE_DOWNLOAD -> Screen.SETTINGS
+        else -> Screen.HOME
+    }) }
+    fun downloadLanguage(cellularAllowed: Boolean) = viewModelScope.launch {
+        if (modelBusy) return@launch
+        modelBusy = true; modelMessage = null
+        try {
+            translator.prepare(knownLanguage, targetLanguage, cellularAllowed)
+            modelMessage = "${languageName(targetLanguage)} is ready for offline translation."
+        } catch (error: CancellationException) { throw error }
+        catch (_: Exception) { modelMessage = "The download couldn’t finish. Check your connection and try again." }
+        finally { modelBusy = false }
+    }
+    fun translate(text: String) = viewModelScope.launch {
+        if (modelBusy || text.isBlank()) return@launch
+        modelBusy = true; modelMessage = null
+        try { translatedText = translator.translate(text, knownLanguage, targetLanguage) }
+        catch (error: CancellationException) { throw error }
+        catch (_: Exception) { modelMessage = "Translation isn’t ready. Download this language first, then try again." }
+        finally { modelBusy = false }
+    }
+    override fun onCleared() { translator.close() }
+}
+
+val immersionPreview = ImmersionEngine().align(
+    "Coffee tomorrow? I know a little place by the river.",
+    "¿Café mañana? Conozco un pequeño lugar junto al río.",
+    listOf(VocabularyEntry("Coffee", listOf("Café")), VocabularyEntry("tomorrow", listOf("mañana")), VocabularyEntry("river", listOf("río"))), .3
+)

@@ -1,0 +1,17 @@
+{
+  "pack_id": "en-es",
+  "source_language": "en",
+  "target_language": "es",
+  "revision": 2,
+  "source_name": "FreeDict + WikDict English–Spanish",
+  "source_version": "2025.11.23",
+  "source_url": "https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz",
+  "source_sha512": "622e8fec6c4178cb4c21e4577701c5325670f825331b07a185b4c6b810603c337e80429738a97581f68f668667910e7ad36f27332eaee2828f1f906537852fe3",
+  "source_bytes": 3715012,
+  "tei_member": "eng-spa/eng-spa.tei",
+  "license_member": "eng-spa/COPYING",
+  "license": "CC-BY-SA-3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/legalcode",
+  "attribution": "FreeDict + WikDict; maintained by Karl Bartel. Based on Wiktionary contributors via DBnary. Vipi extracts and normalizes vocabulary entries; this derived data remains CC BY-SA 3.0.",
+  "allowed_parts_of_speech": ["n", "v", "adj", "adv", "interjection"]
+}

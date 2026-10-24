@@ -1,0 +1,47 @@
+package co.fallsoft.vipi
+
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+
+/** Runs only on Vipi's dedicated emulator. Disables its network, never the host's. */
+@RunWith(AndroidJUnit4::class)
+class LocalTranslationDeviceTest {
+    private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    private fun shell(command: String): String = instrumentation.uiAutomation.executeShellCommand(command).use { descriptor ->
+        java.io.FileInputStream(descriptor.fileDescriptor).bufferedReader().use { it.readText() }
+    }
+    @Test fun downloadedModelsTranslateWithAllEmulatorRadiosOff() = runBlocking {
+        // Require an explicit runner argument before changing this emulator's network.
+        check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+        check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
+        val wifi = shell("settings get global wifi_on").trim() == "1"
+        val data = shell("settings get global mobile_data").trim() == "1"
+        LocalTranslation().use { translation ->
+            withTimeout(300_000) { translation.prepare("en", "es", cellularAllowed = true) }
+            try {
+                shell("svc wifi disable"); shell("svc data disable")
+                val manager = instrumentation.targetContext.getSystemService(android.net.ConnectivityManager::class.java)
+                withTimeout(15_000) { while (manager.activeNetwork != null) kotlinx.coroutines.delay(100) }
+                assertNull("Network still active", manager.activeNetwork)
+                val samples = listOf("Coffee tomorrow?", "The river flows past the village.", "My sister works at a bank.")
+                val output = withTimeout(30_000) { samples.map { translation.translate(it, "en", "es") } }
+                output.zip(samples).forEach { (translated, original) -> assertTrue(translated.isNotBlank()); assertNotEquals(original, translated) }
+                assertTrue(output.first().contains("café", ignoreCase = true))
+                assertTrue(output[1].contains("río", ignoreCase = true))
+                assertTrue(output[2].contains("banco", ignoreCase = true))
+                // Synthetic fixtures only, useful for reviewing the actual provider output.
+                val receipt = org.json.JSONObject().put("provider", "MLKit 17.0.3").put("activeNetwork", "none")
+                    .put("source", org.json.JSONArray(samples)).put("translation", org.json.JSONArray(output))
+                java.io.File(instrumentation.targetContext.filesDir, "offline-translation-receipt.json").writeText(receipt.toString(2))
+            } finally {
+                if (wifi) shell("svc wifi enable")
+                if (data) shell("svc data enable")
+            }
+        }
+    }
+}

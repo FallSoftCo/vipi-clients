@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "version": "2026-10-24-r1",
+  "evidence": "Authored engineering scenarios; not an independent expert-reviewed translation benchmark or user study.",
+  "languages": ["en", "es", "fr", "de", "it", "pt", "ar", "zh", "ja", "ko"],
+  "cases": [
+    {"id": "coffee_plan", "context": "Making a plan with a friend", "text": {
+      "en": "Coffee tomorrow? I know a little place by the river.",
+      "es": "¿Tomamos un café mañana? Conozco un pequeño lugar junto al río.",
+      "fr": "Un café demain ? Je connais un petit endroit au bord de la rivière.",
+      "de": "Morgen einen Kaffee? Ich kenne ein kleines Café am Fluss.",
+      "it": "Un caffè domani? Conosco un posticino vicino al fiume.",
+      "pt": "Vamos tomar um café amanhã? Conheço um lugar pequeno perto do rio.",
+      "ar": "هل نشرب القهوة غدًا؟ أعرف مكانًا صغيرًا قرب النهر.",
+      "zh": "明天一起喝咖啡吗？我知道河边有个小地方。",
+      "ja": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",
+      "ko": "내일 커피 마실래? 강 옆에 작은 카페를 알고 있어."
+    }},
+    {"id": "bank_finance", "context": "Financial sense of bank", "text": {
+      "en": "My sister works at a bank. She will help me open an account tomorrow.",
+      "es": "Mi hermana trabaja en un banco. Mañana me ayudará a abrir una cuenta.",
+      "fr": "Ma sœur travaille dans une banque. Elle m'aidera à ouvrir un compte demain.",
+      "de": "Meine Schwester arbeitet bei einer Bank. Morgen hilft sie mir, ein Konto zu eröffnen.",
+      "it": "Mia sorella lavora in banca. Domani mi aiuterà ad aprire un conto.",
+      "pt": "Minha irmã trabalha em um banco. Amanhã ela vai me ajudar a abrir uma conta.",
+      "ar": "تعمل أختي في بنك. ستساعدني غدًا في فتح حساب.",
+      "zh": "我姐姐在银行工作。她明天会帮我开一个账户。",
+      "ja": "姉は銀行で働いています。明日、口座を開くのを手伝ってくれます。",
+      "ko": "제 누나는 은행에서 일해요. 내일 계좌를 여는 것을 도와줄 거예요."
+    }},
+    {"id": "river_bank", "context": "River shore, contrasted with financial bank", "text": {
+      "en": "Let's sit on the bank of the river. The water is calm today.",
+      "es": "Sentémonos en la orilla del río. Hoy el agua está tranquila.",
+      "fr": "Asseyons-nous au bord de la rivière. L'eau est calme aujourd'hui.",
+      "de": "Setzen wir uns ans Flussufer. Das Wasser ist heute ruhig.",
+      "it": "Sediamoci sulla riva del fiume. Oggi l'acqua è calma.",
+      "pt": "Vamos sentar na margem do rio. A água está calma hoje.",
+      "ar": "لنجلس على ضفة النهر. المياه هادئة اليوم.",
+      "zh": "我们坐在河岸上吧。今天的水面很平静。",
+      "ja": "川岸に座ろう。今日は水面が穏やかだね。",
+      "ko": "강가에 앉자. 오늘은 물이 잔잔하네."
+    }},
+    {"id": "negation_allergy", "context": "Negation must survive immersion; high consequence if wrong", "text": {
+      "en": "Please do not add peanuts. I am allergic to them.",
+      "es": "Por favor, no añadas cacahuetes. Soy alérgico a ellos.",
+      "fr": "N'ajoute pas de cacahuètes, s'il te plaît. J'y suis allergique.",
+      "de": "Bitte keine Erdnüsse dazugeben. Ich bin dagegen allergisch.",
+      "it": "Per favore, non aggiungere arachidi. Sono allergico.",
+      "pt": "Por favor, não coloque amendoim. Tenho alergia.",
+      "ar": "من فضلك لا تضف الفول السوداني. لدي حساسية منه.",
+      "zh": "请不要加花生。我对花生过敏。",
+      "ja": "ピーナッツを入れないでください。アレルギーがあります。",
+      "ko": "땅콩을 넣지 말아 주세요. 땅콩 알레르기가 있어요."
+    }},
+    {"id": "family_message", "context": "Everyday personally relevant conversation", "text": {
+      "en": "Dad is cooking dinner. Can you buy some bread on your way home?",
+      "es": "Papá está preparando la cena. ¿Puedes comprar pan de camino a casa?",
+      "fr": "Papa prépare le dîner. Tu peux acheter du pain en rentrant ?",
+      "de": "Papa kocht das Abendessen. Kannst du auf dem Heimweg Brot kaufen?",
+      "it": "Papà sta preparando la cena. Puoi comprare del pane tornando a casa?",
+      "pt": "O pai está preparando o jantar. Você pode comprar pão no caminho de casa?",
+      "ar": "يعد أبي العشاء. هل يمكنك شراء بعض الخبز في طريق عودتك إلى المنزل؟",
+      "zh": "爸爸正在做晚饭。你回家的路上能买些面包吗？",
+      "ja": "お父さんが夕食を作っているよ。帰りにパンを買ってきてくれる？",
+      "ko": "아빠가 저녁을 만들고 있어. 집에 오는 길에 빵 좀 사 올래?"
+    }},
+    {"id": "protected_details", "context": "Numbers, email, code and URLs stay unchanged in mixed display", "text": {
+      "en": "Meet me at 18:30. Email qa@example.test or open https://example.test/river. The code is `bank_123` 🙂",
+      "es": "Nos vemos a las 18:30. Escribe a qa@example.test o abre https://example.test/river. El código es `bank_123` 🙂",
+      "fr": "Retrouve-moi à 18:30. Écris à qa@example.test ou ouvre https://example.test/river. Le code est `bank_123` 🙂",
+      "de": "Treffen wir uns um 18:30. Schreib an qa@example.test oder öffne https://example.test/river. Der Code ist `bank_123` 🙂",
+      "it": "Ci vediamo alle 18:30. Scrivi a qa@example.test o apri https://example.test/river. Il codice è `bank_123` 🙂",
+      "pt": "Encontre-me às 18:30. Envie um email para qa@example.test ou abra https://example.test/river. O código é `bank_123` 🙂",
+      "ar": "قابلني الساعة 18:30. أرسل رسالة إلى qa@example.test أو افتح https://example.test/river. الرمز هو `bank_123` 🙂",
+      "zh": "18:30见。发邮件到qa@example.test，或打开https://example.test/river。代码是`bank_123` 🙂",
+      "ja": "18:30に会おう。qa@example.testにメールするか、https://example.test/riverを開いてね。コードは`bank_123` 🙂",
+      "ko": "18:30에 만나자. qa@example.test로 메일을 보내거나 https://example.test/river를 열어 봐. 코드는 `bank_123`야 🙂"
+    }}
+  ]
+}
