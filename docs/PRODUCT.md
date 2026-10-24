@@ -16,7 +16,7 @@ Vipi is second-language acquisition through immersion in personally relevant con
 
 ## First experience
 
-1. A concise explanation with an interactive sample bubble: “Chat about your life. Let another language become part of it.” Tapping a highlighted word reveals its meaning in place. The sample is clearly a preview, not a fake conversation.
+1. A concise explanation with an interactive sample bubble: “Chat about your life. Let another language become part of it.” Vocabulary automatically alternates between familiar meaning and the immersion language in place. Tapping is an optional immediate reveal or hold, not a prerequisite for understanding each word. The sample is clearly a preview, not a fake conversation.
 2. Confirm the language the user knows and choose an immersion language from actually supported local translation directions. Explain downloads and let chat remain usable while they prepare.
 3. Create/sign into an account, pick a unique username, and accept FallSoft.Co terms and Vipi product disclosures.
 4. Explain the one-month trial and annual renewal using live store metadata and eligibility. An eligible user must explicitly start the store subscription; do not silently enroll them or hardcode “30 days” for a calendar-month offer.
@@ -28,6 +28,10 @@ Do not overload onboarding with tutorials, carousels, notification prompts, down
 ## Conversation
 
 The message bubble remains the single reading surface. Original, mixed immersion, and complete translation replace its contents in place. No stacked bilingual rows. Inline words/phrases reveal in place; a clearly discoverable message action reveals the full translation for correct grammatical context. Preserve selection, copy, layout stability, and accessibility semantics.
+
+Automatic flip-flop is a core requirement, clarified by the user on 2026-10-24. Selected vocabulary alternates between familiar meaning and the target form without per-word taps. Default non-Roman target forms remain readable transliterations. Current native prototypes only support manual reveals; automatic behavior is not implemented or qualified yet.
+
+Proposed interaction for qualification: start with readable familiar context, then calmly alternate eligible vocabulary in the active visible message. Keep other conversation history still. Visibility is a scheduling signal, not proof of attention or comprehension. Provide a simple pause/pace preference and optional immediate reveal/hold. Pause automatic changes while scrolling, composing, selecting text, listening, backgrounded, or after an explicit reading-state override; resume without a burst of missed timer events. Speech freezes the visible language state for its duration. Stable screen-reader content and reduced-motion behavior need native qualification. Test dwell times, layout and comprehension before accepting a default; no particular interval is established as effective.
 
 Mixed immersion keeps the source grammar and introduces only locally aligned, sufficiently confident vocabulary or phrases. Full translation supplies target-language grammar. Ambiguous alignment leaves the original span unchanged. Proper names, numbers, URLs, code, negation, idioms, and conflicting senses need explicit fixtures. Unsupported content is not silently mistranslated.
 

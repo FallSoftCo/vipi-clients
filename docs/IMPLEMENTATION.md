@@ -31,7 +31,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [ ] Welcome/interactive immersion preview, language selection, download state, authentication, username, trial, first-chat onboarding.
 - [ ] Real chat list, compose/invite/exact lookup, friend conversation, vBot conversation.
 - [ ] Local persistence/outbox, timestamps, delivery states, unread/navigation restoration, paging and keyboard behavior.
-- [ ] Original/mixed/full translation in-place rendering, contextual reveal, copy, selection and speech.
+- [ ] Original/mixed/full translation in-place rendering, automatic vocabulary flip-flop, optional contextual reveal/hold, copy, selection and speech. Prove a no-tap comprehension path; timer changes must preserve layout and pause during reading interactions/audio.
 - [ ] Settings: languages/storage, immersion density, appearance, account, subscriptions, backup, privacy, block/report/delete.
 - [ ] Offline, empty, denied permission, missing voice/model, expired delivery, refund, revoked device and retry states.
 
