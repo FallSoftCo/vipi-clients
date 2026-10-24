@@ -1,8 +1,10 @@
 package co.fallsoft.vipi.core
 
-data class VocabularyEntry(val source: String, val targets: List<String>)
-data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String) {
+data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap())
+data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String,
+                         val targetStart: Int = 0, val targetEnd: Int = 0, val romanization: String? = null) {
     val id: Int get() = start
+    val displayedTarget: String get() = romanization ?: translated
 }
 data class SpeechSpan(val text: String, val language: String)
 data class ImmersionResult(val original: String, val translation: String, val spans: List<ImmersionSpan>) {
@@ -23,7 +25,8 @@ class ImmersionEngine {
     private val protected = Regex("https?://\\S+|www\\.\\S+|[\\w.+-]+@[\\w.-]+\\.[\\p{L}]{2,}|```[\\s\\S]*?```|`[^`]*`|[@#][\\p{L}\\p{N}_]+|\\p{N}+(?:[.,:]\\p{N}+)*")
     private data class Candidate(val span: ImmersionSpan, val target: IntRange)
 
-    fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double): ImmersionResult {
+    fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double,
+              targetLanguage: String? = null): ImmersionResult {
         val empty = ImmersionResult(original, translation, emptyList())
         if (original.isEmpty() || translation.isEmpty() || !density.isFinite() || density <= 0 || original.length > 16_384 || translation.length > 32_768) return empty
         val protectedRanges = protected.findAll(original).map { it.range }.toList()
@@ -36,11 +39,17 @@ class ImmersionEngine {
             val sourceSurface = original.substring(source)
             val targetSurface = translation.substring(target)
             if (sourceSurface.equals(targetSurface, ignoreCase = true)) return@mapNotNull null
-            Candidate(ImmersionSpan(source.first, source.last + 1, sourceSurface, targetSurface), target)
+            val needsReading = targetLanguage?.substringBefore('-') in setOf("ar", "zh", "ja", "ko")
+            val readings = entry.romanizations.filterKeys { it.equals(targetSurface, ignoreCase = true) }.values.flatten().distinct()
+            val reading = readings.singleOrNull()?.takeIf { it.length <= 256 && it.matches(Regex("[A-Za-z][A-Za-z '’-]*")) }
+            if (needsReading && reading == null) return@mapNotNull null
+            Candidate(ImmersionSpan(source.first, source.last + 1, sourceSurface, targetSurface,
+                target.first, target.last + 1, if (needsReading) reading else null), target)
         }
         val unique = candidates.filter { candidate ->
             candidates.none { other ->
-                (other.span.start == candidate.span.start && other.span.end == candidate.span.end && other.target != candidate.target) ||
+                (other.span.start == candidate.span.start && other.span.end == candidate.span.end &&
+                    (other.target != candidate.target || other.span.romanization != candidate.span.romanization)) ||
                     (other.span.start != candidate.span.start &&
                     !overlaps(other.span.start until other.span.end, candidate.span.start until candidate.span.end) && overlaps(other.target, candidate.target))
             }

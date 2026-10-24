@@ -40,6 +40,10 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.fallsoft.vipi.core.ImmersionResult
+import co.fallsoft.vipi.core.SpeechSpan
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 
 class MainActivity : ComponentActivity() {
     private val model: VipiModel by viewModels()
@@ -104,7 +108,7 @@ private val Green = Color(0xFF33644F)
 @Composable private fun VipiMark(size: Int = 36) {
     Box(Modifier.size(size.dp).background(Green, RoundedCornerShape((size * .32).dp)), contentAlignment = Alignment.Center) {
         Icon(Icons.Outlined.ChatBubble, null, tint = Color(0xFFDEEFBE), modifier = Modifier.size((size * .73).dp))
-        Text("v", color = Color(0xFFDEEFBE), fontWeight = FontWeight.Bold, fontSize = (size * .4).sp, modifier = Modifier.offset(y = (-size * .06).dp))
+        Text("v", color = Green, fontWeight = FontWeight.Bold, fontSize = (size * .4).sp, modifier = Modifier.offset(y = (-size * .06).dp))
     }
 }
 
@@ -139,10 +143,28 @@ private val Green = Color(0xFF33644F)
 
 @Composable private fun Welcome() {
     var mode by rememberSaveable { mutableStateOf(ReadingMode.IMMERSED) }
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val speech = remember { SpeechPlayback(context, "en", "es", scope) }
+    val owner = LocalLifecycleOwner.current
+    val warmups = remember { mapOf("en" to "Hello.", "es" to "Hola.") }
+    LaunchedEffect(speech) { speech.prepare(warmups) }
+    DisposableEffect(speech, owner) {
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) speech.stop() }
+        owner.lifecycle.addObserver(observer)
+        onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
+    }
     Heading("A little more language. A lot more life.", "Your conversations.\nA new language.", "Chat about what matters to you. Pick up another language along the way.")
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text("TRY A LITTLE SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
-        ImmersionBubble(immersionPreview, mode)
+        ImmersionBubble(immersionPreview, mode, speech = speech)
+        if (speech.state == SpeechState.UNAVAILABLE) {
+            Text(speech.error ?: "Voices aren’t ready.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row {
+                TextButton(onClick = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) } }) { Text("Speech settings") }
+                TextButton(onClick = { speech.prepare(warmups) }) { Text("Retry") }
+            }
+        } else speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         Text("Tap an underlined word. Its meaning is right there.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
@@ -155,8 +177,9 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun ImmersionBubble(result: ImmersionResult, mode: ReadingMode) {
-    var revealed by remember(result.original) { mutableStateOf(setOf<Int>()) }
+@Composable private fun ImmersionBubble(result: ImmersionResult, mode: ReadingMode, speech: SpeechPlayback? = null, source: String = "en", target: String = "es") {
+    var revealed by remember(result) { mutableStateOf(setOf<Int>()) }
+    LaunchedEffect(result, mode) { speech?.stop() }
     val color = MaterialTheme.colorScheme.primary
     val text = buildAnnotatedString {
         when (mode) {
@@ -167,15 +190,34 @@ private val Green = Color(0xFF33644F)
                 for (span in result.spans) {
                     append(result.original.substring(cursor, span.start))
                     withLink(LinkAnnotation.Clickable("word-${span.id}", styles = TextLinkStyles(style = SpanStyle(color = color, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)), linkInteractionListener = {
+                        speech?.stop()
                         revealed = if (span.id in revealed) revealed - span.id else revealed + span.id
-                    })) { append(if (span.id in revealed) span.original else span.translated) }
+                    })) { append(if (span.id in revealed) span.original else span.displayedTarget) }
                     cursor = span.end
                 }
                 append(result.original.substring(cursor))
             }
         }
     }
-    Text(text, fontSize = 17.sp, lineHeight = 27.sp, modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp)).padding(20.dp))
+    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp)).padding(start = 20.dp, end = 12.dp, top = 20.dp, bottom = 6.dp)) {
+        Text(text, fontSize = 17.sp, lineHeight = 27.sp)
+        if (speech != null) {
+            val active = speech.activeMessage == "onboarding-example"
+            TextButton(onClick = {
+                val spans = when (mode) {
+                    ReadingMode.ORIGINAL -> listOf(SpeechSpan(result.original, source))
+                    ReadingMode.TRANSLATION -> listOf(SpeechSpan(result.translation, target))
+                    ReadingMode.IMMERSED -> result.speech(source, target, revealed)
+                }
+                speech.toggle("onboarding-example", spans)
+            }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), modifier = Modifier.align(Alignment.End)) {
+                if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
+                Spacer(Modifier.width(7.dp))
+                Text(if (active) "Stop" else if (speech.state == SpeechState.PREPARING) "Preparing voices" else "Listen", fontSize = 13.sp)
+            }
+        }
+    }
 }
 
 @Composable private fun LanguageSelection(model: VipiModel) {

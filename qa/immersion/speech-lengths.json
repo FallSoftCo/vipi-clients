@@ -1,0 +1,91 @@
+{
+  "version": "2026-10-24-r1",
+  "purpose": "Authored mixed chat audio timing fixture, not translation/alignment quality evidence.",
+  "spans": [
+    {
+      "text": "At the weekend, I’d like to take the train to the ",
+      "language": "en"
+    },
+    {
+      "text": "playa",
+      "language": "es"
+    },
+    {
+      "text": ". We could walk for a while and get ",
+      "language": "en"
+    },
+    {
+      "text": "café",
+      "language": "es"
+    },
+    {
+      "text": " somewhere quiet. ",
+      "language": "en"
+    },
+    {
+      "text": "My sister finishes work in the ",
+      "language": "en"
+    },
+    {
+      "text": "tarde",
+      "language": "es"
+    },
+    {
+      "text": ". Let’s ask whether she wants to join us for ",
+      "language": "en"
+    },
+    {
+      "text": "cena",
+      "language": "es"
+    },
+    {
+      "text": " before we head back. ",
+      "language": "en"
+    },
+    {
+      "text": "If it rains, we can spend some time at the ",
+      "language": "en"
+    },
+    {
+      "text": "museo",
+      "language": "es"
+    },
+    {
+      "text": ". I heard there’s a new exhibition about the ",
+      "language": "en"
+    },
+    {
+      "text": "ciudad",
+      "language": "es"
+    },
+    {
+      "text": " and its history. ",
+      "language": "en"
+    },
+    {
+      "text": "I’ll bring some water and a little ",
+      "language": "en"
+    },
+    {
+      "text": "comida",
+      "language": "es"
+    },
+    {
+      "text": ". Can you check when the last ",
+      "language": "en"
+    },
+    {
+      "text": "tren",
+      "language": "es"
+    },
+    {
+      "text": " leaves so we don’t miss it? ",
+      "language": "en"
+    }
+  ],
+  "repetitions": [
+    1,
+    3,
+    8
+  ]
+}

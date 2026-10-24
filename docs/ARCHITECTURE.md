@@ -59,6 +59,10 @@ Pack manifest: schema version, pack ID, language tags, license/provenance, build
 
 Desired eventual coverage is 80 languages. Launch picker reflects the intersection of provider direction support, installed model capability, tested vocabulary packs and available speech; display capability differences honestly. No 80-language launch claim until verified. Start the engineering spike with English/Spanish and add representative morphology, non-Latin and RTL fixtures before broad rollout.
 
+Speech is owned by the active conversation's language pair. Both installed native voices are selected and silently warmed before Listen becomes ready, then retained for that conversation. This does not guarantee OS-level model residency. Visible transliteration maps back to the original target script for synthesis. Word reveals, reading-mode changes, navigation and audio interruptions invalidate queued work and stop playback.
+
+Short messages render to one PCM file; longer messages use bounded local rendering into one continuous native output: Android AudioTrack, iOS AVAudioEngine/AVAudioPlayerNode. No separate player is created for each word. Keep generated speech caches bounded to 64 MiB per app and rebuild derived audio when the reading state or voices change. Brief pauses can help comprehension and are preserved for listening evaluation; optimize predictable startup and prevent accidental stalls without assuming zero silence is desirable. See [speech qualification](SPEECH_QUALIFICATION.md) for measurements and limits.
+
 ## vBot and billing
 
 vBot is a separate conversation type. Explicit consent explains that its messages and selected context go to the Vipi gateway and DeepSeek. Human chats are never automatically added as bot context. The gateway verifies identity, base entitlement and Bot mini entitlement before each request. Client-supplied conversation history remains untrusted and is bounded by token and size limits.

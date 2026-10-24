@@ -9,6 +9,14 @@ struct RenderedSpeech: Sendable {
     let milliseconds: Double
     let sampleRate: Double
     let channels: UInt32
+    var marks: [SpeechMark] = []
+    var boundaryFrames: [Int] = []
+}
+
+struct SpeechMark: Codable, Sendable {
+    let start: Int
+    let length: Int
+    let byteSampleOffset: Int
 }
 
 /// AVSpeechSynthesizer invokes buffer callbacks outside the main actor.
@@ -19,6 +27,7 @@ private final class SpeechFileWriter: @unchecked Sendable {
     private var frames: AVAudioFramePosition = 0
     private var continuation: CheckedContinuation<RenderedSpeech, Error>?
     private let url: URL
+    private var marks: [SpeechMark] = []
 
     init(url: URL, continuation: CheckedContinuation<RenderedSpeech, Error>) {
         self.url = url; self.continuation = continuation
@@ -31,7 +40,7 @@ private final class SpeechFileWriter: @unchecked Sendable {
             if pcm.frameLength == 0 {
                 guard let file, frames > 0 else { throw LocalSpeechError.invalidAudio }
                 let result = RenderedSpeech(file: url, milliseconds: Double(frames) * 1000 / file.processingFormat.sampleRate,
-                    sampleRate: file.processingFormat.sampleRate, channels: file.processingFormat.channelCount)
+                    sampleRate: file.processingFormat.sampleRate, channels: file.processingFormat.channelCount, marks: marks)
                 self.file = nil; self.continuation = nil
                 continuation.resume(returning: result)
             } else {
@@ -51,6 +60,12 @@ private final class SpeechFileWriter: @unchecked Sendable {
         lock.lock(); defer { lock.unlock() }
         file = nil
         continuation?.resume(throwing: error); continuation = nil
+    }
+    func acceptMarkers(_ values: [AVSpeechSynthesisMarker]) {
+        lock.lock(); defer { lock.unlock() }
+        for value in values where value.mark == .word {
+            marks.append(SpeechMark(start: value.textRange.location, length: value.textRange.length, byteSampleOffset: value.byteSampleOffset))
+        }
     }
 }
 
@@ -105,7 +120,8 @@ private final class ConverterInput: @unchecked Sendable {
             try await withCheckedThrowingContinuation { continuation in
                 let writer = SpeechFileWriter(url: url, continuation: continuation)
                 active = writer
-                synth.write(utterance) { buffer in writer.accept(buffer) }
+                synth.write(utterance, toBufferCallback: { buffer in writer.accept(buffer) },
+                    toMarkerCallback: { markers in writer.acceptMarkers(markers) })
             }
         } onCancel: { Task { @MainActor [weak self] in self?.stop() } }
     }
@@ -148,7 +164,8 @@ private final class ConverterInput: @unchecked Sendable {
         var normalized: [(text: String, language: String)] = []
         for span in spans {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
-            if !normalized.isEmpty && (normalized.last!.language == span.language || span.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+            let punctuationOnly = span.text.allSatisfy { $0.isWhitespace || ".,!?;:。！？、؛،".contains($0) }
+            if !normalized.isEmpty && (normalized.last!.language == span.language || punctuationOnly) {
                 normalized[normalized.count - 1].text += span.text
             } else if !span.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { normalized.append(span) }
         }
@@ -166,10 +183,27 @@ private final class ConverterInput: @unchecked Sendable {
         // Disk IO and standard AVAudioConverter resampling happen off the UI actor.
         let inputs = parts
         return try await Task.detached { [inputs, output] in
-            try Self.join(inputs, to: output)
+            let result = try Self.join(inputs, to: output)
+            Self.pruneCache(in: output.deletingLastPathComponent(), keeping: output)
+            return result
         }.value
     }
     func stop() { for voice in voices.values { voice.stop() } }
+
+    private nonisolated static func pruneCache(in root: URL, keeping output: URL) {
+        let keys: Set<URLResourceKey> = [.fileSizeKey, .contentModificationDateKey]
+        guard let files = try? FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: Array(keys)) else { return }
+        let cached = files.filter { $0.pathExtension == "caf" && $0.deletingPathExtension().lastPathComponent.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil }
+            .compactMap { url -> (url: URL, bytes: Int, date: Date)? in
+                guard let values = try? url.resourceValues(forKeys: keys) else { return nil }
+                return (url, values.fileSize ?? 0, values.contentModificationDate ?? .distantPast)
+            }.sorted { $0.date < $1.date }
+        var total = cached.reduce(0) { $0 + $1.bytes }
+        for file in cached where file.url != output {
+            guard total > 64 * 1024 * 1024 else { break }
+            do { try FileManager.default.removeItem(at: file.url); total -= file.bytes } catch { }
+        }
+    }
 
     private nonisolated static func inspect(_ url: URL) throws -> RenderedSpeech {
         let file = try AVAudioFile(forReading: url)
@@ -182,6 +216,8 @@ private final class ConverterInput: @unchecked Sendable {
         defer { try? FileManager.default.removeItem(at: temporary) }
         let format = AVAudioFormat(standardFormatWithSampleRate: 24_000, channels: 1)!
         var destination: AVAudioFile? = try AVAudioFile(forWriting: temporary, settings: format.settings)
+        var frames = 0
+        var boundaries: [Int] = []
         for part in parts {
             let input = try AVAudioFile(forReading: part)
             guard input.length > 0, input.length < 10_000_000,
@@ -195,10 +231,14 @@ private final class ConverterInput: @unchecked Sendable {
                 return provider.next(state)
             }
             guard status != .error, error == nil, converted.frameLength > 0 else { throw error ?? LocalSpeechError.invalidAudio as NSError }
+            if frames > 0 { boundaries.append(frames) }
             try destination!.write(from: converted)
+            frames += Int(converted.frameLength)
         }
         destination = nil
         try FileManager.default.moveItem(at: temporary, to: output)
-        return try inspect(output)
+        var result = try inspect(output)
+        result.boundaryFrames = boundaries
+        return result
     }
 }

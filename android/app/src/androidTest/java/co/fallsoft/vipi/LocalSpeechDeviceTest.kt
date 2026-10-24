@@ -54,6 +54,7 @@ class LocalSpeechDeviceTest {
                     row.put("status", "synthesized").put("render_ms", (SystemClock.elapsedRealtimeNanos() - started) / 1_000_000.0)
                         .put("audio_ms", rendered.milliseconds).put("sample_rate", rendered.sampleRate).put("channels", rendered.channels)
                         .put("word_markers", JSONArray(rendered.marks.map { JSONObject().put("start", it.start).put("end", it.end).put("frame", it.frame) }))
+                        .put("rejected_markers", rendered.rejectedMarks)
                 } catch (error: Exception) { row.put("status", "failed").put("error_type", error.javaClass.simpleName) }
                 finally { withContext(Dispatchers.Main) { voice.close() } }
                 outputs.put(row); receipt.writeText(report.toString(2))

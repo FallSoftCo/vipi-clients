@@ -44,7 +44,8 @@ for target in targets:
         current = nodes()
         found = next((n for n in current if label(n) == target), None)
         if found is not None: break
-        shell("input", "swipe", "540", "2050", "540", "650", "250")
+        # A slow, overlapping scroll avoids flinging past a language row.
+        shell("input", "swipe", "540", "2000", "540", "1100", "700")
     if found is None:
         receipt.append({"language": target, "status": "not_found", "visible": [label(n) for n in current if label(n)]})
         path.write_text(json.dumps(receipt, indent=2)); print(json.dumps(receipt[-1]), flush=True)

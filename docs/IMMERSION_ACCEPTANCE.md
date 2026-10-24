@@ -4,6 +4,8 @@ User requirement, 2026-10-24: demonstrate the core UX across at least ten major 
 
 Explicit user corrections: transliteration is mandatory for immersion, not optional. Non-Roman target languages need readable transliteration in the default in-place immersion display, with original script accessible. Missing or incorrect transliteration fails acceptance. Audio provides pronunciation; written pronunciation glyphs/IPA are not the user experience. Do not turn this into pronunciation notation or a lesson.
 
+Speech cadence clarification: brief pauses between language spans may improve comprehension. Measure them and retain them for evaluation; silence duration alone is not a failure. Judge intelligibility, comfortable rhythm and predictable playback before making timing changes.
+
 ## Qualification set
 
 English (en), Spanish (es), French (fr), German (de), Italian (it), Portuguese (pt), Arabic (ar), Mandarin Chinese (zh), Japanese (ja), Korean (ko). Ten languages yield 90 directed source→target pairs, independently exercised on Android and iOS. Self-pairs are not translation cases. Regional/script assumptions must be explicit; Mandarin initially uses Simplified Chinese, Portuguese variant must follow the model's declared capability.

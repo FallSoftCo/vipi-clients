@@ -6,6 +6,17 @@ import org.junit.Test
 
 class ImmersionTest {
     private val engine = ImmersionEngine()
+    @Test fun mandatoryReadingIsSeparateFromSpeechAndMissingReadingsAbstain() {
+        val entry = VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf("kafei")))
+        val result = engine.align("Want coffee?", "咖啡", listOf(entry), 1.0, targetLanguage = "zh")
+        assertEquals("kafei", result.spans.single().displayedTarget)
+        assertEquals("咖啡", result.spans.single().translated)
+        assertEquals("Want 咖啡?", result.speech("en", "zh").joinToString("") { it.text })
+        assertEquals("Want coffee?", result.speech("en", "zh", setOf(result.spans.single().id)).joinToString("") { it.text })
+        assertTrue(engine.align("coffee", "咖啡", listOf(entry.copy(romanizations = emptyMap())), 1.0, "zh").spans.isEmpty())
+        assertTrue(engine.align("coffee", "咖啡", listOf(entry.copy(romanizations = mapOf("咖啡" to listOf("kafei", "wrong")))), 1.0, "zh").spans.isEmpty())
+        assertTrue(engine.align("coffee", "咖啡", listOf(entry, entry.copy(romanizations = mapOf("咖啡" to listOf("other")))), 1.0, "zh").spans.isEmpty())
+    }
     @Test fun duplicateEntriesCannotHideMultipleSenses() {
         val entries = listOf(VocabularyEntry("bank", listOf("banco")), VocabularyEntry("Bank", listOf("orilla")))
         assertTrue(engine.align("The bank is nearby.", "El banco está en la orilla.", entries, 1.0).spans.isEmpty())

@@ -23,7 +23,7 @@ import java.util.Collections
 
 class OfflineVoiceUnavailable(val language: String) : Exception("Offline voice unavailable")
 data class SpeechMark(val start: Int, val end: Int, val frame: Int)
-data class RenderedSpeech(val file: File, val milliseconds: Double, val sampleRate: Int, val channels: Int, val marks: List<SpeechMark> = emptyList())
+data class RenderedSpeech(val file: File, val milliseconds: Double, val sampleRate: Int, val channels: Int, val marks: List<SpeechMark> = emptyList(), val boundaryFrames: List<Int> = emptyList(), val rejectedMarks: Int = 0)
 
 /** One prepared native generator for one language. No network voice fallback. */
 class LocalVoice(context: Context, val language: String) : AutoCloseable {
@@ -78,7 +78,11 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
             withTimeout(30_000) { done.await() }
             withContext(Dispatchers.IO) {
                 val wav = PcmWave.read(destination)
-                RenderedSpeech(destination, wav.samples.size * 1000.0 / (wav.sampleRate * wav.channels * 2), wav.sampleRate, wav.channels, markers[id].orEmpty().toList())
+                val reported = markers[id].orEmpty().toList()
+                // A tested file-synthesis engine/platform returned frame values
+                // as text offsets. Never guess a permutation or use invalid marks.
+                val valid = reported.filter { it.start >= 0 && it.end > it.start && it.end <= text.length && it.frame >= 0 && it.frame < wav.samples.size / (wav.channels * 2) }
+                RenderedSpeech(destination, wav.durationMs, wav.sampleRate, wav.channels, valid, rejectedMarks = reported.size - valid.size)
             }
         } catch (error: Exception) {
             withContext(kotlinx.coroutines.NonCancellable + Dispatchers.Main.immediate) { tts.stop() }
@@ -121,7 +125,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
         val normalized = mutableListOf<SpeechSpan>()
         for (span in spans) {
             require(span.language in voices)
-            if (span.text.isBlank()) {
+            if (span.text.all { it.isWhitespace() || it in ".,!?;:。！？、؛،" }) {
                 if (normalized.isNotEmpty()) normalized[normalized.lastIndex] = normalized.last().copy(text = normalized.last().text + span.text)
             } else if (normalized.lastOrNull()?.language == span.language) {
                 normalized[normalized.lastIndex] = normalized.last().copy(text = normalized.last().text + span.text)
@@ -148,7 +152,8 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 require(total <= 32 * 1024 * 1024)
                 val bytes = ByteArray(total)
                 var offset = 0
-                for (wave in waves) { wave.samples.copyInto(bytes, offset); offset += wave.samples.size }
+                val boundaries = mutableListOf<Int>()
+                for (wave in waves) { if (offset > 0) boundaries += offset / (wave.channels * 2); wave.samples.copyInto(bytes, offset); offset += wave.samples.size }
                 val joined = PcmWave(waves.first().sampleRate, waves.first().channels, bytes)
                 val temporary = File.createTempFile("joined-", ".wav", root)
                 try { joined.write(temporary); check(temporary.renameTo(result)) } finally { temporary.delete() }
@@ -158,7 +163,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                     if (size <= 64 * 1024 * 1024) break
                     val length = old.length(); if (old.delete()) size -= length
                 }
-                RenderedSpeech(result, joined.durationMs, joined.sampleRate, joined.channels)
+                RenderedSpeech(result, joined.durationMs, joined.sampleRate, joined.channels, boundaryFrames = boundaries)
             }
         } finally { pieces.forEach { it.delete() } }
     }

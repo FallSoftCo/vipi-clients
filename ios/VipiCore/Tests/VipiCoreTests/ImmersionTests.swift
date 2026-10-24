@@ -2,6 +2,20 @@ import Foundation
 import Testing
 @testable import VipiCore
 
+@Test func mandatoryReadingRemainsSeparateFromSpeech() {
+    let entry = VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["kafei"]])
+    let engine = ImmersionEngine()
+    let result = engine.align(original: "Want coffee?", translation: "咖啡", entries: [entry], density: 1, targetLanguage: "zh")
+    #expect(result.spans.first?.displayedTarget == "kafei")
+    #expect(result.speech(source: "en", target: "zh").map(\.text).joined() == "Want 咖啡?")
+    #expect(result.speech(source: "en", target: "zh", revealed: Set(result.spans.map(\.id))).map(\.text).joined() == "Want coffee?")
+    for entries in [[VocabularyEntry(source: "coffee", targets: ["咖啡"])],
+                    [.init(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["kafei", "wrong"]])],
+                    [entry, .init(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["other"]])]] {
+        #expect(engine.align(original: "coffee", translation: "咖啡", entries: entries, density: 1, targetLanguage: "zh").spans.isEmpty)
+    }
+}
+
 @Test func duplicateEntriesCannotHideMultipleSenses() {
     let entries = [VocabularyEntry(source: "bank", targets: ["banco"]), VocabularyEntry(source: "Bank", targets: ["orilla"])]
     #expect(ImmersionEngine().align(original: "The bank is nearby.", translation: "El banco está en la orilla.", entries: entries, density: 1).spans.isEmpty)

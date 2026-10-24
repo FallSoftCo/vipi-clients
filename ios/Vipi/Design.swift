@@ -3,6 +3,7 @@ import SwiftUI
 enum VipiDesign {
     static let accent = Color(red: 0.20, green: 0.39, blue: 0.31)
     static let ink = Color(uiColor: .label)
+    static let secondary = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.72, green: 0.75, blue: 0.71, alpha: 1) : UIColor(red: 0.39, green: 0.42, blue: 0.39, alpha: 1) })
     static let canvas = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.065, green: 0.078, blue: 0.071, alpha: 1) : UIColor(red: 0.976, green: 0.969, blue: 0.949, alpha: 1) })
     static let surface = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.12, green: 0.14, blue: 0.125, alpha: 1) : .white })
     static let highlight = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.69, green: 0.85, blue: 0.64, alpha: 1) : UIColor(red: 0.17, green: 0.38, blue: 0.26, alpha: 1) })
@@ -46,7 +47,7 @@ struct IntroHeading: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(eyebrow.uppercased()).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
             Text(title).font(.system(.largeTitle, design: .serif).weight(.medium)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
-            Text(detail).font(.body).foregroundStyle(.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
+            Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
         }.frame(maxWidth: .infinity, alignment: .leading)
     }
 }

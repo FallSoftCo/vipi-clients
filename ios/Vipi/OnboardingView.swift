@@ -7,6 +7,8 @@ struct OnboardingView: View {
     @State private var previewMode: ReadingMode = .immersed
     @State private var search = ""
     @State private var acceptedTerms = false
+    @State private var speech = SpeechPlayback()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -19,7 +21,7 @@ struct OnboardingView: View {
                             Text("vipi").font(.system(size: 27, weight: .semibold, design: .rounded)).tracking(-1)
                             Spacer()
                             if state.onboarding != .welcome {
-                                Text(state.onboarding == .language ? "1 of 2" : "2 of 2").font(.caption).foregroundStyle(.secondary)
+                                Text(state.onboarding == .language ? "1 of 2" : "2 of 2").font(.caption).foregroundStyle(VipiDesign.secondary)
                             }
                         }.padding(.top, 18)
                         switch state.onboarding {
@@ -48,9 +50,13 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 30) {
             IntroHeading(eyebrow: "A little more language. A lot more life.", title: "Your conversations.\nA new language.", detail: "Chat about what matters to you. Pick up another language along the way.")
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "hand.tap") }.foregroundStyle(.secondary)
-                ImmersionBubble(result: ImmersionPreview.result, mode: previewMode)
-                Text("Tap an underlined word. Its meaning is right there.").font(.footnote).foregroundStyle(.secondary).lineSpacing(3)
+                HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "hand.tap") }.foregroundStyle(VipiDesign.secondary)
+                ImmersionBubble(result: ImmersionPreview.result, mode: previewMode, speech: speech)
+                if let error = speech.error {
+                    Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
+                }
+                Text("Tap an underlined word. Its meaning is right there.").font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
                 Button {
                     withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) {
                         previewMode = previewMode == .translation ? .immersed : .translation
@@ -62,17 +68,21 @@ struct OnboardingView: View {
             }.padding(20).background(VipiDesign.outgoing.opacity(0.48), in: RoundedRectangle(cornerRadius: 28))
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: "leaf").font(.title3).foregroundStyle(VipiDesign.highlight)
-                Text("No lessons to finish. No streak to keep. Just the words in your world.").font(.subheadline).foregroundStyle(.secondary).lineSpacing(3)
+                Text("No lessons to finish. No streak to keep. Just the words in your world.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
             }
-        }
+        }.onAppear { preparePreviewVoices() }
+            .onDisappear { speech.close() }
+            .onChange(of: scenePhase) { _, phase in if phase != .active { speech.stop() } }
     }
+
+    private func preparePreviewVoices() { speech.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."]) }
 
     private var languages: some View {
         @Bindable var state = state
         return VStack(alignment: .leading, spacing: 24) {
             IntroHeading(eyebrow: "Make it your world", title: "What language\nwill you live in?", detail: "Start with one. You can change it whenever you like.")
             VStack(alignment: .leading, spacing: 10) {
-                Text("I already speak").font(.subheadline.weight(.medium)).foregroundStyle(.secondary)
+                Text("I already speak").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
                 Picker("I already speak", selection: $state.knownLanguage) {
                     ForEach(VipiLanguage.initial) { Text($0.name).tag($0.id) }
                 }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
@@ -81,14 +91,14 @@ struct OnboardingView: View {
                         if value == state.targetLanguage { state.targetLanguage = value == "es" ? "en" : "es" }
                     }
             }
-            Text("I want to pick up").font(.subheadline.weight(.medium)).foregroundStyle(.secondary)
+            Text("I want to pick up").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
             VStack(spacing: 0) {
                 ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
                     Button { state.targetLanguage = language.id } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 3) {
                                 Text(language.name).font(.body.weight(.medium)).foregroundStyle(.primary)
-                                Text(language.localName).font(.footnote).foregroundStyle(.secondary)
+                                Text(language.localName).font(.footnote).foregroundStyle(VipiDesign.secondary)
                             }
                             Spacer()
                             Image(systemName: state.targetLanguage == language.id ? "checkmark.circle.fill" : "circle")
@@ -99,7 +109,7 @@ struct OnboardingView: View {
                 }
             }.background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
             Label("Language downloads stay on your phone. You choose when to download them.", systemImage: "arrow.down.circle")
-                .font(.footnote).foregroundStyle(.secondary)
+                .font(.footnote).foregroundStyle(VipiDesign.secondary)
         }
     }
 
@@ -113,7 +123,7 @@ struct OnboardingView: View {
             }.font(.subheadline).padding(22).frame(maxWidth: .infinity, alignment: .leading)
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 22))
             Toggle(isOn: $acceptedTerms) {
-                Text("I agree to the Terms of Service and have read the Privacy Policy.").font(.footnote).foregroundStyle(.secondary)
+                Text("I agree to the Terms of Service and have read the Privacy Policy.").font(.footnote).foregroundStyle(VipiDesign.secondary)
             }.tint(VipiDesign.accent)
             HStack(spacing: 20) {
                 Link("Terms of Service", destination: URL(string: "https://fallsoft.co/terms-of-service")!)
@@ -132,7 +142,7 @@ struct OnboardingView: View {
                 case .account: authentication.signIn()
                 }
             }.disabled(state.onboarding == .account && !acceptedTerms).opacity(state.onboarding == .account && !acceptedTerms ? 0.5 : 1)
-            if state.onboarding == .welcome { Text("Learn through life, one conversation at a time.").font(.caption).foregroundStyle(.secondary) }
+            if state.onboarding == .welcome { Text("Learn through life, one conversation at a time.").font(.caption).foregroundStyle(VipiDesign.secondary) }
         }.padding(.horizontal, 26).padding(.top, 14).padding(.bottom, 12)
             .frame(maxWidth: 560).frame(maxWidth: .infinity).background(VipiDesign.canvas)
     }

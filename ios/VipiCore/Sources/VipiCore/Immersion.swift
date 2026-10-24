@@ -5,14 +5,27 @@ import Foundation
 public struct VocabularyEntry: Codable, Sendable, Equatable {
     public let source: String
     public let targets: [String]
-    public init(source: String, targets: [String]) { self.source = source; self.targets = targets }
+    public let romanizations: [String: [String]]
+    public init(source: String, targets: [String], romanizations: [String: [String]] = [:]) {
+        self.source = source; self.targets = targets; self.romanizations = romanizations
+    }
+    private enum CodingKeys: String, CodingKey { case source, targets, romanizations }
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        source = try values.decode(String.self, forKey: .source)
+        targets = try values.decode([String].self, forKey: .targets)
+        romanizations = try values.decodeIfPresent([String: [String]].self, forKey: .romanizations) ?? [:]
+    }
 }
 
 public struct ImmersionSpan: Sendable, Equatable, Identifiable {
     public let range: NSRange
     public let original: String
     public let translated: String
+    public let targetRange: NSRange
+    public let romanization: String?
     public var id: Int { range.location }
+    public var displayedTarget: String { romanization ?? translated }
 }
 
 public struct SpeechSpan: Sendable, Equatable {
@@ -46,7 +59,7 @@ public struct ImmersionResult: Sendable, Equatable {
 public struct ImmersionEngine: Sendable {
     public init() {}
 
-    public func align(original: String, translation: String, entries: [VocabularyEntry], density: Double) -> ImmersionResult {
+    public func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, targetLanguage: String? = nil) -> ImmersionResult {
         let empty = ImmersionResult(original: original, translation: translation, spans: [])
         guard !original.isEmpty, !translation.isEmpty, density.isFinite, density > 0,
               original.utf16.count <= 16_384, translation.utf16.count <= 32_768 else { return empty }
@@ -65,12 +78,20 @@ public struct ImmersionEngine: Sendable {
             let targetSurface = (translation as NSString).substring(with: targetRange)
             let sourceSurface = (original as NSString).substring(with: range)
             guard sourceSurface.caseInsensitiveCompare(targetSurface) != .orderedSame else { continue }
-            candidates.append((ImmersionSpan(range: range, original: sourceSurface, translated: targetSurface), targetRange))
+            let needsReading = ["ar", "zh", "ja", "ko"].contains(targetLanguage?.components(separatedBy: "-")[0] ?? "")
+            let readings = Set(entry.romanizations.filter { $0.key.caseInsensitiveCompare(targetSurface) == .orderedSame }.values.flatMap { $0 })
+            let reading = readings.count == 1 ? readings.first : nil
+            if needsReading {
+                guard let reading, !reading.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                      reading.utf16.count <= 256, reading.range(of: "^[A-Za-z][A-Za-z '’-]*$", options: .regularExpression) != nil else { continue }
+            }
+            candidates.append((ImmersionSpan(range: range, original: sourceSurface, translated: targetSurface,
+                targetRange: targetRange, romanization: needsReading ? reading : nil), targetRange))
         }
         // A translated token cannot be claimed by two disjoint source spans.
         let unambiguous = candidates.filter { candidate in
             !candidates.contains { other in
-                (other.span.range == candidate.span.range && other.targetRange != candidate.targetRange) ||
+                (other.span.range == candidate.span.range && (other.targetRange != candidate.targetRange || other.span.romanization != candidate.span.romanization)) ||
                 (other.span.range != candidate.span.range &&
                 NSIntersectionRange(other.span.range, candidate.span.range).length == 0 &&
                 NSIntersectionRange(other.targetRange, candidate.targetRange).length > 0)

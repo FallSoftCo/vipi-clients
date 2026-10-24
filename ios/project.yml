@@ -59,6 +59,10 @@ targets:
       - VipiCryptoTests
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
+      - path: ../qa/immersion/speech.json
+        buildPhase: resources
+      - path: ../qa/immersion/speech-lengths.json
+        buildPhase: resources
     dependencies:
       - target: Vipi
       - package: LibSignalClient
@@ -67,10 +71,19 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
+  VipiUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [VipiUITests]
+    dependencies:
+      - target: Vipi
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   Vipi:
     build:
       targets:
         Vipi: all
     test:
-      targets: [VipiCryptoTests]
+      targets: [VipiCryptoTests, VipiUITests]
