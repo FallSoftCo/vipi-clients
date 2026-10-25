@@ -1,6 +1,10 @@
 package co.fallsoft.vipi.core
 
-data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false)
+/** Ephemeral focus proved by an exact context match; bound to this message. */
+data class VocabularySourceScope(val original: String, val start: Int, val end: Int)
+/** Explicit lexical focus inside an attested target word, e.g. 시간 inside 시간이. */
+data class VocabularyTargetForm(val surface: String, val target: String, val start: Int, val end: Int)
+data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false, val sourceScope: VocabularySourceScope? = null, val targetForms: List<VocabularyTargetForm> = emptyList())
 data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String,
                          val targetStart: Int = 0, val targetEnd: Int = 0, val romanization: String? = null) {
     val id: Int get() = start
@@ -34,7 +38,7 @@ class ImmersionEngine {
         val protectedTargetRanges = protected.findAll(translation).map { it.range }.toList()
         val stops = Regex("[.!?。！？\\n]").findAll(original).map { it.range }.filter { stop -> protectedRanges.none { overlaps(it, stop) } }.toList()
         val supported = entries.filter { entry ->
-            val range = occurrences(entry.source, original, sourceBoundaries).firstOrNull() ?: return@filter false
+            val range = sourceOccurrences(entry, original, sourceBoundaries).firstOrNull() ?: return@filter false
             val lower = stops.lastOrNull { it.last < range.first }?.let { it.last + 1 } ?: 0
             val upper = stops.firstOrNull { it.first > range.last }?.first ?: original.length
             entry.contextHints.any { hint -> hint.isNotEmpty() && hint.length <= 64 && occurrences(hint, original, sourceBoundaries).any { cue ->
@@ -42,9 +46,9 @@ class ImmersionEngine {
             } }
         }.toSet()
         val claims = entries.associateWith { entry ->
-            val source = if (entry.source.isNotEmpty() && entry.source.length <= 128) occurrences(entry.source, original, sourceBoundaries) else emptyList()
+            val source = if (entry.source.isNotEmpty() && entry.source.length <= 128) sourceOccurrences(entry, original, sourceBoundaries) else emptyList()
             val targets = if (source.isEmpty()) emptyList() else entry.targets.distinct().filter { it.isNotEmpty() && it.length <= 128 }
-                .flatMap { occurrences(it, translation, targetBoundaries) }.distinct()
+                .flatMap { targetOccurrences(entry,it,translation,targetBoundaries) }.distinct()
             source to targets
         }
         val candidates = entries.mapNotNull { entry ->
@@ -95,12 +99,43 @@ class ImmersionEngine {
         return ImmersionResult(original, translation, selected.sortedBy { it.start })
     }
 
+    private fun sourceOccurrences(entry: VocabularyEntry, original: String, boundaries: Set<Int>?): List<IntRange> {
+        val scope=entry.sourceScope ?: return occurrences(entry.source,original,boundaries)
+        if(scope.original!=original || scope.start<0 || scope.end<=scope.start || scope.end>original.length ||
+            original.substring(scope.start,scope.end)!=entry.source) return emptyList()
+        if((scope.start>0 && Character.isLowSurrogate(original[scope.start])) ||
+            (scope.end<original.length && Character.isLowSurrogate(original[scope.end]))) return emptyList()
+        return listOf(scope.start until scope.end)
+    }
+
+    private fun targetOccurrences(entry: VocabularyEntry, target: String, translation: String, boundaries: Set<Int>?): List<IntRange> {
+        val plain=occurrences(target,translation,boundaries)
+        if(entry.sourceScope==null || entry.targetForms.size>16) return plain
+        val explicit=entry.targetForms.filter { form ->
+            form.target==target && form.surface.length<=256 && form.start>=0 && form.end>form.start &&
+                form.end<=form.surface.length && form.surface.substring(form.start,form.end)==target
+        }.flatMap { form ->
+            occurrences(form.surface,translation,boundaries).mapNotNull { whole ->
+                // Preserve exact offsets. Normalization must not move a focus
+                // across Arabic marks or another multi-code-unit character.
+                val actual=translation.substring(whole)
+                if(actual.length!=form.surface.length || !actual.replace('’','\'').equals(form.surface.replace('’','\''),ignoreCase=true)) null
+                else (whole.first+form.start until whole.first+form.end).takeIf {
+                    translation.substring(it).replace('’','\'').equals(target.replace('’','\''),ignoreCase=true)
+                }
+            }
+        }
+        return (plain+explicit).distinct()
+    }
+
     private fun readableRomanization(value: String): Boolean =
         Regex("\\p{IsLatin}").containsMatchIn(value) && value.matches(Regex("[\\p{IsLatin}\\p{M} '’.-]+")) &&
             value.codePoints().noneMatch { it in 0x0250..0x02FF || it in 0x1D00..0x1DBF }
 
     private fun occurrences(phrase: String, text: String, boundaries: Set<Int>? = null): List<IntRange> {
-        val escaped = lookupKey(phrase).map { char -> Regex.escape(char.toString()) + if (char.code in 0x0620..0x064A) "[\\u0640\\u064B-\\u0652\\u0670]*" else "" }.joinToString("")
+        val escaped = lookupKey(phrase).map { char ->
+            if(char=='\'' || char=='’') "['’]" else Regex.escape(char.toString()) + if (char.code in 0x0620..0x064A) "[\\u0640\\u064B-\\u0652\\u0670]*" else ""
+        }.joinToString("")
         if (escaped.isEmpty()) return emptyList()
         val pattern = if (boundaries == null) "(?<![\\p{L}\\p{M}\\p{N}_])" + escaped + "(?![\\p{L}\\p{M}\\p{N}_])" else escaped
         return Regex(pattern, RegexOption.IGNORE_CASE).findAll(text).map { it.range }

@@ -4,6 +4,39 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ContextMappingTest {
+    @Test fun typographicApostrophesMatchWithoutChangingStoredText() {
+        val result=ImmersionEngine().align("I work today.","Je travaille aujourd'hui.",listOf(VocabularyEntry("today",listOf("aujourd’hui"))),1.0,"fr")
+        assertEquals("aujourd'hui",result.spans.single().translated)
+        assertEquals("Je travaille aujourd'hui.",result.translation)
+    }
+
+    @Test fun targetParticlesRequireAnExplicitAttestedFormAndExactSourceContext() {
+        val text="I read a book."
+        val mapping=ContextMapping("book-en","reading material","en","ko",listOf(ContextPart.Literal("I read a "),
+            ContextPart.Focus("book"),ContextPart.Literal(".")),listOf("책"),mapOf("책" to listOf("chaek")),
+            listOf(VocabularyTargetForm("책을","책",0,1)))
+        val entries=ContextMappingMatcher.entries(text,"en","ko",listOf(mapping))
+        fun align(translation:String,rows:List<VocabularyEntry> = entries)=ImmersionEngine().align(text,translation,rows,1.0,"ko",targetBoundaries=setOf(0,2,translation.length))
+        assertEquals("chaek",align("책을 읽어요.").spans.single().romanization)
+        assertEquals("책",align("책을 읽어요.").spans.single().translated)
+        assertTrue(align("책상 위에 있어요.").spans.isEmpty())
+        assertTrue(align("책을 읽어요.",listOf(entries.single().copy(sourceScope=null))).spans.isEmpty())
+        assertTrue(align("책을 읽어요.",listOf(entries.single().copy(targetForms=listOf(VocabularyTargetForm("책을","책",0,2))))).spans.isEmpty())
+    }
+
+    @Test fun exactKoreanFocusPreservesParticleAndCannotEscapeItsContext() {
+        val text="책을 읽고 있어요."
+        val mapping=ContextMapping("book-ko","book as reading material","ko","en",
+            listOf(ContextPart.Focus("책"),ContextPart.Literal("을 읽고 있어요.")),listOf("book"))
+        val entries=ContextMappingMatcher.entries(text,"ko","en",listOf(mapping))
+        val engine=ImmersionEngine()
+        val result=engine.align(text,"I am reading a book.",entries,1.0,"en",sourceBoundaries=setOf(0,2,text.length))
+        assertEquals("book을 읽고 있어요.",result.speech("ko","en").joinToString(""){it.text})
+        assertTrue(engine.align(text,"I am reading a book.",listOf(VocabularyEntry("책",listOf("book"))),1.0,"en",sourceBoundaries=setOf(0,2,text.length)).spans.isEmpty())
+        assertTrue(engine.align("책상 위에 있어요.","It is on the desk with a book.",entries,1.0,"en").spans.isEmpty())
+        assertTrue(engine.align(text,"I am reading a book.",listOf(entries.single().copy(sourceScope=VocabularySourceScope(text,0,2))),1.0,"en").spans.isEmpty())
+    }
+
     private fun book(plural: Boolean = false) = ContextMapping("book", "book as reading material", "en", "es", listOf(
         ContextPart.Literal("Can "), ContextPart.Slot(listOf("you", "they", "we")),
         ContextPart.Literal(" bring "), ContextPart.Slot(listOf("my", "your", "their", "our")),

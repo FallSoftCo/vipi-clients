@@ -7,10 +7,12 @@ public enum ContextPart: Sendable, Equatable {
 public struct ContextMapping: Sendable {
     public let id: String, meaning: String, sourceLanguage: String, targetLanguage: String
     public let parts: [ContextPart], targets: [String], readings: [String: [String]]
+    public let targetForms: [VocabularyTargetForm]
     public init(id: String, meaning: String, sourceLanguage: String, targetLanguage: String,
-                parts: [ContextPart], targets: [String], readings: [String: [String]] = [:]) {
+                parts: [ContextPart], targets: [String], readings: [String: [String]] = [:], targetForms: [VocabularyTargetForm] = []) {
         self.id = id; self.meaning = meaning; self.sourceLanguage = sourceLanguage; self.targetLanguage = targetLanguage
         self.parts = parts; self.targets = targets; self.readings = readings
+        self.targetForms = targetForms
     }
 }
 /// Exact context/scope matching, separate from linguistic review of the data.
@@ -31,7 +33,8 @@ public enum ContextMappingMatcher {
         for (focus, group) in groups.sorted(by: { $0.key.location < $1.key.location }) {
             guard Set(group.map(\.meaning)).count == 1 else { continue }
             for record in group {
-                let entry = VocabularyEntry(source: (original as NSString).substring(with: focus), targets: record.targets, romanizations: record.readings)
+                let entry = VocabularyEntry(source: (original as NSString).substring(with: focus), targets: record.targets, romanizations: record.readings,
+                    sourceScope: .init(original: original,start: focus.location,end: NSMaxRange(focus)),targetForms:record.targetForms)
                 if !entries.contains(entry) { entries.append(entry) }
             }
         }

@@ -2,15 +2,30 @@ import Foundation
 
 /// Entries contain surface forms, not context-free substitutions. A candidate
 /// must also occur unambiguously in the translation of this exact message.
+/// Ephemeral focus proved by an exact context match; never decoded from a pack.
+public struct VocabularySourceScope: Sendable, Equatable {
+    public let original: String, start: Int, end: Int
+    public init(original: String, start: Int, end: Int) { self.original=original;self.start=start;self.end=end }
+}
+/// Explicit lexical focus inside an attested target word, e.g. 시간 inside 시간이.
+public struct VocabularyTargetForm: Sendable, Equatable {
+    public let surface: String, target: String, start: Int, end: Int
+    public init(surface: String,target: String,start: Int,end: Int) {self.surface=surface;self.target=target;self.start=start;self.end=end}
+}
+
 public struct VocabularyEntry: Codable, Sendable, Equatable {
     public let source: String
     public let targets: [String]
     public let romanizations: [String: [String]]
     public let contextHints: [String]
     public let requiresContext: Bool
-    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false) {
+    public let sourceScope: VocabularySourceScope?
+    public let targetForms: [VocabularyTargetForm]
+    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false, sourceScope: VocabularySourceScope? = nil, targetForms: [VocabularyTargetForm] = []) {
         self.source = source; self.targets = targets; self.romanizations = romanizations; self.contextHints = contextHints
         self.requiresContext = requiresContext
+        self.sourceScope = sourceScope
+        self.targetForms = targetForms
     }
     private enum CodingKeys: String, CodingKey { case source, targets, romanizations, contextHints, requiresContext }
     public init(from decoder: Decoder) throws {
@@ -20,6 +35,8 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
         romanizations = try values.decodeIfPresent([String: [String]].self, forKey: .romanizations) ?? [:]
         contextHints = try values.decodeIfPresent([String].self, forKey: .contextHints) ?? []
         requiresContext = try values.decodeIfPresent(Bool.self, forKey: .requiresContext) ?? false
+        sourceScope = nil
+        targetForms = []
     }
 }
 
@@ -74,7 +91,7 @@ public struct ImmersionEngine: Sendable {
         let sentenceStops = matches("[.!?。！？\\n]", in: original).filter { stop in !protected.contains { NSIntersectionRange($0, stop).length > 0 } }
         let supported = Set(entries.indices.filter { index in
             let entry = entries[index]
-            guard let range = occurrences(entry.source, in: original, boundaries: sourceBoundaries).first else { return false }
+            guard let range = sourceOccurrences(entry, in: original, boundaries: sourceBoundaries).first else { return false }
             let lower = sentenceStops.last(where: { NSMaxRange($0) <= range.location }).map(NSMaxRange) ?? 0
             let upper = sentenceStops.first(where: { $0.location >= NSMaxRange(range) })?.location ?? original.utf16.count
             return entry.contextHints.contains { hint in
@@ -89,11 +106,11 @@ public struct ImmersionEngine: Sendable {
         // another, incorrect source word appear to own its translated token.
         let claims = entries.map { entry -> (source: [NSRange], target: Set<NSRange>) in
             guard !entry.source.isEmpty, entry.source.utf16.count <= 128 else { return ([], []) }
-            let source = occurrences(entry.source, in: original, boundaries: sourceBoundaries)
+            let source = sourceOccurrences(entry, in: original, boundaries: sourceBoundaries)
             guard !source.isEmpty else { return ([], []) }
             let target = Set(Set(entry.targets).flatMap { value -> [NSRange] in
                 guard !value.isEmpty, value.utf16.count <= 128 else { return [] }
-                return occurrences(value, in: translation, boundaries: targetBoundaries)
+                return targetOccurrences(entry,value:value,in:translation,boundaries:targetBoundaries)
             })
             return (source, target)
         }
@@ -165,6 +182,33 @@ public struct ImmersionEngine: Sendable {
         return ImmersionResult(original: original, translation: translation, spans: selected.sorted { $0.range.location < $1.range.location })
     }
 
+    private func sourceOccurrences(_ entry: VocabularyEntry, in original: String, boundaries: Set<Int>?) -> [NSRange] {
+        guard let scope=entry.sourceScope else { return occurrences(entry.source,in:original,boundaries:boundaries) }
+        guard scope.original==original, scope.start>=0,scope.end>scope.start,scope.end<=original.utf16.count else {return []}
+        let range=NSRange(location:scope.start,length:scope.end-scope.start)
+        guard Range(range,in:original) != nil,(original as NSString).substring(with:range)==entry.source else {return []}
+        return [range]
+    }
+
+    private func targetOccurrences(_ entry: VocabularyEntry,value: String,in translation: String,boundaries: Set<Int>?) -> [NSRange] {
+        let plain=occurrences(value,in:translation,boundaries:boundaries)
+        guard entry.sourceScope != nil,entry.targetForms.count<=16 else {return plain}
+        var explicit:[NSRange]=[]
+        for form in entry.targetForms where form.target==value && form.surface.utf16.count<=256 {
+            guard form.start>=0,form.end>form.start,form.end<=form.surface.utf16.count else {continue}
+            let local=NSRange(location:form.start,length:form.end-form.start)
+            guard Range(local,in:form.surface) != nil,(form.surface as NSString).substring(with:local)==value else {continue}
+            for whole in occurrences(form.surface,in:translation,boundaries:boundaries) {
+                let actual=(translation as NSString).substring(with:whole)
+                guard actual.utf16.count==form.surface.utf16.count,actual.replacingOccurrences(of:"’",with:"'").caseInsensitiveCompare(form.surface.replacingOccurrences(of:"’",with:"'")) == .orderedSame else {continue}
+                let focus=NSRange(location:whole.location+local.location,length:local.length)
+                guard Range(focus,in:translation) != nil,(translation as NSString).substring(with:focus).replacingOccurrences(of:"’",with:"'").caseInsensitiveCompare(value.replacingOccurrences(of:"’",with:"'")) == .orderedSame else {continue}
+                explicit.append(focus)
+            }
+        }
+        return Array(Set(plain+explicit))
+    }
+
     private static func readableRomanization(_ value: String) -> Bool {
         // Standard Latin-script transliteration may retain tone/length marks.
         // IPA and phonetic extensions are not a reading interface.
@@ -175,6 +219,7 @@ public struct ImmersionEngine: Sendable {
 
     private func occurrences(_ phrase: String, in text: String, boundaries: Set<Int>? = nil) -> [NSRange] {
         let escaped = Self.lookupKey(phrase).unicodeScalars.map { scalar in
+            if scalar.value==0x27 || scalar.value==0x2019 {return "['’]"}
             let literal = NSRegularExpression.escapedPattern(for: String(scalar))
             return (0x0620...0x064A).contains(scalar.value) ? literal + "[\\u0640\\u064B-\\u0652\\u0670]*" : literal
         }.joined()

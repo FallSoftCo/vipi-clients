@@ -9,7 +9,8 @@ sealed interface ContextPart {
 
 data class ContextMapping(val id: String, val meaning: String, val sourceLanguage: String,
                           val targetLanguage: String, val parts: List<ContextPart>,
-                          val targets: List<String>, val readings: Map<String, List<String>> = emptyMap())
+                          val targets: List<String>, val readings: Map<String, List<String>> = emptyMap(),
+                          val targetForms: List<VocabularyTargetForm> = emptyList())
 
 /** This validates exact context/scope. Authored meaning and readings need data QA.
  * Callers supply a bounded indexed shortlist, never the entire language catalog.
@@ -28,7 +29,8 @@ object ContextMappingMatcher {
             // Agreement on spelling is not agreement on meaning. Conflicting
             // authored claims cannot be resolved by whichever record came first.
             if (group.map { it.mapping.meaning }.distinct().size != 1) emptyList()
-            else group.map { hit -> VocabularyEntry(original.substring(hit.focus), hit.mapping.targets, hit.mapping.readings) }
+            else group.map { hit -> VocabularyEntry(original.substring(hit.focus), hit.mapping.targets, hit.mapping.readings,
+                sourceScope=VocabularySourceScope(original,hit.focus.first,hit.focus.last+1),targetForms=hit.mapping.targetForms) }
         }.distinct()
     }
 

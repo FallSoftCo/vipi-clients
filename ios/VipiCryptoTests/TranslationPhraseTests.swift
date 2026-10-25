@@ -18,10 +18,12 @@ final class TranslationPhraseTests: XCTestCase {
         XCTAssertEqual(protocolValue["schema"] as? String, "vipi-local-phrase-probe-1")
         let samples = try XCTUnwrap(protocolValue["samples"] as? [[String: Any]])
         let extents = try XCTUnwrap(protocolValue["window_extents"] as? [[Int]])
+        let runID = protocolValue["qa_run_id"] as? String ?? "001"
+        guard runID.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw PhraseError.identityMismatch }
         let digest = SHA256.hash(data: input).map { String(format: "%02x", $0) }.joined()
-        let identity = digest + ":AppleTranslation:" + UIDevice.current.systemVersion + ":qa-epoch-001"
-        let stateURL = documents.appendingPathComponent("phrase-cache-apple-001.json")
-        let receiptURL = documents.appendingPathComponent("phrase-observations-apple-001.json")
+        let identity = digest + ":AppleTranslation:" + UIDevice.current.systemVersion + ":qa-epoch-" + runID
+        let stateURL = documents.appendingPathComponent("phrase-cache-apple-\(runID).json")
+        let receiptURL = documents.appendingPathComponent("phrase-observations-apple-\(runID).json")
         let state = PhraseState(identity: identity, total: samples.count, digest: digest, cacheURL: stateURL, receiptURL: receiptURL)
         try state.restore()
         let monitor = NWPathMonitor()
