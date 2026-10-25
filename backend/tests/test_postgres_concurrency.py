@@ -1,4 +1,6 @@
 import asyncio
+from datetime import timedelta
+import secrets
 from uuid import uuid4
 
 import pytest
@@ -12,6 +14,9 @@ from vipi.db import Device, PendingMessage, UsageBucket
 from vipi.delivery import DeliveryError, accept
 from vipi.prekeys import PublishInput, claim, publish
 from test_prekeys import publication
+from vipi.deletion import process_deletions, request_deletion
+from vipi.db import AccountDeletion, User
+from vipi.deletion import deletion_for, lock_account_lifecycle
 
 
 @pytest.fixture(autouse=True)
@@ -109,3 +114,80 @@ async def test_authenticated_device_loaded_before_replacement_is_rechecked(db):
             await accept(s, message(), now=NOW)
         with pytest.raises(DeliveryError, match="device_revoked"):
             await claim(s, user_id="alice", device_id="alice-phone", recipient_id="bob", request_id=str(uuid4()), now=NOW)
+
+
+async def test_concurrent_deletion_retries_erase_once_and_leave_one_receipt(db):
+    secret = secrets.token_urlsafe(32)
+    async def erase():
+        async with db.sessions.begin() as s:
+            return (await request_deletion(s, subject="user_alice", account_id="alice", receipt_secret=secret, service_secret="a"*43, now=NOW)).account_id
+    assert set(await asyncio.gather(*(erase() for _ in range(10)))) == {"alice"}
+    async with db.sessions() as s:
+        assert await s.get(User, "alice") is None
+        assert (await s.scalar(select(func.count()).select_from(AccountDeletion))) == 1
+
+
+async def test_deletion_serializes_with_sends_and_invalidates_cached_devices(db):
+    async def erase():
+        async with db.sessions.begin() as s:
+            await request_deletion(s, subject="user_alice", account_id="alice", receipt_secret=secrets.token_urlsafe(32), service_secret="a"*43, now=NOW)
+    async def send():
+        try:
+            async with db.sessions.begin() as s:
+                await accept(s, message(), now=NOW)
+        except DeliveryError as error:
+            assert error.code in {"recipient_unavailable", "device_revoked"}
+    async with db.sessions.begin() as old:
+        cached = await old.get(Device, "alice-phone")
+        await asyncio.gather(erase(), *(send() for _ in range(12)))
+        assert cached.active
+        with pytest.raises(DeliveryError):
+            await accept(old, message(), now=NOW)
+    async with db.sessions() as s:
+        assert await s.get(Device, "alice-phone") is None
+        assert (await s.scalar(select(func.count()).select_from(PendingMessage))) == 0
+
+
+async def test_worker_leases_prevent_stale_completion_overwrite(db):
+    async with db.sessions.begin() as s:
+        await request_deletion(s, subject="user_alice", account_id="alice", receipt_secret=secrets.token_urlsafe(32), service_secret="a"*43, now=NOW)
+    started = asyncio.Event(); release = asyncio.Event()
+    class SlowProvider:
+        async def delete(self, subject):
+            started.set(); await release.wait()
+            raise RuntimeError("late original worker failure")
+    class RecoveredProvider:
+        async def delete(self, subject): assert subject == "user_alice"
+    first = asyncio.create_task(process_deletions(db, SlowProvider(), now=NOW, limit=1))
+    try:
+        await asyncio.wait_for(started.wait(), 5)
+        second = await process_deletions(db, RecoveredProvider(), now=NOW+timedelta(minutes=3), limit=1)
+        assert second["finished"] == 1
+    finally:
+        release.set()
+    assert (await first)["lease_lost"] == 1
+    async with db.sessions() as s:
+        job = await s.get(AccountDeletion, "alice")
+        assert job.subject is None and job.finished_at is not None and job.error_code is None
+
+
+async def test_unfinished_signup_serializes_with_account_deletion(db):
+    subject, account, key = "user_unfinished", str(uuid4()), "q"*43
+    receipt = secrets.token_urlsafe(32)
+    async def signup():
+        async with db.sessions.begin() as s:
+            await lock_account_lifecycle(s, subject, key)
+            if await deletion_for(s, subject, key):
+                return "deletion_pending"
+            if not (await s.scalar(select(User).where(User.subject == subject))):
+                s.add(User(id=account, subject=subject, username="unfinished", display_name="QA", created_at=NOW))
+        return "created"
+    async def erase():
+        async with db.sessions.begin() as s:
+            await request_deletion(s, subject=subject, account_id=account, receipt_secret=receipt, service_secret=key, now=NOW)
+        return "deleted"
+    results = await asyncio.gather(*(signup() for _ in range(8)), *(erase() for _ in range(8)))
+    assert results.count("deleted") == 8
+    async with db.sessions() as s:
+        assert await s.get(User, account) is None
+        assert (await s.scalar(select(func.count()).select_from(AccountDeletion))) == 1

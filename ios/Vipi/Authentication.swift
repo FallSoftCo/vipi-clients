@@ -29,6 +29,10 @@ enum KeychainStore {
     static func delete(account: String) {
         SecItemDelete([kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: account] as CFDictionary)
     }
+    static func deleteChecked(account: String) throws {
+        let status = SecItemDelete([kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: account] as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else { throw NSError(domain: NSOSStatusErrorDomain, code: Int(status)) }
+    }
 }
 
 struct VipiSession: Codable, Sendable {
@@ -36,7 +40,7 @@ struct VipiSession: Codable, Sendable {
     let accessToken: String
     let refreshToken: String
 }
-private struct PendingSignIn: Codable { let state: String; let verifier: String; let createdAt: Date }
+private struct PendingSignIn: Codable { let state: String; let verifier: String; let createdAt: Date; var expectedUser: String? }
 
 @MainActor @Observable final class AuthenticationManager: NSObject, ASWebAuthenticationPresentationContextProviding {
     enum SessionFailure: Error { case signInRequired, accountChanged }
@@ -59,16 +63,20 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.flatMap(\.windows).first(where: \.isKeyWindow) ?? ASPresentationAnchor()
     }
-    func signIn() {
+    func signIn(expectedUser: String? = nil) {
         guard !busy else { return }
         guard let client else { errorMessage = "Sign-in isn’t available yet. Please try again shortly."; return }
         errorMessage = nil
         do {
             let authorization = try client.getAuthorizationUrlWithPKCE(redirectUri: callback, provider: "authkit")
-            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date())
+            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: expectedUser)
             try KeychainStore.save(JSONEncoder().encode(pending), account: "pending-sign-in")
+            var url = URLComponents(url: authorization.url, resolvingAgainstBaseURL: false)!
+            if expectedUser != nil {
+                url.queryItems = (url.queryItems ?? []).filter { !["max_age", "screen_hint"].contains($0.name) } + [URLQueryItem(name: "max_age", value: "0"), URLQueryItem(name: "screen_hint", value: "sign-in")]
+            }
             busy = true
-            let auth = ASWebAuthenticationSession(url: authorization.url, callbackURLScheme: "co.fallsoft.vipi") { [weak self] callbackURL, error in
+            let auth = ASWebAuthenticationSession(url: url.url!, callbackURLScheme: "co.fallsoft.vipi") { [weak self] callbackURL, error in
                 Task { @MainActor in
                     guard let self else { return }
                     if let callbackURL { await self.complete(callbackURL) }
@@ -105,7 +113,12 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
                 errorMessage = "We couldn’t verify this sign-in. Please start again."; return
             }
             KeychainStore.delete(account: "pending-sign-in")
+            let generation = sessionGeneration
             let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
+            guard generation == sessionGeneration else { throw SessionFailure.accountChanged }
+            if let expected = pending.expectedUser, result.user.id != expected {
+                errorMessage = "Sign in to the same account to continue deleting it."; return
+            }
             let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
             sessionGeneration = UUID()
@@ -139,5 +152,11 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
         sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil
         webSession?.cancel(); webSession = nil; session = nil; busy = false
         KeychainStore.delete(account: "session"); KeychainStore.delete(account: "pending-sign-in")
+    }
+    func eraseLocalSession(for userID: String) throws {
+        guard session?.userID == userID else { return }
+        try KeychainStore.deleteChecked(account: "session")
+        try KeychainStore.deleteChecked(account: "pending-sign-in")
+        signOutLocally()
     }
 }

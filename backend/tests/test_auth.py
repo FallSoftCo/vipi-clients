@@ -38,7 +38,8 @@ async def test_valid_token_binds_application_even_without_audience(signing):
         assert (await v.verify(token)).subject == "user_fixture"
         for patch in ({"client_id": "client_other"}, {"iss": "https://attacker.invalid"},
                       {"exp": int(time.time()) - 60}, {"iat": int(time.time()) + 60},
-                      {"sub": "admin"}, {"auth_time": "yesterday"}):
+                      {"sub": "admin"}, {"auth_time": "yesterday"},
+                      {"exp": int(time.time()) + 3601}, {"exp": str(int(time.time()) + 300)}):
             with pytest.raises(AuthenticationError):
                 await v.verify(jwt.encode(claims(**patch), signing[0], algorithm="RS256", headers={"kid": "fixture"}))
     finally:

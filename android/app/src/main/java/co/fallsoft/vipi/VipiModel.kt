@@ -23,11 +23,12 @@ val initialLanguages = listOf(
 )
 fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
 enum class Appearance { SYSTEM, LIGHT, DARK }
-enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE }
+enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
 class VipiModel(application: Application) : AndroidViewModel(application) {
     val authentication = Authentication(application)
+    internal val deletion = AccountDeletion(application, authentication)
     private val prefs = application.getSharedPreferences("preferences", 0)
     var screen by mutableStateOf(runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME))
         private set
@@ -53,15 +54,22 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
     var selectedPeer by mutableStateOf<UUID?>(null)
         private set
     internal suspend fun activateChats() {
+        if (deletion.active) { chat?.close(); chat = null; return }
         val userID = authentication.userID ?: return
         try {
             if (chat?.userID != userID) { chat?.close(); chat = ChatSession(getApplication(), authentication, userID) }
             navigate(Screen.HOME); chat!!.start()
-            if (chat!!.needsProfile) navigate(Screen.PROFILE)
+            if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
         } catch (error: CancellationException) { throw error }
         catch (_: Exception) { chatError = "Your saved conversations couldn’t be opened. Please close and reopen Vipi to try again." }
     }
     internal fun openConversation(peer: UUID) { selectedPeer = peer; navigate(Screen.CONVERSATION) }
+    internal fun beginDeletion() {
+        val current = requireNotNull(chat)
+        check(current.profile != null || current.needsProfile)
+        val account = current.profile?.id ?: UUID.randomUUID()
+        deletion.begin(account, current.userID) { current.close(); chat = null; selectedPeer = null }
+    }
 
     fun navigate(value: Screen) {
         screen = value
@@ -79,6 +87,7 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
         Screen.LANGUAGE -> Screen.WELCOME
         Screen.ACCOUNT -> Screen.LANGUAGE
         Screen.LANGUAGE_DOWNLOAD -> Screen.SETTINGS
+        Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
         else -> Screen.HOME
     }) }
     fun downloadLanguage(cellularAllowed: Boolean) = viewModelScope.launch {

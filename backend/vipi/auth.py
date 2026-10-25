@@ -89,6 +89,8 @@ class WorkOSVerifier:
                          "verify_aud": False})
             if claims["client_id"] != self.settings.workos_client_id:
                 raise ValueError("wrong_application")
+            if type(claims["exp"]) is not int or type(claims["iat"]) is not int or not 0 < claims["exp"] - claims["iat"] <= 3600:
+                raise ValueError("invalid_access_token_lifetime")
             if not isinstance(claims["sub"], str) or not claims["sub"].startswith("user_") or len(claims["sub"]) > 128:
                 raise ValueError("invalid_subject")
             if not isinstance(claims["sid"], str) or not 1 <= len(claims["sid"]) <= 128:

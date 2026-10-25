@@ -28,12 +28,14 @@ struct ConnectedChatRoot: View {
         }
         .background(VipiDesign.canvas)
         .task(id: authentication.session?.userID) {
-            guard let userID = authentication.session?.userID else { chat = nil; return }
+            try? chat?.close(); chat = nil
+            guard let userID = authentication.session?.userID else { return }
             do {
                 let value = try ChatSession(authentication: authentication, userID: userID)
                 chat = value; await value.start()
             } catch { self.error = "Your saved data is still here. Please close and reopen Vipi to try again." }
         }
+        .onDisappear { try? chat?.close() }
         .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await chat?.synchronize() } } }
     }
 }
@@ -42,6 +44,7 @@ struct ProfileSetupView: View {
     let chat: ChatSession
     @State private var name = ""
     @State private var username = ""
+    @State private var showDelete = false
     private var valid: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && name.count <= 80 &&
         username.range(of: "^[a-zA-Z][a-zA-Z0-9_]{2,23}$", options: .regularExpression) != nil
@@ -63,8 +66,11 @@ struct ProfileSetupView: View {
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {
                     HStack { Spacer(); if chat.busy { ProgressView().tint(.white) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
                 }.buttonStyle(.borderedProminent).disabled(!valid || chat.busy).accessibilityIdentifier("profile-submit")
+                Button("Delete account", role: .destructive) { showDelete = true }.disabled(chat.busy)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.background(VipiDesign.canvas).scrollDismissesKeyboard(.interactively)
+            .sheet(isPresented: $showDelete) { NavigationStack { DeleteAccountView(chat: chat)
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Back") { showDelete = false } } } } }
     }
 }
 

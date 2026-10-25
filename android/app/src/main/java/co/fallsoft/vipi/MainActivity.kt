@@ -115,7 +115,11 @@ private val Green = Color(0xFF33644F)
 }
 
 @Composable private fun VipiApp(model: VipiModel) {
-    LaunchedEffect(model.authentication.userID) { if (model.authentication.userID != null) model.activateChats() }
+    LaunchedEffect(model.authentication.userID, model.authentication.signInRevision, model.deletion.active) {
+        if (model.deletion.active) model.deletion.resume()
+        else if (model.authentication.userID != null) model.activateChats()
+    }
+    if (model.deletion.active) { AccountDeletionProgress(model.deletion, model.authentication) { model.navigate(Screen.WELCOME) }; return }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val syncScope = rememberCoroutineScope()
     DisposableEffect(lifecycle, model.chat) {
@@ -143,6 +147,7 @@ private val Green = Color(0xFF33644F)
                 Screen.BOT -> BotView()
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
+                Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
                 Screen.CONVERSATION -> Unit
             }
             Spacer(Modifier.height(20.dp))
@@ -360,6 +365,9 @@ private val Green = Color(0xFF33644F)
         }
     }
     Text("Made by FallSoft.Co", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }) {
+        Text("Delete account", color = MaterialTheme.colorScheme.error)
+    }
 }
 
 @Composable private fun DownloadView(model: VipiModel) {

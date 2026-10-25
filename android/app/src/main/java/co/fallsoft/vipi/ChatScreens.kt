@@ -53,6 +53,7 @@ import java.util.UUID
         if (chat.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
         else Text("Start chatting", fontWeight = FontWeight.SemiBold)
     }
+    TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }, enabled = !chat.busy) { Text("Delete account", color = MaterialTheme.colorScheme.error) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

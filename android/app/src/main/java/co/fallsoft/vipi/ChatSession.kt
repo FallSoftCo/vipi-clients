@@ -36,11 +36,13 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
     private var syncAgain = false
+    private var closed = false
     private val blockVersions = mutableMapOf<UUID, Int>()
     private val changingBlocks = mutableSetOf<UUID>()
     private val cacheKey get() = "profile-" + MessageDigest.getInstance("SHA-256").digest(userID.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     init { records.read(cacheKey)?.let { open(ChatProfile.parse(it)) } }
     private fun open(value: ChatProfile) {
+        ensureOpen()
         check(profile == null || profile!!.id == value.id) { "Account changed" }
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
@@ -56,9 +58,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     private fun reload() { threads = history?.threads() ?: emptyList(); revision++ }
     suspend fun start() {
-        if (busy) return
+        if (busy || closed) return
         busy = true; notice = null
-        try { open(ChatProfile.parse(api.request("GET", "/v1/me"))); provision() }
+        try { open(ChatProfile.parse(request("GET", "/v1/me"))); provision() }
         catch (error: CancellationException) { throw error }
         catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(error) }
         catch (error: Exception) { notice = explanation(error) }
@@ -66,10 +68,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (ready) synchronize()
     }
     suspend fun createProfile(username: String, name: String) {
-        if (busy) return
+        if (busy || closed) return
         busy = true; notice = null
         try {
-            open(ChatProfile.parse(api.request("PUT", "/v1/me", JSONObject().put("username", username.trim().lowercase()).put("display_name", name))))
+            open(ChatProfile.parse(request("PUT", "/v1/me", JSONObject().put("username", username.trim().lowercase()).put("display_name", name))))
             provision()
         } catch (error: CancellationException) { throw error }
         catch (error: Exception) { notice = explanation(error) }
@@ -79,16 +81,16 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private suspend fun provision() {
         val core = core ?: return; val vault = vault ?: return
         if (!ready) {
-            val result = api.request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
+            val result = request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
             check(result.getBoolean("active") && UUID.fromString(result.getString("id")) == core.device.id)
             vault.transaction { vault.put("local", "registered-device", core.device.id.toString().toByteArray(Charsets.UTF_8)) }
             ready = true
         }
-        val inventory = api.request("GET", "/v1/keys", device = core.device)
+        val inventory = request("GET", "/v1/keys", device = core.device)
         val hasPending = vault.transaction { vault.get("key-directory", "pending") != null }
         if (hasPending || inventory.getInt("remaining") < 10) {
             val publication = core.keys.publication(System.currentTimeMillis())
-            val result = api.request("PUT", "/v1/keys", publication, core.device)
+            val result = request("PUT", "/v1/keys", publication, core.device)
             core.keys.published(result.getInt("revision"))
         }
     }
@@ -97,7 +99,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!ready || core == null || vault == null) throw ServiceFailure(0, "device_not_ready")
         val username = input.trim().lowercase()
         if (!username.matches(Regex("[a-z][a-z0-9_]{2,23}"))) throw ServiceFailure(0, "invalid_username")
-        val value = ChatProfile.parse(api.request("GET", "/v1/people/$username", device = core.device))
+        val value = ChatProfile.parse(request("GET", "/v1/people/$username", device = core.device))
         if (value.id == profile?.id) throw ServiceFailure(0, "own_username")
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
         contacts = contacts + (value.id to value); return value
@@ -107,7 +109,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         val core = core ?: throw ServiceFailure(0, "device_not_ready")
         if (peer in changingBlocks) return
         val version = blockVersions[peer] ?: 0
-        val blocked = api.request("GET", "/v1/blocks/$peer", device = core.device).getBoolean("blocked")
+        val blocked = request("GET", "/v1/blocks/$peer", device = core.device).getBoolean("blocked")
         if (version == (blockVersions[peer] ?: 0) && peer !in changingBlocks) recordBlock(blocked, peer)
     }
     suspend fun setBlocked(blocked: Boolean, peer: UUID) {
@@ -116,7 +118,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!changingBlocks.add(peer)) throw ServiceFailure(0, "block_in_progress")
         blockVersions[peer] = (blockVersions[peer] ?: 0) + 1
         try {
-            val value = api.request("PUT", "/v1/blocks/$peer", JSONObject().put("blocked", blocked), core.device)
+            val value = request("PUT", "/v1/blocks/$peer", JSONObject().put("blocked", blocked), core.device)
             check(value.getBoolean("blocked") == blocked)
             recordBlock(blocked, peer)
         } finally { changingBlocks.remove(peer) }
@@ -150,7 +152,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 ?: UUID.randomUUID().also { vault.put("pending-claim", peer.toString(), it.toString().toByteArray(Charsets.UTF_8)) }
         }
         try {
-            val response = api.request("POST", "/v1/people/$peer/keys", JSONObject().put("request_id", requestID), core.device)
+            val response = request("POST", "/v1/people/$peer/keys", JSONObject().put("request_id", requestID), core.device)
             core.keys.establish(peer, requestID, response)
             vault.transaction { vault.remove("pending-claim", peer.toString()) }
         } catch (error: ServiceFailure) {
@@ -172,7 +174,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 // so transient decryption failures can recover.
                 for (page in 0 until 100) {
                     currentCoroutineContext().ensureActive()
-                    val result = api.request("GET", "/v1/messages/pending", device = core.device, query = cursor?.let { mapOf("after" to it) } ?: emptyMap())
+                    val result = request("GET", "/v1/messages/pending", device = core.device, query = cursor?.let { mapOf("after" to it) } ?: emptyMap())
                     val inbox = result.getJSONArray("messages")
                     repeat(inbox.length()) { index ->
                         try {
@@ -188,7 +190,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 }
                 for (id in core.journal.pendingReceipts()) {
                     try {
-                        val state = api.request("POST", "/v1/messages/$id/receipt", device = core.device).getString("state")
+                        val state = request("POST", "/v1/messages/$id/receipt", device = core.device).getString("state")
                         if (state in setOf("delivered", "expired", "unavailable", "identity_changed")) core.journal.receiptAccepted(id)
                     } catch (error: ServiceFailure) {
                         if (error.status == 404 && error.code == "message_not_found") core.journal.receiptAccepted(id)
@@ -209,7 +211,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     if (envelope.recipient in blockedPeers) continue
                     try {
                         val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
-                        val state = api.request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
+                        val state = request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
                         core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
                     } catch (error: ServiceFailure) {
                         val state = terminalSendState(error)
@@ -226,7 +228,20 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             try { reload() } catch (_: Exception) { notice = "Your saved conversations couldn’t be opened. Please try again." }
         }
     }
-    override fun close() { vault?.close() }
+    override fun close() {
+        closed = true; ready = false; needsProfile = false; syncAgain = false
+        vault?.close(); vault = null; core = null; history = null
+        profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet()
+    }
+    private fun ensureOpen() { if (closed) throw CancellationException("Chat session closed") }
+    private suspend fun request(method: String, path: String, body: JSONObject? = null,
+                                device: DeviceCredential? = null, query: Map<String, String> = emptyMap()): JSONObject {
+        ensureOpen(); currentCoroutineContext().ensureActive()
+        return try {
+            val result = api.request(method, path, body, device, query)
+            ensureOpen(); currentCoroutineContext().ensureActive(); result
+        } catch (error: Exception) { ensureOpen(); throw error }
+    }
     companion object {
         private fun terminalSendState(error: ServiceFailure): String? = when {
             error.status == 410 && error.code == "message_expired" -> "expired"

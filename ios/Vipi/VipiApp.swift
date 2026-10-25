@@ -2,8 +2,12 @@ import SwiftUI
 
 @main struct VipiApp: App {
     @State private var state = AppState()
-    @State private var authentication = AuthenticationManager()
+    @State private var authentication: AuthenticationManager
+    @State private var deletion: AccountDeletion
     init() {
+        let authentication = AuthenticationManager()
+        _authentication = State(initialValue: authentication)
+        _deletion = State(initialValue: AccountDeletion(authentication: authentication))
         #if DEBUG
         PersistenceProbe.startIfRequested()
         #endif
@@ -11,6 +15,8 @@ import SwiftUI
     var body: some Scene {
         WindowGroup {
             Group {
+                if deletion.active { AccountDeletionProgressView() }
+                else {
                 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
@@ -22,9 +28,11 @@ import SwiftUI
                 if state.isAuthenticated { ConnectedChatRoot() }
                 else { OnboardingView() }
                 #endif
+                }
             }
             .environment(state)
             .environment(authentication)
+            .environment(deletion)
             .tint(VipiDesign.highlight)
             .preferredColorScheme(state.appearance.scheme)
             .onChange(of: authentication.session?.userID, initial: true) { _, value in

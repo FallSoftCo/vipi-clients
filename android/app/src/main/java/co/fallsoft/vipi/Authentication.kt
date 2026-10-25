@@ -65,7 +65,10 @@ internal class PrivateRecords(context: Context) {
         }
         return JSONObject(cipher.doFinal(bytes.copyOfRange(13, bytes.size)).toString(Charsets.UTF_8))
     }
-    @Synchronized fun remove(name: String) { file(name).delete() }
+    @Synchronized fun remove(name: String) {
+        val target = file(name); target.delete()
+        check(!target.baseFile.exists() && !File(target.baseFile.path + ".bak").exists()) { "Private record could not be removed" }
+    }
 }
 
 class Authentication(context: Context) {
@@ -83,17 +86,21 @@ class Authentication(context: Context) {
         private set
     var error by mutableStateOf<String?>(null)
         private set
+    var signInRevision by mutableStateOf(0)
+        private set
 
-    fun signIn(context: Context) {
+    fun signIn(context: Context, expectedUser: String? = null) {
         if (busy) return
         error = null
         if (!BuildConfig.WORKOS_CLIENT_ID.startsWith("client_")) { error = "Sign-in isn’t available yet. Please try again shortly."; return }
         try {
             val start = client.getAuthorizationUrlWithPkce(callback)
-            records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()))
+            records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", expectedUser))
             // WorkOS Android 0.4.0's public helper omits the connection selector.
             // AuthKit needs provider=authkit even for an application with no SSO.
-            val url = Uri.parse(start.url).buildUpon().appendQueryParameter("provider", "authkit").build()
+            val url = Uri.parse(start.url).buildUpon().appendQueryParameter("provider", "authkit").apply {
+                if (expectedUser != null) { appendQueryParameter("max_age", "0"); appendQueryParameter("screen_hint", "sign-in") }
+            }.build()
             CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, url)
         } catch (_: Exception) { records.remove("pending-sign-in"); error = "We couldn’t open secure sign-in. Please try again." }
     }
@@ -107,10 +114,16 @@ class Authentication(context: Context) {
             require(System.currentTimeMillis() - pending.getLong("createdAt") in 0 until 600_000)
             require(uri.getQueryParameters("state").singleOrNull() == pending.getString("state"))
             val code = requireNotNull(uri.getQueryParameters("code").singleOrNull()?.takeIf { it.isNotBlank() })
+            val started = generation
             val result = client.authenticateWithCode(code, pending.getString("verifier"))
+            if (started != generation) throw SignInRequired()
+            if (pending.has("expectedUser") && pending.getString("expectedUser") != result.user.id) {
+                error = "Sign in to the same account to continue deleting it."; return
+            }
             records.write("session", JSONObject().put("userID", result.user.id).put("accessToken", result.accessToken).put("refreshToken", result.refreshToken))
             generation = UUID.randomUUID()
             userID = result.user.id
+            signInRevision++
         } catch (error: CancellationException) { throw error }
         catch (_: Exception) { error = "We couldn’t verify this sign-in. Please start again." }
         finally { busy = false }
@@ -141,5 +154,5 @@ class Authentication(context: Context) {
             next.getString("accessToken")
         }
     }
-    fun signOutLocally() { generation = UUID.randomUUID(); records.remove("session"); records.remove("pending-sign-in"); userID = null }
+    fun signOutLocally() { generation = UUID.randomUUID(); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
 }

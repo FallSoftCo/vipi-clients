@@ -22,6 +22,7 @@ from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
 from .inbox import decode_cursor, encode_cursor
+from .deletion import deletion_for, deletion_status, request_deletion, subject_hash, lock_account_lifecycle
 
 
 class BodyLimit:
@@ -66,6 +67,11 @@ class ProfileInput(Input):
         if not value or any(unicodedata.category(c).startswith("C") for c in value):
             raise ValueError("invalid_name")
         return value
+
+
+class DeleteAccountInput(Input):
+    account_id: UUID
+    receipt_secret: str = Field(pattern=r"^[A-Za-z0-9_-]{43}$")
 
 
 class DeviceInput(Input):
@@ -173,7 +179,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
             await session.execute(text("SELECT 1"))
             if settings.environment in {"staging", "production"}:
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261025_01":
+                if revision != "20261025_02":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -189,7 +195,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
         username = normalize_username(body.username)
         try:
             async with db.sessions.begin() as session:
+                await lock_account_lifecycle(session, p.subject, settings.service_secret)
                 user = (await session.execute(select(User).where(User.subject == p.subject).with_for_update())).scalar_one_or_none()
+                if await deletion_for(session, p.subject, settings.service_secret):
+                    raise DeliveryError("account_deletion_pending", 409)
                 if user:
                     if user.deleted:
                         raise DeliveryError("account_unavailable", 409)
@@ -202,6 +211,31 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
                 return profile(user)
         except IntegrityError:
             raise DeliveryError("username_unavailable", 409)
+
+    @app.delete("/v1/me", status_code=202)
+    async def delete_account(body: DeleteAccountInput, p: Annotated[Principal, Depends(principal)]):
+        if not settings.account_deletion_enabled:
+            raise DeliveryError("account_deletion_unavailable", 503)
+        if not 0 <= now().timestamp() - p.authenticated_at <= 600:
+            raise DeliveryError("recent_sign_in_required", 401)
+        await rate(p, "account-deletion", 10)
+        async with db.sessions.begin() as session:
+            job = await request_deletion(session, subject=p.subject, account_id=str(body.account_id),
+                                         receipt_secret=body.receipt_secret, service_secret=settings.service_secret, now=now())
+            return {"account_id": job.account_id, "status": "deleted" if job.finished_at else "deletion_requested"}
+
+    @app.get("/v1/account-deletions/{account_id}")
+    async def account_deletion_status(account_id: UUID, request: Request, authorization: Annotated[str | None, Header()] = None):
+        # Client creates and durably saves this 256-bit capability BEFORE sending
+        # DELETE. Polling survives provider-user deletion and a lost response.
+        if not authorization or not authorization.startswith("Deletion "):
+            raise DeliveryError("deletion_receipt_unavailable", 404)
+        remote = request.client.host if request.client else "unknown"
+        async with db.sessions.begin() as session:
+            await consume(session, subject="delete-status:" + subject_hash(remote, settings.service_secret),
+                          scope="deletion-status", now=now().timestamp(), limit=120)
+        async with db.sessions() as session:
+            return await deletion_status(session, account_id=str(account_id), receipt_secret=authorization[9:], service_secret=settings.service_secret)
 
     @app.post("/v1/devices")
     async def device(body: DeviceInput, p: Annotated[Principal, Depends(principal)]):

@@ -59,3 +59,8 @@ Refresh references and pin exact revisions during the implementation spike; a cu
 - BFM critique applied to the implemented welcome: demonstrate immersion before asking for an account, keep meaning one tap away, and use clear native-language instructions. Additional promotional links and overlays were omitted to retain the user's minimal UI.
 
 - 2026-10-24 owner correction: every Vipi store/provider account must belong to FallSoft.Co / Fallible Software. Jeane LLC is not the correct Google Play developer account; do not create or publish Vipi there. The owner also explicitly authorized autonomous interaction with the attached, unlocked iPad while away, including native QA and required language-download prompts.
+
+
+## Identity isolation correction — 2026-10-25
+
+Application-specific redirects/API credentials do not isolate the WorkOS user pool. The existing Vipi staging application shares users with Fallible Software's default application. Never enable provider-wide account deletion there. Vipi now has a separate project and free staging environment (`environment_01M5S2CDCTMYJ46EBGXYWS5KBC`, public client `client_01M5S2CDSQ8F7FEX26G3CY9VS1`). Complete hosted sign-in/refresh/reauthentication and synthetic lifecycle qualification before changing deployed configuration. No existing user/environment was transferred. Production remains unconfigured. Account deletion is implemented with a durable capability and leased provider cleanup; a shared-pool configuration fails closed.

@@ -29,6 +29,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var revision = 0
     var notice: String?
     private var syncAgain = false
+    private var closed = false
     private var blockVersions: [UUID: Int] = [:]
     private var changingBlocks = Set<UUID>()
     private var cacheKey: String { "profile-" + userID }
@@ -43,6 +44,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         }
     }
     private func open(_ value: ChatProfile) throws {
+        try ensureOpen()
         if let profile, profile.id != value.id { throw AuthenticationManager.SessionFailure.accountChanged }
         if vault == nil {
             let store = try MessageVault(account: value.id)
@@ -67,9 +69,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var now: Int64 { Int64(Date().timeIntervalSince1970 * 1000) }
 
     func start() async {
-        guard !busy else { return }; busy = true; notice = nil
+        guard !busy, !closed else { return }; busy = true; notice = nil
         do {
-            let value: ChatProfile = try await api.request("GET", "/v1/me")
+            let value: ChatProfile = try await request("GET", "/v1/me")
             try open(value); try await provision()
         } catch let error as ServiceFailure where error.code == "profile_required" { needsProfile = true }
         catch is CancellationError {}
@@ -78,9 +80,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if ready { await synchronize() }
     }
     func createProfile(username: String, name: String) async {
-        guard !busy else { return }; busy = true; notice = nil
+        guard !busy, !closed else { return }; busy = true; notice = nil
         do {
-            let value: ChatProfile = try await api.request("PUT", "/v1/me", body: body(["username": username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), "display_name": name]))
+            let value: ChatProfile = try await request("PUT", "/v1/me", body: body(["username": username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), "display_name": name]))
             try open(value); try await provision()
         } catch is CancellationError {}
         catch { notice = Self.explanation(error) }
@@ -90,7 +92,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private func provision() async throws {
         guard let core, let vault else { return }
         if !ready {
-            let value: DeviceResult = try await api.request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret]))
+            let value: DeviceResult = try await request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret]))
             guard value.active, value.id == core.device.id else { throw MessageJournal.Failure.invalidMessage }
             try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)) }
             ready = true
@@ -99,11 +101,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
     private func replenish() async throws {
         guard let core, let vault else { return }
-        let inventory: Inventory = try await api.request("GET", "/v1/keys", device: core.device)
+        let inventory: Inventory = try await request("GET", "/v1/keys", device: core.device)
         let hasPending = try vault.transaction { try vault.get("key-directory", "pending") != nil }
         if hasPending || inventory.remaining < 10 {
             let publication = try core.keys.publication(now: now)
-            let response: Inventory = try await api.request("PUT", "/v1/keys", body: JSONEncoder().encode(publication), device: core.device)
+            let response: Inventory = try await request("PUT", "/v1/keys", body: JSONEncoder().encode(publication), device: core.device)
             try core.keys.published(revision: response.revision)
         }
     }
@@ -111,7 +113,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard ready, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         let username = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         guard username.range(of: "^[a-z][a-z0-9_]{2,23}$", options: .regularExpression) != nil else { throw ServiceFailure(status: 0, code: "invalid_username") }
-        let value: ChatProfile = try await api.request("GET", "/v1/people/" + username, device: core.device)
+        let value: ChatProfile = try await request("GET", "/v1/people/" + username, device: core.device)
         guard value.id != profile?.id else { throw ServiceFailure(status: 0, code: "own_username") }
         try vault.transaction { try vault.put("contact", value.id.uuidString.lowercased(), JSONEncoder().encode(value)) }
         contacts[value.id] = value
@@ -122,7 +124,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !changingBlocks.contains(peer) else { return }
         let version = blockVersions[peer, default: 0]
-        let value: BlockStatus = try await api.request("GET", "/v1/blocks/" + peer.uuidString.lowercased(), device: core.device)
+        let value: BlockStatus = try await request("GET", "/v1/blocks/" + peer.uuidString.lowercased(), device: core.device)
         guard version == blockVersions[peer, default: 0], !changingBlocks.contains(peer) else { return }
         try recordBlock(value.blocked, peer: peer)
     }
@@ -131,7 +133,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard changingBlocks.insert(peer).inserted else { throw ServiceFailure(status: 0, code: "block_in_progress") }
         blockVersions[peer, default: 0] += 1
         defer { changingBlocks.remove(peer) }
-        let value: BlockStatus = try await api.request("PUT", "/v1/blocks/" + peer.uuidString.lowercased(), body: body(["blocked": blocked]), device: core.device)
+        let value: BlockStatus = try await request("PUT", "/v1/blocks/" + peer.uuidString.lowercased(), body: body(["blocked": blocked]), device: core.device)
         guard value.blocked == blocked else { throw ServiceFailure(status: 0, code: "invalid_block_response") }
         try recordBlock(blocked, peer: peer)
     }
@@ -172,7 +174,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             let value = UUID(); try vault.put("pending-claim", key, Data(value.uuidString.lowercased().utf8)); return value
         }
         do {
-            let response: ClaimedKeys = try await api.request("POST", "/v1/people/\(key)/keys", body: body(["request_id": requestID.uuidString.lowercased()]), device: core.device)
+            let response: ClaimedKeys = try await request("POST", "/v1/people/\(key)/keys", body: body(["request_id": requestID.uuidString.lowercased()]), device: core.device)
             _ = try core.keys.establish(peer: peer, requestID: requestID, response: response)
             try vault.transaction { try vault.remove("pending-claim", key) }
         } catch let error as ServiceFailure where error.status == 410 {
@@ -191,7 +193,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 // The server bounds a recipient's queue at 10,000. Start from
                 // the beginning on each sync so failed items can recover.
                 for _ in 0..<100 {
-                    let inbox: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
+                    let inbox: Inbox = try await request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
                     for item in inbox.messages {
                         if blockedPeers.contains(item.sender_id) { continue }
                         do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
@@ -203,7 +205,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 }
                 for id in try core.journal.pendingReceipts() {
                     do {
-                        let status: Status = try await api.request("POST", "/v1/messages/\(id.uuidString.lowercased())/receipt", device: core.device)
+                        let status: Status = try await request("POST", "/v1/messages/\(id.uuidString.lowercased())/receipt", device: core.device)
                         if ["delivered", "expired", "unavailable", "identity_changed"].contains(status.state) { try core.journal.receiptAccepted(id) }
                     } catch let error as ServiceFailure where error.status == 404 && error.code == "message_not_found" {
                         // The plaintext was committed before this receipt was
@@ -224,7 +226,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     if blockedPeers.contains(envelope.recipient) { continue }
                     do {
                         let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
-                        let status: Status = try await api.request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
+                        let status: Status = try await request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
                         let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
                         try core.journal.applyStatus(envelope.id, state: state)
                     } catch let error as ServiceFailure {
@@ -237,6 +239,23 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             catch { notice = Self.explanation(error); break }
         } while syncAgain && !Task.isCancelled
         do { try reload() } catch { notice = "Your saved conversations couldn’t be opened. Please try again." }
+    }
+    func close() throws {
+        closed = true; ready = false; needsProfile = false; syncAgain = false
+        try vault?.close(); vault = nil; core = nil; history = nil
+        profile = nil; threads = []; contacts = [:]; blockedPeers = []
+    }
+    private func ensureOpen() throws {
+        guard !closed else { throw CancellationError() }
+        try Task.checkCancellation()
+    }
+    private func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil,
+                                       device: DeviceCredential? = nil, query: [String: String] = [:]) async throws -> T {
+        try ensureOpen()
+        do {
+            let value: T = try await api.request(method, path, body: body, device: device, query: query)
+            try ensureOpen(); return value
+        } catch { try ensureOpen(); throw error }
     }
     static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {

@@ -122,6 +122,22 @@ class RateWindow(Base):
     count: Mapped[int] = mapped_column(Integer)
 
 
+class AccountDeletion(Base):
+    """Bounded durable cleanup receipt, independent of the removed user row."""
+    __tablename__ = "account_deletions"
+    account_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    subject_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    receipt_hash: Mapped[str] = mapped_column(String(64))
+    subject: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    next_attempt_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(32), nullable=True)
+
+
 class Database:
     def __init__(self, url: str, *, connect_args=None):
         self.engine = create_async_engine(url, pool_pre_ping=True, connect_args=connect_args or {})

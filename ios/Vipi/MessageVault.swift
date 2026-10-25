@@ -50,6 +50,14 @@ final class MessageVault: @unchecked Sendable {
         } catch { sqlite3_close(database); database = nil; throw error }
     }
     deinit { if let database { sqlite3_close(database) } }
+    func close() throws {
+        lock.lock(); defer { lock.unlock() }
+        guard transactionThread == nil else { throw Failure.nestedTransaction }
+        guard let database else { return }
+        let code = sqlite3_close(database)
+        guard code == SQLITE_OK else { throw Failure.database(code) }
+        self.database = nil
+    }
     func transaction<T>(_ operation: () throws -> T) throws -> T {
         lock.lock(); defer { lock.unlock() }
         guard transactionThread == nil else { throw Failure.nestedTransaction }
@@ -63,6 +71,7 @@ final class MessageVault: @unchecked Sendable {
         } catch { try? execute("ROLLBACK"); throw error }
     }
     private func execute(_ sql: String) throws {
+        guard database != nil else { throw Failure.database(SQLITE_MISUSE) }
         let code = sqlite3_exec(database, sql, nil, nil, nil)
         guard code == SQLITE_OK else { throw Failure.database(code) }
     }

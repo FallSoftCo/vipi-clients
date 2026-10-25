@@ -41,7 +41,10 @@ class SecurityNumberDeviceTest {
     @Test fun verificationPersistsAndNeverSurvivesDifferentKeys() {
         val base = InstrumentationRegistry.getInstrumentation().targetContext
         val root = File(base.cacheDir, "security-number-${UUID.randomUUID()}").apply { mkdirs() }
-        val context = object : ContextWrapper(base) { override fun getFilesDir() = File(root, "files").apply { mkdirs() } }
+        val context = object : ContextWrapper(base) {
+            override fun getFilesDir() = File(root, "files").apply { mkdirs() }
+            override fun getNoBackupFilesDir() = File(root, "private").apply { mkdirs() }
+        }
         val account = UUID.randomUUID(); val peer = UUID.randomUUID()
         try {
             MessageVault(context, account).use { vault ->
