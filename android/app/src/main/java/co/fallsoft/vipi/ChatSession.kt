@@ -128,6 +128,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         reload()
     }
     fun messages(peer: UUID, before: String? = null) = history?.messages(peer, before) ?: emptyList()
+    fun securityNumber(peer: UUID): SecurityNumber? = (core ?: throw ServiceFailure(0, "device_not_ready")).securityNumber(peer)
+    fun setIdentityVerified(verified: Boolean, peer: UUID, compared: SecurityNumber) {
+        (core ?: throw ServiceFailure(0, "device_not_ready")).setIdentityVerified(verified, peer, compared); revision++
+    }
     fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
     fun compose(peer: UUID) = history?.composeDraft(peer) ?: ""
     fun saveCompose(text: String, peer: UUID) { history?.saveComposeDraft(text, peer) }

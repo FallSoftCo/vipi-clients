@@ -78,6 +78,7 @@ struct FriendConversationView: View {
     @State private var loaded = false
     @State private var confirmBlock = false
     @State private var blockBusy = false
+    @State private var showSecurityNumber = false
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     @FocusState private var composing: Bool
     private func refresh() {
@@ -153,6 +154,7 @@ struct FriendConversationView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
+                    Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
                     Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
                 } label: {
                     if blockBusy { ProgressView() }
@@ -166,6 +168,7 @@ struct FriendConversationView: View {
         } message: {
             Text(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime.")
         }
+        .sheet(isPresented: $showSecurityNumber) { SecurityNumberView(chat: chat, peer: peer) }
         .safeAreaInset(edge: .bottom) { composer }
         .task {
             refresh(); blockBusy = true

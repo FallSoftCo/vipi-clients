@@ -32,3 +32,4 @@ ios/*.xcodeproj/
 ios/Vipi/Info.plist
 *.sqlite-wal
 *.sqlite-shm
+.kotlin/

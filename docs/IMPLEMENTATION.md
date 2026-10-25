@@ -2,6 +2,14 @@
 
 Every gate needs a retained command/build/device receipt. A screenshot proves appearance, not encryption, billing or delivery correctness. No store submission until the release-blocking gates pass.
 
+## Current verified state — 2026-10-25
+
+The product remains under implementation. The staging API is restricted to two controlled accounts; active release `1fd2e8c3f638a5a0b8698e7b87b4a34d26797503` includes durable recovery and blocking. Both native clients have real encrypted HTTP chat and durable local history. Manual encryption-key comparison is implemented with libsignal; cross-platform numbers, key-bound persistence and Android interactions passed. Final native presentation checks passed; external onboarding checks passed an isolated Android release build with production optimization rules. ARM and complete production flows remain open.
+
+General conversation immersion is still gated. Revision-005 packs cover all 90 directions, but contextual meaning is not accepted. The stricter sentence-cue policy suppresses all replacements in 22 directions in the six-example chat sample on each platform. The E5 dictionary-gloss pilot failed its predeclared English probe. A separate contextual token-alignment pilot selected 325/360 easy authored correspondences with five wrong matches; it also remains unaccepted and unintegrated. The reused FLORES sample is now a regression corpus; untouched acceptance data and broader reading/meaning review remain required.
+
+Physical iPad component checks passed, but Apple's separate XCTest passcode authorization still prevents physical UI automation and Apple model-download/translation proof. App Store Connect requires renewed FallSoft sign-in and Account Holder agreement action. No Vipi store app, subscription product or submission has been created. Production billing, bot, push/relay, replacement/revocation, deletion/reporting, backups, language distribution, load and release-policy checks remain open.
+
 ## Current priority — user directive, 2026-10-24
 
 Demonstrate the core immersion UX across at least ten major languages and every directed pair, including transliteration for non-Roman scripts. Initial qualification set: English, Spanish, French, German, Italian, Portuguese, Arabic, Mandarin Chinese, Japanese and Korean. This is 90 directions per platform, 180 platform/direction combinations. Do not substitute a download/availability check, English-only pivot example or isolated welcome screenshot for this proof. See IMMERSION_ACCEPTANCE.md. Infrastructure work already started is retained, but broader deployment and store work follow this gate.
@@ -19,7 +27,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 
 ## Store readiness review — 2026-10-24
 
-The app is not at the submission stage. Language previews and local component tests must not be described as a complete messaging product. The iPad is now paired, unlocked and available, and a signed build has been installed. SSH signing failed, but building from Terminal in the Mac's interactive login session succeeded without changing keychain permissions. The first physical UI-test launch timed out enabling automation mode; Settings → Developer → Enable UI Automation and any device confirmation remain to be checked.
+The app is not at the submission stage. Language previews and local component tests must not be described as a complete messaging product. The paired iPad has a signed build and has passed eight physical component tests. Interactive Mac signing succeeded without changing keychain permissions. The Developer automation setting is already enabled; the observed remaining barrier is the iPad passcode prompt for XCTest. Ordinary unlocking does not satisfy that separate authorization.
 
 Work that can proceed without the unlocked iPad, in dependency order:
 

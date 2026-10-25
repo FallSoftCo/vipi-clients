@@ -142,6 +142,14 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         try reload()
     }
     func messages(_ peer: UUID, before: String? = nil) throws -> [ChatItem] { try history?.messages(peer: peer, before: before) ?? [] }
+    func securityNumber(_ peer: UUID) throws -> SecurityNumber? {
+        guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        return try core.securityNumber(peer: peer)
+    }
+    func setIdentityVerified(_ verified: Bool, peer: UUID, compared: SecurityNumber) throws {
+        guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        try core.setIdentityVerified(verified, peer: peer, compared: compared); revision += 1
+    }
     func markRead(_ peer: UUID) throws {
         guard threads.contains(where: { $0.peer == peer && $0.unread > 0 }) else { return }
         try history?.markRead(peer); try reload()

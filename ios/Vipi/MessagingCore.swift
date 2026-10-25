@@ -37,6 +37,23 @@ final class MessagingCore {
         local = try ProtocolAddress(name: vault.account.uuidString.lowercased(), deviceId: 1)
     }
     func hasSession(peer: UUID) throws -> Bool { try vault.transaction { try store.loadSession(for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), context: context) != nil } }
+    func securityNumber(peer: UUID) throws -> SecurityNumber? {
+        try vault.transaction { try securityNumberInTransaction(peer: peer) }
+    }
+    private func securityNumberInTransaction(peer: UUID) throws -> SecurityNumber? {
+            guard peer != vault.account,
+                  let remote = try store.identity(for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), context: context) else { return nil }
+            return try SecurityNumber.make(local: vault.account, localKey: store.identityKeyPair(context: context).identityKey,
+                peer: peer, peerKey: remote, receipt: vault.get("identity-verification", peer.uuidString.lowercased()))
+    }
+    func setIdentityVerified(_ verified: Bool, peer: UUID, compared: SecurityNumber) throws {
+        try vault.transaction {
+            guard let current = try securityNumberInTransaction(peer: peer), current.binding == compared.binding,
+                  current.digits == compared.digits else { throw DurableSignalStore.Failure.identityChanged }
+            if verified { try vault.put("identity-verification", peer.uuidString.lowercased(), current.binding) }
+            else { try vault.remove("identity-verification", peer.uuidString.lowercased()) }
+        }
+    }
     func queue(id: UUID, peer: UUID, text: String, createdAt: Int64, now: Int64) throws -> RoutedMessage {
         let envelope = try journal.queue(id: id, recipient: peer, text: text, createdAt: createdAt, now: now) { clear in
             guard let target = try vault.get("peer-device", peer.uuidString.lowercased()) else { throw SignalKeys.Failure.invalidBundle }

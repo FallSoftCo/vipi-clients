@@ -28,6 +28,19 @@ internal class MessagingCore(private val vault: MessageVault) {
     val device = DeviceCredential.load(vault)
     private val local = SignalProtocolAddress(vault.account.toString(), 1)
     fun hasSession(peer: UUID) = vault.transaction { store.containsSession(SignalProtocolAddress(peer.toString(), 1)) }
+    fun securityNumber(peer: UUID): SecurityNumber? = vault.transaction { securityNumberInTransaction(peer) }
+    private fun securityNumberInTransaction(peer: UUID): SecurityNumber? {
+        if (peer == vault.account) return null
+        val remote = store.getIdentity(SignalProtocolAddress(peer.toString(), 1)) ?: return null
+        return SecurityNumber.make(vault.account, store.identityKeyPair.publicKey, peer, remote,
+            vault.get("identity-verification", peer.toString())?.toString(Charsets.UTF_8))
+    }
+    fun setIdentityVerified(verified: Boolean, peer: UUID, compared: SecurityNumber) = vault.transaction {
+        val current = securityNumberInTransaction(peer)
+        check(current != null && current.binding == compared.binding && current.digits == compared.digits) { "Encryption identity changed; compare again" }
+        if (verified) vault.put("identity-verification", peer.toString(), current.binding.toByteArray(Charsets.UTF_8))
+        else vault.remove("identity-verification", peer.toString())
+    }
     fun queue(id: UUID, peer: UUID, text: String, createdAt: Long, now: Long): RoutedMessage {
         val envelope = journal.queue(id, peer, text, createdAt, now) { clear ->
             val target = requireNotNull(vault.get("peer-device", peer.toString())) { "Recipient keys required" }

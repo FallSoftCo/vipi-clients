@@ -1,4 +1,5 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
+val qualifyRelease = providers.gradleProperty("vipiReleaseQualification").map { it.toBooleanStrict() }.getOrElse(false)
 android {
     namespace = "co.fallsoft.vipi"
     compileSdk = 36
@@ -12,6 +13,8 @@ android {
     }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17; isCoreLibraryDesugaringEnabled = true }
     buildFeatures { compose = true; buildConfig = true }
+    // Opt-in, separately installed qualification of the optimized release path.
+    // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "WORKOS_CLIENT_ID", "\"client_01M5QPQSVXQDEJGQ1CYZ75MSGS\"")
@@ -22,6 +25,11 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (qualifyRelease) {
+                applicationIdSuffix = ".qualification"
+                signingConfig = signingConfigs.getByName("debug")
+                providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
+            }
         }
     }
     sourceSets.getByName("main").assets.srcDir("../../data/examples")

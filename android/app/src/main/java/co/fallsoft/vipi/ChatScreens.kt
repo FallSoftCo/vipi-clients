@@ -66,6 +66,7 @@ import java.util.UUID
     var options by remember(peer) { mutableStateOf(false) }
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
+    var showSecurityNumber by remember(peer) { mutableStateOf(false) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
@@ -102,6 +103,7 @@ import java.util.UUID
                         else Icon(Icons.Outlined.MoreVert, "Conversation options")
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
+                        DropdownMenuItem(text = { Text("Verify encryption") }, onClick = { options = false; showSecurityNumber = true })
                         DropdownMenuItem(text = { Text(if (blocked) "Unblock" else "Block") }, onClick = { options = false; confirmBlock = true })
                     }
                 }
@@ -159,6 +161,7 @@ import java.util.UUID
             }
         }
     }
+    if (showSecurityNumber) SecurityNumberSheet(chat, peer, dismiss = { showSecurityNumber = false })
     if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
         title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
         text = { Text(if (blocked) "You can exchange new messages again. Stopped messages won’t be resent." else "Messages between you will stop. Your chat stays on this device. You can unblock anytime.") },
