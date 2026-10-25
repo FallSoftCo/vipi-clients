@@ -69,9 +69,11 @@ internal class MessageJournal(private val vault: MessageVault) {
         envelope
         }
     }
-    fun receive(envelope: ChatEnvelope, now: Long, decrypt: (Int, ByteArray) -> ByteArray): StoredChat = vault.transaction {
+    fun receive(envelope: ChatEnvelope, now: Long, decrypt: (Int, ByteArray) -> ByteArray): StoredChat = receive(envelope, now, {}, decrypt)
+    fun receive(envelope: ChatEnvelope, now: Long, validateRoute: () -> Unit, decrypt: (Int, ByteArray) -> ByteArray): StoredChat = vault.transaction {
         require(now >= 0)
         require(envelope.recipient == vault.account && envelope.type in setOf(2, 3) && envelope.ciphertext.size in 32..65536)
+        validateRoute()
         vault.get("incoming", envelope.id.toString())?.let {
             val saved = StoredChat.parse(it)
             require(saved.envelope.fingerprint().contentEquals(envelope.fingerprint())) { "Message ID conflict" }

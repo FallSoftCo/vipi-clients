@@ -3,10 +3,10 @@ import hmac
 import re
 from datetime import datetime
 
-from sqlalchemy import or_, select, update
+from sqlalchemy import delete, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .db import Block, Device, PendingMessage, User
+from .db import Block, Device, PendingMessage, PublicBundle, PublicPreKey, User
 from .delivery import DeliveryError
 
 
@@ -51,6 +51,8 @@ async def register_device(session: AsyncSession, *, user_id: str, device_id: str
         raise DeliveryError("device_replacement_confirmation_required", 409)
     for device in previous:
         device.active = False
+        await session.execute(delete(PublicPreKey).where(PublicPreKey.device_id == device.id))
+        await session.execute(delete(PublicBundle).where(PublicBundle.device_id == device.id))
         # Never redirect ciphertext encrypted for an old identity to a new one.
         await session.execute(update(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
             PendingMessage.state == "accepted").values(ciphertext=None, state="identity_changed"))

@@ -59,6 +59,16 @@ Android stores files under noBackupFilesDir with app backups disabled. iOS exclu
 
 This implementation is not yet connected to the real conversation UI or a production transport. Delivery workers, scheduling/backoff, unread/paging, receipt retry behavior, transactional identity replacement, storage migration and full encrypted backup/restore remain release gates.
 
+## Public key directory and native HTTP integration
+
+The control API now stores only public Signal identity/signed/prekeys. A publication contains at most 20 paired classical/Kyber1024 one-time keys, with a pool cap of 200. Revision and increasing key-ID checks prevent a retried upload from restoring consumed keys. Claim allocation and deletion share a PostgreSQL transaction; request-ID retries return the same bundle for ten minutes. Claim metadata expires after 72 hours when the cleanup function is scheduled. Blocking and device replacement use the same ordered user locks. Device replacement clears the old public pool; an ORM identity-map revocation race was explicitly reproduced and fixed.
+
+Both native clients commit private prekeys and the pending upload before network work, rotate the signed key on a new publication after seven days, and verify incoming signatures with official libsignal. Private unused/retired-key cleanup is not yet implemented; do not claim a complete key lifecycle. Exhausted pools refuse new session establishment instead of falling back to reused or classical-only keys. Existing sessions can continue. Session establishment records the claimed device and a semantic bundle digest atomically, so a retried claim cannot reset an existing ratchet.
+
+`MessagingCore` binds the persisted message to its original recipient device, validates incoming device routing inside the receive transaction, and uses the native journal for cryptographic operations. `ServiceClient` has no redirect following or response cache; its production path requires HTTPS. A debug-only loopback HTTP exception supports isolated QA. No credentials or plaintext message logs are added. WorkOS refresh is serialized and bound to the original account/session generation; stale responses after sign-out/account changes cannot restore the prior account. Actual refresh and API authentication passed on both platforms. Provider session revocation, logout and browser callback completion still need end-to-end release tests.
+
+The first real native network qualification used this HTTP data path with a real WorkOS verifier and isolated PostgreSQL, reached through private SSH/ADB forwards. It proves neither production TLS nor ejabberd/push/background behavior. The temporary service, forwards and database were removed after all four messages were delivered and their server ciphertexts cleared. Real conversation UI and production relay/event integration remain required.
+
 ## Local immersion pipeline
 
 Original message -> language detection -> whole-sentence/paragraph local translation -> local word/phrase alignment against a licensed bilingual pack -> conservative candidate filtering -> density/familiarity selection -> attributed visible spans.

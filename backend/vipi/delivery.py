@@ -28,17 +28,20 @@ class Envelope:
     recipient_device_id: str
     created_at: datetime
     ciphertext: bytes
+    cipher_type: int = 2
 
 
 def fingerprint(envelope: Envelope) -> str:
     metadata = json.dumps([envelope.id, envelope.sender_id, envelope.sender_device_id,
-        envelope.recipient_id, envelope.recipient_device_id, utc(envelope.created_at).isoformat()], separators=(",", ":")).encode()
+        envelope.recipient_id, envelope.recipient_device_id, utc(envelope.created_at).isoformat(), envelope.cipher_type], separators=(",", ":")).encode()
     return hashlib.sha256(metadata + b"\0" + envelope.ciphertext).hexdigest()
 
 
 async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, max_bytes: int = 65536, max_pending: int = 10000) -> PendingMessage:
     """Caller owns the transaction. Lock recipient before checking its queue cap."""
     now, sent = utc(now), utc(envelope.created_at)
+    if type(envelope.cipher_type) is not int or envelope.cipher_type not in (2, 3):
+        raise DeliveryError("invalid_cipher_type")
     if len(envelope.ciphertext) < 32 or len(envelope.ciphertext) > max_bytes:
         raise DeliveryError("invalid_ciphertext_size")
     if sent > now + timedelta(minutes=5):
@@ -54,7 +57,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     recipient = available.get(envelope.recipient_id)
     if recipient is None:
         raise DeliveryError("recipient_unavailable", 404)
-    sender_device = await session.get(Device, envelope.sender_device_id)
+    sender_device = await session.get(Device, envelope.sender_device_id, populate_existing=True)
     if not sender_device or not sender_device.active or sender_device.user_id != envelope.sender_id:
         raise DeliveryError("device_revoked", 401)
     existing = (await session.execute(select(PendingMessage).where(PendingMessage.id == envelope.id).with_for_update())).scalar_one_or_none()
@@ -66,7 +69,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
         return existing
     if sent + timedelta(hours=72) <= now:
         raise DeliveryError("message_expired", 410)
-    device = await session.get(Device, envelope.recipient_device_id)
+    device = await session.get(Device, envelope.recipient_device_id, populate_existing=True)
     if not device or not device.active or device.user_id != envelope.recipient_id:
         raise DeliveryError("recipient_identity_changed", 409)
     block = (await session.execute(select(Block).where(or_(
@@ -85,7 +88,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     item = PendingMessage(id=envelope.id, sender_id=envelope.sender_id, sender_device_id=envelope.sender_device_id,
         recipient_id=envelope.recipient_id, recipient_device_id=envelope.recipient_device_id, created_at=sent,
         accepted_at=now, expires_at=min(sent, now) + timedelta(hours=72), ciphertext=envelope.ciphertext,
-        fingerprint=digest, state="accepted")
+        fingerprint=digest, state="accepted", cipher_type=envelope.cipher_type)
     session.add(item)
     await session.flush()
     return item

@@ -39,10 +39,14 @@ struct VipiSession: Codable, Sendable {
 private struct PendingSignIn: Codable { let state: String; let verifier: String; let createdAt: Date }
 
 @MainActor @Observable final class AuthenticationManager: NSObject, ASWebAuthenticationPresentationContextProviding {
+    enum SessionFailure: Error { case signInRequired, accountChanged }
     private(set) var session: VipiSession?
     private(set) var busy = false
     var errorMessage: String?
     private var webSession: ASWebAuthenticationSession?
+    private var refreshTask: Task<String, Error>?
+    private var refreshID = UUID()
+    private var sessionGeneration = UUID()
     private let callback = "co.fallsoft.vipi://auth/callback"
     private var client: PublicClient? {
         guard let id = Bundle.main.object(forInfoDictionaryKey: "WorkOSClientID") as? String, id.hasPrefix("client_") else { return nil }
@@ -104,10 +108,35 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
             let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
             let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
+            sessionGeneration = UUID()
             session = value
         } catch { errorMessage = "We couldn’t finish signing in. Please try again." }
     }
+    /// Refresh only after the service rejects this exact access token. Concurrent
+    /// requests share one exchange; an old response cannot restore a signed-out
+    /// session or attach a newly signed-in account to the old account's vault.
+    func accessToken(for userID: String, rejected: String? = nil) async throws -> String {
+        guard let current = session, current.userID == userID, let client else { throw SessionFailure.signInRequired }
+        guard let rejected, rejected == current.accessToken else { return current.accessToken }
+        if let refreshTask { return try await refreshTask.value }
+        let generation = sessionGeneration, id = UUID()
+        refreshID = id
+        let task = Task { @MainActor [self] () throws -> String in
+            let result = try await client.authenticateWithRefreshToken(refreshToken: current.refreshToken)
+            try Task.checkCancellation()
+            guard sessionGeneration == generation, session?.refreshToken == current.refreshToken,
+                result.user.id == userID else { throw SessionFailure.accountChanged }
+            let value = VipiSession(userID: userID, accessToken: result.accessToken, refreshToken: result.refreshToken)
+            try KeychainStore.save(JSONEncoder().encode(value), account: "session")
+            session = value
+            return value.accessToken
+        }
+        refreshTask = task
+        defer { if refreshID == id { refreshTask = nil } }
+        return try await task.value
+    }
     func signOutLocally() {
+        sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil
         webSession?.cancel(); webSession = nil; session = nil; busy = false
         KeychainStore.delete(account: "session"); KeychainStore.delete(account: "pending-sign-in")
     }

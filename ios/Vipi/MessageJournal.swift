@@ -93,9 +93,10 @@ final class MessageJournal {
             return envelope
         }
     }
-    func receive(_ envelope: ChatEnvelope, now: Int64, decrypt: (Int, Data) throws -> Data) throws -> StoredChat {
+    func receive(_ envelope: ChatEnvelope, now: Int64, validateRoute: () throws -> Void = {}, decrypt: (Int, Data) throws -> Data) throws -> StoredChat {
         try vault.transaction {
             guard envelope.recipient == vault.account, [2, 3].contains(envelope.type), (32...65536).contains(envelope.ciphertext.count) else { throw Failure.invalidMessage }
+            try validateRoute()
             if let bytes = try vault.get("incoming", key(envelope.id)) {
                 let saved = try decoder.decode(StoredChat.self, from: bytes)
                 guard saved.envelope.fingerprint() == envelope.fingerprint() else { throw Failure.conflict }

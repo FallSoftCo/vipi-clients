@@ -11,9 +11,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.workos.android.helpers.PublicClient
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 import java.security.KeyStore
+import java.util.UUID
+import java.util.concurrent.TimeUnit
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -59,9 +69,14 @@ internal class PrivateRecords(context: Context) {
 }
 
 class Authentication(context: Context) {
+    class SignInRequired : Exception("Sign-in required")
     private val records = PrivateRecords(context)
     private val callback = "co.fallsoft.vipi://auth/callback"
     private val client get() = PublicClient.create(BuildConfig.WORKOS_CLIENT_ID)
+    private val refreshLock = Mutex()
+    private var generation = UUID.randomUUID()
+    private val refreshHTTP = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
+        .retryOnConnectionFailure(false).callTimeout(20, TimeUnit.SECONDS).build()
     var userID by mutableStateOf(runCatching { records.read("session")?.getString("userID") }.getOrNull())
         private set
     var busy by mutableStateOf(false)
@@ -94,10 +109,37 @@ class Authentication(context: Context) {
             val code = requireNotNull(uri.getQueryParameters("code").singleOrNull()?.takeIf { it.isNotBlank() })
             val result = client.authenticateWithCode(code, pending.getString("verifier"))
             records.write("session", JSONObject().put("userID", result.user.id).put("accessToken", result.accessToken).put("refreshToken", result.refreshToken))
+            generation = UUID.randomUUID()
             userID = result.user.id
         } catch (error: CancellationException) { throw error }
         catch (_: Exception) { error = "We couldn’t verify this sign-in. Please start again." }
         finally { busy = false }
     }
-    fun signOutLocally() { records.remove("session"); records.remove("pending-sign-in"); userID = null }
+    suspend fun accessToken(expectedUser: String, rejected: String? = null): String = withContext(Dispatchers.Main.immediate) {
+        refreshLock.withLock {
+            val current = records.read("session") ?: throw SignInRequired()
+            if (current.getString("userID") != expectedUser || userID != expectedUser) throw SignInRequired()
+            val token = current.getString("accessToken")
+            if (rejected == null || token != rejected) return@withLock token
+            val started = generation
+            // The pinned Android SDK has no public-client refresh helper. Use
+            // WorkOS's public refresh endpoint without any client secret.
+            val body = JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID).put("grant_type", "refresh_token")
+                .put("refresh_token", current.getString("refreshToken")).toString().toRequestBody("application/json".toMediaType())
+            val result = withContext(Dispatchers.IO) {
+                refreshHTTP.newCall(Request.Builder().url("https://api.workos.com/user_management/authenticate").post(body).build()).execute().use { response ->
+                    if (response.code in setOf(400, 401, 403)) throw SignInRequired()
+                    if (!response.isSuccessful) throw java.io.IOException("Sign-in service unavailable")
+                    val source = requireNotNull(response.body).source()
+                    source.request(65_537); require(source.buffer.size <= 65_536)
+                    JSONObject(source.readUtf8())
+                }
+            }
+            if (generation != started || userID != expectedUser || result.getJSONObject("user").getString("id") != expectedUser) throw SignInRequired()
+            val next = JSONObject().put("userID", expectedUser).put("accessToken", result.getString("access_token")).put("refreshToken", result.getString("refresh_token"))
+            records.write("session", next)
+            next.getString("accessToken")
+        }
+    }
+    fun signOutLocally() { generation = UUID.randomUUID(); records.remove("session"); records.remove("pending-sign-in"); userID = null }
 }

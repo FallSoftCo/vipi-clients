@@ -38,6 +38,7 @@ class PendingMessage(Base):
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     accepted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     ciphertext: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+    cipher_type: Mapped[int] = mapped_column(Integer)
     fingerprint: Mapped[str] = mapped_column(String(64))
     state: Mapped[str] = mapped_column(String(16), default="accepted")
     __table_args__ = (Index("inbox_pending", "recipient_device_id", "state", "accepted_at"),)
@@ -47,6 +48,38 @@ class Block(Base):
     __tablename__ = "blocks"
     blocker_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
     blocked_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
+
+
+class PublicBundle(Base):
+    __tablename__ = "public_bundles"
+    device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    registration_id: Mapped[int] = mapped_column(Integer)
+    identity_key: Mapped[bytes] = mapped_column(LargeBinary)
+    signed_key_id: Mapped[int] = mapped_column(Integer)
+    signed_key: Mapped[bytes] = mapped_column(LargeBinary)
+    signed_signature: Mapped[bytes] = mapped_column(LargeBinary)
+    revision: Mapped[int] = mapped_column(Integer)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    high_key_id: Mapped[int] = mapped_column(Integer)
+
+
+class PublicPreKey(Base):
+    __tablename__ = "public_prekeys"
+    device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    key_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ec_key: Mapped[bytes] = mapped_column(LargeBinary)
+    kem_key: Mapped[bytes] = mapped_column(LargeBinary)
+    kem_signature: Mapped[bytes] = mapped_column(LargeBinary)
+
+
+class KeyClaim(Base):
+    __tablename__ = "key_claims"
+    requester_device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    recipient_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    recipient_device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    response: Mapped[bytes] = mapped_column(LargeBinary)
 
 
 class Entitlement(Base):

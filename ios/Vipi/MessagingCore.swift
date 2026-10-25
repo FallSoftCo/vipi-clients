@@ -1,0 +1,67 @@
+import Foundation
+import LibSignalClient
+
+struct RoutedMessage {
+    let envelope: ChatEnvelope; let senderDevice: UUID; let recipientDevice: UUID
+    func sendData() throws -> Data {
+        let date = ISO8601DateFormatter(); date.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return try JSONSerialization.data(withJSONObject: ["id": envelope.id.uuidString.lowercased(), "recipient_id": envelope.recipient.uuidString.lowercased(),
+            "recipient_device_id": recipientDevice.uuidString.lowercased(), "created_at": date.string(from: Date(timeIntervalSince1970: Double(envelope.createdAt) / 1000)),
+            "cipher_type": envelope.type, "ciphertext": envelope.ciphertext.base64EncodedString()])
+    }
+    struct Received: Decodable {
+        let id: UUID; let sender_id: UUID; let sender_device_id: UUID; let recipient_device_id: UUID
+        let created_at: String; let cipher_type: Int; let ciphertext: Data
+        func routed(account: UUID) throws -> RoutedMessage {
+            let parser = ISO8601DateFormatter(); parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            var date = parser.date(from: created_at)
+            if date == nil { parser.formatOptions = [.withInternetDateTime]; date = parser.date(from: created_at) }
+            guard let date, date.timeIntervalSince1970 >= 0, date.timeIntervalSince1970 < 10_000_000_000 else { throw MessageJournal.Failure.invalidMessage }
+            return RoutedMessage(envelope: ChatEnvelope(id: id, sender: sender_id, recipient: account,
+                createdAt: Int64((date.timeIntervalSince1970 * 1000).rounded()), type: cipher_type, ciphertext: ciphertext), senderDevice: sender_device_id, recipientDevice: recipient_device_id)
+        }
+    }
+}
+
+final class MessagingCore {
+    private let vault: MessageVault
+    let store: DurableSignalStore
+    let keys: SignalKeys
+    let journal: MessageJournal
+    let device: DeviceCredential
+    private let local: ProtocolAddress
+    private let context = NullContext()
+    init(vault: MessageVault) throws {
+        self.vault = vault; store = try DurableSignalStore(vault: vault)
+        keys = SignalKeys(store: store); journal = MessageJournal(vault: vault); device = try DeviceCredential.load(vault: vault)
+        local = try ProtocolAddress(name: vault.account.uuidString.lowercased(), deviceId: 1)
+    }
+    func hasSession(peer: UUID) throws -> Bool { try vault.transaction { try store.loadSession(for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), context: context) != nil } }
+    func queue(id: UUID, peer: UUID, text: String, createdAt: Int64, now: Int64) throws -> RoutedMessage {
+        let envelope = try journal.queue(id: id, recipient: peer, text: text, createdAt: createdAt, now: now) { clear in
+            guard let target = try vault.get("peer-device", peer.uuidString.lowercased()) else { throw SignalKeys.Failure.invalidBundle }
+            let encrypted = try signalEncrypt(message: clear, for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), localAddress: local, sessionStore: store, identityStore: store, context: context)
+            try vault.put("outgoing-route", id.uuidString.lowercased(), target)
+            return (Int(encrypted.messageType.rawValue), encrypted.serialize())
+        }
+        let target = try vault.transaction {
+            guard let data = try vault.get("outgoing-route", id.uuidString.lowercased()), let uuid = UUID(uuidString: String(decoding: data, as: UTF8.self)) else { throw MessageJournal.Failure.invalidMessage }
+            return uuid
+        }
+        return RoutedMessage(envelope: envelope, senderDevice: device.id, recipientDevice: target)
+    }
+    func receive(_ value: RoutedMessage, now: Int64) throws -> StoredChat {
+        guard value.recipientDevice == device.id else { throw MessageJournal.Failure.invalidMessage }
+        let peer = value.envelope.sender.uuidString.lowercased(), sender = Data(value.senderDevice.uuidString.lowercased().utf8)
+        return try journal.receive(value.envelope, now: now, validateRoute: {
+            if let stored = try vault.get("peer-device", peer), stored != sender { throw DurableSignalStore.Failure.identityChanged }
+            if let stored = try vault.get("incoming-route", value.envelope.id.uuidString.lowercased()), stored != sender { throw MessageJournal.Failure.conflict }
+        }) { type, bytes in
+            let address = try ProtocolAddress(name: peer, deviceId: 1), clear: Data
+            if type == 3 { clear = try signalDecryptPreKey(message: PreKeySignalMessage(bytes: bytes), from: address, localAddress: local, sessionStore: store, identityStore: store, preKeyStore: store, signedPreKeyStore: store, kyberPreKeyStore: store, context: context) }
+            else { clear = try signalDecrypt(message: SignalMessage(bytes: bytes), from: address, to: local, sessionStore: store, identityStore: store, context: context) }
+            try vault.put("peer-device", peer, sender); try vault.put("incoming-route", value.envelope.id.uuidString.lowercased(), sender)
+            return clear
+        }
+    }
+}

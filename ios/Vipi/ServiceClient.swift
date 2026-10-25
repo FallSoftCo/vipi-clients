@@ -1,0 +1,70 @@
+import Foundation
+import Security
+
+struct DeviceCredential: Codable, Sendable {
+    let id: UUID; let secret: String
+    static func load(vault: MessageVault) throws -> Self {
+        try vault.transaction {
+            if let data = try vault.get("local", "service-device") { return try JSONDecoder().decode(Self.self, from: data) }
+            var bytes = [UInt8](repeating: 0, count: 32)
+            guard SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) == errSecSuccess else { throw MessageVault.Failure.invalidRecord }
+            let secret = Data(bytes).base64EncodedString().replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
+            let result = Self(id: UUID(), secret: secret)
+            try vault.put("local", "service-device", JSONEncoder().encode(result))
+            return result
+        }
+    }
+}
+
+struct ServiceFailure: Error { let status: Int; let code: String }
+private struct ServiceErrorBody: Decodable { let error: String }
+private final class NoServiceRedirects: NSObject, URLSessionTaskDelegate, Sendable {
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
+                    newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) { completionHandler(nil) }
+}
+
+@MainActor final class ServiceClient {
+    private let authentication: AuthenticationManager
+    let userID: String
+    private let endpoint: URL
+    private let http: URLSession
+    init(authentication: AuthenticationManager, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!) throws {
+        var permitted = endpoint.scheme == "https"
+        #if DEBUG
+        permitted = permitted || (endpoint.scheme == "http" && endpoint.host == "127.0.0.1")
+        #endif
+        guard permitted, endpoint.user == nil, endpoint.password == nil, endpoint.query == nil, endpoint.fragment == nil,
+            endpoint.path.isEmpty || endpoint.path == "/" else { throw ServiceFailure(status: 0, code: "invalid_service_address") }
+        self.authentication = authentication; self.userID = userID; self.endpoint = endpoint
+        let config = URLSessionConfiguration.ephemeral
+        config.urlCache = nil; config.httpCookieStorage = nil; config.timeoutIntervalForRequest = 25; config.timeoutIntervalForResource = 30
+        http = URLSession(configuration: config, delegate: NoServiceRedirects(), delegateQueue: nil)
+    }
+    deinit { http.invalidateAndCancel() }
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil, device: DeviceCredential? = nil, as type: T.Type = T.self) async throws -> T {
+        guard path.hasPrefix("/v1/"), !path.contains(".."), !path.contains("?"), !path.contains("#"), let url = URL(string: path, relativeTo: endpoint)?.absoluteURL else { throw ServiceFailure(status: 0, code: "invalid_request") }
+        var token = try await authentication.accessToken(for: userID)
+        for attempt in 0...1 {
+            var request = URLRequest(url: url); request.httpMethod = method; request.httpBody = body
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            if body != nil { request.setValue("application/json", forHTTPHeaderField: "Content-Type") }
+            if let device {
+                request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID")
+                request.setValue(device.secret, forHTTPHeaderField: "X-Vipi-Device-Secret")
+            }
+            let (stream, response) = try await http.bytes(for: request)
+            guard let response = response as? HTTPURLResponse, response.expectedContentLength <= 12_000_000 else { throw ServiceFailure(status: 0, code: "invalid_response") }
+            var data = Data()
+            for try await byte in stream {
+                guard data.count < 12_000_000 else { throw ServiceFailure(status: 0, code: "response_too_large") }
+                data.append(byte)
+            }
+            if (200...299).contains(response.statusCode) { return try JSONDecoder().decode(T.self, from: data) }
+            let code = (try? JSONDecoder().decode(ServiceErrorBody.self, from: data).error) ?? "service_unavailable"
+            if attempt == 0, response.statusCode == 401, code == "sign_in_required" { token = try await authentication.accessToken(for: userID, rejected: token) }
+            else { throw ServiceFailure(status: response.statusCode, code: code) }
+        }
+        throw AuthenticationManager.SessionFailure.signInRequired
+    }
+}

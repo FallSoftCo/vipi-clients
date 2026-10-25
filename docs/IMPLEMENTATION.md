@@ -19,7 +19,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 
 ## Store readiness review — 2026-10-24
 
-The app is not at the submission stage. Language previews and local component tests must not be described as a complete messaging product. The iPad was rechecked and remains unavailable through CoreDevice; locked/untrusted hardware and signing-key access affect physical validation, not the work below.
+The app is not at the submission stage. Language previews and local component tests must not be described as a complete messaging product. The iPad is now paired, unlocked and available, and a signed build has been installed. SSH signing failed, but building from Terminal in the Mac's interactive login session succeeded without changing keychain permissions. The first physical UI-test launch timed out enabling automation mode; Settings → Developer → Enable UI Automation and any device confirmation remain to be checked.
 
 Work that can proceed without the unlocked iPad, in dependency order:
 
@@ -61,6 +61,15 @@ Recovery design review: [Mobbin's Family flow](https://mobbin.com/flows/58bd7e53
 - [x] Bind encrypted message metadata; persist incoming text/deduplication before acknowledging.
 - [x] Prove transaction rollback, concurrent writers, cross-platform exchange through fixture transport, out-of-order replies, corruption rejection and abrupt process termination.
 - [ ] Connect the foundation to prekey distribution, the real relay, background workers, identity replacement, backup/restore and conversation UI. Fixture transport is not a real messaging launch.
+
+### Native HTTP path now qualified
+
+- [x] Public-only prekey directory with bounded pools, monotonic publication revisions/IDs, atomic one-time allocation, exact claim retries, block/replacement enforcement and no classical-only downgrade on exhaustion.
+- [x] Native private-key generation and durable pending publication; official libsignal verifies signatures before establishing a session. Replaying the same claim cannot reset a ratchet.
+- [x] Account-bound HTTPS service clients and serialized WorkOS public-client refresh. Actual expired-token recovery passed on both native platforms; no client secret ships in either app.
+- [x] Real iOS → API/PostgreSQL → Android encrypted delivery, three Android replies received out of order on iOS, vault reopening, route-tamper rejection, application receipts and duplicate sends after delivery. All four server ciphertexts were cleared after receipts.
+- [ ] Production TLS, ejabberd event/relay integration, push, reconnect/background scheduling, transport load testing, immediate session revocation, prekey retirement and identity-change UI. The qualified HTTP service used temporary private SSH/ADB forwards and real WorkOS verification; it was removed after testing.
+- [ ] Connect the qualified messaging core to actual profile onboarding, chat list, composer and conversation screens. Native network tests are not a completed chat app.
 
 ## 3. Native product
 

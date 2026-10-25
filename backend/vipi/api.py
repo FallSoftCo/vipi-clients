@@ -4,7 +4,7 @@ import time
 import unicodedata
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
-from typing import Annotated
+from typing import Annotated, Literal
 from uuid import UUID, uuid4
 
 from fastapi import Depends, FastAPI, Header, Request
@@ -20,6 +20,7 @@ from .config import Settings
 from .db import Block, Database, Device, PendingMessage, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
+from .prekeys import PublishInput, claim, inventory, publish
 
 
 class BodyLimit:
@@ -77,11 +78,16 @@ class SendInput(Input):
     recipient_id: UUID
     recipient_device_id: UUID
     created_at: AwareDatetime
+    cipher_type: Literal[2, 3]
     ciphertext: str = Field(min_length=44, max_length=87_384, repr=False)
 
 
 class BlockInput(Input):
     blocked: bool
+
+
+class ClaimInput(Input):
+    request_id: UUID
 
 
 def profile(user):
@@ -213,6 +219,31 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
                 raise DeliveryError("person_not_found", 404)
             return profile(other)
 
+    @app.put("/v1/keys")
+    async def publish_keys(body: PublishInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "key-publication", 30)
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            device = await phone_for(session, request, user)
+            return await publish(session, user_id=user.id, device_id=device.id, body=body)
+
+    @app.get("/v1/keys")
+    async def own_keys(request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "key-inventory", 30)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            device = await phone_for(session, request, user)
+            return await inventory(session, device.id)
+
+    @app.post("/v1/people/{recipient_id}/keys")
+    async def claim_keys(recipient_id: UUID, body: ClaimInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "key-claim", 30)
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            device = await phone_for(session, request, user)
+            return await claim(session, user_id=user.id, device_id=device.id, recipient_id=str(recipient_id),
+                request_id=str(body.request_id), now=now())
+
     @app.post("/v1/messages")
     async def send(body: SendInput, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "send", 120)
@@ -224,7 +255,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
             user = await user_for(session, p)
             device = await phone_for(session, request, user)
             value = await accept(session, Envelope(str(body.id), user.id, device.id, str(body.recipient_id),
-                str(body.recipient_device_id), body.created_at, ciphertext), now=now(),
+                str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type), now=now(),
                 max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
             return message_status(value)
 
@@ -238,7 +269,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
             items = (await session.execute(select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now()).order_by(PendingMessage.accepted_at, PendingMessage.id).limit(100))).scalars().all()
             return {"messages": [message_status(item) | {"sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
-                "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(),
+                "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(), "cipher_type": item.cipher_type,
                 "ciphertext": base64.b64encode(item.ciphertext).decode()} for item in items]}
 
     @app.get("/v1/messages/{message_id}")

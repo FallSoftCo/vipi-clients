@@ -58,7 +58,7 @@ async def test_delivery_receipt_and_cross_account_access(api):
     bob, bob_device, bob_headers = await identity(api, "bob")
     _, _, eve_headers = await identity(api, "eve")
     envelope = {"id": str(uuid4()), "recipient_id": bob["id"], "recipient_device_id": bob_device,
-                "created_at": NOW.isoformat(), "ciphertext": base64.b64encode(b"opaque fixture, not real encryption" * 2).decode()}
+                "created_at": NOW.isoformat(), "cipher_type": 3, "ciphertext": base64.b64encode(b"opaque fixture, not real encryption" * 2).decode()}
     response = await api.post("/v1/messages", headers=alice_headers, json=envelope)
     assert response.status_code == 200 and response.json()["state"] == "accepted"
     assert (await api.post("/v1/messages", headers=alice_headers, json=envelope)).json() == response.json()
