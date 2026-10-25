@@ -33,6 +33,7 @@ ENVIRONMENT='environment_01M5S2CDCTMYJ46EBGXYWS5KBC'
 OWNER='01a16e0d-ac69-7dd0-872a-8cf087160515'
 ENV_FILE=Path('/etc/vipi/service.env')
 UNIT=Path('/etc/systemd/system/vipi-api.service')
+EXPIRY_UNIT=Path('/etc/systemd/system/vipi-expiry.service')
 NGINX=Path('/etc/nginx/sites-available/vipi-api')
 
 
@@ -141,9 +142,9 @@ def main(args):
             'created_at':datetime.now(UTC).isoformat(),'state':'preparing','protected_before':protected(),'steps':[]}
         save(receipt)
         try:
-            for source,name in [(ENV_FILE,'old.env'),(UNIT,'old.service'),(NGINX,'old.nginx')]:
+            for source,name in [(ENV_FILE,'old.env'),(UNIT,'old.service'),(EXPIRY_UNIT,'old.expiry'),(NGINX,'old.nginx')]:
                 shutil.copyfile(source,BASE/name);(BASE/name).chmod(0o600)
-            receipt['old_hashes']={str(p):digest(p) for p in [ENV_FILE,UNIT,NGINX]};save(receipt)
+            receipt['old_hashes']={str(p):digest(p) for p in [ENV_FILE,UNIT,EXPIRY_UNIT,NGINX]};save(receipt)
             (BASE/'new.nginx').write_text((new/'ops/nginx-api-http.conf').read_text()+'\n'+(new/'ops/nginx-api-https.conf').read_text())
             require('root /var/lib/vipi-acme;' in (BASE/'new.nginx').read_text(),'ACME webroot missing')
             sql(f'CREATE DATABASE {DATABASE} OWNER vipi_owner')
@@ -205,6 +206,7 @@ def main(args):
             run(['systemctl','stop','vipi-api.service'])
             install_file(BASE/'new.env',ENV_FILE,0o640,group)
             install_file(new/'ops/vipi-api.service',UNIT)
+            install_file(new/'ops/vipi-expiry.service',EXPIRY_UNIT)
             install_file(BASE/'new.nginx',NGINX)
             run(['nginx','-t']);activate_link(new);run(['systemctl','daemon-reload'])
             run(['systemctl','start','vipi-api.service']);await_ready(48943)
@@ -229,7 +231,7 @@ def main(args):
                 receipt['state']='repair_required_deletion_work_preserved';save(receipt)
                 run(['systemctl','start','vipi-expiry.timer']);raise
             run(['systemctl','stop','vipi-api.service','vipi-expiry.timer'])
-            install_file(BASE/'old.env',ENV_FILE,0o640,group);install_file(BASE/'old.service',UNIT);install_file(BASE/'old.nginx',NGINX)
+            install_file(BASE/'old.env',ENV_FILE,0o640,group);install_file(BASE/'old.service',UNIT);install_file(BASE/'old.expiry',EXPIRY_UNIT);install_file(BASE/'old.nginx',NGINX)
             run(['nginx','-t']);activate_link(old);run(['systemctl','daemon-reload']);run(['systemctl','start','vipi-api.service'])
             await_ready(48943);run(['systemctl','reload','nginx.service']);run(['systemctl','start','vipi-expiry.timer'])
             receipt['state']='rolled_back_verified';save(receipt);raise

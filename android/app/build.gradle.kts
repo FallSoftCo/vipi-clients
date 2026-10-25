@@ -17,7 +17,7 @@ android {
     // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "WORKOS_CLIENT_ID", "\"client_01M5QPQSVXQDEJGQ1CYZ75MSGS\"")
+            buildConfigField("String", "WORKOS_CLIENT_ID", "\"client_01M5S2CDSQ8F7FEX26G3CY9VS1\"")
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
         getByName("release") {

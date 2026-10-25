@@ -57,7 +57,7 @@ targets:
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
       configs:
         Debug:
-          WORKOS_CLIENT_ID: client_01M5QPQSVXQDEJGQ1CYZ75MSGS
+          WORKOS_CLIENT_ID: client_01M5S2CDSQ8F7FEX26G3CY9VS1
         Release:
           WORKOS_CLIENT_ID: ''
   VipiCryptoTests:

@@ -1,6 +1,6 @@
 [Unit]
-Description=Vipi expired ciphertext and metadata cleanup
-After=postgresql.service
+Description=Vipi expired ciphertext, metadata and identity cleanup
+After=postgresql.service network-online.target
 
 [Service]
 Type=oneshot
@@ -15,7 +15,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-RestrictAddressFamilies=AF_UNIX
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 CapabilityBoundingSet=
 MemoryMax=128M
-TimeoutStartSec=45
+TimeoutStartSec=135
