@@ -38,7 +38,7 @@ The first prototype's dictionary/translation-presence heuristic has no broad qua
 
 ## Platform limitation to resolve
 
-Apple Translation cannot run in an iOS simulator. Actual Mac provider execution now covers 90 directions: 540 authored inputs and 2,880 fixed FLORES inputs. Network access remained available; these captures are neither offline verification nor physical iOS execution. iOS simulator alignment on those captured outputs is separately identified and source-hashed. Physical iPad UI automation remains blocked by Apple's separate XCTest passcode challenge, despite the ordinary device lock being unlocked. Actual iPad translation execution and offline behavior still need proof; simulator captures do not satisfy this gate.
+Apple Translation cannot run in an iOS simulator. Actual Mac provider execution now covers 90 directions: 540 authored inputs and 2,880 fixed FLORES inputs. Network access remained available; these captures are neither offline verification nor physical iOS execution. iOS simulator alignment on those captured outputs is separately identified and source-hashed. The owner completed physical iPad UI authorization on 2026-10-25. Actual iPad execution now covers 90 directions and 540 authored inputs both online and with networking unavailable. Run 011 verifies every before/after network observation and restores Wi-Fi. The development app was first launched online for certificate trust; a cold offline release launch remains unqualified. Physical preview UI checks pass; contextual meaning, reading quality and real multi-message immersion still need separate proof.
 
 ## UX reference use
 

@@ -9,7 +9,8 @@ set +e
 xcodebuild -project Vipi.xcodeproj -scheme Vipi -configuration Debug \
   -destination 'platform=iOS,id=7B6D180F-1D57-5036-8E42-C057698FBAB2' \
   -derivedDataPath ../build/ios-device -allowProvisioningUpdates \
-  -parallel-testing-enabled NO -only-testing:VipiCryptoTests/SignalKeysTests \
+  -parallel-testing-enabled NO -collect-test-diagnostics never \
+  -only-testing:VipiCryptoTests/SignalKeysTests \
   -only-testing:VipiCryptoTests/DurableMessagingTests/testStorageIntegrityAndExpiry \
   -only-testing:VipiCryptoTests/DurableMessagingTests/testConcurrentTransactionsDoNotLoseUpdates \
   -only-testing:VipiCryptoTests/LocalSpeechTests \

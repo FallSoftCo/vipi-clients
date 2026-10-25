@@ -14,6 +14,10 @@ import XCTest
         let romanized = XCTAttachment(screenshot: app.screenshot()); romanized.name = "Japanese — readable immersion"; romanized.lifetime = .keepAlways; add(romanized)
         app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
         XCTAssertTrue(text.label.contains("コーヒー"))
+        XCTAssertTrue(app.buttons["Show original script"].waitForNonExistence(timeout: 3))
+        // The selection is already verified. Let the native menu's dismissal
+        // animation finish before retaining a visual review capture.
+        Thread.sleep(forTimeInterval: 0.5)
         let native = XCTAttachment(screenshot: app.screenshot()); native.name = "Japanese — original script"; native.lifetime = .keepAlways; add(native)
         app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
         app.buttons["See the whole thought in Japanese"].tap()

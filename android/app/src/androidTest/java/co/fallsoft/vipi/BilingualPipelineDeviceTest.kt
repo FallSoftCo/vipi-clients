@@ -45,6 +45,7 @@ class BilingualPipelineDeviceTest {
         check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
         val context = instrumentation.targetContext
         val arguments = InstrumentationRegistry.getArguments()
+        val exportContextCandidates = arguments.getString("vipiExportContextCandidates") == "true"
         val runID = arguments.getString("vipiRunID") ?: "001"
         require(runID.matches(Regex("[0-9]{3}")))
         val packs = File(context.filesDir, if (runID == "001") "bilingual-qa/packs" else "bilingual-qa/packs-$runID")
@@ -72,6 +73,7 @@ class BilingualPipelineDeviceTest {
             .put("evidence", "actual_offline_translation_and_signed_dictionary_alignment_pending_semantic_review")
             .put("linguistic_acceptance", false)
         if (corpus.has("attribution")) report.put("attribution", corpus.getJSONObject("attribution"))
+        if (exportContextCandidates) report.put("context_candidate_policy", "native-lexical-ambiguity-reading-protection-cue-veto-without-positive-cue-requirement-1")
         if (captured != null) {
             report.put("evidence", "actual_offline_alignment_on_captured_mlkit_translations_not_new_translation_execution")
             report.put("translation_capture_sha256", captured.sha256)
@@ -136,6 +138,18 @@ class BilingualPipelineDeviceTest {
                                     .put("start", span.start).put("end", span.end).put("original", span.original)
                                     .put("translated", span.translated).put("reading", span.romanization ?: JSONObject.NULL)
                                     .put("targetStart", span.targetStart).put("targetEnd", span.targetEnd) }))
+                                if (exportContextCandidates) {
+                                    // Research export only. Keep all native lexical/reading,
+                                    // ambiguity, protected-text and contrary-cue checks. A
+                                    // separate local contextual model must corroborate these;
+                                    // they are never displayed by the application.
+                                    val candidates = LocalImmersion.align(original, translation,
+                                        entries.map { it.copy(requiresContext = false) }, 1.0, source, target)
+                                    sample.put("context_candidates", JSONArray(candidates.spans.map { span -> JSONObject()
+                                        .put("start", span.start).put("end", span.end).put("original", span.original)
+                                        .put("translated", span.translated).put("reading", span.romanization ?: JSONObject.NULL)
+                                        .put("targetStart", span.targetStart).put("targetEnd", span.targetEnd) }))
+                                }
                                 sample.put("speech", JSONArray(result.speech(source, target).map { JSONObject().put("text", it.text).put("language", it.language) }))
                             } catch (error: Exception) { failures++; sample.put("status", "failed").put("error_type", error.javaClass.simpleName) }
                         }

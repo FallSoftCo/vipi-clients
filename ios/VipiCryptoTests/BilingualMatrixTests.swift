@@ -33,7 +33,13 @@ final class BilingualMatrixTests: XCTestCase {
         }
         let captureData = try Data(contentsOf: input.appendingPathComponent(sourceName))
         let captured = try JSONDecoder().decode(TranslationReport.self, from: captureData)
-        let attribution = (try JSONSerialization.jsonObject(with: captureData) as? [String: Any])?["attribution"] as? [String: String]
+        let captureMetadata = try JSONSerialization.jsonObject(with: captureData) as? [String: Any]
+        let attribution = captureMetadata?["attribution"] as? [String: String]
+        #if targetEnvironment(simulator)
+        let alignmentPlatform = "iOS Simulator"
+        #else
+        let alignmentPlatform = "Physical iOS device"
+        #endif
         XCTAssertEqual(captured.results.count, 90)
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("bilingual-matrix-\(UUID())")
         let prefix = "bilingual-qa-" + UUID().uuidString.lowercased() + "-"
@@ -73,11 +79,14 @@ final class BilingualMatrixTests: XCTestCase {
             }
             rows.append(["source": pair.source, "target": pair.target, "status": "executed", "install_ms": installMS, "samples": samples])
             try await store.remove(id: id)
-            var report: [String: Any] = ["schema": 1, "platform": "iOS Simulator", "native_alignment_policy": "sentence-cue-for-polysemy-1", "translation_provider": captured.provider,
+            var report: [String: Any] = ["schema": 1, "platform": alignmentPlatform, "native_alignment_policy": "sentence-cue-for-polysemy-1", "translation_provider": captured.provider,
                 "evidence": "native_ios_alignment_on_captured_translations_not_translation_execution",
                 "translation_capture_platform": captured.platform, "translation_capture_evidence": captured.evidence,
                 "translation_capture_sha256": SHA256.hash(data: captureData).map { String(format: "%02x", $0) }.joined(),
                 "linguistic_acceptance": false, "results": rows]
+            for key in ["raw_capture_sha256", "network_absence_verified", "run_id"] {
+                if let value = captureMetadata?[key] { report["translation_capture_" + key] = value }
+            }
             if let attribution { report["attribution"] = attribution }
             try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: documents.appendingPathComponent(outputName), options: .atomic)
         }
