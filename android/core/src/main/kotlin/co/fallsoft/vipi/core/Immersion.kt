@@ -41,11 +41,17 @@ class ImmersionEngine {
                 cue.first >= lower && cue.last < upper && !overlaps(cue, range) && protectedRanges.none { overlaps(it, cue) }
             } }
         }.toSet()
+        val claims = entries.associateWith { entry ->
+            val source = if (entry.source.isNotEmpty() && entry.source.length <= 128) occurrences(entry.source, original, sourceBoundaries) else emptyList()
+            val targets = if (source.isEmpty()) emptyList() else entry.targets.distinct().filter { it.isNotEmpty() && it.length <= 128 }
+                .flatMap { occurrences(it, translation, targetBoundaries) }.distinct()
+            source to targets
+        }
         val candidates = entries.mapNotNull { entry ->
             if (entry.source.isEmpty() || entry.source.length > 128) return@mapNotNull null
-            val source = occurrences(entry.source, original, sourceBoundaries).singleOrNull() ?: return@mapNotNull null
+            val source = claims.getValue(entry).first.singleOrNull() ?: return@mapNotNull null
             if (protectedRanges.any { overlaps(it, source) }) return@mapNotNull null
-            val targets = entry.targets.distinct().filter { it.isNotEmpty() && it.length <= 128 }.flatMap { occurrences(it, translation, targetBoundaries) }.distinct()
+            val targets = claims.getValue(entry).second
             val target = targets.singleOrNull() ?: return@mapNotNull null
             if (protectedTargetRanges.any { overlaps(it, target) }) return@mapNotNull null
             val sourceSurface = original.substring(source)
@@ -59,7 +65,14 @@ class ImmersionEngine {
                 target.first, target.last + 1, if (needsReading) reading else null), target, entry)
         }
         val unique = candidates.filter { candidate ->
-            candidates.none { other ->
+            val source = candidate.span.start until candidate.span.end
+            claims.none { (entry, claim) ->
+                val (sources, targets) = claim
+                val competingSense = source in sources && targets.any { it != candidate.target }
+                val conflictingReading = source in sources && candidate.target in targets && candidate.span.romanization != null &&
+                    entry.romanizations.filterKeys { lookupKey(it) == lookupKey(candidate.span.translated) }.values.flatten().any { it != candidate.span.romanization }
+                competingSense || conflictingReading || (sources.any { other -> !overlaps(other, source) && protectedRanges.none { overlaps(it, other) } } && targets.any { overlaps(it, candidate.target) })
+            } && candidates.none { other ->
                 (other.span.start == candidate.span.start && other.span.end == candidate.span.end &&
                     (other.target != candidate.target || other.span.romanization != candidate.span.romanization)) ||
                     (other.span.start != candidate.span.start &&

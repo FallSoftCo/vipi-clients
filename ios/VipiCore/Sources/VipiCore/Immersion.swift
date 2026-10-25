@@ -81,16 +81,26 @@ public struct ImmersionEngine: Sendable {
                 }
             }
         })
+        // Retain lexical claims even when a repeated word or missing reading
+        // makes that entry ineligible for display. Dropping it first can make
+        // another, incorrect source word appear to own its translated token.
+        let claims = entries.map { entry -> (source: [NSRange], target: Set<NSRange>) in
+            guard !entry.source.isEmpty, entry.source.utf16.count <= 128 else { return ([], []) }
+            let source = occurrences(entry.source, in: original, boundaries: sourceBoundaries)
+            guard !source.isEmpty else { return ([], []) }
+            let target = Set(Set(entry.targets).flatMap { value -> [NSRange] in
+                guard !value.isEmpty, value.utf16.count <= 128 else { return [] }
+                return occurrences(value, in: translation, boundaries: targetBoundaries)
+            })
+            return (source, target)
+        }
         var candidates: [(span: ImmersionSpan, targetRange: NSRange, entry: Int)] = []
         for (index, entry) in entries.enumerated() where !entry.source.isEmpty && entry.source.utf16.count <= 128 {
-            let sourceMatches = occurrences(entry.source, in: original, boundaries: sourceBoundaries)
+            let sourceMatches = claims[index].source
             guard sourceMatches.count == 1, let range = sourceMatches.first,
                   !protected.contains(where: { NSIntersectionRange($0, range).length > 0 }) else { continue }
             // More than one viable sense, or repeated target occurrences, abstains.
-            let targetMatches = Set(Set(entry.targets).flatMap { target -> [NSRange] in
-                guard !target.isEmpty, target.utf16.count <= 128 else { return [] }
-                return occurrences(target, in: translation, boundaries: targetBoundaries)
-            })
+            let targetMatches = claims[index].target
             guard targetMatches.count == 1, let targetRange = targetMatches.first,
                   !protectedTarget.contains(where: { NSIntersectionRange($0, targetRange).length > 0 }) else { continue }
             let targetSurface = (translation as NSString).substring(with: targetRange)
@@ -108,7 +118,17 @@ public struct ImmersionEngine: Sendable {
         }
         // A translated token cannot be claimed by two disjoint source spans.
         let unambiguous = candidates.filter { candidate in
-            !candidates.contains { other in
+            !claims.enumerated().contains { index, claim in
+                if claim.source.contains(candidate.span.range) {
+                    if claim.target.contains(where: { $0 != candidate.targetRange }) { return true }
+                    if let reading = candidate.span.romanization, claim.target.contains(candidate.targetRange) {
+                        let alternatives = entries[index].romanizations.filter { Self.lookupKey($0.key) == Self.lookupKey(candidate.span.translated) }.values.flatMap { $0 }
+                        if alternatives.contains(where: { $0 != reading }) { return true }
+                    }
+                }
+                return claim.source.contains { other in NSIntersectionRange(other, candidate.span.range).length == 0 && !protected.contains { NSIntersectionRange($0, other).length > 0 } } &&
+                    claim.target.contains { NSIntersectionRange($0, candidate.targetRange).length > 0 }
+            } && !candidates.contains { other in
                 (other.span.range == candidate.span.range && (other.targetRange != candidate.targetRange || other.span.romanization != candidate.span.romanization)) ||
                 (other.span.range != candidate.span.range &&
                 NSIntersectionRange(other.span.range, candidate.span.range).length == 0 &&

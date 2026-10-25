@@ -33,8 +33,11 @@ internal class ServiceFailure(val status: Int, val code: String) : IOException(c
 
 /** HTTPS only in production, no redirects, response cache or plaintext logs.
  * The caller's immutable account binding prevents cross-account retry. */
+internal interface ChatTransport {
+    suspend fun request(method: String, path: String, body: JSONObject? = null, device: DeviceCredential? = null, query: Map<String, String> = emptyMap()): JSONObject
+}
 internal class ServiceClient(private val authentication: Authentication, val userID: String,
-                             endpoint: String = "https://api.mambovipi.app") {
+                             endpoint: String = "https://api.mambovipi.app") : ChatTransport {
     private val base = endpoint.toHttpUrl()
     private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(25, TimeUnit.SECONDS).build()
@@ -42,14 +45,15 @@ internal class ServiceClient(private val authentication: Authentication, val use
         require(base.encodedPath == "/" && base.query == null && base.fragment == null && base.username.isEmpty() && base.password.isEmpty())
         require(base.isHttps || (BuildConfig.DEBUG && base.scheme == "http" && base.host == "127.0.0.1"))
     }
-    suspend fun request(method: String, path: String, body: JSONObject? = null, device: DeviceCredential? = null): JSONObject {
+    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
         require(path.startsWith("/v1/") && !path.contains("..") && !path.contains('?') && !path.contains('#'))
         var token = authentication.accessToken(userID)
         for (attempt in 0..1) {
             val result = withContext(Dispatchers.IO) {
                 val content = body?.toString()?.toRequestBody("application/json".toMediaType())
                     ?: if (method in setOf("POST", "PUT")) ByteArray(0).toRequestBody(null) else null
-                val builder = Request.Builder().url(base.newBuilder().encodedPath(path).build()).method(method, content)
+                val url = base.newBuilder().encodedPath(path).apply { query.forEach { (key, value) -> addQueryParameter(key, value) } }.build()
+                val builder = Request.Builder().url(url).method(method, content)
                     .header("Authorization", "Bearer $token").header("Accept", "application/json")
                 device?.let { builder.header("X-Vipi-Device-ID", it.id.toString()).header("X-Vipi-Device-Secret", it.secret) }
                 http.newCall(builder.build()).execute().use { response ->

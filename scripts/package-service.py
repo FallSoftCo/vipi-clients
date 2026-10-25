@@ -20,7 +20,8 @@ output = root / "artifacts" / f"service-{revision[:12]}"
 assert not output.exists()
 output.mkdir()
 tree = output / "release"; tree.mkdir()
-subprocess.run([sys.executable, "-m", "pip", "install", "--only-binary=:all:", "--no-compile", "--target", str(tree / "deps"), str(root / "backend")], check=True)
+subprocess.run([sys.executable, "-m", "pip", "install", "--only-binary=:all:", "--no-compile",
+    "--constraint", str(root / "backend/requirements.lock"), "--target", str(tree / "deps"), str(root / "backend")], check=True)
 shutil.copytree(root / "backend/migrations", tree / "migrations", ignore=shutil.ignore_patterns("__pycache__"))
 shutil.copy(root / "backend/alembic.ini", tree)
 shutil.copytree(root / "ops", tree / "ops")

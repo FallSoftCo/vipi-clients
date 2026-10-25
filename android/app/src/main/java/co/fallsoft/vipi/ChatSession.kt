@@ -19,8 +19,8 @@ internal data class ChatProfile(val id: UUID, val username: String, val displayN
 
 /** Main-thread coordinator; transport events, lifecycle and explicit refresh
  * share one synchronization. Durable journal commits always precede receipts. */
-internal class ChatSession(private val context: Context, authentication: Authentication, val userID: String) : Closeable {
-    private val api = ServiceClient(authentication, userID)
+internal class ChatSession(private val context: Context, private val api: ChatTransport, val userID: String) : Closeable {
+    constructor(context: Context, authentication: Authentication, userID: String) : this(context, ServiceClient(authentication, userID), userID)
     private val records = PrivateRecords(context)
     private var vault: MessageVault? = null
     private var core: MessagingCore? = null
@@ -133,14 +133,32 @@ internal class ChatSession(private val context: Context, authentication: Authent
         try {
             do {
                 syncAgain = false; currentCoroutineContext().ensureActive()
-                val inbox = api.request("GET", "/v1/messages/pending", device = core.device).getJSONArray("messages")
-                repeat(inbox.length()) { index ->
-                    try { core.receive(RoutedMessage.received(inbox.getJSONObject(index), profile!!.id), System.currentTimeMillis()) }
-                    catch (_: Exception) { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                var cursor: String? = null
+                val seenCursors = mutableSetOf<String>()
+                // Queue capacity is 10,000; restart at its beginning next sync
+                // so transient decryption failures can recover.
+                for (page in 0 until 100) {
+                    currentCoroutineContext().ensureActive()
+                    val result = api.request("GET", "/v1/messages/pending", device = core.device, query = cursor?.let { mapOf("after" to it) } ?: emptyMap())
+                    val inbox = result.getJSONArray("messages")
+                    repeat(inbox.length()) { index ->
+                        try { core.receive(RoutedMessage.received(inbox.getJSONObject(index), profile!!.id), System.currentTimeMillis()) }
+                        catch (_: Exception) { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                    }
+                    if (!result.has("next_cursor") || result.isNull("next_cursor")) break
+                    val next = result.getString("next_cursor")
+                    if (!seenCursors.add(next)) throw ServiceFailure(0, "invalid_inbox_cursor")
+                    cursor = next
                 }
                 for (id in core.journal.pendingReceipts()) {
-                    val state = api.request("POST", "/v1/messages/$id/receipt", device = core.device).getString("state")
-                    if (state in setOf("delivered", "expired", "unavailable", "identity_changed")) core.journal.receiptAccepted(id)
+                    try {
+                        val state = api.request("POST", "/v1/messages/$id/receipt", device = core.device).getString("state")
+                        if (state in setOf("delivered", "expired", "unavailable", "identity_changed")) core.journal.receiptAccepted(id)
+                    } catch (error: ServiceFailure) {
+                        if (error.status == 404 && error.code == "message_not_found") core.journal.receiptAccepted(id)
+                        else if (error.status == 429) break
+                        else throw error
+                    }
                 }
                 for (draft in core.journal.pendingDrafts(System.currentTimeMillis()).sortedBy { it.createdAt }) {
                     try {
@@ -150,9 +168,16 @@ internal class ChatSession(private val context: Context, authentication: Authent
                     catch (error: Exception) { notice = explanation(error) }
                 }
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
-                    val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
-                    val state = api.request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
-                    core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
+                    try {
+                        val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
+                        val state = api.request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
+                        core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
+                    } catch (error: ServiceFailure) {
+                        val state = terminalSendState(error)
+                        if (state != null) core.journal.applyStatus(envelope.id, state)
+                        else if (error.code != "recipient_queue_full") throw error
+                        notice = explanation(error)
+                    }
                 }
             } while (syncAgain)
         } catch (error: CancellationException) { throw error }
@@ -164,6 +189,13 @@ internal class ChatSession(private val context: Context, authentication: Authent
     }
     override fun close() { vault?.close() }
     companion object {
+        private fun terminalSendState(error: ServiceFailure): String? = when {
+            error.status == 410 && error.code == "message_expired" -> "expired"
+            error.status == 404 && error.code == "recipient_unavailable" -> "failed"
+            error.status == 409 && error.code in setOf("recipient_identity_changed", "message_id_conflict") -> "failed"
+            error.status == 400 && error.code in setOf("invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type") -> "failed"
+            else -> null
+        }
         fun explanation(error: Exception): String {
             if (error is ServiceFailure) {
                 when (error.code) {
@@ -176,6 +208,8 @@ internal class ChatSession(private val context: Context, authentication: Authent
                     "recent_sign_in_required", "sign_in_required", "device_revoked" -> return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
                     "recipient_keys_unavailable" -> return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
                     "device_not_ready" -> return "Connect once to finish setting up this device."
+                    "message_expired" -> return "This message expired before delivery. You can send it again."
+                    "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type" -> return "A message couldn’t be delivered. Your other conversations can continue."
                 }
                 if (error.status == 429) return "Please wait a moment before trying again. Your messages are saved."
             }

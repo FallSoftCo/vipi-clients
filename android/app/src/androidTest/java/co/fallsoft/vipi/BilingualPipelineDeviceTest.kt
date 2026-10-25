@@ -36,6 +36,16 @@ class BilingualPipelineDeviceTest {
         val reportName = arguments.getString("vipiReportName") ?: "bilingual-pipeline-$runID.json"
         require(corpusName.matches(Regex("[a-z0-9-]+\\.json")) && reportName.matches(Regex("[a-z0-9-]+\\.json")))
         val corpus = JSONObject(File(context.filesDir, "immersion-qa/$corpusName").readText())
+        val capturedName = arguments.getString("vipiTranslationReport")
+        val capturedBytes = capturedName?.let {
+            require(it.matches(Regex("[a-z0-9-]+\\.json")))
+            File(context.filesDir, "bilingual-qa/$it").readBytes()
+        }
+        val captured = capturedBytes?.let { JSONObject(it.toString(Charsets.UTF_8)).getJSONArray("results") }
+        val capturedPairs = captured?.let { values -> (0 until values.length()).associate { index ->
+            val pair = values.getJSONObject(index)
+            (pair.getString("source") + "-" + pair.getString("target")) to pair.getJSONArray("samples")
+        } }
         val codes = corpus.getJSONArray("languages").let { list -> (0 until list.length()).map { list.getString(it) } }
         val cases = corpus.getJSONArray("cases")
         val isolated = File(context.cacheDir, "bilingual-qa-${UUID.randomUUID()}").apply { mkdirs() }
@@ -50,6 +60,10 @@ class BilingualPipelineDeviceTest {
             .put("evidence", "actual_offline_translation_and_signed_dictionary_alignment_pending_semantic_review")
             .put("linguistic_acceptance", false).put("results", results)
         if (corpus.has("attribution")) report.put("attribution", corpus.getJSONObject("attribution"))
+        if (capturedBytes != null) {
+            report.put("evidence", "actual_offline_alignment_on_captured_mlkit_translations_not_new_translation_execution")
+            report.put("translation_capture_sha256", java.security.MessageDigest.getInstance("SHA-256").digest(capturedBytes).joinToString("") { "%02x".format(it) })
+        }
         val receipt = File(context.filesDir, reportName)
         fun save() { receipt.writeText(report.toString(2)) }
         val wifi = shell("settings get global wifi_on").trim() == "1"
@@ -77,7 +91,14 @@ class BilingualPipelineDeviceTest {
                             samples.put(sample)
                             try {
                                 val begin = SystemClock.elapsedRealtimeNanos()
-                                val translation = withTimeout(45_000) { translator.translate(original, source, target) }
+                                val translation = if (capturedPairs == null) withTimeout(45_000) { translator.translate(original, source, target) }
+                                else {
+                                    val saved = requireNotNull(capturedPairs[id])
+                                    val observed = (0 until saved.length()).map { saved.getJSONObject(it) }.single { it.getString("id") == item.getString("id") }
+                                    check(observed.getString("original") == original && observed.getString("status") == "executed")
+                                    observed.getString("translation")
+                                }
+                                sample.put("translation_reused", capturedPairs != null)
                                 sample.put("translation_ms", (SystemClock.elapsedRealtimeNanos() - begin) / 1_000_000.0)
                                 sample.put("translation", translation)
                                 val lookup = SystemClock.elapsedRealtimeNanos()

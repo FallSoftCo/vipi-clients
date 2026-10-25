@@ -23,7 +23,16 @@ private final class NoServiceRedirects: NSObject, URLSessionTaskDelegate, Sendab
                     newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) { completionHandler(nil) }
 }
 
-@MainActor final class ServiceClient {
+@MainActor protocol ChatTransport {
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T
+}
+extension ChatTransport {
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil, device: DeviceCredential? = nil, query: [String: String] = [:]) async throws -> T {
+        try await request(method, path, body: body, device: device, query: query, as: T.self)
+    }
+}
+
+@MainActor final class ServiceClient: ChatTransport {
     private let authentication: AuthenticationManager
     let userID: String
     private let endpoint: URL
@@ -41,11 +50,14 @@ private final class NoServiceRedirects: NSObject, URLSessionTaskDelegate, Sendab
         http = URLSession(configuration: config, delegate: NoServiceRedirects(), delegateQueue: nil)
     }
     deinit { http.invalidateAndCancel() }
-    func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil, device: DeviceCredential? = nil, as type: T.Type = T.self) async throws -> T {
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil, device: DeviceCredential? = nil, query: [String: String] = [:], as type: T.Type = T.self) async throws -> T {
         guard path.hasPrefix("/v1/"), !path.contains(".."), !path.contains("?"), !path.contains("#"), let url = URL(string: path, relativeTo: endpoint)?.absoluteURL else { throw ServiceFailure(status: 0, code: "invalid_request") }
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.queryItems = query.isEmpty ? nil : query.sorted(by: { $0.key < $1.key }).map { URLQueryItem(name: $0.key, value: $0.value) }
+        guard let requestURL = components.url else { throw ServiceFailure(status: 0, code: "invalid_request") }
         var token = try await authentication.accessToken(for: userID)
         for attempt in 0...1 {
-            var request = URLRequest(url: url); request.httpMethod = method; request.httpBody = body
+            var request = URLRequest(url: requestURL); request.httpMethod = method; request.httpBody = body
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             if body != nil { request.setValue("application/json", forHTTPHeaderField: "Content-Type") }

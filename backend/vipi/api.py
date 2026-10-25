@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from typing import Annotated, Literal
 from uuid import UUID, uuid4
 
-from fastapi import Depends, FastAPI, Header, Request
+from fastapi import Depends, FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 from sqlalchemy import and_, or_, select, text
@@ -21,6 +21,7 @@ from .db import Block, Database, Device, PendingMessage, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
+from .inbox import decode_cursor, encode_cursor
 
 
 class BodyLimit:
@@ -271,15 +272,22 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
             return message_status(value)
 
     @app.get("/v1/messages/pending")
-    async def pending(request: Request, p: Annotated[Principal, Depends(principal)]):
+    async def pending(request: Request, p: Annotated[Principal, Depends(principal)], after: Annotated[str | None, Query(max_length=512)] = None):
         await rate(p, "inbox", 120)
         async with db.sessions.begin() as session:
             user = await user_for(session, p)
             await session.execute(select(User).where(User.id == user.id).with_for_update())
             device = await phone_for(session, request, user)
-            items = (await session.execute(select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
-                PendingMessage.state == "accepted", PendingMessage.expires_at > now()).order_by(PendingMessage.accepted_at, PendingMessage.id).limit(100))).scalars().all()
-            return {"messages": [message_status(item) | {"sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
+            query = select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
+                PendingMessage.state == "accepted", PendingMessage.expires_at > now())
+            if after:
+                accepted, message_id = decode_cursor(after, device.id, settings.service_secret)
+                query = query.where(or_(PendingMessage.accepted_at > accepted,
+                    and_(PendingMessage.accepted_at == accepted, PendingMessage.id > message_id)))
+            found = (await session.execute(query.order_by(PendingMessage.accepted_at, PendingMessage.id).limit(101))).scalars().all()
+            items = found[:100]
+            cursor = encode_cursor(device.id, items[-1].accepted_at, items[-1].id, settings.service_secret) if len(found) > 100 else None
+            return {"next_cursor": cursor, "messages": [message_status(item) | {"sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
                 "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(), "cipher_type": item.cipher_type,
                 "ciphertext": base64.b64encode(item.ciphertext).decode()} for item in items]}
 

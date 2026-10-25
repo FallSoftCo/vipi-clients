@@ -11,9 +11,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private struct Inventory: Decodable { let revision: UInt32; let remaining: Int }
     private struct Status: Decodable { let state: String }
     private struct DeviceResult: Decodable { let id: UUID; let active: Bool }
-    private struct Inbox: Decodable { let messages: [RoutedMessage.Received] }
+    private struct Inbox: Decodable { let messages: [RoutedMessage.Received]; let next_cursor: String? }
     let userID: String
-    private let api: ServiceClient
+    private let api: any ChatTransport
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
@@ -28,8 +28,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     var notice: String?
     private var syncAgain = false
     private var cacheKey: String { "profile-" + userID }
-    init(authentication: AuthenticationManager, userID: String) throws {
-        self.userID = userID; api = try ServiceClient(authentication: authentication, userID: userID)
+    convenience init(authentication: AuthenticationManager, userID: String) throws {
+        try self.init(api: ServiceClient(authentication: authentication, userID: userID), userID: userID)
+    }
+    init(api: any ChatTransport, userID: String) throws {
+        self.userID = userID; self.api = api
         if let data = try KeychainStore.read(account: cacheKey) {
             let value = try JSONDecoder().decode(ChatProfile.self, from: data)
             try open(value)
@@ -146,26 +149,48 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         repeat {
             syncAgain = false
             do {
-                let inbox: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device)
-                for item in inbox.messages {
-                    do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
-                    catch { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                var cursor: String? = nil
+                var seenCursors = Set<String>()
+                // The server bounds a recipient's queue at 10,000. Start from
+                // the beginning on each sync so failed items can recover.
+                for _ in 0..<100 {
+                    let inbox: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
+                    for item in inbox.messages {
+                        do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
+                        catch { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                    }
+                    guard let next = inbox.next_cursor else { break }
+                    guard seenCursors.insert(next).inserted else { throw ServiceFailure(status: 0, code: "invalid_inbox_cursor") }
+                    cursor = next
                 }
                 for id in try core.journal.pendingReceipts() {
-                    let status: Status = try await api.request("POST", "/v1/messages/\(id.uuidString.lowercased())/receipt", device: core.device)
-                    if ["delivered", "expired", "unavailable", "identity_changed"].contains(status.state) { try core.journal.receiptAccepted(id) }
+                    do {
+                        let status: Status = try await api.request("POST", "/v1/messages/\(id.uuidString.lowercased())/receipt", device: core.device)
+                        if ["delivered", "expired", "unavailable", "identity_changed"].contains(status.state) { try core.journal.receiptAccepted(id) }
+                    } catch let error as ServiceFailure where error.status == 404 && error.code == "message_not_found" {
+                        // The plaintext was committed before this receipt was
+                        // queued. Server metadata can expire while we're away.
+                        try core.journal.receiptAccepted(id)
+                    } catch let error as ServiceFailure where error.status == 429 { break }
                 }
                 for draft in try core.journal.pendingDrafts(now: now).sorted(by: { $0.createdAt < $1.createdAt }) {
                     do {
                         try await establish(draft.recipient)
                         _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now)
-                    } catch { notice = Self.explanation(error) }
+                    } catch is CancellationError { throw CancellationError() }
+                    catch { notice = Self.explanation(error) }
                 }
                 for envelope in try core.journal.pending(now: now) {
-                    let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
-                    let status: Status = try await api.request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
-                    let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
-                    try core.journal.applyStatus(envelope.id, state: state)
+                    do {
+                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
+                        let status: Status = try await api.request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
+                        let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
+                        try core.journal.applyStatus(envelope.id, state: state)
+                    } catch let error as ServiceFailure {
+                        if let state = Self.terminalSendState(error) { try core.journal.applyStatus(envelope.id, state: state) }
+                        else if error.code != "recipient_queue_full" { throw error }
+                        notice = Self.explanation(error)
+                    }
                 }
             } catch is CancellationError { break }
             catch { notice = Self.explanation(error); break }
@@ -184,9 +209,18 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
             case "recipient_keys_unavailable": return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
             case "device_not_ready": return "Connect once to finish setting up this device."
+            case "message_expired": return "This message expired before delivery. You can send it again."
+            case "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type": return "A message couldn’t be delivered. Your other conversations can continue."
             default: if failure.status == 429 { return "Please wait a moment before trying again. Your messages are saved." }
             }
         }
         return "We couldn’t connect. Your messages are saved on this device. Try again when you’re online."
+    }
+    private static func terminalSendState(_ failure: ServiceFailure) -> String? {
+        if failure.status == 410 && failure.code == "message_expired" { return "expired" }
+        if failure.status == 404 && failure.code == "recipient_unavailable" { return "failed" }
+        if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict"].contains(failure.code) { return "failed" }
+        if failure.status == 400 && ["invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type"].contains(failure.code) { return "failed" }
+        return nil
     }
 }

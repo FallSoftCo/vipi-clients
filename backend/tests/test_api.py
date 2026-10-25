@@ -88,6 +88,34 @@ async def test_blocking_and_replacement_are_explicit(api):
     assert (await api.get("/v1/messages/pending", headers=alice_headers)).status_code == 401
 
 
+async def test_inbox_cursor_passes_unreadable_items_and_survives_receipts(api):
+    _, _, alice_headers = await identity(api, "alice")
+    bob, bob_device, bob_headers = await identity(api, "bob")
+    _, _, eve_headers = await identity(api, "eve")
+    ids = set()
+    for _ in range(105):
+        message_id = str(uuid4()); ids.add(message_id)
+        response = await api.post('/v1/messages', headers=alice_headers, json={
+            'id': message_id, 'recipient_id': bob['id'], 'recipient_device_id': bob_device,
+            'created_at': NOW.isoformat(), 'cipher_type': 3,
+            'ciphertext': base64.b64encode(b'unreadable QA envelope' * 3).decode()})
+        assert response.status_code == 200
+    first = (await api.get('/v1/messages/pending', headers=bob_headers)).json()
+    assert len(first['messages']) == 100 and first['next_cursor']
+    params = {'after': first['next_cursor']}
+    # Do not acknowledge the first page: unreadable messages must not starve later ones.
+    second = (await api.get('/v1/messages/pending', headers=bob_headers, params=params)).json()
+    assert len(second['messages']) == 5 and second['next_cursor'] is None
+    assert {x['id'] for x in first['messages'] + second['messages']} == ids
+    # Cursor remains valid after its own boundary row has been acknowledged.
+    assert (await api.post('/v1/messages/' + first['messages'][-1]['id'] + '/receipt', headers=bob_headers)).status_code == 200
+    assert (await api.get('/v1/messages/pending', headers=bob_headers, params=params)).json() == second
+    assert (await api.get('/v1/messages/pending', headers=eve_headers, params=params)).status_code == 400
+    changed = ('A' if first['next_cursor'][0] != 'A' else 'B') + first['next_cursor'][1:]
+    assert (await api.get('/v1/messages/pending', headers=bob_headers, params={'after':changed})).status_code == 400
+    assert (await api.get('/v1/messages/pending', headers=bob_headers, params={'after':'invalid'})).status_code == 400
+
+
 async def test_sensitive_validation_input_is_not_echoed_and_large_body_rejected(api):
     value = "sensitive-test-value"
     result = await api.post("/v1/devices", headers={"Authorization": "Bearer alice"}, json={"device_id": value, "secret": value})

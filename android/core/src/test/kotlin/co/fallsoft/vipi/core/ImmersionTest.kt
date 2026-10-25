@@ -60,6 +60,17 @@ class ImmersionTest {
         val result = engine.align("A house and a home.", "Una casa.", listOf(VocabularyEntry("house", listOf("casa")), VocabularyEntry("home", listOf("casa"))), 1.0)
         assertTrue(result.spans.isEmpty())
     }
+    @Test fun ineligibleEntriesStillPreserveAlignmentUncertainty() {
+        val result = engine.align("Only the best way and best behavior.", "最好的方式和行为。", listOf(
+            VocabularyEntry("only", listOf("最好的"), mapOf("最好的" to listOf("zuìhǎo de"))),
+            VocabularyEntry("best", listOf("最好的"), mapOf("最好的" to listOf("zuìhǎo de")))
+        ), 1.0, "zh", targetBoundaries = setOf(0,3,5,6,8))
+        assertTrue(result.spans.isEmpty())
+        val one = VocabularyEntry("read", listOf("読む"), mapOf("読む" to listOf("yomu")))
+        val conflict = one.copy(romanizations = mapOf("読む" to listOf("yomu","doku")))
+        assertTrue(engine.align("read", "読む", listOf(one,conflict), 1.0,"ja").spans.isEmpty())
+        assertTrue(engine.align("bank", "banco orilla", listOf(VocabularyEntry("bank",listOf("banco")),VocabularyEntry("bank",listOf("banco","orilla"))),1.0).spans.isEmpty())
+    }
     @Test fun expiresAtOriginalSeventyTwoHours() {
         val sent = Instant.ofEpochSecond(1_000_000)
         val window = DeliveryWindow(createdAt = sent)

@@ -80,6 +80,19 @@ import Testing
     #expect(result.spans.isEmpty)
 }
 
+@Test func ineligibleEntriesStillPreserveAlignmentUncertainty() {
+    let engine = ImmersionEngine()
+    let result = engine.align(original: "Only the best way and best behavior.", translation: "最好的方式和行为。", entries: [
+        .init(source: "only", targets: ["最好的"], romanizations: ["最好的": ["zuìhǎo de"]]),
+        .init(source: "best", targets: ["最好的"], romanizations: ["最好的": ["zuìhǎo de"]])
+    ], density: 1, targetLanguage: "zh", targetBoundaries: Set([0,3,5,6,8]))
+    #expect(result.spans.isEmpty)
+    let one = VocabularyEntry(source: "read", targets: ["読む"], romanizations: ["読む":["yomu"]])
+    let conflict = VocabularyEntry(source: "read", targets: ["読む"], romanizations: ["読む":["yomu","doku"]])
+    #expect(engine.align(original:"read", translation:"読む", entries:[one,conflict], density:1,targetLanguage:"ja").spans.isEmpty)
+    #expect(engine.align(original:"bank", translation:"banco orilla", entries:[.init(source:"bank",targets:["banco"]),.init(source:"bank",targets:["banco","orilla"])],density:1).spans.isEmpty)
+}
+
 @Test func disabledImmersionAndOversizeInputRemainOriginal() {
     let entries = [VocabularyEntry(source: "coffee", targets: ["café"])]
     #expect(ImmersionEngine().align(original: "coffee", translation: "café", entries: entries, density: 0).spans.isEmpty)
