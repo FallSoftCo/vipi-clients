@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import co.fallsoft.vipi.core.ImmersionEngine
 import co.fallsoft.vipi.core.VocabularyEntry
+import co.fallsoft.vipi.core.TranslationIntegrity
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
 import java.util.UUID
@@ -26,7 +27,7 @@ enum class Appearance { SYSTEM, LIGHT, DARK }
 enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
-class VipiModel(application: Application) : AndroidViewModel(application) {
+class VipiModel @JvmOverloads constructor(application: Application, private val translator: LanguageTranslation = LocalTranslation()) : AndroidViewModel(application) {
     val authentication = Authentication(application)
     internal val deletion = AccountDeletion(application, authentication)
     private val prefs = application.getSharedPreferences("preferences", 0)
@@ -46,7 +47,8 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
         private set
     var translatedText by mutableStateOf<String?>(null)
         private set
-    private val translator = LocalTranslation()
+    private var selectionRevision = 0L
+    private var translationRevision = 0L
     internal var chat by mutableStateOf<ChatSession?>(null)
         private set
     var chatError by mutableStateOf<String?>(null)
@@ -72,15 +74,21 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun navigate(value: Screen) {
+        if (value != screen && (value == Screen.LANGUAGE_DOWNLOAD || screen == Screen.LANGUAGE_DOWNLOAD)) sentenceChanged()
         screen = value
         if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
     }
     fun selectKnown(code: String) {
+        if (knownLanguage != code) { selectionRevision++; sentenceChanged() }
         knownLanguage = code
         if (targetLanguage == code) selectTarget(if (code == "es") "en" else "es")
         prefs.edit().putString("knownLanguage", code).apply()
     }
-    fun selectTarget(code: String) { targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply() }
+    fun selectTarget(code: String) {
+        if (targetLanguage != code) { selectionRevision++; sentenceChanged() }
+        targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply()
+    }
+    fun sentenceChanged() { translationRevision++; translatedText = null; modelMessage = null }
     fun changeAppearance(value: Appearance) { appearance = value; prefs.edit().putString("appearance", value.name).apply() }
     fun changeDensity(value: Double) { density = value; prefs.edit().putFloat("density", value.toFloat()).apply() }
     fun back() { navigate(when (screen) {
@@ -93,19 +101,29 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
     fun downloadLanguage(cellularAllowed: Boolean) = viewModelScope.launch {
         if (modelBusy) return@launch
         modelBusy = true; modelMessage = null
+        val revision = selectionRevision
+        val source = knownLanguage; val target = targetLanguage
         try {
-            translator.prepare(knownLanguage, targetLanguage, cellularAllowed)
-            modelMessage = "${languageName(targetLanguage)} is ready for offline translation."
+            translator.prepare(source, target, cellularAllowed)
+            if (revision == selectionRevision) modelMessage = "${languageName(target)} is ready for offline translation."
         } catch (error: CancellationException) { throw error }
-        catch (_: Exception) { modelMessage = "The download couldn’t finish. Check your connection and try again." }
+        catch (_: Exception) { if (revision == selectionRevision) modelMessage = "The download couldn’t finish. Check your connection and try again." }
         finally { modelBusy = false }
     }
     fun translate(text: String) = viewModelScope.launch {
         if (modelBusy || text.isBlank()) return@launch
-        modelBusy = true; modelMessage = null
-        try { translatedText = translator.translate(text, knownLanguage, targetLanguage) }
+        modelBusy = true; modelMessage = null; translatedText = null
+        val revision = ++translationRevision
+        val source = knownLanguage; val target = targetLanguage
+        try {
+            val result = translator.translate(text, source, target)
+            if (revision == translationRevision) {
+                if (TranslationIntegrity.preservesIdentifiers(text, result)) translatedText = result
+                else modelMessage = "Translation isn’t available for this message. Your original is unchanged."
+            }
+        }
         catch (error: CancellationException) { throw error }
-        catch (_: Exception) { modelMessage = "Translation isn’t ready. Download this language first, then try again." }
+        catch (_: Exception) { if (revision == translationRevision) modelMessage = "Translation isn’t ready. Download this language first, then try again." }
         finally { modelBusy = false }
     }
     override fun onCleared() { translator.close(); chat?.close() }

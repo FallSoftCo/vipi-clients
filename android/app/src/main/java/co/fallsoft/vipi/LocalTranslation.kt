@@ -10,7 +10,12 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /** No server fallback. Translation calls never trigger a download implicitly. */
-class LocalTranslation : AutoCloseable {
+interface LanguageTranslation : AutoCloseable {
+    suspend fun prepare(source: String, target: String, cellularAllowed: Boolean)
+    suspend fun translate(text: String, source: String, target: String): String
+}
+
+class LocalTranslation : LanguageTranslation {
     private val mutex = Mutex()
     private var client: Translator? = null
     private var direction: Pair<String, String>? = null
@@ -24,11 +29,11 @@ class LocalTranslation : AutoCloseable {
         }
         return checkNotNull(client)
     }
-    suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = mutex.withLock {
+    override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean): Unit = mutex.withLock {
         val conditions = DownloadConditions.Builder().apply { if (!cellularAllowed) requireWifi() }.build()
         client(source, target).downloadModelIfNeeded(conditions).await()
     }
-    suspend fun translate(text: String, source: String, target: String): String = mutex.withLock {
+    override suspend fun translate(text: String, source: String, target: String): String = mutex.withLock {
         require(text.length <= 16_384)
         client(source, target).translate(text).await()
     }

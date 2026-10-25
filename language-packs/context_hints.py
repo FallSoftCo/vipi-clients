@@ -16,7 +16,9 @@ GRAMMAR = {
     'it': set('non mai né nessuno'.split()),
     'pt': set('não nunca nem jamais'.split()),
     'ar': set('لا لم لن ليس ليست لست ما'.split()),
-    'zh': set('不 没 沒 没有 沒有 别 別 不要 不能 不会 不會 可以 能'.split()),
+    # 會/会 also has lexical meanings, but its future/modal use must remain
+    # native. The pinned character entry lacks a modal category (line 79146).
+    'zh': set('不 没 沒 没有 沒有 别 別 不要 不能 不会 不會 可以 能 会 會'.split()),
     'ja': set('ない ません ぬ ず ではない じゃない'.split()),
     'ko': set('안 못 아니다 없다 않다 말다'.split()),
 }

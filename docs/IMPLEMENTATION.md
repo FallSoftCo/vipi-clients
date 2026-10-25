@@ -12,6 +12,8 @@ Physical iPad automation is now authorized. The corrected on-device preparation/
 
 ## Current priority — user directive, 2026-10-24
 
+Latest incremental checks: revision-006 packs passed native Android signature/install/alignment replay for all 90 directions, but strict coverage remains 162 spans in 122/540 messages and 22 empty directions. The deterministic all-senses shared-surface probe improves the reused sample's coverage but remains research-only. iOS Settings now exposes native translation-model preparation; five lifecycle cases and light/dark navigation tests pass. Physical production download consent remains unqualified. Android rejects stale sample translations and withholds output whose protected literals cannot be verified; that literal check does not certify meaning. Physical timeline run 001 encountered a renewed XCTest passcode challenge before executing methods, and the owner has been asked to complete it. Earlier physical passes are preserved. See the latest VERIFICATION.md entries for exact evidence and limits.
+
 Demonstrate the core immersion UX across at least ten major languages and every directed pair, including transliteration for non-Roman scripts. Initial qualification set: English, Spanish, French, German, Italian, Portuguese, Arabic, Mandarin Chinese, Japanese and Korean. This is 90 directions per platform, 180 platform/direction combinations. Do not substitute a download/availability check, English-only pivot example or isolated welcome screenshot for this proof. See IMMERSION_ACCEPTANCE.md. Infrastructure work already started is retained, but broader deployment and store work follow this gate.
 
 ### Current language UX implementation

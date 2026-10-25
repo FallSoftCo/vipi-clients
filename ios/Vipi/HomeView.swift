@@ -127,7 +127,9 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Your immersion") {
-                    LabeledContent("Language", value: VipiLanguage.named(state.targetLanguage).name)
+                    NavigationLink { LanguageDownloadView() } label: {
+                        LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
+                    }.accessibilityIdentifier("language-settings-link")
                     VStack(alignment: .leading, spacing: 12) {
                         HStack { Text("A little or a little more"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
                         Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Immersion amount")
