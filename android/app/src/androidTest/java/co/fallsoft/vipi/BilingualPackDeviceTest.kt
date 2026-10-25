@@ -46,6 +46,8 @@ class BilingualPackDeviceTest {
                 if (target == "fr") {
                     assertEquals(2, entries.count { it.source == "bank" })
                     assertTrue(entries.any { "river" in it.contextHints })
+                    assertTrue(entries.filter { it.source == "bank" }.all { it.requiresContext })
+                    assertTrue(LocalImmersion.align("A bank.", "Une banque.", entries, 1.0, "en", "fr").spans.isEmpty())
                     assertTrue(LocalImmersion.align(text, "Une banque près du fleuve.", entries, 1.0, "en", "fr").spans.isEmpty())
                     assertTrue(LocalImmersion.align("A bank.", "Une banque et une rive.", entries, 1.0, "en", "fr").spans.isEmpty())
                 }

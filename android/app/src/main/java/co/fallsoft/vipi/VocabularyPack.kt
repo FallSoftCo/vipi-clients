@@ -92,11 +92,13 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         data class LookupKey(val source: String, val sense: String)
         data class Group(val targets: MutableSet<String> = linkedSetOf(), val readings: MutableMap<String, MutableSet<String>> = linkedMapOf(), val hints: MutableSet<String> = linkedSetOf())
         val grouped = linkedMapOf<LookupKey, Group>()
+        val meanings = mutableMapOf<String, MutableSet<String>>()
         SQLiteDatabase.openDatabase(File(root, filename).path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
             for (batch in terms.chunked(200)) {
                 val placeholders = batch.joinToString(",") { "?" }
                 var columns = if (manifest.getInt("schema_version") == 3) "source,sense_id,target,reading" else "source,'' AS sense_id,target,'' AS reading"
                 columns += if (manifest.optString("context_policy") == "cross-sense-label-veto-2") ",COALESCE((SELECT hints FROM sense_context WHERE sense_context.sense_id=vocabulary.sense_id),'') AS hints" else ",'' AS hints"
+                columns += if (manifest.getInt("schema_version") == 3) ",COALESCE((SELECT label FROM senses WHERE senses.id=vocabulary.sense_id),'') AS meaning" else ",'' AS meaning"
                 db.rawQuery("SELECT DISTINCT $columns FROM vocabulary WHERE source IN ($placeholders) ORDER BY source,sense_id,target,reading", batch.toTypedArray()).use { cursor ->
                     while (cursor.moveToNext()) {
                         val group = grouped.getOrPut(LookupKey(cursor.getString(0), cursor.getString(1))) { Group() }
@@ -104,12 +106,13 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                         group.targets.add(target)
                         group.readings.getOrPut(target) { linkedSetOf() }.add(cursor.getString(3))
                         group.hints.addAll(cursor.getString(4).split('\u001f').filter { it.isNotEmpty() })
+                        meanings.getOrPut(cursor.getString(0)) { linkedSetOf() }.add(cursor.getString(5))
                     }
                 }
             }
         }
         return grouped.entries.sortedWith(compareBy({ it.key.source }, { it.key.sense })).map {
-            VocabularyEntry(it.key.source, it.value.targets.sorted(), it.value.readings.mapValues { row -> row.value.sorted() }, it.value.hints.sorted())
+            VocabularyEntry(it.key.source, it.value.targets.sorted(), it.value.readings.mapValues { row -> row.value.sorted() }, it.value.hints.sorted(), (meanings[it.key.source]?.size ?: 0) > 1)
         }
     }
 

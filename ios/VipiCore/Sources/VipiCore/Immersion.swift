@@ -7,16 +7,19 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
     public let targets: [String]
     public let romanizations: [String: [String]]
     public let contextHints: [String]
-    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = []) {
+    public let requiresContext: Bool
+    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false) {
         self.source = source; self.targets = targets; self.romanizations = romanizations; self.contextHints = contextHints
+        self.requiresContext = requiresContext
     }
-    private enum CodingKeys: String, CodingKey { case source, targets, romanizations, contextHints }
+    private enum CodingKeys: String, CodingKey { case source, targets, romanizations, contextHints, requiresContext }
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         source = try values.decode(String.self, forKey: .source)
         targets = try values.decode([String].self, forKey: .targets)
         romanizations = try values.decodeIfPresent([String: [String]].self, forKey: .romanizations) ?? [:]
         contextHints = try values.decodeIfPresent([String].self, forKey: .contextHints) ?? []
+        requiresContext = try values.decodeIfPresent(Bool.self, forKey: .requiresContext) ?? false
     }
 }
 
@@ -134,6 +137,10 @@ public struct ImmersionEngine: Sendable {
                 NSIntersectionRange(other.span.range, candidate.span.range).length == 0 &&
                 NSIntersectionRange(other.targetRange, candidate.targetRange).length > 0)
             }
+        }.filter { candidate in
+            // A provider choosing one surface does not resolve a dictionary's
+            // multiple meanings. Require a local cue, retaining all rival claims.
+            !entries[candidate.entry].requiresContext || supported.contains(candidate.entry)
         }.filter { candidate in
             // Only veto after ambiguity checks. Removing a rival must never turn
             // an otherwise ambiguous translation into an accepted replacement.

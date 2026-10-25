@@ -73,7 +73,7 @@ final class BilingualMatrixTests: XCTestCase {
             }
             rows.append(["source": pair.source, "target": pair.target, "status": "executed", "install_ms": installMS, "samples": samples])
             try await store.remove(id: id)
-            var report: [String: Any] = ["schema": 1, "platform": "iOS Simulator", "translation_provider": captured.provider,
+            var report: [String: Any] = ["schema": 1, "platform": "iOS Simulator", "native_alignment_policy": "sentence-cue-for-polysemy-1", "translation_provider": captured.provider,
                 "evidence": "native_ios_alignment_on_captured_translations_not_translation_execution",
                 "translation_capture_platform": captured.platform, "translation_capture_evidence": captured.evidence,
                 "translation_capture_sha256": SHA256.hash(data: captureData).map { String(format: "%02x", $0) }.joined(),

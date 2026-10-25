@@ -1,6 +1,6 @@
 package co.fallsoft.vipi.core
 
-data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList())
+data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false)
 data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String,
                          val targetStart: Int = 0, val targetEnd: Int = 0, val romanization: String? = null) {
     val id: Int get() = start
@@ -78,7 +78,8 @@ class ImmersionEngine {
                     (other.span.start != candidate.span.start &&
                     !overlaps(other.span.start until other.span.end, candidate.span.start until candidate.span.end) && overlaps(other.target, candidate.target))
             }
-        }.filter { candidate -> candidate.entry in supported || supported.none { lookupKey(it.source) == lookupKey(candidate.entry.source) } }
+        }.filter { candidate -> !candidate.entry.requiresContext || candidate.entry in supported }
+            .filter { candidate -> candidate.entry in supported || supported.none { lookupKey(it.source) == lookupKey(candidate.entry.source) } }
             .sortedWith(compareByDescending<Candidate> { it.span.end - it.span.start }.thenBy { it.span.start })
         val budget = maxOf(1, ((sourceTokenCount ?: words.findAll(original).count()) * density.coerceAtMost(1.0)).toInt())
         var used = 0

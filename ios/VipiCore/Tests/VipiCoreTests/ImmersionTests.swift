@@ -121,3 +121,20 @@ import Testing
         #expect(engine.align(original: "coffee", translation: "咖啡", entries: entries, density: 1, targetLanguage: "zh").spans.isEmpty)
     }
 }
+
+@Test func multipleMeaningsNeedSentenceLocalEvidence() throws {
+    let engine = ImmersionEngine()
+    let entries = [
+        VocabularyEntry(source: "period", targets: ["período"], contextHints: ["time"], requiresContext: true),
+        VocabularyEntry(source: "period", targets: ["punto"], contextHints: ["punctuation"], requiresContext: true)
+    ]
+    for source in ["The period ends this sentence.", "The period ends here. Another time.", "The period uses `time`.", "The period has https://example.test/time"] {
+        #expect(engine.align(original: source, translation: "período", entries: entries, density: 1).spans.isEmpty)
+    }
+    #expect(engine.align(original: "A period of time.", translation: "período", entries: entries, density: 1).spans.count == 1)
+    #expect(engine.align(original: "A period is punctuation.", translation: "período", entries: entries, density: 1).spans.isEmpty)
+    #expect(engine.align(original: "A period is punctuation.", translation: "punto", entries: entries, density: 1).spans.count == 1)
+    #expect(engine.align(original: "A period of time.", translation: "período punto", entries: entries, density: 1).spans.isEmpty)
+    let decoded = try JSONDecoder().decode(VocabularyEntry.self, from: JSONEncoder().encode(entries[0]))
+    #expect(decoded.requiresContext)
+}

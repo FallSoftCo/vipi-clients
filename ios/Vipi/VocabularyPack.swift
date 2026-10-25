@@ -98,10 +98,12 @@ actor VocabularyPackStore {
             struct LookupKey: Hashable { let source: String; let sense: String }
             struct Group { var targets = Set<String>(); var readings: [String: Set<String>] = [:]; var hints = Set<String>() }
             var grouped: [LookupKey: Group] = [:]
+            var meanings: [String: Set<String>] = [:]
             for offset in stride(from: 0, to: terms.count, by: 200) {
                 let batch = Array(terms[offset..<min(offset + 200, terms.count)])
                 var columns = pointer.manifest.schema_version == 3 ? "source,sense_id,target,reading" : "source,'' AS sense_id,target,'' AS reading"
                 columns += pointer.manifest.context_policy == "cross-sense-label-veto-2" ? ",COALESCE((SELECT hints FROM sense_context WHERE sense_context.sense_id=vocabulary.sense_id),'') AS hints" : ",'' AS hints"
+                columns += pointer.manifest.schema_version == 3 ? ",COALESCE((SELECT label FROM senses WHERE senses.id=vocabulary.sense_id),'') AS meaning" : ",'' AS meaning"
                 let sql = "SELECT DISTINCT " + columns + " FROM vocabulary WHERE source IN (" + Array(repeating: "?", count: batch.count).joined(separator: ",") + ") ORDER BY source,sense_id,target,reading"
                 var statement: OpaquePointer?
                 guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { throw VocabularyPackError.storage }
@@ -117,13 +119,14 @@ actor VocabularyPackStore {
                     grouped[key, default: Group()].targets.insert(surface)
                     grouped[key, default: Group()].readings[surface, default: []].insert(String(cString: reading))
                     if let hints = sqlite3_column_text(statement, 4) { grouped[key, default: Group()].hints.formUnion(String(cString: hints).split(separator: "\u{1f}").map(String.init)) }
+                    if let meaning = sqlite3_column_text(statement, 5) { meanings[key.source, default: []].insert(String(cString: meaning)) }
                     result = sqlite3_step(statement)
                 }
                 guard result == SQLITE_DONE else { throw VocabularyPackError.storage }
             }
             return grouped.keys.sorted { ($0.source, $0.sense) < ($1.source, $1.sense) }.map { key in
                 let group = grouped[key]!
-                return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() }, contextHints: group.hints.sorted())
+                return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() }, contextHints: group.hints.sorted(), requiresContext: meanings[key.source, default: []].count > 1)
             }
         }
     }

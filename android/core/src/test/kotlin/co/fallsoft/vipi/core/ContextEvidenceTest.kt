@@ -4,6 +4,19 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class ContextEvidenceTest {
+    @Test fun multipleMeaningsNeedSentenceLocalEvidence() {
+        val engine = ImmersionEngine()
+        val entries = listOf(
+            VocabularyEntry("period", listOf("período"), contextHints = listOf("time"), requiresContext = true),
+            VocabularyEntry("period", listOf("punto"), contextHints = listOf("punctuation"), requiresContext = true))
+        for (text in listOf("The period ends this sentence.", "The period ends here. Another time.", "The period uses `time`.", "The period has https://example.test/time")) {
+            assertTrue(engine.align(text, "período", entries, 1.0).spans.isEmpty())
+        }
+        assertEquals(1, engine.align("A period of time.", "período", entries, 1.0).spans.size)
+        assertTrue(engine.align("A period is punctuation.", "período", entries, 1.0).spans.isEmpty())
+        assertEquals(1, engine.align("A period is punctuation.", "punto", entries, 1.0).spans.size)
+        assertTrue(engine.align("A period of time.", "período punto", entries, 1.0).spans.isEmpty())
+    }
     @Test fun competingSourceContextVetoesMistranslatedPolysemy() {
         for ((word, cue, wrong, right) in listOf(listOf("bank", "river", "banco", "orilla"), listOf("mouse", "computer", "ratón animal", "ratón informático"), listOf("crane", "construction", "grulla", "grúa"))) {
             val entries = listOf(VocabularyEntry(word, listOf(wrong), contextHints = listOf("animal", "institution")), VocabularyEntry(word, listOf(right), contextHints = listOf(cue)))

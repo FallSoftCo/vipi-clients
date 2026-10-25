@@ -5,6 +5,7 @@ import collections
 import html
 import json
 from pathlib import Path
+import shutil
 import statistics
 import unicodedata
 
@@ -60,8 +61,8 @@ def summarize(report):
 
 def main(args):
     output = args.output
-    output.mkdir(parents=True, exist_ok=False)
     reports = [json.loads(path.read_text()) for path in args.report]
+    output.mkdir(parents=True, exist_ok=False)
     if args.label:
         if len(args.label) != len(reports):
             raise ValueError('Supply one label for each report')
@@ -80,7 +81,10 @@ def main(args):
     for summary, samples in zip(summaries, datasets):
         for sample in samples:
             replacements = ' · '.join(f"{s['original']} → " + (f"{s['reading']} ({s['translated']})" if s['reading'] else s['translated']) for s in sample['spans']) or 'No replacement: original retained'
-            rows.append('<tr data-pair="' + sample['pair'] + '"><td>' + html.escape(summary['review_label']) + '</td><td>' + sample['pair'] + '<br>' + sample['id'] + '</td><td dir="auto">' + html.escape(sample['original']) + '</td><td dir="auto">' + html.escape(sample['translation']) + '</td><td dir="auto">' + html.escape(sample.get('reference') or 'Not supplied in this receipt') + '</td><td dir="auto">' + html.escape(replacements) + '</td></tr>')
+            source, target = sample['pair'].split('-')
+            def cell(text, language):
+                return '<td dir="auto" lang="' + html.escape(language) + '">' + html.escape(text) + '</td>'
+            rows.append('<tr data-pair="' + sample['pair'] + '"><td>' + html.escape(summary['review_label']) + '</td><td>' + sample['pair'] + '<br>' + html.escape(sample['id']) + '</td>' + cell(sample['original'], source) + cell(sample['translation'], target) + cell(sample.get('reference') or 'Not supplied in this receipt', target) + cell(replacements, target) + '</tr>')
     pairs = sorted({row['pair'] for samples in datasets for row in samples})
     credits = ['Dictionary candidates: Wiktionary contributors, via Wiktextract/Kaikki; CC-BY-SA-4.0.']
     for report in reports:
@@ -89,13 +93,28 @@ def main(args):
             credits.append('Reference corpus: ' + attribution['name'] + '; ' + attribution['license'] + '. ' + attribution['url'])
     attribution_html = ''.join('<p>' + html.escape(credit) + '</p>' for credit in dict.fromkeys(credits))
     page = '''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vipi — observed local immersion</title><style>body{font:16px system-ui;margin:24px;color:#142c29;background:#f7f8f4}h1{font-size:28px}p{max-width:80ch;line-height:1.5}select{font:inherit;padding:8px}table{border-collapse:collapse;width:100%;margin-top:20px}th,td{padding:12px;border-bottom:1px solid #cbd8d2;text-align:start;vertical-align:top}th{position:sticky;top:0;background:#e5eee7}td{min-width:100px}td:nth-child(n+3){min-width:220px}.scroll{overflow:auto}tr[hidden]{display:none}</style><h1>Observed local immersion</h1><p>Actual offline ML Kit translations with signed dictionary candidates. The iOS results use the same captured translations with Apple's native tokenization and alignment; they do not demonstrate Apple translation. This review exposes every replacement, including omissions. It is not linguistic approval, an app screenshot, or a user study.</p><label>Language direction <select id="pair"><option value="">All directions</option>''' + ''.join('<option>' + pair + '</option>' for pair in pairs) + '''</select></label><div class="scroll"><table><thead><tr><th>Platform</th><th>Case</th><th>Original</th><th>Actual translation</th><th>Selected vocabulary</th></tr></thead><tbody>''' + ''.join(rows) + '''</tbody></table></div><script>const select=document.querySelector('#pair');function filter(){document.querySelectorAll('tbody tr').forEach(row=>row.hidden=!!select.value&&row.dataset.pair!==select.value);}select.value=Array.from(select.options).some(option=>option.value==='en-es')?'en-es':select.options[1]?.value||'';select.addEventListener('change',filter);filter();</script></html>'''
-    page = page.replace('<th>Selected vocabulary</th>', '<th>Independent reference</th><th>Selected vocabulary</th>')
+    page = page.replace('<th>Selected vocabulary</th>', '<th>Reference text</th><th>Selected vocabulary</th>')
     page = page.replace("Actual offline ML Kit translations with signed dictionary candidates. The iOS results use the same captured translations with Apple's native tokenization and alignment; they do not demonstrate Apple translation.",
                         "Observed provider translations with signed dictionary candidates. Translation execution and native alignment are separate evidence; the provenance below identifies each capture and its limits.")
     provenance = [{key: report[key] for key in ('review_label', 'platform', 'provider', 'translation_provider', 'evidence',
-                  'translation_capture_platform', 'translation_capture_evidence', 'translation_capture_sha256', 'network_absence_verified') if key in report} for report in reports]
+                  'native_alignment_policy', 'translation_capture_platform', 'translation_capture_evidence', 'translation_capture_sha256', 'network_absence_verified') if key in report} for report in reports]
     page = page.replace('<label>Language direction', '<details><summary>Runtime and capture provenance</summary><pre>' + html.escape(json.dumps(provenance, indent=2, ensure_ascii=False)) + '</pre></details><label>Language direction')
-    page = page.replace('<script>', '<p>Reference surface occurrence is a literal text comparison, not semantic accuracy, alignment or pronunciation validation. The independent reference corpus uses formal prose, not chat.</p>' + attribution_html + '<script>')
+    reference_scope = ('The independent reference corpus uses formal prose, not chat.' if any(report.get('attribution') for report in reports)
+                       else 'These are authored examples, not an independent test corpus.')
+    page = page.replace('<script>', '<p>Reference surface occurrence is a literal text comparison, not semantic accuracy, alignment or pronunciation validation. ' + reference_scope + '</p>' + attribution_html + '<script>')
+    if args.review_fonts:
+        fonts = output / 'fonts'
+        fonts.mkdir()
+        css = ''
+        for language, suffix in [('ja', 'jp'), ('zh', 'sc'), ('ko', 'kr')]:
+            name = 'review-' + suffix + '.woff2'
+            shutil.copy2(args.review_fonts / name, fonts / name)
+            css += '@font-face{font-family:Review' + suffix + ';src:url(fonts/' + name + ') format("woff2");font-weight:400;font-display:swap}'
+            css += 'td[lang="' + language + '"]{font-family:Review' + suffix + ',sans-serif}'
+        for name in ('OFL.txt', 'receipt.json'):
+            shutil.copy2(args.review_fonts / name, fonts / name)
+        page = page.replace('</style>', css + '</style>')
+        page = page.replace('<script>', '<p>Review fonts: Noto CJK, subset to this evaluation corpus; <a href="fonts/OFL.txt">SIL Open Font License</a>. <a href="fonts/receipt.json">Font provenance</a>. Native app typography is separate.</p><script>')
     (output / 'review.html').write_text(page)
     print(json.dumps(receipt, ensure_ascii=False, indent=2))
 
@@ -105,4 +124,5 @@ if __name__ == '__main__':
     parser.add_argument('--report', action='append', type=Path, required=True)
     parser.add_argument('--label', action='append', default=[])
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--review-fonts', type=Path)
     main(parser.parse_args())

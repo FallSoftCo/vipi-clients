@@ -68,7 +68,7 @@ class BilingualPipelineDeviceTest {
         val store = VocabularyPackStore(qaContext, mapOf("bilingual-qualification-$runID" to File(packs, "signing-public-key.der").readBytes()))
         var completedPairs = 0
         val report = JSONObject().put("schema", 1).put("platform", "Android").put("provider", "MLKit 17.0.3")
-            .put("corpus", corpus.getString("version"))
+            .put("native_alignment_policy", "sentence-cue-for-polysemy-1").put("corpus", corpus.getString("version"))
             .put("evidence", "actual_offline_translation_and_signed_dictionary_alignment_pending_semantic_review")
             .put("linguistic_acceptance", false)
         if (corpus.has("attribution")) report.put("attribution", corpus.getJSONObject("attribution"))
