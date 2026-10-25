@@ -38,13 +38,12 @@ import SwiftUI
         let output = documents.appendingPathComponent("block-ui-" + run)
         guard !FileManager.default.fileExists(atPath: output.path) else { XCTFail("Preserve existing visual receipts"); throw VocabularyPackError.invalid }
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
-        let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages")
         let ownerID = transport.owner.uuidString.lowercased()
-        // XCTest teardown runs after the local session and its SQLite handle are released.
+        // Keep the tiny encrypted QA database until the test process exits.
+        // SwiftUI tasks can outlive the test method; in-process unlink is unsafe.
         addTeardownBlock { @MainActor in
             KeychainStore.delete(account: "profile-" + userID)
             KeychainStore.delete(account: "messages-" + ownerID)
-            try? FileManager.default.removeItem(at: root.appendingPathComponent(ownerID))
         }
         let chat = try ChatSession(api: transport, userID: userID)
         await chat.start(); XCTAssertTrue(chat.ready)
@@ -72,7 +71,7 @@ import SwiftUI
             XCTAssertEqual(chat.blockedPeers.contains(peer.id), blocked)
             XCTAssertEqual(try chat.messages(peer.id).first?.text, "Coffee tomorrow?")
         }
-        try JSONSerialization.data(withJSONObject: ["synthetic_contact_and_transport": true,
+        try JSONSerialization.data(withJSONObject: ["synthetic_contact_and_transport": true, "qa_account_id": ownerID,
             "evidence": "native_simulator_layout_capture_not_physical_interaction",
             "themes": ["light", "dark"], "large_type": "accessibility3"]).write(to: output.appendingPathComponent("receipt.json"))
     }
