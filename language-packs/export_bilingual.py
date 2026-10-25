@@ -34,7 +34,7 @@ CREATE TABLE sense_context(sense_id TEXT PRIMARY KEY REFERENCES senses(id),hints
 '''
 
 
-def export_pair(catalog, source, target, output, revision, key, key_id):
+def export_pair(catalog, source, target, output, revision, key, key_id, grammar_guard=None):
     if source not in LANGUAGES or target not in LANGUAGES or source == target or revision < 1:
         raise ValueError('Invalid pair/revision')
     pack_id = source + '-' + target
@@ -63,6 +63,14 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
             AND a.tags NOT LIKE '%"ironic"%' AND a.tags NOT LIKE '%"humorous"%'
             AND b.tags NOT LIKE '%"ironic"%' AND b.tags NOT LIKE '%"humorous"%' ''' + extra, (source, target))
         db.executemany('DELETE FROM vocabulary WHERE source=?', [(word,) for word in GRAMMAR[source]])
+        grammar_omitted = 0
+        if grammar_guard is not None:
+            # A source spelling with a grammatical use stays native even when
+            # another dictionary entry treats that spelling as lexical.
+            before = db.total_changes
+            db.executemany('DELETE FROM vocabulary WHERE source=?',
+                           [(word,) for word in grammar_guard['terms'][source]])
+            grammar_omitted = db.total_changes - before
         reading_collisions = 0
         if target == 'ar':
             # Translation output normally omits Arabic short vowels. A reading
@@ -88,6 +96,7 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
             'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower-arabic-harakat-v1',
             'context_policy': 'cross-sense-label-veto-2', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
             'arabic_reading_policy': 'catalog-wide-collision-abstention-1',
+            'grammar_policy': 'native-closed-class-abstention-1' if grammar_guard is not None else 'negation-and-modals-only-1',
             'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
             'license_url': 'https://creativecommons.org/licenses/by-sa/4.0/',
             'attribution': 'Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.',
@@ -110,6 +119,8 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
                     bytes=database.stat().st_size, sha256=digest_file(database),
                     mappings=count, headwords=headwords, readings=readings,
                     reading_collision_mappings_omitted=reading_collisions,
+                    grammar_mappings_omitted=grammar_omitted,
+                    grammar_guard_sha256=grammar_guard.get('file_sha256') if grammar_guard is not None else None,
                     compiler='vipi-bilingual-3', compiler_sha256=digest_file(Path(__file__)),
                     context_compiler_sha256=digest_file(Path(__file__).with_name('context_hints.py')),
                     catalog_sha256=digest_file(catalog), key_id=key_id,
@@ -131,6 +142,14 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
 def main(args):
     if digest_file(args.catalog) != CATALOG_SHA256:
         raise ValueError('Catalog does not match the qualified provenance pin')
+    grammar_guard = json.loads(args.grammar_guard.read_text())
+    if grammar_guard.get('schema') != 'vipi-native-grammar-guard-1' or set(grammar_guard.get('terms', {})) != set(LANGUAGES):
+        raise ValueError('Invalid grammar guard')
+    with sqlite3.connect(args.catalog.resolve().as_uri() + '?mode=ro&immutable=1', uri=True) as db:
+        upstream_hash = json.loads(db.execute("SELECT value FROM metadata WHERE key='upstream_sha256'").fetchone()[0])
+    if grammar_guard['source_sha256'] != upstream_hash:
+        raise ValueError('Grammar guard and catalog have different source data')
+    grammar_guard['file_sha256'] = digest_file(args.grammar_guard)
     if args.qualification:
         key = ec.generate_private_key(ec.SECP256R1())
     else:
@@ -144,7 +163,7 @@ def main(args):
     started = time.monotonic()
     manifests = []
     for source, target in pairs:
-        manifest = export_pair(args.catalog, source, target, args.output / (source + '-' + target), args.revision, key, args.key_id)
+        manifest = export_pair(args.catalog, source, target, args.output / (source + '-' + target), args.revision, key, args.key_id, grammar_guard)
         manifests.append(manifest)
         print(canonical({k: manifest[k] for k in ('pack_id', 'bytes', 'headwords', 'mappings', 'readings')}), flush=True)
     (args.output / 'receipt.json').write_text(canonical({
@@ -159,6 +178,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--catalog', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--grammar-guard', type=Path, required=True)
     parser.add_argument('--pair', action='append', default=[])
     parser.add_argument('--revision', type=int, required=True)
     parser.add_argument('--key-id', required=True)

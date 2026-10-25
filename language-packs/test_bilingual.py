@@ -122,6 +122,21 @@ class BilingualExportTests(unittest.TestCase):
         with sqlite3.connect(output / 'vocabulary.sqlite') as db:
             self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='not'").fetchone()[0], 0)
 
+    def test_native_grammatical_homograph_remains_untranslated(self):
+        with sqlite3.connect(self.catalog) as db:
+            for word, target in [('up', 'arriba'), ('be', 'ser')]:
+                add_entry(db, {'lang_code': 'en', 'word': word, 'pos': 'verb', 'translations': [
+                    {'code': 'es', 'word': target, 'sense': 'synthetic lexical sense'}]}, 101, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output = self.root / 'guarded'
+        manifest = export_pair(self.catalog, 'en', 'es', output, 1, self.key, 'qa-only',
+                               {'terms': {'en': {'up': {}, 'be': {}}}, 'file_sha256': 'synthetic-guard'})
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source IN ('up','be')").fetchone()[0], 0)
+            self.assertGreater(db.execute("SELECT count(*) FROM vocabulary WHERE source='bank'").fetchone()[0], 0)
+        self.assertEqual(manifest['grammar_mappings_omitted'], 2)
+        self.assertEqual(manifest['grammar_guard_sha256'], 'synthetic-guard')
+
     def test_arabic_reading_collision_in_another_sense_abstains(self):
         with sqlite3.connect(self.catalog) as db:
             for index, (word, pos, form, reading) in enumerate([
