@@ -37,3 +37,28 @@ The catalog/export descriptions above record the initial qualification. Current 
 Build on OZZZ-OS under storage admission. The complete enriched research index is about 73 MiB for 18 direct English directions, not all 90 pairs. It is not a signed native vocabulary pack and exceeds that installer's current 64 MiB per-file bound. No production schema/trust change is implied. `qa/immersion/context_index_queries.py` creates portability checks; `context_retrieval_pilot.py` measures source-context retrieval on captured messages. Neither is a linguistic acceptance test. The latter's ranking has observed sense/person errors and is not integrated.
 
 `sources/cygnet-20260512.json` pins a second research source, [Cygnet](https://github.com/omwn/cygnet/releases/tag/2026.05.12), including its separate provenance database. `fetch_cygnet.py` enforces release asset hashes, compressed/decompressed sizes, gzip integrity and SQLite integrity. Its measured acquisition bound is 991,307,668 data bytes plus a small receipt allowance. `qa/immersion/cygnet_coverage.py` measures ten-language concept links while retaining accent distinctions and grammatical exclusions. A source concept link does not prove that its synonyms are interchangeable in a new sentence. Korean coverage and several languages' native contexts are sparse. Source pronunciations are not automatically readable transliteration. Per-resource licenses and per-row attribution must be reviewed/preserved before distribution; do not apply the Cygnet code license to its mixed-source data.
+
+## Incremental mapping authoring
+
+`mapping_catalog.py` maintains the build-time SQLite authoring ledger, separate from downloadable client indexes. Import checkpoints and records commit in one transaction. Repeated input deduplicates; interrupted input resumes; source generations prevent an old resumed import from replacing a newer correction. Stable logical IDs retain immutable content revisions, source evidence, review history and a monotonic change sequence. Modifying an entry invalidates its previous content-specific review. Quarantine removes it from subsequent reviewed exports without discarding its history.
+
+The ledger started with 112,304 attested context records. `authored_everyday.py` adds 370 project-authored candidates across all 90 directions, with explicit meanings, exact lexical spans and Roman readings for non-Roman targets. These are development seeds, not independent acceptance data. The four initial beverage/food concepts and book/route examples are deliberately bounded; this count must not be advertised as broad everyday coverage. New JSONL batches do not require rescanning dictionaries or rebuilding accepted history.
+
+Run on OZZZ-OS with the applicable storage admission budget:
+
+```sh
+python3 language-packs/mapping_catalog.py import-index --catalog artifacts/mapping-catalog-001/catalog.sqlite --input artifacts/context-index-003 --batch-size 1000
+python3 language-packs/authored_everyday.py --output artifacts/authored-everyday-NEW/records.jsonl
+python3 language-packs/mapping_catalog.py import-records --catalog artifacts/mapping-catalog-001/catalog.sqlite --input artifacts/authored-everyday-NEW/records.jsonl --batch-size 100
+python3 language-packs/mapping_catalog.py status --catalog artifacts/mapping-catalog-001/catalog.sqlite
+```
+
+Use `--max-batches` to bound an ingestion run. Review reports bind the exact record SHA, reviewer, content-addressed evidence and meaning/usage/grammar/provenance/reading checks. Explicit author assessments are allowed and labelled as such; an author cannot label their assessment independent. Full assessment evidence accompanies exports. Generation, a test pass or an FTS score alone supplies no review. `export-reviewed` emits an internal manifest with `release_ready:false`; independent pair-level quality and signed native-pack installation remain separate. This allows Codex-authored work to progress without pretending another provider or person reviewed it.
+
+`context_patterns.py` validates optional finite source patterns: literals, explicitly enumerated slots and exactly one lexical focus. Slots never supply target text. Book examples enumerate supported subjects and possessors outside the replacement. Singular/plural focuses have separate mappings; unknown variants, conflicting meanings and ambiguous focus positions are withheld. The Kotlin and Swift implementations are native and bounded. These exact-context components do not yet provide broad phrase generalization or connect the ledger to general chat.
+
+## Whole-message and phrase observations
+
+`qa/immersion/prepare_phrase_probe.py` freezes the development protocol; its expected target terms never enter translation. Android `TranslationPhraseDeviceTest` translates the whole message, focus and overlapping native-token windows with networking disabled. Its synthetic QA SQLite cache is keyed by direction, exact input and protocol/provider epoch, persists case checkpoints, and supports replay without translation calls. It is not a production private-message cache or qualified model-content-version invalidation.
+
+`qa/immersion/review_phrase_probe.py` reports unique correspondences, overlapping phrase agreement and exact reference-surface matches separately. Surface differences may be acceptable variants or errors. Native word boundaries, lexical scope and readings matter: Arabic `حساب` translated as `an account` imports an article into a nominal focus; Korean particles can prevent a bare dictionary noun from matching a native token. Same-provider agreement can repeat a wrong meaning. The physical Apple counterpart retains separate output and observed network state; it must actually run before Apple parity is claimed.
