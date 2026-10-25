@@ -31,7 +31,8 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         val id = manifest.getString("pack_id")
         val revision = manifest.getInt("revision")
         val hash = manifest.getString("sha256")
-        require(validID(id) && revision > 0 && manifest.getInt("schema_version") == 1)
+        val schema = manifest.getInt("schema_version")
+        require(validID(id) && revision > 0 && schema in setOf(1, 3))
         require(id == manifest.getString("source_language") + "-" + manifest.getString("target_language"))
         require(manifest.getString("normalization") == "unicode-nfc-lower" && manifest.getString("file") == "vocabulary.sqlite")
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
@@ -44,10 +45,16 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
             temp.outputStream().use { it.write(database); it.fd.sync() }
             SQLiteDatabase.openDatabase(temp.path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
                 db.rawQuery("PRAGMA application_id", null).use { require(it.moveToFirst() && it.getInt(0) == 1447645257) }
-                db.rawQuery("PRAGMA user_version", null).use { require(it.moveToFirst() && it.getInt(0) == 1) }
+                db.rawQuery("PRAGMA user_version", null).use { require(it.moveToFirst() && it.getInt(0) == schema) }
                 db.rawQuery("PRAGMA quick_check", null).use { require(it.moveToFirst() && it.getString(0) == "ok") }
                 db.rawQuery("SELECT value FROM metadata WHERE key='pack_id'", null).use { require(it.moveToFirst() && it.getString(0) == id) }
                 db.rawQuery("SELECT source,target FROM vocabulary LIMIT 1", null).use { require(it.moveToFirst()) }
+                if (schema == 3) {
+                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'", null).use { require(it.moveToFirst() && it.getString(0) == "vipi-bilingual-3") }
+                    db.rawQuery("SELECT source_url FROM senses LIMIT 1", null).use { require(it.moveToFirst()) }
+                    db.rawQuery("SELECT reading FROM vocabulary LIMIT 1", null).use { require(it.moveToFirst()) }
+                    db.rawQuery("PRAGMA foreign_key_check", null).use { require(!it.moveToFirst()) }
+                }
             }
             // POSIX rename replaces atomically, including a damaged previous copy.
             require(temp.renameTo(destination))
@@ -74,16 +81,26 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
         val terms = candidateTerms(text, manifest.getString("source_language"))
         if (terms.isEmpty()) return emptyList()
-        val grouped = linkedMapOf<String, MutableSet<String>>()
+        data class LookupKey(val source: String, val sense: String)
+        data class Group(val targets: MutableSet<String> = linkedSetOf(), val readings: MutableMap<String, MutableSet<String>> = linkedMapOf())
+        val grouped = linkedMapOf<LookupKey, Group>()
         SQLiteDatabase.openDatabase(File(root, filename).path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
             for (batch in terms.chunked(200)) {
                 val placeholders = batch.joinToString(",") { "?" }
-                db.rawQuery("SELECT DISTINCT source,target FROM vocabulary WHERE source IN ($placeholders) ORDER BY source,target", batch.toTypedArray()).use { cursor ->
-                    while (cursor.moveToNext()) grouped.getOrPut(cursor.getString(0)) { linkedSetOf() }.add(cursor.getString(1))
+                val columns = if (manifest.getInt("schema_version") == 3) "source,sense_id,target,reading" else "source,'' AS sense_id,target,'' AS reading"
+                db.rawQuery("SELECT DISTINCT $columns FROM vocabulary WHERE source IN ($placeholders) ORDER BY source,sense_id,target,reading", batch.toTypedArray()).use { cursor ->
+                    while (cursor.moveToNext()) {
+                        val group = grouped.getOrPut(LookupKey(cursor.getString(0), cursor.getString(1))) { Group() }
+                        val target = cursor.getString(2)
+                        group.targets.add(target)
+                        group.readings.getOrPut(target) { linkedSetOf() }.add(cursor.getString(3))
+                    }
                 }
             }
         }
-        return grouped.map { VocabularyEntry(it.key, it.value.toList()) }
+        return grouped.entries.sortedWith(compareBy({ it.key.source }, { it.key.sense })).map {
+            VocabularyEntry(it.key.source, it.value.targets.sorted(), it.value.readings.mapValues { row -> row.value.sorted() })
+        }
     }
 
     @Synchronized fun remove(id: String) {

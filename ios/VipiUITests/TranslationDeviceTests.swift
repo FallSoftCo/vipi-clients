@@ -20,7 +20,12 @@ final class TranslationDeviceTests: XCTestCase {
         let prepared = NSPredicate(format: "label BEGINSWITH %@", "Finished 9 directions.")
         let deadline = Date().addingTimeInterval(900)
         while Date() < deadline && !prepared.evaluate(with: status) {
-            if app.buttons["Download"].exists { app.buttons["Download"].tap() }
+            // iPadOS 18 exposes per-language download icons rather than a
+            // single Download action. Use Apple's accessibility identifier,
+            // observed on the attached iPad, without coordinate guessing.
+            let arrow = app.buttons.matching(identifier: "arrow.down.circle").firstMatch
+            if arrow.exists && arrow.isHittable { arrow.tap() }
+            else if app.buttons["Download"].exists { app.buttons["Download"].tap() }
             else if XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.buttons["Download"].exists {
                 XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.buttons["Download"].tap()
             }

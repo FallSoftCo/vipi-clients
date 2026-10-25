@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Export auditable native bilingual data from the pinned sense catalog.
+
+Exports remain candidate data. Signing authenticates provenance, not linguistic
+accuracy. Qualification keys are never added to a release client's trust list.
+"""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import sqlite3
+import time
+
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import ec
+
+from build_wiktextract import LANGUAGES, canonical, digest_file
+
+CATALOG_SHA256 = '80b9980d729cbb8f2606f919a3f8b5b771f89ba99468f9721e578e41edd2ed1f'
+SCHEMA = '''
+PRAGMA application_id=1447645257;
+PRAGMA user_version=3;
+PRAGMA temp_store=FILE;
+PRAGMA cache_size=-8192;
+CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
+CREATE TABLE senses(id TEXT PRIMARY KEY,label TEXT NOT NULL,part_of_speech TEXT NOT NULL,
+ source_word TEXT NOT NULL,source_line INTEGER NOT NULL,source_url TEXT NOT NULL,
+ evidence TEXT NOT NULL) WITHOUT ROWID;
+CREATE TABLE vocabulary(source TEXT NOT NULL,target TEXT NOT NULL,sense_id TEXT NOT NULL
+ REFERENCES senses(id),reading TEXT NOT NULL,
+ PRIMARY KEY(source,sense_id,target,reading)) WITHOUT ROWID;
+'''
+
+
+def export_pair(catalog, source, target, output, revision, key, key_id):
+    if source not in LANGUAGES or target not in LANGUAGES or source == target or revision < 1:
+        raise ValueError('Invalid pair/revision')
+    pack_id = source + '-' + target
+    output.mkdir(parents=True, exist_ok=False)
+    database = output / 'vocabulary.sqlite'
+    extra = ' AND s.explicit=1' if source != 'en' and target != 'en' else ''
+    evidence = 'direct' if source == 'en' else 'reversed_direct' if target == 'en' else 'shared_explicit_english_sense'
+    with sqlite3.connect(database) as db:
+        db.executescript(SCHEMA)
+        # ATTACH accepts a bound filename. The source is opened immutable/read-only.
+        db.execute('ATTACH DATABASE ? AS catalog', (catalog.resolve().as_uri() + '?mode=ro&immutable=1',))
+        db.execute('''INSERT OR IGNORE INTO vocabulary
+            SELECT a.normalized,b.form,a.sense_id,b.display_reading
+            FROM catalog.terms a JOIN catalog.terms b ON a.sense_id=b.sense_id
+            JOIN catalog.senses s ON s.id=a.sense_id
+            WHERE a.language=? AND b.language=? AND a.normalized<>b.normalized''' + extra, (source, target))
+        db.execute('''INSERT INTO senses SELECT s.id,s.label,s.part_of_speech,s.source_word,s.source_line,s.source_url,?
+            FROM catalog.senses s WHERE s.id IN (SELECT sense_id FROM vocabulary)''', (evidence,))
+        source_metadata = {row[0]: json.loads(row[1]) for row in db.execute('SELECT key,value FROM catalog.metadata')}
+        metadata = {
+            'schema': 'vipi-bilingual-3', 'pack_id': pack_id, 'source_language': source,
+            'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower',
+            'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
+            'license_url': 'https://creativecommons.org/licenses/by-sa/4.0/',
+            'attribution': 'Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.',
+            'source_sha256': source_metadata['upstream_sha256'],
+            'source_version': source_metadata['source_version'],
+            'derivation': evidence,
+        }
+        db.executemany('INSERT INTO metadata VALUES (?,?)', metadata.items())
+        count, headwords = db.execute('SELECT count(*),count(DISTINCT source) FROM vocabulary').fetchone()
+        readings, = db.execute("SELECT count(*) FROM vocabulary WHERE reading<>''").fetchone()
+        if not count or db.execute('PRAGMA foreign_key_check').fetchone() is not None:
+            raise ValueError('Empty or inconsistent bilingual export')
+        db.commit()
+        db.execute('VACUUM')
+        if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
+            raise ValueError('Bilingual integrity failure')
+    if database.stat().st_size > 67_108_864:
+        raise ValueError('Native pack exceeds the bounded installer size')
+    manifest = dict(metadata, revision=revision, schema_version=3, file='vocabulary.sqlite',
+                    bytes=database.stat().st_size, sha256=digest_file(database),
+                    mappings=count, headwords=headwords, readings=readings,
+                    compiler='vipi-bilingual-1', compiler_sha256=digest_file(Path(__file__)),
+                    catalog_sha256=digest_file(catalog), key_id=key_id,
+                    signature_algorithm='ECDSA-P256-SHA256')
+    encoded = canonical(manifest).encode()
+    signature = key.sign(encoded, ec.ECDSA(hashes.SHA256()))
+    key.public_key().verify(signature, encoded, ec.ECDSA(hashes.SHA256()))
+    (output / 'manifest.json').write_bytes(encoded)
+    (output / 'manifest.sig').write_bytes(signature)
+    (output / 'ATTRIBUTION.txt').write_text(
+        metadata['attribution'] + '\n' + metadata['license_url'] + '\n'
+        'Original entries and contributor history: senses.source_url; append ?action=history before #English.\n'
+        'Changes: selected modern vocabulary, normalized source forms, split Han variants, preserved sense groups,\n'
+        'conservative readable romanization and bilingual SQLite export. Full source and derivation are retained.\n'
+        'Candidate mappings require contextual matching; signature does not certify translation accuracy.\n')
+    return manifest
+
+
+def main(args):
+    if digest_file(args.catalog) != CATALOG_SHA256:
+        raise ValueError('Catalog does not match the qualified provenance pin')
+    if args.qualification:
+        key = ec.generate_private_key(ec.SECP256R1())
+    else:
+        key = serialization.load_pem_private_key(args.signing_key.read_bytes(), password=None)
+    if not isinstance(key, ec.EllipticCurvePrivateKey) or not isinstance(key.curve, ec.SECP256R1):
+        raise ValueError('Expected P-256 signing key')
+    args.output.mkdir(parents=True, exist_ok=False)
+    public = key.public_key().public_bytes(serialization.Encoding.DER, serialization.PublicFormat.SubjectPublicKeyInfo)
+    (args.output / 'signing-public-key.der').write_bytes(public)
+    pairs = [tuple(pair.split('-')) for pair in args.pair] if args.pair else [(s, t) for s in LANGUAGES for t in LANGUAGES if s != t]
+    started = time.monotonic()
+    manifests = []
+    for source, target in pairs:
+        manifest = export_pair(args.catalog, source, target, args.output / (source + '-' + target), args.revision, key, args.key_id)
+        manifests.append(manifest)
+        print(canonical({k: manifest[k] for k in ('pack_id', 'bytes', 'headwords', 'mappings', 'readings')}), flush=True)
+    (args.output / 'receipt.json').write_text(canonical({
+        'quality': 'candidate', 'qualification_only_key': args.qualification,
+        'private_key_written': False, 'catalog_sha256': CATALOG_SHA256,
+        'compiler_sha256': digest_file(Path(__file__)), 'pairs': manifests,
+        'seconds': time.monotonic() - started,
+    }) + '\n')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--catalog', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--pair', action='append', default=[])
+    parser.add_argument('--revision', type=int, required=True)
+    parser.add_argument('--key-id', required=True)
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--qualification', action='store_true')
+    group.add_argument('--signing-key', type=Path)
+    main(parser.parse_args())

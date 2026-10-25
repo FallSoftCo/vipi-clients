@@ -23,16 +23,18 @@ enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollbac
 actor VocabularyPackStore {
     private let root: URL
     private let trustedKeys: [String: Data]
+    private let receiptPrefix: String
     private struct Accepted: Codable { let revision: Int; let hash: String }
     private struct Pointer: Codable { let file: String; let manifest: VocabularyManifest }
 
-    init(root: URL, trustedKeys: [String: Data]) throws {
-        self.root = root; self.trustedKeys = trustedKeys
+    init(root: URL, trustedKeys: [String: Data], receiptPrefix: String = "pack-") throws {
+        guard receiptPrefix.range(of: "^[a-z0-9-]{1,64}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
+        self.root = root; self.trustedKeys = trustedKeys; self.receiptPrefix = receiptPrefix
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     }
     private func validID(_ id: String) -> Bool { id.range(of: #"^[a-z]{2,3}-[a-z]{2,3}$"#, options: .regularExpression) != nil }
     private func accepted(_ id: String) throws -> Accepted? {
-        guard let data = try KeychainStore.read(account: "pack-" + id) else { return nil }
+        guard let data = try KeychainStore.read(account: receiptPrefix + id) else { return nil }
         return try JSONDecoder().decode(Accepted.self, from: data)
     }
     func install(manifestBytes: Data, signature: Data, database: Data) throws -> String {
@@ -44,7 +46,7 @@ actor VocabularyPackStore {
         let id = manifest.pack_id
         let hash = SHA256.hash(data: database).map { String(format: "%02x", $0) }.joined()
         guard validID(id), id == manifest.source_language + "-" + manifest.target_language, manifest.revision > 0,
-              manifest.schema_version == 1, manifest.normalization == "unicode-nfc-lower", manifest.file == "vocabulary.sqlite",
+              [1, 3].contains(manifest.schema_version), manifest.normalization == "unicode-nfc-lower", manifest.file == "vocabulary.sqlite",
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
         if let previous = try accepted(id) {
@@ -56,14 +58,20 @@ actor VocabularyPackStore {
         defer { try? FileManager.default.removeItem(at: temporary) }
         try database.write(to: temporary, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
         try withDatabase(temporary) { db in
-            guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == "1",
+            guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == String(manifest.schema_version),
                   try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id,
                   try scalar(db, "SELECT source FROM vocabulary LIMIT 1") != nil else { throw VocabularyPackError.invalid }
+            if manifest.schema_version == 3 {
+                guard try scalar(db, "SELECT value FROM metadata WHERE key='schema'") == "vipi-bilingual-3",
+                      try scalar(db, "SELECT source_url FROM senses LIMIT 1") != nil,
+                      try scalar(db, "SELECT reading FROM vocabulary LIMIT 1") != nil,
+                      try scalar(db, "PRAGMA foreign_key_check") == nil else { throw VocabularyPackError.invalid }
+            }
         }
         if FileManager.default.fileExists(atPath: destination.path) {
             _ = try FileManager.default.replaceItemAt(destination, withItemAt: temporary)
         } else { try FileManager.default.moveItem(at: temporary, to: destination) }
-        try KeychainStore.save(JSONEncoder().encode(Accepted(revision: manifest.revision, hash: hash)), account: "pack-" + id)
+        try KeychainStore.save(JSONEncoder().encode(Accepted(revision: manifest.revision, hash: hash)), account: receiptPrefix + id)
         try JSONEncoder().encode(Pointer(file: filename, manifest: manifest)).write(to: root.appendingPathComponent(id + ".json"), options: .atomic)
         for old in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where old.lastPathComponent.hasPrefix(id + "-") && old.pathExtension == "sqlite" && old != destination { try? FileManager.default.removeItem(at: old) }
         return id
@@ -79,10 +87,13 @@ actor VocabularyPackStore {
         let terms = try candidateTerms(text, language: pointer.manifest.source_language)
         if terms.isEmpty { return [] }
         return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
-            var grouped: [String: Set<String>] = [:]
+            struct LookupKey: Hashable { let source: String; let sense: String }
+            struct Group { var targets = Set<String>(); var readings: [String: Set<String>] = [:] }
+            var grouped: [LookupKey: Group] = [:]
             for offset in stride(from: 0, to: terms.count, by: 200) {
                 let batch = Array(terms[offset..<min(offset + 200, terms.count)])
-                let sql = "SELECT DISTINCT source,target FROM vocabulary WHERE source IN (" + Array(repeating: "?", count: batch.count).joined(separator: ",") + ") ORDER BY source,target"
+                let columns = pointer.manifest.schema_version == 3 ? "source,sense_id,target,reading" : "source,'' AS sense_id,target,'' AS reading"
+                let sql = "SELECT DISTINCT " + columns + " FROM vocabulary WHERE source IN (" + Array(repeating: "?", count: batch.count).joined(separator: ",") + ") ORDER BY source,sense_id,target,reading"
                 var statement: OpaquePointer?
                 guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { throw VocabularyPackError.storage }
                 defer { sqlite3_finalize(statement) }
@@ -91,13 +102,19 @@ actor VocabularyPackStore {
                 }
                 var result = sqlite3_step(statement)
                 while result == SQLITE_ROW {
-                    guard let source = sqlite3_column_text(statement, 0), let target = sqlite3_column_text(statement, 1) else { throw VocabularyPackError.invalid }
-                    grouped[String(cString: source), default: []].insert(String(cString: target))
+                    guard let source = sqlite3_column_text(statement, 0), let sense = sqlite3_column_text(statement, 1),
+                          let target = sqlite3_column_text(statement, 2), let reading = sqlite3_column_text(statement, 3) else { throw VocabularyPackError.invalid }
+                    let key = LookupKey(source: String(cString: source), sense: String(cString: sense)), surface = String(cString: target)
+                    grouped[key, default: Group()].targets.insert(surface)
+                    grouped[key, default: Group()].readings[surface, default: []].insert(String(cString: reading))
                     result = sqlite3_step(statement)
                 }
                 guard result == SQLITE_DONE else { throw VocabularyPackError.storage }
             }
-            return grouped.keys.sorted().map { VocabularyEntry(source: $0, targets: grouped[$0]!.sorted()) }
+            return grouped.keys.sorted { ($0.source, $0.sense) < ($1.source, $1.sense) }.map { key in
+                let group = grouped[key]!
+                return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() })
+            }
         }
     }
 
