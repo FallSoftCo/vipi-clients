@@ -60,6 +60,11 @@ def sms_partition(folder):
 
 
 def partition_sms_records(records):
+    rows,metadata=split_sms_records(records)
+    return [(language,text) for language,identifier,text,split in rows if split=='development'],metadata
+
+
+def split_sms_records(records):
     assignments={};groups=Counter();train_texts=set();partitions=Counter();output=[]
     for language,identifier,text,contributor in records:
         groups[contributor]+=1
@@ -76,7 +81,7 @@ def partition_sms_records(records):
             elif normalized in reserved_texts:split='excluded_reserved_duplicate'
             else:reserved_texts.add(normalized)
         partitions[language+':'+split]+=1
-        if split=='development':output.append((language,text))
+        output.append((language,identifier,text,split))
     return output,{'split_recipe':'vipi-nus-contributor-v2:85-development:15-reserved; purge overlapping reserved text',
         'partitions':dict(partitions),'contributors':len(groups),'largest_contributor_messages':max(groups.values()),
         'raw_messages':len(records),'reserved_unique_texts':len(reserved_texts),

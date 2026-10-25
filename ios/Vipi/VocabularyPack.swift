@@ -19,19 +19,23 @@ struct VocabularyManifest: Codable, Sendable {
 }
 
 enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage }
+enum VocabularyPackKind: Sendable { case vocabulary, reviewedContext }
 
 /// Serializes install/query/removal; files contain only public vocabulary data.
 actor VocabularyPackStore {
     private let root: URL
     private let trustedKeys: [String: Data]
     private let receiptPrefix: String
+    private let kind: VocabularyPackKind
     private struct Accepted: Codable { let revision: Int; let hash: String }
     private struct Pointer: Codable { let file: String; let manifest: VocabularyManifest }
 
-    init(root: URL, trustedKeys: [String: Data], receiptPrefix: String = "pack-") throws {
+    init(root: URL, trustedKeys: [String: Data], receiptPrefix: String = "pack-", kind: VocabularyPackKind = .vocabulary) throws {
         guard receiptPrefix.range(of: "^[a-z0-9-]{1,64}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
-        self.root = root; self.trustedKeys = trustedKeys; self.receiptPrefix = receiptPrefix
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        self.kind = kind
+        self.root = kind == .reviewedContext ? root.appendingPathComponent("reviewed-contexts") : root
+        self.trustedKeys = trustedKeys; self.receiptPrefix = (kind == .reviewedContext ? "context-" : "") + receiptPrefix
+        try FileManager.default.createDirectory(at: self.root, withIntermediateDirectories: true)
     }
     private func validID(_ id: String) -> Bool { id.range(of: #"^[a-z]{2,3}-[a-z]{2,3}$"#, options: .regularExpression) != nil }
     private func accepted(_ id: String) throws -> Accepted? {
@@ -47,9 +51,12 @@ actor VocabularyPackStore {
         let id = manifest.pack_id
         let hash = SHA256.hash(data: database).map { String(format: "%02x", $0) }.joined()
         guard validID(id), id == manifest.source_language + "-" + manifest.target_language, manifest.revision > 0,
-              [1, 3, 4].contains(manifest.schema_version),
-              (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version >= 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1")),
-              (manifest.schema_version == 4 ? manifest.context_policy == "all-source-senses-veto-3" : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2")), manifest.file == "vocabulary.sqlite",
+              (kind == .reviewedContext ? manifest.schema_version == 5 : [1, 3, 4].contains(manifest.schema_version)),
+              (kind == .reviewedContext ? manifest.normalization == "exact-utf16" :
+                (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version >= 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1"))),
+              (kind == .reviewedContext ? manifest.context_policy == "reviewed-finite-context-1" :
+                (manifest.schema_version == 4 ? manifest.context_policy == "all-source-senses-veto-3" : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2"))),
+              manifest.file == (kind == .reviewedContext ? "contexts.sqlite" : "vocabulary.sqlite"),
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
         if let previous = try accepted(id) {
@@ -62,8 +69,17 @@ actor VocabularyPackStore {
         try database.write(to: temporary, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
         try withDatabase(temporary) { db in
             guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == String(manifest.schema_version),
-                  try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id,
-                  try scalar(db, "SELECT source FROM vocabulary LIMIT 1") != nil else { throw VocabularyPackError.invalid }
+                  try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id else { throw VocabularyPackError.invalid }
+            if kind == .reviewedContext {
+                guard try scalar(db,"SELECT value FROM metadata WHERE key='schema'") == "vipi-reviewed-context-1",
+                      try scalar(db,"SELECT value FROM metadata WHERE key='context_policy'") == "reviewed-finite-context-1",
+                      try scalar(db,"SELECT id FROM mappings LIMIT 1") != nil,
+                      try scalar(db,"SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768") == "0",
+                      try scalar(db,"SELECT count(*) FROM (SELECT input FROM context_inputs GROUP BY input HAVING count(*)>256)") == "0",
+                      try scalar(db,"PRAGMA foreign_key_check") == nil else { throw VocabularyPackError.invalid }
+                return
+            }
+            guard try scalar(db,"SELECT source FROM vocabulary LIMIT 1") != nil else { throw VocabularyPackError.invalid }
             if manifest.schema_version >= 3 {
                 guard try scalar(db, "SELECT value FROM metadata WHERE key='schema'") == "vipi-bilingual-\(manifest.schema_version)",
                       try scalar(db, "SELECT source_url FROM senses LIMIT 1") != nil,
@@ -84,7 +100,10 @@ actor VocabularyPackStore {
         } else { try FileManager.default.moveItem(at: temporary, to: destination) }
         try KeychainStore.save(JSONEncoder().encode(Accepted(revision: manifest.revision, hash: hash)), account: receiptPrefix + id)
         try JSONEncoder().encode(Pointer(file: filename, manifest: manifest)).write(to: root.appendingPathComponent(id + ".json"), options: .atomic)
-        for old in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where old.lastPathComponent.hasPrefix(id + "-") && old.pathExtension == "sqlite" && old != destination { try? FileManager.default.removeItem(at: old) }
+        // Directory enumeration may return a differently based URL for this
+        // same path. Compare the filename within this one directory so cleanup
+        // cannot remove the revision that was just installed.
+        for old in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where old.lastPathComponent.hasPrefix(id + "-") && old.pathExtension == "sqlite" && old.lastPathComponent != filename { try? FileManager.default.removeItem(at: old) }
         return id
     }
 
@@ -95,6 +114,25 @@ actor VocabularyPackStore {
         let pointer = try JSONDecoder().decode(Pointer.self, from: Data(contentsOf: pointerURL))
         guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
               pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
+        if kind == .reviewedContext {
+            guard pointer.manifest.schema_version == 5 else { throw VocabularyPackError.invalid }
+            return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
+                var statement: OpaquePointer?
+                let sql="SELECT m.payload FROM context_inputs i JOIN mappings m ON m.id=i.mapping_id WHERE i.input=? ORDER BY m.id LIMIT 257"
+                guard sqlite3_prepare_v2(db,sql,-1,&statement,nil) == SQLITE_OK else {throw VocabularyPackError.storage}
+                defer {sqlite3_finalize(statement)}
+                guard sqlite3_bind_text(statement,1,text,-1,unsafeBitCast(-1,to:sqlite3_destructor_type.self)) == SQLITE_OK else {throw VocabularyPackError.storage}
+                var mappings:[ContextMapping]=[];var status=sqlite3_step(statement)
+                while status == SQLITE_ROW {
+                    guard let raw=sqlite3_column_text(statement,0) else {throw VocabularyPackError.invalid}
+                    mappings.append(try ReviewedContextRecord.mapping(Data(String(cString:raw).utf8),source:pointer.manifest.source_language,target:pointer.manifest.target_language))
+                    guard mappings.count<=256 else {throw VocabularyPackError.invalid}
+                    status=sqlite3_step(statement)
+                }
+                guard status == SQLITE_DONE else {throw VocabularyPackError.storage}
+                return ContextMappingMatcher.entries(original:text,source:pointer.manifest.source_language,target:pointer.manifest.target_language,mappings:mappings)
+            }
+        }
         let rawTerms = try candidateTerms(text, language: pointer.manifest.source_language)
         let terms = pointer.manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1" ? Array(Set(rawTerms.map(ImmersionEngine.lookupKey))).sorted() : rawTerms
         if terms.isEmpty { return [] }

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.util.AtomicFile
 import co.fallsoft.vipi.core.VocabularyEntry
 import co.fallsoft.vipi.core.ImmersionEngine
+import co.fallsoft.vipi.core.ContextMappingMatcher
 import org.json.JSONObject
 import java.io.File
 import java.security.KeyFactory
@@ -15,8 +16,12 @@ import java.text.Normalizer
 import java.util.Locale
 
 /** Public vocabulary only. Trust keys are supplied by the app, never by the download. */
-class VocabularyPackStore(context: Context, private val trustedKeys: Map<String, ByteArray>) {
-    private val root = File(context.filesDir, "language-packs").apply { mkdirs() }
+enum class VocabularyPackKind { VOCABULARY, REVIEWED_CONTEXT }
+class VocabularyPackStore(context: Context, private val trustedKeys: Map<String, ByteArray>,
+                          private val kind: VocabularyPackKind = VocabularyPackKind.VOCABULARY) {
+    private val isContext = kind == VocabularyPackKind.REVIEWED_CONTEXT
+    private val root = File(context.filesDir, if (isContext) "language-packs/reviewed-contexts" else "language-packs").apply { mkdirs() }
+    private val receiptPrefix = if (isContext) "context-pack-" else "pack-"
     private val records = PrivateRecords(context)
     private fun validID(id: String) = id.matches(Regex("[a-z]{2,3}-[a-z]{2,3}"))
     private fun sha256(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
@@ -33,14 +38,16 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         val revision = manifest.getInt("revision")
         val hash = manifest.getString("sha256")
         val schema = manifest.getInt("schema_version")
-        require(validID(id) && revision > 0 && schema in setOf(1, 3, 4))
+        require(validID(id) && revision > 0 && if (isContext) schema == 5 else schema in setOf(1, 3, 4))
         require(id == manifest.getString("source_language") + "-" + manifest.getString("target_language"))
         val normalization = manifest.getString("normalization")
-        require((normalization == "unicode-nfc-lower" || (schema >= 3 && normalization == "unicode-nfc-lower-arabic-harakat-v1")) && manifest.getString("file") == "vocabulary.sqlite")
-        require(if (schema == 4) manifest.optString("context_policy") == "all-source-senses-veto-3" else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
+        require(if (isContext) normalization == "exact-utf16" && manifest.getString("file") == "contexts.sqlite"
+            else (normalization == "unicode-nfc-lower" || (schema >= 3 && normalization == "unicode-nfc-lower-arabic-harakat-v1")) && manifest.getString("file") == "vocabulary.sqlite")
+        require(if (isContext) manifest.optString("context_policy") == "reviewed-finite-context-1"
+            else if (schema == 4) manifest.optString("context_policy") == "all-source-senses-veto-3" else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
         require(database.copyOfRange(0, 16).contentEquals("SQLite format 3\u0000".toByteArray()))
-        val previous = records.read("pack-" + id)
+        val previous = records.read(receiptPrefix + id)
         if (previous != null) require(revision > previous.getInt("revision") || (revision == previous.getInt("revision") && hash == previous.getString("hash"))) { "Pack rollback or revision conflict" }
         val destination = File(root, "$id-$revision-$hash.sqlite")
         val temp = File.createTempFile("install-", ".sqlite", root)
@@ -51,6 +58,15 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                 db.rawQuery("PRAGMA user_version", null).use { require(it.moveToFirst() && it.getInt(0) == schema) }
                 db.rawQuery("PRAGMA quick_check", null).use { require(it.moveToFirst() && it.getString(0) == "ok") }
                 db.rawQuery("SELECT value FROM metadata WHERE key='pack_id'", null).use { require(it.moveToFirst() && it.getString(0) == id) }
+                if (isContext) {
+                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'",null).use { require(it.moveToFirst() && it.getString(0)=="vipi-reviewed-context-1") }
+                    db.rawQuery("SELECT value FROM metadata WHERE key='context_policy'",null).use { require(it.moveToFirst() && it.getString(0)=="reviewed-finite-context-1") }
+                    db.rawQuery("SELECT id FROM mappings LIMIT 1",null).use { require(it.moveToFirst()) }
+                    db.rawQuery("SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
+                    db.rawQuery("SELECT count(*) FROM (SELECT input FROM context_inputs GROUP BY input HAVING count(*)>256)",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
+                    db.rawQuery("PRAGMA foreign_key_check",null).use { require(!it.moveToFirst()) }
+                    return@use
+                }
                 db.rawQuery("SELECT source,target FROM vocabulary LIMIT 1", null).use { require(it.moveToFirst()) }
                 if (schema >= 3) {
                     db.rawQuery("SELECT value FROM metadata WHERE key='schema'", null).use { require(it.moveToFirst() && it.getString(0) == "vipi-bilingual-$schema") }
@@ -69,7 +85,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
             }
             // POSIX rename replaces atomically, including a damaged previous copy.
             require(temp.renameTo(destination))
-            records.write("pack-" + id, JSONObject().put("revision", revision).put("hash", hash))
+            records.write(receiptPrefix + id, JSONObject().put("revision", revision).put("hash", hash))
             val pointer = AtomicFile(File(root, "$id.json"))
             val stream = pointer.startWrite()
             try { stream.write(JSONObject().put("file", destination.name).put("manifest", manifest).toString().toByteArray()); pointer.finishWrite(stream) }
@@ -86,10 +102,24 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         if (!pointer.exists()) return emptyList()
         val value = JSONObject(pointer.readText())
         val manifest = value.getJSONObject("manifest")
-        val accepted = records.read("pack-" + id) ?: return emptyList()
+        val accepted = records.read(receiptPrefix + id) ?: return emptyList()
         require(accepted.getInt("revision") == manifest.getInt("revision") && accepted.getString("hash") == manifest.getString("sha256"))
         val filename = value.getString("file")
         require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
+        if (isContext) {
+            require(manifest.getInt("schema_version")==5)
+            val source=manifest.getString("source_language");val target=manifest.getString("target_language")
+            SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
+                val mappings=mutableListOf<co.fallsoft.vipi.core.ContextMapping>()
+                db.rawQuery("SELECT m.payload FROM context_inputs i JOIN mappings m ON m.id=i.mapping_id WHERE i.input=? ORDER BY m.id LIMIT 257",arrayOf(text)).use { cursor ->
+                    while (cursor.moveToNext()) {
+                        mappings+=ReviewedContextRecord.mapping(cursor.getString(0),source,target)
+                        require(mappings.size<=256)
+                    }
+                }
+                return ContextMappingMatcher.entries(text,source,target,mappings)
+            }
+        }
         val rawTerms = candidateTerms(text, manifest.getString("source_language"))
         val terms = if (manifest.getString("normalization") == "unicode-nfc-lower-arabic-harakat-v1") rawTerms.map(ImmersionEngine::lookupKey).distinct() else rawTerms
         if (terms.isEmpty()) return emptyList()

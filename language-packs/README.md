@@ -74,3 +74,19 @@ Use `--max-batches` to bound an ingestion run. Review reports bind the exact rec
 `conversation_priority.py` measures source-surface recognition on development text; it does not measure correct substitutions. Its NUS SMS split hashes contributor IDs across languages, always assigns unknown contributors to development, removes reserved texts duplicated in development, and deduplicates reserved texts. The resulting 8,446 reserved messages are contributor-separated, not proven participant- or conversation-separated. Corpus metadata/phone numbers are not exported into reports or app packs. `grammar_coverage.py` measures lemma/morphology/dependency patterns in pinned Universal Dependencies **training** files. Grammar and frequency reports prioritize authoring; they are not runtime data.
 
 Sources remain separate: [Tatoeba](https://tatoeba.org/en/downloads) text uses CC BY 2.0 FR except its explicitly marked CC0 subset; audio is not acquired. [NUS SMS](https://github.com/kite1988/nus-sms-corpus) is the authors' public-domain SMS release and is retained only for research. UD English EWT and French Rhapsodie use CC BY-SA 4.0; other UD treebanks need their own license checks. These datasets complement one another and do not establish representative coverage for all demographics or all ten languages.
+
+The second authored batch, `authored_conversation_expansion.py`, adds 1,800 contexts for 20 everyday meanings. Its content-bound assessment is separate from the original batch. Current reviewed export contains 3,567 records, including three finite book patterns; 18 ambiguous Chinese question/problem records remain quarantined. Forty new meanings are not 3,567 distinct vocabulary words.
+
+## Signed reviewed context packs
+
+`export_reviewed_contexts.py` compiles the reviewed export into schema-5 SQLite pair files. Each retains exact provenance and assessments, UTF-16 target offsets, finite source patterns and a B-tree index of explicitly enumerated source variants. The compiler rejects changed/unreviewed records, absent required reading assessments, ambiguous patterns and variant/shortlist overflow. It does not rank a similar sentence as equivalent or interpolate a target using a user's pronouns. Whole-message translation still corroborates the lexical target.
+
+Both native `VocabularyPackStore` implementations use an explicit `reviewedContext`/`REVIEWED_CONTEXT` kind, separate files and rollback receipts, and the existing signature/hash/integrity controls. A generic dictionary store rejects a context pack. Only matched context patterns create message-bound lexical scopes; target particle/article boundaries derive from the attested target sentence using the native tokenizer. Lookup returns no result for an unknown sentence. This path is not yet connected to friend chat or production download UI.
+
+The first development build contains 90 pairs and 3,567 reviewed mappings in 17,936,384 bytes; its compressed qualification archive is 1,160,225 bytes. Its ephemeral signing key is never trusted by production clients. Real native qualification covers the two retained translation batches: 3,564/3,582 cases have reviewed mappings, with 2,996 Android and 3,250 iPad cases producing immersion. The other 18 cases are quarantined. These are component checks on authored inputs, not majority-conversation acceptance. See `docs/CONVERSATION_COVERAGE.md` for the separate real-message evaluation.
+
+```sh
+python3 language-packs/export_reviewed_contexts.py --input artifacts/conversation-assessment-002/export --output artifacts/reviewed-contexts-NEW --revision 1 --key-id reviewed-context-qualification-NEW
+```
+
+The compiler currently exposes only qualification signing. Production release signing and release trust remain separate gates; generating an artifact is not evidence of release readiness.

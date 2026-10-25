@@ -71,8 +71,8 @@ ARABIC_ARTICLES={
     'price':('سعر','siʿr'),'car':('سيارة','sayyāra'),'money':('مال','māl')}
 
 
-def records():
-    for identity,(meaning,line) in DATA.items():
+def records(data=DATA):
+    for identity,(meaning,line) in data.items():
         columns=line.split('|')
         if len(columns)!=10: raise ValueError('All ten languages required')
         entries=dict(zip(LANGUAGES,map(marked,columns)))

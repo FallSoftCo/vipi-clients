@@ -1,0 +1,21 @@
+{
+  "schema": "vipi-sms-diagnostic-assessments-1",
+  "assessment_kind": "author_assessment",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "report": "sms-pipeline-android-002.json",
+  "report_sha256": "2ca41e48767e074992251a421ad0c900d3bd61303d9146c34cd48f11eac7e76e",
+  "sampling": "Selected failures after inspection; not a random accuracy sample or independent review",
+  "training_use": false,
+  "findings": [
+    {"pair": "en-es", "case": "nus-097aadabf08752187d683c4a", "source": "rite", "target": "rito", "category": "informal_spelling_sense", "finding": "Sentence-final rite is an informal spelling of right in a confirmation question, not a religious rite."},
+    {"pair": "en-es", "case": "nus-060a31ca51b0609cd7923c3f", "source": "halfway", "target": "a mitad de", "category": "incomplete_target_phrase", "finding": "The selected Spanish fragment leaves a dangling de and is not a complete lexical equivalent of halfway in this source context."},
+    {"pair": "zh-en", "case": "nus-025afe41aecc850e3b10da86", "source": "报", "target": "newspaper", "category": "contextual_sense", "finding": "The source discusses registering/applying for an academic major; 报 is not a newspaper here."},
+    {"pair": "zh-en", "case": "nus-0dd60c310c6b9e5024e72483", "source": "满月", "target": "full moon", "category": "contextual_sense", "finding": "A nephew reaching 满月 means one month since birth in this sentence, not a lunar phase."},
+    {"pair": "zh-en", "case": "nus-0d49b8b710a2ec6182fe65a4", "source": "蓝", "target": "blue", "category": "compound_boundary", "finding": "蓝 is inside the compound 板蓝根, an herb name; it does not independently denote the color blue here."},
+    {"pair": "zh-en", "case": "nus-0df623de41d4f15a89a26c17", "source": "北", "target": "North", "category": "named_entity_boundary", "finding": "北 is inside 北航, the university name in an address. It must not be selected as an independent direction."},
+    {"pair": "zh-en", "case": "nus-06a7c3a07af5a73070f9a33f", "source": "在家", "target": "home", "category": "source_grammar_scope", "finding": "The source focus consumes the preposition 在. A vocabulary-only mapping must preserve that grammar outside the lexical focus 家."},
+    {"pair": "zh-en", "case": "nus-09e40614fe8b75fa29a8f15f", "source": "给我", "target": "Give me", "category": "source_grammar_scope", "finding": "The selected phrase includes the first-person pronoun 我; this violates the original-grammar vocabulary scope."},
+    {"pair": "zh-en", "case": "nus-0c666de350ff5f7f0bdc6f98", "source": "没有问题", "target": "no problem", "category": "source_grammar_scope", "finding": "Meaning is broadly preserved, but the replacement includes negation 没有. It fails the vocabulary-only scope even when the translation is understandable."},
+    {"pair": "zh-en", "case": "nus-01cace60b0918ddae9b7c625", "source": "从不", "target": "never", "category": "source_grammar_scope", "finding": "This is grammatical negation, which the current product policy keeps in the source language."}
+  ]
+}

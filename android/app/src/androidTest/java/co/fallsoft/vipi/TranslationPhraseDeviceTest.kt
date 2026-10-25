@@ -68,7 +68,13 @@ class TranslationPhraseDeviceTest {
                     db.execSQL("INSERT INTO translations VALUES (?,?,?,?,?)", arrayOf<Any>(source,target,text,output,elapsed))
                     freshCalls++; return output
                 }
-                for (index in 0 until samples.length()) {
+                // Retain ordinal identities/checkpoints while reusing the same
+                // native model pair. Message-major probes otherwise reload a
+                // pair for almost every input and measure harness churn.
+                val order = (0 until samples.length()).sortedWith(compareBy<Int>(
+                    { samples.getJSONObject(it).getString("source") },
+                    { samples.getJSONObject(it).getString("target") }, { it }))
+                for (index in order) {
                     val exists = db.rawQuery("SELECT 1 FROM observations WHERE ordinal=?", arrayOf(index.toString())).use { it.moveToFirst() }
                     if (exists) { resumed++; continue }
                     if (executed >= maximum) break

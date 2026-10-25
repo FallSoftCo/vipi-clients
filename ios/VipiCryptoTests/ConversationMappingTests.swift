@@ -7,10 +7,23 @@ import XCTest
 final class ConversationMappingTests: XCTestCase {
     @MainActor func testExpandedContextMappings() throws {
         let documents=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
-        let input=try Data(contentsOf:documents.appendingPathComponent("phrase-observations-apple-002.json"))
+        let configURL=documents.appendingPathComponent("conversation-mapping-config.json")
+        let config: [String:String]
+        if FileManager.default.fileExists(atPath:configURL.path) {
+            config=try JSONDecoder().decode([String:String].self,from:Data(contentsOf:configURL))
+        } else {config=[:]}
+        func filename(_ key:String,_ fallback:String,_ suffix:String) throws -> String {
+            let name=config[key] ?? fallback
+            guard name.range(of:"^[a-z0-9-]+\\."+suffix+"$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
+            return name
+        }
+        let captureName=try filename("capture","phrase-observations-apple-002.json","json")
+        let referenceName=try filename("references","conversation-records.jsonl","jsonl")
+        let outputName=try filename("output","conversation-mappings-apple-005.json","json")
+        let input=try Data(contentsOf:documents.appendingPathComponent(captureName))
         let capture=try XCTUnwrap(JSONSerialization.jsonObject(with:input) as? [String:Any])
         XCTAssertEqual(capture["complete"] as? Bool,true)
-        let referenceBytes=try Data(contentsOf:documents.appendingPathComponent("conversation-records.jsonl"))
+        let referenceBytes=try Data(contentsOf:documents.appendingPathComponent(referenceName))
         let referenceText=try XCTUnwrap(String(data:referenceBytes,encoding:.utf8))
         var references:[String:[String:Any]]=[:]
         for line in referenceText.split(separator:"\n") {
@@ -61,7 +74,7 @@ final class ConversationMappingTests: XCTestCase {
             output.append(["case":identifier,"source":source,"target":target,"original":original,"translation":translation,
                 "spans":spans,"visible_script":result.speech(source:source,target:target).map(\.text).joined()])
         }
-        let receipt=documents.appendingPathComponent("conversation-mappings-apple-005.json")
+        let receipt=documents.appendingPathComponent(outputName)
         guard !FileManager.default.fileExists(atPath:receipt.path) else {XCTFail("Preserve existing receipt");return}
         let report:[String:Any] = ["schema":"vipi-native-conversation-mappings-1",
             "capture_sha256":SHA256.hash(data:input).map{String(format:"%02x",$0)}.joined(),"cases":rows.count,

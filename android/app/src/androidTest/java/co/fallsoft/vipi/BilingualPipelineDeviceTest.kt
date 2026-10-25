@@ -52,7 +52,8 @@ class BilingualPipelineDeviceTest {
         val corpusName = arguments.getString("vipiCorpusFile") ?: "corpus.json"
         val reportName = arguments.getString("vipiReportName") ?: "bilingual-pipeline-$runID.json"
         require(corpusName.matches(Regex("[a-z0-9-]+\\.json")) && reportName.matches(Regex("[a-z0-9-]+\\.json")))
-        val corpus = JSONObject(File(context.filesDir, "immersion-qa/$corpusName").readText())
+        val corpusBytes = File(context.filesDir, "immersion-qa/$corpusName").readBytes()
+        val corpus = JSONObject(corpusBytes.toString(Charsets.UTF_8))
         val capturedName = arguments.getString("vipiTranslationReport")
         val captured = capturedName?.let {
             require(it.matches(Regex("[a-z0-9-]+\\.json")))
@@ -61,6 +62,14 @@ class BilingualPipelineDeviceTest {
         val capturedPairs = captured?.pairs
         val codes = corpus.getJSONArray("languages").let { list -> (0 until list.length()).map { list.getString(it) } }
         val cases = corpus.getJSONArray("cases")
+        val sourceOnly = corpus.optBoolean("source_only", false)
+        val sourceCodes = if (sourceOnly) codes.filter { code ->
+            (0 until cases.length()).any { cases.getJSONObject(it).getJSONObject("text").has(code) }
+        } else codes
+        val expectedPairs = sourceCodes.size * (codes.size - 1)
+        require(sourceCodes.isNotEmpty() && codes.toSet().size == codes.size)
+        require(expectedPairs == corpus.optInt("expected_pairs", 90))
+        if (capturedPairs != null) require(capturedPairs.keys == sourceCodes.flatMap { source -> codes.filter { it != source }.map { "$source-$it" } }.toSet())
         val isolated = File(context.cacheDir, "bilingual-qa-${UUID.randomUUID()}").apply { mkdirs() }
         val qaContext = object : ContextWrapper(context) {
             override fun getFilesDir() = File(isolated, "files").apply { mkdirs() }
@@ -72,6 +81,8 @@ class BilingualPipelineDeviceTest {
             .put("native_alignment_policy", "sentence-cue-for-polysemy-1").put("corpus", corpus.getString("version"))
             .put("evidence", "actual_offline_translation_and_signed_dictionary_alignment_pending_semantic_review")
             .put("linguistic_acceptance", false)
+            .put("source_only", sourceOnly).put("expected_pairs", expectedPairs)
+            .put("corpus_sha256", java.security.MessageDigest.getInstance("SHA-256").digest(corpusBytes).joinToString("") { "%02x".format(it) })
         if (corpus.has("attribution")) report.put("attribution", corpus.getJSONObject("attribution"))
         if (exportContextCandidates) report.put("context_candidate_policy", "native-lexical-ambiguity-reading-protection-cue-veto-without-positive-cue-requirement-1")
         if (captured != null) {
@@ -99,7 +110,7 @@ class BilingualPipelineDeviceTest {
             assertNull(network.activeNetwork)
             networkWasAbsent = true
             LocalTranslation().use { translator ->
-                for (source in codes) for (target in codes.filter { it != source }) {
+                for (source in sourceCodes) for (target in codes.filter { it != source }) {
                     val id = "$source-$target"; val folder = File(packs, id)
                     val pair = JSONObject().put("source", source).put("target", target)
                     val samples = JSONArray(); pair.put("samples", samples)
@@ -107,11 +118,18 @@ class BilingualPipelineDeviceTest {
                         val started = SystemClock.elapsedRealtimeNanos()
                         store.install(File(folder, "manifest.json").readBytes(), File(folder, "manifest.sig").readBytes(), File(folder, "vocabulary.sqlite").readBytes())
                         pair.put("install_ms", (SystemClock.elapsedRealtimeNanos() - started) / 1_000_000.0)
-                        pair.put("pack_sha256", JSONObject(File(folder, "manifest.json").readText()).getString("sha256"))
+                        val manifest = JSONObject(File(folder, "manifest.json").readText())
+                        pair.put("pack_sha256", manifest.getString("sha256"))
+                            .put("pack_schema", manifest.getInt("schema_version"))
+                            .put("pack_revision", manifest.getInt("revision"))
+                            .put("pack_context_policy", manifest.optString("context_policy"))
                         repeat(cases.length()) { index ->
-                            val item = cases.getJSONObject(index); val original = item.getJSONObject("text").getString(source)
+                            val item = cases.getJSONObject(index); val texts = item.getJSONObject("text")
+                            if (sourceOnly && !texts.has(source)) return@repeat
+                            val original = texts.getString(source)
                             val sample = JSONObject().put("id", item.getString("id")).put("original", original)
-                                .put("reference", item.getJSONObject("text").getString(target))
+                            if (texts.has(target)) sample.put("reference", texts.getString(target))
+                            else require(sourceOnly)
                             samples.put(sample)
                             try {
                                 val begin = SystemClock.elapsedRealtimeNanos()
@@ -139,6 +157,8 @@ class BilingualPipelineDeviceTest {
                                     .put("translated", span.translated).put("reading", span.romanization ?: JSONObject.NULL)
                                     .put("targetStart", span.targetStart).put("targetEnd", span.targetEnd) }))
                                 if (exportContextCandidates) {
+                                    sample.put("lookup_sources", JSONArray(entries.map { it.source }.distinct().sorted()))
+                                    sample.put("senses_requiring_context", entries.count { it.requiresContext })
                                     // Research export only. Keep all native lexical/reading,
                                     // ambiguity, protected-text and contrary-cue checks. A
                                     // separate local contextual model must corroborate these;
@@ -164,7 +184,7 @@ class BilingualPipelineDeviceTest {
             if (mobile) shell("svc data enable")
             isolated.deleteRecursively()
         }
-        assertEquals(90, completedPairs)
+        assertEquals(expectedPairs, completedPairs)
         assertEquals("Execution failures; semantic quality is evaluated separately", 0, failures)
     }
 }

@@ -114,6 +114,7 @@ final class TranslationPhraseTests: XCTestCase {
                         state.rows[String(index)] = row
                         try state.save()
                     }
+                    try state.save(force: true)
                 } catch { state.failure = error }
                 state.pairFinished = true
             }.id(pair))
@@ -123,7 +124,7 @@ final class TranslationPhraseTests: XCTestCase {
             if let failure = state.failure { throw failure }
             host.rootView = AnyView(EmptyView())
         }
-        try state.save()
+        try state.save(force: true)
         XCTAssertEqual(state.rows.count, samples.count)
         #endif
     }
@@ -161,7 +162,11 @@ private enum PhraseError: Error { case notInstalled(String), wrongSession, inval
         translations[key] = response.targetText; freshCalls += 1
         return response.targetText
     }
-    func save() throws {
+    func save(force: Bool = false) throws {
+        // Public QA observations only. Bounded checkpoints avoid repeatedly
+        // serializing the entire growing capture for every sentence. A crash
+        // may rerun at most 19 unfinished checkpoint cases; no synthetic hits.
+        guard force || rows.count % 20 == 0 || rows.count == total else { return }
         try JSONSerialization.data(withJSONObject: ["identity":identity,"translations":translations,"rows":rows,
             "all_calls_offline":allCallsOffline], options: [.sortedKeys]).write(to:cacheURL, options:.atomic)
         let ordered = rows.keys.sorted { Int($0)! < Int($1)! }.compactMap { rows[$0] }
@@ -169,6 +174,7 @@ private enum PhraseError: Error { case notInstalled(String), wrongSession, inval
             "provider":"Apple Translation / iPadOS " + UIDevice.current.systemVersion,
             "cases_expected":total,"cases_completed":rows.count,"complete":rows.count == total,
             "fresh_calls_this_run":freshCalls,"cache_hits_this_run":cacheHits,"resumed_cases":resumed,
+            "checkpoint_interval_cases":20,
             "network_absence_verified":allCallsOffline,"linguistic_acceptance":false,"runtime_integration":false,
             "model_identity_limit":"QA OS version and epoch; no provider model content hash","results":ordered]
         try JSONSerialization.data(withJSONObject:report, options:[.prettyPrinted,.sortedKeys]).write(to:receiptURL, options:.atomic)
