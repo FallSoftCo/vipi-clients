@@ -230,3 +230,21 @@ async def test_browser_confirmation_waiting_behind_native_deletion_recovers(db):
                 task.cancel()
                 try: await task
                 except asyncio.CancelledError: pass
+
+
+async def test_unadmitted_staging_identity_can_delete_its_own_account_but_cannot_chat(db):
+    provider = Provider()
+    app = create_app(base_settings(deletion_web_origin=ORIGIN, environment="staging", allowed_subjects=frozenset(["user_qa_other"])),
+        database=db, verifier=TestVerifier(), clock=lambda:NOW, web_provider_transport=httpx.MockTransport(provider.request))
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url=ORIGIN) as api:
+        headers = {"Authorization":"Bearer alice"}
+        assert (await api.get("/v1/me", headers=headers)).status_code == 403
+        assert (await api.put("/v1/me", json={"username":"new_person","display_name":"QA"}, headers=headers)).status_code == 403
+        confirm = await finish(api, await start(api))
+        assert "Delete your account?" in confirm.text
+        native = await api.request("DELETE", "/v1/me", headers=headers,
+            json={"account_id":str(uuid4()),"receipt_secret":secrets.token_urlsafe(32)})
+        assert native.status_code == 202
+        assert "Deletion in progress" in (await api.get("/delete-account")).text
+        async with db.sessions() as session:
+            assert len((await session.scalars(select(User))).all()) == 3

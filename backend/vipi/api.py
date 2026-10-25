@@ -105,10 +105,13 @@ def message_status(item):
     return {"id": item.id, "state": item.state, "expires_at": utc(item.expires_at).isoformat()}
 
 
-async def principal(request: Request, authorization: Annotated[str | None, Header()] = None):
+async def verified_principal(request: Request, authorization: Annotated[str | None, Header()] = None):
     if not authorization or not authorization.startswith("Bearer "):
         raise AuthenticationError("sign_in_required")
-    verified = await request.app.state.verifier.verify(authorization[7:])
+    return await request.app.state.verifier.verify(authorization[7:])
+
+
+async def principal(request: Request, verified: Annotated[Principal, Depends(verified_principal)]):
     allowed = request.app.state.allowed_subjects
     if allowed and verified.subject not in allowed:
         raise DeliveryError("service_not_available", 403)
@@ -215,7 +218,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             raise DeliveryError("username_unavailable", 409)
 
     @app.delete("/v1/me", status_code=202)
-    async def delete_account(body: DeleteAccountInput, p: Annotated[Principal, Depends(principal)]):
+    async def delete_account(body: DeleteAccountInput, p: Annotated[Principal, Depends(verified_principal)]):
         if not settings.account_deletion_enabled:
             raise DeliveryError("account_deletion_unavailable", 503)
         if not 0 <= now().timestamp() - p.authenticated_at <= 600:

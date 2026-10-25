@@ -109,7 +109,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
         if not auth:
             raise AuthenticationError("sign_in_required")
         p = await verifier.verify(auth["token"])
-        if p.subject != auth["subject"] or (settings.allowed_subjects and p.subject not in settings.allowed_subjects):
+        if p.subject != auth["subject"]:
             raise AuthenticationError("sign_in_required")
         if not 0 <= timestamp() - p.authenticated_at <= SHORT:
             raise AuthenticationError("sign_in_required")
