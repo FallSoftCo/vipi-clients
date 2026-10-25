@@ -76,7 +76,7 @@ actor VocabularyPackStore {
         let pointer = try JSONDecoder().decode(Pointer.self, from: Data(contentsOf: pointerURL))
         guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
               pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
-        let terms = try candidateTerms(text)
+        let terms = try candidateTerms(text, language: pointer.manifest.source_language)
         if terms.isEmpty { return [] }
         return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
             var grouped: [String: Set<String>] = [:]
@@ -122,10 +122,10 @@ actor VocabularyPackStore {
         guard status == SQLITE_ROW, let value = sqlite3_column_text(statement, 0) else { throw VocabularyPackError.storage }
         return String(cString: value)
     }
-    private func candidateTerms(_ text: String) throws -> [String] {
+    private func candidateTerms(_ text: String, language: String) throws -> [String] {
         let ns = text as NSString
         let regex = try NSRegularExpression(pattern: #"[\p{L}\p{M}]+(?:['’-][\p{L}\p{M}]+)*"#)
-        let words = regex.matches(in: text, range: NSRange(location: 0, length: ns.length)).map(\.range)
+        let words = ["zh", "ja"].contains(language) ? LocalImmersion.words(text, language: language) : regex.matches(in: text, range: NSRange(location: 0, length: ns.length)).map(\.range)
         var terms = Set<String>()
         for start in words.indices { for count in 1...min(5, words.count - start) {
             let end = start + count - 1
@@ -133,7 +133,9 @@ actor VocabularyPackStore {
                 let gap = ns.substring(with: NSRange(location: NSMaxRange(words[index]), length: words[index + 1].location - NSMaxRange(words[index])))
                 return !gap.allSatisfy(\.isWhitespace)
             }) { continue }
-            terms.insert(words[start...end].map { ns.substring(with: $0) }.joined(separator: " ").precomposedStringWithCanonicalMapping.lowercased())
+            let range = NSRange(location: words[start].location, length: NSMaxRange(words[end]) - words[start].location)
+            let surface = ns.substring(with: range).split(whereSeparator: \.isWhitespace).joined(separator: " ")
+            terms.insert(surface.precomposedStringWithCanonicalMapping.lowercased())
         } }
         return terms.sorted()
     }

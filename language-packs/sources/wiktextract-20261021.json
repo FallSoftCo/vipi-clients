@@ -1,0 +1,24 @@
+{
+  "source_url": "https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+  "source_bytes": 3082192147,
+  "source_sha256": "244dcdc56868d81dc60e3820657780c06fac2729a90e2c5ffbfa13e6f9ecad1d",
+  "selection_sha256": "a609dadac5c22d85f20db1c7fe255dd3215e7cc9df0680f3446f2db5221538cf",
+  "selection_bytes": 1095573521,
+  "extraction": "2026-10-21",
+  "wiktionary_dump": "2026-10-01",
+  "license": "CC-BY-SA-4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ar",
+    "zh",
+    "ja",
+    "ko"
+  ],
+  "quality": "unqualified"
+}

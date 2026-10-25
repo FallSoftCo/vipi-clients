@@ -72,7 +72,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require(accepted.getInt("revision") == manifest.getInt("revision") && accepted.getString("hash") == manifest.getString("sha256"))
         val filename = value.getString("file")
         require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
-        val terms = candidateTerms(text)
+        val terms = candidateTerms(text, manifest.getString("source_language"))
         if (terms.isEmpty()) return emptyList()
         val grouped = linkedMapOf<String, MutableSet<String>>()
         SQLiteDatabase.openDatabase(File(root, filename).path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
@@ -93,13 +93,15 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         // Retain the accepted revision so deleting data cannot enable a rollback.
     }
 
-    private fun candidateTerms(text: String): List<String> {
-        val words = Regex("[\\p{L}\\p{M}]+(?:['’-][\\p{L}\\p{M}]+)*").findAll(text).toList()
+    private fun candidateTerms(text: String, language: String): List<String> {
+        val words = if (language in setOf("zh", "ja")) LocalImmersion.words(text, language)
+            else Regex("[\\p{L}\\p{M}]+(?:['’-][\\p{L}\\p{M}]+)*").findAll(text).map { it.range }.toList()
         val terms = linkedSetOf<String>()
         for (start in words.indices) for (length in 1..minOf(5, words.size - start)) {
             val end = start + length - 1
-            if ((start until end).any { text.substring(words[it].range.last + 1, words[it + 1].range.first).any { c -> !c.isWhitespace() } }) continue
-            terms += Normalizer.normalize(words.subList(start, end + 1).joinToString(" ") { it.value }, Normalizer.Form.NFC).lowercase(Locale.ROOT)
+            if ((start until end).any { text.substring(words[it].last + 1, words[it + 1].first).any { c -> !c.isWhitespace() } }) continue
+            val surface = text.substring(words[start].first, words[end].last + 1).trim().split(Regex("\\s+")).joinToString(" ")
+            terms += Normalizer.normalize(surface, Normalizer.Form.NFC).lowercase(Locale.ROOT)
         }
         return terms.toList()
     }

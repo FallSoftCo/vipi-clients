@@ -86,7 +86,7 @@ public struct ImmersionEngine: Sendable {
             let reading = readings.count == 1 ? readings.first : nil
             if needsReading {
                 guard let reading, !reading.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                      reading.utf16.count <= 256, reading.range(of: "^[A-Za-z][A-Za-z '’-]*$", options: .regularExpression) != nil else { continue }
+                      reading.utf16.count <= 256, Self.readableRomanization(reading) else { continue }
             }
             candidates.append((ImmersionSpan(range: range, original: sourceSurface, translated: targetSurface,
                 targetRange: targetRange, romanization: needsReading ? reading : nil), targetRange))
@@ -114,6 +114,14 @@ public struct ImmersionEngine: Sendable {
             usedWords += count
         }
         return ImmersionResult(original: original, translation: translation, spans: selected.sorted { $0.range.location < $1.range.location })
+    }
+
+    private static func readableRomanization(_ value: String) -> Bool {
+        // Standard Latin-script transliteration may retain tone/length marks.
+        // IPA and phonetic extensions are not a reading interface.
+        guard value.range(of: #"\p{Latin}"#, options: .regularExpression) != nil,
+              value.range(of: #"^[\p{Latin}\p{M} '’.-]+$"#, options: .regularExpression) != nil else { return false }
+        return !value.unicodeScalars.contains { (0x0250...0x02FF).contains($0.value) || (0x1D00...0x1DBF).contains($0.value) }
     }
 
     private func occurrences(_ phrase: String, in text: String, boundaries: Set<Int>? = nil) -> [NSRange] {

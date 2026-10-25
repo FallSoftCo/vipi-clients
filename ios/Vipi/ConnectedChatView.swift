@@ -138,7 +138,7 @@ struct FriendConversationView: View {
             VStack(spacing: 9) {
                 if let notice = error ?? chat.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary).padding(.horizontal, 18) }
                 HStack(alignment: .bottom, spacing: 10) {
-                    TextField("Message", text: $text, axis: .vertical).lineLimit(1...6).focused($composing)
+                    TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .accessibilityIdentifier("message-input")
                     Button(action: send) { Image(systemName: "arrow.up").font(.body.weight(.semibold)).frame(width: 46, height: 46) }

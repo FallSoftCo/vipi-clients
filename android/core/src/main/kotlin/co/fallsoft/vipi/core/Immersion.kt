@@ -44,7 +44,7 @@ class ImmersionEngine {
             if (sourceSurface.equals(targetSurface, ignoreCase = true)) return@mapNotNull null
             val needsReading = targetLanguage?.substringBefore('-') in setOf("ar", "zh", "ja", "ko")
             val readings = entry.romanizations.filterKeys { it.equals(targetSurface, ignoreCase = true) }.values.flatten().distinct()
-            val reading = readings.singleOrNull()?.takeIf { it.length <= 256 && it.matches(Regex("[A-Za-z][A-Za-z '’-]*")) }
+            val reading = readings.singleOrNull()?.takeIf { it.length <= 256 && readableRomanization(it) }
             if (needsReading && reading == null) return@mapNotNull null
             Candidate(ImmersionSpan(source.first, source.last + 1, sourceSurface, targetSurface,
                 target.first, target.last + 1, if (needsReading) reading else null), target)
@@ -68,6 +68,10 @@ class ImmersionEngine {
         }
         return ImmersionResult(original, translation, selected.sortedBy { it.start })
     }
+
+    private fun readableRomanization(value: String): Boolean =
+        Regex("\\p{IsLatin}").containsMatchIn(value) && value.matches(Regex("[\\p{IsLatin}\\p{M} '’.-]+")) &&
+            value.codePoints().noneMatch { it in 0x0250..0x02FF || it in 0x1D00..0x1DBF }
 
     private fun occurrences(phrase: String, text: String, boundaries: Set<Int>? = null): List<IntRange> {
         val pattern = if (boundaries == null) "(?<![\\p{L}\\p{M}\\p{N}_])" + Regex.escape(phrase) + "(?![\\p{L}\\p{M}\\p{N}_])" else Regex.escape(phrase)

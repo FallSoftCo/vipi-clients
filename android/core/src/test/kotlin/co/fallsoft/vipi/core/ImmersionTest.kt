@@ -67,4 +67,15 @@ class ImmersionTest {
         assertFalse(window.canRetry(sent.plusSeconds(259_200), DeliveryState.QUEUED))
         assertFalse(window.canRetry(sent, DeliveryState.DELIVERED))
     }
+    @Test fun familiarLatinReadingsKeepAccentsButRejectPhoneticGlyphs() {
+        val engine = ImmersionEngine()
+        for (reading in listOf("kāfēi", "kōhī", "mu'jam", "sŏul")) {
+            val entries = listOf(VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf(reading))))
+            assertEquals(reading, engine.align("coffee", "咖啡", entries, 1.0, "zh").spans.single().displayedTarget)
+        }
+        for (reading in listOf("ɡa", "ʰa", "ᴀ", "...", "コーヒー", "kafei / other")) {
+            val entries = listOf(VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf(reading))))
+            assertTrue(engine.align("coffee", "咖啡", entries, 1.0, "zh").spans.isEmpty())
+        }
+    }
 }

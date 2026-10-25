@@ -96,3 +96,15 @@ import Testing
     #expect(!restored.canRetry(at: sent, state: .delivered))
     #expect(!restored.canRetry(at: sent, state: .expired))
 }
+
+@Test func familiarLatinReadingsKeepAccentsButRejectPhoneticGlyphs() {
+    let engine = ImmersionEngine()
+    for reading in ["kāfēi", "kōhī", "mu'jam", "sŏul"] {
+        let entries = [VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": [reading]])]
+        #expect(engine.align(original: "coffee", translation: "咖啡", entries: entries, density: 1, targetLanguage: "zh").spans.first?.displayedTarget == reading)
+    }
+    for reading in ["ɡa", "ʰa", "ᴀ", "...", "コーヒー", "kafei / other"] {
+        let entries = [VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": [reading]])]
+        #expect(engine.align(original: "coffee", translation: "咖啡", entries: entries, density: 1, targetLanguage: "zh").spans.isEmpty)
+    }
+}
