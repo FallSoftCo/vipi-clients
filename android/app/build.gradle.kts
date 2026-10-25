@@ -30,10 +30,12 @@ android {
         // mobile implementation. They are not part of the Android runtime.
         jniLibs.excludes += "**/libsignal_jni_testing.so"
         resources.excludes += setOf("**/*.dll", "**/*.dylib", "**/*.so")
+        resources.merges += setOf("META-INF/LICENSE.md", "META-INF/NOTICE.md", "META-INF/CONTRIBUTORS.md")
     }
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 dependencies {
+    implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(project(":core"))
     implementation(platform("androidx.compose:compose-bom:2025.10.00"))

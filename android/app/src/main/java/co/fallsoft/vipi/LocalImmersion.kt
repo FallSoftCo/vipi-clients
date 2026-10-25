@@ -4,9 +4,17 @@ import android.icu.text.BreakIterator
 import co.fallsoft.vipi.core.ImmersionEngine
 import co.fallsoft.vipi.core.VocabularyEntry
 import java.util.Locale
+import com.atilika.kuromoji.ipadic.Tokenizer
 
 internal object LocalImmersion {
+    private val japanese by lazy { Tokenizer() }
     fun words(text: String, language: String): List<IntRange> {
+        // ICU's general word breaker can split 会おう into 会 + おう and let
+        // a noun entry for 会 replace a fragment of the verb. Use morphology.
+        if (language == "ja") return japanese.tokenize(text).mapNotNull { token ->
+            if (token.surface.codePoints().anyMatch { Character.isLetter(it) })
+                token.position until token.position + token.surface.length else null
+        }
         val iterator = BreakIterator.getWordInstance(Locale.forLanguageTag(language))
         iterator.setText(text)
         return buildList {

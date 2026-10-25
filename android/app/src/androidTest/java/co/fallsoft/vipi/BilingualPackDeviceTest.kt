@@ -12,6 +12,14 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class BilingualPackDeviceTest {
+    @Test fun japaneseMixedScriptAndInflectionsKeepWholeMorphemes() {
+        val mixed = "私の妹は銀行で働いています。 She will help me tomorrow."
+        assertTrue(LocalImmersion.words(mixed, "ja").map { mixed.substring(it) }.contains("銀行"))
+        val inflected = "18:30に会おう。生きています。"
+        val words = LocalImmersion.words(inflected, "ja").map { inflected.substring(it) }
+        assertFalse(words.contains("会")); assertFalse(words.contains("生"))
+        assertTrue(words.contains("会お")); assertTrue(words.contains("生き"))
+    }
     @Test fun signedBilingualSenseAndReadingRoundTrip() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val fixture = JSONObject(File(context.filesDir, "bilingual-lookup.json").readText())

@@ -122,6 +122,21 @@ class BilingualExportTests(unittest.TestCase):
         with sqlite3.connect(output / 'vocabulary.sqlite') as db:
             self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='not'").fetchone()[0], 0)
 
+    def test_arabic_reading_collision_in_another_sense_abstains(self):
+        with sqlite3.connect(self.catalog) as db:
+            for index, (word, pos, form, reading) in enumerate([
+                ('open', 'verb', 'فَتَحَ', 'fataḥa'),
+                ('opening', 'noun', 'فَتْح', 'fatḥ'),
+            ], 100):
+                add_entry(db, {'lang_code':'en','word':word,'pos':pos,'translations':[
+                    {'code':'ar','word':form,'roman':reading,'sense':word}]}, index, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, manifest = self.export('en', 'ar')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source IN ('open','opening')").fetchone()[0], 0)
+            self.assertEqual(db.execute("SELECT target,reading FROM vocabulary WHERE source='coffee'").fetchall(), [('قَهْوَة','qahwa')])
+        self.assertEqual(manifest['reading_collision_mappings_omitted'], 2)
+
     def test_qualifiers_cannot_add_or_contradict_age_or_speaker_gender(self):
         from context_hints import qualifiers_compatible
         elder = json.dumps({'english':'elder','translation':'elder'})

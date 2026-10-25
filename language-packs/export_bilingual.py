@@ -63,6 +63,19 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
             AND a.tags NOT LIKE '%"ironic"%' AND a.tags NOT LIKE '%"humorous"%'
             AND b.tags NOT LIKE '%"ironic"%' AND b.tags NOT LIKE '%"humorous"%' ''' + extra, (source, target))
         db.executemany('DELETE FROM vocabulary WHERE source=?', [(word,) for word in GRAMMAR[source]])
+        reading_collisions = 0
+        if target == 'ar':
+            # Translation output normally omits Arabic short vowels. A reading
+            # unique within one English sense is not unique in Arabic: فتح can
+            # be fataḥa (opened) or fatḥ (opening). Check the entire catalog,
+            # including senses unavailable in this source language, and abstain.
+            db.create_function('arabic_key', 1, lambda value: lookup_key(value, 'ar'), deterministic=True)
+            db.execute('CREATE TEMP TABLE reading_collision(form TEXT PRIMARY KEY) WITHOUT ROWID')
+            db.execute('''INSERT INTO reading_collision SELECT arabic_key(form)
+                FROM catalog.terms WHERE language='ar' AND display_reading<>''
+                GROUP BY arabic_key(form) HAVING count(DISTINCT display_reading)>1''')
+            reading_collisions = db.execute('''DELETE FROM vocabulary WHERE arabic_key(target)
+                IN (SELECT form FROM reading_collision)''').rowcount
         db.execute('''INSERT INTO senses SELECT s.id,s.label,s.part_of_speech,s.source_word,s.source_line,s.source_url,?
             FROM catalog.senses s WHERE s.id IN (SELECT sense_id FROM vocabulary)''', (evidence,))
         lexicon = source_hint_lexicon(catalog, source)
@@ -74,6 +87,7 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
             'schema': 'vipi-bilingual-3', 'pack_id': pack_id, 'source_language': source,
             'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower-arabic-harakat-v1',
             'context_policy': 'cross-sense-label-veto-2', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
+            'arabic_reading_policy': 'catalog-wide-collision-abstention-1',
             'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
             'license_url': 'https://creativecommons.org/licenses/by-sa/4.0/',
             'attribution': 'Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.',
@@ -95,6 +109,7 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
     manifest = dict(metadata, revision=revision, schema_version=3, file='vocabulary.sqlite',
                     bytes=database.stat().st_size, sha256=digest_file(database),
                     mappings=count, headwords=headwords, readings=readings,
+                    reading_collision_mappings_omitted=reading_collisions,
                     compiler='vipi-bilingual-3', compiler_sha256=digest_file(Path(__file__)),
                     context_compiler_sha256=digest_file(Path(__file__).with_name('context_hints.py')),
                     catalog_sha256=digest_file(catalog), key_id=key_id,

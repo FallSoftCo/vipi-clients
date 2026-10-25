@@ -4,6 +4,14 @@ import VipiCore
 @testable import Vipi
 
 final class BilingualPackTests: XCTestCase {
+    func testJapaneseMixedScriptAndInflectionsKeepWholeMorphemes() {
+        let mixed = "私の妹は銀行で働いています。 She will help me tomorrow."
+        XCTAssertTrue(LocalImmersion.words(mixed, language: "ja").map { (mixed as NSString).substring(with: $0) }.contains("銀行"))
+        let inflected = "18:30に会おう。生きています。"
+        let words = LocalImmersion.words(inflected, language: "ja").map { (inflected as NSString).substring(with: $0) }
+        XCTAssertFalse(words.contains("会")); XCTAssertFalse(words.contains("生"))
+        XCTAssertTrue(words.contains("会おう")); XCTAssertTrue(words.contains("生き"))
+    }
     private struct Fixture: Decodable {
         struct Sample: Decodable {
             let id: String; let source: String; let target: String; let text: String; let translation: String
