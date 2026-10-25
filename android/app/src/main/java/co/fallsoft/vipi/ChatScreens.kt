@@ -97,8 +97,15 @@ import java.util.UUID
     }
     fun earlier() {
         try {
+            val existing = messages.map { it.id }.toSet()
+            val anchor = list.layoutInfo.visibleItemsInfo.firstOrNull { it.key in existing }
             val page = chat.messages(peer, messages.firstOrNull()?.cursor); val ids = messages.map { it.id }.toSet()
             messages = page.reversed().filter { it.id !in ids } + messages; earlierAvailable = page.size == 50
+            if (anchor != null) {
+                followingLatest = false
+                val index = messages.indexOfFirst { it.id == anchor.key }
+                if (index >= 0) list.requestScrollToItem(index + 1, -anchor.offset)
+            }
         } catch (_: Exception) { error = "Earlier messages couldn’t be opened. Please try again." }
     }
     LaunchedEffect(peer) {

@@ -17,23 +17,29 @@ struct TimelineQualificationView: View {
                 if let chat { FriendConversationView(chat: chat, peer: peer) }
                 else { Text(status).accessibilityIdentifier("timeline-qa-status") }
             }.toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    if let chat { Button("Append QA") { try? chat.send("Appended while reading earlier messages.", peer: peer) }.accessibilityIdentifier("timeline-qa-append") }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    if !finished { Button("Finish QA", action: finish).accessibilityIdentifier("timeline-qa-finish") }
+                if !ProcessInfo.processInfo.arguments.contains("-vipi-timeline-audit") {
+                    ToolbarItem(placement: .topBarLeading) {
+                        if let chat { Button("Append QA") { try? chat.send("Appended while reading earlier messages.", peer: peer) }.accessibilityIdentifier("timeline-qa-append") }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        if !finished { Button("Finish QA", action: finish).accessibilityIdentifier("timeline-qa-finish") }
+                    }
                 }
             }
         }.task {
             guard chat == nil && !finished else { return }
             do {
                 try removeAbandonedTimelineFixtures()
+                if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-cleanup") {
+                    finished = true; status = "Synthetic conversation removed"; return
+                }
                 let value = try ChatSession(api: TimelineTransport(owner: owner, peer: peer), userID: user)
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
                 for index in 1...70 {
-                    try value.send("History message \(index). We are making plans for tomorrow.", peer: peer)
+                    let extra = index <= 20 ? String(repeating: " We can meet by the station and decide where to walk.", count: index % 5) : ""
+                    try value.send("History message \(index). We are making plans for tomorrow." + extra, peer: peer)
                     try await Task.sleep(for: .milliseconds(2))
                 }
                 chat = value

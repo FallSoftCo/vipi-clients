@@ -52,10 +52,10 @@ struct AccountDeletionProgressView: View {
                     if let notice = deletion.notice { Text(notice).font(.subheadline).accessibilityIdentifier("deletion-notice") }
                     if let error = authentication.errorMessage, deletion.needsSignIn { Text(error).font(.subheadline) }
                     if deletion.busy { ProgressView("Checking deletion…") }
-                    else if finished { Button("Done") { deletion.finish() }.buttonStyle(.borderedProminent) }
+                    else if finished { Button("Done") { deletion.finish() }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight) }
                     else if !deletion.loadFailed {
                         if deletion.needsSignIn, let record = deletion.pending {
-                            Button("Sign in to confirm") { authentication.signIn(expectedUser: record.userID) }.buttonStyle(.borderedProminent).disabled(authentication.busy)
+                            Button("Sign in to confirm") { authentication.signIn(expectedUser: record.userID) }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(authentication.busy)
                         }
                         Button(accepted ? "Check status" : "Continue deletion") { Task { await deletion.resume() } }
                             .buttonStyle(.bordered).accessibilityIdentifier("deletion-retry")

@@ -69,7 +69,11 @@ class ChatTimelineDeviceTest {
             runBlocking { withContext(Dispatchers.Main) {
                 chat = ChatSession(context, transport, "timeline-${UUID.randomUUID()}"); initialized = true
                 chat.start(); check(chat.ready); chat.find("alex")
-                repeat(70) { index -> chat.send("History message ${index + 1}. We are making plans for tomorrow.", peer); android.os.SystemClock.sleep(2) }
+                repeat(70) { index ->
+                    val extra = if (index < 20) " We can meet by the station and decide where to walk.".repeat((index + 1) % 5) else ""
+                    chat.send("History message ${index + 1}. We are making plans for tomorrow." + extra, peer)
+                    android.os.SystemClock.sleep(2)
+                }
             } }
             compose.setContent { if (visible.value) VipiTheme(appearance.value) { FriendConversationScreen(chat, peer) {} } }
             compose.onNodeWithText("History message 70. We are making plans for tomorrow.").assertIsDisplayed()
@@ -113,9 +117,18 @@ class ChatTimelineDeviceTest {
             compose.runOnIdle { chat.send("Appended while following latest.", peer) }
             compose.onNodeWithText("Appended while following latest.").assertIsDisplayed()
             capture("android-following-latest-dark")
+            compose.onNodeWithTag("conversation-timeline").performScrollToIndex(0)
+            val pageAnchor = anchor()
+            compose.onNodeWithText("Earlier messages").performClick()
+            compose.onNodeWithText(pageAnchor.first).assertIsDisplayed()
+            val afterPageY = compose.onNodeWithText(pageAnchor.first).fetchSemanticsNode().boundsInRoot.top
+            assertEquals(pageAnchor.second, afterPageY, 1f)
+            compose.onNodeWithText("Earlier messages").assertDoesNotExist()
+            capture("android-older-page-anchor-dark")
             File(output, "receipt.json").writeText(JSONObject().put("synthetic_contact_and_transport", true)
                 .put("initial_latest", true).put("append_preserved_anchor", true).put("keyboard_preserved_reading", true)
-                .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true).toString(2))
+                .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true)
+                .put("older_page_preserved_anchor", true).toString(2))
         } finally {
             device.executeShellCommand(if (handwriting == "null") "settings delete secure stylus_handwriting_enabled" else "settings put secure stylus_handwriting_enabled $handwriting")
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()

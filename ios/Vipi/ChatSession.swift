@@ -275,7 +275,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             default: if failure.status == 429 { return "Please wait a moment before trying again. Your messages are saved." }
             }
         }
-        return "We couldn’t connect. Your messages are saved on this device. Try again when you’re online."
+        return "Can’t connect. Messages are saved here."
     }
     private static func terminalSendState(_ failure: ServiceFailure) -> String? {
         if failure.status == 410 && failure.code == "message_expired" { return "expired" }

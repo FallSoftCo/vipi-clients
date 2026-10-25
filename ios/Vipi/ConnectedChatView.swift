@@ -17,7 +17,7 @@ struct ConnectedChatRoot: View {
                     actions: {
                         if chat.busy { ProgressView() }
                         else {
-                            Button("Try again") { Task { await chat.start() } }.buttonStyle(.borderedProminent)
+                            Button("Try again") { Task { await chat.start() } }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
                             Button("Sign in again") { authentication.signOutLocally() }
                         }
                     }
@@ -64,8 +64,8 @@ struct ProfileSetupView: View {
                     .font(.footnote).foregroundStyle(VipiDesign.secondary)
                 if let notice = chat.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("profile-error") }
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {
-                    HStack { Spacer(); if chat.busy { ProgressView().tint(.white) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
-                }.buttonStyle(.borderedProminent).disabled(!valid || chat.busy).accessibilityIdentifier("profile-submit")
+                    HStack { Spacer(); if chat.busy { ProgressView().tint(VipiDesign.onHighlight) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
+                }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(!valid || chat.busy).accessibilityIdentifier("profile-submit")
                 Button("Delete account", role: .destructive) { showDelete = true }.disabled(chat.busy)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.background(VipiDesign.canvas).scrollDismissesKeyboard(.interactively)
@@ -89,6 +89,8 @@ struct FriendConversationView: View {
     @State private var scrolling = false
     @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
     @State private var jumpRevision = 0
+    @State private var firstMessageFrame = CGRect.zero
+    @State private var viewportHeight: CGFloat = 0
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     @FocusState private var composing: Bool
     private func refresh() {
@@ -101,9 +103,19 @@ struct FriendConversationView: View {
     }
     private func earlier() {
         do {
+            let anchorID = messages.first?.id
+            let frame = firstMessageFrame
+            let relativeY = frame.minY / max(1, viewportHeight - frame.height)
             let page = try chat.messages(peer, before: messages.first?.cursor)
             let ids = Set(messages.map(\.id)); messages = page.reversed().filter { !ids.contains($0.id) } + messages
             earlierAvailable = page.count == 50
+            if let anchorID {
+                followingLatest = false
+                Task { @MainActor in
+                    await Task.yield()
+                    position.scrollTo(id: anchorID, anchor: UnitPoint(x: 0.5, y: relativeY))
+                }
+            }
         } catch { self.error = "Earlier messages couldn’t be opened. Please try again." }
     }
     private func send() {
@@ -140,28 +152,37 @@ struct FriendConversationView: View {
                             if item.outgoing { Spacer(minLength: 38) }
                             VStack(alignment: .leading, spacing: 7) {
                                 Text(item.text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
-                                HStack(spacing: 6) {
-                                    Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
-                                    if item.outgoing { Text(status(item.state)) }
+                                    .accessibilityIdentifier("message-body-" + item.id.uuidString)
+                                ViewThatFits(in: .horizontal) {
+                                    HStack(spacing: 6) { messageMetadata(item) }.fixedSize()
+                                    VStack(alignment: .leading, spacing: 3) { messageMetadata(item) }
                                 }.font(.caption2).foregroundStyle(VipiDesign.secondary)
                             }.padding(.horizontal, 15).padding(.vertical, 12)
                                 .background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
+                            .onGeometryChange(for: CGRect.self) { proxy in proxy.frame(in: .named("conversation-timeline")) } action: { frame in
+                                if item.id == messages.first?.id { firstMessageFrame = frame }
+                            }
                     }
                     Color.clear.frame(height: 1).id("bottom")
                 }.scrollTargetLayout().padding(18).frame(maxWidth: 680).frame(maxWidth: .infinity)
             }.scrollDismissesKeyboard(.interactively)
                 .accessibilityIdentifier("conversation-timeline")
+                .coordinateSpace(name: "conversation-timeline")
                 .scrollPosition($position)
-                .defaultScrollAnchor(followingLatest ? .bottom : .top, for: .sizeChanges)
+                .defaultScrollAnchor(followingLatest ? .bottom : nil, for: .sizeChanges)
                 .onScrollPhaseChange { _, phase in scrolling = phase.isScrolling }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
                     ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
-                                         content: geometry.contentSize.height)
+                                         content: geometry.contentSize.height,
+                                         insets: geometry.contentInsets.top + geometry.contentInsets.bottom)
                 } action: { old, new in
-                    if new.nearBottom || scrolling || (old.height == new.height && old.content == new.content && old.offset != new.offset) {
-                        followingLatest = new.nearBottom
+                    viewportHeight = new.height
+                    if new.nearBottom || scrolling { followingLatest = new.nearBottom }
+                    // Composer/row remeasurement can adjust the offset without a user scroll.
+                    if followingLatest && (old.height != new.height || old.content != new.content || old.insets != new.insets) {
+                        position.scrollTo(edge: .bottom)
                     }
                 }
                 .refreshable { await chat.synchronize(); refresh() }
@@ -172,7 +193,7 @@ struct FriendConversationView: View {
                     if !followingLatest && !messages.isEmpty {
                         Button { followingLatest = true; position.scrollTo(edge: .bottom) } label: {
                             Image(systemName: "arrow.down").font(.body.weight(.semibold)).frame(width: 48, height: 48)
-                        }.buttonStyle(.borderedProminent).buttonBorderShape(.circle).padding(12)
+                        }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).padding(12)
                             .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
                     }
                 }
@@ -216,7 +237,7 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
-                if let notice = error ?? chat.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary).padding(.horizontal, 18) }
+                if let notice = error ?? chat.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary).padding(.horizontal, 18).accessibilityIdentifier("conversation-notice") }
                 if blocked {
                     HStack {
                         Text("You blocked this person.").font(.subheadline)
@@ -228,12 +249,19 @@ struct FriendConversationView: View {
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .accessibilityIdentifier("message-input")
                     Button(action: send) { Image(systemName: "arrow.up").font(.body.weight(.semibold)).frame(width: 46, height: 46) }
-                        .buttonStyle(.borderedProminent).buttonBorderShape(.circle).accessibilityLabel("Send message")
+                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).accessibilityLabel("Send message")
                         .accessibilityIdentifier("message-send")
                         .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.utf8.count > 32768)
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
             }.background(VipiDesign.canvas)
+    }
+    @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
+        Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
+            .accessibilityIdentifier("message-time-" + item.id.uuidString)
+        if item.outgoing {
+            Text(status(item.state)).accessibilityIdentifier("message-status-" + item.id.uuidString)
+        }
     }
     private func status(_ value: String) -> String {
         switch value {
@@ -251,5 +279,6 @@ private struct ConversationViewport: Equatable {
     let offset: CGFloat
     let height: CGFloat
     let content: CGFloat
+    let insets: CGFloat
     var nearBottom: Bool { content - offset - height <= 44 }
 }

@@ -48,7 +48,7 @@ struct SecurityNumberView: View {
                         } else {
                             Text("Not yet compared").font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             Button("I compared all 12 groups") { change(number) }
-                                .buttonStyle(.borderedProminent).accessibilityIdentifier("identity-verify")
+                                .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).accessibilityIdentifier("identity-verify")
                         }
                         Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.")
                             .font(.footnote).foregroundStyle(VipiDesign.secondary)
