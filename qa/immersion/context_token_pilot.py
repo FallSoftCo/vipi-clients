@@ -3,8 +3,9 @@
 
 This evaluates correspondence between authored parallel sentences, not whether
 machine translation is faithful or whether a replacement has correct grammar.
-It adapts mutual nearest-neighbour cosine alignment from SimAlign to the already
-downloaded E5 encoder. It is not a reproduction of SimAlign's mBERT results.
+It uses mutual nearest-neighbour cosine alignment with native word boundaries.
+E5 is an experimental adaptation; mBERT layer 8 follows SimAlign's model choice.
+Neither configuration reproduces their published benchmark or token boundaries.
 """
 import argparse
 import hashlib
@@ -14,7 +15,6 @@ import resource
 import time
 
 import numpy as np
-import onnxruntime as ort
 from tokenizers import Tokenizer
 
 GOLD = {
@@ -44,20 +44,35 @@ def main(args):
                 if key in words:
                     assert words[key] == sample["source_words"]
                 words[key] = sample["source_words"]
-    protocol = {"schema": 1, "gold": GOLD, "prefix": "query: ", "pool": "mean of overlapping contextual subword vectors per existing native word, then L2",
+    prefix = "query: " if args.backend == "e5" else ""
+    model_files = [args.model / p for p in (["onnx/model_qint8_avx512_vnni.onnx", "onnx/tokenizer.json"] if args.backend == "e5" else ["model.safetensors", "tokenizer.json", "config.json"])]
+    protocol = {"schema": 2, "backend": args.backend, "gold": GOLD, "prefix": prefix, "pool": "mean of overlapping contextual subword vectors per existing native word, then L2",
                 "selection": "mutual top-one cosine; no threshold fitted", "criterion": "selected native target word overlaps the authored gold substring; does not qualify exact replacement span",
                 "scope": "360 easy authored correspondences, 90 directions, two scenarios; development probe, not untouched acceptance",
-                "source_hashes": {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in [args.corpus, args.native, args.model / "onnx/model_qint8_avx512_vnni.onnx", args.model / "onnx/tokenizer.json"]},
+                "source_hashes": {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in [args.corpus, args.native, *model_files]},
                 "method_reference": "https://aclanthology.org/2020.findings-emnlp.147/"}
     raw = (json.dumps(protocol, ensure_ascii=False, indent=2) + "\n").encode()
     (args.output / "protocol.json").write_bytes(raw)
-    tokenizer = Tokenizer.from_file(str(args.model / "onnx/tokenizer.json"))
+    tokenizer = Tokenizer.from_file(str(args.model / ("onnx/tokenizer.json" if args.backend == "e5" else "tokenizer.json")))
     tokenizer.no_truncation(); tokenizer.no_padding()
-    opts = ort.SessionOptions(); opts.intra_op_num_threads = 2; opts.inter_op_num_threads = 1
     start = time.perf_counter()
-    session = ort.InferenceSession(str(args.model / "onnx/model_qint8_avx512_vnni.onnx"), sess_options=opts, providers=["CPUExecutionProvider"])
+    if args.backend == "e5":
+        import onnxruntime as ort
+        opts = ort.SessionOptions(); opts.intra_op_num_threads = 2; opts.inter_op_num_threads = 1
+        session = ort.InferenceSession(str(model_files[0]), sess_options=opts, providers=["CPUExecutionProvider"])
+        names = {i.name for i in session.get_inputs()}
+        def encode(feed):
+            return session.run(None, {k:v for k,v in feed.items() if k in names})[0][0]
+    else:
+        import torch
+        from transformers import BertModel
+        torch.set_num_threads(2); torch.set_num_interop_threads(1)
+        model = BertModel.from_pretrained(args.model, local_files_only=True, use_safetensors=True,
+                                          output_hidden_states=True, attn_implementation="eager").eval()
+        def encode(feed):
+            with torch.inference_mode():
+                return model(**{k:torch.from_numpy(v) for k,v in feed.items()}).hidden_states[8][0].numpy()
     load_ms = (time.perf_counter()-start)*1000
-    names = {i.name for i in session.get_inputs()}
     vectors = {}; timings = []
     for key, native_words in words.items():
         start = time.perf_counter()
@@ -65,10 +80,10 @@ def main(args):
         encoding = tokenizer.encode(text)
         assert len(encoding.ids) <= 512
         feed = {"input_ids": np.array([encoding.ids], dtype=np.int64), "attention_mask": np.array([encoding.attention_mask], dtype=np.int64), "token_type_ids": np.array([encoding.type_ids], dtype=np.int64)}
-        embeddings = session.run(None, {k: v for k,v in feed.items() if k in names})[0][0]
+        embeddings = encode(feed)
         pooled = []
         for word in native_words:
-            indices = [i for i,(a,b) in enumerate(encoding.offsets) if not encoding.special_tokens_mask[i] and a < word["end"]+7 and b > word["start"]+7]
+            indices = [i for i,(a,b) in enumerate(encoding.offsets) if not encoding.special_tokens_mask[i] and a < word["end"]+len(prefix) and b > word["start"]+len(prefix)]
             assert indices, (key,word)
             vector = embeddings[indices].mean(axis=0)
             pooled.append(vector / np.linalg.norm(vector))
@@ -107,5 +122,6 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--backend", choices=["e5", "mbert-layer8"], default="e5")
     for name in ["corpus","native","model","output"]: parser.add_argument("--"+name,type=Path,required=True)
     main(parser.parse_args())
