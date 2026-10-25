@@ -24,7 +24,7 @@
 
 Each app implements its own UI, orchestration, immersion renderer, translation adapter, downloader, speech adapter, local database and lifecycle behavior. Share JSON schemas, SQLite pack structure, protocol fixtures, design tokens and test vectors. Reusing a maintained cryptographic library's native bindings is allowed; do not build a new shared application engine or invent cryptography.
 
-The user approved open-source clients. The encryption spike now uses official libsignal Swift and Java bindings at the same pinned version, replacing the older Signal-C adapter candidate. The transport can carry opaque Signal envelopes without implementing cryptography. This is not Signal network interoperability. Exact envelopes, transactional identity/session storage, native exchange and release licensing remain required before production. Upstream does not support third-party use; Vipi owns dependency qualification and upgrades. Do not deploy placeholder encryption while this is pending.
+The user approved open-source clients. The encryption spike now uses official libsignal Swift and Java bindings at the same pinned version, replacing the older Signal-C adapter candidate. The transport can carry opaque Signal envelopes without implementing cryptography. This is not Signal network interoperability. Native durable stores and transport-independent message journals now have qualification tests. Real relay integration, identity-change UX, key rotation, source-release packaging and release licensing remain required before production. Upstream does not support third-party use; Vipi owns dependency qualification and upgrades. Do not deploy placeholder encryption while this is pending.
 
 ## Account and device
 
@@ -46,6 +46,18 @@ State vocabulary: queued locally, accepted for delivery, delivered, failed, expi
 Stock ejabberd offline queues/MAM are not assumed to implement these semantics. Verify the exact hooks/modules needed; disable persistent MAM for launch unless a bounded ciphertext-only implementation is proven. Audit offline storage, stream-management queues, logs, database backups, WAL and operational retention so the public deletion description matches what is actually retained. Don't claim physical erasure at a precise second if the system only offers logical expiry plus later cleanup.
 
 Push payload contains an opaque wake/event identifier only. The app reconnects and retrieves encrypted envelopes. OS background limits mean silent push is not a guaranteed live connection; design visible notification behavior and retries from measured platform behavior. Never keep a permanent Android foreground service solely to fake reliable delivery.
+
+## Native durable messaging implementation
+
+`MessageVault` uses native SQLite transactions with WAL and FULL synchronization. Record values are authenticated/encrypted with AES-256-GCM, using a per-account Android Keystore key or an iOS Keychain key marked AfterFirstUnlockThisDeviceOnly. Associated data binds the version, account, record kind and opaque record ID. No homemade cipher or ratchet is introduced. Record kinds and opaque IDs remain SQLite metadata; this is not a claim of whole-file encryption or protection against rollback of a complete compromised-device snapshot.
+
+Android stores files under noBackupFilesDir with app backups disabled. iOS excludes the containing directory from backups and requests complete-until-first-authentication file protection. The device-enforced protection still needs physical validation. Missing storage keys do not trigger silent replacement while a database exists. All record access requires a synchronous transaction; network awaits must occur outside it. SQLite serializes writers across connections. No mutable session cache survives rollback.
+
+`DurableSignalStore` implements the pinned native libsignal callbacks, including identities, sessions, classical/signed/post-quantum prekeys and the sender-key interface. Changed identities are rejected for sending and receiving. An explicit verified replacement flow, prekey allocation/rotation and group qualification remain open. Key types are not represented by application-defined cryptography.
+
+`MessageJournal` saves the outgoing text to an encrypted draft before encryption/session work, retaining it across failures and restarts. Drafts have the same immutable deadline. It atomically commits ratchet mutations with the outgoing ciphertext or received plaintext/deduplication record. A retry reads identical saved ciphertext without advancing the ratchet again. The encrypted payload binds message ID, sender, recipient and creation time, which are checked against relay metadata after decryption. Receiver acknowledgement belongs after the commit returns. Incoming duplicate IDs with changed content are rejected. Original creation time fixes the 72-hour delivery deadline. A late authenticated delivered status may resolve a local expiry, but stale statuses cannot regress delivered history. Public transport still must authenticate status responses and enforce its own deadline.
+
+This implementation is not yet connected to the real conversation UI or a production transport. Delivery workers, scheduling/backoff, unread/paging, receipt retry behavior, transactional identity replacement, storage migration and full encrypted backup/restore remain release gates.
 
 ## Local immersion pipeline
 

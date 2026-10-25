@@ -3,6 +3,11 @@ import SwiftUI
 @main struct VipiApp: App {
     @State private var state = AppState()
     @State private var authentication = AuthenticationManager()
+    init() {
+        #if DEBUG
+        PersistenceProbe.startIfRequested()
+        #endif
+    }
     var body: some Scene {
         WindowGroup {
             Group {

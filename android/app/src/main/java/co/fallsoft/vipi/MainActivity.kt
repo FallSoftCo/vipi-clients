@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         handleCallback(intent)
+        if (BuildConfig.DEBUG) PersistenceProbe.start(this, intent.getStringExtra("vipi_storage_probe"))
         if (BuildConfig.DEBUG) {
             when (intent.getStringExtra("vipi_screen")) {
                 "welcome" -> model.navigate(Screen.WELCOME)

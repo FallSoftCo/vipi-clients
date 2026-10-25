@@ -17,6 +17,23 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [ ] Production multilingual pack compilation, contextual reading generation and held-out meaning/coverage evaluation.
 - [ ] Real conversation integration, lifecycle/accessibility/composer and scrolling qualification beyond the previews.
 
+## Store readiness review — 2026-10-24
+
+The app is not at the submission stage. Language previews and local component tests must not be described as a complete messaging product. The iPad was rechecked and remains unavailable through CoreDevice; locked/untrusted hardware and signing-key access affect physical validation, not the work below.
+
+Work that can proceed without the unlocked iPad, in dependency order:
+
+1. Durable encrypted native protocol stores and message journals, then prekey delivery, real transport, receipt/outbox workers and the conversation UI. Prove restart, rollback, duplicate, out-of-order, identity replacement and fixed expiry behavior before networking.
+2. Production multilingual pack compilation, download/remove state and context/meaning evaluation. The 90-pair authored renderer preview is not this gate.
+3. Native account session refresh, device binding, usernames/invites, account deletion and blocking/reporting. Test revoked sessions and interrupted onboarding.
+4. Store product configuration and native purchase/restore flows, verified server entitlements, Bot mini consent/gateway/spend limits, encrypted export/restore.
+5. Isolated backend deployment, DNS/TLS, push, operational recovery/load testing, public product policies and corresponding open-source client releases.
+6. Signed release archives/AABs, store declarations/listings, release-build and sandbox checks, physical translation/speech/background verification, then submission.
+
+The current official [Apple review guidelines](https://developer.apple.com/app-store/review/guidelines/) require a complete reviewable app, appropriate purchase disclosures, account deletion for account-creating apps, and safeguards for user-generated content. [Google's deletion requirements](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en) include both an in-app path and a functional web deletion route. Its [UGC policy](https://support.google.com/googleplay/android-developer/answer/9876937?hl=en) specifically requires blocking for direct messaging and appropriate reporting/moderation. No dedicated customer-support team is assumed, but abuse-report handling and developer contact still need a real operational route; a decorative report button is insufficient.
+
+Recovery design review: [Mobbin's Family flow](https://mobbin.com/flows/58bd7e53-29ee-4448-9b60-7bafcc5b2b0a) visibly places its failure label and retry control beside the affected message. [BFM's eBay example](https://builtformars.com/ux-bites/messaging-on-ebay) supports contextual warnings, not claims about cryptographic recovery. Keep errors beside the message; distinguish accepted from delivered and delivered from read. Retain automatic retries inside the original deadline. Reject the advisory suggestion to require confirmation modals for every retry; after expiry, an explicitly labelled resend creates a new message. Account sign-in alone cannot recover message keys.
+
 ## 1. Foundations and decisions
 
 - [x] Record product, architecture, data boundaries and release sequence.
@@ -24,7 +41,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [x] Renew AWS CLI and verify Route 53 domains/DNS access.
 - [x] Select inexpensive AWS domain with registration AND renewal cost: mambovipi.app, AWS registration successful.
 - [ ] Choose host after capacity/workload inspection and ownership registration.
-- [ ] Confirm crypto library licenses and interoperable protocol version.
+- [x] Pin and prove official libsignal 0.105.0 native interoperability; add AGPL-3.0-only client LICENSE/NOTICE under the user’s open-source approval. Complete release dependency notices and corresponding-source distribution remain required.
 - [ ] Record build mirrors, dependency pins, reproducible commands and credentials inventory (locations only).
 
 ## 2. Prove the hard paths
@@ -35,6 +52,15 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [ ] Contextual alignment benchmark, with measured precision/coverage and explicit abstentions, not just a canned demo.
 - [ ] Mixed-language and full-language speech using local voices on each platform.
 - [ ] Store trial/purchase and WorkOS native redirect feasibility in the actual accounts/environments.
+
+### Durable messaging foundation now implemented
+
+- [x] Native encrypted SQLite records, device-bound wrapping keys, backup exclusion and fail-closed missing-key handling.
+- [x] Durable libsignal callbacks with transactional session/prekey updates and changed-identity rejection.
+- [x] Persist outgoing drafts before encryption; atomically persist ciphertext with the ratchet. Identical retries reuse ciphertext.
+- [x] Bind encrypted message metadata; persist incoming text/deduplication before acknowledging.
+- [x] Prove transaction rollback, concurrent writers, cross-platform exchange through fixture transport, out-of-order replies, corruption rejection and abrupt process termination.
+- [ ] Connect the foundation to prekey distribution, the real relay, background workers, identity replacement, backup/restore and conversation UI. Fixture transport is not a real messaging launch.
 
 ## 3. Native product
 

@@ -32,6 +32,7 @@ targets:
     dependencies:
       - package: VipiCore
       - package: WorkOS
+      - package: LibSignalClient
     info:
       path: Vipi/Info.plist
       properties:
@@ -52,6 +53,8 @@ targets:
         TARGETED_DEVICE_FAMILY: '1,2'
         SUPPORTS_MACCATALYST: NO
         SWIFT_STRICT_CONCURRENCY: complete
+        'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
+        'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
       configs:
         Debug:
           WORKOS_CLIENT_ID: client_01M5QPQSVXQDEJGQ1CYZ75MSGS
@@ -70,7 +73,6 @@ targets:
         buildPhase: resources
     dependencies:
       - target: Vipi
-      - package: LibSignalClient
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES

@@ -1,0 +1,14 @@
+Vipi native client
+Copyright (C) 2026 FallSoft.Co
+SPDX-License-Identifier: AGPL-3.0-only
+
+This native client is distributed under the GNU Affero General Public License,
+version 3 only. See LICENSE. Its release must include the corresponding source,
+build instructions, and third-party notices; no public release has been made.
+
+This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
+under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
+Vipi is an independent application and is not affiliated with Signal.
+
+Other dependency notices and a complete release source bundle remain required
+before distribution. This file does not relicense third-party dependencies.

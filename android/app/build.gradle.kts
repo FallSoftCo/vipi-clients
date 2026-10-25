@@ -57,5 +57,5 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    androidTestImplementation("org.signal:libsignal-android:0.105.0")
+    implementation("org.signal:libsignal-android:0.105.0")
 }
