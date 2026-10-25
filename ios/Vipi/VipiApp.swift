@@ -18,7 +18,8 @@ import SwiftUI
                 if deletion.active { AccountDeletionProgressView() }
                 else {
                 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
+                if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") { TimelineQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }
                     else { ConnectedChatRoot() }

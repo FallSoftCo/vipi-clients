@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowUpward
+import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.*
@@ -68,9 +69,24 @@ import java.util.UUID
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
+    var followingLatest by remember(peer) { mutableStateOf(true) }
+    var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
+    LaunchedEffect(list, peer) {
+        snapshotFlow {
+            val layout = list.layoutInfo
+            val last = layout.visibleItemsInfo.lastOrNull()
+            val nearBottom = last != null && last.index == layout.totalItemsCount - 1 &&
+                last.offset + last.size <= layout.viewportEndOffset
+            list.isScrollInProgress to nearBottom
+        }.collect { (scrolling, nearBottom) ->
+            // Content insertion alone must not revoke the reader's choice to
+            // follow latest. Only scrolling can move that choice away.
+            if (scrolling || nearBottom) followingLatest = nearBottom
+        }
+    }
     fun refresh() {
         try {
             val current = chat.messages(peer); val ids = current.map { it.id }.toSet()
@@ -94,7 +110,9 @@ import java.util.UUID
         chat.synchronize()
     }
     LaunchedEffect(chat.revision) { refresh() }
-    LaunchedEffect(messages.lastOrNull()?.id) { if (messages.isNotEmpty()) list.scrollToItem(messages.size + 1) }
+    LaunchedEffect(messages.lastOrNull()?.id, jumpRevision) {
+        if (followingLatest && messages.isNotEmpty()) list.scrollToItem(messages.size + 1)
+    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") } },
             actions = {
@@ -125,7 +143,8 @@ import java.util.UUID
                         modifier = Modifier.weight(1f).testTag("message-input"))
                     FilledIconButton(onClick = {
                         try {
-                            chat.send(text, peer); text = ""; error = null; refresh()
+                            chat.send(text, peer); text = ""; error = null
+                            followingLatest = true; jumpRevision++; refresh()
                             scope.launch { chat.synchronize() }
                         } catch (failure: Exception) { error = ChatSession.explanation(failure) }
                     }, enabled = text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
@@ -138,8 +157,8 @@ import java.util.UUID
             userRefreshing = true
             try { chat.synchronize(); refresh() } finally { userRefreshing = false }
         } }, modifier = Modifier.fillMaxSize().padding(padding)) {
-            LazyColumn(state = list, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                item {
+            LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("conversation-timeline"), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                item(key = "history-header") {
                     if (earlierAvailable) TextButton(onClick = { earlier() }) { Text("Earlier messages") }
                     if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Icon(Icons.Outlined.Lock, null)
@@ -158,7 +177,13 @@ import java.util.UUID
                         if (!item.outgoing) Spacer(Modifier.width(38.dp))
                     }
                 }
-                item { Spacer(Modifier.height(1.dp)) }
+                item(key = "history-bottom") { Spacer(Modifier.height(1.dp)) }
+            }
+            if (!followingLatest && messages.isNotEmpty()) {
+                FilledTonalIconButton(onClick = { followingLatest = true; jumpRevision++ },
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp).size(48.dp).testTag("conversation-latest")) {
+                    Icon(Icons.Outlined.ArrowDownward, "Jump to latest messages")
+                }
             }
         }
     }

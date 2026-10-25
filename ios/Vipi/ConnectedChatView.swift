@@ -85,6 +85,10 @@ struct FriendConversationView: View {
     @State private var confirmBlock = false
     @State private var blockBusy = false
     @State private var showSecurityNumber = false
+    @State private var followingLatest = true
+    @State private var scrolling = false
+    @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
+    @State private var jumpRevision = 0
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     @FocusState private var composing: Bool
     private func refresh() {
@@ -104,7 +108,8 @@ struct FriendConversationView: View {
     }
     private func send() {
         do {
-            try chat.send(text, peer: peer); text = ""; error = nil; refresh()
+            try chat.send(text, peer: peer); text = ""; error = nil
+            followingLatest = true; jumpRevision += 1; refresh()
             Task { await chat.synchronize() }
         } catch { self.error = ChatSession.explanation(error) }
     }
@@ -119,7 +124,6 @@ struct FriendConversationView: View {
         }
     }
     private var timeline: some View {
-        ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(spacing: 14) {
                     if earlierAvailable { Button("Earlier messages", action: earlier).font(.footnote).padding(8) }
@@ -146,12 +150,32 @@ struct FriendConversationView: View {
                         }.id(item.id)
                     }
                     Color.clear.frame(height: 1).id("bottom")
-                }.padding(18).frame(maxWidth: 680).frame(maxWidth: .infinity)
+                }.scrollTargetLayout().padding(18).frame(maxWidth: 680).frame(maxWidth: .infinity)
             }.scrollDismissesKeyboard(.interactively)
+                .accessibilityIdentifier("conversation-timeline")
+                .scrollPosition($position)
+                .defaultScrollAnchor(followingLatest ? .bottom : .top, for: .sizeChanges)
+                .onScrollPhaseChange { _, phase in scrolling = phase.isScrolling }
+                .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
+                    ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
+                                         content: geometry.contentSize.height)
+                } action: { old, new in
+                    if new.nearBottom || scrolling || (old.height == new.height && old.content == new.content && old.offset != new.offset) {
+                        followingLatest = new.nearBottom
+                    }
+                }
                 .refreshable { await chat.synchronize(); refresh() }
-                .onChange(of: messages.last?.id) { _, _ in proxy.scrollTo("bottom", anchor: .bottom) }
-                .onChange(of: composing) { _, focused in if focused { proxy.scrollTo("bottom", anchor: .bottom) } }
-        }
+                .onChange(of: messages.last?.id) { _, _ in if followingLatest { position.scrollTo(edge: .bottom) } }
+                .onChange(of: jumpRevision) { _, _ in position.scrollTo(edge: .bottom) }
+                .onChange(of: composing) { _, focused in if focused && followingLatest { position.scrollTo(edge: .bottom) } }
+                .overlay(alignment: .bottomTrailing) {
+                    if !followingLatest && !messages.isEmpty {
+                        Button { followingLatest = true; position.scrollTo(edge: .bottom) } label: {
+                            Image(systemName: "arrow.down").font(.body.weight(.semibold)).frame(width: 48, height: 48)
+                        }.buttonStyle(.borderedProminent).buttonBorderShape(.circle).padding(12)
+                            .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
+                    }
+                }
     }
     var body: some View {
         timeline
@@ -221,4 +245,11 @@ struct FriendConversationView: View {
         default: "Waiting to send"
         }
     }
+}
+
+private struct ConversationViewport: Equatable {
+    let offset: CGFloat
+    let height: CGFloat
+    let content: CGFloat
+    var nearBottom: Bool { content - offset - height <= 44 }
 }
