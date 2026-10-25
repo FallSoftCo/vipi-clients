@@ -21,3 +21,6 @@ testpaths = ["tests"]
 
 [tool.setuptools.packages.find]
 include = ["vipi*"]
+
+[tool.setuptools.package-data]
+vipi = ["*.css"]

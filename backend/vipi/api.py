@@ -115,7 +115,7 @@ async def principal(request: Request, authorization: Annotated[str | None, Heade
     return verified
 
 
-def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
+def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None):
     if settings.environment == "staging" and not settings.allowed_subjects:
         raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)
@@ -134,6 +134,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
     app.add_middleware(BodyLimit)
     app.state.verifier = token_verifier
     app.state.allowed_subjects = settings.allowed_subjects
+    from .web_deletion import install as install_web_deletion
+    install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
 
     @app.exception_handler(AuthenticationError)
     async def auth_error(request, error):

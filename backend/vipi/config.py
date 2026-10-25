@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     account_deletion_enabled: bool = False
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
+    deletion_web_origin: str | None = None
 
     @model_validator(mode="after")
     def deletion_configuration(self):
@@ -24,6 +25,11 @@ class Settings(BaseSettings):
         # delete that shared identity without a verified Vipi-only user pool.
         if self.account_deletion_enabled and (not self.workos_dedicated_user_pool or not self.workos_api_key or not self.workos_api_key.get_secret_value()):
             raise ValueError("Account deletion requires a configured, dedicated Vipi identity pool")
+        if self.deletion_web_origin:
+            from urllib.parse import urlsplit
+            origin = urlsplit(self.deletion_web_origin)
+            if not self.account_deletion_enabled or origin.scheme != "https" or not origin.netloc or origin.path or origin.query or origin.fragment or origin.username or origin.password:
+                raise ValueError("Browser deletion requires an enabled service and a fixed HTTPS origin")
         return self
 
     @property
