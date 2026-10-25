@@ -143,12 +143,35 @@ final class MessageJournal {
             return result
         }
     }
+    func setBlocked(_ blocked: Bool, peer: UUID) throws {
+        try vault.transaction {
+            if !blocked { try vault.remove("blocked", key(peer)); return }
+            try vault.put("blocked", key(peer), Data([1]))
+            for id in try vault.ids("draft") {
+                guard let bytes = try vault.get("draft", id) else { continue }
+                var draft = try decoder.decode(DraftChat.self, from: bytes)
+                if draft.recipient == peer && draft.state == "queued" {
+                    draft.state = "cancelled"; try vault.put("draft", id, encoder.encode(draft))
+                }
+            }
+            for id in try vault.ids("pending") {
+                guard let bytes = try vault.get("outgoing", id) else { continue }
+                var saved = try decoder.decode(StoredChat.self, from: bytes)
+                if saved.envelope.recipient == peer {
+                    if ["queued", "accepted"].contains(saved.state) {
+                        saved.state = "cancelled"; try vault.put("outgoing", id, encoder.encode(saved))
+                    }
+                    try vault.remove("pending", id)
+                }
+            }
+        }
+    }
     func applyStatus(_ id: UUID, state: String) throws {
         try vault.transaction {
             guard ["accepted", "delivered", "failed", "expired"].contains(state) else { throw Failure.invalidMessage }
             guard let bytes = try vault.get("outgoing", key(id)) else { throw Failure.missingMessage }
             var saved = try decoder.decode(StoredChat.self, from: bytes)
-            if saved.state == "delivered" || (state != "delivered" && ["failed", "expired"].contains(saved.state)) { return }
+            if saved.state == "delivered" || (state != "delivered" && ["failed", "expired", "cancelled"].contains(saved.state)) { return }
             saved.state = state
             try vault.put("outgoing", key(id), encoder.encode(saved))
             if state != "accepted" { try vault.remove("pending", key(id)) }

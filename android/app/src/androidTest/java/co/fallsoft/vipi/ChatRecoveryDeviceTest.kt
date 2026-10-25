@@ -20,7 +20,13 @@ class ChatRecoveryDeviceTest {
     private class Transport(val profile: ChatProfile, val stale: UUID, val failedPeer: UUID,
                             val valid: JSONObject, val poison: JSONObject) : ChatTransport {
         val pages = mutableListOf<String?>(); val acknowledged = mutableListOf<String>()
+        var blocked = false; var failBlock = false
         override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
+            if (path.startsWith("/v1/blocks/")) {
+                if (failBlock) throw ServiceFailure(0, "offline")
+                if (method == "PUT") blocked = requireNotNull(body).getBoolean("blocked")
+                return JSONObject().put("blocked", blocked)
+            }
             return when (path) {
                 "/v1/me" -> profile.json()
                 "/v1/devices" -> JSONObject().put("id", requireNotNull(body).getString("device_id")).put("active", true)
@@ -87,6 +93,31 @@ class ChatRecoveryDeviceTest {
                 assertTrue(cores[0].journal.pendingReceipts().isEmpty())
                 assertEquals(2, transport.acknowledged.size)
                 assertFalse(transport.acknowledged.any { it.contains(poisonID.toString()) })
+                chat.send("Queued before blocking", accounts[2])
+                val draftID = cores[0].journal.pendingDrafts(now).single().id
+                chat.saveCompose("Keep my unsent writing", accounts[2])
+                chat.setBlocked(true, accounts[2])
+                assertTrue(accounts[2] in chat.blockedPeers)
+                assertTrue(runCatching { chat.send("Must not queue", accounts[2]) }.isFailure)
+                assertEquals("cancelled", cores[0].journal.draft(draftID)?.state)
+                assertEquals("cancelled", cores[0].journal.outgoing(second)?.state)
+                cores[0].journal.applyStatus(second, "accepted")
+                assertEquals("cancelled", cores[0].journal.outgoing(second)?.state)
+                assertEquals("Keep my unsent writing", chat.compose(accounts[2]))
+                ChatSession(context, transport, chat.userID).use { reopened ->
+                    assertTrue(accounts[2] in reopened.blockedPeers)
+                    transport.failBlock = true
+                    assertTrue(runCatching { reopened.setBlocked(false, accounts[2]) }.isFailure)
+                    assertTrue(accounts[2] in reopened.blockedPeers)
+                    transport.failBlock = false
+                    reopened.setBlocked(false, accounts[2])
+                    assertFalse(accounts[2] in reopened.blockedPeers)
+                }
+                assertTrue(cores[0].journal.pending(now).isEmpty())
+                assertTrue(cores[0].journal.pendingDrafts(now).isEmpty())
+                chat.refreshBlock(accounts[2]); assertFalse(accounts[2] in chat.blockedPeers)
+                chat.send("A new message after unblocking", accounts[2])
+                assertEquals(1, cores[0].journal.pendingDrafts(now).size)
             }
         } finally {
             vaults.forEach { it.close() }; root.deleteRecursively()

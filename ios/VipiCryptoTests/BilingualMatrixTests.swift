@@ -1,18 +1,19 @@
 import Foundation
+import CryptoKit
 import XCTest
 @testable import Vipi
 
-/// Apple tokenization/dictionary/alignment on captured *Android* translations.
-/// This deliberately does not claim execution of Apple's translation model.
+/// Native iOS alignment on provider captures with explicit provenance.
+/// This test never executes a translation model itself.
 final class BilingualMatrixTests: XCTestCase {
     private struct TranslationReport: Decodable {
         struct Pair: Decodable {
             struct Sample: Decodable { let id: String; let original: String; let translation: String; let status: String; let reference: String? }
             let source: String; let target: String; let samples: [Sample]
         }
-        let provider: String; let results: [Pair]
+        let provider: String; let platform: String; let evidence: String; let results: [Pair]
     }
-    func testAllNativePairsUsingCapturedMLKitTranslations() async throws {
+    func testAllNativePairsUsingCapturedTranslations() async throws {
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let input = documents.appendingPathComponent("bilingual-qa")
         let config = input.appendingPathComponent("run-id.txt")
@@ -27,6 +28,9 @@ final class BilingualMatrixTests: XCTestCase {
         }
         let sourceName = try filename("translation-report.txt", fallback: "android-translations.json")
         let outputName = try filename("report-name.txt", fallback: "bilingual-ios-matrix-" + runID + ".json")
+        guard !FileManager.default.fileExists(atPath: documents.appendingPathComponent(outputName).path) else {
+            XCTFail("Preserve qualification receipts"); throw VocabularyPackError.invalid
+        }
         let captureData = try Data(contentsOf: input.appendingPathComponent(sourceName))
         let captured = try JSONDecoder().decode(TranslationReport.self, from: captureData)
         let attribution = (try JSONSerialization.jsonObject(with: captureData) as? [String: Any])?["attribution"] as? [String: String]
@@ -70,7 +74,9 @@ final class BilingualMatrixTests: XCTestCase {
             rows.append(["source": pair.source, "target": pair.target, "status": "executed", "install_ms": installMS, "samples": samples])
             try await store.remove(id: id)
             var report: [String: Any] = ["schema": 1, "platform": "iOS Simulator", "translation_provider": captured.provider,
-                "evidence": "native_apple_tokenization_dictionary_alignment_on_captured_android_translations_not_apple_translation_execution",
+                "evidence": "native_ios_alignment_on_captured_translations_not_translation_execution",
+                "translation_capture_platform": captured.platform, "translation_capture_evidence": captured.evidence,
+                "translation_capture_sha256": SHA256.hash(data: captureData).map { String(format: "%02x", $0) }.joined(),
                 "linguistic_acceptance": false, "results": rows]
             if let attribution { report["attribution"] = attribution }
             try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: documents.appendingPathComponent(outputName), options: .atomic)

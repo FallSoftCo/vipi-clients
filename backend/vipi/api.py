@@ -314,6 +314,16 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
             state = await acknowledge(session, str(message_id), user.id, device.id, now=now())
             return {"id": str(message_id), "state": state}
 
+    @app.get("/v1/blocks/{user_id}")
+    async def block_status(user_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "block-status", 60)
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            await phone_for(session, request, user)
+            # Only reveal this account's own choice, never whether someone
+            # else blocked it or whether an arbitrary account exists.
+            return {"blocked": await session.get(Block, (user.id, str(user_id))) is not None}
+
     @app.put("/v1/blocks/{user_id}")
     async def block(user_id: UUID, body: BlockInput, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "blocking", 30)

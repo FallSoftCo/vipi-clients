@@ -111,11 +111,27 @@ internal class MessageJournal(private val vault: MessageVault) {
             }
         }
     }
+    fun setBlocked(blocked: Boolean, peer: UUID) = vault.transaction {
+        if (!blocked) { vault.remove("blocked", peer.toString()); return@transaction }
+        vault.put("blocked", peer.toString(), byteArrayOf(1))
+        for (id in vault.ids("draft")) {
+            val draft = vault.get("draft", id)?.let(DraftChat::parse) ?: continue
+            if (draft.recipient == peer && draft.state == "queued")
+                vault.put("draft", id, draft.copy(state = "cancelled").encode())
+        }
+        for (id in vault.ids("pending")) {
+            val saved = vault.get("outgoing", id)?.let(StoredChat::parse) ?: continue
+            if (saved.envelope.recipient == peer) {
+                if (saved.state in setOf("queued", "accepted")) vault.put("outgoing", id, saved.copy(state = "cancelled").encode())
+                vault.remove("pending", id)
+            }
+        }
+    }
     fun applyStatus(id: UUID, state: String) = vault.transaction {
         require(state in setOf("accepted", "delivered", "failed", "expired"))
         val saved = StoredChat.parse(requireNotNull(vault.get("outgoing", id.toString())))
         // Late/duplicate network responses cannot regress a committed terminal state.
-        if (saved.state == "delivered" || (state != "delivered" && saved.state in setOf("failed", "expired"))) return@transaction
+        if (saved.state == "delivered" || (state != "delivered" && saved.state in setOf("failed", "expired", "cancelled"))) return@transaction
         vault.put("outgoing", id.toString(), saved.copy(state = state).encode())
         if (state != "accepted") vault.remove("pending", id.toString())
     }

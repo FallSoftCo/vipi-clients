@@ -38,7 +38,7 @@ The first prototype's dictionary/translation-presence heuristic has no broad qua
 
 ## Platform limitation to resolve
 
-Apple Translation cannot run in an iOS simulator. A macOS availability probe is currently the only Apple-side API evidence. Actual execution must be demonstrated through an available supported device or a qualified fully local translation engine runnable in the target environment; simulator screenshots with canned translations do not satisfy this gate.
+Apple Translation cannot run in an iOS simulator. Actual Mac provider execution now covers 90 directions: 540 authored inputs and 2,880 fixed FLORES inputs. Network access remained available; these captures are neither offline verification nor physical iOS execution. iOS simulator alignment on those captured outputs is separately identified and source-hashed. Physical iPad UI automation remains blocked by Apple's separate XCTest passcode challenge, despite the ordinary device lock being unlocked. Actual iPad translation execution and offline behavior still need proof; simulator captures do not satisfy this gate.
 
 ## UX reference use
 

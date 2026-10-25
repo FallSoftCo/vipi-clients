@@ -12,6 +12,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private struct Status: Decodable { let state: String }
     private struct DeviceResult: Decodable { let id: UUID; let active: Bool }
     private struct Inbox: Decodable { let messages: [RoutedMessage.Received]; let next_cursor: String? }
+    private struct BlockStatus: Decodable { let blocked: Bool }
     let userID: String
     private let api: any ChatTransport
     private var vault: MessageVault?
@@ -24,9 +25,12 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var ready = false
     private(set) var threads: [ChatThread] = []
     private(set) var contacts: [UUID: ChatProfile] = [:]
+    private(set) var blockedPeers = Set<UUID>()
     private(set) var revision = 0
     var notice: String?
     private var syncAgain = false
+    private var blockVersions: [UUID: Int] = [:]
+    private var changingBlocks = Set<UUID>()
     private var cacheKey: String { "profile-" + userID }
     convenience init(authentication: AuthenticationManager, userID: String) throws {
         try self.init(api: ServiceClient(authentication: authentication, userID: userID), userID: userID)
@@ -52,6 +56,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 }
                 return result
             }
+            blockedPeers = try store.transaction { Set(try store.ids("blocked").compactMap(UUID.init(uuidString:))) }
         }
         profile = value; needsProfile = false
         try KeychainStore.save(JSONEncoder().encode(value), account: cacheKey)
@@ -113,6 +118,29 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         return value
     }
     func name(_ peer: UUID) -> String { contacts[peer]?.display_name ?? "New conversation" }
+    func refreshBlock(_ peer: UUID) async throws {
+        guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        guard !changingBlocks.contains(peer) else { return }
+        let version = blockVersions[peer, default: 0]
+        let value: BlockStatus = try await api.request("GET", "/v1/blocks/" + peer.uuidString.lowercased(), device: core.device)
+        guard version == blockVersions[peer, default: 0], !changingBlocks.contains(peer) else { return }
+        try recordBlock(value.blocked, peer: peer)
+    }
+    func setBlocked(_ blocked: Bool, peer: UUID) async throws {
+        guard ready, let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        guard changingBlocks.insert(peer).inserted else { throw ServiceFailure(status: 0, code: "block_in_progress") }
+        blockVersions[peer, default: 0] += 1
+        defer { changingBlocks.remove(peer) }
+        let value: BlockStatus = try await api.request("PUT", "/v1/blocks/" + peer.uuidString.lowercased(), body: body(["blocked": blocked]), device: core.device)
+        guard value.blocked == blocked else { throw ServiceFailure(status: 0, code: "invalid_block_response") }
+        try recordBlock(blocked, peer: peer)
+    }
+    private func recordBlock(_ blocked: Bool, peer: UUID) throws {
+        guard let core else { return }
+        try core.journal.setBlocked(blocked, peer: peer)
+        if blocked { blockedPeers.insert(peer) } else { blockedPeers.remove(peer) }
+        try reload()
+    }
     func messages(_ peer: UUID, before: String? = nil) throws -> [ChatItem] { try history?.messages(peer: peer, before: before) ?? [] }
     func markRead(_ peer: UUID) throws {
         guard threads.contains(where: { $0.peer == peer && $0.unread > 0 }) else { return }
@@ -123,6 +151,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     /// Returns only after the user's text and timeline row have committed locally.
     func send(_ text: String, peer: UUID) throws {
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         try core.journal.saveDraft(id: UUID(), recipient: peer, text: text, createdAt: now, now: now, consumeCompose: true)
         try reload()
     }
@@ -156,6 +185,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 for _ in 0..<100 {
                     let inbox: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
                     for item in inbox.messages {
+                        if blockedPeers.contains(item.sender_id) { continue }
                         do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
                         catch { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
                     }
@@ -175,12 +205,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 }
                 for draft in try core.journal.pendingDrafts(now: now).sorted(by: { $0.createdAt < $1.createdAt }) {
                     do {
+                        if blockedPeers.contains(draft.recipient) { continue }
                         try await establish(draft.recipient)
+                        if blockedPeers.contains(draft.recipient) { continue }
                         _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now)
                     } catch is CancellationError { throw CancellationError() }
                     catch { notice = Self.explanation(error) }
                 }
                 for envelope in try core.journal.pending(now: now) {
+                    if blockedPeers.contains(envelope.recipient) { continue }
                     do {
                         let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
                         let status: Status = try await api.request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
@@ -209,6 +242,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
             case "recipient_keys_unavailable": return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
             case "device_not_ready": return "Connect once to finish setting up this device."
+            case "contact_blocked": return "Unblock this person to send a new message."
             case "message_expired": return "This message expired before delivery. You can send it again."
             case "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type": return "A message couldn’t be delivered. Your other conversations can continue."
             default: if failure.status == 429 { return "Please wait a moment before trying again. Your messages are saved." }

@@ -78,9 +78,11 @@ class MainActivity : ComponentActivity() {
 }
 
 private val Green = Color(0xFF33644F)
-@Composable private fun VipiTheme(appearance: Appearance, content: @Composable () -> Unit) {
+@Composable internal fun VipiTheme(appearance: Appearance, content: @Composable () -> Unit) {
     val dark = appearance == Appearance.DARK || (appearance == Appearance.SYSTEM && isSystemInDarkTheme())
-    val activity = LocalContext.current as? android.app.Activity
+    val activity = generateSequence(LocalContext.current) { context ->
+        (context as? android.content.ContextWrapper)?.baseContext?.takeIf { it !== context }
+    }.filterIsInstance<android.app.Activity>().firstOrNull()
     SideEffect {
         activity?.let { host -> WindowCompat.getInsetsController(host.window, host.window.decorView).apply {
             isAppearanceLightStatusBars = !dark; isAppearanceLightNavigationBars = !dark

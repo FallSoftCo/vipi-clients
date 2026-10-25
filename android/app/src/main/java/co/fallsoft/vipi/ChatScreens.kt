@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
@@ -61,6 +63,10 @@ import java.util.UUID
     var earlierAvailable by remember(peer) { mutableStateOf(false) }
     var loaded by remember(peer) { mutableStateOf(false) }
     var userRefreshing by remember(peer) { mutableStateOf(false) }
+    var options by remember(peer) { mutableStateOf(false) }
+    var confirmBlock by remember(peer) { mutableStateOf(false) }
+    var blockBusy by remember(peer) { mutableStateOf(false) }
+    val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
     fun refresh() {
@@ -77,14 +83,36 @@ import java.util.UUID
             messages = page.reversed().filter { it.id !in ids } + messages; earlierAvailable = page.size == 50
         } catch (_: Exception) { error = "Earlier messages couldn’t be opened. Please try again." }
     }
-    LaunchedEffect(peer) { refresh(); chat.synchronize() }
+    LaunchedEffect(peer) {
+        refresh(); blockBusy = true
+        try { chat.refreshBlock(peer) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { error = "Block status couldn’t be checked. Your last confirmed choice is saved." }
+        finally { blockBusy = false }
+        chat.synchronize()
+    }
     LaunchedEffect(chat.revision) { refresh() }
     LaunchedEffect(messages.lastOrNull()?.id) { if (messages.isNotEmpty()) list.scrollToItem(messages.size + 1) }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") } }) },
+        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") } },
+            actions = {
+                Box {
+                    IconButton(onClick = { options = true }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
+                        if (blockBusy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                        else Icon(Icons.Outlined.MoreVert, "Conversation options")
+                    }
+                    DropdownMenu(options, onDismissRequest = { options = false }) {
+                        DropdownMenuItem(text = { Text(if (blocked) "Unblock" else "Block") }, onClick = { options = false; confirmBlock = true })
+                    }
+                }
+            }) },
         bottomBar = {
             Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
+                if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                    Text("You blocked this person.", fontSize = 14.sp)
+                    TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text("Unblock") }
+                } else {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(text, { value ->
                         text = value
@@ -99,6 +127,7 @@ import java.util.UUID
                         } catch (failure: Exception) { error = ChatSession.explanation(failure) }
                     }, enabled = text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
                         modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, "Send message") }
+                }
                 }
             }
         }) { padding ->
@@ -130,6 +159,19 @@ import java.util.UUID
             }
         }
     }
+    if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
+        title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
+        text = { Text(if (blocked) "You can exchange new messages again. Stopped messages won’t be resent." else "Messages between you will stop. Your chat stays on this device. You can unblock anytime.") },
+        dismissButton = { TextButton(onClick = { confirmBlock = false }) { Text("Cancel") } },
+        confirmButton = { TextButton(onClick = {
+            val desired = !blocked; confirmBlock = false; blockBusy = true
+            scope.launch {
+                try { chat.setBlocked(desired, peer); error = null; refresh() }
+                catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { error = "Couldn’t confirm the change. Check your connection and try again." }
+                finally { blockBusy = false }
+            }
+        }) { Text(if (blocked) "Unblock" else "Block") } })
 }
 
 private fun deliveryLabel(state: String) = when (state) {
@@ -137,5 +179,6 @@ private fun deliveryLabel(state: String) = when (state) {
     "accepted" -> "Sent"
     "expired" -> "Not delivered · 72 hours passed"
     "failed" -> "Not delivered"
+    "cancelled" -> "Stopped"
     else -> "Waiting to send"
 }

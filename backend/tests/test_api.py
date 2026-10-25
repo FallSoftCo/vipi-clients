@@ -79,8 +79,14 @@ async def test_delivery_receipt_and_cross_account_access(api):
 async def test_blocking_and_replacement_are_explicit(api):
     alice, _, alice_headers = await identity(api, "alice")
     bob, _, bob_headers = await identity(api, "bob")
+    assert (await api.get("/v1/blocks/" + alice["id"], headers=bob_headers)).json() == {"blocked": False}
     assert (await api.put("/v1/blocks/" + alice["id"], headers=bob_headers, json={"blocked": True})).status_code == 200
+    assert (await api.get("/v1/blocks/" + alice["id"], headers=bob_headers)).json() == {"blocked": True}
+    assert (await api.get("/v1/blocks/" + bob["id"], headers=alice_headers)).json() == {"blocked": False}
+    assert (await api.get("/v1/blocks/" + alice["id"], headers={"Authorization": "Bearer bob"})).status_code == 401
     assert (await api.get("/v1/people/qa_bob", headers=alice_headers)).status_code == 404
+    assert (await api.put("/v1/blocks/" + alice["id"], headers=bob_headers, json={"blocked": False})).json() == {"blocked": False}
+    assert (await api.get("/v1/people/qa_bob", headers=alice_headers)).status_code == 200
     registration = {"device_id": str(uuid4()), "secret": secrets.token_urlsafe(32)}
     assert (await api.post("/v1/devices", headers=alice_headers, json=registration)).status_code == 409
     registration["replace_active"] = True

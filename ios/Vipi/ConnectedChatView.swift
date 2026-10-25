@@ -76,6 +76,9 @@ struct FriendConversationView: View {
     @State private var error: String?
     @State private var earlierAvailable = false
     @State private var loaded = false
+    @State private var confirmBlock = false
+    @State private var blockBusy = false
+    private var blocked: Bool { chat.blockedPeers.contains(peer) }
     @FocusState private var composing: Bool
     private func refresh() {
         do {
@@ -98,7 +101,17 @@ struct FriendConversationView: View {
             Task { await chat.synchronize() }
         } catch { self.error = ChatSession.explanation(error) }
     }
-    var body: some View {
+    private func changeBlock() {
+        let desired = !blocked
+        blockBusy = true
+        Task {
+            defer { blockBusy = false }
+            do { try await chat.setBlocked(desired, peer: peer); error = nil; refresh() }
+            catch is CancellationError {}
+            catch { self.error = "Couldn’t confirm the change. Check your connection and try again." }
+        }
+    }
+    private var timeline: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(spacing: 14) {
@@ -132,11 +145,51 @@ struct FriendConversationView: View {
                 .onChange(of: messages.last?.id) { _, _ in proxy.scrollTo("bottom", anchor: .bottom) }
                 .onChange(of: composing) { _, focused in if focused { proxy.scrollTo("bottom", anchor: .bottom) } }
         }
+    }
+    var body: some View {
+        timeline
         .background(VipiDesign.canvas)
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
-        .safeAreaInset(edge: .bottom) {
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
+                } label: {
+                    if blockBusy { ProgressView() }
+                    else { Image(systemName: "ellipsis").frame(width: 36, height: 36) }
+                }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
+            }
+        }
+        .alert(blocked ? "Unblock \(chat.name(peer))?" : "Block \(chat.name(peer))?", isPresented: $confirmBlock) {
+            Button("Cancel", role: .cancel) {}
+            Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive, action: changeBlock)
+        } message: {
+            Text(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime.")
+        }
+        .safeAreaInset(edge: .bottom) { composer }
+        .task {
+            refresh(); blockBusy = true
+            do { try await chat.refreshBlock(peer) }
+            catch is CancellationError { blockBusy = false; return }
+            catch { self.error = "Block status couldn’t be checked. Your last confirmed choice is saved." }
+            blockBusy = false; await chat.synchronize()
+        }
+        .onChange(of: chat.revision) { _, _ in refresh() }
+        .onChange(of: text) { _, value in
+            guard loaded else { return }
+            do { try chat.saveCompose(value, peer: peer) }
+            catch { self.error = "This draft couldn’t be saved. Keep this conversation open and try again." }
+        }
+    }
+    private var composer: some View {
             VStack(spacing: 9) {
                 if let notice = error ?? chat.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary).padding(.horizontal, 18) }
+                if blocked {
+                    HStack {
+                        Text("You blocked this person.").font(.subheadline)
+                        Button("Unblock") { confirmBlock = true }.disabled(blockBusy)
+                    }.padding(16).accessibilityIdentifier("conversation-blocked")
+                } else {
                 HStack(alignment: .bottom, spacing: 10) {
                     TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
@@ -146,15 +199,8 @@ struct FriendConversationView: View {
                         .accessibilityIdentifier("message-send")
                         .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.utf8.count > 32768)
                 }.padding(.horizontal, 14).padding(.bottom, 10)
+                }
             }.background(VipiDesign.canvas)
-        }
-        .task { refresh(); await chat.synchronize() }
-        .onChange(of: chat.revision) { _, _ in refresh() }
-        .onChange(of: text) { _, value in
-            guard loaded else { return }
-            do { try chat.saveCompose(value, peer: peer) }
-            catch { self.error = "This draft couldn’t be saved. Keep this conversation open and try again." }
-        }
     }
     private func status(_ value: String) -> String {
         switch value {
@@ -162,6 +208,7 @@ struct FriendConversationView: View {
         case "accepted": "Sent"
         case "expired": "Not delivered · 72 hours passed"
         case "failed": "Not delivered"
+        case "cancelled": "Stopped"
         default: "Waiting to send"
         }
     }

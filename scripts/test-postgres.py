@@ -14,10 +14,19 @@ import socket
 import subprocess
 import time
 import sys
+import argparse
 
 
 assert socket.gethostname() == "ozzz-aosp" and os.geteuid() == 0
 root = Path("/aosp/development/vipi")
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("revision", help="Three-digit, unused receipt number")
+args = parser.parse_args()
+revision = args.revision
+assert revision.isdigit() and len(revision) == 3
+log = root / "artifacts" / f"backend-postgres-{revision}.log"
+assert not log.exists() and not (root / f"artifacts/backend-postgres-{revision}.json").exists(), "Preserve prior receipts"
+image = subprocess.check_output(["docker", "image", "inspect", "postgres:16-alpine", "--format", "{{.Id}}"], text=True).strip()
 run = root / ".runtime" / ("postgres-qa-" + secrets.token_hex(4))
 run.mkdir(mode=0o700, parents=True)
 user = pwd.getpwnam("aosp")
@@ -30,10 +39,6 @@ password = secrets.token_urlsafe(32)
 env_file.write_text("POSTGRES_USER=vipi\nPOSTGRES_DB=vipi_qa\nPOSTGRES_PASSWORD=" + password + "\nPOSTGRES_INITDB_ARGS=--auth-local=scram-sha-256 --auth-host=scram-sha-256\n")
 env_file.chmod(0o600)
 name = "vipi-postgres-qa-" + secrets.token_hex(4)
-image = subprocess.check_output(["docker", "image", "inspect", "postgres:16-alpine", "--format", "{{.Id}}"], text=True).strip()
-revision = sys.argv[1] if len(sys.argv) == 2 else "001"
-assert revision.isdigit() and len(revision) == 3
-log = root / "artifacts" / f"backend-postgres-{revision}.log"
 receipt = {"container": name, "image": image, "network": "none", "socket_only": True, "started_at": time.time()}
 started = False
 try:

@@ -32,9 +32,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var ready by mutableStateOf(false); private set
     var threads by mutableStateOf<List<ChatThread>>(emptyList()); private set
     var contacts by mutableStateOf<Map<UUID, ChatProfile>>(emptyMap()); private set
+    var blockedPeers by mutableStateOf<Set<UUID>>(emptySet()); private set
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
     private var syncAgain = false
+    private val blockVersions = mutableMapOf<UUID, Int>()
+    private val changingBlocks = mutableSetOf<UUID>()
     private val cacheKey get() = "profile-" + MessageDigest.getInstance("SHA-256").digest(userID.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     init { records.read(cacheKey)?.let { open(ChatProfile.parse(it)) } }
     private fun open(value: ChatProfile) {
@@ -47,6 +50,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 val contact = ChatProfile.parse(JSONObject(requireNotNull(store.get("contact", key)).toString(Charsets.UTF_8)))
                 contact.id to contact
             } }
+            blockedPeers = store.transaction { store.ids("blocked").map(UUID::fromString).toSet() }
         }
         profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload()
     }
@@ -99,6 +103,30 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         contacts = contacts + (value.id to value); return value
     }
     fun name(peer: UUID) = contacts[peer]?.displayName ?: "New conversation"
+    suspend fun refreshBlock(peer: UUID) {
+        val core = core ?: throw ServiceFailure(0, "device_not_ready")
+        if (peer in changingBlocks) return
+        val version = blockVersions[peer] ?: 0
+        val blocked = api.request("GET", "/v1/blocks/$peer", device = core.device).getBoolean("blocked")
+        if (version == (blockVersions[peer] ?: 0) && peer !in changingBlocks) recordBlock(blocked, peer)
+    }
+    suspend fun setBlocked(blocked: Boolean, peer: UUID) {
+        val core = core
+        if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
+        if (!changingBlocks.add(peer)) throw ServiceFailure(0, "block_in_progress")
+        blockVersions[peer] = (blockVersions[peer] ?: 0) + 1
+        try {
+            val value = api.request("PUT", "/v1/blocks/$peer", JSONObject().put("blocked", blocked), core.device)
+            check(value.getBoolean("blocked") == blocked)
+            recordBlock(blocked, peer)
+        } finally { changingBlocks.remove(peer) }
+    }
+    private fun recordBlock(blocked: Boolean, peer: UUID) {
+        val core = core ?: return
+        core.journal.setBlocked(blocked, peer)
+        blockedPeers = if (blocked) blockedPeers + peer else blockedPeers - peer
+        reload()
+    }
     fun messages(peer: UUID, before: String? = null) = history?.messages(peer, before) ?: emptyList()
     fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
     fun compose(peer: UUID) = history?.composeDraft(peer) ?: ""
@@ -107,6 +135,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         val core = core
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
         val now = System.currentTimeMillis()
+        if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
         core.journal.saveDraft(UUID.randomUUID(), peer, text, now, now, consumeCompose = true); reload()
     }
     private suspend fun establish(peer: UUID) {
@@ -142,7 +171,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     val result = api.request("GET", "/v1/messages/pending", device = core.device, query = cursor?.let { mapOf("after" to it) } ?: emptyMap())
                     val inbox = result.getJSONArray("messages")
                     repeat(inbox.length()) { index ->
-                        try { core.receive(RoutedMessage.received(inbox.getJSONObject(index), profile!!.id), System.currentTimeMillis()) }
+                        try {
+                            val item = RoutedMessage.received(inbox.getJSONObject(index), profile!!.id)
+                            if (item.envelope.sender !in blockedPeers) core.receive(item, System.currentTimeMillis())
+                        }
                         catch (_: Exception) { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
                     }
                     if (!result.has("next_cursor") || result.isNull("next_cursor")) break
@@ -162,12 +194,15 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 }
                 for (draft in core.journal.pendingDrafts(System.currentTimeMillis()).sortedBy { it.createdAt }) {
                     try {
+                        if (draft.recipient in blockedPeers) continue
                         establish(draft.recipient)
+                        if (draft.recipient in blockedPeers) continue
                         core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis())
                     } catch (error: CancellationException) { throw error }
                     catch (error: Exception) { notice = explanation(error) }
                 }
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
+                    if (envelope.recipient in blockedPeers) continue
                     try {
                         val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
                         val state = api.request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
@@ -208,6 +243,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     "recent_sign_in_required", "sign_in_required", "device_revoked" -> return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
                     "recipient_keys_unavailable" -> return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
                     "device_not_ready" -> return "Connect once to finish setting up this device."
+                    "contact_blocked" -> return "Unblock this person to send a new message."
                     "message_expired" -> return "This message expired before delivery. You can send it again."
                     "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type" -> return "A message couldn’t be delivered. Your other conversations can continue."
                 }

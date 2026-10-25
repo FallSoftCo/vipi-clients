@@ -9,11 +9,20 @@ import XCTest
         let staleReceipt: UUID, failedPeer: UUID
         let valid: [String: Any], poison: [String: Any]
         var pages: [String?] = [], acknowledged: [String] = []
+        var blocked = false, failBlock = false
         init(profile: ChatProfile, staleReceipt: UUID, failedPeer: UUID, valid: [String: Any], poison: [String: Any]) {
             self.profile = profile; self.staleReceipt = staleReceipt; self.failedPeer = failedPeer
             self.valid = valid; self.poison = poison
         }
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+            if path.hasPrefix("/v1/blocks/") {
+                if failBlock { throw ServiceFailure(status: 0, code: "offline") }
+                if method == "PUT" {
+                    let input = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(body)) as? [String: Any])
+                    blocked = try XCTUnwrap(input["blocked"] as? Bool)
+                }
+                return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: ["blocked": blocked]))
+            }
             var value: [String: Any]
             switch path {
             case "/v1/me": return try JSONDecoder().decode(type, from: JSONEncoder().encode(profile))
@@ -85,6 +94,32 @@ import XCTest
             XCTAssertTrue(try cores[0].journal.pendingReceipts().isEmpty)
             XCTAssertEqual(transport.acknowledged.count, 2)
             XCTAssertFalse(transport.acknowledged.contains { $0.contains(poisonID.uuidString.lowercased()) })
+            try chat.send("Queued before blocking", peer: accounts[2])
+            let draftID = try XCTUnwrap(cores[0].journal.pendingDrafts(now: now).first?.id)
+            try chat.saveCompose("Keep my unsent writing", peer: accounts[2])
+            try await chat.setBlocked(true, peer: accounts[2])
+            XCTAssertTrue(chat.blockedPeers.contains(accounts[2]))
+            XCTAssertThrowsError(try chat.send("Must not queue", peer: accounts[2]))
+            XCTAssertEqual(try cores[0].journal.draft(draftID)?.state, "cancelled")
+            XCTAssertEqual(try cores[0].journal.outgoing(secondID)?.state, "cancelled")
+            try cores[0].journal.applyStatus(secondID, state: "accepted")
+            XCTAssertEqual(try cores[0].journal.outgoing(secondID)?.state, "cancelled")
+            XCTAssertEqual(try chat.compose(accounts[2]), "Keep my unsent writing")
+            let reopened = try ChatSession(api: transport, userID: userID)
+            XCTAssertTrue(reopened.blockedPeers.contains(accounts[2]))
+            transport.failBlock = true
+            do { try await reopened.setBlocked(false, peer: accounts[2]); XCTFail("An offline request must not confirm unblock") }
+            catch {}
+            XCTAssertTrue(reopened.blockedPeers.contains(accounts[2]))
+            transport.failBlock = false
+            try await reopened.setBlocked(false, peer: accounts[2])
+            XCTAssertFalse(reopened.blockedPeers.contains(accounts[2]))
+            XCTAssertTrue(try cores[0].journal.pending(now: now).isEmpty)
+            XCTAssertTrue(try cores[0].journal.pendingDrafts(now: now).isEmpty)
+            try await chat.refreshBlock(accounts[2])
+            XCTAssertFalse(chat.blockedPeers.contains(accounts[2]))
+            try chat.send("A new message after unblocking", peer: accounts[2])
+            XCTAssertEqual(try cores[0].journal.pendingDrafts(now: now).count, 1)
         }
     }
 }
