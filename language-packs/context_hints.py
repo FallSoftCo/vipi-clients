@@ -35,6 +35,22 @@ def lookup_key(value, language):
     return HARAKAT.sub('', value) if language == 'ar' else value
 
 
+def native_grammar(value, language, closed_class=()):
+    """Keep attested function words and all-function-word phrases native.
+
+    Whitespace is the only additional boundary inferred here. A lexical phrase
+    such as 'de camino' is not grammar merely because it contains a preposition.
+    Unspaced scripts still require an explicit full-form grammar record.
+    """
+    key = lookup_key(value, language)
+    def grammatical(word):
+        return word in GRAMMAR[language] or word in closed_class
+    if grammatical(key):
+        return True
+    words = key.split()
+    return len(words) > 1 and all(grammatical(word) for word in words)
+
+
 @lru_cache(maxsize=10)
 def source_hint_lexicon(catalog, language):
     if language == 'en':

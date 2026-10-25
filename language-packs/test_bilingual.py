@@ -182,6 +182,23 @@ class BilingualExportTests(unittest.TestCase):
             self.assertEqual(db.execute("SELECT target,reading FROM vocabulary WHERE source='coffee'").fetchall(), [('قَهْوَة','qahwa')])
         self.assertEqual(manifest['reading_collision_mappings_omitted'], 2)
 
+    def test_all_grammar_phrase_is_excluded_without_excluding_lexical_phrases(self):
+        with sqlite3.connect(self.catalog) as db:
+            for line, (source, target) in enumerate([('do not','不要'), ('have to','必须'),
+                                                    ('on the way','途中')], 100):
+                add_entry(db, {'lang_code':'en','word':source,'pos':'verb','translations':[
+                    {'code':'zh','word':target,'sense':'synthetic phrase'}]}, line, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output = self.root / 'guarded-phrases'
+        manifest = export_pair(self.catalog, 'en', 'zh', output, 1, self.key, 'qa-only',
+                               {'terms': {'en': {'do':{}, 'have':{}, 'to':{}, 'on':{}, 'the':{}}},
+                                'file_sha256':'synthetic-guard'})
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT source FROM vocabulary WHERE source IN ('do not','have to')").fetchall(), [])
+            self.assertEqual(db.execute("SELECT target FROM vocabulary WHERE source='on the way'").fetchall(), [('途中',)])
+        self.assertEqual(manifest['grammar_mappings_omitted'], 2)
+        self.assertEqual(manifest['grammar_policy'], 'native-closed-class-phrases-2')
+
     def test_qualifiers_cannot_add_or_contradict_age_or_speaker_gender(self):
         from context_hints import qualifiers_compatible
         elder = json.dumps({'english':'elder','translation':'elder'})

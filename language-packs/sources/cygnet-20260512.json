@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/omwn/cygnet",
+  "release": "2026.05.12",
+  "commit": "8644ce03291bcbe9ee95acf60d81755f4ee329aa",
+  "published_at": "2026-05-13T15:24:27Z",
+  "data_license": "Mixed; inspect each resource and retain per-row provenance. The code MIT license is not a blanket data license.",
+  "quality": "unqualified",
+  "assets": [
+    {
+      "name": "cygnet.db.gz",
+      "url": "https://github.com/omwn/cygnet/releases/download/2026.05.12/cygnet.db.gz",
+      "bytes": 161470535,
+      "sha256": "65e93f3620d7cc5444350d9e204259e961096138767d9ea73403ade38964cc48",
+      "uncompressed_bytes": 401182720
+    },
+    {
+      "name": "provenance.db.gz",
+      "url": "https://github.com/omwn/cygnet/releases/download/2026.05.12/provenance.db.gz",
+      "bytes": 104070989,
+      "sha256": "f880cc1c7c01f7046d363a4c58b82dc56cdd7f8adea8d93150d45e22d2d089c8",
+      "uncompressed_bytes": 324583424
+    }
+  ],
+  "size_evidence": "Release API compressed sizes/digests and exact four-byte HTTP range reads of gzip ISIZE; decompression must enforce these bounds and validate gzip CRC."
+}

@@ -1,9 +1,20 @@
 import unittest
 from build_grammar_guard import collect, collect_redirects, inherit_redirects
 from build_wiktextract import LANGUAGES
+from context_hints import native_grammar
 
 
 class GrammarGuardTests(unittest.TestCase):
+    def test_multiword_grammar_does_not_consume_lexical_phrases(self):
+        english = {'do', 'have', 'to', 'you', 'of', 'course'}
+        for phrase in ['do not', 'Do Not', 'have to', 'you will', 'do\u00a0not']:
+            self.assertTrue(native_grammar(phrase, 'en', english), phrase)
+        for phrase in ['help me', 'to help', 'coffee', 'do-not']:
+            self.assertFalse(native_grammar(phrase, 'en', english), phrase)
+        self.assertFalse(native_grammar('de camino', 'es', {'de'}))
+        self.assertFalse(native_grammar('不会吃', 'zh', {'不', '会'}))
+        self.assertTrue(native_grammar('لا', 'ar'))
+
     def test_native_function_word_and_auxiliary_inflections_are_retained(self):
         terms = {language: {} for language in LANGUAGES}
         collect({"lang_code": "en", "word": "up", "pos": "prep"}, 1, terms)

@@ -15,7 +15,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 
 from build_wiktextract import LANGUAGES, canonical, digest_file
-from context_hints import GRAMMAR, lookup_key, source_hint_lexicon, hints, has_scope, qualifiers_compatible
+from context_hints import GRAMMAR, lookup_key, native_grammar, source_hint_lexicon, hints, has_scope, qualifiers_compatible
 
 CATALOG_SHA256 = '547122b54c3dfb1d90f581d3d6534695a8e934787bf856d1ec828f8eb676daba'
 SCHEMA = '''
@@ -70,8 +70,9 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
             # A source spelling with a grammatical use stays native even when
             # another dictionary entry treats that spelling as lexical.
             before = db.total_changes
-            db.executemany('DELETE FROM vocabulary WHERE source=?',
-                           [(word,) for word in grammar_guard['terms'][source]])
+            db.create_function('native_grammar', 1,
+                               lambda word: native_grammar(word, source, grammar_guard['terms'][source]), deterministic=True)
+            db.execute('DELETE FROM vocabulary WHERE native_grammar(source)')
             grammar_omitted = db.total_changes - before
         reading_collisions = 0
         if target == 'ar':
@@ -105,7 +106,7 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
             'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower-arabic-harakat-v1',
             'context_policy': 'all-source-senses-veto-3', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
             'arabic_reading_policy': 'catalog-wide-collision-abstention-1',
-            'grammar_policy': 'native-closed-class-abstention-1' if grammar_guard is not None else 'negation-and-modals-only-1',
+            'grammar_policy': 'native-closed-class-phrases-2' if grammar_guard is not None else 'negation-and-modals-only-1',
             'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
             'license_url': 'https://creativecommons.org/licenses/by-sa/4.0/',
             'attribution': 'Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.',
