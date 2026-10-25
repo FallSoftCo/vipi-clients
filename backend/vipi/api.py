@@ -101,10 +101,16 @@ def message_status(item):
 async def principal(request: Request, authorization: Annotated[str | None, Header()] = None):
     if not authorization or not authorization.startswith("Bearer "):
         raise AuthenticationError("sign_in_required")
-    return await request.app.state.verifier.verify(authorization[7:])
+    verified = await request.app.state.verifier.verify(authorization[7:])
+    allowed = request.app.state.allowed_subjects
+    if allowed and verified.subject not in allowed:
+        raise DeliveryError("service_not_available", 403)
+    return verified
 
 
 def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
+    if settings.environment == "staging" and not settings.allowed_subjects:
+        raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)
     token_verifier = verifier or WorkOSVerifier(settings)
     now = clock or (lambda: datetime.now(UTC))
@@ -120,6 +126,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
     app = FastAPI(title="Vipi service", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
     app.add_middleware(BodyLimit)
     app.state.verifier = token_verifier
+    app.state.allowed_subjects = settings.allowed_subjects
 
     @app.exception_handler(AuthenticationError)
     async def auth_error(request, error):
@@ -163,6 +170,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None):
     async def ready():
         async with db.sessions() as session:
             await session.execute(text("SELECT 1"))
+            if settings.environment in {"staging", "production"}:
+                revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
+                if revision != "20261025_01":
+                    return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
     @app.get("/v1/me")

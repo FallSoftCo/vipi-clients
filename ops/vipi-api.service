@@ -1,0 +1,36 @@
+[Unit]
+Description=Vipi account and encrypted delivery API
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=vipi
+Group=vipi
+WorkingDirectory=/opt/vipi/current
+EnvironmentFile=/etc/vipi/service.env
+Environment=PYTHONPATH=/opt/vipi/current/deps
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 -m uvicorn vipi.entrypoint:app --host 127.0.0.1 --port 48943 --workers 2 --no-access-log --no-proxy-headers --limit-concurrency 500 --timeout-graceful-shutdown 20
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+LockPersonality=true
+UMask=0077
+MemoryMax=512M
+CPUQuota=200%
+TasksMax=128
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

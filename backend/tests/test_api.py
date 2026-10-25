@@ -4,6 +4,7 @@ from uuid import uuid4
 
 import httpx
 import pytest_asyncio
+import pytest
 
 from conftest import NOW
 from vipi.api import create_app
@@ -95,3 +96,16 @@ async def test_sensitive_validation_input_is_not_echoed_and_large_body_rejected(
         yield b"x" * 60_000
         yield b"x" * 60_000
     assert (await api.post("/v1/devices", content=chunks())).status_code == 413
+
+
+async def test_staging_access_requires_real_verification_then_explicit_subject(db):
+    settings = Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
+        workos_issuer="https://api.workos.com", service_secret="a" * 43, environment="staging")
+    with pytest.raises(ValueError, match="allowlist"):
+        create_app(settings, database=db, verifier=TestVerifier())
+    app = create_app(settings.model_copy(update={"allowed_subjects": frozenset({"user_qa_alice"})}),
+        database=db, verifier=TestVerifier(), clock=lambda: NOW)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as client:
+        assert (await client.put("/v1/me", headers={"Authorization": "Bearer alice"}, json={"username": "staging_alice", "display_name": "QA"})).status_code == 200
+        assert (await client.get("/v1/me", headers={"Authorization": "Bearer bob"})).status_code == 403
+        assert (await client.get("/v1/me", headers={"Authorization": "Bearer user_qa_alice"})).status_code == 401

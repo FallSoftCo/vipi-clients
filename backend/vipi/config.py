@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     workos_issuer: str
     service_secret: str = Field(min_length=43)
     environment: str = "development"
+    allowed_subjects: frozenset[str] = frozenset()
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000
     delivery_seconds: int = 259_200
