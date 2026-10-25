@@ -20,7 +20,7 @@ from context_hints import GRAMMAR, lookup_key, source_hint_lexicon, hints, has_s
 CATALOG_SHA256 = '547122b54c3dfb1d90f581d3d6534695a8e934787bf856d1ec828f8eb676daba'
 SCHEMA = '''
 PRAGMA application_id=1447645257;
-PRAGMA user_version=3;
+PRAGMA user_version=4;
 PRAGMA temp_store=FILE;
 PRAGMA cache_size=-8192;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
@@ -31,6 +31,8 @@ CREATE TABLE vocabulary(source TEXT NOT NULL,target TEXT NOT NULL,sense_id TEXT 
  REFERENCES senses(id),reading TEXT NOT NULL,mapping_details TEXT NOT NULL,
  PRIMARY KEY(source,sense_id,target,reading)) WITHOUT ROWID;
 CREATE TABLE sense_context(sense_id TEXT PRIMARY KEY REFERENCES senses(id),hints TEXT NOT NULL) WITHOUT ROWID;
+CREATE TABLE source_senses(source TEXT NOT NULL,sense_id TEXT NOT NULL REFERENCES senses(id),
+ PRIMARY KEY(source,sense_id)) WITHOUT ROWID;
 '''
 
 
@@ -84,17 +86,24 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
                 GROUP BY arabic_key(form) HAVING count(DISTINCT display_reading)>1''')
             reading_collisions = db.execute('''DELETE FROM vocabulary WHERE arabic_key(target)
                 IN (SELECT form FROM reading_collision)''').rowcount
+        # The target language must not decide which source meanings exist.
+        # Retain competing senses even when no usable target/reading is known.
+        # Do not apply pair, target, qualifier or explicit-pivot filters here:
+        # these rows are negative evidence, never extra translation mappings.
+        db.execute('''INSERT OR IGNORE INTO source_senses
+            SELECT source_key(t.normalized),t.sense_id FROM catalog.terms t
+            WHERE t.language=? AND source_key(t.normalized) IN (SELECT source FROM vocabulary)''', (source,))
         db.execute('''INSERT INTO senses SELECT s.id,s.label,s.part_of_speech,s.source_word,s.source_line,s.source_url,?
-            FROM catalog.senses s WHERE s.id IN (SELECT sense_id FROM vocabulary)''', (evidence,))
+            FROM catalog.senses s WHERE s.id IN (SELECT sense_id FROM source_senses)''', (evidence,))
         lexicon = source_hint_lexicon(catalog, source)
         for sense_id, label, source_word in db.execute('SELECT id,label,source_word FROM senses').fetchall():
             values = hints(label, source_word, source, lexicon)
             if values: db.execute('INSERT INTO sense_context VALUES (?,?)', (sense_id, '\x1f'.join(values)))
         source_metadata = {row[0]: json.loads(row[1]) for row in db.execute('SELECT key,value FROM catalog.metadata')}
         metadata = {
-            'schema': 'vipi-bilingual-3', 'pack_id': pack_id, 'source_language': source,
+            'schema': 'vipi-bilingual-4', 'pack_id': pack_id, 'source_language': source,
             'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower-arabic-harakat-v1',
-            'context_policy': 'cross-sense-label-veto-2', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
+            'context_policy': 'all-source-senses-veto-3', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
             'arabic_reading_policy': 'catalog-wide-collision-abstention-1',
             'grammar_policy': 'native-closed-class-abstention-1' if grammar_guard is not None else 'negation-and-modals-only-1',
             'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
@@ -107,7 +116,11 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
         db.executemany('INSERT INTO metadata VALUES (?,?)', metadata.items())
         count, headwords = db.execute('SELECT count(*),count(DISTINCT source) FROM vocabulary').fetchone()
         readings, = db.execute("SELECT count(*) FROM vocabulary WHERE reading<>''").fetchone()
-        if not count or db.execute('PRAGMA foreign_key_check').fetchone() is not None:
+        uncovered = db.execute('''SELECT count(*) FROM vocabulary v WHERE NOT EXISTS
+            (SELECT 1 FROM source_senses s WHERE s.source=v.source AND s.sense_id=v.sense_id)''').fetchone()[0]
+        unmapped = db.execute('''SELECT count(*) FROM source_senses s WHERE NOT EXISTS
+            (SELECT 1 FROM vocabulary v WHERE v.source=s.source AND v.sense_id=s.sense_id)''').fetchone()[0]
+        if not count or uncovered or db.execute('PRAGMA foreign_key_check').fetchone() is not None:
             raise ValueError('Empty or inconsistent bilingual export')
         db.commit()
         db.execute('VACUUM')
@@ -115,13 +128,14 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
             raise ValueError('Bilingual integrity failure')
     if database.stat().st_size > 67_108_864:
         raise ValueError('Native pack exceeds the bounded installer size')
-    manifest = dict(metadata, revision=revision, schema_version=3, file='vocabulary.sqlite',
+    manifest = dict(metadata, revision=revision, schema_version=4, file='vocabulary.sqlite',
                     bytes=database.stat().st_size, sha256=digest_file(database),
                     mappings=count, headwords=headwords, readings=readings,
+                    unmapped_source_senses=unmapped,
                     reading_collision_mappings_omitted=reading_collisions,
                     grammar_mappings_omitted=grammar_omitted,
                     grammar_guard_sha256=grammar_guard.get('file_sha256') if grammar_guard is not None else None,
-                    compiler='vipi-bilingual-3', compiler_sha256=digest_file(Path(__file__)),
+                    compiler='vipi-bilingual-4', compiler_sha256=digest_file(Path(__file__)),
                     context_compiler_sha256=digest_file(Path(__file__).with_name('context_hints.py')),
                     catalog_sha256=digest_file(catalog), key_id=key_id,
                     signature_algorithm='ECDSA-P256-SHA256')

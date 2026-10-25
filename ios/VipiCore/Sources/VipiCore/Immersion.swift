@@ -144,8 +144,9 @@ public struct ImmersionEngine: Sendable {
         }.filter { candidate in
             // Only veto after ambiguity checks. Removing a rival must never turn
             // an otherwise ambiguous translation into an accepted replacement.
-            supported.contains(candidate.entry) || !supported.contains { index in
-                Self.lookupKey(entries[index].source) == Self.lookupKey(entries[candidate.entry].source)
+            !supported.contains { index in
+                Self.lookupKey(entries[index].source) == Self.lookupKey(entries[candidate.entry].source) &&
+                !claims[index].target.contains(candidate.targetRange)
             }
         }.sorted { a, b in
             a.span.range.length == b.span.range.length ? a.span.range.location < b.span.range.location : a.span.range.length > b.span.range.length

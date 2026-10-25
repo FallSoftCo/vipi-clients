@@ -4,6 +4,14 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class ContextEvidenceTest {
+    @Test fun unmappedOrConflictingEvidenceCannotBeOverruledByAnotherCue() {
+        val entries = listOf(VocabularyEntry("bank", listOf("banco"), contextHints = listOf("institution"), requiresContext = true),
+            VocabularyEntry("bank", emptyList(), contextHints = listOf("river"), requiresContext = true))
+        assertEquals(1, ImmersionEngine().align("The bank is an institution.", "banco", entries, 1.0).spans.size)
+        for (text in listOf("Walk by the river bank.", "The institution is by the river bank.", "Go to the bank.")) {
+            assertTrue(ImmersionEngine().align(text, "banco", entries, 1.0).spans.isEmpty())
+        }
+    }
     @Test fun multipleMeaningsNeedSentenceLocalEvidence() {
         val engine = ImmersionEngine()
         val entries = listOf(

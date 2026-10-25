@@ -8,6 +8,8 @@
 - Text-first, one-to-one, local immersion/translation/speech. Prepare for later media/groups.
 - E2EE human messaging; client-owned history/backups; 72-hour delivery expiry.
 - Annual base and light bot plan only, one-month store free trials. Earlier $1/year/web-only proposals are superseded.
+- Trials are separate opt-ins: base after the immersion preview, Bot mini only when the user chooses vBot. No compulsory simultaneous enrollment. Both dates/prices and the combined recurring commitment must be clear.
+- Expand downloadable mappings into contextual word/phrase records and a local full-text index. Build-time generation is an option for filling gaps; runtime immersion stays entirely local. Retaining ambiguity is a safeguard, not a substitute for useful coverage. An index hit alone does not establish the correct sense.
 - AWS supplies domains. Existing small Hetzner host may run the backend.
 - User approved `mambovipi.app` and open-source clients on 2026-10-24. AWS registration succeeded; one year, $20 current registration/renewal price, auto-renew enabled. Company contact reused from the existing company domain, with contact privacy enabled. No credential or contact details belong in source.
 - Use Mobbin and Built for Mars throughout; test through existing emulators/simulators/environments; submit both stores after proof.

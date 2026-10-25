@@ -21,6 +21,15 @@ import Testing
     #expect(ImmersionEngine().align(original: "The bank is by the river.", translation: "banco orilla", entries: entries, density: 1).spans.isEmpty)
 }
 
+@Test func unmappedOrConflictingEvidenceCannotBeOverruledByAnotherCue() {
+    let entries = [VocabularyEntry(source: "bank", targets: ["banco"], contextHints: ["institution"], requiresContext: true),
+                   VocabularyEntry(source: "bank", targets: [], contextHints: ["river"], requiresContext: true)]
+    #expect(ImmersionEngine().align(original: "The bank is an institution.", translation: "banco", entries: entries, density: 1).spans.count == 1)
+    for text in ["Walk by the river bank.", "The institution is by the river bank.", "Go to the bank."] {
+        #expect(ImmersionEngine().align(original: text, translation: "banco", entries: entries, density: 1).spans.isEmpty)
+    }
+}
+
 @Test func arabicVowelsPreserveOriginalRangesAndReadingUncertainty() {
     let engine = ImmersionEngine()
     let entry = VocabularyEntry(source: "coffee", targets: ["قَهْوَة"], romanizations: ["قَهْوَة": ["qahwa"]])

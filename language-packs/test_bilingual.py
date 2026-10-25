@@ -87,7 +87,7 @@ class BilingualExportTests(unittest.TestCase):
         raw, signature = (output / 'manifest.json').read_bytes(), (output / 'manifest.sig').read_bytes()
         self.key.public_key().verify(signature, raw, ec.ECDSA(hashes.SHA256()))
         self.assertEqual(hashlib.sha256((output / 'vocabulary.sqlite').read_bytes()).hexdigest(), manifest['sha256'])
-        self.assertEqual(manifest['schema_version'], 3)
+        self.assertEqual(manifest['schema_version'], 4)
         with self.assertRaises(InvalidSignature):
             self.key.public_key().verify(signature, raw.replace(b'candidate', b'approved'), ec.ECDSA(hashes.SHA256()))
         with self.assertRaises(FileExistsError):
@@ -99,7 +99,37 @@ class BilingualExportTests(unittest.TestCase):
             rows = [(label, term) for label, terms in db.execute('SELECT s.label,c.hints FROM senses s JOIN sense_context c ON c.sense_id=s.id') for term in terms.split('\x1f')]
         self.assertIn(('edge of a river', 'river'), rows)
         self.assertNotIn(('edge of a river', 'of'), rows)
-        self.assertEqual(manifest['context_policy'], 'cross-sense-label-veto-2')
+        self.assertEqual(manifest['context_policy'], 'all-source-senses-veto-3')
+
+    def test_missing_target_does_not_erase_a_source_meaning(self):
+        with sqlite3.connect(self.catalog) as db:
+            add_entry(db, {'lang_code': 'en', 'word': 'bank', 'pos': 'noun',
+                          'translations': [{'code': 'de', 'word': 'Bank', 'sense': 'row of objects'}]}, 100, Counter())
+            # Same label, different part of speech: identity must survive.
+            add_entry(db, {'lang_code': 'en', 'word': 'bank', 'pos': 'verb',
+                          'translations': [{'code': 'de', 'word': 'anordnen', 'sense': 'row of objects'}]}, 101, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, manifest = self.export('en', 'es')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM source_senses WHERE source='bank'").fetchone()[0], 4)
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='bank'").fetchone()[0], 2)
+            self.assertEqual(db.execute("SELECT count(*) FROM senses WHERE label='row of objects'").fetchone()[0], 2)
+            self.assertEqual(db.execute('PRAGMA foreign_key_check').fetchall(), [])
+        # The existing unlabeled fixture also has an unmapped source sense.
+        self.assertEqual(manifest['unmapped_source_senses'], 3)
+
+    def test_negative_contractions_remain_native_with_both_apostrophes(self):
+        words = ["don't", 'don’t', "can't", 'can’t', 'cannot', "won't", 'won’t']
+        with sqlite3.connect(self.catalog) as db:
+            for line, word in enumerate(words, 100):
+                add_entry(db, {'lang_code': 'en', 'word': word, 'pos': 'verb',
+                              'translations': [{'code': 'es', 'word': 'no', 'sense': 'negative auxiliary'}]}, line, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, _ = self.export('en', 'es')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            for word in words:
+                self.assertEqual(db.execute('SELECT count(*) FROM vocabulary WHERE source=?', (word,)).fetchone()[0], 0)
+            self.assertGreater(db.execute("SELECT count(*) FROM vocabulary WHERE source='bank'").fetchone()[0], 0)
 
     def test_arabic_vowel_variants_share_lookup_without_losing_readings(self):
         from context_hints import lookup_key

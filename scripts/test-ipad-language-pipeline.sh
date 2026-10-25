@@ -11,6 +11,7 @@ xcodebuild -project Vipi.xcodeproj -scheme Vipi -configuration Debug \
   -derivedDataPath ../build/ios-device -allowProvisioningUpdates \
   -parallel-testing-enabled NO -collect-test-diagnostics never \
   -only-testing:VipiCryptoTests/BilingualMatrixTests \
+  -only-testing:VipiCryptoTests/LanguagePreparationTests \
   -resultBundlePath "../artifacts/ipad-language-pipeline-${revision}.xcresult" test > "$log" 2>&1
 status_code=$?
 printf '%s\n' "$status_code" > "../artifacts/ipad-language-pipeline-${revision}.exit"

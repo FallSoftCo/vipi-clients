@@ -22,6 +22,12 @@ GRAMMAR = {
     'ja': set('ない ません ぬ ず ではない じゃない'.split()),
     'ko': set('안 못 아니다 없다 않다 말다'.split()),
 }
+# Negative auxiliary contractions are grammar even when a dictionary exports
+# them as phrases rather than particles. Preserve both common apostrophes.
+_NEGATIVE_AUXILIARIES = "ain't aren't can't couldn't daren't didn't doesn't don't hadn't hasn't haven't isn't mayn't mightn't mustn't needn't oughtn't shan't shouldn't wasn't weren't won't wouldn't"
+GRAMMAR['en'].update(_NEGATIVE_AUXILIARIES.split())
+GRAMMAR['en'].update(word.replace("'", '’') for word in _NEGATIVE_AUXILIARIES.split())
+GRAMMAR['en'].add('cannot')
 
 
 def lookup_key(value, language):

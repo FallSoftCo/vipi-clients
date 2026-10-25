@@ -79,7 +79,9 @@ class ImmersionEngine {
                     !overlaps(other.span.start until other.span.end, candidate.span.start until candidate.span.end) && overlaps(other.target, candidate.target))
             }
         }.filter { candidate -> !candidate.entry.requiresContext || candidate.entry in supported }
-            .filter { candidate -> candidate.entry in supported || supported.none { lookupKey(it.source) == lookupKey(candidate.entry.source) } }
+            .filter { candidate -> supported.none {
+                lookupKey(it.source) == lookupKey(candidate.entry.source) && candidate.target !in claims.getValue(it).second
+            } }
             .sortedWith(compareByDescending<Candidate> { it.span.end - it.span.start }.thenBy { it.span.start })
         val budget = maxOf(1, ((sourceTokenCount ?: words.findAll(original).count()) * density.coerceAtMost(1.0)).toInt())
         var used = 0
