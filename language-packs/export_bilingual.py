@@ -15,8 +15,9 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 
 from build_wiktextract import LANGUAGES, canonical, digest_file
+from context_hints import GRAMMAR, lookup_key, source_hint_lexicon, hints, has_scope, qualifiers_compatible
 
-CATALOG_SHA256 = '80b9980d729cbb8f2606f919a3f8b5b771f89ba99468f9721e578e41edd2ed1f'
+CATALOG_SHA256 = '547122b54c3dfb1d90f581d3d6534695a8e934787bf856d1ec828f8eb676daba'
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=3;
@@ -27,8 +28,9 @@ CREATE TABLE senses(id TEXT PRIMARY KEY,label TEXT NOT NULL,part_of_speech TEXT 
  source_word TEXT NOT NULL,source_line INTEGER NOT NULL,source_url TEXT NOT NULL,
  evidence TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE vocabulary(source TEXT NOT NULL,target TEXT NOT NULL,sense_id TEXT NOT NULL
- REFERENCES senses(id),reading TEXT NOT NULL,
+ REFERENCES senses(id),reading TEXT NOT NULL,mapping_details TEXT NOT NULL,
  PRIMARY KEY(source,sense_id,target,reading)) WITHOUT ROWID;
+CREATE TABLE sense_context(sense_id TEXT PRIMARY KEY REFERENCES senses(id),hints TEXT NOT NULL) WITHOUT ROWID;
 '''
 
 
@@ -42,19 +44,36 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
     evidence = 'direct' if source == 'en' else 'reversed_direct' if target == 'en' else 'shared_explicit_english_sense'
     with sqlite3.connect(database) as db:
         db.executescript(SCHEMA)
+        db.create_function('source_key', 1, lambda value: lookup_key(value, source), deterministic=True)
+        db.create_function('has_scope', 1, has_scope, deterministic=True)
+        db.create_function('compatible', 3, lambda a,b,word: qualifiers_compatible(a,b,word,source,target), deterministic=True)
+        db.create_function('details', 2, lambda a,b: canonical({'source':json.loads(a),'target':json.loads(b)}) if a != '{}' or b != '{}' else '{}', deterministic=True)
         # ATTACH accepts a bound filename. The source is opened immutable/read-only.
         db.execute('ATTACH DATABASE ? AS catalog', (catalog.resolve().as_uri() + '?mode=ro&immutable=1',))
+        db.execute('CREATE TEMP TABLE scoped(sense_id TEXT,language TEXT,PRIMARY KEY(sense_id,language)) WITHOUT ROWID')
+        db.execute('INSERT INTO scoped SELECT DISTINCT sense_id,language FROM catalog.terms WHERE language IN (?,?) AND has_scope(qualifiers)', (source,target))
         db.execute('''INSERT OR IGNORE INTO vocabulary
-            SELECT a.normalized,b.form,a.sense_id,b.display_reading
+            SELECT source_key(a.normalized),b.form,a.sense_id,b.display_reading,details(a.qualifiers,b.qualifiers)
             FROM catalog.terms a JOIN catalog.terms b ON a.sense_id=b.sense_id
             JOIN catalog.senses s ON s.id=a.sense_id
-            WHERE a.language=? AND b.language=? AND a.normalized<>b.normalized''' + extra, (source, target))
+            WHERE a.language=? AND b.language=? AND a.normalized<>b.normalized
+            AND compatible(a.qualifiers,b.qualifiers,s.source_word)
+            AND (has_scope(a.qualifiers) OR NOT EXISTS (SELECT 1 FROM scoped WHERE sense_id=a.sense_id AND language=a.language))
+            AND (has_scope(b.qualifiers) OR NOT EXISTS (SELECT 1 FROM scoped WHERE sense_id=b.sense_id AND language=b.language))
+            AND a.tags NOT LIKE '%"ironic"%' AND a.tags NOT LIKE '%"humorous"%'
+            AND b.tags NOT LIKE '%"ironic"%' AND b.tags NOT LIKE '%"humorous"%' ''' + extra, (source, target))
+        db.executemany('DELETE FROM vocabulary WHERE source=?', [(word,) for word in GRAMMAR[source]])
         db.execute('''INSERT INTO senses SELECT s.id,s.label,s.part_of_speech,s.source_word,s.source_line,s.source_url,?
             FROM catalog.senses s WHERE s.id IN (SELECT sense_id FROM vocabulary)''', (evidence,))
+        lexicon = source_hint_lexicon(catalog, source)
+        for sense_id, label, source_word in db.execute('SELECT id,label,source_word FROM senses').fetchall():
+            values = hints(label, source_word, source, lexicon)
+            if values: db.execute('INSERT INTO sense_context VALUES (?,?)', (sense_id, '\x1f'.join(values)))
         source_metadata = {row[0]: json.loads(row[1]) for row in db.execute('SELECT key,value FROM catalog.metadata')}
         metadata = {
             'schema': 'vipi-bilingual-3', 'pack_id': pack_id, 'source_language': source,
-            'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower',
+            'target_language': target, 'revision': str(revision), 'normalization': 'unicode-nfc-lower-arabic-harakat-v1',
+            'context_policy': 'cross-sense-label-veto-2', 'qualifier_policy': 'explicit-compatible-or-abstain-1',
             'quality': 'candidate', 'license': 'CC-BY-SA-4.0',
             'license_url': 'https://creativecommons.org/licenses/by-sa/4.0/',
             'attribution': 'Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.',
@@ -76,7 +95,8 @@ def export_pair(catalog, source, target, output, revision, key, key_id):
     manifest = dict(metadata, revision=revision, schema_version=3, file='vocabulary.sqlite',
                     bytes=database.stat().st_size, sha256=digest_file(database),
                     mappings=count, headwords=headwords, readings=readings,
-                    compiler='vipi-bilingual-1', compiler_sha256=digest_file(Path(__file__)),
+                    compiler='vipi-bilingual-3', compiler_sha256=digest_file(Path(__file__)),
+                    context_compiler_sha256=digest_file(Path(__file__).with_name('context_hints.py')),
                     catalog_sha256=digest_file(catalog), key_id=key_id,
                     signature_algorithm='ECDSA-P256-SHA256')
     encoded = canonical(manifest).encode()

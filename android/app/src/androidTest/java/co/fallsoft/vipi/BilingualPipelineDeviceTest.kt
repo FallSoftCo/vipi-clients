@@ -28,8 +28,14 @@ class BilingualPipelineDeviceTest {
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
         val context = instrumentation.targetContext
-        val packs = File(context.filesDir, "bilingual-qa/packs")
-        val corpus = JSONObject(File(context.filesDir, "immersion-qa/corpus.json").readText())
+        val arguments = InstrumentationRegistry.getArguments()
+        val runID = arguments.getString("vipiRunID") ?: "001"
+        require(runID.matches(Regex("[0-9]{3}")))
+        val packs = File(context.filesDir, if (runID == "001") "bilingual-qa/packs" else "bilingual-qa/packs-$runID")
+        val corpusName = arguments.getString("vipiCorpusFile") ?: "corpus.json"
+        val reportName = arguments.getString("vipiReportName") ?: "bilingual-pipeline-$runID.json"
+        require(corpusName.matches(Regex("[a-z0-9-]+\\.json")) && reportName.matches(Regex("[a-z0-9-]+\\.json")))
+        val corpus = JSONObject(File(context.filesDir, "immersion-qa/$corpusName").readText())
         val codes = corpus.getJSONArray("languages").let { list -> (0 until list.length()).map { list.getString(it) } }
         val cases = corpus.getJSONArray("cases")
         val isolated = File(context.cacheDir, "bilingual-qa-${UUID.randomUUID()}").apply { mkdirs() }
@@ -37,13 +43,14 @@ class BilingualPipelineDeviceTest {
             override fun getFilesDir() = File(isolated, "files").apply { mkdirs() }
             override fun getNoBackupFilesDir() = File(isolated, "no-backup").apply { mkdirs() }
         }
-        val store = VocabularyPackStore(qaContext, mapOf("bilingual-qualification-001" to File(packs, "signing-public-key.der").readBytes()))
+        val store = VocabularyPackStore(qaContext, mapOf("bilingual-qualification-$runID" to File(packs, "signing-public-key.der").readBytes()))
         val results = JSONArray()
         val report = JSONObject().put("schema", 1).put("platform", "Android").put("provider", "MLKit 17.0.3")
             .put("corpus", corpus.getString("version"))
             .put("evidence", "actual_offline_translation_and_signed_dictionary_alignment_pending_semantic_review")
             .put("linguistic_acceptance", false).put("results", results)
-        val receipt = File(context.filesDir, "bilingual-pipeline-001.json")
+        if (corpus.has("attribution")) report.put("attribution", corpus.getJSONObject("attribution"))
+        val receipt = File(context.filesDir, reportName)
         fun save() { receipt.writeText(report.toString(2)) }
         val wifi = shell("settings get global wifi_on").trim() == "1"
         val mobile = shell("settings get global mobile_data").trim() == "1"
@@ -66,6 +73,7 @@ class BilingualPipelineDeviceTest {
                         repeat(cases.length()) { index ->
                             val item = cases.getJSONObject(index); val original = item.getJSONObject("text").getString(source)
                             val sample = JSONObject().put("id", item.getString("id")).put("original", original)
+                                .put("reference", item.getJSONObject("text").getString(target))
                             samples.put(sample)
                             try {
                                 val begin = SystemClock.elapsedRealtimeNanos()
@@ -77,6 +85,10 @@ class BilingualPipelineDeviceTest {
                                 val result = LocalImmersion.align(original, translation, entries, 0.3, source, target)
                                 sample.put("lookup_alignment_ms", (SystemClock.elapsedRealtimeNanos() - lookup) / 1_000_000.0)
                                 sample.put("candidate_senses", entries.size).put("status", "executed")
+                                fun words(text: String, language: String) = JSONArray(LocalImmersion.words(text, language).map {
+                                    JSONObject().put("text", text.substring(it)).put("start", it.first).put("end", it.last + 1)
+                                })
+                                sample.put("source_words", words(original, source)).put("target_words", words(translation, target))
                                 sample.put("spans", JSONArray(result.spans.map { span -> JSONObject()
                                     .put("start", span.start).put("end", span.end).put("original", span.original)
                                     .put("translated", span.translated).put("reading", span.romanization ?: JSONObject.NULL)

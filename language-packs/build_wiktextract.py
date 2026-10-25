@@ -25,7 +25,7 @@ DIALECTS = {'Cantonese', 'Hokkien', 'Hakka', 'Wu', 'Min-Nan', 'Min-Dong', 'Dunga
 MAX_LINE = 8 * 1024 * 1024
 SCHEMA = '''
 PRAGMA application_id=1447645257;
-PRAGMA user_version=2;
+PRAGMA user_version=4;
 PRAGMA journal_mode=DELETE;
 PRAGMA temp_store=FILE;
 PRAGMA cache_size=-16384;
@@ -35,8 +35,8 @@ CREATE TABLE senses(id TEXT PRIMARY KEY, label TEXT NOT NULL, part_of_speech TEX
  explicit INTEGER NOT NULL CHECK(explicit IN (0,1))) WITHOUT ROWID;
 CREATE TABLE terms(sense_id TEXT NOT NULL REFERENCES senses(id), language TEXT NOT NULL,
  form TEXT NOT NULL, normalized TEXT NOT NULL, roman TEXT NOT NULL, display_reading TEXT NOT NULL,
- tags TEXT NOT NULL, origin TEXT NOT NULL,
- PRIMARY KEY(sense_id,language,form,roman,tags)) WITHOUT ROWID;
+ tags TEXT NOT NULL, origin TEXT NOT NULL, qualifiers TEXT NOT NULL,
+ PRIMARY KEY(sense_id,language,form,roman,tags,qualifiers)) WITHOUT ROWID;
 CREATE INDEX terms_lookup ON terms(language,normalized,sense_id);
 '''
 
@@ -114,13 +114,17 @@ def add_entry(db, entry, line, counts):
         forms = [clean(x) for x in written.split('/')] if language == 'zh' else [written]
         if not 1 <= len(forms) <= 2 or not all(form_ok(x) for x in forms): counts['invalid_target'] += 1; continue
         roman = clean(item.get('roman', ''))[:512]
+        qualifiers = {key: clean(item[key])[:2048] for key in ('english', 'translation', 'note')
+                      if isinstance(item.get(key), str) and clean(item[key])}
+        raw_tags = sorted(set(clean(value)[:256] for value in item.get('raw_tags', []) if isinstance(value, str) and clean(value)))
+        if raw_tags: qualifiers['raw_tags'] = raw_tags
         reading = readable_roman(roman) if language in NON_ROMAN else ''
         if language in NON_ROMAN and not reading: counts['missing_readable_roman'] += 1
         identifier = hashlib.sha256(canonical([line, source, entry['pos'], group]).encode()).hexdigest()
         db.execute('INSERT OR IGNORE INTO senses VALUES (?,?,?,?,?,?,?)', (identifier, label[:2048], entry['pos'], source, line, 'https://en.wiktionary.org/wiki/' + quote(source, safe='') + '#English', int(explicit)))
-        db.execute('INSERT OR IGNORE INTO terms VALUES (?,?,?,?,?,?,?,?)', (identifier, 'en', source, source.lower(), '', '', '[]', 'headword'))
+        db.execute('INSERT OR IGNORE INTO terms VALUES (?,?,?,?,?,?,?,?,?)', (identifier, 'en', source, source.lower(), '', '', '[]', 'headword', '{}'))
         for form in sorted(set(forms)):
-            db.execute('INSERT OR IGNORE INTO terms VALUES (?,?,?,?,?,?,?,?)', (identifier, language, form, form.lower(), roman, reading, canonical(sorted(tags)), 'explicit_translation'))
+            db.execute('INSERT OR IGNORE INTO terms VALUES (?,?,?,?,?,?,?,?,?)', (identifier, language, form, form.lower(), roman, reading, canonical(sorted(tags)), 'explicit_translation', canonical(qualifiers)))
             counts['term_candidates'] += 1
         counts['translations_retained'] += 1
 
@@ -174,7 +178,7 @@ def compile_catalog(source, source_metadata, extraction, output, max_entries=0, 
                     print(canonical({'read': lines, 'bytes': path.stat().st_size, 'seconds': round(time.monotonic()-started, 2)}), flush=True)
                 if max_entries and lines >= max_entries: break
             else: completed = True
-        for key,value in {'schema':'vipi-sense-candidates-2','quality':'unqualified','compiler_sha256':compiler_hash,'selected_source_sha256':source_hash,
+        for key,value in {'schema':'vipi-sense-candidates-4','quality':'unqualified','compiler_sha256':compiler_hash,'selected_source_sha256':source_hash,
             'upstream_sha256':metadata['sha256'],'languages':LANGUAGES,'license':'CC-BY-SA-4.0','source_version':metadata['extraction'],
             'normalization':'unicode-nfc-lower','selection_complete':completed}.items():
             db.execute('INSERT INTO metadata VALUES (?,?)', (key,canonical(value)))
@@ -186,12 +190,13 @@ def compile_catalog(source, source_metadata, extraction, output, max_entries=0, 
         senses, = db.execute('SELECT count(*) FROM senses').fetchone()
         terms, = db.execute('SELECT count(*) FROM terms').fetchone()
     finally: db.close()
-    receipt = {'schema':2,'compiler_sha256':compiler_hash,'quality':'unqualified','complete_source_scan':completed,'source_entries_read':lines,'source':metadata,
+    receipt = {'schema':4,'compiler_sha256':compiler_hash,'quality':'unqualified','complete_source_scan':completed,'source_entries_read':lines,'source':metadata,
         'selection_sha256':source_hash,'counts':dict(counts),'senses':senses,'terms':terms,'bytes':path.stat().st_size,
         'sha256':digest_file(path),'seconds':round(time.monotonic()-started,2),'pairs':summary,
         'limits':['Candidate mappings are not approved replacements.','Shared English sense is a derivation, not independent bilingual validation.',
             'Readings retain upstream evidence; missing, conflicting or contextual readings still require abstention.',
-            'No quotations, audio, IPA fields or example sentences are included.','Schema 2 is not accepted by current native schema 1 installers.']}
+            'Term qualifiers, notes and raw tags remain available; shared sense labels alone do not prove equivalence.',
+            'No quotations, audio, IPA fields or example sentences are included.','Schema 4 research catalogs are not native installable packs.']}
     (output/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
     (output/'ATTRIBUTION.txt').write_text('Wiktionary contributors; extracted by Tatu Ylonen and wiktextract via Kaikki.org.\nData: CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0/\nSource: '+metadata['url']+'\nOriginal entry and contributor history: source_url in senses; append ?action=history before #English.\nChanges: English translation-group selection, dialect/legacy filtering, Unicode normalization, conservative readable-romanization conversion, SQLite conversion.\nCompiler: language-packs/build_wiktextract.py in Vipi corresponding source.\nCandidate data has not passed contextual language acceptance.\n')
     print(canonical({k:receipt[k] for k in ('complete_source_scan','source_entries_read','senses','terms','bytes','sha256','seconds')}),flush=True)

@@ -34,6 +34,9 @@ final class BilingualPackTests: XCTestCase {
                 XCTAssertTrue(result.speech(source: sample.source, target: sample.target).contains { $0.text == sample.written && $0.language == sample.target })
                 if sample.target == "fr" {
                     XCTAssertEqual(entries.filter { $0.source == "bank" }.count, 2, "Two bank senses must not merge")
+                    XCTAssertTrue(entries.contains { $0.contextHints.contains("river") })
+                    let incorrect = LocalImmersion.align(original: sample.text, translation: "Une banque près du fleuve.", entries: entries, density: 1, source: "en", target: "fr")
+                    XCTAssertTrue(incorrect.spans.isEmpty, "Source river context must veto the financial mistranslation")
                     let ambiguous = LocalImmersion.align(original: "A bank.", translation: "Une banque et une rive.", entries: entries, density: 1, source: "en", target: "fr")
                     XCTAssertTrue(ambiguous.spans.isEmpty)
                 }

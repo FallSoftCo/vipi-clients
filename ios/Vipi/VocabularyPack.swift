@@ -15,6 +15,7 @@ struct VocabularyManifest: Codable, Sendable {
     let sha256: String
     let key_id: String
     let signature_algorithm: String
+    let context_policy: String?
 }
 
 enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage }
@@ -46,7 +47,9 @@ actor VocabularyPackStore {
         let id = manifest.pack_id
         let hash = SHA256.hash(data: database).map { String(format: "%02x", $0) }.joined()
         guard validID(id), id == manifest.source_language + "-" + manifest.target_language, manifest.revision > 0,
-              [1, 3].contains(manifest.schema_version), manifest.normalization == "unicode-nfc-lower", manifest.file == "vocabulary.sqlite",
+              [1, 3].contains(manifest.schema_version),
+              (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version == 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1")),
+              manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2", manifest.file == "vocabulary.sqlite",
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
         if let previous = try accepted(id) {
@@ -66,6 +69,10 @@ actor VocabularyPackStore {
                       try scalar(db, "SELECT source_url FROM senses LIMIT 1") != nil,
                       try scalar(db, "SELECT reading FROM vocabulary LIMIT 1") != nil,
                       try scalar(db, "PRAGMA foreign_key_check") == nil else { throw VocabularyPackError.invalid }
+                if let policy = manifest.context_policy {
+                    guard try scalar(db, "SELECT value FROM metadata WHERE key='context_policy'") == policy,
+                          try scalar(db, "SELECT count(*) FROM sense_context WHERE length(hints)>4096") == "0" else { throw VocabularyPackError.invalid }
+                }
             }
         }
         if FileManager.default.fileExists(atPath: destination.path) {
@@ -84,15 +91,17 @@ actor VocabularyPackStore {
         let pointer = try JSONDecoder().decode(Pointer.self, from: Data(contentsOf: pointerURL))
         guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
               pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
-        let terms = try candidateTerms(text, language: pointer.manifest.source_language)
+        let rawTerms = try candidateTerms(text, language: pointer.manifest.source_language)
+        let terms = pointer.manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1" ? Array(Set(rawTerms.map(ImmersionEngine.lookupKey))).sorted() : rawTerms
         if terms.isEmpty { return [] }
         return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
             struct LookupKey: Hashable { let source: String; let sense: String }
-            struct Group { var targets = Set<String>(); var readings: [String: Set<String>] = [:] }
+            struct Group { var targets = Set<String>(); var readings: [String: Set<String>] = [:]; var hints = Set<String>() }
             var grouped: [LookupKey: Group] = [:]
             for offset in stride(from: 0, to: terms.count, by: 200) {
                 let batch = Array(terms[offset..<min(offset + 200, terms.count)])
-                let columns = pointer.manifest.schema_version == 3 ? "source,sense_id,target,reading" : "source,'' AS sense_id,target,'' AS reading"
+                var columns = pointer.manifest.schema_version == 3 ? "source,sense_id,target,reading" : "source,'' AS sense_id,target,'' AS reading"
+                columns += pointer.manifest.context_policy == "cross-sense-label-veto-2" ? ",COALESCE((SELECT hints FROM sense_context WHERE sense_context.sense_id=vocabulary.sense_id),'') AS hints" : ",'' AS hints"
                 let sql = "SELECT DISTINCT " + columns + " FROM vocabulary WHERE source IN (" + Array(repeating: "?", count: batch.count).joined(separator: ",") + ") ORDER BY source,sense_id,target,reading"
                 var statement: OpaquePointer?
                 guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else { throw VocabularyPackError.storage }
@@ -107,13 +116,14 @@ actor VocabularyPackStore {
                     let key = LookupKey(source: String(cString: source), sense: String(cString: sense)), surface = String(cString: target)
                     grouped[key, default: Group()].targets.insert(surface)
                     grouped[key, default: Group()].readings[surface, default: []].insert(String(cString: reading))
+                    if let hints = sqlite3_column_text(statement, 4) { grouped[key, default: Group()].hints.formUnion(String(cString: hints).split(separator: "\u{1f}").map(String.init)) }
                     result = sqlite3_step(statement)
                 }
                 guard result == SQLITE_DONE else { throw VocabularyPackError.storage }
             }
             return grouped.keys.sorted { ($0.source, $0.sense) < ($1.source, $1.sense) }.map { key in
                 let group = grouped[key]!
-                return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() })
+                return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() }, contextHints: group.hints.sorted())
             }
         }
     }

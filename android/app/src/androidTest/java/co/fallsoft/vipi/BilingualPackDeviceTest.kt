@@ -37,6 +37,8 @@ class BilingualPackDeviceTest {
                 assertTrue(result.speech(source, target).any { it.text == sample.getString("written") && it.language == target })
                 if (target == "fr") {
                     assertEquals(2, entries.count { it.source == "bank" })
+                    assertTrue(entries.any { "river" in it.contextHints })
+                    assertTrue(LocalImmersion.align(text, "Une banque près du fleuve.", entries, 1.0, "en", "fr").spans.isEmpty())
                     assertTrue(LocalImmersion.align("A bank.", "Une banque et une rive.", entries, 1.0, "en", "fr").spans.isEmpty())
                 }
                 if (target == "ja") {

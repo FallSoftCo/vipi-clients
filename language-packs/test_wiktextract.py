@@ -59,7 +59,16 @@ class CandidateCatalogTests(unittest.TestCase):
         self.add('unsafe',[{'code':'es','word':'<script>'}])
         self.assertEqual(self.db.execute('SELECT count(*) FROM terms').fetchone()[0],0)
     def test_native_v1_installers_must_reject_candidate_schema(self):
-        self.assertEqual(self.db.execute('PRAGMA user_version').fetchone()[0],2)
+        self.assertEqual(self.db.execute('PRAGMA user_version').fetchone()[0],4)
+
+    def test_translation_qualifiers_and_notes_survive(self):
+        import json
+        self.add('sister', [{'code':'zh','word':'姐姐','sense':'female sibling','english':'elder','translation':'elder'},
+                            {'code':'zh','word':'姐姐','sense':'female sibling','english':'elder','note':'test note','raw_tags':['test label']}])
+        rows = [json.loads(row[0]) for row in self.db.execute("SELECT qualifiers FROM terms WHERE language='zh'")]
+        self.assertEqual(len(rows), 2)
+        self.assertTrue(any(row.get('translation') == 'elder' for row in rows))
+        self.assertTrue(any(row.get('note') == 'test note' and row.get('raw_tags') == ['test label'] for row in rows))
 
 
 if __name__ == '__main__': unittest.main()

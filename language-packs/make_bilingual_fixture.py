@@ -22,6 +22,7 @@ def main(output):
         ('en', 'ja', 'Want coffee?', 'コーヒーはいかが？', 'coffee', 'コーヒー', 'kōhī'),
         ('en', 'ko', 'Want coffee?', '커피 마실래?', 'coffee', '커피', 'keopi'),
         ('en', 'ar', 'Want coffee?', 'هل تريد قهوة؟', 'coffee', 'قهوة', 'qahwa'),
+        ('ar', 'en', 'قَـهْوَة', 'coffee', 'قَـهْوَة', 'coffee', None),
         ('en', 'fr', 'A bank near the river.', 'Une rive près du fleuve.', 'bank', 'rive', None),
     ]
     with tempfile.TemporaryDirectory() as directory:

@@ -20,7 +20,7 @@ def fixture_catalog(path):
         for line, (source, label, translations) in enumerate([
             ('bank', 'financial institution', [('es', 'banco', ''), ('fr', 'banque', '')]),
             ('bank', 'edge of a river', [('es', 'orilla', ''), ('fr', 'rive', '')]),
-            ('coffee', 'drink', [('zh', '咖啡', 'kāfēi'), ('ja', 'コーヒー', 'kōhī'), ('ko', '커피', 'keopi'), ('ar', 'قهوة', 'qahwa')]),
+            ('coffee', 'drink', [('zh', '咖啡', 'kāfēi'), ('ja', 'コーヒー', 'kōhī'), ('ko', '커피', 'keopi'), ('ar', 'قَهْوَة', 'qahwa')]),
             ('lead', 'metal', [('zh', '铅', 'qiān')]),
             ('lead', 'to guide', [('zh', '引导', 'yǐndǎo')]),
             ('read', 'interpret writing', [('ja', '読む', 'yomu'), ('ja', '読む', 'doku')]),
@@ -92,6 +92,64 @@ class BilingualExportTests(unittest.TestCase):
             self.key.public_key().verify(signature, raw.replace(b'candidate', b'approved'), ec.ECDSA(hashes.SHA256()))
         with self.assertRaises(FileExistsError):
             self.export('en', 'zh')
+
+    def test_sense_hints_keep_the_competing_context(self):
+        output, manifest = self.export('en', 'es')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            rows = [(label, term) for label, terms in db.execute('SELECT s.label,c.hints FROM senses s JOIN sense_context c ON c.sense_id=s.id') for term in terms.split('\x1f')]
+        self.assertIn(('edge of a river', 'river'), rows)
+        self.assertNotIn(('edge of a river', 'of'), rows)
+        self.assertEqual(manifest['context_policy'], 'cross-sense-label-veto-2')
+
+    def test_arabic_vowel_variants_share_lookup_without_losing_readings(self):
+        from context_hints import lookup_key
+        self.assertEqual(lookup_key('قَـهْوَة', 'ar'), 'قهوة')
+        self.assertNotEqual(lookup_key('أمل', 'ar'), lookup_key('امل', 'ar'))
+        with sqlite3.connect(self.catalog) as db:
+            add_entry(db, {'lang_code': 'en', 'word': 'water', 'pos': 'noun', 'translations': [
+                {'code': 'ar', 'word': 'مَاء', 'roman': "mā'", 'sense': 'liquid'}]}, 100, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, _ = self.export('ar', 'en')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT source,target FROM vocabulary WHERE source='ماء'").fetchall(), [('ماء', 'water')])
+
+    def test_negation_remains_in_source_grammar(self):
+        with sqlite3.connect(self.catalog) as db:
+            add_entry(db, {'lang_code': 'en', 'word': 'not', 'pos': 'adv', 'translations': [
+                {'code': 'es', 'word': 'no', 'sense': 'negates another word'}]}, 100, Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, _ = self.export('en', 'es')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='not'").fetchone()[0], 0)
+
+    def test_qualifiers_cannot_add_or_contradict_age_or_speaker_gender(self):
+        from context_hints import qualifiers_compatible
+        elder = json.dumps({'english':'elder','translation':'elder'})
+        older = json.dumps({'english':'older'})
+        younger = json.dumps({'english':'younger'})
+        self.assertTrue(qualifiers_compatible(elder,older,'sister','zh','ja'))
+        self.assertFalse(qualifiers_compatible(elder,younger,'sister','zh','ja'))
+        self.assertFalse(qualifiers_compatible('{}',younger,'sister','en','ja'))
+        self.assertTrue(qualifiers_compatible('{}',younger,'younger sister','en','ja'))
+        self.assertFalse(qualifiers_compatible(elder,json.dumps({'english':'elder, of a male'}),'sister','zh','ko'))
+        self.assertFalse(qualifiers_compatible('{}',json.dumps({'note':'ancient form'}),'sister','en','zh'))
+
+    def test_export_rejects_missing_qualifiers_inside_a_scoped_family(self):
+        with sqlite3.connect(self.catalog) as db:
+            add_entry(db, {'lang_code':'en','word':'sister','pos':'noun','translations':[
+                {'code':'zh','word':'姐姐','roman':'jiějie','sense':'female sibling','english':'elder'},
+                {'code':'ja','word':'お姉さん','roman':'onēsan','sense':'female sibling','english':'elder'},
+                {'code':'ja','word':'妹','roman':'imōto','sense':'female sibling','english':'younger'},
+                {'code':'ja','word':'姉','roman':'ane','sense':'female sibling'}]},100,Counter())
+        self.before = hashlib.sha256(self.catalog.read_bytes()).hexdigest()
+        output, _ = self.export('zh','ja')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT target FROM vocabulary WHERE source='姐姐'").fetchall(), [('お姉さん',)])
+            details = json.loads(db.execute("SELECT mapping_details FROM vocabulary WHERE source='姐姐'").fetchone()[0])
+            self.assertEqual(details['source']['english'], 'elder')
+        output, _ = self.export('en','ja')
+        with sqlite3.connect(output / 'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='sister'").fetchone()[0], 0)
 
 
 if __name__ == '__main__':

@@ -13,7 +13,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [x] Native selection/copy and fixed inline vocabulary blocks with subtle backgrounds and minimal rounding; glyph-position checks across three widths and three text sizes. This does not establish full conversation layout or human usability.
 - [x] Native preview speech/reading interaction checks on both clients, including a fixed visible snapshot during audio.
 - [ ] Physical speech/reading and actual VoiceOver/TalkBack qualification.
-- [ ] Actual Apple local translation on the user's iPad; device connection and signing key access remain prerequisites.
+- [ ] Actual Apple local translation on the user's iPad; paired-device access and signing passed, but the separate XCTest passcode authorization remains pending.
 - [ ] Production multilingual pack compilation, contextual reading generation and held-out meaning/coverage evaluation.
 - [ ] Real conversation integration, lifecycle/accessibility/composer and scrolling qualification beyond the previews.
 
