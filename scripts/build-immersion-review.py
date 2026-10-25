@@ -19,7 +19,7 @@ for platform, source in [("android", args.android), ("ios", args.ios)]:
     assert min(r["selected"] for r in rows) >= 2
     destination = args.output / platform
     destination.mkdir(exist_ok=True)
-    phases = ["target", "meaning", "script"] if platform == "android" else ["target", "meaning"]
+    phases = ["target", "meaning", "script"]
     for row in rows:
         for phase in phases:
             name = f'{row["source"]}-{row["target"]}-{phase}.png'
@@ -39,8 +39,8 @@ html = '''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewp
 <div class="controls"><label>Platform<select id="platform"><option value="android">Android</option><option value="ios">iOS</option></select></label><label>Familiar language<select id="source"></select></label><label>Immersion language<select id="target"></select></label></div>
 <div id="phase"><button data-phase="target" aria-pressed="true">Immersion</button><button data-phase="meaning" aria-pressed="false">Familiar meanings</button><button data-phase="script" aria-pressed="false">Original script</button><button id="play" aria-pressed="false">Start continuous preview</button></div>
 <div class="capture"><img id="capture" alt=""></div><p id="evidence" aria-live="polite"></p>
-<p>The preview switches captured phases every 4.5 / 3 seconds. Native app recordings in the gallery separately demonstrate the actual running clock. Android includes original-script component captures; both apps expose script through their reading menu. Arabic, Chinese, Japanese and Korean immersion use authored Latin readings by default.</p>
-<details><summary>Measurements and limits</summary><p>Each direction was measured at three widths and three text sizes. Paragraphs reserve their largest phase height; word wrapping inside the bubble can change. These examples cover coffee, tomorrow and river. General dictionary packs, context-sensitive readings, actual translation quality and real chat behavior remain separate acceptance gates.</p><pre id="measurements"></pre></details>
+<p>The preview switches captured phases every 4.5 / 3 seconds. Native app recordings in the gallery separately demonstrate the actual running clock. Both platforms include original-script component captures and expose script through the reading menu. Arabic, Chinese, Japanese and Korean immersion use authored Latin readings by default.</p>
+<details><summary>Measurements and limits</summary><p>Each direction was measured at three widths and three text sizes. Each lightly rounded vocabulary block reserves its largest form. Native checks compare all glyph positions across phases, so surrounding text stays still. These examples cover coffee, tomorrow and river. General dictionary packs, context-sensitive readings, actual translation quality and real chat behavior remain separate acceptance gates.</p><pre id="measurements"></pre></details>
 <p><a href="android/report.json">Android evidence</a> · <a href="ios/report.json">iOS evidence</a></p>
 <script>
 const reports=__REPORTS__;
@@ -49,10 +49,10 @@ const platform=document.querySelector('#platform'),source=document.querySelector
 for(const input of [source,target])for(const [code,name] of Object.entries(languages)){const option=document.createElement('option');option.value=code;option.textContent=name;input.append(option)}
 source.value='en';target.value='ja';let phase='target',timer=null,running=false;
 function schedule(){clearTimeout(timer);if(running&&!document.hidden)timer=setTimeout(()=>{phase=phase==='target'?'meaning':'target';render()},phase==='meaning'?3000:4500)}
-function render(){if(source.value===target.value)target.value=Object.keys(languages).find(code=>code!==source.value);if(platform.value==='ios'&&phase==='script')phase='target';
+function render(){if(source.value===target.value)target.value=Object.keys(languages).find(code=>code!==source.value);
  const row=reports[platform.value].directions.find(r=>r.source===source.value&&r.target===target.value);
  capture.src=`${platform.value}/${source.value}-${target.value}-${phase}.png`;capture.alt=`Native ${platform.value} paragraph: ${languages[source.value]} to ${languages[target.value]}, ${phase}`;
- document.querySelectorAll('[data-phase]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.phase===phase));b.hidden=b.dataset.phase==='script'&&platform.value==='ios'});
+ document.querySelectorAll('[data-phase]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.phase===phase))});
  document.querySelector('#evidence').textContent=`${languages[source.value]} → ${languages[target.value]} · ${row.selected} authored vocabulary spans · ${row.measurements.length} size combinations`;
  document.querySelector('#measurements').textContent=JSON.stringify(row,null,2);schedule();}
 for(const input of [platform,source,target])input.onchange=render;
@@ -60,5 +60,5 @@ document.querySelectorAll('[data-phase]').forEach(b=>b.onclick=()=>{phase=b.data
 play.onclick=()=>{running=!running;play.textContent=running?'Pause preview':'Start continuous preview';play.setAttribute('aria-pressed',String(running));schedule()};
 document.addEventListener('visibilitychange',schedule);render();
 </script></html>'''
-(args.output / "index.html").write_text(html.replace("__REPORTS__", json.dumps(reports, ensure_ascii=False).replace("<", "\\u003c")))
-print(json.dumps({"output": str(args.output), "directions_per_platform": 90, "captures": 450}))
+(args.output / "review.html").write_text(html.replace("__REPORTS__", json.dumps(reports, ensure_ascii=False).replace("<", "\\u003c")))
+print(json.dumps({"output": str(args.output), "directions_per_platform": 90, "captures": 540}))

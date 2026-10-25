@@ -14,13 +14,13 @@ try {
   const page = await browser.newPage({viewport: {width: 1100, height: 900}});
   const errors = [];
   page.on('pageerror', error => errors.push(String(error)));
-  await page.goto(`${base}${category}/matrix/index.html`, {waitUntil: 'domcontentloaded'});
+  await page.goto(`${base}${category}/matrix/review.html`, {waitUntil: 'domcontentloaded'});
   for (const platform of ['android', 'ios']) {
     await page.locator('#platform').selectOption(platform);
     for (const source of languages) for (const target of languages.filter(value => value !== source)) {
       await page.locator('#source').selectOption(source);
       await page.locator('#target').selectOption(target);
-      for (const phase of platform === 'android' ? ['target', 'meaning', 'script'] : ['target', 'meaning']) {
+      for (const phase of ['target', 'meaning', 'script']) {
         await page.locator(`[data-phase="${phase}"]`).click();
         const name = `${platform}/${source}-${target}-${phase}.png`;
         await page.waitForFunction(name => {const img = document.querySelector('#capture'); return img.src.endsWith(name) && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0;}, name);

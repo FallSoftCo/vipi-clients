@@ -30,30 +30,35 @@ import SwiftUI
                 for width in [280.0, 360.0, 620.0] {
                     for size in [DynamicTypeSize.large, .xxxLarge, .accessibility3] {
                         var heights: [CGFloat] = []
-                        for original in [false, true] {
-                            let root = StableImmersionText(result: result, revealed: original ? Set(result.spans.map(\.id)) : [], script: false, onWord: { _ in }, onSelection: { _ in })
+                        var anchors: [CGRect]?
+                        for (face, original, script) in [("target", false, false), ("meaning", true, false), ("script", false, true)] {
+                            let root = StableImmersionText(result: result, revealed: original ? Set(result.spans.map(\.id)) : [], script: script, onWord: { _ in }, onSelection: { _ in })
                                 .environment(\.dynamicTypeSize, size).environment(\.colorScheme, .light)
-                            let host = UIHostingController(rootView: root)
-                            host.view.frame = CGRect(x: 0, y: 0, width: width, height: 1000)
-                            host.view.backgroundColor = .white
-                            let measured = host.sizeThatFits(in: CGSize(width: width, height: 1000))
-                            XCTAssertGreaterThan(measured.height, 0)
-                            XCTAssertLessThan(measured.height, 1000, "Clipped \(source)->\(target)")
-                            heights.append(measured.height)
-                            host.view.frame.size.height = measured.height; host.view.layoutIfNeeded()
+                            displayHost.rootView = AnyView(root.frame(width: width).fixedSize(horizontal: false, vertical: true))
+                            try await Task.sleep(for: .milliseconds(20))
+                            displayHost.view.setNeedsLayout(); displayHost.view.layoutIfNeeded()
+                            let paragraph = try XCTUnwrap(nativeText(in: displayHost.view))
+                            paragraph.backgroundColor = .white
+                            XCTAssertGreaterThan(paragraph.bounds.height, 0)
+                            XCTAssertLessThan(paragraph.bounds.height, 1000, "Clipped \(source)->\(target)")
+                            heights.append(paragraph.bounds.height)
+                            paragraph.layoutManager.ensureLayout(for: paragraph.textContainer)
+                            let glyphs = paragraph.layoutManager.glyphRange(for: paragraph.textContainer)
+                            let positions = (0..<glyphs.length).map { paragraph.layoutManager.boundingRect(forGlyphRange: NSRange(location: $0, length: 1), in: paragraph.textContainer) }
+                            if let anchors { XCTAssertEqual(anchors, positions, "Inline text shifts \(source)->\(target) \(width) \(size)") }
+                            else { anchors = positions }
+                            if original { XCTAssertEqual(paragraph.visibleText(), result.original) }
                             if width == 360 && size == .large {
-                                displayHost.rootView = AnyView(root.frame(width: width).fixedSize(horizontal: false, vertical: true))
-                                try await Task.sleep(for: .milliseconds(40))
-                                displayHost.view.layoutIfNeeded()
-                                let native = try XCTUnwrap(nativeText(in: displayHost.view))
-                                native.backgroundColor = .white
-                                XCTAssertFalse(native.text.isEmpty)
-                                XCTAssertGreaterThan(native.bounds.height, 0)
-                                let image = UIGraphicsImageRenderer(size: native.bounds.size).image { _ in native.drawHierarchy(in: native.bounds, afterScreenUpdates: true) }
-                                try image.pngData()?.write(to: output.appendingPathComponent("\(source)-\(target)-\(original ? "meaning" : "target").png"))
+                                paragraph.selectedRange = NSRange(location: 0, length: paragraph.attributedText.length)
+                                paragraph.copy(nil)
+                                XCTAssertEqual(UIPasteboard.general.string, paragraph.visibleText(), "Copy leaked an attachment placeholder")
+                                paragraph.selectedRange = NSRange(location: 0, length: 0)
+                                let image = UIGraphicsImageRenderer(size: paragraph.bounds.size).image { _ in paragraph.drawHierarchy(in: paragraph.bounds, afterScreenUpdates: true) }
+                                try image.pngData()?.write(to: output.appendingPathComponent("\(source)-\(target)-\(face).png"))
                             }
                         }
                         XCTAssertEqual(heights[0], heights[1], accuracy: 0.5, "Bubble jumps \(source)->\(target) \(width) \(size)")
+                        XCTAssertEqual(heights[0], heights[2], accuracy: 0.5, "Script changes bubble height \(source)->\(target)")
                         measurements.append(["width": width, "typeSize": String(describing: size), "height": heights[0]])
                     }
                 }
@@ -61,7 +66,7 @@ import SwiftUI
             }
         }
         XCTAssertEqual(rows.count, 90)
-        let report: [String: Any] = ["evidence": "authored_preview_native_tokenization_paragraph_layout_not_live_translation_or_linguistic_acceptance", "directions": rows]
+        let report: [String: Any] = ["evidence": "authored_preview_fixed_inline_blocks_native_tokenization_stable_glyph_positions_and_copy_not_live_translation_or_linguistic_acceptance", "directions": rows]
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
     }
 }

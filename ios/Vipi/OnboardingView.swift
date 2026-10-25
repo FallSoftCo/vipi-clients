@@ -16,7 +16,7 @@ struct OnboardingView: View {
             ZStack {
                 VipiDesign.canvas.ignoresSafeArea()
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 32) {
+                    VStack(alignment: .leading, spacing: state.onboarding == .welcome ? 24 : 32) {
                         HStack(spacing: 10) {
                             VipiMark(size: 34)
                             Text("vipi").font(.system(size: 27, weight: .semibold, design: .rounded)).tracking(-1)
@@ -49,7 +49,7 @@ struct OnboardingView: View {
     }
 
     private var welcome: some View {
-        VStack(alignment: .leading, spacing: 30) {
+        VStack(alignment: .leading, spacing: 24) {
             IntroHeading(eyebrow: "A little more language. A lot more life.", title: "Your conversations.\nA new language.", detail: "Chat about what matters to you. Pick up another language along the way.")
             VStack(alignment: .leading, spacing: 14) {
                 HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)

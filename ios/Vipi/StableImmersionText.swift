@@ -2,19 +2,96 @@ import SwiftUI
 import UIKit
 import VipiCore
 
-/// Native shaping, links, selection and copy. Natural paragraph forms share a
-/// reserved bubble height, without blank padding around individual vocabulary.
+/// A native inline attachment reserves the same geometry for every word face.
+/// Its visible text remains available to accessibility and selection/copy.
+final class ImmersionWordAttachment: NSTextAttachment {
+    let displayed: String
+    let forms: [String]
+    let font: UIFont
+    let ink: UIColor
+    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor) {
+        self.displayed = displayed; self.forms = forms; self.font = font; self.ink = ink
+        super.init(data: nil, ofType: nil)
+        accessibilityLabel = displayed
+    }
+    required init?(coder: NSCoder) { return nil }
+    private var attributes: [NSAttributedString.Key: Any] {
+        let paragraph = NSMutableParagraphStyle(); paragraph.alignment = .center; paragraph.lineBreakMode = .byCharWrapping
+        return [.font: font, .foregroundColor: ink, .paragraphStyle: paragraph]
+    }
+    override func attachmentBounds(for textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
+        let available = max(1, (textContainer?.size.width ?? lineFrag.width) - 2 * (textContainer?.lineFragmentPadding ?? 0))
+        let natural = forms.map { ($0 as NSString).size(withAttributes: [.font: font]).width }.max() ?? 0
+        let width = min(available, ceil(natural) + 8)
+        let height = forms.map { ($0 as NSString).boundingRect(with: CGSize(width: max(1, width - 8), height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil).height }.max() ?? font.lineHeight
+        return CGRect(x: 0, y: font.descender - 2, width: width, height: ceil(height) + 4)
+    }
+    override func image(forBounds bounds: CGRect, textContainer: NSTextContainer?, characterIndex charIndex: Int) -> UIImage? {
+        guard bounds.width > 0, bounds.height > 0 else { return nil }
+        return UIGraphicsImageRenderer(size: bounds.size).image { _ in
+            ink.withAlphaComponent(0.11).setFill()
+            UIBezierPath(roundedRect: CGRect(origin: .zero, size: bounds.size), cornerRadius: 2.5).fill()
+            (displayed as NSString).draw(with: CGRect(x: 4, y: 2, width: max(1, bounds.width - 8), height: bounds.height - 4), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
+        }
+    }
+}
+
+@MainActor final class ImmersionAccessibilityElement: UIAccessibilityElement {
+    var activate: (() -> Void)?
+    var frame: (() -> CGRect)?
+    override func accessibilityActivate() -> Bool { guard let activate else { return false }; activate(); return true }
+    override var accessibilityFrame: CGRect {
+        get { frame?() ?? .zero }
+        set { }
+    }
+}
+
 @MainActor final class ImmersionNativeTextView: UITextView {
     var variants: [NSAttributedString] = []
     var reserveKey = ""
     var reserveHeight: CGFloat = 0
     var contentIdentity = ""
     var measurementContext = ""
+    var renderingIdentity = ""
     let measurer: UITextView = {
-        let view = UITextView(); view.textContainerInset = .zero
+        let view = UITextView(usingTextLayoutManager: false); view.textContainerInset = .zero
         view.textContainer.lineFragmentPadding = 0; view.isScrollEnabled = false
         return view
     }()
+    func visibleText(in range: NSRange? = nil) -> String {
+        let selected = attributedText.attributedSubstring(from: range ?? NSRange(location: 0, length: attributedText.length))
+        var result = ""
+        selected.enumerateAttributes(in: NSRange(location: 0, length: selected.length)) { attributes, part, _ in
+            if let word = attributes[.attachment] as? ImmersionWordAttachment { result += word.displayed }
+            else { result += (selected.string as NSString).substring(with: part) }
+        }
+        return result
+    }
+    override func copy(_ sender: Any?) {
+        guard selectedRange.length > 0 else { return }
+        UIPasteboard.general.string = visibleText(in: selectedRange)
+    }
+    var onWordActivation: ((Int) -> Void)?
+    func wordAccessibility(in container: UIView) -> [ImmersionAccessibilityElement] {
+        var links: [ImmersionAccessibilityElement] = []
+        attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length)) { attributes, range, _ in
+            guard let word = attributes[.attachment] as? ImmersionWordAttachment,
+                  let url = attributes[.link] as? URL, let id = Int(url.lastPathComponent) else { return }
+            let element = ImmersionAccessibilityElement(accessibilityContainer: container)
+            element.accessibilityLabel = word.displayed
+            element.accessibilityIdentifier = "immersion-word-\(id)"
+            element.accessibilityTraits = .link
+            element.activate = { [weak self] in self?.onWordActivation?(id) }
+            element.frame = { [weak self] in
+                guard let self else { return .zero }
+                let glyphs = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+                let local = layoutManager.boundingRect(forGlyphRange: glyphs, in: textContainer).offsetBy(dx: textContainerInset.left, dy: textContainerInset.top)
+                return UIAccessibility.convertToScreenCoordinates(local, in: self)
+            }
+            links.append(element)
+        }
+        return links
+    }
     func reservedSize(width: CGFloat) -> CGSize {
         let key = "\(width)|\(variants.map(\.string))|\(variants.map { $0.length > 0 ? ($0.attribute(.font, at: 0, effectiveRange: nil) as? UIFont)?.pointSize ?? 0 : 0 })|\(traitCollection.preferredContentSizeCategory.rawValue)"
         let context = "\(width)|\(contentIdentity)|\(variants.first.flatMap { $0.length > 0 ? $0.attribute(.font, at: 0, effectiveRange: nil) as? UIFont : nil }?.pointSize ?? 0)"
@@ -30,6 +107,43 @@ import VipiCore
     }
 }
 
+/// UITextView exposes attachment links without names. A standard UIKit
+/// accessibility container supplies readable text and named native word actions.
+@MainActor final class ImmersionTextContainer: UIView {
+    let textView: ImmersionNativeTextView = {
+        let storage = NSTextStorage(), layout = NSLayoutManager()
+        storage.addLayoutManager(layout)
+        let container = NSTextContainer(size: CGSize(width: 0, height: CGFloat.greatestFiniteMagnitude))
+        layout.addTextContainer(container)
+        return ImmersionNativeTextView(frame: .zero, textContainer: container)
+    }()
+    private lazy var paragraph = ImmersionAccessibilityElement(accessibilityContainer: self)
+    private var accessibilityIdentity = ""
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        isAccessibilityElement = false
+        textView.accessibilityElementsHidden = true
+        addSubview(textView)
+    }
+    required init?(coder: NSCoder) { return nil }
+    override func layoutSubviews() { super.layoutSubviews(); textView.frame = bounds }
+    func refreshAccessibility() {
+        paragraph.accessibilityIdentifier = "immersionText"
+        paragraph.accessibilityLabel = textView.visibleText()
+        paragraph.accessibilityTraits = .staticText
+        paragraph.accessibilityHint = textView.accessibilityHint
+        paragraph.accessibilityCustomActions = textView.accessibilityCustomActions
+        paragraph.frame = { [weak self] in
+            guard let self else { return .zero }
+            return UIAccessibility.convertToScreenCoordinates(textView.bounds, in: textView)
+        }
+        if accessibilityIdentity != textView.renderingIdentity {
+            accessibilityIdentity = textView.renderingIdentity
+            accessibilityElements = [paragraph] + textView.wordAccessibility(in: self)
+        }
+    }
+}
+
 struct StableImmersionText: UIViewRepresentable {
     let result: ImmersionResult
     let revealed: Set<Int>
@@ -39,8 +153,9 @@ struct StableImmersionText: UIViewRepresentable {
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
     func makeCoordinator() -> Coordinator { Coordinator() }
-    func makeUIView(context: Context) -> ImmersionNativeTextView {
-        let view = ImmersionNativeTextView()
+    func makeUIView(context: Context) -> ImmersionTextContainer {
+        let container = ImmersionTextContainer(frame: .zero)
+        let view = container.textView
         view.backgroundColor = .clear; view.isEditable = false; view.isSelectable = true; view.isScrollEnabled = false
         view.textContainerInset = .zero; view.textContainer.lineFragmentPadding = 0
         view.adjustsFontForContentSizeCategory = true
@@ -48,10 +163,12 @@ struct StableImmersionText: UIViewRepresentable {
         view.delegate = context.coordinator
         view.accessibilityIdentifier = "immersionText"
         view.linkTextAttributes = [:]
-        return view
+        return container
     }
-    func updateUIView(_ view: ImmersionNativeTextView, context: Context) {
+    func updateUIView(_ container: ImmersionTextContainer, context: Context) {
+        let view = container.textView
         context.coordinator.onWord = onWord; context.coordinator.onSelection = onSelection
+        view.onWordActivation = onWord
         context.coordinator.updating = true
         defer { context.coordinator.updating = false }
         let category: UIContentSizeCategory
@@ -72,27 +189,31 @@ struct StableImmersionText: UIViewRepresentable {
         let font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: UITraitCollection(preferredContentSizeCategory: category))
         let color = UIColor(VipiDesign.highlight).resolvedColor(with: view.traitCollection)
         view.contentIdentity = String(describing: result)
-        let current = render(revealed: revealed, script: script, font: font, color: color)
-        view.variants = [render(revealed: Set(result.spans.map(\.id)), script: false, font: font, color: color),
-                         render(revealed: [], script: false, font: font, color: color),
-                         render(revealed: [], script: true, font: font, color: color), current]
-        var seen = Set<String>()
-        view.variants = view.variants.filter { seen.insert($0.string).inserted }
-        if !view.attributedText.isEqual(to: current) {
+        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)"
+        if view.renderingIdentity != identity {
+            view.renderingIdentity = identity
+            let current = render(revealed: revealed, script: script, font: font, color: color)
             let selection = view.selectedRange
             let sameText = view.attributedText.string == current.string
             view.attributedText = current
+            view.variants = [current]
+            view.reserveKey = ""
             if sameText && NSMaxRange(selection) <= current.length { view.selectedRange = selection }
         }
-        view.accessibilityLabel = current.string
-        view.accessibilityHint = "Words switch automatically. Use Reading options to pause or show the original."
+        view.accessibilityLabel = view.visibleText()
+        view.accessibilityValue = view.visibleText()
+        view.accessibilityHint = "Words switch automatically. Pause holds the current words. Reading options changes the pace or script."
         view.accessibilityCustomActions = result.spans.map { word in
             UIAccessibilityCustomAction(name: "Switch \(word.original) and \(word.displayedTarget)") { _ in onWord(word.id); return true }
         }
+        view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: "Copy displayed message") { [weak view] _ in
+            guard let view else { return false }; UIPasteboard.general.string = view.visibleText(); return true
+        })
+        container.refreshAccessibility()
     }
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView view: ImmersionNativeTextView, context: Context) -> CGSize? {
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView container: ImmersionTextContainer, context: Context) -> CGSize? {
         guard let width = proposal.width, width > 0 else { return nil }
-        return view.reservedSize(width: width)
+        return container.textView.reservedSize(width: width)
     }
     private func render(revealed: Set<Int>, script: Bool, font: UIFont, color: UIColor) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural
@@ -108,7 +229,10 @@ struct StableImmersionText: UIViewRepresentable {
             var style = attributes
             style[.font] = emphasis; style[.foregroundColor] = color
             style[.link] = URL(string: "vipi-reveal://word/\(word.id)")!
-            text.append(NSAttributedString(string: value, attributes: style))
+            let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color)
+            let token = NSMutableAttributedString(attachment: attachment)
+            token.addAttributes(style, range: NSRange(location: 0, length: token.length))
+            text.append(token)
             cursor = NSMaxRange(word.range)
         }
         if cursor < original.length { text.append(NSAttributedString(string: original.substring(from: cursor), attributes: attributes)) }
@@ -126,7 +250,7 @@ struct StableImmersionText: UIViewRepresentable {
             selectionActive = selected; onSelection?(selected)
         }
         func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-            guard URL.scheme == "vipi-reveal", let id = Int(URL.lastPathComponent) else { return false }
+            guard interaction == .invokeDefaultAction, URL.scheme == "vipi-reveal", let id = Int(URL.lastPathComponent) else { return false }
             onWord?(id); return false
         }
     }

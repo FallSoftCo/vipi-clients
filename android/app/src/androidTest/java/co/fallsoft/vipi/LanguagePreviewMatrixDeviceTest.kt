@@ -34,6 +34,7 @@ class LanguagePreviewMatrixDeviceTest {
                 for (width in listOf(280, 360, 620)) for (scale in listOf(1f, 1.6f, 2.2f)) {
                     view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 17 * scale)
                     var height: Int? = null
+                    var anchors: List<Pair<Float, Int>>? = null
                     for ((face, revealed) in listOf("target" to emptySet<Int>(), "meaning" to result.spans.map { it.id }.toSet(), "script" to emptySet())) {
                         view.bind(result, revealed, face == "script", 0xff2b6142.toInt(), 0xff18251d.toInt())
                         val pixels = (width * context.resources.displayMetrics.density).toInt()
@@ -42,6 +43,9 @@ class LanguagePreviewMatrixDeviceTest {
                         if (height == null) height = view.height else assertEquals("Bubble jumps $source->$target width=$width scale=$scale", height, view.height)
                         assertTrue("Clipped text $source->$target", view.layout.height <= view.height)
                         assertTrue(view.visibleText().isNotBlank())
+                        val positions = (0..result.original.length).map { offset -> view.layout.getPrimaryHorizontal(offset) to view.layout.getLineBaseline(view.layout.getLineForOffset(offset)) }
+                        if (anchors == null) anchors = positions else assertEquals("Inline text shifts $source->$target width=$width scale=$scale", anchors, positions)
+                        if (face == "meaning") assertEquals(result.original, view.visibleText())
                         if (width == 360 && scale == 1f) {
                             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
                             Canvas(bitmap).apply { drawColor(0xffffffff.toInt()); view.draw(this) }
@@ -56,6 +60,6 @@ class LanguagePreviewMatrixDeviceTest {
         }
         assertEquals(90, rows.length())
         File(output, "report.json").writeText(JSONObject().put("status", "passed").put("directions", rows)
-            .put("evidence", "authored_preview_native_tokenization_paragraph_layout_not_live_translation_or_linguistic_acceptance").toString(2))
+            .put("evidence", "authored_preview_fixed_inline_blocks_native_tokenization_and_stable_glyph_positions_not_live_translation_or_linguistic_acceptance").toString(2))
     }
 }

@@ -51,6 +51,14 @@ class SpeechInteractionDeviceTest {
         try {
             checkNotNull(device.wait(Until.findObject(By.desc("Pause word switching")), 5000)).click()
             waitFor("Listen"); device.takeScreenshot(File(directory, "ready.png"))
+            scenario.onActivity { activity ->
+                val text = activity.window.decorView.findViewWithTag<StableImmersionText>("immersionText")
+                android.text.Selection.selectAll(text.text as android.text.Spannable)
+                assertTrue(text.onTextContextMenuItem(android.R.id.copy))
+                val clipboard = activity.getSystemService(android.content.ClipboardManager::class.java)
+                assertEquals(text.visibleText(), clipboard.primaryClip?.getItemAt(0)?.text.toString())
+                android.text.Selection.removeSelection(text.text as android.text.Spannable)
+            }
             tap("Listen"); waitFor("Stop")
             tap("See the whole thought in Spanish"); waitFor("Listen")
             waitFor("¿Café mañana? Conozco un pequeño lugar junto al río.")
@@ -61,7 +69,7 @@ class SpeechInteractionDeviceTest {
             var point = Point()
             scenario.onActivity { activity ->
                 val text = activity.window.decorView.findViewWithTag<StableImmersionText>("immersionText")
-                val offset = text.text.toString().indexOf("mañana") + 2
+                val offset = text.text.toString().indexOf("tomorrow") + 2
                 assertTrue(offset > 1)
                 val line = text.layout.getLineForOffset(offset)
                 val location = IntArray(2); text.getLocationOnScreen(location)

@@ -2,21 +2,23 @@ package co.fallsoft.vipi
 
 import android.content.Context
 import android.graphics.Typeface
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.StaticLayout
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.text.style.ClickableSpan
+import android.text.style.ReplacementSpan
 import android.text.TextPaint
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import co.fallsoft.vipi.core.ImmersionResult
 
-/** Natural native text shaping and selection. Reserve paragraph height, never
- * pad individual words: punctuation and word spacing remain ordinary prose. */
+/** Native paragraphs with stable inline vocabulary blocks. The underlying source
+ * ranges stay fixed for bidi/layout; drawing, accessibility and copy use the face. */
 internal class StableImmersionText(context: Context) : TextView(context) {
     var onWord: ((Int) -> Unit)? = null
     var onSelection: ((Boolean) -> Unit)? = null
@@ -31,6 +33,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var reserveKey = ""
     private var reserveHeight = 0
     private var measurementContext = ""
+    private var tokenWidth = 10000
+    private val tokenSpans = mutableListOf<WordSlot>()
     init {
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 17f)
         setPadding(0, 0, 0, 0); includeFontPadding = false
@@ -43,20 +47,51 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         override fun onClick(widget: View) { action(id) }
         override fun updateDrawState(ds: TextPaint) { ds.color = color; ds.isUnderlineText = false }
     }
+    private class WordSlot(val displayed: String, val forms: List<String>, val color: Int, val density: Float) : ReplacementSpan() {
+        var maximumWidth = 10000
+        private var key = ""
+        private var width = 0
+        private var ascent = 0
+        private var descent = 0
+        private lateinit var drawing: StaticLayout
+        private fun measure(paint: Paint) {
+            val next = "$maximumWidth|${paint.textSize}|${paint.typeface}"
+            if (key == next) return
+            key = next
+            val textPaint = TextPaint(paint).apply { typeface = Typeface.create(typeface, Typeface.BOLD); this.color = this@WordSlot.color }
+            val padding = 4 * density
+            width = minOf(maximumWidth, kotlin.math.ceil(forms.maxOf { Layout.getDesiredWidth(it, textPaint) } + padding * 2).toInt()).coerceAtLeast(1)
+            val inner = (width - padding * 2).toInt().coerceAtLeast(1)
+            fun layout(text: String) = StaticLayout.Builder.obtain(text, 0, text.length, textPaint, inner)
+                .setAlignment(Layout.Alignment.ALIGN_CENTER).setIncludePad(false).setUseLineSpacingFromFallbacks(true).build()
+            val layouts = forms.distinct().map(::layout)
+            ascent = -layouts.maxOf { it.getLineBaseline(0) } - (2 * density).toInt()
+            descent = layouts.maxOf { it.height - it.getLineBaseline(0) } + (2 * density).toInt()
+            drawing = layout(displayed)
+        }
+        override fun getSize(paint: Paint, text: CharSequence, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
+            measure(paint)
+            fm?.let { it.ascent = minOf(it.ascent, ascent); it.top = minOf(it.top, ascent); it.descent = maxOf(it.descent, descent); it.bottom = maxOf(it.bottom, descent) }
+            return width
+        }
+        override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
+            measure(paint)
+            val background = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = this@WordSlot.color; alpha = 28 }
+            canvas.drawRoundRect(RectF(x, y + ascent.toFloat(), x + width, y + descent.toFloat()), 2.5f * density, 2.5f * density, background)
+            canvas.save(); canvas.translate(x + (width - drawing.width) / 2f, (y - drawing.getLineBaseline(0)).toFloat()); drawing.draw(canvas); canvas.restore()
+        }
+    }
+    private fun display(word: co.fallsoft.vipi.core.ImmersionSpan, revealed: Set<Int>, showScript: Boolean) =
+        if (word.id in revealed) word.original else if (showScript) word.translated else word.displayedTarget
     private fun render(revealed: Set<Int>, showScript: Boolean): CharSequence {
         val value = result ?: return ""
-        return SpannableStringBuilder().apply {
-            var cursor = 0
+        return SpannableStringBuilder(value.original).apply {
             value.spans.forEach { word ->
-                append(value.original.substring(cursor, word.start))
-                val start = length
-                append(if (word.id in revealed) word.original else if (showScript) word.translated else word.displayedTarget)
-                setSpan(ForegroundColorSpan(accent), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                setSpan(StyleSpan(Typeface.BOLD), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                setSpan(WordLink(word.id, accent) { onWord?.invoke(it) }, start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                cursor = word.end
+                val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated), accent, resources.displayMetrics.density)
+                slot.maximumWidth = tokenWidth; tokenSpans += slot
+                setSpan(slot, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                setSpan(WordLink(word.id, accent) { onWord?.invoke(it) }, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
-            append(value.original.substring(cursor))
         }
     }
     fun bind(value: ImmersionResult, revealed: Set<Int>, showScript: Boolean, color: Int, bodyColor: Int) {
@@ -64,15 +99,37 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         result = value; originals = revealed; script = showScript; accent = color
         setTextColor(bodyColor)
         if (changed || text.isEmpty()) {
+            tokenSpans.clear()
             val current = render(revealed, showScript)
-            variants = listOf(render(value.spans.map { it.id }.toSet(), false), render(emptySet(), false), render(emptySet(), true), current).distinctBy { it.toString() }
+            variants = listOf(current)
             text = current
-            contentDescription = current.toString()
+            contentDescription = visibleText()
+            reserveKey = ""
             requestLayout()
         }
     }
-    fun visibleText() = text.toString()
+    fun visibleText(start: Int = 0, end: Int = result?.original?.length ?: 0): String {
+        val value = result ?: return ""
+        return buildString {
+            var cursor = start
+            for (word in value.spans.filter { it.start < end && it.end > start }) {
+                if (word.start > cursor) append(value.original.substring(cursor, word.start))
+                append(display(word, originals, script)); cursor = minOf(word.end, end)
+            }
+            if (cursor < end) append(value.original.substring(cursor, end))
+        }
+    }
+    override fun onTextContextMenuItem(id: Int): Boolean {
+        if (id == android.R.id.copy && hasSelection()) {
+            (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
+                .setPrimaryClip(android.content.ClipData.newPlainText("Message", visibleText(minOf(selectionStart, selectionEnd), maxOf(selectionStart, selectionEnd))))
+            return true
+        }
+        return super.onTextContextMenuItem(id)
+    }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val available = (View.MeasureSpec.getSize(widthMeasureSpec) - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
+        if (available != tokenWidth) { tokenWidth = available; tokenSpans.forEach { it.maximumWidth = available }; reserveKey = "" }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val width = (measuredWidth - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
         val context = "$width|$textSize|${result}"

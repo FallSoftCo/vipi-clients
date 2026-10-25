@@ -5,7 +5,7 @@ import XCTest
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-language", "-vipi-source", "en", "-vipi-target", "ja", "-readingPace", "balanced"]
         app.launch()
-        let text = app.textViews["immersionText"]
+        let text = app.descendants(matching: .any)["immersionText"]
         XCTAssertTrue(text.waitForExistence(timeout: 10))
         app.swipeUp()
         let reading = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS 'koohii'"), object: text)
@@ -33,7 +33,7 @@ import XCTest
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true AND label == 'Listen'"), object: listen)], timeout: 15), .completed)
         listen.tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Stop'"), object: listen)], timeout: 3), .completed)
-        let text = app.textViews["immersionText"]
+        let text = app.descendants(matching: .any)["immersionText"]
         let captured = text.label
         let deadline = Date().addingTimeInterval(15)
         var observations = 0

@@ -10,7 +10,7 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 
 - [x] Continuous native vocabulary alternation, optional immediate reveal, pause, three pace settings, and a single full-translation reading surface.
 - [x] Ten-language authored previews with mandatory readings for Arabic, Chinese, Japanese and Korean; native tokenization and paragraph component coverage for all 90 directions.
-- [x] Native selection/copy and reserved paragraph geometry across three widths and three text sizes. This does not establish full conversation layout or human usability.
+- [x] Native selection/copy and fixed inline vocabulary blocks with subtle backgrounds and minimal rounding; glyph-position checks across three widths and three text sizes. This does not establish full conversation layout or human usability.
 - [x] Native preview speech/reading interaction checks on both clients, including a fixed visible snapshot during audio.
 - [ ] Physical speech/reading and actual VoiceOver/TalkBack qualification.
 - [ ] Actual Apple local translation on the user's iPad; device connection and signing key access remain prerequisites.
