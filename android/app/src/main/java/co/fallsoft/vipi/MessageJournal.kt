@@ -24,7 +24,7 @@ internal data class DraftChat(val id: UUID, val recipient: UUID, val text: Strin
 /** Transport-independent journal: retry returns the exact saved ciphertext; a
  * receipt is permissible only after receive() has returned from its commit. */
 internal class MessageJournal(private val vault: MessageVault) {
-    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long) = vault.transaction {
+    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, consumeCompose: Boolean = false) = vault.transaction {
         require(now >= 0 && createdAt >= 0 && createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(createdAt, TTL))
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
         vault.get("outgoing", id.toString())?.let {
@@ -35,6 +35,8 @@ internal class MessageJournal(private val vault: MessageVault) {
         val draft = DraftChat(id, recipient, text, createdAt)
         vault.get("draft", id.toString())?.let { require(DraftChat.parse(it) == draft) { "Message ID conflict" } }
         vault.put("draft", id.toString(), draft.encode())
+        ConversationHistory.record(vault, "draft", id, recipient, createdAt)
+        if (consumeCompose && vault.get("compose", recipient.toString())?.contentEquals(text.toByteArray(Charsets.UTF_8)) == true) vault.remove("compose", recipient.toString())
     }
     fun draft(id: UUID): DraftChat? = vault.transaction { vault.get("draft", id.toString())?.let(DraftChat::parse) }
     fun pendingDrafts(now: Long): List<DraftChat> = vault.transaction {
@@ -66,6 +68,7 @@ internal class MessageJournal(private val vault: MessageVault) {
         vault.put("outgoing", id.toString(), StoredChat(envelope, text, "queued").encode())
         vault.put("pending", id.toString(), byteArrayOf(1))
         vault.remove("draft", id.toString())
+        ConversationHistory.record(vault, "outgoing", id, recipient, createdAt)
         envelope
         }
     }
@@ -77,6 +80,7 @@ internal class MessageJournal(private val vault: MessageVault) {
         vault.get("incoming", envelope.id.toString())?.let {
             val saved = StoredChat.parse(it)
             require(saved.envelope.fingerprint().contentEquals(envelope.fingerprint())) { "Message ID conflict" }
+            vault.put("receipt", envelope.id.toString(), byteArrayOf(1))
             return@transaction saved
         }
         require(envelope.createdAt >= 0 && envelope.createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(envelope.createdAt, TTL))
@@ -87,9 +91,15 @@ internal class MessageJournal(private val vault: MessageVault) {
             && payload.getString("recipient") == vault.account.toString() && payload.getLong("createdAt") == envelope.createdAt) { "Authenticated message metadata mismatch" }
         val text = payload.getString("text")
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
-        StoredChat(envelope, text, "delivered").also { vault.put("incoming", envelope.id.toString(), it.encode()) }
+        StoredChat(envelope, text, "delivered").also {
+            vault.put("incoming", envelope.id.toString(), it.encode())
+            ConversationHistory.record(vault, "incoming", envelope.id, envelope.sender, envelope.createdAt, unread = true)
+            vault.put("receipt", envelope.id.toString(), byteArrayOf(1))
+        }
     }
     fun outgoing(id: UUID): StoredChat? = vault.transaction { vault.get("outgoing", id.toString())?.let(StoredChat::parse) }
+    fun pendingReceipts(): List<UUID> = vault.transaction { vault.ids("receipt").map(UUID::fromString) }
+    fun receiptAccepted(id: UUID) = vault.transaction { vault.remove("receipt", id.toString()) }
     fun pending(now: Long, limit: Int = 100): List<ChatEnvelope> = vault.transaction {
         require(now >= 0 && limit in 1..100)
         buildList {

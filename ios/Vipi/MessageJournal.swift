@@ -46,7 +46,7 @@ final class MessageJournal {
     private func validTime(_ created: Int64, _ now: Int64) -> Bool {
         created >= 0 && now >= 0 && created <= Int64.max - Self.ttl && now <= Int64.max - 300_000 && created <= now + 300_000 && now < created + Self.ttl
     }
-    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64) throws {
+    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, consumeCompose: Bool = false) throws {
         try vault.transaction {
             guard validTime(createdAt, now), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { throw Failure.invalidMessage }
             if let bytes = try vault.get("outgoing", key(id)) {
@@ -57,6 +57,8 @@ final class MessageJournal {
             let draft = DraftChat(id: id, recipient: recipient, text: text, createdAt: createdAt)
             if let bytes = try vault.get("draft", key(id)), try decoder.decode(DraftChat.self, from: bytes) != draft { throw Failure.conflict }
             try vault.put("draft", key(id), encoder.encode(draft))
+            try ConversationHistory.record(vault, kind: "draft", id: id, peer: recipient, createdAt: createdAt)
+            if consumeCompose, try vault.get("compose", key(recipient)) == Data(text.utf8) { try vault.remove("compose", key(recipient)) }
         }
     }
     func draft(_ id: UUID) throws -> DraftChat? { try vault.transaction { try vault.get("draft", key(id)).map { try decoder.decode(DraftChat.self, from: $0) } } }
@@ -90,6 +92,7 @@ final class MessageJournal {
             try vault.put("outgoing", key(id), encoder.encode(StoredChat(envelope: envelope, text: text, state: "queued")))
             try vault.put("pending", key(id), Data([1]))
             try vault.remove("draft", key(id))
+            try ConversationHistory.record(vault, kind: "outgoing", id: id, peer: recipient, createdAt: createdAt)
             return envelope
         }
     }
@@ -100,6 +103,7 @@ final class MessageJournal {
             if let bytes = try vault.get("incoming", key(envelope.id)) {
                 let saved = try decoder.decode(StoredChat.self, from: bytes)
                 guard saved.envelope.fingerprint() == envelope.fingerprint() else { throw Failure.conflict }
+                try vault.put("receipt", key(envelope.id), Data([1]))
                 return saved
             }
             guard validTime(envelope.createdAt, now) else { throw Failure.invalidMessage }
@@ -110,12 +114,20 @@ final class MessageJournal {
                   !payload.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, payload.text.utf8.count <= 32768 else { throw Failure.invalidMessage }
             let saved = StoredChat(envelope: envelope, text: payload.text, state: "delivered")
             try vault.put("incoming", key(envelope.id), encoder.encode(saved))
+            try ConversationHistory.record(vault, kind: "incoming", id: envelope.id, peer: envelope.sender, createdAt: envelope.createdAt, unread: true)
+            try vault.put("receipt", key(envelope.id), Data([1]))
             return saved
         }
     }
     func outgoing(_ id: UUID) throws -> StoredChat? {
         try vault.transaction { try vault.get("outgoing", key(id)).map { try decoder.decode(StoredChat.self, from: $0) } }
     }
+    func pendingReceipts() throws -> [UUID] {
+        try vault.transaction { try vault.ids("receipt").map { value in
+            guard let id = UUID(uuidString: value) else { throw Failure.invalidMessage }; return id
+        } }
+    }
+    func receiptAccepted(_ id: UUID) throws { try vault.transaction { try vault.remove("receipt", key(id)) } }
     func pending(now: Int64, limit: Int = 100) throws -> [ChatEnvelope] {
         try vault.transaction {
             guard (1...100).contains(limit) else { throw Failure.invalidMessage }

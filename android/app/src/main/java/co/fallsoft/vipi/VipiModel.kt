@@ -11,6 +11,7 @@ import co.fallsoft.vipi.core.ImmersionEngine
 import co.fallsoft.vipi.core.VocabularyEntry
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
+import java.util.UUID
 
 data class VipiLanguage(val code: String, val name: String, val localName: String)
 val initialLanguages = listOf(
@@ -22,7 +23,7 @@ val initialLanguages = listOf(
 )
 fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
 enum class Appearance { SYSTEM, LIGHT, DARK }
-enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD }
+enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
 class VipiModel(application: Application) : AndroidViewModel(application) {
@@ -45,6 +46,22 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
     var translatedText by mutableStateOf<String?>(null)
         private set
     private val translator = LocalTranslation()
+    internal var chat by mutableStateOf<ChatSession?>(null)
+        private set
+    var chatError by mutableStateOf<String?>(null)
+        private set
+    var selectedPeer by mutableStateOf<UUID?>(null)
+        private set
+    internal suspend fun activateChats() {
+        val userID = authentication.userID ?: return
+        try {
+            if (chat?.userID != userID) { chat?.close(); chat = ChatSession(getApplication(), authentication, userID) }
+            navigate(Screen.HOME); chat!!.start()
+            if (chat!!.needsProfile) navigate(Screen.PROFILE)
+        } catch (error: CancellationException) { throw error }
+        catch (_: Exception) { chatError = "Your saved conversations couldn’t be opened. Please close and reopen Vipi to try again." }
+    }
+    internal fun openConversation(peer: UUID) { selectedPeer = peer; navigate(Screen.CONVERSATION) }
 
     fun navigate(value: Screen) {
         screen = value
@@ -82,7 +99,7 @@ class VipiModel(application: Application) : AndroidViewModel(application) {
         catch (_: Exception) { modelMessage = "Translation isn’t ready. Download this language first, then try again." }
         finally { modelBusy = false }
     }
-    override fun onCleared() { translator.close() }
+    override fun onCleared() { translator.close(); chat?.close() }
 }
 
 val immersionPreview = ImmersionEngine().align(

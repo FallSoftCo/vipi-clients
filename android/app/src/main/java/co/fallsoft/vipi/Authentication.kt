@@ -43,7 +43,7 @@ internal class PrivateRecords(context: Context) {
         }.generateKey()
     }
     private fun file(name: String): AtomicFile {
-        require(name.matches(Regex("[a-z-]{1,40}")))
+        require(name.matches(Regex("[a-z0-9-]{1,80}")))
         return AtomicFile(File(directory, name))
     }
     @Synchronized fun write(name: String, value: JSONObject) {

@@ -40,7 +40,7 @@ Recovery design review: [Mobbin's Family flow](https://mobbin.com/flows/58bd7e53
 - [x] Verify OZZZ-OS Android tools, Mac Xcode/simulators and company signing identity exist.
 - [x] Renew AWS CLI and verify Route 53 domains/DNS access.
 - [x] Select inexpensive AWS domain with registration AND renewal cost: mambovipi.app, AWS registration successful.
-- [ ] Choose host after capacity/workload inspection and ownership registration.
+- [x] Choose host after capacity/workload inspection and ownership registration: isolated restricted staging on `ozzz-app`.
 - [x] Pin and prove official libsignal 0.105.0 native interoperability; add AGPL-3.0-only client LICENSE/NOTICE under the user’s open-source approval. Complete release dependency notices and corresponding-source distribution remain required.
 - [ ] Record build mirrors, dependency pins, reproducible commands and credentials inventory (locations only).
 
@@ -68,8 +68,9 @@ Recovery design review: [Mobbin's Family flow](https://mobbin.com/flows/58bd7e53
 - [x] Native private-key generation and durable pending publication; official libsignal verifies signatures before establishing a session. Replaying the same claim cannot reset a ratchet.
 - [x] Account-bound HTTPS service clients and serialized WorkOS public-client refresh. Actual expired-token recovery passed on both native platforms; no client secret ships in either app.
 - [x] Real iOS → API/PostgreSQL → Android encrypted delivery, three Android replies received out of order on iOS, vault reopening, route-tamper rejection, application receipts and duplicate sends after delivery. All four server ciphertexts were cleared after receipts.
-- [ ] Production TLS, ejabberd event/relay integration, push, reconnect/background scheduling, transport load testing, immediate session revocation, prekey retirement and identity-change UI. The qualified HTTP service used temporary private SSH/ADB forwards and real WorkOS verification; it was removed after testing.
-- [ ] Connect the qualified messaging core to actual profile onboarding, chat list, composer and conversation screens. Native network tests are not a completed chat app.
+- [x] Restricted staging deployment with public TLS, isolated database/account, expiry timer, certificate renewal rehearsal and real public HTTPS native exchange.
+- [ ] ejabberd event/relay integration, push, reconnect/background scheduling, transport load testing, immediate session revocation, prekey retirement and identity-change UI. The live service admits only controlled QA accounts.
+- [x] Connect and qualify the messaging core through actual username lookup, chat list, composer and conversation screens on both platforms. Profile/device onboarding is implemented; its complete new-account UI path and replacement/recovery still require qualification.
 
 ## 3. Native product
 
@@ -113,3 +114,9 @@ Recovery design review: [Mobbin's Family flow](https://mobbin.com/flows/58bd7e53
 - [ ] Submit both apps for review and record exact version/build/submission states. Acceptance remains the stores' decision.
 
 The user has authorized deployment and submission after proof. Ask only for missing access, concrete spending choices, or consequential product decisions that cannot be resolved from their instructions. Do not ask again merely because a step is deployment or submission.
+
+### Current native conversation integration
+
+Both clients now have encrypted conversation indexes, persistent compose drafts, unread state, keyset pagination and durable receipt retries. Native coordinators connect real username lookup, profile/device provisioning, session establishment, outbox submission and receiving to the service. Actual username lookup, compose, send, receive and delivered-state screens passed cross-platform UI/application qualification through public HTTPS. Foreground/lifecycle/send/explicit-refresh synchronization is implemented; contentless relay events, push and background retry are still required before live chat acceptance. Friend message text currently displays the original while general contextual immersion remains gated on linguistic quality.
+
+Design references reviewed through MCP: [WhatsApp starting a chat](https://mobbin.com/flows/83ca5b13-659e-4eb1-952b-cc340bea3ab3), [WhatsApp chats](https://mobbin.com/flows/61481c3e-e374-49a2-ab2b-77c364d916e1), [Built for Mars reassurance about saved work](https://builtformars.com/ux-bites/reassuring-reload-message). Application: keep one clear first-chat action, place delivery status beside the message, and state that a failed connection does not discard a committed draft. BFM's analysis endpoint failed twice; content lookup and exact article retrieval succeeded. No reference UI/assets are copied into the product.

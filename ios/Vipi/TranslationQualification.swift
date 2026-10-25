@@ -18,6 +18,7 @@ struct TranslationQualification: View {
     @State private var rows: [[String: Any]] = []
     @State private var networkAvailable: Bool?
     @State private var monitor = NWPathMonitor()
+    @State private var didAutoStart = false
     private var corpus: Corpus? {
         guard let url = Bundle.main.url(forResource: "corpus", withExtension: "json"), let data = try? Data(contentsOf: url) else { return nil }
         return try? JSONDecoder().decode(Corpus.self, from: data)
@@ -42,6 +43,14 @@ struct TranslationQualification: View {
                 .task {
                     monitor.pathUpdateHandler = { path in Task { @MainActor in networkAvailable = path.status == .satisfied } }
                     monitor.start(queue: DispatchQueue(label: "vipi-qa-path"))
+                    // Physical qualification can run directly, without XCTest
+                    // UI automation. iPadOS still owns download consent prompts.
+                    if !didAutoStart {
+                        didAutoStart = true
+                        let args = ProcessInfo.processInfo.arguments
+                        if args.contains("-vipi-translation-prepare") { begin(preparation: true) }
+                        else if args.contains("-vipi-translation-run") { begin(preparation: false) }
+                    }
                 }
                 .onDisappear { monitor.cancel(); running = false; configuration = nil }
         }

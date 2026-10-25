@@ -52,6 +52,8 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         if let index = args.firstIndex(of: "-vipi-source"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }) { knownLanguage = args[index + 1] }
         if let index = args.firstIndex(of: "-vipi-target"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }), args[index + 1] != knownLanguage { targetLanguage = args[index + 1] }
         if args.contains("-vipi-preview-home") { isAuthenticated = true }
+        if args.contains("-vipi-appearance-light") { appearance = .light }
+        if args.contains("-vipi-appearance-dark") { appearance = .dark }
         #endif
     }
 }

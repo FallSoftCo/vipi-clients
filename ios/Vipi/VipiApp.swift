@@ -13,10 +13,13 @@ import SwiftUI
             Group {
                 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
-                else if state.isAuthenticated { HomeView() }
+                else if state.isAuthenticated {
+                    if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }
+                    else { ConnectedChatRoot() }
+                }
                 else { OnboardingView() }
                 #else
-                if state.isAuthenticated { HomeView() }
+                if state.isAuthenticated { ConnectedChatRoot() }
                 else { OnboardingView() }
                 #endif
             }

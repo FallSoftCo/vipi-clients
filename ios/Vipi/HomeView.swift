@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    var chat: ChatSession? = nil
     @Environment(AppState.self) private var state
     @State private var showingSettings = false
     @State private var showingInvite = false
     @State private var query = ""
+    @State private var path: [UUID] = []
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 VipiDesign.canvas.ignoresSafeArea()
                 ScrollView {
@@ -16,43 +18,64 @@ struct HomeView: View {
                             Spacer()
                             Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }.accessibilityLabel("New chat")
                         }
-                        VStack(alignment: .leading, spacing: 16) {
+                        if let chat, !chat.threads.isEmpty {
+                            ForEach(chat.threads) { thread in
+                                NavigationLink(value: thread.peer) {
+                                    HStack(spacing: 14) {
+                                        Text(String(chat.name(thread.peer).prefix(1))).font(.title2)
+                                            .frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
+                                        VStack(alignment: .leading, spacing: 5) {
+                                            Text(chat.name(thread.peer)).fontWeight(thread.unread > 0 ? .semibold : .medium).foregroundStyle(.primary)
+                                            Text(thread.latest.text).lineLimit(1).font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                                        }
+                                        Spacer(minLength: 4)
+                                        if thread.unread > 0 { Text("\(thread.unread)").font(.caption.weight(.semibold)).padding(7).background(VipiDesign.outgoing, in: Circle()) }
+                                    }.padding(.vertical, 8)
+                                }.buttonStyle(.plain)
+                            }
+                        } else { VStack(alignment: .leading, spacing: 16) {
                             VipiMark(size: 54)
                             Text("Your world,\none conversation away.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
                             Text("Bring a friend. Make plans. Talk about your day. A little \(VipiLanguage.named(state.targetLanguage).name) will find its way in.")
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
-                        }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28))
+                        }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
+                        if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
                         NavigationLink { BotIntroductionView() } label: {
                             HStack(spacing: 16) {
                                 Image(systemName: "sparkle").font(.title2).frame(width: 50, height: 50).background(VipiDesign.outgoing, in: RoundedRectangle(cornerRadius: 18))
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("vBot").font(.body.weight(.semibold)).foregroundStyle(.primary)
-                                    Text("A conversation whenever you feel like one.").font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                                    Text("A conversation whenever you feel like one.").font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
                                 }
                                 Spacer(minLength: 0)
                                 Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
                             }.padding(.vertical, 12)
-                        }
+                        }.buttonStyle(.plain)
                     }.padding(24).frame(maxWidth: 680).frame(maxWidth: .infinity)
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) { HStack(spacing: 8) { VipiMark(size: 25); Text("vipi").font(.headline) } }
+                ToolbarItem(placement: .topBarLeading) { VipiMark(size: 25).accessibilityLabel("Vipi") }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3) }.accessibilityLabel("Your profile and settings")
                 }
             }
             .sheet(isPresented: $showingSettings) { SettingsView() }
-            .sheet(isPresented: $showingInvite) { NewChatView() }
+            .sheet(isPresented: $showingInvite) { NewChatView(chat: chat) { peer in path.append(peer) } }
+            .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
+            .refreshable { await chat?.synchronize() }
         }
     }
 }
 
 struct NewChatView: View {
+    var chat: ChatSession? = nil
+    var selected: (UUID) -> Void = { _ in }
     @Environment(\.dismiss) private var dismiss
     @State private var username = ""
     @State private var error: String?
+    @State private var busy = false
     var body: some View {
         NavigationStack {
             Form {
@@ -60,13 +83,25 @@ struct NewChatView: View {
                     TextField("Friend’s username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled()
                         .onSubmit { findFriend() }
                 } footer: { Text("Enter their exact Vipi username. Your phone contacts stay private.") }
-                Section { Button("Find friend", action: findFriend).disabled(username.trimmingCharacters(in: .whitespaces).isEmpty) }
+                Section {
+                    Button(action: findFriend) { if busy { ProgressView("Finding your friend") } else { Text("Find friend") } }
+                        .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty || busy)
+                }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }.navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
         }
     }
-    private func findFriend() { error = "We couldn’t connect. Check your connection and try again." }
+    private func findFriend() {
+        guard !busy else { return }
+        guard let chat else { error = "Sign in to find your friends."; return }
+        busy = true; error = nil
+        Task {
+            defer { busy = false }
+            do { let person = try await chat.find(username); selected(person.id); dismiss() }
+            catch { self.error = ChatSession.explanation(error) }
+        }
+    }
 }
 
 struct BotIntroductionView: View {

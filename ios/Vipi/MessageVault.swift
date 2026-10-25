@@ -128,4 +128,23 @@ final class MessageVault: @unchecked Sendable {
             }
         }
     }
+    /// Indexed keyset pagination. Prefixes contain only opaque conversation IDs.
+    func pageIDs(_ kind: String, prefix: String, before: String? = nil, limit: Int = 50) throws -> [String] {
+        lock.lock(); defer { lock.unlock() }
+        _ = try aad(kind, prefix)
+        guard (1...100).contains(limit) else { throw Failure.invalidRecord }
+        let upper = prefix + "\u{FFFF}"
+        return try statement("SELECT id FROM records WHERE kind=? AND id>=? AND id<? AND id<? ORDER BY id DESC LIMIT ?", kind, prefix) { raw in
+            guard sqlite3_bind_text(raw, 3, upper, -1, transient) == SQLITE_OK,
+                  sqlite3_bind_text(raw, 4, before ?? upper, -1, transient) == SQLITE_OK,
+                  sqlite3_bind_int(raw, 5, Int32(limit)) == SQLITE_OK else { throw Failure.invalidRecord }
+            var result: [String] = []
+            while true {
+                let code = sqlite3_step(raw)
+                if code == SQLITE_DONE { return result }
+                guard code == SQLITE_ROW, let text = sqlite3_column_text(raw, 0) else { throw Failure.database(code) }
+                result.append(String(cString: text))
+            }
+        }
+    }
 }

@@ -87,6 +87,14 @@ internal class MessageVault(context: Context, val account: UUID) : Closeable {
             buildList { while (cursor.moveToNext()) add(cursor.getString(0)) }
         }
     }
+    fun pageIDs(kind: String, prefix: String, before: String? = null, limit: Int = 50): List<String> {
+        address(kind, prefix); require(limit in 1..100)
+        val upper = prefix + '\uFFFF'
+        return database.rawQuery("SELECT id FROM records WHERE kind=? AND id>=? AND id<? AND id<? ORDER BY id DESC LIMIT ?",
+            arrayOf(kind, prefix, upper, before ?: upper, limit.toString())).use { cursor ->
+            buildList { while (cursor.moveToNext()) add(cursor.getString(0)) }
+        }
+    }
     @Synchronized override fun close() { database.close() }
     companion object { private val keyLock = Any() }
 }

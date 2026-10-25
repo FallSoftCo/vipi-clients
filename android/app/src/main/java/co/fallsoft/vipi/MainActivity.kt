@@ -44,6 +44,9 @@ import co.fallsoft.vipi.core.SpeechSpan
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.core.view.WindowCompat
 
 class MainActivity : ComponentActivity() {
     private val model: VipiModel by viewModels()
@@ -77,23 +80,53 @@ class MainActivity : ComponentActivity() {
 private val Green = Color(0xFF33644F)
 @Composable private fun VipiTheme(appearance: Appearance, content: @Composable () -> Unit) {
     val dark = appearance == Appearance.DARK || (appearance == Appearance.SYSTEM && isSystemInDarkTheme())
+    val activity = LocalContext.current as? android.app.Activity
+    SideEffect {
+        activity?.let { host -> WindowCompat.getInsetsController(host.window, host.window.decorView).apply {
+            isAppearanceLightStatusBars = !dark; isAppearanceLightNavigationBars = !dark
+        } }
+    }
     val colors = if (dark) darkColorScheme(
         primary = Color(0xFFB0D9A3), onPrimary = Color(0xFF132D22), background = Color(0xFF111412),
         surface = Color(0xFF1F2420), surfaceVariant = Color(0xFF2E4233), onSurface = Color(0xFFF0F0E7),
-        onBackground = Color(0xFFF0F0E7), onSurfaceVariant = Color(0xFFB8BFB6)
+        onBackground = Color(0xFFF0F0E7), onSurfaceVariant = Color(0xFFB8BFB6),
+        primaryContainer = Color(0xFF2E4233), onPrimaryContainer = Color(0xFFDEEFBE),
+        secondary = Color(0xFFB8CBB2), onSecondary = Color(0xFF233526), secondaryContainer = Color(0xFF324536), onSecondaryContainer = Color(0xFFD5E8CE),
+        tertiary = Color(0xFFC0CCA5), onTertiary = Color(0xFF2C351E), tertiaryContainer = Color(0xFF424C33), onTertiaryContainer = Color(0xFFDDE9C0),
+        surfaceContainerLowest = Color(0xFF0B100C), surfaceContainerLow = Color(0xFF171D18), surfaceContainer = Color(0xFF1D231E),
+        surfaceContainerHigh = Color(0xFF272E28), surfaceContainerHighest = Color(0xFF323A33), surfaceTint = Color(0xFFB0D9A3),
+        outline = Color(0xFF8A958B), outlineVariant = Color(0xFF404A41), inversePrimary = Color(0xFF2B6142),
+        inverseSurface = Color(0xFFE6EAE0), inverseOnSurface = Color(0xFF2B322B)
     ) else lightColorScheme(
         primary = Color(0xFF2B6142), onPrimary = Color.White, background = Color(0xFFF9F7F2),
         surface = Color.White, surfaceVariant = Color(0xFFE0EDD4), onSurface = Color(0xFF18251D),
-        onBackground = Color(0xFF18251D), onSurfaceVariant = Color(0xFF646C64)
+        onBackground = Color(0xFF18251D), onSurfaceVariant = Color(0xFF646C64),
+        primaryContainer = Color(0xFFE0EDD4), onPrimaryContainer = Color(0xFF18351F),
+        secondary = Color(0xFF50644D), onSecondary = Color.White, secondaryContainer = Color(0xFFD3E8CE), onSecondaryContainer = Color(0xFF142311),
+        tertiary = Color(0xFF5B6447), onTertiary = Color.White, tertiaryContainer = Color(0xFFDFE9C7), onTertiaryContainer = Color(0xFF1A230A),
+        surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xFFF4F4EC), surfaceContainer = Color(0xFFEEEEE5),
+        surfaceContainerHigh = Color(0xFFE8E9DF), surfaceContainerHighest = Color(0xFFE2E3D9), surfaceTint = Color(0xFF2B6142),
+        outline = Color(0xFF737E73), outlineVariant = Color(0xFFC3CCBF), inversePrimary = Color(0xFFB0D9A3),
+        inverseSurface = Color(0xFF2B322B), inverseOnSurface = Color(0xFFF0F0E7)
     )
     MaterialTheme(colorScheme = colors, content = content)
 }
 
 @Composable private fun VipiApp(model: VipiModel) {
-    LaunchedEffect(model.authentication.userID) { if (model.authentication.userID != null) model.navigate(Screen.HOME) }
+    LaunchedEffect(model.authentication.userID) { if (model.authentication.userID != null) model.activateChats() }
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val syncScope = rememberCoroutineScope()
+    DisposableEffect(lifecycle, model.chat) {
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) syncScope.launch { model.chat?.synchronize() } }
+        lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
+    }
     val scrollState = rememberScrollState()
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
+    if (model.screen == Screen.CONVERSATION) {
+        val chat = model.chat; val peer = model.selectedPeer
+        if (chat != null && peer != null) { FriendConversationScreen(chat, peer) { model.back() }; return }
+    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding) OnboardingAction(model) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(28.dp)) {
@@ -104,9 +137,11 @@ private val Green = Color(0xFF33644F)
                 Screen.ACCOUNT -> AccountView()
                 Screen.HOME -> HomeView(model)
                 Screen.SETTINGS -> SettingsView(model)
-                Screen.NEW_CHAT -> NewChatView()
+                Screen.NEW_CHAT -> NewChatView(model)
                 Screen.BOT -> BotView()
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
+                Screen.PROFILE -> ProfileSetupScreen(model)
+                Screen.CONVERSATION -> Unit
             }
             Spacer(Modifier.height(20.dp))
         }
@@ -240,16 +275,37 @@ private val Green = Color(0xFF33644F)
 }
 
 @Composable private fun HomeView(model: VipiModel) {
+    val chat = model.chat
+    val scope = rememberCoroutineScope()
+    if (model.authentication.userID != null && (chat?.ready != true || model.chatError != null)) {
+        Text("Getting your Vipi ready", fontFamily = FontFamily.Serif, fontSize = 30.sp)
+        Text(model.chatError ?: chat?.notice ?: "Your conversations stay on your device.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (chat?.busy == true) CircularProgressIndicator()
+        else PrimaryButton("Try again") { scope.launch { model.activateChats() } }
+        return
+    }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text("Chats", fontFamily = FontFamily.Serif, fontSize = 34.sp, modifier = Modifier.weight(1f))
         IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }) { Icon(Icons.Outlined.Edit, "New chat") }
     }
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp)).padding(26.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    if (chat != null && chat.threads.isNotEmpty()) {
+        chat.threads.forEach { thread ->
+            Row(Modifier.fillMaxWidth().clickable { model.openConversation(thread.peer) }.padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                Box(Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)), contentAlignment = Alignment.Center) { Text(chat.name(thread.peer).take(1), fontSize = 24.sp) }
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Text(chat.name(thread.peer), fontWeight = if (thread.unread > 0) FontWeight.SemiBold else FontWeight.Medium)
+                    Text(thread.latest.text, maxLines = 1, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (thread.unread > 0) Badge { Text(thread.unread.toString()) }
+            }
+        }
+    } else Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp)).padding(26.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         VipiMark(54)
         Text("Your world,\none conversation away.", fontFamily = FontFamily.Serif, fontSize = 28.sp, lineHeight = 35.sp)
         Text("Bring a friend. Make plans. Talk about your day. A little ${languageName(model.targetLanguage)} will find its way in.", lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         PrimaryButton("Start a conversation") { model.navigate(Screen.NEW_CHAT) }
     }
+    chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Row(Modifier.fillMaxWidth().clickable { model.navigate(Screen.BOT) }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(50.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(18.dp)).padding(13.dp), tint = MaterialTheme.colorScheme.primary)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text("vBot", fontWeight = FontWeight.SemiBold); Text("A conversation whenever you feel like one.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
@@ -257,13 +313,26 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun NewChatView() {
+@Composable private fun NewChatView(model: VipiModel) {
     var username by rememberSaveable { mutableStateOf("") }
-    var error by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
     Heading("Your people", "Start a conversation.", "Enter their exact Vipi username. Your phone contacts stay private.")
-    OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Friend’s username") }, singleLine = true, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
-    PrimaryButton("Find friend", enabled = username.isNotBlank()) { error = true }
-    if (error) Text("We couldn’t connect. Check your connection and try again.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+    OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Friend’s username") }, singleLine = true,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
+    PrimaryButton("Find friend", enabled = username.isNotBlank(), busy = busy) {
+        val chat = model.chat
+        if (chat == null) error = "Sign in to find your friends."
+        else scope.launch {
+            busy = true; error = null
+            try { model.openConversation(chat.find(username).id) }
+            catch (failure: kotlinx.coroutines.CancellationException) { throw failure }
+            catch (failure: Exception) { error = ChatSession.explanation(failure) }
+            finally { busy = false }
+        }
+    }
+    error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
 }
 
 @Composable private fun BotView() {
