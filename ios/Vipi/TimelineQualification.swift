@@ -2,6 +2,29 @@
 import SwiftUI
 import Security
 
+/// Records real platform state only in the explicitly selected synthetic QA
+/// conversation. Absent from Release, and never enabled for a signed-in chat.
+@MainActor enum VoiceOverQualification {
+    static func record(_ event: String, enabled: Bool, original: Bool) {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard arguments.contains("-vipi-timeline-qa"),
+              let index = arguments.firstIndex(of: "-vipi-voiceover-qa"), index + 1 < arguments.count else { return }
+        let revision = arguments[index + 1]
+        guard revision.count == 3, revision.allSatisfy(\.isNumber) else { return }
+        let row: [String: Any] = ["event": event, "at": Date().timeIntervalSince1970,
+            "swiftui_voiceover": enabled, "uikit_voiceover": UIAccessibility.isVoiceOverRunning,
+            "original_phase": original, "app_state": UIApplication.shared.applicationState.rawValue]
+        guard var data = try? JSONSerialization.data(withJSONObject: row, options: [.sortedKeys]) else { return }
+        data.append(10)
+        let file = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("voiceover-state-\(revision).jsonl")
+        if !FileManager.default.fileExists(atPath: file.path) { FileManager.default.createFile(atPath: file.path, contents: nil) }
+        guard let handle = try? FileHandle(forWritingTo: file) else { return }
+        defer { try? handle.close() }
+        try? handle.seekToEnd(); try? handle.write(contentsOf: data)
+    }
+}
+
 /// Isolated synthetic history for native UI automation. No service requests or
 /// changes to the signed-in account. Entire harness is absent from Release.
 struct TimelineQualificationView: View {

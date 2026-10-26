@@ -43,6 +43,9 @@ struct ImmersionBubble: View {
     private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
+        #if DEBUG
+        VoiceOverQualification.record("manual_word", enabled: voiceOver, original: originalPhase)
+        #endif
     }
     private func listen() {
         let spans: [(text: String, language: String)]
@@ -65,7 +68,7 @@ struct ImmersionBubble: View {
             }
             HStack(spacing: 0) {
                 if embedded { metadata; Spacer(minLength: 8) }
-                if !embedded && mode == .immersed && !result.spans.isEmpty {
+                if !embedded && mode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)
                     }.accessibilityLabel(paused ? "Resume word switching" : "Pause word switching")
@@ -79,11 +82,11 @@ struct ImmersionBubble: View {
                                     if speech.state == .unavailable { onVoiceHelp?() } else { listen() }
                                 }.disabled(speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil))
                             }
-                            if mode == .immersed && !result.spans.isEmpty {
+                            if mode == .immersed && !result.spans.isEmpty && !voiceOver {
                                 Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
                             }
                         }
-                        if mode == .immersed && !result.spans.isEmpty {
+                        if mode == .immersed && !result.spans.isEmpty && !voiceOver {
                             Button("Switching pace") { choosingPace = true }
                         }
                         if let onModeChange {
@@ -127,6 +130,11 @@ struct ImmersionBubble: View {
                 Button("Cancel", role: .cancel) { }
             } message: { Text("Currently \(pace.capitalized)") }
             .onAppear { visible = true }
+            #if DEBUG
+            .onAppear { VoiceOverQualification.record("appeared", enabled: voiceOver, original: originalPhase) }
+            .onChange(of: voiceOver) { VoiceOverQualification.record("voiceover_changed", enabled: voiceOver, original: originalPhase) }
+            .onChange(of: originalPhase) { VoiceOverQualification.record("phase_changed", enabled: voiceOver, original: originalPhase) }
+            #endif
             .onDisappear { visible = false; if active { speech?.stop() } }
             .onScrollVisibilityChange(threshold: 0.1) { visible = $0 }
             .task(id: clockKey) {

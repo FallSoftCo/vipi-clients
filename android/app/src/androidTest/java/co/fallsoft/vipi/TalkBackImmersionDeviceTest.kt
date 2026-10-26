@@ -116,12 +116,26 @@ class TalkBackImmersionDeviceTest {
             }
             compose.runOnIdle { compose.activity.startActivity(Intent(compose.activity, ComponentActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
             compose.waitUntil(10_000) { automation.rootInActiveWindow?.packageName?.toString() == context.packageName }
-            val tree = nodes(requireNotNull(automation.rootInActiveWindow))
+            var tree = nodes(requireNotNull(automation.rootInActiveWindow))
             val snapshot = JSONArray(tree.map { node -> JSONObject()
                 .put("class", node.className).put("text", node.text).put("description", node.contentDescription)
                 .put("visible", node.isVisibleToUser).put("actions", JSONArray(node.actionList.map { it.toString() })) })
             val treeFile = File(context.filesDir, "talkback-tree-$run.json"); check(!treeFile.exists())
             treeFile.writeText(snapshot.toString(2))
+            var menu: AccessibilityNodeInfo? = requireNotNull(tree.firstOrNull { it.contentDescription?.toString() == "Reading options" })
+            while (menu != null && menu.actionList.none { it.id == AccessibilityNodeInfo.ACTION_CLICK }) menu = menu.parent
+            assertTrue(requireNotNull(menu).performAction(AccessibilityNodeInfo.ACTION_CLICK))
+            compose.waitUntil(5_000) {
+                automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Swahili" }
+            }
+            val menuLabels = nodes(requireNotNull(automation.rootInActiveWindow)).map { it.text?.toString() }
+            for (inactive in listOf("Pause word switching", "Resume word switching", "Switching pace")) {
+                assertFalse("Inactive automatic controls must be absent with TalkBack", inactive in menuLabels)
+            }
+            assertTrue("Show meanings now" in menuLabels)
+            assertTrue(automation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK))
+            compose.waitForIdle()
+            tree = nodes(requireNotNull(automation.rootInActiveWindow))
             val paragraph = requireNotNull(tree.firstOrNull { it.contentDescription?.toString() == held }) { "Visible paragraph missing from native accessibility tree: $held" }
             assertTrue(paragraph.isVisibleToUser)
             assertFalse(held.contains('\uFFFC'))
@@ -166,11 +180,15 @@ class TalkBackImmersionDeviceTest {
             if (before.getValue("touch_exploration_enabled") != "1") {
                 compose.waitUntil(10_000) { !manager.isTouchExplorationEnabled }
                 compose.waitUntil(12_000) { reading() != resumeFrom }
+                assertTrue(nodes(requireNotNull(automation.rootInActiveWindow)).any {
+                    it.contentDescription?.toString() == "Pause word switching"
+                })
             }
             val report = File(context.filesDir, "talkback-immersion-$run.json"); check(!report.exists())
             report.writeText(JSONObject().put("actual_service", service).put("touch_exploration_verified", true)
                 .put("eight_second_pause", true).put("accessible_visible_text", true).put("native_custom_action", true)
                 .put("thirty_third_word_native_chooser", true)
+                .put("inactive_automatic_controls_hidden", true).put("automatic_controls_restored", true)
                 .put("settings_restored", true).put("speech_listening_acceptance", false).toString(2))
         } finally {
             keys.forEach { restore(it, before.getValue(it)) }

@@ -126,7 +126,7 @@ import kotlinx.coroutines.delay
             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text("Done") } })
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
-            if (!embedded && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) {
+            if (!embedded && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
                     Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) "Resume word switching" else "Pause word switching", Modifier.size(18.dp))
                 }
@@ -139,7 +139,7 @@ import kotlinx.coroutines.delay
                             if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
                                 enabled = speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null),
                                 onClick = { if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen(); menu = false })
-                            if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
+                            if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
                                 onClick = { paused = !paused; revision++; menu = false })
                         }
                         if (onModeChange != null) ReadingMode.entries.forEach { value ->
@@ -148,7 +148,7 @@ import kotlinx.coroutines.delay
                                 onClick = { onModeChange(value); menu = false })
                         }
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
-                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
+                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
                         if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {

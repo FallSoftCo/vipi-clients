@@ -156,6 +156,7 @@ struct StableImmersionText: UIViewRepresentable {
     let onSelection: (Bool) -> Void
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     func makeCoordinator() -> Coordinator { Coordinator() }
     func makeUIView(context: Context) -> ImmersionTextContainer {
         let container = ImmersionTextContainer(frame: .zero)
@@ -206,7 +207,9 @@ struct StableImmersionText: UIViewRepresentable {
         }
         view.accessibilityLabel = view.visibleText()
         view.accessibilityValue = view.visibleText()
-        view.accessibilityHint = "Words switch automatically. Pause holds the current words. Reading options changes the pace or script."
+        view.accessibilityHint = voiceOver
+            ? "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script."
+            : "Words switch automatically. Pause holds the current words. Reading options changes the pace or script."
         view.accessibilityCustomActions = result.spans.map { word in
             UIAccessibilityCustomAction(name: "Switch \(word.original) and \(word.displayedTarget)") { _ in onWord(word.id); return true }
         }

@@ -71,7 +71,11 @@ async def main(args):
                 caption = fields.get("CaptionTextValue_v1")
                 element = fields.get("ElementValue_v1", {})
                 key = element.get("PlatformElementValue_v1")
-                print(json.dumps({"caption": caption, "element": element}, default=serializable), flush=True)
+                matched = args.find is None or args.find.casefold() in str(caption).casefold()
+                if matched:
+                    print(json.dumps({"caption": caption, "element": element}, default=serializable), flush=True)
+                    if args.find is not None:
+                        return
                 if key is None:
                     await service.move_focus_next()
                     continue
@@ -92,13 +96,15 @@ async def main(args):
                     return
                 previous = caption
                 await service.move_focus_next()
-            if args.press:
-                raise RuntimeError("Exact observed caption/context was not found")
+            if args.press or args.find:
+                raise RuntimeError("Requested caption/context was not found")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--udid", required=True)
-    parser.add_argument("--press")
+    actions = parser.add_mutually_exclusive_group()
+    actions.add_argument("--press")
+    actions.add_argument("--find", help="Read-only caption substring lookup; never activates an element")
     parser.add_argument("--after")
     asyncio.run(main(parser.parse_args()))
