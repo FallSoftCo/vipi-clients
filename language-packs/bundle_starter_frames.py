@@ -25,6 +25,8 @@ def collect_references(path, identity):
     with sqlite3.connect(path) as db:
         for (evidence,) in db.execute('SELECT evidence FROM mappings ORDER BY id'):
             record = json.loads(evidence)['record']
+            if record['usage'].get('whole_reference') is False:
+                continue
             grouped_references.setdefault((identity, record['source_context']), set()).add(record['target_context'])
 for pair in build['pairs']:
     identity = pair['pack_id']

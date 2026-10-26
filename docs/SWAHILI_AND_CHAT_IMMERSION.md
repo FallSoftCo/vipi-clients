@@ -1,6 +1,18 @@
 # Swahili and conversation immersion
 
-Updated 2026-10-26, 16:30 Eastern. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
+Updated 2026-10-26. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
+
+## Latest qualified expansion: bundle 012
+
+Thirty-two everyday noun senses now have 8,320 explicit written-form unit mappings across all 110 directions. Together with the earlier compounds there are 8,980 units and 20,903 author-assessed records. Bundle 012 contains 110,944,256 SQLite bytes; catalog SHA 7944cbc776b15abb7fcd8d0a45d0e600f835ee30692c7ab3e0a5b5a676754f82. The 10,615 whole references are unchanged: case-adjusted unit carriers explicitly have whole_reference:false. Two Arabic apostrophe spellings were reconciled by a separate content-bound assessment. Grammar outside the focus and the runtime ambiguity checks remain intact.
+
+Physical iPad catalog 012 passes in 58.938s with 10,798 spans. Android catalog 011 passes in 55.754s with 10,782 spans. Both exercise every unit and verify 364 shared Latin spellings remain unchanged. Native comparison 003 against bundle 008 loses no messages and gains 24. The engines preserve a qualified complete compound before applying the density budget, preventing a new nested noun from fragmenting “train ticket.” Swift core passes 19 XCTest plus 26 Swift Testing cases; Python passes 67 tests, including the new training-source parser. iPhone chat 041 passes ten tests in 349.105s; Android chat 009 passes two in 43.019s.
+
+AfriWOZ run 007 reaches 385/2,410 directed cases with immersion (16.0%), 413 spans, no exact-reference shortcuts and no identifier abstentions. Median/p95 translation plus alignment: 140.047/271.401ms. Report SHA 8b5db34860433a1d5bd9e59a71eb5e3084e1f010dc07a0b20a6c33153707f78e. Spontaneous Swahili run 003 reaches 8/1,910 automatic cases (one distinct turn) and 24/1,910 explicit-Swahili cases (four distinct turns). Report SHA 7379d5c5e222b2d0f102b7804da5f4b33aea55070c69c935b28eed41612551a7. The automatic path prepares 495 cases, including 25 reverse-language inputs. These are availability measurements, not independent correctness or majority coverage.
+
+The [original AfriSenti repository](https://github.com/afrisenti-semeval/afrisent-semeval-2023), pinned at 5aec3cfcf87b59f885e98641f72e52182776429d, supplies a separate 1,810-row Swahili training TSV. SHA 1f06cb668d1c115a844704b5ffaec3e6168eabf1bd15657e3faf99a42e682152. Its retained original README specifies CC BY 4.0; the Hugging Face mirror's inconsistent header is recorded. No validation/test text was acquired. prioritize_social_swahili.py excludes handles, hashtags, URLs and numeric fragments before counting windows, retaining all native analyses. It finds 3,558 evidence-linked windows and writes an explicitly unapproved 400-item queue, SHA 8b02640cd19aa48dc1f798ebdf09d1e45f3f3cc2b2c3b19235e933b485d9f396. No social post becomes an app reference automatically.
+
+The next time/social batch remains under qualification. Its first static audit found shared source forms for time/weather in four Romance languages and message/news in Chinese. All 272 affected new source units were quarantined before app promotion; existing exact contexts remain. The details below retain earlier qualification history and limits.
 
 ## Current behavior
 

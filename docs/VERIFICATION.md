@@ -2,7 +2,15 @@
 
 Updated 2026-10-26. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
-## Swahili and actual chat immersion — 2026-10-26, 16:30 Eastern
+## Current bundle 012 qualification — 2026-10-26
+
+Physical iPad catalog 012 passes in 58.938s: 110 directions, 10,615 references, 10,798 selected spans, 8,980 complete lexical units and 364 identical Latin forms intentionally left unchanged. Android catalog 011 passes in 55.754s with the same cases and 10,782 spans. Native comparison 003 against frozen bundle 008 reports no lost messages and 24 gained messages. Python passes 67 tests after adding the training-only social authoring queue; Swift core passes 19 XCTest and 26 Swift Testing cases. Whole compounds remain preferred to their nested nouns at beginner density.
+
+iPhone simulator chat 041 passes all ten tests in 349.105s. Android chat 009 passes both tests in 43.019s; run 008 had reused the default output revision and stopped at the receipt-exists guard, not a UI assertion. Current AfriWOZ 007 has 385/2,410 cases with immersion, 413 spans and no identifier abstentions. Spontaneous Swahili 003 has 8 automatic and 24 explicitly selected Swahili cases with immersion out of 1,910. These availability measurements are still well below broad useful coverage; semantic accuracy remains unmeasured independently.
+
+The next time/social candidate bundle 013 was withheld after the static audit found time/weather and Chinese message/news collisions. The incremental ledger quarantines 272 source units. No installed app was promoted to that rejected bundle. Exact source, assessments and audit receipts remain retained.
+
+## Earlier Swahili and actual chat immersion — 2026-10-26, 16:30 Eastern
 
 Swahili is integrated into both native clients’ selection, previews, local translation, speech and actual conversation immersion. Bundle 010 contains 10,615 complete references over 110 directions and 71,712,768 SQLite bytes. Physical iPad and Android catalog 009 pass all references and 660 complete-compound cases, selecting 10,399 spans. Content-bound author assessments cover the expanded request constructions and complete compounds; they are not independent linguistic acceptance.
 

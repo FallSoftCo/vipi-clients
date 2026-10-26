@@ -196,10 +196,18 @@ public struct ImmersionEngine: Sendable {
             a.span.range.length == b.span.range.length ? a.span.range.location < b.span.range.location : a.span.range.length > b.span.range.length
         }
         let wordCount = max(1, sourceTokenCount ?? matches(#"[\p{L}\p{M}]+"#, in: original).count)
+        // Prefer the qualified complete compound to its nested noun even
+        // when a low density would otherwise fit only the shorter fragment.
+        let complete = unambiguous.filter { child in !unambiguous.contains { parent in
+            entries[parent.entry].sourceScope != nil && entries[parent.entry].targetScope != nil &&
+                parent.span.range.length > child.span.range.length &&
+                NSIntersectionRange(parent.span.range, child.span.range) == child.span.range &&
+                NSIntersectionRange(parent.targetRange, child.targetRange) == child.targetRange
+        } }
         let budget = max(1, Int(Double(wordCount) * min(density, 1)))
         var selected: [ImmersionSpan] = []
         var usedWords = 0
-        for candidate in unambiguous {
+        for candidate in complete {
             let count = max(1, matches(#"[\p{L}\p{M}]+"#, in: candidate.span.original).count)
             guard usedWords + count <= budget,
                   !selected.contains(where: { NSIntersectionRange($0.range, candidate.span.range).length > 0 }) else { continue }
@@ -209,7 +217,7 @@ public struct ImmersionEngine: Sendable {
         // Keep one complete vocabulary item when a low density rounds below
         // its word count. Only candidates that passed every meaning check
         // above participate; zero density still exits before this point.
-        if selected.isEmpty, let smallest = unambiguous.min(by: { a, b in
+        if selected.isEmpty, let smallest = complete.min(by: { a, b in
             let left = max(1, matches(#"[\p{L}\p{M}]+"#, in: a.span.original).count)
             let right = max(1, matches(#"[\p{L}\p{M}]+"#, in: b.span.original).count)
             return left == right ? a.span.range.location < b.span.range.location : left < right

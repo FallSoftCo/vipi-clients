@@ -1,0 +1,16 @@
+{
+  "schema":"vipi-authored-frame-assessment-1",
+  "reviewer":"Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind":"author_assessment",
+  "records_sha256":"6a8b60c737b7f05ddc20f29aeacd619eee3ce23eecf1744d2624c190b0e09d8a",
+  "authoring_source_sha256":"43234a29166a2c8c664333dcc584791a7a2be9f119ec9f2d6b3e39e60921f348",
+  "records":37,
+  "scope":"Exactly 37 Arabic-target frame/unit records for ماء and مطعم normalize the existing curly apostrophe to the straight apostrophe already used by their equivalent authored records.",
+  "decisions":{
+    "reading":"mā’ and mā' represent the same authored practical reading of ماء; maṭ’am and maṭ'am represent the same authored practical reading of مطعم. Only the apostrophe typography changes. This is not a change in vowel, consonant, word boundary, native form or pronunciation model.",
+    "unchanged":"All source/target text, spans, case variants, sense descriptions, patterns, reference eligibility and lexical-unit permissions remain byte-for-byte unchanged. The broader everyday-unit scope remains bound to its separate assessment. Native conflicting-reading checks are not weakened.",
+    "provenance":"A static comparison of the frozen candidate packs found these two duplicate spellings before native promotion. Only the pinned authored export is read. No evaluation conversation supplied wording, and this is not independent linguistic acceptance."
+  },
+  "checks":{"meaning":"pass","usage":"pass","grammar_scope":"pass","context_frame_scope":"pass","lexical_unit_scope":"pass","provenance":"pass"},
+  "release_ready":false
+}

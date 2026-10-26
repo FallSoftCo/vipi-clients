@@ -6,6 +6,19 @@ import org.junit.Test
 
 class ImmersionTest {
     private val engine = ImmersionEngine()
+    @Test fun assessedCompoundKeepsItsNestedNounAtBeginnerDensity() {
+        val source="I need a train ticket.";val target="Ninahitaji tiketi ya treni."
+        val start=source.indexOf("train ticket");val end=target.indexOf("tiketi ya treni")
+        val whole=VocabularyEntry("train ticket",listOf("tiketi ya treni"),
+            sourceScope=VocabularySourceScope(source,start,start+12),
+            targetScope=VocabularyTargetScope(target,end,end+15))
+        val noun=VocabularyEntry("train",listOf("treni"))
+        val result=engine.align(source,target,listOf(whole,noun),0.25)
+        assertEquals(listOf("train ticket"),result.spans.map{it.original})
+        assertEquals("I need a tiketi ya treni.",result.speech("en","sw").joinToString(""){it.text})
+        assertEquals(listOf("train"),engine.align(source,target,listOf(noun),0.25).spans.map{it.original})
+        assertTrue(engine.align(source,target,listOf(whole,noun),0.0).spans.isEmpty())
+    }
     @Test fun lowDensityKeepsAnAtomicPhraseWithoutBypassingMeaningOrOffSetting() {
         val entry = VocabularyEntry("train ticket", listOf("tiketi ya treni"))
         val source = "I need a train ticket."

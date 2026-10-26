@@ -99,10 +99,18 @@ class ImmersionEngine {
                 lookupKey(it.source) == lookupKey(candidate.entry.source) && candidate.target !in claims.getValue(it).second
             } }
             .sortedWith(compareByDescending<Candidate> { it.span.end - it.span.start }.thenBy { it.span.start })
+        // A qualified whole compound owns its nested nouns on both sides.
+        // A small density budget must not turn "train ticket" into "treni ticket".
+        val complete = unique.filter { child -> unique.none { parent ->
+            parent.entry.sourceScope != null && parent.entry.targetScope != null &&
+                parent.span.end-parent.span.start > child.span.end-child.span.start &&
+                parent.span.start <= child.span.start && parent.span.end >= child.span.end &&
+                parent.target.first <= child.target.first && parent.target.last >= child.target.last
+        } }
         val budget = maxOf(1, ((sourceTokenCount ?: words.findAll(original).count()) * density.coerceAtMost(1.0)).toInt())
         var used = 0
         val selected = mutableListOf<ImmersionSpan>()
-        for (candidate in unique) {
+        for (candidate in complete) {
             val count = maxOf(1, words.findAll(candidate.span.original).count())
             if (used + count > budget || selected.any { overlaps(it.start until it.end, candidate.span.start until candidate.span.end) }) continue
             selected += candidate.span
@@ -112,7 +120,7 @@ class ImmersionEngine {
         // If every approved item exceeds the rounded budget, expose just the
         // smallest one. All context, ambiguity and reading checks run above.
         if (selected.isEmpty()) {
-            unique.minWithOrNull(compareBy<Candidate> { maxOf(1, words.findAll(it.span.original).count()) }
+            complete.minWithOrNull(compareBy<Candidate> { maxOf(1, words.findAll(it.span.original).count()) }
                 .thenBy { it.span.start })?.let { selected += it.span }
         }
         return ImmersionResult(original, translation, selected.sortedBy { it.start })

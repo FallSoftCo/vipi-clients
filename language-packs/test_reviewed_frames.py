@@ -3,12 +3,16 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
+import subprocess
+import sys
+import json
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import hashes
 from mapping_catalog import Catalog,digest
 from export_reviewed_contexts import compile_record as exact_record
 from export_reviewed_frames import compile_record,export_pair
 from test_mapping_catalog import record,review
+from build_wiktextract import canonical
 
 
 def frame():
@@ -69,6 +73,23 @@ class ReviewedFrameTests(unittest.TestCase):
                 with self.assertRaises(ValueError):catalog.review(missing)
                 catalog.review(value['assessments'][0])
             finally:catalog.close()
+
+    def test_lexical_carrier_cannot_silently_become_a_whole_translation(self):
+        value=frame();row=value['record'];row['usage']['whole_reference']=False
+        value['sha256']=digest(row);value['assessments']=[review(row)]
+        value['assessments'][0]['checks']['context_frame_scope']='pass'
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); signed=root/'signed';signed.mkdir()
+            manifest=export_pair([value],'en','es',signed/'en-es',1,ec.generate_private_key(ec.SECP256R1()),
+                'synthetic',{'records_sha256':'a'*64,'through_sequence':1})
+            (signed/'receipt.json').write_text(canonical({'schema':'vipi-reviewed-frame-build-1','pairs':[manifest]}))
+            subprocess.run([sys.executable,str(Path(__file__).with_name('bundle_starter_frames.py')),
+                '--input',str(signed),'--output',str(root/'bundle')],check=True,capture_output=True)
+            bundle=json.loads((root/'bundle/catalog.json').read_text())
+            self.assertEqual(len(bundle['packs']),1)
+            self.assertEqual(bundle['references'],[])
+            row['usage']['whole_reference']='false'
+            with self.assertRaises(ValueError):compile_record(value)
 
 
 if __name__=='__main__':unittest.main()

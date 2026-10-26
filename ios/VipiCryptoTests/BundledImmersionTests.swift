@@ -53,9 +53,9 @@ final class BundledImmersionTests: XCTestCase {
         let ticket = try await catalog.result(original: "I need a train ticket.", translation: "Ninahitaji tiketi ya treni.", pair: pair, density: 0.25)
         XCTAssertEqual(ticket.speech(source: "en", target: "sw").map(\.text).joined(), "I need a tiketi ya treni.")
         let unsupportedNegative = try await catalog.result(original: "We are not sending an email tonight.", translation: "Hatutumi barua pepe leo usiku.", pair: pair, density: 1)
-        XCTAssertTrue(unsupportedNegative.spans.isEmpty)
+        XCTAssertEqual(unsupportedNegative.speech(source:"en",target:"sw").map(\.text).joined(),"We are not sending an barua pepe tonight.")
         let pastNeed = try await catalog.result(original: "We needed a phone charger before dinner.", translation: "Tulihitaji chaja ya simu kabla ya chakula cha jioni.", pair: pair, density: 1)
-        XCTAssertEqual(pastNeed.speech(source: "en", target: "sw").map(\.text).joined(), "We needed a chaja ya simu before dinner.")
+        XCTAssertEqual(pastNeed.speech(source: "en", target: "sw").map(\.text).joined(), "We needed a chaja ya simu before chakula cha jioni.")
         let help = try await catalog.result(original: "Nahitaji msaada sasa.", translation: "I need help now.", pair: .init(source: "sw", target: "en"), density: 1)
         XCTAssertEqual(help.speech(source: "sw", target: "en").map(\.text).joined(), "Nahitaji help sasa.")
         let address = try await catalog.result(original: "I need a memory address.", translation: "Ninahitaji anwani ya kumbukumbu.", pair: pair, density: 1)
@@ -71,8 +71,8 @@ final class BundledImmersionTests: XCTestCase {
         let french = try await catalog.result(original: "Je voudrais un numéro de téléphone.", translation: "Ningependa nambari ya simu.", pair: .init(source: "fr", target: "sw"), density: 1)
         XCTAssertEqual(french.speech(source: "fr", target: "sw").map(\.text).joined(), "Je voudrais un nambari ya simu.")
         let unsupportedNeed = try await catalog.result(original: "Sihitaji maji.", translation: "I do not need water.", pair: .init(source: "sw", target: "en"), density: 1)
-        XCTAssertTrue(unsupportedNeed.spans.isEmpty)
-        var units=0
+        XCTAssertEqual(unsupportedNeed.speech(source:"sw",target:"en").map(\.text).joined(),"Sihitaji water.")
+        var units=0, unchanged=0
         for pairID in pairs.sorted() {
             let codes=pairID.split(separator:"-").map(String.init), unitPair=TranslationPair(source:codes[0],target:codes[1])
             var db:OpaquePointer?
@@ -88,28 +88,49 @@ final class BundledImmersionTests: XCTestCase {
                 if row["lexical_unit"] as? Bool == true {
                     let source=try XCTUnwrap(row["source"] as? String),target=try XCTUnwrap(row["target"] as? String)
                     let result=try await catalog.result(original:source+".",translation:target+".",pair:unitPair,density:1)
-                    XCTAssertEqual(result.spans.count,1,pairID+":"+source)
-                    XCTAssertEqual(result.spans.first?.original,source)
-                    XCTAssertEqual(result.speech(source:codes[0],target:codes[1]).map(\.text).joined(),target+".")
+                    if source.caseInsensitiveCompare(target) == .orderedSame && !["ar","zh","ja","ko"].contains(codes[1]) {
+                        XCTAssertTrue(result.spans.isEmpty,"Identical written words need no artificial flip")
+                        XCTAssertEqual(result.speech(source:codes[0],target:codes[1]).map(\.text).joined(),source+".")
+                        unchanged+=1
+                    } else {
+                        XCTAssertEqual(result.spans.count,1,pairID+":"+source)
+                        XCTAssertEqual(result.spans.first?.original,source)
+                        XCTAssertEqual(result.speech(source:codes[0],target:codes[1]).map(\.text).joined(),target+".")
+                    }
                     units+=1
                 }
                 status=sqlite3_step(statement)
             }
             XCTAssertEqual(status,SQLITE_DONE)
         }
-        XCTAssertEqual(units,660)
+        XCTAssertEqual(units,8980)
         let shared=try await catalog.result(original:"Send the phone number.",translation:"Tuma nambari ya simu.",pair:pair,density:1)
         XCTAssertEqual(shared.speech(source:"en",target:"sw").map(\.text).joined(),"Send the nambari ya simu.")
         for (left,right) in [("phone numbers.","nambari ya simu."),("phone number.","ufunguo wa mlango."),
                              ("phone number; phone number.","nambari ya simu."),("phone number.","nambari yangu ya simu.")] {
             let rejected=try await catalog.result(original:left,translation:right,pair:pair,density:1)
-            XCTAssertTrue(rejected.spans.isEmpty)
+            XCTAssertFalse(rejected.spans.contains { $0.original.contains("number") }, "No unsupported complete phone-number unit")
         }
         let existingPhone=try await catalog.result(original:"What is your phone number?",translation:"Nambari ya simu yako ni ipi?",pair:pair,density:1)
         XCTAssertEqual(existingPhone.speech(source:"en",target:"sw").map(\.text).joined(),"What is your Nambari ya simu?")
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-009.json")
+        for (left,right,expected,source,target) in [
+            ("Do you like this music?","Je, unapenda muziki huu?","Do you like this muziki?","en","sw"),
+            ("Hatuna pesa leo.","We have no money today.","Hatuna money leo.","sw","en"),
+            ("Muziki huu ni mzuri.","This music is good.","music huu ni mzuri.","sw","en")] {
+            let result=try await catalog.result(original:left,translation:right,pair:.init(source:source,target:target),density:1)
+            XCTAssertEqual(result.speech(source:source,target:target).map(\.text).joined(),expected)
+            XCTAssertEqual(result.original,left)
+        }
+        let caseReference=try await catalog.reference(original:"music.",pair:pair)
+        XCTAssertNil(caseReference,"Lexical case examples cannot become whole translations")
+        for (left,right) in [("music and music","muziki"),("book the taxi","weka nafasi ya teksi"),
+                            ("music","filamu"),("https://example.test/music","muziki")] {
+            let result=try await catalog.result(original:left,translation:right,pair:pair,density:1)
+            XCTAssertTrue(result.spans.isEmpty)
+        }
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-012.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
-        try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"compound_units":units,
+        try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"lexical_units":units,"unchanged_latin_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])
             .write(to: output, options: .withoutOverwriting)
     }

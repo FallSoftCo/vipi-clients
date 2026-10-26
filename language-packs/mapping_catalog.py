@@ -78,6 +78,8 @@ def validate(record):
         raise ValueError('Meaning required')
     if not isinstance(record.get('usage'),dict):
         raise ValueError('Usage evidence required')
+    if 'whole_reference' in record['usage'] and type(record['usage']['whole_reference']) is not bool:
+        raise ValueError('Whole-reference eligibility must be explicit')
     validate_pattern(record)
     validate_frames(record)
     provenance=record.get('provenance')

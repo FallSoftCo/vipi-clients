@@ -50,9 +50,9 @@ class BundledImmersionDeviceTest {
         assertEquals("We are looking for a hoteli nearby.", plural.speech("en", "sw").joinToString("") { it.text })
         val ticket = catalog.result("I need a train ticket.", "Ninahitaji tiketi ya treni.", "en", "sw", 0.25)
         assertEquals("I need a tiketi ya treni.", ticket.speech("en", "sw").joinToString("") { it.text })
-        assertTrue(catalog.result("We are not sending an email tonight.", "Hatutumi barua pepe leo usiku.", "en", "sw", 1.0).spans.isEmpty())
+        assertEquals("We are not sending an barua pepe tonight.", catalog.result("We are not sending an email tonight.", "Hatutumi barua pepe leo usiku.", "en", "sw", 1.0).speech("en","sw").joinToString(""){it.text})
         val pastNeed = catalog.result("We needed a phone charger before dinner.", "Tulihitaji chaja ya simu kabla ya chakula cha jioni.", "en", "sw", 1.0)
-        assertEquals("We needed a chaja ya simu before dinner.", pastNeed.speech("en", "sw").joinToString("") { it.text })
+        assertEquals("We needed a chaja ya simu before chakula cha jioni.", pastNeed.speech("en", "sw").joinToString("") { it.text })
         val help = catalog.result("Nahitaji msaada sasa.", "I need help now.", "sw", "en", 1.0)
         assertEquals("Nahitaji help sasa.", help.speech("sw", "en").joinToString("") { it.text })
         assertTrue("A postal address is not a memory address", catalog.result("I need a memory address.", "Ninahitaji anwani ya kumbukumbu.", "en", "sw", 1.0).spans.isEmpty())
@@ -64,8 +64,8 @@ class BundledImmersionDeviceTest {
         assertNull("Never transplant a need reference into a want sentence", catalog.reference("I want water now.", "en", "sw"))
         val french = catalog.result("Je voudrais un numéro de téléphone.", "Ningependa nambari ya simu.", "fr", "sw", 1.0)
         assertEquals("Je voudrais un nambari ya simu.", french.speech("fr", "sw").joinToString("") { it.text })
-        assertTrue(catalog.result("Sihitaji maji.", "I do not need water.", "sw", "en", 1.0).spans.isEmpty())
-        var units=0
+        assertEquals("Sihitaji water.",catalog.result("Sihitaji maji.", "I do not need water.", "sw", "en", 1.0).speech("sw","en").joinToString(""){it.text})
+        var units=0;var unchanged=0
         for(pair in pairs.sorted()) {
             val (sourceLanguage,targetLanguage)=pair.split("-")
             val temporary=File.createTempFile("compound-qa-", ".sqlite",context.cacheDir)
@@ -77,26 +77,46 @@ class BundledImmersionDeviceTest {
                             val row=JSONObject(cursor.getString(0));if(!row.optBoolean("lexical_unit"))continue
                             val source=row.getString("source");val target=row.getString("target")
                             val result=catalog.result("$source.","$target.",sourceLanguage,targetLanguage,1.0)
-                            assertEquals("$pair:$source",1,result.spans.size)
-                            assertEquals(source,result.spans.single().original)
-                            assertEquals("$target.",result.speech(sourceLanguage,targetLanguage).joinToString(""){it.text})
+                            if(source.equals(target,ignoreCase=true) && targetLanguage !in setOf("ar","zh","ja","ko")) {
+                                assertTrue("Identical written words need no artificial flip",result.spans.isEmpty())
+                                assertEquals("$source.",result.speech(sourceLanguage,targetLanguage).joinToString(""){it.text})
+                                unchanged++
+                            } else {
+                                assertEquals("$pair:$source",1,result.spans.size)
+                                assertEquals(source,result.spans.single().original)
+                                assertEquals("$target.",result.speech(sourceLanguage,targetLanguage).joinToString(""){it.text})
+                            }
                             units++
                         }
                     }
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(660,units)
+        assertEquals(8980,units)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
             "phone number; phone number." to "nambari ya simu.","phone number." to "nambari yangu ya simu."))
-            assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
+            assertTrue("No unsupported complete phone-number unit",catalog.result(left,right,"en","sw",1.0).spans.none { it.original.contains("number") })
         val existingPhone=catalog.result("What is your phone number?","Nambari ya simu yako ni ipi?","en","sw",1.0)
         assertEquals("What is your Nambari ya simu?",existingPhone.speech("en","sw").joinToString(""){it.text})
-        val output = File(context.filesDir, "bundled-immersion-009.json"); check(!output.exists())
+        for((left,right,expected) in listOf(
+            Triple("Do you like this music?","Je, unapenda muziki huu?","Do you like this muziki?"),
+            Triple("Hatuna pesa leo.","We have no money today.","Hatuna money leo."),
+            Triple("Muziki huu ni mzuri.","This music is good.","music huu ni mzuri."))) {
+            val reverse=left.startsWith("Hatuna") || left.startsWith("Muziki")
+            val source=if(reverse) "sw" else "en";val target=if(reverse) "en" else "sw"
+            val result=catalog.result(left,right,source,target,1.0)
+            assertEquals(expected,result.speech(source,target).joinToString(""){it.text})
+            assertEquals(left,result.original)
+        }
+        assertNull("Lexical case examples cannot become whole translations",catalog.reference("music.","en","sw"))
+        for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
+            "music" to "filamu", "https://example.test/music" to "muziki"))
+            assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
+        val output = File(context.filesDir, "bundled-immersion-011.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
-            .put("compound_units",units)
+            .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
     }
 }

@@ -1,6 +1,20 @@
 import Foundation
 import Testing
 @testable import VipiCore
+@Test func assessedCompoundKeepsItsNestedNounAtBeginnerDensity() {
+    let source="I need a train ticket.", target="Ninahitaji tiketi ya treni."
+    let a=(source as NSString).range(of:"train ticket"), b=(target as NSString).range(of:"tiketi ya treni")
+    let whole=VocabularyEntry(source:"train ticket",targets:["tiketi ya treni"],
+        sourceScope:.init(original:source,start:a.location,end:NSMaxRange(a)),
+        targetScope:.init(translation:target,start:b.location,end:NSMaxRange(b)))
+    let noun=VocabularyEntry(source:"train",targets:["treni"])
+    let engine=ImmersionEngine()
+    let result=engine.align(original:source,translation:target,entries:[whole,noun],density:0.25)
+    #expect(result.spans.map(\.original)==["train ticket"])
+    #expect(result.speech(source:"en",target:"sw").map(\.text).joined()=="I need a tiketi ya treni.")
+    #expect(engine.align(original:source,translation:target,entries:[noun],density:0.25).spans.map(\.original)==["train"])
+    #expect(engine.align(original:source,translation:target,entries:[whole,noun],density:0).spans.isEmpty)
+}
 @Test func lowDensityKeepsAtomicPhrasesWithoutBypassingMeaningOrOffSetting() {
     let engine = ImmersionEngine()
     let entry = VocabularyEntry(source: "train ticket", targets: ["tiketi ya treni"])
