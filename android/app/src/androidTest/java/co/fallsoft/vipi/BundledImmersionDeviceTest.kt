@@ -93,8 +93,8 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(16036,units)
-        assertEquals(472,unchanged)
+        assertEquals(21582,units)
+        assertEquals(592,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
@@ -116,10 +116,31 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-013.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-015.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
+    }
+    @Test fun peopleUnitsPreserveNumberAndExcludeAmbiguousSourceForms() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val catalog = BundledImmersionCatalog(context)
+        val original = "I did not see the children."
+        val value = catalog.result(original, "Sikuwaona watoto.", "en", "sw", 1.0)
+        assertEquals(original, value.original)
+        assertEquals("I did not see the watoto.", value.speech("en", "sw").joinToString("") { it.text })
+        val reverse = catalog.result("Sikumwona mtoto.", "I did not see the child.", "sw", "en", 1.0)
+        assertEquals("Sikumwona child.", reverse.speech("sw", "en").joinToString("") { it.text })
+        for ((left, right, source, target) in listOf(
+            listOf(original, "Sikumwona mtoto.", "en", "sw"),
+            listOf("Mtoto.", "Children.", "sw", "en"),
+            listOf("Personne.", "Hakuna mtu.", "fr", "sw"),
+            listOf("هل هي أختها أم أمها؟", "Is she her sister or her mother?", "ar", "en"),
+            listOf("عالم يدرس العالم.", "A scholar studies the world.", "ar", "en")
+        )) {
+            val rejected = catalog.result(left, right, source, target, 1.0)
+            assertTrue("Do not borrow a different number or ambiguous source noun: $source:$left", rejected.spans.isEmpty())
+        }
+        assertNull("A noun carrier is not a whole-sentence translation", catalog.reference("children.", "en", "sw"))
     }
     @Test fun shortGreetingsAndNamesakeUseLocalReferencesInBothDirections() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext

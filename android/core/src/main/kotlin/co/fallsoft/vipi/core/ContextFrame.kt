@@ -43,6 +43,14 @@ object ContextFrameMatcher {
             if(focus in blocked || group.map{it.first.meaning}.distinct().size!=1)emptyList()
             else group.mapNotNull { (frame,targetFocus) ->
                 targetFocus?.let { range ->
+                    // A tokenizer may split a listed plural suffix (子ども + たち).
+                    // For the same source focus and assessed sense, preserve the
+                    // complete approved target unit. Separate occurrences and
+                    // conflicting meanings/readings still use the normal guards.
+                    if (frame.lexicalUnit && group.any { (other, parent) ->
+                        other.lexicalUnit && parent != null && parent != range &&
+                            parent.first <= range.first && parent.last >= range.last
+                    }) return@let null
                     val word=translation.substring(range)
                     VocabularyEntry(original.substring(focus),listOf(word),if(frame.reading.isEmpty())emptyMap() else mapOf(word to listOf(frame.reading)),
                         sourceScope=VocabularySourceScope(original,focus.first,focus.last+1),

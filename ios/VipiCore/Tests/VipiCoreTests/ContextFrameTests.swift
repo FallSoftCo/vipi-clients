@@ -70,4 +70,29 @@ final class ContextFrameTests:XCTestCase {
             sourceParts:[.literal("my "),.focus("phone number")],targetParts:[.focus("número de teléfono")],lexicalUnit:true)
         XCTAssertTrue(result([hit(malformed)]).isEmpty)
     }
+    func testCompletePluralTargetKeepsItsSuffixWithoutResolvingOtherAmbiguities() {
+        let source="children", target="子どもたち"
+        func hit(_ id:String,_ word:String,_ reading:String,_ meaning:String="human children",_ start:Int=0) -> ContextFrameHit {
+            .init(frame:.init(id:id,meaning:meaning,sourceLanguage:"en",targetLanguage:"ja",sourceParts:[.focus(source)],
+                              targetParts:[.focus(word)],reading:reading,lexicalUnit:true),
+                  sourceWindows:[NSRange(location:0,length:source.utf16.count)],targetWindows:[NSRange(location:start,length:word.utf16.count)])
+        }
+        func entries(_ text:String,_ hits:[ContextFrameHit]) -> [VocabularyEntry] {
+            ContextFrameMatcher.entries(original:source,translation:text,source:"en",target:"ja",hits:hits)
+        }
+        func result(_ text:String,_ hits:[ContextFrameHit]) -> ImmersionResult {
+            ImmersionEngine().align(original:source,translation:text,entries:entries(text,hits),density:1,targetLanguage:"ja")
+        }
+        let short=hit("short","子ども","kodomo"), full=hit("full",target,"kodomotachi")
+        let aligned=result(target,[short,full])
+        XCTAssertEqual(aligned.spans.map(\.translated),[target]);XCTAssertEqual(aligned.spans.first?.romanization,"kodomotachi")
+        XCTAssertTrue(entries(target,[short,hit("other",target,"kodomotachi","another meaning")]).isEmpty)
+        XCTAssertTrue(result(target,[short,full,hit("reading-conflict",target,"different")]).spans.isEmpty)
+        let separate="子ども 子どもたち", second=hit("second",target,"kodomotachi","human children",4)
+        XCTAssertTrue(result(separate,[short,second]).spans.isEmpty)
+        let repeated=ContextFrameHit(frame:short.frame,sourceWindows:short.sourceWindows,
+            targetWindows:[NSRange(location:0,length:3),NSRange(location:4,length:3)])
+        XCTAssertTrue(entries(separate,[repeated,second]).isEmpty)
+    }
+
 }

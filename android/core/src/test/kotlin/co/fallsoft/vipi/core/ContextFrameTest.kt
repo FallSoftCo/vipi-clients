@@ -55,4 +55,24 @@ class ContextFrameTest {
         val malformed=unit(true).copy(sourceParts=listOf(ContextPart.Literal("my "),ContextPart.Focus("phone number")))
         assertTrue(result(listOf(hit(malformed))).isEmpty())
     }
+    @Test fun completePluralTargetKeepsItsSuffixWithoutResolvingOtherAmbiguities() {
+        val source="children"; val target="子どもたち"
+        fun hit(id:String,word:String,reading:String,meaning:String="human children",start:Int=0) = ContextFrameHit(
+            ContextFrame(id,meaning,"en","ja",listOf(ContextPart.Focus(source)),listOf(ContextPart.Focus(word)),reading,true),
+            listOf(source.indices),listOf(start until start+word.length))
+        fun entries(text:String,hits:List<ContextFrameHit>)=ContextFrameMatcher.entries(source,text,"en","ja",hits)
+        val short=hit("short","子ども","kodomo"); val full=hit("full",target,"kodomotachi")
+        val values=entries(target,listOf(short,full))
+        val result=ImmersionEngine().align(source,target,values,1.0,"ja")
+        assertEquals(listOf(target),result.spans.map{it.translated})
+        assertEquals("kodomotachi",result.spans.single().romanization)
+        assertTrue(entries(target,listOf(short,full.copy(frame=full.frame.copy(meaning="another meaning")))).isEmpty())
+        val disagree=hit("reading-conflict",target,"different")
+        assertTrue(ImmersionEngine().align(source,target,entries(target,listOf(short,full,disagree)),1.0,"ja").spans.isEmpty())
+        val separate="子ども 子どもたち"
+        val second=hit("second",target,"kodomotachi",start=4)
+        assertTrue(ImmersionEngine().align(source,separate,entries(separate,listOf(short,second)),1.0,"ja").spans.isEmpty())
+        assertTrue(entries(separate,listOf(short.copy(targetWindows=listOf(0..2,4..6)),second)).isEmpty())
+    }
+
 }

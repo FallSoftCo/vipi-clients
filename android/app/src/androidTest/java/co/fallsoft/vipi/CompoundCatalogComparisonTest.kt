@@ -36,7 +36,7 @@ class CompoundCatalogComparisonTest {
             repeat(files.length()) {i->val item=files.getJSONObject(i)
                 assertEquals(item.getString("sha256"),hash(File(baseline,item.getString("id")+suffix+".sqlite").readBytes()))}
         }
-        val output=File(context.filesDir,"compound-catalog-comparison-005.json");check(!output.exists())
+        val output=File(context.filesDir,"compound-catalog-comparison-007.json");check(!output.exists())
         val catalog=BundledImmersionCatalog(context);val changes=JSONArray()
         var beforeCount=0;var afterCount=0;var lost=0;var gained=0
         val grouped=(0 until rows.length()).map{rows.getJSONObject(it)}.groupBy{it.getString("pair")}

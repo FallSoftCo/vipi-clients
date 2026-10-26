@@ -103,8 +103,8 @@ final class BundledImmersionTests: XCTestCase {
             }
             XCTAssertEqual(status,SQLITE_DONE)
         }
-        XCTAssertEqual(units,16036)
-        XCTAssertEqual(unchanged,472)
+        XCTAssertEqual(units,21582)
+        XCTAssertEqual(unchanged,592)
         let shared=try await catalog.result(original:"Send the phone number.",translation:"Tuma nambari ya simu.",pair:pair,density:1)
         XCTAssertEqual(shared.speech(source:"en",target:"sw").map(\.text).joined(),"Send the nambari ya simu.")
         for (left,right) in [("phone numbers.","nambari ya simu."),("phone number.","ufunguo wa mlango."),
@@ -129,11 +129,32 @@ final class BundledImmersionTests: XCTestCase {
             let result=try await catalog.result(original:left,translation:right,pair:pair,density:1)
             XCTAssertTrue(result.spans.isEmpty)
         }
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-014.json")
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-015.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"lexical_units":units,"unchanged_latin_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])
             .write(to: output, options: .withoutOverwriting)
+    }
+    func testPeopleUnitsPreserveNumberAndExcludeAmbiguousSourceForms() async throws {
+        let catalog = BundledImmersionCatalog()
+        let original = "I did not see the children."
+        let value = try await catalog.result(original: original, translation: "Sikuwaona watoto.", pair: .init(source: "en", target: "sw"), density: 1)
+        XCTAssertEqual(value.original, original)
+        XCTAssertEqual(value.speech(source: "en", target: "sw").map(\.text).joined(), "I did not see the watoto.")
+        let reverse = try await catalog.result(original: "Sikumwona mtoto.", translation: "I did not see the child.", pair: .init(source: "sw", target: "en"), density: 1)
+        XCTAssertEqual(reverse.speech(source: "sw", target: "en").map(\.text).joined(), "Sikumwona child.")
+        for (left, right, source, target) in [
+            (original, "Sikumwona mtoto.", "en", "sw"),
+            ("Mtoto.", "Children.", "sw", "en"),
+            ("Personne.", "Hakuna mtu.", "fr", "sw"),
+            ("هل هي أختها أم أمها؟", "Is she her sister or her mother?", "ar", "en"),
+            ("عالم يدرس العالم.", "A scholar studies the world.", "ar", "en")
+        ] {
+            let rejected = try await catalog.result(original: left, translation: right, pair: .init(source: source, target: target), density: 1)
+            XCTAssertTrue(rejected.spans.isEmpty, "Do not borrow a different number or ambiguous source noun: " + source + ":" + left)
+        }
+        let reference = try await catalog.reference(original: "children.", pair: .init(source: "en", target: "sw"))
+        XCTAssertNil(reference, "A noun carrier is not a whole-sentence translation")
     }
     @MainActor func testShortGreetingsAndNamesakeUseLocalReferencesInBothDirections() async throws {
         let owner = ConversationImmersion()

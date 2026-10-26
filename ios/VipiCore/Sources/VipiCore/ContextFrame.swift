@@ -62,6 +62,13 @@ public enum ContextFrameMatcher {
             guard !blocked.contains(focus),Set(group.map{$0.0.meaning}).count==1 else {continue}
             for (frame,targetFocus) in group {
                 guard let targetFocus else {continue}
+                // Native tokenization can split a listed plural suffix. Within
+                // this one source focus and assessed sense, retain the complete
+                // approved target unit before normal ambiguity checks.
+                if frame.lexicalUnit && group.contains(where: { other, parent in
+                    guard other.lexicalUnit, let parent, parent != targetFocus else { return false }
+                    return parent.location <= targetFocus.location && NSMaxRange(parent) >= NSMaxRange(targetFocus)
+                }) { continue }
                 let word=(translation as NSString).substring(with:targetFocus)
                 let entry=VocabularyEntry(source:(original as NSString).substring(with:focus),targets:[word],
                     romanizations:frame.reading.isEmpty ? [:] : [word:[frame.reading]],

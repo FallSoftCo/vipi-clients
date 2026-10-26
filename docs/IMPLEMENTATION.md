@@ -4,7 +4,9 @@ Every gate needs a retained command/build/device receipt. A screenshot proves ap
 
 ## Current verified state — 2026-10-26
 
-Latest catalog: bundle 015, 27,959 author-assessed records, 16,036 complete lexical units and 12,575 exact references across all 110 directions, including Swahili. Android catalog 013 and physical iPad 014 pass; all prior references remain unchanged. Both clients verify 410 exact whole-sentence readings. iPhone full chat 044 and physical iPad 009 each pass eleven tests; Android chat 010 passes three. New long-greeting wrapping is separately qualified on iPhone 046, iPad 011 and Android, with 110-direction layout matrices on both platforms. AfriWOZ availability rises to 693/2,410 cases; spontaneous Swahili remains 23 automatic / 50 explicit cases out of 1,910. Broad coverage, independent precision, VoiceOver interaction and speech listening acceptance remain open. The verification ledger records exact versions and does not equate authored catalog size with general-chat coverage.
+Latest catalog is bundle 016: 33,505 author-assessed records and 21,582 lexical units with unchanged 12,575 whole references. Android catalog 015 and physical iPad 015 pass all 110 directions, including number/negative safeguards and the complete Japanese plural resolution. Fresh coverage reaches 830/2,410 AfriWOZ cases and 45 automatic / 97 explicit cases out of 1,910 spontaneous Swahili cases. This remains below majority conversation coverage. The Android language-management screen is being qualified.
+
+Previous catalog checkpoint: bundle 015, 27,959 author-assessed records, 16,036 complete lexical units and 12,575 exact references across all 110 directions, including Swahili. Android catalog 013 and physical iPad 014 pass; all prior references remain unchanged. Both clients verify 410 exact whole-sentence readings. iPhone full chat 044 and physical iPad 009 each pass eleven tests; Android chat 010 passes three. New long-greeting wrapping is separately qualified on iPhone 046, iPad 011 and Android, with 110-direction layout matrices on both platforms. AfriWOZ availability rises to 693/2,410 cases; spontaneous Swahili remains 23 automatic / 50 explicit cases out of 1,910. Broad coverage, independent precision, VoiceOver interaction and speech listening acceptance remain open. The verification ledger records exact versions and does not equate authored catalog size with general-chat coverage.
 
 The subsequent physical iPad full chat suite 012 passes twelve tests on bundle 015 (264.064s). Android chat 011 and actual TalkBack 012 pass, including hiding inactive switching controls and restoring them after the service stops. Physical VoiceOver remains unaccepted: direct service-state evidence invalidated a quiet-screen false positive. Settings/notification cleanup and closed device-control forwards are documented in VERIFICATION.md.
 
@@ -45,8 +47,8 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 - [ ] Production multilingual pack compilation, contextual reading generation and held-out meaning/coverage evaluation.
 - [x] Real conversation component integration, cancellation/language-change lifecycle, composition pause, full translation and simulator light/dark accessibility checks. Synthetic transport is explicit.
 - [x] Incoming learning-language normalization, per-message language override, immutable copy original and long-history immersion scrolling in native qualification.
-- [x] Exact whole-sentence Latin readings for 307 authored Arabic/Chinese/Japanese/Korean references; unknown sentences still abstain.
-- [ ] Complete voice recovery/listening acceptance, physical conversation interaction and the remaining full-history accessibility findings.
+- [x] Exact whole-sentence Latin readings for 410 authored Arabic/Chinese/Japanese/Korean references; unknown sentences still abstain.
+- [ ] Complete voice recovery/listening acceptance and physical VoiceOver interaction; the physical chat suite and earlier-page insertion now pass.
 
 ## Store readiness review — 2026-10-24
 

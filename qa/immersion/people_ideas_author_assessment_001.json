@@ -1,0 +1,22 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "8538df83257b159981ea3b8df9e1b4cd7b7e9882f3ab47d95ed118c81ee1414f",
+  "authoring_source_sha256": "62a670244e2af604d07308afe2dcbb75568e61e8c3ed4145c4d98df6f931df9c",
+  "records": 5546,
+  "scope": "Eleven everyday noun concepts, eighteen explicitly written number groups, and all 110 directions in aggregate. Listed aliases and initial-case forms only. Every carrier has whole_reference:false.",
+  "decisions": {
+    "meaning": "Human person/people, child/children, mother, father, family, name, idea, reason, example, world and narrative story. The listed native forms express those ordinary senses. Actual complete counterparts are required on both sides; bare retrieval alone cannot create immersion. Story/history, reason/ground and other lexical polysemy remain limitations of local translation and alignment, not independently resolved senses.",
+    "usage": "Only complete nouns are replaced. Surrounding pronouns, determiners, negation, possessors and other wording remain untouched. The Arabic forms listed here omit attached articles and possessors; none is inferred. A family mapping uses the exact existing family sense identity, without promoting the previously excluded possessed Arabic family form.",
+    "lexical_unit_scope": "Both complete native forms must appear uniquely in the actual local whole translation. Repeated or competing alignments, invalid native boundaries and protected text still abstain. These assessed nouns do not authorize verbs or generic grammar transformations. No loose stemming or dictionary-wide permission is introduced.",
+    "source_exclusions": "French singular personne is withheld because it can be the negative pronoun nobody. Arabic أم is withheld as a source because it also acts as a conjunction; عالم is withheld as a source because it can denote a scholar. A target noun elsewhere in the paragraph cannot resolve these source roles. They remain target forms where the source noun is explicit. Positive source uses need separately assessed frames.",
+    "number": "Singular/plural groups pair only with their own corresponding semantic group. Children cannot borrow mtoto, and mtoto cannot borrow children. Listed Chinese/Japanese/Korean/Swahili forms may leave number unmarked. Gente is explicitly included as a grammatical collective denoting people; no general number or agreement rule is inferred. Mother and father remain singular; family is collective.",
+    "readings": "Every listed Arabic, Chinese, Japanese and Korean target has its own practical Latin reading. Chinese neutral syllables, Japanese compound readings and Korean plural suffixes are written explicitly. Native scripts remain the TTS input. This is text author review, not acoustic acceptance or IPA certification.",
+    "whole_references": "No one-word carrier is approved as a complete message translation. All 12,575 existing whole references must remain identical, with no new reference created by this batch. Existing sentence readings remain unchanged.",
+    "evidence": "Project-authored common noun forms and explicit number alternatives. The separate AfriSenti training-only priority queue informs vocabulary priority, including mtu/watu; no AfriWOZ evaluation or reserved Liva utterance supplied authoring. No unreviewed dictionary row is imported as an approved mapping.",
+    "qualification": "Require static whole-reference preservation, all database hashes and source-sense/reading conflict checks; both native readers; plural/singular mismatch and ambiguous source abstention regressions; then fresh aggregate availability probes. Author review does not establish independent precision, broad coverage, intermediate fluency or release readiness. Newly observed meaning failures must be corrected or quarantined rather than relaxed away."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "lexical_unit_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}
