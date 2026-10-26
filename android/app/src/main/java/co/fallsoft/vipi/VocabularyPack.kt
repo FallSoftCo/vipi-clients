@@ -6,6 +6,7 @@ import android.util.AtomicFile
 import co.fallsoft.vipi.core.VocabularyEntry
 import co.fallsoft.vipi.core.ImmersionEngine
 import co.fallsoft.vipi.core.ContextMappingMatcher
+import co.fallsoft.vipi.core.VocabularySourceScope
 import org.json.JSONObject
 import java.io.File
 import java.security.KeyFactory
@@ -110,14 +111,30 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
             require(manifest.getInt("schema_version")==5)
             val source=manifest.getString("source_language");val target=manifest.getString("target_language")
             SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
-                val mappings=mutableListOf<co.fallsoft.vipi.core.ContextMapping>()
-                db.rawQuery("SELECT m.payload FROM context_inputs i JOIN mappings m ON m.id=i.mapping_id WHERE i.input=? ORDER BY m.id LIMIT 257",arrayOf(text)).use { cursor ->
-                    while (cursor.moveToNext()) {
-                        mappings+=ReviewedContextRecord.mapping(cursor.getString(0),source,target)
-                        require(mappings.size<=256)
+                fun lookup(input:String):List<co.fallsoft.vipi.core.ContextMapping> {
+                    val mappings=mutableListOf<co.fallsoft.vipi.core.ContextMapping>()
+                    db.rawQuery("SELECT m.payload FROM context_inputs i JOIN mappings m ON m.id=i.mapping_id WHERE i.input=? ORDER BY m.id LIMIT 257",arrayOf(input)).use { cursor ->
+                        while (cursor.moveToNext()) {
+                            mappings+=ReviewedContextRecord.mapping(cursor.getString(0),source,target)
+                            require(mappings.size<=256)
+                        }
+                    }
+                    return mappings
+                }
+                val whole=lookup(text)
+                // Never replace ambiguous whole-message evidence with a match
+                // from a smaller context.
+                if(whole.isNotEmpty())return ContextMappingMatcher.entries(text,source,target,whole)
+                val entries=mutableListOf<VocabularyEntry>();var matched=0
+                for(sentence in LocalImmersion.sentences(text,source).filter{it!=text.indices}) {
+                    val fragment=text.substring(sentence);val mappings=lookup(fragment);matched+=mappings.size
+                    if(matched>256)return emptyList()
+                    for(entry in ContextMappingMatcher.entries(fragment,source,target,mappings)) {
+                        val scope=requireNotNull(entry.sourceScope);require(scope.original==fragment)
+                        entries+=entry.copy(sourceScope=VocabularySourceScope(text,sentence.first+scope.start,sentence.first+scope.end))
                     }
                 }
-                return ContextMappingMatcher.entries(text,source,target,mappings)
+                return entries
             }
         }
         val rawTerms = candidateTerms(text, manifest.getString("source_language"))

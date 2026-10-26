@@ -4,7 +4,43 @@ import NaturalLanguage
 import VipiCore
 
 enum LocalImmersion {
+    /// Complete native sentence boundaries only; no approximate phrase windows.
+    static func sentences(_ text:String,language:String) -> [NSRange] {
+        let tokenizer=NLTokenizer(unit:.sentence)
+        tokenizer.string=text;tokenizer.setLanguage(language=="zh" ? .simplifiedChinese : .init(rawValue:language))
+        var ranges:[NSRange]=[]
+        tokenizer.enumerateTokens(in:text.startIndex..<text.endIndex) { range,_ in
+            var a=range.lowerBound,b=range.upperBound
+            while a<b && text[a].isWhitespace {a=text.index(after:a)}
+            while a<b && text[text.index(before:b)].isWhitespace {b=text.index(before:b)}
+            if a<b {ranges.append(NSRange(a..<b,in:text))}
+            return ranges.count<=128
+        }
+        // Never keep a truncated prefix as if it represented the whole message.
+        return ranges.count<=128 ? ranges : []
+    }
     static func words(_ text: String, language: String) -> [NSRange] {
+        if language == "ko" {
+            // Apple's Korean tokenizer stops after standalone punctuation,
+            // e.g. "안녕하세요 🙂. 시간이 더 필요해요.". Tokenize each
+            // whitespace-delimited eojeol natively so punctuation cannot hide
+            // the remaining message. Never split an eojeol into guessed stems.
+            let chunks = try! NSRegularExpression(pattern: #"\S+"#)
+            return chunks.matches(in:text,range:NSRange(location:0,length:text.utf16.count)).flatMap { chunk -> [NSRange] in
+                let fragment=(text as NSString).substring(with:chunk.range)
+                let tokenizer=NLTokenizer(unit:.word)
+                tokenizer.string=fragment;tokenizer.setLanguage(.korean)
+                var ranges:[NSRange]=[]
+                tokenizer.enumerateTokens(in:fragment.startIndex..<fragment.endIndex) { range,_ in
+                    if fragment[range].unicodeScalars.contains(where:{CharacterSet.letters.contains($0)}) {
+                        let local=NSRange(range,in:fragment)
+                        ranges.append(NSRange(location:chunk.range.location+local.location,length:local.length))
+                    }
+                    return true
+                }
+                return ranges
+            }
+        }
         // NLTokenizer can omit the Japanese portion of mixed Japanese/English
         // text. Core Foundation's explicit locale retains those boundaries.
         if language == "ja" || language == "zh" {

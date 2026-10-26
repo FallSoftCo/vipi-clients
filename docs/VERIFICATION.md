@@ -2,6 +2,16 @@
 
 Updated 2026-10-25. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
+## Reviewed contexts in paragraphs — 2026-10-25
+
+Native indexed lookup now tries exact whole-message contexts first, then exact complete sentences with original UTF-16 offsets. It never retrieves arbitrary substrings or truncates an overflowing shortlist. Repeated translated words still abstain; protected code, unrelated fragments, pack removal and overflow controls pass.
+
+Android `reviewed-context-paragraph-build-001.log` passed the core suite and both APK builds. `reviewed-context-paragraph-android-001.log` passed the native test in 36.093 seconds. Receipt `reviewed-context-android-002.json` SHA-256 `5c6c9d465d7418df28db761200577d8c74c16cf84c122685f80cc70465b88691` contains 3,582 original and assembled paragraph cases: 3,564 mappings and 2,996 cases with immersion in each form.
+
+Physical iPad run `ipad-reviewed-contexts-003` exposed 314 lost substitutions, chiefly Korean. Apple's Korean word tokenizer stops after standalone punctuation, reproduced on Mac as well. Korean now uses the native word tokenizer within each whitespace-delimited eojeol, retaining original offsets and never guessing stems. Run `ipad-reviewed-contexts-004` passed in 16.715 seconds, including explicit emoji/standalone-punctuation regressions. Receipt `reviewed-context-apple-003.json` SHA-256 `20fe2be0be645acce8548ddead180a6d50ee735fa3ea4d9fba59f1e3e9faff35` contains the same 3,582 cases, 3,564 mappings and 3,250 immersion cases in both forms. Failed run 003 and its receipt remain retained.
+
+Each paragraph combines a greeting with a previously captured sentence translation. This qualifies sentence scope, lexical boundaries and unchanged surrounding speech text; it does not qualify live paragraph translation, arbitrary conversational meaning, general chat integration or release readiness.
+
 | Check | Result | Evidence / limits |
 |---|---|---|
 | AWS CLI | Passed after user login | CLI 2.34.11; STS and Route 53 Domains/DNS verified. Credentials remain outside source. |
