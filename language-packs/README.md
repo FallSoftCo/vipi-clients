@@ -97,7 +97,19 @@ Schema 6 is a separate pack kind and rollback namespace. `export_reviewed_frames
 
 The compiler enumerates finite variants into `source_inputs` and `target_inputs`, with full provenance and assessments in `mappings.evidence`. Native clients query exact word windows inside sentence boundaries. They bound each window to eight words/256 UTF-16 units, the complete scan to 4,096 windows and matching records to 256; overflow withholds substitutions. The same mapping must match both messages. Repeated/competing scopes and contradictory meanings abstain, including a source-side contradiction whose target phrase was absent. Generic dictionary decoding cannot grant these ephemeral scopes.
 
-`authored_phrase_frames.py` starts with four everyday constructions across all 90 directions. Author assessments are explicit and content-bound; these are development examples, not held-out linguistic acceptance. Korean case/topic particles belong to matching context but never the displayed lexical focus. A qualified shared ideograph can retain its required target reading and speech language even when its written form is unchanged.
+`authored_phrase_frames.py` now contains 18 everyday constructions across all 90 directions, including the separate activity definitions in `authored_activity_frames.py`. Author assessments are explicit and content-bound; these are development examples, not held-out linguistic acceptance. Korean case/topic particles belong to matching context but never the displayed lexical focus. A qualified shared ideograph can retain its required target reading and speech language even when its written form is unchanged.
+
+### Native source evidence
+
+`build_source_guards.py` retains Chinese Han headwords and explicit simplified/traditional variants from the pinned ten-language native extraction, independently of English-pivot translations. It supplies no new translations. A known larger lexeme blocks generic substitutions of its interior; multiple native dictionary analyses withhold the generic whole-form mapping. Only the separately assessed, message-bound context path can resolve that uncertainty. The index preserves original selection lines, headwords, POS, glosses, tags and source hashes. Shared-character entries tagged `mul`, inferred variants and other languages are excluded.
+
+```sh
+python3 language-packs/build_source_guards.py --source vendor-research/dictionaries/wiktextract-20261021/ten-languages.jsonl.gz --output artifacts/native-source-guards-NEW
+```
+
+Pass its `source-guards.sqlite` to `export_bilingual.py --source-guards`. Chinese-source packs include a compact exact-lookup table and the complete index hash. Their schema remains 4, but context policy becomes `all-source-senses-native-guards-veto-4`: old clients reject it rather than silently ignoring the new protection. Both current native installers require the guard policy and metadata to agree. The guard is negative evidence, not vocabulary or a meaning-accuracy certificate. Lookup retains the existing bounded token windows; it does not infer arbitrary segmentation.
+
+The first 214,727-form index and Chinese→English pack 010 pass both native platforms. They withhold three known Android errors but reduce strict availability to 32/200 messages on each platform. Broader deployment remains unpromoted; exact source evidence and reviewed contextual recovery are both needed. See CONVERSATION_COVERAGE.md and VERIFICATION.md.
 
 ```sh
 python3 language-packs/mapping_catalog.py export-reviewed --catalog artifacts/mapping-catalog-001/catalog.sqlite --extent local_phrase --output artifacts/reviewed-frame-export-NEW

@@ -28,12 +28,16 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
     public let sourceScope: VocabularySourceScope?
     public let targetForms: [VocabularyTargetForm]
     public let targetScope: VocabularyTargetScope?
-    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false, sourceScope: VocabularySourceScope? = nil, targetForms: [VocabularyTargetForm] = [], targetScope: VocabularyTargetScope? = nil) {
+    public let protectInner: Bool
+    public let unresolvedNativeSenses: Bool
+    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false, sourceScope: VocabularySourceScope? = nil, targetForms: [VocabularyTargetForm] = [], targetScope: VocabularyTargetScope? = nil, protectInner: Bool = false, unresolvedNativeSenses: Bool = false) {
         self.source = source; self.targets = targets; self.romanizations = romanizations; self.contextHints = contextHints
         self.requiresContext = requiresContext
         self.sourceScope = sourceScope
         self.targetForms = targetForms
         self.targetScope = targetScope
+        self.protectInner = protectInner
+        self.unresolvedNativeSenses = unresolvedNativeSenses
     }
     private enum CodingKeys: String, CodingKey { case source, targets, romanizations, contextHints, requiresContext }
     public init(from decoder: Decoder) throws {
@@ -46,6 +50,8 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
         sourceScope = nil
         targetForms = []
         targetScope = nil
+        protectInner = false
+        unresolvedNativeSenses = false
     }
 }
 
@@ -128,6 +134,15 @@ public struct ImmersionEngine: Sendable {
             let sourceMatches = claims[index].source
             guard sourceMatches.count == 1, let range = sourceMatches.first,
                   !protected.contains(where: { NSIntersectionRange($0, range).length > 0 }) else { continue }
+            // Native source evidence survives a missing pivot translation.
+            // Explicitly assessed scopes are qualified separately.
+            if entry.sourceScope == nil && entries.enumerated().contains(where: { offset, guardEntry in
+                claims[offset].source.contains { whole in
+                    (guardEntry.unresolvedNativeSenses && whole == range) ||
+                    (guardEntry.protectInner && whole.location <= range.location &&
+                     NSMaxRange(whole) >= NSMaxRange(range) && whole != range)
+                }
+            }) { continue }
             // More than one viable sense, or repeated target occurrences, abstains.
             let targetMatches = claims[index].target
             guard targetMatches.count == 1, let targetRange = targetMatches.first,

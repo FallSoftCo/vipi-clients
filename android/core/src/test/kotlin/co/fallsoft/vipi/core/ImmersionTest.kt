@@ -6,6 +6,24 @@ import org.junit.Test
 
 class ImmersionTest {
     private val engine = ImmersionEngine()
+    @Test fun nativeSourceEvidenceProtectsUnmappedCompoundsAndOmittedSenses() {
+        val blue=VocabularyEntry("蓝",listOf("blue"))
+        val herb=VocabularyEntry("板蓝根",emptyList(),protectInner=true)
+        val bounds=setOf(0,1,2,3)
+        assertEquals(1,engine.align("板蓝根","blue root",listOf(blue),1.0,sourceBoundaries=bounds).spans.size)
+        assertTrue(engine.align("板蓝根","blue root",listOf(blue,herb),1.0,sourceBoundaries=bounds).spans.isEmpty())
+        // A known whole-word mapping remains possible; nearby compounds do not
+        // suppress an independent color occurrence.
+        val whole=VocabularyEntry("板蓝根",listOf("herb"))
+        assertEquals(1,engine.align("板蓝根","herb",listOf(whole,herb),1.0,sourceBoundaries=bounds).spans.size)
+        assertEquals(1,engine.align("蓝 板蓝根","blue herb",listOf(blue,herb),1.0,sourceBoundaries=setOf(0,1,2,5)).spans.size)
+        val moon=VocabularyEntry("满月",listOf("full moon"))
+        val ambiguity=VocabularyEntry("满月",emptyList(),protectInner=true,unresolvedNativeSenses=true)
+        assertTrue(engine.align("满月","full moon",listOf(moon,ambiguity),1.0).spans.isEmpty())
+        // Only the separately reviewed, message-bound path can resolve it.
+        val assessed=moon.copy(sourceScope=VocabularySourceScope("满月",0,2))
+        assertEquals(1,engine.align("满月","full moon",listOf(assessed,ambiguity),1.0).spans.size)
+    }
     @Test fun nativeWordBoundariesSupportUnspacedScriptsWithoutPartialMatches() {
         val entry = VocabularyEntry("coffee", listOf("咖啡"), mapOf("咖啡" to listOf("kafei")))
         val result = engine.align("Want coffee?", "明天喝咖啡。", listOf(entry), 1.0, "zh", targetBoundaries = setOf(0, 2, 3, 5))

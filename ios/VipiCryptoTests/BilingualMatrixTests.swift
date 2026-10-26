@@ -89,7 +89,8 @@ final class BilingualMatrixTests: XCTestCase {
                 }
                 var row: [String: Any] = ["id": sample.id, "original": sample.original, "translation": sample.translation,
                     "reference": sample.reference.map { $0 as Any } ?? NSNull(),
-                    "status": "executed", "candidate_senses": entries.count, "lookup_alignment_ms": milliseconds(start),
+                    "status": "executed", "candidate_senses": entries.filter { !$0.protectInner && !$0.unresolvedNativeSenses }.count,
+                    "native_source_guards": entries.filter { $0.protectInner || $0.unresolvedNativeSenses }.count, "lookup_alignment_ms": milliseconds(start),
                     "source_words": words(sample.original, pair.source), "target_words": words(sample.translation, pair.target),
                     "spans": result.spans.map { span -> [String: Any] in ["start": span.range.location, "end": NSMaxRange(span.range),
                         "original": span.original, "translated": span.translated, "reading": span.romanization.map { $0 as Any } ?? NSNull(),
@@ -101,7 +102,8 @@ final class BilingualMatrixTests: XCTestCase {
                     // Research-only comparison, never an application display policy.
                     let candidates = LocalImmersion.align(original: sample.original, translation: sample.translation,
                         entries: entries.map { VocabularyEntry(source: $0.source, targets: $0.targets,
-                            romanizations: $0.romanizations, contextHints: $0.contextHints, requiresContext: false) },
+                            romanizations: $0.romanizations, contextHints: $0.contextHints, requiresContext: false,
+                            protectInner: $0.protectInner, unresolvedNativeSenses: $0.unresolvedNativeSenses) },
                         density: 1.0, source: pair.source, target: pair.target)
                     row["context_candidates"] = candidates.spans.map { span -> [String: Any] in
                         ["start": span.range.location, "end": NSMaxRange(span.range), "original": span.original,

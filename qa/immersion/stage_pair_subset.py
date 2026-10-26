@@ -25,7 +25,10 @@ def main(a):
             pair=source+'-'+target;folder=a.packs/pair
             data=(folder/'manifest.json').read_bytes();manifest=json.loads(data)
             key.verify((folder/'manifest.sig').read_bytes(),data,ec.ECDSA(hashes.SHA256()))
-            if manifest['pack_id']!=pair or manifest['schema_version']!=4 or manifest['context_policy']!='all-source-senses-veto-3':raise ValueError('Wrong pack policy')
+            if manifest['pack_id']!=pair or manifest['schema_version']!=4 or manifest['context_policy'] not in ('all-source-senses-veto-3','all-source-senses-native-guards-veto-4'):raise ValueError('Wrong pack policy')
+            guarded=manifest['context_policy']=='all-source-senses-native-guards-veto-4'
+            if guarded != ('native_source_guard_policy' in manifest):raise ValueError('Guard policy must not be silently ignored')
+            if guarded and (source!='zh' or manifest['native_source_guard_policy']!='attested-native-han-lexeme-and-polysemy-veto-1'):raise ValueError('Wrong native guard policy')
             if manifest['key_id']!='bilingual-qualification-'+a.run:raise ValueError('Wrong fixture key ID')
             if sha_file(folder/'vocabulary.sqlite')!=manifest['sha256']:raise ValueError('Pack checksum mismatch')
             if (folder/'vocabulary.sqlite').stat().st_size!=manifest['bytes']:raise ValueError('Pack size mismatch')

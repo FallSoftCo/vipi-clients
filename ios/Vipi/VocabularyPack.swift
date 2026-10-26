@@ -16,6 +16,8 @@ struct VocabularyManifest: Codable, Sendable {
     let key_id: String
     let signature_algorithm: String
     let context_policy: String?
+    let native_source_guard_policy: String?
+    let native_source_guard_sha256: String?
 }
 
 enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage }
@@ -63,7 +65,8 @@ actor VocabularyPackStore {
               (kind.reviewed ? manifest.normalization == "exact-utf16" :
                 (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version >= 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1"))),
               (kind.reviewed ? manifest.context_policy == kind.policy :
-                (manifest.schema_version == 4 ? manifest.context_policy == "all-source-senses-veto-3" : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2"))),
+                (manifest.schema_version == 4 ? ["all-source-senses-veto-3","all-source-senses-native-guards-veto-4"].contains(manifest.context_policy ?? "") : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2"))),
+              (manifest.context_policy == "all-source-senses-native-guards-veto-4") == (manifest.native_source_guard_policy != nil),
               manifest.file == (kind.reviewed ? kind.databaseFile : "vocabulary.sqlite"),
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
@@ -91,6 +94,15 @@ actor VocabularyPackStore {
                 return
             }
             guard try scalar(db,"SELECT source FROM vocabulary LIMIT 1") != nil else { throw VocabularyPackError.invalid }
+            if let policy=manifest.native_source_guard_policy {
+                guard manifest.schema_version==4,manifest.source_language=="zh",
+                      policy=="attested-native-han-lexeme-and-polysemy-veto-1",
+                      let guardHash=manifest.native_source_guard_sha256,
+                      try scalar(db,"SELECT value FROM metadata WHERE key='native_source_guard_policy'")==policy,
+                      try scalar(db,"SELECT value FROM metadata WHERE key='native_source_guard_sha256'")==guardHash,
+                      try scalar(db,"SELECT count(*) FROM source_guards WHERE length(source)<1 OR length(source)>32 OR protect_inner NOT IN (0,1) OR ambiguous NOT IN (0,1)")=="0"
+                else {throw VocabularyPackError.invalid}
+            }
             if manifest.schema_version >= 3 {
                 guard try scalar(db, "SELECT value FROM metadata WHERE key='schema'") == "vipi-bilingual-\(manifest.schema_version)",
                       try scalar(db, "SELECT source_url FROM senses LIMIT 1") != nil,
@@ -180,6 +192,7 @@ actor VocabularyPackStore {
             struct Group { var targets = Set<String>(); var readings: [String: Set<String>] = [:]; var hints = Set<String>() }
             var grouped: [LookupKey: Group] = [:]
             var meanings: [String: Set<String>] = [:]
+            var nativeGuards:[VocabularyEntry]=[]
             for offset in stride(from: 0, to: terms.count, by: 200) {
                 let batch = Array(terms[offset..<min(offset + 200, terms.count)])
                 let placeholders = Array(repeating: "?", count: batch.count).joined(separator: ",")
@@ -212,11 +225,27 @@ actor VocabularyPackStore {
                     result = sqlite3_step(statement)
                 }
                 guard result == SQLITE_DONE else { throw VocabularyPackError.storage }
+                if pointer.manifest.native_source_guard_policy=="attested-native-han-lexeme-and-polysemy-veto-1" {
+                    var guardStatement:OpaquePointer?
+                    guard sqlite3_prepare_v2(db,"SELECT source,protect_inner,ambiguous FROM source_guards WHERE source IN (\(placeholders))",-1,&guardStatement,nil)==SQLITE_OK else {throw VocabularyPackError.storage}
+                    defer {sqlite3_finalize(guardStatement)}
+                    for(index,term) in batch.enumerated() {
+                        guard sqlite3_bind_text(guardStatement,Int32(index+1),term,-1,unsafeBitCast(-1,to:sqlite3_destructor_type.self))==SQLITE_OK else {throw VocabularyPackError.storage}
+                    }
+                    var guardResult=sqlite3_step(guardStatement)
+                    while guardResult==SQLITE_ROW {
+                        guard let source=sqlite3_column_text(guardStatement,0) else {throw VocabularyPackError.invalid}
+                        nativeGuards.append(.init(source:String(cString:source),targets:[],protectInner:sqlite3_column_int(guardStatement,1)==1,
+                                                  unresolvedNativeSenses:sqlite3_column_int(guardStatement,2)==1))
+                        guardResult=sqlite3_step(guardStatement)
+                    }
+                    guard guardResult==SQLITE_DONE else {throw VocabularyPackError.storage}
+                }
             }
             return grouped.keys.sorted { ($0.source, $0.sense) < ($1.source, $1.sense) }.map { key in
                 let group = grouped[key]!
                 return VocabularyEntry(source: key.source, targets: group.targets.sorted(), romanizations: group.readings.mapValues { $0.sorted() }, contextHints: group.hints.sorted(), requiresContext: meanings[key.source, default: []].count > 1)
-            }
+            }+nativeGuards
         }
     }
 

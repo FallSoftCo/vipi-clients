@@ -1,6 +1,32 @@
 # Verification ledger
 
-Updated 2026-10-25. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
+Updated 2026-10-26. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
+
+## Native Chinese source evidence — 2026-10-26
+
+`build_source_guards.py` scans the exact pinned ten-language extraction, verifying its size and SHA before processing. It retains Chinese Han headwords and explicitly tagged simplified/traditional forms; no English-pivot translation is required. Original source lines, headwords, POS, glosses and tags remain in the index. The full native data contains 板藍根/板蓝根 and the baby-one-month senses of 滿月/满月, which were absent from the pair's translation candidates. Shared-character `mul` entries, inferred forms and other languages are deliberately excluded rather than assumed to be Chinese evidence.
+
+`native-source-guards-001/source-guards.sqlite` has 214,727 forms, 214,706 interior-boundary protections and 42,775 forms with multiple dictionary analyses. Size 113,606,656 bytes; SHA `c43c576107c23c01cb7272d58e8df0e514a2646508d65ddf4470154f90ea4065`; receipt SHA `5f51a7a87e6a32ef02abec05e3b2f8dd77142359e442eb2f83023084ded71153`. Compiler SHA `c210fd287ee0e2b5c687f2e8543dfd08be188c0d0ca703ba7008e60c35397f41`; scan/build 124.630 seconds. This is conservative negative evidence: dictionary analyses can be redundant or incomplete. It creates no approved translation and cannot recover an absent name such as 北航.
+
+Both native engines preserve larger known lexemes even when no target mapping exists, and withhold a generic whole-form substitution with unresolved native analyses. Explicitly assessed message-bound source scopes remain a separate path. Indexed lookup uses existing native word windows and a compact `source_guards` table. Installers bind the new `all-source-senses-native-guards-veto-4` policy to its guard metadata. Prior clients reject that value; they cannot silently ignore the new fields. Existing packs remain supported.
+
+Final Chinese→English pack is `artifacts/packs/bilingual-010`, 38,973,440 SQLite bytes. Manifest SHA `e4d8ebfc2bce96722f44adf9aa8ac4997283ef432a8f32b62a999cd8b361e323`; build receipt SHA `2c475451c7299549f0ac8adaa6a791e84dac21e5cff41783557846a04b0f6bb7`. Ephemeral qualification key only; no release trust changes. Initial pack 009 lacked the distinct context-policy value and is superseded. The first Android report also counted guard-only entries as candidate senses; the QA counter was corrected and rerun. Those earlier artifacts remain historical evidence, not the current result.
+
+`source-guard-probe-001` is an exact Chinese→English view of the original 200-message SMS corpus and each platform's own retained translation capture. No translation models were rerun. Final Android native test 003 passes in 5.585 seconds; physical iPad script `ipad-sms-pipeline-011` passes, with its xcresult retained on the Mac. The pack database hash and every changed iPad configuration were checked before testing; same-size file-copy success alone was not accepted as staging proof.
+
+| Same messages/translations | Android before → after | iPad before → after |
+| --- | ---: | ---: |
+| Dictionary candidate messages | 185 → 185 | 188 → 188 |
+| Strict spans | 58 → 38 | 57 → 37 |
+| Messages with strict immersion | 49 → 32 | 47 → 32 |
+| Research-only candidate messages | 144 → 88 | 151 → 94 |
+| Final lookup/alignment median / p95 | 10.698 / 39.967 ms | 3.670 / 8.601 ms |
+
+Current native report hashes: Android `853b18e9abd0ce34ff1f04613065568e8fa143ddae4da1098c37947463fb7817`; iPad `55a181207148a53d0003510e90e4e7af0edb2fbbdce5359e1239e4d3b3f64280`. Comparison hashes: Android `1eb2063b00471cee8d6e2cf9fd884d32be9bc57e5af3e16401ebb7a4960b13bf`; iPad `a5fa603d008406f92f4a3d6e7f83d9177930df23b5ac2ff529b3c3315fc92043`. Comparisons reject changed source text, target text, capture provenance or case sets.
+
+`source-guard-known-findings-001.json` binds the original author-assessed findings to the new Android report. Three of eight Chinese-source failures are withheld: `full moon` for a baby's first month, `blue` inside an herb name, and `home` replacing 在家 including its preposition. Five persist: registration 报, university-name 北, 给我 including a pronoun, 没有问题 including negation, and 从不 as grammar. Whole-message translations remain unchanged. Correct spans such as mahjong can also be withheld; this experiment reduces availability and is not promoted as a coverage improvement or meaning-accuracy rate.
+
+Tests pass: 62 Python language-pack tests (`source-guard-python-tests-002.log`); Android core and native APK builds (`source-guard-android-build-001/002/003.log`); Swift core, including 24 Swift Testing cases (`source-guard-swift-tests-001.log`); actual signed-pack replay on emulator and physical iPad. Guard-only QA entries retain their guards even in research-only relaxed selection. No backend, account, production language distribution or store state changed.
 
 ## XPersona and 18-construction native expansion — 2026-10-25
 

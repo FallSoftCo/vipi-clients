@@ -52,7 +52,8 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require(if (isReviewed) normalization == "exact-utf16" && manifest.getString("file") == reviewedFile
             else (normalization == "unicode-nfc-lower" || (schema >= 3 && normalization == "unicode-nfc-lower-arabic-harakat-v1")) && manifest.getString("file") == "vocabulary.sqlite")
         require(if (isReviewed) manifest.optString("context_policy") == reviewedPolicy
-            else if (schema == 4) manifest.optString("context_policy") == "all-source-senses-veto-3" else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
+            else if (schema == 4) manifest.optString("context_policy") in setOf("all-source-senses-veto-3","all-source-senses-native-guards-veto-4") else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
+        require((manifest.optString("context_policy")=="all-source-senses-native-guards-veto-4")==manifest.has("native_source_guard_policy"))
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
         require(database.copyOfRange(0, 16).contentEquals("SQLite format 3\u0000".toByteArray()))
         val previous = records.read(receiptPrefix + id)
@@ -79,6 +80,13 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                     return@use
                 }
                 db.rawQuery("SELECT source,target FROM vocabulary LIMIT 1", null).use { require(it.moveToFirst()) }
+                if(manifest.has("native_source_guard_policy")) {
+                    require(schema==4 && manifest.getString("source_language")=="zh" &&
+                        manifest.getString("native_source_guard_policy")=="attested-native-han-lexeme-and-polysemy-veto-1")
+                    for(field in listOf("native_source_guard_policy","native_source_guard_sha256"))
+                        db.rawQuery("SELECT value FROM metadata WHERE key=?",arrayOf(field)).use { require(it.moveToFirst() && it.getString(0)==manifest.getString(field)) }
+                    db.rawQuery("SELECT count(*) FROM source_guards WHERE length(source)<1 OR length(source)>32 OR protect_inner NOT IN (0,1) OR ambiguous NOT IN (0,1)",null).use {require(it.moveToFirst() && it.getInt(0)==0)}
+                }
                 if (schema >= 3) {
                     db.rawQuery("SELECT value FROM metadata WHERE key='schema'", null).use { require(it.moveToFirst() && it.getString(0) == "vipi-bilingual-$schema") }
                     db.rawQuery("SELECT source_url FROM senses LIMIT 1", null).use { require(it.moveToFirst()) }
@@ -161,6 +169,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         data class Group(val targets: MutableSet<String> = linkedSetOf(), val readings: MutableMap<String, MutableSet<String>> = linkedMapOf(), val hints: MutableSet<String> = linkedSetOf())
         val grouped = linkedMapOf<LookupKey, Group>()
         val meanings = mutableMapOf<String, MutableSet<String>>()
+        val nativeGuards=mutableListOf<VocabularyEntry>()
         SQLiteDatabase.openDatabase(File(root, filename).path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
             for (batch in terms.chunked(200)) {
                 val placeholders = batch.joinToString(",") { "?" }
@@ -183,11 +192,17 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                         meanings.getOrPut(cursor.getString(0)) { linkedSetOf() }.add(cursor.getString(1))
                     }
                 }
+                if(manifest.optString("native_source_guard_policy")=="attested-native-han-lexeme-and-polysemy-veto-1") {
+                    db.rawQuery("SELECT source,protect_inner,ambiguous FROM source_guards WHERE source IN ($placeholders)",batch.toTypedArray()).use { cursor ->
+                        while(cursor.moveToNext())nativeGuards+=VocabularyEntry(cursor.getString(0),emptyList(),
+                            protectInner=cursor.getInt(1)==1,unresolvedNativeSenses=cursor.getInt(2)==1)
+                    }
+                }
             }
         }
         return grouped.entries.sortedWith(compareBy({ it.key.source }, { it.key.sense })).map {
             VocabularyEntry(it.key.source, it.value.targets.sorted(), it.value.readings.mapValues { row -> row.value.sorted() }, it.value.hints.sorted(), (meanings[it.key.source]?.size ?: 0) > 1)
-        }
+        }+nativeGuards
     }
 
     @Synchronized fun remove(id: String) {

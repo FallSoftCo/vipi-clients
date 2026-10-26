@@ -147,7 +147,8 @@ class BilingualPipelineDeviceTest {
                                 val entries = store.entries(id, original)
                                 val result = LocalImmersion.align(original, translation, entries, 0.3, source, target)
                                 sample.put("lookup_alignment_ms", (SystemClock.elapsedRealtimeNanos() - lookup) / 1_000_000.0)
-                                sample.put("candidate_senses", entries.size).put("status", "executed")
+                                sample.put("candidate_senses", entries.count { !it.protectInner && !it.unresolvedNativeSenses })
+                                    .put("native_source_guards",entries.count { it.protectInner || it.unresolvedNativeSenses }).put("status", "executed")
                                 fun words(text: String, language: String) = JSONArray(LocalImmersion.words(text, language).map {
                                     JSONObject().put("text", text.substring(it)).put("start", it.first).put("end", it.last + 1)
                                 })

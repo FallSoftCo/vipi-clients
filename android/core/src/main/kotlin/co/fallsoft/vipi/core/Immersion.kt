@@ -6,7 +6,7 @@ data class VocabularySourceScope(val original: String, val start: Int, val end: 
 data class VocabularyTargetScope(val translation: String, val start: Int, val end: Int)
 /** Explicit lexical focus inside an attested target word, e.g. 시간 inside 시간이. */
 data class VocabularyTargetForm(val surface: String, val target: String, val start: Int, val end: Int)
-data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false, val sourceScope: VocabularySourceScope? = null, val targetForms: List<VocabularyTargetForm> = emptyList(), val targetScope: VocabularyTargetScope? = null)
+data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false, val sourceScope: VocabularySourceScope? = null, val targetForms: List<VocabularyTargetForm> = emptyList(), val targetScope: VocabularyTargetScope? = null, val protectInner: Boolean = false, val unresolvedNativeSenses: Boolean = false)
 data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String,
                          val targetStart: Int = 0, val targetEnd: Int = 0, val romanization: String? = null) {
     val id: Int get() = start
@@ -57,6 +57,15 @@ class ImmersionEngine {
             if (entry.source.isEmpty() || entry.source.length > 128) return@mapNotNull null
             val source = claims.getValue(entry).first.singleOrNull() ?: return@mapNotNull null
             if (protectedRanges.any { overlaps(it, source) }) return@mapNotNull null
+            // A missing target translation cannot dissolve a known source
+            // compound or erase native meanings omitted by a pivot dictionary.
+            // Explicitly assessed scopes are qualified separately.
+            if(entry.sourceScope==null && claims.any { (guard,claim) ->
+                claim.first.any { whole ->
+                    (guard.unresolvedNativeSenses && whole==source) ||
+                    (guard.protectInner && whole.first<=source.first && whole.last>=source.last && whole!=source)
+                }
+            }) return@mapNotNull null
             val targets = claims.getValue(entry).second
             val target = targets.singleOrNull() ?: return@mapNotNull null
             if (protectedTargetRanges.any { overlaps(it, target) }) return@mapNotNull null

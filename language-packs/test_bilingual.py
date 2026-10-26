@@ -54,6 +54,27 @@ class BilingualExportTests(unittest.TestCase):
         manifest = export_pair(self.catalog, source, target, output, 1, self.key, 'qa-only')
         return output, manifest
 
+    def test_native_guards_retain_unmapped_source_evidence_and_bind_provenance(self):
+        from build_source_guards import SCHEMA as GUARD_SCHEMA, POLICY
+        guards=self.root/'guards.sqlite'
+        with sqlite3.connect(guards) as db:
+            db.executescript(GUARD_SCHEMA)
+            db.executemany('INSERT INTO metadata VALUES (?,?)',[
+                ('schema','vipi-native-source-guards-1'),('language','zh'),
+                ('policy',POLICY),('upstream_sha256','synthetic-source')])
+            db.execute('INSERT INTO source_guards VALUES (?,?,?,?)',('板蓝根',1,0,'[]'))
+        folder=self.root/'guarded-zh-en'
+        manifest=export_pair(self.catalog,'zh','en',folder,9,self.key,'qa-only',source_guards=guards)
+        self.assertEqual(manifest['native_source_guard_policy'],POLICY)
+        self.assertEqual(manifest['context_policy'],'all-source-senses-native-guards-veto-4')
+        self.assertEqual(manifest['native_source_guard_sha256'],hashlib.sha256(guards.read_bytes()).hexdigest())
+        with sqlite3.connect(folder/'vocabulary.sqlite') as db:
+            self.assertEqual(db.execute('SELECT * FROM source_guards').fetchall(),[('板蓝根',1,0)])
+            self.assertEqual(db.execute("SELECT count(*) FROM vocabulary WHERE source='板蓝根'").fetchone()[0],0)
+        with sqlite3.connect(guards) as db:db.execute("UPDATE metadata SET value='wrong-source' WHERE key='upstream_sha256'")
+        with self.assertRaisesRegex(ValueError,'provenance'):
+            export_pair(self.catalog,'zh','en',self.root/'invalid-guard',10,self.key,'qa-only',source_guards=guards)
+
     def test_pivot_keeps_senses_and_rejects_unlabeled_cross_language(self):
         output, manifest = self.export('es', 'fr')
         with sqlite3.connect(output / 'vocabulary.sqlite') as db:

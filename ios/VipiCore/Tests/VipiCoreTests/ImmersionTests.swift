@@ -2,6 +2,22 @@ import Foundation
 import Testing
 @testable import VipiCore
 
+@Test func nativeSourceEvidenceProtectsUnmappedCompoundsAndOmittedSenses() {
+    let engine=ImmersionEngine()
+    let blue=VocabularyEntry(source:"蓝",targets:["blue"])
+    let herb=VocabularyEntry(source:"板蓝根",targets:[],protectInner:true)
+    #expect(engine.align(original:"板蓝根",translation:"blue root",entries:[blue],density:1,sourceBoundaries:[0,1,2,3]).spans.count == 1)
+    #expect(engine.align(original:"板蓝根",translation:"blue root",entries:[blue,herb],density:1,sourceBoundaries:[0,1,2,3]).spans.isEmpty)
+    let whole=VocabularyEntry(source:"板蓝根",targets:["herb"])
+    #expect(engine.align(original:"板蓝根",translation:"herb",entries:[whole,herb],density:1,sourceBoundaries:[0,1,2,3]).spans.count == 1)
+    #expect(engine.align(original:"蓝 板蓝根",translation:"blue herb",entries:[blue,herb],density:1,sourceBoundaries:[0,1,2,5]).spans.count == 1)
+    let moon=VocabularyEntry(source:"满月",targets:["full moon"])
+    let ambiguity=VocabularyEntry(source:"满月",targets:[],protectInner:true,unresolvedNativeSenses:true)
+    #expect(engine.align(original:"满月",translation:"full moon",entries:[moon,ambiguity],density:1).spans.isEmpty)
+    let assessed=VocabularyEntry(source:"满月",targets:["full moon"],sourceScope:.init(original:"满月",start:0,end:2))
+    #expect(engine.align(original:"满月",translation:"full moon",entries:[assessed,ambiguity],density:1).spans.count == 1)
+}
+
 @Test func nativeWordBoundariesSupportUnspacedScriptsWithoutPartialMatches() {
     let entry = VocabularyEntry(source: "coffee", targets: ["咖啡"], romanizations: ["咖啡": ["kafei"]])
     let result = ImmersionEngine().align(original: "Want coffee?", translation: "明天喝咖啡。", entries: [entry], density: 1, targetLanguage: "zh", targetBoundaries: [0, 2, 3, 5])

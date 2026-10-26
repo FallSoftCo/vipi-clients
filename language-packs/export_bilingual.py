@@ -36,7 +36,7 @@ CREATE TABLE source_senses(source TEXT NOT NULL,sense_id TEXT NOT NULL REFERENCE
 '''
 
 
-def export_pair(catalog, source, target, output, revision, key, key_id, grammar_guard=None):
+def export_pair(catalog, source, target, output, revision, key, key_id, grammar_guard=None, source_guards=None):
     if source not in LANGUAGES or target not in LANGUAGES or source == target or revision < 1:
         raise ValueError('Invalid pair/revision')
     pack_id = source + '-' + target
@@ -114,6 +114,20 @@ def export_pair(catalog, source, target, output, revision, key, key_id, grammar_
             'source_version': source_metadata['source_version'],
             'derivation': evidence,
         }
+        if source_guards is not None and source=='zh':
+            from build_source_guards import POLICY
+            db.execute('ATTACH DATABASE ? AS native_guards',(source_guards.resolve().as_uri()+'?mode=ro&immutable=1',))
+            guard_metadata=dict(db.execute('SELECT key,value FROM native_guards.metadata'))
+            if (guard_metadata.get('schema')!='vipi-native-source-guards-1' or
+                guard_metadata.get('policy')!=POLICY or guard_metadata.get('language')!='zh' or
+                guard_metadata.get('upstream_sha256')!=metadata['source_sha256']):
+                raise ValueError('Native source guard provenance mismatch')
+            db.execute('CREATE TABLE source_guards(source TEXT PRIMARY KEY,protect_inner INTEGER NOT NULL,ambiguous INTEGER NOT NULL) WITHOUT ROWID')
+            db.execute('INSERT INTO source_guards SELECT source,protect_inner,ambiguous FROM native_guards.source_guards')
+            # Old clients reject this context policy instead of silently
+            # ignoring a safety field they do not understand.
+            metadata.update(context_policy='all-source-senses-native-guards-veto-4',
+                            native_source_guard_policy=POLICY,native_source_guard_sha256=digest_file(source_guards))
         db.executemany('INSERT INTO metadata VALUES (?,?)', metadata.items())
         count, headwords = db.execute('SELECT count(*),count(DISTINCT source) FROM vocabulary').fetchone()
         readings, = db.execute("SELECT count(*) FROM vocabulary WHERE reading<>''").fetchone()
@@ -178,7 +192,7 @@ def main(args):
     started = time.monotonic()
     manifests = []
     for source, target in pairs:
-        manifest = export_pair(args.catalog, source, target, args.output / (source + '-' + target), args.revision, key, args.key_id, grammar_guard)
+        manifest = export_pair(args.catalog, source, target, args.output / (source + '-' + target), args.revision, key, args.key_id, grammar_guard, args.source_guards)
         manifests.append(manifest)
         print(canonical({k: manifest[k] for k in ('pack_id', 'bytes', 'headwords', 'mappings', 'readings')}), flush=True)
     (args.output / 'receipt.json').write_text(canonical({
@@ -194,6 +208,7 @@ if __name__ == '__main__':
     parser.add_argument('--catalog', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--grammar-guard', type=Path, required=True)
+    parser.add_argument('--source-guards', type=Path)
     parser.add_argument('--pair', action='append', default=[])
     parser.add_argument('--revision', type=int, required=True)
     parser.add_argument('--key-id', required=True)
