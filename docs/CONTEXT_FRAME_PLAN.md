@@ -1,10 +1,10 @@
 # Context phrase qualification
 
-Status: implementation plan, not implemented or linguistically accepted.
+Status: native compiler/store/matcher, actual-translation replay and a first finite-variant expansion are qualified on Android and the physical iPad. See [qualification receipts](PHRASE_FRAME_QUALIFICATION.md). Not linguistically accepted for release or integrated into friend chat.
 
 The dictionary path recognizes words in most diagnostic messages but frequently cannot establish their intended sense. Adding 353 observed plural forms did not increase strict Android message availability. Exact reviewed sentences perform much better, but arbitrary real messages rarely match a whole authored sentence.
 
-The next experiment generalizes **explicitly assessed local phrases**, such as the reading construction around a book, rather than treating a similar search result as meaning approval. Each record retains a lexical focus and finite literal/slot alternatives. Both the original message and its actual local translation must contain an accepted phrase for the same record. Pronouns, negation, possession, identifiers and surrounding grammar remain outside the displayed focus.
+The experiment generalizes **explicitly assessed local phrases**, such as the reading construction around a book. Each record retains a lexical focus and finite literal/slot alternatives. Both the original message and its actual local translation must contain an accepted phrase for the same record. Pronouns, negation, possession, identifiers and surrounding grammar remain outside the displayed focus.
 
 ## Implementation sequence
 

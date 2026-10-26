@@ -17,12 +17,19 @@ import java.text.Normalizer
 import java.util.Locale
 
 /** Public vocabulary only. Trust keys are supplied by the app, never by the download. */
-enum class VocabularyPackKind { VOCABULARY, REVIEWED_CONTEXT }
+enum class VocabularyPackKind { VOCABULARY, REVIEWED_CONTEXT, REVIEWED_FRAME }
 class VocabularyPackStore(context: Context, private val trustedKeys: Map<String, ByteArray>,
                           private val kind: VocabularyPackKind = VocabularyPackKind.VOCABULARY) {
     private val isContext = kind == VocabularyPackKind.REVIEWED_CONTEXT
-    private val root = File(context.filesDir, if (isContext) "language-packs/reviewed-contexts" else "language-packs").apply { mkdirs() }
-    private val receiptPrefix = if (isContext) "context-pack-" else "pack-"
+    private val isFrame = kind == VocabularyPackKind.REVIEWED_FRAME
+    private val isReviewed = isContext || isFrame
+    private val reviewedSchema = if (isFrame) 6 else 5
+    private val reviewedPolicy = if (isFrame) "reviewed-bidirectional-phrase-1" else "reviewed-finite-context-1"
+    private val reviewedFile = if (isFrame) "frames.sqlite" else "contexts.sqlite"
+    private val reviewedMetadata = if (isFrame) "vipi-reviewed-frame-1" else "vipi-reviewed-context-1"
+    private val reviewedIndexes = if (isFrame) listOf("source_inputs", "target_inputs") else listOf("context_inputs")
+    private val root = File(context.filesDir, when {isFrame -> "language-packs/reviewed-frames"; isContext -> "language-packs/reviewed-contexts"; else -> "language-packs"}).apply { mkdirs() }
+    private val receiptPrefix = when {isFrame -> "frame-pack-"; isContext -> "context-pack-"; else -> "pack-"}
     private val records = PrivateRecords(context)
     private fun validID(id: String) = id.matches(Regex("[a-z]{2,3}-[a-z]{2,3}"))
     private fun sha256(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
@@ -39,12 +46,12 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         val revision = manifest.getInt("revision")
         val hash = manifest.getString("sha256")
         val schema = manifest.getInt("schema_version")
-        require(validID(id) && revision > 0 && if (isContext) schema == 5 else schema in setOf(1, 3, 4))
+        require(validID(id) && revision > 0 && if (isReviewed) schema == reviewedSchema else schema in setOf(1, 3, 4))
         require(id == manifest.getString("source_language") + "-" + manifest.getString("target_language"))
         val normalization = manifest.getString("normalization")
-        require(if (isContext) normalization == "exact-utf16" && manifest.getString("file") == "contexts.sqlite"
+        require(if (isReviewed) normalization == "exact-utf16" && manifest.getString("file") == reviewedFile
             else (normalization == "unicode-nfc-lower" || (schema >= 3 && normalization == "unicode-nfc-lower-arabic-harakat-v1")) && manifest.getString("file") == "vocabulary.sqlite")
-        require(if (isContext) manifest.optString("context_policy") == "reviewed-finite-context-1"
+        require(if (isReviewed) manifest.optString("context_policy") == reviewedPolicy
             else if (schema == 4) manifest.optString("context_policy") == "all-source-senses-veto-3" else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
         require(database.copyOfRange(0, 16).contentEquals("SQLite format 3\u0000".toByteArray()))
@@ -59,12 +66,15 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                 db.rawQuery("PRAGMA user_version", null).use { require(it.moveToFirst() && it.getInt(0) == schema) }
                 db.rawQuery("PRAGMA quick_check", null).use { require(it.moveToFirst() && it.getString(0) == "ok") }
                 db.rawQuery("SELECT value FROM metadata WHERE key='pack_id'", null).use { require(it.moveToFirst() && it.getString(0) == id) }
-                if (isContext) {
-                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'",null).use { require(it.moveToFirst() && it.getString(0)=="vipi-reviewed-context-1") }
-                    db.rawQuery("SELECT value FROM metadata WHERE key='context_policy'",null).use { require(it.moveToFirst() && it.getString(0)=="reviewed-finite-context-1") }
+                if (isReviewed) {
+                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedMetadata) }
+                    db.rawQuery("SELECT value FROM metadata WHERE key='context_policy'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedPolicy) }
                     db.rawQuery("SELECT id FROM mappings LIMIT 1",null).use { require(it.moveToFirst()) }
                     db.rawQuery("SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
-                    db.rawQuery("SELECT count(*) FROM (SELECT input FROM context_inputs GROUP BY input HAVING count(*)>256)",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
+                    for(index in reviewedIndexes) {
+                        db.rawQuery("SELECT count(*) FROM (SELECT input FROM $index GROUP BY input HAVING count(*)>256)",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
+                        db.rawQuery("SELECT count(*) FROM mappings m WHERE NOT EXISTS (SELECT 1 FROM $index i WHERE i.mapping_id=m.id)",null).use {require(it.moveToFirst() && it.getInt(0)==0)}
+                    }
                     db.rawQuery("PRAGMA foreign_key_check",null).use { require(!it.moveToFirst()) }
                     return@use
                 }
@@ -97,7 +107,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         return id
     }
 
-    @Synchronized fun entries(id: String, text: String): List<VocabularyEntry> {
+    @Synchronized fun entries(id: String, text: String, translation: String? = null): List<VocabularyEntry> {
         require(validID(id) && text.length <= 16_384)
         val pointer = File(root, "$id.json")
         if (!pointer.exists()) return emptyList()
@@ -107,6 +117,13 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require(accepted.getInt("revision") == manifest.getInt("revision") && accepted.getString("hash") == manifest.getString("sha256"))
         val filename = value.getString("file")
         require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
+        if (isFrame) {
+            require(manifest.getInt("schema_version")==reviewedSchema)
+            if(translation.isNullOrEmpty() || translation.length>32768)return emptyList()
+            return SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use {db ->
+                ReviewedFrameLookup.entries(db,text,translation,manifest.getString("source_language"),manifest.getString("target_language"))
+            }
+        }
         if (isContext) {
             require(manifest.getInt("schema_version")==5)
             val source=manifest.getString("source_language");val target=manifest.getString("target_language")

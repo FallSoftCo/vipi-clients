@@ -41,12 +41,15 @@ public enum ContextMappingMatcher {
         return entries
     }
     private static func match(_ original: String, record: ContextMapping) -> NSRange? {
-        guard (1...12).contains(record.parts.count), record.parts.filter({ if case .focus = $0 { return true }; return false }).count == 1,
-              record.parts.contains(where: { if case .literal(let text) = $0 { return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }; return false }),
-              (1...16).contains(record.targets.count), record.targets.allSatisfy({ !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.utf16.count <= 128 }) else { return nil }
+        guard (1...16).contains(record.targets.count), record.targets.allSatisfy({ !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.utf16.count <= 128 }) else { return nil }
+        return focus(in:original,parts:record.parts)
+    }
+    public static func focus(in original:String,parts:[ContextPart]) -> NSRange? {
+        guard (1...12).contains(parts.count),parts.filter({if case .focus = $0 {return true};return false}).count==1,
+              parts.contains(where:{if case .literal(let text) = $0 {return !text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty};return false}) else {return nil}
         let text = original as NSString
         var states: Set<State> = [State(offset: 0,focus: nil)]
-        for part in record.parts {
+        for part in parts {
             let alternatives: [String]; let isFocus: Bool
             switch part {
             case .literal(let value): alternatives = [value]; isFocus = false

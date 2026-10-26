@@ -1,0 +1,30 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "5d656e4fe7409515ddca319594e35ef29657029f11ef3a489bb63b416c795428",
+  "authoring_source_sha256": "b2557c3fb15e9e1abb79d2f1e447462d958588b1c69140c70e94c52fc16fdb9a",
+  "records": 360,
+  "scope": "Development qualification of four literal constructions in ten languages, all 90 ordered pairs; not independent linguistic acceptance.",
+  "decisions": {
+    "reading_book": "Reading construction selects textual book. Lexical focus excludes the article/classifier, Arabic accusative spelling, Japanese/Korean particles, subject and verbal morphology.",
+    "drinking_water": "Drinking construction selects water as a beverage. French partitive article, Arabic definite article, Japanese/Korean object particle and all verbs stay outside focus.",
+    "birthday_party": "Birthday modifier selects celebration sense of party. The modifier is required in both phrase indexes but is not part of the replaced noun.",
+    "phone_charger": "Telephone modifier selects charging device sense. Possession/linking particles and telephone remain outside the replaced charger noun. Japanese 携帯 is interpreted as telephone in this charger construction."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "provenance": "pass",
+    "context_frame_scope": "pass",
+    "reading": "Required ar/zh/ja/ko forms use readable Latin spelling, not IPA; lexical Arabic case endings are outside the focus."
+  },
+  "limitations": [
+    "Author assessment, not native-speaker or independent assessment.",
+    "Literal construction matching does not detect every metaphor, quotation or mistranslated paragraph.",
+    "Only the listed spellings and native token windows are eligible; no inferred inflection or unlisted verb form is approved.",
+    "These examples are development data and must not be counted as held-out conversational accuracy."
+  ],
+  "release_ready": false
+}

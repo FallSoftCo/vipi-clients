@@ -35,11 +35,14 @@ object ContextMappingMatcher {
     }
 
     private fun match(original: String, record: ContextMapping): IntRange? {
-        if (record.parts.size !in 1..12 || record.parts.count { it is ContextPart.Focus } != 1 ||
-            record.parts.none { it is ContextPart.Literal && it.text.isNotBlank() } ||
-            record.targets.size !in 1..16 || record.targets.any { it.isBlank() || it.length > 128 }) return null
+        if(record.targets.size !in 1..16 || record.targets.any { it.isBlank() || it.length > 128 })return null
+        return focus(original,record.parts)
+    }
+    fun focus(original:String,parts:List<ContextPart>):IntRange? {
+        if(parts.size !in 1..12 || parts.count{it is ContextPart.Focus}!=1 ||
+            parts.none{it is ContextPart.Literal && it.text.isNotBlank()})return null
         var states = setOf(State(0, null))
-        for (part in record.parts) {
+        for (part in parts) {
             val options = when (part) {
                 is ContextPart.Literal -> listOf(part.text)
                 is ContextPart.Focus -> listOf(part.text)

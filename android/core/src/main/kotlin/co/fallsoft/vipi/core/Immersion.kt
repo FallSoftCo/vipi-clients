@@ -2,9 +2,11 @@ package co.fallsoft.vipi.core
 
 /** Ephemeral focus proved by an exact context match; bound to this message. */
 data class VocabularySourceScope(val original: String, val start: Int, val end: Int)
+/** Ephemeral target focus from a matched context, bound to the actual translation. */
+data class VocabularyTargetScope(val translation: String, val start: Int, val end: Int)
 /** Explicit lexical focus inside an attested target word, e.g. 시간 inside 시간이. */
 data class VocabularyTargetForm(val surface: String, val target: String, val start: Int, val end: Int)
-data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false, val sourceScope: VocabularySourceScope? = null, val targetForms: List<VocabularyTargetForm> = emptyList())
+data class VocabularyEntry(val source: String, val targets: List<String>, val romanizations: Map<String, List<String>> = emptyMap(), val contextHints: List<String> = emptyList(), val requiresContext: Boolean = false, val sourceScope: VocabularySourceScope? = null, val targetForms: List<VocabularyTargetForm> = emptyList(), val targetScope: VocabularyTargetScope? = null)
 data class ImmersionSpan(val start: Int, val end: Int, val original: String, val translated: String,
                          val targetStart: Int = 0, val targetEnd: Int = 0, val romanization: String? = null) {
     val id: Int get() = start
@@ -60,8 +62,9 @@ class ImmersionEngine {
             if (protectedTargetRanges.any { overlaps(it, target) }) return@mapNotNull null
             val sourceSurface = original.substring(source)
             val targetSurface = translation.substring(target)
-            if (sourceSurface.equals(targetSurface, ignoreCase = true)) return@mapNotNull null
             val needsReading = targetLanguage?.substringBefore('-') in setOf("ar", "zh", "ja", "ko")
+            // Shared ideographs can have different readings, e.g. Chinese/Japanese 水.
+            if(sourceSurface.equals(targetSurface,ignoreCase=true) && !(needsReading && entry.targetScope!=null))return@mapNotNull null
             val readings = entry.romanizations.filterKeys { lookupKey(it) == lookupKey(targetSurface) }.values.flatten().distinct()
             val reading = readings.singleOrNull()?.takeIf { it.length <= 256 && readableRomanization(it) }
             if (needsReading && reading == null) return@mapNotNull null
@@ -109,6 +112,13 @@ class ImmersionEngine {
     }
 
     private fun targetOccurrences(entry: VocabularyEntry, target: String, translation: String, boundaries: Set<Int>?): List<IntRange> {
+        entry.targetScope?.let { scope ->
+            if(entry.sourceScope==null || scope.translation!=translation || scope.start<0 || scope.end<=scope.start ||
+                scope.end>translation.length || translation.substring(scope.start,scope.end)!=target) return emptyList()
+            if((scope.start>0 && Character.isLowSurrogate(translation[scope.start])) ||
+                (scope.end<translation.length && Character.isLowSurrogate(translation[scope.end]))) return emptyList()
+            return listOf(scope.start until scope.end)
+        }
         val plain=occurrences(target,translation,boundaries)
         if(entry.sourceScope==null || entry.targetForms.size>16) return plain
         val explicit=entry.targetForms.filter { form ->

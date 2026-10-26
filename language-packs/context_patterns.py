@@ -37,3 +37,36 @@ def validate_pattern(record):
         raise ValueError('Pattern must recover the exact authored source focus')
     if next(x['focus'] for x in pattern if 'focus' in x)!=record['source']:
         raise ValueError('Pattern cannot alter lexical focus')
+
+
+def frame_parts(record,side):
+    """An explicitly bounded local frame inside the retained full reference."""
+    usage=record['usage'];text=record[side+'_context'];focus=record[side+'_span']
+    span=usage.get(side+'_frame_span')
+    if (not isinstance(span,list) or len(span)!=2 or any(type(i) is not int for i in span)
+        or not 0<=span[0]<=focus[0]<focus[1]<=span[1]<=len(text)):
+        raise ValueError('Explicit frame must contain the lexical focus')
+    fragment=text[span[0]:span[1]];a,b=focus[0]-span[0],focus[1]-span[0]
+    if len(fragment.encode('utf-16-le'))//2>256:raise ValueError('Frame exceeds native window bound')
+    parts=usage.get(side+'_frame_pattern')
+    if parts is None:
+        parts=([{'literal':fragment[:a]}] if a else [])+[{'focus':record[side]}]
+        if b<len(fragment):parts.append({'literal':fragment[b:]})
+    if match_pattern(fragment,parts)!=(a,b) or next(x['focus'] for x in parts if 'focus' in x)!=record[side]:
+        raise ValueError('Frame cannot alter lexical focus')
+    return parts
+
+
+def validate_frames(record):
+    usage=record['usage'];extent=usage.get('context_extent','exact_context')
+    if extent not in ('exact_context','local_phrase'):raise ValueError('Unknown context extent')
+    if extent=='exact_context':
+        if any(k in usage for k in ('source_frame_span','target_frame_span','source_frame_pattern','target_frame_pattern')):
+            raise ValueError('Phrase scopes require explicit local extent')
+        return
+    if not isinstance(usage.get('permitted_context'),str) or not usage['permitted_context'].strip():
+        raise ValueError('Permitted surrounding context must be stated')
+    exclusions=usage.get('abstain_when')
+    if not isinstance(exclusions,list) or not 1<=len(exclusions)<=16 or any(not isinstance(x,str) or not x.strip() for x in exclusions):
+        raise ValueError('Frame abstention limits must be stated')
+    for side in ('source','target'):frame_parts(record,side)

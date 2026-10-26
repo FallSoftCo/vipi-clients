@@ -7,6 +7,12 @@ public struct VocabularySourceScope: Sendable, Equatable {
     public let original: String, start: Int, end: Int
     public init(original: String, start: Int, end: Int) { self.original=original;self.start=start;self.end=end }
 }
+/// Ephemeral target focus proved by a matched target context, bound to the
+/// actual translation. A generic dictionary cannot deserialize this scope.
+public struct VocabularyTargetScope: Sendable, Equatable {
+    public let translation: String, start: Int, end: Int
+    public init(translation: String,start: Int,end: Int) {self.translation=translation;self.start=start;self.end=end}
+}
 /// Explicit lexical focus inside an attested target word, e.g. 시간 inside 시간이.
 public struct VocabularyTargetForm: Sendable, Equatable {
     public let surface: String, target: String, start: Int, end: Int
@@ -21,11 +27,13 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
     public let requiresContext: Bool
     public let sourceScope: VocabularySourceScope?
     public let targetForms: [VocabularyTargetForm]
-    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false, sourceScope: VocabularySourceScope? = nil, targetForms: [VocabularyTargetForm] = []) {
+    public let targetScope: VocabularyTargetScope?
+    public init(source: String, targets: [String], romanizations: [String: [String]] = [:], contextHints: [String] = [], requiresContext: Bool = false, sourceScope: VocabularySourceScope? = nil, targetForms: [VocabularyTargetForm] = [], targetScope: VocabularyTargetScope? = nil) {
         self.source = source; self.targets = targets; self.romanizations = romanizations; self.contextHints = contextHints
         self.requiresContext = requiresContext
         self.sourceScope = sourceScope
         self.targetForms = targetForms
+        self.targetScope = targetScope
     }
     private enum CodingKeys: String, CodingKey { case source, targets, romanizations, contextHints, requiresContext }
     public init(from decoder: Decoder) throws {
@@ -37,6 +45,7 @@ public struct VocabularyEntry: Codable, Sendable, Equatable {
         requiresContext = try values.decodeIfPresent(Bool.self, forKey: .requiresContext) ?? false
         sourceScope = nil
         targetForms = []
+        targetScope = nil
     }
 }
 
@@ -125,8 +134,11 @@ public struct ImmersionEngine: Sendable {
                   !protectedTarget.contains(where: { NSIntersectionRange($0, targetRange).length > 0 }) else { continue }
             let targetSurface = (translation as NSString).substring(with: targetRange)
             let sourceSurface = (original as NSString).substring(with: range)
-            guard sourceSurface.caseInsensitiveCompare(targetSurface) != .orderedSame else { continue }
             let needsReading = ["ar", "zh", "ja", "ko"].contains(targetLanguage?.components(separatedBy: "-")[0] ?? "")
+            // Shared ideographs can have different readings (Chinese/Japanese
+            // 水). A qualified target scope still teaches that pronunciation.
+            guard sourceSurface.caseInsensitiveCompare(targetSurface) != .orderedSame ||
+                  (needsReading && entry.targetScope != nil) else { continue }
             let readings = Set(entry.romanizations.filter { Self.lookupKey($0.key) == Self.lookupKey(targetSurface) }.values.flatMap { $0 })
             let reading = readings.count == 1 ? readings.first : nil
             if needsReading {
@@ -191,6 +203,13 @@ public struct ImmersionEngine: Sendable {
     }
 
     private func targetOccurrences(_ entry: VocabularyEntry,value: String,in translation: String,boundaries: Set<Int>?) -> [NSRange] {
+        if let scope=entry.targetScope {
+            guard entry.sourceScope != nil,scope.translation==translation,
+                  scope.start>=0,scope.end>scope.start,scope.end<=translation.utf16.count else {return []}
+            let range=NSRange(location:scope.start,length:scope.end-scope.start)
+            guard Range(range,in:translation) != nil,(translation as NSString).substring(with:range)==value else {return []}
+            return [range]
+        }
         let plain=occurrences(value,in:translation,boundaries:boundaries)
         guard entry.sourceScope != nil,entry.targetForms.count<=16 else {return plain}
         var explicit:[NSRange]=[]

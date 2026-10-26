@@ -33,7 +33,7 @@ CREATE TABLE context_inputs(input TEXT NOT NULL,mapping_id TEXT NOT NULL REFEREN
 def utf16(text): return len(text.encode('utf-16-le'))//2
 
 
-def compile_record(envelope):
+def assessed_record(envelope):
     record=envelope['record'];validate(record);sha=digest(record)
     if envelope.get('sha256')!=sha: raise ValueError('Changed assessed record')
     approved=[]
@@ -61,6 +61,13 @@ def compile_record(envelope):
             raise ValueError('Unassessed reading')
         approved.append(assessment)
     if not approved: raise ValueError('Unreviewed record')
+    return record,sha,approved
+
+
+def compile_record(envelope):
+    record,sha,_=assessed_record(envelope)
+    if record['usage'].get('context_extent','exact_context')!='exact_context':
+        raise ValueError('Exact-context packs cannot grant local phrase scopes')
     original=record['source_context'];start,end=record['source_span']
     parts=record['usage'].get('context_pattern')
     if parts is None:

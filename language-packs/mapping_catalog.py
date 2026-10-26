@@ -16,7 +16,7 @@ import time
 
 from build_wiktextract import LANGUAGES, NON_ROMAN, canonical, digest_file, form_ok, readable_roman
 from context_hints import lookup_key
-from context_patterns import validate_pattern
+from context_patterns import validate_pattern,validate_frames
 
 SCHEMA = '''
 CREATE TABLE imports(id TEXT PRIMARY KEY, manifest TEXT NOT NULL, generation INTEGER NOT NULL UNIQUE,
@@ -75,6 +75,7 @@ def validate(record):
     if not isinstance(record.get('usage'),dict):
         raise ValueError('Usage evidence required')
     validate_pattern(record)
+    validate_frames(record)
     provenance=record.get('provenance')
     if not isinstance(provenance,dict) or not provenance.get('author') or not provenance.get('license'):
         raise ValueError('Authorship and license provenance required')
@@ -183,6 +184,8 @@ class Catalog:
                     raise ValueError('Author assessment cannot be labelled independent')
                 if any(checks.get(gate)!='pass' for gate in ('meaning','usage','grammar_scope','provenance')):
                     raise ValueError('Incomplete linguistic review')
+                if record['usage'].get('context_extent')=='local_phrase' and checks.get('context_frame_scope')!='pass':
+                    raise ValueError('Local phrase generalization has not passed explicit review')
                 required=record['target_language'] in NON_ROMAN
                 if checks.get('reading')!=('pass' if required else 'not_required') or (required and not record['reading']):
                     raise ValueError('Readable target has not passed review')
@@ -198,14 +201,17 @@ class Catalog:
             'completed_imports':self.db.execute('SELECT count(*) FROM imports WHERE complete=1').fetchone()[0],
             'sequence':self.db.execute('SELECT coalesce(max(sequence),0) FROM changes').fetchone()[0]}
 
-    def export_reviewed(self, directory):
+    def export_reviewed(self, directory, extent=None):
         """Internal staging export; existing native release gates still apply."""
+        if extent not in (None,'exact_context','local_phrase'):raise ValueError('Invalid export extent')
         directory=Path(directory); directory.mkdir(parents=True,exist_ok=False)
         count=0; path=directory/'records.jsonl'
         with self.transaction(),path.open('x') as output:
             for row in self.db.execute("SELECT r.sha256,r.payload FROM heads h JOIN revisions r ON r.sha256=h.sha256 WHERE r.state='reviewed' ORDER BY h.logical_id"):
+                record=json.loads(row['payload'])
+                if extent is not None and record['usage'].get('context_extent','exact_context')!=extent:continue
                 assessments=[json.loads(item[0]) for item in self.db.execute('SELECT report FROM reviews WHERE record_sha256=? ORDER BY recorded_at,id',(row['sha256'],))]
-                output.write(canonical({'sha256':row['sha256'],'record':json.loads(row['payload']),'assessments':assessments})+'\n'); count+=1
+                output.write(canonical({'sha256':row['sha256'],'record':record,'assessments':assessments})+'\n'); count+=1
             sequence=self.stats()['sequence']
         manifest={'schema':'vipi-reviewed-mapping-export-1','records':count,'through_sequence':sequence,
             'records_sha256':digest_file(path),'release_ready':False,
@@ -281,7 +287,7 @@ def main(args):
         if args.command=='import-index': import_index(catalog,args.input,args.batch_size,args.max_batches)
         elif args.command=='import-records': import_records(catalog,args.input,args.batch_size,args.max_batches)
         elif args.command=='review': catalog.review(json.loads(args.input.read_text()))
-        elif args.command=='export-reviewed': print(json.dumps(catalog.export_reviewed(args.output)))
+        elif args.command=='export-reviewed': print(json.dumps(catalog.export_reviewed(args.output,args.extent)))
         print(json.dumps(catalog.stats()),flush=True)
     finally: catalog.close()
 
@@ -292,6 +298,7 @@ if __name__=='__main__':
     parser.add_argument('--catalog',type=Path,required=True)
     parser.add_argument('--input',type=Path)
     parser.add_argument('--output',type=Path)
+    parser.add_argument('--extent',choices=['exact_context','local_phrase'])
     parser.add_argument('--batch-size',type=int,default=1000)
     parser.add_argument('--max-batches',type=int,default=0)
     main(parser.parse_args())

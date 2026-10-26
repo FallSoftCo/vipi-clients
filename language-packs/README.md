@@ -91,6 +91,21 @@ python3 language-packs/export_reviewed_contexts.py --input artifacts/conversatio
 
 The compiler currently exposes only qualification signing. Production release signing and release trust remain separate gates; generating an artifact is not evidence of release readiness.
 
+## Signed phrase frames
+
+Schema 6 is a separate pack kind and rollback namespace. `export_reviewed_frames.py` requires `usage.context_extent=local_phrase`, bounded source/target frame spans, explicit permitted surroundings and abstention conditions, and an assessment containing `context_frame_scope:pass`. Prior exact-sentence assessments do not grant phrase scope. Use `mapping_catalog.py export-reviewed --extent exact_context` for schema 5 and `--extent local_phrase` for schema 6; an unfiltered mixed export is deliberately rejected by either compiler.
+
+The compiler enumerates finite variants into `source_inputs` and `target_inputs`, with full provenance and assessments in `mappings.evidence`. Native clients query exact word windows inside sentence boundaries. They bound each window to eight words/256 UTF-16 units, the complete scan to 4,096 windows and matching records to 256; overflow withholds substitutions. The same mapping must match both messages. Repeated/competing scopes and contradictory meanings abstain, including a source-side contradiction whose target phrase was absent. Generic dictionary decoding cannot grant these ephemeral scopes.
+
+`authored_phrase_frames.py` starts with four everyday constructions across all 90 directions. Author assessments are explicit and content-bound; these are development examples, not held-out linguistic acceptance. Korean case/topic particles belong to matching context but never the displayed lexical focus. A qualified shared ideograph can retain its required target reading and speech language even when its written form is unchanged.
+
+```sh
+python3 language-packs/mapping_catalog.py export-reviewed --catalog artifacts/mapping-catalog-001/catalog.sqlite --extent local_phrase --output artifacts/reviewed-frame-export-NEW
+python3 language-packs/export_reviewed_frames.py --input artifacts/reviewed-frame-export-NEW --output artifacts/reviewed-frames-NEW --revision N --key-id reviewed-frame-qualification-NEW
+```
+
+Native QA uses `frame-qa.json` in Android app files / iOS Documents with `pack_root`, a three-digit `run_id`, and the platform's retained `capture_file`. `ReviewedFramePackDeviceTest`/`ReviewedFramePackTests` test reference offsets, readings, protection, ambiguity and signed installation. `FrameCaptureDeviceTest`/`FrameCaptureTests` separately replay actual local provider captures, checking every source/case binding and recording the capture/build hashes. New pack revisions can be evaluated without changing or recompiling the harness. A lookup count is never a meaning-quality score.
+
 ## Attested plural-noun experiment
 
 `expand_attested_nouns.py` creates signed candidate supplements from the versioned UD form index and existing revision-007 dictionaries. All observed POS, lemma and number analyses must agree; unknown lemmas are retained as blockers. It accepts plural nouns only, leaves existing source mappings unchanged, preserves all base and inflected-spelling senses, and stores source/target attestations once in `attested_noun_forms`. No new reading, verb inflection or arbitrary stem is generated.

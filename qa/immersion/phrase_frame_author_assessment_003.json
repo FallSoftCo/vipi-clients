@@ -1,0 +1,33 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "1a565109abb6022799d4cf656ca46e85c0ed3b05fe7f900a643b78f57be1c797",
+  "authoring_source_sha256": "9635240b45fd9ede54755c553c672ab2e65a512c8a1d47eeff67cafa03a68190",
+  "records": 360,
+  "scope": "Development qualification of four literal constructions in ten languages, all 90 ordered pairs; not independent linguistic acceptance.",
+  "decisions": {
+    "reading_book": "Reading construction selects textual book. Lexical focus excludes the article/classifier, Arabic accusative spelling, Japanese/Korean particles, subject and verbal morphology.",
+    "drinking_water": "Drinking construction selects water as a beverage. French partitive article, Arabic definite article, Japanese/Korean object particle and all verbs stay outside focus.",
+    "birthday_party": "Birthday modifier selects celebration sense of party. The modifier is required in both phrase indexes but is not part of the replaced noun.",
+    "phone_charger": "Telephone modifier selects charging device sense. Possession/linking particles and telephone remain outside the replaced charger noun. Japanese 携帯 is interpreted as telephone in this charger construction.",
+    "finite_variants": "Reading/drinking variants preserve those constructions and replace only the noun. German jetzt remains outside focus. Korean informal spacing is recognized as an explicit spelling only; particles are matched but never replaced. du/de téléphone and do/de telefone both identify a phone charger. French straight/curly apostrophes change punctuation only. No target compound or incorrect Korean predication is approved merely because the provider produced it."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "provenance": "pass",
+    "context_frame_scope": "pass",
+    "reading": "Required ar/zh/ja/ko forms use readable Latin spelling, not IPA; lexical Arabic case endings are outside the focus."
+  },
+  "limitations": [
+    "Author assessment, not native-speaker or independent assessment.",
+    "Literal construction matching does not detect every metaphor, quotation or mistranslated paragraph.",
+    "Only the listed spellings and native token windows are eligible; no inferred inflection or unlisted verb form is approved.",
+    "These examples are development data and must not be counted as held-out conversational accuracy.",
+    "This revision responds to development captures; those captures are not fresh acceptance material."
+  ],
+  "release_ready": false,
+  "revision_note": "Explicit finite verb/form alternatives in eight reading/drinking languages, German jetzt insertion, straight/curly French apostrophes, French/Portuguese telephone linking words, and five Korean case/topic particles. All alternatives are enumerated in the bound authoring source; lexical focus, complete reference sentences and readings remain unchanged."
+}

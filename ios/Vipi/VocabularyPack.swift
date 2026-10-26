@@ -19,7 +19,15 @@ struct VocabularyManifest: Codable, Sendable {
 }
 
 enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage }
-enum VocabularyPackKind: Sendable { case vocabulary, reviewedContext }
+enum VocabularyPackKind: Sendable {
+    case vocabulary, reviewedContext, reviewedFrame
+    var reviewed: Bool { self != .vocabulary }
+    var schema: Int { self == .reviewedFrame ? 6 : 5 }
+    var policy: String { self == .reviewedFrame ? "reviewed-bidirectional-phrase-1" : "reviewed-finite-context-1" }
+    var databaseFile: String { self == .reviewedFrame ? "frames.sqlite" : "contexts.sqlite" }
+    var metadataSchema: String { self == .reviewedFrame ? "vipi-reviewed-frame-1" : "vipi-reviewed-context-1" }
+    var indexes: [String] { self == .reviewedFrame ? ["source_inputs", "target_inputs"] : ["context_inputs"] }
+}
 
 /// Serializes install/query/removal; files contain only public vocabulary data.
 actor VocabularyPackStore {
@@ -33,8 +41,8 @@ actor VocabularyPackStore {
     init(root: URL, trustedKeys: [String: Data], receiptPrefix: String = "pack-", kind: VocabularyPackKind = .vocabulary) throws {
         guard receiptPrefix.range(of: "^[a-z0-9-]{1,64}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
         self.kind = kind
-        self.root = kind == .reviewedContext ? root.appendingPathComponent("reviewed-contexts") : root
-        self.trustedKeys = trustedKeys; self.receiptPrefix = (kind == .reviewedContext ? "context-" : "") + receiptPrefix
+        self.root = kind.reviewed ? root.appendingPathComponent(kind == .reviewedFrame ? "reviewed-frames" : "reviewed-contexts") : root
+        self.trustedKeys = trustedKeys; self.receiptPrefix = (kind.reviewed ? (kind == .reviewedFrame ? "frame-" : "context-") : "") + receiptPrefix
         try FileManager.default.createDirectory(at: self.root, withIntermediateDirectories: true)
     }
     private func validID(_ id: String) -> Bool { id.range(of: #"^[a-z]{2,3}-[a-z]{2,3}$"#, options: .regularExpression) != nil }
@@ -51,12 +59,12 @@ actor VocabularyPackStore {
         let id = manifest.pack_id
         let hash = SHA256.hash(data: database).map { String(format: "%02x", $0) }.joined()
         guard validID(id), id == manifest.source_language + "-" + manifest.target_language, manifest.revision > 0,
-              (kind == .reviewedContext ? manifest.schema_version == 5 : [1, 3, 4].contains(manifest.schema_version)),
-              (kind == .reviewedContext ? manifest.normalization == "exact-utf16" :
+              (kind.reviewed ? manifest.schema_version == kind.schema : [1, 3, 4].contains(manifest.schema_version)),
+              (kind.reviewed ? manifest.normalization == "exact-utf16" :
                 (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version >= 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1"))),
-              (kind == .reviewedContext ? manifest.context_policy == "reviewed-finite-context-1" :
+              (kind.reviewed ? manifest.context_policy == kind.policy :
                 (manifest.schema_version == 4 ? manifest.context_policy == "all-source-senses-veto-3" : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2"))),
-              manifest.file == (kind == .reviewedContext ? "contexts.sqlite" : "vocabulary.sqlite"),
+              manifest.file == (kind.reviewed ? kind.databaseFile : "vocabulary.sqlite"),
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
         if let previous = try accepted(id) {
@@ -70,13 +78,16 @@ actor VocabularyPackStore {
         try withDatabase(temporary) { db in
             guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == String(manifest.schema_version),
                   try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id else { throw VocabularyPackError.invalid }
-            if kind == .reviewedContext {
-                guard try scalar(db,"SELECT value FROM metadata WHERE key='schema'") == "vipi-reviewed-context-1",
-                      try scalar(db,"SELECT value FROM metadata WHERE key='context_policy'") == "reviewed-finite-context-1",
+            if kind.reviewed {
+                guard try scalar(db,"SELECT value FROM metadata WHERE key='schema'") == kind.metadataSchema,
+                      try scalar(db,"SELECT value FROM metadata WHERE key='context_policy'") == kind.policy,
                       try scalar(db,"SELECT id FROM mappings LIMIT 1") != nil,
                       try scalar(db,"SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768") == "0",
-                      try scalar(db,"SELECT count(*) FROM (SELECT input FROM context_inputs GROUP BY input HAVING count(*)>256)") == "0",
                       try scalar(db,"PRAGMA foreign_key_check") == nil else { throw VocabularyPackError.invalid }
+                for index in kind.indexes {
+                    guard try scalar(db,"SELECT count(*) FROM (SELECT input FROM \(index) GROUP BY input HAVING count(*)>256)") == "0",
+                          try scalar(db,"SELECT count(*) FROM mappings m WHERE NOT EXISTS (SELECT 1 FROM \(index) i WHERE i.mapping_id=m.id)") == "0" else {throw VocabularyPackError.invalid}
+                }
                 return
             }
             guard try scalar(db,"SELECT source FROM vocabulary LIMIT 1") != nil else { throw VocabularyPackError.invalid }
@@ -107,13 +118,21 @@ actor VocabularyPackStore {
         return id
     }
 
-    func entries(id: String, text: String) throws -> [VocabularyEntry] {
+    func entries(id: String, text: String, translation: String? = nil) throws -> [VocabularyEntry] {
         guard validID(id), text.utf16.count <= 16_384 else { throw VocabularyPackError.invalid }
         let pointerURL = root.appendingPathComponent(id + ".json")
         guard FileManager.default.fileExists(atPath: pointerURL.path) else { return [] }
         let pointer = try JSONDecoder().decode(Pointer.self, from: Data(contentsOf: pointerURL))
         guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
               pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
+        if kind == .reviewedFrame {
+            guard pointer.manifest.schema_version == kind.schema else {throw VocabularyPackError.invalid}
+            guard let translation, !translation.isEmpty, translation.utf16.count<=32768 else {return []}
+            return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
+                try ReviewedFrameLookup.entries(db:db,original:text,translation:translation,
+                    source:pointer.manifest.source_language,target:pointer.manifest.target_language)
+            }
+        }
         if kind == .reviewedContext {
             guard pointer.manifest.schema_version == 5 else { throw VocabularyPackError.invalid }
             return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
