@@ -88,7 +88,7 @@ def translations(entry):
                 yield ('sense:' + str(index) if label else f'unlabeled-sense:{index}:{subindex}'), label, bool(label), item
 
 
-def add_entry(db, entry, line, counts):
+def add_entry(db, entry, line, counts, languages=LANGUAGES):
     if entry.get('lang_code') != 'en' or entry.get('pos') not in PARTS: return
     source = clean(entry.get('word', ''))
     if not form_ok(source): counts['invalid_source'] += 1; return
@@ -101,7 +101,7 @@ def add_entry(db, entry, line, counts):
     for group, label, explicit, item in translations(entry):
         code = item.get('code', item.get('lang_code'))
         language = 'zh' if code == 'cmn' else code
-        if language not in LANGUAGES or language == 'en': continue
+        if language not in languages or language == 'en': continue
         tags = set(x for x in item.get('tags', []) if isinstance(x, str))
         if tags & EXCLUDED: counts['excluded_translation'] += 1; continue
         if language == 'zh' and tags & DIALECTS: counts['excluded_dialect'] += 1; continue
@@ -129,12 +129,12 @@ def add_entry(db, entry, line, counts):
         counts['translations_retained'] += 1
 
 
-def coverage(db):
+def coverage(db, languages=LANGUAGES):
     # No reverse or pivot relationship is asserted to be an accepted lexical
     # replacement. The classification remains explicit in this receipt.
     summary = []
-    for source in LANGUAGES:
-        for target in LANGUAGES:
+    for source in languages:
+        for target in languages:
             if source == target: continue
             extra = ' AND s.explicit=1' if source != 'en' and target != 'en' else ''
             sql = '''SELECT count(*), count(DISTINCT source), count(DISTINCT CASE WHEN readable THEN source END) FROM (

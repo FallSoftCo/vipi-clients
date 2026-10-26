@@ -2,6 +2,14 @@
   "version": 1,
   "evidence": "Authored conversation preview with authored lexical correspondences. Demonstrates rendering, native token boundaries and controls; not live translation, a production lexicon, or independent linguistic acceptance.",
   "languages": {
+    "sw": {
+      "text": "Kahawa kesho? Ninajua sehemu ndogo karibu na mto.",
+      "words": {
+        "coffee": { "surface": "Kahawa" },
+        "tomorrow": { "surface": "kesho" },
+        "river": { "surface": "mto" }
+      }
+    },
     "en": {
       "text": "Coffee tomorrow? I know a little place by the river.",
       "words": {

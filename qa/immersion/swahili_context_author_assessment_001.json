@@ -1,0 +1,25 @@
+{
+  "schema": "vipi-authored-context-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "7baffbc94c497b82446de4be2b6b928cdf4f665db90c313be738889aafc1d24b",
+  "authoring_source_sha256": "e6027775ead688e8fcbd801c2bf273402e580734dabba8da2d66251a75b7e69f",
+  "records": 1176,
+  "scope": "59 existing everyday topics, adding exact Swahili contexts in twenty directions. No reserved dialogue turns were used.",
+  "decisions": {
+    "lexical_scope": "Explicit brackets identify one lexical focus. Person, tense, ownership, case particles, articles and negation stay outside it. Existing ten-language strings retain their prior article corrections and readable Latin forms.",
+    "locatives": "Niko ofisini and Niko nyumbani retain the attested locative ni outside the noun focus ofisi or nyumba. These exact contexts do not authorize arbitrary suffix stripping, a general stemmer or interpolation of other people's grammar.",
+    "compounds": "Airport, breakfast, lunch, dinner, weekend, email and weather use their complete conventional noun phrases. Their internal Swahili agreement is part of the lexical unit. Their external tense, modifier and possession are preserved.",
+    "bound_senses": "Simu inaita identifies a ringing telephone; Nilipiga picha identifies taking a photograph; Kazi is a job only in Ninatafuta kazi; Mazungumzo is conversation within the complete telephone-call context. No bare-word generalization is approved.",
+    "omissions": "Birthday and homework sentences whose possession interrupts the Swahili noun phrase are omitted. Chinese source question/problem ambiguity and Arabic family ownership exclusions are preserved. No broad or discontinuous focus is introduced to increase counts.",
+    "review": "The author inspected the 59 Swahili references and lexical scopes against the existing topic meanings. This is content-bound author assessment, not independent linguistic review or measurement of unseen conversation accuracy."
+  },
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","provenance":"pass"},
+  "limitations": [
+    "Exact contexts only; additional references do not establish majority conversation coverage.",
+    "Regional phrasing and machine translation synonyms may prevent otherwise useful matches.",
+    "Native execution and original-text preservation must be qualified separately.",
+    "Reserved AfriWOZ data remains evaluation-only."
+  ],
+  "release_ready": false
+}

@@ -13,6 +13,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     private var schedulingFinished = false
     private(set) var outputUnderruns = 0
     private var preparation: Task<Void, Never>?
+    private var preparationID = UUID()
     private var rendering: Task<Void, Never>?
     private var observers: [NSObjectProtocol] = []
     private var epoch = 0
@@ -34,21 +35,27 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                 })
             }
         }
+        let preparationID = UUID(); self.preparationID = preparationID
         preparation = Task { [weak self] in
             guard let self else { return }
-            defer { self.preparation = nil }
+            defer { if self.preparationID == preparationID { self.preparation = nil } }
             do {
                 let root = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("vipi-speech")
                 let next = try LocalSpeechPair(source: source, target: target, root: root)
                 self.pair = next
                 try await next.prepare(warmups: warmups)
                 try Task.checkCancellation()
+                guard self.preparationID == preparationID else { return }
                 self.ready = true; self.state = .ready
             } catch is CancellationError { }
             catch LocalSpeechError.missingVoice(let language) {
+                guard self.preparationID == preparationID else { return }
                 self.error = "Add a \(VipiLanguage.named(language).name) voice in Settings → Accessibility → Spoken Content → Voices, then retry."
                 self.state = .unavailable
-            } catch { self.error = "Voices couldn’t get ready. Try again."; self.state = .unavailable }
+            } catch {
+                guard self.preparationID == preparationID else { return }
+                self.error = "Voices couldn’t get ready. Try again."; self.state = .unavailable
+            }
         }
     }
 
@@ -116,7 +123,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         if ready { state = .ready }
     }
     func close() {
-        stop(); preparation?.cancel(); pair?.stop(); pair = nil; ready = false
+        stop(); preparationID = UUID(); preparation?.cancel(); preparation = nil; pair?.stop(); pair = nil; ready = false
         observers.forEach(NotificationCenter.default.removeObserver); observers.removeAll()
     }
 }

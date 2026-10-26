@@ -93,7 +93,7 @@ import XCTest
             var row: [String: Any] = ["language": language]
             do {
                 let voice = try LocalVoice(language: language)
-                row["voice"] = voice.voice.identifier
+                row["voice"] = voice.identifier
                 let start = Date()
                 let audio = try await voice.render(samples[language]!, to: directory.appendingPathComponent(language + ".caf"))
                 row["render_ms"] = Date().timeIntervalSince(start) * 1000

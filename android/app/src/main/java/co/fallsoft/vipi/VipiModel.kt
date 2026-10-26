@@ -20,7 +20,8 @@ val initialLanguages = listOf(
     VipiLanguage("fr", "French", "Français"), VipiLanguage("de", "German", "Deutsch"),
     VipiLanguage("it", "Italian", "Italiano"), VipiLanguage("pt", "Portuguese", "Português"),
     VipiLanguage("ja", "Japanese", "日本語"), VipiLanguage("ko", "Korean", "한국어"),
-    VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية")
+    VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية"),
+    VipiLanguage("sw", "Swahili", "Kiswahili")
 )
 fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
 enum class Appearance { SYSTEM, LIGHT, DARK }

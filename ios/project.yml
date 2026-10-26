@@ -1,17 +1,32 @@
 name: Vipi
+configs:
+  Debug: debug
+  Simulator: debug
+  Release: release
 options:
   bundleIdPrefix: co.fallsoft
   deploymentTarget:
     iOS: '18.0'
 settings:
+  configs:
+    Simulator:
+      'EXCLUDED_ARCHS[sdk=iphonesimulator*]': ''
+      # No ML Kit simulator-arm64 binary exists. This UI-only configuration
+      # compiles the explicit unavailable adapter, not a substitute translator.
+      OTHER_LDFLAGS: '-lsqlite3 -lc++'
   base:
     SWIFT_VERSION: '6.0'
     DEVELOPMENT_TEAM: 3TNL2455JT
     MARKETING_VERSION: '0.1.0'
     CURRENT_PROJECT_VERSION: '1'
     CODE_SIGN_STYLE: Automatic
-    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    # CocoaPods copies its pinned SDK resource bundles using rsync staging files.
+    # This affects build scripts only, not the installed application's sandbox.
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
 packages:
+  ESpeakNG:
+    url: https://github.com/espeak-ng/espeak-ng-spm.git
+    revision: fd28f6460cc4cdf631528c8e2f7bd825747aac5c
   VipiCore:
     path: VipiCore
   WorkOS:
@@ -25,11 +40,20 @@ targets:
     platform: iOS
     sources:
       - Vipi
+      - path: ../data/immersion
+        type: folder
+        buildPhase: resources
       - path: ../data/examples/immersion-preview.json
+        buildPhase: resources
+      - path: ../data/examples/sentence-readings.json
         buildPhase: resources
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
     dependencies:
+      - package: ESpeakNG
+        product: libespeak-ng
+      - package: ESpeakNG
+        product: espeak-ng-data
       - package: VipiCore
       - package: WorkOS
       - package: LibSignalClient
@@ -58,6 +82,10 @@ targets:
       configs:
         Debug:
           WORKOS_CLIENT_ID: client_01M5S2CDSQ8F7FEX26G3CY9VS1
+        Simulator:
+          WORKOS_CLIENT_ID: client_01M5S2CDSQ8F7FEX26G3CY9VS1
+          'EXCLUDED_ARCHS[sdk=iphonesimulator*]': ''
+          OTHER_LDFLAGS: '-lsqlite3 -lc++'
         Release:
           WORKOS_CLIENT_ID: ''
   VipiCryptoTests:
@@ -74,6 +102,10 @@ targets:
     dependencies:
       - target: Vipi
     settings:
+      configs:
+        Simulator:
+          'EXCLUDED_ARCHS[sdk=iphonesimulator*]': ''
+          OTHER_LDFLAGS: '-lsqlite3 -lc++'
       base:
         GENERATE_INFOPLIST_FILE: YES
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
@@ -93,4 +125,13 @@ schemes:
       targets:
         Vipi: all
     test:
+      targets: [VipiCryptoTests, VipiUITests]
+  VipiSimulator:
+    build:
+      targets:
+        Vipi: all
+    run:
+      config: Simulator
+    test:
+      config: Simulator
       targets: [VipiCryptoTests, VipiUITests]

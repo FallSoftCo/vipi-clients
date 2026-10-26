@@ -16,7 +16,8 @@ struct VipiLanguage: Identifiable, Hashable {
         .init(id: "ja", name: "Japanese", localName: "日本語"),
         .init(id: "ko", name: "Korean", localName: "한국어"),
         .init(id: "zh", name: "Chinese", localName: "中文"),
-        .init(id: "ar", name: "Arabic", localName: "العربية")
+        .init(id: "ar", name: "Arabic", localName: "العربية"),
+        .init(id: "sw", name: "Swahili", localName: "Kiswahili")
     ]
     static func named(_ code: String) -> Self { initial.first { $0.id == code } ?? initial[0] }
 }

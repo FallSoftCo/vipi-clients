@@ -1,0 +1,3 @@
+FallSoft.Co project-authored language constructions.
+Development data with explicit author assessment, not independent linguistic acceptance.
+Record provenance and assessments are retained in each database.

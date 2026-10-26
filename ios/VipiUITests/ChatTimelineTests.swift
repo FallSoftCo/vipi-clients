@@ -110,9 +110,8 @@ final class ChatTimelineTests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.staticTexts[label].waitForExistence(timeout: 20))
         let normalHeight = app.staticTexts[label].frame.height
-        let timeQuery = NSPredicate(format: "identifier BEGINSWITH %@", "message-time-")
-        let statusQuery = NSPredicate(format: "identifier BEGINSWITH %@", "message-status-")
-        let normalTimeHeight = try XCTUnwrap(app.staticTexts.matching(timeQuery).allElementsBoundByIndex.last).frame.height
+        let metadataQuery = NSPredicate(format: "identifier BEGINSWITH %@", "message-meta-")
+        let normalTimeHeight = try XCTUnwrap(app.descendants(matching: .any).matching(metadataQuery).allElementsBoundByIndex.last).frame.height
         app.terminate()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-appearance-dark", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
@@ -123,14 +122,12 @@ final class ChatTimelineTests: XCTestCase {
         XCTAssertLessThanOrEqual(message.frame.maxX, app.frame.maxX)
         XCTAssertTrue(message.isHittable)
         XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.isHittable)
-        let time = try XCTUnwrap(app.staticTexts.matching(timeQuery).allElementsBoundByIndex.last)
-        let state = try XCTUnwrap(app.staticTexts.matching(statusQuery).allElementsBoundByIndex.last)
-        XCTAssertGreaterThan(time.frame.height, normalTimeHeight * 1.5)
-        XCTAssertGreaterThanOrEqual(state.frame.minY, time.frame.maxY - 1)
-        let notice = app.staticTexts["conversation-notice"]
-        XCTAssertTrue(notice.exists)
-        XCTAssertGreaterThanOrEqual(notice.frame.minY, state.frame.maxY)
-        XCTAssertLessThan(notice.frame.minY - state.frame.maxY, 70)
+        let metadata = try XCTUnwrap(app.descendants(matching: .any).matching(metadataQuery).allElementsBoundByIndex.last)
+        XCTAssertGreaterThan(metadata.frame.height, normalTimeHeight * 1.5)
+        XCTAssertTrue(metadata.label.contains("Waiting to send"))
+        let notice = app.buttons["conversation-notice"]
+        XCTAssertTrue(notice.isHittable)
+        XCTAssertLessThan(notice.frame.height, app.frame.height * 0.12)
         capture("ios-conversation-largest-text-dark")
     }
     @MainActor private func capture(_ name: String) {

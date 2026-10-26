@@ -18,6 +18,13 @@ struct ImmersionBubble: View {
     var fullReading: String? = nil
     var targetDwell: Duration = .milliseconds(4500)
     var meaningDwell: Duration = .seconds(3)
+    var embedded = false
+    var onModeChange: ((ReadingMode) -> Void)? = nil
+    var metadata: AnyView? = nil
+    var onVoiceHelp: (() -> Void)? = nil
+    var originalMessage: String? = nil
+    var inputLanguage: String? = nil
+    var onInputLanguage: ((String?) -> Void)? = nil
     @State private var originalPhase = false
     @State private var overrides: [Int: Bool] = [:]
     @State private var paused = false
@@ -31,10 +38,19 @@ struct ImmersionBubble: View {
 
     private var revealed: Set<Int> { Set(result.spans.filter { overrides[$0.id] ?? originalPhase }.map(\.id)) }
     private var active: Bool { speech?.activeMessage == messageID }
-    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !interactionPaused && !active && !voiceOver && mode == .immersed && !result.spans.isEmpty }
+    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !interactionPaused && speech?.activeMessage == nil && !voiceOver && mode == .immersed && !result.spans.isEmpty }
     private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
+    }
+    private func listen() {
+        let spans: [(text: String, language: String)]
+        switch mode {
+        case .original: spans = [(result.original, sourceLanguage)]
+        case .translation: spans = [(result.translation, targetLanguage)]
+        case .immersed: spans = result.speech(source: sourceLanguage, target: targetLanguage, revealed: revealed).map { ($0.text, $0.language) }
+        }
+        speech?.toggle(message: messageID, spans: spans)
     }
 
     var body: some View {
@@ -47,37 +63,52 @@ struct ImmersionBubble: View {
                     .textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
             }
             HStack(spacing: 0) {
-                if mode == .immersed && !result.spans.isEmpty {
+                if embedded { metadata; Spacer(minLength: 8) }
+                if !embedded && mode == .immersed && !result.spans.isEmpty {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)
                     }.accessibilityLabel(paused ? "Resume word switching" : "Pause word switching")
                         .accessibilityIdentifier("immersionPause")
                 }
-                if !result.spans.isEmpty || fullReading != nil {
+                if !result.spans.isEmpty || fullReading != nil || onModeChange != nil {
                     Menu {
+                        if embedded {
+                            if let speech {
+                                Button(active ? "Stop listening" : (speech.state == .preparing ? "Preparing voices…" : speech.state == .unavailable ? "Set up voices" : "Listen"), systemImage: active ? "stop.fill" : "speaker.wave.2") {
+                                    if speech.state == .unavailable { onVoiceHelp?() } else { listen() }
+                                }.disabled(speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil))
+                            }
+                            if !result.spans.isEmpty {
+                                Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
+                            }
+                        }
+                        if let onModeChange {
+                            ForEach(ReadingMode.allCases) { value in
+                                let label = !embedded || value == .immersed ? value.rawValue
+                                    : VipiLanguage.named(value == .original ? sourceLanguage : targetLanguage).name
+                                Button(label, systemImage: mode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
+                            }
+                        }
                         Picker("Switching pace", selection: $pace) {
                             Text("Relaxed").tag("relaxed")
                             Text("Balanced").tag("balanced")
                             Text("Brisk").tag("brisk")
                         }
-                        if fullReading != nil || result.spans.contains(where: { $0.romanization != nil }) {
+                        if (mode == .translation && fullReading != nil) || (mode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
                             Button(script ? "Show transliteration" : "Show original script") { script.toggle(); revision += 1 }
                         }
                         if mode == .immersed { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
-                        Button("Copy original message") { UIPasteboard.general.string = result.original }
+                        if let onInputLanguage {
+                            MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
+                        }
+                        Button("Copy original message") { UIPasteboard.general.string = originalMessage ?? result.original }
                     } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
                         .accessibilityLabel("Reading options")
                 }
-                Spacer()
-                if let speech {
+                if !embedded { Spacer() }
+                if !embedded, let speech {
                     Button {
-                        let spans: [(text: String, language: String)]
-                        switch mode {
-                        case .original: spans = [(result.original, sourceLanguage)]
-                        case .translation: spans = [(result.translation, targetLanguage)]
-                        case .immersed: spans = result.speech(source: sourceLanguage, target: targetLanguage, revealed: revealed).map { ($0.text, $0.language) }
-                        }
-                        speech.toggle(message: messageID, spans: spans)
+                        listen()
                     } label: {
                         HStack(spacing: 7) {
                             if speech.state == .preparing || (active && speech.state == .rendering) { ProgressView().controlSize(.small) }
@@ -88,14 +119,18 @@ struct ImmersionBubble: View {
                         .accessibilityIdentifier("messageListen")
                 }
             }
-        }.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 6)
-            .background(outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
+        }.padding(.horizontal, embedded ? 0 : 20).padding(.top, embedded ? 0 : 20).padding(.bottom, embedded ? 0 : 6)
+            .background(embedded ? Color.clear : (outgoing ? VipiDesign.outgoing : VipiDesign.surface), in: RoundedRectangle(cornerRadius: 23))
             .onAppear { visible = true }
             .onDisappear { visible = false; if active { speech?.stop() } }
             .onScrollVisibilityChange(threshold: 0.1) { visible = $0 }
             .task(id: clockKey) {
                 guard eligible else { return }
                 do {
+                    if embedded {
+                        let offset = messageID.utf8.reduce(UInt64(0)) { ($0 &* 31) &+ UInt64($1) } % 1200
+                        try await Task.sleep(for: .milliseconds(Int(offset)))
+                    }
                     while !Task.isCancelled {
                         let dwell = originalPhase ? meaningDwell : targetDwell
                         try await Task.sleep(for: pace == "relaxed" ? dwell * 2 : (pace == "brisk" ? dwell / 2 : dwell))
@@ -104,8 +139,23 @@ struct ImmersionBubble: View {
                     }
                 } catch { /* Lifecycle changes cancel rather than catch up. */ }
             }
-            .onChange(of: result) { overrides = [:]; originalPhase = false; revision += 1; speech?.stop() }
-            .onChange(of: mode) { speech?.stop(); overrides = [:]; selecting = false; revision += 1 }
+            .onChange(of: result) { overrides = [:]; originalPhase = false; revision += 1; if active { speech?.stop() } }
+            .onChange(of: mode) { if active { speech?.stop() }; overrides = [:]; selecting = false; revision += 1 }
+    }
+}
+
+struct MessageLanguageMenu: View {
+    let source: String
+    let target: String
+    let selected: String?
+    let select: (String?) -> Void
+    var body: some View {
+        Menu("Message language") {
+            Button("Detect automatically", systemImage: selected == nil ? "checkmark" : "text.bubble") { select(nil) }
+            ForEach([source, target], id: \.self) { language in
+                Button(VipiLanguage.named(language).name, systemImage: selected == language ? "checkmark" : "text.bubble") { select(language) }
+            }
+        }
     }
 }
 

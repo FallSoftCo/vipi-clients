@@ -25,9 +25,9 @@ import kotlinx.coroutines.withContext
 enum class SpeechState { PREPARING, READY, RENDERING, PLAYING, UNAVAILABLE }
 
 /** Conversation-scoped: one prepared pair, one player, never a player per word. */
-class SpeechPlayback(context: Context, source: String, target: String, private val scope: CoroutineScope) : AutoCloseable {
+class SpeechPlayback(context: Context, private val source: String, private val target: String, private val scope: CoroutineScope) : AutoCloseable {
     private val context = context.applicationContext
-    private val pair = LocalSpeechPair(context, source, target)
+    private var pair = LocalSpeechPair(context, source, target)
     private val audio = context.getSystemService(AudioManager::class.java)
     private val attributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build()
@@ -58,6 +58,7 @@ class SpeechPlayback(context: Context, source: String, target: String, private v
     fun prepare(warmups: Map<String, String>) {
         check(Looper.myLooper() == Looper.getMainLooper())
         if (closed || ready || preparation?.isActive == true) return
+        if (state == SpeechState.UNAVAILABLE) { pair.close(); pair = LocalSpeechPair(context, source, target) }
         state = SpeechState.PREPARING; error = null
         preparation = scope.launch {
             try { pair.prepare(warmups); ready = true; state = SpeechState.READY }

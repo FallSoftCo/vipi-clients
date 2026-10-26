@@ -131,7 +131,8 @@ private val Green = Color(0xFF33644F)
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
-        if (chat != null && peer != null) { FriendConversationScreen(chat, peer) { model.back() }; return }
+        if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
+            model.density, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding) OnboardingAction(model) }) { padding ->

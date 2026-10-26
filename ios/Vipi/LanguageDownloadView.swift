@@ -4,6 +4,7 @@ import SwiftUI
 struct TranslationPair: Equatable, Sendable {
     let source: String
     let target: String
+    var usesMLKit: Bool { source == "sw" || target == "sw" }
     var valid: Bool { source != target && VipiLanguage.initial.contains { $0.id == source } && VipiLanguage.initial.contains { $0.id == target } }
 }
 
@@ -22,6 +23,13 @@ enum LocalLanguageAvailability: Equatable { case checking, downloadable, install
     init(status: @escaping @MainActor (TranslationPair) async -> LocalLanguageAvailability = LanguagePreparation.nativeStatus) { self.status = status }
     static func nativeStatus(_ pair: TranslationPair) async -> LocalLanguageAvailability {
         guard pair.valid else { return .unsupported }
+        if pair.usesMLKit {
+            #if targetEnvironment(simulator)
+            return .unsupported
+            #else
+            return SwahiliTranslation.installed(pair) ? .installed : .downloadable
+            #endif
+        }
         switch await LanguageAvailability().status(from: .init(identifier: pair.source), to: .init(identifier: pair.target)) {
         case .installed: return .installed
         case .supported: return .downloadable
@@ -48,6 +56,13 @@ enum LocalLanguageAvailability: Equatable { case checking, downloadable, install
         // A finished request cannot run a second time.
     }
     func invalidate() { revision = UUID(); request = nil; busy = false; message = nil }
+    func removeDownloads() async {
+        guard !busy, let pair, pair.usesMLKit else { return }
+        invalidate(); busy = true
+        do { try await SwahiliTranslation.removeDownloads(pair) }
+        catch { message = "These downloads couldn’t be removed. Please try again." }
+        availability = await status(pair); busy = false
+    }
 }
 
 struct LanguageDownloadView: View {
@@ -95,8 +110,18 @@ struct LanguageDownloadView: View {
                 Text("Downloads are managed by your device. Once installed, translation happens here, even offline. Your messages aren’t sent to a translation service.")
             }.listRowBackground(VipiDesign.surface)
             Section {
-                Text("To remove translation languages, open Settings → Apps → Translate → Downloaded Languages. The Translate app needs to be installed.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                if pair.usesMLKit {
+                    if preparation.availability == .installed {
+                        Button("Remove these translation downloads", role: .destructive) {
+                            Task { await preparation.removeDownloads() }
+                        }.disabled(preparation.busy)
+                    }
+                    Text("These languages are stored in Vipi. Removing them means you’ll need to download them again before translating offline.")
+                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                } else {
+                    Text("To remove translation languages, open Settings → Apps → Translate → Downloaded Languages. The Translate app needs to be installed.")
+                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                }
             }.listRowBackground(VipiDesign.surface)
             if let request = preparation.request {
                 LanguagePreparationTask(request: request, preparation: preparation).id(request.id)
@@ -129,6 +154,20 @@ private struct LanguagePreparationTask: View {
     let preparation: LanguagePreparation
     @State private var submitted = false
     var body: some View {
+        if request.pair.usesMLKit {
+            Color.clear.frame(height: 0).accessibilityHidden(true).task {
+                guard !submitted else { return }; submitted = true
+                do {
+                    let translator = try SwahiliTranslation(pair: request.pair)
+                    try await translator.prepare()
+                    preparation.finish(request, availability: .installed)
+                } catch {
+                    let observed = await LanguagePreparation.nativeStatus(request.pair)
+                    preparation.finish(request, availability: observed,
+                        message: observed == .installed ? nil : "The download isn’t ready. Check your connection, then try again.")
+                }
+            }
+        } else {
         Color.clear.frame(height: 0).accessibilityHidden(true)
             .translationTask(source: .init(identifier: request.pair.source), target: .init(identifier: request.pair.target)) { session in
                 guard !submitted else { return }; submitted = true
@@ -151,5 +190,6 @@ private struct LanguagePreparationTask: View {
                         message: observed == .installed ? nil : "The download isn’t ready. Check your connection, then try again.")
                 }
             }
+        }
     }
 }

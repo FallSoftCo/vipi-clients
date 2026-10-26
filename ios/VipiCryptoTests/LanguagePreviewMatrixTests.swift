@@ -3,7 +3,7 @@ import SwiftUI
 @testable import Vipi
 
 @MainActor final class LanguagePreviewMatrixTests: XCTestCase {
-    func testNativeTokenizationAndParagraphLayoutAcrossNinetyDirections() async throws {
+    func testNativeTokenizationAndParagraphLayoutAcrossAllSupportedDirections() async throws {
         let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("reading-matrix-001")
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         try? FileManager.default.removeItem(at: output.appendingPathComponent("report.json"))
@@ -65,7 +65,7 @@ import SwiftUI
                 rows.append(["source": source, "target": target, "selected": result.spans.count, "readings": result.spans.map(\.displayedTarget), "measurements": measurements])
             }
         }
-        XCTAssertEqual(rows.count, 90)
+        XCTAssertEqual(rows.count, languages.count * (languages.count - 1))
         let report: [String: Any] = ["evidence": "authored_preview_fixed_inline_blocks_native_tokenization_stable_glyph_positions_and_copy_not_live_translation_or_linguistic_acceptance", "directions": rows]
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
     }

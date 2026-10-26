@@ -4,6 +4,8 @@ Every gate needs a retained command/build/device receipt. A screenshot proves ap
 
 ## Current verified state — 2026-10-26
 
+Latest continuation, 12:45 Eastern: Swahili is in both native clients' translation, speech, previews and actual conversation immersion. All 8,393 authored references over 110 directions pass on Android and physical iPad. Both original-language directions, copy original, manual language override, continuous switching, composing pause and seventy-message scrolling pass native checks. Both platforms pass 307 explicit whole-sentence readings for Arabic, Chinese, Japanese and Korean; unknown clauses abstain. iPhone suite 020 passes seven of eight tests, including actual oldest/newest metadata growth at the largest text size; its unfiltered full-history audit still reports two Dynamic Type findings. **Useful broad coverage remains unachieved:** the pre-expansion Swahili catalog selected no substitutions from 241 unseen AfriWOZ turns, despite executing all 2,410 local translation cases per platform. A new native Swahili dictionary index supplies 20,557 headwords and 300,829 recorded forms for incremental review, not automatic runtime promotion. Screen-reader interaction, speech listening/recovery, physical chat automation, arbitrary whole-sentence readings and release gates remain open. See SWAHILI_AND_CHAT_IMMERSION.md and VERIFICATION.md; older paragraphs below retain historical experiments.
+
 The product remains under implementation. Active staging release `eca2badb86f802d7259554a866cbc446eb0619b4` uses Vipi's dedicated WorkOS pool and separate PostgreSQL DB. Messaging admits three controlled fixture IDs; two are live and the disposable web identity has been deleted. Any recently authenticated dedicated Vipi identity can erase itself, including before messaging admission. Both native clients passed another real public HTTPS encrypted exchange with refresh, out-of-order delivery, durable receipts and duplicate recovery. Manual encryption-key comparison is implemented with libsignal; cross-platform numbers, key-bound persistence and Android interactions passed. Final native presentation checks passed; external onboarding checks passed an isolated Android release build with production optimization rules. ARM and complete production flows remain open.
 
 General conversation immersion is still gated. All 90 revision-007/schema-4 dictionary packs are built; actual SMS probes expose insufficient strict coverage and remaining sense/scope errors. Separately, 5,457 explicitly author-assessed contextual mappings now compile into 90 signed development packs and pass indexed native lookup/alignment on Android and the physical iPad, including complete sentences within longer messages. Their 61 new everyday meanings are authored development examples, not representative conversation coverage. No new release trust key was added. FTS retrieval, source-sense checks and native linguistic tags do not independently certify meaning. Prior E5, AWESOME, placeholder and catalog-consensus experiments remain rejected and unintegrated. The reused FLORES and 400-message SMS probes are diagnostic/regression material; untouched acceptance data and broader reading/meaning review remain required.
@@ -25,14 +27,17 @@ Demonstrate the core immersion UX across at least ten major languages and every 
 ### Current language UX implementation
 
 - [x] Continuous native vocabulary alternation, optional immediate reveal, pause, three pace settings, and a single full-translation reading surface.
-- [x] Ten-language authored previews with mandatory readings for Arabic, Chinese, Japanese and Korean; native tokenization and paragraph component coverage for all 90 directions.
+- [x] Eleven-language authored previews including Swahili, with mandatory readings for Arabic, Chinese, Japanese and Korean; native layout qualification across all 110 directions.
 - [x] Native selection/copy and fixed inline vocabulary blocks with subtle backgrounds and minimal rounding; glyph-position checks across three widths and three text sizes. This does not establish full conversation layout or human usability.
 - [x] Native preview speech/reading interaction checks on both clients, including a fixed visible snapshot during audio.
 - [x] Physical preview interaction: continuous flip/pause, Japanese transliteration/script/full thought, audio snapshot and cancellation. Four iPad UI tests passed.
 - [ ] Actual VoiceOver/TalkBack and broader acoustic/comprehension qualification.
 - [x] Actual Apple local translation on the user's iPad with networking unavailable: 90 directions, 540 samples. The development-signed app was launched online before disconnecting; this does not qualify a cold offline release launch.
 - [ ] Production multilingual pack compilation, contextual reading generation and held-out meaning/coverage evaluation.
-- [ ] Real conversation integration, lifecycle/accessibility/composer and scrolling qualification beyond the previews.
+- [x] Real conversation component integration, cancellation/language-change lifecycle, composition pause, full translation and simulator light/dark accessibility checks. Synthetic transport is explicit.
+- [x] Incoming learning-language normalization, per-message language override, immutable copy original and long-history immersion scrolling in native qualification.
+- [x] Exact whole-sentence Latin readings for 307 authored Arabic/Chinese/Japanese/Korean references; unknown sentences still abstain.
+- [ ] Complete voice recovery/listening acceptance, physical conversation interaction and the remaining full-history accessibility findings.
 
 ## Store readiness review — 2026-10-24
 

@@ -15,12 +15,14 @@ import android.text.TextPaint
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import co.fallsoft.vipi.core.ImmersionResult
 
 /** Native paragraphs with stable inline vocabulary blocks. The underlying source
  * ranges stay fixed for bidi/layout; drawing, accessibility and copy use the face. */
 internal class StableImmersionText(context: Context) : TextView(context) {
     var onWord: ((Int) -> Unit)? = null
+    var onChooseWord: (() -> Unit)? = null
     var onSelection: ((Boolean) -> Unit)? = null
     private var result: ImmersionResult? = null
     private var originals = emptySet<Int>()
@@ -35,6 +37,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var measurementContext = ""
     private var tokenWidth = 10000
     private val tokenSpans = mutableListOf<WordSlot>()
+    private var wordActions = emptyList<Int>()
     init {
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 17f)
         setPadding(0, 0, 0, 0); includeFontPadding = false
@@ -95,6 +98,19 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         }
     }
     fun bind(value: ImmersionResult, revealed: Set<Int>, showScript: Boolean, color: Int, bodyColor: Int) {
+        if (result != value) {
+            wordActions.forEach { ViewCompat.removeAccessibilityAction(this, it) }
+            // AndroidView's Compose semantics do not reach this native node.
+            // Register on TextView itself. Android supports 32 custom actions;
+            // longer messages expose a chooser for every remaining word.
+            wordActions = value.spans.take(31).map { word ->
+                ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}") { _, _ ->
+                    onWord?.invoke(word.id); true
+                }
+            } + if (value.spans.size > 31) listOf(ViewCompat.addAccessibilityAction(this, "Choose a word to switch") { _, _ ->
+                onChooseWord?.invoke(); true
+            }) else emptyList()
+        }
         val changed = result != value || originals != revealed || script != showScript || accent != color
         result = value; originals = revealed; script = showScript; accent = color
         setTextColor(bodyColor)

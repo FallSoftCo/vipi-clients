@@ -84,13 +84,16 @@ private final class ConverterInput: @unchecked Sendable {
 /// One prepared system synthesizer per language; no romanized text sent to it.
 @MainActor final class LocalVoice {
     let language: String
-    let voice: AVSpeechSynthesisVoice
+    let voice: AVSpeechSynthesisVoice?
+    var identifier: String { voice?.identifier ?? SwahiliSpeech.identifier }
     private let synth = AVSpeechSynthesizer()
     private var active: SpeechFileWriter?
+    private var swahiliJob: SwahiliSpeech.Job?
 
     init(language: String) throws {
         self.language = language
         let code = language.components(separatedBy: "-")[0]
+        if code == "sw" { voice = nil; return }
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
         let available = AVSpeechSynthesisVoice.speechVoices().filter {
@@ -106,7 +109,12 @@ private final class ConverterInput: @unchecked Sendable {
     }
 
     func render(_ text: String, to url: URL) async throws -> RenderedSpeech {
-        guard active == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf16.count <= 16_384 else { throw LocalSpeechError.unavailable }
+        guard active == nil, swahiliJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf16.count <= 16_384 else { throw LocalSpeechError.unavailable }
+        if language.components(separatedBy: "-")[0] == "sw" {
+            let job = SwahiliSpeech.Job(); swahiliJob = job
+            defer { swahiliJob = nil }
+            return try await SwahiliSpeech.shared.render(text, to: url, job: job)
+        }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = voice
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
@@ -126,6 +134,7 @@ private final class ConverterInput: @unchecked Sendable {
         } onCancel: { Task { @MainActor [weak self] in self?.stop() } }
     }
     func stop() {
+        swahiliJob?.cancel()
         active?.fail(CancellationError()); active = nil
         synth.stopSpeaking(at: .immediate)
     }
@@ -169,7 +178,7 @@ private final class ConverterInput: @unchecked Sendable {
                 normalized[normalized.count - 1].text += span.text
             } else if !span.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { normalized.append(span) }
         }
-        let identity = normalized.map { $0.language + "\0" + voices[$0.language]!.voice.identifier + "\0" + $0.text }.joined(separator: "\0")
+        let identity = normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
         if FileManager.default.fileExists(atPath: output.path) { return try Self.inspect(output) }

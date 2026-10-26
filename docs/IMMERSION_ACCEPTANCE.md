@@ -8,7 +8,7 @@ Speech cadence clarification: brief pauses between language spans may improve co
 
 ## Qualification set
 
-English (en), Spanish (es), French (fr), German (de), Italian (it), Portuguese (pt), Arabic (ar), Mandarin Chinese (zh), Japanese (ja), Korean (ko). Ten languages yield 90 directed source→target pairs, independently exercised on Android and iOS. Self-pairs are not translation cases. Regional/script assumptions must be explicit; Mandarin initially uses Simplified Chinese, Portuguese variant must follow the model's declared capability.
+English (en), Spanish (es), French (fr), German (de), Italian (it), Portuguese (pt), Arabic (ar), Mandarin Chinese (zh), Japanese (ja), Korean (ko), and Swahili (sw / Kiswahili). The user explicitly requires Swahili as Vipi's namesake language (2026-10-26). Eleven languages yield 110 directed source→target pairs, independently exercised on Android and iOS. The original 90-direction receipts remain historical ten-language evidence; 20 new Swahili directions need actual translation, mappings, speech and UI qualification. Adding a picker option does not pass those gates. Self-pairs are not translation cases. Regional/script assumptions must be explicit; Mandarin initially uses Simplified Chinese, Portuguese variant must follow the model's declared capability.
 
 ## What a direction must demonstrate
 

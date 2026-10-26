@@ -31,6 +31,8 @@ __pycache__/
 node_modules/
 artifacts/
 ios/*.xcodeproj/
+ios/*.xcworkspace/
+ios/Pods/
 ios/Vipi/Info.plist
 *.sqlite-wal
 *.sqlite-shm

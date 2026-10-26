@@ -75,6 +75,12 @@ struct ProfileSetupView: View {
 }
 
 struct FriendConversationView: View {
+    @Environment(AppState.self) private var state
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var typeSize
+    @State private var immersion = ConversationImmersion()
+    @State private var speech = SpeechPlayback()
+    @ScaledMetric(relativeTo: .body) private var metadataSize = 12
     let chat: ChatSession
     let peer: UUID
     @State private var messages: [ChatItem] = []
@@ -85,6 +91,8 @@ struct FriendConversationView: View {
     @State private var confirmBlock = false
     @State private var blockBusy = false
     @State private var showSecurityNumber = false
+    @State private var showVoiceHelp = false
+    @State private var showMessageStatus = false
     @State private var followingLatest = true
     @State private var scrolling = false
     @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
@@ -92,6 +100,8 @@ struct FriendConversationView: View {
     @State private var firstMessageFrame = CGRect.zero
     @State private var viewportHeight: CGFloat = 0
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
+    private var messageNotice: String? { error ?? chat.notice }
+    private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @FocusState private var composing: Bool
     private func refresh() {
         do {
@@ -136,6 +146,27 @@ struct FriendConversationView: View {
         }
     }
     private var timeline: some View {
+        VStack(spacing: 0) {
+            // At accessibility sizes, labelled controls expose the same details
+            // without pinning several paragraphs above the composer.
+            HStack(spacing: 12) {
+                if immersion.availability == .downloadable || immersion.availability == .unsupported {
+                    NavigationLink { LanguageDownloadView() } label: {
+                        statusLabel("Prepare languages", symbol: "arrow.down.circle")
+                    }.accessibilityIdentifier("conversation-language-download")
+                }
+                Spacer(minLength: 0)
+                if let notice = messageNotice {
+                    Button { showMessageStatus = true } label: {
+                        statusLabel("Message status", symbol: "exclamationmark.circle")
+                    }.accessibilityHint(notice).accessibilityIdentifier("conversation-notice")
+                }
+                if speech.state != .unavailable, let notice = speech.error {
+                    Button { showVoiceHelp = true } label: {
+                        statusLabel("Audio", symbol: "speaker.badge.exclamationmark")
+                    }.accessibilityHint(notice)
+                }
+            }.font(.subheadline).padding(.horizontal, 18)
             ScrollView {
                 LazyVStack(spacing: 14) {
                     if earlierAvailable { Button("Earlier messages", action: earlier).font(.footnote).padding(8) }
@@ -151,12 +182,11 @@ struct FriendConversationView: View {
                         HStack {
                             if item.outgoing { Spacer(minLength: 38) }
                             VStack(alignment: .leading, spacing: 7) {
-                                Text(item.text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
-                                    .accessibilityIdentifier("message-body-" + item.id.uuidString)
-                                ViewThatFits(in: .horizontal) {
-                                    HStack(spacing: 6) { messageMetadata(item) }.fixedSize()
-                                    VStack(alignment: .leading, spacing: 3) { messageMetadata(item) }
-                                }.font(.caption2).foregroundStyle(VipiDesign.secondary)
+                                ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
+                                    speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
+                                messageMetadata(item).font(.system(size: metadataSize))
+                                    .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.secondary)
+                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true })
                             }.padding(.horizontal, 15).padding(.vertical, 12)
                                 .background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
@@ -197,10 +227,12 @@ struct FriendConversationView: View {
                             .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
                     }
                 }
+        }
     }
     var body: some View {
         timeline
         .background(VipiDesign.canvas)
+        .background { ConversationTranslationTask(immersion: immersion) }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -220,7 +252,45 @@ struct FriendConversationView: View {
             Text(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime.")
         }
         .sheet(isPresented: $showSecurityNumber) { SecurityNumberView(chat: chat, peer: peer) }
+        .sheet(isPresented: $showMessageStatus) {
+            NavigationStack {
+                ScrollView {
+                    Text(messageNotice ?? "Your messages are up to date.")
+                        .frame(maxWidth: .infinity, alignment: .leading).padding(24)
+                        .accessibilityIdentifier("conversation-notice-detail")
+                }.background(VipiDesign.canvas).navigationTitle("Message status")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showMessageStatus = false } } }
+            }.presentationDetents([.medium, .large])
+        }
+        .sheet(isPresented: $showVoiceHelp) {
+            NavigationStack {
+                ScrollView {
+                  VStack(alignment: .leading, spacing: 20) {
+                    Text("Hear both languages").font(.title2).fontWeight(.semibold)
+                    Text(speech.error ?? "Prepare the voices for both languages to listen without a connection.")
+                    Button("Retry voices") { prepareVoices() }
+                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
+                        .disabled(speech.state == .preparing)
+                    if speech.state == .preparing { ProgressView("Preparing voices") }
+                  }.padding(24).frame(maxWidth: .infinity, alignment: .leading)
+                }
+                    .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showVoiceHelp = false } } }
+                    .background(VipiDesign.canvas)
+            }.presentationDetents([.medium, .large])
+        }
         .safeAreaInset(edge: .bottom) { composer }
+        .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.density)") {
+            speech.close()
+            await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
+            prepareVoices()
+        }
+        .onDisappear { immersion.close(); speech.close() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { speech.stop() }
+            else { Task { await immersion.refreshAvailability(); prepareVoices() } }
+        }
+        .onChange(of: speech.state) { _, value in if value == .ready { showVoiceHelp = false } }
         .task {
             refresh(); blockBusy = true
             do { try await chat.refreshBlock(peer) }
@@ -237,7 +307,6 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
-                if let notice = error ?? chat.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary).padding(.horizontal, 18).accessibilityIdentifier("conversation-notice") }
                 if blocked {
                     HStack {
                         Text("You blocked this person.").font(.subheadline)
@@ -246,22 +315,38 @@ struct FriendConversationView: View {
                 } else {
                 HStack(alignment: .bottom, spacing: 10) {
                     TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing)
+                        .fixedSize(horizontal: false, vertical: true)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .accessibilityIdentifier("message-input")
-                    Button(action: send) { Image(systemName: "arrow.up").font(.body.weight(.semibold)).frame(width: 46, height: 46) }
-                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).accessibilityLabel("Send message")
+                    Button(action: send) {
+                        Image(systemName: "arrow.up").font(.body.weight(.semibold))
+                            .frame(minWidth: 46, minHeight: 46).padding(6)
+                            .foregroundStyle(canSend ? VipiDesign.onHighlight : VipiDesign.secondary)
+                            .background(canSend ? VipiDesign.highlight : VipiDesign.secondary.opacity(0.12), in: Circle())
+                    }.buttonStyle(.plain).accessibilityLabel("Send message")
                         .accessibilityIdentifier("message-send")
-                        .disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.utf8.count > 32768)
+                        .disabled(!canSend)
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
             }.background(VipiDesign.canvas)
     }
-    @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
-        Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
-            .accessibilityIdentifier("message-time-" + item.id.uuidString)
-        if item.outgoing {
-            Text(status(item.state)).accessibilityIdentifier("message-status-" + item.id.uuidString)
+    @ViewBuilder private func statusLabel(_ title: String, symbol: String) -> some View {
+        if typeSize.isAccessibilitySize {
+            Label(title, systemImage: symbol).labelStyle(.iconOnly).frame(minWidth: 44, minHeight: 44)
+        } else {
+            Label(title, systemImage: symbol).fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
         }
+    }
+    private func prepareVoices() {
+        if let source = ConversationExamples.examples?.languages[state.knownLanguage]?.text,
+           let target = ConversationExamples.examples?.languages[state.targetLanguage]?.text {
+            speech.prepare(source: state.knownLanguage, target: state.targetLanguage,
+                warmups: [state.knownLanguage: source, state.targetLanguage: target])
+        }
+    }
+    private func messageMetadata(_ item: ChatItem) -> Text {
+        let time = Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
+        return item.outgoing ? time + Text(" · " + status(item.state)) : time
     }
     private func status(_ value: String) -> String {
         switch value {

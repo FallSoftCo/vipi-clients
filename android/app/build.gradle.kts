@@ -33,6 +33,7 @@ android {
         }
     }
     sourceSets.getByName("main").assets.srcDir("../../data/examples")
+    sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/immersionAssets"))
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
         // mobile implementation. They are not part of the Android runtime.
@@ -42,6 +43,11 @@ android {
     }
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
+val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
+    from("../../data/immersion") { into("immersion") }
+    into(layout.buildDirectory.dir("generated/immersionAssets"))
+}
+tasks.named("preBuild") { dependsOn(stageImmersionAssets) }
 dependencies {
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
@@ -57,6 +63,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2")
     implementation("com.google.mlkit:translate:17.0.3")
+    implementation("com.google.mlkit:language-id:17.0.6")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.workos:workos-android:0.4.0")
     implementation("androidx.browser:browser:1.9.0")

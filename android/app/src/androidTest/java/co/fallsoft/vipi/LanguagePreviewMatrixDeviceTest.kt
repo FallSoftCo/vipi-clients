@@ -14,7 +14,7 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class LanguagePreviewMatrixDeviceTest {
-    @Test fun nativeTokenizationAndParagraphLayoutAcrossNinetyDirections() {
+    @Test fun nativeTokenizationAndParagraphLayoutAcrossAllSupportedDirections() {
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -58,7 +58,7 @@ class LanguagePreviewMatrixDeviceTest {
             rows.put(JSONObject().put("source", source).put("target", target).put("selected", result.spans.size)
                 .put("readings", JSONArray(result.spans.map { it.displayedTarget })).put("measurements", measurements))
         }
-        assertEquals(90, rows.length())
+        assertEquals(languages.size * (languages.size - 1), rows.length())
         File(output, "report.json").writeText(JSONObject().put("status", "passed").put("directions", rows)
             .put("evidence", "authored_preview_fixed_inline_blocks_native_tokenization_and_stable_glyph_positions_not_live_translation_or_linguistic_acceptance").toString(2))
     }

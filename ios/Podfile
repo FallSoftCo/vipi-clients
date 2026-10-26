@@ -1,0 +1,29 @@
+platform :ios, '18.0'
+use_frameworks! :linkage => :static
+project 'Vipi', 'Debug' => :debug, 'Simulator' => :debug, 'Release' => :release
+
+target 'Vipi' do
+  # The Apple Translation framework does not support Swahili on iPadOS 18.1.1.
+  # ML Kit performs translation on-device after an explicit model download.
+  # The vendor supplies device arm64 and simulator x86_64, not simulator arm64.
+  # Simulator UI qualification uses authored references and reports ML Kit as
+  # unsupported. Translation execution is qualified on the attached iPad.
+  pod 'GoogleMLKit/Translate', '8.0.0', :configurations => ['Debug', 'Release']
+  pod 'GoogleMLKit/LanguageID', '8.0.0', :configurations => ['Debug', 'Release']
+
+  target 'VipiCryptoTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '18.0'
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      if config.name == 'Simulator'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = ''
+      end
+    end
+  end
+end

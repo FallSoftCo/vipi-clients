@@ -10,5 +10,15 @@ This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
+Local Swahili speech uses eSpeak NG through the upstream Swift package,
+revision fd28f6460cc4cdf631528c8e2f7bd825747aac5c, under GPL version 3:
+https://github.com/espeak-ng/espeak-ng-spm/tree/fd28f6460cc4cdf631528c8e2f7bd825747aac5c
+The package pins its eSpeak NG and Sonic submodules. Their complete license
+texts and corresponding sources belong in the release source bundle.
+
+Swahili translation uses Google ML Kit's on-device iOS SDK, pinned by
+Podfile.lock (GoogleMLKit/Translate 8.0.0). Its vendor license and privacy
+manifests remain applicable; this notice does not relicense that SDK.
+
 Other dependency notices and a complete release source bundle remain required
 before distribution. This file does not relicense third-party dependencies.

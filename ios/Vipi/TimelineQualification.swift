@@ -37,9 +37,16 @@ struct TimelineQualificationView: View {
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
-                for index in 1...70 {
+                let immersionQA = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-chat-qa")
+                let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-learning-language-qa")
+                    ? ["Ninapenda muziki."]
+                    : ProcessInfo.processInfo.arguments.contains("-vipi-immersion-single-qa")
+                    ? ["I like music."]
+                    : ["I am reading a book now.", "I am drinking water now.", "Where is the phone charger?", "I like music."]
+                let immersionHistory = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-history-qa")
+                for index in 1...(immersionQA && !immersionHistory ? immersionMessages.count : 70) {
                     let extra = index <= 20 ? String(repeating: " We can meet by the station and decide where to walk.", count: index % 5) : ""
-                    try value.send("History message \(index). We are making plans for tomorrow." + extra, peer: peer)
+                    try value.send(immersionQA ? immersionMessages[(index-1) % immersionMessages.count] : "History message \(index). We are making plans for tomorrow." + extra, peer: peer)
                     try await Task.sleep(for: .milliseconds(2))
                 }
                 chat = value

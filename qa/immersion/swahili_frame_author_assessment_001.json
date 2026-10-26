@@ -1,0 +1,26 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "cb9b5b85156234d09daea7ba513b9c56213638df120ad6cce4527e3efb7f6567",
+  "authoring_source_sha256": "b3fe6e9c1dae5facbd421d539dc8e294172b9a24db54ff399b11b643e8a9c79d",
+  "records": 360,
+  "scope": "Eighteen existing everyday constructions, adding Swahili in both directions with ten languages.",
+  "decisions": {
+    "noun_focus": "Kitabu, maji, kahawa, chai, mkate, jibini, muziki, filamu, piano, mbwa, akaunti, chaja and sherehe are bounded by the stated literal activity or noun construction. Verb, person, tense, possession and negative morphology are outside the focus. Maji is the conventional mass-noun form; no singular water form is invented.",
+    "finite_verbs": "Enumerate six subject prefixes, their initial capitals, and na/li/ta before each explicit complete verb remainder. Kula and kunywa retain ku after these tense markers. Mtembeza retains the animate object marker in the dog-walking construction. These strings select noun context only; they do not translate verbs or infer arbitrary morphology. Negative and other tenses are not silently added.",
+    "compound_focus": "Kituo cha treni, kituo cha basi and nambari ya simu are complete conventional noun phrases for train station, bus stop and phone number. Their internal noun-class agreement is part of that lexical unit. The locative question and your outside the phrase are preserved. Railway and bus frames include Kiko wapi, not an unconstrained bare noun phrase.",
+    "ownership": "The singular animate companion noun mbwa uses wangu/wako/wake/wetu/wenu/wao. Plural possessive agreements are not admitted without a separately assessed plural construction.",
+    "other_languages": "The original ten-language references, lexical scopes and explicit Latin readings are unchanged from the assessed eighteen-construction batch. Swahili uses Latin spelling directly. Like-for-like piano may appropriately stay unchanged.",
+    "capitalization": "Initial Sherehe and Nambari are explicitly capitalized references; unspecified lower-case variants are not inferred by the exact frame index. This reduces matches without changing meaning."
+  },
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","provenance":"pass","context_frame_scope":"pass"},
+  "limitations": [
+    "Author assessment, not independent linguistic acceptance.",
+    "Finite activity contexts can still appear in metaphor, quotation or sarcasm.",
+    "Provider translations may use synonyms or different word order and correctly produce no mapping.",
+    "Native tokenizer, speech and translation evidence must be measured separately.",
+    "No majority conversation coverage or release readiness is asserted."
+  ],
+  "release_ready": false
+}

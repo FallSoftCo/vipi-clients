@@ -1,0 +1,260 @@
+import XCTest
+
+final class ChatImmersionTests: XCTestCase {
+    @MainActor func testOldestAndNewestMetadataActuallyGrowAndRemainReadable() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        let base = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-dark"]
+        app.launchArguments = base + ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        let metadata = app.staticTexts.matching(NSPredicate(format: "identifier BEGINSWITH 'message-meta-'"))
+        XCTAssertTrue(metadata.firstMatch.waitForExistence(timeout: 20))
+        let normal = metadata.firstMatch.frame.height
+        XCTAssertGreaterThan(normal, 0)
+        app.terminate()
+        app.launchArguments = base + ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        XCTAssertTrue(metadata.firstMatch.waitForExistence(timeout: 20))
+        let timeline = app.scrollViews["conversation-timeline"].firstMatch
+        XCTAssertGreaterThan(timeline.frame.height, app.frame.height * 0.5)
+        let notice = app.buttons["conversation-notice"]
+        XCTAssertTrue(notice.isHittable)
+        notice.tap()
+        let detail = app.staticTexts["conversation-notice-detail"]
+        XCTAssertTrue(detail.waitForExistence(timeout: 5))
+        XCTAssertTrue(detail.label.contains("Messages are saved here"))
+        app.buttons["Done"].tap()
+        let oldestBody = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I am reading a '")).firstMatch
+        for _ in 0..<8 {
+            if oldestBody.exists && oldestBody.isHittable && metadata.firstMatch.isHittable { break }
+            timeline.swipeDown()
+        }
+        XCTAssertTrue(oldestBody.isHittable); XCTAssertTrue(metadata.firstMatch.isHittable)
+        XCTAssertGreaterThan(metadata.firstMatch.frame.height, normal * 1.5)
+        XCTAssertTrue(metadata.firstMatch.label.contains("Waiting to send"))
+        XCTAssertGreaterThanOrEqual(metadata.firstMatch.frame.minX, timeline.frame.minX)
+        XCTAssertLessThanOrEqual(metadata.firstMatch.frame.maxX, timeline.frame.maxX)
+        capture("ios-largest-text-oldest-message")
+        app.buttons["conversation-latest"].tap()
+        let newest = try XCTUnwrap(metadata.allElementsBoundByIndex.last)
+        XCTAssertTrue(newest.isHittable); XCTAssertGreaterThan(newest.frame.height, normal * 1.5)
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.isHittable)
+        capture("ios-largest-text-latest-message")
+    }
+    @MainActor func testJapaneseWholeReadingAndScriptUseTheSameChatBubble() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "ja", "-vipi-appearance-light"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like ongaku.'")).firstMatch.waitForExistence(timeout: 20))
+        app.buttons["Reading options"].tap(); app.buttons["Japanese"].tap()
+        XCTAssertTrue(app.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 5))
+        capture("ios-japanese-whole-reading")
+        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        XCTAssertTrue(app.staticTexts["私は音楽が好きです。"].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        XCTAssertTrue(app.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap()
+        XCTAssertFalse(app.buttons["Show original script"].exists)
+    }
+    @MainActor func testLongImmersedHistoryPreservesReadingAcrossAppendAndEarlierPage() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-history-qa",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-dark"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch.waitForExistence(timeout: 30))
+        let timeline = app.scrollViews["conversation-timeline"].firstMatch
+        let metadata = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'message-meta-'"))
+        func anchor() throws -> XCUIElement {
+            let top = max(timeline.frame.minY, app.navigationBars.firstMatch.frame.maxY)
+            return try XCTUnwrap(metadata.allElementsBoundByIndex.filter {
+                $0.isHittable && $0.frame.minY >= top + 10 && $0.frame.maxY <= timeline.frame.maxY - 10
+            }.min { $0.frame.minY < $1.frame.minY })
+        }
+        timeline.swipeDown(); timeline.swipeDown()
+        XCTAssertTrue(app.buttons["conversation-latest"].waitForExistence(timeout: 5))
+        let before = try anchor(), identifier = before.identifier, y = before.frame.minY
+        app.buttons["timeline-qa-append"].tap()
+        XCTAssertEqual(app.descendants(matching: .any).matching(identifier: identifier).firstMatch.frame.minY, y, accuracy: 3)
+        let earlier = app.buttons["Earlier messages"]
+        for _ in 0..<18 {
+            if earlier.isHittable { break }
+            timeline.swipeDown()
+        }
+        XCTAssertTrue(earlier.isHittable)
+        let page = try anchor(), pageID = page.identifier, pageY = page.frame.minY
+        earlier.tap()
+        XCTAssertFalse(earlier.exists)
+        let retained = app.descendants(matching: .any).matching(identifier: pageID).firstMatch
+        XCTAssertTrue(retained.isHittable)
+        XCTAssertEqual(retained.frame.minY, pageY, accuracy: 3)
+        capture("ios-immersed-older-page-anchor")
+        app.buttons["conversation-latest"].tap()
+        XCTAssertTrue(app.staticTexts["Appended while reading earlier messages."].isHittable)
+        XCTAssertFalse(app.buttons["conversation-latest"].exists)
+    }
+    @MainActor func testSwahiliOriginalCanBeReadInEnglishAndCopiedWithoutRewriting() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-learning-language-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        let immersed = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like muziki.'")).firstMatch
+        XCTAssertTrue(immersed.waitForExistence(timeout: 20))
+        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap(); app.buttons["Swahili"].tap()
+        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap(); app.buttons["Immersed"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Message language"].tap()
+        app.buttons["Swahili"].tap()
+        XCTAssertTrue(immersed.waitForExistence(timeout: 10))
+        app.buttons["Reading options"].tap(); app.buttons["Copy original message"].tap()
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        input.tap(); input.press(forDuration: 1.2)
+        let paste = app.buttons["Paste"].exists ? app.buttons["Paste"] : app.menuItems["Paste"]
+        XCTAssertTrue(paste.waitForExistence(timeout: 5)); paste.tap()
+        XCTAssertEqual(input.value as? String, "Ninapenda muziki.")
+        capture("ios-swahili-original-copy")
+    }
+    // A single row and the preparation notice remain in the viewport at all
+    // audited sizes. The separate full-history audit stays unfiltered too.
+    // This distinguishes an actual font failure from nodes moving offscreen.
+    @MainActor func testVisibleImmersedRowAndPreparationNoticeAccessibility() throws {
+        continueAfterFailure = true
+        let app = XCUIApplication()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        for appearance in ["light", "dark"] {
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
+                "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-" + appearance]
+            app.launch()
+            XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch.waitForExistence(timeout: 20))
+            try app.performAccessibilityAudit()
+            capture("ios-swahili-visible-row-accessibility-" + appearance)
+            app.terminate()
+        }
+    }
+
+    @MainActor func testLanguagePreparationReturnResumesImmersionWithoutLosingDraft() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        let prompt = app.buttons["conversation-language-download"]
+        XCTAssertTrue(prompt.waitForExistence(timeout: 20))
+        prompt.tap()
+        XCTAssertTrue(app.buttons["language-target-picker"].waitForExistence(timeout: 5))
+        app.buttons["language-target-picker"].tap()
+        app.buttons["Spanish · Español"].tap()
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        let spanish = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label CONTAINS 'música'")).firstMatch
+        XCTAssertTrue(spanish.waitForExistence(timeout: 20))
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        input.tap(); input.typeText("Tomorrow works for me")
+        // Backgrounding must stop playback/alternation and retain the draft.
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertEqual(input.value as? String, "Tomorrow works for me")
+        XCTAssertTrue(app.buttons["message-send"].isEnabled)
+        capture("ios-language-return-draft")
+    }
+
+    @MainActor func testImmersedConversationAccessibilityAndLargestType() throws {
+        continueAfterFailure = true
+        let app = XCUIApplication()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        for appearance in ["light", "dark"] {
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-timeline-audit",
+                "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-" + appearance]
+            app.launch()
+            let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I like '")).firstMatch
+            XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+            var findings: [[String: String]] = []
+            try app.performAccessibilityAudit { issue in
+                findings.append(["issue":issue.compactDescription, "detail":issue.detailedDescription,
+                    "identifier":issue.element?.identifier ?? "", "label":issue.element?.label ?? "",
+                    "frame":issue.element.map { String(describing: $0.frame) } ?? "",
+                    "hittable":issue.element.map { String($0.isHittable) } ?? ""])
+                return false
+            }
+            let report = XCTAttachment(data: try JSONSerialization.data(withJSONObject: findings, options: [.prettyPrinted, .sortedKeys]), uniformTypeIdentifier: "public.json")
+            report.name = "chat-immersion-accessibility-" + appearance; report.lifetime = .keepAlways; add(report)
+            capture("ios-swahili-accessibility-" + appearance)
+            app.terminate()
+        }
+        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        let last = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I like '")).firstMatch
+        XCTAssertTrue(last.waitForExistence(timeout: 20)); XCTAssertTrue(last.isHittable)
+        XCTAssertGreaterThanOrEqual(last.frame.minX, app.frame.minX)
+        XCTAssertLessThanOrEqual(last.frame.maxX, app.frame.maxX)
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.isHittable)
+        capture("ios-swahili-largest-text-dark")
+    }
+    @MainActor func testSwahiliImmersionAndFullTranslationInActualConversationRows() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        let target = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label CONTAINS 'muziki'")).firstMatch
+        XCTAssertTrue(target.waitForExistence(timeout: 30))
+        // Stable semantic identity survives the first row leaving the viewport
+        // when the keyboard appears; a positional index does not.
+        let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I like '")).firstMatch
+        let before = paragraph.frame
+        let meaning = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like music.'")).firstMatch
+        XCTAssertTrue(meaning.waitForExistence(timeout: 10))
+        XCTAssertEqual(meaning.frame.height, before.height, accuracy: 1)
+        capture("ios-swahili-conversation-light")
+        let menu = app.buttons.matching(NSPredicate(format: "label == %@", "Reading options")).allElementsBoundByIndex.last!
+        menu.tap()
+        app.buttons["Swahili"].tap()
+        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
+        capture("ios-swahili-whole-translation-light")
+        app.buttons.matching(NSPredicate(format: "label == %@", "Reading options")).allElementsBoundByIndex.last!.tap()
+        app.buttons["Immersed"].tap()
+        XCTAssertTrue(target.waitForExistence(timeout: 10))
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        input.tap(); input.typeText("I am eating bread now.")
+        let visible = paragraph.label
+        let stable = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", visible), object: paragraph)
+        stable.isInverted = true
+        XCTAssertEqual(XCTWaiter.wait(for: [stable], timeout: 8), .completed)
+        app.buttons["message-send"].tap()
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label CONTAINS 'mkate'")).firstMatch.waitForExistence(timeout: 15))
+        capture("ios-swahili-sent-immersion-light")
+    }
+    private func capture(_ name: String) {
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
+    }
+}

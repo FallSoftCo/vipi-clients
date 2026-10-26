@@ -18,6 +18,10 @@ from build_wiktextract import LANGUAGES, NON_ROMAN, canonical, digest_file, form
 from context_hints import lookup_key
 from context_patterns import validate_pattern,validate_frames
 
+# The pinned dictionary extraction remains the original ten-language corpus.
+# Reviewed authoring can add a language independently of that frozen source.
+AUTHORING_LANGUAGES = (*LANGUAGES, 'sw')
+
 SCHEMA = '''
 CREATE TABLE imports(id TEXT PRIMARY KEY, manifest TEXT NOT NULL, generation INTEGER NOT NULL UNIQUE,
  checkpoint INTEGER NOT NULL DEFAULT 0, complete INTEGER NOT NULL DEFAULT 0) WITHOUT ROWID;
@@ -52,7 +56,7 @@ def validate(record):
     if record.get('schema') != 'vipi-contextual-mapping-1':
         raise ValueError('Unsupported mapping schema')
     source, target = record.get('source_language'), record.get('target_language')
-    if source not in LANGUAGES or target not in LANGUAGES or source == target:
+    if source not in AUTHORING_LANGUAGES or target not in AUTHORING_LANGUAGES or source == target:
         raise ValueError('Invalid mapping direction')
     if not isinstance(record.get('logical_id'), str) or not 1 <= len(record['logical_id']) <= 256:
         raise ValueError('Stable logical identity required')

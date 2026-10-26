@@ -10,9 +10,9 @@ case "$test_name" in
 esac
 log="../artifacts/ipad-translation-${revision}.log"
 [[ ! -e "$log" ]]
-xcodegen generate
+zsh ../scripts/prepare-ios-project.sh
 set +e
-xcodebuild -project Vipi.xcodeproj -scheme Vipi -configuration Debug \
+xcodebuild -workspace Vipi.xcworkspace -scheme Vipi -configuration Debug \
   -destination 'platform=iOS,id=7B6D180F-1D57-5036-8E42-C057698FBAB2' \
   -derivedDataPath ../build/ios-device -allowProvisioningUpdates \
   -parallel-testing-enabled NO -collect-test-diagnostics never \

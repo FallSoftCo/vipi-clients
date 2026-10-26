@@ -2,6 +2,22 @@
 
 Updated 2026-10-26. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
+## Swahili and actual chat immersion — 2026-10-26, 13:20 Eastern
+
+Swahili is integrated into native language selection, previews, local translation, speech and actual conversation immersion. Android and physical iPad qualify all 8,393 authored references over 110 directed pairs, selecting 8,243 substitutions. Bundle 004 contains 46,301,184 SQLite bytes; author assessment is not independent meaning acceptance. The per-conversation cache/queue preserves encrypted originals, handles either original language, permits a manual language override, and initializes recycled rows from cached results to prevent a measured 19-pixel paging shift.
+
+Android chat 005 passes both original-language directions, copy original, manual language selection, continuous switching, full-language views and draft pause. Android immersed-history 004 passes seventy-message append/keyboard/send/jump/earlier-page behavior. Physical iPad lifecycle 004 passes ten tests including local identification and actual reverse Swahili translation. Actual Swahili translation and synthesis remain measured separately; the iOS eSpeak voice is synthetic and has no listening acceptance.
+
+Both platforms pass all 307 new explicit Arabic/Chinese/Japanese/Korean whole-sentence readings, paragraph composition and unknown-clause abstention. Android also passes Japanese reading/script/native-language controls. Asset SHA: 3294a55d9928824abcce2b2fba5be4dea22febd6bff1e2722a406bde2fa8d5cd. No unknown sentence receives an invented reading; speech uses native text.
+
+iPhone simulator suite 021 passes six of eight tests, including Japanese full readings, both message directions, copying originals, language navigation, actual largest-type metadata growth and seventy-message history. Compact status controls and a scrollable detail sheet keep more than half the largest-text screen available for messages. The two earlier Dynamic Type findings are absent, but both audit tests report light-theme contrast; targeted runs 022–024 still fail that check. No acceptance audit filters issues. Temporary diagnostic isolation is explicitly not acceptance evidence. Physical chat UI still awaits XCTest device confirmation; native iPad tests work.
+
+Android TalkBack run 006 passes with the real service in 18.670s: automatic switching pauses for eight seconds, the native tree contains readable displayed text, an actual custom action switches the word, and switching resumes after service shutdown. The test exposed that Compose actions on AndroidView did not reach its native TextView; actions now register on TextView. A chooser handles more than 31 words and awaits its own check. All three accessibility settings were independently verified restored (null, 0, 0). This does not qualify acoustic speech quality.
+
+The frozen AfriWOZ Swahili probe has 241 turns/2,410 directed cases after exact deduplication. Both native platforms completed all cases with the pre-expansion live catalog and selected **zero** substitutions. Neither full translation execution nor the new authored mappings proves majority conversation coverage. No held-out source was used for authoring and no improvement is inferred without evaluation.
+
+The pinned Swahili dictionary scan retains 20,557 native headwords, 24,424 senses, 300,829 recorded forms and direct translation candidates for 5,267 English headwords. The 104,243,200-byte index remains unqualified research evidence, not app data. SHA: 46395c3ed74c76ec55e2006c9ea665b4e2a11384877dd3fb264d8a32297cdbae. Full receipts, provenance, timing, limitations and remaining work are maintained in [SWAHILI_AND_CHAT_IMMERSION.md](SWAHILI_AND_CHAT_IMMERSION.md).
+
 ## Native Chinese source evidence — 2026-10-26
 
 `build_source_guards.py` scans the exact pinned ten-language extraction, verifying its size and SHA before processing. It retains Chinese Han headwords and explicitly tagged simplified/traditional forms; no English-pivot translation is required. Original source lines, headwords, POS, glosses and tags remain in the index. The full native data contains 板藍根/板蓝根 and the baby-one-month senses of 滿月/满月, which were absent from the pair's translation candidates. Shared-character `mul` entries, inferred forms and other languages are deliberately excluded rather than assumed to be Chinese evidence.

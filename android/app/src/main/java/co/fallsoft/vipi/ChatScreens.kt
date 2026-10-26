@@ -1,6 +1,8 @@
 package co.fallsoft.vipi
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,11 +23,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import android.content.Intent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
 import java.text.DateFormat
@@ -58,7 +66,8 @@ import java.util.UUID
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, back: () -> Unit) {
+@Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
+    density: Double = .25, onLanguages: (() -> Unit)? = null, back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -69,10 +78,36 @@ import java.util.UUID
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
+    var showVoiceHelp by remember(peer) { mutableStateOf(false) }
+    var voiceSettingsError by remember { mutableStateOf<String?>(null) }
     var followingLatest by remember(peer) { mutableStateOf(true) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val immersion = remember(chat, peer, source, target, density) { ConversationImmersion(context, source, target, density) }
+    val speech = remember(chat, peer, source, target) { SpeechPlayback(context, source, target, scope) }
+    val warmups = remember(source, target) {
+        val example = ConversationExamples.result(context, source, target)
+        mapOf(source to example.original, target to example.translation)
+    }
+    val lifecycle = LocalLifecycleOwner.current
+    var composing by remember { mutableStateOf(false) }
+    LaunchedEffect(immersion) { immersion.checkDownloads() }
+    LaunchedEffect(speech) { speech.prepare(warmups) }
+    LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
+    DisposableEffect(lifecycle, immersion, speech) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) speech.stop()
+            if (event == Lifecycle.Event.ON_RESUME) {
+                scope.launch { immersion.checkDownloads() }; speech.prepare(warmups)
+            }
+        }
+        lifecycle.lifecycle.addObserver(observer)
+        onDispose { lifecycle.lifecycle.removeObserver(observer) }
+    }
+    DisposableEffect(immersion) { onDispose { immersion.close() } }
+    DisposableEffect(speech) { onDispose { speech.close() } }
     val list = rememberLazyListState()
     LaunchedEffect(list, peer) {
         snapshotFlow {
@@ -136,6 +171,9 @@ import java.util.UUID
             }) },
         bottomBar = {
             Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
+                if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
+                    Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
+                }
                 (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
                 if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                     Text("You blocked this person.", fontSize = 14.sp)
@@ -147,7 +185,7 @@ import java.util.UUID
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = "This draft couldn’t be saved. Keep this conversation open and try again." }
                     }, placeholder = { Text("Message") }, maxLines = 6, shape = RoundedCornerShape(24.dp),
-                        modifier = Modifier.weight(1f).testTag("message-input"))
+                        modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
                         try {
                             chat.send(text, peer); text = ""; error = null
@@ -166,6 +204,7 @@ import java.util.UUID
         } }, modifier = Modifier.fillMaxSize().padding(padding)) {
             LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("conversation-timeline"), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item(key = "history-header") {
+                    if (immersion.ready == false && onLanguages != null) TextButton(onClick = onLanguages) { Text("Prepare languages") }
                     if (earlierAvailable) TextButton(onClick = { earlier() }) { Text("Earlier messages") }
                     if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Icon(Icons.Outlined.Lock, null)
@@ -177,9 +216,11 @@ import java.util.UUID
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
                         if (item.outgoing) Spacer(Modifier.width(38.dp))
                         Column(Modifier.weight(1f, fill = false).background(if (item.outgoing) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)).padding(horizontal = 15.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                            SelectionContainer { Text(item.text, lineHeight = 24.sp) }
                             val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
-                            Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            ConversationImmersionText(item.text, item.id.toString(), immersion, speech, list.isScrollInProgress || (composing && text.isNotEmpty()), onVoiceHelp = { showVoiceHelp = true }) {
+                            Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.testTag("message-meta-${item.id}"))
+                            }
                         }
                         if (!item.outgoing) Spacer(Modifier.width(38.dp))
                     }
@@ -195,6 +236,20 @@ import java.util.UUID
         }
     }
     if (showSecurityNumber) SecurityNumberSheet(chat, peer, dismiss = { showSecurityNumber = false })
+    if (showVoiceHelp) AlertDialog(onDismissRequest = { showVoiceHelp = false },
+        title = { Text("Hear both languages") },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(speech.error ?: "Prepare the voices for both languages to listen without a connection.")
+            voiceSettingsError?.let { Text(it) }
+            TextButton(onClick = {
+                voiceSettingsError = null
+                try { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }
+                catch (_: Exception) { voiceSettingsError = "Open your phone’s Settings and search for text-to-speech." }
+            }) { Text("Speech settings") }
+            if (speech.state == SpeechState.PREPARING) CircularProgressIndicator(Modifier.size(24.dp))
+        } },
+        confirmButton = { TextButton(onClick = { speech.prepare(warmups) }, enabled = speech.state != SpeechState.PREPARING) { Text("Retry voices") } },
+        dismissButton = { TextButton(onClick = { showVoiceHelp = false }) { Text("Done") } })
     if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
         title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
         text = { Text(if (blocked) "You can exchange new messages again. Stopped messages won’t be resent." else "Messages between you will stop. Your chat stays on this device. You can unblock anytime.") },
