@@ -98,10 +98,17 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val readings = SentenceReadings(context.applicationContext)
     private val mutex = Mutex()
     private val cache = linkedMapOf<String, ImmersionResult>()
+    private val inputLanguages = mutableStateMapOf<String, String>()
     private var closed = false
     var ready by mutableStateOf<Boolean?>(null)
         private set
-    fun cached(text: String): ImmersionResult? = if (closed) null else cache["auto:$text"]
+    fun inputLanguage(id: String): String? = inputLanguages[id]
+    fun selectInputLanguage(id: String, language: String?) {
+        if (closed || (language != null && language !in listOf(source, target))) return
+        if (language == null) inputLanguages.remove(id) else inputLanguages[id] = language
+    }
+    fun cached(text: String, messageID: String? = null): ImmersionResult? =
+        if (closed) null else cache["${messageID?.let { inputLanguages[it] } ?: "auto"}:$text"]
     fun reading(text: String): String? = readings.reading(text, target)
 
     suspend fun checkDownloads() {
@@ -143,19 +150,19 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { null }
     }
-    override fun close() { closed = true; cache.clear(); translator.close(); language.close() }
+    override fun close() { closed = true; cache.clear(); inputLanguages.clear(); translator.close(); language.close() }
 }
 
 @Composable internal fun ConversationImmersionText(text: String, id: String, immersion: ConversationImmersion,
     speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, metadata: @Composable () -> Unit) {
     // Recycled rows must start from the already prepared layout. Briefly
     // showing plain text before an asynchronous cache hit moves page anchors.
-    var result by remember(text, immersion) { mutableStateOf(immersion.cached(text)) }
+    var result by remember(id, text, immersion) { mutableStateOf(immersion.cached(text, id)) }
     var waiting by remember(text, immersion) { mutableStateOf<ImmersionResult?>(null) }
     var hasWaiting by remember(text, immersion) { mutableStateOf(false) }
     val currentlyPaused by rememberUpdatedState(paused)
     var mode by remember(text, immersion) { mutableStateOf(ReadingMode.IMMERSED) }
-    var inputLanguage by remember(text, immersion) { mutableStateOf<String?>(null) }
+    val inputLanguage = immersion.inputLanguage(id)
     LaunchedEffect(text, immersion, immersion.ready, inputLanguage) {
         val value = immersion.result(text, inputLanguage)
         if (currentlyPaused) { waiting = value; hasWaiting = true } else { result = value; hasWaiting = false }
@@ -164,10 +171,10 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     val current = result
     if (current == null) Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
         SelectionContainer { Text(text) }
-        UntranslatedMessageActions(text, immersion.source, immersion.target, inputLanguage, onLanguage = { inputLanguage = it }, metadata = metadata)
+        UntranslatedMessageActions(text, immersion.source, immersion.target, inputLanguage, onLanguage = { immersion.selectInputLanguage(id, it) }, metadata = metadata)
     }
     else ImmersionBubble(current, mode, speech, immersion.source, immersion.target, id, paused,
         fullReading = remember(current, immersion) { immersion.reading(current.translation) },
         embedded = true, onModeChange = { mode = it }, metadata = metadata, onVoiceHelp = onVoiceHelp,
-        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { inputLanguage = it })
+        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { immersion.selectInputLanguage(id, it) })
 }

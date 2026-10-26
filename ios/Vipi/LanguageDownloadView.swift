@@ -75,7 +75,7 @@ struct LanguageDownloadView: View {
         @Bindable var state = state
         Form {
             Section {
-                Picker("I already speak", selection: $state.knownLanguage) {
+                Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
                     ForEach(VipiLanguage.initial) { Text($0.name).tag($0.id) }
                 }.pickerStyle(.menu).disabled(preparation.busy).accessibilityIdentifier("language-source-picker")
                 Picker("I’m picking up", selection: $state.targetLanguage) {
@@ -129,9 +129,6 @@ struct LanguageDownloadView: View {
         }
         .scrollContentBackground(.hidden).background(VipiDesign.canvas)
         .navigationTitle("Your languages").navigationBarTitleDisplayMode(.inline)
-        .onChange(of: state.knownLanguage) { _, value in
-            if state.targetLanguage == value { state.targetLanguage = value == "es" ? "en" : "es" }
-        }
         .task(id: pair) { await preparation.refresh(pair) }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active && !preparation.busy { Task { await preparation.refresh(pair) } }

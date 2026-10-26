@@ -1,0 +1,19 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "80e5897470124c0aee833e1dfff8a97e3d51237106ec2d68a8ef1f41cd29b1ce",
+  "authoring_source_sha256": "f2554aad746126b6102e4ec9d9c7d4326c771a807dd8dd42eaebec7f2a5f0ab3",
+  "records": 910,
+  "scope": "The same seven request/communication constructions over 110 directions, plus 140 explicit Swahili first-person contraction alternatives.",
+  "prior_assessment_sha256": "da955e5438ec150d980eb6d05f106b50233d12b0f48c2429a01bfb8cd2319381",
+  "decisions": {
+    "retained": "All 770 prior mappings and their assessed lexical scopes/readings remain unchanged. Their French/Italian article corrections, Japanese generic railway wording, Chinese room classifier and exclusion of uncertain table-reservation wording remain in force.",
+    "contraction": "Additional bounded constructions allow natafuta/natuma/nahitaji and their initial capitals alongside the full ninatafuta/ninatuma/ninahitaji references. These are explicit first-person present alternatives, not inferred elision or an expanded stemmer. Other subjects and tenses retain the original finite construction.",
+    "reference_integrity": "Each added record retains the exact same complete reference as its canonical construction. The two patterns can agree on one focus without introducing conflicting whole-sentence translations. Native duplicate-focus handling and unseen longer inputs require execution checks.",
+    "meaning_and_grammar": "Only the noun or conventional noun phrase changes. Person, tense, negation and surrounding grammar remain outside the focus. Both original and actual translated text must satisfy the assessed constructions. The same non-Roman lexical readings are reused without new phonetic claims.",
+    "limits": "Author assessment only. No held-out conversation text supplied these variants. Regional usage, independent semantic accuracy, native execution, actual model outputs and useful unseen coverage remain separate checks."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

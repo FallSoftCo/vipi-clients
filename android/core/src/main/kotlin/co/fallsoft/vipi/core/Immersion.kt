@@ -108,6 +108,13 @@ class ImmersionEngine {
             selected += candidate.span
             used += count
         }
+        // Density is a target, not permission to split a vocabulary item.
+        // If every approved item exceeds the rounded budget, expose just the
+        // smallest one. All context, ambiguity and reading checks run above.
+        if (selected.isEmpty()) {
+            unique.minWithOrNull(compareBy<Candidate> { maxOf(1, words.findAll(it.span.original).count()) }
+                .thenBy { it.span.start })?.let { selected += it.span }
+        }
         return ImmersionResult(original, translation, selected.sortedBy { it.start })
     }
 

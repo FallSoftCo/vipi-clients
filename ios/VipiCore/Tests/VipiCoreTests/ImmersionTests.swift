@@ -1,6 +1,18 @@
 import Foundation
 import Testing
 @testable import VipiCore
+@Test func lowDensityKeepsAtomicPhrasesWithoutBypassingMeaningOrOffSetting() {
+    let engine = ImmersionEngine()
+    let entry = VocabularyEntry(source: "train ticket", targets: ["tiketi ya treni"])
+    let source = "I need a train ticket.", target = "Ninahitaji tiketi ya treni."
+    let result = engine.align(original: source, translation: target, entries: [entry], density: 0.25)
+    #expect(result.spans.map(\.original) == ["train ticket"])
+    #expect(result.original == source)
+    #expect(engine.align(original: source, translation: target, entries: [entry], density: 0).spans.isEmpty)
+    #expect(engine.align(original: source, translation: "Ninahitaji hoteli.", entries: [entry], density: 0.25).spans.isEmpty)
+    let ambiguous = VocabularyEntry(source: "train ticket", targets: ["tiketi ya treni", "hoteli"])
+    #expect(engine.align(original: source, translation: target + " hoteli", entries: [ambiguous], density: 0.25).spans.isEmpty)
+}
 
 @Test func nativeSourceEvidenceProtectsUnmappedCompoundsAndOmittedSenses() {
     let engine=ImmersionEngine()

@@ -6,6 +6,18 @@ import org.junit.Test
 
 class ImmersionTest {
     private val engine = ImmersionEngine()
+    @Test fun lowDensityKeepsAnAtomicPhraseWithoutBypassingMeaningOrOffSetting() {
+        val entry = VocabularyEntry("train ticket", listOf("tiketi ya treni"))
+        val source = "I need a train ticket."
+        val target = "Ninahitaji tiketi ya treni."
+        val result = engine.align(source, target, listOf(entry), 0.25)
+        assertEquals(listOf("train ticket"), result.spans.map { it.original })
+        assertEquals(source, result.original)
+        assertTrue(engine.align(source, target, listOf(entry), 0.0).spans.isEmpty())
+        assertTrue(engine.align(source, "Ninahitaji hoteli.", listOf(entry), 0.25).spans.isEmpty())
+        val ambiguous = entry.copy(targets = listOf("tiketi ya treni", "hoteli"))
+        assertTrue(engine.align(source, "$target hoteli", listOf(ambiguous), 0.25).spans.isEmpty())
+    }
     @Test fun nativeSourceEvidenceProtectsUnmappedCompoundsAndOmittedSenses() {
         val blue=VocabularyEntry("蓝",listOf("blue"))
         val herb=VocabularyEntry("板蓝根",emptyList(),protectInner=true)

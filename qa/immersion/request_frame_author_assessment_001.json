@@ -1,0 +1,19 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "6c22ccddb60b92597d827050520cb36a56775fff57b0c3920f610d13c0f48fcd",
+  "authoring_source_sha256": "e1a5f66d611f074c9a2f1cfba396693d0b9ddd1170faa6b25ed162e98a03104d",
+  "records": 770,
+  "scope": "Seven independently authored request and communication constructions in all 110 directions, including 140 Swahili mappings. No held-out dialogue wording was used.",
+  "decisions": {
+    "meaning": "Restaurant and hotel searches identify physical places; job searches identify employment. Message and email constructions identify interpersonal communication. Train-ticket and hotel-room requests retain complete conventional noun phrases rather than splitting their meaning across languages.",
+    "scope": "Only the bracketed noun or noun phrase changes. Explicit surrounding verbs, articles, classifiers and particles constrain both the source and actual translated text. Person, tense and negation outside the focus remain unchanged. Repeated or conflicting frames abstain under the existing native policy.",
+    "finite_variants": "English, Spanish, French, German, Italian, Portuguese, Arabic, Chinese, Japanese and Korean alternatives are finite attested forms. Swahili enumerates six subject prefixes, present/past/future markers and the literal tafuta, tuma or hitaji root. This does not approve a stemmer, unlisted negative inflections or colloquial first-person contraction.",
+    "corrections": "French hotel/job definite articles use elided l’ or l' rather than le. Italian email uses un’ or un'. Japanese generic railway tickets use ressha, avoiding an electric-train restriction. Chinese room requests use the room classifier jian. The uncertain Swahili table-reservation expression was removed before assessment. Earlier generation failures were not imported.",
+    "readings": "Every Arabic, Chinese, Japanese and Korean target focus has an explicit Latin reading. Arabic email uses the complete construct phrase risalat barid iliktruni; these practical readings are neither IPA nor acoustic approval. Whole-sentence readings are a separate asset and are not implied by lexical coverage.",
+    "limits": "Regional alternatives and provider synonyms can cause abstention. Figurative, technical or unusually ambiguous contexts still require separate evaluation. This is the author's content-bound assessment, not independent linguistic acceptance or proof of majority conversation coverage."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

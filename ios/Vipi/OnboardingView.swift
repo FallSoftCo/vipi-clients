@@ -85,13 +85,10 @@ struct OnboardingView: View {
             IntroHeading(eyebrow: "Make it your world", title: "What language\nwill you live in?", detail: "Start with one. You can change it whenever you like.")
             VStack(alignment: .leading, spacing: 10) {
                 Text("I already speak").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
-                Picker("I already speak", selection: $state.knownLanguage) {
+                Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
                     ForEach(VipiLanguage.initial) { Text($0.name).tag($0.id) }
                 }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
                     .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
-                    .onChange(of: state.knownLanguage) { _, value in
-                        if value == state.targetLanguage { state.targetLanguage = value == "es" ? "en" : "es" }
-                    }
             }
             Text("I want to pick up").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
             Picker("I want to pick up", selection: $state.targetLanguage) {

@@ -13,6 +13,29 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class MessageLanguageDeviceTest {
+    @Test fun inputLanguageChoiceBelongsToMessageAndSurvivesRowRecreation() = runBlocking {
+        check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        withContext(Dispatchers.Main) {
+            val owner = ConversationImmersion(context, "en", "sw", 1.0)
+            try {
+                val text = "Ninapenda muziki."
+                owner.selectInputLanguage("message-one", "sw")
+                val value = owner.result(text, owner.inputLanguage("message-one"))
+                assertNotNull(value)
+                assertEquals(value, owner.cached(text, "message-one"))
+                assertNull(owner.cached(text, "message-two"))
+                assertNull(owner.inputLanguage("message-two"))
+                owner.selectInputLanguage("message-one", "de")
+                assertEquals("sw", owner.inputLanguage("message-one"))
+                owner.selectInputLanguage("message-one", null)
+                assertNull(owner.inputLanguage("message-one"))
+                owner.selectInputLanguage("message-one", "sw")
+            } finally { owner.close() }
+            assertNull(owner.inputLanguage("message-one"))
+            assertNull(owner.cached("Ninapenda muziki.", "message-one"))
+        }
+    }
     @Test fun bundledIdentificationRecognizesElevenNativeParagraphsAndAbstainsOnShortInput() = runBlocking {
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val context = InstrumentationRegistry.getInstrumentation().targetContext

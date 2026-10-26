@@ -2,6 +2,25 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class ConversationImmersionTests: XCTestCase {
+    func testInputLanguageChoiceBelongsToMessageAndSurvivesRowRecreation() async throws {
+        let owner = ConversationImmersion()
+        await owner.configure(pair: .init(source: "en", target: "sw"), density: 1)
+        let text = "Ninapenda muziki."
+        owner.selectInputLanguage("sw", for: "message-one")
+        let value = await owner.result(for: text, inputLanguage: owner.inputLanguage(for: "message-one"))
+        XCTAssertNotNil(value)
+        XCTAssertEqual(owner.cached(text, messageID: "message-one"), value)
+        XCTAssertNil(owner.cached(text, messageID: "message-two"))
+        XCTAssertNil(owner.inputLanguage(for: "message-two"))
+        owner.selectInputLanguage("de", for: "message-one")
+        XCTAssertEqual(owner.inputLanguage(for: "message-one"), "sw")
+        owner.selectInputLanguage(nil, for: "message-one")
+        XCTAssertNil(owner.inputLanguage(for: "message-one"))
+        owner.selectInputLanguage("sw", for: "message-one")
+        owner.close()
+        XCTAssertNil(owner.inputLanguage(for: "message-one"))
+        XCTAssertNil(owner.cached(text, messageID: "message-one"))
+    }
     func testLearningLanguageReferencesUseNativeBaselineWithoutChangingTargetText() async throws {
         let owner = ConversationImmersion()
         await owner.configure(pair: .init(source: "en", target: "sw"), density: 1)

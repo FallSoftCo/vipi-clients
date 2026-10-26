@@ -1,6 +1,39 @@
 import XCTest
 
 final class ChatImmersionTests: XCTestCase {
+    @MainActor func testOnboardingSelectsSwahiliAndShowsWholeThoughtInBothDirections() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-language", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
+        app.launch()
+        defer { app.terminate(); app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es"]; app.launch() }
+        let targetPicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I want to pick up'")).firstMatch
+        XCTAssertTrue(targetPicker.waitForExistence(timeout: 15)); targetPicker.tap()
+        app.buttons["Swahili · Kiswahili"].tap()
+        XCTAssertTrue(app.buttons["Continue with Swahili"].waitForExistence(timeout: 5))
+        let whole = app.buttons["See the whole thought in Swahili"]
+        for _ in 0..<3 {
+            if whole.isHittable && whole.frame.maxY < app.buttons["Continue with Swahili"].frame.minY - 24 { break }
+            app.scrollViews.firstMatch.swipeUp()
+        }
+        whole.tap()
+        XCTAssertTrue(app.staticTexts["Kahawa kesho? Ninajua sehemu ndogo karibu na mto."].waitForExistence(timeout: 5))
+        capture("ios-onboarding-swahili-whole-thought")
+        app.buttons["Back to immersion"].tap()
+        for _ in 0..<3 { if targetPicker.isHittable { break }; app.swipeDown() }
+        let sourcePicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I already speak'")).firstMatch
+        sourcePicker.tap(); app.buttons["Swahili"].tap()
+        targetPicker.tap(); app.buttons["English · English"].tap()
+        XCTAssertTrue(app.buttons["Continue with English"].waitForExistence(timeout: 5))
+        let reverseWhole = app.buttons["See the whole thought in English"]
+        for _ in 0..<3 {
+            if reverseWhole.isHittable && reverseWhole.frame.maxY < app.buttons["Continue with English"].frame.minY - 24 { break }
+            app.scrollViews.firstMatch.swipeUp()
+        }
+        reverseWhole.tap()
+        XCTAssertTrue(app.staticTexts["Coffee tomorrow? I know a little place by the river."].waitForExistence(timeout: 5))
+        capture("ios-onboarding-swahili-known-language")
+    }
     @MainActor func testOldestAndNewestMetadataActuallyGrowAndRemainReadable() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -195,6 +228,8 @@ final class ChatImmersionTests: XCTestCase {
             app.launch()
             let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I like '")).firstMatch
             XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+            let composer = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+            let composerHeight = composer.frame.height
             var findings: [[String: String]] = []
             try app.performAccessibilityAudit { issue in
                 findings.append(["issue":issue.compactDescription, "detail":issue.detailedDescription,
@@ -203,6 +238,8 @@ final class ChatImmersionTests: XCTestCase {
                     "hittable":issue.element.map { String($0.isHittable) } ?? ""])
                 return false
             }
+            XCTAssertEqual(composer.frame.height, composerHeight, accuracy: 2,
+                "Returning from accessibility sizes must not leave an expanded empty composer")
             let report = XCTAttachment(data: try JSONSerialization.data(withJSONObject: findings, options: [.prettyPrinted, .sortedKeys]), uniformTypeIdentifier: "public.json")
             report.name = "chat-immersion-accessibility-" + appearance; report.lifetime = .keepAlways; add(report)
             capture("ios-swahili-accessibility-" + appearance)

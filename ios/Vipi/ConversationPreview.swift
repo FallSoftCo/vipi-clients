@@ -10,6 +10,7 @@ enum ConversationExamples {
         return try? JSONDecoder().decode(Examples.self, from: data)
     }()
     static func result(source: String, target: String) -> ImmersionResult? {
+        guard source != target else { return nil }
         guard let from = examples?.languages[source], let to = examples?.languages[target] else { return nil }
         let entries = from.words.keys.sorted().compactMap { key -> VocabularyEntry? in
             guard let original = from.words[key], let destination = to.words[key] else { return nil }

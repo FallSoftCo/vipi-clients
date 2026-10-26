@@ -20,10 +20,19 @@ import VipiCore
     private var replies: [UUID: CheckedContinuation<ImmersionResult?, Never>] = [:]
     private var cache: [String: ImmersionResult] = [:]
     private var order: [String] = []
+    private var inputLanguages: [String: String] = [:]
     private let catalog = BundledImmersionCatalog()
     private var swahili: [String: SwahiliTranslation] = [:]
     private let language = MessageLanguage()
-    func cached(_ text: String) -> ImmersionResult? { cache["auto:" + text] }
+    func inputLanguage(for id: String) -> String? { inputLanguages[id] }
+    func selectInputLanguage(_ language: String?, for id: String) {
+        guard language == nil || [pair.source, pair.target].contains(language!) else { return }
+        inputLanguages[id] = language
+    }
+    func cached(_ text: String, messageID: String? = nil) -> ImmersionResult? {
+        let selected = messageID.flatMap { inputLanguages[$0] } ?? "auto"
+        return cache[selected + ":" + text]
+    }
 
     func refreshAvailability() async {
         let active = epoch
@@ -103,7 +112,7 @@ import VipiCore
         while order.count > 128 { cache.removeValue(forKey: order.removeFirst()) }
     }
     func close() {
-        epoch = UUID(); request = nil; pending.removeAll(); cache.removeAll(); order.removeAll(); swahili.removeAll()
+        epoch = UUID(); request = nil; pending.removeAll(); cache.removeAll(); order.removeAll(); swahili.removeAll(); inputLanguages.removeAll()
         let outstanding = replies.values; replies.removeAll()
         for reply in outstanding { reply.resume(returning: nil) }
         revision += 1
@@ -152,12 +161,12 @@ struct ConversationImmersionText: View {
     @State private var hasWaiting = false
     @State private var currentlyPaused = false
     @State private var mode: ReadingMode = .immersed
-    @State private var inputLanguage: String?
+    private var inputLanguage: String? { immersion.inputLanguage(for: id) }
     init(text: String, id: String, immersion: ConversationImmersion, speech: SpeechPlayback,
          paused: Bool, metadata: AnyView, onVoiceHelp: @escaping () -> Void) {
         self.text = text; self.id = id; self.immersion = immersion; self.speech = speech
         self.paused = paused; self.metadata = metadata; self.onVoiceHelp = onVoiceHelp
-        _result = State(initialValue: immersion.cached(text))
+        _result = State(initialValue: immersion.cached(text, messageID: id))
     }
     var body: some View {
         Group {
@@ -166,7 +175,7 @@ struct ConversationImmersionText: View {
                     sourceLanguage: immersion.pair.source, targetLanguage: immersion.pair.target,
                     messageID: id, interactionPaused: paused, fullReading: SentenceReadings.reading(result.translation, language: immersion.pair.target),
                     embedded: true, onModeChange: { mode = $0 }, metadata: metadata, onVoiceHelp: onVoiceHelp,
-                    originalMessage: text, inputLanguage: inputLanguage, onInputLanguage: { speech.stop(); inputLanguage = $0 })
+                    originalMessage: text, inputLanguage: inputLanguage, onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) })
             } else {
                 VStack(alignment: .leading, spacing: 7) {
                 Text(text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
@@ -175,7 +184,7 @@ struct ConversationImmersionText: View {
                     metadata; Spacer(minLength: 8)
                     Menu {
                         MessageLanguageMenu(source: immersion.pair.source, target: immersion.pair.target,
-                            selected: inputLanguage, select: { inputLanguage = $0 })
+                            selected: inputLanguage, select: { immersion.selectInputLanguage($0, for: id) })
                         Button("Copy original message") { UIPasteboard.general.string = text }
                     } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
                         .accessibilityLabel("Reading options")

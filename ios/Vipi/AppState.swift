@@ -39,6 +39,14 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     var isAuthenticated = false
     private let defaults: UserDefaults
 
+    func selectKnownLanguage(_ value: String) {
+        guard VipiLanguage.initial.contains(where: { $0.id == value }) else { return }
+        // Adjust the target in the same action, before publishing the new
+        // source. A delayed view onChange exposes an invalid equal pair.
+        if value == targetLanguage { targetLanguage = value == "es" ? "en" : "es" }
+        knownLanguage = value
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         onboarding = OnboardingStep(rawValue: defaults.string(forKey: "onboardingStep") ?? "") ?? .welcome

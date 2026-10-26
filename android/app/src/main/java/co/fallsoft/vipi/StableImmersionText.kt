@@ -103,8 +103,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             // AndroidView's Compose semantics do not reach this native node.
             // Register on TextView itself. Android supports 32 custom actions;
             // longer messages expose a chooser for every remaining word.
-            wordActions = value.spans.take(31).map { word ->
-                ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}") { _, _ ->
+            val repeated = value.spans.groupingBy { it.original to it.displayedTarget }.eachCount()
+            wordActions = value.spans.take(31).mapIndexed { index, word ->
+                val occurrence = if (repeated.getValue(word.original to word.displayedTarget) > 1) ", word ${index + 1}" else ""
+                ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}$occurrence") { _, _ ->
                     onWord?.invoke(word.id); true
                 }
             } + if (value.spans.size > 31) listOf(ViewCompat.addAccessibilityAction(this, "Choose a word to switch") { _, _ ->

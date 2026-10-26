@@ -28,6 +28,8 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import co.fallsoft.vipi.core.ImmersionResult
+import co.fallsoft.vipi.core.ImmersionSpan
 
 /** Actual service qualification on the dedicated emulator, restoring settings. */
 class TalkBackImmersionDeviceTest {
@@ -52,6 +54,15 @@ class TalkBackImmersionDeviceTest {
         val service = "com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService"
         val manager = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val visible = mutableStateOf(true)
+        val longMessage = mutableStateOf(false)
+        // Renderer/accessibility stress fixture, not a translation acceptance case.
+        val longSource = List(32) { "music" }.plus("tea").joinToString(" ")
+        val longTarget = List(32) { "muziki" }.plus("chai").joinToString(" ")
+        val longResult = ImmersionResult(longSource, longTarget, (0..32).map { index ->
+            ImmersionSpan(index * 6, index * 6 + if (index == 32) 3 else 5,
+                if (index == 32) "tea" else "music", if (index == 32) "chai" else "muziki",
+                index * 7, index * 7 + if (index == 32) 4 else 6)
+        })
         fun paragraphs(view: View): List<StableImmersionText> = when (view) {
             is StableImmersionText -> listOf(view)
             is ViewGroup -> (0 until view.childCount).flatMap { paragraphs(view.getChildAt(it)) }
@@ -72,7 +83,8 @@ class TalkBackImmersionDeviceTest {
                     val speech = remember { SpeechPlayback(context, "en", "sw", scope) }
                     DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
-                        ConversationImmersionText("I like music.", "talkback-qa", owner, speech, false, {}, { Text("A message") })
+                        if (longMessage.value) ImmersionBubble(longResult, ReadingMode.IMMERSED, source = "en", target = "sw")
+                        else ConversationImmersionText("I like music.", "talkback-qa", owner, speech, false, {}, { Text("A message") })
                     }
                 }
             }
@@ -119,14 +131,46 @@ class TalkBackImmersionDeviceTest {
             compose.waitUntil(5_000) { reading() != held }
             val switched = requireNotNull(reading())
             assertTrue(switched in listOf("I like music.", "I like muziki."))
+            compose.runOnIdle { longMessage.value = true }
+            compose.waitUntil(5_000) { reading()?.endsWith(" chai") == true }
+            val longTree = nodes(requireNotNull(automation.rootInActiveWindow))
+            val chooser = longTree.first { node -> node.actionList.any { it.label?.toString() == "Choose a word to switch" } }
+            assertEquals(32, chooser.actionList.count { it.label != null })
+            assertTrue(chooser.performAction(chooser.actionList.first { it.label?.toString() == "Choose a word to switch" }.id))
+            compose.waitUntil(5_000) {
+                automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Switch a word" }
+            }
+            compose.waitForIdle()
+            var chosen = false
+            for (page in 0..12) {
+                android.os.SystemClock.sleep(250)
+                val dialog = nodes(requireNotNull(automation.rootInActiveWindow))
+                val item = dialog.firstOrNull { it.text?.toString() == "tea · chai" }
+                if (item != null) {
+                    var button: AccessibilityNodeInfo? = item
+                    while (button != null && button.actionList.none { it.id == AccessibilityNodeInfo.ACTION_CLICK }) button = button.parent
+                    assertTrue(requireNotNull(button).performAction(AccessibilityNodeInfo.ACTION_CLICK)); chosen = true; break
+                }
+                val scroll = requireNotNull(dialog.firstOrNull { node -> node.actionList.any { it.id == AccessibilityNodeInfo.ACTION_SCROLL_FORWARD } }) {
+                    dialog.joinToString("\n") { "${it.className}: ${it.text} ${it.actionList}" }
+                }
+                assertTrue(scroll.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD))
+                // Native actions schedule Compose scrolling; advance its test
+                // clock and wait for layout before requesting the next page.
+                compose.waitForIdle()
+            }
+            assertTrue("The 33rd word is reachable through native accessibility scrolling", chosen)
+            compose.waitUntil(5_000) { reading()?.endsWith(" tea") == true }
+            val resumeFrom = requireNotNull(reading())
             keys.forEach { restore(it, before.getValue(it)) }
             if (before.getValue("touch_exploration_enabled") != "1") {
                 compose.waitUntil(10_000) { !manager.isTouchExplorationEnabled }
-                compose.waitUntil(12_000) { reading() != switched }
+                compose.waitUntil(12_000) { reading() != resumeFrom }
             }
             val report = File(context.filesDir, "talkback-immersion-$run.json"); check(!report.exists())
             report.writeText(JSONObject().put("actual_service", service).put("touch_exploration_verified", true)
                 .put("eight_second_pause", true).put("accessible_visible_text", true).put("native_custom_action", true)
+                .put("thirty_third_word_native_chooser", true)
                 .put("settings_restored", true).put("speech_listening_acceptance", false).toString(2))
         } finally {
             keys.forEach { restore(it, before.getValue(it)) }

@@ -22,7 +22,7 @@ final class BundledImmersionTests: XCTestCase {
             if ["ar", "zh", "ja", "ko"].contains(pair.target) { XCTAssertTrue(result.spans.allSatisfy { $0.romanization != nil }) }
             selected += result.spans.count; count += 1; pairs.insert(pairID)
         }
-        XCTAssertEqual(pairs.count, 110); XCTAssertEqual(count, 8393); XCTAssertGreaterThan(selected, 8000)
+        XCTAssertEqual(pairs.count, 110); XCTAssertEqual(count, 9073); XCTAssertGreaterThan(selected, 8600)
         let pair = TranslationPair(source: "en", target: "sw")
         let corrected = try await catalog.reference(original: "I am drinking water now.", pair: pair)
         XCTAssertEqual(corrected, "Ninakunywa maji sasa.")
@@ -45,7 +45,15 @@ final class BundledImmersionTests: XCTestCase {
         XCTAssertEqual(office.speech(source: "sw", target: "en").map(\.text).joined(), "Niko officeni.")
         let money = try await catalog.result(original: "I don’t have enough money.", translation: "Sina pesa za kutosha.", pair: .init(source: "en", target: "sw"), density: 1)
         XCTAssertEqual(money.speech(source: "en", target: "sw").map(\.text).joined(), "I don’t have enough pesa.")
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-003.json")
+        let request = try await catalog.result(original: "Natafuta hoteli karibu.", translation: "I am looking for a hotel nearby.", pair: .init(source: "sw", target: "en"), density: 1)
+        XCTAssertEqual(request.speech(source: "sw", target: "en").map(\.text).joined(), "Natafuta hotel karibu.")
+        let plural = try await catalog.result(original: "We are looking for a hotel nearby.", translation: "Tunatafuta hoteli karibu.", pair: pair, density: 1)
+        XCTAssertEqual(plural.speech(source: "en", target: "sw").map(\.text).joined(), "We are looking for a hoteli nearby.")
+        let ticket = try await catalog.result(original: "I need a train ticket.", translation: "Ninahitaji tiketi ya treni.", pair: pair, density: 0.25)
+        XCTAssertEqual(ticket.speech(source: "en", target: "sw").map(\.text).joined(), "I need a tiketi ya treni.")
+        let unsupportedNegative = try await catalog.result(original: "We are not sending an email tonight.", translation: "Hatutumi barua pepe leo usiku.", pair: pair, density: 1)
+        XCTAssertTrue(unsupportedNegative.spans.isEmpty)
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-004.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])

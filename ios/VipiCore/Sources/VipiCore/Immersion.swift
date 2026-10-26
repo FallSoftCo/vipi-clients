@@ -206,6 +206,14 @@ public struct ImmersionEngine: Sendable {
             selected.append(candidate.span)
             usedWords += count
         }
+        // Keep one complete vocabulary item when a low density rounds below
+        // its word count. Only candidates that passed every meaning check
+        // above participate; zero density still exits before this point.
+        if selected.isEmpty, let smallest = unambiguous.min(by: { a, b in
+            let left = max(1, matches(#"[\p{L}\p{M}]+"#, in: a.span.original).count)
+            let right = max(1, matches(#"[\p{L}\p{M}]+"#, in: b.span.original).count)
+            return left == right ? a.span.range.location < b.span.range.location : left < right
+        }) { selected.append(smallest.span) }
         return ImmersionResult(original: original, translation: translation, spans: selected.sorted { $0.range.location < $1.range.location })
     }
 

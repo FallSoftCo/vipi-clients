@@ -28,7 +28,7 @@ class BundledImmersionDeviceTest {
             if (target in setOf("ar", "zh", "ja", "ko")) assertTrue(result.spans.all { !it.romanization.isNullOrBlank() })
             pairs += pair; selected += result.spans.size
         }
-        assertEquals(110, pairs.size); assertEquals(8393, rows.length()); assertTrue(selected > 8000)
+        assertEquals(110, pairs.size); assertEquals(9073, rows.length()); assertTrue(selected > 8600)
         assertEquals("Ninakunywa maji sasa.", catalog.reference("I am drinking water now.", "en", "sw"))
         assertNull(catalog.reference("We are drinking water now.", "en", "sw"))
         val embedded = catalog.result("We are drinking water now.", "Tunakunywa maji sasa.", "en", "sw", 1.0)
@@ -43,7 +43,14 @@ class BundledImmersionDeviceTest {
         assertEquals("Niko officeni.", office.speech("sw", "en").joinToString("") { it.text })
         val money = catalog.result("I don’t have enough money.", "Sina pesa za kutosha.", "en", "sw", 1.0)
         assertEquals("I don’t have enough pesa.", money.speech("en", "sw").joinToString("") { it.text })
-        val output = File(context.filesDir, "bundled-immersion-003.json"); check(!output.exists())
+        val request = catalog.result("Natafuta hoteli karibu.", "I am looking for a hotel nearby.", "sw", "en", 1.0)
+        assertEquals("Natafuta hotel karibu.", request.speech("sw", "en").joinToString("") { it.text })
+        val plural = catalog.result("We are looking for a hotel nearby.", "Tunatafuta hoteli karibu.", "en", "sw", 1.0)
+        assertEquals("We are looking for a hoteli nearby.", plural.speech("en", "sw").joinToString("") { it.text })
+        val ticket = catalog.result("I need a train ticket.", "Ninahitaji tiketi ya treni.", "en", "sw", 0.25)
+        assertEquals("I need a tiketi ya treni.", ticket.speech("en", "sw").joinToString("") { it.text })
+        assertTrue(catalog.result("We are not sending an email tonight.", "Hatutumi barua pepe leo usiku.", "en", "sw", 1.0).spans.isEmpty())
+        val output = File(context.filesDir, "bundled-immersion-004.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
     }

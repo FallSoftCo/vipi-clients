@@ -235,15 +235,9 @@ struct FriendConversationView: View {
         .background { ConversationTranslationTask(immersion: immersion) }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
-                    Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
-                } label: {
-                    if blockBusy { ProgressView() }
-                    else { Image(systemName: "ellipsis").frame(width: 36, height: 36) }
-                }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
-            }
+            if #available(iOS 26.0, *) {
+                conversationOptions.sharedBackgroundVisibility(.hidden)
+            } else { conversationOptions }
         }
         .alert(blocked ? "Unblock \(chat.name(peer))?" : "Block \(chat.name(peer))?", isPresented: $confirmBlock) {
             Button("Cancel", role: .cancel) {}
@@ -305,6 +299,17 @@ struct FriendConversationView: View {
             catch { self.error = "This draft couldn’t be saved. Keep this conversation open and try again." }
         }
     }
+    private var conversationOptions: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
+                Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
+            } label: {
+                if blockBusy { ProgressView() }
+                else { Image(systemName: "ellipsis").frame(width: 44, height: 44) }
+            }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
+        }
+    }
     private var composer: some View {
             VStack(spacing: 9) {
                 if blocked {
@@ -316,6 +321,7 @@ struct FriendConversationView: View {
                 HStack(alignment: .bottom, spacing: 10) {
                     TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing)
                         .fixedSize(horizontal: false, vertical: true)
+                        .id(typeSize)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .accessibilityIdentifier("message-input")
                     Button(action: send) {
