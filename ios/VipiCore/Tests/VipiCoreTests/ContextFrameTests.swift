@@ -3,6 +3,13 @@ import XCTest
 @testable import VipiCore
 
 final class ContextFrameTests:XCTestCase {
+    func testFinitePossessorsRemainOutsideFocus() {
+        let parts:[ContextPart]=[.slot(["my ","your ","their "]),.focus("dog")]
+        XCTAssertEqual(ContextMappingMatcher.focus(in:"their dog",parts:parts),NSRange(location:6,length:3))
+        XCTAssertNil(ContextMappingMatcher.focus(in:"her dog",parts:parts))
+        XCTAssertNil(ContextMappingMatcher.focus(in:"dog",parts:[.focus("dog")]))
+        XCTAssertNil(ContextMappingMatcher.focus(in:" dog",parts:[.slot([" ","\n"]),.focus("dog")]))
+    }
     let original="🙂 I am reading a book now."
     let translation="🙂 Estoy leyendo un libro ahora. Otro libro."
     func frame(_ id:String="book",_ meaning:String="a book being read") -> ContextFrame {

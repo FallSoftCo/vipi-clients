@@ -1,0 +1,38 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "81e62b5b9b4ff8f27c7f1a987ef04a41c9a5c9438050efb29e7d1a23e90a3bb0",
+  "authoring_source_sha256": "2744b31310b4735195eff5e0c64f7e5214b22e0ba3e6df355e179e1cab2acc6f",
+  "activity_source_sha256": "c3207a2f9e1e33167dbe6e54b853c2aed3d2b4e62f2b0ddea114f3365d36ca69",
+  "records": 1440,
+  "scope": "Sixteen development constructions across ten languages and 90 directions, including twelve newly authored constructions. No independent accuracy claim.",
+  "decisions": {
+    "prior_four": "Existing reading-book, drinking-water, birthday-party and phone-charger records remain byte-identical to revision 003; retain that bound assessment.",
+    "drinking_coffee_and_tea": "Drinking contexts select beverages. Articles and object particles remain outside the noun. French du and Korean reul use explicit forms appropriate to these nouns; water's partitive or eul is not reused.",
+    "eating_bread_and_cheese": "Eating contexts select foods. French partitives, Arabic definite articles and Korean object particles remain outside focus. Unlisted inflections abstain. Japanese gohan and Korean bap were excluded because eating them can mean having a meal rather than specifically eating rice.",
+    "listening_music": "Listening construction selects musical sound. Listening verbs, prepositions and case particles remain outside focus; musical score and figurative readings are not authorized.",
+    "watching_movie": "Watching construction selects an audiovisual work. Indefinite articles/classifiers and Arabic accusative ending remain outside focus. Italian/French film may remain visually unchanged.",
+    "playing_piano": "Instrument-playing construction selects a piano, not musical dynamics. Instrument articles/prepositions and verbs remain outside focus. Identical Roman noun forms may remain unchanged.",
+    "walking_dog": "Animal-walking construction selects a dog. Animal ownership/definiteness and verbal morphology remain outside focus. The German separable verbal particle aus belongs to context, not replacement.",
+    "bank_account": "Financial bank modifier selects account. Bank modifier and linking words remain outside account focus; generic user accounts and narratives are not approved.",
+    "train_station_bus_stop_phone_number": "Translate complete lexical units where languages form compounds. Fixed internal linking words belong to these noun units; external articles, question words, possessors and particles remain outside focus. A target Bahnhof or Telefonnummer must not be substituted for just station or number while duplicating the source modifier.",
+    "readings": "Arabic, Chinese, Japanese and Korean lexical focuses have explicit readable Latin transliterations. Multiword units retain a complete reading. This is not IPA or a claim of new acoustic verification."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "provenance": "pass",
+    "context_frame_scope": "pass"
+  },
+  "limitations": [
+    "Author assessment, not an independent or native-speaker evaluation.",
+    "Everyday domains are informed by training frequencies; examples and readings are project-authored, not literal XPersona translations.",
+    "Literal constructions cannot rule out every metaphor, quotation or upstream mistranslation.",
+    "Twelve additional constructions are twelve lexical concepts, not 1080 independent meanings.",
+    "Reference wording and finite variants do not prove real-message availability or correct meaning in arbitrary conversation.",
+    "These records require native qualification and remain excluded from release trust and general friend chat."
+  ],
+  "release_ready": false
+}

@@ -40,7 +40,11 @@ object ContextMappingMatcher {
     }
     fun focus(original:String,parts:List<ContextPart>):IntRange? {
         if(parts.size !in 1..12 || parts.count{it is ContextPart.Focus}!=1 ||
-            parts.none{it is ContextPart.Literal && it.text.isNotBlank()})return null
+            parts.none{when(it){
+                is ContextPart.Literal->it.text.isNotBlank()
+                is ContextPart.Slot->it.alternatives.isNotEmpty() && it.alternatives.all{value->value.isNotBlank()}
+                is ContextPart.Focus->false
+            }})return null
         var states = setOf(State(0, null))
         for (part in parts) {
             val options = when (part) {

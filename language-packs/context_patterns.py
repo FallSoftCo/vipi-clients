@@ -6,8 +6,10 @@ def match_pattern(text, parts):
         raise ValueError('Bounded context pattern required')
     if sum('focus' in x for x in parts if isinstance(x,dict)) != 1:
         raise ValueError('Exactly one lexical focus required')
-    if not any(isinstance(x,dict) and isinstance(x.get('literal'),str) and x['literal'].strip() for x in parts):
-        raise ValueError('Context literal required')
+    if not any(isinstance(x,dict) and (
+        isinstance(x.get('literal'),str) and x['literal'].strip() or
+        isinstance(x.get('slot'),list) and x['slot'] and all(isinstance(v,str) and v.strip() for v in x['slot'])) for x in parts):
+        raise ValueError('Explicit nonempty context required')
     states={(0,None)}
     for part in parts:
         if not isinstance(part,dict) or len(part)!=1 or next(iter(part)) not in ('literal','slot','focus'):

@@ -14,14 +14,22 @@ enum ReviewedFrameLookup {
         for sentence in sentences {
             let fragment=(text as NSString).substring(with:sentence)
             let words=LocalImmersion.words(fragment,language:language)
-            for i in words.indices {for j in i..<min(words.count,i+8) {
-                let range=NSRange(location:words[i].location,length:NSMaxRange(words[j])-words[i].location)
-                if range.length>256 {break}
+            for i in words.indices {
+                var starts=[words[i].location]
+                let word=(fragment as NSString).substring(with:words[i])
+                if language=="fr",let apostrophe=word.firstIndex(where:{$0=="'" || $0=="’"}),
+                   ["j","l","d","t","m","n","s","c","qu"].contains(String(word[..<apostrophe]).lowercased()) {
+                    let body=word.index(after:apostrophe)
+                    if body<word.endIndex {starts.append(words[i].location+word[..<body].utf16.count)}
+                }
+                for j in i..<min(words.count,i+8) {for start in starts {
+                let range=NSRange(location:start,length:NSMaxRange(words[j])-start)
+                if range.length>256 {continue}
                 let input=(fragment as NSString).substring(with:range)
                 if input.rangeOfCharacter(from:stops) != nil {continue}
                 count+=1;if count>4096 {return nil}
                 result[input,default:[]].append(NSRange(location:sentence.location+range.location,length:range.length))
-            }}
+            }}}
         }
         return result
     }

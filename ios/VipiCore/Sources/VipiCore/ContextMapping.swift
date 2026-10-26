@@ -46,7 +46,13 @@ public enum ContextMappingMatcher {
     }
     public static func focus(in original:String,parts:[ContextPart]) -> NSRange? {
         guard (1...12).contains(parts.count),parts.filter({if case .focus = $0 {return true};return false}).count==1,
-              parts.contains(where:{if case .literal(let text) = $0 {return !text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty};return false}) else {return nil}
+              parts.contains(where:{part in
+                  switch part {
+                  case .literal(let text):return !text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty
+                  case .slot(let values):return !values.isEmpty && values.allSatisfy{!$0.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty}
+                  case .focus:return false
+                  }
+              }) else {return nil}
         let text = original as NSString
         var states: Set<State> = [State(offset: 0,focus: nil)]
         for part in parts {

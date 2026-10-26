@@ -6,6 +6,7 @@ import XCTest
 
 struct FrameQAConfiguration:Decodable {
     let pack_root:String,run_id:String,capture_file:String
+    let conversation_probe:Bool?
     static func read(_ documents:URL) throws -> Self {
         let value=try JSONDecoder().decode(Self.self,from:Data(contentsOf:documents.appendingPathComponent("frame-qa.json")))
         guard value.pack_root.range(of:"^reviewed-frames-[0-9]{3}$",options:.regularExpression) != nil,
@@ -86,6 +87,12 @@ final class ReviewedFramePackTests:XCTestCase {
         XCTAssertTrue(LocalImmersion.align(original:code,translation:translation,entries:codeEntries,density:1,source:"en",target:"es").spans.isEmpty)
         XCTAssertNil(ReviewedFrameLookup.windows(String(repeating:"word ",count:1000),language:"en"))
         XCTAssertFalse(ReviewedFrameLookup.windows("reading. a book",language:"en")?.keys.contains("reading. a book") ?? true)
+        for apostrophe in ["'","’"] {
+            let words=try XCTUnwrap(ReviewedFrameLookup.windows("🙂 J\(apostrophe)écoute de la musique.",language:"fr"))
+            XCTAssertEqual(words["écoute de la musique"],[NSRange(location:5,length:20)])
+        }
+        XCTAssertFalse(ReviewedFrameLookup.windows("O’Neill arrive.",language:"fr")?.keys.contains("Neill") ?? true)
+        XCTAssertFalse(ReviewedFrameLookup.windows("l’orange",language:"en")?.keys.contains("orange") ?? true)
         try await store.remove(id:"en-es")
         let removed=try await store.entries(id:"en-es",text:original,translation:translation);XCTAssertTrue(removed.isEmpty)
         XCTAssertEqual(pairs.count,90);XCTAssertEqual(results.count,build["records"] as? Int)

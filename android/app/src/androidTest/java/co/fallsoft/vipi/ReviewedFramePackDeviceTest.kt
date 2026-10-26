@@ -10,13 +10,13 @@ import org.junit.runner.RunWith
 import java.io.File
 import java.security.MessageDigest
 
-internal data class FrameQAConfiguration(val root:String,val run:String,val capture:String) {
+internal data class FrameQAConfiguration(val root:String,val run:String,val capture:String,val conversationProbe:Boolean=false) {
     companion object {
         fun read(files:File):FrameQAConfiguration {
             val config=JSONObject(File(files,"frame-qa.json").readText())
             val root=config.getString("pack_root");val run=config.getString("run_id");val capture=config.getString("capture_file")
             require(root.matches(Regex("reviewed-frames-[0-9]{3}")) && run.matches(Regex("[0-9]{3}")) && capture.matches(Regex("phrase-observations-[0-9]{3}\\.json")))
-            return FrameQAConfiguration(root,run,capture)
+            return FrameQAConfiguration(root,run,capture,config.optBoolean("conversation_probe",false))
         }
     }
 }
@@ -25,6 +25,9 @@ internal data class FrameQAConfiguration(val root:String,val run:String,val capt
 class ReviewedFramePackDeviceTest {
     @Test fun signedFramesBindBothSidesAcrossNativeLanguages() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
+        for(apostrophe in listOf("'","’"))assertEquals(listOf(5 until 25),ReviewedFrameLookup.windows("🙂 J${apostrophe}écoute de la musique.","fr")?.get("écoute de la musique"))
+        assertFalse(ReviewedFrameLookup.windows("O’Neill arrive.","fr")?.containsKey("Neill") ?: true)
+        assertFalse(ReviewedFrameLookup.windows("l’orange","en")?.containsKey("orange") ?: true)
         val config=FrameQAConfiguration.read(context.filesDir)
         val root=File(context.filesDir,config.root);val output=File(context.filesDir,"reviewed-frame-native-${config.run}.json")
         check(!output.exists())

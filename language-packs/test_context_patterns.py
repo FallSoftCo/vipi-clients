@@ -6,6 +6,12 @@ from context_patterns import match_pattern,validate_pattern
 
 
 class ContextPatternTests(unittest.TestCase):
+    def test_explicit_possessors_keep_their_scope_and_never_allow_bare_focus(self):
+        parts=[{'slot':['my ','your ','their ']},{'focus':'dog'}]
+        self.assertEqual(match_pattern('their dog',parts),(6,9))
+        self.assertIsNone(match_pattern('her dog',parts))
+        for parts in ([{'focus':'dog'}],[{'slot':[' ','\n']},{'focus':'dog'}]):
+            with self.assertRaises(ValueError):match_pattern(' dog',parts)
     def test_authored_patterns_preserve_each_possessor_and_both_numbers(self):
         patterns=[x for x in records() if 'context_pattern' in x['usage']]
         self.assertEqual(len(patterns),3)

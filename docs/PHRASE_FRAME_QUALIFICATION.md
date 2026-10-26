@@ -1,6 +1,43 @@
 # Native phrase frames — 2026-10-25
 
-Schema-6 phrase packs and both native implementations are mechanically qualified. General conversation immersion, majority coverage and store readiness remain unachieved. No release trust key, production backend or store state changed.
+Schema-6 phrase packs and both native implementations are mechanically qualified. Current pack revision 005 contains 18 constructions and 1,620 directed mappings. General conversation immersion, majority coverage and store readiness remain unachieved. No release trust key, production backend or store state changed.
+
+## Current expansion — pack 005
+
+Fourteen constructions supplement the original four: drinking coffee/tea, eating bread/cheese, listening to music, watching a movie, playing piano, walking a dog, bank account, train station, bus stop, phone number, liking music and a possessed dog. Each is authored in all ten languages. These are 18 constructions, not 1,620 independent concepts. Train station, bus stop and phone number use a complete lexical unit where replacing only one word would duplicate a modifier. No rice construction was accepted because common Japanese/Korean terms also denote a meal.
+
+Finite nonempty context slots can now constrain a focus without requiring an additional literal. Explicit possessors remain outside the focus, including Arabic suffixes and Korean particles. Bare focus and whitespace-only context remain invalid. French apostrophe windows accept only listed clitic prefixes; they do not split arbitrary names such as O’Neill. Bounds remain 12 pattern parts, 32 choices per slot, 128 matcher states, eight words/256 UTF-16 units per window and 4,096 windows per input.
+
+The first activity revision had an incorrect French `Je écoute` reference. Eighteen affected record revisions were quarantined before corrected `J’écoute` records were assessed. Historical pack 004 and its mechanical test passes are retained as superseded evidence, not linguistic acceptance. Bound authoring sources are archived beside both generated batches.
+
+Current authored records: `authored-phrase-frames-006/records.jsonl`, SHA `9aa29558a7421c771f6b7860293c4ca952bfa26e3116e5d116bd6bb369b8e877`. Reviewed export 005 SHA: `9e562715665c8d5b1daa729d945abb6eea04a81eac2ed1f1d5c6022306a32f44`. Ledger: 140,521 revisions, 140,062 current records; 132,967 candidate, 18 quarantined and 7,077 reviewed (5,457 exact contexts + 1,620 frames); 14 imports complete, sequence 148372. Assessments are by the author, not independent reviewers.
+
+The 90 signed revision-005 pair files total 10,469,376 SQLite bytes. Archive SHA: `04febc283d23fc84e9e03bae5b5e047794b46007d20afaca57ade716089bc835`; build receipt SHA: `13627594049a4d1db20a9d14f71b65e1b6decd4045c302194c3c631205c2deed`. Qualification keys remain ephemeral and outside release trust; exports remain `release_ready:false`.
+
+Both native platforms pass 1,620 reference mappings, with 1,588 visible substitutions and 32 unchanged Roman-spelling cases. Android combined run 009 passes in 45.548 seconds; physical iPad combined run 008 passes in 23.027 seconds. Reports are `reviewed-frame-android-009.json`, `frame-capture-android-009.json`, `reviewed-frame-apple-007.json` and `frame-capture-apple-007.json`.
+
+| Actual provider-output replay | Android | Physical iPad |
+| --- | ---: | ---: |
+| Cases | 1,620 | 1,620 |
+| Cases with matched mapping | 982 | 1,133 |
+| Cases with visible immersion | 964 | 1,109 |
+| Lookup/alignment median / p95 | 4.085 / 8.059 ms | 2.882 / 3.416 ms |
+
+Replay uses explicit composite captures: 1,431 unchanged cases reused from the prior full capture, plus 189 fresh cases (180 new and nine corrected French sources). `incremental_phrase_probe.py` compares complete sample content, protocol methods and provider labels, checks expected/unique case counts and binds every row to its originating capture. Changed content under the same ID cannot be silently reused. The composite does not claim identical provider model bytes or a fresh full model execution. Android component runs verified network absence; Apple component runs had networking available.
+
+Composite hashes: Android `9aaf280da0dcb03219a30305294885ff9b0b43adbd3d1ca9f6956d8e0d454c29`; Apple `29df1b27594cd7a26e6c0f630236db1cb3ab469e5e7f92eb27ecacd5efc6bead`. Actual-output report hashes: Android `783accdf6ad157b34419bfe80ae4c2fe62d4e56767701037399b459df8bafcf6`; Apple `bb9254c9f152b6d9d6eed736406941f5468d87abf6d2d031b3ec7bc7c6b56949`.
+
+## Conversation evaluation
+
+`conversation_probe:true` evaluates all approved focuses in an actual source/translation pair, without demanding that the first-token translation probe happen to be the focus. The evaluator validates capture/build identity, exact text, UTF-16 spans, readings, non-overlap and baseline identity. Its optional dictionary comparison reports separate-path availability; it does not merge mappings or claim accuracy.
+
+On 300 XPersona Italian/Japanese/Korean validation messages translated to the other nine languages, pack 004 produced zero matches on Android. Pack 005 produces 22 Android and 21 iPad matches, all from four Italian messages. Twenty and 19 are new relative to the respective strict dictionaries. Separate-path union availability is 558/2,700 (20.67%) Android and 606/2,700 (22.44%) iPad. No Japanese/Korean source gain is demonstrated. No majority claim is justified.
+
+Reports: `frame-conversation-android-010.json` SHA `2b6f10a7f16db1ed451929329b1b9acf942c17b002307ec657dff8ef9520cd3d`; `frame-conversation-apple-008.json` SHA `6dde396c21cc0e063e2bdcfa4b34b61b2e1fbd784c8b04a891c51cb758555e1b`. Median/p95 lookup/alignment: 5.260/10.993 ms Android and 3.419/4.957 ms iPad. Native replay passed Android run 010 and physical iPad capture-only run 009.
+
+Current regressions pass: 60 language-pack tests; Android core and both debug APK builds; Swift core; two frame-evaluator tests; two XPersona selection tests; incremental-capture provenance checks. Earlier captures, failed runs and the exact emulator storage-retirement receipt remain retained. Old revision-006 emulator dictionary files were removed only after verifying all 90 database hashes and the retained revision-007 replacement; current packs, models, captures and account data were preserved.
+
+## Historical first four constructions — pack 003
 
 ## Implementation
 

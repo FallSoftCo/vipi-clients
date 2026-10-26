@@ -1,0 +1,28 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "9aa29558a7421c771f6b7860293c4ca952bfa26e3116e5d116bd6bb369b8e877",
+  "authoring_source_sha256": "2744b31310b4735195eff5e0c64f7e5214b22e0ba3e6df355e179e1cab2acc6f",
+  "activity_source_sha256": "0299f0a3a5006d98fb57b1e48aa355ab63a975c377528634edfd3738b30cc24d",
+  "pattern_source_sha256": "f5e767ef4dcf11f20141c6326063370f629788b5f3be1fc7422c78601c03e0c9",
+  "records": 1620,
+  "scope": "Eighteen development constructions across all 90 directions. Assess 180 new records and 18 corrected French listening records; unchanged records retain earlier assessments.",
+  "decisions": {
+    "french_listening_correction": "The prior template incorrectly produced Je écoute. Correct it to J’écoute. Quarantine the 18 superseded records containing that source or target reference. The lexical frame and music focus remain unchanged; native lookup now recognizes exact French elided clitic boundaries without treating arbitrary apostrophes as word boundaries.",
+    "liking_music": "Preference constructions identify music as musical art/sound. Like/love/enjoy and their approved finite equivalents stay outside the noun focus, as do subjects, case markers and negation. Degree of preference is never translated by the vocabulary substitution. This is a distinct assessed construction, not an extension of listening approval.",
+    "possessed_dog": "Explicit possessors select an animal-companion reading of dog. The lexical focus is dog alone in each language. Arabic possessive suffixes, Japanese/Chinese possessive phrases and Korean case/topic particles remain outside focus. German alternatives include only singular masculine nominative/accusative/dative forms appropriate to Hund; no plural or genitive stem is inferred. Listed capitalization alternatives preserve the possessor exactly.",
+    "finite_context": "A fully enumerated context slot can supply the nonempty context without one common literal stem. No open-ended wildcard, empty context, bare focus or inferred pronoun is allowed. Existing count, state, word-window, ambiguity and source/target scope bounds remain.",
+    "readings": "Music and dog retain explicit readable Latin forms for Arabic, Chinese, Japanese and Korean. Source possessors and grammatical particles are not included in the target lexical reading. No new acoustic validation is claimed."
+  },
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","provenance":"pass","context_frame_scope":"pass"},
+  "limitations": [
+    "Author assessment, not independent linguistic acceptance.",
+    "Possessive constructions can still occur in metaphor or quoted speech; a finite pattern cannot certify every intended meaning.",
+    "These concepts follow training-domain priorities. Conversation validation remains diagnostic and is not used as bilingual reference gold.",
+    "Broader grammar or provider errors are not approved merely to raise availability.",
+    "The initial sixteen constructions added no matches to the Android XPersona probe; additional constructions require measured evaluation.",
+    "General chat, release trust and majority coverage remain unachieved."
+  ],
+  "release_ready": false
+}

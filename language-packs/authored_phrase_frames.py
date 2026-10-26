@@ -12,6 +12,7 @@ from authored_everyday import mapping
 from authored_conversation import LANGUAGES, protocol
 from build_wiktextract import canonical, digest_file, readable_roman
 from mapping_catalog import validate
+from authored_activity_frames import DATA as ACTIVITY_DATA, pattern as activity_pattern
 
 # (meaning, ten sentence templates, ten bounded constructions)
 DATA={
@@ -42,6 +43,7 @@ DATA={
   '[caricabatterie] del telefono','[carregador] do telefone','[شاحن~shāḥin] الهاتف','手机[充电器~chōngdiànqì]',
   '携帯の[充電器~jūdenki]','휴대폰 [충전기~chungjeongi]가']),
 }
+DATA.update(ACTIVITY_DATA)
 
 
 def parse(marked):
@@ -84,7 +86,7 @@ def pattern(concept,language,focus):
         return {'fr':[F,L(' '),S(['du','de']),L(' téléphone')],
                 'pt':[F,L(' '),S(['do','de']),L(' telefone')],
                 'ko':[L('휴대폰 '),F,S(['가','는','를','에','의'])]}.get(language)
-    return None
+    return activity_pattern(concept,language,focus)
 
 
 def records():
@@ -106,17 +108,23 @@ def records():
                         'Another matching record assigns a conflicting meaning.',
                         'The focus overlaps protected text or lacks a required readable transliteration.'])
                 row['provenance']['priority_basis']='Common reading, drinking, social-event and device constructions; authored without reserved corpus messages'
+                if concept in ACTIVITY_DATA:
+                    row['provenance']['priority_basis']='Everyday activities, food, music, pets and practical nouns; XPersona training frequencies inform domains only, not wording; no reserved messages used'
                 for side,language,word in [('source',source,left),('target',target,right)]:
                     parts=pattern(concept,language,word)
                     if parts is not None:row['usage'][side+'_frame_pattern']=parts
-                validate(row);yield row
+                try:validate(row)
+                except ValueError as error:raise ValueError(f'{concept} {source}-{target}: {error}') from error
+                yield row
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--apple-run-id',default='007');a=p.parse_args()
+    if not a.apple_run_id.isascii() or not a.apple_run_id.isdigit() or len(a.apple_run_id)!=3:raise ValueError('Three-digit run ID required')
     a.output.mkdir(parents=True,exist_ok=False);rows=list(records())
     (a.output/'records.jsonl').write_text(''.join(canonical(r)+'\n' for r in rows))
-    probe=protocol(rows);probe['qa_run_id']='007';probe['scope']='Authored phrase-frame development, not held-out acceptance'
+    probe=protocol(rows);probe['qa_run_id']=a.apple_run_id;probe['scope']='Authored phrase-frame development, not held-out acceptance'
     (a.output/'phrase-protocol.json').write_text(json.dumps(probe,ensure_ascii=False,indent=2)+'\n')
     fixture={'schema':'vipi-reviewed-frame-fixture-1','synthetic_contexts':True,'linguistic_acceptance':False,
         'records_sha256':digest_file(a.output/'records.jsonl'),'rows':rows}

@@ -4,6 +4,13 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ContextFrameTest {
+    @Test fun finitePossessorsRemainOutsideFocus() {
+        val parts=listOf(ContextPart.Slot(listOf("my ","your ","their ")),ContextPart.Focus("dog"))
+        assertEquals(6..8,ContextMappingMatcher.focus("their dog",parts))
+        assertNull(ContextMappingMatcher.focus("her dog",parts))
+        assertNull(ContextMappingMatcher.focus("dog",listOf(ContextPart.Focus("dog"))))
+        assertNull(ContextMappingMatcher.focus(" dog",listOf(ContextPart.Slot(listOf(" ","\n")),ContextPart.Focus("dog"))))
+    }
     private val original="🙂 I am reading a book now."
     private val translation="🙂 Estoy leyendo un libro ahora. Otro libro."
     private fun range(text:String,phrase:String)=text.indexOf(phrase) until text.indexOf(phrase)+phrase.length
