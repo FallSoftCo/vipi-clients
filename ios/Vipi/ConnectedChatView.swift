@@ -99,10 +99,17 @@ struct FriendConversationView: View {
     @State private var jumpRevision = 0
     @State private var firstMessageFrame = CGRect.zero
     @State private var viewportHeight: CGFloat = 0
+    @State private var scrollOffset: CGFloat = 0
+    @State private var pageAnchorID: UUID?
+    @State private var pageAnchorFrame = CGRect.zero
+    @State private var pageRestore: Task<Void, Never>?
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     private var messageNotice: String? { error ?? chat.notice }
     private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @FocusState private var composing: Bool
+    private func cancelPageRestoration() {
+        pageRestore?.cancel(); pageRestore = nil; pageAnchorID = nil
+    }
     private func refresh() {
         do {
             let current = try chat.messages(peer), ids = Set(current.map(\.id))
@@ -116,20 +123,37 @@ struct FriendConversationView: View {
             let anchorID = messages.first?.id
             let frame = firstMessageFrame
             let relativeY = frame.minY / max(1, viewportHeight - frame.height)
+            pageRestore?.cancel()
+            pageAnchorID = anchorID
+            pageAnchorFrame = frame
             let page = try chat.messages(peer, before: messages.first?.cursor)
             let ids = Set(messages.map(\.id)); messages = page.reversed().filter { !ids.contains($0.id) } + messages
             earlierAvailable = page.count == 50
             if let anchorID {
                 followingLatest = false
-                Task { @MainActor in
+                pageRestore = Task { @MainActor in
                     await Task.yield()
+                    guard !Task.isCancelled else { return }
                     position.scrollTo(id: anchorID, anchor: UnitPoint(x: 0.5, y: relativeY))
+                    // Lazy row estimates can make ID restoration inaccurate on
+                    // iPadOS 18. Preserve the measured row position as the new
+                    // page lays out. A fresh touch cancels this bounded settling.
+                    for _ in 0..<8 {
+                        do { try await Task.sleep(for: .milliseconds(40)) }
+                        catch { return }
+                        guard pageAnchorID == anchorID else { return }
+                        let delta = pageAnchorFrame.minY - frame.minY
+                        if abs(delta) > 0.5 { position.scrollTo(y: scrollOffset + delta) }
+                    }
+                    pageAnchorID = nil
+                    pageRestore = nil
                 }
             }
         } catch { self.error = "Earlier messages couldn’t be opened. Please try again." }
     }
     private func send() {
         do {
+            cancelPageRestoration()
             try chat.send(text, peer: peer); text = ""; error = nil
             followingLatest = true; jumpRevision += 1; refresh()
             Task { await chat.synchronize() }
@@ -193,6 +217,7 @@ struct FriendConversationView: View {
                         }.id(item.id)
                             .onGeometryChange(for: CGRect.self) { proxy in proxy.frame(in: .named("conversation-timeline")) } action: { frame in
                                 if item.id == messages.first?.id { firstMessageFrame = frame }
+                                if item.id == pageAnchorID { pageAnchorFrame = frame }
                             }
                     }
                     Color.clear.frame(height: 1).id("bottom")
@@ -202,13 +227,19 @@ struct FriendConversationView: View {
                 .coordinateSpace(name: "conversation-timeline")
                 .scrollPosition($position)
                 .defaultScrollAnchor(followingLatest ? .bottom : nil, for: .sizeChanges)
-                .onScrollPhaseChange { _, phase in scrolling = phase.isScrolling }
+                .onScrollPhaseChange { _, phase in
+                    scrolling = phase.isScrolling
+                    if phase == .tracking || phase == .interacting {
+                        cancelPageRestoration()
+                    }
+                }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
                     ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
                                          content: geometry.contentSize.height,
                                          insets: geometry.contentInsets.top + geometry.contentInsets.bottom)
                 } action: { old, new in
                     viewportHeight = new.height
+                    scrollOffset = new.offset
                     if new.nearBottom || scrolling { followingLatest = new.nearBottom }
                     // Composer/row remeasurement can adjust the offset without a user scroll.
                     if followingLatest && (old.height != new.height || old.content != new.content || old.insets != new.insets) {
@@ -221,7 +252,7 @@ struct FriendConversationView: View {
                 .onChange(of: composing) { _, focused in if focused && followingLatest { position.scrollTo(edge: .bottom) } }
                 .overlay(alignment: .bottomTrailing) {
                     if !followingLatest && !messages.isEmpty {
-                        Button { followingLatest = true; position.scrollTo(edge: .bottom) } label: {
+                        Button { cancelPageRestoration(); followingLatest = true; position.scrollTo(edge: .bottom) } label: {
                             Image(systemName: "arrow.down").font(.body.weight(.semibold)).frame(width: 48, height: 48)
                         }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).padding(12)
                             .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
@@ -279,9 +310,9 @@ struct FriendConversationView: View {
             await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
             prepareVoices()
         }
-        .onDisappear { immersion.close(); speech.close() }
+        .onDisappear { cancelPageRestoration(); immersion.close(); speech.close() }
         .onChange(of: scenePhase) { _, phase in
-            if phase != .active { speech.stop() }
+            if phase != .active { cancelPageRestoration(); speech.stop() }
             else { Task { await immersion.refreshAvailability(); prepareVoices() } }
         }
         .onChange(of: speech.state) { _, value in if value == .ready { showVoiceHelp = false } }
@@ -302,6 +333,8 @@ struct FriendConversationView: View {
     private var conversationOptions: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
+                NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
+                    .accessibilityIdentifier("conversation-languages")
                 Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
                 Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
             } label: {

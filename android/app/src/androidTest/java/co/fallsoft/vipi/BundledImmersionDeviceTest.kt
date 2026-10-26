@@ -92,7 +92,8 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(8980,units)
+        assertEquals(14076,units)
+        assertEquals(472,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
@@ -102,7 +103,7 @@ class BundledImmersionDeviceTest {
         assertEquals("What is your Nambari ya simu?",existingPhone.speech("en","sw").joinToString(""){it.text})
         for((left,right,expected) in listOf(
             Triple("Do you like this music?","Je, unapenda muziki huu?","Do you like this muziki?"),
-            Triple("Hatuna pesa leo.","We have no money today.","Hatuna money leo."),
+            Triple("Hatuna pesa leo.","We have no money today.","Hatuna money today."),
             Triple("Muziki huu ni mzuri.","This music is good.","music huu ni mzuri."))) {
             val reverse=left.startsWith("Hatuna") || left.startsWith("Muziki")
             val source=if(reverse) "sw" else "en";val target=if(reverse) "en" else "sw"
@@ -114,7 +115,7 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-011.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-012.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))

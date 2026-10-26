@@ -2,7 +2,17 @@
 
 Updated 2026-10-26. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
-## Current bundle 012 qualification — 2026-10-26
+## Current bundle 014 qualification — 2026-10-26
+
+Android catalog 012 and physical iPad catalog 013 pass all 110 directions, 10,615 references and 14,076 complete lexical units, with 472 shared Latin forms deliberately unchanged. They select 11,064 and 11,080 spans respectively. Android native comparison 004 loses no authored messages and gains 27 against bundle 008; the separate comparison with bundle 012 loses none and gains three. The catalog contains 25,999 author-assessed records and 135,208,960 SQLite bytes. All database hashes were verified on the Mac after a completed compressed transfer. Catalog SHA 648535ddb838ba79d40aee2ad723fbcb10ab047f54e33fdf4ffeecafd47fd969.
+
+Android build time-social-001 passes core tests and both debug assemblies. Android chat 010 passes three tests in 43.661s; iPhone chat 043 passes eleven in 373.738s. **Physical iPad full suite 009 passes all eleven in 246.886s.** Earlier suite 005 exposed a real older-page jump plus two phone-specific test assumptions. The bounded measured-position correction restores the row on iPadOS 18; run 008 passes the targeted history test in 51.798s, including the jump back to the latest row. Languages remains accessible through the conversation menu after downloads. The largest-text test allows all four rows to fit on a tablet; hit testing waits for a newly realized lazy row to enter the viewport. iPhone regression run 044 is in progress. These are synthetic-transport UI checks, not release or acoustic acceptance.
+
+AfriWOZ 008 selects 724 spans in 614/2,410 directed cases (25.48%). Spontaneous Swahili 004 selects immersion in 23/1,910 automatic cases and 50/1,910 explicit-Swahili cases, spanning six and nine distinct source turns respectively. These are availability results, not independent precision. They do not establish majority conversation coverage. See SWAHILI_AND_CHAT_IMMERSION.md for hashes and limits.
+
+The closed 1,761,800,192-byte public research index now uses a verified read-only Storage Box route at its original consumer path. Source, remote and mounted SHA all match a07e1d33c67a876df78c2221ce568e67c5aea773fae8c5d814458838095b28a5; exact receipt is artifacts/corpus-cold-route-001.json. Active app databases and the writable authoring ledger remain on the build host. Superseded/rejected generated databases were retired with replacement and active-use checks; their sources and receipts remain.
+
+## Previous bundle 012 qualification — 2026-10-26
 
 Physical iPad catalog 012 passes in 58.938s: 110 directions, 10,615 references, 10,798 selected spans, 8,980 complete lexical units and 364 identical Latin forms intentionally left unchanged. Android catalog 011 passes in 55.754s with the same cases and 10,782 spans. Native comparison 003 against frozen bundle 008 reports no lost messages and 24 gained messages. Python passes 67 tests after adding the training-only social authoring queue; Swift core passes 19 XCTest and 26 Swift Testing cases. Whole compounds remain preferred to their nested nouns at beginner density.
 

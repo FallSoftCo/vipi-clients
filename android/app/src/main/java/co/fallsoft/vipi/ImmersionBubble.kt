@@ -73,7 +73,7 @@ import kotlinx.coroutines.delay
         onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
     }
     val active = speech?.activeMessage == messageID
-    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !interactionPaused && speech?.activeMessage == null && !screenReader && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
+    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
     LaunchedEffect(eligible, result, revision, pace) {
         if (!eligible) return@LaunchedEffect
@@ -148,8 +148,8 @@ import kotlinx.coroutines.delay
                                 onClick = { onModeChange(value); menu = false })
                         }
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
-                        if (mode == ReadingMode.IMMERSED) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
-                        if (mode == ReadingMode.IMMERSED) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
+                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
+                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
                             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false

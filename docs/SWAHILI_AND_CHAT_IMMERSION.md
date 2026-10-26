@@ -2,7 +2,17 @@
 
 Updated 2026-10-26. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
 
-## Latest qualified expansion: bundle 012
+## Latest qualified catalog: bundle 014
+
+The time/social expansion is now qualified on both native readers. Bundle 014 has 25,999 author-assessed records (19,366 frames and 6,633 contexts), including 14,076 complete lexical units. Its 110 frame and 110 context databases total 135,208,960 bytes. Catalog SHA: 648535ddb838ba79d40aee2ad723fbcb10ab047f54e33fdf4ffeecafd47fd969. All 10,615 whole references are unchanged. The 272 new ambiguous time/weather and Chinese message/news source units were quarantined before promotion; rejected bundle 013 was never installed.
+
+Android catalog 012 passes, selecting 11,064 spans; physical iPad catalog 013 passes in 73.227s, selecting 11,080 spans. Both exercise all 14,076 units and leave 472 identical Latin forms unchanged. The sixteen-span platform difference is recorded, not claimed as semantic equivalence. Native comparison 004 loses no messages and gains 27 against bundle 008; comparison with bundle 012 loses none and gains three. These are authored-case regressions, not independent linguistic acceptance.
+
+AfriWOZ run 008 reaches 614/2,410 cases with immersion (25.48%), 724 spans, no exact-reference shortcuts and no identifier abstentions; median/p95 139.826/281.067ms. Report SHA 6a8b6645c3ce5c8cea89d705982102a22301b5f3397ac84c960e8ab680a9c0f9. Spontaneous Swahili run 004 reaches 23/1,910 automatic cases (six distinct turns) and 50/1,910 explicit-Swahili cases (nine turns). Report SHA 769e6c81ae674925d3b782f85489cc4800706a0e428cb1a30ff73f35b9bdd5d0. Only aggregates of that reserved sample have been inspected. These availability results remain far below majority conversation coverage and do not measure semantic accuracy.
+
+Android chat 010 passes three tests in 43.661s; iPhone simulator chat 043 passes eleven in 373.738s. Zero-density messages retain language views and useful actions without inactive word-switching controls. **Physical iPad chat 009 passes all eleven tests in 246.886s.** A measured-position correction fixes the earlier-page jump on iPadOS 18, cancels on fresh touch, send, leaving the view or backgrounding, and is bounded to page insertion. Languages remains reachable from the conversation menu after model preparation. Tests now account for a four-message history fitting on the iPad and wait for a lazily realized latest row to enter the viewport before hit testing. The iPhone rerun of those fixes is in progress. The next five-formula greeting batch, including Mambo vipi, has explicit author assessment and passes staged static checks, but awaits native qualification and is not included in the counts above.
+
+## Previous qualified expansion: bundle 012
 
 Thirty-two everyday noun senses now have 8,320 explicit written-form unit mappings across all 110 directions. Together with the earlier compounds there are 8,980 units and 20,903 author-assessed records. Bundle 012 contains 110,944,256 SQLite bytes; catalog SHA 7944cbc776b15abb7fcd8d0a45d0e600f835ee30692c7ab3e0a5b5a676754f82. The 10,615 whole references are unchanged: case-adjusted unit carriers explicitly have whole_reference:false. Two Arabic apostrophe spellings were reconciled by a separate content-bound assessment. Grammar outside the focus and the runtime ambiguity checks remain intact.
 
@@ -12,7 +22,7 @@ AfriWOZ run 007 reaches 385/2,410 directed cases with immersion (16.0%), 413 spa
 
 The [original AfriSenti repository](https://github.com/afrisenti-semeval/afrisent-semeval-2023), pinned at 5aec3cfcf87b59f885e98641f72e52182776429d, supplies a separate 1,810-row Swahili training TSV. SHA 1f06cb668d1c115a844704b5ffaec3e6168eabf1bd15657e3faf99a42e682152. Its retained original README specifies CC BY 4.0; the Hugging Face mirror's inconsistent header is recorded. No validation/test text was acquired. prioritize_social_swahili.py excludes handles, hashtags, URLs and numeric fragments before counting windows, retaining all native analyses. It finds 3,558 evidence-linked windows and writes an explicitly unapproved 400-item queue, SHA 8b02640cd19aa48dc1f798ebdf09d1e45f3f3cc2b2c3b19235e933b485d9f396. No social post becomes an app reference automatically.
 
-The next time/social batch remains under qualification. Its first static audit found shared source forms for time/weather in four Romance languages and message/news in Chinese. All 272 affected new source units were quarantined before app promotion; existing exact contexts remain. The details below retain earlier qualification history and limits.
+The first time/social static audit found shared source forms for time/weather in four Romance languages and message/news in Chinese. All 272 affected new source units were quarantined before app promotion; existing exact contexts remain. The details below retain earlier qualification history and limits.
 
 ## Current behavior
 
@@ -37,7 +47,7 @@ Android uses ML Kit and the installed Google offline voice sw-ke-language. Test 
 
 Physical iOS speech uses eSpeak NG Swift pinned to fd28f6460cc4cdf631528c8e2f7bd825747aac5c. Its process-global engine is confined to one queue, input is literal UTF-8 without SSML, and cancellation is thread-safe. First preparation took 6,509 ms. A mixed render took 58 ms and produced 1,901 ms of mono 24 kHz PCM; a separate Swahili sentence produced 4,841 ms. This is a synthetic/formant voice. Listening quality has not been accepted. Notices are present; corresponding-source and distribution review remain release gates.
 
-## Live authored catalog
+## Earlier authored catalog history (bundle 010)
 
 The incremental ledger has 148,367 revisions, 145,568 current records, 12,583 author-assessed records (6,633 contexts and 5,950 frames, including 660 complete compounds), eighteen quarantined records and 132,967 candidates. Twenty-two imports are complete through sequence 164834. Author assessment is distinct from independent linguistic acceptance.
 

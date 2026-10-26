@@ -83,7 +83,7 @@ struct ImmersionBubble: View {
                                 Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
                             }
                         }
-                        if mode == .immersed {
+                        if mode == .immersed && !result.spans.isEmpty {
                             Button("Switching pace") { choosingPace = true }
                         }
                         if let onModeChange {
@@ -96,7 +96,7 @@ struct ImmersionBubble: View {
                         if (mode == .translation && fullReading != nil) || (mode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
                             Button(script ? "Show transliteration" : "Show original script") { script.toggle(); revision += 1 }
                         }
-                        if mode == .immersed { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
+                        if mode == .immersed && !result.spans.isEmpty { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
                         if let onInputLanguage {
                             MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
                         }

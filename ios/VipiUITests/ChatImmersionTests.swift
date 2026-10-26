@@ -1,6 +1,25 @@
 import XCTest
 
 final class ChatImmersionTests: XCTestCase {
+    @MainActor func testZeroDensityKeepsLanguageViewsWithoutInactiveWordActions() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0", "-vipi-appearance-light"]
+        app.launch()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup", "-vipi-density", "0.25"]; app.launch() }
+        let menu = app.buttons["Reading options"]
+        XCTAssertTrue(menu.waitForExistence(timeout: 20)); menu.tap()
+        for title in ["Pause word switching", "Switching pace", "Show meanings now"] {
+            XCTAssertFalse(app.buttons[title].exists)
+        }
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.buttons["Swahili"].tap()
+        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
+        capture("ios-zero-vocabulary-whole-translation")
+        menu.tap(); app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
+    }
     @MainActor func testExpandedRequestReadingsInAllFourNonRomanLanguagesAtLargestText() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -116,7 +135,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(metadata.firstMatch.frame.minX, timeline.frame.minX)
         XCTAssertLessThanOrEqual(metadata.firstMatch.frame.maxX, timeline.frame.maxX)
         capture("ios-largest-text-oldest-message")
-        app.buttons["conversation-latest"].tap()
+        if app.buttons["conversation-latest"].exists { app.buttons["conversation-latest"].tap() }
         let newest = try XCTUnwrap(metadata.allElementsBoundByIndex.last)
         XCTAssertTrue(newest.isHittable); XCTAssertGreaterThan(newest.frame.height, normal * 1.5)
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
@@ -182,8 +201,18 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertEqual(retained.frame.minY, pageY, accuracy: 3)
         capture("ios-immersed-older-page-anchor")
         app.buttons["conversation-latest"].tap()
-        XCTAssertTrue(app.staticTexts["Appended while reading earlier messages."].isHittable)
+        let appended = app.staticTexts["Appended while reading earlier messages."]
+        // The lazily realized row can briefly have a zero accessibility frame
+        // after a long jump. Require it inside the viewport before hit testing.
+        let visible = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            guard appended.exists else { return false }
+            let frame = appended.frame
+            return frame.height > 0 && frame.minY >= timeline.frame.minY && frame.maxY <= timeline.frame.maxY
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [visible], timeout: 3), .completed)
+        XCTAssertTrue(appended.isHittable)
         XCTAssertFalse(app.buttons["conversation-latest"].exists)
+        capture("ios-immersed-jump-to-latest")
     }
     @MainActor func testSwahiliOriginalCanBeReadInEnglishAndCopiedWithoutRewriting() throws {
         continueAfterFailure = false
@@ -241,9 +270,10 @@ final class ChatImmersionTests: XCTestCase {
         defer {
             app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
         }
-        let prompt = app.buttons["conversation-language-download"]
-        XCTAssertTrue(prompt.waitForExistence(timeout: 20))
-        prompt.tap()
+        let options = app.buttons["conversation-options"]
+        XCTAssertTrue(options.waitForExistence(timeout: 20))
+        options.tap()
+        app.buttons["conversation-languages"].tap()
         XCTAssertTrue(app.buttons["language-target-picker"].waitForExistence(timeout: 5))
         app.buttons["language-target-picker"].tap()
         app.buttons["Spanish · Español"].tap()

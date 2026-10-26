@@ -1,0 +1,22 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "ebcf16f9b9d1df631934c2fde9427814d8b9cba09be59ff8c421ee0bd8c04632",
+  "authoring_source_sha256": "14dc80e7eb903c7aa007ddf0619a0a8362c862c8f35f071b5ce2b7f8b73f68b6",
+  "records": 5928,
+  "scope": "Twenty-one existing everyday topics in 2,270 explicitly permitted topic/directions, yielding 5,368 case-form units and 560 meaning-description repairs of the existing time/help/job/message frames.",
+  "decisions": {
+    "topics": "Available time, today, tomorrow, yesterday, calendar week/month/year, purchase price, car, interpersonal written message, assistance as a noun, paid employment, container bag, weather, morning, night, school examination, news, information-seeking question, difficulty/problem and trip arrangement/plan.",
+    "lexical_unit_scope": "Each complete lexical noun or time expression requires its exact unique counterpart in the complete local translation. No changed person, tense, negation, ownership or arbitrary grammatical affix is copied. Contextual noun senses are approved only as explicitly stated, with no authority to use a homonym or to certify the whole translation.",
+    "source_ambiguity_exclusions": "No Spanish-source standalone unit for manana-with-tilde is approved for either tomorrow or morning: the identical written form cannot choose those senses. No Chinese-source standalone question/problem unit is approved: both use the same written form. Their prior bounded contexts remain. The runtime must continue rejecting competing meanings/readings and repeated occurrences for all other forms too.",
+    "meaning_equivalence": "Only needs_time, needs_help, requests_job_search and requests_send_message use the existing time_duration, help_noun, work_job and message sense identities respectively. Their old context patterns and native strings/readings are unchanged. This is an enumerated equivalence decision, not similarity matching or permission to broaden other construction scopes.",
+    "case_and_morphology": "Only the pinned helper's first-letter lower/upper forms in en/es/fr/it/pt/sw are added; German spelling and all other characters are preserved. No plural generation, Arabic article stripping, Korean case-particle splitting, Swahili locative inference or Chinese/Japanese character-fragment lookup is approved.",
+    "readings": "The native forms and practical Latin readings are copied from the hash-pinned project-authored source records. Non-Roman target substitutions continue to require these exact readings. Speech consumes the native counterpart. These readings are not an independent pronunciation acceptance test.",
+    "whole_references": "All new unit carriers have whole_reference:false. They cannot create a whole-message translation or authorize changed punctuation/case/grammar. The pre-existing whole-reference list must remain unchanged.",
+    "evidence": "AfriSenti training-only frequency informed priorities. Neither AfriWOZ evaluation turns nor Liva utterances supplied any native string or reading. The dictionary training queue remains unapproved research evidence, not shipped mappings. All strings in this batch come from existing project authoring.",
+    "qualification": "Native execution across all directions, regression comparison and separate coverage probes are required. Same-session author assessment cannot establish independent precision, broad conversational coverage or learning efficacy. Translation mistakes can still produce erroneous apparent alignment. No release-ready claim is made."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "lexical_unit_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

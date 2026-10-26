@@ -24,6 +24,24 @@ import java.util.UUID
 
 class ChatImmersionDeviceTest {
     @get:Rule val compose = createComposeRule()
+    @Test fun messageWithoutVocabularyKeepsLanguageViewsAndUsefulActions() {
+        check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+        val mode = mutableStateOf(ReadingMode.IMMERSED)
+        val result = co.fallsoft.vipi.core.ImmersionResult("I like music.", "Ninapenda muziki.", emptyList())
+        compose.setContent { VipiTheme(Appearance.LIGHT) {
+            ImmersionBubble(result, mode.value, source = "en", target = "sw", embedded = true,
+                onModeChange = { mode.value = it }, originalMessage = result.original)
+        } }
+        compose.onNodeWithContentDescription("Reading options").performClick()
+        for (title in listOf("Pause word switching", "Switching pace", "Show meanings now"))
+            compose.onNodeWithText(title).assertDoesNotExist()
+        compose.onNodeWithText("Copy original message").assertIsDisplayed()
+        compose.onNodeWithText("Swahili").performClick()
+        compose.onNodeWithText("Ninapenda muziki.").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Reading options").performClick()
+        compose.onNodeWithText("English").performClick()
+        compose.onNodeWithText("I like music.").assertIsDisplayed()
+    }
     @Test fun continuousSwahiliAndWholeTranslationUseActualConversationRows() = qualify(false)
     @Test fun swahiliOriginalCanBeReadInEnglishAndCopiedWithoutRewriting() = qualify(true)
     private fun qualify(reversed: Boolean) {

@@ -103,7 +103,8 @@ final class BundledImmersionTests: XCTestCase {
             }
             XCTAssertEqual(status,SQLITE_DONE)
         }
-        XCTAssertEqual(units,8980)
+        XCTAssertEqual(units,14076)
+        XCTAssertEqual(unchanged,472)
         let shared=try await catalog.result(original:"Send the phone number.",translation:"Tuma nambari ya simu.",pair:pair,density:1)
         XCTAssertEqual(shared.speech(source:"en",target:"sw").map(\.text).joined(),"Send the nambari ya simu.")
         for (left,right) in [("phone numbers.","nambari ya simu."),("phone number.","ufunguo wa mlango."),
@@ -115,7 +116,7 @@ final class BundledImmersionTests: XCTestCase {
         XCTAssertEqual(existingPhone.speech(source:"en",target:"sw").map(\.text).joined(),"What is your Nambari ya simu?")
         for (left,right,expected,source,target) in [
             ("Do you like this music?","Je, unapenda muziki huu?","Do you like this muziki?","en","sw"),
-            ("Hatuna pesa leo.","We have no money today.","Hatuna money leo.","sw","en"),
+            ("Hatuna pesa leo.","We have no money today.","Hatuna money today.","sw","en"),
             ("Muziki huu ni mzuri.","This music is good.","music huu ni mzuri.","sw","en")] {
             let result=try await catalog.result(original:left,translation:right,pair:.init(source:source,target:target),density:1)
             XCTAssertEqual(result.speech(source:source,target:target).map(\.text).joined(),expected)
@@ -128,7 +129,7 @@ final class BundledImmersionTests: XCTestCase {
             let result=try await catalog.result(original:left,translation:right,pair:pair,density:1)
             XCTAssertTrue(result.spans.isEmpty)
         }
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-012.json")
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-013.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"lexical_units":units,"unchanged_latin_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])

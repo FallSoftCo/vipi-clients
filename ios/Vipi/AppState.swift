@@ -63,6 +63,8 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         if args.contains("-vipi-preview-home") { isAuthenticated = true }
         if args.contains("-vipi-appearance-light") { appearance = .light }
         if args.contains("-vipi-appearance-dark") { appearance = .dark }
+        if let index = args.firstIndex(of: "-vipi-density"), args.indices.contains(index + 1),
+           let value = Double(args[index + 1]), value.isFinite, (0...0.75).contains(value) { density = value }
         #endif
     }
 }
