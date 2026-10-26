@@ -22,6 +22,7 @@ DerivedData/
 *.xcuserstate
 xcuserdata/
 .venv/
+.venv-corpus-stream/
 __pycache__/
 .pytest_cache/
 *.pyc
@@ -32,4 +33,3 @@ ios/*.xcodeproj/
 ios/Vipi/Info.plist
 *.sqlite-wal
 *.sqlite-shm
-.kotlin/

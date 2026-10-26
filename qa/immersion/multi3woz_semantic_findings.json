@@ -1,0 +1,16 @@
+{
+  "schema": "vipi-public-dialogue-diagnostic-assessments-1",
+  "assessment_kind": "author_assessment",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "report": "multi3woz-pipeline-android-001.json",
+  "report_sha256": "fb888da0108b945980e92d6662be7b7c7ccb997474359652c04accf994798046",
+  "sampling": "Selected failures after inspection of French/Arabic to English; not a random accuracy sample or independent review",
+  "training_use": false,
+  "findings": [
+    {"pair": "fr-en", "case": "m3w-040f03772ffaafabb2560fb7", "source": "Pourriez-vous", "target": "would", "category": "source_grammar_scope", "finding": "The source includes the second-person subject and conditional modal. Selecting would from a different clause removes vous and misaligns the source request with an earlier target auxiliary."},
+    {"pair": "fr-en", "case": "m3w-052d5b2c7ede4401e5417220", "source": "je vois", "target": "I see", "category": "source_grammar_scope", "finding": "This phrase consumes the first-person subject. Its overall meaning is understandable, but it violates the current vocabulary-only source-grammar scope."},
+    {"pair": "fr-en", "case": "m3w-0901f01f674e1f93fcddb503", "source": "à l'est", "target": "east", "category": "source_grammar_scope", "finding": "The source span includes a preposition and article; the lexical direction est must be distinguished from that surrounding grammar."},
+    {"pair": "ar-en", "case": "m3w-0687b67adcac1af43cc7dc6c", "source": "رقم الرحلة", "target": "flight number", "category": "contextual_sense", "finding": "The preceding sentence explicitly asks for a train. The relevant service/journey number is not an aircraft flight number."},
+    {"pair": "ar-en", "case": "m3w-09ce09fa3454a4defc906b60", "source": "رقم الرحلة", "target": "flight number", "category": "contextual_sense", "finding": "The same sentence explicitly mentions the train. Whole-message translation repeats the wrong aviation sense and cannot certify this dictionary substitution."}
+  ]
+}

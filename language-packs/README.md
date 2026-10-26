@@ -75,7 +75,7 @@ Use `--max-batches` to bound an ingestion run. Review reports bind the exact rec
 
 Sources remain separate: [Tatoeba](https://tatoeba.org/en/downloads) text uses CC BY 2.0 FR except its explicitly marked CC0 subset; audio is not acquired. [NUS SMS](https://github.com/kite1988/nus-sms-corpus) is the authors' public-domain SMS release and is retained only for research. UD English EWT and French Rhapsodie use CC BY-SA 4.0; other UD treebanks need their own license checks. These datasets complement one another and do not establish representative coverage for all demographics or all ten languages.
 
-The second authored batch, `authored_conversation_expansion.py`, adds 1,800 contexts for 20 everyday meanings. Its content-bound assessment is separate from the original batch. Current reviewed export contains 3,567 records, including three finite book patterns; 18 ambiguous Chinese question/problem records remain quarantined. Forty new meanings are not 3,567 distinct vocabulary words.
+The second authored batch, `authored_conversation_expansion.py`, adds 1,800 contexts for 20 everyday meanings. `authored_conversation_routines.py` adds 1,890 contexts for another 21 meanings selected from development-only schedule, school, communication and leisure priorities. Each batch has its own content-bound author assessment. Current reviewed export contains 5,457 records, including three finite book patterns; 18 ambiguous Chinese question/problem records remain quarantined. Sixty-one new meanings are not 5,457 distinct vocabulary words.
 
 ## Signed reviewed context packs
 
@@ -83,10 +83,16 @@ The second authored batch, `authored_conversation_expansion.py`, adds 1,800 cont
 
 Both native `VocabularyPackStore` implementations use an explicit `reviewedContext`/`REVIEWED_CONTEXT` kind, separate files and rollback receipts, and the existing signature/hash/integrity controls. A generic dictionary store rejects a context pack. Only matched context patterns create message-bound lexical scopes; target particle/article boundaries derive from the attested target sentence using the native tokenizer. Lookup returns no result for an unknown sentence. This path is not yet connected to friend chat or production download UI.
 
-The first development build contains 90 pairs and 3,567 reviewed mappings in 17,936,384 bytes; its compressed qualification archive is 1,160,225 bytes. Its ephemeral signing key is never trusted by production clients. Real native qualification covers the two retained translation batches: 3,564/3,582 cases have reviewed mappings, with 2,996 Android and 3,250 iPad cases producing immersion. The other 18 cases are quarantined. These are component checks on authored inputs, not majority-conversation acceptance. See `docs/CONVERSATION_COVERAGE.md` for the separate real-message evaluation.
+Development build `reviewed-contexts-002` contains 90 pairs and 5,457 reviewed mappings in 27,148,288 bytes. Its ephemeral signing key is never trusted by production clients. Native qualification covers three retained translation batches: 5,454/5,472 cases have reviewed mappings, with 4,310 Android and 4,730 iPad cases producing immersion. Assembled paragraphs preserve those counts; their translations are mechanical concatenations, not new model output. The other 18 cases are quarantined. These are component checks on authored inputs, not majority-conversation acceptance. See `docs/CONVERSATION_COVERAGE.md` for the separate real-message evaluation and the candidate inflection index.
 
 ```sh
 python3 language-packs/export_reviewed_contexts.py --input artifacts/conversation-assessment-002/export --output artifacts/reviewed-contexts-NEW --revision 1 --key-id reviewed-context-qualification-NEW
 ```
 
 The compiler currently exposes only qualification signing. Production release signing and release trust remain separate gates; generating an artifact is not evidence of release readiness.
+
+## Attested plural-noun experiment
+
+`expand_attested_nouns.py` creates signed candidate supplements from the versioned UD form index and existing revision-007 dictionaries. All observed POS, lemma and number analyses must agree; unknown lemmas are retained as blockers. It accepts plural nouns only, leaves existing source mappings unchanged, preserves all base and inflected-spelling senses, and stores source/target attestations once in `attested_noun_forms`. No new reading, verb inflection or arbitrary stem is generated.
+
+Qualification `attested-nouns-008` adds 1,064 candidate mappings for 353 previously missing forms in English→Spanish and French→English. Both native platforms passed installation/alignment, but strict immersion availability on the retained SMS/dialogue probes did not improve. This is an unpromoted experiment, not a release pack. The all-parts-of-speech index is now revision 003; the earlier qualification's 919 participating analyses were checked against it and match exactly. See the comparison and analysis-audit receipts in `docs/VERIFICATION.md`.

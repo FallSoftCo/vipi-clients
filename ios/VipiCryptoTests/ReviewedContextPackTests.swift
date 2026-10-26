@@ -10,7 +10,16 @@ final class ReviewedContextPackTests:XCTestCase {
         let config=documents.appendingPathComponent("reviewed-context-run-id.txt")
         let run=FileManager.default.fileExists(atPath:config.path) ? try String(contentsOf:config,encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines) : "001"
         guard run.range(of:"^[0-9]{3}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
-        let root=documents.appendingPathComponent("reviewed-contexts-001")
+        struct Fixture:Decodable {let root:String,captures:[String],cases:Int,mapped:Int}
+        let fixtureURL=documents.appendingPathComponent("reviewed-context-fixture.json")
+        let fixture=FileManager.default.fileExists(atPath:fixtureURL.path)
+            ? try JSONDecoder().decode(Fixture.self,from:Data(contentsOf:fixtureURL))
+            : Fixture(root:"reviewed-contexts-001",captures:["phrase-observations-apple-002.json","phrase-observations-apple-004.json"],cases:3582,mapped:3564)
+        guard fixture.root.range(of:"^reviewed-contexts-[0-9]{3}$",options:.regularExpression) != nil,
+              (1...20).contains(fixture.captures.count),Set(fixture.captures).count==fixture.captures.count,
+              fixture.captures.allSatisfy({$0.range(of:"^phrase-observations-apple-[0-9]{3}\\.json$",options:.regularExpression) != nil}),
+              (1...20000).contains(fixture.cases),(1...fixture.cases).contains(fixture.mapped) else {throw VocabularyPackError.invalid}
+        let root=documents.appendingPathComponent(fixture.root)
         let output=documents.appendingPathComponent("reviewed-context-native-\(run).json")
         guard !FileManager.default.fileExists(atPath:output.path) else {XCTFail("Preserve receipt");return}
         let buildBytes=try Data(contentsOf:root.appendingPathComponent("receipt.json"))
@@ -18,8 +27,8 @@ final class ReviewedContextPackTests:XCTestCase {
         let pairs=try XCTUnwrap(build["pairs"] as? [[String:Any]]);XCTAssertEqual(pairs.count,90)
         let key=try Data(contentsOf:root.appendingPathComponent("signing-public-key.der"))
         let keyID=try XCTUnwrap(pairs.first?["key_id"] as? String)
-        let installRoot=documents.appendingPathComponent("context-qualification-installed-001")
-        let store=try VocabularyPackStore(root:installRoot,trustedKeys:[keyID:key],receiptPrefix:"context-qa-001-",kind:.reviewedContext)
+        let installRoot=documents.appendingPathComponent("installed-"+fixture.root)
+        let store=try VocabularyPackStore(root:installRoot,trustedKeys:[keyID:key],receiptPrefix:fixture.root+"-",kind:.reviewedContext)
         for (index,pair) in pairs.enumerated() {
             let id=try XCTUnwrap(pair["pack_id"] as? String);let folder=root.appendingPathComponent(id)
             let manifest=try Data(contentsOf:folder.appendingPathComponent("manifest.json"))
@@ -45,7 +54,7 @@ final class ReviewedContextPackTests:XCTestCase {
         }
         func prefix(_ language:String)->String {greetings[language]! + " 🙂" + (["zh","ja"].contains(language) ? "。 " : ". ")}
         var results:[[String:Any]]=[];var withMappings=0,withImmersion=0,paragraphMappings=0,paragraphImmersion=0
-        for name in ["phrase-observations-apple-002.json","phrase-observations-apple-004.json"] {
+        for name in fixture.captures {
             let capture=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(contentsOf:documents.appendingPathComponent(name))) as? [String:Any])
             XCTAssertEqual(capture["complete"] as? Bool,true)
             for row in try XCTUnwrap(capture["results"] as? [[String:Any]]) {
@@ -78,7 +87,7 @@ final class ReviewedContextPackTests:XCTestCase {
                     "lookup_alignment_ms":Double(duration.seconds)*1000+Double(duration.attoseconds)/1e15])
             }
         }
-        XCTAssertEqual(results.count,3582);XCTAssertEqual(withMappings,3564)
+        XCTAssertEqual(results.count,fixture.cases);XCTAssertEqual(withMappings,fixture.mapped)
         let variant="Can we bring our books?"
         let entries=try await store.entries(id:"en-es",text:variant);XCTAssertEqual(entries.first?.source,"books");XCTAssertEqual(entries.count,1)
         let reservation=try await store.entries(id:"en-es",text:"Can we book our flights?");XCTAssertTrue(reservation.isEmpty)

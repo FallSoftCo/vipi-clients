@@ -49,7 +49,10 @@ def summarize(report,corpus):
     totals=Counter()
     for pair in pairs:
         totals.update({k:v for k,v in pair.items() if isinstance(v,int)})
-    return {'pairs':pairs,'totals':dict(totals),
+    sources=sorted({source for source,target in expected})
+    source_messages=sum(len([c for c in corpus['cases'] if source in c['text']]) for source in sources)
+    return {'source_languages':sources,'source_messages':source_messages,
+        'pairs':pairs,'totals':dict(totals),
         'lookup_alignment_ms':{'median':statistics.median(latency),'p95':sorted(latency)[int(len(latency)*.95)]}}
 
 
@@ -63,7 +66,7 @@ if __name__=='__main__':
         'platform':report['platform'],'meaning_accuracy':None,'linguistic_acceptance':False,
         'limits':['A replacement being available does not make its meaning or reading correct.',
           'Research candidates relax the positive-cue requirement only; they are never displayed in the app.',
-          'Directions reuse the same source messages; 3600 cases are not 3600 independent conversations.',
-          'Source languages are English and Chinese; other eight source languages remain unmeasured here.'],
+          'Directions reuse source messages; directed cases are not independent conversations.',
+          'Coverage applies only to the listed source languages and the retained corpus sampling design.'],
         **summarize(report,corpus)})
     print(json.dumps({'output':str(a.output),'summary':summarize(report,corpus)['totals']}))

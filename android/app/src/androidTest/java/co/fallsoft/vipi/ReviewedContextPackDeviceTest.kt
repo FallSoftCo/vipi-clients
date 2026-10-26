@@ -16,7 +16,17 @@ class ReviewedContextPackDeviceTest {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         val run=InstrumentationRegistry.getArguments().getString("vipiRunID") ?: "001"
         require(run.matches(Regex("[0-9]{3}")))
-        val root=File(context.filesDir,"reviewed-contexts-001")
+        val fixtureFile=File(context.filesDir,"reviewed-context-fixture.json")
+        val fixture=if(fixtureFile.exists())JSONObject(fixtureFile.readText())else JSONObject()
+            .put("root","reviewed-contexts-001").put("captures",JSONArray(listOf("phrase-observations-003.json","phrase-observations-005.json")))
+            .put("cases",3582).put("mapped",3564)
+        val rootName=fixture.getString("root");require(rootName.matches(Regex("reviewed-contexts-[0-9]{3}")))
+        val captures=fixture.getJSONArray("captures").let { names -> (0 until names.length()).map(names::getString) }
+        require(captures.size in 1..20 && captures.toSet().size==captures.size)
+        require(captures.all { it.matches(Regex("phrase-observations-[0-9]{3}\\.json")) })
+        val expectedCases=fixture.getInt("cases");val expectedMapped=fixture.getInt("mapped")
+        require(expectedCases in 1..20000 && expectedMapped in 1..expectedCases)
+        val root=File(context.filesDir,rootName)
         val receipt=File(context.filesDir,"reviewed-context-native-$run.json");check(!receipt.exists())
         val buildBytes=File(root,"receipt.json").readBytes();val build=JSONObject(buildBytes.toString(Charsets.UTF_8))
         val pairs=build.getJSONArray("pairs");assertEquals(90,pairs.length())
@@ -40,7 +50,7 @@ class ReviewedContextPackDeviceTest {
             "pt" to "Olá","ar" to "مرحبًا","zh" to "你好","ja" to "こんにちは","ko" to "안녕하세요")
         fun prefix(language:String)=greetings.getValue(language)+" 🙂"+(if(language in setOf("zh","ja"))"。 " else ". ")
         val results=JSONArray();var withMappings=0;var withImmersion=0;var paragraphMappings=0;var paragraphImmersion=0
-        for (name in listOf("phrase-observations-003.json","phrase-observations-005.json")) {
+        for (name in captures) {
             val capture=JSONObject(File(context.filesDir,name).readText());assertTrue(capture.getBoolean("complete"))
             val rows=capture.getJSONArray("results")
             repeat(rows.length()) { index ->
@@ -72,7 +82,7 @@ class ReviewedContextPackDeviceTest {
                     .put("lookup_alignment_ms",elapsed))
             }
         }
-        assertEquals(3582,results.length());assertEquals(3564,withMappings)
+        assertEquals(expectedCases,results.length());assertEquals(expectedMapped,withMappings)
         val variant="Can we bring our books?"
         val entries=store.entries("en-es",variant)
         assertEquals("books",entries.single().source)

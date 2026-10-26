@@ -1,0 +1,2 @@
+# Additional streaming parser for the existing PyICU corpus environment.
+ijson==3.4.0.post0

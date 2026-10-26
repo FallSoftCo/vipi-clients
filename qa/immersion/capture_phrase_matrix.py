@@ -32,7 +32,8 @@ def main(a):
     pairs=convert(corpus,protocol,capture,sha_file(a.protocol))
     report={'schema':1,'provider':capture['provider'],'platform':a.platform,'source_only':True,
         'source_languages':sorted({p['source'] for p in pairs}),'languages':corpus['languages'],
-        'expected_pairs':corpus['expected_pairs'],'evidence':'actual_native_translation_capture_of_reserved_public_sms',
+        'expected_pairs':corpus['expected_pairs'],'evidence':'actual_native_translation_capture_of_frozen_public_message_probe',
+        'corpus_version':corpus['version'],
         'raw_capture_sha256':sha_file(a.capture),'corpus_sha256':sha_file(a.corpus),
         'protocol_sha256':sha_file(a.protocol),'adapter_sha256':sha_file(Path(__file__)),
         'network_absence_verified':capture['network_absence_verified'],'linguistic_acceptance':False,

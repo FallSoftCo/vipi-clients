@@ -15,6 +15,8 @@ class PipelineEvidenceTests(unittest.TestCase):
         corpus,report=self.fixtures()
         result=summarize(report,corpus)
         self.assertEqual(result['totals']['messages_with_spans'],1)
+        self.assertEqual(result['source_languages'],['en'])
+        self.assertEqual(result['source_messages'],1)
         missing=copy.deepcopy(report);missing['results'][0]['samples']=[]
         with self.assertRaises(ValueError):summarize(missing,corpus)
         wrong=copy.deepcopy(report);wrong['results'][0]['samples'][0]['spans'][0]['end']=5
