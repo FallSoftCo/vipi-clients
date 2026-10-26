@@ -4,9 +4,9 @@ import SwiftUI
 
 @MainActor final class LanguagePreviewMatrixTests: XCTestCase {
     func testNativeTokenizationAndParagraphLayoutAcrossAllSupportedDirections() async throws {
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("reading-matrix-001")
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("reading-matrix-002")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
-        try? FileManager.default.removeItem(at: output.appendingPathComponent("report.json"))
         var rows: [[String: Any]] = []
         let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first)
         let previousWindow = scene.windows.first { $0.isKeyWindow }
@@ -66,6 +66,23 @@ import SwiftUI
             }
         }
         XCTAssertEqual(rows.count, languages.count * (languages.count - 1))
+        let greeting = try await BundledImmersionCatalog().result(original: "Thank you very much.", translation: "Asante sana.",
+            pair: .init(source: "en", target: "sw"), density: 0.25)
+        XCTAssertEqual(greeting.spans.count, 1)
+        for revealed in [Set<Int>(), Set(greeting.spans.map(\.id))] {
+            let root = StableImmersionText(result: greeting, revealed: revealed, script: false, onWord: { _ in }, onSelection: { _ in })
+                .environment(\.dynamicTypeSize, .accessibility5)
+            displayHost.rootView = AnyView(root.frame(width: 280).fixedSize(horizontal: false, vertical: true))
+            try await Task.sleep(for: .milliseconds(20))
+            displayHost.view.setNeedsLayout(); displayHost.view.layoutIfNeeded()
+            let paragraph = try XCTUnwrap(nativeText(in: displayHost.view))
+            let layout = paragraph.layoutManager
+            layout.ensureLayout(for: paragraph.textContainer)
+            XCTAssertEqual(layout.numberOfGlyphs, 2, "One complete phrase attachment and its original period")
+            let first = layout.lineFragmentRect(forGlyphAt: 0, effectiveRange: nil)
+            let last = layout.lineFragmentRect(forGlyphAt: layout.numberOfGlyphs - 1, effectiveRange: nil)
+            XCTAssertEqual(first.minY, last.minY, accuracy: 0.5, "Never strand closing punctuation on another line")
+        }
         let report: [String: Any] = ["evidence": "authored_preview_fixed_inline_blocks_native_tokenization_stable_glyph_positions_and_copy_not_live_translation_or_linguistic_acceptance", "directions": rows]
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
     }

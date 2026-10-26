@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "352410270669246c69d9405a06ad34b0401d3f713e30f6d25fe0fd0f45f71b02",
+  "authoring_source_sha256": "27a33d1ebe67527c722065df0e9346f136333d4ed727521c8b4fa8a47ebfe7d0",
+  "records": 1960,
+  "scope": "Five complete conversational formulas across all 110 directions: greeting, casual social check-in, gratitude, intensified gratitude and seeing the other person tomorrow. Explicit case, punctuation and listed aliases only.",
+  "decisions": {
+    "meaning": "Conventional friendly one-to-one equivalents, including Hujambo, Mambo vipi, Asante, Asante sana and Tutaonana kesho. What's up is a social greeting, never a literal upward-direction question. Thanks a lot is authored with its sincere reading; pragmatic sarcasm is not resolved by these mappings.",
+    "usage": "Politeness and greeting customs differ between languages. The canonical forms are usable conversational equivalents, not an assertion that every register feature is identical. Generic goodbye is omitted because Korean leaving/staying roles and Japanese register require more context.",
+    "lexical_unit_scope": "Only the entire explicit formula may replace a source span. In a larger message, the complete unique native counterpart must occur in the actual local translation. Unchanged outer text retains its own person, negation, names and grammar. No arbitrary inflection, partial phrase alignment or literal word-by-word interpretation is approved.",
+    "whole_references": "These deliberately authored standalone messages have whole_reference:true. Only the enumerated strings and punctuation/case variants receive canonical full translations. Existing 10,615 references must remain identical; no conflicting previous reference may be silently removed. A changed or unknown clause cannot inherit the whole reference.",
+    "readings": "All twenty Arabic, Chinese, Japanese and Korean canonical sentences have explicit practical Latin readings, bound by sentence-readings.json SHA 6bb24f7cfacdfe0237a8b4a582954ffeaaaf85de53206f000a77d57a7d3a1b0b. Lexical focus readings retain those words without terminal punctuation. Native scripts remain the speech input. Question marks must not cause a reading to be discarded by validation. This is author review, not acoustic acceptance.",
+    "evidence": "Project-authored first-chat formulas and explicit namesake coverage. No AfriWOZ evaluation or reserved Liva text supplied any native string, alias or reading. No generic dictionary candidate is promoted by this assessment.",
+    "qualification": "Static existing-reference preservation and unit-conflict checks, both native readers across all directions, short-message forward/reverse behavior, complete-formula preference, original preservation and full-reading checks remain required before app qualification. Independent linguistic precision, broad useful conversation coverage and learning efficacy are not established."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "lexical_unit_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

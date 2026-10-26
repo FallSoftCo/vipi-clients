@@ -9,20 +9,24 @@ final class ImmersionWordAttachment: NSTextAttachment {
     let forms: [String]
     let font: UIFont
     let ink: UIColor
-    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor) {
+    let trailingWidth: CGFloat
+    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0) {
         self.displayed = displayed; self.forms = forms; self.font = font; self.ink = ink
+        self.trailingWidth = trailingWidth
         super.init(data: nil, ofType: nil)
         accessibilityLabel = displayed
     }
     required init?(coder: NSCoder) { return nil }
     private var attributes: [NSAttributedString.Key: Any] {
-        let paragraph = NSMutableParagraphStyle(); paragraph.alignment = .center; paragraph.lineBreakMode = .byCharWrapping
+        let paragraph = NSMutableParagraphStyle(); paragraph.alignment = .center; paragraph.lineBreakMode = .byWordWrapping
         return [.font: font, .foregroundColor: ink, .paragraphStyle: paragraph]
     }
     override func attachmentBounds(for textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
         let available = max(1, (textContainer?.size.width ?? lineFrag.width) - 2 * (textContainer?.lineFragmentPadding ?? 0))
         let natural = forms.map { ($0 as NSString).size(withAttributes: [.font: font]).width }.max() ?? 0
-        let width = min(available, ceil(natural) + 8)
+        // Keep immediate closing punctuation on the attachment's line even
+        // when a complete phrase needs several lines inside its stable block.
+        let width = min(available - min(available * 0.25, trailingWidth), ceil(natural) + 8)
         let height = forms.map { ($0 as NSString).boundingRect(with: CGSize(width: max(1, width - 8), height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil).height }.max() ?? font.lineHeight
         return CGRect(x: 0, y: font.descender - 2, width: width, height: ceil(height) + 4)
     }
@@ -229,7 +233,9 @@ struct StableImmersionText: UIViewRepresentable {
             var style = attributes
             style[.font] = emphasis; style[.foregroundColor] = color
             style[.link] = URL(string: "vipi-reveal://word/\(word.id)")!
-            let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color)
+            let suffix = original.substring(from: NSMaxRange(word.range)).prefix { ".,!?;:…؟。！？；，、)]}’”\"".contains($0) }.prefix(8)
+            let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
+            let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing)
             let token = NSMutableAttributedString(attachment: attachment)
             token.addAttributes(style, range: NSRange(location: 0, length: token.length))
             text.append(token)

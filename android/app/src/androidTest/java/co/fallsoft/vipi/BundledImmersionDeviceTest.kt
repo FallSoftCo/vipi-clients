@@ -8,6 +8,7 @@ import org.junit.runner.RunWith
 import org.json.JSONObject
 import java.io.File
 import android.database.sqlite.SQLiteDatabase
+import kotlinx.coroutines.runBlocking
 
 @RunWith(AndroidJUnit4::class)
 class BundledImmersionDeviceTest {
@@ -29,7 +30,7 @@ class BundledImmersionDeviceTest {
             if (target in setOf("ar", "zh", "ja", "ko")) assertTrue(result.spans.all { !it.romanization.isNullOrBlank() })
             pairs += pair; selected += result.spans.size
         }
-        assertEquals(110, pairs.size); assertEquals(10615, rows.length()); assertTrue(selected > 10000)
+        assertEquals(110, pairs.size); assertEquals(12575, rows.length()); assertTrue(selected > 10000)
         assertEquals("Ninakunywa maji sasa.", catalog.reference("I am drinking water now.", "en", "sw"))
         assertNull(catalog.reference("We are drinking water now.", "en", "sw"))
         val embedded = catalog.result("We are drinking water now.", "Tunakunywa maji sasa.", "en", "sw", 1.0)
@@ -92,7 +93,7 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(14076,units)
+        assertEquals(16036,units)
         assertEquals(472,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
@@ -115,9 +116,31 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-012.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-013.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
+    }
+    @Test fun shortGreetingsAndNamesakeUseLocalReferencesInBothDirections() = runBlocking {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        ConversationImmersion(context, "en", "sw", 0.25).use { owner ->
+            assertNull(owner.ready) // No translation-model preparation is performed.
+            for ((original, expected) in listOf("hi" to "Hujambo.", "Thanks a lot." to "Asante sana.",
+                "What's up?" to "Mambo vipi?")) {
+                val value = requireNotNull(owner.result(original))
+                assertEquals(original, value.original)
+                assertEquals(expected, value.translation)
+                assertEquals("Keep the complete conversational formula", 1, value.spans.size)
+            }
+            val reverse = requireNotNull(owner.result("Mambo vipi?"))
+            assertEquals("What's up?", reverse.original)
+            assertEquals("Mambo vipi?", reverse.translation)
+            assertEquals("Mambo vipi?", reverse.speech("en", "sw").joinToString("") { it.text })
+            assertNull(owner.ready)
+        }
+        val catalog = BundledImmersionCatalog(context)
+        assertNull(catalog.reference("What's up there?", "en", "sw"))
+        val preserved = catalog.result("I did not say Thanks.", "Sikusema Asante.", "en", "sw", 1.0)
+        assertEquals("I did not say Asante.", preserved.speech("en", "sw").joinToString("") { it.text })
     }
 }

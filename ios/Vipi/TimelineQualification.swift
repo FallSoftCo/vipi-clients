@@ -40,6 +40,8 @@ struct TimelineQualificationView: View {
                 let immersionQA = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-chat-qa")
                 let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-learning-language-qa")
                     ? ["Ninapenda muziki."]
+                    : ProcessInfo.processInfo.arguments.contains("-vipi-immersion-opener-qa")
+                    ? ["Thank you very much."]
                     : ProcessInfo.processInfo.arguments.contains("-vipi-immersion-request-qa")
                     ? ["I need a phone charger."]
                     : ProcessInfo.processInfo.arguments.contains("-vipi-immersion-single-qa")

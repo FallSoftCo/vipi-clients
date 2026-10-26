@@ -18,8 +18,7 @@ class LanguagePreviewMatrixDeviceTest {
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val output = File(context.filesDir, "reading-matrix-001").apply { mkdirs() }
-        File(output, "report.json").delete()
+        val output = File(context.filesDir, "reading-matrix-003"); check(!output.exists()); output.mkdirs()
         val rows = JSONArray()
         val languages = initialLanguages.map { it.code }
         for (source in languages) for (target in languages.filter { it != source }) {
@@ -59,6 +58,22 @@ class LanguagePreviewMatrixDeviceTest {
                 .put("readings", JSONArray(result.spans.map { it.displayedTarget })).put("measurements", measurements))
         }
         assertEquals(languages.size * (languages.size - 1), rows.length())
+        val greeting = BundledImmersionCatalog(context).result("Thank you very much.", "Asante sana.", "en", "sw", 0.25)
+        assertEquals(1, greeting.spans.size)
+        instrumentation.runOnMainSync {
+            val view = StableImmersionText(context).apply {
+                layoutParams = android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+            }
+            view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 53f)
+            val width = (280 * context.resources.displayMetrics.density).toInt()
+            for (revealed in listOf(emptySet<Int>(), greeting.spans.map { it.id }.toSet())) {
+                view.bind(greeting, revealed, false, 0xff2b6142.toInt(), 0xff18251d.toInt())
+                view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+                view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+                assertEquals("Never strand closing punctuation on another line", view.layout.getLineForOffset(0),
+                    view.layout.getLineForOffset(greeting.original.lastIndex))
+            }
+        }
         File(output, "report.json").writeText(JSONObject().put("status", "passed").put("directions", rows)
             .put("evidence", "authored_preview_fixed_inline_blocks_native_tokenization_and_stable_glyph_positions_not_live_translation_or_linguistic_acceptance").toString(2))
     }

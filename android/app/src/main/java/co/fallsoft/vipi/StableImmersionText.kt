@@ -50,7 +50,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         override fun onClick(widget: View) { action(id) }
         override fun updateDrawState(ds: TextPaint) { ds.color = color; ds.isUnderlineText = false }
     }
-    private class WordSlot(val displayed: String, val forms: List<String>, val color: Int, val density: Float) : ReplacementSpan() {
+    private class WordSlot(val displayed: String, val forms: List<String>, val color: Int, val density: Float, val trailing: String) : ReplacementSpan() {
         var maximumWidth = 10000
         private var key = ""
         private var width = 0
@@ -63,7 +63,9 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             key = next
             val textPaint = TextPaint(paint).apply { typeface = Typeface.create(typeface, Typeface.BOLD); this.color = this@WordSlot.color }
             val padding = 4 * density
-            width = minOf(maximumWidth, kotlin.math.ceil(forms.maxOf { Layout.getDesiredWidth(it, textPaint) } + padding * 2).toInt()).coerceAtLeast(1)
+            val punctuation = if (trailing.isEmpty()) 0 else kotlin.math.ceil(paint.measureText(trailing)).toInt() + 1
+            val available = maximumWidth - minOf(maximumWidth / 4, punctuation)
+            width = minOf(available, kotlin.math.ceil(forms.maxOf { Layout.getDesiredWidth(it, textPaint) } + padding * 2).toInt()).coerceAtLeast(1)
             val inner = (width - padding * 2).toInt().coerceAtLeast(1)
             fun layout(text: String) = StaticLayout.Builder.obtain(text, 0, text.length, textPaint, inner)
                 .setAlignment(Layout.Alignment.ALIGN_CENTER).setIncludePad(false).setUseLineSpacingFromFallbacks(true).build()
@@ -90,7 +92,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         val value = result ?: return ""
         return SpannableStringBuilder(value.original).apply {
             value.spans.forEach { word ->
-                val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated), accent, resources.displayMetrics.density)
+                val trailing = value.original.substring(word.end).takeWhile { it in ".,!?;:…؟。！？；，、)]}’”\"" }.take(8)
+                val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated), accent, resources.displayMetrics.density, trailing)
                 slot.maximumWidth = tokenWidth; tokenSpans += slot
                 setSpan(slot, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 setSpan(WordLink(word.id, accent) { onWord?.invoke(it) }, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -12,6 +12,7 @@ xcodebuild -workspace Vipi.xcworkspace -scheme Vipi -configuration Debug \
   -derivedDataPath ../build/ios-device -allowProvisioningUpdates \
   -parallel-testing-enabled NO -collect-test-diagnostics never \
   -only-testing:VipiCryptoTests/BundledImmersionTests \
+  -only-testing:VipiCryptoTests/SentenceReadingsTests \
   -resultBundlePath "../artifacts/ipad-bundled-immersion-${revision}.xcresult" test > "$log" 2>&1
 status_code=$?
 printf '%s\n' "$status_code" > "../artifacts/ipad-bundled-immersion-${revision}.exit"

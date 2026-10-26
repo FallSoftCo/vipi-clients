@@ -1,6 +1,33 @@
 import XCTest
 
 final class ChatImmersionTests: XCTestCase {
+    @MainActor func testWholeGreetingKeepsItsBlockStableAtLargestText() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-opener-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-light",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
+        func face(_ label: String) -> XCUIElement {
+            app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == %@", label)).firstMatch
+        }
+        let target = face("Asante sana.")
+        XCTAssertTrue(target.waitForExistence(timeout: 20))
+        let bounds = target.frame
+        XCTAssertGreaterThanOrEqual(bounds.minX, app.frame.minX)
+        XCTAssertLessThanOrEqual(bounds.maxX, app.frame.maxX)
+        capture("ios-greeting-largest-target")
+        let original = face("Thank you very much.")
+        XCTAssertTrue(original.waitForExistence(timeout: 10))
+        XCTAssertEqual(original.frame.height, bounds.height, accuracy: 1)
+        XCTAssertEqual(original.frame.minY, bounds.minY, accuracy: 1)
+        capture("ios-greeting-largest-original")
+        app.buttons["Reading options"].tap(); app.buttons["Swahili"].tap()
+        XCTAssertTrue(app.staticTexts["Asante sana."].waitForExistence(timeout: 5))
+        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["Thank you very much."].waitForExistence(timeout: 5))
+    }
     @MainActor func testZeroDensityKeepsLanguageViewsWithoutInactiveWordActions() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
