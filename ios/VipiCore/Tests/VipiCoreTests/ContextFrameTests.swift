@@ -47,4 +47,27 @@ final class ContextFrameTests:XCTestCase {
         XCTAssertTrue(entries([.init(frame:frame(),sourceWindows:[NSRange(location:0,length:4)],targetWindows:[])]).isEmpty)
         XCTAssertTrue(entries([hit(nil,[NSRange(location:999,length:5)])]).isEmpty)
     }
+    func testCompleteUnitNeedsExplicitScopeAndBothUniqueNativeForms() {
+        let source="I lost my phone number.",target="Perdí mi número de teléfono."
+        func unit(_ approved:Bool,_ id:String="phone",_ meaning:String="telephone contact number") -> ContextFrame {
+            .init(id:id,meaning:meaning,sourceLanguage:"en",targetLanguage:"es",
+                sourceParts:[.focus("phone number")],targetParts:[.focus("número de teléfono")],lexicalUnit:approved)
+        }
+        func hit(_ value:ContextFrame,_ targets:[NSRange]?=nil) -> ContextFrameHit {
+            .init(frame:value,sourceWindows:[(source as NSString).range(of:"phone number")],
+                targetWindows:targets ?? [(target as NSString).range(of:"número de teléfono")])
+        }
+        func result(_ hits:[ContextFrameHit]) -> [VocabularyEntry] {
+            ContextFrameMatcher.entries(original:source,translation:target,source:"en",target:"es",hits:hits)
+        }
+        XCTAssertTrue(result([hit(unit(false))]).isEmpty)
+        let entries=result([hit(unit(true))]);XCTAssertEqual(entries.count,1)
+        let aligned=ImmersionEngine().align(original:source,translation:target,entries:entries,density:1,targetLanguage:"es")
+        XCTAssertEqual(aligned.spans.first?.original,"phone number")
+        XCTAssertTrue(result([hit(unit(true),[])]).isEmpty)
+        XCTAssertTrue(result([hit(unit(true)),hit(unit(true,"rival","a different meaning"),[])]).isEmpty)
+        let malformed=ContextFrame(id:"bad",meaning:"contact",sourceLanguage:"en",targetLanguage:"es",
+            sourceParts:[.literal("my "),.focus("phone number")],targetParts:[.focus("número de teléfono")],lexicalUnit:true)
+        XCTAssertTrue(result([hit(malformed)]).isEmpty)
+    }
 }

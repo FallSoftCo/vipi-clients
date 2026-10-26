@@ -1,0 +1,21 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "68272c2a944c53e3c9d0d532d20e8ae1a5101d7ec271e897d66538d873e91778",
+  "authoring_source_sha256": "8c70715a281d5993e682b050186941a19a004c1d1cbf5c652da080e303ce3d6b",
+  "records": 2400,
+  "scope": "Explicit need/want/polite-request alternatives for the same sixteen assessed noun meanings across 110 directions. Updates 2,080 records and adds 320 Swahili conditional-preference constructions.",
+  "prior_assessment_sha256": "267e62fe21d71a0eb02d0408b0e904a1e77dfb4f4d83f2d47246df266a47b3a7",
+  "decisions": {
+    "meaning": "The noun meanings and exact full references from needs_frame_author_assessment_001 remain unchanged. Need, want and polite preference are deliberately different surrounding grammar; only their shared noun focus is aligned. A need sentence is never returned as the full translation of a want sentence by this extension.",
+    "bounded_forms": "Explicit English need/want/would-like forms, Spanish necesitar/querer, French besoin/vouloir with concept-specific articles, German brauchen/moechten, Italian bisogno/volere with concept-specific articles, Portuguese precisar/querer/gostaria, Arabic need/want prefixes, Chinese need/want prefixes retaining classifiers, Japanese need/want/polite suffixes and Korean subject/object-particle request suffixes are enumerated. No unrestricted wildcard, stemming or generated agreement is introduced.",
+    "swahili": "The assessed subject and tense slots now permit hitaji and taka roots. Separate finite subject+nge+penda alternatives cover polite conditional preference; their canonical need reference is also explicitly present to bind the unchanged noun scope. Existing full and first-person contracted present forms remain. Unassessed negative forms are still excluded.",
+    "quantity_and_ownership": "More/some and articles outside the lexical focus remain in place. The available-time construction still requires the assessed quantity context. Conventional multiword noun compounds keep their existing internal links; no new ownership rewriting is authorized.",
+    "readings_and_references": "All lexical readings and complete native references are byte-for-byte inherited from the pinned base authoring. Whole readings remain exact authored sentences only; these grammar alternatives do not automatically acquire a full-sentence reading or whole translation.",
+    "provenance": "Extension authored from the existing request constructions and general grammar, not any inspected evaluation wording. The training-only queue informed the prior noun topic batch. Future measurements on the reused AfriWOZ probe are diagnostic, not untouched independent acceptance.",
+    "limits": "Author assessment only. Native compilation, person/tense preservation, competing-noun abstention, actual translation outputs, conversational coverage and independent linguistic review remain separate gates."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

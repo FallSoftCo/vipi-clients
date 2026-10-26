@@ -31,7 +31,7 @@ internal object ReviewedFrameLookup {
         }
         return result
     }
-    private fun frame(payload:String,source:String,target:String):ContextFrame {
+    private fun frame(payload:String,source:String,target:String,allowUnits:Boolean):ContextFrame {
         require(payload.toByteArray().size<=32768);val row=JSONObject(payload)
         require(row.getString("source_language")==source && row.getString("target_language")==target)
         fun parts(values:JSONArray,focus:String):List<ContextPart> = (0 until values.length()).map { i ->
@@ -44,10 +44,18 @@ internal object ReviewedFrameLookup {
             }
         }
         val reading=row.getString("reading");require(reading.length<=256)
+        val unit=if(row.has("lexical_unit")) row.get("lexical_unit").also { require(it is Boolean) } as Boolean else false
+        require(!unit || allowUnits)
         return ContextFrame(row.getString("id"),row.getString("meaning"),source,target,
-            parts(row.getJSONArray("source_parts"),row.getString("source")),parts(row.getJSONArray("target_parts"),row.getString("target")),reading)
+            parts(row.getJSONArray("source_parts"),row.getString("source")),parts(row.getJSONArray("target_parts"),row.getString("target")),reading,unit)
     }
     fun entries(db:SQLiteDatabase,original:String,translation:String,source:String,target:String):List<VocabularyEntry> {
+        val allowUnits=db.rawQuery("SELECT user_version,(SELECT value FROM metadata WHERE key='schema'),(SELECT value FROM metadata WHERE key='context_policy') FROM pragma_user_version",null).use {
+            require(it.moveToFirst())
+            val unit=it.getInt(0)==7 && it.getString(1)=="vipi-reviewed-frame-2" && it.getString(2)=="reviewed-bidirectional-phrase-and-unit-2"
+            require(unit || (it.getInt(0)==6 && it.getString(1)=="vipi-reviewed-frame-1" && it.getString(2)=="reviewed-bidirectional-phrase-1"))
+            unit
+        }
         val left=windows(original,source) ?: return emptyList();val right=windows(translation,target) ?: return emptyList()
         fun marks(count:Int)=List(count){"?"}.joinToString(",")
         fun query(sql:String,args:List<String>):List<Triple<String,String,String>> {
@@ -68,7 +76,7 @@ internal object ReviewedFrameLookup {
                 val rows=query("SELECT i.input,m.id,m.payload FROM source_inputs i JOIN mappings m ON m.id=i.mapping_id WHERE i.input IN (${marks(batch.size)}) LIMIT 257",batch)
                 count+=rows.size;if(count>256)return emptyList()
                 for((input,id,payload) in rows) {
-                    if(id !in records) {val value=frame(payload,source,target);require(value.id==id);records[id]=value}
+                    if(id !in records) {val value=frame(payload,source,target,allowUnits);require(value.id==id);records[id]=value}
                     sources.getOrPut(id){linkedSetOf()}.addAll(left.getValue(input))
                 }
             }

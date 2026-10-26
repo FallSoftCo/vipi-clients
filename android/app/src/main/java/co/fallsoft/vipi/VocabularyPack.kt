@@ -23,10 +23,10 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
     private val isContext = kind == VocabularyPackKind.REVIEWED_CONTEXT
     private val isFrame = kind == VocabularyPackKind.REVIEWED_FRAME
     private val isReviewed = isContext || isFrame
-    private val reviewedSchema = if (isFrame) 6 else 5
-    private val reviewedPolicy = if (isFrame) "reviewed-bidirectional-phrase-1" else "reviewed-finite-context-1"
+    private val reviewedSchemas = if (isFrame) setOf(6,7) else setOf(5)
+    private fun reviewedPolicy(schema:Int) = if (isFrame) (if(schema==7) "reviewed-bidirectional-phrase-and-unit-2" else "reviewed-bidirectional-phrase-1") else "reviewed-finite-context-1"
     private val reviewedFile = if (isFrame) "frames.sqlite" else "contexts.sqlite"
-    private val reviewedMetadata = if (isFrame) "vipi-reviewed-frame-1" else "vipi-reviewed-context-1"
+    private fun reviewedMetadata(schema:Int) = if (isFrame) (if(schema==7) "vipi-reviewed-frame-2" else "vipi-reviewed-frame-1") else "vipi-reviewed-context-1"
     private val reviewedIndexes = if (isFrame) listOf("source_inputs", "target_inputs") else listOf("context_inputs")
     private val root = File(context.filesDir, when {isFrame -> "language-packs/reviewed-frames"; isContext -> "language-packs/reviewed-contexts"; else -> "language-packs"}).apply { mkdirs() }
     private val receiptPrefix = when {isFrame -> "frame-pack-"; isContext -> "context-pack-"; else -> "pack-"}
@@ -46,12 +46,12 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         val revision = manifest.getInt("revision")
         val hash = manifest.getString("sha256")
         val schema = manifest.getInt("schema_version")
-        require(validID(id) && revision > 0 && if (isReviewed) schema == reviewedSchema else schema in setOf(1, 3, 4))
+        require(validID(id) && revision > 0 && if (isReviewed) schema in reviewedSchemas else schema in setOf(1, 3, 4))
         require(id == manifest.getString("source_language") + "-" + manifest.getString("target_language"))
         val normalization = manifest.getString("normalization")
         require(if (isReviewed) normalization == "exact-utf16" && manifest.getString("file") == reviewedFile
             else (normalization == "unicode-nfc-lower" || (schema >= 3 && normalization == "unicode-nfc-lower-arabic-harakat-v1")) && manifest.getString("file") == "vocabulary.sqlite")
-        require(if (isReviewed) manifest.optString("context_policy") == reviewedPolicy
+        require(if (isReviewed) manifest.optString("context_policy") == reviewedPolicy(schema)
             else if (schema == 4) manifest.optString("context_policy") in setOf("all-source-senses-veto-3","all-source-senses-native-guards-veto-4") else manifest.optString("context_policy") in setOf("", "cross-sense-label-veto-2"))
         require((manifest.optString("context_policy")=="all-source-senses-native-guards-veto-4")==manifest.has("native_source_guard_policy"))
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
@@ -68,8 +68,8 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                 db.rawQuery("PRAGMA quick_check", null).use { require(it.moveToFirst() && it.getString(0) == "ok") }
                 db.rawQuery("SELECT value FROM metadata WHERE key='pack_id'", null).use { require(it.moveToFirst() && it.getString(0) == id) }
                 if (isReviewed) {
-                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedMetadata) }
-                    db.rawQuery("SELECT value FROM metadata WHERE key='context_policy'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedPolicy) }
+                    db.rawQuery("SELECT value FROM metadata WHERE key='schema'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedMetadata(schema)) }
+                    db.rawQuery("SELECT value FROM metadata WHERE key='context_policy'",null).use { require(it.moveToFirst() && it.getString(0)==reviewedPolicy(schema)) }
                     db.rawQuery("SELECT id FROM mappings LIMIT 1",null).use { require(it.moveToFirst()) }
                     db.rawQuery("SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768",null).use { require(it.moveToFirst() && it.getInt(0)==0) }
                     for(index in reviewedIndexes) {
@@ -126,7 +126,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         val filename = value.getString("file")
         require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
         if (isFrame) {
-            require(manifest.getInt("schema_version")==reviewedSchema)
+            require(manifest.getInt("schema_version") in reviewedSchemas && manifest.getString("context_policy")==reviewedPolicy(manifest.getInt("schema_version")))
             if(translation.isNullOrEmpty() || translation.length>32768)return emptyList()
             return SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use {db ->
                 ReviewedFrameLookup.entries(db,text,translation,manifest.getString("source_language"),manifest.getString("target_language"))

@@ -3,10 +3,12 @@ import Foundation
 public struct ContextFrame:Sendable {
     public let id:String,meaning:String,sourceLanguage:String,targetLanguage:String,reading:String
     public let sourceParts:[ContextPart],targetParts:[ContextPart]
+    public let lexicalUnit:Bool
     public init(id:String,meaning:String,sourceLanguage:String,targetLanguage:String,
-                sourceParts:[ContextPart],targetParts:[ContextPart],reading:String="") {
+                sourceParts:[ContextPart],targetParts:[ContextPart],reading:String="",lexicalUnit:Bool=false) {
         self.id=id;self.meaning=meaning;self.sourceLanguage=sourceLanguage;self.targetLanguage=targetLanguage
         self.sourceParts=sourceParts;self.targetParts=targetParts;self.reading=reading
+        self.lexicalUnit=lexicalUnit
     }
 }
 public struct ContextFrameHit:Sendable {
@@ -23,14 +25,25 @@ public enum ContextFrameMatcher {
         guard !original.isEmpty,!translation.isEmpty,original.utf16.count<=16384,translation.utf16.count<=32768,
               source != target,hits.count<=256,Set(hits.map{ $0.frame.id }).count==hits.count else {return []}
         var groups:[NSRange:[(ContextFrame,NSRange?)]]=[:];var blocked=Set<NSRange>()
-        func focuses(_ text:String,_ windows:[NSRange],_ parts:[ContextPart]) -> Set<NSRange>? {
+        func focuses(_ text:String,_ windows:[NSRange],_ parts:[ContextPart],_ unit:Bool) -> Set<NSRange>? {
             guard windows.count<=256 else {return nil}
+            if unit {
+                guard parts.count==1,case .focus(let word)=parts[0],!word.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
+                      word.utf16.count<=128 else {return nil}
+            }
             var result=Set<NSRange>()
             for window in windows {
                 guard window.location>=0,window.length>0,window.length<=256,
                       window.location<=text.utf16.count-window.length,Range(window,in:text) != nil else {return nil}
                 let fragment=(text as NSString).substring(with:window)
-                guard let focus=ContextMappingMatcher.focus(in:fragment,parts:parts) else {return nil}
+                let focus:NSRange
+                if unit {
+                    guard case .focus(let word)=parts[0],word==fragment else {return nil}
+                    focus=NSRange(location:0,length:fragment.utf16.count)
+                } else {
+                    guard let matched=ContextMappingMatcher.focus(in:fragment,parts:parts) else {return nil}
+                    focus=matched
+                }
                 result.insert(NSRange(location:window.location+focus.location,length:focus.length))
             }
             return result
@@ -39,8 +52,8 @@ public enum ContextFrameMatcher {
             let frame=hit.frame
             guard frame.sourceLanguage==source,frame.targetLanguage==target,!frame.id.isEmpty,frame.id.utf16.count<=256,
                   !frame.meaning.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,frame.meaning.utf16.count<=2048,
-                  let left=focuses(original,hit.sourceWindows,frame.sourceParts),!left.isEmpty,
-                  let right=focuses(translation,hit.targetWindows,frame.targetParts) else {return []}
+                  let left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.lexicalUnit),!left.isEmpty,
+                  let right=focuses(translation,hit.targetWindows,frame.targetParts,frame.lexicalUnit) else {return []}
             if left.count>1 || right.count>1 {blocked.formUnion(left)}
             for focus in left {groups[focus,default:[]].append((frame,right.count==1 ? right.first : nil))}
         }

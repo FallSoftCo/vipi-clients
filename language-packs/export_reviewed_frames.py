@@ -11,10 +11,10 @@ from build_wiktextract import canonical,digest_file
 from context_patterns import frame_parts,match_pattern
 from export_reviewed_contexts import assessed_record,load_export,utf16
 
-POLICY='reviewed-bidirectional-phrase-1'
+POLICY='reviewed-bidirectional-phrase-and-unit-2'
 SCHEMA='''
 PRAGMA application_id=1447645257;
-PRAGMA user_version=6;
+PRAGMA user_version=7;
 PRAGMA temp_store=FILE;
 PRAGMA foreign_keys=ON;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
@@ -24,7 +24,11 @@ CREATE TABLE target_inputs(input TEXT NOT NULL,mapping_id TEXT NOT NULL REFERENC
 '''
 
 
-def variants(parts):
+def variants(parts,lexical_unit=False):
+    if lexical_unit:
+        if len(parts)!=1 or set(parts[0])!={'focus'} or not 0<utf16(parts[0]['focus'])<=128:
+            raise ValueError('Invalid complete lexical unit')
+        return [parts[0]['focus']]
     choices=[p['slot'] if 'slot' in p else [next(iter(p.values()))] for p in parts]
     count=1
     for values in choices:count*=len(values)
@@ -40,12 +44,16 @@ def compile_record(envelope):
     if record['usage'].get('context_extent')!='local_phrase':raise ValueError('Explicit phrase extent required')
     if not any(a['checks'].get('context_frame_scope')=='pass' for a in assessments):
         raise ValueError('Phrase generalization requires its own assessment')
+    unit=record['usage'].get('lexical_unit',False)
+    if unit and not any(a['checks'].get('lexical_unit_scope')=='pass' for a in assessments):
+        raise ValueError('Complete lexical units require their own assessment')
     source=frame_parts(record,'source');target=frame_parts(record,'target')
     payload={'id':record['logical_id'],'meaning':record['meaning'],'source_language':record['source_language'],
         'target_language':record['target_language'],'source_parts':source,'target_parts':target,
-        'source':record['source'],'target':record['target'],'reading':record['reading'],'record_sha256':sha}
+        'source':record['source'],'target':record['target'],'reading':record['reading'],'record_sha256':sha,
+        'lexical_unit':unit}
     if len(canonical(payload).encode())>32768:raise ValueError('Native frame payload exceeds bound')
-    return payload,variants(source),variants(target)
+    return payload,variants(source,unit),variants(target,unit)
 
 
 def export_pair(rows,source,target,output,revision,key,key_id,source_manifest):
@@ -62,12 +70,12 @@ def export_pair(rows,source,target,output,revision,key,key_id,source_manifest):
             if db.execute('SELECT count(*) FROM (SELECT input FROM '+side+'_inputs GROUP BY input HAVING count(*)>256)').fetchone()[0]:
                 raise ValueError('Frame shortlist exceeds bound')
             counts[side+'_variants']=db.execute('SELECT count(*) FROM '+side+'_inputs').fetchone()[0]
-        metadata={'schema':'vipi-reviewed-frame-1','pack_id':source+'-'+target,'source_language':source,
+        metadata={'schema':'vipi-reviewed-frame-2','pack_id':source+'-'+target,'source_language':source,
             'target_language':target,'context_policy':POLICY}
         db.executemany('INSERT INTO metadata VALUES (?,?)',metadata.items());db.commit();db.execute('VACUUM')
         if db.execute('PRAGMA integrity_check').fetchone()[0]!='ok' or db.execute('PRAGMA foreign_key_check').fetchone():raise ValueError('Invalid frame database')
     if not 512<=database.stat().st_size<=67108864:raise ValueError('Frame pack size bound exceeded')
-    manifest=dict(metadata,schema_version=6,revision=revision,normalization='exact-utf16',file='frames.sqlite',
+    manifest=dict(metadata,schema_version=7,revision=revision,normalization='exact-utf16',file='frames.sqlite',
         bytes=database.stat().st_size,sha256=digest_file(database),mappings=len(rows),**counts,
         export_sha256=source_manifest['records_sha256'],through_sequence=source_manifest['through_sequence'],
         key_id=key_id,signature_algorithm='ECDSA-P256-SHA256',compiler_sha256=digest_file(Path(__file__)),

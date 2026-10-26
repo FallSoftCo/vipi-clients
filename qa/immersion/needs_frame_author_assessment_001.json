@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "527b6ee94f4eecd16060d7d788a37cc579785c3104af0f75caa2e04f047e8d02",
+  "authoring_source_sha256": "11db9924b33b43502060eaa4a2ef99f88fbca335b070d0b1e042e14887ed0e02",
+  "records": 2080,
+  "scope": "Sixteen everyday noun-request meanings over 110 directions, plus 320 explicit Swahili first-person present contraction alternatives.",
+  "training_priority_sha256": "f0f3314d21da2218ba063e5b50da8c4e32f6f284b0ed1c8bbfde54be040b76c2",
+  "decisions": {
+    "meaning": "Food, water, money, assistance, information, mailing address, phone number, taxi, doctor, receipt, phone charger, umbrella, door key, breakfast, available time and rest. Newly authored full references retain the same request meaning across the eleven languages. Mailing address was selected consistently instead of conflating street addresses and postal addresses. German Erholung avoids interpreting a request for quiet as a request for rest. Medical practitioner and physical door-key/phone-charger senses are explicit.",
+    "grammar": "Only the bracketed noun or conventional noun phrase changes. Sentence-level articles, person, tense, negation and quantity remain outside the focus. Internal links such as 'ya simu', 'de teléfono' and 'の' remain part of their conventional lexical compounds. Finite Swahili person/tense prefixes and the Nina/Na first-person present alternatives are enumerated, not inferred by stemming. Negative Swahili forms are not silently accepted.",
+    "readings": "All Arabic, Chinese, Japanese and Korean targets carry explicit Latin readings. Native characters, including Japanese long-vowel readings, Korean final-consonant noun forms and Chinese tone marks were reviewed at the lexical-focus level. These are written readings, not IPA or acoustic acceptance. Unknown whole sentences still require a separately supported reading.",
+    "scope": "Both native source and actual translated target must contain their assessed request constructions. Extra surrounding conversation can remain unchanged. Repeated or conflicting alignments abstain. A bare noun without the request context is not newly approved. Verb inflection alternatives only extend the surrounding construction and do not copy authored whole-sentence person or tense into a different input.",
+    "provenance": "The separate training-only frequency queue informed topic priorities. No AfriWOZ held-out message wording or inspected evaluation output supplied these sentences. This author has inspected prior held-out evaluation outputs; subsequent replays are disclosed as diagnostic measurements, not an untouched acceptance set.",
+    "limits": "Author assessment only, not an independent native-speaker review. Gender, regional choice, model output coverage, device execution, broader linguistic precision and listening acceptance remain separate checks. No runtime quality percentage is inferred from record count."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

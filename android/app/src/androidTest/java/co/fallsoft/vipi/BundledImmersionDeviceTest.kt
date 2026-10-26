@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.json.JSONObject
 import java.io.File
+import android.database.sqlite.SQLiteDatabase
 
 @RunWith(AndroidJUnit4::class)
 class BundledImmersionDeviceTest {
@@ -28,7 +29,7 @@ class BundledImmersionDeviceTest {
             if (target in setOf("ar", "zh", "ja", "ko")) assertTrue(result.spans.all { !it.romanization.isNullOrBlank() })
             pairs += pair; selected += result.spans.size
         }
-        assertEquals(110, pairs.size); assertEquals(9073, rows.length()); assertTrue(selected > 8600)
+        assertEquals(110, pairs.size); assertEquals(10615, rows.length()); assertTrue(selected > 10000)
         assertEquals("Ninakunywa maji sasa.", catalog.reference("I am drinking water now.", "en", "sw"))
         assertNull(catalog.reference("We are drinking water now.", "en", "sw"))
         val embedded = catalog.result("We are drinking water now.", "Tunakunywa maji sasa.", "en", "sw", 1.0)
@@ -50,8 +51,52 @@ class BundledImmersionDeviceTest {
         val ticket = catalog.result("I need a train ticket.", "Ninahitaji tiketi ya treni.", "en", "sw", 0.25)
         assertEquals("I need a tiketi ya treni.", ticket.speech("en", "sw").joinToString("") { it.text })
         assertTrue(catalog.result("We are not sending an email tonight.", "Hatutumi barua pepe leo usiku.", "en", "sw", 1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-004.json"); check(!output.exists())
+        val pastNeed = catalog.result("We needed a phone charger before dinner.", "Tulihitaji chaja ya simu kabla ya chakula cha jioni.", "en", "sw", 1.0)
+        assertEquals("We needed a chaja ya simu before dinner.", pastNeed.speech("en", "sw").joinToString("") { it.text })
+        val help = catalog.result("Nahitaji msaada sasa.", "I need help now.", "sw", "en", 1.0)
+        assertEquals("Nahitaji help sasa.", help.speech("sw", "en").joinToString("") { it.text })
+        assertTrue("A postal address is not a memory address", catalog.result("I need a memory address.", "Ninahitaji anwani ya kumbukumbu.", "en", "sw", 1.0).spans.isEmpty())
+        assertTrue("Request grammar alone cannot align different nouns", catalog.result("I need food.", "Ninahitaji taarifa.", "en", "sw", 1.0).spans.isEmpty())
+        val polite = catalog.result("Ningependa nambari ya simu sasa.", "I would like a phone number now.", "sw", "en", 1.0)
+        assertEquals("Ningependa phone number sasa.", polite.speech("sw", "en").joinToString("") { it.text })
+        val want = catalog.result("I want water now.", "Nataka maji sasa.", "en", "sw", 1.0)
+        assertEquals("I want maji now.", want.speech("en", "sw").joinToString("") { it.text })
+        assertNull("Never transplant a need reference into a want sentence", catalog.reference("I want water now.", "en", "sw"))
+        val french = catalog.result("Je voudrais un numéro de téléphone.", "Ningependa nambari ya simu.", "fr", "sw", 1.0)
+        assertEquals("Je voudrais un nambari ya simu.", french.speech("fr", "sw").joinToString("") { it.text })
+        assertTrue(catalog.result("Sihitaji maji.", "I do not need water.", "sw", "en", 1.0).spans.isEmpty())
+        var units=0
+        for(pair in pairs.sorted()) {
+            val (sourceLanguage,targetLanguage)=pair.split("-")
+            val temporary=File.createTempFile("compound-qa-", ".sqlite",context.cacheDir)
+            try {
+                context.assets.open("immersion/$pair.sqlite").use { input -> temporary.outputStream().use { input.copyTo(it) } }
+                SQLiteDatabase.openDatabase(temporary.path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
+                    db.rawQuery("SELECT payload FROM mappings",null).use { cursor ->
+                        while(cursor.moveToNext()) {
+                            val row=JSONObject(cursor.getString(0));if(!row.optBoolean("lexical_unit"))continue
+                            val source=row.getString("source");val target=row.getString("target")
+                            val result=catalog.result("$source.","$target.",sourceLanguage,targetLanguage,1.0)
+                            assertEquals("$pair:$source",1,result.spans.size)
+                            assertEquals(source,result.spans.single().original)
+                            assertEquals("$target.",result.speech(sourceLanguage,targetLanguage).joinToString(""){it.text})
+                            units++
+                        }
+                    }
+                }
+            } finally { check(temporary.delete()) }
+        }
+        assertEquals(660,units)
+        val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
+        assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
+        for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
+            "phone number; phone number." to "nambari ya simu.","phone number." to "nambari yangu ya simu."))
+            assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
+        val existingPhone=catalog.result("What is your phone number?","Nambari ya simu yako ni ipi?","en","sw",1.0)
+        assertEquals("What is your Nambari ya simu?",existingPhone.speech("en","sw").joinToString(""){it.text})
+        val output = File(context.filesDir, "bundled-immersion-009.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
+            .put("compound_units",units)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
     }
 }

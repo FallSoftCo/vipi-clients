@@ -24,10 +24,10 @@ enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollbac
 enum VocabularyPackKind: Sendable {
     case vocabulary, reviewedContext, reviewedFrame
     var reviewed: Bool { self != .vocabulary }
-    var schema: Int { self == .reviewedFrame ? 6 : 5 }
-    var policy: String { self == .reviewedFrame ? "reviewed-bidirectional-phrase-1" : "reviewed-finite-context-1" }
+    var schemas: [Int] { self == .reviewedFrame ? [6,7] : [5] }
+    func policy(_ schema:Int) -> String { self == .reviewedFrame ? (schema==7 ? "reviewed-bidirectional-phrase-and-unit-2" : "reviewed-bidirectional-phrase-1") : "reviewed-finite-context-1" }
     var databaseFile: String { self == .reviewedFrame ? "frames.sqlite" : "contexts.sqlite" }
-    var metadataSchema: String { self == .reviewedFrame ? "vipi-reviewed-frame-1" : "vipi-reviewed-context-1" }
+    func metadataSchema(_ schema:Int) -> String { self == .reviewedFrame ? (schema==7 ? "vipi-reviewed-frame-2" : "vipi-reviewed-frame-1") : "vipi-reviewed-context-1" }
     var indexes: [String] { self == .reviewedFrame ? ["source_inputs", "target_inputs"] : ["context_inputs"] }
 }
 
@@ -61,10 +61,10 @@ actor VocabularyPackStore {
         let id = manifest.pack_id
         let hash = SHA256.hash(data: database).map { String(format: "%02x", $0) }.joined()
         guard validID(id), id == manifest.source_language + "-" + manifest.target_language, manifest.revision > 0,
-              (kind.reviewed ? manifest.schema_version == kind.schema : [1, 3, 4].contains(manifest.schema_version)),
+              (kind.reviewed ? kind.schemas.contains(manifest.schema_version) : [1, 3, 4].contains(manifest.schema_version)),
               (kind.reviewed ? manifest.normalization == "exact-utf16" :
                 (manifest.normalization == "unicode-nfc-lower" || (manifest.schema_version >= 3 && manifest.normalization == "unicode-nfc-lower-arabic-harakat-v1"))),
-              (kind.reviewed ? manifest.context_policy == kind.policy :
+              (kind.reviewed ? manifest.context_policy == kind.policy(manifest.schema_version) :
                 (manifest.schema_version == 4 ? ["all-source-senses-veto-3","all-source-senses-native-guards-veto-4"].contains(manifest.context_policy ?? "") : (manifest.context_policy == nil || manifest.context_policy == "cross-sense-label-veto-2"))),
               (manifest.context_policy == "all-source-senses-native-guards-veto-4") == (manifest.native_source_guard_policy != nil),
               manifest.file == (kind.reviewed ? kind.databaseFile : "vocabulary.sqlite"),
@@ -82,8 +82,8 @@ actor VocabularyPackStore {
             guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == String(manifest.schema_version),
                   try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id else { throw VocabularyPackError.invalid }
             if kind.reviewed {
-                guard try scalar(db,"SELECT value FROM metadata WHERE key='schema'") == kind.metadataSchema,
-                      try scalar(db,"SELECT value FROM metadata WHERE key='context_policy'") == kind.policy,
+                guard try scalar(db,"SELECT value FROM metadata WHERE key='schema'") == kind.metadataSchema(manifest.schema_version),
+                      try scalar(db,"SELECT value FROM metadata WHERE key='context_policy'") == kind.policy(manifest.schema_version),
                       try scalar(db,"SELECT id FROM mappings LIMIT 1") != nil,
                       try scalar(db,"SELECT count(*) FROM mappings WHERE length(CAST(payload AS BLOB))>32768") == "0",
                       try scalar(db,"PRAGMA foreign_key_check") == nil else { throw VocabularyPackError.invalid }
@@ -138,7 +138,7 @@ actor VocabularyPackStore {
         guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
               pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
         if kind == .reviewedFrame {
-            guard pointer.manifest.schema_version == kind.schema else {throw VocabularyPackError.invalid}
+            guard kind.schemas.contains(pointer.manifest.schema_version),pointer.manifest.context_policy==kind.policy(pointer.manifest.schema_version) else {throw VocabularyPackError.invalid}
             guard let translation, !translation.isEmpty, translation.utf16.count<=32768 else {return []}
             return try withDatabase(root.appendingPathComponent(pointer.file)) { db in
                 try ReviewedFrameLookup.entries(db:db,original:text,translation:translation,

@@ -1,0 +1,19 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "e427cb12cecaed13cf58c44b3274cd0487a8ad0bae67e7082084491ee432b319",
+  "authoring_source_sha256": "612c704999b28bb842520b2b6df7cf655ee8f90ff4b554edce7d542f3de85061",
+  "records": 660,
+  "scope": "Six complete noun compounds across all 110 directed language pairs: postal address, phone number, phone charger, door key, train ticket and hotel room.",
+  "decisions": {
+    "meaning": "The complete compounds carry the intended lexical distinction internally: postal rather than computer address; telephone rather than an arbitrary number; phone charger rather than a charging person or horse; door key rather than cryptographic key; railway travel ticket; hotel accommodation room. Retain the entire existing compound on both sides, including internal noun links. Do not broaden this approval to a bare address, number, charger, key, ticket or room.",
+    "lexical_unit_scope": "These complete noun forms may be found independently of the old need/request verb. Both complete source and target forms must exist as native word windows within their respective sentences. The local whole translation supplies the candidate target occurrence, while unique occurrence and competing-meaning checks still constrain alignment. This is an explicit author scope decision, not inferred approval of all dictionary entries.",
+    "grammar_scope": "Subject, tense, polarity, possession, articles and quantity outside the existing compound remain in the original message. No whole reference is reused for a changed sentence. Internal links such as ya, wa, cha, de, no and genitive constructs belong to the selected complete compound; no arbitrary external possessor is absorbed or rewritten.",
+    "limits": "Exact singular written forms only. Unlisted plural, spelling, case or inflection variants remain unsupported. Multiple candidate occurrences, conflicting meanings/readings, protected identifiers and invalid native windows abstain. A structurally unique match is not independent proof that a translation model chose the right meaning, and metaphorical or unusual contexts may still fail.",
+    "readings": "All non-Roman lexical readings are unchanged from the pinned needs/request authoring. Native speech receives the target compound, not its Latin reading. Full-sentence readings and canonical complete references are unchanged.",
+    "provenance": "The six topics and forms come from the pinned existing authored request sources. No reserved AfriWOZ or Liva utterance supplied a string. Only aggregate Liva availability counts were inspected. This assessment is authored by the same session and is not independent linguistic acceptance. Native execution and fresh coverage measurement remain required."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "lexical_unit_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

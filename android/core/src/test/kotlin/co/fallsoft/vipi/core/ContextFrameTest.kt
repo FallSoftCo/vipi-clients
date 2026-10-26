@@ -40,4 +40,19 @@ class ContextFrameTest {
         assertTrue(entries(listOf(ContextFrameHit(frame(),listOf(0..3),emptyList()))).isEmpty())
         assertTrue(entries(listOf(hit(targets=listOf(999..1003)))).isEmpty())
     }
+    @Test fun completeUnitNeedsExplicitScopeAndBothUniqueNativeForms() {
+        val source="I lost my phone number.";val target="Perdí mi número de teléfono."
+        fun unit(approved:Boolean,id:String="phone",meaning:String="telephone contact number")=ContextFrame(id,meaning,"en","es",
+            listOf(ContextPart.Focus("phone number")),listOf(ContextPart.Focus("número de teléfono")),lexicalUnit=approved)
+        fun hit(value:ContextFrame,targets:List<IntRange> = listOf(range(target,"número de teléfono")))=
+            ContextFrameHit(value,listOf(range(source,"phone number")),targets)
+        fun result(hits:List<ContextFrameHit>)=ContextFrameMatcher.entries(source,target,"en","es",hits)
+        assertTrue(result(listOf(hit(unit(false)))).isEmpty())
+        val entries=result(listOf(hit(unit(true))));assertEquals(1,entries.size)
+        assertEquals("phone number",ImmersionEngine().align(source,target,entries,1.0,"es").spans.single().original)
+        assertTrue(result(listOf(hit(unit(true),emptyList()))).isEmpty())
+        assertTrue(result(listOf(hit(unit(true)),hit(unit(true,"rival","a different meaning"),emptyList()))).isEmpty())
+        val malformed=unit(true).copy(sourceParts=listOf(ContextPart.Literal("my "),ContextPart.Focus("phone number")))
+        assertTrue(result(listOf(hit(malformed))).isEmpty())
+    }
 }

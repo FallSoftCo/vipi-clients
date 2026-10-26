@@ -105,6 +105,9 @@ class Catalog:
                         if statement.strip(): self.db.execute(statement)
                     self.db.execute('PRAGMA user_version=1')
                 elif version!=1: raise ValueError('Unsupported authoring catalog')
+                # Reassessment, export and provenance verification repeatedly
+                # query by record hash; retain an index for existing ledgers too.
+                self.db.execute('CREATE INDEX IF NOT EXISTS reviews_by_record ON reviews(record_sha256)')
         except BaseException:
             self.db.close(); raise
 
@@ -190,6 +193,8 @@ class Catalog:
                     raise ValueError('Incomplete linguistic review')
                 if record['usage'].get('context_extent')=='local_phrase' and checks.get('context_frame_scope')!='pass':
                     raise ValueError('Local phrase generalization has not passed explicit review')
+                if record['usage'].get('lexical_unit') and checks.get('lexical_unit_scope')!='pass':
+                    raise ValueError('Complete lexical units have not passed explicit review')
                 required=record['target_language'] in NON_ROMAN
                 if checks.get('reading')!=('pass' if required else 'not_required') or (required and not record['reading']):
                     raise ValueError('Readable target has not passed review')

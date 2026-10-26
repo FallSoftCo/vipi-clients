@@ -1,6 +1,50 @@
 import XCTest
 
 final class ChatImmersionTests: XCTestCase {
+    @MainActor func testExpandedRequestReadingsInAllFourNonRomanLanguagesAtLargestText() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
+        let cases = [
+            ("ar", "Arabic", "Aḥtāj ilā shāḥin hātif.", "أحتاج إلى شاحن هاتف."),
+            ("zh", "Chinese", "Wǒ xūyào yí ge shǒujī chōngdiànqì.", "我需要一个手机充电器。"),
+            ("ja", "Japanese", "Keitai denwa no jūdenki ga hitsuyō desu.", "携帯電話の充電器が必要です。"),
+            ("ko", "Korean", "Hyudaepon chungjeongiga piryohaeyo.", "휴대폰 충전기가 필요해요.")
+        ]
+        for (code, name, latin, native) in cases {
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-request-qa", "-vipi-timeline-audit",
+                "-vipi-source", "en", "-vipi-target", code, "-vipi-appearance-light",
+                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+            app.launch()
+            let menu = app.buttons["Reading options"]
+            XCTAssertTrue(menu.waitForExistence(timeout: 20)); menu.tap(); app.buttons[name].tap()
+            let reading = app.staticTexts[latin]
+            XCTAssertTrue(reading.waitForExistence(timeout: 10)); XCTAssertTrue(reading.isHittable)
+            XCTAssertGreaterThanOrEqual(reading.frame.minX, app.frame.minX)
+            XCTAssertLessThanOrEqual(reading.frame.maxX, app.frame.maxX)
+            capture("ios-request-reading-largest-" + code)
+            menu.tap()
+            XCTAssertFalse(app.buttons["Pause word switching"].exists)
+            XCTAssertFalse(app.buttons["Switching pace"].exists)
+            app.buttons["Show original script"].tap()
+            XCTAssertTrue(app.staticTexts[native].waitForExistence(timeout: 5))
+            menu.tap(); app.buttons["English"].tap()
+            XCTAssertTrue(app.staticTexts["I need a phone charger."].waitForExistence(timeout: 5))
+            if code == "ar" {
+                menu.tap(); app.buttons["Immersed"].tap()
+                for label in ["Relaxed", "Balanced"] {
+                    menu.tap()
+                    let pace = app.buttons["Switching pace"]
+                    XCTAssertTrue(pace.isHittable)
+                    pace.tap()
+                    XCTAssertTrue(app.buttons[label].waitForExistence(timeout: 5))
+                    capture("ios-request-pace-largest-" + label.lowercased())
+                    app.buttons[label].tap()
+                }
+            }
+            app.terminate()
+        }
+    }
     @MainActor func testOnboardingSelectsSwahiliAndShowsWholeThoughtInBothDirections() throws {
         continueAfterFailure = false
         let app = XCUIApplication()

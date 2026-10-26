@@ -1,0 +1,18 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "d66ebc0e393dc998a7a1f32f502bc8613f75ac3b84e82313ca99da26d31c7f25",
+  "authoring_source_sha256": "7df412bd32008b82fe041b3f69bb97d37bafebf590b6a66a58019599acd6fe7c",
+  "records": 260,
+  "scope": "150 request-frame and 110 complete-compound telephone-number records receive the same existing telephone-number meaning identity.",
+  "decisions": {
+    "meaning": "The prior description 'a number used to call a telephone' and the existing activity description 'a number identifying a telephone connection, not a count, musical number or generic identifier' name the same lexical sense in these exact phone-number forms. Neither is a generic count, performance item or identifier. Explicitly approve this equivalence for these 260 records only.",
+    "canonical_basis": "authored_activity_frames.py SHA 0299f0a3a5006d98fb57b1e48aa355ab63a975c377528634edfd3738b30cc24d already uses the retained description for phone_number. The native comparison of authored references exposed eighty lost messages because exact description strings serve as meaning identities. This is author-data consistency repair, not evidence of independent accuracy.",
+    "unchanged_scope": "Only the top-level meaning string changes. Complete references, native source/target forms, Latin readings, source/target patterns, permitted contexts and abstention rules remain byte-for-byte unchanged. The 150 request frames retain their finite constructions. The 110 complete compounds retain their separately assessed whole-unit scope.",
+    "runtime_ambiguity": "Do not relax the runtime competing-meaning veto or infer equivalence for any other descriptions. Missing, repeated or conflicting target occurrences still abstain. An old contextual frame may match its own approved definite, case or possessive form even when the new exact compound form does not.",
+    "provenance": "Inputs are the pinned authored request/compound sources. No reserved conversation supplied a string. The comparison corpus consists of our own existing references. Native before/after comparison must demonstrate restored availability before this repair is credited."
+  },
+  "checks": {"meaning":"pass", "usage":"pass", "grammar_scope":"pass", "context_frame_scope":"pass", "lexical_unit_scope":"pass", "provenance":"pass"},
+  "release_ready": false
+}

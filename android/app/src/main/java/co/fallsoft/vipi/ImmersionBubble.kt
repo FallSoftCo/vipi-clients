@@ -42,6 +42,7 @@ import kotlinx.coroutines.delay
     var overrides by remember(result) { mutableStateOf(mapOf<Int, Boolean>()) }
     var paused by remember(result) { mutableStateOf(false) }
     var choosingWord by remember(result) { mutableStateOf(false) }
+    var choosingPace by remember(result) { mutableStateOf(false) }
     var script by remember(result) { mutableStateOf(false) }
     var selecting by remember { mutableStateOf(false) }
     var visible by remember { mutableStateOf(false) }
@@ -72,7 +73,7 @@ import kotlinx.coroutines.delay
         onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
     }
     val active = speech?.activeMessage == messageID
-    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !interactionPaused && speech?.activeMessage == null && !screenReader && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
+    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !interactionPaused && speech?.activeMessage == null && !screenReader && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
     LaunchedEffect(eligible, result, revision, pace) {
         if (!eligible) return@LaunchedEffect
@@ -138,7 +139,7 @@ import kotlinx.coroutines.delay
                             if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
                                 enabled = speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null),
                                 onClick = { if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen(); menu = false })
-                            if (result.spans.isNotEmpty()) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
+                            if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
                                 onClick = { paused = !paused; revision++; menu = false })
                         }
                         if (onModeChange != null) ReadingMode.entries.forEach { value ->
@@ -146,11 +147,8 @@ import kotlinx.coroutines.delay
                             DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (mode == value) Icon(Icons.Outlined.Check, null) },
                                 onClick = { onModeChange(value); menu = false })
                         }
-                        listOf("relaxed" to "Relaxed pace", "balanced" to "Balanced pace", "brisk" to "Brisk pace").forEach { (key, title) ->
-                            DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (pace == key) Icon(Icons.Outlined.Check, null) },
-                                onClick = { preferences.edit().putString("readingPace", key).apply(); menu = false })
-                        }
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
+                        if (mode == ReadingMode.IMMERSED) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
                         if (mode == ReadingMode.IMMERSED) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
@@ -169,6 +167,16 @@ import kotlinx.coroutines.delay
     }
     if (chooseLanguage && onInputLanguage != null) MessageLanguageDialog(source, target, inputLanguage,
         onSelect = { speech?.stop(); onInputLanguage(it); chooseLanguage = false }, dismiss = { chooseLanguage = false })
+    if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text("Switching pace") },
+        text = { Column {
+            listOf("relaxed" to "Relaxed", "balanced" to "Balanced", "brisk" to "Brisk").forEach { (key, title) ->
+                TextButton(onClick = { preferences.edit().putString("readingPace", key).apply(); choosingPace = false },
+                    modifier = Modifier.fillMaxWidth().semantics { selected = pace == key }) {
+                    if (pace == key) Icon(Icons.Outlined.Check, null, modifier = Modifier.padding(end = 8.dp))
+                    Text(title)
+                }
+            }
+        } }, confirmButton = { TextButton(onClick = { choosingPace = false }) { Text("Cancel") } })
 }
 
 @Composable internal fun MessageLanguageDialog(source: String, target: String, selected: String?, onSelect: (String?) -> Unit, dismiss: () -> Unit) {

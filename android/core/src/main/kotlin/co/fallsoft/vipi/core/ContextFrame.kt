@@ -1,7 +1,7 @@
 package co.fallsoft.vipi.core
 
 data class ContextFrame(val id:String,val meaning:String,val sourceLanguage:String,val targetLanguage:String,
-    val sourceParts:List<ContextPart>,val targetParts:List<ContextPart>,val reading:String="")
+    val sourceParts:List<ContextPart>,val targetParts:List<ContextPart>,val reading:String="",val lexicalUnit:Boolean=false)
 data class ContextFrameHit(val frame:ContextFrame,val sourceWindows:List<IntRange>,val targetWindows:List<IntRange>)
 
 /** Exact indexed phrase matches still require an explicitly assessed record.
@@ -10,14 +10,19 @@ object ContextFrameMatcher {
     fun entries(original:String,translation:String,source:String,target:String,hits:List<ContextFrameHit>):List<VocabularyEntry> {
         if(original.isEmpty() || translation.isEmpty() || original.length>16384 || translation.length>32768 ||
             source==target || hits.size>256 || hits.map{it.frame.id}.distinct().size!=hits.size)return emptyList()
-        fun focuses(text:String,windows:List<IntRange>,parts:List<ContextPart>):Set<IntRange>? {
+        fun focuses(text:String,windows:List<IntRange>,parts:List<ContextPart>,unit:Boolean):Set<IntRange>? {
             if(windows.size>256)return null
+            val whole=if(unit) (parts.singleOrNull() as? ContextPart.Focus)?.text?.takeIf{it.isNotBlank() && it.length<=128} ?: return null else null
             val result=linkedSetOf<IntRange>()
             for(window in windows) {
                 if(window.first<0 || window.last<window.first || window.last>=text.length || window.last-window.first+1>256)return null
                 if((window.first>0 && Character.isLowSurrogate(text[window.first])) ||
                     (window.last+1<text.length && Character.isLowSurrogate(text[window.last+1])))return null
-                val focus=ContextMappingMatcher.focus(text.substring(window),parts) ?: return null
+                val fragment=text.substring(window)
+                val focus=if(unit) {
+                    if(fragment!=whole)return null
+                    0 until fragment.length
+                } else ContextMappingMatcher.focus(fragment,parts) ?: return null
                 result+=(window.first+focus.first)..(window.first+focus.last)
             }
             return result
@@ -28,8 +33,8 @@ object ContextFrameMatcher {
             val frame=hit.frame
             if(frame.sourceLanguage!=source || frame.targetLanguage!=target || frame.id.isBlank() || frame.id.length>256 ||
                 frame.meaning.isBlank() || frame.meaning.length>2048)return emptyList()
-            val left=focuses(original,hit.sourceWindows,frame.sourceParts) ?: return emptyList()
-            val right=focuses(translation,hit.targetWindows,frame.targetParts) ?: return emptyList()
+            val left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.lexicalUnit) ?: return emptyList()
+            val right=focuses(translation,hit.targetWindows,frame.targetParts,frame.lexicalUnit) ?: return emptyList()
             if(left.isEmpty())return emptyList()
             if(left.size>1 || right.size>1)blocked.addAll(left)
             for(focus in left)groups.getOrPut(focus){mutableListOf()}.add(frame to right.singleOrNull())

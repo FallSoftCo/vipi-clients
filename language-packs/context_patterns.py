@@ -51,6 +51,11 @@ def frame_parts(record,side):
     fragment=text[span[0]:span[1]];a,b=focus[0]-span[0],focus[1]-span[0]
     if len(fragment.encode('utf-16-le'))//2>256:raise ValueError('Frame exceeds native window bound')
     parts=usage.get(side+'_frame_pattern')
+    if usage.get('lexical_unit') is True:
+        expected=[{'focus':record[side]}]
+        if span!=focus or parts!=expected or fragment!=record[side] or not fragment.strip():
+            raise ValueError('A lexical unit must be the entire exact assessed focus')
+        return expected
     if parts is None:
         parts=([{'literal':fragment[:a]}] if a else [])+[{'focus':record[side]}]
         if b<len(fragment):parts.append({'literal':fragment[b:]})
@@ -61,8 +66,11 @@ def frame_parts(record,side):
 
 def validate_frames(record):
     usage=record['usage'];extent=usage.get('context_extent','exact_context')
+    if 'lexical_unit' in usage and type(usage['lexical_unit']) is not bool:
+        raise ValueError('Lexical unit scope must be explicit')
     if extent not in ('exact_context','local_phrase'):raise ValueError('Unknown context extent')
     if extent=='exact_context':
+        if usage.get('lexical_unit'):raise ValueError('Lexical units require assessed local scope')
         if any(k in usage for k in ('source_frame_span','target_frame_span','source_frame_pattern','target_frame_pattern')):
             raise ValueError('Phrase scopes require explicit local extent')
         return

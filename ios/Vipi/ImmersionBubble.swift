@@ -30,6 +30,7 @@ struct ImmersionBubble: View {
     @State private var paused = false
     @State private var script = false
     @State private var selecting = false
+    @State private var choosingPace = false
     @State private var visible = false
     @State private var revision = 0
     @AppStorage("readingPace") private var pace = "balanced"
@@ -38,7 +39,7 @@ struct ImmersionBubble: View {
 
     private var revealed: Set<Int> { Set(result.spans.filter { overrides[$0.id] ?? originalPhase }.map(\.id)) }
     private var active: Bool { speech?.activeMessage == messageID }
-    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !interactionPaused && speech?.activeMessage == nil && !voiceOver && mode == .immersed && !result.spans.isEmpty }
+    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && mode == .immersed && !result.spans.isEmpty }
     private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
@@ -78,9 +79,12 @@ struct ImmersionBubble: View {
                                     if speech.state == .unavailable { onVoiceHelp?() } else { listen() }
                                 }.disabled(speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil))
                             }
-                            if !result.spans.isEmpty {
+                            if mode == .immersed && !result.spans.isEmpty {
                                 Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
                             }
+                        }
+                        if mode == .immersed {
+                            Button("Switching pace") { choosingPace = true }
                         }
                         if let onModeChange {
                             ForEach(ReadingMode.allCases) { value in
@@ -88,11 +92,6 @@ struct ImmersionBubble: View {
                                     : VipiLanguage.named(value == .original ? sourceLanguage : targetLanguage).name
                                 Button(label, systemImage: mode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
                             }
-                        }
-                        Picker("Switching pace", selection: $pace) {
-                            Text("Relaxed").tag("relaxed")
-                            Text("Balanced").tag("balanced")
-                            Text("Brisk").tag("brisk")
                         }
                         if (mode == .translation && fullReading != nil) || (mode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
                             Button(script ? "Show transliteration" : "Show original script") { script.toggle(); revision += 1 }
@@ -121,6 +120,12 @@ struct ImmersionBubble: View {
             }
         }.padding(.horizontal, embedded ? 0 : 20).padding(.top, embedded ? 0 : 20).padding(.bottom, embedded ? 0 : 6)
             .background(embedded ? Color.clear : (outgoing ? VipiDesign.outgoing : VipiDesign.surface), in: RoundedRectangle(cornerRadius: 23))
+            .confirmationDialog("Switching pace", isPresented: $choosingPace, titleVisibility: .visible) {
+                Button("Relaxed") { pace = "relaxed" }
+                Button("Balanced") { pace = "balanced" }
+                Button("Brisk") { pace = "brisk" }
+                Button("Cancel", role: .cancel) { }
+            } message: { Text("Currently \(pace.capitalized)") }
             .onAppear { visible = true }
             .onDisappear { visible = false; if active { speech?.stop() } }
             .onScrollVisibilityChange(threshold: 0.1) { visible = $0 }
@@ -140,7 +145,7 @@ struct ImmersionBubble: View {
                 } catch { /* Lifecycle changes cancel rather than catch up. */ }
             }
             .onChange(of: result) { overrides = [:]; originalPhase = false; revision += 1; if active { speech?.stop() } }
-            .onChange(of: mode) { if active { speech?.stop() }; overrides = [:]; selecting = false; revision += 1 }
+            .onChange(of: mode) { if active { speech?.stop() }; overrides = [:]; selecting = false; choosingPace = false; revision += 1 }
     }
 }
 

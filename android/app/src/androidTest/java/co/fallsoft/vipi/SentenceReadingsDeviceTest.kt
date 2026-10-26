@@ -19,7 +19,7 @@ class SentenceReadingsDeviceTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val rows = JSONObject(context.assets.open("sentence-readings.json").bufferedReader().use { it.readText() }).getJSONArray("entries")
         val readings = SentenceReadings(context)
-        assertEquals(307, rows.length())
+        assertEquals(390, rows.length())
         for (i in 0 until rows.length()) {
             val row = rows.getJSONObject(i); val language = row.getString("language")
             val native = row.getString("text"); val reading = row.getString("latin")
@@ -33,13 +33,15 @@ class SentenceReadingsDeviceTest {
         assertEquals("Watashi wa ongaku ga suki desu. Eki wa doko desu ka.", readings.reading("私は音楽が好きです。駅はどこですか。", "ja"))
         assertNull(readings.reading("私は新しい音楽が好きです。", "ja"))
         assertNull(readings.reading("أنا أحب هذه الموسيقى.", "ar"))
-        val file = File(context.filesDir, "sentence-readings-001.json"); check(!file.exists())
+        val file = File(context.filesDir, "sentence-readings-003.json"); check(!file.exists())
         file.writeText(JSONObject().put("exact_readings", rows.length()).put("languages", 4)
             .put("unknown_clause_abstention", true).put("independent_linguistic_acceptance", false).toString(2))
     }
     @Test fun japaneseChatRowOffersWholeReadingScriptAndNativeLanguageViews() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val preferences = context.getSharedPreferences("preferences", 0)
+        val previousPace = preferences.getString("readingPace", null)
         val visible = mutableStateOf(true)
         compose.setContent {
             if (visible.value) VipiTheme(Appearance.LIGHT) {
@@ -56,6 +58,8 @@ class SentenceReadingsDeviceTest {
             compose.onNodeWithText("Japanese").performClick()
             compose.onNodeWithText("Watashi wa ongaku ga suki desu.").assertIsDisplayed()
             compose.onNodeWithContentDescription("Reading options").performClick()
+            compose.onNodeWithText("Pause word switching").assertDoesNotExist()
+            compose.onNodeWithText("Switching pace").assertDoesNotExist()
             compose.onNodeWithText("Show original script").performClick()
             compose.onNodeWithText("私は音楽が好きです。").assertIsDisplayed()
             compose.onNodeWithContentDescription("Reading options").performClick()
@@ -66,6 +70,20 @@ class SentenceReadingsDeviceTest {
             compose.onNodeWithText("I like music.").assertIsDisplayed()
             compose.onNodeWithContentDescription("Reading options").performClick()
             compose.onNodeWithText("Show original script").assertDoesNotExist()
-        } finally { compose.runOnIdle { visible.value = false }; compose.waitForIdle() }
+            device.pressBack()
+            compose.onNodeWithContentDescription("Reading options").performClick()
+            compose.onNodeWithText("Immersed").performClick()
+            compose.onNodeWithContentDescription("Reading options").performClick()
+            compose.onNodeWithText("Switching pace").performClick()
+            compose.onNodeWithText("Relaxed").performClick()
+            assertEquals("relaxed", preferences.getString("readingPace", null))
+            compose.onNodeWithContentDescription("Reading options").performClick()
+            compose.onNodeWithText("Switching pace").performClick()
+            compose.onNodeWithText("Balanced").performClick()
+            assertEquals("balanced", preferences.getString("readingPace", null))
+        } finally {
+            compose.runOnIdle { visible.value = false }; compose.waitForIdle()
+            preferences.edit().apply { if (previousPace == null) remove("readingPace") else putString("readingPace", previousPace) }.commit()
+        }
     }
 }

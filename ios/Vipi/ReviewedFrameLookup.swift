@@ -33,10 +33,11 @@ enum ReviewedFrameLookup {
         }
         return result
     }
-    private static func frame(_ data:Data,source:String,target:String) throws -> ContextFrame {
+    private static func frame(_ data:Data,source:String,target:String,allowUnits:Bool) throws -> ContextFrame {
         struct Row:Decodable {
             let id:String,meaning:String,source_language:String,target_language:String,source:String,target:String,reading:String
             let source_parts:[[String:Part]],target_parts:[[String:Part]]
+            let lexical_unit:Bool?
             enum Part:Decodable {
                 case text(String),slot([String])
                 init(from decoder:Decoder) throws {
@@ -49,6 +50,7 @@ enum ReviewedFrameLookup {
         guard data.count<=32768 else {throw VocabularyPackError.invalid}
         let row=try JSONDecoder().decode(Row.self,from:data)
         guard row.source_language==source,row.target_language==target,row.reading.utf16.count<=256 else {throw VocabularyPackError.invalid}
+        guard row.lexical_unit != true || allowUnits else {throw VocabularyPackError.invalid}
         func parts(_ values:[[String:Row.Part]],focus:String) throws -> [ContextPart] {
             let result=try values.map { part -> ContextPart in
                 guard part.count==1,let (key,value)=part.first else {throw VocabularyPackError.invalid}
@@ -62,7 +64,8 @@ enum ReviewedFrameLookup {
             return result
         }
         return try .init(id:row.id,meaning:row.meaning,sourceLanguage:source,targetLanguage:target,
-            sourceParts:parts(row.source_parts,focus:row.source),targetParts:parts(row.target_parts,focus:row.target),reading:row.reading)
+            sourceParts:parts(row.source_parts,focus:row.source),targetParts:parts(row.target_parts,focus:row.target),reading:row.reading,
+            lexicalUnit:row.lexical_unit ?? false)
     }
     static func entries(db:OpaquePointer,original:String,translation:String,source:String,target:String) throws -> [VocabularyEntry] {
         guard let left=windows(original,language:source),let right=windows(translation,language:target) else {return []}
@@ -83,6 +86,11 @@ enum ReviewedFrameLookup {
             return rows
         }
         func placeholders(_ count:Int) -> String {Array(repeating:"?",count:count).joined(separator:",")}
+        let version=try query("SELECT user_version,(SELECT value FROM metadata WHERE key='schema'),(SELECT value FROM metadata WHERE key='context_policy') FROM pragma_user_version",[])
+        guard version.count==1 else {throw VocabularyPackError.invalid}
+        let contract=version[0]
+        let allowUnits=contract.0=="7" && contract.1=="vipi-reviewed-frame-2" && contract.2=="reviewed-bidirectional-phrase-and-unit-2"
+        guard allowUnits || (contract.0=="6" && contract.1=="vipi-reviewed-frame-1" && contract.2=="reviewed-bidirectional-phrase-1") else {throw VocabularyPackError.invalid}
         var records:[String:ContextFrame]=[:],sourceHits:[String:Set<NSRange>]=[:],targetHits:[String:Set<NSRange>]=[:]
         do {
             var count=0;let inputs=left.keys.sorted()
@@ -92,7 +100,7 @@ enum ReviewedFrameLookup {
                 count+=rows.count;if count>256 {return []}
                 for (input,id,payload) in rows {
                     if records[id]==nil {
-                        let value=try frame(Data(payload.utf8),source:source,target:target)
+                        let value=try frame(Data(payload.utf8),source:source,target:target,allowUnits:allowUnits)
                         guard value.id==id else {throw VocabularyPackError.invalid};records[id]=value
                     }
                     sourceHits[id,default:[]].formUnion(left[input,default:[]])
