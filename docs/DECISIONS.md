@@ -70,3 +70,34 @@ Application-specific redirects/API credentials do not isolate the WorkOS user po
 Real dedicated-provider lifecycle and hosted sign-in/reauthentication now passed; see VERIFICATION.md. The browser deletion route is implemented and qualified with a synthetic provider. Keep the current public service and native client configuration unchanged until the coordinated, reviewable cutover is ready. Do not claim a functional public web deletion URL merely because its callback was registered in WorkOS.
 
 The isolated cutover subsequently passed, followed by real browser deletion and native encrypted public HTTPS exchange. Active API source is `eca2badb86f802d7259554a866cbc446eb0619b4`; the owned cleanup unit has the recorded HTTPS permission correction. Debug clients now use the dedicated project. The old DB and shared identity environment are retained unchanged. This is restricted staging, not a production launch or store submission.
+
+
+## Language download direction — 2026-10-27
+
+The owner proposed bundling a useful starter catalog (roughly 400 MB download
+budget, with up to 1 GB considered) and automatically fetching broader data for
+the selected language pair, avoiding a separate cloud-versus-download decision.
+This is the working delivery direction, still subject to measured release sizes
+and native onboarding proof. Start pair preparation when languages are selected;
+missing mappings may raise priority but should not be the first download trigger.
+Keep conversation text local. No cloud translation fallback has been enabled.
+
+Separate compressed store-download size from installed SQLite size. Current
+Android debug assets total 280,336,465 uncompressed bytes and 24,260,216 ZIP-entry
+compressed bytes; these are measured assets, not a release app-size promise.
+The existing broad authoring witness DB includes audit evidence not needed by
+native lookup. Exact pair-specific runtime exports retain every witness row and
+bind back to the immutable authoring artifact. These exports remain unsigned and
+unqualified for production activation until delivery tests pass.
+
+Our mappings do not replace platform full-sentence translation models. ML Kit
+translation models are dynamically downloaded. Apple Translation can require its
+own language-download authorization sheet. Removing our optional decision screen
+does not remove that platform requirement. Background transfer must respect OS
+network/storage constraints and remain pausable in language settings.
+
+Verified primary documentation, 2026-10-27:
+- https://developer.apple.com/help/app-store-connect/reference/app-uploads/maximum-build-file-sizes/ — 4 GB uncompressed iOS app limit.
+- https://support.google.com/googleplay/android-developer/answer/9859372?hl=en — 500 MB compressed base module, 4 GB cumulative install-time modules/assets; over 200 MB may show a cellular-download notice.
+- https://developers.google.com/ml-kit/tips/installation-paths — translation uses dynamically downloaded models.
+- https://developer.apple.com/documentation/translation/translationsession/preparetranslation() — system language-download permission behavior.

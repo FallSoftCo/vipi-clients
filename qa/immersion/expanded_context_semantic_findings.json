@@ -1,0 +1,22 @@
+{
+  "schema": "vipi-expanded-context-author-findings-1",
+  "reviewed_change_capture": "artifacts/diverse-context-author-review-022-input.json",
+  "reviewed_changed_cases": 204,
+  "independent_semantic_acceptance": false,
+  "scope": "Author inspection of changed spans, not independent review of every baseline span or complete translation. Native runs determine which regressions are actually fixed.",
+  "confirmed_regressions": [
+    {"identity": ["liva-sw-explicit-replay", "liva-sw-0d14f0b15b92cec8ebf453c1", "sw", "fr"], "source_text": "Dama", "target_text": "de", "reason": "Capitalized person name reinterpreted as a common noun, then matched to an abbreviation overlapping a French preposition.", "observed_run": "019"},
+    {"identity": ["sms", "nus-02593b5a543a5b4c48e871e7", "en", "ar"], "source_text": "way", "target_text": "طريق", "reason": "Temporal all e way until is not a road. SMS article spelling escaped phrase protection.", "observed_run": "022"},
+    {"identity": ["multi3woz", "m3w-04e1287e6ee80a35ea9379e4", "fr", "zh"], "source_text": "direction", "target_text": "方向", "reason": "Contacting park management was confused with a spatial direction.", "observed_run": "022", "reference": "https://www.larousse.fr/dictionnaires/francais/direction/25779"},
+    {"identity": ["multi3woz", "m3w-005bb3ae14836aa77186e528", "ar", "es"], "source_text": "أفضل", "target_text": "mejor", "reason": "The first-person verb prefer was confused with the unvocalized adjective better/best.", "observed_run": "022"},
+    {"identity": ["multi3woz", "m3w-0193b7eab6bbb47179b56103", "ar", "es"], "source_text": "أفضل", "target_text": "Mejor", "reason": "The source expresses preference for finding a train, not the adjective better.", "observed_run": "022"},
+    {"identity": ["multi3woz", "m3w-0698c708c92bde40a8847b9a", "ar", "fr"], "source_text": "شرق", "target_text": "est", "reason": "The selected French est is the verb in est de 1, not east; the supplied full translation omitted the source location.", "observed_run": "022"},
+    {"identity": ["xpersona", "xpv-06f0237e0f140950d08e9f32", "it", "de"], "source_text": "fatto", "target_text": "zu", "reason": "Done in have done was matched to the German infinitive marker in zu überleben, not a lexical completion meaning.", "observed_run": "022"},
+    {"identity": ["xpersona", "xpv-08e5b091b0b6b18f0de8d561", "ja", "ko"], "source_text": "こと", "target_text": "일", "reason": "The nominalizer after sell was linked to job at the start of the target sentence; that occurrence corresponds to source 仕事.", "observed_run": "022"}
+  ],
+  "review_concerns_not_certified_errors": [
+    {"change_indices": [23, 34, 65], "reason": "Chinese 一天 and day counterparts need quantity and carrier-boundary review; no blanket numeral rule is accepted."},
+    {"change_indices": [32, 35, 37], "reason": "Flexible-time/free-time expressions need contextual assessment rather than a blanket ban on cross-part-of-speech vocabulary."},
+    {"change_indices": [154], "reason": "Italian voti may mean grades or votes. The short capture lacks enough conversational context to certify the Portuguese votos counterpart.", "reference": "https://www.treccani.it/vocabolario/voto/"}
+  ]
+}

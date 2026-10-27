@@ -31,7 +31,10 @@ def read(root,path):
                 assert 0<=span[start]<span[end]<=len(text)//2
                 assert text[2*span[start]:2*span[end]].decode('utf-16-le')==span[focus]
             if case['target'] in {'ar','zh','ja','ko'}:assert span['reading'] and span['reading'].strip()
-        if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in spans):failures.append(list(key))
+        def forbidden(span):
+            return ('forbidden_source' in case and span['source']==case['forbidden_source'] and span['target']==case['forbidden_target']
+                    and ('forbidden_source_start' not in case or span['start']==case['forbidden_source_start']))
+        if any(map(forbidden,spans)):failures.append(list(key))
         if 'expected_source' in case:
             expected_path=case.get('expected_path','dictionary');assert expected_path in {'dictionary','combined'}
             chosen=combined if expected_path=='combined' else spans
@@ -39,10 +42,11 @@ def read(root,path):
             matches=lambda s:s['source']==case['expected_source'] and s['target']==case['expected_target']
             if not any(map(matches,chosen)):failures.append(list(key))
             if combined is not None and not any(map(matches,combined)):failures.append(list(key)+['combined missing'])
+            if 'expected_count' in case and (sum(map(matches,chosen))!=case['expected_count'] or (combined is not None and sum(map(matches,combined))!=case['expected_count'])):failures.append(list(key)+['repeated lexical occurrence count'])
             if case.get('expected_dictionary_abstention') and any(map(matches,spans)):failures.append(list(key)+['dictionary phrase protection bypassed'])
         if combined is not None:
             if not row['baseline_retained']:failures.append(list(key)+['baseline lost'])
-            if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in combined):failures.append(list(key)+['combined forbidden'])
+            if any(map(forbidden,combined)):failures.append(list(key)+['combined forbidden'])
             assert row['identifier_guard'] or not combined
     assert report['passed']==(not failures)
     groups=defaultdict(list)
@@ -88,7 +92,7 @@ def main(a):
                 if sorted(row['combined_spans'],key=order)!=sorted(against[key]['combined_spans'],key=order):different.append(list(key))
             result['combined_parity']=dict(cases=len(rows),differing_cases=len(different),differences=different)
     result.update(schema='vipi-lexical-coverage-summary-1',independent_semantic_acceptance=False,
-        limitation='Reused native translations and dictionary-unit mechanics; message availability is not semantic accuracy or general-population coverage.')
+        limitation='Reused native translations, dictionary-unit mechanics and separately labeled human-reference diagnostics; message availability is not semantic accuracy or general-population coverage.')
     with a.output.open('x') as stream:json.dump(result,stream,ensure_ascii=False,indent=2);stream.write('\n')
     print(json.dumps({k:v for k,v in result.items() if k!='groups'}))
     print(json.dumps({k:v for k,v in result['groups'].items() if ':' not in k}))

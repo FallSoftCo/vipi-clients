@@ -110,9 +110,11 @@ class LexicalCoverageDeviceTest {
                     .put("combined_spans",combinedSpans).put("combined_elapsed_ms",combinedElapsed).put("baseline_retained",baselineRetained)
                 outcomes.put(outcome)
                 if(i%100==0)output.writeText(report.toString())
-                if(row.has("forbidden_source") && result.spans.any{it.original==row.getString("forbidden_source") && it.translated==row.getString("forbidden_target")})
+                fun forbidden(span:co.fallsoft.vipi.core.ImmersionSpan)=row.has("forbidden_source") && span.original==row.getString("forbidden_source") && span.translated==row.getString("forbidden_target") &&
+                    (!row.has("forbidden_source_start") || span.start==row.getInt("forbidden_source_start"))
+                if(result.spans.any(::forbidden))
                     failures.put(row.getString("id")+": known meaning/scope error")
-                if(row.has("forbidden_source") && combined.spans.any{it.original==row.getString("forbidden_source") && it.translated==row.getString("forbidden_target")})
+                if(combined.spans.any(::forbidden))
                     failures.put(row.getString("id")+": combined known meaning/scope error")
                 if(row.has("expected_source")) {
                     val expectedPath=row.optString("expected_path","dictionary")
@@ -121,6 +123,8 @@ class LexicalCoverageDeviceTest {
                     fun matches(span:co.fallsoft.vipi.core.ImmersionSpan)=span.original==row.getString("expected_source") && span.translated==row.getString("expected_target")
                     if(expected.spans.none{matches(it)})failures.put(row.getString("id")+": missing required lexical behavior")
                     if(combined.spans.none{matches(it)})failures.put(row.getString("id")+": combined missing required lexical behavior")
+                    if(row.has("expected_count") && (expected.spans.count(::matches)!=row.getInt("expected_count") || combined.spans.count(::matches)!=row.getInt("expected_count")))
+                        failures.put(row.getString("id")+": repeated lexical occurrence count")
                     if(row.optBoolean("expected_dictionary_abstention",false) && result.spans.any{matches(it)})
                         failures.put(row.getString("id")+": dictionary phrase protection was bypassed")
                 }

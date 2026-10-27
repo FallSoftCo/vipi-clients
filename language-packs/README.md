@@ -123,3 +123,30 @@ Native QA uses `frame-qa.json` in Android app files / iOS Documents with `pack_r
 `expand_attested_nouns.py` creates signed candidate supplements from the versioned UD form index and existing revision-007 dictionaries. All observed POS, lemma and number analyses must agree; unknown lemmas are retained as blockers. It accepts plural nouns only, leaves existing source mappings unchanged, preserves all base and inflected-spelling senses, and stores source/target attestations once in `attested_noun_forms`. No new reading, verb inflection or arbitrary stem is generated.
 
 Qualification `attested-nouns-008` adds 1,064 candidate mappings for 353 previously missing forms in English→Spanish and French→English. Both native platforms passed installation/alignment, but strict immersion availability on the retained SMS/dialogue probes did not improve. This is an unpromoted experiment, not a release pack. The all-parts-of-speech index is now revision 003; the earlier qualification's 919 participating analyses were checked against it and match exactly. See the comparison and analysis-audit receipts in `docs/VERIFICATION.md`.
+
+
+## Large pair-specific runtime assets
+
+`export_context_pair_packs.py` projects the complete witness database into one
+SQLite file per unordered pair, containing both directions. It retains every
+runtime witness row, verifies two-way SQL set equality, binds dictionary/source
+hashes, and carries attribution and the original authoring receipt. The full
+source evidence remains in the immutable authoring database. These exports do
+not set release-ready or independent-acceptance flags.
+
+```sh
+python3 language-packs/export_context_pair_packs.py --source artifacts/context-witnesses-012/witnesses.sqlite --catalog artifacts/lexical-shards-007/catalog.json --output artifacts/context-pair-packs-NEW
+python3 scripts/measure-language-downloads.py --catalog artifacts/context-pair-packs-NEW/catalog.json --output artifacts/context-pair-packs-NEW-downloads
+```
+
+Run substantial operations under OZZZ-OS storage-build admission. The measurement
+script verifies each ZIP payload after decompression; store release sizes and
+native signed background installation still require separate qualification.
+Current data volumes, exact receipts, native replay results and limits are in
+`docs/BULK_LANGUAGE_EXPANSION.md`.
+
+The FLORES-200 diagnostic is **evaluation-only**. Future ingestion must exclude
+all hashes in `artifacts/lexical-qualification-017/evaluation-exclusions.sqlite`,
+in addition to the earlier corpus exclusions. Preserve underlying sentence
+components across all language versions; never mine this benchmark to improve
+its own score. MASSIVE is acquired but has not entered the runtime pipeline.

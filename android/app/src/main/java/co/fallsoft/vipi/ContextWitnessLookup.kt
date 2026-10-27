@@ -9,6 +9,15 @@ internal class ContextWitnessLookup private constructor(
     private val cues:Map<Pair<String,String>,List<String>>,
     private val words:List<IntRange>
 ) {
+    private fun nearby(range:IntRange,focus:IntRange,text:String):Boolean {
+        val left=range.last<focus.first;val right=range.first>focus.last
+        if(!left && !right)return false
+        val start=if(left)range.last+1 else focus.last+1
+        val end=if(left)focus.first else range.first
+        return text.substring(start,end).none{it in ".!?。！？;；\r\n"} && words.count{it.first>=start && it.last<end}<6
+    }
+    fun hasNearbyContext(focus:IntRange,text:String,windows:Map<String,List<IntRange>>):Boolean =
+        windows.values.any{ranges->ranges.any{nearby(it,focus,text)}}
     fun supports(word:String,counterpart:String,focus:IntRange,text:String,windows:Map<String,List<IntRange>>):Boolean {
         if(words.isEmpty())return false
         return cues[word to counterpart].orEmpty().any { cue ->
@@ -16,12 +25,7 @@ internal class ContextWitnessLookup private constructor(
             else windows[cue.substring(2)].orEmpty().any { range ->
                 val left=cue.startsWith("L:") && range.last<focus.first
                 val right=cue.startsWith("R:") && range.first>focus.last
-                if(!left && !right)false else {
-                    val start=if(left)range.last+1 else focus.last+1
-                    val end=if(left)focus.first else range.first
-                    text.substring(start,end).none{it in ".!?。！？;；\r\n"} &&
-                        words.count{it.first>=start && it.last<end}<6
-                }
+                (left || right) && nearby(range,focus,text)
             }
         }
     }

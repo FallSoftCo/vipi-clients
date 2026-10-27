@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 import CryptoKit
 import SQLite3
 import VipiCore
@@ -13,13 +14,29 @@ final class LexicalCoverageTests:XCTestCase {
     private struct Case:Decodable {
         let id:String,dataset:String,source:String,target:String,original:String,translation:String
         let forbidden_source:String?,forbidden_target:String?,expected_source:String?,expected_target:String?
+        let forbidden_source_start:Int?
+        let expected_count:Int?
         let expected_path:String?,expected_dictionary_abstention:Bool?
     }
     private func sha(_ url:URL) throws -> String {
         let file=try FileHandle(forReadingFrom:url);defer {try? file.close()}
         var digest=SHA256()
-        while let bytes=try file.read(upToCount:65536),!bytes.isEmpty {digest.update(data:bytes)}
+        while try autoreleasepool(invoking:{
+            guard let bytes=try file.read(upToCount:65536),!bytes.isEmpty else {return false}
+            digest.update(data:bytes)
+            return true
+        }) {}
         return digest.finalize().map{String(format:"%02x",$0)}.joined()
+    }
+    private func footprint() -> UInt64? {
+        var info=task_vm_info_data_t()
+        var count=mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<natural_t>.size)
+        let status=withUnsafeMutablePointer(to:&info) { pointer in
+            pointer.withMemoryRebound(to:integer_t.self,capacity:Int(count)) {
+                task_info(mach_task_self_,task_flavor_t(TASK_VM_INFO),$0,&count)
+            }
+        }
+        return status==KERN_SUCCESS ? info.phys_footprint : nil
     }
     func testPublishedDictionaryConcordanceAndConversationReplay() async throws {
         let documents=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
@@ -63,7 +80,7 @@ final class LexicalCoverageTests:XCTestCase {
         let output=documents.appendingPathComponent("lexical-coverage-"+run+".json")
         guard !FileManager.default.fileExists(atPath:output.path) else {throw VocabularyPackError.invalid}
         let catalog=BundledImmersionCatalog()
-        var outcomes:[[String:Any]]=[];var failures:[String]=[]
+        var outcomes:[[String:Any]]=[];var failures:[String]=[];var memorySamples:[[String:Any]]=[]
         #if targetEnvironment(simulator)
         let platform="iOS Simulator"
         #else
@@ -102,8 +119,12 @@ final class LexicalCoverageTests:XCTestCase {
             report["context_guard_checks"]=true
         }
         func save() throws {
+            if let bytes=footprint() {memorySamples.append(["cases":outcomes.count,"physical_footprint_bytes":bytes])}
+            report["memory_samples"]=memorySamples
             report["outcomes"]=outcomes
-            try JSONSerialization.data(withJSONObject:report,options:[.sortedKeys]).write(to:output,options:.atomic)
+            try autoreleasepool {
+                try JSONSerialization.data(withJSONObject:report,options:[.sortedKeys]).write(to:output,options:.atomic)
+            }
         }
         for (i,row) in cases.enumerated() {
             let intact=TranslationIntegrity.preservesIdentifiers(original:row.original,translation:row.translation)
@@ -145,8 +166,8 @@ final class LexicalCoverageTests:XCTestCase {
                 "combined_spans":combinedSpans,"combined_elapsed_ms":combinedElapsed,"baseline_retained":baselineRetained])
             if i%100==0 || row.forbidden_source != nil || row.expected_source != nil {try save()}
             if let source=row.forbidden_source,let target=row.forbidden_target {
-                if result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": known meaning/scope error")}
-                if combined.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": combined known meaning/scope error")}
+                if result.spans.contains(where:{$0.original==source && $0.translated==target && (row.forbidden_source_start==nil || $0.range.location==row.forbidden_source_start)}) {failures.append(row.id+": known meaning/scope error")}
+                if combined.spans.contains(where:{$0.original==source && $0.translated==target && (row.forbidden_source_start==nil || $0.range.location==row.forbidden_source_start)}) {failures.append(row.id+": combined known meaning/scope error")}
             }
             if let source=row.expected_source,let target=row.expected_target {
                 let path=row.expected_path ?? "dictionary"
@@ -154,6 +175,7 @@ final class LexicalCoverageTests:XCTestCase {
                 let expected=path=="combined" ? combined : result
                 if !expected.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": missing required lexical behavior")}
                 if !combined.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": combined missing required lexical behavior")}
+                if let count=row.expected_count,expected.spans.filter({$0.original==source && $0.translated==target}).count != count || combined.spans.filter({$0.original==source && $0.translated==target}).count != count {failures.append(row.id+": repeated lexical occurrence count")}
                 if row.expected_dictionary_abstention==true && result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": dictionary phrase protection was bypassed")}
             }
         }

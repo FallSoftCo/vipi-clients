@@ -5,9 +5,191 @@ text. Storage is a capacity to use, not a reason to limit the catalog to a few
 handwritten examples. The accepted app default remains bundle 022 until the
 broader data passes meaning review and production delivery checks.
 
+## Completed full-corpus expansion
+
+Cumulative witness revision **012** contains **4,314,872 context rules** in
+**1,096,957,952 bytes**. Every one of the **110 directed pairs** was recomputed,
+including all twenty Swahili directions. Its SHA-256 is
+`4cc46543d4a17b9c03a6a0396138c22ebff1095b67db11ace9a30a46f4aba71f`.
+Together with the eleven dictionary shards, the full authoring/QA SQLite footprint is
+**2,774,634,496 bytes**. A context rule is a word/counterpart/cue combination,
+not a distinct vocabulary word, a verified translation or an accuracy result.
+
+The new PGV index covers 2,207,121 eligible development segments, 23,037,495
+form occurrences and 11,973,513 candidate alignments. Those alignments are
+authoring evidence, not accepted runtime mappings. The cumulative compiler
+rebuilds old and new observations together and retains contradictory evidence.
+Swahili rules increased from 1,098 to 58,103. The earlier full witness database
+contained 1,447,899 rules. Receipts are in `artifacts/cumulative-expansion-001/`
+and each immutable `context-witnesses-cumulative-*` directory.
+
+`scripts/expand-context-batches-001.py` is the retained one-shot expansion
+driver. It freezes compiler identities, checks every completed build, archives
+closed observation databases with verified hashes, and replaces complete pair
+scopes. Original archived paths remain usable through verified Storage Box
+links. The native runtime still uses indexed SQLite and native selection;
+authoring FTS is not a runtime dependency.
+
+### Selective delivery and measured compression
+
+`export_context_pair_packs.py` exports 55 bidirectional SQLite files while
+verifying both SQL set differences against the full authoring table. All
+4,314,872 witness rows are preserved exactly. The authoring database keeps the
+reference/evidence tables; native lookup needs only metadata and witnesses.
+The subset catalog binds every file to dictionary release 007 and authoring
+witness SHA 012, with source receipt and attribution retained. Export 001 is
+**187,703,296 bytes** across all pair packs. The difference from the single
+176,287,744-byte witness table includes independent database layout/metadata.
+
+`measure-language-downloads.py` creates ZIP assets and checks the SHA-256 of
+every decompressed payload. The eleven dictionaries total **306,296,579 bytes**
+compressed; all pair context packs total **40,965,351 bytes**. Together that is
+**347,261,930 bytes downloaded**, **1,865,379,840 bytes installed**. This excludes
+app binaries, the existing starter catalog and platform translation/voice
+models. It is measured ZIP payload size, not a Play/App Store release-size
+report. The export and ZIP catalogs are unsigned; production delivery remains
+unqualified. No rules were dropped to achieve these sizes.
+
+| Selected pair, both directions | ZIP download MB | Installed SQLite MB |
+| --- | ---: | ---: |
+| English–Spanish | 121.50 | 615.87 |
+| English–French | 86.98 | 350.64 |
+| English–Japanese | 68.40 | 249.35 |
+| English–Swahili | 57.43 | 211.37 |
+
+MB above is decimal. Shared dictionaries install only once when multiple
+languages are selected. The catalogs contain exact sizes/hashes for all pairs.
+The working onboarding direction is bundled starter coverage and automatic
+selected-pair preparation; see DECISIONS.md for the platform model distinction.
+
+### Native qualification and meaning review
+
+Run 023 passed 15,360 cases on Android and the physical iPad with the
+intermediate 101 witness database. It adds exact source-carrier context support:
+an Arabic noun can flip while its definite article stays in place. Emoji
+offsets, vowel marks, plural mismatch and wrong counterparts are covered.
+
+Run 024 exercised the complete 012 database on both platforms. Both completed
+but failed the same newly added experimental positive, `way → camino` in a
+literal route example. The larger corpus withdrew the old `R:home` witness;
+the implementation must not restore a cue contradicted by new source evidence.
+Fixture 015 retains that loss as an explicit `availability_watch` and uses the
+still-supported Portuguese literal route as the phrase-guard positive. No
+previously accepted primary-catalog positive was removed. This is a corrected
+test contract, not repaired Spanish coverage; run 024 remains failed.
+
+Author inspection of 204 changed cases found additional wrong meanings, such
+as park management becoming spatial direction, preference becoming better,
+and a grammatical nominalizer becoming a job. The exact case identities and
+review concerns are retained in
+`qa/immersion/expanded_context_semantic_findings.json`. Shared function words
+were insufficient evidence for these choices. Native revision 025 requires a
+lexical witness when selecting a narrower meaning in the presence of nearby
+lexical context. Short grammar-only utterances retain their earlier path.
+This remains a conservative heuristic requiring further review, not semantic
+certification. Source, fixture and raw run identities remain immutable.
+
+`compare_lexical_replays.py` records every added and removed combined span,
+newly empty messages and withdrawn-rule watches for subsequent author review.
+It does not silently equate more selected spans with better quality.
+
+### Larger native replay and separate reference diagnostic
+
+Android 026 and iPad 027 passed 15,365 cases with witness 012. Sentence scopes
+prevent matches to an occurrence in a different sentence when both versions
+have the same sentence count. Different sentence counts do not assert alignment.
+The repeated-coffee positive retains both separate-sentence occurrences. New
+revision 028 also withholds repeated eligible source words within one sentence
+when occurrence ownership is unresolved, and protects contextual lecture
+shorthand. Android 028 passed **26,365 cases in 978.113 seconds** with all accepted
+baseline spans retained. Its delta from 026 removes ten spans, adds none, and
+makes four previously nonempty cases empty. Author inspection confirms four
+wrong meaning/occurrence removals and six plausible mappings lost to the more
+conservative repeated-word guard; those losses remain a coverage cost.
+
+iPad 028 was killed after 17,601 persisted cases, with no complete result.
+Xcode reports “Test crashed with signal kill”; no current Jetsam report was
+available through CoreDevice. Revision 029 added physical-footprint samples
+and scoped temporary allocations; it was deliberately stopped after 21,601
+persisted cases. Its first-case footprint was 2,868,792,008 bytes, rising to
+3,360,001,696 bytes. It remains an incomplete diagnostic run, not a semantic
+failure or another unexplained OS kill.
+
+The QA file-hashing loop retained temporary Foundation read buffers across its
+2.77 GB input scan. Revision 030 drains those buffers for each 64 KiB read and
+bounds tokenizer temporaries during alignment. The physical iPad then passed
+**all 26,365 cases in 521.856 seconds** (530.936-second xcodebuild operation).
+First-case physical footprint fell to **71,516,928 bytes**; the maximum sampled
+value over the complete run was **98,124,928 bytes**. This establishes bounded
+memory for this QA workload, not a production memory limit, UI/audio acceptance,
+or signed background-installation proof. Selection rules/data remain those of
+028; iOS source changes after 028 bound temporary allocation lifetimes.
+
+The diagnostic adds 100 underlying FLORES-200 dev sentences across every one of
+the 110 directions, producing 11,000 correlated reference cases. They are
+professional English-centered parallel references, not conversational turns or
+word-alignment gold. The frozen hash-ranked sample excludes whole components
+that touch any earlier corpus or devtest. The original 2022 archive, source
+revision, CC-BY-SA-4.0 license and attribution are retained in
+`vendor-research/conversation/flores200-evaluation-002/`. Initial acquisition
+attempt 001 failed on an incorrect license path and remains recorded as failed.
+
+The new exclusion index at
+`artifacts/lexical-qualification-017/evaluation-exclusions.sqlite` contains every
+acquired dev/devtest sentence hash. **Every future mining source must exclude
+these identities.** This material is evaluation-only; the six inspected empty
+English–Spanish diagnostic examples are now author-inspected diagnostic data,
+not untouched acceptance data. No FLORES sentence entered witness mining.
+
+Android 028 has at least one selected span in 4,439/11,000 reference cases
+(**40.35%**), with combined p95 lookup **45.037 ms**. Swahili-source reference
+availability is **39.8%** across ten targets; English–Swahili is **33%** and
+Swahili–English **56%**. These are availability diagnostics, not accuracy,
+independent conversational coverage, or proof of meaningful learning density.
+The result demonstrates that additional full-sentence translation quality alone
+does not close the selection/lexical coverage gap.
+
+| Existing conversation replay | Android 028 availability | iPad 030 availability | Combined p95 ms, Android / iPad |
+| --- | ---: | ---: | ---: |
+| SMS, 3,600 | 842 (23.39%) | 858 (23.83%) | 40.567 / 21.783 |
+| Multi3WOZ, 3,600 | 2,051 (56.97%) | 2,067 (57.42%) | 30.888 / 19.219 |
+| XPersona, 2,700 | 1,045 (38.70%) | 1,060 (39.26%) | 25.581 / 15.787 |
+| Explicit Swahili, 1,910 | 176 (9.21%) | 180 (9.42%) | 16.809 / 9.908 |
+
+iPad 030 reference availability is 4,446/11,000 (**40.42%**), with combined
+p95 **31.709 ms**. All 26,365 cases preserve accepted baseline spans on each
+platform. The broad dictionary outputs differ between platforms in 90 cases;
+combined outputs differ in 348. A complete pass is not exact cross-platform
+output parity. The iPad delta from 027 is the same ten removals described above.
+The separate qualification receipt is
+`artifacts/bulk-native-qualification-028-030.json`; it binds complete reports,
+source snapshots, data release, delivery measurements and explicit remaining
+limits. `qa/immersion/qualify_bulk_language.py` reproduces those checks.
+
+The Swahili replay consists of 191 underlying speech-derived turns crossed
+with ten targets, including fragments, code-switching and unclear speech. Its
+percentage must not be presented as general Swahili text-chat coverage. Source
+licensing and native mechanics passes also do not establish meaning accuracy.
+
+### Additional source acquired
+
+The pinned [Amazon MASSIVE 1.1 distribution](https://github.com/alexa/massive)
+contains **859,092 records across 52 locales** in the actual downloaded archive,
+including Swahili. The archive is 40,251,390 bytes, SHA-256
+`4cba5faa11c71437928e17cb1b9b3d8b8e727e7ea363a3a9a8045e19c0491577`.
+The distribution's CC-BY-4.0 license, notices, repository commit and original
+partitions are retained under `vendor-research/conversation/massive-1.1-001/`.
+This is source acquisition only: it has not been mined or added to runtime
+coverage. Localized slot entities cannot be treated as literal translations.
+The publicly inspected README example's original ID 0 is excluded from any
+future untouched evaluation in every locale. Further ingestion must preserve
+partitions, slot provenance and prior-source duplicate exclusions.
+
 ## Noun forms and native qualification
 
-Revision 007 contains eleven SQLite shards totaling **1,677,676,544 bytes**.
+Revision 007 contains eleven SQLite shards totaling **1,677,676,544 bytes**,
+with **508,485 distinct lexical heads** and **4,017,866 indexed written forms**
+(sum of per-language counts).
 The release ID is
 `c61654b1fe0006fcce7f79bcc90c0194e1bf918404015437b5cc693908c1ea6f`.
 It adds 24,088 Arabic form records from explicitly supplied singular definite

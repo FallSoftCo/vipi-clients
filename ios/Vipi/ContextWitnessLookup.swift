@@ -5,6 +5,16 @@ import SQLite3
 struct ContextWitnessLookup {
     private struct Pair:Hashable {let word:String,counterpart:String}
     private let cues:[Pair:[String]],words:[NSRange]
+    private func nearby(_ range:NSRange,focus:NSRange,text:String)->Bool {
+        let left=NSMaxRange(range)<=focus.location,right=range.location>=NSMaxRange(focus)
+        guard left || right else {return false}
+        let start=left ? NSMaxRange(range) : NSMaxRange(focus),end=left ? focus.location : range.location
+        let between=(text as NSString).substring(with:NSRange(location:start,length:end-start))
+        return !between.contains(where:{".!?。！？;；\r\n".contains($0)}) && words.filter{$0.location>=start && NSMaxRange($0)<=end}.count<6
+    }
+    func hasNearbyContext(focus:NSRange,text:String,windows:[String:[NSRange]])->Bool {
+        windows.values.contains{ranges in ranges.contains{nearby($0,focus:focus,text:text)}}
+    }
     func supports(word:String,counterpart:String,focus:NSRange,text:String,windows:[String:[NSRange]])->Bool {
         guard !words.isEmpty else {return false}
         return cues[Pair(word:word,counterpart:counterpart),default:[]].contains { cue in
@@ -12,12 +22,7 @@ struct ContextWitnessLookup {
             return windows[String(cue.dropFirst(2)),default:[]].contains { range in
                 let left=cue.hasPrefix("L:") && NSMaxRange(range)<=focus.location
                 let right=cue.hasPrefix("R:") && range.location>=NSMaxRange(focus)
-                guard left || right else {return false}
-                let start=left ? NSMaxRange(range) : NSMaxRange(focus)
-                let end=left ? focus.location : range.location
-                let between=(text as NSString).substring(with:NSRange(location:start,length:end-start))
-                return !between.contains(where:{".!?。！？;；\r\n".contains($0)}) &&
-                    words.filter{$0.location>=start && NSMaxRange($0)<=end}.count<6
+                return (left || right) && nearby(range,focus:focus,text:text)
             }
         }
     }

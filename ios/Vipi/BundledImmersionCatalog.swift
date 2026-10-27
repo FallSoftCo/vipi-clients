@@ -51,6 +51,12 @@ actor BundledImmersionCatalog {
     }
     func result(original: String, translation: String, pair: TranslationPair, density: Double,
                 supplementalEntries: [VocabularyEntry] = []) throws -> ImmersionResult {
+        try autoreleasepool {
+            try lookup(original:original,translation:translation,pair:pair,density:density,supplementalEntries:supplementalEntries)
+        }
+    }
+    private func lookup(original: String, translation: String, pair: TranslationPair, density: Double,
+                        supplementalEntries: [VocabularyEntry]) throws -> ImmersionResult {
         guard let root, pair.valid else { throw VocabularyPackError.invalid }
         let id = pair.source + "-" + pair.target
         let index = try loadIndex()

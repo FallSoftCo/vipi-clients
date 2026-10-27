@@ -1,0 +1,11 @@
+{
+  "schema": "vipi-authored-context-carrier-behavior-1",
+  "assessment": "Authored mechanism regressions; not independent semantic acceptance or training material.",
+  "cases": [
+    {"id":"ar-es-context-page","source":"ar","target":"es","original":"الصفحة على الإنترنت.","translation":"La página está en Internet.","expected_source":"صفحة","expected_target":"página"},
+    {"id":"ar-es-context-page-emoji","source":"ar","target":"es","original":"😀 هذه الصفحة على الإنترنت.","translation":"😀 Esta página está en Internet.","expected_source":"صفحة","expected_target":"página"},
+    {"id":"ar-es-context-page-wrong-sense","source":"ar","target":"es","original":"هذه الصفحة على الإنترنت.","translation":"Esta cara está en Internet.","forbidden_source":"صفحة","forbidden_target":"cara"},
+    {"id":"ar-es-context-page-mark-offset","source":"ar","target":"es","original":"هذه الْصفحة على الإنترنت.","translation":"Esta página está en Internet.","forbidden_source":"صفحة","forbidden_target":"página"},
+    {"id":"ar-es-context-page-plural","source":"ar","target":"es","original":"هذه الصفحات على الإنترنت.","translation":"Esta página está en Internet.","forbidden_source":"صفحات","forbidden_target":"página"}
+  ]
+}
