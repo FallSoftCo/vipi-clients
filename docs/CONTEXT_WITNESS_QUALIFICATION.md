@@ -113,9 +113,38 @@ duplicate isolation, direct-only links, editorial exclusions and source hashes.
 
 ## Remaining product work
 
-Integrate the accepted catalog and broad candidates without sacrificing existing
-source/target ownership or applying density twice. Production delivery needs
+Native run 014 now exercises the actual catalog composition method with broad
+entries supplied explicitly. It passes all 15,342 cases on Android (361.811s)
+and the physical iPad (228.461s xcodebuild operation). No accepted baseline span
+is lost. Combined message availability equals the separate-path union in each
+dataset in the run-012 table above. Combined output has 125 platform differences;
+the isolated broad path still has 38. The method retains all primary claims and
+native guards, refuses additions overlapping accepted source or target ranges,
+requires exact current-message scopes and applies density once. Four new core
+tests on each platform cover ownership, competing evidence, density, stale
+scopes, identifiers and mandatory readings; both complete core suites pass.
+
+This is native catalog-component integration, not an installed production
+download or an end-to-end live chat acceptance. Production delivery needs
 streaming installation and signature/rollback handling for files larger than
 the existing 64 MiB pair-pack installer. Broader semantic/readings assessment,
 low-resource evidence expansion, cross-platform differences and live chat/voice
 qualification remain open. No release-ready flag or app default was changed.
+
+The temporary reserved-corpus working clone was retired after both reports
+completed, hash verification and a root open-consumer check. Its 1,761,800,192
+bytes were reclaimed; the original archived source and receipt remain intact.
+
+## Additional source acquisition
+
+The [Parallel Global Voices distribution](https://nlp.ilsp.gr/pgv/) provides
+all 55 unordered pairs in the eleven-language set, including ten Swahili pairs.
+Acquisition 001 pins 417,457,947 compressed bytes / 1,679,917,800 archive-member
+bytes, source page, archive SHA-256 hashes, member sizes, notices and citation.
+The publisher distributes its alignments under CC BY 4.0; Global Voices content
+retains its attribution license. These are automatically aligned translated
+articles, not independently accepted chat mappings. The TMX header and archive
+README identify mALIGNa, whereas the index page says hunalign. The retained
+source evidence preserves that discrepancy. No PGV row has entered the witness
+build or native results above. Import needs duplicate/evaluation exclusion,
+source attribution and separate qualification.

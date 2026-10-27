@@ -24,8 +24,8 @@ def read(root,path):
     assert set(actual)==set(expected) and len(actual)==len(report['outcomes'])==report['cases']
     failures=[]
     for key,row in actual.items():
-        case=expected[key];spans=row['spans']
-        for span in spans:
+        case=expected[key];spans=row['spans'];combined=row.get('combined_spans')
+        for span in spans+(combined if combined is not None else []):
             for text_key,start,end,focus in [('original','start','end','source'),('translation','target_start','target_end','target')]:
                 text=case[text_key].encode('utf-16-le')
                 assert 0<=span[start]<span[end]<=len(text)//2
@@ -33,6 +33,10 @@ def read(root,path):
             if case['target'] in {'ar','zh','ja','ko'}:assert span['reading'] and span['reading'].strip()
         if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in spans):failures.append(list(key))
         if 'expected_source' in case and not any(s['source']==case['expected_source'] and s['target']==case['expected_target'] for s in spans):failures.append(list(key))
+        if combined is not None:
+            if not row['baseline_retained']:failures.append(list(key)+['baseline lost'])
+            if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in combined):failures.append(list(key)+['combined forbidden'])
+            assert row['identifier_guard'] or not combined
     assert report['passed']==(not failures)
     groups=defaultdict(list)
     for row in actual.values():
@@ -48,6 +52,14 @@ def read(root,path):
             additional_messages=extra,union_messages=baseline+extra,union_percent=round(100*(baseline+extra)/len(rows),2),
             selected_spans=sum(len(r['spans']) for r in rows),lookup_median_ms=quantile([r['elapsed_ms'] for r in rows],.5),
             lookup_p95_ms=quantile([r['elapsed_ms'] for r in rows],.95),diagnostics=dict(diagnostics))
+        if any('combined_spans' in r for r in rows):
+            assert all('combined_spans' in r for r in rows)
+            combined=sum(bool(r['combined_spans']) for r in rows)
+            summary[group].update(combined_messages=combined,combined_percent=round(100*combined/len(rows),2),
+                combined_selected_spans=sum(len(r['combined_spans']) for r in rows),
+                baseline_loss_cases=sum(not r['baseline_retained'] for r in rows),
+                combined_lookup_median_ms=quantile([r['combined_elapsed_ms'] for r in rows],.5),
+                combined_lookup_p95_ms=quantile([r['combined_elapsed_ms'] for r in rows],.95))
     return dict(platform=report['platform'],report_sha256=sha(path),manifest_sha256=report['manifest_sha256'],
         complete=True,passed=not failures,failures=failures,groups=summary),actual
 
@@ -62,6 +74,12 @@ def main(a):
             if left!=right:differences.append(list(key))
         result['parity']=dict(other_platform=other['platform'],other_sha256=other['report_sha256'],
             cases=len(rows),differing_cases=len(differences),differences=differences)
+        if all('combined_spans' in r for r in rows.values()) and all('combined_spans' in r for r in against.values()):
+            different=[]
+            for key,row in rows.items():
+                order=lambda s:(s['start'],s['end'],s['target'])
+                if sorted(row['combined_spans'],key=order)!=sorted(against[key]['combined_spans'],key=order):different.append(list(key))
+            result['combined_parity']=dict(cases=len(rows),differing_cases=len(different),differences=different)
     result.update(schema='vipi-lexical-coverage-summary-1',independent_semantic_acceptance=False,
         limitation='Reused native translations and dictionary-unit mechanics; message availability is not semantic accuracy or general-population coverage.')
     with a.output.open('x') as stream:json.dump(result,stream,ensure_ascii=False,indent=2);stream.write('\n')

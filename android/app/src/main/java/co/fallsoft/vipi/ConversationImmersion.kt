@@ -58,7 +58,8 @@ internal class BundledImmersionCatalog(private val context: Context) {
         val tail = original.substring(end)
         return if (tail.all(Char::isWhitespace)) output.append(tail).toString() else null
     }
-    fun result(original: String, translated: String, source: String, target: String, density: Double): ImmersionResult {
+    fun result(original: String, translated: String, source: String, target: String, density: Double,
+        supplementalEntries: List<co.fallsoft.vipi.core.VocabularyEntry> = emptyList()): ImmersionResult {
         require(source in initialLanguages.map { it.code } && target in initialLanguages.map { it.code } && source != target)
         val id = "$source-$target"
         val packs = index.getJSONArray("packs")
@@ -69,7 +70,7 @@ internal class BundledImmersionCatalog(private val context: Context) {
             val contextual = (0 until contexts.length()).map { contexts.getJSONObject(it) }.singleOrNull { it.getString("id") == id }
             if (contextual != null) database(contextual, "-contexts").use { entries += ReviewedContextLookup.entries(it, original, source, target) }
         }
-        return LocalImmersion.align(original, translated, entries, density, source, target)
+        return LocalImmersion.align(original, translated, entries, density, source, target, supplementalEntries)
     }
     private fun database(pack: JSONObject, suffix: String): SQLiteDatabase {
         val id = pack.getString("id") + suffix

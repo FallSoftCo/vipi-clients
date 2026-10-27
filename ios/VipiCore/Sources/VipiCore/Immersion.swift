@@ -97,10 +97,45 @@ public struct ImmersionEngine: Sendable {
     public init() {}
 
     public func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, targetLanguage: String? = nil,
-                      sourceBoundaries: Set<Int>? = nil, targetBoundaries: Set<Int>? = nil, sourceTokenCount: Int? = nil) -> ImmersionResult {
+                      sourceBoundaries: Set<Int>? = nil, targetBoundaries: Set<Int>? = nil, sourceTokenCount: Int? = nil,
+                      supplementalEntries: [VocabularyEntry] = []) -> ImmersionResult {
         let empty = ImmersionResult(original: original, translation: translation, spans: [])
         guard !original.isEmpty, !translation.isEmpty, density.isFinite, density > 0,
               original.utf16.count <= 16_384, translation.utf16.count <= 32_768 else { return empty }
+        if !supplementalEntries.isEmpty {
+            // Retain all primary claims/guards. Supplemental evidence may fill
+            // gaps but cannot take an accepted source or target focus away.
+            let primary = align(original: original, translation: translation, entries: entries, density: 1,
+                targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount)
+            let additions = supplementalEntries.filter { entry in
+                guard let source = entry.sourceScope, let target = entry.targetScope,
+                      source.original == original, target.translation == translation,
+                      source.start >= 0, source.end > source.start, source.end <= original.utf16.count,
+                      target.start >= 0, target.end > target.start, target.end <= translation.utf16.count else { return false }
+                let sourceRange = NSRange(location: source.start, length: source.end-source.start)
+                let targetRange = NSRange(location: target.start, length: target.end-target.start)
+                guard Range(sourceRange, in: original) != nil, Range(targetRange, in: translation) != nil,
+                      (original as NSString).substring(with: sourceRange) == entry.source,
+                      Set(entry.targets) == Set([(translation as NSString).substring(with: targetRange)]) else { return false }
+                guard !entries.contains(where: { guardEntry in
+                    (guardEntry.unresolvedNativeSenses || guardEntry.protectInner) &&
+                        sourceOccurrences(guardEntry, in: original, boundaries: sourceBoundaries).contains { whole in
+                            (guardEntry.unresolvedNativeSenses && whole == sourceRange) ||
+                                (guardEntry.protectInner && whole != sourceRange &&
+                                    NSIntersectionRange(whole, sourceRange) == sourceRange)
+                        }
+                }) else { return false }
+                return !primary.spans.contains { span in
+                    NSIntersectionRange(sourceRange, span.range).length > 0 ||
+                        NSIntersectionRange(targetRange, span.targetRange).length > 0
+                }
+            }
+            // Density is applied once to the combined candidates.
+            return align(original: original, translation: translation, entries: entries + additions, density: density,
+                targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount)
+        }
         let protected = matches(#"https?://\S+|www\.\S+|[\w.+-]+@[\w.-]+\.[\p{L}]{2,}|```[\s\S]*?```|`[^`]*`|[@#][\p{L}\p{N}_]+|\p{N}+(?:[.,:]\p{N}+)*"#, in: original)
         let protectedTarget = matches(#"https?://\S+|www\.\S+|[\w.+-]+@[\w.-]+\.[\p{L}]{2,}|```[\s\S]*?```|`[^`]*`|[@#][\p{L}\p{N}_]+|\p{N}+(?:[.,:]\p{N}+)*"#, in: translation)
         let sentenceStops = matches("[.!?。！？\\n]", in: original).filter { stop in !protected.contains { NSIntersectionRange($0, stop).length > 0 } }

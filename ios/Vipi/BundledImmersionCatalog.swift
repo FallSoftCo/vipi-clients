@@ -49,7 +49,8 @@ actor BundledImmersionCatalog {
         let tail = text.substring(from: end)
         return tail.allSatisfy(\.isWhitespace) ? output + tail : nil
     }
-    func result(original: String, translation: String, pair: TranslationPair, density: Double) throws -> ImmersionResult {
+    func result(original: String, translation: String, pair: TranslationPair, density: Double,
+                supplementalEntries: [VocabularyEntry] = []) throws -> ImmersionResult {
         guard let root, pair.valid else { throw VocabularyPackError.invalid }
         let id = pair.source + "-" + pair.target
         let index = try loadIndex()
@@ -64,7 +65,7 @@ actor BundledImmersionCatalog {
             }
         }
         return LocalImmersion.align(original: original, translation: translation, entries: entries,
-            density: density, source: pair.source, target: pair.target)
+            density: density, source: pair.source, target: pair.target, supplementalEntries: supplementalEntries)
     }
     private func withDatabase<T>(root: URL, pack: Index.Pack, suffix: String, body: (OpaquePointer) throws -> T) throws -> T {
         let id = pack.id + suffix

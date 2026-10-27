@@ -115,6 +115,15 @@ final class LexicalCoverageTests:XCTestCase {
             let previous:ImmersionResult?
             if intact {previous=try await catalog.result(original:row.original,translation:row.translation,pair:.init(source:row.source,target:row.target),density:1)}
             else {previous=nil}
+            let combinedStart=ContinuousClock.now
+            let combined:ImmersionResult
+            if intact {combined=try await catalog.result(original:row.original,translation:row.translation,
+                pair:.init(source:row.source,target:row.target),density:1,supplementalEntries:entries)}
+            else {combined=result}
+            let combinedDuration=combinedStart.duration(to:.now).components
+            let combinedElapsed=Double(elapsed.seconds+combinedDuration.seconds)*1000 + Double(elapsed.attoseconds+combinedDuration.attoseconds)/1e15
+            let baselineRetained=(previous?.spans ?? []).allSatisfy{combined.spans.contains($0)}
+            if !baselineRetained {failures.append(row.id+": combined catalog lost an accepted baseline span")}
             XCTAssertEqual(result.original,row.original);XCTAssertEqual(result.translation,row.translation)
             XCTAssertEqual(result.speech(source:row.source,target:row.target,revealed:Set(result.spans.map(\.id))).map(\.text).joined(),row.original)
             if ["ar","zh","ja","ko"].contains(row.target) {XCTAssertTrue(result.spans.allSatisfy{$0.romanization != nil})}
@@ -122,11 +131,18 @@ final class LexicalCoverageTests:XCTestCase {
                 ["source":span.original,"target":span.translated,"start":span.range.location,"end":NSMaxRange(span.range),
                  "target_start":span.targetRange.location,"target_end":NSMaxRange(span.targetRange),"reading":span.romanization as Any? ?? NSNull()]
             }
+            let combinedSpans=combined.spans.map { span -> [String:Any] in
+                ["source":span.original,"target":span.translated,"start":span.range.location,"end":NSMaxRange(span.range),
+                 "target_start":span.targetRange.location,"target_end":NSMaxRange(span.targetRange),"reading":span.romanization as Any? ?? NSNull()]
+            }
+            XCTAssertEqual(combined.speech(source:row.source,target:row.target,revealed:Set(combined.spans.map(\.id))).map(\.text).joined(),row.original)
             outcomes.append(["id":row.id,"dataset":row.dataset,"source":row.source,"target":row.target,"spans":spans,
-                "baseline_spans":previous?.spans.count ?? 0,"elapsed_ms":Double(elapsed.seconds)*1000+Double(elapsed.attoseconds)/1e15,"identifier_guard":intact,"diagnostics":diagnostic])
+                "baseline_spans":previous?.spans.count ?? 0,"elapsed_ms":Double(elapsed.seconds)*1000+Double(elapsed.attoseconds)/1e15,"identifier_guard":intact,"diagnostics":diagnostic,
+                "combined_spans":combinedSpans,"combined_elapsed_ms":combinedElapsed,"baseline_retained":baselineRetained])
             if i%100==0 || row.forbidden_source != nil || row.expected_source != nil {try save()}
             if let source=row.forbidden_source,let target=row.forbidden_target {
                 if result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": known meaning/scope error")}
+                if combined.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": combined known meaning/scope error")}
             }
             if let source=row.expected_source,let target=row.expected_target {
                 if !result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": missing required lexical behavior")}

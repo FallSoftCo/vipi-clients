@@ -84,6 +84,11 @@ class LexicalCoverageDeviceTest {
                 val result=LocalImmersion.align(original,translation,entries,1.0,source,target)
                 val elapsed=(System.nanoTime()-start)/1e6
                 val previous=if(intact)catalog.result(original,translation,source,target,1.0) else null
+                val combinedStart=System.nanoTime()
+                val combined=if(intact)catalog.result(original,translation,source,target,1.0,entries) else result
+                val combinedElapsed=elapsed+(System.nanoTime()-combinedStart)/1e6
+                val baselineRetained=previous?.spans.orEmpty().all { it in combined.spans }
+                if(!baselineRetained)failures.put(row.getString("id")+": combined catalog lost an accepted baseline span")
                 assertEquals(original,result.original);assertEquals(translation,result.translation)
                 assertEquals(original,result.speech(source,target,result.spans.map{it.id}.toSet()).joinToString(""){it.text})
                 if(target in setOf("ar","zh","ja","ko"))assertTrue(result.spans.all{!it.romanization.isNullOrBlank()})
@@ -91,13 +96,21 @@ class LexicalCoverageDeviceTest {
                 for(span in result.spans)spans.put(JSONObject().put("source",span.original).put("target",span.translated)
                     .put("start",span.start).put("end",span.end).put("target_start",span.targetStart).put("target_end",span.targetEnd)
                     .put("reading",span.romanization ?: JSONObject.NULL))
+                val combinedSpans=JSONArray()
+                for(span in combined.spans)combinedSpans.put(JSONObject().put("source",span.original).put("target",span.translated)
+                    .put("start",span.start).put("end",span.end).put("target_start",span.targetStart).put("target_end",span.targetEnd)
+                    .put("reading",span.romanization ?: JSONObject.NULL))
+                assertEquals(original,combined.speech(source,target,combined.spans.map{it.id}.toSet()).joinToString(""){it.text})
                 val outcome=JSONObject().put("id",row.getString("id")).put("dataset",row.getString("dataset"))
                     .put("source",source).put("target",target).put("spans",spans)
                     .put("baseline_spans",previous?.spans?.size ?: 0).put("elapsed_ms",elapsed).put("identifier_guard",intact).put("diagnostics",JSONObject(diagnostic as Map<*,*>))
+                    .put("combined_spans",combinedSpans).put("combined_elapsed_ms",combinedElapsed).put("baseline_retained",baselineRetained)
                 outcomes.put(outcome)
                 if(i%100==0)output.writeText(report.toString())
                 if(row.has("forbidden_source") && result.spans.any{it.original==row.getString("forbidden_source") && it.translated==row.getString("forbidden_target")})
                     failures.put(row.getString("id")+": known meaning/scope error")
+                if(row.has("forbidden_source") && combined.spans.any{it.original==row.getString("forbidden_source") && it.translated==row.getString("forbidden_target")})
+                    failures.put(row.getString("id")+": combined known meaning/scope error")
                 if(row.has("expected_source") && result.spans.none{it.original==row.getString("expected_source") && it.translated==row.getString("expected_target")})
                     failures.put(row.getString("id")+": missing required lexical behavior")
             }

@@ -33,9 +33,41 @@ class ImmersionEngine {
 
     fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double,
               targetLanguage: String? = null, sourceBoundaries: Set<Int>? = null,
-              targetBoundaries: Set<Int>? = null, sourceTokenCount: Int? = null): ImmersionResult {
+              targetBoundaries: Set<Int>? = null, sourceTokenCount: Int? = null,
+              supplementalEntries: List<VocabularyEntry> = emptyList()): ImmersionResult {
         val empty = ImmersionResult(original, translation, emptyList())
         if (original.isEmpty() || translation.isEmpty() || !density.isFinite() || density <= 0 || original.length > 16_384 || translation.length > 32_768) return empty
+        if (supplementalEntries.isNotEmpty()) {
+            // Existing accepted source/target ownership takes precedence. Keep
+            // ALL primary entries, including rejected claims and native guards,
+            // so a supplemental match cannot erase their negative evidence.
+            val primary = align(original, translation, entries, 1.0, targetLanguage,
+                sourceBoundaries, targetBoundaries, sourceTokenCount)
+            val additions = supplementalEntries.filter { entry ->
+                val source = entry.sourceScope ?: return@filter false
+                val target = entry.targetScope ?: return@filter false
+                source.original == original && target.translation == translation &&
+                    source.start >= 0 && source.end > source.start && source.end <= original.length &&
+                    target.start >= 0 && target.end > target.start && target.end <= translation.length &&
+                    original.substring(source.start, source.end) == entry.source &&
+                    entry.targets.distinct() == listOf(translation.substring(target.start, target.end)) &&
+                    entries.none { guard -> (guard.unresolvedNativeSenses || guard.protectInner) &&
+                        sourceOccurrences(guard, original, sourceBoundaries).any { whole ->
+                            (guard.unresolvedNativeSenses && whole == source.start until source.end) ||
+                                (guard.protectInner && whole.first <= source.start && whole.last >= source.end-1 &&
+                                    whole != source.start until source.end)
+                        }
+                    } &&
+                    primary.spans.none { span ->
+                        overlaps(source.start until source.end, span.start until span.end) ||
+                            overlaps(target.start until target.end, span.targetStart until span.targetEnd)
+                    }
+            }
+            // The requested density is applied to the combined candidate set
+            // once, not independently to each catalog.
+            return align(original, translation, entries + additions, density, targetLanguage,
+                sourceBoundaries, targetBoundaries, sourceTokenCount)
+        }
         val protectedRanges = protected.findAll(original).map { it.range }.toList()
         val protectedTargetRanges = protected.findAll(translation).map { it.range }.toList()
         val stops = Regex("[.!?。！？\\n]").findAll(original).map { it.range }.filter { stop -> protectedRanges.none { overlaps(it, stop) } }.toList()

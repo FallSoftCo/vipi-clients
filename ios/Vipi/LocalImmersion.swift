@@ -66,10 +66,12 @@ enum LocalImmersion {
         }
         return ranges
     }
-    static func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, source: String, target: String) -> ImmersionResult {
+    static func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, source: String, target: String,
+                      supplementalEntries: [VocabularyEntry] = []) -> ImmersionResult {
         let sourceWords = words(original, language: source), targetWords = words(translation, language: target)
         return ImmersionEngine().align(original: original, translation: translation, entries: entries, density: density, targetLanguage: target,
             sourceBoundaries: Set(sourceWords.flatMap { [$0.location, NSMaxRange($0)] }),
-            targetBoundaries: Set(targetWords.flatMap { [$0.location, NSMaxRange($0)] }), sourceTokenCount: sourceWords.count)
+            targetBoundaries: Set(targetWords.flatMap { [$0.location, NSMaxRange($0)] }), sourceTokenCount: sourceWords.count,
+            supplementalEntries: supplementalEntries)
     }
 }
