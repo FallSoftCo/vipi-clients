@@ -1,6 +1,43 @@
 import XCTest
 
 final class LanguageSettingsTests: XCTestCase {
+    @MainActor func testLanguageChoiceListsRemainAccessible() throws {
+        let app = XCUIApplication()
+        for appearance in ["light", "dark", "large"] {
+            app.launchArguments = ["-vipi-preview-home", "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-" + (appearance == "light" ? "light" : "dark")]
+            if appearance == "large" { app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"] }
+            app.launch()
+            XCTAssertTrue(app.buttons["Your profile and settings"].waitForExistence(timeout: 10)); app.buttons["Your profile and settings"].tap()
+            XCTAssertTrue(app.buttons["language-settings-link"].waitForExistence(timeout: 5)); app.buttons["language-settings-link"].tap()
+            for (identifier,title,last) in [("language-source-picker","I already speak","Swahili"),
+                                             ("language-target-picker","I’m picking up","Swahili · Kiswahili")] {
+                XCTAssertTrue(app.buttons[identifier].waitForExistence(timeout: 5)); app.buttons[identifier].tap()
+                XCTAssertTrue(app.navigationBars[title].waitForExistence(timeout: 5))
+                try app.performAccessibilityAudit { issue in
+                    let detail = XCTAttachment(string: "\(issue.compactDescription)\n\(issue.detailedDescription)\n\(issue.element?.debugDescription ?? "no element")")
+                    detail.name = "choice-audit-" + identifier + "-" + appearance; detail.lifetime = .keepAlways; self.add(detail)
+                    return false
+                }
+                let choice = app.buttons[last]
+                for _ in 0..<6 {
+                    if choice.exists && choice.isHittable { break }
+                    app.swipeUp()
+                }
+                XCTAssertTrue(choice.exists && choice.isHittable)
+                try app.performAccessibilityAudit { issue in
+                    let detail = XCTAttachment(string: "\(issue.compactDescription)\n\(issue.detailedDescription)\n\(issue.element?.debugDescription ?? "no element")")
+                    detail.name = "choice-audit-" + identifier + "-" + appearance; detail.lifetime = .keepAlways; self.add(detail)
+                    return false
+                }
+                let capture = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+                capture.name = "ipad-language-choices-" + identifier + "-" + appearance
+                capture.lifetime = .keepAlways; add(capture)
+                app.navigationBars[title].buttons.element(boundBy: 0).tap()
+                XCTAssertTrue(app.buttons[identifier].waitForExistence(timeout: 5))
+            }
+            app.terminate()
+        }
+    }
     @MainActor func testLanguageSettingsNavigationAndSelectionLightAndDark() throws {
         let app = XCUIApplication()
         for appearance in ["light", "dark"] {

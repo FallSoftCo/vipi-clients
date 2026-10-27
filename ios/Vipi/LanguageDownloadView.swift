@@ -200,19 +200,31 @@ private struct LanguageSelectionView: View {
     let localName: Bool
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        List(choices) { language in
-            Button {
-                selection = language.id; dismiss()
-            } label: {
-                HStack {
-                    Text(localName ? "\(language.name) · \(language.localName)" : language.name)
-                        .foregroundStyle(.primary).fixedSize(horizontal: false, vertical: true)
-                    Spacer(minLength: 12)
-                    if selection == language.id { Image(systemName: "checkmark").foregroundStyle(VipiDesign.highlight).accessibilityHidden(true) }
-                }.frame(minHeight: 44)
-            }.accessibilityAddTraits(selection == language.id ? .isSelected : [])
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(choices) { language in
+                    Button {
+                        selection = language.id; dismiss()
+                    } label: {
+                        HStack(spacing: 16) {
+                            Text(localName ? "\(language.name) · \(language.localName)" : language.name)
+                                .font(.body).foregroundStyle(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 0)
+                            if selection == language.id {
+                                Image(systemName: "checkmark").foregroundStyle(VipiDesign.highlight).accessibilityHidden(true)
+                            }
+                        }
+                        .frame(minHeight: 44).padding(.horizontal, 18).padding(.vertical, 6)
+                        .contentShape(Rectangle()).accessibilityElement(children: .combine)
+                    }.buttonStyle(.plain).accessibilityAddTraits(selection == language.id ? .isSelected : [])
+                    if language.id != choices.last?.id { Divider().padding(.leading, 18) }
+                }
+            }
+            .background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
+            .padding(20).frame(maxWidth: 760).frame(maxWidth: .infinity)
         }
-        .scrollContentBackground(.hidden).background(VipiDesign.canvas)
+        .background(VipiDesign.canvas)
         .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
     }
 }

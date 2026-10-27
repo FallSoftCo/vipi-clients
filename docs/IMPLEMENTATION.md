@@ -1,5 +1,7 @@
 # Implementation sequence and release gates
 
+Language chooser continuation, 21:55 Eastern: physical iPad run 028 passes twelve unfiltered accessibility audits for both familiar and immersion language selection, including AccessibilityXXXL, and all six captures pass visual inspection. Download settings run 023 remains qualified. Actual VoiceOver interaction and general-chat coverage remain open. The 2,551-record attached-noun batch is staged for native qualification; it is not yet accepted as a new catalog.
+
 Every gate needs a retained command/build/device receipt. A screenshot proves appearance, not encryption, billing or delivery correctness. No store submission until the release-blocking gates pass.
 
 ## Current verified state — 2026-10-26
