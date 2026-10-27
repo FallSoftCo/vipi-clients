@@ -93,8 +93,8 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(28965,units)
-        assertEquals(708,unchanged)
+        assertEquals(36179,units)
+        assertEquals(834,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
@@ -116,10 +116,24 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-017.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-018.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
+    }
+    @Test fun commonLifeUnitsPreserveNumberAndWithholdUnresolvedReadings() {
+        val catalog=BundledImmersionCatalog(InstrumentationRegistry.getInstrumentation().targetContext)
+        val original="I did not discuss these things."
+        val value=catalog.result(original,"Sikujadili vitu hivi.","en","sw",1.0)
+        assertEquals("I did not discuss these vitu.",value.speech("en","sw").joinToString(""){it.text})
+        assertEquals(original,value.original)
+        val reverse=catalog.result("Wanawake hawa wanazungumza lugha nyingi.","These women speak many languages.","sw","en",1.0)
+        assertEquals("women hawa wanazungumza languages nyingi.",reverse.speech("sw","en").joinToString(""){it.text})
+        for((left,right,source,target) in listOf(listOf("things.","kitu.","en","sw"),listOf("wanawake.","woman.","sw","en"),
+            listOf("langue.","language.","fr","en"),listOf("paese.","country.","it","en"),
+            listOf("day.","日。","en","ja"),listOf("minute.","分。","en","ja")))
+            assertTrue("Unsupported number, sense scope or reading",catalog.result(left,right,source,target,1.0).spans.isEmpty())
+        assertNull(catalog.reference("things.","en","sw"))
     }
     @Test fun peopleUnitsPreserveNumberAndExcludeAmbiguousSourceForms() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext

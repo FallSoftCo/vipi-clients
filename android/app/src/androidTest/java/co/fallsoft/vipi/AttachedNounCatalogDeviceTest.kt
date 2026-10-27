@@ -54,7 +54,7 @@ class AttachedNounCatalogDeviceTest {
             }finally {check(temporary.delete())}
         }
         assertEquals(2551,records);assertEquals(38,directions.size);assertTrue(cases>records)
-        val output=File(context.filesDir,"attached-noun-catalog-001.json");check(!output.exists())
+        val output=File(context.filesDir,"attached-noun-catalog-002.json");check(!output.exists())
         output.writeText(JSONObject().put("records",records).put("cases",cases).put("directions",directions.size)
             .put("unchanged_forms",unchanged).put("runtime_path","app-bundled-native-catalog")
             .put("independent_linguistic_acceptance",false).toString(2))

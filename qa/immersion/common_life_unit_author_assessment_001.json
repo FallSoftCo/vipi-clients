@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "5451d23638e54f3785c3d32c05fd596f2a0e1401535ef8e3eb5488d8bc63526c",
+  "authoring_source_sha256": "78d1084393ac38c73e362bbb933ab9eda5952fd41fdb5e1eb0e766deb763ce82",
+  "records": 7214,
+  "scope": "Seventeen explicit common-life noun concepts in thirty number groups. All 110 directions occur in aggregate, with deliberate per-concept exclusions. No whole-message references.",
+  "decisions": {
+    "meaning": "The batch covers things, calendar days, human life, adult women and men, countries, cities, villages, human languages, linguistic words, education, services, governments, challenges, health, commerce and minute durations. Each row retains the stated noun sense and exact written forms. Actual complete target occurrence constrains matching but does not independently establish semantic precision.",
+    "number": "Only corresponding listed number groups are paired. Swahili explicitly distinguishes kitu/vitu, mwanamke/wanawake, mwanamume/wanaume, jiji/majiji, kijiji/vijiji and neno/maneno. Listed unmarked counterparts in other languages require actual whole-translation occurrence. No plural, conjugation or article is inferred.",
+    "scope": "Both complete lexical focuses require explicit unit scope. Unchanged native grammar, possession, tense, negation, identifiers and punctuation remain outside the flip. Missing or repeated counterparts and unresolved competing meanings/readings abstain. A lexical carrier never grants whole-message translation permission.",
+    "exclusions": "Withhold English man/word/service/challenge/minute source groups because of common competing grammatical uses; Chinese day/education/service/challenge/health and Korean day/minute sources because of common competing senses or uses; Arabic health/minute sources because of correctness/adjective ambiguity. Also withhold Spanish/French/German/Portuguese man/woman source groups where spouse readings need context, French/Italian language sources where tongue readings compete, and Italian country sources where paese can denote a village. Targets remain eligible only from permitted source forms. Japanese day and minute forms are absent entirely because bare 日 and 分 do not fix the required practical reading.",
+    "readings": "Every admitted Arabic, Chinese, Japanese and Korean target has an explicitly authored practical Latin reading. Native script remains the TTS input. This is written-form review, not acoustic acceptance. No transliteration model supplies guessed readings.",
+    "provenance": "Project-authored lexical forms. Only the separate AfriSenti training frequency queue guided topic priority, including siku, huduma, wanawake, maisha, elimu, serikali and changamoto. No evaluation message or dictionary row was automatically promoted. Draft 001 was reduced before this assessment; only authored-common-life-units-002 is bound here.",
+    "qualification": "Require static complete-reference and sense/reading conflict checks, all native catalog units, existing attachment cases, prior-reference regression comparison and fresh aggregate conversation measurement. These are author-assessed development mappings. No independent meaning, majority-coverage, fluency or release claim follows."
+  },
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","context_frame_scope":"pass","lexical_unit_scope":"pass","provenance":"pass"},
+  "release_ready": false
+}

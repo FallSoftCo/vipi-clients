@@ -33,7 +33,7 @@ class SentenceReadingsDeviceTest {
         assertEquals("Watashi wa ongaku ga suki desu. Eki wa doko desu ka.", readings.reading("私は音楽が好きです。駅はどこですか。", "ja"))
         assertNull(readings.reading("私は新しい音楽が好きです。", "ja"))
         assertNull(readings.reading("أنا أحب هذه الموسيقى.", "ar"))
-        val file = File(context.filesDir, "sentence-readings-008.json"); check(!file.exists())
+        val file = File(context.filesDir, "sentence-readings-009.json"); check(!file.exists())
         file.writeText(JSONObject().put("exact_readings", rows.length()).put("languages", 4)
             .put("unknown_clause_abstention", true).put("independent_linguistic_acceptance", false).toString(2))
     }

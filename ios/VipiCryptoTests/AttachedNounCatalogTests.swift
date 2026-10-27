@@ -57,7 +57,7 @@ final class AttachedNounCatalogTests:XCTestCase {
             XCTAssertEqual(status,SQLITE_DONE)
         }
         XCTAssertEqual(records,2551);XCTAssertEqual(directions.count,38);XCTAssertGreaterThan(cases,records)
-        let output=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0].appendingPathComponent("attached-noun-catalog-001.json")
+        let output=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0].appendingPathComponent("attached-noun-catalog-002.json")
         let receipt:[String:Any]=["records":records,"cases":cases,"directions":directions.count,"unchanged_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog","independent_linguistic_acceptance":false]
         try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:output,options:.withoutOverwriting)
