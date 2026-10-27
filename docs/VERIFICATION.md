@@ -2,6 +2,10 @@
 
 Updated 2026-10-27. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
+## Broad dictionary checkpoint 004 — 2026-10-27
+
+The new full eleven-language inventory retains 13,265,782 supplied forms. Its compiled language shards total 1,587,359,744 bytes, with 254,059 additional direct English links extracted from explicit native dictionary definitions. Both native implementations pass all 15,335 qualification cases, including known meaning/scope regressions and Swahili carrier behavior. Actual availability remains insufficient: separate-path Android unions are 20.36% SMS, 49.08% booking dialogue, 32.00% persona dialogue and 9.16% explicit Swahili. Ten native output differences and nine Arabic-source dictionary-probe directions without selected spans remain. These are QA results; the main app still uses bundle 022. See [BROAD_LEXICAL_COVERAGE.md](BROAD_LEXICAL_COVERAGE.md) for hashes, exact denominators, storage and remaining gates.
+
 ## Bundle 022 — exact native parity, 2026-10-27 00:05 Eastern
 
 Two explicit Chinese–Korean book mappings combine the already assessed 看书 construction with the nine already enumerated Korean 책 particles. Both native paths preserve 看 and the Korean ending outside the flip. Eighteen forward/reverse finite cases and ten larger-word, missing-counterpart or repetition negatives pass on each platform. No new lexical meaning, whole translation, reading, runtime morphology or classifier rule is introduced.
