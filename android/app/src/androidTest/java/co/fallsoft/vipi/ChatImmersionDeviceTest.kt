@@ -71,6 +71,7 @@ class ChatImmersionDeviceTest {
         val visible = mutableStateOf(true); val appearance = mutableStateOf(Appearance.LIGHT)
         lateinit var chat: ChatSession
         var initialized = false
+        var languageRequests = 0
         fun paragraphs(view: View): List<StableImmersionText> = when (view) {
             is StableImmersionText -> listOf(view)
             is ViewGroup -> (0 until view.childCount).flatMap { paragraphs(view.getChildAt(it)) }
@@ -91,7 +92,7 @@ class ChatImmersionDeviceTest {
                 chat.start(); check(chat.ready); chat.find("alex")
                 originals.forEach { chat.send(it, peer) }
             } }
-            compose.setContent { if (visible.value) VipiTheme(appearance.value) { FriendConversationScreen(chat, peer, "en", "sw", .5) {} } }
+            compose.setContent { if (visible.value) VipiTheme(appearance.value) { FriendConversationScreen(chat, peer, "en", "sw", .5, onLanguages = { languageRequests++ }) {} } }
             compose.waitUntil(20_000) { lastParagraph()?.first == "I like muziki." }
             val height = lastParagraph()!!.second
             capture("android-swahili-conversation-light")
@@ -114,6 +115,9 @@ class ChatImmersionDeviceTest {
                 val clipboard = base.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                 assertEquals(originals.last(), clipboard.primaryClip?.getItemAt(0)?.text?.toString())
             }
+            compose.onNodeWithTag("conversation-options").performClick()
+            compose.onNodeWithText("Languages").performClick()
+            compose.runOnIdle { assertEquals(1, languageRequests) }
             compose.onNodeWithTag("message-input").performClick().performTextInput("A draft")
             val held = lastParagraph()!!.first
             val until = android.os.SystemClock.uptimeMillis()+8_000
@@ -131,7 +135,7 @@ class ChatImmersionDeviceTest {
                 .put("actual_conversation_immersion_path", true).put("continuous_switching", true)
                 .put("stable_height", true).put("whole_translation", true).put("composing_paused", true)
                 .put("target_language_original", reversed).put("manual_language_selection", true).put("copy_original_verified", true)
-                .put("encrypted_originals_unchanged", true).toString(2))
+                .put("languages_menu_after_preparation", true).put("encrypted_originals_unchanged", true).toString(2))
         } finally {
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()
             if (initialized) runBlocking { withContext(Dispatchers.Main) { chat.close() } }

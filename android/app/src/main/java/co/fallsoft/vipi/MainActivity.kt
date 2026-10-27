@@ -371,15 +371,4 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun DownloadView(model: VipiModel) {
-    var cellular by rememberSaveable { mutableStateOf(false) }
-    var text by rememberSaveable { mutableStateOf("Coffee tomorrow? I know a little place by the river.") }
-    Heading("On your phone", languageName(model.targetLanguage), "Download this language once to translate without a connection. Models are usually around 30 MB per language.")
-    Row(verticalAlignment = Alignment.CenterVertically) { Switch(checked = cellular, onCheckedChange = { cellular = it }); Spacer(Modifier.width(12.dp)); Text("Allow mobile data") }
-    PrimaryButton("Download language", busy = model.modelBusy) { model.downloadLanguage(cellular) }
-    model.modelMessage?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    OutlinedTextField(value = text, onValueChange = { text = it; model.sentenceChanged() }, label = { Text("Try a sentence") }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
-    TextButton(onClick = { model.translate(text) }, enabled = !model.modelBusy && text.isNotBlank()) { Text("Translate on this phone") }
-    model.translatedText?.let { Text(it, Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp)).padding(20.dp), lineHeight = 25.sp) }
-    Text("Translation by Google. Translations can be imperfect.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-}
+@Composable private fun DownloadView(model: VipiModel) { LanguageDownloadsScreen(model) }

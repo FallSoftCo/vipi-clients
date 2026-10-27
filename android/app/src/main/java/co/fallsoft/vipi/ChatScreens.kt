@@ -164,6 +164,7 @@ import java.util.UUID
                         else Icon(Icons.Outlined.MoreVert, "Conversation options")
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
+                        if (onLanguages != null) DropdownMenuItem(text = { Text("Languages") }, onClick = { options = false; onLanguages() })
                         DropdownMenuItem(text = { Text("Verify encryption") }, onClick = { options = false; showSecurityNumber = true })
                         DropdownMenuItem(text = { Text(if (blocked) "Unblock" else "Block") }, onClick = { options = false; confirmBlock = true })
                     }

@@ -48,6 +48,7 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
         private set
     var translatedText by mutableStateOf<String?>(null)
         private set
+    private var languageReturnScreen = Screen.SETTINGS
     private var selectionRevision = 0L
     private var translationRevision = 0L
     internal var chat by mutableStateOf<ChatSession?>(null)
@@ -75,6 +76,9 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
     }
 
     fun navigate(value: Screen) {
+        if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
+            languageReturnScreen = if (screen == Screen.CONVERSATION) Screen.CONVERSATION else Screen.SETTINGS
+        }
         if (value != screen && (value == Screen.LANGUAGE_DOWNLOAD || screen == Screen.LANGUAGE_DOWNLOAD)) sentenceChanged()
         screen = value
         if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
@@ -95,7 +99,7 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
     fun back() { navigate(when (screen) {
         Screen.LANGUAGE -> Screen.WELCOME
         Screen.ACCOUNT -> Screen.LANGUAGE
-        Screen.LANGUAGE_DOWNLOAD -> Screen.SETTINGS
+        Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
         else -> Screen.HOME
     }) }
