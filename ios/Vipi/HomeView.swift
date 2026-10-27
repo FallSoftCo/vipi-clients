@@ -61,7 +61,7 @@ struct HomeView: View {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3) }.accessibilityLabel("Your profile and settings")
                 }
             }
-            .sheet(isPresented: $showingSettings) { SettingsView(chat: chat) }
+            .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat) }
             .sheet(isPresented: $showingInvite) { NewChatView(chat: chat) { peer in path.append(peer) } }
             .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
             .refreshable { await chat?.synchronize() }
@@ -121,34 +121,30 @@ struct BotIntroductionView: View {
 struct SettingsView: View {
     var chat: ChatSession? = nil
     @Environment(AppState.self) private var state
-    @Environment(\.dismiss) private var dismiss
     var body: some View {
         @Bindable var state = state
-        NavigationStack {
-            Form {
-                Section("Your immersion") {
-                    NavigationLink { LanguageDownloadView() } label: {
-                        LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
-                    }.accessibilityIdentifier("language-settings-link")
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack { Text("A little or a little more"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
-                        Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Immersion amount")
-                        Text("The amount of unfamiliar vocabulary you see. You can always reveal the original.").font(.footnote).foregroundStyle(VipiDesign.secondary)
-                    }.padding(.vertical, 8)
-                }
-                Section("Make yourself at home") {
-                    Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
-                }
-                Section("About Vipi") {
-                    Link("Privacy Policy", destination: URL(string: "https://fallsoft.co/privacy-policy")!)
-                    Link("Terms of Service", destination: URL(string: "https://fallsoft.co/terms-of-service")!)
-                    LabeledContent("Made by", value: "FallSoft.Co")
-                }
-                if let chat {
-                    Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
-                }
-            }.navigationTitle("Your Vipi").navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
-        }
+        Form {
+            Section("Your immersion") {
+                NavigationLink { LanguageDownloadView() } label: {
+                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
+                }.accessibilityIdentifier("language-settings-link")
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack { Text("A little or a little more"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
+                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Immersion amount")
+                    Text("The amount of unfamiliar vocabulary you see. You can always reveal the original.").font(.footnote).foregroundStyle(VipiDesign.secondary)
+                }.padding(.vertical, 8)
+            }
+            Section("Make yourself at home") {
+                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
+            }
+            Section("About Vipi") {
+                Link("Privacy Policy", destination: URL(string: "https://fallsoft.co/privacy-policy")!)
+                Link("Terms of Service", destination: URL(string: "https://fallsoft.co/terms-of-service")!)
+                LabeledContent("Made by", value: "FallSoft.Co")
+            }
+            if let chat {
+                Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
+            }
+        }.navigationTitle("Your Vipi").navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -7,6 +7,7 @@ enum VipiDesign {
     static let canvas = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.065, green: 0.078, blue: 0.071, alpha: 1) : UIColor(red: 0.976, green: 0.969, blue: 0.949, alpha: 1) })
     static let surface = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.12, green: 0.14, blue: 0.125, alpha: 1) : .white })
     static let highlight = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.69, green: 0.85, blue: 0.64, alpha: 1) : UIColor(red: 0.17, green: 0.38, blue: 0.26, alpha: 1) })
+    static let destructive = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 1, green: 0.706, blue: 0.671, alpha: 1) : UIColor(red: 0.72, green: 0.11, blue: 0.11, alpha: 1) })
     static let onHighlight = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.065, green: 0.078, blue: 0.071, alpha: 1) : .white })
     static let outgoing = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.18, green: 0.26, blue: 0.20, alpha: 1) : UIColor(red: 0.88, green: 0.93, blue: 0.83, alpha: 1) })
 }
