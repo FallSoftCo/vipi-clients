@@ -30,7 +30,7 @@ class BundledImmersionDeviceTest {
             if (target in setOf("ar", "zh", "ja", "ko")) assertTrue(result.spans.all { !it.romanization.isNullOrBlank() })
             pairs += pair; selected += result.spans.size
         }
-        assertEquals(110, pairs.size); assertEquals(12575, rows.length()); assertTrue(selected > 10000)
+        assertEquals(110, pairs.size); assertEquals(14529, rows.length()); assertTrue(selected > 10000)
         assertEquals("Ninakunywa maji sasa.", catalog.reference("I am drinking water now.", "en", "sw"))
         assertNull(catalog.reference("We are drinking water now.", "en", "sw"))
         val embedded = catalog.result("We are drinking water now.", "Tunakunywa maji sasa.", "en", "sw", 1.0)
@@ -93,8 +93,8 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(36179,units)
-        assertEquals(834,unchanged)
+        assertEquals(41251,units)
+        assertEquals(978,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
@@ -116,7 +116,7 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-018.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-020.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))

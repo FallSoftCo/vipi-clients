@@ -23,7 +23,7 @@ final class BundledImmersionTests: XCTestCase {
             if ["ar", "zh", "ja", "ko"].contains(pair.target) { XCTAssertTrue(result.spans.allSatisfy { $0.romanization != nil }) }
             selected += result.spans.count; count += 1; pairs.insert(pairID)
         }
-        XCTAssertEqual(pairs.count, 110); XCTAssertEqual(count, 12575); XCTAssertGreaterThan(selected, 10000)
+        XCTAssertEqual(pairs.count, 110); XCTAssertEqual(count, 14529); XCTAssertGreaterThan(selected, 10000)
         let pair = TranslationPair(source: "en", target: "sw")
         let corrected = try await catalog.reference(original: "I am drinking water now.", pair: pair)
         XCTAssertEqual(corrected, "Ninakunywa maji sasa.")
@@ -103,8 +103,8 @@ final class BundledImmersionTests: XCTestCase {
             }
             XCTAssertEqual(status,SQLITE_DONE)
         }
-        XCTAssertEqual(units,36179)
-        XCTAssertEqual(unchanged,834)
+        XCTAssertEqual(units,41251)
+        XCTAssertEqual(unchanged,978)
         let shared=try await catalog.result(original:"Send the phone number.",translation:"Tuma nambari ya simu.",pair:pair,density:1)
         XCTAssertEqual(shared.speech(source:"en",target:"sw").map(\.text).joined(),"Send the nambari ya simu.")
         for (left,right) in [("phone numbers.","nambari ya simu."),("phone number.","ufunguo wa mlango."),
@@ -129,7 +129,7 @@ final class BundledImmersionTests: XCTestCase {
             let result=try await catalog.result(original:left,translation:right,pair:pair,density:1)
             XCTAssertTrue(result.spans.isEmpty)
         }
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-018.json")
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-020.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"lexical_units":units,"unchanged_latin_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])

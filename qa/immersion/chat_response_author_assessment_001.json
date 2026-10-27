@@ -1,0 +1,27 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "0af2e1c3d73aa6498127e911c0b9b5cfd7b7a6996e5c1a0724d0980ed233c0ae",
+  "authoring_source_sha256": "786ba051dacdb659199ffe70c60530d23caf7f88af56782c142f32a550cc1447",
+  "readings_sha256": "00c690f618dca60ba93d50acd2e2834b6acf1085b39c65ff01ecd3d73e59b347",
+  "records": 1410,
+  "scope": "Four complete conversational responses with deliberately limited language cells: affirmative yes, negative no, acknowledgement okay, and a standalone polite please. All 110 directions occur in aggregate.",
+  "decisions": {
+    "meaning": "The exact standalone responses carry conventional conversational functions. Swahili Ndiyo and its Ndio spelling are affirmation, Hapana is a negative reply, Sawa acknowledges acceptability, and Tafadhali politely requests. Explicit English OK/Ok and French straight-apostrophe aliases preserve these functions. No free conjugation or pronoun generation is inferred.",
+    "usage": "Exact whole-message references are permitted only for the enumerated standalone responses and punctuation/case variants. Embedded replacements require the unique complete counterpart in the actual translation. Changed or incomplete surrounding phrases cannot receive the standalone whole translation. Register is conventional conversational usage, not a context-free translation rule.",
+    "exclusions": "Chinese no is omitted because a correct negative reply depends on the predicate. Chinese standalone please is omitted because bare qing needs its following request. Korean standalone please is omitted because jebal would add pleading. German Bitte is omitted because the bare reply can also mean you are welcome or pardon. Sorry is not included because apology and sympathy require different Swahili expressions.",
+    "readings": "Thirteen exact non-Roman target sentences have explicit practical Latin readings bound by readings_sha256. Native script remains the speech input. This is authored written-form review, not acoustic acceptance. Existing sentence readings must be preserved exactly.",
+    "provenance": "Project-authored common chat responses. Neither reserved conversation text nor unapproved dictionary evidence supplies app content. The unassessed first draft was reduced before this assessment; only authored-chat-responses-002 is covered.",
+    "qualification": "Require static reference preservation/conflict checks, all native catalog rows/readings, exact forward and reverse short replies without translator preparation, changed-phrase abstention and fresh aggregate conversation measurement. Independent semantic accuracy and majority coverage remain unproven."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "context_frame_scope": "pass",
+    "lexical_unit_scope": "pass",
+    "provenance": "pass"
+  },
+  "release_ready": false
+}

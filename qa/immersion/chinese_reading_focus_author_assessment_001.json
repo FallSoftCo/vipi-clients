@@ -1,0 +1,25 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "ecfedeb3c7ca59a7d48e569e0396b2309779be7533d976d4eb2f69ccb4baae64",
+  "authoring_source_sha256": "0b9495cecffafe528db971d6a828b583ebe87b1667acb211107be3ccf87ab4e7",
+  "records": 59,
+  "scope": "Explicit book focus 书 within the literal Chinese reading construction 看书, across twenty directions. All counterpart forms, meanings and readings are reused exactly from hash-verified bundle 019.",
+  "decisions": {
+    "meaning": "看书 denotes reading a book or books in the literal context admitted here. Only 书 maps to the assessed book noun; the verb 看 remains outside the vocabulary focus. Chinese number is unmarked, so the counterpart must be the actual explicitly listed form in the whole translation.",
+    "context": "The complete construction and the complete corresponding book noun must both occur uniquely. Unlisted larger forms, repetition, missing counterparts, identifiers and conflicting readings abstain. This does not authorize generic splitting of Chinese compounds or a different verb construction.",
+    "readings": "Reuse only the exact baseline native form, meaning and reading, including shū. No new reading is guessed.",
+    "provenance": "The discrepancy was found by comparing both platforms on the project's existing authored references. No reserved conversation text was consulted or promoted. Baseline catalog and every used database and original record hash are verified before authoring.",
+    "qualification": "Require actual forward/reverse native tests, larger-word and missing-counterpart negatives, unchanged whole references and a new complete cross-platform reference trace. This is author assessment, not independent precision."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "context_frame_scope": "pass",
+    "lexical_unit_scope": "pass",
+    "provenance": "pass"
+  },
+  "release_ready": false
+}

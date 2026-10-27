@@ -1,0 +1,19 @@
+{
+  "schema":"vipi-authored-frame-assessment-1",
+  "reviewer":"Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind":"author_assessment",
+  "records_sha256":"f096458867891b0a9c109165330dbf9b721a782a5637f0e13b1a41ef3b1b4fb5",
+  "authoring_source_sha256":"549925ca0ebb1eb38a8239e88e809e902eb96c727fdb8e28b085804392cf83dc",
+  "records":3662,
+  "scope":"Bidirectional explicit written aliases of the four assessed chat responses, plus 544 uppercase-source whole references to the unchanged canonical translations.",
+  "decisions":{
+    "meaning":"Reuse exactly the assessed affirmative, negative, acknowledgement and polite-request meanings from authored_chat_responses.py SHA 786ba051dacdb659199ffe70c60530d23caf7f88af56782c142f32a550cc1447. Case, Ndio/Ndiyo, OK/Okay and straight/curly apostrophe variants preserve the listed conversational function. No new synonym, grammar transformation or source-language assumption is introduced.",
+    "whole_references":"Only newly enumerated uppercase source strings gain canonical whole translations. Alternate target spellings are lexical-only, so they cannot introduce conflicting canonical whole-message output. Existing 13,985 references must remain unchanged. Question punctuation, changed clauses and unlisted variants do not inherit whole references.",
+    "readings":"Non-Roman targets retain only their previous canonical form and exact assessed reading. No additional sentence reading is created. Native scripts remain the speech input.",
+    "exclusions":"All previously omitted Chinese negative/request, Korean please and German Bitte cells remain omitted. No generic case folding is added to the runtime. Complete native boundaries, unique counterparts, protected identifiers and ambiguity checks remain mandatory.",
+    "provenance":"Content-bound expansion of an existing assessed project-authored batch. Native tests exposed missing reverse-direction spellings; no reserved conversation text was consulted. The original author and assessment remain unchanged.",
+    "qualification":"Require static reference preservation and conflict checks; all native units/readings; canonical, alternate and uppercase forward/reverse replies without translation setup; current Chinese negative cases; cross-platform authored-reference comparison and fresh aggregate coverage. This is author assessment, not independent precision."
+  },
+  "checks":{"meaning":"pass","usage":"pass","grammar_scope":"pass","context_frame_scope":"pass","lexical_unit_scope":"pass","provenance":"pass"},
+  "release_ready":false
+}
