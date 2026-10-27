@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "e2d8953de390305bd79591ddd8fba3add5802fd0c969ea03eca72a934b57c3fa",
+  "authoring_source_sha256": "cb568c8b9da3edcc99ce4bf21735bfeed34642ee6494dc598b703fb7db8aa60b",
+  "records": 7383,
+  "scope": "Explicit plural counterparts for 26 already assessed everyday noun concepts across all 110 directions in aggregate. No whole-message reference permission.",
+  "decisions": {
+    "meaning": "The listed forms denote plural friends, phones, houses, schools, offices, meetings, buses, trains, airports, hotels, doors, teachers, students, electronic messages, movies, photos, restaurants, books, cars, questions, problems, plans, bags, years, weeks and months. Existing assessed sense identities are reused exactly. Counterpart occurrence is an alignment constraint, not an independent proof of semantic equivalence.",
+    "usage": "Only complete uniquely located counterparts from the actual local translation are eligible. Surrounding articles, pronouns, possession, negation and grammar stay unchanged. Arabic attached articles, case endings and possession are not inferred. Chinese, Japanese, Korean and some Swahili nouns may leave number unmarked; those explicitly listed forms are allowed as counterparts, without a general morphology rule.",
+    "source_exclusions": "Retain the Chinese question/problem exclusion. Withhold ambiguous Arabic كتب, صور, خطط and أشهر as sources. Also withhold English books, plans, trains, schools, houses, questions and emails as broad source units because their written forms can act as verbs. They remain targets. Their positive source noun uses require separately assessed context; existing exact sentence mappings are untouched.",
+    "readings": "Each non-Roman target has a practical Latin reading. An exact native form plus identical assessed meaning can reuse the single existing reading from pinned bundle 016. This prevents a second romanization convention for an unchanged approved form. All baseline database hashes are checked; ambiguous baseline readings reject generation. No cross-sense reading is borrowed. Native scripts remain the speech input; no acoustic acceptance is implied.",
+    "provenance": "Project-authored explicit everyday plural forms. No evaluation utterance, unapproved dictionary row, inferred stem or statistical model supplies forms. The existing 26 concepts determine priority.",
+    "whole_references": "All carriers set whole_reference:false. Preserve all 12,575 existing references and 410 sentence readings unchanged; noun lists must not become sentence translations.",
+    "qualification": "Preflight merge finds no source-meaning or reading conflicts. Require static hash/reference preservation, native catalog and complete-plural regressions, then fresh aggregate coverage. Author assessment is not independent linguistic precision or majority-conversation coverage. Release remains withheld."
+  },
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","context_frame_scope":"pass","lexical_unit_scope":"pass","provenance":"pass"},
+  "release_ready": false
+}

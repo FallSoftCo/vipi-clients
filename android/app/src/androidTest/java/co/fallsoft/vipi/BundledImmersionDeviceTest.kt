@@ -93,8 +93,8 @@ class BundledImmersionDeviceTest {
                 }
             } finally { check(temporary.delete()) }
         }
-        assertEquals(21582,units)
-        assertEquals(592,unchanged)
+        assertEquals(28965,units)
+        assertEquals(708,unchanged)
         val shared=catalog.result("Send the phone number.","Tuma nambari ya simu.","en","sw",1.0)
         assertEquals("Send the nambari ya simu.",shared.speech("en","sw").joinToString(""){it.text})
         for((left,right) in listOf("phone numbers." to "nambari ya simu.","phone number." to "ufunguo wa mlango.",
@@ -116,7 +116,7 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-015.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-016.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))
@@ -141,6 +141,10 @@ class BundledImmersionDeviceTest {
             assertTrue("Do not borrow a different number or ambiguous source noun: $source:$left", rejected.spans.isEmpty())
         }
         assertNull("A noun carrier is not a whole-sentence translation", catalog.reference("children.", "en", "sw"))
+        assertEquals("I met my marafiki.", catalog.result("I met my friends.", "Nilikutana na marafiki zangu.", "en", "sw", 1.0).speech("en", "sw").joinToString("") { it.text })
+        assertEquals("books vyetu viko hapa.", catalog.result("Vitabu vyetu viko hapa.", "Our books are here.", "sw", "en", 1.0).speech("sw", "en").joinToString("") { it.text })
+        assertTrue(catalog.result("Vitabu.", "Book.", "sw", "en", 1.0).spans.isEmpty())
+        assertTrue(catalog.result("She books it.", "Anaweka nafasi; vitabu viko hapa.", "en", "sw", 1.0).spans.isEmpty())
     }
     @Test fun shortGreetingsAndNamesakeUseLocalReferencesInBothDirections() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
