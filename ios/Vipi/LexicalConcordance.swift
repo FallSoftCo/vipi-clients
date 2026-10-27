@@ -9,12 +9,12 @@ enum LexicalConcordance {
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
         let start:Int,end:Int,number:Int,mode:Int
-        let sourceSafe:Bool,targetSafe:Bool;let features:Set<String>
+        let sourceSafe:Bool,targetSafe:Bool;let features:Set<String>;let proper:Bool,grammar:Bool
     }
     private struct Term {let sense:String,reading:String;let eligible:Bool,explicit:Bool}
     private struct Side {
         let windows:[String:[NSRange]],forms:[String:[Form]],terms:[String:[Term]]
-        let blocked:Set<String>,targetBlocked:Set<String>,guards:Set<String>,inventory:String,release:String
+        let blocked:Set<String>,targetBlocked:Set<String>,names:Set<String>,guards:Set<String>,inventory:String,release:String
     }
     private static func key(_ value:String)->String {ImmersionEngine.lookupKey(value)}
     private static func marks(_ count:Int)->String {Array(repeating:"?",count:count).joined(separator:",")}
@@ -49,18 +49,19 @@ enum LexicalConcordance {
         guard let raw=ReviewedFrameLookup.windows(text,language:language) else {return nil}
         var windows:[String:[NSRange]]=[:]
         for (written,ranges) in raw {windows[key(written),default:[]]+=ranges}
-        var forms:[String:[Form]]=[:],blocked=Set<String>(),guards=Set<String>(),targetBlocked=Set<String>(),count=0
+        var forms:[String:[Form]]=[:],blocked=Set<String>(),guards=Set<String>(),targetBlocked=Set<String>(),names=Set<String>(),count=0
         let inputs=windows.keys.sorted()
         for start in stride(from:0,to:inputs.count,by:200) {
             let batch=Array(inputs[start..<min(inputs.count,start+200)])
-            for r in try query(db,"SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features FROM surfaces s JOIN lexemes l ON l.id=s.lexeme WHERE s.normalized IN (\(marks(batch.count))) ORDER BY s.normalized,s.lexeme",batch,limit:16384-count) {
+            for r in try query(db,"SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,COALESCE(g.reason,''),COALESCE(g.target_blocked,0) FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (\(marks(batch.count))) ORDER BY s.normalized,s.lexeme",batch,limit:16384-count) {
                 count+=1
                 guard let a=Int(r[3]),let b=Int(r[4]),let n=Int(r[5]),let m=Int(r[6]) else {throw VocabularyPackError.invalid}
-                let form=Form(key:r[0],lexeme:r[1],written:r[2],start:a,end:b,number:n,mode:m,sourceSafe:r[7]=="1",targetSafe:r[8]=="1",features:Set(try JSONDecoder().decode([String].self,from:Data(r[9].utf8))))
+                let form=Form(key:r[0],lexeme:r[1],written:r[2],start:a,end:b,number:n,mode:m,sourceSafe:r[7]=="1",targetSafe:r[8]=="1",features:Set(try JSONDecoder().decode([String].self,from:Data(r[9].utf8))),proper:["name","proper-noun","proper_noun"].contains(r[10]),grammar:["pron","det","prep","postp","conj","particle","article","aux"].contains(r[10]) || r[11]=="grammar" || r[12]=="1")
                 if forms[r[0],default:[]].count<256 {forms[r[0],default:[]].append(form)} else {blocked.insert(r[0]);targetBlocked.insert(r[0])}
             }
-            for r in try query(db,"SELECT normalized,blocked,target_blocked,protect_inner FROM guards WHERE normalized IN (\(marks(batch.count)))",batch,limit:200) {
+            for r in try query(db,"SELECT normalized,blocked,target_blocked,protect_inner,reason FROM guards WHERE normalized IN (\(marks(batch.count)))",batch,limit:200) {
                 if r[1]=="1" {blocked.insert(r[0])};if r[2]=="1" {targetBlocked.insert(r[0])};if r[3]=="1" {guards.insert(r[0])}
+                if r[4]=="name" {names.insert(r[0])}
             }
         }
         let ids=Set(forms.values.flatMap{$0}.map(\.lexeme)).sorted()
@@ -71,7 +72,7 @@ enum LexicalConcordance {
                 count+=1;terms[r[0],default:[]].append(Term(sense:r[1],reading:r[2],eligible:r[3]=="1",explicit:r[4]=="1"))
             }
         }
-        return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,guards:guards,inventory:inventory,release:release)
+        return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release)
     }
     private static func shape(_ form:Form)->[Int] {
         [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
@@ -120,7 +121,70 @@ enum LexicalConcordance {
                 !subjects.contains(where:{(text as NSString).substring(with:whole).lowercased()==$0+" "+carrier})
         }}
     }
-    static func entries(leftDB:OpaquePointer,rightDB:OpaquePointer,original:String,translation:String,source:String,target:String,diagnostic:(String)->Void={_ in}) throws -> [VocabularyEntry] {
+    private static func contextualEntries(left:Side,right:Side,db:OpaquePointer,original:String,translation:String,source:String,target:String,
+        strict:[VocabularyEntry],diagnostic:(String)->Void) throws -> [VocabularyEntry] {
+        var targetKeys=Set<String>()
+        for (word,forms) in right.forms {for form in forms {for carrier in right.windows[word,default:[]] {
+            if let range=focus(form,range:carrier,text:translation) {targetKeys.insert(key((translation as NSString).substring(with:range)))}
+        }}}
+        guard let evidence=try ContextWitnessLookup.load(db,original:original,source:source,target:target,release:left.release,sources:Set(left.forms.keys),targets:targetKeys) else {return []}
+        let needsReading=["ar","zh","ja","ko"].contains(target)
+        struct Claim:Hashable {let range:NSRange,reading:String}
+        var output:[VocabularyEntry]=[]
+        for word in left.forms.keys.sorted() {
+            let forms=left.forms[word,default:[]]
+            guard !left.targetBlocked.contains(word),!forms.contains(where:{$0.grammar}) else {continue}
+            for carrier in Set(left.windows[word,default:[]]) {
+                guard !protected(left,range:carrier),!strict.contains(where:{ e in
+                    guard let scope=e.sourceScope else {return false}
+                    return scope.start<NSMaxRange(carrier) && carrier.location<scope.end
+                }) else {continue}
+                let actual=(original as NSString).substring(with:carrier)
+                if left.blocked.contains(word) {
+                    let proper=forms.filter(\.proper)
+                    guard left.names.contains(word),actual.first?.isLowercase==true,!proper.isEmpty,
+                        proper.allSatisfy({$0.written.first?.isUppercase==true}) else {continue}
+                }
+                let usable=forms.filter{$0.targetSafe && (1...2).contains($0.mode) && key(actual)==key($0.written) &&
+                    actual.first?.isUppercase==$0.written.first?.isUppercase}
+                var claims=Set<Claim>()
+                for form in usable {
+                    let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
+                    if meanings.isEmpty {continue}
+                    let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
+                    for other in right.forms.keys.sorted() {
+                        guard !right.targetBlocked.contains(other) else {continue}
+                        let targets=right.forms[other,default:[]]
+                        let readings=Set(targets.flatMap{right.terms[$0.lexeme,default:[]]}.map(\.reading).filter{!$0.isEmpty})
+                        if needsReading && readings.count != 1 {continue}
+                        for candidate in Set(targets) {
+                            guard candidate.targetSafe,(1...3).contains(candidate.mode),candidate.number==form.number,
+                                  right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
+                            for targetCarrier in Set(right.windows[other,default:[]]) {
+                                guard !protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features),
+                                    targetCaseMatches(candidate,range:targetCarrier,text:translation),let targetFocus=focus(candidate,range:targetCarrier,text:translation) else {continue}
+                                if strict.contains(where:{ e in
+                                    guard let scope=e.targetScope else {return false}
+                                    return scope.start<NSMaxRange(targetFocus) && targetFocus.location<scope.end
+                                }) {continue}
+                                if evidence.supports(word:key(actual),counterpart:key((translation as NSString).substring(with:targetFocus)),focus:carrier,text:original,windows:left.windows) {
+                                    claims.insert(Claim(range:targetFocus,reading:needsReading ? readings.first! : ""))
+                                }
+                            }
+                        }
+                    }
+                }
+                guard claims.count==1,let claim=claims.first else {continue}
+                let targetText=(translation as NSString).substring(with:claim.range)
+                diagnostic("context_witness_candidate")
+                output.append(VocabularyEntry(source:actual,targets:[targetText],romanizations:needsReading ? [targetText:[claim.reading]] : [:],
+                    sourceScope:VocabularySourceScope(original:original,start:carrier.location,end:NSMaxRange(carrier)),
+                    targetScope:VocabularyTargetScope(translation:translation,start:claim.range.location,end:NSMaxRange(claim.range))))
+            }
+        }
+        return output
+    }
+    static func entries(leftDB:OpaquePointer,rightDB:OpaquePointer,original:String,translation:String,source:String,target:String,witnessDB:OpaquePointer?=nil,diagnostic:(String)->Void={_ in}) throws -> [VocabularyEntry] {
         guard original.utf16.count<=16384,translation.utf16.count<=32768,source != target else {return []}
         do {
             guard let left=try load(leftDB,text:original,language:source),let right=try load(rightDB,text:translation,language:target) else {return []}
@@ -168,6 +232,7 @@ enum LexicalConcordance {
                         targetScope:VocabularyTargetScope(translation:translation,start:claim.range.location,end:NSMaxRange(claim.range))))
                 }
             }
+            if let witnessDB {output += try contextualEntries(left:left,right:right,db:witnessDB,original:original,translation:translation,source:source,target:target,strict:output,diagnostic:diagnostic)}
             return output
         } catch Limit.overflow {diagnostic("query_overflow");return []}
     }

@@ -1,8 +1,9 @@
 # Broad lexical coverage
 
-Latest checkpoint: native run 007 passes on Android and the physical iPad with
-data revision 006. All 110 dictionary-probe directions produce selected spans.
-The full context expansion now contains 7,446,251 candidate alignments; see
+Latest checkpoint: native run 012 passes on Android and the physical iPad with
+data revision 006 and contextual witnesses 002. Fresh reserved run 013 also
+passes native mechanics on 8,410 reference pairs across 102 directions.
+The full context expansion contains 7,446,251 candidate alignments; see
 [the context pipeline](LEXICAL_CONTEXT_PIPELINE.md). Neither inventory size nor
 passing mechanics establishes majority conversation coverage.
 

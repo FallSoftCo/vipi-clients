@@ -31,12 +31,22 @@ class LexicalCoverageDeviceTest {
             return digest.digest().joinToString(""){"%02x".format(it)}
         }
         val databases=mutableMapOf<String,SQLiteDatabase>()
+        var witnessDB:SQLiteDatabase?=null
         val output=File(context.filesDir,"lexical-coverage-$revision.json");check(!output.exists())
         val failures=JSONArray();val outcomes=JSONArray();val report=JSONObject().put("schema","vipi-lexical-coverage-1")
             .put("run",revision).put("fixture",fixture).put("manifest_sha256",sha(File(root,"manifest.json"))).put("platform","android")
             .put("translation_reused",true).put("classification_exercised",false)
             .put("independent_semantic_acceptance",false).put("outcomes",outcomes)
         try {
+            args.getString("vipiWitnessSha")?.let { expected ->
+                require(expected.matches(Regex("[0-9a-f]{64}")))
+                val witnessRevision=args.getString("vipiWitnessRevision") ?: "001"
+                require(witnessRevision.matches(Regex("[0-9]{3}")))
+                val file=File(context.filesDir,"context-witnesses-$witnessRevision.sqlite")
+                check(sha(file)==expected)
+                witnessDB=SQLiteDatabase.openDatabase(file.path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
+                report.put("witness_sha256",expected).put("witness_revision",witnessRevision)
+            }
             val shards=manifest.getJSONArray("shards")
             for(i in 0 until shards.length()) {
                 val value=shards.getJSONObject(i);val language=value.getString("language")
@@ -45,6 +55,24 @@ class LexicalCoverageDeviceTest {
                 databases[language]=SQLiteDatabase.openDatabase(file.path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
             }
             val input=File(root,"cases.json");assertEquals(manifest.getString("cases_sha256"),sha(input))
+            witnessDB?.let { witness ->
+                val original="I was happy when she arrived."
+                fun windows(text:String)=requireNotNull(ReviewedFrameLookup.windows(text,"en")).mapKeys{co.fallsoft.vipi.core.ImmersionEngine.lookupKey(it.key)}
+                val release=databases.getValue("en").rawQuery("SELECT value FROM metadata WHERE key='release_id'",null).use { c -> check(c.moveToFirst());org.json.JSONTokener(c.getString(0)).nextValue() as String }
+                val evidence=requireNotNull(ContextWitnessLookup.load(witness,original,"en","es",release,setOf("when"),setOf("cuando")))
+                assertTrue(evidence.supports("when","cuando",12 until 16,original,windows(original)))
+                val separated="I was happy. when she arrived."
+                assertFalse(requireNotNull(ContextWitnessLookup.load(witness,separated,"en","es",release,setOf("when"),setOf("cuando"))).supports("when","cuando",13 until 17,separated,windows(separated).filterKeys{it=="was"}))
+                val entries=LexicalConcordance.entries(databases.getValue("en"),databases.getValue("es"),original,"Estaba feliz cuando ella llegó.","en","es",witness)
+                assertFalse("Context agreement must not bypass grammatical source guards",entries.any{it.source=="when"})
+                val common=LexicalConcordance.entries(databases.getValue("en"),databases.getValue("es"),"I am at my house.","Estoy en mi casa.","en","es",witness)
+                assertTrue("A differently capitalized surname must not erase a corroborated common word",common.any{it.source=="house" && "casa" in it.targets})
+                val name=LexicalConcordance.entries(databases.getValue("en"),databases.getValue("es"),"I spoke to House.","Hablé con Casa.","en","es",witness)
+                assertFalse("A proper name must remain protected even when the supplied translation gets it wrong",name.any{it.source=="House"})
+                val alias=LexicalConcordance.entries(databases.getValue("zh"),databases.getValue("en"),"今晚放假了，有什么节目啊？","Tonight, have a holiday, what is the show?","zh","en",witness)
+                assertFalse("Alternate-script grammatical analyses must remain visible",alias.any{it.source=="什么"})
+                report.put("context_guard_checks",true)
+            }
             val cases=JSONArray(input.readText());val catalog=BundledImmersionCatalog(context)
             for(i in 0 until cases.length()) {
                 val row=cases.getJSONObject(i);val source=row.getString("source");val target=row.getString("target")
@@ -52,7 +80,7 @@ class LexicalCoverageDeviceTest {
                 val intact=TranslationIntegrity.preservesIdentifiers(original,translation)
                 val diagnostic=mutableMapOf<String,Int>()
                 val start=System.nanoTime()
-                val entries=if(intact)LexicalConcordance.entries(databases.getValue(source),databases.getValue(target),original,translation,source,target) {key->diagnostic[key]=(diagnostic[key] ?: 0)+1} else emptyList()
+                val entries=if(intact)LexicalConcordance.entries(databases.getValue(source),databases.getValue(target),original,translation,source,target,witnessDB) {key->diagnostic[key]=(diagnostic[key] ?: 0)+1} else emptyList()
                 val result=LocalImmersion.align(original,translation,entries,1.0,source,target)
                 val elapsed=(System.nanoTime()-start)/1e6
                 val previous=if(intact)catalog.result(original,translation,source,target,1.0) else null
@@ -75,6 +103,6 @@ class LexicalCoverageDeviceTest {
             }
             report.put("complete",true).put("cases",cases.length()).put("failures",failures).put("passed",failures.length()==0);output.writeText(report.toString())
             assertEquals(failures.toString(),0,failures.length())
-        } finally {databases.values.forEach{it.close()}}
+        } finally {witnessDB?.close();databases.values.forEach{it.close()}}
     }
 }

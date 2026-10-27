@@ -6,6 +6,14 @@ Every gate needs a retained command/build/device receipt. A screenshot proves ap
 
 ## Current verified state — 2026-10-27
 
+Broad expansion now includes 1.586 GB of native dictionary shards and 300 MB
+of contextual witnesses (1,447,899 rules). Android and physical iPad run 012
+pass 15,342 diagnostic cases. Fresh reserved run 013 passes 8,410 reference
+pairs across 102 directions: separate-path availability rises from 15.92% to
+35.21% on Android and 16.18% to 35.67% on iPad. This is not an integrated app
+result, majority conversation coverage or independent meaning acceptance.
+The default remains bundle 022. See CONTEXT_WITNESS_QUALIFICATION.md.
+
 Bundle 022 has 55,786 author-assessed records, 41,251 lexical units, 14,529 whole references and 423 exact readings. Latest Android catalog 021 passes seven tests; physical iPad 021 passes eight. Complete parity trace 004 agrees on all 14,529 authored references, with 14,986 identical selected spans. The prior full bundle 021 suites also pass. Short replies flip continuously with fixed geometry on both platforms, including both Swahili language roles on the physical iPad at AccessibilityXXXL. AfriWOZ availability is 52.70%; spontaneous Swahili remains 3.82% automatic / 7.91% explicitly selected. Seven-source replay availability is 18.08% SMS, 44.81% booking and 21.30% persona. The last two Korean–Chinese authored reference differences are resolved by explicit combined carriers. These are diagnostic availability results, not independent precision or majority conversational coverage. See the latest verification entry for exact versions, hashes and remaining limits.
 
 Previous catalog checkpoint: bundle 015, 27,959 author-assessed records, 16,036 complete lexical units and 12,575 exact references across all 110 directions, including Swahili. Android catalog 013 and physical iPad 014 pass; all prior references remain unchanged. Both clients verify 410 exact whole-sentence readings. iPhone full chat 044 and physical iPad 009 each pass eleven tests; Android chat 010 passes three. New long-greeting wrapping is separately qualified on iPhone 046, iPad 011 and Android, with 110-direction layout matrices on both platforms. AfriWOZ availability rises to 693/2,410 cases; spontaneous Swahili remains 23 automatic / 50 explicit cases out of 1,910. Broad coverage, independent precision, VoiceOver interaction and speech listening acceptance remain open. The verification ledger records exact versions and does not equate authored catalog size with general-chat coverage.

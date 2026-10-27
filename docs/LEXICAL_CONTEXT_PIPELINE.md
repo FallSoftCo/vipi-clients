@@ -1,8 +1,10 @@
 # Bulk lexical context pipeline
 
 This is the 2026-10-27 data expansion for consumer Vipi. The default app bundle
-is still 022. Broad lexical shards have native QA evidence; the newly mined
-contexts are **candidate evidence, not accepted runtime mappings**.
+is still 022. Broad lexical shards and contextual witnesses now have native QA
+evidence; these remain **experimental evidence, not accepted runtime mappings**.
+See [native context qualification](CONTEXT_WITNESS_QUALIFICATION.md) for the
+1.45-million-rule build and fresh reserved evaluation.
 
 ## Completed build
 
@@ -63,8 +65,9 @@ source identities in `senses`, attributed text in `sentences`, and direct-pair
 correspondences in `alignments`. This avoids repeating every possible sense at
 every occurrence. Full-text search supports authoring and inspection.
 This authoring database uses FTS5; it is **not a qualified Android/iOS download
-format**. The separately tested native lexical shards use ordinary SQLite
-indexes. A runtime context format and selector still need qualification.
+format**. The separately tested native lexical shards and contextual witness
+payload use ordinary SQLite indexes. Native mechanics are qualified separately
+from semantic acceptance and production installation.
 
 The deterministic 16-row English–Spanish pilot review found useful written
 word correspondences but also dictionary labels that were wrong or unproven

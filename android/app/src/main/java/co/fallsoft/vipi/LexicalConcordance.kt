@@ -9,10 +9,10 @@ import org.json.JSONArray
 internal object LexicalConcordance {
     private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4")
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
-        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>)
+        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val proper:Boolean,val grammar:Boolean)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean)
     private data class Side(val windows:Map<String,List<IntRange>>,val forms:Map<String,List<Form>>,
-        val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val guards:Set<String>,val inventory:String,val release:String)
+        val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String)
     private class Overflow:Exception()
     private fun key(value:String)=ImmersionEngine.lookupKey(value)
     private fun marks(count:Int)=List(count){"?"}.joinToString(",")
@@ -28,19 +28,19 @@ internal object LexicalConcordance {
         val raw=ReviewedFrameLookup.windows(text,language) ?: return null
         val windows=linkedMapOf<String,MutableList<IntRange>>()
         for((written,ranges) in raw)windows.getOrPut(key(written)){mutableListOf()}.addAll(ranges)
-        val forms=linkedMapOf<String,MutableList<Form>>();val blocked=mutableSetOf<String>();val guards=mutableSetOf<String>();val targetBlocked=mutableSetOf<String>()
+        val forms=linkedMapOf<String,MutableList<Form>>();val blocked=mutableSetOf<String>();val guards=mutableSetOf<String>();val targetBlocked=mutableSetOf<String>();val names=mutableSetOf<String>()
         var count=0
         for(batch in windows.keys.sorted().chunked(200)) {
-            db.rawQuery("SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features FROM surfaces s JOIN lexemes l ON l.id=s.lexeme WHERE s.normalized IN (${marks(batch.size)}) ORDER BY s.normalized,s.lexeme",batch.toTypedArray()).use { c ->
+            db.rawQuery("SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,g.reason,COALESCE(g.target_blocked,0) FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (${marks(batch.size)}) ORDER BY s.normalized,s.lexeme",batch.toTypedArray()).use { c ->
                 while(c.moveToNext()) {
                     count++;if(count>16384)throw Overflow()
-                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()})
+                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()},c.getString(10) in setOf("name","proper-noun","proper_noun"),c.getString(10) in setOf("pron","det","prep","postp","conj","particle","article","aux") || c.getString(11)=="grammar" || c.getInt(12)==1)
                     val values=forms.getOrPut(form.key){mutableListOf()}
                     if(values.size<256)values+=form else {blocked+=form.key;targetBlocked+=form.key}
                 }
             }
-            db.rawQuery("SELECT normalized,blocked,target_blocked,protect_inner FROM guards WHERE normalized IN (${marks(batch.size)})",batch.toTypedArray()).use { c ->
-                while(c.moveToNext()) {if(c.getInt(1)==1)blocked+=c.getString(0);if(c.getInt(2)==1)targetBlocked+=c.getString(0);if(c.getInt(3)==1)guards+=c.getString(0)}
+            db.rawQuery("SELECT normalized,blocked,target_blocked,protect_inner,reason FROM guards WHERE normalized IN (${marks(batch.size)})",batch.toTypedArray()).use { c ->
+                while(c.moveToNext()) {if(c.getInt(1)==1)blocked+=c.getString(0);if(c.getInt(2)==1)targetBlocked+=c.getString(0);if(c.getInt(3)==1)guards+=c.getString(0);if(c.getString(4)=="name")names+=c.getString(0)}
             }
         }
         val terms=linkedMapOf<Long,MutableList<Term>>()
@@ -53,7 +53,7 @@ internal object LexicalConcordance {
                 }
             }
         }
-        return Side(windows,forms,terms,blocked,targetBlocked,guards,inventory,release)
+        return Side(windows,forms,terms,blocked,targetBlocked,names,guards,inventory,release)
     }
     private fun shape(form:Form)=listOf(
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
@@ -102,7 +102,65 @@ internal object LexicalConcordance {
                 subjects.none{subject->text.substring(whole).lowercase()=="$subject $carrier"}
         }}
     }
-    fun entries(leftDB:SQLiteDatabase,rightDB:SQLiteDatabase,original:String,translation:String,source:String,target:String,diagnostic:(String)->Unit={}):List<VocabularyEntry> {
+    private fun contextualEntries(left:Side,right:Side,db:SQLiteDatabase,original:String,translation:String,source:String,target:String,
+        strict:List<VocabularyEntry>,diagnostic:(String)->Unit):List<VocabularyEntry> {
+        val targetKeys=right.forms.flatMap { (word,forms) -> forms.flatMap { form ->
+            right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{key(translation.substring(it))} }
+        }}.toSet()
+        val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,left.forms.keys,targetKeys) ?: return emptyList()
+        val needsReading=target in setOf("ar","zh","ja","ko")
+        data class Claim(val range:IntRange,val reading:String)
+        val output=mutableListOf<VocabularyEntry>()
+        for((word,forms) in left.forms) {
+            // Hard grammar, truncated inventories, names and unattested stems
+            // cannot become acceptable merely through frequent co-occurrence.
+            if(word in left.targetBlocked || forms.any{it.grammar})continue
+            for(carrier in left.windows[word].orEmpty().distinct()) {
+                if(containedInKnownWord(left,carrier) || strict.any { e -> e.sourceScope?.let{it.start<carrier.last+1 && carrier.first<it.end}==true })continue
+                val actual=original.substring(carrier)
+                if(word in left.blocked) {
+                    val proper=forms.filter{it.proper}
+                    // Keep explicit case evidence: lowercase "house" does not
+                    // match the published surname "House". Same-case names,
+                    // grammar, unknown analyses and overflow still abstain.
+                    if(word !in left.names || actual.firstOrNull()?.isLowerCase()!=true || proper.isEmpty() ||
+                        proper.any{it.written.firstOrNull()?.isUpperCase()!=true})continue
+                }
+                val usable=forms.filter{it.targetSafe && it.mode in 1..2 && key(actual)==key(it.written) &&
+                    actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
+                val claims=mutableSetOf<Claim>()
+                for(form in usable) {
+                    val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                    if(meanings.isEmpty())continue
+                    val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
+                    for((other,targets) in right.forms) {
+                        if(other in right.targetBlocked)continue
+                        val readings=targets.flatMap{right.terms[it.lexeme].orEmpty()}.map{it.reading}.filter{it.isNotEmpty()}.distinct()
+                        if(needsReading && readings.size!=1)continue
+                        for(candidate in targets.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}) {
+                            if(!candidate.targetSafe || candidate.mode !in 1..3 || candidate.number!=form.number ||
+                                right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
+                            for(targetCarrier in right.windows[other].orEmpty().distinct()) {
+                                if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue
+                                val targetFocus=focus(candidate,targetCarrier,translation) ?: continue
+                                if(strict.any { e -> e.targetScope?.let{it.start<targetFocus.last+1 && targetFocus.first<it.end}==true })continue
+                                if(evidence.supports(key(actual),key(translation.substring(targetFocus)),carrier,original,left.windows))
+                                    claims+=Claim(targetFocus,if(needsReading)readings.single() else "")
+                            }
+                        }
+                    }
+                }
+                val claim=claims.singleOrNull() ?: continue
+                val targetText=translation.substring(claim.range)
+                diagnostic("context_witness_candidate")
+                output+=VocabularyEntry(actual,listOf(targetText),if(needsReading)mapOf(targetText to listOf(claim.reading)) else emptyMap(),
+                    sourceScope=VocabularySourceScope(original,carrier.first,carrier.last+1),
+                    targetScope=VocabularyTargetScope(translation,claim.range.first,claim.range.last+1))
+            }
+        }
+        return output.distinct()
+    }
+    fun entries(leftDB:SQLiteDatabase,rightDB:SQLiteDatabase,original:String,translation:String,source:String,target:String,witnessDB:SQLiteDatabase?=null,diagnostic:(String)->Unit={}):List<VocabularyEntry> {
         if(original.length>16384 || translation.length>32768 || source==target)return emptyList()
         try {
             val left=load(leftDB,original,source) ?: return emptyList()
@@ -152,6 +210,7 @@ internal object LexicalConcordance {
                         targetScope=VocabularyTargetScope(translation,claim.range.first,claim.range.last+1))
                 }
             }
+            if(witnessDB!=null)output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,diagnostic)
             return output.distinct()
         } catch(_:Overflow) {diagnostic("query_overflow");return emptyList()}
     }

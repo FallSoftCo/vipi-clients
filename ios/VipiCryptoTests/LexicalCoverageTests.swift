@@ -24,8 +24,18 @@ final class LexicalCoverageTests:XCTestCase {
         let documents=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
         let config=try String(contentsOf:documents.appendingPathComponent("lexical-qa-run.txt"),encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
         let parts=config.split(whereSeparator:{$0.isWhitespace}).map(String.init)
-        guard (1...2).contains(parts.count) else {throw VocabularyPackError.invalid}
-        let run=parts[0],fixture=parts.last!
+        guard (1...4).contains(parts.count) else {throw VocabularyPackError.invalid}
+        let run=parts[0],fixture=parts.count>1 ? parts[1] : parts[0]
+        let witnessSHA=parts.count>=3 ? parts[2] : nil
+        let witnessRevision=parts.count==4 ? parts[3] : "001"
+        var witnessDB:OpaquePointer?
+        defer {if let witnessDB {sqlite3_close(witnessDB)}}
+        if let witnessSHA {
+            guard witnessSHA.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil,witnessRevision.range(of:"^[0-9]{3}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
+            let file=documents.appendingPathComponent("context-witnesses-"+witnessRevision+".sqlite")
+            guard try sha(file)==witnessSHA else {throw VocabularyPackError.invalid}
+            guard sqlite3_open_v2(file.path,&witnessDB,SQLITE_OPEN_READONLY|SQLITE_OPEN_NOMUTEX,nil)==SQLITE_OK,witnessDB != nil else {throw VocabularyPackError.storage}
+        }
         guard fixture.range(of:"^[0-9]{3}$",options:.regularExpression) != nil,run.range(of:"^[0-9]{3}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         let root=documents.appendingPathComponent("lexical-qualification-"+fixture)
         let manifest=try JSONDecoder().decode(Manifest.self,from:Data(contentsOf:root.appendingPathComponent("manifest.json")))
@@ -57,6 +67,36 @@ final class LexicalCoverageTests:XCTestCase {
         #endif
         var report:[String:Any] = ["schema":"vipi-lexical-coverage-1","run":run,"fixture":fixture,"manifest_sha256":try sha(root.appendingPathComponent("manifest.json")),
             "platform":platform,"translation_reused":true,"classification_exercised":false,"independent_semantic_acceptance":false]
+        if let witnessSHA {report["witness_sha256"]=witnessSHA;report["witness_revision"]=witnessRevision}
+        if let witnessDB {
+            let original="I was happy when she arrived."
+            func windows(_ text:String) throws -> [String:[NSRange]] {
+                let values=try XCTUnwrap(ReviewedFrameLookup.windows(text,language:"en"))
+                return Dictionary(values.map{(ImmersionEngine.lookupKey($0.key),$0.value)},uniquingKeysWith:+)
+            }
+            // The supplied reference genuinely supports the word pair. Source
+            // grammar and sentence boundaries must still overrule that cue.
+            var statement:OpaquePointer?
+            guard sqlite3_prepare_v2(try XCTUnwrap(databases["en"]),"SELECT value FROM metadata WHERE key='release_id'",-1,&statement,nil)==SQLITE_OK else {throw VocabularyPackError.storage}
+            defer {sqlite3_finalize(statement)}
+            guard sqlite3_step(statement)==SQLITE_ROW,let raw=sqlite3_column_text(statement,0) else {throw VocabularyPackError.invalid}
+            let release=try JSONDecoder().decode(String.self,from:Data(String(cString:raw).utf8))
+            let evidence=try XCTUnwrap(ContextWitnessLookup.load(witnessDB,original:original,source:"en",target:"es",release:release,sources:["when"],targets:["cuando"]))
+            XCTAssertTrue(evidence.supports(word:"when",counterpart:"cuando",focus:NSRange(location:12,length:4),text:original,windows:try windows(original)))
+            let separated="I was happy. when she arrived."
+            let separatedEvidence=try XCTUnwrap(ContextWitnessLookup.load(witnessDB,original:separated,source:"en",target:"es",release:release,sources:["when"],targets:["cuando"]))
+            XCTAssertFalse(separatedEvidence.supports(word:"when",counterpart:"cuando",focus:NSRange(location:13,length:4),text:separated,windows:try windows(separated).filter{$0.key=="was"}))
+            let entries=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases["en"]),rightDB:try XCTUnwrap(databases["es"]),original:original,translation:"Estaba feliz cuando ella llegó.",source:"en",target:"es",witnessDB:witnessDB)
+            XCTAssertFalse(entries.contains{$0.source=="when"},"Context agreement must not bypass grammatical source guards")
+            let common=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases["en"]),rightDB:try XCTUnwrap(databases["es"]),original:"I am at my house.",translation:"Estoy en mi casa.",source:"en",target:"es",witnessDB:witnessDB)
+            XCTAssertTrue(common.contains{$0.source=="house" && $0.targets.contains("casa")},"A differently capitalized surname must not erase a corroborated common word")
+            let name=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases["en"]),rightDB:try XCTUnwrap(databases["es"]),original:"I spoke to House.",translation:"Hablé con Casa.",source:"en",target:"es",witnessDB:witnessDB)
+            XCTAssertFalse(name.contains{$0.source=="House"},"A proper name must remain protected even when the supplied translation gets it wrong")
+            let alias=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases["zh"]),rightDB:try XCTUnwrap(databases["en"]),original:"今晚放假了，有什么节目啊？",translation:"Tonight, have a holiday, what is the show?",source:"zh",target:"en",witnessDB:witnessDB)
+            XCTAssertFalse(alias.contains{$0.source=="什么"},"Alternate-script grammatical analyses must remain visible")
+            guard !entries.contains(where:{$0.source=="when"}),common.contains(where:{$0.source=="house" && $0.targets.contains("casa")}),!name.contains(where:{$0.source=="House"}),!alias.contains(where:{$0.source=="什么"}) else {throw VocabularyPackError.invalid}
+            report["context_guard_checks"]=true
+        }
         func save() throws {
             report["outcomes"]=outcomes
             try JSONSerialization.data(withJSONObject:report,options:[.sortedKeys]).write(to:output,options:.atomic)
@@ -68,7 +108,7 @@ final class LexicalCoverageTests:XCTestCase {
             let entries:[VocabularyEntry]
             if intact {
                 entries=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases[row.source]),rightDB:try XCTUnwrap(databases[row.target]),
-                    original:row.original,translation:row.translation,source:row.source,target:row.target,diagnostic:{diagnostic[$0,default:0]+=1})
+                    original:row.original,translation:row.translation,source:row.source,target:row.target,witnessDB:witnessDB,diagnostic:{diagnostic[$0,default:0]+=1})
             } else {entries=[]}
             let result=LocalImmersion.align(original:row.original,translation:row.translation,entries:entries,density:1,source:row.source,target:row.target)
             let elapsed=start.duration(to:.now).components
