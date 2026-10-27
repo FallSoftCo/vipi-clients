@@ -71,7 +71,7 @@ def sentence_hits(text, language, automaton, forms):
         actual = text.encode('utf-16-le')[start*2:end*2].decode('utf-16-le')
         if lookup_key(actual, language) != word:
             continue
-        result.add((form_id,start,end))
+        result.add((form_id,start,end,actual))
     return sorted(result)
 
 
@@ -81,18 +81,19 @@ def load_lexicon(shard, language, sense_ids, output):
         FROM terms t JOIN senses s ON s.id=t.sense WHERE t.eligible=1 ORDER BY t.lexeme,t.sense,t.reading'''):
         terms[lexeme].append((sense_ids[sense], reading, explicit))
     by_word = defaultdict(dict)
-    # Complete attested units only. Carrier/stem evidence is kept in shards;
-    # this context miner never synthesizes a finite verb's missing meaning.
-    for word, lexeme, safe in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe
+    # Exact indexed carriers contribute only their lexical focus. Never assign
+    # the full inflected word the meaning of its noun/verb stem.
+    for word, lexeme, safe, mode, written, start, end in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe,s.mode,s.surface,s.start,s.end
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme
-        WHERE s.mode IN (1,2) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
+        WHERE s.mode IN (1,2,3) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
         if lexeme in terms:
-            by_word[word][lexeme] = (lexeme, safe, terms[lexeme])
+            if lexeme not in by_word[word]:by_word[word][lexeme] = [lexeme, safe, terms[lexeme], []]
+            by_word[word][lexeme][3].append([mode,written,start,end])
     # Retain competing native analyses, including ones without usable links.
     for word, lexeme, safe in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme ORDER BY s.normalized,s.lexeme'''):
         if word in by_word and lexeme not in by_word[word]:
-            by_word[word][lexeme] = (lexeme, safe, [])
+            by_word[word][lexeme] = [lexeme, safe, [], []]
     first_id=output.execute('SELECT coalesce(max(id),0)+1 FROM lexicon').fetchone()[0]
     forms = [(word, list(values.values()), first_id+i) for i,(word,values) in enumerate(sorted(by_word.items()))]
     output.executemany('INSERT INTO lexicon VALUES (?,?,?,?)',
@@ -107,10 +108,21 @@ def load_lexicon(shard, language, sense_ids, output):
 
 def unique_hits(payload, analyses):
     by_sense = defaultdict(set)
-    for form_id,start,end in json.loads(payload):
-        for lexeme,safe,terms in analyses(form_id):
-            for sense,reading,explicit in terms:
-                by_sense[sense].add((start,end,lexeme,safe,reading,explicit))
+    for hit in json.loads(payload):
+        form_id,start,end=hit[:3]
+        for analysis in analyses(form_id):
+            lexeme,safe,terms=analysis[:3]
+            geometries={(start,end)} if len(analysis)==3 else set()
+            for mode,written,a,b in analysis[3] if len(analysis)>3 else []:
+                if mode in (1,2):geometries.add((start,end));continue
+                actual=hit[3];encoded=actual.encode('utf-16-le')
+                if mode!=3 or actual.lower()!=written.lower() or len(encoded)!=len(written.encode('utf-16-le')) or not 0<=a<b<=len(encoded)//2:continue
+                try:encoded[2*a:2*b].decode('utf-16-le')
+                except UnicodeDecodeError:continue
+                geometries.add((start+a,start+b))
+            for a,b in geometries:
+                for sense,reading,explicit in terms:
+                    by_sense[sense].add((a,b,lexeme,safe,reading,explicit))
     return {sense: next(iter(values)) for sense, values in by_sense.items() if len(values) == 1}
 
 
@@ -122,7 +134,20 @@ def build(args):
     assert sha_file(args.corpus)==input_receipt['sha256']
     corpus = readonly(args.corpus)
     source_receipt = json.loads(corpus.execute("SELECT value FROM metadata WHERE key='receipt'").fetchone()[0])
-    assert source_receipt.get('tags_schema') == 'tag_id,sentence_id,username,added_time'
+    is_pgv=input_receipt.get('schema')=='vipi-pgv-corpus-1'
+    if is_pgv:
+        assert source_receipt['schema']==input_receipt['schema']
+        assert source_receipt['complete'] and source_receipt['direct_links_only'] and source_receipt['automatic_alignment']
+        assert not args.supplement, 'PGV uses its own duplicate/exclusion components'
+        sentence_license=source_receipt['license']
+        attribution=('Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. '
+            'Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.\n'
+            'Source: https://nlp.ilsp.gr/pgv/ . '+source_receipt['citation']+'\n')
+    else:
+        assert source_receipt.get('tags_schema') == 'tag_id,sentence_id,username,added_time'
+        sentence_license='CC BY 2.0 FR: Tatoeba sentences'
+        attribution=('Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner '
+            'and links https://tatoeba.org/en/sentences/show/{id}.\n')
     sources=[('corpus',args.corpus,corpus)]
     language_sources={r[0]:corpus for r in corpus.execute('SELECT DISTINCT language FROM sentences')}
     supplemental_receipts=[]
@@ -223,20 +248,29 @@ def build(args):
         if counts['direct_development_pairs'] % 100000 == 0:
             print(canonical(dict(stage='direct_links',counts=counts)),flush=True)
     work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit()
+    if is_pgv:
+        # Retain every source attribution and observed alignment for selected
+        # development endpoints; these scores are not accuracy probabilities.
+        work.executescript('''CREATE TABLE source_attribution AS SELECT p.* FROM corpus.attribution p JOIN sentences s ON s.id=p.sentence;
+            CREATE TABLE source_link_evidence AS SELECT p.* FROM corpus.link_evidence p
+                JOIN sentences a ON a.id=p.a JOIN sentences b ON b.id=p.b;''')
     work.execute("INSERT INTO sentence_search(sentence_search) VALUES ('rebuild')");work.commit()
     counts['distinct_aligned_senses'] = work.execute('SELECT count(DISTINCT sense) FROM alignments').fetchone()[0]
     counts['distinct_aligned_sentence_pairs'] = work.execute('SELECT count(*) FROM (SELECT a,b FROM alignments GROUP BY a,b)').fetchone()[0]
-    result = dict(schema='vipi-broad-lexical-contexts-2',counts=dict(counts),languages=per_language,pairs=dict(pair_counts),
+    result = dict(schema='vipi-broad-lexical-contexts-3',counts=dict(counts),languages=per_language,pairs=dict(pair_counts),
+        lexical_focus_policy='whole supplied units or exact UTF-16 lexical focus inside indexed carriers; no whole-inflection meaning inference',
         complete=True,pilot=bool(args.max_sentences_per_language),max_sentences_per_language=args.max_sentences_per_language,
         source_catalog_sha256=sha_file(args.shards/'catalog.json'),source_release_id=catalog['release_id'],
         corpus_receipt_sha256=sha_file(args.corpus.parent/'receipt.json'),compiler_sha256=sha_file(Path(__file__)),
         corpus_sha256=input_receipt['sha256'],
+        corpus_schema=input_receipt.get('schema','tatoeba-conversation-corpus'),
+        automatic_sentence_alignment=is_pgv,
         supplemental_receipts=supplemental_receipts,
         corpus_partition='development',reserved_sentence_text_read=False,direct_links_only=True,
         independent_semantic_acceptance=False,runtime_integrated=False,
         sense_ids_are_candidate_links=True,
         meaning='Attributed candidate concordances; co-occurrence does not establish correct sense alignment.',
-        licenses=['CC-BY-SA-4.0: dictionary evidence','CC BY 2.0 FR: Tatoeba sentences'],
+        licenses=['CC-BY-SA-4.0: dictionary evidence',sentence_license],
         dependencies=dict(pyahocorasick=importlib.metadata.version('pyahocorasick'),icu=icu.ICU_VERSION))
     work.execute('INSERT INTO metadata VALUES (?,?)',('receipt',canonical(result)));work.commit()
     assert work.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
@@ -245,7 +279,7 @@ def build(args):
     result.update(bytes=context_path.stat().st_size,sha256=sha_file(context_path),seconds=round(time.monotonic()-started,2))
     write_json(args.output/'receipt.json',result)
     (args.output/'ATTRIBUTION.txt').write_text('Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.\n'
-        'Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.\n'
+        +attribution+
         'Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.\n'
         'Generated candidates have not been independently accepted for runtime use.\n')
     print(canonical(result),flush=True)

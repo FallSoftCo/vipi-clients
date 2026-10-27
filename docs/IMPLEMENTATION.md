@@ -1,5 +1,7 @@
 # Implementation sequence and release gates
 
+Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
+
 Latest qualified catalog: bundle 022. Android and physical iPad native catalog suites pass, including Swahili, all 110 directions, exact readings and finite attachments. Both language pickers pass twelve unfiltered physical iPad audits. Actual VoiceOver, speech listening quality, independent meaning accuracy and majority conversational coverage remain open.
 
 Every gate needs a retained command/build/device receipt. A screenshot proves appearance, not encryption, billing or delivery correctness. No store submission until the release-blocking gates pass.

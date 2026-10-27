@@ -16,8 +16,9 @@ import unicodedata
 from build_wiktextract import canonical, digest_file, EXCLUDED, PARTS, NON_ROMAN, form_ok
 from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
+import noun_carriers
 
-POLICY = 'native-linked-lexical-units-4'
+POLICY = noun_carriers.POLICY
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -40,6 +41,8 @@ CREATE TABLE guards(normalized TEXT PRIMARY KEY,blocked INTEGER NOT NULL,
  target_blocked INTEGER NOT NULL,protect_inner INTEGER NOT NULL,reason TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE lemma_links(source_line INTEGER PRIMARY KEY,canonical_line INTEGER NOT NULL,
  references_json TEXT NOT NULL,features TEXT NOT NULL,kind TEXT NOT NULL);
+CREATE TABLE carrier_evidence(lexeme INTEGER NOT NULL,surface TEXT NOT NULL,rule TEXT NOT NULL,
+ evidence TEXT NOT NULL,PRIMARY KEY(lexeme,surface,rule,evidence)) WITHOUT ROWID;
 '''
 
 def normalized(word, language):
@@ -165,6 +168,13 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             start,end,number,mode=rule
             db.execute('INSERT OR IGNORE INTO surfaces VALUES (?,?,?,?,?,?,?,?)',
                 (normalized(form,language),identifier,form,start,end,number,mode,canonical(tags)))
+        def add_carrier(identifier,record,rule,evidence):
+            form,start,end,number,features=record
+            changed=db.execute('INSERT OR IGNORE INTO surfaces VALUES (?,?,?,?,?,?,?,?)',
+                (normalized(form,language),identifier,form,start,end,number,3,canonical(features))).rowcount
+            counts[rule]+=changed
+            db.execute('INSERT OR IGNORE INTO carrier_evidence VALUES (?,?,?,?)',
+                (identifier,form,rule,canonical(evidence)))
         for index,identifier in enumerate(sorted(mapped)):
             add_lexeme(identifier)
             rows=linked_terms[identifier]
@@ -180,6 +190,20 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             if not any(form==head and surface(head,form,pos,json.loads(tags),language) for form,tags in forms):
                 add_surface(identifier,head,[])
             for form,tags in forms:add_surface(identifier,form,json.loads(tags))
+            # Compile complete carriers before gathering all native competing
+            # entries. A new attachment must not hide a same-spelling word,
+            # grammatical analysis or proper name from the native reader.
+            if db.execute('SELECT target_safe FROM lexemes WHERE id=?',(identifier,)).fetchone()[0]:
+                head_tags=json.loads(links.entry(identifier)[4])
+                if language=='ko':
+                    for record in noun_carriers.korean(head,pos,head_tags):
+                        add_carrier(identifier,record,noun_carriers.KOREAN_RULE,
+                            dict(head=head,derivation='finite authored noun-particle rule',references=noun_carriers.REFERENCES[:3]))
+                elif language=='ar':
+                    for form,tags in forms:
+                        for record in noun_carriers.arabic(head,form,pos,head_tags,json.loads(tags)):
+                            add_carrier(identifier,record,noun_carriers.ARABIC_RULE,
+                                dict(head=head,supplied_form=form,supplied_tags=json.loads(tags),source_url=links.entry(identifier)[5]))
             if index%10000==0:db.commit()
         if language not in NON_ROMAN:
             # Canonical entries do not always list every incoming alternative.
@@ -224,7 +248,8 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             source_inventory_sha256=receipt['sha256'],source_sha256=receipt['upstream_sha256'],
             redirects_sha256=redirect_receipt['sha256'],native_gloss_links_sha256=gloss_receipt['sha256'],release_id=release_id,
             compiler_sha256=digest_file(Path(__file__)),linker_sha256=digest_file(Path(__file__).with_name('native_lemma_links.py')),
-            quality='published-dictionary-concordance',individually_reviewed=False,license='CC-BY-SA-4.0')
+            carrier_rules_sha256=digest_file(Path(noun_carriers.__file__)),
+            quality='published-dictionary-and-finite-noun-carriers',individually_reviewed=False,license='CC-BY-SA-4.0')
         db.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()])
         db.commit()
         if db.execute('PRAGMA integrity_check').fetchone()[0]!='ok' or db.execute('PRAGMA foreign_key_check').fetchone():raise ValueError('Invalid shard')
@@ -232,7 +257,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
         counts['unique_lexical_heads']=db.execute('SELECT count(DISTINCT normalized) FROM lexemes WHERE id IN (SELECT lexeme FROM terms WHERE eligible=1)').fetchone()[0]
         counts['source_single_sense_heads']=db.execute('SELECT count(DISTINCT normalized) FROM lexemes WHERE source_safe=1 AND id IN (SELECT lexeme FROM terms WHERE eligible=1)').fetchone()[0]
         counts['indexed_written_forms']=db.execute('SELECT count(DISTINCT normalized) FROM surfaces').fetchone()[0]
-        counts['supplied_carriers']=db.execute('SELECT count(DISTINCT normalized) FROM surfaces WHERE mode=3').fetchone()[0]
+        counts['indexed_carriers']=db.execute('SELECT count(DISTINCT normalized) FROM surfaces WHERE mode=3').fetchone()[0]
     links.close();source.close()
     result=dict(language=language,sha256=digest_file(target),bytes=target.stat().st_size,counts=dict(counts),seconds=round(time.monotonic()-started,2))
     print(canonical(result),flush=True);return result
@@ -246,7 +271,8 @@ def build(inventory,output,languages,redirects,gloss_links):
     gloss_receipt=json.loads((gloss_links.parent/'receipt.json').read_text())
     if not gloss_receipt['complete'] or gloss_receipt['source_inventory_sha256']!=receipt['sha256'] or gloss_receipt['sha256']!=digest_file(gloss_links):raise ValueError('Pinned direct-gloss supplement required')
     release_id=hashlib.sha256(canonical(dict(inventory=receipt['sha256'],redirects=redirect_receipt['sha256'],glosses=gloss_receipt['sha256'],
-        compiler=digest_file(Path(__file__)),linker=digest_file(Path(__file__).with_name('native_lemma_links.py')))).encode()).hexdigest()
+        compiler=digest_file(Path(__file__)),linker=digest_file(Path(__file__).with_name('native_lemma_links.py')),
+        carrier_rules=digest_file(Path(noun_carriers.__file__)))).encode()).hexdigest()
     output.mkdir(parents=True,exist_ok=False)
     shards=[compile_language(inventory,output,language,receipt,redirects,redirect_receipt,gloss_links,gloss_receipt,release_id) for language in languages]
     summary=dict(schema='vipi-lexical-shards-1',policy=POLICY,release_id=release_id,inventory_sha256=receipt['sha256'],
@@ -255,11 +281,13 @@ def build(inventory,output,languages,redirects,gloss_links):
         limits=['Published dictionary evidence, not individual linguistic review.',
             'Single modern source analysis is a conservative display prerequisite, not proof of perfect meaning.',
             'Indexed forms and language-pair combinations are not distinct vocabulary concepts.',
-            'No new transliteration, conjugation or full translation is generated by this compiler.'])
+            'Korean noun particles are finite authored morphology; Arabic articles require supplied definite singular forms.',
+            'No new transliteration, verb conjugation or full translation is generated by this compiler.'])
     (output/'catalog.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     (output/'ATTRIBUTION.txt').write_text((inventory.parent/'ATTRIBUTION.txt').read_text()+
         '\nChanges: per-language indexed lexemes, all supplied analyses and guards, shared source sense IDs.\n'+
         'Native lexical evidence remains separately attributed through lexemes.source_url and senses.source_url.\n'+
+        'Noun carrier derivations and supplied-form evidence are retained in carrier_evidence.\n'+
         'Compiler: language-packs/build_lexical_shards.py. Published dictionary evidence is not author assessment.\n')
     print(canonical(summary),flush=True)
 

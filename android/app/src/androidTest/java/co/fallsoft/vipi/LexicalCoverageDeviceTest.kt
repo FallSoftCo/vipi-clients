@@ -55,6 +55,9 @@ class LexicalCoverageDeviceTest {
                 databases[language]=SQLiteDatabase.openDatabase(file.path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
             }
             val input=File(root,"cases.json");assertEquals(manifest.getString("cases_sha256"),sha(input))
+            val named="😀 محطة حافلات سوق الذهب إلى المدينة. الفنجان هنا."
+            assertEquals(listOf("سوق","الذهب"),LexicalConcordance.namedPlaces(named,"ar").map{named.substring(it)})
+            assertTrue(LexicalConcordance.namedPlaces(named,"en").isEmpty())
             witnessDB?.let { witness ->
                 val original="I was happy when she arrived."
                 fun windows(text:String)=requireNotNull(ReviewedFrameLookup.windows(text,"en")).mapKeys{co.fallsoft.vipi.core.ImmersionEngine.lookupKey(it.key)}
@@ -111,8 +114,16 @@ class LexicalCoverageDeviceTest {
                     failures.put(row.getString("id")+": known meaning/scope error")
                 if(row.has("forbidden_source") && combined.spans.any{it.original==row.getString("forbidden_source") && it.translated==row.getString("forbidden_target")})
                     failures.put(row.getString("id")+": combined known meaning/scope error")
-                if(row.has("expected_source") && result.spans.none{it.original==row.getString("expected_source") && it.translated==row.getString("expected_target")})
-                    failures.put(row.getString("id")+": missing required lexical behavior")
+                if(row.has("expected_source")) {
+                    val expectedPath=row.optString("expected_path","dictionary")
+                    require(expectedPath in setOf("dictionary","combined"))
+                    val expected=if(expectedPath=="combined")combined else result
+                    fun matches(span:co.fallsoft.vipi.core.ImmersionSpan)=span.original==row.getString("expected_source") && span.translated==row.getString("expected_target")
+                    if(expected.spans.none{matches(it)})failures.put(row.getString("id")+": missing required lexical behavior")
+                    if(combined.spans.none{matches(it)})failures.put(row.getString("id")+": combined missing required lexical behavior")
+                    if(row.optBoolean("expected_dictionary_abstention",false) && result.spans.any{matches(it)})
+                        failures.put(row.getString("id")+": dictionary phrase protection was bypassed")
+                }
             }
             report.put("complete",true).put("cases",cases.length()).put("failures",failures).put("passed",failures.length()==0);output.writeText(report.toString())
             assertEquals(failures.toString(),0,failures.length())

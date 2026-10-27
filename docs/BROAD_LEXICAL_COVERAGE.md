@@ -1,5 +1,7 @@
 # Broad lexical coverage
 
+Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
+
 Latest checkpoint: native run 012 passes on Android and the physical iPad with
 data revision 006 and contextual witnesses 002. Fresh reserved run 013 also
 passes native mechanics on 8,410 reference pairs across 102 directions.

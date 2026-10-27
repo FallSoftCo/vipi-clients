@@ -32,7 +32,14 @@ def read(root,path):
                 assert text[2*span[start]:2*span[end]].decode('utf-16-le')==span[focus]
             if case['target'] in {'ar','zh','ja','ko'}:assert span['reading'] and span['reading'].strip()
         if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in spans):failures.append(list(key))
-        if 'expected_source' in case and not any(s['source']==case['expected_source'] and s['target']==case['expected_target'] for s in spans):failures.append(list(key))
+        if 'expected_source' in case:
+            expected_path=case.get('expected_path','dictionary');assert expected_path in {'dictionary','combined'}
+            chosen=combined if expected_path=='combined' else spans
+            assert chosen is not None
+            matches=lambda s:s['source']==case['expected_source'] and s['target']==case['expected_target']
+            if not any(map(matches,chosen)):failures.append(list(key))
+            if combined is not None and not any(map(matches,combined)):failures.append(list(key)+['combined missing'])
+            if case.get('expected_dictionary_abstention') and any(map(matches,spans)):failures.append(list(key)+['dictionary phrase protection bypassed'])
         if combined is not None:
             if not row['baseline_retained']:failures.append(list(key)+['baseline lost'])
             if 'forbidden_source' in case and any(s['source']==case['forbidden_source'] and s['target']==case['forbidden_target'] for s in combined):failures.append(list(key)+['combined forbidden'])

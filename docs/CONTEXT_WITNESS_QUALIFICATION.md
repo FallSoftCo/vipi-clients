@@ -1,5 +1,7 @@
 # Native contextual dictionary qualification — 2026-10-27
 
+Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
+
 The corpus expansion is now executable in native Swift and Kotlin. This is
 experimental selection evidence, not a promoted production language pack.
 The default application catalog remains bundle 022.

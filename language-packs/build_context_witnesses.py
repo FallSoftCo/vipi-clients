@@ -22,12 +22,53 @@ from context_hints import lookup_key,GRAMMAR
 def compile(args):
     started=time.monotonic();args.output.mkdir(parents=True,exist_ok=False)
     parent=json.loads((args.contexts.parent/'receipt.json').read_text())
-    assert parent['complete'] and not parent['pilot'] and parent['schema']=='vipi-broad-lexical-contexts-2'
+    assert parent['complete'] and not parent['pilot'] and parent['schema'] in {'vipi-broad-lexical-contexts-2','vipi-broad-lexical-contexts-3'}
     assert digest_file(args.contexts)==parent['sha256']
+    inputs=[(args.contexts,parent)]
+    release=parent['source_release_id'];proof=None
+    additional=getattr(args,'additional_context',None)
+    if additional:
+        # The first extension has a separate negative-ID namespace and a full
+        # normalized-text exclusion index over all prior source partitions.
+        # Do not generalize this to unproven overlapping corpora.
+        delta=json.loads((additional.parent/'receipt.json').read_text())
+        assert delta['complete'] and not delta['pilot'] and delta['schema']=='vipi-broad-lexical-contexts-3'
+        assert digest_file(additional)==delta['sha256']
+        assert delta['corpus_schema']=='vipi-pgv-corpus-1'
+        delta_corpus=json.loads(args.additional_corpus_receipt.read_text())
+        assert digest_file(args.additional_corpus_receipt)==delta['corpus_receipt_sha256']
+        assert delta_corpus['sha256']==delta['corpus_sha256'] and delta_corpus['direct_links_only']
+        exclusion=json.loads((args.source_exclusions.parent/'receipt.json').read_text())
+        assert exclusion['complete'] and digest_file(args.source_exclusions)==exclusion['sha256']==delta_corpus['exclusions_sha256']
+        assert exclusion['source_corpus_sha256']==parent['corpus_sha256']
+        assert exclusion['source_corpus_receipt_sha256']==parent['corpus_receipt_sha256']
+        supplements={digest_file(p):json.loads(p.read_text()) for p in args.base_supplement_receipt}
+        for row in parent.get('supplemental_receipts',[]):
+            supplementary=supplements[row['receipt_sha256']]
+            assert supplementary['sha256']==row['corpus_sha256']
+            assert supplementary['schema']=='vipi-swahili-development-supplement-1'
+            assert supplementary['swahili_source_sha256']==exclusion['swahili_source_sha256']
+        adapter=json.loads((args.release_adapter.parent/'receipt.json').read_text())
+        assert digest_file(args.release_adapter)==adapter['sha256']
+        assert adapter['adaptation_policy']=='unchanged-dictionary-links-added-carriers-1'
+        assert adapter['source_contexts_sha256']==parent['sha256']
+        assert adapter['context_compilation_release_id']==release
+        assert adapter['source_release_id']==delta['source_release_id']
+        assert all(v['senses_added']==0 and v['terms_added']==0 for v in adapter['adaptation_proof'].values())
+        release=delta['source_release_id'];inputs.append((additional,delta))
+        proof=dict(exclusions_sha256=exclusion['sha256'],release_adapter_sha256=adapter['sha256'],
+            base_supplement_receipts=sorted(supplements),policy='all prior source text excluded; positive base IDs and negative PGV IDs')
     selected={tuple(pair.split('-')) for pair in args.pair}
-    assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in parent['languages'] for x in pair) for pair in selected)
-    source=sqlite3.connect(args.contexts.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
-    source.execute('PRAGMA temp_store=FILE');source.execute('PRAGMA cache_size=-32768')
+    languages={language for _,receipt in inputs for language in receipt['languages']}
+    assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in languages for x in pair) for pair in selected)
+    sources=[]
+    for index,(path,_) in enumerate(inputs):
+        source=sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
+        source.execute('PRAGMA temp_store=FILE');source.execute('PRAGMA cache_size=-32768')
+        lower,upper=source.execute('SELECT min(id),max(id) FROM sentences').fetchone()
+        assert lower is not None
+        if additional:assert lower>0 if index==0 else upper<0
+        sources.append((source,lower,upper))
     work_path=args.output/'observations.sqlite';work=sqlite3.connect(work_path)
     work.executescript('''PRAGMA temp_store=FILE;PRAGMA cache_size=-32768;
         CREATE TABLE atoms(id INTEGER PRIMARY KEY,value TEXT NOT NULL UNIQUE);
@@ -42,7 +83,10 @@ def compile(args):
         return atoms[value]
     @lru_cache(maxsize=12000)
     def sentence(identifier):
-        language,text,owner=source.execute('SELECT language,text,owner FROM sentences WHERE id=?',(identifier,)).fetchone()
+        matches=[db.execute('SELECT language,text,owner FROM sentences WHERE id=?',(identifier,)).fetchone()
+            for db,lower,upper in sources if lower<=identifier<=upper]
+        matches=[row for row in matches if row is not None];assert len(matches)==1
+        language,text,owner=matches[0]
         iterator=icu.BreakIterator.createWordInstance(icu.Locale(language));value=icu.UnicodeString(text);iterator.setText(value)
         words=[];start=iterator.first()
         for end in iterator:
@@ -76,7 +120,7 @@ def compile(args):
         FROM alignments m JOIN sentences a ON a.id=m.a JOIN sentences b ON b.id=m.b
         WHERE '''+' OR '.join('(a.language=? AND b.language=?)' for _ in selected|{(b,a) for a,b in selected})
     arguments=[x for pair in sorted(selected|{(b,a) for a,b in selected}) for x in pair]
-    for a,b,sa,se,ta,te in source.execute(query,arguments):
+    for a,b,sa,se,ta,te in (row for db,_,_ in sources for row in db.execute(query,arguments)):
         counts['distinct_reference_spans']+=1
         left=focus(a,sa,se);right=focus(b,ta,te)
         if not left or not right:continue
@@ -120,20 +164,26 @@ def compile(args):
         output.execute('INSERT INTO references_used VALUES (?,?)',(identifier,sentence(identifier)[2]))
     counts['witnesses']=sum(by_pair.values());counts['attributed_sentences']=len(references)
     metadata=dict(schema='vipi-context-witnesses-1',policy='experimental-direct-reference-agreement-1',
-        source_contexts_sha256=parent['sha256'],source_release_id=parent['source_release_id'],
+        source_contexts_sha256=parent['sha256'],source_release_id=release,
+        additional_contexts_sha256=[receipt['sha256'] for _,receipt in inputs[1:]],disjoint_source_proof=proof,
         minimum_support=args.minimum_support,minimum_agreement=args.minimum_agreement,
         counts=dict(counts),pairs=dict(by_pair),compiler_sha256=digest_file(Path(__file__)),
+        requested_pairs=['-'.join(pair) for pair in sorted(selected)],
         independent_semantic_acceptance=False,release_ready=False,
         warning='Reference agreement is not a calibrated correctness probability. Dictionary sense IDs are not classifier labels.',
         cue_policy='up to six original ICU words on each side in the same clause, or whole lexical message',
-        license='CC BY 2.0 FR; dictionary evidence provenance CC-BY-SA-4.0')
+        license='; '.join(dict.fromkeys(v for _,receipt in inputs for v in receipt.get('licenses',['CC BY 2.0 FR','dictionary evidence provenance CC-BY-SA-4.0']))),
+        automatic_sentence_alignment=any(receipt.get('automatic_sentence_alignment',False) for _,receipt in inputs))
     output.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()]);output.commit()
     assert output.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
-    output.close();work.close();source.close()
-    receipt=dict(**metadata,sha256=digest_file(output_path),bytes=output_path.stat().st_size,seconds=round(time.monotonic()-started,2),complete=True)
+    output.close();work.close()
+    for db,_,_ in sources:db.close()
+    receipt=dict(**metadata,sha256=digest_file(output_path),bytes=output_path.stat().st_size,
+        observations_sha256=digest_file(work_path),observations_bytes=work_path.stat().st_size,
+        seconds=round(time.monotonic()-started,2),complete=True)
     (args.output/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
-    (args.output/'ATTRIBUTION.txt').write_text('Tatoeba contributors, CC BY 2.0 FR. Individual owners and sentence IDs in references_used.\n'
-        'References: https://tatoeba.org/en/sentences/show/{sentence}. Dictionary-derived alignment evidence: Wiktionary contributors, CC BY-SA 4.0.\n'
+    (args.output/'ATTRIBUTION.txt').write_text('\n'.join((path.parent/'ATTRIBUTION.txt').read_text() for path,_ in inputs)+
+        'Retained example owners/source references are in references_used; source context artifact retains full provenance.\n'
         'Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.\n')
     print(canonical(receipt),flush=True)
 
@@ -141,6 +191,11 @@ def compile(args):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('contexts','output'):p.add_argument('--'+name,type=Path,required=True)
+    for name in ('additional-context','additional-corpus-receipt','source-exclusions','release-adapter'):
+        p.add_argument('--'+name,type=Path)
+    p.add_argument('--base-supplement-receipt',type=Path,action='append',default=[])
     p.add_argument('--pair',action='append',required=True)
     p.add_argument('--minimum-support',type=int,default=3);p.add_argument('--minimum-agreement',type=float,default=.98)
-    args=p.parse_args();assert args.minimum_support>=2 and .5<=args.minimum_agreement<=1;compile(args)
+    args=p.parse_args();assert args.minimum_support>=2 and .5<=args.minimum_agreement<=1
+    if args.additional_context:assert args.additional_corpus_receipt and args.source_exclusions and args.release_adapter
+    compile(args)

@@ -40,7 +40,7 @@ def main(a):
                 original=row['original'],translation=explicit['translation']))
         provenance.append(dict(file=str(a.swahili),sha256=digest_file(a.swahili),cases=len(data['rows']),kind='reused-explicit-source-native-captures'))
     findings=[]
-    for filename in ['sms_semantic_findings.json','multi3woz_semantic_findings.json']:
+    for filename in ['sms_semantic_findings.json','multi3woz_semantic_findings.json','noun_carrier_semantic_findings.json']:
         data=json.loads(Path(__file__).with_name(filename).read_text())
         for finding in data['findings']:
             left,right=finding['pair'].split('-')
@@ -97,6 +97,31 @@ def main(a):
             original=left,translation=right,expected_source=focus,expected_target=translated))
     cases.append(dict(id='es-toothbrush-wrong-counterpart',dataset='authored-lexical-unit-behavior',source='es',target='en',
         original='Mi cepillo de dientes.',translation='My hairbrush.',forbidden_source='cepillo de dientes',forbidden_target='hairbrush'))
+    if catalog['policy']=='native-linked-noun-carriers-5':
+        for identifier,source,target,original,translation,focus,counterpart in [
+            ('ko-object-toothbrush','ko','en','칫솔을 가져오세요.','Bring a toothbrush.','칫솔','toothbrush'),
+            ('ko-topic-coffee','ko','en','커피는 뜨거워요.','The coffee is hot.','커피','coffee'),
+            ('ko-location-school','ko','en','학교에 있어요.','I am at school.','학교','school'),
+            ('ko-target-bookcase','en','ko','The bookcase is here.','책장이 여기 있어요.','bookcase','책장'),
+            ('ar-definite-cup','ar','en','الفنجان.','The cup.','فنجان','cup'),
+            ('ar-target-bookcase','en','ar','The bookcase is here.','المكتبة هنا.','bookcase','مكتبة')]:
+            cases.append(dict(id=identifier,dataset='authored-noun-carrier-behavior',source=source,target=target,
+                original=original,translation=translation,expected_source=focus,expected_target=counterpart))
+            if identifier=='ko-location-school':
+                # The accepted catalog owns this mapping. The broad lookup must
+                # retain its protection of the complete phrase "at school".
+                cases[-1].update(expected_path='combined',expected_dictionary_abstention=True)
+        cases.append(dict(id='ar-place-name-generic',dataset='authored-noun-carrier-behavior',source='ar',target='en',
+            original='محطة حافلات السلام.',translation='The peace bus station.',forbidden_source='سلام',forbidden_target='peace'))
+        cases.append(dict(id='ar-name-scope-and-ordinary-noun',dataset='authored-noun-carrier-behavior',source='ar',target='en',
+            original='أنا عند محطة السلام. الفنجان هنا.',translation='I am at the peace station. The cup is here.',
+            forbidden_source='سلام',forbidden_target='peace',expected_source='فنجان',expected_target='cup'))
+        for identifier,source,target,original,translation,focus,counterpart in [
+            ('ko-wrong-particle','ko','en','칫솔를 가져오세요.','Bring a toothbrush.','칫솔','toothbrush'),
+            ('ko-larger-native-word','ko','en','학교장.','school.','학교','school'),
+            ('ar-wrong-counterpart','ar','en','الفنجان.','The bookcase.','فنجان','bookcase')]:
+            cases.append(dict(id=identifier,dataset='authored-noun-carrier-behavior',source=source,target=target,
+                original=original,translation=translation,forbidden_source=focus,forbidden_target=counterpart))
     a.output.mkdir(parents=True,exist_ok=False)
     path=a.output/'cases.json';path.write_text(canonical(cases)+'\n')
     result=dict(schema='vipi-lexical-qualification-1',shards=catalog['shards'],cases_sha256=digest_file(path),

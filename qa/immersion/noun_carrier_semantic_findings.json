@@ -1,0 +1,119 @@
+{
+  "schema": "vipi-public-dialogue-diagnostic-assessments-1",
+  "assessment_kind": "author_assessment",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "report": "lexical-coverage-android-015.json",
+  "sampling": "Findings during review of new Arabic/Korean carrier outputs; not a random accuracy estimate or independent acceptance.",
+  "training_use": false,
+  "regression_reuse": true,
+  "findings": [
+    {
+      "pair": "ar-en",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "chapel",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-en",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "chapel",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-es",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "capilla",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-fr",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "chapelle",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-fr",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "chapelle",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-de",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "Kapelle",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-it",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "cappella",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-it",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "cappella",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-pt",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "capela",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-pt",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "capela",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-ko",
+      "case": "m3w-0729a1c8017c255751f31219",
+      "source": "مصلى",
+      "target": "예배당",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "ar-ko",
+      "case": "m3w-085158af3caa52ddd35b9f0f",
+      "source": "مصلى",
+      "target": "예배당",
+      "category": "place_name_context",
+      "finding": "Al Musalla is the name of the bus station in this source context; the literal place-of-worship translation is not an acceptable name substitution."
+    },
+    {
+      "pair": "fr-ko",
+      "case": "m3w-049c54182c31e283b80f498f",
+      "source": "établissement",
+      "target": "설립",
+      "category": "coarse_gloss_polysemy",
+      "finding": "The request concerns a hotel establishment, not the act of founding. A single broad native gloss does not resolve its several linked senses."
+    }
+  ],
+  "references": [
+    "https://data.ajman.ae/explore/dataset/public-transport-stations/?flg=ar",
+    "https://www.dictionnaire-academie.fr/article/A9E2776"
+  ]
+}

@@ -1,5 +1,7 @@
 # Verification ledger
 
+Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
+
 Updated 2026-10-27. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
 ## Broad dictionary checkpoint 007 and full context build — 2026-10-27

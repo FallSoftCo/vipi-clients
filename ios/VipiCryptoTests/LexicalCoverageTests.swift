@@ -13,6 +13,7 @@ final class LexicalCoverageTests:XCTestCase {
     private struct Case:Decodable {
         let id:String,dataset:String,source:String,target:String,original:String,translation:String
         let forbidden_source:String?,forbidden_target:String?,expected_source:String?,expected_target:String?
+        let expected_path:String?,expected_dictionary_abstention:Bool?
     }
     private func sha(_ url:URL) throws -> String {
         let file=try FileHandle(forReadingFrom:url);defer {try? file.close()}
@@ -38,6 +39,9 @@ final class LexicalCoverageTests:XCTestCase {
         }
         guard fixture.range(of:"^[0-9]{3}$",options:.regularExpression) != nil,run.range(of:"^[0-9]{3}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         let root=documents.appendingPathComponent("lexical-qualification-"+fixture)
+        let named="😀 محطة حافلات سوق الذهب إلى المدينة. الفنجان هنا."
+        XCTAssertEqual(LexicalConcordance.namedPlaces(named,language:"ar").map{(named as NSString).substring(with:$0)},["سوق","الذهب"])
+        XCTAssertTrue(LexicalConcordance.namedPlaces(named,language:"en").isEmpty)
         let manifest=try JSONDecoder().decode(Manifest.self,from:Data(contentsOf:root.appendingPathComponent("manifest.json")))
         XCTAssertEqual(manifest.schema,"vipi-lexical-qualification-1")
         var databases:[String:OpaquePointer]=[:]
@@ -145,7 +149,12 @@ final class LexicalCoverageTests:XCTestCase {
                 if combined.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": combined known meaning/scope error")}
             }
             if let source=row.expected_source,let target=row.expected_target {
-                if !result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": missing required lexical behavior")}
+                let path=row.expected_path ?? "dictionary"
+                guard ["dictionary","combined"].contains(path) else {throw VocabularyPackError.invalid}
+                let expected=path=="combined" ? combined : result
+                if !expected.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": missing required lexical behavior")}
+                if !combined.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": combined missing required lexical behavior")}
+                if row.expected_dictionary_abstention==true && result.spans.contains(where:{$0.original==source && $0.translated==target}) {failures.append(row.id+": dictionary phrase protection was bypassed")}
             }
         }
         report["complete"]=true;report["cases"]=cases.count;report["failures"]=failures;report["passed"]=failures.isEmpty;try save()

@@ -7,15 +7,33 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4")
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5")
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
         val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val proper:Boolean,val grammar:Boolean)
-    private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean)
+    private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val family:String)
     private data class Side(val windows:Map<String,List<IntRange>>,val forms:Map<String,List<Form>>,
-        val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String)
+        val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String,val namedPlaces:List<IntRange>)
     private class Overflow:Exception()
     private fun key(value:String)=ImmersionEngine.lookupKey(value)
     private fun marks(count:Int)=List(count){"?"}.joinToString(",")
+    // Keep following place names original in a script without capitals.
+    private val arabicPlace=Regex("(?:^|[\\s،؛:,.!?])[وفبلك]?(?:محطة(?:\\s+(?:حافلات|قطارات|قطار|مترو))*|فندق|مطار|شارع|جامعة|مطعم)\\s+")
+    private val arabicNameWord=Regex("[\\p{L}\\p{M}]+")
+    private val nameStops=setOf("من","إلى","الى","في","على","عند","عن","و","أو","هل","هو","هي","هذا","هذه")
+    internal fun namedPlaces(text:String,language:String):List<IntRange> {
+        if(language!="ar")return emptyList()
+        val output=mutableListOf<IntRange>()
+        for(prefix in arabicPlace.findAll(text)) {
+            var position=prefix.range.last+1
+            for(i in 0 until 4) {
+                val token=arabicNameWord.find(text,position) ?: break
+                if(token.range.first!=position || key(token.value) in nameStops)break
+                output+=token.range;position=token.range.last+1
+                while(position<text.length && text[position].isWhitespace())position++
+            }
+        }
+        return output
+    }
     private fun load(db:SQLiteDatabase,text:String,language:String):Side? {
         val metadata=mutableMapOf<String,String>()
         db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id')",null).use { c ->
@@ -46,14 +64,14 @@ internal object LexicalConcordance {
         val terms=linkedMapOf<Long,MutableList<Term>>()
         count=0
         for(batch in forms.values.flatten().map{it.lexeme}.distinct().sorted().chunked(200)) {
-            db.rawQuery("SELECT t.lexeme,t.sense,t.reading,t.eligible,s.explicit FROM terms t JOIN senses s ON s.id=t.sense WHERE t.lexeme IN (${marks(batch.size)}) ORDER BY t.lexeme,t.sense,t.reading",batch.map{it.toString()}.toTypedArray()).use { c ->
+            db.rawQuery("SELECT t.lexeme,t.sense,t.reading,t.eligible,s.explicit,s.source_url FROM terms t JOIN senses s ON s.id=t.sense WHERE t.lexeme IN (${marks(batch.size)}) ORDER BY t.lexeme,t.sense,t.reading",batch.map{it.toString()}.toTypedArray()).use { c ->
                 while(c.moveToNext()) {
                     count++;if(count>32768)throw Overflow()
-                    terms.getOrPut(c.getLong(0)){mutableListOf()}.add(Term(c.getString(1),c.getString(2),c.getInt(3)==1,c.getInt(4)==1))
+                    terms.getOrPut(c.getLong(0)){mutableListOf()}.add(Term(c.getString(1),c.getString(2),c.getInt(3)==1,c.getInt(4)==1,c.getString(5)))
                 }
             }
         }
-        return Side(windows,forms,terms,blocked,targetBlocked,names,guards,inventory,release)
+        return Side(windows,forms,terms,blocked,targetBlocked,names,guards,inventory,release,namedPlaces(text,language))
     }
     private fun shape(form:Form)=listOf(
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
@@ -82,10 +100,11 @@ internal object LexicalConcordance {
         }
         return actual.firstOrNull()?.isUpperCase()==form.written.firstOrNull()?.isUpperCase()
     }
-    private fun containedInKnownWord(side:Side,range:IntRange):Boolean = side.guards.any { word ->
+    private fun containedInKnownWord(side:Side,range:IntRange):Boolean = side.namedPlaces.any{it.first<=range.last && range.first<=it.last} || side.guards.any { word ->
         side.windows[word].orEmpty().any { whole -> whole.first<=range.first && whole.last>=range.last && whole!=range }
     }
     private fun protectedTarget(side:Side,range:IntRange,text:String,language:String,features:Set<String>):Boolean {
+        if(side.namedPlaces.any{it.first<=range.last && range.first<=it.last})return true
         val people=features.intersect(setOf("first-person","second-person","third-person"))
         val numbers=features.intersect(setOf("singular","plural"))
         val subjects=if(language=="en" && "present" in features && people.size==1 && numbers.size==1) {
@@ -177,6 +196,13 @@ internal object LexicalConcordance {
                 // whichever target happens to be present in the translation.
                 if(usable.map(::shape).distinct().size!=1) {diagnostic(if(usable.isEmpty()) "source_sense_or_form" else "source_form_conflict");continue}
                 val form=usable.singleOrNull() ?: continue
+                // One coarse native gloss can link several distinct senses of
+                // one English headword. It then needs context corroboration.
+                val ambiguousFamilies=left.terms[form.lexeme].orEmpty().filter{it.eligible && it.explicit}.groupBy{it.family}.values
+                    .map{rows->rows.map{it.sense}.toSet()}.filter{it.size>1}
+                if(ambiguousFamilies.isNotEmpty() && target!="en") {
+                    diagnostic("linked_sense_ambiguity");continue
+                }
                 val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
                 val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                 if(meanings.isEmpty()) {diagnostic("no_eligible_link");continue}
@@ -192,6 +218,11 @@ internal object LexicalConcordance {
                         if(needsReading && readings.size!=1)continue
                         for(candidate in targets.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}) {
                             if(!candidate.targetSafe || candidate.mode !in 1..3 || candidate.number!=form.number)continue
+                            // Returning the actual English dictionary headword
+                            // preserves the whole linked sense family. A narrower
+                            // counterpart still requires contextual evidence.
+                            val targetMeanings=right.terms[candidate.lexeme].orEmpty().filter{it.eligible}.map{it.sense}.toSet()
+                            if(ambiguousFamilies.any{!targetMeanings.containsAll(it)})continue
                             if(right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
                             for(targetCarrier in right.windows[other].orEmpty().distinct()) {
                                 if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue

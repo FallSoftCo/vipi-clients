@@ -4,20 +4,38 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
-    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4"]
+    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5"]
     private enum Limit:Error {case overflow}
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
         let start:Int,end:Int,number:Int,mode:Int
         let sourceSafe:Bool,targetSafe:Bool;let features:Set<String>;let proper:Bool,grammar:Bool
     }
-    private struct Term {let sense:String,reading:String;let eligible:Bool,explicit:Bool}
+    private struct Term {let sense:String,reading:String;let eligible:Bool,explicit:Bool;let family:String}
     private struct Side {
         let windows:[String:[NSRange]],forms:[String:[Form]],terms:[String:[Term]]
         let blocked:Set<String>,targetBlocked:Set<String>,names:Set<String>,guards:Set<String>,inventory:String,release:String
+        let namedPlaces:[NSRange]
     }
     private static func key(_ value:String)->String {ImmersionEngine.lookupKey(value)}
     private static func marks(_ count:Int)->String {Array(repeating:"?",count:count).joined(separator:",")}
+    private static let arabicPlace=try! NSRegularExpression(pattern:#"(?:^|[\s،؛:,.!?])[وفبلك]?(?:محطة(?:\s+(?:حافلات|قطارات|قطار|مترو))*|فندق|مطار|شارع|جامعة|مطعم)\s+"#)
+    private static let arabicNameWord=try! NSRegularExpression(pattern:#"[\p{L}\p{M}]+"#)
+    private static let nameStops:Set<String>=["من","إلى","الى","في","على","عند","عن","و","أو","هل","هو","هي","هذا","هذه"]
+    static func namedPlaces(_ text:String,language:String)->[NSRange] {
+        guard language=="ar" else {return []}
+        let value=text as NSString;var output:[NSRange]=[]
+        for prefix in arabicPlace.matches(in:text,range:NSRange(location:0,length:value.length)) {
+            var position=NSMaxRange(prefix.range)
+            for _ in 0..<4 {
+                guard position<value.length,let token=arabicNameWord.firstMatch(in:text,range:NSRange(location:position,length:value.length-position)),
+                      token.range.location==position,!nameStops.contains(key(value.substring(with:token.range))) else {break}
+                output.append(token.range);position=NSMaxRange(token.range)
+                while position<value.length,let scalar=UnicodeScalar(value.character(at:position)),CharacterSet.whitespacesAndNewlines.contains(scalar) {position+=1}
+            }
+        }
+        return output
+    }
     private static func query(_ db:OpaquePointer,_ sql:String,_ arguments:[String],limit:Int) throws -> [[String]] {
         var statement:OpaquePointer?
         guard sqlite3_prepare_v2(db,sql,-1,&statement,nil)==SQLITE_OK else {throw VocabularyPackError.storage}
@@ -68,11 +86,11 @@ enum LexicalConcordance {
         var terms:[String:[Term]]=[:];count=0
         for start in stride(from:0,to:ids.count,by:200) {
             let batch=Array(ids[start..<min(ids.count,start+200)])
-            for r in try query(db,"SELECT t.lexeme,t.sense,t.reading,t.eligible,s.explicit FROM terms t JOIN senses s ON s.id=t.sense WHERE t.lexeme IN (\(marks(batch.count))) ORDER BY t.lexeme,t.sense,t.reading",batch,limit:32768-count) {
-                count+=1;terms[r[0],default:[]].append(Term(sense:r[1],reading:r[2],eligible:r[3]=="1",explicit:r[4]=="1"))
+            for r in try query(db,"SELECT t.lexeme,t.sense,t.reading,t.eligible,s.explicit,s.source_url FROM terms t JOIN senses s ON s.id=t.sense WHERE t.lexeme IN (\(marks(batch.count))) ORDER BY t.lexeme,t.sense,t.reading",batch,limit:32768-count) {
+                count+=1;terms[r[0],default:[]].append(Term(sense:r[1],reading:r[2],eligible:r[3]=="1",explicit:r[4]=="1",family:r[5]))
             }
         }
-        return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release)
+        return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release,namedPlaces:namedPlaces(text,language:language))
     }
     private static func shape(_ form:Form)->[Int] {
         [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
@@ -97,11 +115,12 @@ enum LexicalConcordance {
         return actual.first?.isUppercase==form.written.first?.isUppercase
     }
     private static func protected(_ side:Side,range:NSRange)->Bool {
-        side.guards.contains { word in side.windows[word,default:[]].contains { whole in
+        side.namedPlaces.contains{NSIntersectionRange($0,range).length>0} || side.guards.contains { word in side.windows[word,default:[]].contains { whole in
             whole.location<=range.location && NSMaxRange(whole)>=NSMaxRange(range) && whole != range
         }}
     }
     private static func protectedTarget(_ side:Side,range:NSRange,text:String,language:String,features:Set<String>)->Bool {
+        if side.namedPlaces.contains(where:{NSIntersectionRange($0,range).length>0}) {return true}
         let people=features.intersection(["first-person","second-person","third-person"])
         let numbers=features.intersection(["singular","plural"])
         var subjects:Set<String>=[]
@@ -201,6 +220,10 @@ enum LexicalConcordance {
                 let usable=forms.filter{$0.sourceSafe && (1...3).contains($0.mode)}
                 let shapes=Set(usable.map(shape))
                 guard shapes.count==1,let form=usable.first else {diagnostic(usable.isEmpty ? "source_sense_or_form" : "source_form_conflict");continue}
+                // One coarse native gloss cannot resolve several linked senses.
+                let families=Dictionary(grouping:left.terms[form.lexeme,default:[]].filter{$0.eligible && $0.explicit},by:{$0.family})
+                let ambiguousFamilies=families.values.map{Set($0.map(\.sense))}.filter{$0.count>1}
+                if !ambiguousFamilies.isEmpty && target != "en" {diagnostic("linked_sense_ambiguity");continue}
                 let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
                 let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                 if meanings.isEmpty {diagnostic("no_eligible_link");continue}
@@ -216,6 +239,8 @@ enum LexicalConcordance {
                         for candidate in Set(targets) {
                             guard candidate.targetSafe,(1...3).contains(candidate.mode),candidate.number==form.number,
                                   right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
+                            let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter{$0.eligible}.map(\.sense))
+                            guard ambiguousFamilies.allSatisfy({$0.isSubset(of:targetMeanings)}) else {continue}
                             for targetCarrier in Set(right.windows[other,default:[]]) {
                                 guard !protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features),targetCaseMatches(candidate,range:targetCarrier,text:translation),let targetFocus=focus(candidate,range:targetCarrier,text:translation) else {continue}
                                 claims.insert(Claim(range:targetFocus,reading:needsReading ? readings.first! : ""))
