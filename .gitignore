@@ -36,3 +36,5 @@ ios/Pods/
 ios/Vipi/Info.plist
 *.sqlite-wal
 *.sqlite-shm
+
+.venv-lexical-context/

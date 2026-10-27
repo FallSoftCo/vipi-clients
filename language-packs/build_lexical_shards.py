@@ -13,11 +13,11 @@ import sqlite3
 import time
 import unicodedata
 
-from build_wiktextract import canonical, digest_file, EXCLUDED, PARTS, NON_ROMAN
+from build_wiktextract import canonical, digest_file, EXCLUDED, PARTS, NON_ROMAN, form_ok
 from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 
-POLICY = 'native-linked-analysis-concordance-2'
+POLICY = 'native-linked-lexical-units-4'
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -48,6 +48,13 @@ def normalized(word, language):
 def letters(word):
     return bool(word) and all(unicodedata.category(c)[0] in ('L', 'M') for c in word)
 
+def lexical_unit(word, pos):
+    # Dictionary noun phrases are complete lexical units, including their
+    # internal prepositions. Surrounding sentence grammar is outside the unit.
+    # This does not turn arbitrary verb/adverb clauses into vocabulary units.
+    joined=word.replace('-', '').replace("'", '').replace('’', '')
+    return letters(joined) or (pos=='noun' and form_ok(word))
+
 def utf16(word):
     return len(word.encode('utf-16-le')) // 2
 
@@ -72,8 +79,8 @@ def surface(head, form, pos, tags, language):
     # Non-Roman readings belong to the supplied headword, never an invented
     # reading of its inflection. Whole single-word heads are still supported.
     if form==head:
-        return (0,utf16(form),number,1) if letters(head) else (0,0,number,0)
-    if language in NON_ROMAN or not letters(form):return (0,0,number,0)
+        return (0,utf16(form),number,1) if lexical_unit(head,pos) else (0,0,number,0)
+    if language in NON_ROMAN or not lexical_unit(form,pos):return (0,0,number,0)
     if pos=='noun' and 'plural' in tags and 'singular' not in tags:
         return 0,utf16(form),2,2
     if pos=='verb' and letters(head) and form.count(head)==1 and tags & {
@@ -111,6 +118,8 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             root=links.resolve(identifier)
             glosses=links.simple_glosses(root) if language!='en' else set()
             contradiction=bool(glosses and english.lower() not in glosses)
+            if contradiction and any(links.matching_english_definition(english_line,gloss,spos) for gloss in glosses):
+                contradiction=False;counts['definition_corroborated_links']+=1
             linked_terms[root].append((sid,reading,q,label,spos,explicit,surl,contradiction))
             if contradiction:counts['contradicted_links']+=1
     # Native definitions supply direct English relations absent from English
@@ -145,8 +154,13 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             rule=surface(head,form,pos,tags,language)
             # A supplied alternative script represents the same lexical unit;
             # its reading must still be present and unique at native lookup.
-            if rule and rule[3]==0 and set(tags)&{'canonical','alternative'} and letters(form):
+            if rule and rule[3]==0 and set(tags)&{'canonical','alternative'} and lexical_unit(form,pos):
                 rule=(0,utf16(form),0,1)
+            if rule and rule[3]==0 and language not in NON_ROMAN and 'alt-of' in tags and lexical_unit(form,pos):
+                # An explicit complete-word alternative, including a clipping,
+                # is not a guessed stem. Non-Roman variants need their own
+                # supplied readings and are not generalized by this rule.
+                rule=(0,utf16(form),rule[2],1)
             if not rule or len(form)>128:return
             start,end,number,mode=rule
             db.execute('INSERT OR IGNORE INTO surfaces VALUES (?,?,?,?,?,?,?,?)',
@@ -159,10 +173,26 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
                 eligible=int(not contradiction and qualifier(q)=='' and sid not in scoped)
                 db.execute('INSERT OR IGNORE INTO senses VALUES (?,?,?,?,?)',(sid,label,spos,explicit,surl))
                 db.execute('INSERT OR IGNORE INTO terms VALUES (?,?,?,?,?)',(identifier,sid,reading,eligible,q))
-            add_surface(identifier,links.entry(identifier)[1],[])
-            for form,tags in source.execute('SELECT form,tags FROM native_forms WHERE source_line=?',(identifier,)):
-                add_surface(identifier,form,json.loads(tags))
+            head=links.entry(identifier)[1];pos=links.entry(identifier)[3]
+            forms=source.execute('SELECT form,tags FROM native_forms WHERE source_line=?',(identifier,)).fetchall()
+            # Do not fabricate an unmarked head analysis beside an explicitly
+            # supplied plural/canonical head. Number evidence must survive.
+            if not any(form==head and surface(head,form,pos,json.loads(tags),language) for form,tags in forms):
+                add_surface(identifier,head,[])
+            for form,tags in forms:add_surface(identifier,form,json.loads(tags))
             if index%10000==0:db.commit()
+        if language not in NON_ROMAN:
+            # Canonical entries do not always list every incoming alternative.
+            # Follow explicit native alias entries throughout the inventory,
+            # including aliases whose spelling was absent from linked terms.
+            aliases=source.execute('''SELECT DISTINCT e.source_line FROM native_entries e
+                JOIN native_senses s USING(source_line) WHERE e.language=? AND s.alt_of<>'[]'
+                ORDER BY e.source_line''',(language,))
+            for (identifier,) in aliases:
+                root=links.resolve(identifier)
+                if root!=identifier and root in mapped:
+                    add_surface(root,links.entry(identifier)[1],links.evidence[identifier][2])
+                    counts['incoming_alternative_entries']+=1
         # Every independent native headword competing with a retained surface
         # is resolved. Explicit inflections collapse; true homographs remain.
         source.execute('CREATE TEMP TABLE wanted(normalized TEXT PRIMARY KEY) WITHOUT ROWID')
@@ -171,6 +201,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             ON e.normalized=w.normalized WHERE e.language=? ORDER BY e.source_line''',(language,))
         for (identifier,) in competitors:
             root=links.resolve(identifier);add_lexeme(root)
+            if root==identifier and root in mapped:continue
             if root==identifier:tags=[]
             else:tags=links.evidence[identifier][2]
             # Source headword remains the exact attested carrier. Resolve the

@@ -4,7 +4,7 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
-    private static let policy="native-linked-analysis-concordance-2"
+    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4"]
     private enum Limit:Error {case overflow}
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
@@ -44,7 +44,8 @@ enum LexicalConcordance {
         }
         guard let inventory=metadata.removeValue(forKey:"source_inventory_sha256"),inventory.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         guard let release=metadata.removeValue(forKey:"release_id"),release.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
-        guard metadata==["schema":"vipi-lexical-shard-2","policy":policy,"language":language] else {throw VocabularyPackError.invalid}
+        guard let policy=metadata.removeValue(forKey:"policy"),policies.contains(policy),
+              metadata==["schema":"vipi-lexical-shard-2","language":language] else {throw VocabularyPackError.invalid}
         guard let raw=ReviewedFrameLookup.windows(text,language:language) else {return nil}
         var windows:[String:[NSRange]]=[:]
         for (written,ranges) in raw {windows[key(written),default:[]]+=ranges}
@@ -71,6 +72,9 @@ enum LexicalConcordance {
             }
         }
         return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,guards:guards,inventory:inventory,release:release)
+    }
+    private static func shape(_ form:Form)->[Int] {
+        [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
     }
     private static func focus(_ form:Form,range:NSRange,text:String)->NSRange? {
         guard (1...3).contains(form.mode) else {return nil}
@@ -131,7 +135,7 @@ enum LexicalConcordance {
                 // Different analyses must not disappear because only one of
                 // them has a convenient counterpart in the translated text.
                 let usable=forms.filter{$0.sourceSafe && (1...3).contains($0.mode)}
-                let shapes=Set(usable.map{[$0.start,$0.end,$0.number,$0.mode]})
+                let shapes=Set(usable.map(shape))
                 guard shapes.count==1,let form=usable.first else {diagnostic(usable.isEmpty ? "source_sense_or_form" : "source_form_conflict");continue}
                 let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
                 let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))

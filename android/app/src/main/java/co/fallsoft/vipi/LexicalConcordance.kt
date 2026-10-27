@@ -7,7 +7,7 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private const val POLICY="native-linked-analysis-concordance-2"
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4")
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
         val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean)
@@ -23,7 +23,8 @@ internal object LexicalConcordance {
         }
         val inventory=requireNotNull(metadata.remove("source_inventory_sha256"));require(inventory.matches(Regex("[0-9a-f]{64}")))
         val release=requireNotNull(metadata.remove("release_id"));require(release.matches(Regex("[0-9a-f]{64}")))
-        require(metadata==mapOf("schema" to "vipi-lexical-shard-2","policy" to POLICY,"language" to language))
+        require(metadata.remove("policy") in POLICIES)
+        require(metadata==mapOf("schema" to "vipi-lexical-shard-2","language" to language))
         val raw=ReviewedFrameLookup.windows(text,language) ?: return null
         val windows=linkedMapOf<String,MutableList<IntRange>>()
         for((written,ranges) in raw)windows.getOrPut(key(written)){mutableListOf()}.addAll(ranges)
@@ -54,6 +55,9 @@ internal object LexicalConcordance {
         }
         return Side(windows,forms,terms,blocked,targetBlocked,guards,inventory,release)
     }
+    private fun shape(form:Form)=listOf(
+        if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
+        form.number,if(form.mode==3)3 else 1)
     private fun focus(form:Form,range:IntRange,text:String):IntRange? {
         if(form.mode !in 1..3)return null
         if(form.mode!=3)return range
@@ -110,10 +114,10 @@ internal object LexicalConcordance {
             for((word,forms) in left.forms) {
                 if(word in left.blocked) {diagnostic("source_guard");continue}
                 if(forms.map{it.lexeme}.distinct().size!=1) {diagnostic("multiple_source_entries");continue}
-                val usable=forms.filter{it.sourceSafe && it.mode in 1..3}.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}
+                val usable=forms.filter{it.sourceSafe && it.mode in 1..3}.distinctBy(::shape)
                 // Different number or focus analyses are not selected away by
                 // whichever target happens to be present in the translation.
-                if(usable.map{listOf(it.start,it.end,it.number,it.mode)}.distinct().size!=1) {diagnostic(if(usable.isEmpty()) "source_sense_or_form" else "source_form_conflict");continue}
+                if(usable.map(::shape).distinct().size!=1) {diagnostic(if(usable.isEmpty()) "source_sense_or_form" else "source_form_conflict");continue}
                 val form=usable.singleOrNull() ?: continue
                 val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
                 val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()

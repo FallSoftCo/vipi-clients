@@ -86,6 +86,17 @@ def main(a):
         original='Xyzpenda.',translation='I love.',forbidden_source='penda',forbidden_target='love'))
     cases.append(dict(id='sw-know-conflicting-person',dataset='authored-carrier-behavior',source='sw',target='en',
         original='Ninajua.',translation='You know.',forbidden_source='jua',forbidden_target='know'))
+    for identifier,language,target,left,right,focus,translated in [
+        ('es-toothbrush','es','en','Mi cepillo de dientes.','My toothbrush.','cepillo de dientes','toothbrush'),
+        ('es-phone-number','es','en','Mi número de teléfono.','My phone number.','número de teléfono','phone number'),
+        ('es-station','es','en','La estación de tren.','The railway station.','estación de tren','railway station'),
+        ('es-credit-card','es','en','Mi tarjeta de crédito.','My credit card.','tarjeta de crédito','credit card'),
+        ('de-mother-in-law','de','en','Meine Schwiegermutter.','My mother-in-law.','Schwiegermutter','mother-in-law'),
+        ('ar-unmarked-cup','ar','en','فنجان.','cup.','فنجان','cup')]:
+        cases.append(dict(id=identifier,dataset='authored-lexical-unit-behavior',source=language,target=target,
+            original=left,translation=right,expected_source=focus,expected_target=translated))
+    cases.append(dict(id='es-toothbrush-wrong-counterpart',dataset='authored-lexical-unit-behavior',source='es',target='en',
+        original='Mi cepillo de dientes.',translation='My hairbrush.',forbidden_source='cepillo de dientes',forbidden_target='hairbrush'))
     a.output.mkdir(parents=True,exist_ok=False)
     path=a.output/'cases.json';path.write_text(canonical(cases)+'\n')
     result=dict(schema='vipi-lexical-qualification-1',shards=catalog['shards'],cases_sha256=digest_file(path),

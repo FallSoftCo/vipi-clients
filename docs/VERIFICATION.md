@@ -2,6 +2,14 @@
 
 Updated 2026-10-27. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
 
+## Broad dictionary checkpoint 007 and full context build — 2026-10-27
+
+Both Android and the physical iPad pass all 15,342 replay cases with data revision 006 (1,586,442,240 bytes). All 110 dictionary-probe directions now produce selected spans. Complete noun units, incoming explicit aliases and corroborated definition links fix the missing phone-number and railway-station cases; known meaning/scope regressions and Swahili carrier checks still pass. Thirteen cross-platform differences remain. Android's separate-path unions are 20.39% SMS, 54.44% booking dialogue, 32.52% persona dialogue and 9.21% explicit Swahili. These are not integrated app coverage or independent accuracy scores. The app default remains bundle 022.
+
+The bulk development-only context build scans 5,029,353 sentences, including 3,899 Swahili references, and indexes 7,446,251 candidate alignments. Its validated 1,629,253,632-byte database has SHA c335b3d9b51adff2b4ebfc49d0909f58a3217ed708b4754b3d519f4b629a5055. These contexts are not automatically approved runtime mappings or verified sense-classifier labels. Four targeted pipeline tests pass, and the 38,211,928-byte QA delta was reconstructed and hash-verified on the Mac before iPad replay. A corrupt-patch rejection check also passes. A receipt path-shadowing error was corrected with the original receipt/compiler preserved; database contents and counts were independently checked.
+
+See [BROAD_LEXICAL_COVERAGE.md](BROAD_LEXICAL_COVERAGE.md) and [LEXICAL_CONTEXT_PIPELINE.md](LEXICAL_CONTEXT_PIPELINE.md) for the exact provenance, qualifications and remaining work. Actual context-based runtime selection, broad semantic acceptance, production language downloads and store readiness remain open.
+
 ## Broad dictionary checkpoint 004 — 2026-10-27
 
 The new full eleven-language inventory retains 13,265,782 supplied forms. Its compiled language shards total 1,587,359,744 bytes, with 254,059 additional direct English links extracted from explicit native dictionary definitions. Both native implementations pass all 15,335 qualification cases, including known meaning/scope regressions and Swahili carrier behavior. Actual availability remains insufficient: separate-path Android unions are 20.36% SMS, 49.08% booking dialogue, 32.00% persona dialogue and 9.16% explicit Swahili. Ten native output differences and nine Arabic-source dictionary-probe directions without selected spans remain. These are QA results; the main app still uses bundle 022. See [BROAD_LEXICAL_COVERAGE.md](BROAD_LEXICAL_COVERAGE.md) for hashes, exact denominators, storage and remaining gates.

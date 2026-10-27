@@ -1,5 +1,11 @@
 # Broad lexical coverage
 
+Latest checkpoint: native run 007 passes on Android and the physical iPad with
+data revision 006. All 110 dictionary-probe directions produce selected spans.
+The full context expansion now contains 7,446,251 candidate alignments; see
+[the context pipeline](LEXICAL_CONTEXT_PIPELINE.md). Neither inventory size nor
+passing mechanics establishes majority conversation coverage.
+
 The 2026-10-27 expansion replaces small manual vocabulary batches as the main
 data acquisition method. The existing app bundle remains the accepted native
 checkpoint while the broad dictionary path is qualified. Counts below are
@@ -149,6 +155,51 @@ readers. Source inventory size, pair counts and lookup speed are separate
 metrics. Passing mechanics does not establish semantic precision. Broad
 conversation acceptance, fresh untouched evaluation, app download integration
 and release signing remain separate requirements.
+
+### Native checkpoint 007 and lexical units
+
+Revision 006 is **1,586,442,240 bytes**, release ID
+`1851a559d0e102b830903b227b2bf9e66105af52d96f055e37115db2372d5bcc`.
+It retains complete dictionary noun phrases and hyphenated units, preserves
+supplied head-number evidence, and includes incoming explicit Latin-script
+alternatives. English has 31,294 incoming alternative entries; these are not
+31,294 new concepts. A published bilingual link is no longer falsely vetoed
+when two single-sense English entries have the same substantive definition,
+as with train station and railway station. Definition equality only corroborates
+an existing link; it does not manufacture new synonym links.
+
+Both native readers normalize whole-word replacement geometry to the actual
+input range. Marked and unmarked Arabic forms no longer conflict merely because
+their stored lengths differ. Stem/carrier replacements still require exact
+UTF-16 geometry, and ambiguous readings remain withheld.
+
+Both platforms complete and pass **15,342 cases**. Android takes 253.579s;
+the physical iPad test takes 127.630s, with a 136.891s xcodebuild operation.
+The six lexical-unit positives include toothbrush, phone number, railway
+station, credit card, mother-in-law and an unmarked Arabic cup. An incorrect
+hairbrush counterpart remains withheld. The existing meaning/scope negatives
+and Swahili carrier checks remain in the replay.
+
+| Reused conversation captures | Android baseline + additional → union | iPad baseline + additional → union |
+| --- | ---: | ---: |
+| SMS, 3,600 cases | 651 + 83 → 734 (20.39%) | 662 + 85 → 747 (20.75%) |
+| Multi3WOZ, 3,600 cases | 1,613 + 347 → 1,960 (54.44%) | 1,635 + 342 → 1,977 (54.92%) |
+| XPersona, 2,700 cases | 575 + 303 → 878 (32.52%) | 595 + 294 → 889 (32.93%) |
+| Explicit Swahili, 1,910 cases | 151 + 25 → 176 (9.21%) | 154 + 26 → 180 (9.42%) |
+
+These remain separate-path unions, not an integrated application result. Lookup
+and alignment exclude translation time. Android conversation medians are
+3.2–6.6ms and p95 10.7–23.4ms; iPad medians are 2.1–4.3ms and p95 5.6–8.7ms.
+Thirteen cases differ between platforms. The broad path is still conservative
+about competing source entries and meanings, and is not the default app catalog.
+
+Native 006 retained two missing-phrase failures before these alias/link fixes.
+Android 005 was discovered to have a different installed APK from the intended
+build, so it must not be used to assess the Arabic geometry change. Subsequent
+Android staging verifies the installed APK hash and every fixture file before
+running tests. Native source receipts are in
+`artifacts/native-lexical-source-009/`; summaries are
+`artifacts/lexical-summary-{android,apple}-007.json`.
 
 ## Storage and regeneration
 

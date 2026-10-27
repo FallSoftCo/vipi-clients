@@ -99,5 +99,32 @@ class NativeLinks:
             values.update(pieces)
         return values
 
+    @lru_cache(maxsize=100000)
+    def matching_english_definition(self, english_identifier, word, pos):
+        """Corroborate an existing translation, never create a new synonym link.
+
+        A short native gloss can use a different English name for the same
+        thing. Keep a published bilingual link when both English entries have
+        one identical, substantive modern definition (e.g. railway/train
+        station). This only prevents a false contradiction veto.
+        """
+        def leaf(identifier):
+            values=set()
+            for raw,tags,forms,alts in self.senses(identifier):
+                if set(json.loads(tags)) & EXCLUDED:continue
+                if json.loads(forms) or json.loads(alts):return None
+                glosses=json.loads(raw)
+                if not glosses:return None
+                values.add(glosses[-1])
+            value=next(iter(values)) if len(values)==1 else None
+            return value if value and len(value)>=24 and len(value.split())>=5 else None
+        definition=leaf(english_identifier)
+        if not definition:return False
+        for identifier,tags in self.db.execute('''SELECT source_line,tags FROM native_entries
+            WHERE language='en' AND normalized=? AND headword=? AND part_of_speech=?''',(lookup_key(word,'en'),word,pos)):
+            if not set(json.loads(tags)) & EXCLUDED and leaf(identifier)==definition:return True
+        return False
+
     def close(self):
         self.entry.cache_clear();self.senses.cache_clear();self.candidates.cache_clear()
+        self.matching_english_definition.cache_clear()
