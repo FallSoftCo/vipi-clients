@@ -5,6 +5,69 @@ text. Storage is a capacity to use, not a reason to limit the catalog to a few
 handwritten examples. The accepted app default remains bundle 022 until the
 broader data passes meaning review and production delivery checks.
 
+## Priority correction: build useful immersion before broad regression runs
+
+The user rejected treating the large regression count as product progress.
+The immediate work is correct, substantial immersion in ordinary conversations:
+common vocabulary and phrasing in context, native grammar preserved, readable
+transliteration, continuous stable inline flipping and matching local speech.
+Run a small fixed development cohort during matcher work; inspect the actual
+sentences and selected meanings. Run the broad native suite after a substantial
+candidate improvement. Do not report passing mechanics as achieved immersion.
+
+Two Android-only experiments are retained as rejected research (033 and 034).
+They use fixture 022: four hash-selected source turns in each of eight existing
+dataset/source strata, all existing target directions, and retained observed
+semantic failures. The resulting 32 source turns are a development sample,
+not an unseen or representative coverage estimate. Its four Swahili turns are
+short fragments; no Swahili population inference is justified.
+
+The first experiment aligns complete supplied forms against explicit shared
+dictionary senses in the translated sentence, without the old context-witness
+requirement. On the 252 non-Swahili conversation-direction cases, selected
+spans rise from 123 to 227. This is not accepted progress: it reintroduces six
+retained meaning/scope failures and adds a new visible error, noun show in
+the 9 pm show mapped to Spanish mostrar (verb). It also consumes grammatical
+affixes in some complete carriers. A valid dictionary counterpart plus presence
+in a machine translation does not establish the contextual meaning.
+
+The second experiment adds attested lemma keys to both pair lookup and context
+cues, requires witnesses for native polysemy, and retains known non-Roman carrier
+boundaries. Gains are much smaller (123 to 130 spans in those same cases);
+it still accepts French établissement meaning a hotel/institution as Korean
+설립 meaning establishment/founding, and loses the required books/libros mapping.
+Both experiments are archived outside the normal app source. Their source
+snapshots, patch, native outputs and comparisons are under
+artifacts/whole-word-development-033-source,
+artifacts/whole-word-development-034-source,
+artifacts/lexical-coverage-android-033.json and -034.json, and
+artifacts/whole-word-development-033-comparison.json and -034-comparison.json.
+Neither is promoted. No broad 26k replay or new iPad run was performed for them.
+
+Concrete blockers found:
+
+- Supplied inflections classified as mode 0 cannot enter the existing matcher.
+  Examples include Spanish voy/comiendo and French vais/mange. Fixing that
+  eligibility alone is insufficient without contextual POS/sense selection
+  and exact grammatical-carrier boundaries.
+- A compiler bug treats any alternative/form-of sense as invalidating every
+  modern lexical sense of an entry. English go has 66 ordinary senses and one
+  clipping sense, yet its target eligibility is zero. The compiler now retains
+  modern lexical eligibility while keeping mixed entries out of the
+  single-sense source shortcut. Pure alias-only entries remain ineligible.
+  Verified against native entry 30997 from immutable inventory 003; receipt
+  artifacts/mixed-lexeme-eligibility-001.json. This source fix is not yet in
+  a rebuilt or installed pack and contributes no claimed coverage gain.
+- Some reused native full translations are already semantically wrong.
+  For example, an Arabic attraction question is translated as lactation.
+  Full-translation quality and vocabulary-selection quality need separate
+  review; word matching cannot repair an incorrect sentence by itself.
+
+The next substantive step must address contextual word/phrase selection and
+full-translation failures, then demonstrate useful density in actual chat.
+Do not repeat tiny guard patches and a full regression run as the main loop.
+The current core immersion standard and 90% target remain unmet.
+
 ## Native coverage and depth qualification — run 032
 
 Both Android and the attached iPad completed **26,368 cases** against fixture

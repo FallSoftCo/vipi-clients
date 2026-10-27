@@ -146,10 +146,13 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             _,head,key,pos,raw_tags,url=links.entry(identifier)
             n,nonlemma=native_senses(links.senses(identifier))
             word=source.execute('SELECT grammatical,proper FROM native_words WHERE language=? AND normalized=?',(language,key)).fetchone()
-            lexical=not nonlemma and pos in PARTS and not set(json.loads(raw_tags))&EXCLUDED and n>0
+            # A secondary clipping/inflection sense does not erase the valid
+            # lexical senses of the same entry (English go has 66, plus one
+            # clipping sense). Keep mixed entries contextual on the source side.
+            lexical=pos in PARTS and not set(json.loads(raw_tags))&EXCLUDED and n>0
             # Proper-name and grammatical homographs remain negative source
             # evidence. They do not invalidate another entry's lexical target.
-            source_safe=int(lexical and n==1 and not (word and any(word)))
+            source_safe=int(lexical and not nonlemma and n==1 and not (word and any(word)))
             db.execute('INSERT INTO lexemes VALUES (?,?,?,?,?,?,?,?)',(identifier,head,key,pos,source_safe,int(lexical),n,url))
             inserted.add(identifier)
         def add_surface(identifier,form,tags):

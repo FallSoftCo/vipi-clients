@@ -5,6 +5,17 @@ This is a product target, not an achieved result. Counting a message because one
 word changed is only an availability diagnostic: it does not prove useful
 immersion, correct meaning, or a learning outcome.
 
+## Development priorities
+
+The user explicitly rejected regression volume as a substitute for achieving
+immersion. Work on a small fixed, varied conversation sample first and review
+the actual mixed-language output, scope and meanings. Broaden to the full
+native regression suite after a meaningful coverage/depth improvement.
+Retain rejected experiments and their failures; do not promote an increased
+substitution count if it introduces meaning errors. Translation quality,
+contextual vocabulary selection and the live flip/transliteration/speech
+experience must each work. None can be inferred from the number of test cases.
+
 ## Fixed denominators
 
 The scorecard retains every message in each named diagnostic dataset, including
