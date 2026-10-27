@@ -3,12 +3,14 @@ import Foundation
 public struct ContextFrame:Sendable {
     public let id:String,meaning:String,sourceLanguage:String,targetLanguage:String,reading:String
     public let sourceParts:[ContextPart],targetParts:[ContextPart]
-    public let lexicalUnit:Bool
+    public let lexicalUnit:Bool,sourceUnit:Bool,targetUnit:Bool
     public init(id:String,meaning:String,sourceLanguage:String,targetLanguage:String,
-                sourceParts:[ContextPart],targetParts:[ContextPart],reading:String="",lexicalUnit:Bool=false) {
+                sourceParts:[ContextPart],targetParts:[ContextPart],reading:String="",lexicalUnit:Bool=false,
+                sourceUnit:Bool?=nil,targetUnit:Bool?=nil) {
         self.id=id;self.meaning=meaning;self.sourceLanguage=sourceLanguage;self.targetLanguage=targetLanguage
         self.sourceParts=sourceParts;self.targetParts=targetParts;self.reading=reading
         self.lexicalUnit=lexicalUnit
+        self.sourceUnit=sourceUnit ?? lexicalUnit;self.targetUnit=targetUnit ?? lexicalUnit
     }
 }
 public struct ContextFrameHit:Sendable {
@@ -52,8 +54,9 @@ public enum ContextFrameMatcher {
             let frame=hit.frame
             guard frame.sourceLanguage==source,frame.targetLanguage==target,!frame.id.isEmpty,frame.id.utf16.count<=256,
                   !frame.meaning.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,frame.meaning.utf16.count<=2048,
-                  let left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.lexicalUnit),!left.isEmpty,
-                  let right=focuses(translation,hit.targetWindows,frame.targetParts,frame.lexicalUnit) else {return []}
+                  frame.lexicalUnit == (frame.sourceUnit && frame.targetUnit),
+                  let left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.sourceUnit),!left.isEmpty,
+                  let right=focuses(translation,hit.targetWindows,frame.targetParts,frame.targetUnit) else {return []}
             if left.count>1 || right.count>1 {blocked.formUnion(left)}
             for focus in left {groups[focus,default:[]].append((frame,right.count==1 ? right.first : nil))}
         }
@@ -65,8 +68,8 @@ public enum ContextFrameMatcher {
                 // Native tokenization can split a listed plural suffix. Within
                 // this one source focus and assessed sense, retain the complete
                 // approved target unit before normal ambiguity checks.
-                if frame.lexicalUnit && group.contains(where: { other, parent in
-                    guard other.lexicalUnit, let parent, parent != targetFocus else { return false }
+                if frame.targetUnit && group.contains(where: { other, parent in
+                    guard other.targetUnit, let parent, parent != targetFocus else { return false }
                     return parent.location <= targetFocus.location && NSMaxRange(parent) >= NSMaxRange(targetFocus)
                 }) { continue }
                 let word=(translation as NSString).substring(with:targetFocus)

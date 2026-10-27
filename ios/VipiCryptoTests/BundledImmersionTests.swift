@@ -129,7 +129,7 @@ final class BundledImmersionTests: XCTestCase {
             let result=try await catalog.result(original:left,translation:right,pair:pair,density:1)
             XCTAssertTrue(result.spans.isEmpty)
         }
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-016.json")
+        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("bundled-immersion-017.json")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
         try JSONSerialization.data(withJSONObject: ["pairs":pairs.count, "references":count, "spans":selected,"lexical_units":units,"unchanged_latin_forms":unchanged,
             "runtime_path":"app-bundled-native-catalog", "independent_linguistic_acceptance":false], options: [.prettyPrinted,.sortedKeys])

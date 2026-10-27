@@ -3,6 +3,36 @@ import XCTest
 @testable import VipiCore
 
 final class ContextFrameTests:XCTestCase {
+    func testAttachedGrammarStaysOriginalWhileOnlyTheAssessedNounChanges() {
+        for (original,translation,language,noun,suffix,target,reading) in [
+            ("책을 가져왔어요.","I brought the book.","ko","책","을","book","chaek"),
+            ("Tutakutana shuleni.","We will meet at school.","sw","shule","ni","school","")
+        ] {
+            let parts:[ContextPart]=[.focus(noun),.literal(suffix)]
+            let frame=ContextFrame(id:"attached",meaning:"specific noun",sourceLanguage:language,targetLanguage:"en",
+                sourceParts:parts,targetParts:[.focus(target)],targetUnit:true)
+            let hit=ContextFrameHit(frame:frame,sourceWindows:[(original as NSString).range(of:noun+suffix)],
+                targetWindows:[(translation as NSString).range(of:target)])
+            let values=ContextFrameMatcher.entries(original:original,translation:translation,source:language,target:"en",hits:[hit])
+            let result=ImmersionEngine().align(original:original,translation:translation,entries:values,density:1,targetLanguage:"en")
+            XCTAssertEqual(result.spans.map(\.original),[noun])
+            XCTAssertEqual(result.speech(source:language,target:"en").map(\.text).joined(),original.replacingOccurrences(of:noun,with:target))
+            XCTAssertEqual(result.speech(source:language,target:"en",revealed:Set(result.spans.map(\.id))).map(\.text).joined(),original)
+            let reverse=ContextFrame(id:"reverse",meaning:"specific noun",sourceLanguage:"en",targetLanguage:language,
+                sourceParts:[.focus(target)],targetParts:parts,reading:reading,sourceUnit:true)
+            let reverseHit=ContextFrameHit(frame:reverse,sourceWindows:hit.targetWindows,targetWindows:hit.sourceWindows)
+            let reverseValues=ContextFrameMatcher.entries(original:translation,translation:original,source:"en",target:language,hits:[reverseHit])
+            let reversed=ImmersionEngine().align(original:translation,translation:original,entries:reverseValues,density:1,targetLanguage:language)
+            XCTAssertEqual(reversed.spans.map(\.translated),[noun])
+            if language=="ko" {XCTAssertEqual(reversed.spans.first?.romanization,reading)}
+            for targetUnit in [false,true] {
+                let denied=ContextFrame(id:"denied",meaning:"specific noun",sourceLanguage:language,targetLanguage:"en",
+                    sourceParts:targetUnit ? [.focus(noun),.literal("wrong")] : parts,targetParts:[.focus(target)],targetUnit:targetUnit)
+                let deniedHit=ContextFrameHit(frame:denied,sourceWindows:hit.sourceWindows,targetWindows:hit.targetWindows)
+                XCTAssertTrue(ContextFrameMatcher.entries(original:original,translation:translation,source:language,target:"en",hits:[deniedHit]).isEmpty)
+            }
+        }
+    }
     func testFinitePossessorsRemainOutsideFocus() {
         let parts:[ContextPart]=[.slot(["my ","your ","their "]),.focus("dog")]
         XCTAssertEqual(ContextMappingMatcher.focus(in:"their dog",parts:parts),NSRange(location:6,length:3))

@@ -16,7 +16,7 @@ import time
 
 from build_wiktextract import LANGUAGES, NON_ROMAN, canonical, digest_file, form_ok, readable_roman
 from context_hints import lookup_key
-from context_patterns import validate_pattern,validate_frames
+from context_patterns import validate_pattern,validate_frames,side_is_unit
 
 # The pinned dictionary extraction remains the original ten-language corpus.
 # Reviewed authoring can add a language independently of that frozen source.
@@ -195,7 +195,7 @@ class Catalog:
                     raise ValueError('Incomplete linguistic review')
                 if record['usage'].get('context_extent')=='local_phrase' and checks.get('context_frame_scope')!='pass':
                     raise ValueError('Local phrase generalization has not passed explicit review')
-                if record['usage'].get('lexical_unit') and checks.get('lexical_unit_scope')!='pass':
+                if any(side_is_unit(record['usage'],side) for side in ('source','target')) and checks.get('lexical_unit_scope')!='pass':
                     raise ValueError('Complete lexical units have not passed explicit review')
                 required=record['target_language'] in NON_ROMAN
                 if checks.get('reading')!=('pass' if required else 'not_required') or (required and not record['reading']):

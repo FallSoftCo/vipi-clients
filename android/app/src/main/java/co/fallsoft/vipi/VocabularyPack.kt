@@ -23,10 +23,18 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
     private val isContext = kind == VocabularyPackKind.REVIEWED_CONTEXT
     private val isFrame = kind == VocabularyPackKind.REVIEWED_FRAME
     private val isReviewed = isContext || isFrame
-    private val reviewedSchemas = if (isFrame) setOf(6,7) else setOf(5)
-    private fun reviewedPolicy(schema:Int) = if (isFrame) (if(schema==7) "reviewed-bidirectional-phrase-and-unit-2" else "reviewed-bidirectional-phrase-1") else "reviewed-finite-context-1"
+    private val reviewedSchemas = if (isFrame) setOf(6,7,8) else setOf(5)
+    private fun reviewedPolicy(schema:Int) = if (isFrame) when(schema) {
+        8 -> "reviewed-bidirectional-side-unit-3"
+        7 -> "reviewed-bidirectional-phrase-and-unit-2"
+        else -> "reviewed-bidirectional-phrase-1"
+    } else "reviewed-finite-context-1"
     private val reviewedFile = if (isFrame) "frames.sqlite" else "contexts.sqlite"
-    private fun reviewedMetadata(schema:Int) = if (isFrame) (if(schema==7) "vipi-reviewed-frame-2" else "vipi-reviewed-frame-1") else "vipi-reviewed-context-1"
+    private fun reviewedMetadata(schema:Int) = if (isFrame) when(schema) {
+        8 -> "vipi-reviewed-frame-3"
+        7 -> "vipi-reviewed-frame-2"
+        else -> "vipi-reviewed-frame-1"
+    } else "vipi-reviewed-context-1"
     private val reviewedIndexes = if (isFrame) listOf("source_inputs", "target_inputs") else listOf("context_inputs")
     private val root = File(context.filesDir, when {isFrame -> "language-packs/reviewed-frames"; isContext -> "language-packs/reviewed-contexts"; else -> "language-packs"}).apply { mkdirs() }
     private val receiptPrefix = when {isFrame -> "frame-pack-"; isContext -> "context-pack-"; else -> "pack-"}

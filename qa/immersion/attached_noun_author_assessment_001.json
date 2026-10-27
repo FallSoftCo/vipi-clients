@@ -1,0 +1,25 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "ca6883b6d677fc4b1a4256556815c4f14a242f25c35894c7d0045f37d4a8af4d",
+  "authoring_source_sha256": "abae940c9c24c272d1c8f444565643cd3d34ddd224c4678f7274f905e19ea4d5",
+  "records": 2551,
+  "scope": "Finite Korean particle and Swahili locative attachments to exact previously assessed noun counterparts. 38 directions; no new lexical translations, readings or whole-message references.",
+  "decisions": {
+    "meaning": "Each noun form, counterpart, sense identity and practical reading comes from the exact pinned bundle 017 evidence. Attached forms retain the same lexical focus. The actual local whole translation must contain the corresponding approved target form. This constraint does not independently prove sense equivalence.",
+    "korean": "Only explicitly listed Hangul nouns from the 26-concept plural authoring source qualify. Enumerate topic, subject, object and conjunction allomorphs according to the final Hangul syllable's consonant ending, plus the explicit particles 도, 만, 에, 에서 and 의. No inferred pluralization, stacked particles, contractions, spelling repair or runtime stemming. Particles constrain the match but remain outside the replacement.",
+    "swahili": "Permit locative -ni only on shule, ofisi, hoteli, mkahawa, migahawa, mlango, milango, gari and magari with their existing exact meanings. Exclude nyumba/nyumbani because home and a house building need distinct scope; exclude multiword airport forms because their noun focus is discontinuous. No permission for arbitrary nouns or proper place names.",
+    "scope": "New schema 8 carries separate source and target unit permissions. A bare counterpart requires explicit unit permission; an attached counterpart requires the entire listed noun-plus-suffix frame at native word boundaries. Never infer permissions from pattern length. Both directions preserve every original character outside the noun, including particles, locatives, negation, possession and punctuation.",
+    "reading": "Reuse only the exact approved target noun's practical Latin reading. Do not speak the Latin reading or reinterpret the remaining native grammar. Native target-script noun is the speech input. No acoustic listening acceptance is implied.",
+    "provenance": "The batch is project authored from pinned prior assessed evidence. No evaluation utterances or unapproved dictionary rows supplied lexical content. Source references below support the grammatical analysis; they do not constitute independent review of the generated batch.",
+    "qualification": "Require all retained reference and reading checks, baseline record preservation, static index enumeration and both native app catalog paths for every new indexed attachment. Repeated counterparts, larger unlisted words, downgraded scope contracts and ambiguous matches must abstain. Author assessment is not independent linguistic precision. Release remains withheld."
+  },
+  "references": [
+    {"url":"https://eprints.soas.ac.uk/41486/1/sl.22017.gib.pdf","support":"Swahili nominal locative -ni, explicit shule-ni example, and exclusion of ordinary proper place names; search-index excerpt accessed."},
+    {"url":"https://www.cs.toronto.edu/~tfowler/Korean/Lesson1.html","support":"Korean consonant/vowel allomorphs for subject, object and topic particles; page inspected."},
+    {"url":"https://faculty.washington.edu/fxia/LAWVI/workshop_presentation_slides/paper_session5/particle_final.pdf","support":"Lee and Song 2012: nominal particle roles, locatives, additive/restrictive particles and conjunction particles; pages 2–5 inspected as extracted PDF text."}
+  ],
+  "checks": {"meaning":"pass","usage":"pass","grammar_scope":"pass","context_frame_scope":"pass","lexical_unit_scope":"pass","provenance":"pass"},
+  "release_ready": false
+}

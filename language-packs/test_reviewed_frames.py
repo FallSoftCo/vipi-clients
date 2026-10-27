@@ -44,7 +44,7 @@ class ReviewedFrameTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             folder=Path(temp)/'pack';key=ec.generate_private_key(ec.SECP256R1())
             manifest=export_pair([frame()],'en','es',folder,1,key,'synthetic',{'records_sha256':'a'*64,'through_sequence':1})
-            self.assertEqual(manifest['schema_version'],7)
+            self.assertEqual(manifest['schema_version'],8)
             key.public_key().verify((folder/'manifest.sig').read_bytes(),(folder/'manifest.json').read_bytes(),ec.ECDSA(hashes.SHA256()))
             with sqlite3.connect(folder/'frames.sqlite') as db:
                 self.assertEqual(db.execute('SELECT input FROM source_inputs').fetchall(),[('Buy bread',)])
@@ -90,6 +90,35 @@ class ReviewedFrameTests(unittest.TestCase):
             self.assertEqual(bundle['references'],[])
             row['usage']['whole_reference']='false'
             with self.assertRaises(ValueError):compile_record(value)
+
+    def test_one_unit_side_keeps_the_other_side_context_bound(self):
+        value=frame();row=value['record']
+        row['usage'].update(lexical_unit=False,source_lexical_unit=True,target_lexical_unit=False,
+            source_frame_span=row['source_span'][:],source_frame_pattern=[{'focus':row['source']}])
+        value['sha256']=digest(row);value['assessments']=[review(row)]
+        value['assessments'][0]['checks']['context_frame_scope']='pass'
+        with self.assertRaises(ValueError):compile_record(value)
+        value['assessments'][0]['checks']['lexical_unit_scope']='pass'
+        payload,left,right=compile_record(value)
+        self.assertFalse(payload['lexical_unit']);self.assertTrue(payload['source_lexical_unit'])
+        self.assertFalse(payload['target_lexical_unit'])
+        self.assertEqual(left,['bread']);self.assertEqual(right,['Compra pan'])
+        for change in ({'source_lexical_unit':False},{'target_lexical_unit':True},
+                       {'target_lexical_unit':None},{'source_lexical_unit':'true'},{'lexical_unit':True},
+                       {'context_extent':'exact_context'}):
+            bad=copy.deepcopy(value);bad['record']['usage'].update(change)
+            # Rebind the assessment to exercise scope validation, not stale hashes.
+            bad['sha256']=digest(bad['record']);bad['assessments']=[review(bad['record'])]
+            bad['assessments'][0]['checks'].update(context_frame_scope='pass',lexical_unit_scope='pass')
+            with self.assertRaises(ValueError):compile_record(bad)
+        with tempfile.TemporaryDirectory() as temp:
+            catalog=Catalog(Path(temp)/'ledger.sqlite');identifier=catalog.register({'fixture':'one-side-unit'})
+            try:
+                catalog.ingest(identifier,0,[(1,row)],complete=True)
+                missing=copy.deepcopy(value['assessments'][0]);del missing['checks']['lexical_unit_scope']
+                with self.assertRaises(ValueError):catalog.review(missing)
+                catalog.review(value['assessments'][0])
+            finally:catalog.close()
 
 
 if __name__=='__main__':unittest.main()

@@ -1,7 +1,8 @@
 package co.fallsoft.vipi.core
 
 data class ContextFrame(val id:String,val meaning:String,val sourceLanguage:String,val targetLanguage:String,
-    val sourceParts:List<ContextPart>,val targetParts:List<ContextPart>,val reading:String="",val lexicalUnit:Boolean=false)
+    val sourceParts:List<ContextPart>,val targetParts:List<ContextPart>,val reading:String="",val lexicalUnit:Boolean=false,
+    val sourceUnit:Boolean=lexicalUnit,val targetUnit:Boolean=lexicalUnit)
 data class ContextFrameHit(val frame:ContextFrame,val sourceWindows:List<IntRange>,val targetWindows:List<IntRange>)
 
 /** Exact indexed phrase matches still require an explicitly assessed record.
@@ -33,8 +34,9 @@ object ContextFrameMatcher {
             val frame=hit.frame
             if(frame.sourceLanguage!=source || frame.targetLanguage!=target || frame.id.isBlank() || frame.id.length>256 ||
                 frame.meaning.isBlank() || frame.meaning.length>2048)return emptyList()
-            val left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.lexicalUnit) ?: return emptyList()
-            val right=focuses(translation,hit.targetWindows,frame.targetParts,frame.lexicalUnit) ?: return emptyList()
+            if(frame.lexicalUnit != (frame.sourceUnit && frame.targetUnit))return emptyList()
+            val left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.sourceUnit) ?: return emptyList()
+            val right=focuses(translation,hit.targetWindows,frame.targetParts,frame.targetUnit) ?: return emptyList()
             if(left.isEmpty())return emptyList()
             if(left.size>1 || right.size>1)blocked.addAll(left)
             for(focus in left)groups.getOrPut(focus){mutableListOf()}.add(frame to right.singleOrNull())
@@ -47,8 +49,8 @@ object ContextFrameMatcher {
                     // For the same source focus and assessed sense, preserve the
                     // complete approved target unit. Separate occurrences and
                     // conflicting meanings/readings still use the normal guards.
-                    if (frame.lexicalUnit && group.any { (other, parent) ->
-                        other.lexicalUnit && parent != null && parent != range &&
+                    if (frame.targetUnit && group.any { (other, parent) ->
+                        other.targetUnit && parent != null && parent != range &&
                             parent.first <= range.first && parent.last >= range.last
                     }) return@let null
                     val word=translation.substring(range)

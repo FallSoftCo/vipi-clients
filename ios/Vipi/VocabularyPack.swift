@@ -24,10 +24,24 @@ enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollbac
 enum VocabularyPackKind: Sendable {
     case vocabulary, reviewedContext, reviewedFrame
     var reviewed: Bool { self != .vocabulary }
-    var schemas: [Int] { self == .reviewedFrame ? [6,7] : [5] }
-    func policy(_ schema:Int) -> String { self == .reviewedFrame ? (schema==7 ? "reviewed-bidirectional-phrase-and-unit-2" : "reviewed-bidirectional-phrase-1") : "reviewed-finite-context-1" }
+    var schemas: [Int] { self == .reviewedFrame ? [6,7,8] : [5] }
+    func policy(_ schema:Int) -> String {
+        guard self == .reviewedFrame else {return "reviewed-finite-context-1"}
+        switch schema {
+        case 8:return "reviewed-bidirectional-side-unit-3"
+        case 7:return "reviewed-bidirectional-phrase-and-unit-2"
+        default:return "reviewed-bidirectional-phrase-1"
+        }
+    }
     var databaseFile: String { self == .reviewedFrame ? "frames.sqlite" : "contexts.sqlite" }
-    func metadataSchema(_ schema:Int) -> String { self == .reviewedFrame ? (schema==7 ? "vipi-reviewed-frame-2" : "vipi-reviewed-frame-1") : "vipi-reviewed-context-1" }
+    func metadataSchema(_ schema:Int) -> String {
+        guard self == .reviewedFrame else {return "vipi-reviewed-context-1"}
+        switch schema {
+        case 8:return "vipi-reviewed-frame-3"
+        case 7:return "vipi-reviewed-frame-2"
+        default:return "vipi-reviewed-frame-1"
+        }
+    }
     var indexes: [String] { self == .reviewedFrame ? ["source_inputs", "target_inputs"] : ["context_inputs"] }
 }
 

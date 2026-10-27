@@ -41,6 +41,20 @@ def validate_pattern(record):
         raise ValueError('Pattern cannot alter lexical focus')
 
 
+def side_is_unit(usage, side):
+    """Scope permission is explicit for each side, never inferred from a pattern."""
+    legacy = usage.get('lexical_unit', False)
+    if type(legacy) is not bool:
+        raise ValueError('Lexical unit scope must be explicit')
+    keys = ('source_lexical_unit', 'target_lexical_unit')
+    if any(key in usage for key in keys):
+        if not all(type(usage.get(key)) is bool for key in keys):
+            raise ValueError('Both side-specific unit permissions must be explicit booleans')
+        if legacy != all(usage[key] for key in keys):
+            raise ValueError('Legacy unit permission must agree with both side permissions')
+    return usage.get(side+'_lexical_unit', legacy)
+
+
 def frame_parts(record,side):
     """An explicitly bounded local frame inside the retained full reference."""
     usage=record['usage'];text=record[side+'_context'];focus=record[side+'_span']
@@ -51,7 +65,7 @@ def frame_parts(record,side):
     fragment=text[span[0]:span[1]];a,b=focus[0]-span[0],focus[1]-span[0]
     if len(fragment.encode('utf-16-le'))//2>256:raise ValueError('Frame exceeds native window bound')
     parts=usage.get(side+'_frame_pattern')
-    if usage.get('lexical_unit') is True:
+    if side_is_unit(usage, side):
         expected=[{'focus':record[side]}]
         if span!=focus or parts!=expected or fragment!=record[side] or not fragment.strip():
             raise ValueError('A lexical unit must be the entire exact assessed focus')
@@ -66,11 +80,11 @@ def frame_parts(record,side):
 
 def validate_frames(record):
     usage=record['usage'];extent=usage.get('context_extent','exact_context')
-    if 'lexical_unit' in usage and type(usage['lexical_unit']) is not bool:
-        raise ValueError('Lexical unit scope must be explicit')
+    units = [side_is_unit(usage, side) for side in ('source', 'target')]
     if extent not in ('exact_context','local_phrase'):raise ValueError('Unknown context extent')
     if extent=='exact_context':
-        if usage.get('lexical_unit'):raise ValueError('Lexical units require assessed local scope')
+        if any(units) or any(k in usage for k in ('source_lexical_unit', 'target_lexical_unit')):
+            raise ValueError('Lexical units require assessed local scope')
         if any(k in usage for k in ('source_frame_span','target_frame_span','source_frame_pattern','target_frame_pattern')):
             raise ValueError('Phrase scopes require explicit local extent')
         return

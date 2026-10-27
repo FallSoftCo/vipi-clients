@@ -4,6 +4,32 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ContextFrameTest {
+    @Test fun attachedGrammarStaysOriginalWhileOnlyTheAssessedNounChanges() {
+        data class Case(val original:String,val translation:String,val language:String,val noun:String,
+            val suffix:String,val target:String,val reading:String)
+        for((original,translation,language,noun,suffix,target,reading) in listOf(
+            Case("책을 가져왔어요.","I brought the book.","ko","책","을","book","chaek"),
+            Case("Tutakutana shuleni.","We will meet at school.","sw","shule","ni","school",""))) {
+            val parts=listOf(ContextPart.Focus(noun),ContextPart.Literal(suffix))
+            val frame=ContextFrame("attached", "specific noun",language,"en",parts,listOf(ContextPart.Focus(target)),targetUnit=true)
+            val hit=ContextFrameHit(frame,listOf(range(original,noun+suffix)),listOf(range(translation,target)))
+            val values=ContextFrameMatcher.entries(original,translation,language,"en",listOf(hit))
+            val result=ImmersionEngine().align(original,translation,values,1.0,"en")
+            assertEquals(listOf(noun),result.spans.map{it.original})
+            assertEquals(original.replace(noun,target),result.speech(language,"en").joinToString(""){it.text})
+            assertEquals(original,result.speech(language,"en",result.spans.map{it.id}.toSet()).joinToString(""){it.text})
+            val reversed=ContextFrame("reverse","specific noun","en",language,listOf(ContextPart.Focus(target)),parts,reading,sourceUnit=true)
+            val reverseHit=ContextFrameHit(reversed,hit.targetWindows,hit.sourceWindows)
+            val reverseValues=ContextFrameMatcher.entries(translation,original,"en",language,listOf(reverseHit))
+            val reverseResult=ImmersionEngine().align(translation,original,reverseValues,1.0,language)
+            assertEquals(listOf(noun),reverseResult.spans.map{it.translated})
+            if(language=="ko")assertEquals(reading,reverseResult.spans.single().romanization)
+            val denied=hit.copy(frame=frame.copy(targetUnit=false))
+            assertTrue(ContextFrameMatcher.entries(original,translation,language,"en",listOf(denied)).isEmpty())
+            val wrong=hit.copy(frame=frame.copy(sourceParts=listOf(ContextPart.Focus(noun),ContextPart.Literal("wrong"))))
+            assertTrue(ContextFrameMatcher.entries(original,translation,language,"en",listOf(wrong)).isEmpty())
+        }
+    }
     @Test fun finitePossessorsRemainOutsideFocus() {
         val parts=listOf(ContextPart.Slot(listOf("my ","your ","their ")),ContextPart.Focus("dog"))
         assertEquals(6..8,ContextMappingMatcher.focus("their dog",parts))
