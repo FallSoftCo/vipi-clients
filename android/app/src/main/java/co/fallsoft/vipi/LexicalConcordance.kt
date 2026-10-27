@@ -9,7 +9,7 @@ import org.json.JSONArray
 internal object LexicalConcordance {
     private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5")
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
-        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val proper:Boolean,val grammar:Boolean)
+        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val pos:String,val proper:Boolean,val grammar:Boolean)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val family:String)
     private data class Side(val windows:Map<String,List<IntRange>>,val forms:Map<String,List<Form>>,
         val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String,val namedPlaces:List<IntRange>,val phrases:List<IntRange>)
@@ -42,8 +42,11 @@ internal object LexicalConcordance {
     // mappings remain possible; only a contained literal fragment is blocked.
     private val englishAllTheWay=Regex("(?<![\\p{L}\\p{M}\\p{N}_])all\\s+(?:the|e|d)\\s+way(?![\\p{L}\\p{M}\\p{N}_])",RegexOption.IGNORE_CASE)
     private val englishLectureShorthand=Regex("(?<![\\p{L}\\p{M}\\p{N}_])(?:finish\\s+lect|lect\\s+finishes)(?![\\p{L}\\p{M}\\p{N}_])",RegexOption.IGNORE_CASE)
+    // Spaced homework is one lexical unit; a generic "works" fragment
+    // would teach the wrong sense. Whole-unit mappings remain eligible.
+    private val englishSpacedHomework=Regex("(?<![\\p{L}\\p{M}\\p{N}_])home\\s+works?(?![\\p{L}\\p{M}\\p{N}_])",RegexOption.IGNORE_CASE)
     private fun phrases(text:String,language:String):List<IntRange> =
-        if(language=="en")(englishAllTheWay.findAll(text)+englishLectureShorthand.findAll(text)).map{it.range}.toList() else emptyList()
+        if(language=="en")(englishAllTheWay.findAll(text)+englishLectureShorthand.findAll(text)+englishSpacedHomework.findAll(text)).map{it.range}.toList() else emptyList()
     internal fun namedPlaces(text:String,language:String):List<IntRange> {
         if(language!="ar")return emptyList()
         val output=mutableListOf<IntRange>()
@@ -76,7 +79,7 @@ internal object LexicalConcordance {
             db.rawQuery("SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,g.reason,COALESCE(g.target_blocked,0) FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (${marks(batch.size)}) ORDER BY s.normalized,s.lexeme",batch.toTypedArray()).use { c ->
                 while(c.moveToNext()) {
                     count++;if(count>16384)throw Overflow()
-                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()},c.getString(10) in setOf("name","proper-noun","proper_noun"),c.getString(10) in setOf("pron","det","prep","postp","conj","particle","article","aux") || c.getString(11)=="grammar" || c.getInt(12)==1)
+                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()},c.getString(10),c.getString(10) in setOf("name","proper-noun","proper_noun"),c.getString(10) in setOf("pron","det","prep","postp","conj","particle","article","aux") || c.getString(11)=="grammar" || c.getInt(12)==1)
                     val values=forms.getOrPut(form.key){mutableListOf()}
                     if(values.size<256)values+=form else {blocked+=form.key;targetBlocked+=form.key}
                 }
@@ -181,13 +184,15 @@ internal object LexicalConcordance {
                 }
                 val usable=forms.filter{it.targetSafe && it.mode in 1..3 && key(actual)==key(it.written) &&
                     actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
-                // A context cue may resolve meaning, but cannot decide which
-                // source characters are grammar when attested analyses disagree.
+                // Conflicting carrier boundaries require a whole noun, a noun
+                // counterpart and an explicit nearby lexical witness. Do not
+                // guess an internal stem from a competing verbal analysis.
                 val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
-                if(usable.any{it.mode==3} && focuses.size!=1)continue
+                val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
                 val allMeanings=usable.flatMap{left.terms[it.lexeme].orEmpty()}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                 val claims=mutableSetOf<Claim>()
                 for(form in usable) {
+                    if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
                     val sourceFocus=focus(form,carrier,original) ?: continue
                     val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                     if(meanings.isEmpty())continue
@@ -197,6 +202,7 @@ internal object LexicalConcordance {
                         val readings=targets.flatMap{right.terms[it.lexeme].orEmpty()}.map{it.reading}.filter{it.isNotEmpty()}.distinct()
                         if(needsReading && readings.size!=1)continue
                         for(candidate in targets.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}) {
+                            if(conflictingGeometry && (candidate.pos!="noun" || candidate.grammar))continue
                             if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || candidate.number!=form.number ||
                                 right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
                             val targetMeanings=right.terms[candidate.lexeme].orEmpty().filter{it.eligible}.map{it.sense}.toSet()
@@ -204,7 +210,9 @@ internal object LexicalConcordance {
                             // meaning while nearby lexical context is unexplained.
                             // Short grammar-only utterances retain their prior path.
                             val narrow=!targetMeanings.containsAll(allMeanings) || targets.any{it.grammar}
-                            val cueWindows=if(narrow && evidence.hasNearbyContext(sourceFocus,original,lexicalWindows))lexicalWindows else left.windows
+                            val nearbyLexical=evidence.hasNearbyContext(sourceFocus,original,lexicalWindows)
+                            if(conflictingGeometry && !nearbyLexical)continue
+                            val cueWindows=if(conflictingGeometry || (narrow && nearbyLexical))lexicalWindows else left.windows
                             for(targetCarrier in right.windows[other].orEmpty().distinct()) {
                                 if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue
                                 val targetFocus=focus(candidate,targetCarrier,translation) ?: continue

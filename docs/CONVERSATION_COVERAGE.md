@@ -2,6 +2,11 @@
 
 Vipi should make everyday conversation useful for immersion without composing a lesson or requiring a remote language model. Measure what a person actually sees: contextually correct vocabulary with a usable reading, original grammar intact, and sufficient opportunities across ordinary messages. Dictionary size alone cannot establish that.
 
+The per-direction 90% target, fixed denominators, native depth diagnostics and
+meaning-accuracy requirements are defined in [Immersion coverage acceptance](IMMERSION_COVERAGE_ACCEPTANCE.md).
+The target is not yet achieved. Broader experimental data and native receipts are in
+[Bulk local language expansion](BULK_LANGUAGE_EXPANSION.md).
+
 ## Latest app-bundled results — 2026-10-26
 
 The integrated catalog is now bundle 022: 55,786 author-assessed mappings, 41,251 complete lexical units, 14,529 exact whole-message references and 423 exact non-Roman sentence readings across 110 directions, including Swahili. These counts include directed language pairs and written-form variants; they are not distinct vocabulary concepts or independent correctness labels. Native execution and detailed provenance are in [the verification ledger](VERIFICATION.md).

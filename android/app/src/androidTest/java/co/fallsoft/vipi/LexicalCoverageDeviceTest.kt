@@ -33,10 +33,30 @@ class LexicalCoverageDeviceTest {
         val databases=mutableMapOf<String,SQLiteDatabase>()
         var witnessDB:SQLiteDatabase?=null
         val output=File(context.filesDir,"lexical-coverage-$revision.json");check(!output.exists())
-        val failures=JSONArray();val outcomes=JSONArray();val report=JSONObject().put("schema","vipi-lexical-coverage-1")
+        val failures=JSONArray();val report=JSONObject().put("schema","vipi-lexical-coverage-1")
             .put("run",revision).put("fixture",fixture).put("manifest_sha256",sha(File(root,"manifest.json"))).put("platform","android")
             .put("translation_reused",true).put("classification_exercised",false)
-            .put("independent_semantic_acceptance",false).put("outcomes",outcomes)
+            .put("independent_semantic_acceptance",false).put("report_storage","streamed-jsonl")
+        val journal=File(context.filesDir,"lexical-coverage-$revision.outcomes.jsonl");check(!journal.exists())
+        val journalWriter=journal.bufferedWriter()
+        var completedCases=0;var maximumSampledHeap=0L
+        fun save() {
+            journalWriter.flush()
+            val runtime=Runtime.getRuntime()
+            maximumSampledHeap=maxOf(maximumSampledHeap,runtime.totalMemory()-runtime.freeMemory())
+            report.put("persisted_cases",completedCases).put("maximum_sampled_java_heap_bytes",maximumSampledHeap)
+                .put("java_heap_limit_bytes",runtime.maxMemory())
+            val temporary=File(output.parentFile,output.name+".tmp")
+            temporary.bufferedWriter().use { writer ->
+                writer.write(report.toString().dropLast(1));writer.write(",");writer.write(JSONObject.quote("outcomes"));writer.write(":[")
+                var first=true
+                journal.useLines { lines -> lines.forEach { line ->
+                    if(!first)writer.write(",");writer.write(line);first=false
+                }}
+                writer.write("]}")
+            }
+            check(temporary.renameTo(output))
+        }
         try {
             args.getString("vipiWitnessSha")?.let { expected ->
                 require(expected.matches(Regex("[0-9a-f]{64}")))
@@ -104,12 +124,14 @@ class LexicalCoverageDeviceTest {
                     .put("start",span.start).put("end",span.end).put("target_start",span.targetStart).put("target_end",span.targetEnd)
                     .put("reading",span.romanization ?: JSONObject.NULL))
                 assertEquals(original,combined.speech(source,target,combined.spans.map{it.id}.toSet()).joinToString(""){it.text})
-                val outcome=JSONObject().put("id",row.getString("id")).put("dataset",row.getString("dataset"))
+                val sourceTokens=JSONArray()
+                for(range in LocalImmersion.words(original,source))sourceTokens.put(JSONArray().put(range.first).put(range.last+1))
+                val outcome=JSONObject().put("source_token_ranges",sourceTokens).put("id",row.getString("id")).put("dataset",row.getString("dataset"))
                     .put("source",source).put("target",target).put("spans",spans)
                     .put("baseline_spans",previous?.spans?.size ?: 0).put("elapsed_ms",elapsed).put("identifier_guard",intact).put("diagnostics",JSONObject(diagnostic as Map<*,*>))
                     .put("combined_spans",combinedSpans).put("combined_elapsed_ms",combinedElapsed).put("baseline_retained",baselineRetained)
-                outcomes.put(outcome)
-                if(i%100==0)output.writeText(report.toString())
+                journalWriter.write(outcome.toString());journalWriter.newLine();completedCases++
+                if(i%100==0)save()
                 fun forbidden(span:co.fallsoft.vipi.core.ImmersionSpan)=row.has("forbidden_source") && span.original==row.getString("forbidden_source") && span.translated==row.getString("forbidden_target") &&
                     (!row.has("forbidden_source_start") || span.start==row.getInt("forbidden_source_start"))
                 if(result.spans.any(::forbidden))
@@ -129,8 +151,8 @@ class LexicalCoverageDeviceTest {
                         failures.put(row.getString("id")+": dictionary phrase protection was bypassed")
                 }
             }
-            report.put("complete",true).put("cases",cases.length()).put("failures",failures).put("passed",failures.length()==0);output.writeText(report.toString())
+            report.put("complete",true).put("cases",cases.length()).put("failures",failures).put("passed",failures.length()==0);save()
             assertEquals(failures.toString(),0,failures.length())
-        } finally {witnessDB?.close();databases.values.forEach{it.close()}}
+        } finally {journalWriter.close();witnessDB?.close();databases.values.forEach{it.close()}}
     }
 }

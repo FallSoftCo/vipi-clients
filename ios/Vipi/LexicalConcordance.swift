@@ -9,7 +9,7 @@ enum LexicalConcordance {
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
         let start:Int,end:Int,number:Int,mode:Int
-        let sourceSafe:Bool,targetSafe:Bool;let features:Set<String>;let proper:Bool,grammar:Bool
+        let sourceSafe:Bool,targetSafe:Bool;let features:Set<String>;let pos:String;let proper:Bool,grammar:Bool
     }
     private struct Term {let sense:String,reading:String;let eligible:Bool,explicit:Bool;let family:String}
     private struct Side {
@@ -49,10 +49,12 @@ enum LexicalConcordance {
     // Whole-phrase mappings remain eligible for their own meaning checks.
     private static let englishAllTheWay=try! NSRegularExpression(pattern:#"(?<![\p{L}\p{M}\p{N}_])all\s+(?:the|e|d)\s+way(?![\p{L}\p{M}\p{N}_])"#,options:.caseInsensitive)
     private static let englishLectureShorthand=try! NSRegularExpression(pattern:#"(?<![\p{L}\p{M}\p{N}_])(?:finish\s+lect|lect\s+finishes)(?![\p{L}\p{M}\p{N}_])"#,options:.caseInsensitive)
+    // Preserve the spaced homework unit rather than exposing generic "works".
+    private static let englishSpacedHomework=try! NSRegularExpression(pattern:#"(?<![\p{L}\p{M}\p{N}_])home\s+works?(?![\p{L}\p{M}\p{N}_])"#,options:.caseInsensitive)
     private static func phrases(_ text:String,language:String)->[NSRange] {
         guard language=="en" else {return []}
         let range=NSRange(location:0,length:text.utf16.count)
-        return (englishAllTheWay.matches(in:text,range:range)+englishLectureShorthand.matches(in:text,range:range)).map(\.range)
+        return (englishAllTheWay.matches(in:text,range:range)+englishLectureShorthand.matches(in:text,range:range)+englishSpacedHomework.matches(in:text,range:range)).map(\.range)
     }
     static func namedPlaces(_ text:String,language:String)->[NSRange] {
         guard language=="ar" else {return []}
@@ -106,7 +108,7 @@ enum LexicalConcordance {
             for r in try query(db,"SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,COALESCE(g.reason,''),COALESCE(g.target_blocked,0) FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (\(marks(batch.count))) ORDER BY s.normalized,s.lexeme",batch,limit:16384-count) {
                 count+=1
                 guard let a=Int(r[3]),let b=Int(r[4]),let n=Int(r[5]),let m=Int(r[6]) else {throw VocabularyPackError.invalid}
-                let form=Form(key:r[0],lexeme:r[1],written:r[2],start:a,end:b,number:n,mode:m,sourceSafe:r[7]=="1",targetSafe:r[8]=="1",features:Set(try JSONDecoder().decode([String].self,from:Data(r[9].utf8))),proper:["name","proper-noun","proper_noun"].contains(r[10]),grammar:["pron","det","prep","postp","conj","particle","article","aux"].contains(r[10]) || r[11]=="grammar" || r[12]=="1")
+                let form=Form(key:r[0],lexeme:r[1],written:r[2],start:a,end:b,number:n,mode:m,sourceSafe:r[7]=="1",targetSafe:r[8]=="1",features:Set(try JSONDecoder().decode([String].self,from:Data(r[9].utf8))),pos:r[10],proper:["name","proper-noun","proper_noun"].contains(r[10]),grammar:["pron","det","prep","postp","conj","particle","article","aux"].contains(r[10]) || r[11]=="grammar" || r[12]=="1")
                 if forms[r[0],default:[]].count<256 {forms[r[0],default:[]].append(form)} else {blocked.insert(r[0]);targetBlocked.insert(r[0])}
             }
             for r in try query(db,"SELECT normalized,blocked,target_blocked,protect_inner,reason FROM guards WHERE normalized IN (\(marks(batch.count)))",batch,limit:200) {
@@ -218,10 +220,13 @@ enum LexicalConcordance {
                 let focuses=Set(usable.compactMap { form in
                     focus(form,range:carrier,text:original).map{SourceShape(range:$0,number:form.number)}
                 })
-                if usable.contains(where:{$0.mode==3}) && focuses.count != 1 {continue}
+                // A conflicting carrier may be resolved only as a whole noun with
+                // a noun counterpart and a nearby lexical witness.
+                let conflictingGeometry=usable.contains(where:{$0.mode==3}) && focuses.count != 1
                 let allMeanings=Set(usable.flatMap{left.terms[$0.lexeme,default:[]]}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                 var claims=Set<Claim>()
                 for form in usable {
+                    if conflictingGeometry && (form.pos != "noun" || !(1...2).contains(form.mode)) {continue}
                     guard let sourceFocus=focus(form,range:carrier,text:original) else {continue}
                     let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                     if meanings.isEmpty {continue}
@@ -232,13 +237,16 @@ enum LexicalConcordance {
                         let readings=Set(targets.flatMap{right.terms[$0.lexeme,default:[]]}.map(\.reading).filter{!$0.isEmpty})
                         if needsReading && readings.count != 1 {continue}
                         for candidate in Set(targets) {
+                            if conflictingGeometry && (candidate.pos != "noun" || candidate.grammar) {continue}
                             guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),candidate.number==form.number,
                                   right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
                             let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter(\.eligible).map(\.sense))
                             // Narrower meanings must explain nearby lexical context;
                             // a common grammatical cue alone is insufficient there.
                             let narrow = !targetMeanings.isSuperset(of:allMeanings) || targets.contains{$0.grammar}
-                            let cueWindows = narrow && evidence.hasNearbyContext(focus:sourceFocus,text:original,windows:lexicalWindows) ? lexicalWindows : left.windows
+                            let nearbyLexical=evidence.hasNearbyContext(focus:sourceFocus,text:original,windows:lexicalWindows)
+                            if conflictingGeometry && !nearbyLexical {continue}
+                            let cueWindows = conflictingGeometry || (narrow && nearbyLexical) ? lexicalWindows : left.windows
                             for targetCarrier in Set(right.windows[other,default:[]]) {
                                 guard !protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features),
                                     targetCaseMatches(candidate,range:targetCarrier,text:translation),let targetFocus=focus(candidate,range:targetCarrier,text:translation) else {continue}

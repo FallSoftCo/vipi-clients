@@ -5,6 +5,68 @@ text. Storage is a capacity to use, not a reason to limit the catalog to a few
 handwritten examples. The accepted app default remains bundle 022 until the
 broader data passes meaning review and production delivery checks.
 
+## Native coverage and depth qualification — run 032
+
+Both Android and the attached iPad completed **26,368 cases** against fixture
+020, dictionary release 007 and context witnesses 012. The bounded selector
+change recovers whole nouns when a competing verbal carrier has different
+boundaries, requiring a noun counterpart and nearby lexical evidence. It also
+protects spaced **home work/home works** as a complete lexical unit. All prior
+accepted baseline spans and retained positive/negative regressions pass.
+
+Compared with Android 028 / iPad 030, each platform adds **20 author-reviewed
+spans in 20 messages**, with **14 newly nonempty messages** and no lost spans.
+Six newly nonempty messages are SMS cases; eight are reference diagnostics.
+These are small coverage gains, not a demonstration of the 90% goal.
+Run 031 review found one incorrect generic works fragment inside homework;
+032 removes that addition while retaining the valid books mapping.
+
+| Diagnostic | Cases | Android messages with a span | iPad messages with a span |
+| --- | ---: | ---: | ---: |
+| SMS | 3,600 | 848 (23.56%) | 864 (24.00%) |
+| Multi3WOZ | 3,600 | 2,051 (56.97%) | 2,067 (57.42%) |
+| XPersona | 2,700 | 1,045 (38.70%) | 1,060 (39.26%) |
+| Swahili speech-derived replay | 1,910 | 176 (9.21%) | 180 (9.42%) |
+| FLORES human-reference diagnostic | 11,000 | 4,447 (40.43%) | 4,454 (40.49%) |
+
+These are availability diagnostics, not meaning accuracy. All 110 directions
+have reference tests, but only 73 have conversational samples. The other 37
+remain unmeasured. No direction meets the 90% availability floor in all its
+sampled conversational datasets. Full combined outputs differ in 348 cases
+between the platforms; this is not exact native parity.
+
+[Immersion coverage acceptance](IMMERSION_COVERAGE_ACCEPTANCE.md) fixes the
+denominator and separates availability, native token depth, meaning and learning
+outcomes. The new scorecard keeps every input, reports each direction/dataset,
+marks missing evidence explicitly and rejects targeted regression fixtures as
+coverage populations. Native token ranges distinguish partial carriers from
+whole-word coverage. Six accounting tests pass, including surrogate offsets,
+zero-coverage messages, missing data and native Unicode classification.
+
+The repeatable missed-word inventory separates grammatical words deliberately
+kept native from absent forms and indexed words still needing contextual or
+target evidence. Frequent English misses such as eat, coming, finish and watch
+already have indexed forms. More dictionary bytes alone will not resolve them.
+Author review also records errors in supplied full translations separately
+from the correctness of newly selected vocabulary.
+
+Android run 031 was **incomplete**, with 23,301 persisted cases: serializing its
+growing JSON report exceeded the test process's 201,326,592-byte Java heap limit.
+The QA harness now journals individual outcomes and streams atomic checkpoints;
+the runner retains incomplete reports. Full run 032 passed with a maximum sampled
+Java heap of 107,310,256 bytes. The iPad's maximum sampled physical footprint was
+134,136,912 bytes. These are different memory measures and are not production
+memory limits.
+
+Receipts: native qualification artifacts/bulk-native-qualification-032-032.json
+(SHA-256 1c0f5ce407bf9979b2792de8de2e9618a179ac6806facb00dae5ee508fbe4962);
+review closure artifacts/noun-geometry-review-closure-032.json; per-platform
+coverage-scorecard-*-032.json, uncovered-source-inventory-*-032.json and
+lexical-coverage-summary-*-032.json under artifacts/. Source snapshot 032 and the
+Mac source receipt bind the tested native implementations. Independent semantic
+acceptance, majority-chat coverage, production delivery qualification and store
+readiness remain false. The app's production language default is unchanged.
+
 ## Completed full-corpus expansion
 
 Cumulative witness revision **012** contains **4,314,872 context rules** in

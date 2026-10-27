@@ -101,3 +101,20 @@ Verified primary documentation, 2026-10-27:
 - https://support.google.com/googleplay/android-developer/answer/9859372?hl=en — 500 MB compressed base module, 4 GB cumulative install-time modules/assets; over 200 MB may show a cellular-download notice.
 - https://developers.google.com/ml-kit/tips/installation-paths — translation uses dynamically downloaded models.
 - https://developer.apple.com/documentation/translation/translationsession/preparetranslation() — system language-download permission behavior.
+
+
+## 2026-10-27 — Per-direction coverage and depth
+
+The user's working coverage goal is approximately 90% across supported
+languages. Evaluation now reports each of the 110 directions separately and
+keeps fixed input denominators. Missing conversational evidence remains
+unmeasured; reference sentences and authored regressions cannot fill that gap.
+
+A message with one substitution establishes availability only. Native word
+ranges now measure immersion depth, including partial lexical carriers. The
+10%, 25% and 50% reporting bands are diagnostic bands, not new product settings.
+The proposed engineering meaning-accuracy target is at least 99% on independent
+contextual assessment; it is not achieved by passing the existing regressions.
+Neither target establishes intermediate fluency. See
+[Immersion coverage acceptance](IMMERSION_COVERAGE_ACCEPTANCE.md) for the
+measurement contract and [the latest native evidence](BULK_LANGUAGE_EXPANSION.md).

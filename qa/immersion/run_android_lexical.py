@@ -135,9 +135,11 @@ def main(args):
             stdout=log, stderr=subprocess.STDOUT, check=True)
     raw = subprocess.check_output(ADB + ['exec-out', 'run-as', APP, 'cat', 'files/lexical-coverage-' + args.run + '.json'])
     report = json.loads(raw)
-    assert report['complete'] and report['run'] == args.run
-    with report_path.open('xb') as stream:
+    assert report['run'] == args.run
+    retained_path = report_path if report.get('complete') else report_path.with_name(report_path.stem + '-partial.json')
+    with retained_path.open('xb') as stream:
         stream.write(raw)
+    assert report.get('complete'), 'Incomplete native run; partial output is retained'
     print(json.dumps({k: report.get(k) for k in ['complete', 'passed', 'cases', 'failures']}))
     assert report['passed'], 'Native regressions failed; raw output is retained'
 

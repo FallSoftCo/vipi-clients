@@ -161,7 +161,8 @@ final class LexicalCoverageTests:XCTestCase {
                  "target_start":span.targetRange.location,"target_end":NSMaxRange(span.targetRange),"reading":span.romanization as Any? ?? NSNull()]
             }
             XCTAssertEqual(combined.speech(source:row.source,target:row.target,revealed:Set(combined.spans.map(\.id))).map(\.text).joined(),row.original)
-            outcomes.append(["id":row.id,"dataset":row.dataset,"source":row.source,"target":row.target,"spans":spans,
+            let sourceTokens=autoreleasepool {LocalImmersion.words(row.original,language:row.source).map{[$0.location,NSMaxRange($0)]}}
+            outcomes.append(["source_token_ranges":sourceTokens,"id":row.id,"dataset":row.dataset,"source":row.source,"target":row.target,"spans":spans,
                 "baseline_spans":previous?.spans.count ?? 0,"elapsed_ms":Double(elapsed.seconds)*1000+Double(elapsed.attoseconds)/1e15,"identifier_guard":intact,"diagnostics":diagnostic,
                 "combined_spans":combinedSpans,"combined_elapsed_ms":combinedElapsed,"baseline_retained":baselineRetained])
             if i%100==0 || row.forbidden_source != nil || row.expected_source != nil {try save()}
