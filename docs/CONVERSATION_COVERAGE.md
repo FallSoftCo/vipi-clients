@@ -2,6 +2,25 @@
 
 Vipi should make everyday conversation useful for immersion without composing a lesson or requiring a remote language model. Measure what a person actually sees: contextually correct vocabulary with a usable reading, original grammar intact, and sufficient opportunities across ordinary messages. Dictionary size alone cannot establish that.
 
+## Latest app-bundled results — 2026-10-26
+
+The integrated catalog is now bundle 022: 55,786 author-assessed mappings, 41,251 complete lexical units, 14,529 exact whole-message references and 423 exact non-Roman sentence readings across 110 directions, including Swahili. These counts include directed language pairs and written-form variants; they are not distinct vocabulary concepts or independent correctness labels. Native execution and detailed provenance are in [the verification ledger](VERIFICATION.md).
+
+| Diagnostic | Cases with a displayed substitution | Interpretation |
+| --- | ---: | --- |
+| Swahili AfriWOZ, fresh local translation | 1,270/2,410 (52.70%) | Ten targets reuse 241 task-oriented source turns |
+| Spontaneous Swahili, automatic language handling | 73/1,910 (3.82%) | Fifteen distinct source turns; language uncertainty often abstains |
+| Same spontaneous sample, explicit Swahili | 151/1,910 (7.91%) | Twenty-five distinct source turns; forced source language is diagnostic |
+| English/Chinese SMS replay | 651/3,600 (18.08%) | Retained local translations, maximum-density mapping |
+| French/Arabic booking replay | 1,613/3,600 (44.81%) | Retained local translations, one practical domain |
+| Italian/Japanese/Korean persona replay | 575/2,700 (21.30%) | Korean contributes only 30/900 cases |
+
+The measurements above are bound to bundle 021. Bundle 022 changes only two Chinese–Korean carrier records; all Swahili databases and all whole references are unchanged. Complete native parity now passes 14,529 authored references. Only aggregate outputs were inspected for this expansion. Repeated probes remain diagnostics, not untouched acceptance. No independent semantic-precision score exists. A majority within one task-oriented diagnostic does not establish majority general-chat coverage. Spanish, German and Portuguese source conversations still lack comparable measurements.
+
+The important remaining gaps are conversational actions/inflection and informal phrasing, robust language handling for short or mixed-language messages, and independent evaluation of both substitutions and full translations. Continue development-only prioritization and explicit bounded mappings; do not relax sense, reading or word-boundary checks merely to increase counts. Original text and full-language views remain available when a substitution is withheld.
+
+Older generic-dictionary and frame experiments below are historical; they do not describe the current integrated bundle.
+
 ## Sources in use
 
 | Source | Current use | What it cannot establish |
@@ -36,7 +55,7 @@ Internal release targets are at least 80% of independently identified everyday m
 
 The current 400-message native probe is an initial diagnostic, not enough to certify those targets for all ten languages. Its 200 English and 200 Chinese source messages yield 3,600 directed cases over 18 pairs. Selection is a fixed hash, independent of vocabulary/model results; messages contain 1–280 code points and at least one lexical token. Only 27 of 8,446 reserved messages fail those bounds. It has no invented reference translation. Review must classify actual replacements before accuracy is computed.
 
-## Current measured gap
+## Historical generic-dictionary measurements
 
 The full revision-007 dictionary packs use schema 4 and preserve competing source senses without eligible target mappings. Actual replay of the same frozen SMS translations gives these results:
 

@@ -116,7 +116,7 @@ class BundledImmersionDeviceTest {
         for((left,right) in listOf("music and music" to "muziki", "book the taxi" to "weka nafasi ya teksi",
             "music" to "filamu", "https://example.test/music" to "muziki"))
             assertTrue(catalog.result(left,right,"en","sw",1.0).spans.isEmpty())
-        val output = File(context.filesDir, "bundled-immersion-020.json"); check(!output.exists())
+        val output = File(context.filesDir, "bundled-immersion-021.json"); check(!output.exists())
         output.writeText(JSONObject().put("pairs", pairs.size).put("references", rows.length()).put("spans", selected)
             .put("lexical_units",units).put("unchanged_latin_forms",unchanged)
             .put("runtime_path", "app-bundled-native-catalog").put("independent_linguistic_acceptance", false).toString(2))

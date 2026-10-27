@@ -34,4 +34,23 @@ final class ChatResponseTests: XCTestCase {
             XCTAssertTrue(value.spans.isEmpty,"No unqualified internal, missing or repeated focus")
         }
     }
+    func testCombinedBookCarriersPreserveBothLanguagesGrammar() async throws {
+        let catalog=BundledImmersionCatalog()
+        for suffix in ["은","이","을","과","도","만","에","에서","의"] {
+            let korean="책"+suffix
+            let forward=try await catalog.result(original:korean,translation:"看书",pair:.init(source:"ko",target:"zh"),density:1)
+            XCTAssertEqual(forward.spans.count,1)
+            XCTAssertEqual(forward.speech(source:"ko",target:"zh").map(\.text).joined(),"书"+suffix)
+            XCTAssertEqual(forward.spans.first?.romanization,"shū")
+            let reverse=try await catalog.result(original:"看书",translation:korean,pair:.init(source:"zh",target:"ko"),density:1)
+            XCTAssertEqual(reverse.spans.count,1)
+            XCTAssertEqual(reverse.speech(source:"zh",target:"ko").map(\.text).joined(),"看책")
+            XCTAssertEqual(reverse.spans.first?.romanization,"chaek")
+        }
+        for (korean,chinese) in [("책방","看书"),("책을","看书店"),("책을","看书看书"),("책을 책을","看书"),("책을","看")] {
+            let forward=try await catalog.result(original:korean,translation:chinese,pair:.init(source:"ko",target:"zh"),density:1)
+            let reverse=try await catalog.result(original:chinese,translation:korean,pair:.init(source:"zh",target:"ko"),density:1)
+            XCTAssertTrue(forward.spans.isEmpty);XCTAssertTrue(reverse.spans.isEmpty)
+        }
+    }
 }

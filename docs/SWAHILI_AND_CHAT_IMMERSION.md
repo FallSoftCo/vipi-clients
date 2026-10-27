@@ -1,6 +1,18 @@
 # Swahili and conversation immersion
 
-Updated 2026-10-26. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
+Updated 2026-10-27. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
+
+## Bundle 022 — exact native parity, 2026-10-27 00:05 Eastern
+
+Two explicit Chinese–Korean book mappings combine the already assessed 看书 construction with the nine already enumerated Korean 책 particles. Both native paths preserve 看 and the Korean ending outside the flip. Eighteen forward/reverse finite cases and ten larger-word, missing-counterpart or repetition negatives pass on each platform. No new lexical meaning, whole translation, reading, runtime morphology or classifier rule is introduced.
+
+Catalog SHA e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a; 55,786 author-assessed records, 41,251 bare lexical units, 14,529 whole references, 423 exact sentence readings and 277,839,872 database bytes. Only ko–zh and zh–ko frame databases differ from 021; all 218 other database entries and every whole reference are unchanged. The latest Swahili and seven-source coverage measurements remain those explicitly bound to bundle 021 below; no fresh coverage run is implied.
+
+Android catalog 021 passes seven tests in 151.843s; parity trace 004 passes in 45.434s. Physical iPad catalog/parity 021 passes eight tests in 209.052s. Complete cross-platform trace comparison 004 finds **zero differing references** across all 14,529 messages: both select 14,986 spans with identical focus text, UTF-16 offsets and Latin readings. This resolves all eighteen original authored-reference discrepancies. It is native behavior parity, not independent linguistic correctness.
+
+The Android build passes in 25s. Its shared-capacity wait was resolved by stopping only the idle Vipi emulator, retaining its data, building under the existing capacity guard, removing verified regenerable asset duplicates and restarting the same emulator for qualification. All 220 transferred Mac database hashes were verified. Sources, assessments, builds and native outputs are bound in artifacts/combined-book-qualification-001.json.
+
+Gallery check 012 passes 3,143-card desktop/mobile health, reduced motion and actual background reload. The main signed-in browser verified all six new short-reply images with HTTP 200. There are 54 review downloads; captures retain their recorded bundle versions and explicitly use synthetic transport. No marketing or release acceptance is implied. The private raw iPad accessibility audit helper is retained for diagnostic evidence; it does not establish VoiceOver interaction. Actual VoiceOver, listening quality, broad conversation coverage and independent semantic precision remain open. Neither app has been submitted.
 
 ## Bundle 021 — short replies and continuous Swahili, 2026-10-26 23:45 Eastern
 

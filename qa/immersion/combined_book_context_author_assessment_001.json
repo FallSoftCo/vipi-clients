@@ -1,0 +1,25 @@
+{
+  "schema": "vipi-authored-frame-assessment-1",
+  "reviewer": "Codex session 01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "assessment_kind": "author_assessment",
+  "records_sha256": "b7506bc56d8ddee77cc7f67828cba48f6ff2e03474968f3e5027a67f4c3aadcd",
+  "authoring_source_sha256": "a67daea61d1bb35a8779c034d15c2b7616e9cf4a8ddb3f5a3dc8ae7ecc80f51d",
+  "records": 2,
+  "scope": "Chinese–Korean book focus with both previously assessed bounded carriers present at once, in both directions.",
+  "decisions": {
+    "meaning": "Reuse the literal reading-material book sense. 看书 denotes reading a book; Korean 책 with each listed noun particle retains the book sense. Chinese 看 and the Korean particle stay outside the lexical focus.",
+    "context": "Both complete carriers must occur uniquely in the original and actual translation. No arbitrary suffix, new word, stemmer or generic compound splitting is admitted. Larger Chinese words, unlisted Korean attachments and repeated counterparts abstain.",
+    "readings": "Exact existing shū and chaek readings are retained for the same written focus and sense.",
+    "provenance": "The authoring script verifies bundle 021, both input database hashes and the content hashes of both pre-existing assessed carrier records. The discrepancy comes from existing project-authored parity cases. Reserved conversation text was not consulted.",
+    "qualification": "Require native positive checks for all nine particles in both directions, preserved outside-focus characters, larger-word/unlisted/missing/repeated negatives and complete cross-platform catalog parity. Author assessment is not independent semantic certification."
+  },
+  "checks": {
+    "meaning": "pass",
+    "usage": "pass",
+    "grammar_scope": "pass",
+    "context_frame_scope": "pass",
+    "lexical_unit_scope": "pass",
+    "provenance": "pass"
+  },
+  "release_ready": false
+}

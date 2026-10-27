@@ -39,4 +39,22 @@ class ChatResponseDeviceTest {
         for((left,right) in listOf("看书店。" to "book.","看书。" to "read.","看书看书。" to "book."))
             assertTrue("No unqualified internal, missing or repeated focus",catalog.result(left,right,"zh","en",1.0).spans.isEmpty())
     }
+    @Test fun combinedBookCarriersPreserveBothLanguagesGrammar() {
+        val catalog=BundledImmersionCatalog(InstrumentationRegistry.getInstrumentation().targetContext)
+        for(suffix in listOf("은","이","을","과","도","만","에","에서","의")) {
+            val korean="책$suffix"
+            val forward=catalog.result(korean,"看书","ko","zh",1.0)
+            assertEquals(1,forward.spans.size)
+            assertEquals("书$suffix",forward.speech("ko","zh").joinToString(""){it.text})
+            assertEquals("shū",forward.spans.single().romanization)
+            val reverse=catalog.result("看书",korean,"zh","ko",1.0)
+            assertEquals(1,reverse.spans.size)
+            assertEquals("看책",reverse.speech("zh","ko").joinToString(""){it.text})
+            assertEquals("chaek",reverse.spans.single().romanization)
+        }
+        for((korean,chinese) in listOf("책방" to "看书","책을" to "看书店","책을" to "看书看书","책을 책을" to "看书","책을" to "看")) {
+            assertTrue(catalog.result(korean,chinese,"ko","zh",1.0).spans.isEmpty())
+            assertTrue(catalog.result(chinese,korean,"zh","ko",1.0).spans.isEmpty())
+        }
+    }
 }
