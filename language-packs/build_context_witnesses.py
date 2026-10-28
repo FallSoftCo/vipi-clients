@@ -17,6 +17,7 @@ import time
 import icu
 from build_wiktextract import canonical,digest_file
 from context_hints import lookup_key,GRAMMAR
+from present_verb_forms import finite_people
 
 
 def compile(args):
@@ -99,7 +100,7 @@ def compile(args):
     selected={tuple(pair.split('-')) for pair in args.pair}
     languages={language for _,receipt in inputs for language in receipt['languages']}
     assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in languages for x in pair) for pair in selected)
-    sources=[];past_sources=set();kind_sources=set()
+    sources=[];past_sources=set();present_sources=set();kind_sources=set()
     for index,(path,_) in enumerate(inputs):
         source=sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
         source.execute('PRAGMA temp_store=FILE');source.execute('PRAGMA cache_size=-32768')
@@ -113,6 +114,8 @@ def compile(args):
             past_sources.add(id(source))
             if 'kind' in {r[1] for r in source.execute("PRAGMA table_info(alignments)")}:
                 kind_sources.add(id(source))
+        if source.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='whole_present_forms'").fetchone():
+            present_sources.add(id(source))
         sources.append((source,lower,upper))
     work_path=args.output/'observations.sqlite';work=sqlite3.connect(work_path)
     work.executescript('''PRAGMA temp_store=FILE;PRAGMA cache_size=-32768;
@@ -140,17 +143,33 @@ def compile(args):
             start=end
         return language,text,owner,words
     @lru_cache(maxsize=50000)
-    def past_key(identifier,start,end,lexeme):
+    def verb_key(identifier,start,end,lexeme,kind):
+        assert kind in (1,2)
+        source_set=past_sources if kind==1 else present_sources
+        table="whole_past_forms" if kind==1 else "whole_present_forms"
+        prefix="@past:" if kind==1 else "@present:"
         language,text,_,_=sentence(identifier)
         actual=str(icu.UnicodeString(text)[start:end])
         normalized=lookup_key(actual,language)
         candidates=set()
         for db,lower,upper in sources:
-            if id(db) not in past_sources or not lower<=identifier<=upper:continue
-            for written,head in db.execute("SELECT written,head FROM whole_past_forms WHERE language=? AND lexeme=? AND normalized=?",
+            if id(db) not in source_set or not lower<=identifier<=upper:continue
+            if kind==2:
+                row=db.execute("SELECT analyses FROM lexicon WHERE language=? AND normalized=?",(language,normalized)).fetchone()
+                if not row:continue
+                analyses=json.loads(row[0])
+                if language=="en" and any(analysis[0]!=lexeme and any(g[0]==4 for g in analysis[3])
+                    for analysis in analyses if len(analysis)>3):continue
+                eligible=any(analysis[0]==lexeme and any(geometry[0]==5 and len(geometry)==5 and
+                    finite_people(geometry[4],text,start,language) for geometry in analysis[3])
+                    for analysis in analyses if len(analysis)>3)
+                # A bare infinitive on the opposite endpoint remains negative
+                # evidence; its dictionary head must not become a present key.
+                if not eligible:continue
+            for written,head in db.execute("SELECT written,head FROM "+table+" WHERE language=? AND lexeme=? AND normalized=?",
                 (language,lexeme,normalized)):
                 if actual.lower()==written.lower() and len(actual.encode('utf-16-le'))==len(written.encode('utf-16-le')):
-                    candidates.add('@past:'+head)
+                    candidates.add(prefix+head)
         return next(iter(candidates)) if len(candidates)==1 else None
     @lru_cache(maxsize=50000)
     def focus(identifier,start,end,canonical_term=None):
@@ -181,16 +200,20 @@ def compile(args):
     for a,b,sa,se,ta,te,al,bl,kind in (row for db,_,_ in sources for row in db.execute(
         query.replace('@PAST_IDS@','m.a_lexeme,m.b_lexeme' if id(db) in past_sources else '0,0').replace('@KIND@','m.kind' if id(db) in kind_sources else '1'),arguments)):
         counts['distinct_reference_spans']+=1
-        ak=past_key(a,sa,se,al) if al and kind else None;bk=past_key(b,ta,te,bl) if bl and kind else None
+        ak=verb_key(a,sa,se,al,kind) if al and kind else None;bk=verb_key(b,ta,te,bl,kind) if bl and kind else None
         # Normalize each attested past endpoint independently. A nonpast or
         # unknown counterpart stays in the canonical source denominator as
         # competing evidence; it must not disappear from agreement counts.
         # Runtime still requires BOTH complete compatible past forms.
-        if ak or bk:counts['whole_past_reference_spans']+=1
+        if ak or bk:counts['whole_past_reference_spans' if kind==1 else 'whole_present_reference_spans']+=1
         left=focus(a,sa,se,ak);right=focus(b,ta,te,bk)
         if not left or not right:continue
         for one,two,sid,tid in [(left,right,a,b),(right,left,b,a)]:
             language,word,cues=one;target_language,target,_=two
+            # The new present path owns only canonical present source keys.
+            # Its nonpresent target remains competing evidence, but reversing
+            # that row must not contaminate the unchanged legacy denominator.
+            if kind==2 and not word.startswith("@present:"):continue
             pair=pairs.get((language,target_language))
             if not pair or word==target:continue
             for cue in cues:batch.append((pair,atom(word),atom(cue),atom(target),sid,tid))
@@ -238,6 +261,7 @@ def compile(args):
         warning='Reference agreement is not a calibrated correctness probability. Dictionary sense IDs are not classifier labels.',
         cue_policy='up to six original ICU words on each side in the same clause, or whole lexical message',
         whole_verb_context_policy='attested-positive-past-lemma-1' if counts['whole_past_reference_spans'] else None,
+        whole_present_context_policy='attested-positive-present-lemma-1' if counts['whole_present_reference_spans'] else None,
         license='; '.join(dict.fromkeys(v for _,receipt in inputs for v in receipt.get('licenses',['CC BY 2.0 FR','dictionary evidence provenance CC-BY-SA-4.0']))),
         automatic_sentence_alignment=any(receipt.get('automatic_sentence_alignment',False) for _,receipt in inputs))
     output.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()]);output.commit()

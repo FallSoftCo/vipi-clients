@@ -22,6 +22,7 @@ from conversation_corpus import sha_file, write_json
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'language-packs'))
 from build_wiktextract import canonical
 from context_hints import lookup_key
+from present_verb_forms import finite_people,POLICY as PRESENT_POLICY,RULE as PRESENT_RULE,SCHEMA as PRESENT_SCHEMA
 
 
 def readonly(path):
@@ -113,7 +114,16 @@ def load_lexicon(shard, language, sense_ids, output):
     surface_readings = defaultdict(set)
     metadata = {k:json.loads(v) for k,v in db.execute("SELECT key,value FROM metadata")}
     surface_rules = {"supplied-arabic-plural-reading-1","supplied-past-verb-reading-1"}
-    has_past = metadata.get("policy") == "native-linked-attested-past-verbs-17"
+    has_past = metadata.get("whole_verb_schema") == "vipi-whole-past-verb-1"
+    has_present = metadata.get("policy") == PRESENT_POLICY
+    if has_present:
+        assert language in {"en","es","de","fr","pt"} and metadata.get("present_verb_schema")==PRESENT_SCHEMA
+        assert metadata.get("present_verb_rule")==PRESENT_RULE
+        for word,lexeme,written,head,features,pos,safe in db.execute("""SELECT DISTINCT s.normalized,s.lexeme,s.surface,l.normalized,s.features,l.pos,l.target_safe
+            FROM surfaces s JOIN lexemes l ON l.id=s.lexeme WHERE s.mode=5"""):
+            assert pos=="verb" and safe==1 and PRESENT_RULE in json.loads(features)
+            assert word==lookup_key(written,language)
+            output.execute("INSERT INTO whole_present_forms VALUES (?,?,?,?,?)",(language,lexeme,word,written,head))
     if has_past:
         assert language in {"en","ja","ko"} and metadata.get("whole_verb_schema") == "vipi-whole-past-verb-1"
         assert metadata.get("whole_verb_rule") == "attested-positive-past-verb-1"
@@ -136,7 +146,7 @@ def load_lexicon(shard, language, sense_ids, output):
     # the full inflected word the meaning of its noun/verb stem.
     for word, lexeme, safe, mode, written, start, end, features in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe,s.mode,s.surface,s.start,s.end,s.features
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme
-        WHERE s.mode IN (1,2,3,4) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
+        WHERE s.mode IN (1,2,3,4,5) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
         if lexeme in terms:
             if mode==4 and set(json.loads(features)) & {"past-source-syncretic","past-source-ambiguous"}:continue
             uses_surface = bool(surface_rules.intersection(json.loads(features)))
@@ -150,7 +160,7 @@ def load_lexicon(shard, language, sense_ids, output):
                 linked_terms = sorted({(sense,reading,explicit) for sense,_,explicit in linked_terms
                     for reading in surface_readings[(word,lexeme,sense)]})
             if lexeme not in by_word[word]:by_word[word][lexeme] = [lexeme, safe, linked_terms, []]
-            by_word[word][lexeme][3].append([mode,written,start,end])
+            by_word[word][lexeme][3].append([mode,written,start,end]+([json.loads(features)] if mode==5 else []))
     # Retain competing native analyses, including ones without usable links.
     for word, lexeme, safe in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme ORDER BY s.normalized,s.lexeme'''):
@@ -168,18 +178,20 @@ def load_lexicon(shard, language, sense_ids, output):
     return automaton, forms
 
 
-def unique_hits(payload, analyses, modes=(1,2,3)):
+def unique_hits(payload, analyses, modes=(1,2,3), text="", language=""):
     by_sense = defaultdict(set)
     for hit in json.loads(payload):
         form_id,start,end=hit[:3]
         for analysis in analyses(form_id):
             lexeme,safe,terms=analysis[:3]
             geometries={(start,end)} if len(analysis)==3 and 1 in modes else set()
-            for mode,written,a,b in analysis[3] if len(analysis)>3 else []:
+            for geometry in analysis[3] if len(analysis)>3 else []:
+                mode,written,a,b=geometry[:4]
                 if mode not in modes:continue
+                if mode==5 and (len(geometry)!=5 or not finite_people(geometry[4],text,start,language)):continue
                 if mode in (1,2):geometries.add((start,end));continue
                 actual=hit[3];encoded=actual.encode('utf-16-le')
-                if mode not in (3,4) or actual.lower()!=written.lower() or len(encoded)!=len(written.encode('utf-16-le')) or not 0<=a<b<=len(encoded)//2:continue
+                if mode not in (3,4,5) or actual.lower()!=written.lower() or len(encoded)!=len(written.encode('utf-16-le')) or not 0<=a<b<=len(encoded)//2:continue
                 try:encoded[2*a:2*b].decode('utf-16-le')
                 except UnicodeDecodeError:continue
                 geometries.add((start+a,start+b))
@@ -261,6 +273,8 @@ def build(args):
         CREATE TABLE lexicon(id INTEGER PRIMARY KEY,language TEXT NOT NULL,normalized TEXT NOT NULL,analyses TEXT NOT NULL,UNIQUE(language,normalized));
         CREATE TABLE whole_past_forms(language TEXT NOT NULL,lexeme INTEGER NOT NULL,normalized TEXT NOT NULL,written TEXT NOT NULL,head TEXT NOT NULL,
             PRIMARY KEY(language,lexeme,normalized,written)) WITHOUT ROWID;
+        CREATE TABLE whole_present_forms(language TEXT NOT NULL,lexeme INTEGER NOT NULL,normalized TEXT NOT NULL,written TEXT NOT NULL,head TEXT NOT NULL,
+            PRIMARY KEY(language,lexeme,normalized,written)) WITHOUT ROWID;
         CREATE TABLE sentences(id INTEGER PRIMARY KEY,language TEXT NOT NULL,text TEXT NOT NULL,owner TEXT NOT NULL,component INTEGER NOT NULL);
         CREATE TABLE focus(sentence INTEGER PRIMARY KEY,payload TEXT NOT NULL);
         CREATE TABLE alignments(a INTEGER NOT NULL,b INTEGER NOT NULL,sense INTEGER NOT NULL,
@@ -318,7 +332,7 @@ def build(args):
     queries=[]
     for name,path,_ in sources:
         work.execute('ATTACH DATABASE ? AS '+name,(path.resolve().as_uri()+'?mode=ro&immutable=1',))
-        query='''SELECT a.id,a.language,fa.payload,b.id,b.language,fb.payload
+        query='''SELECT a.id,a.language,fa.payload,a.text,b.id,b.language,fb.payload,b.text
         FROM sentences a JOIN '''+name+'''.links l ON l.a=a.id
         JOIN sentences b ON b.id=l.b JOIN focus fa ON fa.sentence=a.id JOIN focus fb ON fb.sentence=b.id
         WHERE a.language<>b.language'''
@@ -331,23 +345,25 @@ def build(args):
     @lru_cache(maxsize=50000)
     def analyses(form_id):
         return json.loads(work.execute('SELECT analyses FROM lexicon WHERE id=?',(form_id,)).fetchone()[0])
-    cached=lru_cache(maxsize=4000)(lambda payload:(unique_hits(payload,analyses),unique_hits(payload,analyses,(4,))))
+    cached=lru_cache(maxsize=4000)(lambda payload,text,language:(unique_hits(payload,analyses),unique_hits(payload,analyses,(4,)),unique_hits(payload,analyses,(5,),text,language)))
     batch=[];pair_counts=Counter()
-    for aid, al, af, bid, bl, bf in (row for query,parameters in queries for row in work.execute(query,parameters)):
+    for aid, al, af, at, bid, bl, bf, bt in (row for query,parameters in queries for row in work.execute(query,parameters)):
         counts['direct_development_pairs'] += 1
-        left, lp = cached(af); right, rp = cached(bf)
+        left, lp, ln = cached(af,at,al); right, rp, rn = cached(bf,bt,bl)
         # Preserve the legacy stem path exactly. A separate whole-past path
         # chooses an attested complete form on either endpoint when present.
         # Nonpast counterparts stay in that path as conflicting evidence.
-        for kind,one,two in [(0,left,right),(1,{**left,**lp},{**right,**rp})]:
+        for kind,one,two in [(0,left,right),(1,{**left,**lp},{**right,**rp}),(2,{**left,**ln},{**right,**rn})]:
             for sense in one.keys() & two.keys():
                 if kind==1 and sense not in lp and sense not in rp:continue
+                if kind==2 and sense not in ln and sense not in rn:continue
                 a, b = one[sense], two[sense]
                 if al != 'en' and bl != 'en' and not (a[5] and b[5]):
                     counts['nonexplicit_pivot_excluded'] += 1; continue
                 batch.append((aid,bid,sense,a[0],a[1],b[0],b[1],a[2],b[2],a[3],b[3],a[4],b[4],kind))
                 counts['candidate_alignments'] += 1
                 if kind==1:counts['whole_past_alignments'] += 1
+                if kind==2:counts['whole_present_alignments'] += 1
                 pair_counts['-'.join(sorted([al,bl]))] += 1
         if len(batch) >= 10000:
             work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit();batch=[]

@@ -78,7 +78,9 @@ class LexicalCoverageDeviceTest {
             val named="😀 محطة حافلات سوق الذهب إلى المدينة. الفنجان هنا."
             assertEquals(listOf("سوق","الذهب"),LexicalConcordance.namedPlaces(named,"ar").map{named.substring(it)})
             assertTrue(LexicalConcordance.namedPlaces(named,"en").isEmpty())
-            witnessDB?.let { witness ->
+            // The general replay also supports bounded language candidates.
+            // These existing multilingual guard checks need all three shards.
+            if(databases.keys.containsAll(setOf("en","es","zh"))) witnessDB?.let { witness ->
                 val original="I was happy when she arrived."
                 fun windows(text:String)=requireNotNull(ReviewedFrameLookup.windows(text,"en")).mapKeys{co.fallsoft.vipi.core.ImmersionEngine.lookupKey(it.key)}
                 val release=databases.getValue("en").rawQuery("SELECT value FROM metadata WHERE key='release_id'",null).use { c -> check(c.moveToFirst());org.json.JSONTokener(c.getString(0)).nextValue() as String }
@@ -96,6 +98,11 @@ class LexicalCoverageDeviceTest {
                 assertFalse("Alternate-script grammatical analyses must remain visible",alias.any{it.source=="什么"})
                 report.put("context_guard_checks",true)
             }
+            assertEquals(setOf("1s"),PresentVerbGrammar.people(setOf("present-person-1s","present-person-3s"),"😀 I work",5,"en"))
+            assertTrue(PresentVerbGrammar.people(setOf("present-person-1s"),"He work",3,"en").isEmpty())
+            assertTrue(PresentVerbGrammar.people(setOf("present-person-1s"),"I will work",7,"en").isEmpty())
+            assertEquals(setOf("1s"),PresentVerbGrammar.people(setOf("present-person-1s"),"J’écris",2,"fr"))
+            assertTrue(PresentVerbGrammar.people(setOf("present-person-1s"),"Ella trabajo",5,"es").isEmpty())
             val cases=JSONArray(input.readText());val catalog=BundledImmersionCatalog(context)
             for(i in 0 until cases.length()) {
                 val row=cases.getJSONObject(i);val source=row.getString("source");val target=row.getString("target")
@@ -104,6 +111,8 @@ class LexicalCoverageDeviceTest {
                 val diagnostic=mutableMapOf<String,Int>()
                 val start=System.nanoTime()
                 val entries=if(intact)LexicalConcordance.entries(databases.getValue(source),databases.getValue(target),original,translation,source,target,witnessDB) {key->diagnostic[key]=(diagnostic[key] ?: 0)+1} else emptyList()
+                if(row.has("max_present_candidates") && (diagnostic["present_context_candidate"] ?: 0)>row.getInt("max_present_candidates"))
+                    failures.put(row.getString("id")+": present verb crossed a grammar boundary")
                 val result=LocalImmersion.align(original,translation,entries,1.0,source,target)
                 val elapsed=(System.nanoTime()-start)/1e6
                 val previous=if(intact)catalog.result(original,translation,source,target,1.0) else null

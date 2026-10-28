@@ -4,10 +4,11 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
-    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17"]
+    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17","native-linked-attested-present-verbs-18"]
     private static let surfaceReadingRule="supplied-arabic-plural-reading-1"
     private static let pastReadingRule="supplied-past-verb-reading-1"
     private static let pastRule="attested-positive-past-verb-1"
+    private static let presentRule="attested-positive-present-verb-1"
     private static let surfaceReadingRules:Set<String>=[surfaceReadingRule,pastReadingRule]
     private static let finitePastSubject=try! NSRegularExpression(pattern:#"(?i)(?<![\p{L}\p{M}\p{N}_])(?:i|you|he|she|it|we|they)[ \t]+$"#)
     static func hasFinitePastSubject(_ text:String,start:Int)->Bool {
@@ -103,13 +104,18 @@ enum LexicalConcordance {
     }
     private static func load(_ db:OpaquePointer,text:String,language:String) throws -> Side? {
         var metadata:[String:String]=[:]
-        for row in try query(db,"SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule','whole_verb_schema','whole_verb_rule')",[],limit:9) {
+        for row in try query(db,"SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule','whole_verb_schema','whole_verb_rule','present_verb_schema','present_verb_rule')",[],limit:11) {
             metadata[row[0]]=try JSONDecoder().decode(String.self,from:Data(row[1].utf8))
         }
         guard let inventory=metadata.removeValue(forKey:"source_inventory_sha256"),inventory.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         guard let release=metadata.removeValue(forKey:"release_id"),release.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         guard let policy=metadata.removeValue(forKey:"policy"),policies.contains(policy) else {throw VocabularyPackError.invalid}
-        let hasPast=policy=="native-linked-attested-past-verbs-17"
+        let hasPresent=policy=="native-linked-attested-present-verbs-18"
+        if hasPresent {
+            guard ["en","es","fr","de","pt"].contains(language),metadata.removeValue(forKey:"present_verb_schema")=="vipi-whole-present-verb-1",
+                metadata.removeValue(forKey:"present_verb_rule")==presentRule else {throw VocabularyPackError.invalid}
+        }
+        let hasPast=policy=="native-linked-attested-past-verbs-17" || (hasPresent && language=="en")
         if hasPast {
             guard ["en","ja","ko"].contains(language),metadata.removeValue(forKey:"whole_verb_schema")=="vipi-whole-past-verb-1",
                 metadata.removeValue(forKey:"whole_verb_rule")==pastRule else {throw VocabularyPackError.invalid}
@@ -191,10 +197,10 @@ enum LexicalConcordance {
         [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
     }
     private static func focus(_ form:Form,range:NSRange,text:String)->NSRange? {
-        guard (1...4).contains(form.mode) else {return nil}
+        guard (1...5).contains(form.mode) else {return nil}
         if (1...2).contains(form.mode) {return range}
         let actual=(text as NSString).substring(with:range)
-        if form.mode==4 && (form.start != 0 || form.end != actual.utf16.count) {return nil}
+        if (4...5).contains(form.mode) && (form.start != 0 || form.end != actual.utf16.count) {return nil}
         guard actual.utf16.count==form.written.utf16.count,actual.lowercased()==form.written.lowercased(),
               form.start>=0,form.end>form.start,form.end<=actual.utf16.count else {return nil}
         let value=NSRange(location:range.location+form.start,length:form.end-form.start)
@@ -217,6 +223,21 @@ enum LexicalConcordance {
     }
     private static func containedInPhrase(_ side:Side,range:NSRange)->Bool {
         side.phrases.contains{$0.location<=range.location && NSMaxRange($0)>=NSMaxRange(range) && $0 != range}
+    }
+    private static let presentComplements:[String:Set<String>]=["live":["with"],"work":["at","from","in","on"],"wait":["for"],"listen":["to"],"talk":["to","with","about"],"speak":["to","with","about"],"write":["to","about"],"think":["about"],"learn":["about","from"],"help":["with"],"travel":["to","from"],"walk":["to","from"]]
+    private static func protectedPresent(_ side:Side,range:NSRange,text:String,language:String)->Bool {
+        let pronounUnits:[String:String]=language=="en" ? ["i miss you":"miss","i love you":"love","love you":"love"] : (language=="es" ? ["te amo":"amar"] : [:])
+        let pronominal=PresentVerbGrammar.pronominalClause(text,focus:range,language:language)
+        if language != "en" && !pronominal {return protected(side,range:range)}
+        if side.namedPlaces.contains(where:{NSIntersectionRange($0,range).length>0}) || containedInPhrase(side,range:range) {return true}
+        let forms=side.forms[key((text as NSString).substring(with:range)),default:[]].filter(completePresent)
+        return side.guards.contains { word in side.windows[word,default:[]].contains { whole in
+            guard whole.location<=range.location,NSMaxRange(whole)>=NSMaxRange(range),whole != range else {return false}
+            let parts=word.components(separatedBy:" ")
+            let assessedPronounUnit=pronominal && !forms.isEmpty && forms.allSatisfy{pronounUnits[word]==$0.head}
+            return !assessedPronounUnit && !(language=="en" && whole.location==range.location && parts.count==2 && !forms.isEmpty &&
+                forms.allSatisfy{parts[0]==$0.key && presentComplements[$0.head,default:[]].contains(parts[1])})
+        }}
     }
     private static func protectedTarget(_ side:Side,range:NSRange,text:String,language:String,features:Set<String>)->Bool {
         if side.namedPlaces.contains(where:{NSIntersectionRange($0,range).length>0}) || containedInPhrase(side,range:range) {return true}
@@ -251,19 +272,38 @@ enum LexicalConcordance {
         return form.features.contains("past-source-unambiguous") ||
             (language=="en" && form.features.contains("past-source-requires-finite-clause") && hasFinitePastSubject(text,start:range.location))
     }
+    private static func completePresent(_ form:Form)->Bool {
+        form.mode==5 && form.pos=="verb" && form.targetSafe && (!form.grammar || form.head=="need") && form.features.contains(presentRule)
+    }
+    private static func completeVerb(_ form:Form,mode:Int)->Bool {
+        mode==4 ? completePast(form) : completePresent(form)
+    }
+    private static func verbKey(_ form:Form,mode:Int)->String {
+        (mode==4 ? "@past:" : "@present:")+form.head
+    }
+    private static func verbGrammar(_ form:Form,analyses:[Form],text:String,range:NSRange,language:String,mode:Int)->Bool {
+        if mode==4 {return pastGrammar(form,analyses:analyses,text:text,range:range,language:language)}
+        return completePresent(form) &&
+            (!form.grammar || (language=="en" && form.head=="need" && PresentVerbGrammar.pronominalClause(text,focus:range,language:language))) &&
+            !(language=="en" && analyses.contains{$0.mode==4 && $0.lexeme != form.lexeme}) &&
+            !PresentVerbGrammar.people(form.features,text:text,start:range.location,language:language).isEmpty
+    }
     private static func contextualEntries(left:Side,right:Side,db:OpaquePointer,original:String,translation:String,source:String,target:String,
-        strict:[VocabularyEntry],alignment:SentenceAlignment,diagnostic:(String)->Void,wholePast:Bool=false) throws -> [VocabularyEntry] {
+        strict:[VocabularyEntry],alignment:SentenceAlignment,diagnostic:(String)->Void,wholeMode:Int=0) throws -> [VocabularyEntry] {
         var targetKeys=Set<String>()
         for (word,forms) in right.forms {for form in forms {for carrier in right.windows[word,default:[]] {
-            if wholePast && !completePast(form) {continue}
-            if let range=focus(form,range:carrier,text:translation) {targetKeys.insert(wholePast ? "@past:"+form.head : key((translation as NSString).substring(with:range)))}
+            if wholeMode != 0 && !completeVerb(form,mode:wholeMode) {continue}
+            if let range=focus(form,range:carrier,text:translation) {targetKeys.insert(wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((translation as NSString).substring(with:range)))}
         }}}
         var sourceKeys=Set<String>()
         for (word,forms) in left.forms {for form in forms {for carrier in left.windows[word,default:[]] {
-            if wholePast && !completePast(form) {continue}
-            if let range=focus(form,range:carrier,text:original) {sourceKeys.insert(wholePast ? "@past:"+form.head : key((original as NSString).substring(with:range)))}
+            if wholeMode != 0 && !completeVerb(form,mode:wholeMode) {continue}
+            if let range=focus(form,range:carrier,text:original) {sourceKeys.insert(wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((original as NSString).substring(with:range)))}
         }}}
         guard let evidence=try ContextWitnessLookup.load(db,original:original,source:source,target:target,release:left.release,sources:sourceKeys,targets:targetKeys) else {return []}
+        // Reciprocal evidence is anchored to independently accepted nearby
+        // vocabulary in both messages, with the original sentence boundaries.
+        let reverseEvidence=wholeMode==5 ? try ContextWitnessLookup.load(db,original:translation,source:target,target:source,release:right.release,sources:targetKeys,targets:sourceKeys) : nil
         let lexicalWindows=left.windows.filter { word,_ in
             let forms=left.forms[word,default:[]],names=left.forms[word,default:[]].filter(\.proper)
             return (!left.blocked.contains(word) || (left.names.contains(word) && !names.isEmpty && names.allSatisfy{$0.written.first?.isUppercase==true})) &&
@@ -272,28 +312,42 @@ enum LexicalConcordance {
             let word=key((original as NSString).substring(with:range))
             return !left.names.contains(word) || (original as NSString).substring(with:range).first?.isLowercase==true
         }}
+        func reverseWindows(_ focus:NSRange)->[String:[NSRange]] {
+            guard reverseEvidence != nil else {return [:]}
+            let anchors=Set(strict.compactMap { e -> NSRange? in
+                guard let a=e.sourceScope,let b=e.targetScope,a.original==original,b.translation==translation else {return nil}
+                let sourceRange=NSRange(location:a.start,length:a.end-a.start)
+                guard lexicalWindows.values.contains(where:{$0.contains(sourceRange)}),
+                    evidence.hasNearbyContext(focus:focus,text:original,windows:["anchor":[sourceRange]]) else {return nil}
+                return NSRange(location:b.start,length:b.end-b.start)
+            })
+            return right.windows.mapValues{$0.filter{anchors.contains($0)}}.filter{!$0.value.isEmpty}
+        }
         let needsReading=["ar","zh","ja","ko"].contains(target)
         struct Claim:Hashable {let sourceRange:NSRange,range:NSRange,reading:String}
         struct SourceShape:Hashable {let range:NSRange,number:Int}
         var output:[VocabularyEntry]=[]
         for word in left.forms.keys.sorted() {
             let forms=left.forms[word,default:[]]
-            guard !left.targetBlocked.contains(word),!forms.contains(where:{$0.grammar}) else {continue}
+            let contextualNeed=wholeMode==5 && source=="en" && forms.contains{completePresent($0) && $0.head=="need"}
+            guard !left.targetBlocked.contains(word),(!forms.contains(where:{$0.grammar}) || contextualNeed) else {continue}
             for carrier in Set(left.windows[word,default:[]]) {
-                guard alignment.uniqueSource(carrier,left.windows[word,default:[]].filter{!protected(left,range:$0)}) else {continue}
-                guard !protected(left,range:carrier),!strict.contains(where:{ e in
+                guard alignment.uniqueSource(carrier,left.windows[word,default:[]].filter{wholeMode==5 ? !protectedPresent(left,range:$0,text:original,language:source) : !protected(left,range:$0)}) else {continue}
+                let transparentSource=wholeMode==5 && protected(left,range:carrier) && !protectedPresent(left,range:carrier,text:original,language:source)
+                guard !(wholeMode==5 ? protectedPresent(left,range:carrier,text:original,language:source) : protected(left,range:carrier)),!strict.contains(where:{ e in
                     guard let scope=e.sourceScope else {return false}
                     return scope.start<NSMaxRange(carrier) && carrier.location<scope.end
                 }) else {continue}
                 let actual=(original as NSString).substring(with:carrier)
-                if left.blocked.contains(word) {
+                let lexicalNeed=contextualNeed && PresentVerbGrammar.pronominalClause(original,focus:carrier,language:source)
+                if left.blocked.contains(word) && !lexicalNeed {
                     let proper=forms.filter(\.proper)
                     guard left.names.contains(word),actual.first?.isLowercase==true,!proper.isEmpty,
                         proper.allSatisfy({$0.written.first?.isUppercase==true}) else {continue}
                 }
                 let usable=forms.filter { form in
                     form.targetSafe && key(actual)==key(form.written) &&
-                    (wholePast ? pastGrammar(form,analyses:forms,text:original,range:carrier,language:source) && targetCaseMatches(form,range:carrier,text:original)
+                    (wholeMode != 0 ? verbGrammar(form,analyses:forms,text:original,range:carrier,language:source,mode:wholeMode) && targetCaseMatches(form,range:carrier,text:original)
                         : (1...3).contains(form.mode) && actual.first?.isUppercase==form.written.first?.isUppercase)
                 }
                 let focuses=Set(usable.compactMap { form in
@@ -302,14 +356,16 @@ enum LexicalConcordance {
                 // A conflicting carrier may be resolved only as a whole noun with
                 // a noun counterpart and a nearby lexical witness.
                 let conflictingGeometry=usable.contains(where:{$0.mode==3}) && focuses.count != 1
-                let allForms=wholePast ? forms.filter{$0.targetSafe && key(actual)==key($0.written)} : usable
+                let allForms=wholeMode != 0 ? forms.filter{$0.targetSafe && key(actual)==key($0.written)} : usable
                 let allMeanings=Set(allForms.flatMap{linkedTerms(left,$0)}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
-                var claims=Set<Claim>()
+                var claims=Set<Claim>(),reverseClaims=Set<Claim>(),pronounClaims=Set<Claim>()
                 for form in usable {
                     if conflictingGeometry && (form.pos != "noun" || !(1...2).contains(form.mode)) {continue}
                     guard let sourceFocus=focus(form,range:carrier,text:original) else {continue}
                     let meanings=Set(linkedTerms(left,form).filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                     if meanings.isEmpty {continue}
+                    let anchoredReverse=reverseWindows(sourceFocus)
+                    let sourcePronounClause=wholeMode==5 && PresentVerbGrammar.pronominalClause(original,focus:sourceFocus,language:source)
                     let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
                     for other in right.forms.keys.sorted() {
                         guard !right.targetBlocked.contains(other) else {continue}
@@ -318,28 +374,42 @@ enum LexicalConcordance {
                             let readings=readings(right,candidate,meanings)
                             if needsReading && readings.count != 1 {continue}
                             if conflictingGeometry && (candidate.pos != "noun" || candidate.grammar) {continue}
-                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(wholePast ? completePast(candidate) : (1...3).contains(candidate.mode)),numberCompatible(form,candidate,source:source,target:target),
+                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(wholeMode != 0 ? completeVerb(candidate,mode:wholeMode) : (1...3).contains(candidate.mode)),numberCompatible(form,candidate,source:source,target:target),
                                   linkedTerms(right,candidate).contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
                             let targetMeanings=Set(linkedTerms(right,candidate).filter(\.eligible).map(\.sense))
                             // Narrower meanings must explain nearby lexical context;
                             // a common grammatical cue alone is insufficient there.
                             let narrow = !targetMeanings.isSuperset(of:allMeanings) || targets.contains{$0.grammar}
                             let nearbyLexical=evidence.hasNearbyContext(focus:sourceFocus,text:original,windows:lexicalWindows)
-                            if conflictingGeometry && !nearbyLexical {continue}
-                            let cueWindows = conflictingGeometry || (narrow && nearbyLexical) ? lexicalWindows : left.windows
+                            if (conflictingGeometry || (transparentSource && !sourcePronounClause)) && !nearbyLexical {continue}
+                            let cueWindows = conflictingGeometry || transparentSource || (narrow && nearbyLexical) ? lexicalWindows : left.windows
                             for targetCarrier in Set(right.windows[other,default:[]]) {
-                                if wholePast && !pastGrammar(candidate,analyses:targets,text:translation,range:targetCarrier,language:target) {continue}
-                                guard !protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features),
+                                if wholeMode != 0 && !verbGrammar(candidate,analyses:targets,text:translation,range:targetCarrier,language:target,mode:wholeMode) {continue}
+                                if wholeMode==5 && PresentVerbGrammar.people(form.features,text:original,start:carrier.location,language:source)
+                                    .intersection(PresentVerbGrammar.people(candidate.features,text:translation,start:targetCarrier.location,language:target)).isEmpty {continue}
+                                let isProtected=protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features)
+                                let transparentTarget=wholeMode==5 && isProtected && !protectedPresent(right,range:targetCarrier,text:translation,language:target)
+                                guard (!isProtected || transparentTarget),(!transparentTarget || nearbyLexical || sourcePronounClause),
                                     targetCaseMatches(candidate,range:targetCarrier,text:translation),let targetFocus=focus(candidate,range:targetCarrier,text:translation) else {continue}
                                 guard alignment.permits(sourceFocus,targetFocus) else {continue}
                                 if strict.contains(where:{ e in
                                     guard let scope=e.targetScope else {return false}
                                     return scope.start<NSMaxRange(targetFocus) && targetFocus.location<scope.end
                                 }) {continue}
-                                let sourceKey=wholePast ? "@past:"+form.head : key((original as NSString).substring(with:sourceFocus))
-                                let targetKey=wholePast ? "@past:"+candidate.head : key((translation as NSString).substring(with:targetFocus))
-                                if evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:cueWindows) {
-                                    claims.insert(Claim(sourceRange:sourceFocus,range:targetFocus,reading:needsReading ? readings.first! : ""))
+                                let sourceKey=wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((original as NSString).substring(with:sourceFocus))
+                                let targetKey=wholeMode != 0 ? verbKey(candidate,mode:wholeMode) : key((translation as NSString).substring(with:targetFocus))
+                                let sharedMeanings=meanings.intersection(targetMeanings)
+                                let pronounClause=wholeMode==5 && PresentVerbGrammar.pronominalClause(original,focus:sourceFocus,language:source) &&
+                                    PresentVerbGrammar.pronominalClause(translation,focus:targetFocus,language:target)
+                                if (transparentSource || transparentTarget) && !nearbyLexical && !pronounClause {continue}
+                                let selectedWindows=pronounClause ? left.windows : (wholeMode==5 || transparentTarget ? lexicalWindows : cueWindows)
+                                let forward=evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:selectedWindows,allowedMeanings:sharedMeanings)
+                                let reverse=wholeMode==5 && reverseEvidence?.supports(word:targetKey,counterpart:sourceKey,focus:targetFocus,text:translation,windows:anchoredReverse,allowedMeanings:sharedMeanings)==true
+                                if forward || reverse {
+                                    let claim=Claim(sourceRange:sourceFocus,range:targetFocus,reading:needsReading ? readings.first! : "")
+                                    claims.insert(claim)
+                                    if !forward && reverse {reverseClaims.insert(claim)}
+                                    if forward && pronounClause {pronounClaims.insert(claim)}
                                 }
                             }
                         }
@@ -347,7 +417,9 @@ enum LexicalConcordance {
                 }
                 guard claims.count==1,let claim=claims.first else {continue}
                 let targetText=(translation as NSString).substring(with:claim.range)
-                diagnostic(wholePast ? "past_context_candidate" : "context_witness_candidate")
+                if reverseClaims.contains(claim) {diagnostic("present_reverse_candidate")}
+                if pronounClaims.contains(claim) {diagnostic("present_pronominal_candidate")}
+                diagnostic(wholeMode==4 ? "past_context_candidate" : (wholeMode==5 ? "present_context_candidate" : "context_witness_candidate"))
                 output.append(VocabularyEntry(source:(original as NSString).substring(with:claim.sourceRange),targets:[targetText],romanizations:needsReading ? [targetText:[claim.reading]] : [:],
                     sourceScope:VocabularySourceScope(original:original,start:claim.sourceRange.location,end:NSMaxRange(claim.sourceRange)),
                     targetScope:VocabularyTargetScope(translation:translation,start:claim.range.location,end:NSMaxRange(claim.range))))
@@ -420,9 +492,59 @@ enum LexicalConcordance {
             }
             if let witnessDB {
                 output += try contextualEntries(left:left,right:right,db:witnessDB,original:original,translation:translation,source:source,target:target,strict:output,alignment:alignment,diagnostic:diagnostic)
-                output += try contextualEntries(left:left,right:right,db:witnessDB,original:original,translation:translation,source:source,target:target,strict:output,alignment:alignment,diagnostic:diagnostic,wholePast:true)
+                output += try contextualEntries(left:left,right:right,db:witnessDB,original:original,translation:translation,source:source,target:target,strict:output,alignment:alignment,diagnostic:diagnostic,wholeMode:4)
+                output += try contextualEntries(left:left,right:right,db:witnessDB,original:original,translation:translation,source:source,target:target,strict:output,alignment:alignment,diagnostic:diagnostic,wholeMode:5)
             }
             return output
         } catch Limit.overflow {diagnostic("query_overflow");return []}
+    }
+}
+
+/// Person evidence for supplied complete present verbs; native UTF-16 offsets.
+private enum PresentVerbGrammar {
+    // Grammatical-only cues are limited to an exact short pronoun clause.
+    // All words are inspected, including unknown words outside the dictionary.
+    static func pronominalClause(_ text:String,focus:NSRange,language:String)->Bool {
+        let pronouns:Set<String>
+        switch language {
+        case "en":pronouns=["i","you","he","she","it","we","they","me","him","her","us","them"]
+        case "es":pronouns=["yo","tú","vos","él","ella","usted","nosotros","nosotras","vosotros","vosotras","ellos","ellas","ustedes","me","te","lo","la","le","nos","os","los","las","les","se"]
+        default:return false
+        }
+        let ns=text as NSString,stops=CharacterSet(charactersIn:".!?。！？;；\r\n…")
+        let left=ns.rangeOfCharacter(from:stops,options:.backwards,range:NSRange(location:0,length:focus.location))
+        let right=ns.rangeOfCharacter(from:stops,options:[],range:NSRange(location:NSMaxRange(focus),length:ns.length-NSMaxRange(focus)))
+        let start=left.location==NSNotFound ? 0 : NSMaxRange(left),end=right.location==NSNotFound ? ns.length : right.location
+        let words=LocalImmersion.words(text,language:language).filter{$0.location>=start && NSMaxRange($0)<=end}
+        return (2...4).contains(words.count) && words.contains(focus) && words.filter{$0 != focus}.allSatisfy{pronouns.contains(ns.substring(with:$0).lowercased())}
+    }
+    private static let subjects:[String:[String:Set<String>]]=[
+        "en": ["i":["1s"],"you":["2p","2s"],"he":["3s"],"she":["3s"],"it":["3s"],"we":["1p"],"they":["3p"]],
+        "de": ["ich":["1s"],"du":["2s"],"er":["3s"],"sie":["3p","3s"],"es":["3s"],"wir":["1p"],"ihr":["2p"]],
+        "fr": ["je":["1s"],"j'":["1s"],"j’":["1s"],"tu":["2s"],"il":["3s"],"elle":["3s"],"on":["3s"],"nous":["1p"],"vous":["2p"],"ils":["3p"],"elles":["3p"]],
+        "es": ["yo":["1s"],"tú":["2s"],"vos":["2s"],"él":["3s"],"ella":["3s"],"usted":["3s"],"nosotros":["1p"],"nosotras":["1p"],"vosotros":["2p"],"vosotras":["2p"],"ellos":["3p"],"ellas":["3p"],"ustedes":["3p"]],
+        "pt": ["eu":["1s"],"tu":["2s"],"ele":["3s"],"ela":["3s"],"você":["3s"],"nós":["1p"],"vós":["2p"],"eles":["3p"],"elas":["3p"],"vocês":["3p"]]
+    ]
+    private static let nonPresentAuxiliary=try! NSRegularExpression(pattern:#"(?i)(?<![\p{L}\p{M}\p{N}_])(?:did|didn['’]t|will|won['’]t|would|wouldn['’]t|can|can['’]t|could|couldn['’]t|shall|shan['’]t|should|shouldn['’]t|may|might|must|have|has|had|am|is|are|was|were)[ \t]+$"#)
+    private static let previous=try! NSRegularExpression(pattern:#"(?<![\p{L}\p{M}\p{N}_])([\p{L}\p{M}]+['’]?)([ \t]*)$"#)
+    static func people(_ features:Set<String>,text:String,start:Int,language:String)->Set<String> {
+        guard start>=0,start<=text.utf16.count else {return []}
+        let people=Set(features.filter{$0.hasPrefix("present-person-")}.map{String($0.dropFirst("present-person-".count))})
+        let prefix=(text as NSString).substring(to:start)
+        if let match=previous.firstMatch(in:prefix,range:NSRange(location:0,length:prefix.utf16.count)) {
+            let word=(prefix as NSString).substring(with:match.range(at:1)).lowercased()
+            if language=="en" {
+                let before=(prefix as NSString).substring(to:match.range.location)
+                if nonPresentAuxiliary.firstMatch(in:before,range:NSRange(location:0,length:before.utf16.count)) != nil {return []}
+            }
+            let nominal:[String:Set<String>]=[
+                "es":["el","la","los","las","un","una","unos","unas","mi","mis","tu","tus","su","sus","nuestro","nuestra","vuestro","vuestra","este","esta","ese","esa"],
+                "pt":["o","a","os","as","um","uma","uns","umas","meu","minha","teu","tua","seu","sua","nosso","nossa","vosso","vossa","este","esta","esse","essa"]]
+            if match.range(at:2).length>0,nominal[language,default:[]].contains(word) {return []}
+            if match.range(at:2).length>0 || ["j'","j’"].contains(word) {
+                if let subject=subjects[language]?[word] {return people.intersection(subject)}
+            }
+        }
+        return ["en","de","fr"].contains(language) ? [] : people
     }
 }

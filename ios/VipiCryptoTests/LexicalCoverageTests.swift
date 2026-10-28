@@ -16,6 +16,7 @@ final class LexicalCoverageTests:XCTestCase {
         let forbidden_source:String?,forbidden_target:String?,expected_source:String?,expected_target:String?
         let forbidden_source_start:Int?
         let expected_count:Int?
+        let max_present_candidates:Int?
         let expected_path:String?,expected_dictionary_abstention:Bool?
     }
     private func sha(_ url:URL) throws -> String {
@@ -89,7 +90,7 @@ final class LexicalCoverageTests:XCTestCase {
         var report:[String:Any] = ["schema":"vipi-lexical-coverage-1","run":run,"fixture":fixture,"manifest_sha256":try sha(root.appendingPathComponent("manifest.json")),
             "platform":platform,"translation_reused":true,"classification_exercised":false,"independent_semantic_acceptance":false]
         if let witnessSHA {report["witness_sha256"]=witnessSHA;report["witness_revision"]=witnessRevision}
-        if let witnessDB {
+        if let witnessDB,Set(databases.keys).isSuperset(of:["en","es","zh"]) {
             let original="I was happy when she arrived."
             func windows(_ text:String) throws -> [String:[NSRange]] {
                 let values=try XCTUnwrap(ReviewedFrameLookup.windows(text,language:"en"))
@@ -135,6 +136,9 @@ final class LexicalCoverageTests:XCTestCase {
                 entries=try LexicalConcordance.entries(leftDB:try XCTUnwrap(databases[row.source]),rightDB:try XCTUnwrap(databases[row.target]),
                     original:row.original,translation:row.translation,source:row.source,target:row.target,witnessDB:witnessDB,diagnostic:{diagnostic[$0,default:0]+=1})
             } else {entries=[]}
+            if let maximum=row.max_present_candidates,diagnostic["present_context_candidate",default:0]>maximum {
+                failures.append(row.id+": present verb crossed a grammar boundary")
+            }
             let result=LocalImmersion.align(original:row.original,translation:row.translation,entries:entries,density:1,source:row.source,target:row.target)
             let elapsed=start.duration(to:.now).components
             let previous:ImmersionResult?

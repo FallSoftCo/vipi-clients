@@ -7,10 +7,11 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17")
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17","native-linked-attested-present-verbs-18")
     private const val SURFACE_READING_RULE="supplied-arabic-plural-reading-1"
     private const val PAST_READING_RULE="supplied-past-verb-reading-1"
     private const val PAST_RULE="attested-positive-past-verb-1"
+    private const val PRESENT_RULE="attested-positive-present-verb-1"
     private val SURFACE_READING_RULES=setOf(SURFACE_READING_RULE,PAST_READING_RULE)
     private val finitePastSubject=Regex("(?i)(?<![\\p{L}\\p{M}\\p{N}_])(?:i|you|he|she|it|we|they)[ \\t]+$")
     internal fun hasFinitePastSubject(text:String,start:Int):Boolean =
@@ -70,13 +71,18 @@ internal object LexicalConcordance {
     }
     private fun load(db:SQLiteDatabase,text:String,language:String):Side? {
         val metadata=mutableMapOf<String,String>()
-        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule','whole_verb_schema','whole_verb_rule')",null).use { c ->
+        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule','whole_verb_schema','whole_verb_rule','present_verb_schema','present_verb_rule')",null).use { c ->
             while(c.moveToNext())metadata[c.getString(0)]=JSONTokener(c.getString(1)).nextValue() as String
         }
         val inventory=requireNotNull(metadata.remove("source_inventory_sha256"));require(inventory.matches(Regex("[0-9a-f]{64}")))
         val release=requireNotNull(metadata.remove("release_id"));require(release.matches(Regex("[0-9a-f]{64}")))
         val policy=metadata.remove("policy");require(policy in POLICIES)
-        val hasPast=policy=="native-linked-attested-past-verbs-17"
+        val hasPresent=policy=="native-linked-attested-present-verbs-18"
+        if(hasPresent) {
+            require(language in setOf("en","es","fr","de","pt") && metadata.remove("present_verb_schema")=="vipi-whole-present-verb-1")
+            require(metadata.remove("present_verb_rule")==PRESENT_RULE)
+        }
+        val hasPast=policy=="native-linked-attested-past-verbs-17" || (hasPresent && language=="en")
         if(hasPast) {
             require(language in setOf("en","ja","ko") && metadata.remove("whole_verb_schema")=="vipi-whole-past-verb-1")
             require(metadata.remove("whole_verb_rule")==PAST_RULE)
@@ -164,10 +170,10 @@ internal object LexicalConcordance {
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
         form.number,if(form.mode==3)3 else 1)
     private fun focus(form:Form,range:IntRange,text:String):IntRange? {
-        if(form.mode !in 1..4)return null
+        if(form.mode !in 1..5)return null
         if(form.mode in 1..2)return range
         val actual=text.substring(range)
-        if(form.mode==4 && (form.start!=0 || form.end!=actual.length))return null
+        if(form.mode in 4..5 && (form.start!=0 || form.end!=actual.length))return null
         // Exact UTF-16 geometry is required for a focus inside an attested
         // carrier. Accent/mark normalization must never shift an offset.
         if(actual.length!=form.written.length || !actual.equals(form.written,ignoreCase=true) ||
@@ -191,6 +197,26 @@ internal object LexicalConcordance {
     private fun containedInPhrase(side:Side,range:IntRange):Boolean = side.phrases.any{it.first<=range.first && it.last>=range.last && it!=range}
     private fun containedInKnownWord(side:Side,range:IntRange):Boolean = side.namedPlaces.any{it.first<=range.last && range.first<=it.last} || containedInPhrase(side,range) || side.guards.any { word ->
         side.windows[word].orEmpty().any { whole -> whole.first<=range.first && whole.last>=range.last && whole!=range }
+    }
+    private val presentComplements=mapOf("live" to setOf("with"),"work" to setOf("at","from","in","on"),"wait" to setOf("for"),"listen" to setOf("to"),"talk" to setOf("to","with","about"),"speak" to setOf("to","with","about"),"write" to setOf("to","about"),"think" to setOf("about"),"learn" to setOf("about","from"),"help" to setOf("with"),"travel" to setOf("to","from"),"walk" to setOf("to","from"))
+    private fun protectedPresent(side:Side,range:IntRange,text:String,language:String):Boolean {
+        val pronounUnits=when(language) {
+            "en"->mapOf("i miss you" to "miss","i love you" to "love","love you" to "love")
+            "es"->mapOf("te amo" to "amar")
+            else->emptyMap()
+        }
+        val pronominal=PresentVerbGrammar.pronominalClause(text,range,language)
+        if(language!="en" && !pronominal)return containedInKnownWord(side,range)
+        if(side.namedPlaces.any{it.first<=range.last && range.first<=it.last} || containedInPhrase(side,range))return true
+        val forms=side.forms[key(text.substring(range))].orEmpty().filter(::completePresent)
+        return side.guards.any { word -> side.windows[word].orEmpty().any { whole ->
+            if(whole.first>range.first || whole.last<range.last || whole==range)false else {
+                val parts=word.split(" ")
+                val assessedPronounUnit=pronominal && forms.isNotEmpty() && forms.all{pronounUnits[word]==it.head}
+                !assessedPronounUnit && !(language=="en" && whole.first==range.first && parts.size==2 && forms.isNotEmpty() &&
+                    forms.all{parts[0]==it.key && parts[1] in presentComplements[it.head].orEmpty()})
+            }
+        }}
     }
     private fun protectedTarget(side:Side,range:IntRange,text:String,language:String,features:Set<String>):Boolean {
         if(side.namedPlaces.any{it.first<=range.last && range.first<=it.last} || containedInPhrase(side,range))return true
@@ -224,32 +250,60 @@ internal object LexicalConcordance {
             (language=="en" && "past-source-requires-finite-clause" in form.features && hasFinitePastSubject(text,range.first))
     }
 
+    private fun completePresent(form:Form)=form.mode==5 && form.pos=="verb" && form.targetSafe &&
+        (!form.grammar || form.head=="need") && PRESENT_RULE in form.features
+    private fun completeVerb(form:Form,mode:Int)=if(mode==4)completePast(form) else completePresent(form)
+    private fun verbKey(form:Form,mode:Int)=(if(mode==4) "@past:" else "@present:")+form.head
+    private fun verbGrammar(form:Form,analyses:List<Form>,text:String,range:IntRange,language:String,mode:Int)=
+        if(mode==4)pastGrammar(form,analyses,text,range,language) else completePresent(form) &&
+            (!form.grammar || (language=="en" && form.head=="need" && PresentVerbGrammar.pronominalClause(text,range,language))) &&
+            !(language=="en" && analyses.any{it.mode==4 && it.lexeme!=form.lexeme}) &&
+            PresentVerbGrammar.people(form.features,text,range.first,language).isNotEmpty()
+
     private fun contextualEntries(left:Side,right:Side,db:SQLiteDatabase,original:String,translation:String,source:String,target:String,
-        strict:List<VocabularyEntry>,alignment:SentenceAlignment,diagnostic:(String)->Unit,wholePast:Boolean=false):List<VocabularyEntry> {
+        strict:List<VocabularyEntry>,alignment:SentenceAlignment,diagnostic:(String)->Unit,wholeMode:Int=0):List<VocabularyEntry> {
         val targetKeys=right.forms.flatMap { (word,forms) -> forms.flatMap { form ->
-            if(wholePast && !completePast(form))emptyList() else right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{if(wholePast) "@past:"+form.head else key(translation.substring(it))} }
+            if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(translation.substring(it))} }
         }}.toSet()
         val sourceKeys=left.forms.flatMap { (word,forms) -> forms.flatMap { form ->
-            if(wholePast && !completePast(form))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{if(wholePast) "@past:"+form.head else key(original.substring(it))} }
+            if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(original.substring(it))} }
         }}.toSet()
         val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,sourceKeys,targetKeys) ?: return emptyList()
+        // Reciprocal evidence requires a separately accepted nearby vocabulary
+        // anchor in both sentences. A translated context word alone is insufficient.
+        val reverseEvidence=if(wholeMode==5)ContextWitnessLookup.load(db,translation,target,source,right.release,targetKeys,sourceKeys) else null
         val lexicalWindows=left.windows.filterKeys { word ->
             val forms=left.forms[word].orEmpty();val names=forms.filter{it.proper}
             (word !in left.blocked || (word in left.names && names.isNotEmpty() && names.all{it.written.firstOrNull()?.isUpperCase()==true})) &&
                 forms.any{it.targetSafe} && forms.none{it.grammar}
         }.mapValues { (word,ranges) -> if(word in left.names)ranges.filter{original[it.first].isLowerCase()} else ranges }
+        fun reverseWindows(focus:IntRange):Map<String,List<IntRange>> {
+            if(reverseEvidence==null)return emptyMap()
+            val anchors=strict.mapNotNull { e ->
+                val a=e.sourceScope;val b=e.targetScope
+                if(a==null || b==null || a.original!=original || b.translation!=translation)return@mapNotNull null
+                val sourceRange=a.start until a.end
+                if(lexicalWindows.values.none{sourceRange in it} ||
+                    !evidence.hasNearbyContext(focus,original,mapOf("anchor" to listOf(sourceRange))))return@mapNotNull null
+                b.start until b.end
+            }.toSet()
+            return right.windows.mapValues{(_,ranges)->ranges.filter{it in anchors}}.filterValues{it.isNotEmpty()}
+        }
         val needsReading=target in setOf("ar","zh","ja","ko")
         data class Claim(val sourceRange:IntRange,val range:IntRange,val reading:String)
         val output=mutableListOf<VocabularyEntry>()
         for((word,forms) in left.forms) {
             // Hard grammar, truncated inventories, names and unattested stems
             // cannot become acceptable merely through frequent co-occurrence.
-            if(word in left.targetBlocked || forms.any{it.grammar})continue
+            val contextualNeed=wholeMode==5 && source=="en" && forms.any{completePresent(it) && it.head=="need"}
+            if(word in left.targetBlocked || (forms.any{it.grammar} && !contextualNeed))continue
             for(carrier in left.windows[word].orEmpty().distinct()) {
-                if(!alignment.uniqueSource(carrier,left.windows[word].orEmpty().filterNot{containedInKnownWord(left,it)}))continue
-                if(containedInKnownWord(left,carrier) || strict.any { e -> e.sourceScope?.let{it.start<carrier.last+1 && carrier.first<it.end}==true })continue
+                if(!alignment.uniqueSource(carrier,left.windows[word].orEmpty().filterNot{if(wholeMode==5)protectedPresent(left,it,original,source) else containedInKnownWord(left,it)}))continue
+                val transparentSource=wholeMode==5 && containedInKnownWord(left,carrier) && !protectedPresent(left,carrier,original,source)
+                if((if(wholeMode==5)protectedPresent(left,carrier,original,source) else containedInKnownWord(left,carrier)) || strict.any { e -> e.sourceScope?.let{it.start<carrier.last+1 && carrier.first<it.end}==true })continue
                 val actual=original.substring(carrier)
-                if(word in left.blocked) {
+                val lexicalNeed=contextualNeed && PresentVerbGrammar.pronominalClause(original,carrier,source)
+                if(word in left.blocked && !lexicalNeed) {
                     val proper=forms.filter{it.proper}
                     // Keep explicit case evidence: lowercase "house" does not
                     // match the published surname "House". Same-case names,
@@ -258,20 +312,22 @@ internal object LexicalConcordance {
                         proper.any{it.written.firstOrNull()?.isUpperCase()!=true})continue
                 }
                 val usable=forms.filter{it.targetSafe && key(actual)==key(it.written) &&
-                    if(wholePast) pastGrammar(it,forms,original,carrier,source) && targetCaseMatches(it,carrier,original)
+                    if(wholeMode!=0) verbGrammar(it,forms,original,carrier,source,wholeMode) && targetCaseMatches(it,carrier,original)
                     else it.mode in 1..3 && actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
                 // Conflicting carrier boundaries require a whole noun, a noun
                 // counterpart and an explicit nearby lexical witness. Do not
                 // guess an internal stem from a competing verbal analysis.
                 val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
                 val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
-                val allMeanings=(if(wholePast) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
-                val claims=mutableSetOf<Claim>()
+                val allMeanings=(if(wholeMode!=0) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                val claims=mutableSetOf<Claim>();val reverseClaims=mutableSetOf<Claim>();val pronounClaims=mutableSetOf<Claim>()
                 for(form in usable) {
                     if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
                     val sourceFocus=focus(form,carrier,original) ?: continue
                     val meanings=linkedTerms(left,form).filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                     if(meanings.isEmpty())continue
+                    val anchoredReverse=reverseWindows(sourceFocus)
+                    val sourcePronounClause=wholeMode==5 && PresentVerbGrammar.pronominalClause(original,sourceFocus,source)
                     val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
                     for((other,targets) in right.forms) {
                         if(other in right.targetBlocked)continue
@@ -279,7 +335,7 @@ internal object LexicalConcordance {
                             val readings=readings(right,candidate,meanings)
                             if(needsReading && readings.size!=1)continue
                             if(conflictingGeometry && (candidate.pos!="noun" || candidate.grammar))continue
-                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || (if(wholePast) !completePast(candidate) else candidate.mode !in 1..3) || !numberCompatible(form,candidate,source,target) ||
+                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || (if(wholeMode!=0) !completeVerb(candidate,wholeMode) else candidate.mode !in 1..3) || !numberCompatible(form,candidate,source,target) ||
                                 linkedTerms(right,candidate).none{it.eligible && it.sense in meanings})continue
                             val targetMeanings=linkedTerms(right,candidate).filter{it.eligible}.map{it.sense}.toSet()
                             // A grammatical cue alone cannot choose a narrower
@@ -287,25 +343,42 @@ internal object LexicalConcordance {
                             // Short grammar-only utterances retain their prior path.
                             val narrow=!targetMeanings.containsAll(allMeanings) || targets.any{it.grammar}
                             val nearbyLexical=evidence.hasNearbyContext(sourceFocus,original,lexicalWindows)
-                            if(conflictingGeometry && !nearbyLexical)continue
-                            val cueWindows=if(conflictingGeometry || (narrow && nearbyLexical))lexicalWindows else left.windows
+                            if((conflictingGeometry || (transparentSource && !sourcePronounClause)) && !nearbyLexical)continue
+                            val cueWindows=if(conflictingGeometry || transparentSource || (narrow && nearbyLexical))lexicalWindows else left.windows
                             for(targetCarrier in right.windows[other].orEmpty().distinct()) {
-                                if(wholePast && !pastGrammar(candidate,targets,translation,targetCarrier,target))continue
-                                if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue
+                                if(wholeMode!=0 && !verbGrammar(candidate,targets,translation,targetCarrier,target,wholeMode))continue
+                                if(wholeMode==5 && PresentVerbGrammar.people(form.features,original,carrier.first,source)
+                                    .intersect(PresentVerbGrammar.people(candidate.features,translation,targetCarrier.first,target)).isEmpty())continue
+                                val protectedTarget=protectedTarget(right,targetCarrier,translation,target,features)
+                                val transparentTarget=wholeMode==5 && protectedTarget && !protectedPresent(right,targetCarrier,translation,target)
+                                if((protectedTarget && !transparentTarget) || (transparentTarget && !nearbyLexical && !sourcePronounClause) || !targetCaseMatches(candidate,targetCarrier,translation))continue
                                 val targetFocus=focus(candidate,targetCarrier,translation) ?: continue
                                 if(!alignment.permits(sourceFocus,targetFocus))continue
                                 if(strict.any { e -> e.targetScope?.let{it.start<targetFocus.last+1 && targetFocus.first<it.end}==true })continue
-                                val sourceKey=if(wholePast) "@past:"+form.head else key(original.substring(sourceFocus))
-                                val targetKey=if(wholePast) "@past:"+candidate.head else key(translation.substring(targetFocus))
-                                if(evidence.supports(sourceKey,targetKey,sourceFocus,original,cueWindows))
-                                    claims+=Claim(sourceFocus,targetFocus,if(needsReading)readings.single() else "")
+                                val sourceKey=if(wholeMode!=0) verbKey(form,wholeMode) else key(original.substring(sourceFocus))
+                                val targetKey=if(wholeMode!=0) verbKey(candidate,wholeMode) else key(translation.substring(targetFocus))
+                                val sharedMeanings=meanings.intersect(targetMeanings)
+                                val pronounClause=wholeMode==5 && PresentVerbGrammar.pronominalClause(original,sourceFocus,source) &&
+                                    PresentVerbGrammar.pronominalClause(translation,targetFocus,target)
+                                if((transparentSource || transparentTarget) && !nearbyLexical && !pronounClause)continue
+                                val selectedWindows=if(pronounClause)left.windows else if(wholeMode==5 || transparentTarget)lexicalWindows else cueWindows
+                                val forward=evidence.supports(sourceKey,targetKey,sourceFocus,original,selectedWindows,sharedMeanings)
+                                val reverse=wholeMode==5 && reverseEvidence?.supports(targetKey,sourceKey,targetFocus,translation,anchoredReverse,sharedMeanings)==true
+                                if(forward || reverse) {
+                                    val claim=Claim(sourceFocus,targetFocus,if(needsReading)readings.single() else "")
+                                    claims+=claim
+                                    if(!forward && reverse)reverseClaims+=claim
+                                    if(forward && pronounClause)pronounClaims+=claim
+                                }
                             }
                         }
                     }
                 }
                 val claim=claims.singleOrNull() ?: continue
                 val targetText=translation.substring(claim.range)
-                diagnostic(if(wholePast) "past_context_candidate" else "context_witness_candidate")
+                if(claim in reverseClaims)diagnostic("present_reverse_candidate")
+                if(claim in pronounClaims)diagnostic("present_pronominal_candidate")
+                diagnostic(when(wholeMode){4->"past_context_candidate";5->"present_context_candidate";else->"context_witness_candidate"})
                 output+=VocabularyEntry(original.substring(claim.sourceRange),listOf(targetText),if(needsReading)mapOf(targetText to listOf(claim.reading)) else emptyMap(),
                     sourceScope=VocabularySourceScope(original,claim.sourceRange.first,claim.sourceRange.last+1),
                     targetScope=VocabularyTargetScope(translation,claim.range.first,claim.range.last+1))
@@ -379,9 +452,58 @@ internal object LexicalConcordance {
             }
             if(witnessDB!=null) {
                 output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic)
-                output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic,wholePast=true)
+                output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic,wholeMode=4)
+                output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic,wholeMode=5)
             }
             return output.distinct()
         } catch(_:Overflow) {diagnostic("query_overflow");return emptyList()}
+    }
+}
+
+/** Person evidence for supplied complete present verbs; native UTF-16 offsets. */
+internal object PresentVerbGrammar {
+    // Only a short personal-pronoun clause may use grammatical context alone.
+    // Unknown words, articles, adverbs, negation and auxiliaries cannot disappear
+    // merely because they lack dictionary entries.
+    fun pronominalClause(text:String,focus:IntRange,language:String):Boolean {
+        val pronouns=when(language) {
+            "en"->setOf("i","you","he","she","it","we","they","me","him","her","us","them")
+            "es"->setOf("yo","tú","vos","él","ella","usted","nosotros","nosotras","vosotros","vosotras","ellos","ellas","ustedes","me","te","lo","la","le","nos","os","los","las","les","se")
+            else->return false
+        }
+        val stops=".!?。！？;；\r\n…"
+        val start=text.substring(0,focus.first).indexOfLast{it in stops}+1
+        val stop=text.substring(focus.last+1).indexOfFirst{it in stops}
+        val end=if(stop<0)text.length else focus.last+1+stop
+        val words=LocalImmersion.words(text,language).filter{it.first>=start && it.last<end}
+        return words.size in 2..4 && focus in words && words.filter{it!=focus}.all{text.substring(it).lowercase() in pronouns}
+    }
+    private val subjects=mapOf(
+        "en" to mapOf("i" to setOf("1s"),"you" to setOf("2p","2s"),"he" to setOf("3s"),"she" to setOf("3s"),"it" to setOf("3s"),"we" to setOf("1p"),"they" to setOf("3p")),
+        "de" to mapOf("ich" to setOf("1s"),"du" to setOf("2s"),"er" to setOf("3s"),"sie" to setOf("3p","3s"),"es" to setOf("3s"),"wir" to setOf("1p"),"ihr" to setOf("2p")),
+        "fr" to mapOf("je" to setOf("1s"),"j'" to setOf("1s"),"j’" to setOf("1s"),"tu" to setOf("2s"),"il" to setOf("3s"),"elle" to setOf("3s"),"on" to setOf("3s"),"nous" to setOf("1p"),"vous" to setOf("2p"),"ils" to setOf("3p"),"elles" to setOf("3p")),
+        "es" to mapOf("yo" to setOf("1s"),"tú" to setOf("2s"),"vos" to setOf("2s"),"él" to setOf("3s"),"ella" to setOf("3s"),"usted" to setOf("3s"),"nosotros" to setOf("1p"),"nosotras" to setOf("1p"),"vosotros" to setOf("2p"),"vosotras" to setOf("2p"),"ellos" to setOf("3p"),"ellas" to setOf("3p"),"ustedes" to setOf("3p")),
+        "pt" to mapOf("eu" to setOf("1s"),"tu" to setOf("2s"),"ele" to setOf("3s"),"ela" to setOf("3s"),"você" to setOf("3s"),"nós" to setOf("1p"),"vós" to setOf("2p"),"eles" to setOf("3p"),"elas" to setOf("3p"),"vocês" to setOf("3p"))
+    )
+    private val nonPresentAuxiliary=Regex("""(?i)(?<![\p{L}\p{M}\p{N}_])(?:did|didn['’]t|will|won['’]t|would|wouldn['’]t|can|can['’]t|could|couldn['’]t|shall|shan['’]t|should|shouldn['’]t|may|might|must|have|has|had|am|is|are|was|were)[ \t]+$""")
+    private val previous=Regex("(?<![\\p{L}\\p{M}\\p{N}_])([\\p{L}\\p{M}]+['’]?)([ \\t]*)$")
+    fun people(features:Set<String>,text:String,start:Int,language:String):Set<String> {
+        if(start !in 0..text.length)return emptySet()
+        val people=features.filter{it.startsWith("present-person-")}.map{it.removePrefix("present-person-")}.toSet()
+        val match=previous.find(text.substring(0,start))
+        val word=match?.groupValues?.get(1)?.lowercase()
+        if(language=="en" && match!=null) {
+            val before=text.substring(0,start).substring(0,match.range.first)
+            if(nonPresentAuxiliary.containsMatchIn(before))return emptySet()
+        }
+        val nominal=when(language) {
+            "es"->setOf("el","la","los","las","un","una","unos","unas","mi","mis","tu","tus","su","sus","nuestro","nuestra","vuestro","vuestra","este","esta","ese","esa")
+            "pt"->setOf("o","a","os","as","um","uma","uns","umas","meu","minha","teu","tua","seu","sua","nosso","nossa","vosso","vossa","este","esta","esse","essa")
+            else->emptySet()
+        }
+        if(match!=null && match.groupValues[2].isNotEmpty() && word in nominal)return emptySet()
+        val separated=match!=null && (match.groupValues[2].isNotEmpty() || word in setOf("j'","j’"))
+        val subject=if(separated)subjects[language]?.get(word) else null
+        return if(subject!=null)people.intersect(subject) else if(language in setOf("en","de","fr"))emptySet() else people
     }
 }

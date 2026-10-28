@@ -1,5 +1,16 @@
 # Verification ledger
 
+## Current lexical experiment — 2026-10-28
+
+The accepted bundled lexical catalog is **009**, separate from reviewed phrase
+bundle 022; its receipt is artifacts/bundled-lexical-009-qualification.json.
+The present-verb candidate is isolated QA data. See
+[PRESENT_VERB_CONTEXTS.md](PRESENT_VERB_CONTEXTS.md) for the initial zero-gain
+result, useful small-sample improvements, and the subsequent 78→80/200-message SMS
+result (105→108 selected spans). No majority-coverage claim, store submission or production data
+publication occurred.
+
+
 Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
 
 Updated 2026-10-27. Restricted staging is deployed. Vipi remains in implementation and has not passed release gates or been submitted to either store.
