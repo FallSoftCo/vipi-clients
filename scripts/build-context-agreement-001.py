@@ -103,8 +103,8 @@ def main():
         contexts_sha256=[r['sha256'] for r in contexts],compiler_snapshot_sha256=sha(SNAPSHOT/'receipt.json'),
         driver_sha256=sha(Path(__file__)),expected_directions=110,
         basis='Prior cumulative witness builds used 4 GiB per 2.4 million candidate alignments and 6 GiB for the larger English-Spanish batch; source context bytes are already allocated.'))
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        for future in as_completed([executor.submit(compile_batch,row) for row in rows]):future.result()
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        for future in as_completed([executor.submit(compile_batch,row) for row in reversed(rows)]):future.result()
     parent=rows[0]['revision']
     for number,row in enumerate(rows[1:],1):
         target=f'context-witnesses-agreement-merge-{number:03d}'
