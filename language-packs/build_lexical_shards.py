@@ -18,8 +18,9 @@ from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 import noun_carriers
 import adjective_agreement
+import swahili_lexical
 
-POLICY = "native-linked-adjective-agreement-10"
+POLICY = "native-linked-swahili-lexical-11"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -62,12 +63,16 @@ def lexical_unit(word, pos):
 def utf16(word):
     return len(word.encode('utf-16-le')) // 2
 
-def native_senses(rows):
+def native_senses(rows,language="",pos=""):
     """Count distinct modern leaf glosses, retaining all etymologies/entries."""
     meanings=set(); blocked=False
     for glosses,tags,form_of,alt_of in rows:
         tags=set(json.loads(tags))
         if tags & EXCLUDED:continue
+        definition=swahili_lexical.derivation_definition(language,pos,json.loads(glosses),tags,
+            json.loads(form_of),json.loads(alt_of))
+        if definition:
+            meanings.add(definition);blocked=True;continue
         if json.loads(form_of) or json.loads(alt_of) or tags & {'form-of','alt-of'}:
             blocked=True;continue
         values=json.loads(glosses)
@@ -154,7 +159,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
         def add_lexeme(identifier):
             if identifier in inserted:return
             _,head,key,pos,raw_tags,url=links.entry(identifier)
-            n,nonlemma=native_senses(links.senses(identifier))
+            n,nonlemma=native_senses(links.senses(identifier),language,pos)
             word=source.execute('SELECT grammatical,proper FROM native_words WHERE language=? AND normalized=?',(language,key)).fetchone()
             # A secondary clipping/inflection sense does not erase the valid
             # lexical senses of the same entry (English go has 66, plus one
@@ -272,6 +277,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             compiler_sha256=digest_file(Path(__file__)),linker_sha256=digest_file(Path(__file__).with_name('native_lemma_links.py')),
             carrier_rules_sha256=digest_file(Path(noun_carriers.__file__)),
             adjective_agreement_sha256=digest_file(Path(adjective_agreement.__file__)),
+            swahili_lexical_sha256=digest_file(Path(swahili_lexical.__file__)),
             quality='published-dictionary-and-finite-noun-carriers',individually_reviewed=False,license='CC-BY-SA-4.0')
         db.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()])
         db.commit()
@@ -296,7 +302,8 @@ def build(inventory,output,languages,redirects,gloss_links):
     release_id=hashlib.sha256(canonical(dict(inventory=receipt['sha256'],redirects=redirect_receipt['sha256'],glosses=gloss_receipt['sha256'],
         compiler=digest_file(Path(__file__)),linker=digest_file(Path(__file__).with_name('native_lemma_links.py')),
         carrier_rules=digest_file(Path(noun_carriers.__file__)),
-        adjective_agreement=digest_file(Path(adjective_agreement.__file__)))).encode()).hexdigest()
+        adjective_agreement=digest_file(Path(adjective_agreement.__file__)),
+        swahili_lexical=digest_file(Path(swahili_lexical.__file__)))).encode()).hexdigest()
     output.mkdir(parents=True,exist_ok=False)
     shards=[compile_language(inventory,output,language,receipt,redirects,redirect_receipt,gloss_links,gloss_receipt,release_id) for language in languages]
     summary=dict(schema='vipi-lexical-shards-1',policy=POLICY,release_id=release_id,inventory_sha256=receipt['sha256'],

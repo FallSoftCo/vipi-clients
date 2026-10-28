@@ -8,6 +8,7 @@ import json
 import re
 from build_wiktextract import EXCLUDED, PARTS, DIALECTS
 from context_hints import lookup_key
+from swahili_lexical import derived_entry,supplied_infinitive
 
 
 class NativeLinks:
@@ -34,11 +35,13 @@ class NativeLinks:
         result={i for i,h,p in direct if not pos or pos==p}
         # A hyphenated root or alternate script is accepted only when the
         # canonical entry explicitly supplies that exact spelling.
-        for identifier,head,p,tags in self.db.execute('''SELECT e.source_line,e.headword,e.part_of_speech,f.tags
+        for identifier,head,p,tags,written in self.db.execute('''SELECT e.source_line,e.headword,e.part_of_speech,f.tags,f.form
             FROM native_forms f JOIN native_entries e USING(source_line)
             WHERE f.normalized=? AND e.language=?''',(key,self.language)):
             tags=set(json.loads(tags))
             if (not pos or pos==p) and not tags&EXCLUDED and tags&{'canonical','alternative'}:
+                result.add(identifier)
+            if (not pos or pos==p) and written==word and supplied_infinitive(self.language,head,p,written,tags):
                 result.add(identifier)
         return tuple(sorted(result))
 
@@ -51,6 +54,10 @@ class NativeLinks:
             tags=set(json.loads(raw_tags))
             if tags&EXCLUDED:continue
             forms=json.loads(form_of);alts=json.loads(alt_of)
+            if derived_entry(self.language,pos,tags):
+                # Causative, applicative, reciprocal and stative verbs retain
+                # their own meanings: lend must never collapse into borrow.
+                lexical=True;continue
             if forms or alts:
                 refs.update(r['word'] for r in forms+alts);features.update(tags)
                 # A qualified alias can narrow meaning; it is not an identity.

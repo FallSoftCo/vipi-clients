@@ -44,6 +44,28 @@ open readers. Exact payloads, catalogs, attribution and provenance remain.
 Receipt: artifacts/dictionary-012-retirement-001/receipt.json.
 
 
+## Swahili lexical source correction in preparation
+
+A targeted native-table audit found 179 published Swahili infinitive links.
+The root for kwenda (go) existed only as an unmapped competing analysis in
+dictionary 014. The new compiler can follow the exact supplied infinitive
+backlink to enda; it does not guess a stem or generate a conjugation.
+
+The same audit exposed derived verbs whose dictionary rows carry form-of
+tags despite having explicit meanings such as teach, listen and lend.
+The new source policy keeps causative, applicative, stative and reciprocal
+verbs distinct from their bases. An explicit source definition can make the
+derived verb available as a target; its source side still requires context.
+Derivations without definitions remain unavailable and cannot alias their
+bases. Ordinary inflection and alias restrictions remain in force.
+
+Artifacts/swahili-infinitive-audit-001 retains exact source rows and the
+qualification boundary. A complete single-language candidate is building as
+artifacts/lexical-swahili-015 from a frozen compiler and verified temporary
+inventory copy. It is separate from bundle 004, has no native activation,
+and must undergo data comparison, changed-direction context recomputation
+and native replay before promotion.
+
 ## Bundle 003 native development result — 2026-10-28
 
 The dictionary-012 rebuild completed all 110 directions from both retained
