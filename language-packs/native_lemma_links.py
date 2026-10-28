@@ -131,6 +131,18 @@ class NativeLinks:
         return values
 
     @lru_cache(maxsize=100000)
+    def matching_sense_gloss(self, identifier, label):
+        """An exact unqualified definition can corroborate a published sense.
+
+        English doctor has several senses. A native medical-doctor definition
+        matches only the published medical-doctor label, not every sense of
+        doctor. Short definitions with mixed/qualified analyses do not qualify.
+        """
+        from build_native_gloss_links import counterparts
+        parsed=counterparts(self.senses(identifier))
+        return bool(parsed and parsed[0].strip().lower().rstrip('.')==label.strip().lower().rstrip('.'))
+
+    @lru_cache(maxsize=100000)
     def matching_english_definition(self, english_identifier, word, pos):
         """Corroborate an existing translation, never create a new synonym link.
 
@@ -158,4 +170,4 @@ class NativeLinks:
 
     def close(self):
         self.entry.cache_clear();self.senses.cache_clear();self.candidates.cache_clear()
-        self.matching_english_definition.cache_clear()
+        self.matching_english_definition.cache_clear();self.matching_sense_gloss.cache_clear()

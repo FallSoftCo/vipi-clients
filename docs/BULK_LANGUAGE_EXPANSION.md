@@ -2,6 +2,19 @@
 
 ## Noun-gloss correction and complete development directions — 2026-10-28
 
+A subsequent source audit found 1,034 more existing links whose native
+definition exactly matches the published translation sense label, but whose
+English headword differs. For example, 医者 and the medical sense of doctor
+both say “medical doctor.” Two qualified candidates remain excluded.
+The compiler's next policy, native-linked-exact-sense-gloss-9, only removes
+this contradiction when the complete short, unqualified native gloss matches
+the complete sense label. It does not accept other senses of the English
+headword. The focused test covers academic-doctor mismatch, mixed meanings,
+aliases and qualified definitions. Audit: artifacts/gloss-label-audit-001.
+This is a pending source correction, separate from the dictionary-012/context
+rebuild below; it has not changed the active app data.
+
+
 Dictionary 012 corrects a parsing error in short noun definitions: an existing
 published counterpart such as island was treated as contradictory when the
 native entry said “an island.” Only complete short noun-gloss items gain the

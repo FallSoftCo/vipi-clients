@@ -18,7 +18,7 @@ from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 import noun_carriers
 
-POLICY = "native-linked-noun-gloss-articles-8"
+POLICY = "native-linked-exact-sense-gloss-9"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -126,6 +126,8 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             root=links.resolve(identifier)
             glosses=links.simple_glosses(root) if language!='en' else set()
             contradiction=bool(glosses and english.lower() not in glosses)
+            if contradiction and links.matching_sense_gloss(root,label):
+                contradiction=False;counts['sense_gloss_corroborated_links']+=1
             if contradiction and any(links.matching_english_definition(english_line,gloss,spos) for gloss in glosses):
                 contradiction=False;counts['definition_corroborated_links']+=1
             linked_terms[root].append((sid,reading,q,label,spos,explicit,surl,contradiction))
