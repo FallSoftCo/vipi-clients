@@ -121,6 +121,27 @@ enum ReviewedFrameLookup {
                 }
             }
             let ids=records.keys.sorted();if ids.isEmpty {return []}
+            // Only exact existing common-noun case policies constrain aliases.
+            // German capitalization and independently authored phrases remain.
+            let caseScopes:Set<String>=[
+                "Only first-letter lower/upper variants of these common nouns in en/es/fr/it/pt/sw; German nouns unchanged",
+                "First-letter lower/upper only for these en/es/fr/it/pt/sw forms; German capitalization unchanged"]
+            struct CaseEvidence:Decodable {
+                struct Record:Decodable {struct Provenance:Decodable {let case_scope:String?};let provenance:Provenance}
+                let record:Record
+            }
+            for offset in stride(from:0,to:ids.count,by:200) {
+                let batch=Array(ids[offset..<min(offset+200,ids.count)])
+                for (id,evidence,_) in try query("SELECT id,evidence,'' FROM mappings WHERE id IN (\(placeholders(batch.count)))",batch) {
+                    guard evidence.utf8.count<=524288 else {throw VocabularyPackError.invalid}
+                    let provenance=try JSONDecoder().decode(CaseEvidence.self,from:Data(evidence.utf8))
+                    if let scope=provenance.record.provenance.case_scope,caseScopes.contains(scope),let old=records[id] {
+                        records[id]=ContextFrame(id:old.id,meaning:old.meaning,sourceLanguage:old.sourceLanguage,targetLanguage:old.targetLanguage,
+                            sourceParts:old.sourceParts,targetParts:old.targetParts,reading:old.reading,lexicalUnit:old.lexicalUnit,
+                            sourceUnit:old.sourceUnit,targetUnit:old.targetUnit,commonNounCaseVariants:true)
+                    }
+                }
+            }
             count=0;let targets=right.keys.sorted()
             for offset in stride(from:0,to:targets.count,by:200) {
                 let batch=Array(targets[offset..<min(offset+200,targets.count)])

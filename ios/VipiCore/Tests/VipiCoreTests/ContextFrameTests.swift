@@ -125,4 +125,40 @@ final class ContextFrameTests:XCTestCase {
         XCTAssertTrue(entries(separate,[repeated,second]).isEmpty)
     }
 
+    func testCommonNounCaseAliasesPreserveNameAndContraryMeaningGuards() {
+        func run(_ original:String,_ translated:String,language:String="en",flag:Bool=true,other:ContextFrameHit?=nil)->[VocabularyEntry] {
+            let frame=ContextFrame(id:"case",meaning:"food",sourceLanguage:language,targetLanguage:"es",
+                sourceParts:[.focus("Food")],targetParts:[.focus("comida")],lexicalUnit:true,commonNounCaseVariants:flag)
+            let hit=ContextFrameHit(frame:frame,sourceWindows:[(original as NSString).range(of:"Food")],
+                targetWindows:[(translated as NSString).range(of:"comida")])
+            return ContextFrameMatcher.entries(original:original,translation:translated,source:language,target:"es",hits:[hit]+(other.map{[$0]} ?? []))
+        }
+        XCTAssertEqual(run("Food is ready.","La comida está lista.").count,1)
+        XCTAssertEqual(run("Done. Food is ready.","La comida está lista.").count,1)
+        XCTAssertTrue(run("I called Food yesterday.","Llamé a la comida ayer.").isEmpty)
+        XCTAssertEqual(run("I called Food yesterday.","Llamé a la comida ayer.",flag:false).count,1)
+        XCTAssertEqual(run("Ich mag Food.","Me gusta la comida.",language:"de").count,1)
+        let source="Food is ready.",translated="La comida está lista."
+        let contrary=ContextFrameHit(frame:ContextFrame(id:"contrary",meaning:"another sense",sourceLanguage:"en",targetLanguage:"es",
+            sourceParts:[.focus("Food")],targetParts:[.focus("other")],lexicalUnit:true,commonNounCaseVariants:true),
+            sourceWindows:[(source as NSString).range(of:"Food")],targetWindows:[])
+        XCTAssertTrue(run(source,translated,other:contrary).isEmpty)
+        let original="Llamé a la comida ayer.",target="I called Food yesterday."
+        let reverse=ContextFrameHit(frame:ContextFrame(id:"reverse",meaning:"food",sourceLanguage:"es",targetLanguage:"en",
+            sourceParts:[.focus("comida")],targetParts:[.focus("Food")],lexicalUnit:true,commonNounCaseVariants:true),
+            sourceWindows:[(original as NSString).range(of:"comida")],targetWindows:[(target as NSString).range(of:"Food")])
+        XCTAssertTrue(ContextFrameMatcher.entries(original:original,translation:target,source:"es",target:"en",hits:[reverse]).isEmpty)
+    }
+
+    func testOpeningPunctuationPreservesSentenceCaseWithoutExcusingNames() {
+        for text in ["¿Tiempo?","¡Food!","Done. “Food”","'Food'"] {
+            let offset=(text as NSString).rangeOfCharacter(from:CharacterSet(charactersIn:"TF")).location
+            XCTAssertTrue(WrittenCase.sentenceInitial(text,start:offset))
+        }
+        for text in ["I called “Food”.","Dije ¿Tiempo?","Use ROOM."] {
+            let offset=(text as NSString).rangeOfCharacter(from:CharacterSet(charactersIn:"FTR")).location
+            XCTAssertFalse(WrittenCase.sentenceInitial(text,start:offset))
+        }
+    }
+
 }

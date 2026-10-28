@@ -2,7 +2,7 @@ package co.fallsoft.vipi.core
 
 data class ContextFrame(val id:String,val meaning:String,val sourceLanguage:String,val targetLanguage:String,
     val sourceParts:List<ContextPart>,val targetParts:List<ContextPart>,val reading:String="",val lexicalUnit:Boolean=false,
-    val sourceUnit:Boolean=lexicalUnit,val targetUnit:Boolean=lexicalUnit)
+    val sourceUnit:Boolean=lexicalUnit,val targetUnit:Boolean=lexicalUnit,val commonNounCaseVariants:Boolean=false)
 data class ContextFrameHit(val frame:ContextFrame,val sourceWindows:List<IntRange>,val targetWindows:List<IntRange>)
 
 /** Exact indexed phrase matches still require an explicitly assessed record.
@@ -27,6 +27,11 @@ object ContextFrameMatcher {
                 result+=(window.first+focus.first)..(window.first+focus.last)
             }
             return result
+        }
+        fun casePermitted(frame:ContextFrame,text:String,range:IntRange,language:String,unit:Boolean):Boolean {
+            if(!frame.commonNounCaseVariants || !unit || language !in setOf("en","es","fr","it","pt","sw") ||
+                !text[range.first].isUpperCase())return true
+            return WrittenCase.sentenceInitial(text,range.first)
         }
         val groups=linkedMapOf<IntRange,MutableList<Pair<ContextFrame,IntRange?>>>()
         val blocked=linkedSetOf<IntRange>()
@@ -53,6 +58,10 @@ object ContextFrameMatcher {
                         other.targetUnit && parent != null && parent != range &&
                             parent.first <= range.first && parent.last >= range.last
                     }) return@let null
+                    // Keep all source meanings and repeated occurrences in
+                    // the groups above; casing cannot erase contrary evidence.
+                    if(!casePermitted(frame,original,focus,source,frame.sourceUnit) ||
+                        !casePermitted(frame,translation,range,target,frame.targetUnit))return@let null
                     val word=translation.substring(range)
                     VocabularyEntry(original.substring(focus),listOf(word),if(frame.reading.isEmpty())emptyMap() else mapOf(word to listOf(frame.reading)),
                         sourceScope=VocabularySourceScope(original,focus.first,focus.last+1),
@@ -60,5 +69,14 @@ object ContextFrameMatcher {
                 }
             }
         }.distinct()
+    }
+}
+
+/** Written sentence boundaries for case aliases; offsets remain UTF-16. */
+object WrittenCase {
+    fun sentenceInitial(text:String,start:Int):Boolean {
+        if(start !in 0..text.length)return false
+        val before=text.substring(0,start).trimEnd { it.isWhitespace() || it in "¿¡\"'“‘«([{" }
+        return before.isEmpty() || before.last() in ".!?。！？"
     }
 }

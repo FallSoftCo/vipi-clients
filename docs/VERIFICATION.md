@@ -1,5 +1,15 @@
 # Verification ledger
 
+## Current case safety checkpoint — 2026-10-28
+
+See [CONTEXT_CASE_SAFETY.md](CONTEXT_CASE_SAFETY.md). Both native readers now reject
+three newly exposed capitalization/name errors and agree on the 131-case probe.
+Final SMS immersion remains 81/200 messages on Android and 84/200 on iOS;
+selected spans are 110/113. One valid span is added and four valid but unusually
+capitalized spans are withheld. Broad 602-case replay completes on both platforms.
+This is a precision/coverage tradeoff, not a coverage milestone. No data release,
+store submission, physical-device or acoustic acceptance is claimed.
+
 ## Current lexical experiment — 2026-10-28
 
 The accepted bundled lexical catalog is **009**, separate from reviewed phrase

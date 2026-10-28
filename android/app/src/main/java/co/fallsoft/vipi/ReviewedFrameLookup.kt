@@ -92,6 +92,19 @@ internal object ReviewedFrameLookup {
                 }
             }
             val ids=records.keys.sorted();if(ids.isEmpty())return emptyList()
+            // These two authoring policies explicitly generated common-noun
+            // first-letter variants. A capital alias is sentence-initial, not
+            // evidence that a same-spelling name is the ordinary noun.
+            val caseScopes=setOf(
+                "Only first-letter lower/upper variants of these common nouns in en/es/fr/it/pt/sw; German nouns unchanged",
+                "First-letter lower/upper only for these en/es/fr/it/pt/sw forms; German capitalization unchanged")
+            for(batch in ids.chunked(200)) {
+                for((id,evidence,_) in query("SELECT id,evidence,'' FROM mappings WHERE id IN (${marks(batch.size)})",batch)) {
+                    require(evidence.toByteArray().size<=524288)
+                    val scope=JSONObject(evidence).getJSONObject("record").getJSONObject("provenance").optString("case_scope")
+                    if(scope in caseScopes)records[id]=records.getValue(id).copy(commonNounCaseVariants=true)
+                }
+            }
             count=0
             for(batch in right.keys.sorted().chunked(200)) {
                 val rows=query("SELECT input,mapping_id,'' FROM target_inputs WHERE input IN (${marks(batch.size)}) AND mapping_id IN (${marks(ids.size)}) LIMIT 257",batch+ids)

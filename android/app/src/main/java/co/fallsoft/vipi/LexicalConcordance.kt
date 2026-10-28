@@ -186,11 +186,13 @@ internal object LexicalConcordance {
         val actual=text.substring(range)
         if(actual==form.written)return true
         if(key(actual)!=key(form.written))return false
+        // Sentence capitalization changes only the initial letter. An acronym
+        // or internal capital cannot borrow a lowercase dictionary analysis.
+        if(actual.drop(1)!=form.written.drop(1))return false
         // A lexical word may be sentence-capitalized; mid-sentence capitals
         // cannot silently be reinterpreted from a lowercase dictionary entry.
         if(actual.firstOrNull()?.isUpperCase()==true && form.written.firstOrNull()?.isLowerCase()==true) {
-            val before=text.substring(0,range.first).trimEnd()
-            return before.isEmpty() || before.last() in ".!?。！？\n"
+            return WrittenCase.sentenceInitial(text,range.first)
         }
         return actual.firstOrNull()?.isUpperCase()==form.written.firstOrNull()?.isUpperCase()
     }
@@ -315,7 +317,7 @@ internal object LexicalConcordance {
                 }
                 val usable=forms.filter{it.targetSafe && key(actual)==key(it.written) &&
                     if(wholeMode!=0) verbGrammar(it,forms,original,carrier,source,wholeMode) && targetCaseMatches(it,carrier,original)
-                    else it.mode in 1..3 && actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
+                    else it.mode in 1..3 && targetCaseMatches(it,carrier,original)}
                 // Conflicting carrier boundaries require a whole noun, a noun
                 // counterpart and an explicit nearby lexical witness. Do not
                 // guess an internal stem from a competing verbal analysis.

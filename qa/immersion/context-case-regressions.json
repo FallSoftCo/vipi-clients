@@ -1,0 +1,290 @@
+[
+  {
+    "id": "context-case-initial-food",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Food is expensive here.",
+    "translation": "La comida es cara aquí."
+  },
+  {
+    "id": "context-case-initial-food-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La comida es cara aquí.",
+    "translation": "Food is expensive here."
+  },
+  {
+    "id": "context-case-initial-water",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Water is cold in the lake.",
+    "translation": "El agua está fría en el lago."
+  },
+  {
+    "id": "context-case-initial-water-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "El agua está fría en el lago.",
+    "translation": "Water is cold in the lake."
+  },
+  {
+    "id": "context-case-initial-books",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Books are on the table.",
+    "translation": "Los libros están sobre la mesa."
+  },
+  {
+    "id": "context-case-initial-books-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Los libros están sobre la mesa.",
+    "translation": "Books are on the table."
+  },
+  {
+    "id": "context-case-initial-money",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Money is in my wallet.",
+    "translation": "El dinero está en mi cartera."
+  },
+  {
+    "id": "context-case-initial-money-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "El dinero está en mi cartera.",
+    "translation": "Money is in my wallet."
+  },
+  {
+    "id": "context-case-initial-expensive",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Expensive food is not always good.",
+    "translation": "La comida cara no siempre es buena."
+  },
+  {
+    "id": "context-case-initial-expensive-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La comida cara no siempre es buena.",
+    "translation": "Expensive food is not always good."
+  },
+  {
+    "id": "context-case-initial-room",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Room service is expensive.",
+    "translation": "El servicio de habitaciones es caro."
+  },
+  {
+    "id": "context-case-initial-room-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "El servicio de habitaciones es caro.",
+    "translation": "Room service is expensive."
+  },
+  {
+    "id": "context-case-initial-music",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Music helps me relax.",
+    "translation": "La música me ayuda a relajarme."
+  },
+  {
+    "id": "context-case-initial-music-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La música me ayuda a relajarme.",
+    "translation": "Music helps me relax."
+  },
+  {
+    "id": "context-case-initial-homework",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Homework takes two hours.",
+    "translation": "La tarea lleva dos horas."
+  },
+  {
+    "id": "context-case-initial-homework-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La tarea lleva dos horas.",
+    "translation": "Homework takes two hours."
+  },
+  {
+    "id": "context-case-name-may",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "May called me yesterday.",
+    "translation": "Mayo me llamó ayer.",
+    "forbidden_source": "May",
+    "forbidden_target": "Mayo"
+  },
+  {
+    "id": "context-case-name-may-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Mayo me llamó ayer.",
+    "translation": "May called me yesterday.",
+    "forbidden_source": "Mayo",
+    "forbidden_target": "May"
+  },
+  {
+    "id": "context-case-name-rose",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Rose is my sister.",
+    "translation": "La rosa es mi hermana.",
+    "forbidden_source": "Rose",
+    "forbidden_target": "rosa"
+  },
+  {
+    "id": "context-case-name-rose-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La rosa es mi hermana.",
+    "translation": "Rose is my sister.",
+    "forbidden_source": "rosa",
+    "forbidden_target": "Rose"
+  },
+  {
+    "id": "context-case-mid-name",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "I called Rose yesterday.",
+    "translation": "Llamé a la rosa ayer.",
+    "forbidden_source": "Rose",
+    "forbidden_target": "rosa"
+  },
+  {
+    "id": "context-case-mid-name-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Llamé a la rosa ayer.",
+    "translation": "I called Rose yesterday.",
+    "forbidden_source": "rosa",
+    "forbidden_target": "Rose"
+  },
+  {
+    "id": "context-case-mid-food",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "I called Food yesterday.",
+    "translation": "Llamé a la comida ayer.",
+    "forbidden_source": "Food",
+    "forbidden_target": "comida"
+  },
+  {
+    "id": "context-case-mid-food-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Llamé a la comida ayer.",
+    "translation": "I called Food yesterday.",
+    "forbidden_source": "comida",
+    "forbidden_target": "Food"
+  },
+  {
+    "id": "context-case-acronym",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "ROOM is our project code.",
+    "translation": "La habitación es nuestro código de proyecto.",
+    "forbidden_source": "ROOM",
+    "forbidden_target": "habitación"
+  },
+  {
+    "id": "context-case-acronym-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La habitación es nuestro código de proyecto.",
+    "translation": "ROOM is our project code.",
+    "forbidden_source": "habitación",
+    "forbidden_target": "ROOM"
+  },
+  {
+    "id": "context-case-wrong-bank",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Bank workers count money.",
+    "translation": "Los trabajadores de la orilla cuentan dinero.",
+    "forbidden_source": "Bank",
+    "forbidden_target": "orilla"
+  },
+  {
+    "id": "context-case-wrong-bank-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Los trabajadores de la orilla cuentan dinero.",
+    "translation": "Bank workers count money.",
+    "forbidden_source": "orilla",
+    "forbidden_target": "Bank"
+  },
+  {
+    "id": "context-case-wrong-bat",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Bat wings are small.",
+    "translation": "Las alas del bate son pequeñas.",
+    "forbidden_source": "Bat",
+    "forbidden_target": "bate"
+  },
+  {
+    "id": "context-case-wrong-bat-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "Las alas del bate son pequeñas.",
+    "translation": "Bat wings are small.",
+    "forbidden_source": "bate",
+    "forbidden_target": "Bat"
+  },
+  {
+    "id": "context-case-wrong-seal",
+    "source": "en",
+    "target": "es",
+    "dataset": "authored-context-case-development",
+    "original": "Seal the envelope before sending it.",
+    "translation": "La foca el sobre antes de enviarlo.",
+    "forbidden_source": "Seal",
+    "forbidden_target": "foca"
+  },
+  {
+    "id": "context-case-wrong-seal-reverse",
+    "source": "es",
+    "target": "en",
+    "dataset": "authored-context-case-development",
+    "original": "La foca el sobre antes de enviarlo.",
+    "translation": "Seal the envelope before sending it.",
+    "forbidden_source": "foca",
+    "forbidden_target": "Seal"
+  }
+]

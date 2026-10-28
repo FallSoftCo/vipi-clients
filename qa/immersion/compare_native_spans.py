@@ -9,10 +9,11 @@ def selected(row):
     return row["combined_spans"] if "combined_spans" in row else row["spans"]
 def case_key(row):
     return tuple(row[field] for field in ("id","source","target"))
-def check_report(report):
+def check_report(report,allow_failures=False):
     assert report["complete"]
-    if "passed" in report:assert report["passed"]
-    assert not report.get("failures")
+    if not allow_failures:
+        if "passed" in report:assert report["passed"]
+        assert not report.get("failures")
     if report.get("schema")=="vipi-bundled-conversation-replay-1":
         assert all(row["baseline_retained"] for row in report["outcomes"])
 
@@ -20,7 +21,7 @@ def identity(span):return tuple(span.get(k) for k in ["source","target","start",
 def compare(args):
     cases=json.loads(args.cases.read_text());fixtures={case_key(c):c for c in cases};assert len(fixtures)==len(cases)
     reports=[json.loads(path.read_text()) for path in [args.baseline,args.candidate]]
-    for report in reports:check_report(report)
+    for index,report in enumerate(reports):check_report(report,index==0 and args.allow_baseline_failures)
     tables=[]
     for report in reports:
         # Old lexical reports carry only id. It is safe only when the
@@ -56,10 +57,11 @@ def compare(args):
     (args.output/"changes.json").write_text(json.dumps(changed,ensure_ascii=False,indent=2)+"\n")
     receipt=dict(complete=True,baseline_report_sha256=sha(args.baseline),candidate_report_sha256=sha(args.candidate),
         cases_sha256=sha(args.cases),compiler_sha256=sha(Path(__file__)),changes_sha256=sha(args.output/"changes.json"),
-        groups=dict(groups),changed_messages=len(changed),semantic_accuracy_claim=False,production_promoted=False)
+        groups=dict(groups),changed_messages=len(changed),baseline_failures=reports[0].get("failures",[]),semantic_accuracy_claim=False,production_promoted=False)
     (args.output/"receipt.json").write_text(json.dumps(receipt,indent=2)+"\n")
-    print(json.dumps(receipt),flush=True)
+    print(json.dumps({key:receipt[key] for key in ("complete","changed_messages","baseline_failures")} | {"all":receipt["groups"]["all"]}),flush=True)
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     for name in ["cases","baseline","candidate","output"]:p.add_argument("--"+name,type=Path,required=True)
+    p.add_argument("--allow-baseline-failures",action="store_true",help="Compare a known failing old reader; candidate must still pass. Failures remain in receipt.")
     compare(p.parse_args())

@@ -101,4 +101,37 @@ class ContextFrameTest {
         assertTrue(entries(separate,listOf(short.copy(targetWindows=listOf(0..2,4..6)),second)).isEmpty())
     }
 
+    @Test fun commonNounCaseAliasesCannotBecomeNamesAndCannotEraseContraryEvidence() {
+        fun run(original:String,target:String,sourceLanguage:String="en",flag:Boolean=true,other:ContextFrameHit?=null):List<VocabularyEntry> {
+            val frame=ContextFrame("case","food",sourceLanguage,"es",listOf(ContextPart.Focus("Food")),listOf(ContextPart.Focus("comida")),
+                lexicalUnit=true,commonNounCaseVariants=flag)
+            val hit=ContextFrameHit(frame,listOf(range(original,"Food")),listOf(range(target,"comida")))
+            return ContextFrameMatcher.entries(original,target,sourceLanguage,"es",listOfNotNull(hit,other))
+        }
+        assertEquals(1,run("Food is ready.","La comida está lista.").size)
+        assertEquals(1,run("Done. Food is ready.","La comida está lista.").size)
+        assertTrue(run("I called Food yesterday.","Llamé a la comida ayer.").isEmpty())
+        assertEquals(1,run("I called Food yesterday.","Llamé a la comida ayer.",flag=false).size)
+        assertEquals(1,run("Ich mag Food.","Me gusta la comida.",sourceLanguage="de").size)
+        val source="Food is ready.";val translated="La comida está lista."
+        val contrary=ContextFrameHit(ContextFrame("contrary","another sense","en","es",listOf(ContextPart.Focus("Food")),
+            listOf(ContextPart.Focus("other")),lexicalUnit=true,commonNounCaseVariants=true),listOf(range(source,"Food")),emptyList())
+        assertTrue(run(source,translated,other=contrary).isEmpty())
+        val reversed=ContextFrame("reverse","food","es","en",listOf(ContextPart.Focus("comida")),listOf(ContextPart.Focus("Food")),
+            lexicalUnit=true,commonNounCaseVariants=true)
+        val reverseHit=ContextFrameHit(reversed,listOf(range("Llamé a la comida ayer.","comida")),listOf(range("I called Food yesterday.","Food")))
+        assertTrue(ContextFrameMatcher.entries("Llamé a la comida ayer.","I called Food yesterday.","es","en",listOf(reverseHit)).isEmpty())
+    }
+
+    @Test fun openingPunctuationPreservesSentenceCaseWithoutExcusingMidSentenceNames() {
+        for(text in listOf("¿Tiempo?","¡Food!","Done. “Food”","'Food'")) {
+            val start=text.indexOfFirst{it=='T' || it=='F'}
+            assertTrue(WrittenCase.sentenceInitial(text,start))
+        }
+        for(text in listOf("I called “Food”.","Dije ¿Tiempo?","Use ROOM.")) {
+            val start=text.indexOfFirst{it=='F' || it=='T' || it=='R'}
+            assertFalse(WrittenCase.sentenceInitial(text,start))
+        }
+    }
+
 }

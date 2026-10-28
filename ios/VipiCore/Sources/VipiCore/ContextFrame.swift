@@ -3,13 +3,13 @@ import Foundation
 public struct ContextFrame:Sendable {
     public let id:String,meaning:String,sourceLanguage:String,targetLanguage:String,reading:String
     public let sourceParts:[ContextPart],targetParts:[ContextPart]
-    public let lexicalUnit:Bool,sourceUnit:Bool,targetUnit:Bool
+    public let lexicalUnit:Bool,sourceUnit:Bool,targetUnit:Bool,commonNounCaseVariants:Bool
     public init(id:String,meaning:String,sourceLanguage:String,targetLanguage:String,
                 sourceParts:[ContextPart],targetParts:[ContextPart],reading:String="",lexicalUnit:Bool=false,
-                sourceUnit:Bool?=nil,targetUnit:Bool?=nil) {
+                sourceUnit:Bool?=nil,targetUnit:Bool?=nil,commonNounCaseVariants:Bool=false) {
         self.id=id;self.meaning=meaning;self.sourceLanguage=sourceLanguage;self.targetLanguage=targetLanguage
         self.sourceParts=sourceParts;self.targetParts=targetParts;self.reading=reading
-        self.lexicalUnit=lexicalUnit
+        self.lexicalUnit=lexicalUnit;self.commonNounCaseVariants=commonNounCaseVariants
         self.sourceUnit=sourceUnit ?? lexicalUnit;self.targetUnit=targetUnit ?? lexicalUnit
     }
 }
@@ -60,6 +60,12 @@ public enum ContextFrameMatcher {
             if left.count>1 || right.count>1 {blocked.formUnion(left)}
             for focus in left {groups[focus,default:[]].append((frame,right.count==1 ? right.first : nil))}
         }
+        func casePermitted(_ frame:ContextFrame,_ text:String,_ range:NSRange,_ language:String,_ unit:Bool)->Bool {
+            let word=(text as NSString).substring(with:range)
+            guard frame.commonNounCaseVariants,unit,["en","es","fr","it","pt","sw"].contains(language),
+                  word.first?.isUppercase==true else {return true}
+            return WrittenCase.sentenceInitial(text,start:range.location)
+        }
         var entries:[VocabularyEntry]=[]
         for (focus,group) in groups.sorted(by:{$0.key.location<$1.key.location}) {
             guard !blocked.contains(focus),Set(group.map{$0.0.meaning}).count==1 else {continue}
@@ -72,6 +78,10 @@ public enum ContextFrameMatcher {
                     guard other.targetUnit, let parent, parent != targetFocus else { return false }
                     return parent.location <= targetFocus.location && NSMaxRange(parent) >= NSMaxRange(targetFocus)
                 }) { continue }
+                // Preserve competing meanings and repeated occurrences above;
+                // capitalization only vetoes the final candidate.
+                guard casePermitted(frame,original,focus,source,frame.sourceUnit),
+                      casePermitted(frame,translation,targetFocus,target,frame.targetUnit) else {continue}
                 let word=(translation as NSString).substring(with:targetFocus)
                 let entry=VocabularyEntry(source:(original as NSString).substring(with:focus),targets:[word],
                     romanizations:frame.reading.isEmpty ? [:] : [word:[frame.reading]],
@@ -81,5 +91,17 @@ public enum ContextFrameMatcher {
             }
         }
         return entries
+    }
+}
+
+/// Sentence starts may follow opening punctuation; a mid-sentence quote cannot
+/// turn the following capitalized word into a common noun.
+public enum WrittenCase {
+    public static func sentenceInitial(_ text:String,start:Int)->Bool {
+        guard start>=0,start<=text.utf16.count,
+              Range(NSRange(location:0,length:start),in:text) != nil else {return false}
+        var before=String((text as NSString).substring(to:start))
+        while let last=before.last,last.isWhitespace || "¿¡\"'“‘«([{".contains(last) {before.removeLast()}
+        return before.isEmpty || ".!?。！？".contains(before.last!)
     }
 }

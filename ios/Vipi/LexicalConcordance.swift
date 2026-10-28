@@ -210,9 +210,11 @@ enum LexicalConcordance {
         let actual=(text as NSString).substring(with:range)
         if actual==form.written {return true}
         guard key(actual)==key(form.written) else {return false}
+        // Only the initial letter may change for sentence capitalization.
+        // Acronyms and internal capitals retain distinct written evidence.
+        guard actual.dropFirst()==form.written.dropFirst() else {return false}
         if actual.first?.isUppercase==true && form.written.first?.isLowercase==true {
-            let before=(text as NSString).substring(to:range.location).trimmingCharacters(in:.whitespacesAndNewlines)
-            return before.isEmpty || ".!?。！？\n".contains(before.last!)
+            return WrittenCase.sentenceInitial(text,start:range.location)
         }
         return actual.first?.isUppercase==form.written.first?.isUppercase
     }
@@ -352,7 +354,7 @@ enum LexicalConcordance {
                 let usable=forms.filter { form in
                     form.targetSafe && key(actual)==key(form.written) &&
                     (wholeMode != 0 ? verbGrammar(form,analyses:forms,text:original,range:carrier,language:source,mode:wholeMode) && targetCaseMatches(form,range:carrier,text:original)
-                        : (1...3).contains(form.mode) && actual.first?.isUppercase==form.written.first?.isUppercase)
+                        : (1...3).contains(form.mode) && targetCaseMatches(form,range:carrier,text:original))
                 }
                 let focuses=Set(usable.compactMap { form in
                     focus(form,range:carrier,text:original).map{SourceShape(range:$0,number:form.number)}
