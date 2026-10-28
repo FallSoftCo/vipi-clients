@@ -65,7 +65,7 @@ def compare(args):
     with args.output.open("x") as stream:
         json.dump(result,stream,ensure_ascii=False,indent=2);stream.write("\n")
     print(json.dumps({k:result[k] for k in ["platform","counts","before_catalog_sha256","after_catalog_sha256"]}))
-    print(json.dumps({k:result["groups"][k] for k in ["all","ordinary","regression"]}))
+    print(json.dumps({k:result["groups"][k] for k in ["all","ordinary","regression"] if k in result["groups"]}))
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser(description=__doc__)

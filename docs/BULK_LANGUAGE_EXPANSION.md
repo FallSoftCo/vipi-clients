@@ -898,3 +898,28 @@ forms from missing labels. Two are malformed upstream spellings (言いった an
 来きた). The broad same-reading recovery was therefore not implemented.
 The valid-looking 飲んだ and 喚いた still need a narrower supplied-form correction;
 all unclassified records remain withheld.
+
+## Bundle008 native result — 2026-10-28
+
+The 360,899,059-byte all-language bundle now runs on Android, the iOS simulator
+and the attached iPad. Its catalog SHA is
+de29102504ad79d40442609507b2bbf385fc07be21590adb12bd077cb8ff31ba.
+The 48 actual ML Kit sentence pairs gain five complete verb spans on both native
+readers: bought → 買った / katta, heard → 聞いた / kiita, wrote → 書いた / kaita,
+bought → 샀다 / satda, and 買いました → 샀다 / satda. All five additions were
+author-inspected; none of the prior spans disappeared. Messages with immersion
+increase from 27 to 29 and spans from 34 to 39.
+
+On the physical iPad's separately captured Apple translations, four spans are
+added, including polite Korean 샀습니다 / satseumnida. Messages with immersion
+increase from 27 to 28 and spans from 34 to 38. Apple uses 聞こえた for the
+heard example, which remains withheld by this bounded rule. The sixteen
+deliberate tense/negation/conditional mismatches pass on all three native runs;
+unchanged noun spans within those sentences are not failures.
+
+The broader 602-case Android and simulator diagnostics are completely unchanged:
+ordinary messages with a span remain 232/560. This expansion improves a narrow
+common-verb path and does not meet the 90% immersion standard. Full native
+reports, hashes and limitations are in artifacts/bundled-lexical-008-qualification.json.
+Neither written readings nor successful player callbacks establish acoustic
+pronunciation acceptance. No store/backend release occurred.
