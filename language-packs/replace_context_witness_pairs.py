@@ -24,17 +24,25 @@ def checked(path):
 
 def replace(args):
     base,metadata=checked(args.base);replacement,delta=checked(args.replacement)
-    assert metadata['source_release_id']==delta['source_release_id']
+    recomputation=None
+    is_recomputation=bool(getattr(args,'dictionary_baseline',None))
+    if not is_recomputation:
+        assert metadata['source_release_id']==delta['source_release_id']
     for field in ['policy','minimum_support','minimum_agreement']:
         assert metadata[field]==delta[field]
-    assert delta['source_contexts_sha256']==metadata['source_contexts_sha256']
+    if not is_recomputation:
+        assert delta['source_contexts_sha256']==metadata['source_contexts_sha256']
     assert delta['disjoint_source_proof'] and delta['additional_contexts_sha256']
     requested={tuple(value.split('-')) for value in delta['requested_pairs']}
     assert requested and all(len(pair)==2 and pair[0]!=pair[1] for pair in requested)
     assert {tuple(value.split('-')) for value in delta['pairs']}<=requested
     # A later update may not silently replace evidence from a previous corpus.
-    assert set(metadata.get('additional_contexts_sha256',[]))<=set(delta['additional_contexts_sha256'])
+    if not is_recomputation:
+        assert set(metadata.get('additional_contexts_sha256',[]))<=set(delta['additional_contexts_sha256'])
     args.output.mkdir(parents=True,exist_ok=False);path=args.output/'witnesses.sqlite'
+    if is_recomputation:
+        from context_recomputation_proof import verify_recomputation
+        recomputation,proof_sha=verify_recomputation(args,metadata,delta,args.output)
     assert not Path(str(args.base)+'-wal').exists()
     shutil.copyfile(args.base,path)
     db=sqlite3.connect(path);db.execute('PRAGMA temp_store=FILE');db.execute('PRAGMA cache_size=-32768')
@@ -50,9 +58,20 @@ def replace(args):
     pairs={a+'-'+b:n for a,b,n in db.execute('SELECT source,target,count(*) FROM witnesses GROUP BY source,target')}
     provenance=metadata.get('pair_input_revisions',{pair:base['sha256'] for pair in metadata['pairs']})
     provenance.update({'-'.join(pair):replacement['sha256'] for pair in requested})
+    if recomputation:
+        historical_contexts={pair:dict(primary=metadata['source_contexts_sha256'],
+            additional=metadata.get('additional_contexts_sha256',[])) for pair in metadata['pairs']}
+        historical_contexts.update(metadata.get('pair_context_revisions',{}))
+        for pair in requested:
+            historical_contexts['-'.join(pair)]=dict(primary=delta['source_contexts_sha256'],
+                additional=delta['additional_contexts_sha256'])
+        metadata.update(source_release_id=delta['source_release_id'],
+            context_evidence_dictionary_release_id=recomputation['base_release'],
+            dictionary_recomputation_proof_sha256=proof_sha,
+            pair_context_revisions=historical_contexts)
     metadata.update(pairs=pairs,pair_input_revisions=provenance,
         counts=dict(witnesses=sum(pairs.values()),retained_reference_records=db.execute('SELECT count(*) FROM references_used').fetchone()[0]),
-        additional_contexts_sha256=delta['additional_contexts_sha256'],
+        additional_contexts_sha256=sorted(set(metadata.get('additional_contexts_sha256',[]))|set(delta['additional_contexts_sha256'])) if recomputation else delta['additional_contexts_sha256'],
         pair_replacement_policy='complete-pair-replacement-including-abstentions-1',
         parent_witness_sha256=base['sha256'],replacement_witness_sha256=replacement['sha256'],
         replaced_pairs=sorted('-'.join(pair) for pair in requested),
@@ -73,4 +92,11 @@ def replace(args):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ['base','replacement','output']:parser.add_argument('--'+name,type=Path,required=True)
-    replace(parser.parse_args())
+    for name in ['dictionary-baseline','dictionary-catalog']:
+        parser.add_argument('--'+name,type=Path)
+    for name in ['base-context-receipt','replacement-context-receipt','base-pair-receipt']:
+        parser.add_argument('--'+name,type=Path,action='append',default=[])
+    args=parser.parse_args()
+    if any([args.dictionary_baseline,args.dictionary_catalog,args.base_context_receipt,args.replacement_context_receipt]):
+        assert all([args.dictionary_baseline,args.dictionary_catalog,args.base_context_receipt,args.replacement_context_receipt])
+    replace(args)

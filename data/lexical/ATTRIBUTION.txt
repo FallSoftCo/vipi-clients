@@ -13,11 +13,28 @@ Compiler: language-packs/build_lexical_shards.py. Published dictionary evidence 
 
 Change: preserve ordinary lexical meanings when the same entry also records an alternative/form-of sense. Original definitions and readings retained.
 
+Changes: exact supplied Chinese script variants and upstream redirects; lexical character words require a published bilingual counterpart corroborated by a native gloss. Native entry identities, readings and source attribution retained.
+
 Tatoeba contributors, CC BY 2.0 FR. Individual owners and sentence IDs in references_used.
 References: https://tatoeba.org/en/sentences/show/{sentence}. Dictionary-derived alignment evidence: Wiktionary contributors, CC BY-SA 4.0.
 Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
 
 Release binding adapted after verifying unchanged dictionary senses/links and retained lexical evidence.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
 
 Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
 Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.

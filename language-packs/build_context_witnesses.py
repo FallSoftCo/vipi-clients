@@ -48,15 +48,24 @@ def compile(args):
             assert supplementary['sha256']==row['corpus_sha256']
             assert supplementary['schema']=='vipi-swahili-development-supplement-1'
             assert supplementary['swahili_source_sha256']==exclusion['swahili_source_sha256']
-        adapter=json.loads((args.release_adapter.parent/'receipt.json').read_text())
-        assert digest_file(args.release_adapter)==adapter['sha256']
-        assert adapter['adaptation_policy']=='unchanged-dictionary-links-added-carriers-1'
-        assert adapter['source_contexts_sha256']==parent['sha256']
-        assert adapter['context_compilation_release_id']==release
-        assert adapter['source_release_id']==delta['source_release_id']
-        assert all(v['senses_added']==0 and v['terms_added']==0 for v in adapter['adaptation_proof'].values())
+        adapter_sha=None
+        if release!=delta['source_release_id']:
+            assert args.release_adapter, 'Different dictionary releases require a verified adapter'
+            adapter=json.loads((args.release_adapter.parent/'receipt.json').read_text())
+            assert digest_file(args.release_adapter)==adapter['sha256']
+            assert adapter['adaptation_policy']=='unchanged-dictionary-links-added-carriers-1'
+            assert adapter['source_contexts_sha256']==parent['sha256']
+            assert adapter['context_compilation_release_id']==release
+            assert adapter['source_release_id']==delta['source_release_id']
+            assert all(v['senses_added']==0 and v['terms_added']==0 for v in adapter['adaptation_proof'].values())
+            adapter_sha=adapter['sha256']
+        else:
+            # A fresh recomputation of both corpora uses one exact dictionary
+            # release and catalog. No old dictionary evidence is rebound here.
+            assert parent['source_catalog_sha256']==delta['source_catalog_sha256']
         release=delta['source_release_id'];inputs.append((additional,delta))
-        proof=dict(exclusions_sha256=exclusion['sha256'],release_adapter_sha256=adapter['sha256'],
+        proof=dict(exclusions_sha256=exclusion['sha256'],release_adapter_sha256=adapter_sha,
+            same_dictionary_catalog_sha256=parent['source_catalog_sha256'] if adapter_sha is None else None,
             base_supplement_receipts=sorted(supplements),policy='all prior source text excluded; positive base IDs and negative PGV IDs')
     selected={tuple(pair.split('-')) for pair in args.pair}
     languages={language for _,receipt in inputs for language in receipt['languages']}
@@ -197,5 +206,5 @@ if __name__=='__main__':
     p.add_argument('--pair',action='append',required=True)
     p.add_argument('--minimum-support',type=int,default=3);p.add_argument('--minimum-agreement',type=float,default=.98)
     args=p.parse_args();assert args.minimum_support>=2 and .5<=args.minimum_agreement<=1
-    if args.additional_context:assert args.additional_corpus_receipt and args.source_exclusions and args.release_adapter
+    if args.additional_context:assert args.additional_corpus_receipt and args.source_exclusions
     compile(args)

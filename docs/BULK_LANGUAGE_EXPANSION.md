@@ -2,8 +2,77 @@
 
 The active expansion uses the full retained dictionaries and direct parallel
 text. Storage is a capacity to use, not a reason to limit the catalog to a few
-handwritten examples. The accepted app default remains bundle 022 until the
-broader data passes meaning review and production delivery checks.
+handwritten examples. The development app combines authored starter bundle 022 with broad dictionary
+bundle 002. Broader meaning acceptance and production delivery checks remain
+open; this is not a store release.
+
+## Changed-language rebuild and actual chat integration — 2026-10-28 UTC
+
+The normal native conversation path uses the broad local dictionary reader.
+Chinese dictionary revision 011 restores exact supplied simplified forms and
+lexical character entries such as 吃. Character links require an existing
+published bilingual relation plus an explicit native gloss counterpart.
+Readings remain supplied dictionary data. No Han conversion or guessed stem
+was introduced.
+
+The incremental compiler rebuilds all twenty directions involving Chinese from
+the pinned Tatoeba and PGV development inputs. It retains negative observations
+and the existing minimum-support/agreement rules. The endpoint query now scans
+direct links and looks up sentence IDs; it no longer creates an expensive
+cross-product of sentence partitions. Unchanged language directions retain their
+exact previous witness rows and historical source identities. The recomputation
+proof binds the original corpus versions, exclusions and changed dictionary
+scope; it rejects omitted directions, dropped source corpora and changed
+unaffected lexical relations.
+
+Witness revision 013 contains 4,389,513 rules, including 145,646 newly recomputed
+Chinese-direction rules. Its authoring SHA is
+7707e3cb4a9c152d895d7b8e16f2eca492bd24edd51404cf94cb9265f8df7a61.
+Bundle 002 contains 66 compressed payloads totaling 348,500,118 bytes, or
+1,872,195,584 bytes if every SQLite payload were expanded. Only the selected
+two dictionaries and their shared context file are expanded on device. These
+numbers exclude the starter catalog, translation/voice models and app code.
+They are not an App Store/Play download-size measurement.
+
+The development comparison retains the original 334 cases and adds 240 locally
+translated cases from 24 human OASST1 prompts in German, Spanish and Brazilian
+Portuguese. These are assistant-style public requests, not a representative
+friend-chat population. All 240 whole translations were captured on the
+dedicated Android emulator with both radios off and without a model-download
+call. Median translation time was 171 ms; maximum was 951 ms in this small run.
+
+Android 004 and iOS simulator 003 each select 328 spans across 574 cases, with
+all retained positive/negative checks passing. Android gains 13 spans versus
+the same 574 inputs on bundle 001 and loses none. Twelve newly selected pairs
+have plausible lexical meanings on author inspection. One Spanish weekly-menu
+case needs further scope review: the full Chinese translation omitted the menu's
+weekly modifier, while retaining a later weekly-training modifier. Whole-message
+translation quality is not established by a valid word pair.
+
+The platforms differ on two Chinese cases: Android additionally selects 票/ticket;
+iOS additionally selects 今天/Today. Total counts therefore do not establish
+exact parity. This iOS run used the simulator with reused translations, not
+physical iPad or Apple translator validation. The iPad's OS XCTest passcode
+prompt remains unresolved.
+
+New prompt diagnostics on bundle 001 find at least one span in 22/80 German,
+41/80 Spanish and 49/80 Portuguese direction-cases. These are small development
+samples and include full-translation errors, such as Portuguese dado becoming
+English data in a dice question. They do not meet or estimate the 90% goal.
+
+The next measured compiler correction concerns definitional articles:
+German Insel's native definition is "an island, an isle". The previous parser
+treated those articles as evidence against its existing island link. A narrow
+noun-gloss correction and checks are in development; the all-language impact
+audit is pending. It is not yet part of bundle 002.
+
+Receipts: artifacts/context-witnesses-013, context-pair-packs-013,
+bundled-lexical-002, bundled-development-003,
+bundled-lexical-002-development-comparison.json and
+bundled-lexical-002-native-comparison.json. The gallery's new chat captures are
+bound to earlier bundle 001/build 010 and pass desktop/mobile card checks.
+Independent semantic acceptance, broad conversational immersion and store
+readiness remain false.
 
 ## Priority correction: build useful immersion before broad regression runs
 
@@ -56,8 +125,9 @@ Concrete blockers found:
   modern lexical eligibility while keeping mixed entries out of the
   single-sense source shortcut. Pure alias-only entries remain ineligible.
   Verified against native entry 30997 from immutable inventory 003; receipt
-  artifacts/mixed-lexeme-eligibility-001.json. This source fix is not yet in
-  a rebuilt or installed pack and contributes no claimed coverage gain.
+  artifacts/mixed-lexeme-eligibility-001.json. Dictionary 009 rebuilt this fix, restoring 8,530 target-eligible lexemes.
+  Native dictionary bundles 001/002 now include it; availability still needs
+  evaluation in each actual conversation context.
 - Some reused native full translations are already semantically wrong.
   For example, an Arabic attraction question is translated as lactation.
   Full-translation quality and vocabulary-selection quality need separate

@@ -31,6 +31,34 @@ def readonly(path):
     return db
 
 
+
+def select_changed_pair_endpoints(db, languages, changed):
+    """Only development endpoints directly linked to a changed language.
+
+    Restrict work, not evidence thresholds. Canonical input link identities and
+    existing reserved-component exclusions remain intact. No transitive links.
+    """
+    assert changed and set(changed)<=set(languages)
+    db.execute("CREATE TEMP TABLE changed_pair_endpoints(id INTEGER PRIMARY KEY)")
+    marks=",".join("?" for _ in languages)
+    changed_marks=",".join("?" for _ in changed)
+    # Keep the indexed sentence lookups inside the link scan. With only
+    # partition statistics SQLite can otherwise enumerate both sentence sets
+    # before probing links (quadratic in the corpus size).
+    query=f"""SELECT l.a,l.b FROM links l NOT INDEXED CROSS JOIN sentences a ON a.id=l.a
+        CROSS JOIN sentences b ON b.id=l.b
+        WHERE a.partition='development' AND b.partition='development'
+        AND a.language<>b.language AND a.language IN ({marks}) AND b.language IN ({marks})
+        AND (a.language IN ({changed_marks}) OR b.language IN ({changed_marks}))"""
+    batch=[]
+    for a,b in db.execute(query,[*languages,*languages,*changed,*changed]):
+        batch.extend([(a,),(b,)])
+        if len(batch)>=10000:
+            db.executemany("INSERT OR IGNORE INTO changed_pair_endpoints VALUES (?)",batch);batch=[]
+    db.executemany("INSERT OR IGNORE INTO changed_pair_endpoints VALUES (?)",batch)
+    return db.execute("SELECT count(*) FROM changed_pair_endpoints").fetchone()[0]
+
+
 def normalized_offsets(text, language):
     """Map each normalized code point to a complete original Unicode cluster.
 
@@ -166,6 +194,22 @@ def build(args):
     languages = args.language or sorted(language_sources)
     selected = [s for s in catalog['shards'] if s['language'] in languages]
     assert set(languages) == {s['language'] for s in selected}
+    changed=getattr(args,'pair_language',None) or []
+    assert set(changed)<=set(languages)
+    endpoint_counts={}
+    if changed:
+        for name,_,input_db in sources:
+            endpoint_counts[name]=select_changed_pair_endpoints(input_db,languages,changed)
+        # Supplement links can refer to a main-corpus endpoint. Retain their
+        # union in each reader; otherwise a language owned by the main input
+        # could silently miss a new supplement-only direct neighbor.
+        endpoint_ids={row[0] for _,_,input_db in sources
+            for row in input_db.execute("SELECT id FROM changed_pair_endpoints")}
+        for _,_,input_db in sources:
+            input_db.executemany("INSERT OR IGNORE INTO changed_pair_endpoints VALUES (?)",
+                ((identifier,) for identifier in endpoint_ids))
+        endpoint_counts["union"]=len(endpoint_ids)
+        print(canonical(dict(stage='changed_pair_endpoints',languages=changed,counts=endpoint_counts)),flush=True)
     context_path = args.output/'contexts.sqlite'; work = sqlite3.connect(context_path)
     work.executescript('''PRAGMA temp_store=FILE; PRAGMA cache_size=-32768;
         CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
@@ -199,6 +243,9 @@ def build(args):
         automaton, forms = load_lexicon(args.shards/(language+'.sqlite'), language, sense_ids, work)
         language_counts = Counter(); batch = []; focus_batch = []
         sql = "SELECT id,language,text,owner,component FROM sentences NOT INDEXED WHERE partition='development' AND language=? AND length(text) BETWEEN 2 AND 280 ORDER BY id"
+        if changed:
+            sql=sql.replace("sentences NOT INDEXED","sentences").replace(" ORDER BY id",
+                " AND id IN (SELECT id FROM changed_pair_endpoints) ORDER BY id")
         if args.max_sentences_per_language:
             sql += ' LIMIT '+str(args.max_sentences_per_language)
         for row in language_sources[language].execute(sql,(language,)):
@@ -225,16 +272,22 @@ def build(args):
     queries=[]
     for name,path,_ in sources:
         work.execute('ATTACH DATABASE ? AS '+name,(path.resolve().as_uri()+'?mode=ro&immutable=1',))
-        queries.append('''SELECT a.id,a.language,fa.payload,b.id,b.language,fb.payload
+        query='''SELECT a.id,a.language,fa.payload,b.id,b.language,fb.payload
         FROM sentences a JOIN '''+name+'''.links l ON l.a=a.id
         JOIN sentences b ON b.id=l.b JOIN focus fa ON fa.sentence=a.id JOIN focus fb ON fb.sentence=b.id
-        WHERE a.language<>b.language''')
+        WHERE a.language<>b.language'''
+        parameters=[]
+        if changed:
+            marks=",".join("?" for _ in changed)
+            query+=f" AND (a.language IN ({marks}) OR b.language IN ({marks}))"
+            parameters=[*changed,*changed]
+        queries.append((query,parameters))
     @lru_cache(maxsize=50000)
     def analyses(form_id):
         return json.loads(work.execute('SELECT analyses FROM lexicon WHERE id=?',(form_id,)).fetchone()[0])
     cached=lru_cache(maxsize=4000)(lambda payload:unique_hits(payload,analyses))
     batch=[];pair_counts=Counter()
-    for aid, al, af, bid, bl, bf in (row for query in queries for row in work.execute(query)):
+    for aid, al, af, bid, bl, bf in (row for query,parameters in queries for row in work.execute(query,parameters)):
         counts['direct_development_pairs'] += 1
         left, right = cached(af), cached(bf)
         for sense in left.keys() & right.keys():
@@ -260,6 +313,7 @@ def build(args):
     result = dict(schema='vipi-broad-lexical-contexts-3',counts=dict(counts),languages=per_language,pairs=dict(pair_counts),
         lexical_focus_policy='whole supplied units or exact UTF-16 lexical focus inside indexed carriers; no whole-inflection meaning inference',
         complete=True,pilot=bool(args.max_sentences_per_language),max_sentences_per_language=args.max_sentences_per_language,
+        changed_pair_languages=changed,direct_endpoint_selection_counts=endpoint_counts,
         source_catalog_sha256=sha_file(args.shards/'catalog.json'),source_release_id=catalog['release_id'],
         corpus_receipt_sha256=sha_file(args.corpus.parent/'receipt.json'),compiler_sha256=sha_file(Path(__file__)),
         corpus_sha256=input_receipt['sha256'],
@@ -290,6 +344,7 @@ if __name__ == '__main__':
     for name in ('shards','corpus','output'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--language',action='append')
+    parser.add_argument('--pair-language',action='append',help='Recompute only directly linked directions involving this changed language')
     parser.add_argument('--supplement',type=Path,action='append')
     parser.add_argument('--max-sentences-per-language',type=int,default=0)
     args=parser.parse_args();assert args.max_sentences_per_language>=0;build(args)

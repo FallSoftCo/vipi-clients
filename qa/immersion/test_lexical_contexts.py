@@ -5,7 +5,7 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import ahocorasick
-from build_lexical_contexts import sentence_hits,unique_hits,build,sha_file
+from build_lexical_contexts import sentence_hits,unique_hits,build,sha_file,select_changed_pair_endpoints
 
 
 class ContextOffsets(unittest.TestCase):
@@ -13,6 +13,21 @@ class ContextOffsets(unittest.TestCase):
         automaton=ahocorasick.Automaton(ahocorasick.STORE_INTS)
         automaton.add_word(word,0);automaton.make_automaton()
         return sentence_hits(text,language,automaton,[(word,[],1)])
+
+    def test_changed_language_selection_excludes_reserved_and_indirect_neighbors(self):
+        with tempfile.TemporaryDirectory(dir='artifacts') as temporary:
+            db=sqlite3.connect(str(Path(temporary)/'corpus.sqlite'))
+            try:
+                db.executescript("CREATE TABLE sentences(id INTEGER PRIMARY KEY,language TEXT,partition TEXT); CREATE TABLE links(a INTEGER,b INTEGER);")
+                db.executemany("INSERT INTO sentences VALUES (?,?,?)",[
+                    (1,'zh','development'),(2,'en','development'),(3,'fr','development'),
+                    (4,'zh','reserved'),(5,'en','reserved'),(6,'de','development'),
+                    (7,'it','development'),(8,'en','development'),(9,'zh','development')])
+                db.executemany("INSERT INTO links VALUES (?,?)",[(1,2),(1,3),(2,4),(1,5),(1,6),(2,7),(7,8),(1,9)])
+                count=select_changed_pair_endpoints(db,['zh','en','fr','it'],['zh'])
+                self.assertEqual(count,3)
+                self.assertEqual({r[0] for r in db.execute("SELECT id FROM changed_pair_endpoints")},{1,2,3})
+            finally:db.close()
 
     def test_original_utf16_survives_normalization_and_emoji(self):
         for text,language,word,expected in [

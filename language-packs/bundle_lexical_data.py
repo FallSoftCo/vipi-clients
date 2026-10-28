@@ -6,6 +6,7 @@ relations still exist unchanged. Added eligibility is recorded as a migration,
 not as new corpus evidence or an accuracy certification.
 """
 import argparse
+from contextlib import closing
 import hashlib
 import json
 from pathlib import Path
@@ -29,7 +30,7 @@ def compatible(base,candidate,base_root,candidate_root,output):
         old=base_root/(after["language"]+".sqlite")
         new=candidate_root/old.name
         assert sha(old)==before["sha256"] and sha(new)==after["sha256"]
-        with sqlite3.connect(new.resolve().as_uri()+"?mode=ro&immutable=1",uri=True) as db:
+        with closing(sqlite3.connect(new.resolve().as_uri()+"?mode=ro&immutable=1",uri=True)) as db:
             db.execute("PRAGMA temp_store=FILE")
             db.execute("PRAGMA cache_size=-8192")
             db.execute("ATTACH DATABASE ? AS previous",(old.resolve().as_uri()+"?mode=ro&immutable=1",))
@@ -97,10 +98,10 @@ def build(a):
         temp=a.output/("prepare-context-"+row["pair"]+".sqlite")
         shutil.copyfile(source,temp)
         try:
-            with sqlite3.connect(temp) as db:
+            with closing(sqlite3.connect(temp)) as db:
                 meta=metadata(db);assert meta["source_release_id"]==base["release_id"]
                 changes=dict(source_release_id=catalog["release_id"],
-                    context_evidence_dictionary_release_id=base["release_id"],
+                    context_evidence_dictionary_release_id=meta.get("context_evidence_dictionary_release_id",base["release_id"]),
                     dictionary_compatibility_sha256=sha(a.output/"compatibility.json"),
                     original_pair_database_sha256=row["sha256"])
                 for k,v in changes.items():

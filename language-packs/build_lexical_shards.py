@@ -18,7 +18,7 @@ from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 import noun_carriers
 
-POLICY = noun_carriers.POLICY
+POLICY = "native-linked-chinese-lexical-7"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -83,6 +83,11 @@ def surface(head, form, pos, tags, language):
     # reading of its inflection. Whole single-word heads are still supported.
     if form==head:
         return (0,utf16(form),number,1) if lexical_unit(head,pos) else (0,0,number,0)
+    # Exact supplied script variants share the lexical unit and its reading.
+    # These are not conjugations or generic Han conversion.
+    script_tags={'Simplified-Chinese','Traditional-Chinese','alternative','canonical'}
+    if language=='zh' and tags&{'Simplified-Chinese','Traditional-Chinese'} and tags<=script_tags and lexical_unit(form,pos):
+        return 0,utf16(form),number,1
     if language in NON_ROMAN or not lexical_unit(form,pos):return (0,0,number,0)
     if pos=='noun' and 'plural' in tags and 'singular' not in tags:
         return 0,utf16(form),2,2
@@ -116,7 +121,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             matching={i for i in roots if links.entry(i)[3]==spos}
             # Cross-POS translations are allowed only with an explicit short
             # gloss counterpart, not merely a coincidentally shared spelling.
-            identifiers=matching or {i for i in roots if english.lower() in links.simple_glosses(i)}
+            identifiers=matching or {i for i in roots if english.lower() in links.simple_glosses(i) or links.chinese_character_counterpart(i,english)}
         for identifier in identifiers:
             root=links.resolve(identifier)
             glosses=links.simple_glosses(root) if language!='en' else set()
@@ -149,10 +154,10 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             # A secondary clipping/inflection sense does not erase the valid
             # lexical senses of the same entry (English go has 66, plus one
             # clipping sense). Keep mixed entries contextual on the source side.
-            lexical=pos in PARTS and not set(json.loads(raw_tags))&EXCLUDED and n>0
+            lexical=(pos in PARTS or (language=='zh' and pos=='character' and identifier in linked_terms)) and not set(json.loads(raw_tags))&EXCLUDED and n>0
             # Proper-name and grammatical homographs remain negative source
             # evidence. They do not invalidate another entry's lexical target.
-            source_safe=int(lexical and not nonlemma and n==1 and not (word and any(word)))
+            source_safe=int(lexical and pos in PARTS and not nonlemma and n==1 and not (word and any(word)))
             db.execute('INSERT INTO lexemes VALUES (?,?,?,?,?,?,?,?)',(identifier,head,key,pos,source_safe,int(lexical),n,url))
             inserted.add(identifier)
         def add_surface(identifier,form,tags):
@@ -208,7 +213,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
                             add_carrier(identifier,record,noun_carriers.ARABIC_RULE,
                                 dict(head=head,supplied_form=form,supplied_tags=json.loads(tags),source_url=links.entry(identifier)[5]))
             if index%10000==0:db.commit()
-        if language not in NON_ROMAN:
+        if language not in NON_ROMAN or language=='zh':
             # Canonical entries do not always list every incoming alternative.
             # Follow explicit native alias entries throughout the inventory,
             # including aliases whose spelling was absent from linked terms.
@@ -220,6 +225,15 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
                 if root!=identifier and root in mapped:
                     add_surface(root,links.entry(identifier)[1],links.evidence[identifier][2])
                     counts['incoming_alternative_entries']+=1
+        if language=='zh':
+            for identifier in sorted(redirects):
+                root=links.resolve(identifier)
+                if root!=identifier and root in mapped and links.entry(identifier)[3] in {'soft-redirect','character'}:
+                    head=links.entry(identifier)[1]
+                    # Exact upstream redirect; retain independent lexical
+                    # readings and all competing native analyses below.
+                    add_surface(root,head,['alternative'])
+                    counts['incoming_chinese_redirects']+=1
         # Every independent native headword competing with a retained surface
         # is resolved. Explicit inflections collapse; true homographs remain.
         source.execute('CREATE TEMP TABLE wanted(normalized TEXT PRIMARY KEY) WITHOUT ROWID')

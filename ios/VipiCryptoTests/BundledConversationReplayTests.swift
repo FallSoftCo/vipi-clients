@@ -39,9 +39,14 @@ final class BundledConversationReplayTests:XCTestCase {
                 "target_start":$0.targetRange.location,"target_end":NSMaxRange($0.targetRange),
                 "reading":$0.romanization as Any? ?? NSNull()]}
         }
+        #if targetEnvironment(simulator)
+        let platform = "iOS simulator"
+        #else
+        let platform = "physical iOS device"
+        #endif
         func save(_ complete:Bool) throws {
             let report:[String:Any]=["schema":"vipi-bundled-conversation-replay-1","run":run,
-                "complete":complete,"cases_sha256":config[1],"platform":"physical iPad",
+                "complete":complete,"cases_sha256":config[1],"platform":platform,
                 "translation_reused":true,"population_coverage_claim":false,
                 "independent_semantic_acceptance":false,"failures":failures,
                 "pair_preparation":preparation,"outcomes":outcomes]

@@ -6,7 +6,7 @@ mixed lexical/form entries and unresolved homographs keep their own identity.
 from functools import lru_cache
 import json
 import re
-from build_wiktextract import EXCLUDED, PARTS
+from build_wiktextract import EXCLUDED, PARTS, DIALECTS
 from context_hints import lookup_key
 
 
@@ -79,6 +79,31 @@ class NativeLinks:
         self.resolved[identifier]=result
         if result!=identifier:self.evidence[identifier]=(result,sorted(refs),sorted(features),'redirect' if redirects else 'native-form-or-alternative')
         return result
+
+    def chinese_character_counterpart(self, identifier, english):
+        """Corroborate an existing English translation with an explicit gloss.
+
+        Wiktionary labels Chinese one-character lexical words "character",
+        including eat, book and rice. Do not invent a POS or a translation:
+        this is only used for a published bilingual link whose exact English
+        counterpart also occurs as a complete, unqualified native gloss item.
+        """
+        if self.language!='zh' or self.entry(identifier)[3]!='character':return False
+        allowed={'transitive','intransitive','ditransitive','countable','uncountable',
+            'Mandarin','Standard-Chinese'}
+        for raw,tags,forms,alts in self.senses(identifier):
+            tags=set(json.loads(tags))
+            if tags&(EXCLUDED|DIALECTS) or tags-allowed or json.loads(forms) or json.loads(alts):continue
+            glosses=json.loads(raw)
+            if not glosses:continue
+            gloss=glosses[-1].strip().lower().rstrip('.')
+            # Classifier lists are editorial noun metadata, not a restriction
+            # on the English meaning. Remove only this exact trailing syntax.
+            gloss=re.sub(r'\s*\(classifier: [^()]*\)$','',gloss,flags=re.IGNORECASE)
+            words=[re.sub(r'^to ','',part.strip()) for part in re.split('[,;]',gloss)]
+            if any(not re.fullmatch(r"[a-z]+(?:[ '-][a-z]+){0,3}",w) for w in words):continue
+            if english.lower() in words:return True
+        return False
 
     def simple_glosses(self, identifier):
         """A contradictory explicit short English gloss vetoes a guessed link.
