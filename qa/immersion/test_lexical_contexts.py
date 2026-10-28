@@ -72,12 +72,14 @@ class ContextOffsets(unittest.TestCase):
             root=Path(temporary);shards=root/'shards';shards.mkdir();catalog=[]
             for language,word in [('en','coffee'),('es','café'),('sw','kahawa')]:
                 path=shards/(language+'.sqlite');db=sqlite3.connect(path)
-                db.executescript('''CREATE TABLE senses(id TEXT,label TEXT,pos TEXT,explicit INTEGER,source_url TEXT);
+                db.executescript('''CREATE TABLE metadata(key TEXT,value TEXT);
+                    INSERT INTO metadata VALUES ('policy','"native-linked-adjective-agreement-10"');
+                    CREATE TABLE senses(id TEXT,label TEXT,pos TEXT,explicit INTEGER,source_url TEXT);
                     CREATE TABLE lexemes(id INTEGER,source_safe INTEGER,target_safe INTEGER);
-                    CREATE TABLE surfaces(normalized TEXT,lexeme INTEGER,mode INTEGER,surface TEXT,start INTEGER,end INTEGER);
+                    CREATE TABLE surfaces(normalized TEXT,lexeme INTEGER,mode INTEGER,surface TEXT,start INTEGER,end INTEGER,features TEXT);
                     CREATE TABLE terms(lexeme INTEGER,sense TEXT,reading TEXT,eligible INTEGER);''')
                 db.execute('INSERT INTO senses VALUES (?,?,?,?,?)',('coffee','coffee beverage','noun',1,'https://example.test/dictionary'))
-                db.execute('INSERT INTO lexemes VALUES (1,1,1)');db.execute('INSERT INTO surfaces VALUES (?,1,1,?,0,?)',(word,word,len(word)))
+                db.execute('INSERT INTO lexemes VALUES (1,1,1)');db.execute("INSERT INTO surfaces VALUES (?,1,1,?,0,?,'[]')",(word,word,len(word)))
                 db.execute("INSERT INTO terms VALUES (1,'coffee','',1)");db.commit();db.close()
                 catalog.append(dict(language=language,sha256=sha_file(path),bytes=path.stat().st_size))
             (shards/'catalog.json').write_text(json.dumps(dict(schema='vipi-lexical-shards-1',shards=catalog,release_id='test')))

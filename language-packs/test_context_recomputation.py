@@ -76,4 +76,43 @@ class RecomputedPairEvidence(unittest.TestCase):
                     for p in args.replacement_context_receipt:
                         r=json.loads(p.read_text());r['source_catalog_sha256']=digest_file(args.dictionary_catalog);p.write_text(json.dumps(r))
                 with self.assertRaises(AssertionError):verify_recomputation(args,base,delta,out)
+
+    def test_cumulative_pair_lineage_and_provenance(self):
+        for mutation in [None,'drop-revision','wrong-provenance','missing-pair-corpus','wrong-pair-receipt']:
+            with self.subTest(mutation=mutation),tempfile.TemporaryDirectory(dir='artifacts') as d:
+                root=Path(d);args,base,delta=self.fixture(root);out=root/'proof';out.mkdir()
+                old_rows=[json.loads(p.read_text()) for p in args.base_context_receipt]
+                mixed=[]
+                for row in old_rows:
+                    current=dict(row,sha256='intermediate-'+row['sha256'],source_release_id='intermediate')
+                    path=root/(current['sha256']+'.json');path.write_text(json.dumps(current))
+                    mixed.append(path)
+                args.base_context_receipt+=mixed
+                first={'primary':'oldtatoeba','additional':['oldpgv']}
+                second={'primary':'intermediate-oldtatoeba','additional':['intermediate-oldpgv']}
+                base['pair_context_revisions']={pair:first if pair.startswith('en-') else second for pair in delta['requested_pairs']}
+                base['pair_input_revisions']={pair:'w1' if pair.startswith('en-') else 'w2' for pair in delta['requested_pairs']}
+                for revision,contexts in [('w1',first),('w2',second)]:
+                    row=dict(complete=True,sha256=revision,source_release_id='historical',
+                        requested_pairs=[p for p,v in base['pair_input_revisions'].items() if v==revision],
+                        source_contexts_sha256=contexts['primary'],additional_contexts_sha256=contexts['additional'],
+                        disjoint_source_proof=copy.deepcopy(delta['disjoint_source_proof']))
+                    path=root/(revision+'.json');path.write_text(json.dumps(row));args.base_pair_receipt.append(path)
+                if mutation=='drop-revision':args.base_context_receipt.pop()
+                if mutation=='wrong-provenance':
+                    path=mixed[0];row=json.loads(path.read_text());row['corpus_receipt_sha256']='wrong';path.write_text(json.dumps(row))
+                if mutation=='missing-pair-corpus':
+                    # Even if the global union still includes every corpus,
+                    # one pair may not drop one of its own sources.
+                    base['pair_context_revisions']['en-zh']={'primary':'oldtatoeba','additional':[]}
+                    path=args.base_pair_receipt[0];row=json.loads(path.read_text());row['additional_contexts_sha256']=[];path.write_text(json.dumps(row))
+                if mutation=='wrong-pair-receipt':
+                    path=args.base_pair_receipt[1];row=json.loads(path.read_text());row['source_contexts_sha256']='oldtatoeba';path.write_text(json.dumps(row))
+                if mutation:
+                    with self.assertRaises(AssertionError):verify_recomputation(args,base,delta,out)
+                else:
+                    result,_=verify_recomputation(args,base,delta,out)
+                    self.assertEqual(len(result['context_sources']),4)
+                    self.assertEqual(result['pair_context_lineage']['en-zh'],['oldpgv','oldtatoeba'])
+
 if __name__=='__main__':unittest.main()

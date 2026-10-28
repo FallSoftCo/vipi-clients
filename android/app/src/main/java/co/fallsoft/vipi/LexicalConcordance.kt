@@ -7,12 +7,13 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15")
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16")
+    private const val SURFACE_READING_RULE="supplied-arabic-plural-reading-1"
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
         val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val pos:String,val proper:Boolean,val grammar:Boolean)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val family:String)
     private data class Side(val windows:Map<String,List<IntRange>>,val forms:Map<String,List<Form>>,
-        val terms:Map<Long,List<Term>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String,val namedPlaces:List<IntRange>,val phrases:List<IntRange>)
+        val terms:Map<Long,List<Term>>,val surfaceReadings:Map<Pair<Long,String>,Map<String,Set<String>>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String,val namedPlaces:List<IntRange>,val phrases:List<IntRange>)
     private class Overflow:Exception()
     private fun key(value:String)=ImmersionEngine.lookupKey(value)
     private fun marks(count:Int)=List(count){"?"}.joinToString(",")
@@ -63,12 +64,17 @@ internal object LexicalConcordance {
     }
     private fun load(db:SQLiteDatabase,text:String,language:String):Side? {
         val metadata=mutableMapOf<String,String>()
-        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id')",null).use { c ->
+        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule')",null).use { c ->
             while(c.moveToNext())metadata[c.getString(0)]=JSONTokener(c.getString(1)).nextValue() as String
         }
         val inventory=requireNotNull(metadata.remove("source_inventory_sha256"));require(inventory.matches(Regex("[0-9a-f]{64}")))
         val release=requireNotNull(metadata.remove("release_id"));require(release.matches(Regex("[0-9a-f]{64}")))
-        require(metadata.remove("policy") in POLICIES)
+        val policy=metadata.remove("policy");require(policy in POLICIES)
+        val hasSurfaceReadings=policy=="native-linked-arabic-plural-readings-16"
+        if(hasSurfaceReadings) {
+            require(language=="ar" && metadata.remove("surface_reading_schema")=="vipi-surface-reading-2")
+            require(metadata.remove("surface_reading_rule")==SURFACE_READING_RULE)
+        }
         require(metadata==mapOf("schema" to "vipi-lexical-shard-2","language" to language))
         val raw=ReviewedFrameLookup.windows(text,language) ?: return null
         val windows=linkedMapOf<String,MutableList<IntRange>>()
@@ -98,7 +104,21 @@ internal object LexicalConcordance {
                 }
             }
         }
-        return Side(windows,forms,terms,blocked,targetBlocked,names,guards,inventory,release,namedPlaces(text,language),phrases(text,language))
+        val surfaceReadings=linkedMapOf<Pair<Long,String>,MutableMap<String,MutableSet<String>>>()
+        if(hasSurfaceReadings) {
+            count=0
+            for(batch in windows.keys.sorted().chunked(200)) {
+                db.rawQuery("SELECT lexeme,normalized,reading,sense FROM surface_readings WHERE normalized IN (${marks(batch.size)}) ORDER BY normalized,lexeme,reading",batch.toTypedArray()).use { c ->
+                    while(c.moveToNext()) {
+                        count++;if(count>16384)throw Overflow()
+                        val reading=c.getString(2);require(reading.isNotEmpty() && reading.length<=96)
+                        surfaceReadings.getOrPut(c.getLong(0) to c.getString(1)){linkedMapOf()}
+                            .getOrPut(c.getString(3)){mutableSetOf()}.add(reading)
+                    }
+                }
+            }
+        }
+        return Side(windows,forms,terms,surfaceReadings,blocked,targetBlocked,names,guards,inventory,release,namedPlaces(text,language),phrases(text,language))
     }
     // Number 0 means unmarked, not universally singular. Ordinary nouns in
     // these languages may remain unmarked with plural reference. This never
@@ -113,9 +133,22 @@ internal object LexicalConcordance {
     }
     // A homograph's unrelated meaning must not veto a reading after a shared
     // eligible sense has been established. Ambiguity within that sense remains.
-    private fun readings(side:Side,form:Form,meanings:Set<String>):List<String> =
-        side.terms[form.lexeme].orEmpty().filter{it.eligible && it.sense in meanings}
-            .map{it.reading}.filter{it.isNotEmpty()}.distinct()
+    private fun linkedTerms(side:Side,form:Form):List<Term> {
+        val terms=side.terms[form.lexeme].orEmpty()
+        if(SURFACE_READING_RULE !in form.features)return terms
+        if(form.mode!=3)return emptyList()
+        val senses=side.surfaceReadings[form.lexeme to form.key].orEmpty().keys
+        return terms.filter{it.sense in senses}
+    }
+    private fun readings(side:Side,form:Form,meanings:Set<String>):List<String> {
+        val linked=linkedTerms(side,form).filter{it.eligible && it.sense in meanings}
+        if(linked.isEmpty())return emptyList()
+        // An inflected carrier needs its own attested reading. Missing or
+        // ambiguous form evidence must never borrow the singular headword.
+        if(SURFACE_READING_RULE in form.features)
+            return if(form.mode==3)side.surfaceReadings[form.lexeme to form.key].orEmpty().filterKeys{it in meanings}.values.flatten().distinct() else emptyList()
+        return linked.map{it.reading}.filter{it.isNotEmpty()}.distinct()
+    }
     private fun shape(form:Form)=listOf(
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
         form.number,if(form.mode==3)3 else 1)
@@ -205,12 +238,12 @@ internal object LexicalConcordance {
                 // guess an internal stem from a competing verbal analysis.
                 val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
                 val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
-                val allMeanings=usable.flatMap{left.terms[it.lexeme].orEmpty()}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                val allMeanings=usable.flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                 val claims=mutableSetOf<Claim>()
                 for(form in usable) {
                     if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
                     val sourceFocus=focus(form,carrier,original) ?: continue
-                    val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                    val meanings=linkedTerms(left,form).filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                     if(meanings.isEmpty())continue
                     val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
                     for((other,targets) in right.forms) {
@@ -220,8 +253,8 @@ internal object LexicalConcordance {
                             if(needsReading && readings.size!=1)continue
                             if(conflictingGeometry && (candidate.pos!="noun" || candidate.grammar))continue
                             if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || !numberCompatible(form,candidate,source,target) ||
-                                right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
-                            val targetMeanings=right.terms[candidate.lexeme].orEmpty().filter{it.eligible}.map{it.sense}.toSet()
+                                linkedTerms(right,candidate).none{it.eligible && it.sense in meanings})continue
+                            val targetMeanings=linkedTerms(right,candidate).filter{it.eligible}.map{it.sense}.toSet()
                             // A grammatical cue alone cannot choose a narrower
                             // meaning while nearby lexical context is unexplained.
                             // Short grammar-only utterances retain their prior path.
@@ -270,13 +303,13 @@ internal object LexicalConcordance {
                 val form=usable.singleOrNull() ?: continue
                 // One coarse native gloss can link several distinct senses of
                 // one English headword. It then needs context corroboration.
-                val ambiguousFamilies=left.terms[form.lexeme].orEmpty().filter{it.eligible && it.explicit}.groupBy{it.family}.values
+                val ambiguousFamilies=linkedTerms(left,form).filter{it.eligible && it.explicit}.groupBy{it.family}.values
                     .map{rows->rows.map{it.sense}.toSet()}.filter{it.size>1}
                 if(ambiguousFamilies.isNotEmpty() && target!="en") {
                     diagnostic("linked_sense_ambiguity");continue
                 }
                 val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
-                val meanings=left.terms[form.lexeme].orEmpty().filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                val meanings=linkedTerms(left,form).filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                 if(meanings.isEmpty()) {diagnostic("no_eligible_link");continue}
                 for(carrier in left.windows[word].orEmpty().distinct()) {
                     if(!alignment.uniqueSource(carrier,left.windows[word].orEmpty().filterNot{containedInKnownWord(left,it)}))continue
@@ -293,9 +326,9 @@ internal object LexicalConcordance {
                             // Returning the actual English dictionary headword
                             // preserves the whole linked sense family. A narrower
                             // counterpart still requires contextual evidence.
-                            val targetMeanings=right.terms[candidate.lexeme].orEmpty().filter{it.eligible}.map{it.sense}.toSet()
+                            val targetMeanings=linkedTerms(right,candidate).filter{it.eligible}.map{it.sense}.toSet()
                             if(ambiguousFamilies.any{!targetMeanings.containsAll(it)})continue
-                            if(right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
+                            if(linkedTerms(right,candidate).none{it.eligible && it.sense in meanings})continue
                             for(targetCarrier in right.windows[other].orEmpty().distinct()) {
                                 if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue
                                 val targetFocus=focus(candidate,targetCarrier,translation) ?: continue

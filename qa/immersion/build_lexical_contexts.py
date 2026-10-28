@@ -108,14 +108,36 @@ def load_lexicon(shard, language, sense_ids, output):
     for lexeme, sense, reading, explicit in db.execute('''SELECT t.lexeme,t.sense,t.reading,s.explicit
         FROM terms t JOIN senses s ON s.id=t.sense WHERE t.eligible=1 ORDER BY t.lexeme,t.sense,t.reading'''):
         terms[lexeme].append((sense_ids[sense], reading, explicit))
+    # Surface-specific pronunciation belongs to this normalized carrier,
+    # never to every form of the lexeme.
+    surface_readings = defaultdict(set)
+    metadata = {k:json.loads(v) for k,v in db.execute("SELECT key,value FROM metadata")}
+    surface_rule = "supplied-arabic-plural-reading-1"
+    if metadata.get("policy") == "native-linked-arabic-plural-readings-16":
+        assert language == "ar" and metadata.get("surface_reading_schema") == "vipi-surface-reading-2"
+        assert metadata.get("surface_reading_rule") == surface_rule
+        for word,lexeme,sense,reading in db.execute("SELECT normalized,lexeme,sense,reading FROM surface_readings"):
+            assert reading and len(reading) <= 96
+            surface_readings[(word,lexeme,sense_ids[sense])].add(reading)
     by_word = defaultdict(dict)
+    reading_modes = defaultdict(set)
     # Exact indexed carriers contribute only their lexical focus. Never assign
     # the full inflected word the meaning of its noun/verb stem.
-    for word, lexeme, safe, mode, written, start, end in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe,s.mode,s.surface,s.start,s.end
+    for word, lexeme, safe, mode, written, start, end, features in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe,s.mode,s.surface,s.start,s.end,s.features
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme
         WHERE s.mode IN (1,2,3) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
         if lexeme in terms:
-            if lexeme not in by_word[word]:by_word[word][lexeme] = [lexeme, safe, terms[lexeme], []]
+            uses_surface = surface_rule in json.loads(features)
+            reading_modes[(word,lexeme)].add(uses_surface)
+            assert len(reading_modes[(word,lexeme)]) == 1, "Mixed lexical and surface pronunciation geometry"
+            linked_terms = terms[lexeme]
+            if uses_surface:
+                assert mode == 3
+                # An absent reading withholds this carrier; never fall back
+                # to a different inflection's pronunciation.
+                linked_terms = sorted({(sense,reading,explicit) for sense,_,explicit in linked_terms
+                    for reading in surface_readings[(word,lexeme,sense)]})
+            if lexeme not in by_word[word]:by_word[word][lexeme] = [lexeme, safe, linked_terms, []]
             by_word[word][lexeme][3].append([mode,written,start,end])
     # Retain competing native analyses, including ones without usable links.
     for word, lexeme, safe in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe

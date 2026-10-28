@@ -4,7 +4,9 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
-    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15"]
+    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16"]
+    private static let surfaceReadingRule="supplied-arabic-plural-reading-1"
+    private struct ReadingKey:Hashable {let lexeme:String,word:String}
     private enum Limit:Error {case overflow}
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
@@ -14,6 +16,7 @@ enum LexicalConcordance {
     private struct Term {let sense:String,reading:String;let eligible:Bool,explicit:Bool;let family:String}
     private struct Side {
         let windows:[String:[NSRange]],forms:[String:[Form]],terms:[String:[Term]]
+        let surfaceReadings:[ReadingKey:[String:Set<String>]]
         let blocked:Set<String>,targetBlocked:Set<String>,names:Set<String>,guards:Set<String>,inventory:String,release:String
         let namedPlaces:[NSRange],phrases:[NSRange]
     }
@@ -91,13 +94,18 @@ enum LexicalConcordance {
     }
     private static func load(_ db:OpaquePointer,text:String,language:String) throws -> Side? {
         var metadata:[String:String]=[:]
-        for row in try query(db,"SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id')",[],limit:5) {
+        for row in try query(db,"SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule')",[],limit:7) {
             metadata[row[0]]=try JSONDecoder().decode(String.self,from:Data(row[1].utf8))
         }
         guard let inventory=metadata.removeValue(forKey:"source_inventory_sha256"),inventory.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
         guard let release=metadata.removeValue(forKey:"release_id"),release.range(of:"^[0-9a-f]{64}$",options:.regularExpression) != nil else {throw VocabularyPackError.invalid}
-        guard let policy=metadata.removeValue(forKey:"policy"),policies.contains(policy),
-              metadata==["schema":"vipi-lexical-shard-2","language":language] else {throw VocabularyPackError.invalid}
+        guard let policy=metadata.removeValue(forKey:"policy"),policies.contains(policy) else {throw VocabularyPackError.invalid}
+        let hasSurfaceReadings=policy=="native-linked-arabic-plural-readings-16"
+        if hasSurfaceReadings {
+            guard language=="ar",metadata.removeValue(forKey:"surface_reading_schema")=="vipi-surface-reading-2",
+                metadata.removeValue(forKey:"surface_reading_rule")==surfaceReadingRule else {throw VocabularyPackError.invalid}
+        }
+        guard metadata==["schema":"vipi-lexical-shard-2","language":language] else {throw VocabularyPackError.invalid}
         guard let raw=ReviewedFrameLookup.windows(text,language:language) else {return nil}
         var windows:[String:[NSRange]]=[:]
         for (written,ranges) in raw {windows[key(written),default:[]]+=ranges}
@@ -124,7 +132,19 @@ enum LexicalConcordance {
                 count+=1;terms[r[0],default:[]].append(Term(sense:r[1],reading:r[2],eligible:r[3]=="1",explicit:r[4]=="1",family:r[5]))
             }
         }
-        return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release,namedPlaces:namedPlaces(text,language:language),phrases:phrases(text,language:language))
+        var surfaceReadings:[ReadingKey:[String:Set<String>]]=[:]
+        if hasSurfaceReadings {
+            count=0
+            for start in stride(from:0,to:inputs.count,by:200) {
+                let batch=Array(inputs[start..<min(inputs.count,start+200)])
+                for r in try query(db,"SELECT lexeme,normalized,reading,sense FROM surface_readings WHERE normalized IN (\(marks(batch.count))) ORDER BY normalized,lexeme,reading",batch,limit:16384-count) {
+                    count+=1
+                    guard !r[2].isEmpty,r[2].utf16.count<=96 else {throw VocabularyPackError.invalid}
+                    surfaceReadings[ReadingKey(lexeme:r[0],word:r[1]),default:[:]][r[3],default:[]].insert(r[2])
+                }
+            }
+        }
+        return Side(windows:windows,forms:forms,terms:terms,surfaceReadings:surfaceReadings,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release,namedPlaces:namedPlaces(text,language:language),phrases:phrases(text,language:language))
     }
     // Unmarked common nouns can have plural reference in these languages.
     // Explicit number, verb forms and grammatical analyses stay constrained.
@@ -137,9 +157,21 @@ enum LexicalConcordance {
         }
         return (a.number==2 && unmarked(b,target)) || (b.number==2 && unmarked(a,source))
     }
+    private static func linkedTerms(_ side:Side,_ form:Form)->[Term] {
+        let terms=side.terms[form.lexeme,default:[]]
+        guard form.features.contains(surfaceReadingRule) else {return terms}
+        guard form.mode==3 else {return []}
+        let senses=Set(side.surfaceReadings[ReadingKey(lexeme:form.lexeme,word:form.key),default:[:]].keys)
+        return terms.filter{senses.contains($0.sense)}
+    }
     private static func readings(_ side:Side,_ form:Form,_ meanings:Set<String>)->Set<String> {
-        Set(side.terms[form.lexeme,default:[]].filter{$0.eligible && meanings.contains($0.sense)}
-            .map(\.reading).filter{!$0.isEmpty})
+        let linked=linkedTerms(side,form).filter{$0.eligible && meanings.contains($0.sense)}
+        guard !linked.isEmpty else {return []}
+        // Never pronounce an inflected carrier using its singular headword.
+        if form.features.contains(surfaceReadingRule) {
+            return form.mode==3 ? Set(side.surfaceReadings[ReadingKey(lexeme:form.lexeme,word:form.key),default:[:]].filter{meanings.contains($0.key)}.values.flatMap{$0}) : []
+        }
+        return Set(linked.map(\.reading).filter{!$0.isEmpty})
     }
     private static func shape(_ form:Form)->[Int] {
         [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
@@ -238,12 +270,12 @@ enum LexicalConcordance {
                 // A conflicting carrier may be resolved only as a whole noun with
                 // a noun counterpart and a nearby lexical witness.
                 let conflictingGeometry=usable.contains(where:{$0.mode==3}) && focuses.count != 1
-                let allMeanings=Set(usable.flatMap{left.terms[$0.lexeme,default:[]]}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
+                let allMeanings=Set(usable.flatMap{linkedTerms(left,$0)}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                 var claims=Set<Claim>()
                 for form in usable {
                     if conflictingGeometry && (form.pos != "noun" || !(1...2).contains(form.mode)) {continue}
                     guard let sourceFocus=focus(form,range:carrier,text:original) else {continue}
-                    let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
+                    let meanings=Set(linkedTerms(left,form).filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                     if meanings.isEmpty {continue}
                     let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
                     for other in right.forms.keys.sorted() {
@@ -254,8 +286,8 @@ enum LexicalConcordance {
                             if needsReading && readings.count != 1 {continue}
                             if conflictingGeometry && (candidate.pos != "noun" || candidate.grammar) {continue}
                             guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),numberCompatible(form,candidate,source:source,target:target),
-                                  right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
-                            let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter(\.eligible).map(\.sense))
+                                  linkedTerms(right,candidate).contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
+                            let targetMeanings=Set(linkedTerms(right,candidate).filter(\.eligible).map(\.sense))
                             // Narrower meanings must explain nearby lexical context;
                             // a common grammatical cue alone is insufficient there.
                             let narrow = !targetMeanings.isSuperset(of:allMeanings) || targets.contains{$0.grammar}
@@ -311,11 +343,11 @@ enum LexicalConcordance {
                 let shapes=Set(usable.map(shape))
                 guard shapes.count==1,let form=usable.first else {diagnostic(usable.isEmpty ? "source_sense_or_form" : "source_form_conflict");continue}
                 // One coarse native gloss cannot resolve several linked senses.
-                let families=Dictionary(grouping:left.terms[form.lexeme,default:[]].filter{$0.eligible && $0.explicit},by:{$0.family})
+                let families=Dictionary(grouping:linkedTerms(left,form).filter{$0.eligible && $0.explicit},by:{$0.family})
                 let ambiguousFamilies=families.values.map{Set($0.map(\.sense))}.filter{$0.count>1}
                 if !ambiguousFamilies.isEmpty && target != "en" {diagnostic("linked_sense_ambiguity");continue}
                 let features=forms.filter{$0.lexeme==form.lexeme && $0.mode==form.mode}.map(\.features).reduce(form.features){$0.intersection($1)}
-                let meanings=Set(left.terms[form.lexeme,default:[]].filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
+                let meanings=Set(linkedTerms(left,form).filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                 if meanings.isEmpty {diagnostic("no_eligible_link");continue}
                 for carrier in Set(left.windows[word,default:[]]) {
                     guard alignment.uniqueSource(carrier,left.windows[word,default:[]].filter{!protected(left,range:$0)}) else {continue}
@@ -330,8 +362,8 @@ enum LexicalConcordance {
                             let readings=readings(right,candidate,meanings)
                             if needsReading && readings.count != 1 {continue}
                             guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),numberCompatible(form,candidate,source:source,target:target),
-                                  right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
-                            let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter{$0.eligible}.map(\.sense))
+                                  linkedTerms(right,candidate).contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
+                            let targetMeanings=Set(linkedTerms(right,candidate).filter{$0.eligible}.map(\.sense))
                             guard ambiguousFamilies.allSatisfy({$0.isSubset(of:targetMeanings)}) else {continue}
                             for targetCarrier in Set(right.windows[other,default:[]]) {
                                 guard !protectedTarget(right,range:targetCarrier,text:translation,language:target,features:features),targetCaseMatches(candidate,range:targetCarrier,text:translation),let targetFocus=focus(candidate,range:targetCarrier,text:translation) else {continue}
