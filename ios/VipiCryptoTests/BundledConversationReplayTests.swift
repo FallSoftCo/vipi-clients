@@ -29,6 +29,8 @@ final class BundledConversationReplayTests:XCTestCase {
         let root=fm.urls(for:.cachesDirectory,in:.userDomainMask)[0].appendingPathComponent("bundled-conversation-replay-"+run)
         guard !fm.fileExists(atPath:output.path),!fm.fileExists(atPath:root.path) else {throw VocabularyPackError.invalid}
         defer {try? fm.removeItem(at:root)}
+        let catalogURL=try XCTUnwrap(Bundle.main.resourceURL?.appendingPathComponent("lexical/catalog.json"))
+        let catalogHash=SHA256.hash(data:try Data(contentsOf:catalogURL)).map{String(format:"%02x",$0)}.joined()
         let lexical=BundledLexicalCatalog(root:root)
         let starter=BundledImmersionCatalog()
         var outcomes:[[String:Any]]=[],failures:[String]=[],preparation:[[String:Any]]=[]
@@ -47,7 +49,7 @@ final class BundledConversationReplayTests:XCTestCase {
         func save(_ complete:Bool) throws {
             let report:[String:Any]=["schema":"vipi-bundled-conversation-replay-1","run":run,
                 "complete":complete,"cases_sha256":config[1],"platform":platform,
-                "translation_reused":true,"population_coverage_claim":false,
+                "translation_reused":true,"population_coverage_claim":false,"bundled_catalog_sha256":catalogHash,
                 "independent_semantic_acceptance":false,"failures":failures,
                 "pair_preparation":preparation,"outcomes":outcomes]
             try JSONSerialization.data(withJSONObject:report,options:[.sortedKeys]).write(to:output,options:.atomic)
@@ -66,7 +68,8 @@ final class BundledConversationReplayTests:XCTestCase {
                 lastPair=key
             }
             let start=Date()
-            let entries=try await lexical.entries(original:row.original,translation:row.translation,pair:pair)
+            let lookup=try await lexical.diagnosedEntries(original:row.original,translation:row.translation,pair:pair)
+            let entries=lookup.entries
             let result=try await starter.result(original:row.original,translation:row.translation,pair:pair,density:1,supplementalEntries:entries)
             let elapsed = -start.timeIntervalSinceNow*1000
             let previous=try await starter.result(original:row.original,translation:row.translation,pair:pair,density:1)
@@ -86,7 +89,7 @@ final class BundledConversationReplayTests:XCTestCase {
             if ["ar","zh","ja","ko"].contains(row.target) {XCTAssertTrue(result.spans.allSatisfy{!($0.romanization ?? "").isEmpty})}
             outcomes.append(["id":row.id,"dataset":row.dataset,"source":row.source,"target":row.target,
                 "original":row.original,"translation":row.translation,"baseline_spans":spans(previous),
-                "combined_spans":spans(result),"elapsed_ms":elapsed,"baseline_retained":retained])
+                "combined_spans":spans(result),"elapsed_ms":elapsed,"baseline_retained":retained,"diagnostics":lookup.diagnostics])
             if outcomes.count%10==0 {try save(false)}
         }
         try save(true)

@@ -27,6 +27,9 @@ class BundledConversationReplayDeviceTest {
         val bytes = input.readBytes()
         assertEquals(expectedHash, MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) })
         val cases = JSONArray(bytes.toString(Charsets.UTF_8))
+        val catalogHash = context.assets.open("lexical/catalog.json").use { stream ->
+            MessageDigest.getInstance("SHA-256").digest(stream.readBytes()).joinToString("") { "%02x".format(it) }
+        }
         val output = File(context.filesDir, "bundled-conversations-$revision.json")
         check(!output.exists())
         // Dedicated public-data scratch keeps this cross-pair replay from installing
@@ -46,7 +49,7 @@ class BundledConversationReplayDeviceTest {
         fun save(complete: Boolean) {
             output.writeText(JSONObject().put("schema","vipi-bundled-conversation-replay-1").put("run",revision)
                 .put("complete",complete).put("cases_sha256",expectedHash).put("platform","android")
-                .put("translation_reused",true).put("population_coverage_claim",false)
+                .put("translation_reused",true).put("population_coverage_claim",false).put("bundled_catalog_sha256",catalogHash)
                 .put("independent_semantic_acceptance",false).put("failures",failures)
                 .put("pair_preparation",timings).put("outcomes",outcomes).toString())
         }
@@ -66,7 +69,8 @@ class BundledConversationReplayDeviceTest {
                 }
                 val original=row.getString("original");val translation=row.getString("translation")
                 val start=System.nanoTime()
-                val entries=lexical.entries(original,translation,source,target)
+                val diagnostics=mutableMapOf<String,Int>()
+                val entries=lexical.entries(original,translation,source,target) { reason -> diagnostics[reason]=(diagnostics[reason] ?: 0)+1 }
                 val result=baseline.result(original,translation,source,target,1.0,entries)
                 val elapsed=(System.nanoTime()-start)/1e6
                 val previous=baseline.result(original,translation,source,target,1.0)
@@ -85,7 +89,7 @@ class BundledConversationReplayDeviceTest {
                 outcomes.put(JSONObject().put("id",row.getString("id")).put("dataset",row.getString("dataset"))
                     .put("source",source).put("target",target).put("original",original).put("translation",translation)
                     .put("baseline_spans",spans(previous.spans)).put("combined_spans",spans(result.spans))
-                    .put("elapsed_ms",elapsed).put("baseline_retained",retained))
+                    .put("elapsed_ms",elapsed).put("baseline_retained",retained).put("diagnostics",JSONObject(diagnostics as Map<*,*>)))
                 if(outcomes.length()%10==0)save(false)
             }
             save(true)

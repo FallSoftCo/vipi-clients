@@ -5,6 +5,7 @@ Never union successful rows from overlapping evidence. The replacement compiler
 must have processed both the prior corpus and a proven disjoint additional one.
 """
 import argparse
+from contextlib import closing
 import json
 from pathlib import Path
 import shutil
@@ -15,7 +16,7 @@ from build_wiktextract import canonical,digest_file
 def checked(path):
     receipt=json.loads((path.parent/'receipt.json').read_text())
     assert receipt['complete'] and receipt['sha256']==digest_file(path)
-    with sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True) as db:
+    with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)) as db:
         metadata={k:json.loads(v) for k,v in db.execute('SELECT key,value FROM metadata')}
         assert metadata['schema']=='vipi-context-witnesses-1' and not metadata['release_ready']
         assert metadata['counts']['witnesses']==db.execute('SELECT count(*) FROM witnesses').fetchone()[0]
@@ -56,7 +57,7 @@ def replace(args):
         db.commit()
     db.execute('INSERT OR IGNORE INTO references_used SELECT * FROM replacement.references_used')
     pairs={a+'-'+b:n for a,b,n in db.execute('SELECT source,target,count(*) FROM witnesses GROUP BY source,target')}
-    provenance=metadata.get('pair_input_revisions',{pair:base['sha256'] for pair in metadata['pairs']})
+    provenance=metadata.get('pair_input_revisions',{pair:base['sha256'] for pair in metadata.get('requested_pairs',metadata['pairs'])})
     provenance.update({'-'.join(pair):replacement['sha256'] for pair in requested})
     if recomputation:
         historical_contexts={pair:dict(primary=metadata['source_contexts_sha256'],
@@ -69,7 +70,7 @@ def replace(args):
             context_evidence_dictionary_release_id=recomputation['base_release'],
             dictionary_recomputation_proof_sha256=proof_sha,
             pair_context_revisions=historical_contexts)
-    metadata.update(pairs=pairs,pair_input_revisions=provenance,
+    metadata.update(pairs=pairs,pair_input_revisions=provenance,requested_pairs=sorted(provenance),
         counts=dict(witnesses=sum(pairs.values()),retained_reference_records=db.execute('SELECT count(*) FROM references_used').fetchone()[0]),
         additional_contexts_sha256=sorted(set(metadata.get('additional_contexts_sha256',[]))|set(delta['additional_contexts_sha256'])) if recomputation else delta['additional_contexts_sha256'],
         pair_replacement_policy='complete-pair-replacement-including-abstentions-1',

@@ -35,7 +35,9 @@ def export(args):
     assert catalog['release_id'] == metadata['source_release_id']
     shards = {r['language']: r for r in catalog['shards']}
     languages = sorted(shards)
-    assert set(counts) <= {a + '-' + b for a, b in itertools.permutations(languages, 2)}
+    expected_directions = {a + '-' + b for a, b in itertools.permutations(languages, 2)}
+    assert set(counts) <= expected_directions
+    assert set(metadata['pair_input_revisions']) == expected_directions, 'Every direction needs a completed evidence scope, including zero-rule pairs'
     schemas = dict(source.execute("SELECT name,sql FROM sqlite_master WHERE type='table' AND name IN ('metadata','witnesses')"))
     assert len(schemas) == 2
     args.output.mkdir(parents=True, exist_ok=False)
@@ -59,7 +61,8 @@ def export(args):
         pair_counts = {k: counts[k] for k in (a + '-' + b, b + '-' + a) if k in counts}
         selected = dict(metadata)
         selected.update(pairs=pair_counts, counts=dict(witnesses=sum(pair_counts.values())),
-            pair_input_revisions={k: metadata['pair_input_revisions'][k] for k in pair_counts},
+            pair_input_revisions={k: metadata['pair_input_revisions'][k] for k in (a+'-'+b,b+'-'+a) if k in metadata['pair_input_revisions']},
+            requested_pairs=[k for k in (a+'-'+b,b+'-'+a) if k in metadata['pair_input_revisions']],
             runtime_subset_policy='exact-bidirectional-witness-subset-1',
             authoring_witness_sha256=source_sha, authoring_receipt_sha256=sha(receipt_path),
             audit_evidence_external=True, pack_compiler_sha256=compiler_sha)
@@ -81,7 +84,7 @@ def export(args):
     assert sum(r['rules'] for r in results) == sum(counts.values())
     output = dict(schema='vipi-context-pair-packs-1', complete=True, exact_row_equality_verified=True,
                   source_authoring_sha256=source_sha, dictionary_release=catalog['release_id'],
-                  compiler_sha256=compiler_sha, language_count=len(languages), directed_pairs=len(counts),
+                  compiler_sha256=compiler_sha, language_count=len(languages), directed_pairs=len(expected_directions), directions_with_rules=len(counts),
                   rules=sum(counts.values()), pair_packs=results, runtime_context_bytes=sum(r['bytes'] for r in results),
                   all_dictionary_bytes=sum(r['bytes'] for r in shards.values()),
                   native_qualified=False, signed=False, release_ready=False, independent_semantic_acceptance=False,

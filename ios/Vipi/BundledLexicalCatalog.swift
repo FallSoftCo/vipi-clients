@@ -157,14 +157,29 @@ actor BundledLexicalCatalog {
         return try body(db)
     }
     func entries(original: String, translation: String, pair: TranslationPair) throws -> [VocabularyEntry] {
-        guard TranslationIntegrity.preservesIdentifiers(original: original, translation: translation),
-              let selected = try selected(pair) else { return [] }
+        try lookupEntries(original: original, translation: translation, pair: pair, diagnostic: {_ in})
+    }
+    #if DEBUG
+    /// Aggregate reasons for development evaluation; never stores message text.
+    func diagnosedEntries(original: String, translation: String, pair: TranslationPair) throws -> (entries: [VocabularyEntry], diagnostics: [String: Int]) {
+        var counts: [String: Int] = [:]
+        let entries = try lookupEntries(original: original, translation: translation, pair: pair) {
+            counts[$0, default: 0] += 1
+        }
+        return (entries, counts)
+    }
+    #endif
+    private func lookupEntries(original: String, translation: String, pair: TranslationPair, diagnostic: (String) -> Void) throws -> [VocabularyEntry] {
+        guard TranslationIntegrity.preservesIdentifiers(original: original, translation: translation) else {
+            diagnostic("identifier_guard"); return []
+        }
+        guard let selected = try selected(pair) else { diagnostic("missing_catalog"); return [] }
         let files = try selected.map(databaseFile)
         return try withDatabase(files[0]) { left in
             try withDatabase(files[1]) { right in
                 try withDatabase(files[2]) { witness in
                     try LexicalConcordance.entries(leftDB: left, rightDB: right, original: original,
-                        translation: translation, source: pair.source, target: pair.target, witnessDB: witness)
+                        translation: translation, source: pair.source, target: pair.target, witnessDB: witness, diagnostic: diagnostic)
                 }
             }
         }

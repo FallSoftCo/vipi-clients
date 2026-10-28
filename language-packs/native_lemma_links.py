@@ -122,6 +122,12 @@ class NativeLinks:
             pieces=[re.sub(r'^to ','',s.strip()) for s in re.split('[,;]',gloss)]
             if any(not re.fullmatch(r"[a-z]+(?:[ '-][a-z]+)?",s) for s in pieces):return set()
             values.update(pieces)
+            # Definitional articles are editorial scaffolding: the native
+            # gloss "an island, an isle" corroborates an existing island link.
+            # Retain original strings and only add article-free noun items.
+            # This cannot create bilingual links or certify a narrower sense.
+            if self.entry(identifier)[3]=='noun':
+                values.update(re.sub(r'^(?:a|an) ', '', item) for item in pieces)
         return values
 
     @lru_cache(maxsize=100000)

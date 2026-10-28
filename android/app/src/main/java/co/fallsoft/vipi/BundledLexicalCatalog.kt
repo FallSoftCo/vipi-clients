@@ -112,13 +112,14 @@ internal class BundledLexicalCatalog(private val context: Context,
         selected(source, target).forEach(::databaseFile)
         true
     }
-    fun entries(original: String, translation: String, source: String, target: String): List<VocabularyEntry> = synchronized(monitor) {
-        if (index == null || !TranslationIntegrity.preservesIdentifiers(original, translation)) return@synchronized emptyList()
+    fun entries(original: String, translation: String, source: String, target: String, diagnostic: (String) -> Unit = {}): List<VocabularyEntry> = synchronized(monitor) {
+        if (index == null) { diagnostic("missing_catalog"); return@synchronized emptyList() }
+        if (!TranslationIntegrity.preservesIdentifiers(original, translation)) { diagnostic("identifier_guard"); return@synchronized emptyList() }
         val files = selected(source, target).map(::databaseFile)
         fun open(file: File) = SQLiteDatabase.openDatabase(file.path, null,
             SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
         open(files[0]).use { left -> open(files[1]).use { right -> open(files[2]).use { witness ->
-            LexicalConcordance.entries(left, right, original, translation, source, target, witness)
+            LexicalConcordance.entries(left, right, original, translation, source, target, witness, diagnostic)
         }}}
     }
 }

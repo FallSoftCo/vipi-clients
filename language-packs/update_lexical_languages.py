@@ -66,7 +66,7 @@ def main(a):
         mutation_scope='Selected languages fully recompiled from pinned evidence; other lexical rows unchanged, metadata rebound. Fresh context mining required for all affected directions.')
     (a.output/'catalog.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     (a.output/'ATTRIBUTION.txt').write_text((a.base.parent/'ATTRIBUTION.txt').read_text()+
-        '\nChanges: exact supplied Chinese script variants and upstream redirects; lexical character words require a published bilingual counterpart corroborated by a native gloss. Native entry identities, readings and source attribution retained.\n')
+        '\nChanges: '+a.change_note+'\n')
     (a.output/'progress.json').unlink()
     print(canonical(dict(complete=True,release_id=release,bytes=summary['total_bytes'],changed_languages=sorted(selected))),flush=True)
 
@@ -74,4 +74,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for n in ['base','inventory','redirects','gloss-links','output']:p.add_argument('--'+n,type=Path,required=True)
     p.add_argument('--language',action='append',required=True)
+    p.add_argument('--change-note',default='Selected languages recompiled from retained published dictionary evidence. Native identities, readings and source attribution retained.')
     main(p.parse_args())

@@ -32,7 +32,7 @@ class PairReplacement(unittest.TestCase):
                 (folder/'ATTRIBUTION.txt').write_text('Synthetic '+name+' fixture.\n')
                 return path
             base=fixture('base',[('sw','en','kitu','thing','@whole',3,3),('en','sw','cat','paka','@whole',3,3),
-                ('es','en','casa','house','@whole',3,3)])
+                ('es','en','casa','house','@whole',3,3)],['sw-en','en-sw','es-en','ja-sw'])
             delta=fixture('delta',[('en','sw','dog','mbwa','@whole',4,4)],['sw-en','en-sw'])
             output=root/'output';replace(argparse.Namespace(base=base,replacement=delta,output=output))
             with sqlite3.connect(output/'witnesses.sqlite') as db:
@@ -41,6 +41,9 @@ class PairReplacement(unittest.TestCase):
             self.assertNotIn('sw-en',meta['pairs'])
             self.assertEqual(meta['pair_input_revisions']['sw-en'],digest_file(delta))
             self.assertEqual(meta['pair_input_revisions']['es-en'],digest_file(base))
+            self.assertEqual(meta['pair_input_revisions']['ja-sw'],digest_file(base))
+            self.assertEqual(set(meta['requested_pairs']),{'sw-en','en-sw','es-en','ja-sw'})
+            self.assertNotIn('ja-sw',meta['pairs'])
             self.assertFalse(meta['release_ready'])
             self.assertEqual(json.loads((output/'receipt.json').read_text())['sha256'],digest_file(output/'witnesses.sqlite'))
             # Declaring fewer processed pairs cannot silently keep/delete data.

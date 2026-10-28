@@ -1,5 +1,50 @@
 # Bulk local language expansion — 2026-10-27
 
+## Noun-gloss correction and complete development directions — 2026-10-28
+
+Dictionary 012 corrects a parsing error in short noun definitions: an existing
+published counterpart such as island was treated as contradictory when the
+native entry said “an island.” Only complete short noun-gloss items gain the
+article-free comparison; descriptions, qualified aliases, conflicting senses
+and readings retain their existing treatment.
+
+The audit identified 1,798 potentially restorable term links across 1,493
+lexemes. The actual full rebuild has 1,795 existing terms changing from
+ineligible to eligible, plus 13 term rows added through existing source
+relations. It also includes 6,822 additional supplied/indexed surface rows,
+primarily Arabic and Korean carriers for entries previously made eligible.
+These are dictionary records, not verified conversational substitutions.
+Existing lexeme safety flags did not change. Exact per-language differences
+are in artifacts/lexical-shards-012/previous-release-comparison.json.
+
+Release 7d9ff2229edea5d194e5db3a7b22dd1a7329aa9af269c16fa4729c098e1ac5af
+occupies 1,683,308,544 expanded bytes. All eleven shard hashes and SQLite
+checks passed. The temporary 4,428,693,504-byte inventory copy was verified
+and retired after the rebuild; the canonical source is preserved. Fresh
+Tatoeba and Parallel Global Voices contexts are being compiled for all 110
+directions. This revision is not yet activated in the development apps.
+
+The retained native development cohort now has 560 ordinary examples and
+42 targeted regression examples across all 110 directions. The additional
+28 translations into Swahili were captured with the dedicated Android
+emulator offline, using already-installed models; iOS replay reused those
+exact translations. Both platforms produced substitutions in 217 of the
+560 ordinary examples using bundle 002. There are two differing selections
+between platforms. This deliberately small, heterogeneous development
+sample is not a population coverage estimate, an independent meaning
+assessment, or evidence that the 90% goal is met. It includes difficult short
+speech fragments and informal SMS alongside assistant questions.
+
+The native replay now records the exact bundled catalog hash and aggregate
+selection diagnostics. This distinguishes missing links, competing lexical
+analyses and translation identifier changes. The iOS simulator still cannot
+run the ML Kit arm64 translator; these results exercise the actual bundled
+mapping reader with captured translations. Artifacts:
+bundled-development-004, human-prompt-translations-002.json,
+bundled-conversations-android-005/006.json, and
+bundled-conversations-simulator-004/005.json.
+
+
 The active expansion uses the full retained dictionaries and direct parallel
 text. Storage is a capacity to use, not a reason to limit the catalog to a few
 handwritten examples. The development app combines authored starter bundle 022 with broad dictionary

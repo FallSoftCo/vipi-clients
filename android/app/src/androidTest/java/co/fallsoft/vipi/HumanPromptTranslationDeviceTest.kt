@@ -13,7 +13,8 @@ import java.io.File
 import java.security.MessageDigest
 
 /** Captures actual offline provider output for pinned public development prompts.
- * These are human assistant-style requests, not representative private chats.
+ * Source-labelled public samples include human assistant-style requests.
+ * This small development cohort does not represent private chat populations.
  * Outputs are evidence for review, never training labels or accuracy assertions. */
 class HumanPromptTranslationDeviceTest {
     @Test fun translatePublicDevelopmentPromptsOffline() = runBlocking {
@@ -30,6 +31,8 @@ class HumanPromptTranslationDeviceTest {
         assertEquals(expected, MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) })
         val prompts = JSONArray(bytes.toString(Charsets.UTF_8))
         val languages = listOf("ar","de","en","es","fr","it","ja","ko","pt","sw","zh")
+        val onlyTarget = args.getString("vipiTargetLanguage")
+        require(onlyTarget == null || onlyTarget in languages)
         val output = File(context.filesDir, "human-prompt-translations-$run.json")
         check(!output.exists())
         val rows = JSONArray()
@@ -52,7 +55,7 @@ class HumanPromptTranslationDeviceTest {
             withTimeout(15_000) { while (manager.activeNetwork != null) delay(100) }
             assertNull(manager.activeNetwork)
             LocalTranslation().use { translator ->
-                for (source in languages) for (target in languages.filter { it != source }) {
+                for (source in languages) for (target in languages.filter { it != source && (onlyTarget == null || it == onlyTarget) }) {
                     for (i in 0 until prompts.length()) {
                         val row = prompts.getJSONObject(i)
                         if (row.getString("source") != source) continue
@@ -63,7 +66,7 @@ class HumanPromptTranslationDeviceTest {
                             // No prepare/download call: models must already be installed.
                             val translation = withTimeout(45_000) { translator.translate(row.getString("original"),source,target) }
                             check(translation.isNotBlank())
-                            rows.put(JSONObject().put("id",id).put("dataset","oasst1-human-development")
+                            rows.put(JSONObject().put("id",id).put("dataset",row.optString("dataset","oasst1-human-development"))
                                 .put("source",source).put("target",target).put("original",row.getString("original"))
                                 .put("translation",translation).put("elapsed_ms",(System.nanoTime()-start)/1e6))
                         } catch (failure: Exception) {
@@ -76,7 +79,10 @@ class HumanPromptTranslationDeviceTest {
             }
             save(true)
             assertEquals(errors.toString(),0,errors.length())
-            assertEquals(prompts.length()*(languages.size-1),rows.length())
+            val expectedRows = (0 until prompts.length()).sumOf { i ->
+                languages.count { it != prompts.getJSONObject(i).getString("source") && (onlyTarget == null || it == onlyTarget) }
+            }
+            assertEquals(expectedRows,rows.length())
         } finally {
             if (wifi) shell("svc wifi enable")
             if (data) shell("svc data enable")

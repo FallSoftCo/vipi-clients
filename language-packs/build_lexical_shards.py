@@ -18,7 +18,7 @@ from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 import noun_carriers
 
-POLICY = "native-linked-chinese-lexical-7"
+POLICY = "native-linked-noun-gloss-articles-8"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
