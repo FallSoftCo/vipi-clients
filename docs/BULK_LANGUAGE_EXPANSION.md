@@ -1,5 +1,35 @@
 # Bulk local language expansion — 2026-10-27
 
+## Bundle 003 native development result — 2026-10-28
+
+The dictionary-012 rebuild completed all 110 directions from both retained
+corpora. Witness 014 contains 4,815,577 rules; its SHA-256 is
+a7a05442cf67057cffdf73fcac97f0f9d7bb3cc40f1bd0e82d56a48c2e7aed73.
+The exact 55 bidirectional subsets and 11 dictionaries occupy 352,691,605
+compressed bytes, or 1,891,610,624 expanded bytes for all languages.
+Only the selected pair is expanded by the app. Bundle catalog SHA:
+4859eaa82bc95fe2fa3ce796fa62e700ed8aadb5c737ce3059eada904aca6242.
+
+Both the Android emulator and iOS simulator completed the same 602 inputs
+through the real native bundled reader. Each gains 12 spans, loses seven,
+and gains nine previously empty ordinary messages. Ordinary message
+availability changes from 217/560 to 226/560. This small mixed development
+cohort is not a population coverage or accuracy measurement. The two
+previous platform selection differences remain.
+
+Author review found the 12 additions plausible in context, including island,
+restaurant, family, farm, taxi and game. All seven removals were useful
+previous mappings, including book, read and factors; these remain explicit
+coverage losses. New contradictory source observations were not discarded
+to restore old counts. Whole-translation errors remain, and this does not
+establish the 90% goal or store readiness.
+
+Android build 013 passed; replays are bundled-conversations-android-007.json
+and bundled-conversations-simulator-006.json. Exact per-span review and
+cross-platform differences: artifacts/bundled-lexical-003-qualification.json.
+The candidate is active in development assets only. Dictionary 014's larger
+adjective correction is the next context build and is not part of this result.
+
 ## Supplied adjective agreement and statistical alignment investigation — 2026-10-28
 
 Dictionary 014 additionally makes 214,670 existing surface records usable as
@@ -99,7 +129,7 @@ bundled-conversations-simulator-004/005.json.
 The active expansion uses the full retained dictionaries and direct parallel
 text. Storage is a capacity to use, not a reason to limit the catalog to a few
 handwritten examples. The development app combines authored starter bundle 022 with broad dictionary
-bundle 002. Broader meaning acceptance and production delivery checks remain
+bundle 003. Broader meaning acceptance and production delivery checks remain
 open; this is not a store release.
 
 ## Changed-language rebuild and actual chat integration — 2026-10-28 UTC
