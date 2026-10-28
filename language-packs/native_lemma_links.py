@@ -92,6 +92,18 @@ class NativeLinks:
     def derived_counterpart(self, identifier, english, label):
         """A derived verb must have its own matching published definition."""
         if self.language!="sw" or self.entry(identifier)[3]!="verb":return None
+        rows=self.senses(identifier)
+        # A derivation tag does not erase separate ordinary lexical senses.
+        # Existing published links for such mixed entries keep the normal
+        # contradiction checks; this stricter gate qualifies newly usable,
+        # purely derived entries only.
+        for raw,tags,forms,alts in rows:
+            tags=set(json.loads(tags))
+            if tags&EXCLUDED:continue
+            if (not derived_entry(self.language,"verb",tags) and
+                not json.loads(forms) and not json.loads(alts) and
+                not tags&{"form-of","alt-of"} and json.loads(raw)):
+                return None
         found=False;matches=False
         normalize=lambda value:re.sub(r"^to ", "", value.strip().lower().rstrip("."))
         for raw,tags,forms,alts in self.senses(identifier):

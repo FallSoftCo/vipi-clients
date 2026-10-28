@@ -30,13 +30,20 @@ same denominators. Targeted checks demonstrate that a third-source conflict
 removes a previously supported mapping and that wrong predecessor identities
 are rejected. Reserved MASSIVE rows never enter development contexts.
 
-The full Tatoeba/Swahili and PGV context rebuilds are running. The owned
-pipeline at artifacts/coverage-expansion-004-run-001 waits for completed
-receipts, compiles all 110 directions, creates bundle 004 and runs Android
-replay 008. Source hashes are pinned and compiler snapshots execute directly;
-a failure stops for inspection. iOS replay and inspection of actual additions
-and losses remain required. Bundle 003 remains the currently qualified
-development data; bundle 004 is not yet qualified.
+All three context rebuilds and all 110 mapping directions are complete.
+Witness 015 contains 4,955,296 rules, SHA-256
+a67fb803ce3b546411e5a6db87b5ae1c6bf5be3ed802c5902589a16cd335baff.
+Bundle 004 is 354,769,176 compressed bytes, with 1,898,700,800 expanded bytes
+if every language were installed. Its catalog SHA-256 is
+6c8ef52f248437b2a88d970af5428107865726f053f717c7f2978035401a9d3e.
+The 139,719 additional rules are not a conversational coverage result.
+
+The owned pipeline at artifacts/coverage-expansion-004-run-001 has entered
+Android native replay 008; build 014 passed. The paired Mac controller is
+preparing iOS simulator replay 007. Source hashes are pinned and compiler
+snapshots execute directly; a failure stops for inspection. Actual additions,
+losses and meanings remain to be reviewed. Bundle 003 is the previous
+qualified development baseline; bundle 004 is active only as a candidate.
 
 Superseded raw dictionary 012 was retired only after all eleven files matched
 the retained bundle-003 compressed payloads byte for byte and had no visible
@@ -65,9 +72,21 @@ was withheld after author review found incorrect homograph links and
 unrelated senses in several derived entries. Its comparison and rejection
 are retained. Policy 12 additionally requires a unique infinitive backlink
 and a direct counterpart or exact label in the derived verb's own definition.
-The corrected candidate is building as artifacts/lexical-swahili-016. Both
-are separate from bundle 004 and have no native activation; changed-direction
-context recomputation and native replay remain required.
+Candidate 016 was stopped after measured random-read latency on the archived
+inventory; no complete output was produced. Candidate 017 rebuilt from an
+exact verified disk copy in 3.35 seconds. It removes the earlier false
+homograph links but remains withheld: its derived-entry gate also removed
+ordinary meanings from mixed entries, and imarisha was incorrectly eligible
+for the intransitive become-stable sense. Its 37 additions and 16 removals
+are reviewed source changes, not accepted coverage.
+
+Candidate 018 preserves ordinary mixed-entry treatment and records the exact
+causative contradiction as an attributed author review in
+language-packs/lexical_link_reviews.py. Source identities and that review
+module are hashed into the release. Its compiler snapshot is frozen and
+waiting for the verified active-authoring inventory copy. These Swahili
+candidates are separate from bundle 004 and have no native activation;
+changed-direction context recomputation and native replay remain required.
 
 ## Bundle 003 native development result — 2026-10-28
 

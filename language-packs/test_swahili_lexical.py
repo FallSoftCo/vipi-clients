@@ -2,6 +2,7 @@ import json,sqlite3,unittest
 from native_lemma_links import NativeLinks
 from build_lexical_shards import native_senses
 from swahili_lexical import derivation_definition,supplied_infinitive
+import lexical_link_reviews
 
 class SwahiliLexical(unittest.TestCase):
     def row(self,gloss,tags,refs):
@@ -50,11 +51,26 @@ class SwahiliLexical(unittest.TestCase):
             self.assertFalse(links.derived_counterpart(2,"borrow","to receive temporarily"))
             self.assertFalse(links.derived_counterpart(3,"lend","to allow temporary use"))
             self.assertIsNone(links.derived_counterpart(1,"borrow","to receive temporarily"))
+            # An ordinary definition beside a derivation remains available.
+            db.execute("INSERT INTO native_senses VALUES (3,?,?,?,?)",self.row("to spell",[],[]))
+            links.senses.cache_clear()
+            self.assertIsNone(links.derived_counterpart(3,"spell","to write or say the letters that form a word"))
+            # Its derived identity still must not collapse to the base.
+            links.resolved.clear()
+            self.assertEqual(links.resolve(3),3)
 
             self.assertEqual(native_senses([lend],"sw","verb"),(1,True))
             self.assertEqual(native_senses([unqualified],"sw","verb"),(0,True))
             self.assertEqual(native_senses([lend],"es","verb"),(0,True))
         finally:links.close();db.close()
+
+    def test_reviewed_causative_sense_does_not_change_state_by_itself(self):
+        sense="b28657b739604b237b65cd34b5d3c903963202bdb8c1b890feb1e086fc7cdf29"
+        self.assertTrue(lexical_link_reviews.rejected("sw",2168820,sense,"to become stable"))
+        self.assertFalse(lexical_link_reviews.rejected("sw",2168820,"different-sense","to make stable"))
+        self.assertFalse(lexical_link_reviews.rejected("sw",7906598,sense,"to become stable"))
+        with self.assertRaises(AssertionError):
+            lexical_link_reviews.rejected("sw",2168820,sense,"changed upstream meaning")
 
     def test_qualified_or_conflicting_derivations_and_invented_forms_are_rejected(self):
         refs=[dict(word="-kopa",extra="to lend")]

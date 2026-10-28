@@ -19,8 +19,9 @@ from native_lemma_links import NativeLinks
 import noun_carriers
 import adjective_agreement
 import swahili_lexical
+import lexical_link_reviews
 
-POLICY = "native-linked-swahili-definitions-12"
+POLICY = "native-linked-swahili-reviewed-13"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -140,6 +141,8 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
                 contradiction=False;counts['definition_corroborated_links']+=1
             if links.derived_counterpart(root,english,label) is False:
                 contradiction=True;counts['uncorroborated_derived_links']+=1
+            if lexical_link_reviews.rejected(language,root,sid,label):
+                contradiction=True;counts['authored_link_rejections']+=1
             linked_terms[root].append((sid,reading,q,label,spos,explicit,surl,contradiction))
             if contradiction:counts['contradicted_links']+=1
     # Native definitions supply direct English relations absent from English
@@ -280,6 +283,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             carrier_rules_sha256=digest_file(Path(noun_carriers.__file__)),
             adjective_agreement_sha256=digest_file(Path(adjective_agreement.__file__)),
             swahili_lexical_sha256=digest_file(Path(swahili_lexical.__file__)),
+            lexical_link_reviews_sha256=digest_file(Path(lexical_link_reviews.__file__)),
             quality='published-dictionary-and-finite-noun-carriers',individually_reviewed=False,license='CC-BY-SA-4.0')
         db.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()])
         db.commit()
@@ -296,6 +300,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
 def build(inventory,output,languages,redirects,gloss_links):
     receipt=json.loads((inventory.parent/'receipt.json').read_text())
     if not receipt['complete_source_scan'] or receipt['sha256']!=digest_file(inventory):raise ValueError('Complete pinned inventory required')
+    assert receipt['sha256']==lexical_link_reviews.INVENTORY_SHA256, 'Individual sense reviews require the exact upstream inventory'
     if len(set(languages))!=len(languages) or any(lang not in receipt['languages'] for lang in languages):raise ValueError('Unknown/repeated language')
     redirect_receipt=json.loads((redirects.parent/'receipt.json').read_text())
     if redirect_receipt['upstream_sha256']!=receipt['upstream_sha256'] or redirect_receipt['sha256']!=digest_file(redirects):raise ValueError('Pinned redirect supplement required')
@@ -305,7 +310,8 @@ def build(inventory,output,languages,redirects,gloss_links):
         compiler=digest_file(Path(__file__)),linker=digest_file(Path(__file__).with_name('native_lemma_links.py')),
         carrier_rules=digest_file(Path(noun_carriers.__file__)),
         adjective_agreement=digest_file(Path(adjective_agreement.__file__)),
-        swahili_lexical=digest_file(Path(swahili_lexical.__file__)))).encode()).hexdigest()
+        swahili_lexical=digest_file(Path(swahili_lexical.__file__)),
+        lexical_link_reviews=digest_file(Path(lexical_link_reviews.__file__)))).encode()).hexdigest()
     output.mkdir(parents=True,exist_ok=False)
     shards=[compile_language(inventory,output,language,receipt,redirects,redirect_receipt,gloss_links,gloss_receipt,release_id) for language in languages]
     summary=dict(schema='vipi-lexical-shards-1',policy=POLICY,release_id=release_id,inventory_sha256=receipt['sha256'],
