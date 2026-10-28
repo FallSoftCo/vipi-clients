@@ -80,11 +80,17 @@ class ChatImmersionDeviceTest {
         fun lastParagraph(): Pair<String, Int>? {
             var result: Pair<String, Int>? = null
             instrumentation.runOnMainSync {
-                result = WindowInspector.getGlobalWindowViews().flatMap { paragraphs(it) }.lastOrNull()?.let { it.visibleText() to it.height }
+                result = WindowInspector.getGlobalWindowViews().flatMap { paragraphs(it) }
+                    .singleOrNull { it.text.toString() == "I like music." &&
+                        it.getGlobalVisibleRect(android.graphics.Rect()) }?.let { it.visibleText() to it.height }
             }
             return result
         }
-        fun capture(name: String) { check(UiDevice.getInstance(instrumentation).takeScreenshot(File(output, "$name.png"))) }
+        fun capture(name: String) {
+            compose.waitForIdle()
+            UiDevice.getInstance(instrumentation).waitForIdle()
+            check(UiDevice.getInstance(instrumentation).takeScreenshot(File(output, "$name.png")))
+        }
         val originals = if (reversed) listOf("Ninapenda muziki.") else listOf("I am reading a book now.", "I am drinking water now.", "Where is the phone charger?", "I like music.")
         try {
             runBlocking { withContext(Dispatchers.Main) {
@@ -119,7 +125,11 @@ class ChatImmersionDeviceTest {
             compose.onNodeWithText("Languages").performClick()
             compose.runOnIdle { assertEquals(1, languageRequests) }
             compose.onNodeWithTag("message-input").performClick().performTextInput("A draft")
+            compose.onNodeWithTag("message-input").assertTextContains("A draft")
+            compose.runOnIdle { assertEquals("A draft", chat.compose(peer)) }
+            compose.waitUntil(5_000) { lastParagraph() != null }
             val held = lastParagraph()!!.first
+            capture("android-swahili-composing-light")
             val until = android.os.SystemClock.uptimeMillis()+8_000
             while (android.os.SystemClock.uptimeMillis()<until) {
                 assertEquals(held, lastParagraph()?.first); android.os.SystemClock.sleep(100)
@@ -136,6 +146,9 @@ class ChatImmersionDeviceTest {
                 .put("stable_height", true).put("whole_translation", true).put("composing_paused", true)
                 .put("target_language_original", reversed).put("manual_language_selection", true).put("copy_original_verified", true)
                 .put("languages_menu_after_preparation", true).put("encrypted_originals_unchanged", true).toString(2))
+        } catch (failure: Throwable) {
+            capture("android-swahili-failure")
+            throw failure
         } finally {
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()
             if (initialized) runBlocking { withContext(Dispatchers.Main) { chat.close() } }

@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -115,11 +117,33 @@ import java.util.UUID
             val last = layout.visibleItemsInfo.lastOrNull()
             val nearBottom = last != null && last.index == layout.totalItemsCount - 1 &&
                 last.offset + last.size <= layout.viewportEndOffset
-            list.isScrollInProgress to nearBottom
-        }.collect { (scrolling, nearBottom) ->
+            // scrollToItem updates requested state before the next measure.
+            // An old bottom layout must not undo an explicit jump to history.
+            Triple(list.isScrollInProgress, nearBottom,
+                layout.visibleItemsInfo.firstOrNull()?.index == list.firstVisibleItemIndex)
+        }.collect { (scrolling, nearBottom, measuredPosition) ->
             // Content insertion alone must not revoke the reader's choice to
             // follow latest. Only scrolling can move that choice away.
-            if (scrolling || nearBottom) followingLatest = nearBottom
+            if (measuredPosition && (scrolling || nearBottom)) followingLatest = nearBottom
+        }
+    }
+    LaunchedEffect(list, peer) {
+        var previous: Pair<Int, Map<Any, Int>>? = null
+        snapshotFlow {
+            val layout = list.layoutInfo
+            layout.viewportSize.height to layout.visibleItemsInfo.associate { it.key to it.size }
+        }.collect { current ->
+            val before = previous
+            previous = current
+            // New visible keys mean scrolling, not resizing. Compare only
+            // shared rows so paging back cannot trigger a jump to the bottom.
+            val resized = before != null && before.first > 0 && before.second.isNotEmpty() && (before.first != current.first ||
+                current.second.any { (key, height) -> before.second[key]?.let { it != height } == true })
+            if (resized && followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
+                // Complete this adjustment now. A deferred remeasure request
+                // can otherwise override a later explicit history jump.
+                list.scrollToItem(messages.size + 1)
+            }
         }
     }
     fun refresh() {
@@ -203,7 +227,19 @@ import java.util.UUID
             userRefreshing = true
             try { chat.synchronize(); refresh() } finally { userRefreshing = false }
         } }, modifier = Modifier.fillMaxSize().padding(padding)) {
-            LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("conversation-timeline"), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("conversation-timeline").semantics {
+                scrollToIndex { index ->
+                    if (index !in 0 until list.layoutInfo.totalItemsCount) false else {
+                        // Accessibility jumps can complete within one frame,
+                        // before a scroll-in-progress observer sees the choice.
+                        scope.launch(start = kotlinx.coroutines.CoroutineStart.UNDISPATCHED) {
+                            followingLatest = index == list.layoutInfo.totalItemsCount - 1
+                            list.scrollToItem(index)
+                        }
+                        true
+                    }
+                }
+            }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item(key = "history-header") {
                     if (immersion.ready == false && onLanguages != null) TextButton(onClick = onLanguages) { Text("Prepare languages") }
                     if (earlierAvailable) TextButton(onClick = { earlier() }) { Text("Earlier messages") }

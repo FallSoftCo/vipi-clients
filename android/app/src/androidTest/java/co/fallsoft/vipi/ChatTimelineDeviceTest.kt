@@ -153,6 +153,9 @@ class ChatTimelineDeviceTest {
                 .put("initial_latest", true).put("append_preserved_anchor", true).put("keyboard_preserved_reading", true)
                 .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true)
                 .put("older_page_preserved_anchor", true).put("immersed_history", immersed).toString(2))
+        } catch (failure: Throwable) {
+            capture("android-timeline-failure")
+            throw failure
         } finally {
             device.executeShellCommand(if (handwriting == "null") "settings delete secure stylus_handwriting_enabled" else "settings put secure stylus_handwriting_enabled $handwriting")
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()

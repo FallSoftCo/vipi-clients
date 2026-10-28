@@ -2,6 +2,37 @@
 
 Updated 2026-10-27. Native conversation immersion is substantially implemented. Vipi is not store-ready, has not been submitted, and has no demonstrated majority conversational coverage.
 
+## Android reading position with bundled dictionaries — 2026-10-28 UTC
+
+The normal conversation path now uses the broad local dictionaries as well as
+starter mappings. Keyboard opening and late row resizing retain the latest
+message only while the reader is following latest. A stale layout from before
+an accessibility jump could incorrectly restore auto-follow; the observer now
+requires the measured first index to match the requested list position.
+Explicit history jumps revoke following before the scroll starts.
+
+Build 010 passes. Timeline run 018 passes both plain and immersed history:
+reading position survives incoming messages and keyboard opening; own send and
+the down-arrow return to latest; paging backward retains the anchor. Chat run
+022 passes all three checks, including continuous Swahili in both language
+roles, whole-sentence views, copying the untouched original and drafting pause.
+Logs 024/025 separate two passed history methods from the initial three
+immersion invocations rejected for a missing dedicated-emulator runner argument.
+The corrected immersion invocation passes; no assertion was weakened.
+
+Native captures and hashes are in artifacts/bundled-chat-verified-001.
+The [gallery review](https://system76-pc.tailb77f2a.ts.net/8bar/#vipi-bundled-chat-20261028)
+uses synthetic offline transport and dictionary bundle 001. Broad meaning
+accuracy and 90% conversational immersion are still unproven. The physical
+iPad currently shows Apple's XCTest passcode prompt; no new physical UI pass
+is claimed.
+
+The [Mobbin composer reference](https://mobbin.com/screens/74195d83-a15a-464b-9966-5ea7f521a7cf)
+was visually reviewed for keeping the latest message above the keyboard.
+BFM's contextual advice reinforced preserving reading intent; its retrieved
+articles were not direct evidence about messenger scrolling. These are design
+references, not user-study results.
+
 ## Bundle 022 — exact native parity, 2026-10-27 00:05 Eastern
 
 Two explicit Chinese–Korean book mappings combine the already assessed 看书 construction with the nine already enumerated Korean 책 particles. Both native paths preserve 看 and the Korean ending outside the flip. Eighteen forward/reverse finite cases and ten larger-word, missing-counterpart or repetition negatives pass on each platform. No new lexical meaning, whole translation, reading, runtime morphology or classifier rule is introduced.
