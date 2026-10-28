@@ -38,12 +38,26 @@ if every language were installed. Its catalog SHA-256 is
 6c8ef52f248437b2a88d970af5428107865726f053f717c7f2978035401a9d3e.
 The 139,719 additional rules are not a conversational coverage result.
 
-The owned pipeline at artifacts/coverage-expansion-004-run-001 has entered
-Android native replay 008; build 014 passed. The paired Mac controller is
-preparing iOS simulator replay 007. Source hashes are pinned and compiler
-snapshots execute directly; a failure stops for inspection. Actual additions,
-losses and meanings remain to be reviewed. Bundle 003 is the previous
-qualified development baseline; bundle 004 is active only as a candidate.
+Android native replay 008 and iOS simulator replay 007 completed the same
+602 inputs using the actual bundled reader. Android build 014 passed.
+Both platforms add 18 spans and lose one: ordinary availability changes from
+226/560 to 231/560, and selected ordinary spans from 313 to 330.
+The additions include medical doctor, months, why, allergic, severe, daily,
+and environmental. The removed principais/principaux adjective mapping was
+useful and remains a recorded coverage loss. All changed spans were inspected
+in their visible contexts. The two existing platform selection differences
+remain. This is a modest gain, not the 90% target or representative coverage.
+
+Exact review: artifacts/bundled-lexical-004-qualification.json.
+Android report SHA-256:
+ccbe6fd827537a487452419d19d5f19ace0c5cf2018688bfa13d340f9d326867.
+iOS simulator report SHA-256:
+577bb4237fd00ca22cec3ac05b9831f894f642ca8ccab3279825a7a4d5df42e8.
+Both reuse captured translations; physical-device translation, acoustic
+speech acceptance, independent semantic accuracy and store readiness are
+not established. Bundle 004 is the current qualified development replay
+baseline; its manifest retains semantic_accuracy_claim=false and
+store_ready=false.
 
 Superseded raw dictionary 012 was retired only after all eleven files matched
 the retained bundle-003 compressed payloads byte for byte and had no visible
@@ -768,3 +782,13 @@ The bounded `evaluate_statistical_units.py` experiment reuses the pinned English
 `artifacts/statistical-unit-review-001/` retains all proposals and the author review. Of its 240 existing diagnostic cases, only 94 are SMS or spontaneous Swahili conversation cases; the others are dictionary units, formal references or authored cases. It proposes 19 spans in those 94 conversational cases. The previously incomplete laptop/portátil and email/correo proposals, and the grammatical was/fue proposal, are withheld. Complete laptop/email mappings remain absent. Security guard/guardia de seguridad is a plausible complete phrase. However, “ll present nxt mon” still proposes present/presente as a noun/adjective, and the greeting “Halo” is interpreted as the noun halo. The experiment is therefore **not integrated or accepted**. Phrase geometry does not solve contextual POS or word sense selection.
 
 `replace_lexical_shards.py` prepares bounded language replacements while keeping the other language records unchanged and recording their exact source hashes. Every copied shard gets one shared release identity; each original compiler policy remains explicit. Changed languages require complete context recomputation from the same corpora, including negative observations, before native use. The corrected Swahili candidate is still under review.
+
+## Swahili dictionary correction and native replay — 2026-10-28
+
+Bundle 005 replaces every Swahili context direction from the same three pinned corpora and preserves the other 90 directions. Its catalog SHA-256 is e61769e6a9aabd66cbda02851dbaec9c3ecb707f192e4dd7c8aaabe31e0c46eb. The corrected dictionary retains derived-verb identities, restores ordinary definitions beside derivations, and rejects the reviewed causative/state-change mismatch. Native readers accept the reviewed policy 13.
+
+Both native development replays completed with no retained-case failure. There is one additional go/enda span and no removed spans in the 602 reused cases. The 560 ordinary cases move from 231 to 232 with at least one span. This sample is small, reused and uneven across directions; these counts are not representative coverage or adequate immersion density. A separate 16-message verb diagnostic captured actual offline ML Kit translations and remains unchanged at 8 messages with spans. The capture exposes lending/giving and object-pronoun meaning errors in full translations. iOS simulator replays reuse captured translations and cannot qualify live Apple/ML Kit behavior or physical-device UX.
+
+The exact findings and report hashes are retained in artifacts/bundled-lexical-005-qualification.json. Source corpus sentence quality is not guaranteed: an inspected Swahili reference mistranslates National Diet as nutrition. Do not promote bulk sentence retrieval to trusted full translations solely from corpus membership.
+
+The next candidate addresses supplied Swahili object-concord composition and the source eligibility of derived entries with explicit lexical definitions. It is not part of bundle 005.
