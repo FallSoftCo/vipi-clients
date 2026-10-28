@@ -43,8 +43,17 @@ object ContextFrameMatcher {
             val left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.sourceUnit) ?: return emptyList()
             val right=focuses(translation,hit.targetWindows,frame.targetParts,frame.targetUnit) ?: return emptyList()
             if(left.isEmpty())return emptyList()
-            if(left.size>1 || right.size>1)blocked.addAll(left)
-            for(focus in left)groups.getOrPut(focus){mutableListOf()}.add(frame to right.singleOrNull())
+            // Repeated identical, explicitly assessed whole units commute:
+            // every occurrence displays the same word and reading. Pair exact
+            // equal counts in written order; do not infer phrase alignment.
+            val repeatedUnits=frame.sourceUnit && frame.targetUnit && left.size>1 && left.size==right.size
+            // An absent alias still contributes its source meaning below,
+            // but cannot invent a target-count conflict for a present alias.
+            val absentUnitAlias=frame.sourceUnit && frame.targetUnit && right.isEmpty()
+            if((left.size>1 || right.size>1) && !repeatedUnits && !absentUnitAlias)blocked.addAll(left)
+            val orderedTargets=right.sortedBy{it.first}
+            for((index,focus) in left.sortedBy{it.first}.withIndex())
+                groups.getOrPut(focus){mutableListOf()}.add(frame to if(repeatedUnits)orderedTargets[index] else right.singleOrNull())
         }
         return groups.entries.sortedBy{it.key.first}.flatMap { (focus,group) ->
             if(focus in blocked || group.map{it.first.meaning}.distinct().size!=1)emptyList()

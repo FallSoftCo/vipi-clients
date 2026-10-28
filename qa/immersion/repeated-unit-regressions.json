@@ -1,0 +1,66 @@
+[
+  {
+    "id": "repeated-unit-week-forward",
+    "source": "en",
+    "target": "es",
+    "original": "next week, this week",
+    "translation": "próxima semana, esta semana",
+    "expected_source": "week",
+    "expected_target": "semana",
+    "expected_count": 2,
+    "expected_path": "combined",
+    "dataset": "authored-repeated-unit-development"
+  },
+  {
+    "id": "repeated-unit-week-reverse",
+    "source": "es",
+    "target": "en",
+    "original": "próxima semana, esta semana",
+    "translation": "next week, this week",
+    "expected_source": "semana",
+    "expected_target": "week",
+    "expected_count": 2,
+    "expected_path": "combined",
+    "dataset": "authored-repeated-unit-development"
+  },
+  {
+    "id": "repeated-unit-missing-target",
+    "source": "en",
+    "target": "es",
+    "original": "next week, this week",
+    "translation": "esta semana",
+    "forbidden_source": "week",
+    "forbidden_target": "semana",
+    "dataset": "authored-repeated-unit-development"
+  },
+  {
+    "id": "repeated-unit-extra-target",
+    "source": "en",
+    "target": "es",
+    "original": "this week",
+    "translation": "próxima semana, esta semana",
+    "forbidden_source": "week",
+    "forbidden_target": "semana",
+    "dataset": "authored-repeated-unit-development"
+  },
+  {
+    "id": "repeated-unit-conflicting-number",
+    "source": "en",
+    "target": "es",
+    "original": "next week, this week",
+    "translation": "esta semana, estas semanas",
+    "forbidden_source": "week",
+    "forbidden_target": "semana",
+    "dataset": "authored-repeated-unit-development"
+  },
+  {
+    "id": "repeated-unit-name-case",
+    "source": "en",
+    "target": "es",
+    "original": "I called Week, then waited a week.",
+    "translation": "Llamé a Semana, luego esperé una semana.",
+    "forbidden_source": "Week",
+    "forbidden_target": "Semana",
+    "dataset": "authored-repeated-unit-development"
+  }
+]

@@ -161,4 +161,31 @@ final class ContextFrameTests:XCTestCase {
         }
     }
 
+    func testRepeatedIdenticalUnitsNeedBalancedCountsAndPreserveCompetingMeanings() {
+        let source="next week, this week",target="próxima semana, esta semana"
+        func frame(_ id:String="weeks",_ meaning:String="calendar week",unit:Bool=true)->ContextFrame {
+            ContextFrame(id:id,meaning:meaning,sourceLanguage:"en",targetLanguage:"es",
+                sourceParts:[.focus("week")],targetParts:[.focus("semana")],lexicalUnit:unit)
+        }
+        let left=[NSRange(location:5,length:4),NSRange(location:16,length:4)]
+        let right=[NSRange(location:8,length:6),NSRange(location:21,length:6)]
+        func hit(_ f:ContextFrame?=nil,sourceWindows:[NSRange]?=nil,targetWindows:[NSRange]?=nil)->ContextFrameHit {
+            ContextFrameHit(frame:f ?? frame(),sourceWindows:sourceWindows ?? left,targetWindows:targetWindows ?? right)
+        }
+        func entries(_ hits:[ContextFrameHit])->[VocabularyEntry] {
+            ContextFrameMatcher.entries(original:source,translation:target,source:"en",target:"es",hits:hits)
+        }
+        let selected=ImmersionEngine().align(original:source,translation:target,entries:entries([hit()]),density:1,targetLanguage:"es").spans
+        XCTAssertEqual(selected.map{$0.range.location},[5,16])
+        XCTAssertEqual(selected.map{$0.targetRange.location},[8,21])
+        XCTAssertEqual(selected.map{$0.original},["week","week"])
+        XCTAssertEqual(selected.map{$0.translated},["semana","semana"])
+        XCTAssertTrue(entries([hit(targetWindows:[right[0]])]).isEmpty)
+        XCTAssertTrue(entries([hit(sourceWindows:[left[0]])]).isEmpty)
+        XCTAssertEqual(entries([hit(),hit(frame("absent-alias"),targetWindows:[])]).count,2)
+        XCTAssertTrue(entries([hit(),hit(frame("other","a different meaning"),targetWindows:[])]).isEmpty)
+        XCTAssertTrue(entries([hit(),hit(frame("alias"),targetWindows:[right[0]])]).isEmpty)
+        XCTAssertTrue(entries([hit(frame(unit:false))]).isEmpty)
+    }
+
 }

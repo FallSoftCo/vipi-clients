@@ -1,5 +1,16 @@
 # Verification ledger
 
+## Repeated vocabulary checkpoint — 2026-10-28
+
+[REPEATED_VOCABULARY.md](REPEATED_VOCABULARY.md) records equal-count alignment
+of identical assessed whole units. Both native implementations gain 47 spans
+in 16/602 directed development cases with no lost spans, including Swahili
+and Chinese/Japanese readings. Retained SMS gains two week→semana flips in one
+previously empty message: Android 82/200, iOS 85/200. The 137-case native outputs
+match. Author review covers the added vocabulary only; surrounding translation
+errors, independent precision and the 90% target remain open. No data release,
+physical-device acceptance or store submission is implied.
+
 ## Concept-source diagnostic — 2026-10-28
 
 [CONCEPT_CORROBORATION.md](CONCEPT_CORROBORATION.md) records 20 candidate leads

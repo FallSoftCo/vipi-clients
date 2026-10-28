@@ -134,4 +134,26 @@ class ContextFrameTest {
         }
     }
 
+    @Test fun repeatedIdenticalUnitsNeedBalancedCountsAndPreserveCompetingMeanings() {
+        val source="next week, this week";val target="próxima semana, esta semana"
+        val frame=ContextFrame("weeks","calendar week","en","es",listOf(ContextPart.Focus("week")),
+            listOf(ContextPart.Focus("semana")),lexicalUnit=true)
+        val hit=ContextFrameHit(frame,listOf(5..8,16..19),listOf(8..13,21..26))
+        fun entries(hits:List<ContextFrameHit>)=ContextFrameMatcher.entries(source,target,"en","es",hits)
+        val selected=ImmersionEngine().align(source,target,entries(listOf(hit)),1.0,"es").spans
+        assertEquals(listOf(5,16),selected.map{it.start})
+        assertEquals(listOf(8,21),selected.map{it.targetStart})
+        assertEquals(listOf("week","week"),selected.map{it.original})
+        assertEquals(listOf("semana","semana"),selected.map{it.translated})
+        assertTrue(entries(listOf(hit.copy(targetWindows=listOf(8..13)))).isEmpty())
+        assertTrue(entries(listOf(hit.copy(sourceWindows=listOf(5..8)))).isEmpty())
+        val absentAlias=hit.copy(frame=frame.copy(id="absent-alias"),targetWindows=emptyList())
+        assertEquals(2,entries(listOf(hit,absentAlias)).size)
+        val rival=hit.copy(frame=frame.copy(id="other",meaning="a different meaning"),targetWindows=emptyList())
+        assertTrue(entries(listOf(hit,rival)).isEmpty())
+        val disagree=hit.copy(frame=frame.copy(id="alias"),targetWindows=listOf(8..13))
+        assertTrue(entries(listOf(hit,disagree)).isEmpty())
+        assertTrue(entries(listOf(hit.copy(frame=frame.copy(lexicalUnit=false,sourceUnit=false,targetUnit=false)))).isEmpty())
+    }
+
 }

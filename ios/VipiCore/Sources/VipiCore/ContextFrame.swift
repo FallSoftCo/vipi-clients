@@ -57,8 +57,18 @@ public enum ContextFrameMatcher {
                   frame.lexicalUnit == (frame.sourceUnit && frame.targetUnit),
                   let left=focuses(original,hit.sourceWindows,frame.sourceParts,frame.sourceUnit),!left.isEmpty,
                   let right=focuses(translation,hit.targetWindows,frame.targetParts,frame.targetUnit) else {return []}
-            if left.count>1 || right.count>1 {blocked.formUnion(left)}
-            for focus in left {groups[focus,default:[]].append((frame,right.count==1 ? right.first : nil))}
+            // Identical assessed whole units display the same vocabulary
+            // and reading at every occurrence. Only exact equal counts may
+            // pair in written order; phrase alignment is not inferred.
+            let repeatedUnits=frame.sourceUnit && frame.targetUnit && left.count>1 && left.count==right.count
+            // Keep absent aliases as competing meaning evidence, without
+            // manufacturing a target-count mismatch for the present alias.
+            let absentUnitAlias=frame.sourceUnit && frame.targetUnit && right.isEmpty
+            if (left.count>1 || right.count>1) && !repeatedUnits && !absentUnitAlias {blocked.formUnion(left)}
+            let orderedTargets=right.sorted{$0.location<$1.location}
+            for (index,focus) in left.sorted(by:{$0.location<$1.location}).enumerated() {
+                groups[focus,default:[]].append((frame,repeatedUnits ? orderedTargets[index] : (right.count==1 ? right.first : nil)))
+            }
         }
         func casePermitted(_ frame:ContextFrame,_ text:String,_ range:NSRange,_ language:String,_ unit:Bool)->Bool {
             let word=(text as NSString).substring(with:range)
