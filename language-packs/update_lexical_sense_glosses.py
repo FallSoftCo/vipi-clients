@@ -5,7 +5,7 @@ from collections import defaultdict
 from contextlib import closing
 from pathlib import Path
 from build_wiktextract import canonical,digest_file
-from build_lexical_shards import POLICY
+POLICY = "native-linked-exact-sense-gloss-9"
 from native_lemma_links import NativeLinks
 from context_hints import has_scope,qualifier
 

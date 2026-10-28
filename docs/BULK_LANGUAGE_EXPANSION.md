@@ -1,5 +1,39 @@
 # Bulk local language expansion — 2026-10-27
 
+## Supplied adjective agreement and statistical alignment investigation — 2026-10-28
+
+Dictionary 014 additionally makes 214,670 existing surface records usable as
+complete adjective forms: Spanish 67,785; French 44,654; Italian 62,255; and
+Portuguese 39,976. These represent 119,093 distinct written forms across the
+four languages, including ordinary forms such as alérgica. They are not new
+words, new translations or an accuracy measurement. Only already supplied
+gender/number forms qualify; comparative, superlative, verbal, unknown and
+excluded usage features remain unsupported by this correction. No spelling,
+stem, reading, sense link or source/target safety flag changes.
+
+The delta is recorded per row in artifacts/lexical-shards-014/changed-surfaces.jsonl.
+Release 8efe0921d18ed0c12d82b597f55d7ac65a47196d900435e7620532e1bba7926a
+requires fresh contexts and native qualification. The app does not yet use it.
+The dictionary-012 context rebuild is separate and remains the next native
+candidate.
+
+A bounded fast_align experiment uses 100,000 English–Spanish and 20,955
+English–Swahili direct development pairs, selected deterministically from the
+retained contexts. Exact evaluation text was excluded. The tool is pinned to
+upstream commit cab1e9aac8d3bb02ff5ae58218d8d225a039fa11 (Apache-2.0);
+all training input identities and parameters are retained in
+artifacts/statistical-alignment-corpus-001 and statistical-alignment-models-001.
+This is a statistical word-alignment experiment, not an app dependency.
+
+The unfiltered mutual alignments produce wrong and incomplete proposals.
+A diagnostic probability cutoff plus published dictionary links still gives
+laptop → portátil and email → correo where the complete target expressions
+are computadora portátil and correo electrónico. It also lacks the native
+scope, grammatical-lemma and proper-name safeguards. These proposals are
+withheld from runtime integration; they do not establish useful immersion
+coverage. Full phrase alignment needs separate investigation. Reports:
+artifacts/statistical-alignment-review-001 and -002.
+
 ## Noun-gloss correction and complete development directions — 2026-10-28
 
 A subsequent source audit found 1,034 more existing links whose native
@@ -11,8 +45,12 @@ this contradiction when the complete short, unqualified native gloss matches
 the complete sense label. It does not accept other senses of the English
 headword. The focused test covers academic-doctor mismatch, mixed meanings,
 aliases and qualified definitions. Audit: artifacts/gloss-label-audit-001.
-This is a pending source correction, separate from the dictionary-012/context
-rebuild below; it has not changed the active app data.
+Dictionary 013 applies exactly 1,034 existing eligibility corrections, with no
+new forms or lexemes. Its release is
+17427cbfa60c44dc017353e2980693ba7a7e6dda7d564d4ff884837bda64d325.
+The executed compiler and original catalog are preserved beside a correction
+to changed-language metadata: English has zero changed terms. Fresh contexts
+and native qualification remain required; active app data is unchanged.
 
 
 Dictionary 012 corrects a parsing error in short noun definitions: an existing

@@ -17,8 +17,9 @@ from build_wiktextract import canonical, digest_file, EXCLUDED, PARTS, NON_ROMAN
 from context_hints import lookup_key, has_scope, qualifier, GRAMMAR
 from native_lemma_links import NativeLinks
 import noun_carriers
+import adjective_agreement
 
-POLICY = "native-linked-exact-sense-gloss-9"
+POLICY = "native-linked-adjective-agreement-10"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -89,6 +90,8 @@ def surface(head, form, pos, tags, language):
     if language=='zh' and tags&{'Simplified-Chinese','Traditional-Chinese'} and tags<=script_tags and lexical_unit(form,pos):
         return 0,utf16(form),number,1
     if language in NON_ROMAN or not lexical_unit(form,pos):return (0,0,number,0)
+    agreement=adjective_agreement.whole_form(head,form,pos,tags,language)
+    if agreement:return agreement
     if pos=='noun' and 'plural' in tags and 'singular' not in tags:
         return 0,utf16(form),2,2
     if pos=='verb' and letters(head) and form.count(head)==1 and tags & {
@@ -268,6 +271,7 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
             redirects_sha256=redirect_receipt['sha256'],native_gloss_links_sha256=gloss_receipt['sha256'],release_id=release_id,
             compiler_sha256=digest_file(Path(__file__)),linker_sha256=digest_file(Path(__file__).with_name('native_lemma_links.py')),
             carrier_rules_sha256=digest_file(Path(noun_carriers.__file__)),
+            adjective_agreement_sha256=digest_file(Path(adjective_agreement.__file__)),
             quality='published-dictionary-and-finite-noun-carriers',individually_reviewed=False,license='CC-BY-SA-4.0')
         db.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()])
         db.commit()
@@ -291,7 +295,8 @@ def build(inventory,output,languages,redirects,gloss_links):
     if not gloss_receipt['complete'] or gloss_receipt['source_inventory_sha256']!=receipt['sha256'] or gloss_receipt['sha256']!=digest_file(gloss_links):raise ValueError('Pinned direct-gloss supplement required')
     release_id=hashlib.sha256(canonical(dict(inventory=receipt['sha256'],redirects=redirect_receipt['sha256'],glosses=gloss_receipt['sha256'],
         compiler=digest_file(Path(__file__)),linker=digest_file(Path(__file__).with_name('native_lemma_links.py')),
-        carrier_rules=digest_file(Path(noun_carriers.__file__)))).encode()).hexdigest()
+        carrier_rules=digest_file(Path(noun_carriers.__file__)),
+        adjective_agreement=digest_file(Path(adjective_agreement.__file__)))).encode()).hexdigest()
     output.mkdir(parents=True,exist_ok=False)
     shards=[compile_language(inventory,output,language,receipt,redirects,redirect_receipt,gloss_links,gloss_receipt,release_id) for language in languages]
     summary=dict(schema='vipi-lexical-shards-1',policy=POLICY,release_id=release_id,inventory_sha256=receipt['sha256'],
