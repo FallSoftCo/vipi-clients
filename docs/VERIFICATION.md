@@ -1,5 +1,16 @@
 # Verification ledger
 
+## English gloss cue checkpoint — 2026-10-28
+
+[ENGLISH_GLOSS_CUES.md](ENGLISH_GLOSS_CUES.md) separates incoming foreign gloss
+links from explicit English sense labels during context-cue selection. Both
+native apps recover six SMS spans without losses since the adjective checkpoint:
+Android 88/200 messages, iOS 91/200 (120/123 spans). The 185 targeted outputs
+match exactly; both broader 602-case outputs remain unchanged. Maximum available
+SMS depth remains only about 5% of native source words. This is a small correct
+improvement, not the required immersion standard. All new vocabulary is reviewed
+in context; no whole-translation, independent accuracy or release claim follows.
+
 ## Whole adjective context checkpoint — 2026-10-28
 
 [ADJECTIVE_CONTEXT_ALTERNATIVES.md](ADJECTIVE_CONTEXT_ALTERNATIVES.md) records

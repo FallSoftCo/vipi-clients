@@ -282,6 +282,10 @@ enum LexicalConcordance {
         form.pos=="adj" && (1...2).contains(form.mode) && form.targetSafe &&
             !form.grammar && !form.proper && form.start==0 && form.end==form.written.utf16.count
     }
+    private static func completeContentUnit(_ form:Form)->Bool {
+        ["noun","adj","adv"].contains(form.pos) && (1...2).contains(form.mode) && form.targetSafe &&
+            !form.grammar && !form.proper && form.start==0 && form.end==form.written.utf16.count
+    }
     private static func completePresent(_ form:Form)->Bool {
         form.mode==5 && form.pos=="verb" && form.targetSafe && (!form.grammar || form.head=="need") && form.features.contains(presentRule)
     }
@@ -367,7 +371,9 @@ enum LexicalConcordance {
                 // a noun counterpart and a nearby lexical witness.
                 let conflictingGeometry=usable.contains(where:{$0.mode==3}) && focuses.count != 1
                 let allForms=wholeMode != 0 ? forms.filter{$0.targetSafe && key(actual)==key($0.written)} : usable
-                let allMeanings=Set(allForms.flatMap{linkedTerms(left,$0)}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
+                let sourceTerms=allForms.flatMap{linkedTerms(left,$0)}.filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}
+                let allMeanings=Set(sourceTerms.map(\.sense))
+                let explicitSourceMeanings=Set(sourceTerms.filter(\.explicit).map(\.sense))
                 var claims=Set<Claim>(),reverseClaims=Set<Claim>(),pronounClaims=Set<Claim>()
                 for form in usable {
                     if conflictingGeometry && (form.pos != "noun" || !(1...2).contains(form.mode)) {continue}
@@ -389,7 +395,11 @@ enum LexicalConcordance {
                             let targetMeanings=Set(linkedTerms(right,candidate).filter(\.eligible).map(\.sense))
                             // Narrower meanings must explain nearby lexical context;
                             // a common grammatical cue alone is insufficient there.
-                            let narrow = !targetMeanings.isSuperset(of:allMeanings) || targets.contains{$0.grammar}
+                            // Foreign native-gloss links remain usable correspondences;
+                            // they are not extra English sense labels for this cue check.
+                            let cueMeanings=source=="en" && wholeMode==0 && completeContentUnit(form) &&
+                                completeContentUnit(candidate) && form.pos==candidate.pos && !explicitSourceMeanings.isEmpty ? explicitSourceMeanings : allMeanings
+                            let narrow = !targetMeanings.isSuperset(of:cueMeanings) || targets.contains{$0.grammar}
                             let nearbyLexical=evidence.hasNearbyContext(focus:sourceFocus,text:original,windows:lexicalWindows)
                             if (conflictingGeometry || (transparentSource && !sourcePronounClause)) && !nearbyLexical {continue}
                             let cueWindows = conflictingGeometry || transparentSource || (narrow && nearbyLexical) ? lexicalWindows : left.windows

@@ -256,6 +256,8 @@ internal object LexicalConcordance {
         !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
     private fun completeAdjective(form:Form)=form.pos=="adj" && form.mode in 1..2 && form.targetSafe &&
         !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
+    private fun completeContentUnit(form:Form)=form.pos in setOf("noun","adj","adv") && form.mode in 1..2 &&
+        form.targetSafe && !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
     private fun completePresent(form:Form)=form.mode==5 && form.pos=="verb" && form.targetSafe &&
         (!form.grammar || form.head=="need") && PRESENT_RULE in form.features
     private fun completeVerb(form:Form,mode:Int)=if(mode==4)completePast(form) else completePresent(form)
@@ -325,7 +327,9 @@ internal object LexicalConcordance {
                 // guess an internal stem from a competing verbal analysis.
                 val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
                 val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
-                val allMeanings=(if(wholeMode!=0) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                val sourceTerms=(if(wholeMode!=0) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}
+                val allMeanings=sourceTerms.map{it.sense}.toSet()
+                val explicitSourceMeanings=sourceTerms.filter{it.explicit}.map{it.sense}.toSet()
                 val claims=mutableSetOf<Claim>();val reverseClaims=mutableSetOf<Claim>();val pronounClaims=mutableSetOf<Claim>()
                 for(form in usable) {
                     if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
@@ -347,7 +351,13 @@ internal object LexicalConcordance {
                             // A grammatical cue alone cannot choose a narrower
                             // meaning while nearby lexical context is unexplained.
                             // Short grammar-only utterances retain their prior path.
-                            val narrow=!targetMeanings.containsAll(allMeanings) || targets.any{it.grammar}
+                            // Incoming foreign gloss links are direct correspondences,
+                            // not additional English sense labels. They remain usable
+                            // links; only the cue-narrowing comparison uses the complete
+                            // explicit source sense set for whole English content units.
+                            val cueMeanings=if(source=="en" && wholeMode==0 && completeContentUnit(form) &&
+                                completeContentUnit(candidate) && form.pos==candidate.pos && explicitSourceMeanings.isNotEmpty())explicitSourceMeanings else allMeanings
+                            val narrow=!targetMeanings.containsAll(cueMeanings) || targets.any{it.grammar}
                             val nearbyLexical=evidence.hasNearbyContext(sourceFocus,original,lexicalWindows)
                             if((conflictingGeometry || (transparentSource && !sourcePronounClause)) && !nearbyLexical)continue
                             val cueWindows=if(conflictingGeometry || transparentSource || (narrow && nearbyLexical))lexicalWindows else left.windows
