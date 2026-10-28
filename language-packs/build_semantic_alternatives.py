@@ -13,14 +13,17 @@ from pathlib import Path
 from build_wiktextract import canonical,digest_file
 POLICY="shared-explicit-verb-alternatives-1"
 NOUN_POLICY="shared-explicit-noun-alternatives-1"
+ADJECTIVE_POLICY="shared-explicit-adjective-alternatives-1"
 
-class NounRelations:
+class WholeRelations:
     """Whole surface forms only; no stem, spelling or relation generation."""
-    def __init__(self,db):
+    def __init__(self,db,pos):
+        assert pos in {"noun","adj"}
+        self.pos=pos
         grouped=defaultdict(set)
         for head,sense in db.execute("""SELECT l.normalized,t.sense
             FROM lexemes l JOIN terms t ON t.lexeme=l.id JOIN senses s ON s.id=t.sense
-            WHERE l.pos='noun' AND l.target_safe=1 AND t.eligible=1 AND s.explicit=1"""):
+            WHERE l.pos=? AND l.target_safe=1 AND t.eligible=1 AND s.explicit=1""",(pos,)):
             grouped[head].add(sense)
         self.relations={head:frozenset(senses) for head,senses in grouped.items()}
         self.db=db
@@ -30,13 +33,19 @@ class NounRelations:
         heads=set()
         for head,written,start,end in self.db.execute("""SELECT l.normalized,f.surface,f.start,f.end
             FROM surfaces f JOIN lexemes l ON l.id=f.lexeme
-            WHERE f.normalized=? AND l.pos='noun' AND l.target_safe=1 AND f.mode IN (1,2)""",(word,)):
+            WHERE f.normalized=? AND l.pos=? AND l.target_safe=1 AND f.mode IN (1,2)""",(word,self.pos)):
             if start==0 and end==len(written.encode("utf-16-le"))//2 and head in self.relations:heads.add(head)
         return tuple((head,self.relations[head]) for head in sorted(heads))
     def source_relations(self,word):
         heads=self.heads(word)
-        # Same-spelling heads from different noun lemmas remain unresolved.
+        # Same-spelling heads from different lemmas remain unresolved.
         return heads[0][1] if len(heads)==1 else frozenset()
+
+class NounRelations(WholeRelations):
+    def __init__(self,db):super().__init__(db,"noun")
+
+class AdjectiveRelations(WholeRelations):
+    def __init__(self,db):super().__init__(db,"adj")
 
 def qualify(rows,minimum=3,agreement=.98):
     """One source sentence is one vote; conflicting aliases veto that vote."""
@@ -75,22 +84,22 @@ def qualify(rows,minimum=3,agreement=.98):
 def build(args):
     started=time.monotonic()
     observed=json.loads(args.observations.with_name("receipt.json").read_text())
-    kind=getattr(args,"kind","present");noun=kind=="noun"
-    assert kind in ("present","noun") and observed["complete"]
-    if noun:
+    kind=getattr(args,"kind","present");whole=kind in {"noun","adjective"}
+    assert kind in ("present","noun","adjective") and observed["complete"]
+    if whole:
         assert observed["schema"]=="vipi-filtered-context-observations-1"
-        assert observed["source_filter_policy"]=="complete-explicit-noun-spellings-1"
+        assert observed["source_filter_policy"]==f"complete-explicit-{kind}-spellings-1"
         assert observed["alignment_kind"]==0 and observed["all_matching_legacy_competing_targets_retained"]
     else:assert observed["exact_present_subset"] and observed["all_present_competing_targets_retained"]
     assert digest_file(args.observations)==observed["sha256"]
     catalog=json.loads(args.dictionary.read_text())
-    if noun:
+    if whole:
         assert observed["source_release_id"]==catalog["release_id"]
         assert observed["source_catalog_sha256"]==digest_file(args.dictionary)
-    table="noun_semantic_alternatives" if noun else "semantic_alternatives"
-    examples_table="noun_semantic_alternative_examples" if noun else "semantic_alternative_examples"
-    meta_prefix="noun_semantic_alternative" if noun else "semantic_alternative"
-    policy=NOUN_POLICY if noun else POLICY
+    table=f"{kind}_semantic_alternatives" if whole else "semantic_alternatives"
+    examples_table=f"{kind}_semantic_alternative_examples" if whole else "semantic_alternative_examples"
+    meta_prefix=f"{kind}_semantic_alternative" if whole else "semantic_alternative"
+    policy={"noun":NOUN_POLICY,"adjective":ADJECTIVE_POLICY,"present":POLICY}[kind]
     base_pin=json.loads(args.base.with_name("receipt.json").read_text())
     assert base_pin["complete"] and digest_file(args.base)==base_pin["sha256"]
     args.output.mkdir(exist_ok=False,parents=True)
@@ -125,12 +134,12 @@ def build(args):
                 FROM surfaces f JOIN lexemes l ON l.id=f.lexeme
                 WHERE f.normalized=? AND l.pos='verb' AND l.target_safe=1""",(word,))}
             return tuple((head,relations[head]) for head in sorted(heads) if head in relations)
-        noun_relations={language:NounRelations(db) for language,db in dictionaries.items()} if noun else {}
+        whole_relations={language:WholeRelations(db,"adj" if kind=="adjective" else "noun") for language,db in dictionaries.items()} if whole else {}
         @lru_cache(maxsize=100000)
         def resolve(source,word,target,counterpart):
-            if noun:
-                senses=noun_relations[source].source_relations(word)
-                matches=[(head,links&senses) for head,links in noun_relations[target].heads(counterpart) if links&senses]
+            if whole:
+                senses=whole_relations[source].source_relations(word)
+                matches=[(head,links&senses) for head,links in whole_relations[target].heads(counterpart) if links&senses]
                 if len(matches)!=1:return None,frozenset()
                 return counterpart,matches[0][1]
             senses=source_relations(source,word)
@@ -172,7 +181,7 @@ def build(args):
                 observations_sha256=observed["sha256"],dictionary_catalog_sha256=digest_file(args.dictionary),
                 base_runtime_sha256=base_pin["sha256"],minimum_source_sentences=3,minimum_relation_agreement=.98,
                 minimum_counterpart_sentences=3,unique_source_votes=True,unknown_observations_retained=True,
-                source_and_target_pos="noun" if noun else "verb",explicit_dictionary_relations_only=True,languages=sorted(dictionaries),
+                source_and_target_pos={"noun":"noun","adjective":"adj","present":"verb"}[kind],explicit_dictionary_relations_only=True,languages=sorted(dictionaries),
                 runtime_grammar_checks_required=True,semantic_accuracy_claim=False)
             db.execute("INSERT INTO metadata VALUES (?,?)",(meta_prefix+"_policy",canonical(policy)))
             db.execute("INSERT INTO metadata VALUES (?,?)",(meta_prefix+"_recipe",canonical(recipe)))
@@ -181,13 +190,13 @@ def build(args):
             assert not db.execute("SELECT * FROM witnesses EXCEPT SELECT * FROM baseline.witnesses LIMIT 1").fetchone()
             assert not db.execute("SELECT * FROM baseline.witnesses EXCEPT SELECT * FROM witnesses LIMIT 1").fetchone()
             preserved_tables=["witnesses"]
-            if noun:
-                for name in ["semantic_alternatives","semantic_alternative_examples"]:
+            if whole:
+                for name in ["semantic_alternatives","semantic_alternative_examples","noun_semantic_alternatives","noun_semantic_alternative_examples"]:
                     if db.execute("SELECT 1 FROM baseline.sqlite_master WHERE type='table' AND name=?",(name,)).fetchone():
                         assert not db.execute(f"SELECT * FROM {name} EXCEPT SELECT * FROM baseline.{name} LIMIT 1").fetchone()
                         assert not db.execute(f"SELECT * FROM baseline.{name} EXCEPT SELECT * FROM {name} LIMIT 1").fetchone()
                         preserved_tables.append(name)
-            examples=db.execute(f"SELECT * FROM {table} WHERE source='en' AND word=? LIMIT 50",("home" if noun else "@present:drink",)).fetchall()
+            examples=db.execute(f"SELECT * FROM {table} WHERE source='en' AND word=? LIMIT 50",({"noun":"home","adjective":"expensive","present":"@present:drink"}[kind],)).fetchall()
         receipt=dict(complete=True,sha256=digest_file(target),bytes=target.stat().st_size,
             counts=dict(counts),recipe=recipe,seconds=round(time.monotonic()-started,2),
             existing_witnesses_unchanged=True,preserved_tables=preserved_tables,independent_semantic_acceptance=False,production_promoted=False)
@@ -201,6 +210,6 @@ def build(args):
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     for name in ["observations","dictionary","base","output"]:p.add_argument("--"+name,type=Path,required=True)
-    p.add_argument("--kind",choices=["present","noun"],default="present")
+    p.add_argument("--kind",choices=["present","noun","adjective"],default="present")
     p.add_argument("--languages",nargs="+",default=["en","es"],choices=["en","es","fr","de","pt"])
     build(p.parse_args())

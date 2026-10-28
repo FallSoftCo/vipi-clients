@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Select complete attested noun spellings for an experimental context pass.
+"""Select complete attested noun or adjective spellings for an experimental context pass.
 
 Selection is dictionary eligibility, not proof of the noun's contextual POS.
 Every existing aligned counterpart of each selected spelling must be retained.
@@ -11,6 +11,8 @@ from pathlib import Path
 from build_wiktextract import canonical,digest_file
 
 def build(args):
+    kind=getattr(args,"kind","noun");assert kind in {"noun","adjective"}
+    category="adj" if kind=="adjective" else "noun"
     started=time.monotonic();catalog=json.loads(args.dictionary.read_text())
     args.output.mkdir(parents=True,exist_ok=False)
     path=args.output/"source-words.sqlite";counts=Counter()
@@ -24,15 +26,15 @@ def build(args):
             with closing(sqlite3.connect(source.resolve().as_uri()+"?mode=ro&immutable=1",uri=True)) as db:
                 db.create_function("utf16length",1,lambda v:len(v.encode("utf-16-le"))//2,deterministic=True)
                 rows=db.execute("""SELECT DISTINCT f.normalized FROM surfaces f JOIN lexemes l ON l.id=f.lexeme
-                    WHERE l.pos='noun' AND l.target_safe=1 AND f.mode IN (1,2)
+                    WHERE l.pos=? AND l.target_safe=1 AND f.mode IN (1,2)
                     AND f.start=0 AND f.end=utf16length(f.surface)
                     AND EXISTS(SELECT 1 FROM terms t JOIN senses s ON s.id=t.sense
-                        WHERE t.lexeme=l.id AND t.eligible=1 AND s.explicit=1)""")
+                        WHERE t.lexeme=l.id AND t.eligible=1 AND s.explicit=1)""",(category,))
                 output.executemany("INSERT INTO source_words VALUES (?,?)",((language,r[0]) for r in rows))
                 counts[language]=output.execute("SELECT count(*) FROM source_words WHERE language=?",(language,)).fetchone()[0]
         assert set(counts)==set(args.languages) and all(counts.values())
         output.commit();assert output.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
-    receipt=dict(schema="vipi-source-word-filter-1",policy="complete-explicit-noun-spellings-1",
+    receipt=dict(schema="vipi-source-word-filter-1",policy=f"complete-explicit-{kind}-spellings-1",
         complete=True,source_release_id=catalog["release_id"],dictionary_catalog_sha256=digest_file(args.dictionary),
         compiler_sha256=digest_file(Path(__file__)),sha256=digest_file(path),bytes=path.stat().st_size,
         counts=dict(counts),languages=sorted(counts),semantic_accuracy_claim=False,
@@ -42,5 +44,6 @@ def build(args):
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     for name in ["dictionary","output"]:p.add_argument("--"+name,type=Path,required=True)
+    p.add_argument("--kind",choices=["noun","adjective"],default="noun")
     p.add_argument("--languages",nargs="+",required=True)
     build(p.parse_args())

@@ -11,6 +11,7 @@ internal class ContextWitnessLookup private constructor(
     private val cues:Map<Pair<String,String>,List<String>>,
     private val alternatives:Map<Pair<String,String>,List<Pair<String,Set<String>>>>,
     private val nounAlternatives:Map<Pair<String,String>,List<Pair<String,Set<String>>>>,
+    private val adjectiveAlternatives:Map<Pair<String,String>,List<Pair<String,Set<String>>>>,
     private val words:List<IntRange>
 ) {
     private fun nearby(range:IntRange,focus:IntRange,text:String):Boolean {
@@ -22,11 +23,12 @@ internal class ContextWitnessLookup private constructor(
     }
     fun hasNearbyContext(focus:IntRange,text:String,windows:Map<String,List<IntRange>>):Boolean =
         windows.values.any{ranges->ranges.any{nearby(it,focus,text)}}
-    fun supports(word:String,counterpart:String,focus:IntRange,text:String,windows:Map<String,List<IntRange>>,allowedMeanings:Set<String> = emptySet(),allowedNounMeanings:Set<String> = emptySet()):Boolean {
+    fun supports(word:String,counterpart:String,focus:IntRange,text:String,windows:Map<String,List<IntRange>>,allowedMeanings:Set<String> = emptySet(),allowedNounMeanings:Set<String> = emptySet(),allowedAdjectiveMeanings:Set<String> = emptySet()):Boolean {
         if(words.isEmpty())return false
         val accepted=cues[word to counterpart].orEmpty()+alternatives[word to counterpart].orEmpty()
             .filter{(_,senses)->senses.any{it in allowedMeanings}}.map{it.first}+
-            nounAlternatives[word to counterpart].orEmpty().filter{(_,senses)->senses.any{it in allowedNounMeanings}}.map{it.first}
+            nounAlternatives[word to counterpart].orEmpty().filter{(_,senses)->senses.any{it in allowedNounMeanings}}.map{it.first}+
+            adjectiveAlternatives[word to counterpart].orEmpty().filter{(_,senses)->senses.any{it in allowedAdjectiveMeanings}}.map{it.first}
         return accepted.any { cue ->
             if(cue=="@whole")words.all{it.first>=focus.first && it.last<=focus.last}
             else windows[cue.substring(2)].orEmpty().any { range ->
@@ -50,7 +52,7 @@ internal class ContextWitnessLookup private constructor(
             val activeCues=(listOf("@whole")+possibleContexts.filter{it.length<=128 && it.none(Char::isWhitespace)}
                 .flatMap{listOf("L:"+it,"R:"+it)}).distinct().sorted()
             val meta=mutableMapOf<String,String>()
-            db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy','noun_semantic_alternative_policy')",null).use { c ->
+            db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy','noun_semantic_alternative_policy','adjective_semantic_alternative_policy')",null).use { c ->
                 while(c.moveToNext())meta[c.getString(0)]=c.getString(1)
             }
             fun string(name:String)=JSONTokener(requireNotNull(meta[name])).nextValue() as String
@@ -65,7 +67,8 @@ internal class ContextWitnessLookup private constructor(
             if(!JSONObject(requireNotNull(meta["pairs"])).has("$source-$target"))return null
             val rows=mutableMapOf<Pair<String,String>,MutableList<String>>()
             val alternatives=mutableMapOf<Pair<String,String>,MutableList<Pair<String,Set<String>>>>()
-            val nounAlternatives=mutableMapOf<Pair<String,String>,MutableList<Pair<String,Set<String>>>>();var count=0
+            val nounAlternatives=mutableMapOf<Pair<String,String>,MutableList<Pair<String,Set<String>>>>()
+            val adjectiveAlternatives=mutableMapOf<Pair<String,String>,MutableList<Pair<String,Set<String>>>>();var count=0
             val semantic=meta.containsKey("semantic_alternative_policy")
             if(semantic)require(string("semantic_alternative_policy")=="shared-explicit-verb-alternatives-1")
             fun marks(n:Int)=List(n){"?"}.joinToString(",")
@@ -83,11 +86,13 @@ internal class ContextWitnessLookup private constructor(
             }
             val nounSemantic=meta.containsKey("noun_semantic_alternative_policy")
             if(nounSemantic)require(string("noun_semantic_alternative_policy")=="shared-explicit-noun-alternatives-1")
-            for(noun in listOf(false,true)) {
-                if(if(noun)!nounSemantic else !semantic)continue
-                val table=if(noun)"noun_semantic_alternatives" else "semantic_alternatives"
-                val destination=if(noun)nounAlternatives else alternatives
-                fun selected(word:String)=if(noun)!word.startsWith("@") else word.startsWith("@present:")
+            val adjectiveSemantic=meta.containsKey("adjective_semantic_alternative_policy")
+            if(adjectiveSemantic)require(string("adjective_semantic_alternative_policy")=="shared-explicit-adjective-alternatives-1")
+            for(kind in listOf("present","noun","adjective")) {
+                if(!when(kind){"noun"->nounSemantic;"adjective"->adjectiveSemantic;else->semantic})continue
+                val table=if(kind=="present")"semantic_alternatives" else kind+"_semantic_alternatives"
+                val destination=when(kind){"noun"->nounAlternatives;"adjective"->adjectiveAlternatives;else->alternatives}
+                fun selected(word:String)=if(kind=="present")word.startsWith("@present:") else !word.startsWith("@")
                 for(left in sources.filter(::selected).sorted().chunked(100))
                 for(right in targets.filter(::selected).sorted().chunked(100))for(context in activeCues.chunked(100)) {
                     val args=listOf(source,target)+left+right+context
@@ -105,7 +110,7 @@ internal class ContextWitnessLookup private constructor(
                     }
                 }
             }
-            return ContextWitnessLookup(rows,alternatives,nounAlternatives,sourceWords)
+            return ContextWitnessLookup(rows,alternatives,nounAlternatives,adjectiveAlternatives,sourceWords)
         }
     }
 }

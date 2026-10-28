@@ -1,5 +1,16 @@
 # Verification ledger
 
+## Whole adjective context checkpoint — 2026-10-28
+
+[ADJECTIVE_CONTEXT_ALTERNATIVES.md](ADJECTIVE_CONTEXT_ALTERNATIVES.md) records
+349,266 experimental context alternatives from full en/es dictionary adjective
+forms and existing disjoint corpora. Both native apps add the same eight
+contextually assessed spans: six in the targeted set and two in the 200-message
+SMS sample, with no losses. SMS now reaches 83/200 messages on Android and
+86/200 on iOS (114/117 spans). The 185 targeted outputs match exactly. These
+small gains do not establish broad coverage or independent semantic precision.
+The data remains QA-only; accepted lexical 009 / phrase 022 are unchanged.
+
 ## Repeated vocabulary checkpoint — 2026-10-28
 
 [REPEATED_VOCABULARY.md](REPEATED_VOCABULARY.md) records equal-count alignment

@@ -109,7 +109,7 @@ def compile(args):
         assert observations_only, 'Filtered observations are a separate experimental artifact'
         filter_receipt=json.loads(source_filter_path.with_name('receipt.json').read_text())
         assert filter_receipt['complete'] and filter_receipt['schema']=='vipi-source-word-filter-1'
-        assert filter_receipt['policy']=='complete-explicit-noun-spellings-1'
+        assert filter_receipt['policy'] in {'complete-explicit-noun-spellings-1','complete-explicit-adjective-spellings-1'}
         assert filter_receipt['source_release_id']==release
         assert filter_receipt['dictionary_catalog_sha256']==parent['source_catalog_sha256']
         assert digest_file(source_filter_path)==filter_receipt['sha256']

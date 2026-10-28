@@ -254,6 +254,8 @@ internal object LexicalConcordance {
 
     private fun completeNoun(form:Form)=form.pos=="noun" && form.mode in 1..2 && form.targetSafe &&
         !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
+    private fun completeAdjective(form:Form)=form.pos=="adj" && form.mode in 1..2 && form.targetSafe &&
+        !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
     private fun completePresent(form:Form)=form.mode==5 && form.pos=="verb" && form.targetSafe &&
         (!form.grammar || form.head=="need") && PRESENT_RULE in form.features
     private fun completeVerb(form:Form,mode:Int)=if(mode==4)completePast(form) else completePresent(form)
@@ -367,7 +369,8 @@ internal object LexicalConcordance {
                                 if((transparentSource || transparentTarget) && !nearbyLexical && !pronounClause)continue
                                 val selectedWindows=if(pronounClause)left.windows else if(wholeMode==5 || transparentTarget)lexicalWindows else cueWindows
                                 val nounMeanings=if(wholeMode==0 && completeNoun(form) && completeNoun(candidate))sharedMeanings else emptySet()
-                                val forward=evidence.supports(sourceKey,targetKey,sourceFocus,original,selectedWindows,sharedMeanings,nounMeanings)
+                                val adjectiveMeanings=if(wholeMode==0 && completeAdjective(form) && completeAdjective(candidate))sharedMeanings else emptySet()
+                                val forward=evidence.supports(sourceKey,targetKey,sourceFocus,original,selectedWindows,sharedMeanings,nounMeanings,adjectiveMeanings)
                                 val reverse=wholeMode==5 && reverseEvidence?.supports(targetKey,sourceKey,targetFocus,translation,anchoredReverse,sharedMeanings)==true
                                 if(forward || reverse) {
                                     val claim=Claim(sourceFocus,targetFocus,if(needsReading)readings.single() else "")

@@ -6,7 +6,7 @@ import VipiCore
 struct ContextWitnessLookup {
     private struct Pair:Hashable {let word:String,counterpart:String}
     private struct Alternative {let cue:String,senses:Set<String>}
-    private let cues:[Pair:[String]],alternatives:[Pair:[Alternative]],nounAlternatives:[Pair:[Alternative]],words:[NSRange]
+    private let cues:[Pair:[String]],alternatives:[Pair:[Alternative]],nounAlternatives:[Pair:[Alternative]],adjectiveAlternatives:[Pair:[Alternative]],words:[NSRange]
     private func nearby(_ range:NSRange,focus:NSRange,text:String)->Bool {
         let left=NSMaxRange(range)<=focus.location,right=range.location>=NSMaxRange(focus)
         guard left || right else {return false}
@@ -17,10 +17,10 @@ struct ContextWitnessLookup {
     func hasNearbyContext(focus:NSRange,text:String,windows:[String:[NSRange]])->Bool {
         windows.values.contains{ranges in ranges.contains{nearby($0,focus:focus,text:text)}}
     }
-    func supports(word:String,counterpart:String,focus:NSRange,text:String,windows:[String:[NSRange]],allowedMeanings:Set<String>=[],allowedNounMeanings:Set<String>=[])->Bool {
+    func supports(word:String,counterpart:String,focus:NSRange,text:String,windows:[String:[NSRange]],allowedMeanings:Set<String>=[],allowedNounMeanings:Set<String>=[],allowedAdjectiveMeanings:Set<String>=[])->Bool {
         guard !words.isEmpty else {return false}
         let pair=Pair(word:word,counterpart:counterpart)
-        let accepted=cues[pair,default:[]]+alternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedMeanings)}.map(\.cue)+nounAlternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedNounMeanings)}.map(\.cue)
+        let accepted=cues[pair,default:[]]+alternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedMeanings)}.map(\.cue)+nounAlternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedNounMeanings)}.map(\.cue)+adjectiveAlternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedAdjectiveMeanings)}.map(\.cue)
         return accepted.contains { cue in
             if cue=="@whole" {return words.allSatisfy{$0.location>=focus.location && NSMaxRange($0)<=NSMaxRange(focus)}}
             return windows[String(cue.dropFirst(2)),default:[]].contains { range in
@@ -63,7 +63,7 @@ struct ContextWitnessLookup {
             guard status==SQLITE_DONE else {throw VocabularyPackError.storage};return result
         }
         var meta:[String:String]=[:]
-        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy','noun_semantic_alternative_policy')",[],10) {meta[row[0]]=row[1]}
+        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy','noun_semantic_alternative_policy','adjective_semantic_alternative_policy')",[],11) {meta[row[0]]=row[1]}
         func string(_ name:String) throws -> String {
             guard let raw=meta[name] else {throw VocabularyPackError.invalid}
             return try JSONDecoder().decode(String.self,from:Data(raw.utf8))
@@ -80,7 +80,7 @@ struct ContextWitnessLookup {
         }
         let pairs=try JSONDecoder().decode([String:Int].self,from:Data(pairText.utf8))
         guard pairs[source+"-"+target] != nil else {return nil}
-        var rows:[Pair:[String]]=[:],alternatives:[Pair:[Alternative]]=[:],nounAlternatives:[Pair:[Alternative]]=[:];var count=0
+        var rows:[Pair:[String]]=[:],alternatives:[Pair:[Alternative]]=[:],nounAlternatives:[Pair:[Alternative]]=[:],adjectiveAlternatives:[Pair:[Alternative]]=[:];var count=0
         let semantic=meta["semantic_alternative_policy"] != nil
         if semantic {guard try string("semantic_alternative_policy")=="shared-explicit-verb-alternatives-1" else {throw VocabularyPackError.invalid}}
         let left=sources.sorted(),right=targets.sorted()
@@ -98,10 +98,12 @@ struct ContextWitnessLookup {
         }}}
         let nounSemantic=meta["noun_semantic_alternative_policy"] != nil
         if nounSemantic {guard try string("noun_semantic_alternative_policy")=="shared-explicit-noun-alternatives-1" else {throw VocabularyPackError.invalid}}
-        for noun in [false,true] {
-            if !(noun ? nounSemantic : semantic) {continue}
-            let table=noun ? "noun_semantic_alternatives" : "semantic_alternatives"
-            func selected(_ word:String)->Bool {noun ? !word.hasPrefix("@") : word.hasPrefix("@present:")}
+        let adjectiveSemantic=meta["adjective_semantic_alternative_policy"] != nil
+        if adjectiveSemantic {guard try string("adjective_semantic_alternative_policy")=="shared-explicit-adjective-alternatives-1" else {throw VocabularyPackError.invalid}}
+        for kind in ["present","noun","adjective"] {
+            if !(kind=="noun" ? nounSemantic : (kind=="adjective" ? adjectiveSemantic : semantic)) {continue}
+            let table=kind=="present" ? "semantic_alternatives" : kind+"_semantic_alternatives"
+            func selected(_ word:String)->Bool {kind=="present" ? word.hasPrefix("@present:") : !word.hasPrefix("@")}
             let presentLeft=left.filter(selected),presentRight=right.filter(selected)
             for i in stride(from:0,to:presentLeft.count,by:100) {for j in stride(from:0,to:presentRight.count,by:100) {for k in stride(from:0,to:activeCues.count,by:100) {
                 let a=Array(presentLeft[i..<min(i+100,presentLeft.count)]),b=Array(presentRight[j..<min(j+100,presentRight.count)]),c=Array(activeCues[k..<min(k+100,activeCues.count)])
@@ -115,11 +117,11 @@ struct ContextWitnessLookup {
                     guard (1...128).contains(raw.count),senses.allSatisfy({$0.count==64 && $0.allSatisfy{"0123456789abcdef".contains($0)}}) else {throw VocabularyPackError.invalid}
                     if cue.utf16.count<=130 {
                         let pair=Pair(word:r[0],counterpart:r[1]),item=Alternative(cue:cue,senses:senses)
-                        if noun {nounAlternatives[pair,default:[]].append(item)} else {alternatives[pair,default:[]].append(item)}
+                        if kind=="noun" {nounAlternatives[pair,default:[]].append(item)} else if kind=="adjective" {adjectiveAlternatives[pair,default:[]].append(item)} else {alternatives[pair,default:[]].append(item)}
                     }
                 }
             }}}
         }
-        return ContextWitnessLookup(cues:rows,alternatives:alternatives,nounAlternatives:nounAlternatives,words:sourceWords)
+        return ContextWitnessLookup(cues:rows,alternatives:alternatives,nounAlternatives:nounAlternatives,adjectiveAlternatives:adjectiveAlternatives,words:sourceWords)
     }
 }

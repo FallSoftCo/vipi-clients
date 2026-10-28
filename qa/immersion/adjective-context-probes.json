@@ -1,0 +1,402 @@
+[
+  {
+    "id": "adjective-expensive-hotel-en",
+    "source": "en",
+    "target": "es",
+    "original": "The hotel is expensive.",
+    "translation": "El hotel es caro.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-expensive-hotel-es",
+    "source": "es",
+    "target": "en",
+    "original": "El hotel es caro.",
+    "translation": "The hotel is expensive.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-expensive-tickets-en",
+    "source": "en",
+    "target": "es",
+    "original": "These tickets are expensive.",
+    "translation": "Estas entradas son caras.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-expensive-tickets-es",
+    "source": "es",
+    "target": "en",
+    "original": "Estas entradas son caras.",
+    "translation": "These tickets are expensive.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-busy-sister-en",
+    "source": "en",
+    "target": "es",
+    "original": "My sister is busy.",
+    "translation": "Mi hermana está ocupada.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-busy-sister-es",
+    "source": "es",
+    "target": "en",
+    "original": "Mi hermana está ocupada.",
+    "translation": "My sister is busy.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-tired-us-en",
+    "source": "en",
+    "target": "es",
+    "original": "We are tired.",
+    "translation": "Estamos cansados.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-tired-us-es",
+    "source": "es",
+    "target": "en",
+    "original": "Estamos cansados.",
+    "translation": "We are tired.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-delicious-food-en",
+    "source": "en",
+    "target": "es",
+    "original": "The food is delicious.",
+    "translation": "La comida es deliciosa.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-delicious-food-es",
+    "source": "es",
+    "target": "en",
+    "original": "La comida es deliciosa.",
+    "translation": "The food is delicious.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-funny-movie-en",
+    "source": "en",
+    "target": "es",
+    "original": "That movie is funny.",
+    "translation": "Esa película es divertida.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-funny-movie-es",
+    "source": "es",
+    "target": "en",
+    "original": "Esa película es divertida.",
+    "translation": "That movie is funny.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-difficult-question-en",
+    "source": "en",
+    "target": "es",
+    "original": "This question is difficult.",
+    "translation": "Esta pregunta es difícil.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-difficult-question-es",
+    "source": "es",
+    "target": "en",
+    "original": "Esta pregunta es difícil.",
+    "translation": "This question is difficult.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-correct-answer-en",
+    "source": "en",
+    "target": "es",
+    "original": "Your answer is correct.",
+    "translation": "Tu respuesta es correcta.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-correct-answer-es",
+    "source": "es",
+    "target": "en",
+    "original": "Tu respuesta es correcta.",
+    "translation": "Your answer is correct.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-friendly-neighbors-en",
+    "source": "en",
+    "target": "es",
+    "original": "Our neighbors are friendly.",
+    "translation": "Nuestros vecinos son amables.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-friendly-neighbors-es",
+    "source": "es",
+    "target": "en",
+    "original": "Nuestros vecinos son amables.",
+    "translation": "Our neighbors are friendly.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-empty-room-en",
+    "source": "en",
+    "target": "es",
+    "original": "The room is empty.",
+    "translation": "La habitación está vacía.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-empty-room-es",
+    "source": "es",
+    "target": "en",
+    "original": "La habitación está vacía.",
+    "translation": "The room is empty.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-cold-water-en",
+    "source": "en",
+    "target": "es",
+    "original": "The water is cold.",
+    "translation": "El agua está fría.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-cold-water-es",
+    "source": "es",
+    "target": "en",
+    "original": "El agua está fría.",
+    "translation": "The water is cold.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-dirty-shoes-en",
+    "source": "en",
+    "target": "es",
+    "original": "These shoes are dirty.",
+    "translation": "Estos zapatos están sucios.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-dirty-shoes-es",
+    "source": "es",
+    "target": "en",
+    "original": "Estos zapatos están sucios.",
+    "translation": "These shoes are dirty.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-lonely-person-en",
+    "source": "en",
+    "target": "es",
+    "original": "I feel lonely.",
+    "translation": "Me siento solo.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-lonely-person-es",
+    "source": "es",
+    "target": "en",
+    "original": "Me siento solo.",
+    "translation": "I feel lonely.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-quiet-street-en",
+    "source": "en",
+    "target": "es",
+    "original": "The street is quiet.",
+    "translation": "La calle está tranquila.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-quiet-street-es",
+    "source": "es",
+    "target": "en",
+    "original": "La calle está tranquila.",
+    "translation": "The street is quiet.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-early-train-en",
+    "source": "en",
+    "target": "es",
+    "original": "The early train is crowded.",
+    "translation": "El tren temprano está lleno.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-early-train-es",
+    "source": "es",
+    "target": "en",
+    "original": "El tren temprano está lleno.",
+    "translation": "The early train is crowded.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-fresh-bread-en",
+    "source": "en",
+    "target": "es",
+    "original": "This bread is fresh.",
+    "translation": "Este pan está fresco.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-fresh-bread-es",
+    "source": "es",
+    "target": "en",
+    "original": "Este pan está fresco.",
+    "translation": "This bread is fresh.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-important-message-en",
+    "source": "en",
+    "target": "es",
+    "original": "Your message is important.",
+    "translation": "Tu mensaje es importante.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-important-message-es",
+    "source": "es",
+    "target": "en",
+    "original": "Tu mensaje es importante.",
+    "translation": "Your message is important.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-broken-window-en",
+    "source": "en",
+    "target": "es",
+    "original": "The window is broken.",
+    "translation": "La ventana está rota.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-broken-window-es",
+    "source": "es",
+    "target": "en",
+    "original": "La ventana está rota.",
+    "translation": "The window is broken.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-wet-clothes-en",
+    "source": "en",
+    "target": "es",
+    "original": "My clothes are wet.",
+    "translation": "Mi ropa está mojada.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-wet-clothes-es",
+    "source": "es",
+    "target": "en",
+    "original": "Mi ropa está mojada.",
+    "translation": "My clothes are wet.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-happy-child-en",
+    "source": "en",
+    "target": "es",
+    "original": "The child is happy.",
+    "translation": "El niño está feliz.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-happy-child-es",
+    "source": "es",
+    "target": "en",
+    "original": "El niño está feliz.",
+    "translation": "The child is happy.",
+    "dataset": "authored-adjective-conversation"
+  },
+  {
+    "id": "adjective-counterfactual-late-deceased",
+    "source": "en",
+    "target": "es",
+    "original": "This is my late mother's book.",
+    "translation": "Este es el libro de mi madre tardía.",
+    "forbidden_source": "late",
+    "forbidden_target": "tardía",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-free-available",
+    "source": "en",
+    "target": "es",
+    "original": "The free seat is by the window.",
+    "translation": "El asiento gratis está junto a la ventana.",
+    "forbidden_source": "free",
+    "forbidden_target": "gratis",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-light-weight",
+    "source": "en",
+    "target": "es",
+    "original": "This suitcase is light.",
+    "translation": "Esta maleta es luminosa.",
+    "forbidden_source": "light",
+    "forbidden_target": "luminosa",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-hard-difficult",
+    "source": "en",
+    "target": "es",
+    "original": "The exam is hard.",
+    "translation": "El examen es sólido.",
+    "forbidden_source": "hard",
+    "forbidden_target": "sólido",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-dear-beloved",
+    "source": "en",
+    "target": "es",
+    "original": "My dear friend is here.",
+    "translation": "Mi amigo costoso está aquí.",
+    "forbidden_source": "dear",
+    "forbidden_target": "costoso",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-mean-unkind",
+    "source": "en",
+    "target": "es",
+    "original": "He is a mean person.",
+    "translation": "Él es una persona promedio.",
+    "forbidden_source": "mean",
+    "forbidden_target": "promedio",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-cool-calm",
+    "source": "en",
+    "target": "es",
+    "original": "The room is bright.",
+    "translation": "La habitación es inteligente.",
+    "forbidden_source": "bright",
+    "forbidden_target": "inteligente",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  },
+  {
+    "id": "adjective-counterfactual-dry-humor",
+    "source": "en",
+    "target": "es",
+    "original": "The pool is deep.",
+    "translation": "La piscina es intensa.",
+    "forbidden_source": "deep",
+    "forbidden_target": "intensa",
+    "dataset": "authored-adjective-meaning-counterfactual"
+  }
+]

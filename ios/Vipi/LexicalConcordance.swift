@@ -278,6 +278,10 @@ enum LexicalConcordance {
         form.pos=="noun" && (1...2).contains(form.mode) && form.targetSafe &&
         !form.grammar && !form.proper && form.start==0 && form.end==form.written.utf16.count
     }
+    private static func completeAdjective(_ form:Form)->Bool {
+        form.pos=="adj" && (1...2).contains(form.mode) && form.targetSafe &&
+            !form.grammar && !form.proper && form.start==0 && form.end==form.written.utf16.count
+    }
     private static func completePresent(_ form:Form)->Bool {
         form.mode==5 && form.pos=="verb" && form.targetSafe && (!form.grammar || form.head=="need") && form.features.contains(presentRule)
     }
@@ -410,7 +414,8 @@ enum LexicalConcordance {
                                 if (transparentSource || transparentTarget) && !nearbyLexical && !pronounClause {continue}
                                 let selectedWindows=pronounClause ? left.windows : (wholeMode==5 || transparentTarget ? lexicalWindows : cueWindows)
                                 let nounMeanings=wholeMode==0 && completeNoun(form) && completeNoun(candidate) ? sharedMeanings : []
-                                let forward=evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:selectedWindows,allowedMeanings:sharedMeanings,allowedNounMeanings:nounMeanings)
+                                let adjectiveMeanings=wholeMode==0 && completeAdjective(form) && completeAdjective(candidate) ? sharedMeanings : []
+                                let forward=evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:selectedWindows,allowedMeanings:sharedMeanings,allowedNounMeanings:nounMeanings,allowedAdjectiveMeanings:adjectiveMeanings)
                                 let reverse=wholeMode==5 && reverseEvidence?.supports(word:targetKey,counterpart:sourceKey,focus:targetFocus,text:translation,windows:anchoredReverse,allowedMeanings:sharedMeanings)==true
                                 if forward || reverse {
                                     let claim=Claim(sourceRange:sourceFocus,range:targetFocus,reading:needsReading ? readings.first! : "")
