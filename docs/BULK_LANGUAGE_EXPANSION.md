@@ -792,3 +792,13 @@ Both native development replays completed with no retained-case failure. There i
 The exact findings and report hashes are retained in artifacts/bundled-lexical-005-qualification.json. Source corpus sentence quality is not guaranteed: an inspected Swahili reference mistranslates National Diet as nutrition. Do not promote bulk sentence retrieval to trusted full translations solely from corpus membership.
 
 The next candidate addresses supplied Swahili object-concord composition and the source eligibility of derived entries with explicit lexical definitions. It is not part of bundle 005.
+
+## Supplied Swahili object forms — 2026-10-28
+
+Bundle 006 (catalog 1cae75f30a695decc403fa9039e42a6e9ebb4ff93e8886c018037aa38c85aaed) adds 2,568 supplied-component object carriers across 23 verbs. Both components must occur in the same native entry, and the entry must explicitly establish transitivity or define a causative meaning. Reflexives, vowel-initial/monosyllabic roots and changed final vowels remain outside this rule. An explicit single derived definition can be source-eligible; combined meanings remain contextual. All prior rejected sense links stay rejected. The compiled Swahili shard is 14,819,328 bytes; all-language compressed assets are 355,008,228 bytes.
+
+Android and iOS simulator agree on five added verb spans in the 16-message authored diagnostic: fundisha/teach in plain and person-marked infinitives, sikiliza/listen, and kopesha/lend in plain and person-marked infinitives. Messages with a span increase from 8 to 10, and spans from 10 to 15. All additions were inspected in their actual captured sentences. The 602-case replay is unchanged, as is the broader 40-post Swahili social-training diagnostic (26 messages with spans, 47 spans). These are development results, not population coverage or an established 90% immersion standard. Full local translation errors remain. Exact hashes and limits are in artifacts/bundled-lexical-006-qualification.json.
+
+## Restored supplied pronunciation fields — 2026-10-28
+
+The native inventory had dropped upstream form-level roman and ruby fields. build_native_form_readings.py preserves those fields in a separate indexed evidence database bound to the original full-source line, form position and inventory hash. It rechecked both source hashes and recovered 1,591,548 Arabic form records, 436,208 Korean, 140,824 Japanese and 71 Chinese; records may carry romanization, ruby, or both. The 378,179,584-byte authoring database is not installed in the apps. It includes ambiguity and non-runtime forms and must not be counted as vocabulary coverage. Candidate Arabic plural support is being assessed separately.

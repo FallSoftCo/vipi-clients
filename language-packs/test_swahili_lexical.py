@@ -59,8 +59,12 @@ class SwahiliLexical(unittest.TestCase):
             links.resolved.clear()
             self.assertEqual(links.resolve(3),3)
 
-            self.assertEqual(native_senses([lend],"sw","verb"),(1,True))
+            self.assertEqual(native_senses([lend],"sw","verb"),(1,False))
             self.assertEqual(native_senses([unqualified],"sw","verb"),(0,True))
+            self.assertEqual(native_senses([lend,unqualified],"sw","verb"),(1,True))
+            several=self.row("Causative form of -lingana: to compare, equate, correlate",
+                ["causative","form-of"],[dict(word="-lingana",extra="to compare, equate, correlate")])
+            self.assertEqual(native_senses([several],"sw","verb"),(1,True))
             self.assertEqual(native_senses([lend],"es","verb"),(0,True))
         finally:links.close();db.close()
 

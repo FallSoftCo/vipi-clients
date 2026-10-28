@@ -31,7 +31,7 @@ No claim of individual review or automatic runtime approval.
 
 Changes: per-language indexed lexemes, all supplied analyses and guards, shared source sense IDs.
 Native lexical evidence remains separately attributed through lexemes.source_url and senses.source_url.
-Noun carrier derivations and supplied-form evidence are retained in carrier_evidence.
+Noun and Swahili object-carrier derivations and supplied-form evidence are retained in carrier_evidence.
 Compiler: language-packs/build_lexical_shards.py. Published dictionary evidence is not author assessment.
 
 Assembly: exact source shards with shared release metadata; original compiler and source hashes retained per language.
