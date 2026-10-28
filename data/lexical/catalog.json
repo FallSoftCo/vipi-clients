@@ -1,539 +1,539 @@
 {
   "schema": "vipi-bundled-lexical-1",
-  "dictionary_release": "9d484dffc2bc4eb53ecefe62c4922a20f24fe1bed3af25a1b4f2710917d2b17b",
-  "context_evidence_dictionary_release": "9d484dffc2bc4eb53ecefe62c4922a20f24fe1bed3af25a1b4f2710917d2b17b",
-  "compatibility_sha256": "79cc6a7081bb1258e25e7123853d0a4a091abccb421c32cf57ee79c52d2f1645",
+  "dictionary_release": "6032509770e483e6dd4bf5625eeadf5c24c8b0a3d91555d2df72d4e1993cef7c",
+  "context_evidence_dictionary_release": "6032509770e483e6dd4bf5625eeadf5c24c8b0a3d91555d2df72d4e1993cef7c",
+  "compatibility_sha256": "633a5966da210fcdd5ec209bac2cb9c738968adc98cf5688b4d48c3705a8b945",
   "files": [
     {
       "id": "d-ar",
       "file": "d-ar.sqlite.zlib",
       "bytes": 184160256,
-      "sha256": "2904d8ffb0ced7dbbf16c01cd5c209d2e0a7dfc2e8398b931aa819bba6c2bc74",
-      "compressed_bytes": 26131545,
-      "compressed_sha256": "615911e4994649ba6700e5a886bac3e346563df3f98587b78c9919269f6f8864"
+      "sha256": "d4b1c08bbbaf7ca9f186387af0d4853099a3673a097738917772fa1ad086866f",
+      "compressed_bytes": 26131537,
+      "compressed_sha256": "37f8730ce750c38115ead24dc6892a547fb65b03cfb5001cfd6df768a17ee3e5"
     },
     {
       "id": "d-de",
       "file": "d-de.sqlite.zlib",
       "bytes": 339628032,
-      "sha256": "a040130721acef23c0652dd8f41cb1180a6346fed1ea0131d993fe31d3c1007c",
-      "compressed_bytes": 50366793,
-      "compressed_sha256": "65cec3544f2d708f5da4e6c32951cbecdfb5a91c934fcb5b1a5d9886841ed423"
+      "sha256": "35529352882d2ca9b78534233bf3c1d8dfd85c46a1df0a1ca5b862580a853f6a",
+      "compressed_bytes": 50366719,
+      "compressed_sha256": "32c9af454c862efd9d5ed75a6930a08974782ed36db34a595f785463b59ba360"
     },
     {
       "id": "d-en",
       "file": "d-en.sqlite.zlib",
       "bytes": 207884288,
-      "sha256": "167d7f49c06b01c0ca04fd3cae56e65f569e398d8ebb447a5bbfb0968cb63aaf",
-      "compressed_bytes": 55912072,
-      "compressed_sha256": "cd4ae0d8e557c94d1d4c87b1da9ca513f28cbdbc4a13b28f51675d9961273f20"
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+      "compressed_bytes": 55912030,
+      "compressed_sha256": "45fc8a260106ac474c3487831780a2446d4909f3a9320874ed421f174c11e87a"
     },
     {
       "id": "d-es",
       "file": "d-es.sqlite.zlib",
       "bytes": 364613632,
-      "sha256": "9c45ea90f3df4f3fd2eaf4cf0be1afc2168ba7683ab15a6964f256f11b3185db",
-      "compressed_bytes": 56159074,
-      "compressed_sha256": "4122cac8bde026c187c585fd3e6f4c98a2af58b2882a68514f3f20142dae2c98"
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "compressed_bytes": 56159017,
+      "compressed_sha256": "ce4e5923bc2e5aba00d7f8af06b950a41a51aec674c5b07add3f20cad4fcd472"
     },
     {
       "id": "d-fr",
       "file": "d-fr.sqlite.zlib",
       "bytes": 127201280,
-      "sha256": "8929bd8512561470b0cfb7a54de0d84acd54ce56de2b0d42ee9986a60a639fb9",
-      "compressed_bytes": 27084924,
-      "compressed_sha256": "ba2e70b13071b1310e81e1cebe8a34f3a63e66462622b79ec5473597673aa669"
+      "sha256": "5d884557d3a265a88aadde8dfeba2bbbdcd930a20b0ae16ab4f36f4bb196cecc",
+      "compressed_bytes": 27084970,
+      "compressed_sha256": "49586b0b8fa9db148d248061fa422efeef04d7f42739cb10b9c66329ffac6b47"
     },
     {
       "id": "d-it",
       "file": "d-it.sqlite.zlib",
       "bytes": 118775808,
-      "sha256": "d8157e442d2e20f440de3fe68743bb8755a5bae831015bb7c0054110e7192ca3",
-      "compressed_bytes": 25648824,
-      "compressed_sha256": "7a6a962f9f66e1a4e2dd5bcf6311f18c47557314c2c4d2dbf81dedef80be497e"
+      "sha256": "22ef21aae71fcd403c952b2b3bccfb99421b19ce91d895884dc64670ee8cce19",
+      "compressed_bytes": 25648748,
+      "compressed_sha256": "90c1eeae1973da06f54f4134d77c3483187c41f7148b44698e8cdce8a8b2131d"
     },
     {
       "id": "d-ja",
       "file": "d-ja.sqlite.zlib",
       "bytes": 48148480,
-      "sha256": "9be25b2e2e4080c650af625f2e535ee4a39d6d8a73d3b649b1204643e87b7863",
-      "compressed_bytes": 13266894,
-      "compressed_sha256": "c6a0e7e1eef46433640e79232b65f1d6494349dd1114485183f9144bdb85b5f9"
+      "sha256": "101115ac82b01b2467644a439c1480b913ab5196f3edb125aadf574b5608159d",
+      "compressed_bytes": 13267033,
+      "compressed_sha256": "5ec0af9a951f58a69f153314f6bff6ff05d415e34b8ba25ccbdf9f2a38cfad8b"
     },
     {
       "id": "d-ko",
       "file": "d-ko.sqlite.zlib",
       "bytes": 132706304,
-      "sha256": "7c8247187c752a14f0b86b4eaa2c07cd86413ee6cfdf56c8a083974527ac17bb",
-      "compressed_bytes": 15444984,
-      "compressed_sha256": "57e5accca9cca33b113ca8d3118c954f62430bc0ded1ff85854ce67d28d8c184"
+      "sha256": "114daec103422c6ef8536454f997ba104b25ff6d39523546784b5fa6b8b350db",
+      "compressed_bytes": 15445111,
+      "compressed_sha256": "3ec77c0cdb2c9b8bc607a331297eb6b84ded9f09db42d6ed0631656697436128"
     },
     {
       "id": "d-pt",
       "file": "d-pt.sqlite.zlib",
       "bytes": 139739136,
-      "sha256": "91c74de1b6ac6bd49854a37bcbb5226299640da354de0cf8b32d64eeb8dd5a96",
-      "compressed_bytes": 27203097,
-      "compressed_sha256": "4e2125038c44df145246c2c9af8bb26c5542fda4035c90adc4c48e147b41017d"
+      "sha256": "930eea59275c254dda3a66d8b68e9fae27eec96958a44599123655dcac812109",
+      "compressed_bytes": 27203058,
+      "compressed_sha256": "98e3ec162f5107ac37a7a9a56f41f3e5c3af632bc167986dd4ed7d9ae4e8541d"
     },
     {
       "id": "d-sw",
       "file": "d-sw.sqlite.zlib",
       "bytes": 14819328,
-      "sha256": "0abe7b489170f98587518f55190f846c65195911df4a1ccc3ed20cc081cec557",
-      "compressed_bytes": 2781007,
-      "compressed_sha256": "d8e54b3a2a2a5564a0eef57d2c4df3312944d1d55f41194963bac1207446a44a"
+      "sha256": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+      "compressed_bytes": 2780992,
+      "compressed_sha256": "b8319906a795dba4a1b050068d3decc732135bb186d8b3893f7c2117ba6520d0"
     },
     {
       "id": "d-zh",
       "file": "d-zh.sqlite.zlib",
       "bytes": 46440448,
-      "sha256": "253c2cfd0421e2dfd479b38949d59c326dca41fbfb4c8461692101ebed19f5cd",
-      "compressed_bytes": 13663983,
-      "compressed_sha256": "f10c720cc9ce625ed91c2bac78198859ec67c3e5dbba0b82161b6c9984bfca49"
+      "sha256": "649b6074ea674bfb53fe8fb8a5d0083d3bfb141cc7a7ff1d9b9e1f34133271a8",
+      "compressed_bytes": 13663969,
+      "compressed_sha256": "2be720f40857fcbfd7fdc715d06ae62ca4be07da8cbe54f8b490b2afcf34645c"
     },
     {
       "id": "w-ar-de",
       "file": "w-ar-de.sqlite.zlib",
       "bytes": 122880,
-      "sha256": "f1528f476b4a1ab96ea3defe494ab88b1e12628cbc2cc963ddb973a75d6c46de",
-      "compressed_bytes": 23079,
-      "compressed_sha256": "1ecc326abdf9e691588b1ca495a1cb1e543a7af32507d9cf2190873acecde4ff"
+      "sha256": "feac116dc592a8bbb4e5896fa9e4361d3d219f913b0456c5ee04ce32e3371bde",
+      "compressed_bytes": 23108,
+      "compressed_sha256": "e05354d993440676d0d68afbb232d911acb9869c8079d3ab131dda75f1c77707"
     },
     {
       "id": "w-ar-en",
       "file": "w-ar-en.sqlite.zlib",
       "bytes": 2080768,
-      "sha256": "e5366eda8f91ab6c4b2e629b213f0cc633fbe3032ab833f1c6c2adc7ea13e566",
-      "compressed_bytes": 461038,
-      "compressed_sha256": "42e861e3e1ea4a9f8aff43a197db87a30dd3f65328a9e21cbc0eea4964f527e6"
+      "sha256": "4902dba59bd5d8b7aac3ebe9b7b96863956cb9a9f29c6120bc524389f96c9f61",
+      "compressed_bytes": 461111,
+      "compressed_sha256": "996cb4c1ec4a0b3104dc574d6a89e816c6453dfae903d8da00b7796687fade21"
     },
     {
       "id": "w-ar-es",
       "file": "w-ar-es.sqlite.zlib",
       "bytes": 1085440,
-      "sha256": "bafb85516dd9b77ef86ec9d07e359f471af903fb6e3b6dc6ae53da60efa265a3",
-      "compressed_bytes": 237673,
-      "compressed_sha256": "3389d400cb6aff2f38d0d2d1e0f60ca73dfb67a303fb79f49a147bf394259c25"
+      "sha256": "110db2923ef2da5f82579b4c1c9a9224aacc6e29725442f90834c95addcd45b9",
+      "compressed_bytes": 237716,
+      "compressed_sha256": "1b245a76de8765985d97dfb8b17412daa8229dba364013889505ceff85e5cd66"
     },
     {
       "id": "w-ar-fr",
       "file": "w-ar-fr.sqlite.zlib",
       "bytes": 606208,
-      "sha256": "1b71036c4265f51b51b92eb77a21ce3e7457f8005b42c51900d6cb9cce8232a1",
-      "compressed_bytes": 132254,
-      "compressed_sha256": "b30449103635a94f12e521b7bcb540208cafbaeea3ee7a9a1eac84e1758d44d2"
+      "sha256": "9c253e1d28af7b75bd4685117341c1eb70c36c1e7a5734e504c09b590b7c9d8a",
+      "compressed_bytes": 132299,
+      "compressed_sha256": "3f295d3d123e7a989d64dea6294961ae2e4b851ef2de4893401f98cb12d8b5df"
     },
     {
       "id": "w-ar-it",
       "file": "w-ar-it.sqlite.zlib",
       "bytes": 221184,
-      "sha256": "e66b4e625d9d970d9533141567052b01272fc2a27effe3f4ba7a00e85cff8ef4",
-      "compressed_bytes": 47352,
-      "compressed_sha256": "c45bbddc3b3e970daf22c692e8b83b1741491102b4f7283b0545e2ba577003d2"
+      "sha256": "4e6bfb9bb16c81fd982d449c4ee22e7070fdf73ec07bbd5c3d809f5781a8509f",
+      "compressed_bytes": 47383,
+      "compressed_sha256": "f1cb67d9592138815172f68c7bfa4c180c876d06fb7194d48c4fe4170634b3cb"
     },
     {
       "id": "w-ar-ja",
       "file": "w-ar-ja.sqlite.zlib",
       "bytes": 81920,
-      "sha256": "6180458fe023c38fa858fd7ffdf90b8ab11f4aae37cf405bc25b80a0a132b788",
-      "compressed_bytes": 12322,
-      "compressed_sha256": "da41896583f6adb38a49a047049e36902a6f3eb3794d9792a34ea37c0b84330d"
+      "sha256": "2b6a97158109ff9ef7abc803efa43099afd459414d1842392afb72fa6cad72c1",
+      "compressed_bytes": 12386,
+      "compressed_sha256": "a29e3e1bfe65f87387cb194348b5bb7d9ec5a24147c3aa1e8d26d426f810418c"
     },
     {
       "id": "w-ar-ko",
       "file": "w-ar-ko.sqlite.zlib",
       "bytes": 53248,
-      "sha256": "ca411b96c15b372ad1d2d327b90d6570721338f246899a1ad8fe49f6955951b9",
-      "compressed_bytes": 5021,
-      "compressed_sha256": "0a5172c7ff3d16f05a744dcf05f9ea572fdbe137715e9c000c4b10321f0822a7"
+      "sha256": "2b746a23c2f81387585fa067b617c5e93278b706bedba05ae76e58230ae13ba1",
+      "compressed_bytes": 5011,
+      "compressed_sha256": "154c9901ee986d8ab60b7cd0b41402a9ef5eb54e30eedadec298f716b25b620e"
     },
     {
       "id": "w-ar-pt",
       "file": "w-ar-pt.sqlite.zlib",
       "bytes": 229376,
-      "sha256": "e41b2c9efd00037b967a4f71cf1ae50ad7dad640810cda4ff66e4bdee413f88c",
-      "compressed_bytes": 49040,
-      "compressed_sha256": "e2d27037b03c56595b115e3cc74b54861941bccad88aa6acd30ba64ff201725e"
+      "sha256": "46e0b6f1276bd0118676a551e1110dcc8cf371d9135ad3b88d8658f07d3fd523",
+      "compressed_bytes": 49083,
+      "compressed_sha256": "7dd647f947ecc9f6acb273c08c67e6ea349a3cab4a0a4d8fbaca1e27d25792c3"
     },
     {
       "id": "w-ar-sw",
       "file": "w-ar-sw.sqlite.zlib",
       "bytes": 81920,
-      "sha256": "1532a863ebcea3ba48a669fcd9ad3409254922b17ab7ab8955f167f149dfe20d",
-      "compressed_bytes": 12951,
-      "compressed_sha256": "ac8b0250c05d5a2e1456112a315dccce331d135ad86eca6f296f582076b0a8f4"
+      "sha256": "6e73b5711f5bc5db343c1a0cebeabed72a4667fe01802e8d2d3605daa898026e",
+      "compressed_bytes": 12970,
+      "compressed_sha256": "ee7e387c7270347a215f19f9c4c6e39b3016e3385677cf2695a21df4328aba37"
     },
     {
       "id": "w-ar-zh",
       "file": "w-ar-zh.sqlite.zlib",
       "bytes": 81920,
-      "sha256": "69ecdbc56164c0eae08b0e04077456eab4cdd938bf89f7b965c23ecf5e997dfd",
-      "compressed_bytes": 12460,
-      "compressed_sha256": "75e97892fc629cedcff2aa92c4fa1af015f5d1c31357b4269c07b44b8fb9ba27"
+      "sha256": "c42bc614e29eeec0d277e72be7c3cb985e1e7cace810b3a5053581b567a0a0dd",
+      "compressed_bytes": 12476,
+      "compressed_sha256": "11746264291fdec417d5054d5232938086368cd914327a22f2889561cf3028eb"
     },
     {
       "id": "w-de-en",
       "file": "w-de-en.sqlite.zlib",
       "bytes": 13668352,
-      "sha256": "1308e1628fd96928eadcd6f8d0f192f76aae506ae606d8982640ab25ccd96857",
-      "compressed_bytes": 3137274,
-      "compressed_sha256": "f3261fd7faa272934c1f2fca3bd8bc9e82a58eeda7b12310760c81b376a45468"
+      "sha256": "7a429dc75f62d4ca6a73dd3541814ebfab21bad106af3bc632e516a211d5bba6",
+      "compressed_bytes": 3137322,
+      "compressed_sha256": "cdb83557b428a3ef4981286afb642f0892cd3138a65a03281853a29a07c75a72"
     },
     {
       "id": "w-de-es",
       "file": "w-de-es.sqlite.zlib",
       "bytes": 3928064,
-      "sha256": "5aed8bf8617c4ff33e28acb8f7112ce31e1f411edb475f050adf56aa242c3dd2",
-      "compressed_bytes": 907293,
-      "compressed_sha256": "8b460b151fb788aca1a6150bb1c8e55dac529ab6f92cdfc5d56a322e16788851"
+      "sha256": "1388d4d7f3470059bfafc0c4cdff0d16b7f1e0181f89fbf4d051c0e5e2820791",
+      "compressed_bytes": 907308,
+      "compressed_sha256": "bd0493a1b9af42bf802537729faf7caca60920daea681d9c768c1ae6fd4dad7f"
     },
     {
       "id": "w-de-fr",
       "file": "w-de-fr.sqlite.zlib",
       "bytes": 4063232,
-      "sha256": "b43f1605cc412406e048e8e14429ada70a174adfa157b9d83e9be2ad28756413",
-      "compressed_bytes": 944043,
-      "compressed_sha256": "bef802aca963511ceee07378745932a79091ff364e56895c64742dd3969499f5"
+      "sha256": "ea21f655aeaf8b4e9d39edaad0d8279676d824ec01a091bf79e019cf453d1a28",
+      "compressed_bytes": 944101,
+      "compressed_sha256": "e4788becf0e2ecb83ee923226687e34c8343891f2d5760698a7a4253b1d84977"
     },
     {
       "id": "w-de-it",
       "file": "w-de-it.sqlite.zlib",
       "bytes": 970752,
-      "sha256": "56b8ea7085c60fbe939d718a31263a15baf0edf2d4c366b82d88a5e06ef1304c",
-      "compressed_bytes": 232667,
-      "compressed_sha256": "572d521a74c7eef7fe0b5ca88b8f3036685c42747918f622e8cb40a3c8859fca"
+      "sha256": "77eb91b6acba2e53a6e1904c334301544b134f3adfd921042b1d8896fdf81014",
+      "compressed_bytes": 232685,
+      "compressed_sha256": "f8df16fda96f980bfd1802c20ca6c539504e716ef12cb2f9c1e93fc3ec41e62d"
     },
     {
       "id": "w-de-ja",
       "file": "w-de-ja.sqlite.zlib",
       "bytes": 778240,
-      "sha256": "daa80a87d53c90f033e22e9c8fb2b1e74f06f951aac51873d6926c22ff310854",
-      "compressed_bytes": 180395,
-      "compressed_sha256": "a15481f49916e6606bee946817e6fa60961b0557948f80e48a9a7c8d9556111b"
+      "sha256": "7b0936ffe5a55f20e393e089763c6e1547d96f29140d8f9835204f6ca8122221",
+      "compressed_bytes": 180488,
+      "compressed_sha256": "85ad137e342166b492e94694021c19a20f8dc9fe6ad5f5a5c388e1888ffe614f"
     },
     {
       "id": "w-de-ko",
       "file": "w-de-ko.sqlite.zlib",
       "bytes": 65536,
-      "sha256": "b0837f1e242737e21cdf6b67cbe3aab86175b484045f8d94bd9bfe83d5194f91",
-      "compressed_bytes": 8257,
-      "compressed_sha256": "9a7ab8dc4782bf14bb1c898e9cbb365a8827de30fd4cfd3e75290a8a5c2410cd"
+      "sha256": "5e73d5246deb4254813c07cdb14111fa5b12c0f22886b5a265e2b96e47f846e6",
+      "compressed_bytes": 8258,
+      "compressed_sha256": "1a8a9b98181c686af801e88db0b99f41e99f7895e5b5e734b7770b974d759f3c"
     },
     {
       "id": "w-de-pt",
       "file": "w-de-pt.sqlite.zlib",
       "bytes": 913408,
-      "sha256": "d1f25190a00e3664290efa422e109a4b9910a8cf91728481cbd232d9009842d6",
-      "compressed_bytes": 221705,
-      "compressed_sha256": "e991cd509dfbf8ee3972a1ec05556eaabd3a79974ba44c13be4734ccc1c1e9ed"
+      "sha256": "4499dca495bf60763350d9a21a54f2b667ed7f8593fca213debfaf7db7d7abef",
+      "compressed_bytes": 221737,
+      "compressed_sha256": "cf534c3a4e86573457c3bd2eac9528ca45709bccf30b75be1ca9687ec376ba38"
     },
     {
       "id": "w-de-sw",
       "file": "w-de-sw.sqlite.zlib",
       "bytes": 94208,
-      "sha256": "393c6078530129d9eb36845a005dc3fc650f33a19950efb4b92760b78c06f7e5",
-      "compressed_bytes": 16374,
-      "compressed_sha256": "ce16b023fa518b6369cd156a73dd69ba4c8a1f8e46206a04eda3b292f6f7dfc2"
+      "sha256": "7f3c0a2c3ed3ca7fbc06b8ebfda4765e3e4068ad3abc3e841f4df829a1c24e60",
+      "compressed_bytes": 16390,
+      "compressed_sha256": "f6ff795bbf31bbe375086ef60de1108e1bfa8a0198fcc7202c7dd8f857abb455"
     },
     {
       "id": "w-de-zh",
       "file": "w-de-zh.sqlite.zlib",
       "bytes": 303104,
-      "sha256": "8d248cbe43d9d6280f1a8566dbb69a3a6f4125f70e4c9729d0bde97084fff93e",
-      "compressed_bytes": 74098,
-      "compressed_sha256": "0764b45246b2b6d006acd16afe5e2709f45c00f9c297ee5d3dbe0451d5fe0fe9"
+      "sha256": "207ff0a984118b471c2413d22e3b77b64f3d7892dc8587a3a3c13284e37699ea",
+      "compressed_bytes": 74118,
+      "compressed_sha256": "e4c8b1c9730ea9c293d170ecfcd76a5140c215fa4f599d56ef6d26cb1750bc44"
     },
     {
       "id": "w-en-es",
       "file": "w-en-es.sqlite.zlib",
       "bytes": 59809792,
-      "sha256": "8354abedde653b1b1bd5f1c67e06462192b70a8768bbb7aff752252ca6c68280",
-      "compressed_bytes": 12404933,
-      "compressed_sha256": "e9aa3555ec4c224121d609a66a1f63236c098aa9f1627efcc9dd8890ef6b5ca7"
+      "sha256": "208a488be2942b2257c10647d7a2bbce437a4511ce72705ca8151ac062d1b622",
+      "compressed_bytes": 12404946,
+      "compressed_sha256": "eeba65ba190f0a53f2cae58c47a51009cdd26666d7cfed8ad736c79a250630bc"
     },
     {
       "id": "w-en-fr",
       "file": "w-en-fr.sqlite.zlib",
       "bytes": 28520448,
-      "sha256": "fc3cfa8612c2ce259d13571111be818b7e631f9078a6fdb9784545533063ffbe",
-      "compressed_bytes": 6183775,
-      "compressed_sha256": "26083ee5bb8f58f40f11a9b51e7744e9cf91dbfb5b18e4faf18cae964f4535a5"
+      "sha256": "ee28bded849832b4d39dbf708cfb61570428d6cbf0be4bed9a14aff9b86351fa",
+      "compressed_bytes": 6183909,
+      "compressed_sha256": "61093884a2b9d1df74d81e62d56e752737320f8ce3d5e10c159f6481933946b3"
     },
     {
       "id": "w-en-it",
       "file": "w-en-it.sqlite.zlib",
       "bytes": 19427328,
-      "sha256": "ebeea6010ce5eece13193028db6d1022ec24124293e9fb09e645eb7fde95a498",
-      "compressed_bytes": 4337116,
-      "compressed_sha256": "24784718184f6479d33f822e53ec63fd2875a826b1c9c213fe4fefd357e90cf6"
+      "sha256": "ad54a48866666e3a4c5dfc4570edd35f39e3c3ff03cc6e7d43a98c6ce88e3921",
+      "compressed_bytes": 4337224,
+      "compressed_sha256": "1810d8947b874168a1b9cfe703a8017903db6976f1573b1e49934a20ae78294c"
     },
     {
       "id": "w-en-ja",
       "file": "w-en-ja.sqlite.zlib",
       "bytes": 6127616,
-      "sha256": "c76f898f52ff207ade92a109b4e261cebb906473b18cf8c7fada3b75a4950545",
-      "compressed_bytes": 1381306,
-      "compressed_sha256": "35eb2a1237b9d1897641323858ea0f7ebfc0b01e96c81c55ff120ce7845f8ee0"
+      "sha256": "ddb10a2d897552f36c80233892bca783200296e690ac5be0cb2d9c54bd954c79",
+      "compressed_bytes": 1381301,
+      "compressed_sha256": "2b1f8c516ce0d183ded22c33116d3d3c23579b5738a6a0a7b57f99cec25d9f86"
     },
     {
       "id": "w-en-ko",
       "file": "w-en-ko.sqlite.zlib",
       "bytes": 327680,
-      "sha256": "b21e1083258448c983b370ac308f5b02b8303deac7a677df46ce10ef04c4dc06",
-      "compressed_bytes": 77120,
-      "compressed_sha256": "b1b33617bf86c6cc5531e62e1f469bb374fc71c95a4b50180fb9e6fbe694c611"
+      "sha256": "041ff47afeeafc726e6ecf93c15e6c3259892ad0bbb895a539258837bf9465ba",
+      "compressed_bytes": 77273,
+      "compressed_sha256": "a2f31eeb4726369b4b3d6084746edcd2af736a8249e614bb5cbd3d678e1a8cbd"
     },
     {
       "id": "w-en-pt",
       "file": "w-en-pt.sqlite.zlib",
       "bytes": 16355328,
-      "sha256": "d0a00a8f1fcc3c5dd934f039fcfd21c08d317c3d4dff437787f8e6d11b15c8af",
-      "compressed_bytes": 3675829,
-      "compressed_sha256": "161ed3fc9c234c8e56d80919c3a53bdf292bb9d7b498217040997f2351117fc7"
+      "sha256": "9eda85393cfb9fa0d38297380bcd51d2b626719f596725337d369f91b3e3ff28",
+      "compressed_bytes": 3675859,
+      "compressed_sha256": "80010c3784ffb115f5e6a4b26eb7517fb606b168aca8e94efa228f7ae208ea5a"
     },
     {
       "id": "w-en-sw",
       "file": "w-en-sw.sqlite.zlib",
       "bytes": 1429504,
-      "sha256": "aabd12e3009ff77031dff9ca363f18c91bf5d199f04ec64646eb3291fe67af57",
-      "compressed_bytes": 327785,
-      "compressed_sha256": "58495bd9c9afa5c89aad29a846ca092981a790fa2c27740d0bf59dc6d166418f"
+      "sha256": "0dce51f11bff667e844bf39dde6b5478ec5e7a8ce16f63626f47622cf2d53c86",
+      "compressed_bytes": 327851,
+      "compressed_sha256": "be36a9f58e0008c490329ff13491376519b92ebd48b17f5506f4678cf3865c5b"
     },
     {
       "id": "w-en-zh",
       "file": "w-en-zh.sqlite.zlib",
       "bytes": 3272704,
-      "sha256": "d7f4b67bf86f88ec569fcaba4d0db49ee0d9417a9552e097ff528ffce962f1f3",
-      "compressed_bytes": 766372,
-      "compressed_sha256": "418897b799d98aaee2eecce0677fbd012aeccd93683c7be3c7fca6ef1a77cde5"
+      "sha256": "654109dcef079ab689b28859c48e6683a47c040927182726720e8f8b591f14fc",
+      "compressed_bytes": 766419,
+      "compressed_sha256": "049fabda47c5149159c1a4c8cce4c77b8a5bca03d5f6e60255cdfbb79f5013f0"
     },
     {
       "id": "w-es-fr",
       "file": "w-es-fr.sqlite.zlib",
       "bytes": 18427904,
-      "sha256": "10c05c2f3a55022c970bdee4a2fba0e56a78d51981db56eb498375bcc66e90f0",
-      "compressed_bytes": 3932686,
-      "compressed_sha256": "83e02b1d4cb3c152f52eac5c5e657ff0dce8eb505013c18f3528760d6b235589"
+      "sha256": "0a2723afa7feea6a3e38be86e5707eaee4cecb3d09b0363dcebce2b5655915f3",
+      "compressed_bytes": 3932756,
+      "compressed_sha256": "f0ec73a382c249bd3ba56a1ec873641e6508b84549fc7f4051aff8e4bf538508"
     },
     {
       "id": "w-es-it",
       "file": "w-es-it.sqlite.zlib",
       "bytes": 6582272,
-      "sha256": "7ceb18c1570ed18188d563b9912b706627d79b95555e67683ba8c131558f2dc0",
-      "compressed_bytes": 1444621,
-      "compressed_sha256": "d6368bb449e64bcf392a448ff6001e1c25afb9e4c7554f92ec07766d499aecdd"
+      "sha256": "885dd7c36c8977c5672c2cd39bfb3799eb7d8f98b745a1496e993ab37c7d95c1",
+      "compressed_bytes": 1444689,
+      "compressed_sha256": "f9a5072394a3859bbf41a96d21fda65fd9d742beec2b92e4bb3189247a03a1c0"
     },
     {
       "id": "w-es-ja",
       "file": "w-es-ja.sqlite.zlib",
       "bytes": 1028096,
-      "sha256": "35238ee3e0c88c0925a02c5fc83526bcb6540fb99f095e550a679f167ebea3bd",
-      "compressed_bytes": 238461,
-      "compressed_sha256": "c0c75bccae274f5212ba6d60dfadedbb2d239454941fba216781fee2b4d4bbe8"
+      "sha256": "cb0c42ce103bfe73a0ea2b2d5ad9aaad79a58e5536933e1d6221467446a088f0",
+      "compressed_bytes": 238544,
+      "compressed_sha256": "f5dd152d5b614548f75eb626762b745553565371812b67877da616572961e725"
     },
     {
       "id": "w-es-ko",
       "file": "w-es-ko.sqlite.zlib",
       "bytes": 143360,
-      "sha256": "8e6e96598bdb1a26953d34cc1583dcf4b24ea0e9bddad1b47b9ad848cfeeea0f",
-      "compressed_bytes": 29124,
-      "compressed_sha256": "7216c24b43a0ee59c457cf5431938380657bf98e7d013bbc5773c0cb364dcadd"
+      "sha256": "1a10c5f039402cb9ef6080481f9e02bf64315500b1e2abb3cf329e1a5802c879",
+      "compressed_bytes": 29163,
+      "compressed_sha256": "8629a73e3752e5f8a60c2f4e63c76a6931de9488d178bdd7b073847dba35fd9d"
     },
     {
       "id": "w-es-pt",
       "file": "w-es-pt.sqlite.zlib",
       "bytes": 6959104,
-      "sha256": "536f6b40bb493a94b685bae25fc9c668778fd1368423ce5d211b45fa50452e74",
-      "compressed_bytes": 1537052,
-      "compressed_sha256": "6b7151b55fbebcf3ea76e544d4e7161673069332bd86fdfdc7450458e9becb4a"
+      "sha256": "e7933a57ac713fd1f6e6e510e6cb5cb73a0f69823418202701688ac991f05639",
+      "compressed_bytes": 1537083,
+      "compressed_sha256": "9f77b2ee293017dd0e4967a0604f8587f8cf2b995616128ff3a1afe804d26c8b"
     },
     {
       "id": "w-es-sw",
       "file": "w-es-sw.sqlite.zlib",
       "bytes": 708608,
-      "sha256": "3f61bb9e998e75b69eab176a93b8881f22cd44141bf7893581c67294185fa3bd",
-      "compressed_bytes": 159837,
-      "compressed_sha256": "b04ddd722b48fb31f8342f0e7f06fa35d2dfc6070b74ba51e1fa8001e873b8f0"
+      "sha256": "a320db8c133d0a553d99a123067ea76f8b8e846ab571ce627d5eb2def87d4129",
+      "compressed_bytes": 159863,
+      "compressed_sha256": "27ba967de32594166262ba4c42e676ae4859abd1e3209cf688f8bdac97055aa4"
     },
     {
       "id": "w-es-zh",
       "file": "w-es-zh.sqlite.zlib",
       "bytes": 1196032,
-      "sha256": "f7386dc6f8c9567ebe5b11d5aba93b912649e8ebbfcd0e2084fe5438535d9473",
-      "compressed_bytes": 276855,
-      "compressed_sha256": "d96ca30583ecea87b75319391093ead04c9dc416651c988d9db82f159aca72f4"
+      "sha256": "e6c8ad51361bff7bddf792bac2aee586991acd022d4785e82fa4bb120c184aa5",
+      "compressed_bytes": 276867,
+      "compressed_sha256": "7d783b8460f0c3f5a49621c487654c04dda3104972d2f9ea3983c2fd31c644e0"
     },
     {
       "id": "w-fr-it",
       "file": "w-fr-it.sqlite.zlib",
       "bytes": 6402048,
-      "sha256": "9ba5ddd1a4786af05d8bfbd3d3a7f04bdabdda09473f922f030d3af09a533a29",
-      "compressed_bytes": 1431535,
-      "compressed_sha256": "d5945e53242163a6fb491ecdbb82fe9bc4c1d8405f6fe43588228dbe4f1e8707"
+      "sha256": "5ba6c38babb8770a509202a24c9130632670f12da5ff98f04399c34cc0b96d71",
+      "compressed_bytes": 1431576,
+      "compressed_sha256": "e451632a3eaae9a7cb4d9779009319924d0d43f262835080c3ae2acf37f277a3"
     },
     {
       "id": "w-fr-ja",
       "file": "w-fr-ja.sqlite.zlib",
       "bytes": 897024,
-      "sha256": "c2295472a9867bb3e9767c451b0a7711a2a81cce4165f7e66fc48832c7a996c4",
-      "compressed_bytes": 207249,
-      "compressed_sha256": "e4e8345a66247e8e41187af60ad4c920374a571092485b705b0eebcf5ad7b729"
+      "sha256": "e4f0474907ea5d18c50772dcfb2d592cb660ec3d65c59c5f69034f108ca6ef8b",
+      "compressed_bytes": 207321,
+      "compressed_sha256": "a628bf4c214ca981e8665046a9e5bfddce23a39a99c2d000c5b15eaa66fc4749"
     },
     {
       "id": "w-fr-ko",
       "file": "w-fr-ko.sqlite.zlib",
       "bytes": 98304,
-      "sha256": "0761a4b39e9df81877ac5f014d9fd2c7b0b4b8f002442a1f1e3282b30a143095",
-      "compressed_bytes": 17810,
-      "compressed_sha256": "69c301513f3473fe519991d53c7caf6eaf550b9bfb810e670d35aafa45cac585"
+      "sha256": "787703cf4b74e6e1b45905c4649d0a3552bbac7269a234fd386a3f7c05cafc94",
+      "compressed_bytes": 17828,
+      "compressed_sha256": "3595e99ef0e74f3c0e0df5133f33a09800a25b4dace2a711c20231513c48cfa1"
     },
     {
       "id": "w-fr-pt",
       "file": "w-fr-pt.sqlite.zlib",
       "bytes": 4456448,
-      "sha256": "6ea0492d5c31e59f64e3259db3b6e594923ad53a6dd16d8d5559f5e690b838c8",
-      "compressed_bytes": 1011924,
-      "compressed_sha256": "846e1eaa6e2f1b1ea747d946f0ea4f98c00bca1138639657b6e1e6ae6959cae8"
+      "sha256": "ca4b016ac34a936c6b2456a9dfc92088c1ccab97eca1026768df2cdf48922b0a",
+      "compressed_bytes": 1011909,
+      "compressed_sha256": "73617270e080d439447f8c19b1ddbc76e0ea9573337455e3e05cc4c76aee8d70"
     },
     {
       "id": "w-fr-sw",
       "file": "w-fr-sw.sqlite.zlib",
       "bytes": 409600,
-      "sha256": "4b4561b22d236bcbb498a1793bfef8cf11087dd523bb46cfd3c04097ac956e5f",
-      "compressed_bytes": 91704,
-      "compressed_sha256": "9c831e3c55cdd80e8a6e2cec6c862cb1dd04739c95c57367cfdc106b52714b9d"
+      "sha256": "65b402eb1f653b686a17796e94ed0fd20a55d753b3ad239f67e2141a964a13b1",
+      "compressed_bytes": 91739,
+      "compressed_sha256": "4eb6d764b7f4327e3702abff355b241487a5af1acfa2235102aa94fa92229da5"
     },
     {
       "id": "w-fr-zh",
       "file": "w-fr-zh.sqlite.zlib",
       "bytes": 806912,
-      "sha256": "c09839b2bae2064c4cd8db3a746535d86acae0cb9646604cb760c7e2bcf520cc",
-      "compressed_bytes": 190673,
-      "compressed_sha256": "64d3fafeba5186867753927c3b358207cb9afb227089056932dc651d3e9e8d54"
+      "sha256": "803a948fe04dd7bdc7b9bf256af5d98be57bdd2b5abce583d33313026df2863e",
+      "compressed_bytes": 190694,
+      "compressed_sha256": "b42cd9de9de3af1ae11e45ec66330bca0e806942467977741e82895fdffb11ed"
     },
     {
       "id": "w-it-ja",
       "file": "w-it-ja.sqlite.zlib",
       "bytes": 237568,
-      "sha256": "85176523e02790ff1bef4d1e15e4ba8555cbc4c110ecd3bb006cb764514d9100",
-      "compressed_bytes": 51628,
-      "compressed_sha256": "71cff978620bd079611c184aa7f221f0308c4997b9592009a5d5bd92cc1552eb"
+      "sha256": "8f671b25da08724a991ce891cb238418670c2b8a25c8979384d9111e6f1a5f46",
+      "compressed_bytes": 51627,
+      "compressed_sha256": "45e9191cea953b1c33849cccf3ae5e8d6c4bec06c221285981bb61137696ba3c"
     },
     {
       "id": "w-it-ko",
       "file": "w-it-ko.sqlite.zlib",
       "bytes": 65536,
-      "sha256": "118ef8fefbd613142ef33ae5b94233e374d2e8683e4e8adcb0804b60cec459d3",
-      "compressed_bytes": 8220,
-      "compressed_sha256": "7791c31fa5912fcc324103f7728b6becd56de7654010e8cd306f112c49d3cd06"
+      "sha256": "81719874dffffe52c5c7392c31ba061f064fe5d8c0346339ad739cfe638d25f3",
+      "compressed_bytes": 8225,
+      "compressed_sha256": "50f867c9aabe6b91a872204acc4c435f13dd5a7e2caf476ff5cf9c0135ae5d6f"
     },
     {
       "id": "w-it-pt",
       "file": "w-it-pt.sqlite.zlib",
       "bytes": 1740800,
-      "sha256": "e39ce19b1c78c8cc696d277d940862d44376fe778d21e3f7a4ba7cabdd45cc8b",
-      "compressed_bytes": 402795,
-      "compressed_sha256": "6adda76de3ba159e586ba8aab46657cc404f1d9c0fedb0d0d6e3ae98ef44952a"
+      "sha256": "80da5d428459ce8bada33243e2e9f01196747390680325b6259a144af5df0a6d",
+      "compressed_bytes": 402783,
+      "compressed_sha256": "84216ced7d09be23265a996f0806129d2fd8154262efece23f932126bebd2a48"
     },
     {
       "id": "w-it-sw",
       "file": "w-it-sw.sqlite.zlib",
       "bytes": 184320,
-      "sha256": "d7dd9d3f653df1087be202b787747415769151e1f1a951d9f69a7ccfb851870b",
-      "compressed_bytes": 38436,
-      "compressed_sha256": "0c7c3e4611bce3bc02fcf598118b9b789c0ba688eb4a9b9289420a209524dc3d"
+      "sha256": "90f6192c81971b31431ec60a1d0dabf9f73eae74e5501648261c9527568e630d",
+      "compressed_bytes": 38471,
+      "compressed_sha256": "bdce10821e8690f04ae7c24df81546a242c78dfefe157c137bda135b71ef3bc4"
     },
     {
       "id": "w-it-zh",
       "file": "w-it-zh.sqlite.zlib",
       "bytes": 294912,
-      "sha256": "7b33db8f5e78c6e3fa3cee503449b32017060ce07b864d099b7b1c837955178c",
-      "compressed_bytes": 68042,
-      "compressed_sha256": "2566ad9c73e677781bd24be0ca4989cae16dfd8e9f5bbfa2c03a8971f4e8a3fe"
+      "sha256": "7379a0e4ef2daf042942ee52f92904327774b766988224f8d37119e194c4de9c",
+      "compressed_bytes": 68060,
+      "compressed_sha256": "798aaf0cb3387f329123911743595d392a4786392d2c173b4d0f5c61867ab177"
     },
     {
       "id": "w-ja-ko",
       "file": "w-ja-ko.sqlite.zlib",
       "bytes": 65536,
-      "sha256": "cca5487f5d29a4d576a601fbab452f1b6bb0597ea05d260c42e7fbcd8090d660",
-      "compressed_bytes": 7792,
-      "compressed_sha256": "a00bf5137d99cdd691e4a0dfa9110ea08dc81b0069a33f69798bbbebb4bdb7f1"
+      "sha256": "e2a795f0d789131e0a8c6c4b42479666430a3501e961ce48a16774c6e6f4ed07",
+      "compressed_bytes": 7797,
+      "compressed_sha256": "bb6ad6e111dad3eb06389da671a0f5e464420cc2468f9cf3fbc28ae8276a0627"
     },
     {
       "id": "w-ja-pt",
       "file": "w-ja-pt.sqlite.zlib",
       "bytes": 167936,
-      "sha256": "17782b9669afa02b08bb71384509fa2153cbc90eb209c972ed02bdb25161f79a",
-      "compressed_bytes": 36474,
-      "compressed_sha256": "df6cc95674cee9bfe210af8c8c1cd7226acd08c98f47882939366a4ed96caa56"
+      "sha256": "6443a9a906dca66c11b36efca799e9bbd267e2b833d1a0da892f979c59ae48f1",
+      "compressed_bytes": 36554,
+      "compressed_sha256": "474fae5c7cc90d799a732e9f5f305186adb7d802866ce27e0d7a4515e42ae00e"
     },
     {
       "id": "w-ja-sw",
       "file": "w-ja-sw.sqlite.zlib",
       "bytes": 65536,
-      "sha256": "dde5feecad699ab4ae635a4de0e2fc11f0da1a8890ff3256a70e635e46e9bcf6",
-      "compressed_bytes": 8561,
-      "compressed_sha256": "4dde3c65c858723eafdd4de97be0af3ffe47794b07ca79338ba8940421c93614"
+      "sha256": "ec108d682b42dd41c2bc7b27cea5a7204d5bb923072d3b3f720e41bd9b9f44a8",
+      "compressed_bytes": 8611,
+      "compressed_sha256": "6bd56c230aa9b58d50027607733bcfc969ea27c2a29f99ee99b0de115c51ffeb"
     },
     {
       "id": "w-ja-zh",
       "file": "w-ja-zh.sqlite.zlib",
       "bytes": 233472,
-      "sha256": "dd21f63b7713f2df557d715ee5debd2d6d90a7f5a4328243b0fd9efcae7ee28f",
-      "compressed_bytes": 49838,
-      "compressed_sha256": "d77f6e987afe88d4806a7f6393ed1aaea955e5ad9f1d0f7d1d768fb51438aad0"
+      "sha256": "70e8a39f72da8e9ce5d4be058424a3929cac2d683d2d924135a375b6a30d9a69",
+      "compressed_bytes": 49868,
+      "compressed_sha256": "8caf4460fb068ba50b432c3e74da80beb45c39bc22207e960827910d5c9b4bb8"
     },
     {
       "id": "w-ko-pt",
       "file": "w-ko-pt.sqlite.zlib",
       "bytes": 61440,
-      "sha256": "793c9c536caf24b63a3885a868083971b059c6550daebdd16010ce7f8c0b8279",
-      "compressed_bytes": 7132,
-      "compressed_sha256": "ea606e7eaeffd7044666e0b74345d02eda06a0a9136aefc82ca2c670d053bb43"
+      "sha256": "10c730089557e11a503e37add20beaf0a4471b43ad4f56251eb1c6b7d3f9c288",
+      "compressed_bytes": 7134,
+      "compressed_sha256": "04350f23ef341d8d2632299e8599baa335e1dad9db751fbd3eef894942953404"
     },
     {
       "id": "w-ko-sw",
       "file": "w-ko-sw.sqlite.zlib",
       "bytes": 53248,
-      "sha256": "a96fca17bd87903df83622801a114114948e78e99665ad374333d4f77b035d8c",
-      "compressed_bytes": 5107,
-      "compressed_sha256": "8c58e35c2064aaf84965d7fa1d23e1acf88ee8fc65b83d39e5e87e80f638cde0"
+      "sha256": "b5e7335dddff063666ef8237bd2b0103d5a7d391881f6fb4dc3b80b0a5e2e957",
+      "compressed_bytes": 5095,
+      "compressed_sha256": "6e59857ce876134aa4fd4674080ee991684a4df561a05034d0bb45b10dd582cf"
     },
     {
       "id": "w-ko-zh",
       "file": "w-ko-zh.sqlite.zlib",
       "bytes": 65536,
-      "sha256": "2d4f6dd48b48690bf292982fb542dcdcadcd65f2fd359d7dbe6b15f7dc0e5f49",
-      "compressed_bytes": 8768,
-      "compressed_sha256": "0dbd36db1789d600647711022b2ac5bce4048809daa9bfcc0b339653a8656359"
+      "sha256": "c31fd23510470f8b7489d5227ae1ed789db49c5ded2b19413541e371b5832e11",
+      "compressed_bytes": 8770,
+      "compressed_sha256": "05e92ed4d3db7c6a4cc1505c69fbfc8c1d7fb968d32060ae739501f31ab07600"
     },
     {
       "id": "w-pt-sw",
       "file": "w-pt-sw.sqlite.zlib",
       "bytes": 159744,
-      "sha256": "c317edb72eeaf5607cb6a3dd849516f1e7c882564584b01da485e384a6690ae9",
-      "compressed_bytes": 32481,
-      "compressed_sha256": "631d2c5204d7612bb107f79579baa32997e848d74a86339dfb88952833f52ed8"
+      "sha256": "f029a98b7342852cb309b2421e32829100c1a2daf2a27b58d841e31ad0c4d958",
+      "compressed_bytes": 32511,
+      "compressed_sha256": "5a8744c1719d0cec11e06738b4d6d6b73c7f17218449b22e7c11f5287ea19401"
     },
     {
       "id": "w-pt-zh",
       "file": "w-pt-zh.sqlite.zlib",
       "bytes": 258048,
-      "sha256": "e661bfedae5d4bd3c30886139824e249d2ef2f61ee3ea5fd99cc2d4f2ba0c9c1",
-      "compressed_bytes": 58949,
-      "compressed_sha256": "bafdafd409412be529cb9f1d5ed7a751bb95c19a27d49875e55103b813a6f3b4"
+      "sha256": "c822ace8c93433d8a9f8a86d1ce219eb5db60c51e92550e383d340490ba8f271",
+      "compressed_bytes": 58971,
+      "compressed_sha256": "2418ee237a814f86dad791754d596a1582d3a736c11a1ea817cc003ab2b2cf8d"
     },
     {
       "id": "w-sw-zh",
       "file": "w-sw-zh.sqlite.zlib",
       "bytes": 81920,
-      "sha256": "33d38a19b14f9a5254efa69892a26208ecee236d9d0ec2adc2b8bccdd3413e0a",
-      "compressed_bytes": 12576,
-      "compressed_sha256": "e78172fde778815cc29817b219937a3cdec35073e7edbcce52ca97000267fc4e"
+      "sha256": "2b8839b1b34a76d02abfca15dcda2d796964644361d654ef5f5b242b84a74c13",
+      "compressed_bytes": 12594,
+      "compressed_sha256": "f00f313189ebc62c809be4235e19e8cc7f37aecca4310e05692603fb37320ac4"
     }
   ],
-  "compressed_bytes": 360899059,
+  "compressed_bytes": 360901019,
   "all_expanded_bytes": 1940668416,
   "languages": [
     "ar",

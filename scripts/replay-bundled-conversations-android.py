@@ -37,6 +37,7 @@ def main():
     raw=adb("exec-out","run-as","co.fallsoft.vipi","cat","files/bundled-conversations-"+args.run+".json")
     with report.open("xb") as stream:stream.write(raw)
     value=json.loads(raw)
+    assert value["run"]==args.run
     assert value["complete"] and not value["failures"] and len(value["outcomes"])==count
     assert value["cases_sha256"]==sha(cases) and value["bundled_catalog_sha256"]==args.expected_catalog
     print(json.dumps(dict(complete=True,report_sha256=sha(report),cases=count,

@@ -923,3 +923,32 @@ common-verb path and does not meet the 90% immersion standard. Full native
 reports, hashes and limitations are in artifacts/bundled-lexical-008-qualification.json.
 Neither written readings nor successful player callbacks establish acoustic
 pronunciation acceptance. No store/backend release occurred.
+
+## Bundle009 Korean link correction — native result
+
+The 15 negative entry-link corrections have been rebuilt across all 20 Korean
+directions, preserving the other 90 directions and all native entry/reading
+records. Bundle009 occupies 360,901,019 compressed bytes, catalog SHA
+6b8040ae0eacb82dded24d9cf948649551195165d3d1c12a085e17e02e847300.
+Android, iOS simulator and physical iPad each add wrote → 썼다 / sseotda in
+the retained letter-writing sentence. No prior span disappears. The ML Kit
+48-case cohort remains 29 messages with spans, increasing from 39 to 40 spans;
+the physical Apple cohort remains 28 messages, increasing from 38 to 39 spans.
+All added text and reading were author-inspected. The broader 602-case outputs
+remain unchanged and the 90% standard remains unachieved.
+
+The initial bundle009 collectors mistakenly read the previous native run's file.
+Catalog identity checks rejected those collections. The original new native
+tests had completed successfully; their correct existing reports were collected
+without repeating the 602 cases. Incorrect collections and collector source
+were retained under bundle009-collection-repair-001 on their respective hosts.
+Collectors now check the reported run identity as well as input/catalog hashes.
+Remaining grammar and Arabic checks passed. Exact evidence is in
+artifacts/bundled-lexical-009-qualification.json.
+
+Next development inputs are frozen in present-verb-conversations-001: twenty
+everyday English messages with varied explicit pronouns, captured into German,
+Spanish, French, Italian and Portuguese. They are authored development material,
+not independent chat coverage. No reference translations are supplied to the
+providers. This cohort is intended to measure common present-tense inflection
+gaps before changing the selection rules.

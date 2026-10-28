@@ -53,6 +53,7 @@ def main():
         translation_reused=True,population_coverage_claim=False,complete=False)
     if copied:
         value=json.loads(report.read_text())
+        assert value["run"]==a.run
         receipt["report_sha256"]=sha(report)
         receipt["complete"]=(r.returncode==0 and all(restored.values()) and value["complete"] and not value["failures"]
             and len(value["outcomes"])==len(inputs) and value["cases_sha256"]==sha(cases)
