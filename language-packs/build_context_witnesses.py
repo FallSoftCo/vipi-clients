@@ -99,7 +99,7 @@ def compile(args):
     selected={tuple(pair.split('-')) for pair in args.pair}
     languages={language for _,receipt in inputs for language in receipt['languages']}
     assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in languages for x in pair) for pair in selected)
-    sources=[]
+    sources=[];past_sources=set();kind_sources=set()
     for index,(path,_) in enumerate(inputs):
         source=sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
         source.execute('PRAGMA temp_store=FILE');source.execute('PRAGMA cache_size=-32768')
@@ -109,6 +109,10 @@ def compile(args):
         # Every source occupies a separate signed integer interval. This also
         # rejects accidental ID overlap before any evidence is accumulated.
         assert all(upper<lo or lower>hi for _,lo,hi in sources), 'Overlapping source identity intervals'
+        if source.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='whole_past_forms'").fetchone():
+            past_sources.add(id(source))
+            if 'kind' in {r[1] for r in source.execute("PRAGMA table_info(alignments)")}:
+                kind_sources.add(id(source))
         sources.append((source,lower,upper))
     work_path=args.output/'observations.sqlite';work=sqlite3.connect(work_path)
     work.executescript('''PRAGMA temp_store=FILE;PRAGMA cache_size=-32768;
@@ -136,7 +140,20 @@ def compile(args):
             start=end
         return language,text,owner,words
     @lru_cache(maxsize=50000)
-    def focus(identifier,start,end):
+    def past_key(identifier,start,end,lexeme):
+        language,text,_,_=sentence(identifier)
+        actual=str(icu.UnicodeString(text)[start:end])
+        normalized=lookup_key(actual,language)
+        candidates=set()
+        for db,lower,upper in sources:
+            if id(db) not in past_sources or not lower<=identifier<=upper:continue
+            for written,head in db.execute("SELECT written,head FROM whole_past_forms WHERE language=? AND lexeme=? AND normalized=?",
+                (language,lexeme,normalized)):
+                if actual.lower()==written.lower() and len(actual.encode('utf-16-le'))==len(written.encode('utf-16-le')):
+                    candidates.add('@past:'+head)
+        return next(iter(candidates)) if len(candidates)==1 else None
+    @lru_cache(maxsize=50000)
+    def focus(identifier,start,end,canonical_term=None):
         language,text,_,words=sentence(identifier);value=icu.UnicodeString(text)
         term=lookup_key(str(value[start:end]),language)
         if not term or term in GRAMMAR.get(language,set()) or len(term)>128:return None
@@ -153,17 +170,24 @@ def compile(args):
         for a,b,word in right:
             if any(c in '.!?。！？;；\r\n' for c in str(value[end:a])):continue
             if word!=term and word not in GRAMMAR.get(language,set()):cues.add('R:'+word)
-        return language,term,sorted(cues)
+        return language,canonical_term or term,sorted(cues)
     counts=Counter();batch=[]
     # Remove candidate sense-label duplication before collecting evidence.
     # Word/context agreement is not a claim that one dictionary label is true.
-    query='''SELECT DISTINCT m.a,m.b,m.a_start,m.a_end,m.b_start,m.b_end
+    query='''SELECT DISTINCT m.a,m.b,m.a_start,m.a_end,m.b_start,m.b_end,@PAST_IDS@,@KIND@
         FROM alignments m JOIN sentences a ON a.id=m.a JOIN sentences b ON b.id=m.b
         WHERE '''+' OR '.join('(a.language=? AND b.language=?)' for _ in selected|{(b,a) for a,b in selected})
     arguments=[x for pair in sorted(selected|{(b,a) for a,b in selected}) for x in pair]
-    for a,b,sa,se,ta,te in (row for db,_,_ in sources for row in db.execute(query,arguments)):
+    for a,b,sa,se,ta,te,al,bl,kind in (row for db,_,_ in sources for row in db.execute(
+        query.replace('@PAST_IDS@','m.a_lexeme,m.b_lexeme' if id(db) in past_sources else '0,0').replace('@KIND@','m.kind' if id(db) in kind_sources else '1'),arguments)):
         counts['distinct_reference_spans']+=1
-        left=focus(a,sa,se);right=focus(b,ta,te)
+        ak=past_key(a,sa,se,al) if al and kind else None;bk=past_key(b,ta,te,bl) if bl and kind else None
+        # Normalize each attested past endpoint independently. A nonpast or
+        # unknown counterpart stays in the canonical source denominator as
+        # competing evidence; it must not disappear from agreement counts.
+        # Runtime still requires BOTH complete compatible past forms.
+        if ak or bk:counts['whole_past_reference_spans']+=1
+        left=focus(a,sa,se,ak);right=focus(b,ta,te,bk)
         if not left or not right:continue
         for one,two,sid,tid in [(left,right,a,b),(right,left,b,a)]:
             language,word,cues=one;target_language,target,_=two
@@ -213,6 +237,7 @@ def compile(args):
         independent_semantic_acceptance=False,release_ready=False,
         warning='Reference agreement is not a calibrated correctness probability. Dictionary sense IDs are not classifier labels.',
         cue_policy='up to six original ICU words on each side in the same clause, or whole lexical message',
+        whole_verb_context_policy='attested-positive-past-lemma-1' if counts['whole_past_reference_spans'] else None,
         license='; '.join(dict.fromkeys(v for _,receipt in inputs for v in receipt.get('licenses',['CC BY 2.0 FR','dictionary evidence provenance CC-BY-SA-4.0']))),
         automatic_sentence_alignment=any(receipt.get('automatic_sentence_alignment',False) for _,receipt in inputs))
     output.executemany('INSERT INTO metadata VALUES (?,?)',[(k,canonical(v)) for k,v in metadata.items()]);output.commit()

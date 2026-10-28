@@ -169,5 +169,46 @@ class ContextEvidenceTests(unittest.TestCase):
             self.assertNotEqual(failed.returncode,0)
 
 
+    def test_complete_past_variants_share_evidence_but_nonpast_still_conflicts(self):
+        from contextlib import closing
+        with tempfile.TemporaryDirectory(dir=ROOT/'artifacts') as directory:
+            root=Path(directory);source=root/'contexts.sqlite'
+            with closing(sqlite3.connect(source)) as db:
+                db.executescript('''CREATE TABLE sentences(id INTEGER PRIMARY KEY,language TEXT,text TEXT,owner TEXT);
+                    CREATE TABLE alignments(a INTEGER,b INTEGER,a_start INTEGER,a_end INTEGER,b_start INTEGER,b_end INTEGER,a_lexeme INTEGER,b_lexeme INTEGER);
+                    CREATE TABLE whole_past_forms(language TEXT,lexeme INTEGER,normalized TEXT,written TEXT,head TEXT);''')
+                db.executemany('INSERT INTO whole_past_forms VALUES (?,?,?,?,?)',[
+                    ('en',1,'went','went','go'),('ja',2,'行った','行った','行く'),
+                    ('ja',2,'行きました','行きました','行く'),('en',3,'ate','ate','eat'),
+                    ('ja',4,'食べた','食べた','食べる')])
+                pairs=[('went station '+tail,word+' 駅 '+tail,1,2,'went',word)
+                    for tail,word in [('one','行った'),('two','行きました'),('three','行った')]]
+                pairs += [('ate dinner '+tail,'食べた 晩御飯 '+tail,3,4,'ate','食べた')
+                    for tail in ['one','two','three']]
+                # Present tense supplies negative evidence even though the
+                # runtime can never use this nonpast target in the past path.
+                pairs += [('ate dinner four','食べる 晩御飯 four',3,4,'ate','食べる')]
+                for i,(a,b,al,bl,aw,bw) in enumerate(pairs):
+                    db.executemany('INSERT INTO sentences VALUES (?,?,?,?)',
+                        [(2*i+1,'en',a,'a'),(2*i+2,'ja',b,'b')])
+                    db.execute('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?)',
+                        (2*i+1,2*i+2,0,len(aw),0,len(bw),al,bl))
+                db.commit()
+            (root/'receipt.json').write_text(json.dumps(dict(schema='vipi-broad-lexical-contexts-3',
+                complete=True,pilot=False,sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+                languages=['en','ja'],source_release_id='a'*64)))
+            (root/'ATTRIBUTION.txt').write_text('Synthetic grammar agreement checks.')
+            output=root/'output'
+            subprocess.run([sys.executable,str(ROOT/'language-packs/build_context_witnesses.py'),
+                '--contexts',str(source),'--pair','en-ja','--pair','ja-en','--output',str(output)],
+                check=True,stdout=subprocess.DEVNULL)
+            with closing(sqlite3.connect(output/'witnesses.sqlite')) as db:
+                self.assertEqual(db.execute("SELECT counterpart,support,total FROM witnesses WHERE source='en' AND word='@past:go' AND cue='R:station'").fetchall(),
+                    [('@past:行く',3,3)])
+                self.assertEqual(db.execute("SELECT count(*) FROM witnesses WHERE source='en' AND word='@past:eat' AND cue='R:dinner'").fetchone()[0],0)
+            with closing(sqlite3.connect(output/'observations.sqlite')) as db:
+                self.assertEqual(db.execute("SELECT f.support,z.total FROM frequencies f JOIN totals z USING(pair,word,cue) JOIN atoms w ON w.id=f.word JOIN atoms t ON t.id=f.target JOIN atoms c ON c.id=f.cue WHERE w.value='@past:eat' AND t.value='@past:食べる' AND c.value='R:dinner'").fetchall(),[(3,4)])
+
+
 if __name__ == '__main__':
     unittest.main()

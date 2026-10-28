@@ -34,12 +34,14 @@ internal class ContextWitnessLookup private constructor(
             sources:Set<String>,targets:Set<String>):ContextWitnessLookup? {
             if(sources.size>256 || targets.size>256 || sources.isEmpty() || targets.isEmpty())return null
             val meta=mutableMapOf<String,String>()
-            db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs')",null).use { c ->
+            db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy')",null).use { c ->
                 while(c.moveToNext())meta[c.getString(0)]=c.getString(1)
             }
             fun string(name:String)=JSONTokener(requireNotNull(meta[name])).nextValue() as String
             require(string("schema")=="vipi-context-witnesses-1" && string("policy")=="experimental-direct-reference-agreement-1")
             require(string("source_release_id")==release)
+            if(sources.any{it.startsWith("@past:")} || targets.any{it.startsWith("@past:")})
+                require(string("whole_verb_context_policy")=="attested-positive-past-lemma-1")
             val minimum=requireNotNull(meta["minimum_support"]).toInt();val agreement=requireNotNull(meta["minimum_agreement"]).toDouble()
             require(minimum>=3 && agreement.isFinite() && agreement>=0.98 && agreement<=1)
             if(!JSONObject(requireNotNull(meta["pairs"])).has("$source-$target"))return null

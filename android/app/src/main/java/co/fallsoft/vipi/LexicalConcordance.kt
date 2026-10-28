@@ -7,10 +7,16 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16")
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17")
     private const val SURFACE_READING_RULE="supplied-arabic-plural-reading-1"
+    private const val PAST_READING_RULE="supplied-past-verb-reading-1"
+    private const val PAST_RULE="attested-positive-past-verb-1"
+    private val SURFACE_READING_RULES=setOf(SURFACE_READING_RULE,PAST_READING_RULE)
+    private val finitePastSubject=Regex("(?i)(?<![\\p{L}\\p{M}\\p{N}_])(?:i|you|he|she|it|we|they)[ \\t]+$")
+    internal fun hasFinitePastSubject(text:String,start:Int):Boolean =
+        start in 0..text.length && finitePastSubject.containsMatchIn(text.substring(0,start))
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
-        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val pos:String,val proper:Boolean,val grammar:Boolean)
+        val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val pos:String,val proper:Boolean,val grammar:Boolean,val head:String)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val family:String)
     private data class Side(val windows:Map<String,List<IntRange>>,val forms:Map<String,List<Form>>,
         val terms:Map<Long,List<Term>>,val surfaceReadings:Map<Pair<Long,String>,Map<String,Set<String>>>,val blocked:Set<String>,val targetBlocked:Set<String>,val names:Set<String>,val guards:Set<String>,val inventory:String,val release:String,val namedPlaces:List<IntRange>,val phrases:List<IntRange>)
@@ -64,16 +70,21 @@ internal object LexicalConcordance {
     }
     private fun load(db:SQLiteDatabase,text:String,language:String):Side? {
         val metadata=mutableMapOf<String,String>()
-        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule')",null).use { c ->
+        db.rawQuery("SELECT key,value FROM metadata WHERE key IN ('schema','policy','language','source_inventory_sha256','release_id','surface_reading_schema','surface_reading_rule','whole_verb_schema','whole_verb_rule')",null).use { c ->
             while(c.moveToNext())metadata[c.getString(0)]=JSONTokener(c.getString(1)).nextValue() as String
         }
         val inventory=requireNotNull(metadata.remove("source_inventory_sha256"));require(inventory.matches(Regex("[0-9a-f]{64}")))
         val release=requireNotNull(metadata.remove("release_id"));require(release.matches(Regex("[0-9a-f]{64}")))
         val policy=metadata.remove("policy");require(policy in POLICIES)
-        val hasSurfaceReadings=policy=="native-linked-arabic-plural-readings-16"
+        val hasPast=policy=="native-linked-attested-past-verbs-17"
+        if(hasPast) {
+            require(language in setOf("en","ja","ko") && metadata.remove("whole_verb_schema")=="vipi-whole-past-verb-1")
+            require(metadata.remove("whole_verb_rule")==PAST_RULE)
+        }
+        val hasSurfaceReadings=policy=="native-linked-arabic-plural-readings-16" || (hasPast && language!="en")
         if(hasSurfaceReadings) {
-            require(language=="ar" && metadata.remove("surface_reading_schema")=="vipi-surface-reading-2")
-            require(metadata.remove("surface_reading_rule")==SURFACE_READING_RULE)
+            require((hasPast || language=="ar") && metadata.remove("surface_reading_schema")=="vipi-surface-reading-2")
+            require(metadata.remove("surface_reading_rule")==if(hasPast) PAST_READING_RULE else SURFACE_READING_RULE)
         }
         require(metadata==mapOf("schema" to "vipi-lexical-shard-2","language" to language))
         val raw=ReviewedFrameLookup.windows(text,language) ?: return null
@@ -82,10 +93,10 @@ internal object LexicalConcordance {
         val forms=linkedMapOf<String,MutableList<Form>>();val blocked=mutableSetOf<String>();val guards=mutableSetOf<String>();val targetBlocked=mutableSetOf<String>();val names=mutableSetOf<String>()
         var count=0
         for(batch in windows.keys.sorted().chunked(200)) {
-            db.rawQuery("SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,g.reason,COALESCE(g.target_blocked,0) FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (${marks(batch.size)}) ORDER BY s.normalized,s.lexeme",batch.toTypedArray()).use { c ->
+            db.rawQuery("SELECT s.normalized,s.lexeme,s.surface,s.start,s.end,s.number,s.mode,l.source_safe,l.target_safe,s.features,l.pos,g.reason,COALESCE(g.target_blocked,0),l.normalized FROM surfaces s JOIN lexemes l ON l.id=s.lexeme LEFT JOIN guards g ON g.normalized=l.normalized WHERE s.normalized IN (${marks(batch.size)}) ORDER BY s.normalized,s.lexeme",batch.toTypedArray()).use { c ->
                 while(c.moveToNext()) {
                     count++;if(count>16384)throw Overflow()
-                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()},c.getString(10),c.getString(10) in setOf("name","proper-noun","proper_noun"),c.getString(10) in setOf("pron","det","prep","postp","conj","particle","article","aux") || c.getString(11)=="grammar" || c.getInt(12)==1)
+                    val form=Form(c.getString(0),c.getLong(1),c.getString(2),c.getInt(3),c.getInt(4),c.getInt(5),c.getInt(6),c.getInt(7)==1,c.getInt(8)==1,JSONArray(c.getString(9)).let{a->(0 until a.length()).map{a.getString(it)}.toSet()},c.getString(10),c.getString(10) in setOf("name","proper-noun","proper_noun"),c.getString(10) in setOf("pron","det","prep","postp","conj","particle","article","aux") || c.getString(11)=="grammar" || c.getInt(12)==1,c.getString(13))
                     val values=forms.getOrPut(form.key){mutableListOf()}
                     if(values.size<256)values+=form else {blocked+=form.key;targetBlocked+=form.key}
                 }
@@ -135,8 +146,8 @@ internal object LexicalConcordance {
     // eligible sense has been established. Ambiguity within that sense remains.
     private fun linkedTerms(side:Side,form:Form):List<Term> {
         val terms=side.terms[form.lexeme].orEmpty()
-        if(SURFACE_READING_RULE !in form.features)return terms
-        if(form.mode!=3)return emptyList()
+        if(form.features.intersect(SURFACE_READING_RULES).isEmpty())return terms
+        if(form.mode !in 3..4)return emptyList()
         val senses=side.surfaceReadings[form.lexeme to form.key].orEmpty().keys
         return terms.filter{it.sense in senses}
     }
@@ -145,17 +156,18 @@ internal object LexicalConcordance {
         if(linked.isEmpty())return emptyList()
         // An inflected carrier needs its own attested reading. Missing or
         // ambiguous form evidence must never borrow the singular headword.
-        if(SURFACE_READING_RULE in form.features)
-            return if(form.mode==3)side.surfaceReadings[form.lexeme to form.key].orEmpty().filterKeys{it in meanings}.values.flatten().distinct() else emptyList()
+        if(form.features.intersect(SURFACE_READING_RULES).isNotEmpty())
+            return if(form.mode in 3..4)side.surfaceReadings[form.lexeme to form.key].orEmpty().filterKeys{it in meanings}.values.flatten().distinct() else emptyList()
         return linked.map{it.reading}.filter{it.isNotEmpty()}.distinct()
     }
     private fun shape(form:Form)=listOf(
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
         form.number,if(form.mode==3)3 else 1)
     private fun focus(form:Form,range:IntRange,text:String):IntRange? {
-        if(form.mode !in 1..3)return null
-        if(form.mode!=3)return range
+        if(form.mode !in 1..4)return null
+        if(form.mode in 1..2)return range
         val actual=text.substring(range)
+        if(form.mode==4 && (form.start!=0 || form.end!=actual.length))return null
         // Exact UTF-16 geometry is required for a focus inside an attested
         // carrier. Accent/mark normalization must never shift an offset.
         if(actual.length!=form.written.length || !actual.equals(form.written,ignoreCase=true) ||
@@ -198,13 +210,27 @@ internal object LexicalConcordance {
                 subjects.none{subject->text.substring(whole).lowercase()=="$subject $carrier"}
         }}
     }
+    private fun completePast(form:Form)=form.mode==4 && form.pos=="verb" && form.targetSafe &&
+        !form.grammar && PAST_RULE in form.features
+    private fun pastGrammar(form:Form,analyses:List<Form>,text:String,range:IntRange,language:String):Boolean {
+        if(!completePast(form))return false
+        if(language=="en") {
+            // A present verb with the same spelling (see/saw, for example)
+            // needs evidence beyond this bounded past-tense path.
+            if(analyses.any{it.pos=="verb" && it.mode in 1..2 && it.head==it.key && it.head!=form.head})return false
+            if(analyses.any{it.pos!="verb" && it.targetSafe} && !hasFinitePastSubject(text,range.first))return false
+        }
+        return "past-source-unambiguous" in form.features ||
+            (language=="en" && "past-source-requires-finite-clause" in form.features && hasFinitePastSubject(text,range.first))
+    }
+
     private fun contextualEntries(left:Side,right:Side,db:SQLiteDatabase,original:String,translation:String,source:String,target:String,
-        strict:List<VocabularyEntry>,alignment:SentenceAlignment,diagnostic:(String)->Unit):List<VocabularyEntry> {
+        strict:List<VocabularyEntry>,alignment:SentenceAlignment,diagnostic:(String)->Unit,wholePast:Boolean=false):List<VocabularyEntry> {
         val targetKeys=right.forms.flatMap { (word,forms) -> forms.flatMap { form ->
-            right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{key(translation.substring(it))} }
+            if(wholePast && !completePast(form))emptyList() else right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{if(wholePast) "@past:"+form.head else key(translation.substring(it))} }
         }}.toSet()
         val sourceKeys=left.forms.flatMap { (word,forms) -> forms.flatMap { form ->
-            left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{key(original.substring(it))} }
+            if(wholePast && !completePast(form))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{if(wholePast) "@past:"+form.head else key(original.substring(it))} }
         }}.toSet()
         val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,sourceKeys,targetKeys) ?: return emptyList()
         val lexicalWindows=left.windows.filterKeys { word ->
@@ -231,14 +257,15 @@ internal object LexicalConcordance {
                     if(word !in left.names || actual.firstOrNull()?.isLowerCase()!=true || proper.isEmpty() ||
                         proper.any{it.written.firstOrNull()?.isUpperCase()!=true})continue
                 }
-                val usable=forms.filter{it.targetSafe && it.mode in 1..3 && key(actual)==key(it.written) &&
-                    actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
+                val usable=forms.filter{it.targetSafe && key(actual)==key(it.written) &&
+                    if(wholePast) pastGrammar(it,forms,original,carrier,source) && targetCaseMatches(it,carrier,original)
+                    else it.mode in 1..3 && actual.firstOrNull()?.isUpperCase()==it.written.firstOrNull()?.isUpperCase()}
                 // Conflicting carrier boundaries require a whole noun, a noun
                 // counterpart and an explicit nearby lexical witness. Do not
                 // guess an internal stem from a competing verbal analysis.
                 val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
                 val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
-                val allMeanings=usable.flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
+                val allMeanings=(if(wholePast) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                 val claims=mutableSetOf<Claim>()
                 for(form in usable) {
                     if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
@@ -252,7 +279,7 @@ internal object LexicalConcordance {
                             val readings=readings(right,candidate,meanings)
                             if(needsReading && readings.size!=1)continue
                             if(conflictingGeometry && (candidate.pos!="noun" || candidate.grammar))continue
-                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || !numberCompatible(form,candidate,source,target) ||
+                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || (if(wholePast) !completePast(candidate) else candidate.mode !in 1..3) || !numberCompatible(form,candidate,source,target) ||
                                 linkedTerms(right,candidate).none{it.eligible && it.sense in meanings})continue
                             val targetMeanings=linkedTerms(right,candidate).filter{it.eligible}.map{it.sense}.toSet()
                             // A grammatical cue alone cannot choose a narrower
@@ -263,11 +290,14 @@ internal object LexicalConcordance {
                             if(conflictingGeometry && !nearbyLexical)continue
                             val cueWindows=if(conflictingGeometry || (narrow && nearbyLexical))lexicalWindows else left.windows
                             for(targetCarrier in right.windows[other].orEmpty().distinct()) {
+                                if(wholePast && !pastGrammar(candidate,targets,translation,targetCarrier,target))continue
                                 if(protectedTarget(right,targetCarrier,translation,target,features) || !targetCaseMatches(candidate,targetCarrier,translation))continue
                                 val targetFocus=focus(candidate,targetCarrier,translation) ?: continue
                                 if(!alignment.permits(sourceFocus,targetFocus))continue
                                 if(strict.any { e -> e.targetScope?.let{it.start<targetFocus.last+1 && targetFocus.first<it.end}==true })continue
-                                if(evidence.supports(key(original.substring(sourceFocus)),key(translation.substring(targetFocus)),sourceFocus,original,cueWindows))
+                                val sourceKey=if(wholePast) "@past:"+form.head else key(original.substring(sourceFocus))
+                                val targetKey=if(wholePast) "@past:"+candidate.head else key(translation.substring(targetFocus))
+                                if(evidence.supports(sourceKey,targetKey,sourceFocus,original,cueWindows))
                                     claims+=Claim(sourceFocus,targetFocus,if(needsReading)readings.single() else "")
                             }
                         }
@@ -275,7 +305,7 @@ internal object LexicalConcordance {
                 }
                 val claim=claims.singleOrNull() ?: continue
                 val targetText=translation.substring(claim.range)
-                diagnostic("context_witness_candidate")
+                diagnostic(if(wholePast) "past_context_candidate" else "context_witness_candidate")
                 output+=VocabularyEntry(original.substring(claim.sourceRange),listOf(targetText),if(needsReading)mapOf(targetText to listOf(claim.reading)) else emptyMap(),
                     sourceScope=VocabularySourceScope(original,claim.sourceRange.first,claim.sourceRange.last+1),
                     targetScope=VocabularyTargetScope(translation,claim.range.first,claim.range.last+1))
@@ -347,7 +377,10 @@ internal object LexicalConcordance {
                         targetScope=VocabularyTargetScope(translation,claim.range.first,claim.range.last+1))
                 }
             }
-            if(witnessDB!=null)output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic)
+            if(witnessDB!=null) {
+                output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic)
+                output+=contextualEntries(left,right,witnessDB,original,translation,source,target,output,alignment,diagnostic,wholePast=true)
+            }
             return output.distinct()
         } catch(_:Overflow) {diagnostic("query_overflow");return emptyList()}
     }

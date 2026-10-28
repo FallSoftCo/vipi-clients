@@ -70,6 +70,10 @@ def replace(args):
             context_evidence_dictionary_release_id=recomputation['base_release'],
             dictionary_recomputation_proof_sha256=proof_sha,
             pair_context_revisions=historical_contexts)
+    if delta.get('whole_verb_context_policy'):
+        old=metadata.get('whole_verb_context_policy')
+        assert old is None or old==delta['whole_verb_context_policy']
+        metadata['whole_verb_context_policy']=delta['whole_verb_context_policy']
     metadata.update(pairs=pairs,pair_input_revisions=provenance,requested_pairs=sorted(provenance),
         counts=dict(witnesses=sum(pairs.values()),retained_reference_records=db.execute('SELECT count(*) FROM references_used').fetchone()[0]),
         additional_contexts_sha256=sorted(set(metadata.get('additional_contexts_sha256',[]))|set(delta['additional_contexts_sha256'])) if recomputation else delta['additional_contexts_sha256'],

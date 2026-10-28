@@ -65,6 +65,19 @@ class ContextOffsets(unittest.TestCase):
         competing=lambda _:[[7,1,[[1,'reading',1]],[[3,'학교에서',0,2],[1,'학교에서',0,4]]]]
         self.assertEqual(unique_hits('[[1,0,4,"학교에서"]]',competing),{})
 
+    def test_new_complete_past_does_not_remove_the_existing_stem_focus(self):
+        analyses=lambda _:[[7,1,[[1,'',1]],[[3,'walked',0,4],[4,'walked',0,6]]]]
+        payload='[[1,2,8,"walked"]]'
+        self.assertEqual(unique_hits(payload,analyses),{1:(2,6,7,1,'',1)})
+        self.assertEqual(unique_hits(payload,analyses,(4,)),{1:(2,8,7,1,'',1)})
+        self.assertEqual(unique_hits(payload,analyses,(1,2,3,4)),{})
+
+    def test_whole_past_focus_preserves_the_entire_inflection(self):
+        analyses=lambda _:[[7,1,[[1,'ikimashita',1]],[[4,'行きました',0,5]]]]
+        self.assertEqual(unique_hits('[[1,3,8,"行きました"]]',analyses,(4,)),
+            {1:(3,8,7,1,'ikimashita',1)})
+        self.assertEqual(unique_hits('[[1,3,8,"行きません"]]',analyses,(4,)),{})
+
     def test_supplement_receipt_binds_output_and_reserved_text_stays_out(self):
         # A complete tiny build catches output-path/input-path aliasing and
         # tests partition handling across both primary and supplemental data.

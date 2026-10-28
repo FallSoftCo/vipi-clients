@@ -814,3 +814,38 @@ All 20 Arabic directions were rebuilt against the same three pinned corpora, pre
 Candidate001 was rejected before app promotion because plural readings lacked headword meaning scope. Candidate002 fixes that issue. Its frozen compiler and review are retained; the rejected generated bulk outputs were retired under the user's output-retention rule, with exact hashes in artifacts/rejected-arabic-001-output-retirement.json.
 
 The next bottlenecks are usable conversational inflections and context evidence that recognizes equivalent forms of nearby words. Whole-message ML Kit errors remain separate: the Arabic diagnostic includes outside → abroad and dropped recipients/qualifiers. Those outputs are retained, not replaced with author references. The next expansion must improve actual conversation spans while keeping these failures visible.
+
+## Complete past verbs — native implementation, qualification pending
+
+The current candidate adds a separate complete positive past path for English,
+Japanese and Korean. It retains supplied spellings and sense-scoped readings;
+English ambiguous participles require a finite subject, while syncretic forms
+and competing present-tense verb heads remain withheld. Native Kotlin and Swift
+readers compile. The installed development baseline remains bundle007 until
+bundle008 has completed its corpus build and native qualification.
+
+Candidate lexical-past-verbs-002 retains 8,672 English, 2,146 Japanese and 14,188
+Korean complete forms. These inventory counts are not conversational coverage.
+Japanese polite-past labels are recovered only where the same source entry
+supplies matching masu and mashita forms and readings. Existing dictionary
+analyses and normalized lexeme keys remain intact.
+
+The context compiler keeps complete past forms separate from existing stem
+geometry. Canonical past keys combine supplied inflections of one head; nonpast
+counterparts remain competing evidence. This prevents added complete forms from
+suppressing existing stem mappings or hiding disagreements. The first combined
+geometry build was rejected before installation. Frozen source and rejection
+receipts are retained under artifacts/past-verb-context-release-001.
+
+The corrected build recomputes 54 affected directions from the same pinned
+development corpora and evaluation exclusions. Its bounded pair batches retain
+the prior 98% agreement and minimum-three-reference rules. These rules are not a
+calibrated meaning-accuracy claim. The finishing controller includes every
+historical witness-batch receipt needed for the affected pairs.
+
+The pending native checks reuse the existing 602 cases and add 48 actual offline
+ML Kit sentence pairs, sixteen deliberate grammar mismatches, and the Arabic
+reading/homograph cases. The verb cohort's translation-review.json retains
+location-particle and conversation-role concerns in actual Korean translations.
+The iOS simulator will reuse those captured translations; physical translation,
+audio listening, representative 90% coverage and store readiness remain unproven.

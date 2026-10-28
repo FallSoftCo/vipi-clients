@@ -112,10 +112,21 @@ def load_lexicon(shard, language, sense_ids, output):
     # never to every form of the lexeme.
     surface_readings = defaultdict(set)
     metadata = {k:json.loads(v) for k,v in db.execute("SELECT key,value FROM metadata")}
-    surface_rule = "supplied-arabic-plural-reading-1"
-    if metadata.get("policy") == "native-linked-arabic-plural-readings-16":
-        assert language == "ar" and metadata.get("surface_reading_schema") == "vipi-surface-reading-2"
-        assert metadata.get("surface_reading_rule") == surface_rule
+    surface_rules = {"supplied-arabic-plural-reading-1","supplied-past-verb-reading-1"}
+    has_past = metadata.get("policy") == "native-linked-attested-past-verbs-17"
+    if has_past:
+        assert language in {"en","ja","ko"} and metadata.get("whole_verb_schema") == "vipi-whole-past-verb-1"
+        assert metadata.get("whole_verb_rule") == "attested-positive-past-verb-1"
+        rows=db.execute("""SELECT DISTINCT s.normalized,s.lexeme,s.surface,l.normalized,s.features,l.pos,l.target_safe
+            FROM surfaces s JOIN lexemes l ON l.id=s.lexeme WHERE s.mode=4""").fetchall()
+        for word,lexeme,written,head,features,pos,safe in rows:
+            assert pos=="verb" and safe==1 and "attested-positive-past-verb-1" in json.loads(features)
+            assert word==lookup_key(written,language)
+            if set(json.loads(features)) & {"past-source-syncretic","past-source-ambiguous"}:continue
+            output.execute("INSERT INTO whole_past_forms VALUES (?,?,?,?,?)",(language,lexeme,word,written,head))
+    if metadata.get("policy") == "native-linked-arabic-plural-readings-16" or (has_past and language!="en"):
+        assert metadata.get("surface_reading_schema") == "vipi-surface-reading-2"
+        assert metadata.get("surface_reading_rule") == ("supplied-past-verb-reading-1" if has_past else "supplied-arabic-plural-reading-1")
         for word,lexeme,sense,reading in db.execute("SELECT normalized,lexeme,sense,reading FROM surface_readings"):
             assert reading and len(reading) <= 96
             surface_readings[(word,lexeme,sense_ids[sense])].add(reading)
@@ -125,14 +136,15 @@ def load_lexicon(shard, language, sense_ids, output):
     # the full inflected word the meaning of its noun/verb stem.
     for word, lexeme, safe, mode, written, start, end, features in db.execute('''SELECT DISTINCT s.normalized,s.lexeme,l.source_safe,s.mode,s.surface,s.start,s.end,s.features
         FROM surfaces s JOIN lexemes l ON l.id=s.lexeme
-        WHERE s.mode IN (1,2,3) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
+        WHERE s.mode IN (1,2,3,4) AND l.target_safe=1 ORDER BY s.normalized,s.lexeme'''):
         if lexeme in terms:
-            uses_surface = surface_rule in json.loads(features)
+            if mode==4 and set(json.loads(features)) & {"past-source-syncretic","past-source-ambiguous"}:continue
+            uses_surface = bool(surface_rules.intersection(json.loads(features)))
             reading_modes[(word,lexeme)].add(uses_surface)
             assert len(reading_modes[(word,lexeme)]) == 1, "Mixed lexical and surface pronunciation geometry"
             linked_terms = terms[lexeme]
             if uses_surface:
-                assert mode == 3
+                assert mode in (3,4)
                 # An absent reading withholds this carrier; never fall back
                 # to a different inflection's pronunciation.
                 linked_terms = sorted({(sense,reading,explicit) for sense,_,explicit in linked_terms
@@ -156,17 +168,18 @@ def load_lexicon(shard, language, sense_ids, output):
     return automaton, forms
 
 
-def unique_hits(payload, analyses):
+def unique_hits(payload, analyses, modes=(1,2,3)):
     by_sense = defaultdict(set)
     for hit in json.loads(payload):
         form_id,start,end=hit[:3]
         for analysis in analyses(form_id):
             lexeme,safe,terms=analysis[:3]
-            geometries={(start,end)} if len(analysis)==3 else set()
+            geometries={(start,end)} if len(analysis)==3 and 1 in modes else set()
             for mode,written,a,b in analysis[3] if len(analysis)>3 else []:
+                if mode not in modes:continue
                 if mode in (1,2):geometries.add((start,end));continue
                 actual=hit[3];encoded=actual.encode('utf-16-le')
-                if mode!=3 or actual.lower()!=written.lower() or len(encoded)!=len(written.encode('utf-16-le')) or not 0<=a<b<=len(encoded)//2:continue
+                if mode not in (3,4) or actual.lower()!=written.lower() or len(encoded)!=len(written.encode('utf-16-le')) or not 0<=a<b<=len(encoded)//2:continue
                 try:encoded[2*a:2*b].decode('utf-16-le')
                 except UnicodeDecodeError:continue
                 geometries.add((start+a,start+b))
@@ -246,12 +259,14 @@ def build(args):
         CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
         CREATE TABLE senses(id INTEGER PRIMARY KEY,source_id TEXT UNIQUE NOT NULL,label TEXT NOT NULL,pos TEXT NOT NULL,url TEXT NOT NULL);
         CREATE TABLE lexicon(id INTEGER PRIMARY KEY,language TEXT NOT NULL,normalized TEXT NOT NULL,analyses TEXT NOT NULL,UNIQUE(language,normalized));
+        CREATE TABLE whole_past_forms(language TEXT NOT NULL,lexeme INTEGER NOT NULL,normalized TEXT NOT NULL,written TEXT NOT NULL,head TEXT NOT NULL,
+            PRIMARY KEY(language,lexeme,normalized,written)) WITHOUT ROWID;
         CREATE TABLE sentences(id INTEGER PRIMARY KEY,language TEXT NOT NULL,text TEXT NOT NULL,owner TEXT NOT NULL,component INTEGER NOT NULL);
         CREATE TABLE focus(sentence INTEGER PRIMARY KEY,payload TEXT NOT NULL);
         CREATE TABLE alignments(a INTEGER NOT NULL,b INTEGER NOT NULL,sense INTEGER NOT NULL,
             a_start INTEGER NOT NULL,a_end INTEGER NOT NULL,b_start INTEGER NOT NULL,b_end INTEGER NOT NULL,
             a_lexeme INTEGER NOT NULL,b_lexeme INTEGER NOT NULL,a_single_sense INTEGER NOT NULL,b_single_sense INTEGER NOT NULL,
-            a_reading TEXT NOT NULL,b_reading TEXT NOT NULL,PRIMARY KEY(a,b,sense)) WITHOUT ROWID;
+            a_reading TEXT NOT NULL,b_reading TEXT NOT NULL,kind INTEGER NOT NULL,PRIMARY KEY(a,b,sense,kind)) WITHOUT ROWID;
         CREATE INDEX alignments_sense ON alignments(sense,a,b);
         CREATE VIRTUAL TABLE sentence_search USING fts5(language UNINDEXED,text,content='sentences',content_rowid='id',tokenize='unicode61 remove_diacritics 0');''')
     sense_ids = {}
@@ -316,22 +331,29 @@ def build(args):
     @lru_cache(maxsize=50000)
     def analyses(form_id):
         return json.loads(work.execute('SELECT analyses FROM lexicon WHERE id=?',(form_id,)).fetchone()[0])
-    cached=lru_cache(maxsize=4000)(lambda payload:unique_hits(payload,analyses))
+    cached=lru_cache(maxsize=4000)(lambda payload:(unique_hits(payload,analyses),unique_hits(payload,analyses,(4,))))
     batch=[];pair_counts=Counter()
     for aid, al, af, bid, bl, bf in (row for query,parameters in queries for row in work.execute(query,parameters)):
         counts['direct_development_pairs'] += 1
-        left, right = cached(af), cached(bf)
-        for sense in left.keys() & right.keys():
-            a, b = left[sense], right[sense]
-            if al != 'en' and bl != 'en' and not (a[5] and b[5]):
-                counts['nonexplicit_pivot_excluded'] += 1; continue
-            batch.append((aid,bid,sense,a[0],a[1],b[0],b[1],a[2],b[2],a[3],b[3],a[4],b[4]))
-            counts['candidate_alignments'] += 1; pair_counts['-'.join(sorted([al,bl]))] += 1
+        left, lp = cached(af); right, rp = cached(bf)
+        # Preserve the legacy stem path exactly. A separate whole-past path
+        # chooses an attested complete form on either endpoint when present.
+        # Nonpast counterparts stay in that path as conflicting evidence.
+        for kind,one,two in [(0,left,right),(1,{**left,**lp},{**right,**rp})]:
+            for sense in one.keys() & two.keys():
+                if kind==1 and sense not in lp and sense not in rp:continue
+                a, b = one[sense], two[sense]
+                if al != 'en' and bl != 'en' and not (a[5] and b[5]):
+                    counts['nonexplicit_pivot_excluded'] += 1; continue
+                batch.append((aid,bid,sense,a[0],a[1],b[0],b[1],a[2],b[2],a[3],b[3],a[4],b[4],kind))
+                counts['candidate_alignments'] += 1
+                if kind==1:counts['whole_past_alignments'] += 1
+                pair_counts['-'.join(sorted([al,bl]))] += 1
         if len(batch) >= 10000:
-            work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit();batch=[]
+            work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit();batch=[]
         if counts['direct_development_pairs'] % 100000 == 0:
             print(canonical(dict(stage='direct_links',counts=counts)),flush=True)
-    work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit()
+    work.executemany('INSERT INTO alignments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',batch);work.commit()
     if is_pgv:
         # Retain every source attribution and observed alignment for selected
         # development endpoints; these scores are not accuracy probabilities.
@@ -350,7 +372,8 @@ def build(args):
     counts['distinct_aligned_senses'] = work.execute('SELECT count(DISTINCT sense) FROM alignments').fetchone()[0]
     counts['distinct_aligned_sentence_pairs'] = work.execute('SELECT count(*) FROM (SELECT a,b FROM alignments GROUP BY a,b)').fetchone()[0]
     result = dict(schema='vipi-broad-lexical-contexts-3',counts=dict(counts),languages=per_language,pairs=dict(pair_counts),
-        lexical_focus_policy='whole supplied units or exact UTF-16 lexical focus inside indexed carriers; no whole-inflection meaning inference',
+        lexical_focus_policy='separate whole positive past and existing lexical-focus paths; no whole-inflection meaning inferred from a stem',
+        whole_verb_context_policy='attested-positive-past-lemma-1',
         complete=True,pilot=bool(args.max_sentences_per_language),max_sentences_per_language=args.max_sentences_per_language,
         changed_pair_languages=changed,direct_endpoint_selection_counts=endpoint_counts,
         source_catalog_sha256=sha_file(args.shards/'catalog.json'),source_release_id=catalog['release_id'],

@@ -49,7 +49,7 @@ struct ContextWitnessLookup {
             guard status==SQLITE_DONE else {throw VocabularyPackError.storage};return result
         }
         var meta:[String:String]=[:]
-        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs')",[],6) {meta[row[0]]=row[1]}
+        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy')",[],7) {meta[row[0]]=row[1]}
         func string(_ name:String) throws -> String {
             guard let raw=meta[name] else {throw VocabularyPackError.invalid}
             return try JSONDecoder().decode(String.self,from:Data(raw.utf8))
@@ -58,6 +58,9 @@ struct ContextWitnessLookup {
               try string("source_release_id")==release,let supportText=meta["minimum_support"],let minimum=Int(supportText),minimum>=3,
               let agreementText=meta["minimum_agreement"],let agreement=Double(agreementText),agreement.isFinite,agreement>=0.98,agreement<=1,
               let pairText=meta["pairs"] else {throw VocabularyPackError.invalid}
+        if sources.contains(where:{$0.hasPrefix("@past:")}) || targets.contains(where:{$0.hasPrefix("@past:")}) {
+            guard try string("whole_verb_context_policy")=="attested-positive-past-lemma-1" else {throw VocabularyPackError.invalid}
+        }
         let pairs=try JSONDecoder().decode([String:Int].self,from:Data(pairText.utf8))
         guard pairs[source+"-"+target] != nil else {return nil}
         var rows:[Pair:[String]]=[:];var count=0
