@@ -38,3 +38,6 @@ ios/Vipi/Info.plist
 *.sqlite-shm
 
 .venv-lexical-context/
+
+# Reproducible language artifacts; catalog, provenance and source stay tracked.
+data/lexical/*.sqlite.zlib

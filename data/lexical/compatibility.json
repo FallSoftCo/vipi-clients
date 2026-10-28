@@ -1,0 +1,87 @@
+{
+  "schema": "vipi-lexical-compatibility-1",
+  "base_release": "c61654b1fe0006fcce7f79bcc90c0194e1bf918404015437b5cc693908c1ea6f",
+  "candidate_release": "3013f8b57d6eb5c245a932149b15d8c24b04a0e80f46edf18293654fba5b9ad1",
+  "complete": true,
+  "languages": [
+    {
+      "language": "en",
+      "before_sha256": "d7d5516d7da722d470587b6178bddca4c5da188123d865fc4641b818f3ac8685",
+      "after_sha256": "14e3ebdf6c7e0f4645bd7724b093fcb0b910a3ed9c72b054931a39bcbc31431e",
+      "newly_eligible_lexemes": 2323,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "es",
+      "before_sha256": "e59fdc510da866b4e3ea1a7f6f218c857c5ca18dcaae37731e14c29db683c205",
+      "after_sha256": "870fea4d83c30cf2813b3ff53f1a002c4c0b2907910d80746d06538b2770bb31",
+      "newly_eligible_lexemes": 674,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "fr",
+      "before_sha256": "acc50794c97d77b6fcc55c48d83649137d9ce2973c656ff054200b15101a6c14",
+      "after_sha256": "de37aed140d02afd7737aa5ba175de5947cc7d26cb0101bde9519dce46431cb3",
+      "newly_eligible_lexemes": 246,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "de",
+      "before_sha256": "1f8ee80a74f4f1dc7f511f8e5bbc79b16198b9188d8d865157b0e834d190aa0d",
+      "after_sha256": "de49d7bfd50376922135c2886bea5d474f2a1f97ca7cd8f2f0845ea78a4b71d4",
+      "newly_eligible_lexemes": 518,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "it",
+      "before_sha256": "09bad83198dc4a831b1d9df49cf4877c9f1f289e48c7f73fb4e8bc1720b9e322",
+      "after_sha256": "edfab0421ebc83c138a995ee3a88d6d035b1df7b63ba59b91f836800d4afddd2",
+      "newly_eligible_lexemes": 941,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "pt",
+      "before_sha256": "fb9bec7529699ced88ae143561dbf459f85853c3494c46b278f9e8815b6846a7",
+      "after_sha256": "e7c58a34248c159e28c2b3ebfe81708c5a442502e1b81ba883db6402e914fa9a",
+      "newly_eligible_lexemes": 535,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "ar",
+      "before_sha256": "7a7f61b98b6334904be5bf06edc195e95582465bf1978001ecc030675f05d77f",
+      "after_sha256": "ff27dfdd96274dc154dc138af24e3db1e80ff3f26f6e333b1cafb12a3d459090",
+      "newly_eligible_lexemes": 2525,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "zh",
+      "before_sha256": "8fa211148afe7141965d4fe8b08e4c0114447d8ea6a7a5aeec069a053322b0f3",
+      "after_sha256": "bfea2979f800e4fac0175308bdcde21d80c04338ce7ceef19f8dea73b1b94bbf",
+      "newly_eligible_lexemes": 237,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "ja",
+      "before_sha256": "e8994c45942704e13666abed4d6af1165577f4d7088872d48e5f87d3d6b1c27b",
+      "after_sha256": "b728c1d28a9b6fdeaef81a6a1743240a2813db2d8741086e480538a73d48814f",
+      "newly_eligible_lexemes": 419,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "ko",
+      "before_sha256": "c5902ace3623017238e146f8b7ec7aad5a8f8142402ea845b092e3c7bc40be1b",
+      "after_sha256": "b86247e7eb93feed24b01b4ba438cbd1ba2988154f07e1d550269ce86ac503fc",
+      "newly_eligible_lexemes": 72,
+      "existing_relations_preserved": true
+    },
+    {
+      "language": "sw",
+      "before_sha256": "e7852aa9ac5971f4516fc90c06a728d5bb9da7e961fb0f62164ead8d51c4f506",
+      "after_sha256": "96013047501724b84f82bbc1ec0fabaecc2e8d8914cee2a942de24ddb017a3f9",
+      "newly_eligible_lexemes": 40,
+      "existing_relations_preserved": true
+    }
+  ],
+  "scope": "Existing sense/term/lemma relations equal; existing surfaces and carrier evidence preserved; guards and source eligibility not weakened; target eligibility only added.",
+  "semantic_accuracy_claim": false
+}

@@ -1,0 +1,1 @@
+Synthetic installer fixtures only. Not linguistic evidence or app data.

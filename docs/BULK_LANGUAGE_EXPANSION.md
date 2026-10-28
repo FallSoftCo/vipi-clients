@@ -427,8 +427,53 @@ unions or double-counted old evidence.
 
 ## Delivery boundary
 
-These are authoring and native component results. Production still needs a
-streaming signed installer for the larger shards, a verified catalog provider
-in live conversations, further meaning/transliteration assessment, and live
-speech/interaction checks. No release-ready flag, production language default,
-store status or subscription configuration changed in this expansion.
+The app-signed bundled installer and normal conversation integration are now
+implemented as described below. Broader meaning/transliteration assessment,
+representative conversational coverage, physical interaction and acoustic
+speech acceptance remain open. No release-ready flag, store status or
+subscription configuration changed in this expansion.
+
+## Bundled native conversation integration — 2026-10-27
+
+Development builds now call the broad dictionary reader from the normal
+conversation path on both platforms, after local whole-message translation.
+The starter catalog remains first in alignment priority. Source message text,
+encrypted storage and relay payloads are unchanged.
+
+The bundled-lexical-001 artifact contains 11 dictionaries and 55 bidirectional
+context subsets: 347,264,592 compressed bytes, 1,865,830,400 expanded bytes if
+every language were installed. Native clients prepare only the selected pair
+from app-signed assets, verify expanded size and SHA-256, and atomically
+activate complete SQLite files. Public caches contain no conversation text.
+The data remains experimental linguistic evidence; no store-ready or semantic
+accuracy claim is made by its manifest.
+
+The preceding dictionary release 009 restores 8,530 entries with ordinary
+lexical senses that were incorrectly disabled by an additional alternative or
+form-of sense. Source eligibility and all prior sense/term links are retained.
+This correction is reproducible with update_lexical_eligibility.py; source and
+per-entry delta receipts remain in the artifact directory.
+
+A 334-case development replay through the actual bundled reader completed on
+the dedicated Android emulator and physical iPad. This is a small targeted
+cohort plus retained failure cases, **not** a representative coverage estimate.
+Android produced 151 combined spans versus 76 starter spans; iPad produced 152.
+The known retained failures did not recur and starter spans remained present.
+Median/p95 combined lookup time excluding translation was about 17/61 ms on
+Android and 12/69 ms on iPad. Android first-time selected-pair preparation took
+up to 6.5 seconds. Native runtime checks and these mechanical checks do not
+independently establish translation or substitution accuracy.
+
+Evidence: bundled-conversations-android-001/002.json,
+bundled-conversations-ipad-001.json, bundled-lexical-android-test-001.log,
+and the Mac's ipad-bundled-lexical-002 and ipad-bundled-conversations-001
+logs/xcresults. The iPad check exposed and repaired a URL-identity cleanup bug
+that had removed newly installed public cache files.
+
+An in-progress Chinese rebuild corrects two structural exclusions: exact
+supplied simplified/traditional forms marked unusable, and lexical words
+classified as "character" by the upstream dictionary. Character links require
+an existing published bilingual translation corroborated by a native gloss.
+Their source senses remain contextual; no generic script conversion or
+invented reading is introduced. Affected pair contexts must be recomputed
+before this data replaces the current bundle.

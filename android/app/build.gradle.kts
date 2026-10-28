@@ -33,6 +33,7 @@ android {
         }
     }
     sourceSets.getByName("main").assets.srcDir("../../data/examples")
+    sourceSets.getByName("androidTest").assets.srcDir("../../qa/immersion/installer-fixture-assets")
     sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/immersionAssets"))
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
@@ -43,8 +44,13 @@ android {
     }
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
+val checkBundledLexical = tasks.register<Exec>("checkBundledLexical") {
+    commandLine("python3", rootProject.file("../scripts/check-bundled-lexical.py").absolutePath)
+}
 val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
+    dependsOn(checkBundledLexical)
     from("../../data/immersion") { into("immersion") }
+    from("../../data/lexical") { into("lexical") }
     into(layout.buildDirectory.dir("generated/immersionAssets"))
 }
 tasks.named("preBuild") { dependsOn(stageImmersionAssets) }

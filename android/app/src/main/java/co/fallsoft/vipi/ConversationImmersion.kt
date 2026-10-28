@@ -96,6 +96,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val translator = LocalTranslation()
     private val language = MessageLanguage()
     private val catalog = BundledImmersionCatalog(context.applicationContext)
+    private val lexical = BundledLexicalCatalog(context.applicationContext)
     private val readings = SentenceReadings(context.applicationContext)
     private val mutex = Mutex()
     private val cache = linkedMapOf<String, ImmersionResult>()
@@ -114,6 +115,9 @@ internal class ConversationImmersion(context: Context, val source: String, val t
 
     suspend fun checkDownloads() {
         try {
+            withContext(Dispatchers.IO) {
+                try { lexical.prepare(source, target) } catch (_: Exception) { false }
+            }
             val manager = RemoteModelManager.getInstance()
             val installed = listOf(source, target).all { code ->
                 code == "en" || manager.isModelDownloaded(TranslateRemoteModel.Builder(code).build()).await()
@@ -141,8 +145,13 @@ internal class ConversationImmersion(context: Context, val source: String, val t
             val translated = forward ?: reverse ?: translator.translate(text, if (reversed) target else source, if (reversed) source else target)
             coroutineContext.ensureActive()
             if (closed || !TranslationIntegrity.preservesIdentifiers(text, translated)) return@withLock null
-            val result = withContext(Dispatchers.Default) {
-                catalog.result(if (reversed) translated else text, if (reversed) text else translated, source, target, density)
+            val result = withContext(Dispatchers.IO) {
+                val original = if (reversed) translated else text
+                val targetText = if (reversed) text else translated
+                val supplemental = try { lexical.entries(original, targetText, source, target) }
+                    catch (_: Exception) { emptyList() }
+                coroutineContext.ensureActive()
+                catalog.result(original, targetText, source, target, density, supplementalEntries = supplemental)
             }
             if (closed) return@withLock null
             cache[key] = result

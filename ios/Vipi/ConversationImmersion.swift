@@ -22,6 +22,7 @@ import VipiCore
     private var order: [String] = []
     private var inputLanguages: [String: String] = [:]
     private let catalog = BundledImmersionCatalog()
+    private let lexical = BundledLexicalCatalog.shared
     private var swahili: [String: SwahiliTranslation] = [:]
     private let language = MessageLanguage()
     func inputLanguage(for id: String) -> String? { inputLanguages[id] }
@@ -36,6 +37,7 @@ import VipiCore
 
     func refreshAvailability() async {
         let active = epoch
+        _ = try? await lexical.prepare(pair)
         let observed = await LanguagePreparation.nativeStatus(pair)
         guard active == epoch, !Task.isCancelled else { return }
         if availability != observed { availability = observed; revision += 1 }
@@ -44,6 +46,7 @@ import VipiCore
     func configure(pair: TranslationPair, density: Double) async {
         close(); self.pair = pair; self.density = density; availability = .checking
         let active = epoch
+        _ = try? await lexical.prepare(pair)
         let observed = await LanguagePreparation.nativeStatus(pair)
         guard active == epoch, !Task.isCancelled else { return }
         if pair.usesMLKit {
@@ -63,7 +66,7 @@ import VipiCore
         let reverse = forward != nil || inputLanguage == pair.source ? nil : try? await catalog.reference(original: text, pair: reversePair)
         if let translation = forward ?? reverse {
             let reversed = forward == nil
-            let result = try? await catalog.result(original: reversed ? translation : text, translation: reversed ? text : translation, pair: activePair, density: density)
+            let result = try? await aligned(original: reversed ? translation : text, translation: reversed ? text : translation, pair: activePair, density: density)
             guard activeEpoch == epoch, !Task.isCancelled else { return nil }
             if let result { remember(result, key: key) }
             return result
@@ -84,6 +87,12 @@ import VipiCore
             }
         } onCancel: { Task { @MainActor [weak self] in self?.cancel(id) } }
     }
+    private func aligned(original: String, translation: String, pair: TranslationPair, density: Double) async throws -> ImmersionResult {
+        let supplemental = (try? await lexical.entries(original: original, translation: translation, pair: pair)) ?? []
+        try Task.checkCancellation()
+        return try await catalog.result(original: original, translation: translation, pair: pair,
+            density: density, supplementalEntries: supplemental)
+    }
     private func next() { if request == nil, !pending.isEmpty { request = pending.removeFirst() } }
     private func cancel(_ id: UUID) {
         replies.removeValue(forKey: id)?.resume(returning: nil)
@@ -94,7 +103,7 @@ import VipiCore
         guard active.epoch == epoch, active.id == request?.id else { return }
         var result: ImmersionResult?
         if let translation, !Task.isCancelled, TranslationIntegrity.preservesIdentifiers(original: active.text, translation: translation) {
-            result = try? await catalog.result(original: active.reversed ? translation : active.text,
+            result = try? await aligned(original: active.reversed ? translation : active.text,
                 translation: active.reversed ? active.text : translation, pair: pair, density: density)
         }
         guard active.epoch == epoch, active.id == request?.id else { return }

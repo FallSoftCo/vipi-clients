@@ -1,0 +1,155 @@
+Wiktionary contributors; extraction by Tatu Ylonen/wiktextract via Kaikki.org.
+CC BY-SA 4.0. https://creativecommons.org/licenses/by-sa/4.0/
+Source: https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz; exact SHA-256: 244dcdc56868d81dc60e3820657780c06fac2729a90e2c5ffbfa13e6f9ecad1d
+Entry URLs and full-source line identities are retained; contributor histories remain at those entries.
+Changes: eleven-language translation groups, native word guards, selected native analyses and supplied forms; SQLite indexing.
+Transformation source: language-packs/build_lexical_inventory.py and build_wiktextract.py.
+No claim of individual review or automatic runtime approval.
+
+Changes: per-language indexed lexemes, all supplied analyses and guards, shared source sense IDs.
+Native lexical evidence remains separately attributed through lexemes.source_url and senses.source_url.
+Noun carrier derivations and supplied-form evidence are retained in carrier_evidence.
+Compiler: language-packs/build_lexical_shards.py. Published dictionary evidence is not author assessment.
+
+Change: preserve ordinary lexical meanings when the same entry also records an alternative/form-of sense. Original definitions and readings retained.
+
+Tatoeba contributors, CC BY 2.0 FR. Individual owners and sentence IDs in references_used.
+References: https://tatoeba.org/en/sentences/show/{sentence}. Dictionary-derived alignment evidence: Wiktionary contributors, CC BY-SA 4.0.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Release binding adapted after verifying unchanged dictionary senses/links and retained lexical evidence.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Tatoeba contributors, CC BY 2.0 FR; owners in sentences.owner and links https://tatoeba.org/en/sentences/show/{id}.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+
+Dictionary evidence: Wiktionary contributors, CC BY-SA 4.0; source links in senses.url.
+Sentence text: Global Voices contributors; automatically aligned by PGV, CC BY 4.0. Archive URLs and unit IDs in sentences.owner, source_attribution and source_link_evidence.
+Source: https://nlp.ilsp.gr/pgv/ . Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.
+Changes: Unicode-indexed lexical occurrences, direct development-pair concordances, FTS search.
+Generated candidates have not been independently accepted for runtime use.
+Retained example owners/source references are in references_used; source context artifact retains full provenance.
+Changes: counts of directly attested lexical correspondences and original nearby words. Experimental selection evidence.
+
+Complete pair scopes replaced from cumulative evidence, including removed mappings.

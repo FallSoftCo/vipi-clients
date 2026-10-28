@@ -7,7 +7,7 @@ import org.json.JSONArray
 
 /** Indexed public dictionary evidence. No generated translations or stems. */
 internal object LexicalConcordance {
-    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5")
+    private val POLICIES=setOf("native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6")
     private data class Form(val key:String,val lexeme:Long,val written:String,val start:Int,val end:Int,
         val number:Int,val mode:Int,val sourceSafe:Boolean,val targetSafe:Boolean,val features:Set<String>,val pos:String,val proper:Boolean,val grammar:Boolean)
     private data class Term(val sense:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val family:String)
@@ -100,6 +100,22 @@ internal object LexicalConcordance {
         }
         return Side(windows,forms,terms,blocked,targetBlocked,names,guards,inventory,release,namedPlaces(text,language),phrases(text,language))
     }
+    // Number 0 means unmarked, not universally singular. Ordinary nouns in
+    // these languages may remain unmarked with plural reference. This never
+    // relaxes an explicitly singular form or a verb/grammatical analysis.
+    private fun numberCompatible(a:Form,b:Form,source:String,target:String):Boolean {
+        if(a.number==b.number)return true
+        if(a.pos!="noun" || b.pos!="noun" || a.grammar || b.grammar)return false
+        fun unmarked(f:Form,language:String)=language in setOf("zh","ja","ko") &&
+            f.number==0 && f.mode in 1..2 &&
+            f.features.intersect(setOf("singular","plural","dual")).isEmpty()
+        return (a.number==2 && unmarked(b,target)) || (b.number==2 && unmarked(a,source))
+    }
+    // A homograph's unrelated meaning must not veto a reading after a shared
+    // eligible sense has been established. Ambiguity within that sense remains.
+    private fun readings(side:Side,form:Form,meanings:Set<String>):List<String> =
+        side.terms[form.lexeme].orEmpty().filter{it.eligible && it.sense in meanings}
+            .map{it.reading}.filter{it.isNotEmpty()}.distinct()
     private fun shape(form:Form)=listOf(
         if(form.mode==3)form.start else 0,if(form.mode==3)form.end else 0,
         form.number,if(form.mode==3)3 else 1)
@@ -199,11 +215,11 @@ internal object LexicalConcordance {
                     val features=forms.filter{it.lexeme==form.lexeme && it.mode==form.mode}.map{it.features}.reduce{a,b->a.intersect(b)}
                     for((other,targets) in right.forms) {
                         if(other in right.targetBlocked)continue
-                        val readings=targets.flatMap{right.terms[it.lexeme].orEmpty()}.map{it.reading}.filter{it.isNotEmpty()}.distinct()
-                        if(needsReading && readings.size!=1)continue
                         for(candidate in targets.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}) {
+                            val readings=readings(right,candidate,meanings)
+                            if(needsReading && readings.size!=1)continue
                             if(conflictingGeometry && (candidate.pos!="noun" || candidate.grammar))continue
-                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || candidate.number!=form.number ||
+                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || !numberCompatible(form,candidate,source,target) ||
                                 right.terms[candidate.lexeme].orEmpty().none{it.eligible && it.sense in meanings})continue
                             val targetMeanings=right.terms[candidate.lexeme].orEmpty().filter{it.eligible}.map{it.sense}.toSet()
                             // A grammatical cue alone cannot choose a narrower
@@ -270,12 +286,10 @@ internal object LexicalConcordance {
                     val claims=mutableSetOf<Claim>()
                     for((other,targets) in right.forms) {
                         if(other in right.targetBlocked)continue
-                        // All dictionary readings for a written target remain
-                        // evidence, including senses without a usable link.
-                        val readings=targets.flatMap{right.terms[it.lexeme].orEmpty()}.map{it.reading}.filter{it.isNotEmpty()}.distinct()
-                        if(needsReading && readings.size!=1)continue
                         for(candidate in targets.distinctBy{listOf(it.lexeme,it.start,it.end,it.number,it.mode)}) {
-                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || candidate.number!=form.number)continue
+                            val readings=readings(right,candidate,meanings)
+                            if(needsReading && readings.size!=1)continue
+                            if(!candidate.targetSafe || ("abbreviation" in candidate.features && targets.any{it.grammar}) || candidate.mode !in 1..3 || !numberCompatible(form,candidate,source,target))continue
                             // Returning the actual English dictionary headword
                             // preserves the whole linked sense family. A narrower
                             // counterpart still requires contextual evidence.

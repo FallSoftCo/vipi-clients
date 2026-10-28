@@ -43,6 +43,9 @@ targets:
       - path: ../data/immersion
         type: folder
         buildPhase: resources
+      - path: ../data/lexical
+        type: folder
+        buildPhase: resources
       - path: ../data/examples/immersion-preview.json
         buildPhase: resources
       - path: ../data/examples/sentence-readings.json
@@ -50,6 +53,7 @@ targets:
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
     dependencies:
+      - sdk: libz.tbd
       - package: ESpeakNG
         product: libespeak-ng
       - package: ESpeakNG
@@ -93,6 +97,9 @@ targets:
     platform: iOS
     sources:
       - VipiCryptoTests
+      - path: ../qa/immersion/installer-fixture-assets/lexical-fixture
+        type: folder
+        buildPhase: resources
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
       - path: ../qa/immersion/speech.json

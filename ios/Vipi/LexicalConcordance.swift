@@ -4,7 +4,7 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
-    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5"]
+    private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6"]
     private enum Limit:Error {case overflow}
     private struct Form:Hashable {
         let key:String,lexeme:String,written:String
@@ -126,6 +126,21 @@ enum LexicalConcordance {
         }
         return Side(windows:windows,forms:forms,terms:terms,blocked:blocked,targetBlocked:targetBlocked,names:names,guards:guards,inventory:inventory,release:release,namedPlaces:namedPlaces(text,language:language),phrases:phrases(text,language:language))
     }
+    // Unmarked common nouns can have plural reference in these languages.
+    // Explicit number, verb forms and grammatical analyses stay constrained.
+    private static func numberCompatible(_ a:Form,_ b:Form,source:String,target:String)->Bool {
+        if a.number==b.number {return true}
+        guard a.pos=="noun",b.pos=="noun",!a.grammar,!b.grammar else {return false}
+        func unmarked(_ f:Form,_ language:String)->Bool {
+            ["zh","ja","ko"].contains(language) && f.number==0 && (1...2).contains(f.mode) &&
+                f.features.isDisjoint(with:["singular","plural","dual"])
+        }
+        return (a.number==2 && unmarked(b,target)) || (b.number==2 && unmarked(a,source))
+    }
+    private static func readings(_ side:Side,_ form:Form,_ meanings:Set<String>)->Set<String> {
+        Set(side.terms[form.lexeme,default:[]].filter{$0.eligible && meanings.contains($0.sense)}
+            .map(\.reading).filter{!$0.isEmpty})
+    }
     private static func shape(_ form:Form)->[Int] {
         [form.mode==3 ? form.start : 0,form.mode==3 ? form.end : 0,form.number,form.mode==3 ? 3 : 1]
     }
@@ -234,11 +249,11 @@ enum LexicalConcordance {
                     for other in right.forms.keys.sorted() {
                         guard !right.targetBlocked.contains(other) else {continue}
                         let targets=right.forms[other,default:[]]
-                        let readings=Set(targets.flatMap{right.terms[$0.lexeme,default:[]]}.map(\.reading).filter{!$0.isEmpty})
-                        if needsReading && readings.count != 1 {continue}
                         for candidate in Set(targets) {
+                            let readings=readings(right,candidate,meanings)
+                            if needsReading && readings.count != 1 {continue}
                             if conflictingGeometry && (candidate.pos != "noun" || candidate.grammar) {continue}
-                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),candidate.number==form.number,
+                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),numberCompatible(form,candidate,source:source,target:target),
                                   right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
                             let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter(\.eligible).map(\.sense))
                             // Narrower meanings must explain nearby lexical context;
@@ -311,10 +326,10 @@ enum LexicalConcordance {
                     for other in right.forms.keys.sorted() {
                         guard !right.targetBlocked.contains(other) else {continue}
                         let targets=right.forms[other,default:[]]
-                        let readings=Set(targets.flatMap{right.terms[$0.lexeme,default:[]]}.map(\.reading).filter{!$0.isEmpty})
-                        if needsReading && readings.count != 1 {continue}
                         for candidate in Set(targets) {
-                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),candidate.number==form.number,
+                            let readings=readings(right,candidate,meanings)
+                            if needsReading && readings.count != 1 {continue}
+                            guard candidate.targetSafe,!(candidate.features.contains("abbreviation") && targets.contains{$0.grammar}),(1...3).contains(candidate.mode),numberCompatible(form,candidate,source:source,target:target),
                                   right.terms[candidate.lexeme,default:[]].contains(where:{$0.eligible && meanings.contains($0.sense)}) else {continue}
                             let targetMeanings=Set(right.terms[candidate.lexeme,default:[]].filter{$0.eligible}.map(\.sense))
                             guard ambiguousFamilies.allSatisfy({$0.isSubset(of:targetMeanings)}) else {continue}

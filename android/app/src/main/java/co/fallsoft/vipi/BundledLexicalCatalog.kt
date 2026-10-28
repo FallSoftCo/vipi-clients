@@ -1,0 +1,124 @@
+package co.fallsoft.vipi
+
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import co.fallsoft.vipi.core.TranslationIntegrity
+import co.fallsoft.vipi.core.VocabularyEntry
+import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.security.MessageDigest
+import java.util.zip.InflaterInputStream
+
+/** App-signed, public data. Only the selected pair is expanded; no messages are stored. */
+internal class BundledLexicalCatalog(private val context: Context,
+    private val assetRoot: String = "lexical",
+    private val root: File = File(context.noBackupFilesDir, "lexical-public")) {
+    private val index: JSONObject? by lazy {
+        if (context.assets.list(assetRoot).orEmpty().contains("catalog.json")) {
+            JSONObject(context.assets.open("$assetRoot/catalog.json").bufferedReader().use { it.readText() }).also {
+                require(it.getString("schema") == "vipi-bundled-lexical-1")
+                require(it.getString("dictionary_release").matches(Regex("[a-f0-9]{64}")))
+            }
+        } else null
+    }
+    companion object {
+        // Multiple conversation owners may prepare the same public pair.
+        private val monitor = Any()
+        private val verified = mutableMapOf<String, Pair<Long, Long>>()
+        private const val MAX_BYTES = 536_870_912L
+    }
+    private fun digest(file: File): String {
+        val hash = MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { input ->
+            val buffer = ByteArray(65_536)
+            while (true) {
+                val count = input.read(buffer)
+                if (count < 0) break
+                if (count > 0) hash.update(buffer, 0, count)
+            }
+        }
+        return hash.digest().joinToString("") { "%02x".format(it) }
+    }
+    private fun descriptor(id: String): JSONObject {
+        require(id.matches(Regex("(d-[a-z]{2,3}|w-[a-z]{2,3}-[a-z]{2,3})")))
+        val files = requireNotNull(index).getJSONArray("files")
+        return (0 until files.length()).map { files.getJSONObject(it) }.single { it.getString("id") == id }.also {
+            require(it.getString("file") == "$id.sqlite.zlib")
+            require(it.getLong("bytes") in 512..MAX_BYTES)
+            require(it.getLong("compressed_bytes") in 1..MAX_BYTES)
+            require(it.getString("sha256").matches(Regex("[a-f0-9]{64}")))
+        }
+    }
+    private fun databaseFile(row: JSONObject): File {
+        check(root.isDirectory || root.mkdirs())
+        val id = row.getString("id")
+        val hash = row.getString("sha256")
+        val file = File(root, "$id-$hash.sqlite")
+        val expected = row.getLong("bytes")
+        val stamp = file.length() to file.lastModified()
+        if (file.isFile && stamp.first == expected && verified[file.absolutePath] == stamp) return file
+        if (file.isFile && file.length() == expected && digest(file) == hash) {
+            verified[file.absolutePath] = file.length() to file.lastModified()
+            return file
+        }
+        val temporary = File.createTempFile("prepare-", ".sqlite", root)
+        try {
+            val checksum = MessageDigest.getInstance("SHA-256")
+            var count = 0L
+            context.assets.open(assetRoot + "/" + row.getString("file")).use { compressed ->
+                InflaterInputStream(compressed).use { input ->
+                    FileOutputStream(temporary).use { output ->
+                        val buffer = ByteArray(65_536)
+                        while (true) {
+                            if (Thread.currentThread().isInterrupted) throw InterruptedException()
+                            val n = input.read(buffer)
+                            if (n < 0) break
+                            if (n > 0) {
+                                count += n
+                                require(count <= expected) { "Expanded language data exceeds its manifest" }
+                                checksum.update(buffer, 0, n)
+                                output.write(buffer, 0, n)
+                            }
+                        }
+                        output.fd.sync()
+                    }
+                }
+            }
+            require(count == expected && checksum.digest().joinToString("") { "%02x".format(it) } == hash)
+            FileInputStream(temporary).use { input ->
+                val header = ByteArray(16)
+                require(input.read(header) == 16 && header.contentEquals("SQLite format 3\u0000".toByteArray()))
+            }
+            // A reader can only observe the old complete file or the new complete file.
+            check(temporary.renameTo(file))
+            verified[file.absolutePath] = file.length() to file.lastModified()
+            val ownedRevision = Regex(Regex.escape(id) + "-[a-f0-9]{64}\\.sqlite")
+            root.listFiles()?.filter { it.name != file.name && it.name.matches(ownedRevision) }?.forEach {
+                verified.remove(it.absolutePath); it.delete()
+            }
+            return file
+        } finally { temporary.delete() }
+    }
+    private fun selected(source: String, target: String): List<JSONObject> {
+        val languages = initialLanguages.map { it.code }
+        require(source != target && source in languages && target in languages)
+        return listOf(descriptor("d-$source"), descriptor("d-$target"),
+            descriptor("w-" + listOf(source, target).sorted().joinToString("-")))
+    }
+    fun prepare(source: String, target: String): Boolean = synchronized(monitor) {
+        if (index == null) return@synchronized false
+        selected(source, target).forEach(::databaseFile)
+        true
+    }
+    fun entries(original: String, translation: String, source: String, target: String): List<VocabularyEntry> = synchronized(monitor) {
+        if (index == null || !TranslationIntegrity.preservesIdentifiers(original, translation)) return@synchronized emptyList()
+        val files = selected(source, target).map(::databaseFile)
+        fun open(file: File) = SQLiteDatabase.openDatabase(file.path, null,
+            SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
+        open(files[0]).use { left -> open(files[1]).use { right -> open(files[2]).use { witness ->
+            LexicalConcordance.entries(left, right, original, translation, source, target, witness)
+        }}}
+    }
+}

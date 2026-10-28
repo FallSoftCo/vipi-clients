@@ -1,0 +1,70 @@
+{
+  "schema": "vipi-bundled-lexical-1",
+  "dictionary_release": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "files": [
+    {
+      "id": "d-en",
+      "file": "d-en.sqlite.zlib",
+      "bytes": 36864,
+      "sha256": "b23138c54a5769e210d95951c6a859c133818e0429599cc96785ae5ba9c414cc",
+      "compressed_bytes": 1091,
+      "compressed_sha256": "08a6067f7c7ca0b79c69549f0408873778ec0d63469db707e452fa04c5a2d019"
+    },
+    {
+      "id": "d-es",
+      "file": "d-es.sqlite.zlib",
+      "bytes": 36864,
+      "sha256": "bd1b7c3a8be49dd09b9ae4a48bc00aecaf1fdb7cb0e4fbd162b224e2ac0cda0b",
+      "compressed_bytes": 1097,
+      "compressed_sha256": "2f71bd0fe53e75b929ec2393a8cbfefe4c300f5c49fe94d1a9adf31565cce99c"
+    },
+    {
+      "id": "w-en-es",
+      "file": "w-en-es.sqlite.zlib",
+      "bytes": 16384,
+      "sha256": "2a1f746c2b9b36d4d4b3c90766daa5322961858625ddd6eeb68f6708fad3b3ee",
+      "compressed_bytes": 570,
+      "compressed_sha256": "ae003334453cc77a69e3bd0a09beeccef89b857987b8ce70bc850090343a20d9"
+    },
+    {
+      "id": "d-fr",
+      "file": "d-fr.sqlite.zlib",
+      "bytes": 4096,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "compressed_bytes": 49,
+      "compressed_sha256": "0033e70218f8392b5252e91d298bba219e3b814a931ca45df2512b1173d657bc"
+    },
+    {
+      "id": "w-en-fr",
+      "file": "w-en-fr.sqlite.zlib",
+      "bytes": 16384,
+      "sha256": "2a1f746c2b9b36d4d4b3c90766daa5322961858625ddd6eeb68f6708fad3b3ee",
+      "compressed_bytes": 570,
+      "compressed_sha256": "ae003334453cc77a69e3bd0a09beeccef89b857987b8ce70bc850090343a20d9"
+    },
+    {
+      "id": "d-de",
+      "file": "d-de.sqlite.zlib",
+      "bytes": 512,
+      "sha256": "b23138c54a5769e210d95951c6a859c133818e0429599cc96785ae5ba9c414cc",
+      "compressed_bytes": 1091,
+      "compressed_sha256": "08a6067f7c7ca0b79c69549f0408873778ec0d63469db707e452fa04c5a2d019"
+    },
+    {
+      "id": "w-de-en",
+      "file": "w-de-en.sqlite.zlib",
+      "bytes": 16384,
+      "sha256": "2a1f746c2b9b36d4d4b3c90766daa5322961858625ddd6eeb68f6708fad3b3ee",
+      "compressed_bytes": 570,
+      "compressed_sha256": "ae003334453cc77a69e3bd0a09beeccef89b857987b8ce70bc850090343a20d9"
+    },
+    {
+      "id": "d-pt",
+      "file": "d-pt.sqlite.zlib",
+      "bytes": 36864,
+      "sha256": "b23138c54a5769e210d95951c6a859c133818e0429599cc96785ae5ba9c414cc",
+      "compressed_bytes": 1091,
+      "compressed_sha256": "08a6067f7c7ca0b79c69549f0408873778ec0d63469db707e452fa04c5a2d019"
+    }
+  ]
+}
