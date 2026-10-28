@@ -849,3 +849,52 @@ reading/homograph cases. The verb cohort's translation-review.json retains
 location-particle and conversation-role concerns in actual Korean translations.
 The iOS simulator will reuse those captured translations; physical translation,
 audio listening, representative 90% coverage and store readiness remain unproven.
+
+## Fresh physical iPad translation and playback — 2026-10-28
+
+The attached iPad is now accepting automation. Running the device build through
+the Mac's existing interactive Terminal session resolved the SSH signing-key
+access failure without changing keychain permissions. Physical capture002
+completed 48 fresh Apple Translation sentence pairs (96 whole/focus calls) and
+restored the original QA protocol. Raw capture SHA:
+98db0b293a636ec9cfa27065e3eccc72f2ceed78f2301bb520b9004cdebf9d1d.
+Network absence was not verified. The author inspected all 48 whole translations;
+no material meaning error was identified in this small repeated-situation cohort,
+which is not an independent accuracy estimate. Isolated-word outputs can describe
+English grammar instead of translating a lexical word and are not adopted as
+mappings.
+
+Physical bundle007 replay450 of those exact Apple outputs finds 34 spans in
+27/48 messages, report SHA
+843a4769a2d181291353bc9839bbb1c58c54736825c4d8b8ff8e6797553631f1.
+Both existing device QA controls were preserved and restored. The reusable
+physical replay controller checks the exact built and reported catalog hashes.
+The new past-verb bundle still requires its comparison.
+
+Actual English/Spanish mixed playback completed, began in 218.38 ms, and stopped
+in 24.99 ms; cancellation before rendering and during playback passed. These are
+native player callbacks, not listening or acoustic pronunciation acceptance.
+Exact receipts and the separately labeled author translation review are under
+artifacts/ipad-past-capture-002.
+
+## Korean homograph correction — compilation pending qualification
+
+Inspection found separate same-spelling native entries receiving each other's
+English links. For example, 쓰다 has distinct wear/write/use entries and 듣다
+has listen/hear and drip entries. These must not be treated as duplicate entries.
+Fifteen exact negative link assessments now remove cross-entry relations,
+including mathematics attached to the unrelated study/learning entry of 수학.
+No positive meaning, spelling, pronunciation or native entry is added or merged.
+
+The small candidate compiler preserves every non-metadata table exactly except
+the fifteen eligible=1 to eligible=0 changes. It binds each assessment to the
+pinned inventory, source headword, complete native definitions and English sense.
+Candidate lexical-korean-links-001 is accepted only for rebuilding contextual
+evidence; it is not native-qualified. The fresh 20-direction Korean rebuild
+retains all three source corpora and the existing thresholds/exclusions.
+
+A separate Japanese allograph audit found only four newly proposed written past
+forms from missing labels. Two are malformed upstream spellings (言いった and
+来きた). The broad same-reading recovery was therefore not implemented.
+The valid-looking 飲んだ and 喚いた still need a narrower supplied-form correction;
+all unclassified records remain withheld.
