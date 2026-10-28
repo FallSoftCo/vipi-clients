@@ -163,7 +163,16 @@ def build(args):
     corpus = readonly(args.corpus)
     source_receipt = json.loads(corpus.execute("SELECT value FROM metadata WHERE key='receipt'").fetchone()[0])
     is_pgv=input_receipt.get('schema')=='vipi-pgv-corpus-1'
-    if is_pgv:
+    is_massive=input_receipt.get('schema')=='vipi-massive-corpus-1'
+    if is_massive:
+        assert source_receipt['schema']==input_receipt['schema']
+        assert source_receipt['complete'] and source_receipt['policy']=='massive-original-train-direct-unlocalized-1'
+        assert not args.supplement, 'MASSIVE retains its own split and exclusion components'
+        sentence_license=source_receipt['license']
+        attribution=('Sentence text: MASSIVE 1.1, Amazon and SLURP contributors, CC BY 4.0. '
+            'Original locale, train split, slots and judgments retained in source_rows; direct relations in source_link_evidence.\n'
+            'Source: https://github.com/alexa/massive . Archive LICENSE, NOTICE and citation retained with corpus.\n')
+    elif is_pgv:
         assert source_receipt['schema']==input_receipt['schema']
         assert source_receipt['complete'] and source_receipt['direct_links_only'] and source_receipt['automatic_alignment']
         assert not args.supplement, 'PGV uses its own duplicate/exclusion components'
@@ -307,6 +316,14 @@ def build(args):
         work.executescript('''CREATE TABLE source_attribution AS SELECT p.* FROM corpus.attribution p JOIN sentences s ON s.id=p.sentence;
             CREATE TABLE source_link_evidence AS SELECT p.* FROM corpus.link_evidence p
                 JOIN sentences a ON a.id=p.a JOIN sentences b ON b.id=p.b;''')
+    if is_massive:
+        # Keep original source judgments and slot choices, not just a generic
+        # corpus name. Only selected development rows enter this artifact.
+        work.executescript('''CREATE TABLE source_rows AS SELECT p.* FROM corpus.source_rows p
+                JOIN sentences s ON s.id=p.sentence;
+            CREATE TABLE source_link_evidence AS SELECT p.* FROM corpus.link_evidence p
+                JOIN sentences a ON a.id=p.a JOIN sentences b ON b.id=p.b;''')
+        assert not work.execute("SELECT 1 FROM source_rows WHERE partition<>'train' LIMIT 1").fetchone()
     work.execute("INSERT INTO sentence_search(sentence_search) VALUES ('rebuild')");work.commit()
     counts['distinct_aligned_senses'] = work.execute('SELECT count(DISTINCT sense) FROM alignments').fetchone()[0]
     counts['distinct_aligned_sentence_pairs'] = work.execute('SELECT count(*) FROM (SELECT a,b FROM alignments GROUP BY a,b)').fetchone()[0]

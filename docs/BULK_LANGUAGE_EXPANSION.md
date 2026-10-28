@@ -1,5 +1,49 @@
 # Bulk local language expansion — 2026-10-27
 
+## Current expansion: dictionary 014 plus MASSIVE — 2026-10-28
+
+The complete MASSIVE import retains 181,731 original rows from eleven locales.
+After preserving source splits, duplicate components, localization choices,
+judgments and evaluation exclusions, it supplies 50,706 development sentences
+and 42,596 direct English-to-locale links. Swahili contributes 4,600 development
+sentences. This is assistant-request data, not representative friend chat.
+No foreign-to-foreign relation is inferred through English.
+
+Source: https://github.com/alexa/massive, pinned repository
+f966f21846043aabef9b0f974fa7970027f43738 and archive
+4cba5faa11c71437928e17cb1b9b3d8b8e727e7ea363a3a9a8045e19c0491577.
+The archive's CC BY 4.0 license, NOTICE, citation and original source payloads
+are retained. Import artifacts/massive-corpus-003/corpus.sqlite is 222,208,000
+bytes, SHA-256 ef63aefac28e9295ee1002950a4a2062b0124d5c24e188b1b6340cb039af0ff6.
+The two stopped partial attempts are recorded separately and are not releases.
+
+The dictionary-014 MASSIVE context build is complete: 319,852,544 bytes,
+SHA-256 8ab15b459aea58c08c42b7414a8d1cf1506e941928ad0fd805548306240b269b,
+with 144,032 candidate concordances, including 11,077 English–Swahili.
+These counts are evidence candidates, not accepted runtime mappings.
+
+The witness compiler now accepts this specific third source only when its
+receipt proves exclusion of both prior source corpora and the evaluation
+identities. It checks matching dictionary catalogs and disjoint source-ID
+intervals, retains attribution and counts contradictory observations in the
+same denominators. Targeted checks demonstrate that a third-source conflict
+removes a previously supported mapping and that wrong predecessor identities
+are rejected. Reserved MASSIVE rows never enter development contexts.
+
+The full Tatoeba/Swahili and PGV context rebuilds are running. The owned
+pipeline at artifacts/coverage-expansion-004-run-001 waits for completed
+receipts, compiles all 110 directions, creates bundle 004 and runs Android
+replay 008. Source hashes are pinned and compiler snapshots execute directly;
+a failure stops for inspection. iOS replay and inspection of actual additions
+and losses remain required. Bundle 003 remains the currently qualified
+development data; bundle 004 is not yet qualified.
+
+Superseded raw dictionary 012 was retired only after all eleven files matched
+the retained bundle-003 compressed payloads byte for byte and had no visible
+open readers. Exact payloads, catalogs, attribution and provenance remain.
+Receipt: artifacts/dictionary-012-retirement-001/receipt.json.
+
+
 ## Bundle 003 native development result — 2026-10-28
 
 The dictionary-012 rebuild completed all 110 directions from both retained
@@ -44,8 +88,7 @@ stem, reading, sense link or source/target safety flag changes.
 The delta is recorded per row in artifacts/lexical-shards-014/changed-surfaces.jsonl.
 Release 8efe0921d18ed0c12d82b597f55d7ac65a47196d900435e7620532e1bba7926a
 requires fresh contexts and native qualification. The app does not yet use it.
-The dictionary-012 context rebuild is separate and remains the next native
-candidate.
+The separate dictionary-012 rebuild is now qualified as bundle 003 above.
 
 A bounded fast_align experiment uses 100,000 English–Spanish and 20,955
 English–Swahili direct development pairs, selected deterministically from the
@@ -102,8 +145,8 @@ Release 7d9ff2229edea5d194e5db3a7b22dd1a7329aa9af269c16fa4729c098e1ac5af
 occupies 1,683,308,544 expanded bytes. All eleven shard hashes and SQLite
 checks passed. The temporary 4,428,693,504-byte inventory copy was verified
 and retired after the rebuild; the canonical source is preserved. Fresh
-Tatoeba and Parallel Global Voices contexts are being compiled for all 110
-directions. This revision is not yet activated in the development apps.
+Tatoeba and Parallel Global Voices contexts completed all 110 directions.
+This revision is activated as development bundle 003; see the native result above.
 
 The retained native development cohort now has 560 ordinary examples and
 42 targeted regression examples across all 110 directions. The additional

@@ -67,6 +67,35 @@ def compile(args):
         proof=dict(exclusions_sha256=exclusion['sha256'],release_adapter_sha256=adapter_sha,
             same_dictionary_catalog_sha256=parent['source_catalog_sha256'] if adapter_sha is None else None,
             base_supplement_receipts=sorted(supplements),policy='all prior source text excluded; positive base IDs and negative PGV IDs')
+    extra_contexts=getattr(args,'extra_context',[]) or []
+    extra_receipts=getattr(args,'extra_corpus_receipt',[]) or []
+    assert len(extra_contexts)==len(extra_receipts)
+    # The supported third source is the pinned MASSIVE import. Its importer
+    # excludes the complete Tatoeba/Swahili index, PGV corpus and evaluation
+    # identities. A different source requires its own verified proof.
+    if extra_contexts:
+        assert additional and len(extra_contexts)==1 and not args.release_adapter
+        extra_path,extra_receipt_path=extra_contexts[0],extra_receipts[0]
+        extra=json.loads((extra_path.parent/'receipt.json').read_text())
+        extra_corpus=json.loads(extra_receipt_path.read_text())
+        assert extra['complete'] and not extra['pilot'] and extra['schema']=='vipi-broad-lexical-contexts-3'
+        assert digest_file(extra_path)==extra['sha256']
+        assert extra['corpus_schema']==extra_corpus['schema']=='vipi-massive-corpus-1'
+        assert extra_corpus['complete'] and extra_corpus['policy']=='massive-original-train-direct-unlocalized-1'
+        assert digest_file(extra_receipt_path)==extra['corpus_receipt_sha256']
+        assert extra_corpus['sha256']==extra['corpus_sha256']
+        assert extra_corpus['prior_corpus_sha256']==delta_corpus['sha256']
+        assert extra_corpus['exclusions_sha256']==exclusion['sha256']
+        assert extra_corpus['evaluation_exclusions'] and extra_corpus['evaluation_hashes']>0
+        assert extra['source_release_id']==release
+        assert extra['source_catalog_sha256']==parent['source_catalog_sha256']==delta['source_catalog_sha256']
+        inputs.append((extra_path,extra))
+        proof['additional_sources']=[dict(schema=extra_corpus['schema'],contexts_sha256=extra['sha256'],
+            corpus_sha256=extra_corpus['sha256'],corpus_receipt_sha256=digest_file(extra_receipt_path),
+            prior_corpus_sha256=extra_corpus['prior_corpus_sha256'],
+            exclusions_sha256=extra_corpus['exclusions_sha256'],
+            evaluation_exclusions=extra_corpus['evaluation_exclusions'],
+            policy=extra_corpus['policy'])]
     selected={tuple(pair.split('-')) for pair in args.pair}
     languages={language for _,receipt in inputs for language in receipt['languages']}
     assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in languages for x in pair) for pair in selected)
@@ -77,6 +106,9 @@ def compile(args):
         lower,upper=source.execute('SELECT min(id),max(id) FROM sentences').fetchone()
         assert lower is not None
         if additional:assert lower>0 if index==0 else upper<0
+        # Every source occupies a separate signed integer interval. This also
+        # rejects accidental ID overlap before any evidence is accumulated.
+        assert all(upper<lo or lower>hi for _,lo,hi in sources), 'Overlapping source identity intervals'
         sources.append((source,lower,upper))
     work_path=args.output/'observations.sqlite';work=sqlite3.connect(work_path)
     work.executescript('''PRAGMA temp_store=FILE;PRAGMA cache_size=-32768;
@@ -203,6 +235,8 @@ if __name__=='__main__':
     for name in ('additional-context','additional-corpus-receipt','source-exclusions','release-adapter'):
         p.add_argument('--'+name,type=Path)
     p.add_argument('--base-supplement-receipt',type=Path,action='append',default=[])
+    p.add_argument('--extra-context',type=Path,action='append',default=[])
+    p.add_argument('--extra-corpus-receipt',type=Path,action='append',default=[])
     p.add_argument('--pair',action='append',required=True)
     p.add_argument('--minimum-support',type=int,default=3);p.add_argument('--minimum-agreement',type=float,default=.98)
     args=p.parse_args();assert args.minimum_support>=2 and .5<=args.minimum_agreement<=1

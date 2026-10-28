@@ -119,6 +119,50 @@ class ContextEvidenceTests(unittest.TestCase):
             self.assertEqual(merged['observations_sha256'],digest(combined/'observations.sqlite'))
             self.assertTrue(merged['automatic_sentence_alignment'])
             self.assertIn('Synthetic delta source provenance',(combined/'ATTRIBUTION.txt').read_text())
+            # A third disjoint source contributes negative evidence too.
+            # Its prior-corpus identity and evaluation exclusions are mandatory.
+            parent.update(source_release_id='e'*64,source_catalog_sha256='9'*64)
+            (root/'receipt.json').write_text(json.dumps(parent))
+            delta=json.loads((extra/'receipt.json').read_text());delta['source_catalog_sha256']='9'*64
+            (extra/'receipt.json').write_text(json.dumps(delta))
+            third=root/'massive';third.mkdir();third_db=third/'contexts.sqlite'
+            with sqlite3.connect(third_db) as db:
+                db.executescript('''CREATE TABLE sentences(id INTEGER PRIMARY KEY,language TEXT,text TEXT,owner TEXT);
+                    CREATE TABLE alignments(a INTEGER,b INTEGER,a_start INTEGER,a_end INTEGER,b_start INTEGER,b_end INTEGER);''')
+                db.executemany('INSERT INTO sentences VALUES (?,?,?,?)',
+                    [(-101,'en','the bicycle works','third-source'),(-102,'es','el avión funciona','third-target')])
+                db.execute('INSERT INTO alignments VALUES (-101,-102,4,11,3,8)')
+            third_corpus=third/'source-corpus-receipt.json'
+            third_pin=dict(schema='vipi-massive-corpus-1',complete=True,
+                policy='massive-original-train-direct-unlocalized-1',sha256='8'*64,
+                prior_corpus_sha256='d'*64,exclusions_sha256=digest(hashes),
+                evaluation_exclusions=[dict(sha256='7'*64)],evaluation_hashes=12)
+            third_corpus.write_text(json.dumps(third_pin))
+            third_context=dict(schema='vipi-broad-lexical-contexts-3',complete=True,pilot=False,
+                sha256=digest(third_db),languages=['en','es'],source_release_id='e'*64,
+                source_catalog_sha256='9'*64,corpus_schema='vipi-massive-corpus-1',
+                corpus_receipt_sha256=digest(third_corpus),corpus_sha256='8'*64,
+                licenses=['Synthetic third-source license'])
+            (third/'receipt.json').write_text(json.dumps(third_context))
+            (third/'ATTRIBUTION.txt').write_text('Synthetic third-source attribution.\n')
+            third_command=[sys.executable,str(ROOT/'language-packs/build_context_witnesses.py'),
+                '--contexts',str(source),'--additional-context',str(extra_db),
+                '--additional-corpus-receipt',str(corpus_receipt),'--source-exclusions',str(hashes),
+                '--extra-context',str(third_db),'--extra-corpus-receipt',str(third_corpus),
+                '--pair','en-es','--pair','es-en','--output',str(root/'three-sources')]
+            subprocess.run(third_command,check=True,stdout=subprocess.DEVNULL)
+            with sqlite3.connect(root/'three-sources/witnesses.sqlite') as db:
+                self.assertEqual(db.execute("SELECT count(*) FROM witnesses WHERE source='en' AND word='bicycle' AND cue='R:works'").fetchone()[0],0)
+            three=json.loads((root/'three-sources/receipt.json').read_text())
+            self.assertEqual(set(three['additional_contexts_sha256']),{digest(extra_db),digest(third_db)})
+            self.assertIn('third-source attribution',(root/'three-sources/ATTRIBUTION.txt').read_text())
+            # A self-consistent receipt with the wrong predecessor is rejected.
+            third_pin['prior_corpus_sha256']='0'*64;third_corpus.write_text(json.dumps(third_pin))
+            third_context['corpus_receipt_sha256']=digest(third_corpus)
+            (third/'receipt.json').write_text(json.dumps(third_context))
+            failed=subprocess.run(third_command[:-1]+[str(root/'wrong-third-source')],
+                stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+            self.assertNotEqual(failed.returncode,0)
             # A different exclusion identity cannot justify combining sources.
             wrong=json.loads(corpus_receipt.read_text());wrong['exclusions_sha256']='f'*64;corpus_receipt.write_text(json.dumps(wrong))
             failed=subprocess.run(command[:-1]+[str(root/'rejected')],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)

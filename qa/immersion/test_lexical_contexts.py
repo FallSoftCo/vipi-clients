@@ -88,13 +88,20 @@ class ContextOffsets(unittest.TestCase):
                     CREATE TABLE tag_metadata(id INTEGER,name TEXT);CREATE TABLE metadata(key TEXT,value TEXT);''')
                 db.executemany('INSERT INTO sentences VALUES (?,?,?,?,?,?)',rows)
                 db.executemany('INSERT INTO links VALUES (?,?)',links)
-                metadata=receipt if receipt.get('schema')=='vipi-pgv-corpus-1' else dict(tags_schema='tag_id,sentence_id,username,added_time')
+                metadata=receipt if receipt.get('schema') in {'vipi-pgv-corpus-1','vipi-massive-corpus-1'} else dict(tags_schema='tag_id,sentence_id,username,added_time')
                 db.execute('INSERT INTO metadata VALUES (?,?)',('receipt',json.dumps(metadata)))
                 if receipt.get('schema')=='vipi-pgv-corpus-1':
                     db.executescript('''CREATE TABLE attribution(sentence INTEGER,archive TEXT,unit TEXT);
                         CREATE TABLE link_evidence(a INTEGER,b INTEGER,archive TEXT,unit TEXT,score REAL);''')
                     db.executemany('INSERT INTO attribution VALUES (?,?,?)',[(r[0],'https://example.test/archive',str(r[0])) for r in rows])
                     db.executemany('INSERT INTO link_evidence VALUES (?,?,?,?,?)',[(a,b,'https://example.test/archive',str(a),3.0) for a,b in links])
+                if receipt.get('schema')=='vipi-massive-corpus-1':
+                    db.executescript('''CREATE TABLE source_rows(unit TEXT,locale TEXT,sentence INTEGER,partition TEXT,payload TEXT);
+                        CREATE TABLE link_evidence(a INTEGER,b INTEGER,unit TEXT,locale TEXT,source_partition TEXT);''')
+                    db.executemany('INSERT INTO source_rows VALUES (?,?,?,?,?)',
+                        [(str(row[0]),row[1],row[0],'train' if row[-1]=='development' else 'test','retained fixture judgment') for row in rows])
+                    db.executemany('INSERT INTO link_evidence VALUES (?,?,?,?,?)',
+                        [(a,b,str(a),'sw-KE','train') for a,b in links])
                 db.commit();db.close();receipt['sha256']=sha_file(path)
                 (folder/'receipt.json').write_text(json.dumps(receipt))
                 return path
@@ -132,6 +139,25 @@ class ContextOffsets(unittest.TestCase):
                 self.assertEqual(db.execute('SELECT sentence FROM source_attribution ORDER BY sentence').fetchall(),[(-4,),(-3,)])
                 self.assertEqual(db.execute('SELECT a,b FROM source_link_evidence').fetchall(),[(-4,-3)])
                 self.assertEqual(db.execute("SELECT rowid FROM sentence_search WHERE sentence_search MATCH 'coffee'").fetchall(),[(-4,)])
+
+            massive=corpus('massive',[
+                (-103,'en','Coffee.','MASSIVE fixture',-103,'development'),
+                (-102,'sw','Kahawa.','MASSIVE fixture',-103,'development'),
+                (-101,'sw','Kahawa held out.','MASSIVE fixture',-101,'reserved')],
+                [(-103,-102),(-103,-101)],dict(schema='vipi-massive-corpus-1',complete=True,
+                    policy='massive-original-train-direct-unlocalized-1',license='CC-BY-4.0: MASSIVE fixture'))
+            massive_output=root/'massive-output';build(argparse.Namespace(shards=shards,corpus=massive,supplement=None,
+                language=None,max_sentences_per_language=0,output=massive_output))
+            mr=json.loads((massive_output/'receipt.json').read_text())
+            self.assertFalse(mr['automatic_sentence_alignment'])
+            self.assertEqual(mr['corpus_schema'],'vipi-massive-corpus-1')
+            self.assertIn('CC-BY-4.0: MASSIVE fixture',mr['licenses'])
+            self.assertNotIn('Tatoeba',(massive_output/'ATTRIBUTION.txt').read_text())
+            with sqlite3.connect(massive_output/'contexts.sqlite') as db:
+                self.assertEqual(db.execute('SELECT id FROM sentences ORDER BY id').fetchall(),[(-103,),(-102,)])
+                self.assertEqual(db.execute('SELECT count(*) FROM alignments').fetchone()[0],1)
+                self.assertEqual(db.execute('SELECT DISTINCT partition FROM source_rows').fetchall(),[('train',)])
+                self.assertEqual(db.execute('SELECT a,b FROM source_link_evidence').fetchall(),[(-103,-102)])
 
 
 if __name__=='__main__':unittest.main()
