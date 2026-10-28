@@ -20,7 +20,7 @@ import noun_carriers
 import adjective_agreement
 import swahili_lexical
 
-POLICY = "native-linked-swahili-lexical-11"
+POLICY = "native-linked-swahili-definitions-12"
 SCHEMA = '''
 PRAGMA application_id=1447645257;
 PRAGMA user_version=10;
@@ -138,6 +138,8 @@ def compile_language(inventory, output, language, receipt, redirect_path, redire
                 contradiction=False;counts['sense_gloss_corroborated_links']+=1
             if contradiction and any(links.matching_english_definition(english_line,gloss,spos) for gloss in glosses):
                 contradiction=False;counts['definition_corroborated_links']+=1
+            if links.derived_counterpart(root,english,label) is False:
+                contradiction=True;counts['uncorroborated_derived_links']+=1
             linked_terms[root].append((sid,reading,q,label,spos,explicit,surl,contradiction))
             if contradiction:counts['contradicted_links']+=1
     # Native definitions supply direct English relations absent from English

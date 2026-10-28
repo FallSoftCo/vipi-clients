@@ -8,7 +8,7 @@ import json
 import re
 from build_wiktextract import EXCLUDED, PARTS, DIALECTS
 from context_hints import lookup_key
-from swahili_lexical import derived_entry,supplied_infinitive
+from swahili_lexical import derived_entry,supplied_infinitive,derivation_definition
 
 
 class NativeLinks:
@@ -35,6 +35,7 @@ class NativeLinks:
         result={i for i,h,p in direct if not pos or pos==p}
         # A hyphenated root or alternate script is accepted only when the
         # canonical entry explicitly supplies that exact spelling.
+        infinitives=set()
         for identifier,head,p,tags,written in self.db.execute('''SELECT e.source_line,e.headword,e.part_of_speech,f.tags,f.form
             FROM native_forms f JOIN native_entries e USING(source_line)
             WHERE f.normalized=? AND e.language=?''',(key,self.language)):
@@ -42,7 +43,8 @@ class NativeLinks:
             if (not pos or pos==p) and not tags&EXCLUDED and tags&{'canonical','alternative'}:
                 result.add(identifier)
             if (not pos or pos==p) and written==word and supplied_infinitive(self.language,head,p,written,tags):
-                result.add(identifier)
+                infinitives.add(identifier)
+        if len(infinitives)==1:result.update(infinitives)
         return tuple(sorted(result))
 
     def resolve(self, identifier, trail=()):
@@ -86,6 +88,24 @@ class NativeLinks:
         self.resolved[identifier]=result
         if result!=identifier:self.evidence[identifier]=(result,sorted(refs),sorted(features),'redirect' if redirects else 'native-form-or-alternative')
         return result
+
+    def derived_counterpart(self, identifier, english, label):
+        """A derived verb must have its own matching published definition."""
+        if self.language!="sw" or self.entry(identifier)[3]!="verb":return None
+        found=False;matches=False
+        normalize=lambda value:re.sub(r"^to ", "", value.strip().lower().rstrip("."))
+        for raw,tags,forms,alts in self.senses(identifier):
+            tags=set(json.loads(tags))
+            if tags&EXCLUDED:continue
+            if not derived_entry(self.language,"verb",tags):continue
+            found=True
+            definition=derivation_definition(self.language,"verb",json.loads(raw),tags,json.loads(forms),json.loads(alts))
+            if not definition:continue
+            value=normalize(definition);word=normalize(english);sense=normalize(label)
+            if value==sense or word in {normalize(part) for part in re.split("[,;]",definition)}:
+                matches=True
+            if value==word+" ("+sense+")":matches=True
+        return matches if found else None
 
     def chinese_character_counterpart(self, identifier, english):
         """Corroborate an existing English translation with an explicit gloss.

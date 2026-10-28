@@ -22,6 +22,11 @@ class SwahiliLexical(unittest.TestCase):
             self.assertEqual(links.candidates("kwenda","verb"),(1,2))
             self.assertEqual(links.candidates("kuenda","verb"),())
             self.assertEqual(links.candidates("Kwenda","verb"),(2,)) # Existing direct spelling lookup stays intact.
+            db.execute("INSERT INTO native_entries VALUES (5,'sw','enda','enda','verb','[]','another meaning')")
+            db.execute("INSERT INTO native_forms VALUES (5,'kwenda','kwenda','[\"infinitive\"]')")
+            links.candidates.cache_clear()
+            self.assertEqual(links.candidates("kwenda","verb"),(2,))
+
         finally:links.close();db.close()
 
     def test_derived_verb_retains_meaning_and_requires_explicit_definition(self):
@@ -41,6 +46,11 @@ class SwahiliLexical(unittest.TestCase):
         try:
             self.assertEqual(links.resolve(2),2)
             self.assertEqual(links.resolve(3),3) # No-extra derivations also cannot alias.
+            self.assertTrue(links.derived_counterpart(2,"lend","to allow to be used temporarily"))
+            self.assertFalse(links.derived_counterpart(2,"borrow","to receive temporarily"))
+            self.assertFalse(links.derived_counterpart(3,"lend","to allow temporary use"))
+            self.assertIsNone(links.derived_counterpart(1,"borrow","to receive temporarily"))
+
             self.assertEqual(native_senses([lend],"sw","verb"),(1,True))
             self.assertEqual(native_senses([unqualified],"sw","verb"),(0,True))
             self.assertEqual(native_senses([lend],"es","verb"),(0,True))

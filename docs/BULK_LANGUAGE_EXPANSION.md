@@ -60,11 +60,14 @@ Derivations without definitions remain unavailable and cannot alias their
 bases. Ordinary inflection and alias restrictions remain in force.
 
 Artifacts/swahili-infinitive-audit-001 retains exact source rows and the
-qualification boundary. A complete single-language candidate is building as
-artifacts/lexical-swahili-015 from a frozen compiler and verified temporary
-inventory copy. It is separate from bundle 004, has no native activation,
-and must undergo data comparison, changed-direction context recomputation
-and native replay before promotion.
+qualification boundary. The first complete single-language candidate, artifacts/lexical-swahili-015,
+was withheld after author review found incorrect homograph links and
+unrelated senses in several derived entries. Its comparison and rejection
+are retained. Policy 12 additionally requires a unique infinitive backlink
+and a direct counterpart or exact label in the derived verb's own definition.
+The corrected candidate is building as artifacts/lexical-swahili-016. Both
+are separate from bundle 004 and have no native activation; changed-direction
+context recomputation and native replay remain required.
 
 ## Bundle 003 native development result — 2026-10-28
 
