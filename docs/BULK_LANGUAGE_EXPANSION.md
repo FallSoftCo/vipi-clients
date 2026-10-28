@@ -741,3 +741,11 @@ an existing published bilingual translation corroborated by a native gloss.
 Their source senses remain contextual; no generic script conversion or
 invented reading is introduced. Affected pair contexts must be recomputed
 before this data replaces the current bundle.
+
+## Complete-unit statistical follow-up — 2026-10-28
+
+The bounded `evaluate_statistical_units.py` experiment reuses the pinned English–Spanish and English–Swahili forward/reverse alignments. It requires a complete supplied noun/adjective/adverb unit, a shared dictionary sense and POS/number, a mutual alignment anchor, and no alignment edge crossing the unit. Recognized larger dictionary units protect their interior. This follows the [documented alignment-consistency approach](https://www2.statmt.org/moses/manual/html/training3.html) without treating alignment scores as calibrated meaning accuracy.
+
+`artifacts/statistical-unit-review-001/` retains all proposals and the author review. Of its 240 existing diagnostic cases, only 94 are SMS or spontaneous Swahili conversation cases; the others are dictionary units, formal references or authored cases. It proposes 19 spans in those 94 conversational cases. The previously incomplete laptop/portátil and email/correo proposals, and the grammatical was/fue proposal, are withheld. Complete laptop/email mappings remain absent. Security guard/guardia de seguridad is a plausible complete phrase. However, “ll present nxt mon” still proposes present/presente as a noun/adjective, and the greeting “Halo” is interpreted as the noun halo. The experiment is therefore **not integrated or accepted**. Phrase geometry does not solve contextual POS or word sense selection.
+
+`replace_lexical_shards.py` prepares bounded language replacements while keeping the other language records unchanged and recording their exact source hashes. Every copied shard gets one shared release identity; each original compiler policy remains explicit. Changed languages require complete context recomputation from the same corpora, including negative observations, before native use. The corrected Swahili candidate is still under review.
