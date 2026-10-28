@@ -1,5 +1,13 @@
 # Verification ledger
 
+## Concept-source diagnostic — 2026-10-28
+
+[CONCEPT_CORROBORATION.md](CONCEPT_CORROBORATION.md) records 20 candidate leads
+in previously empty development SMS messages and a wrong Spanish meeting-minutes
+link in Cygnet. None is counted as new coverage or promoted to runtime. The
+source contains no Swahili entry. Exact source rows/provenance and the rejected
+automatic-acceptance inference are retained.
+
 ## Current case safety checkpoint — 2026-10-28
 
 See [CONTEXT_CASE_SAFETY.md](CONTEXT_CASE_SAFETY.md). Both native readers now reject
