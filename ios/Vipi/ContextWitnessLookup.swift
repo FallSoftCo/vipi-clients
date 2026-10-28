@@ -1,11 +1,12 @@
 import Foundation
 import SQLite3
+import VipiCore
 
 /// Experimental reference evidence, supplied explicitly by native QA.
 struct ContextWitnessLookup {
     private struct Pair:Hashable {let word:String,counterpart:String}
     private struct Alternative {let cue:String,senses:Set<String>}
-    private let cues:[Pair:[String]],alternatives:[Pair:[Alternative]],words:[NSRange]
+    private let cues:[Pair:[String]],alternatives:[Pair:[Alternative]],nounAlternatives:[Pair:[Alternative]],words:[NSRange]
     private func nearby(_ range:NSRange,focus:NSRange,text:String)->Bool {
         let left=NSMaxRange(range)<=focus.location,right=range.location>=NSMaxRange(focus)
         guard left || right else {return false}
@@ -16,10 +17,10 @@ struct ContextWitnessLookup {
     func hasNearbyContext(focus:NSRange,text:String,windows:[String:[NSRange]])->Bool {
         windows.values.contains{ranges in ranges.contains{nearby($0,focus:focus,text:text)}}
     }
-    func supports(word:String,counterpart:String,focus:NSRange,text:String,windows:[String:[NSRange]],allowedMeanings:Set<String>=[])->Bool {
+    func supports(word:String,counterpart:String,focus:NSRange,text:String,windows:[String:[NSRange]],allowedMeanings:Set<String>=[],allowedNounMeanings:Set<String>=[])->Bool {
         guard !words.isEmpty else {return false}
         let pair=Pair(word:word,counterpart:counterpart)
-        let accepted=cues[pair,default:[]]+alternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedMeanings)}.map(\.cue)
+        let accepted=cues[pair,default:[]]+alternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedMeanings)}.map(\.cue)+nounAlternatives[pair,default:[]].filter{!$0.senses.isDisjoint(with:allowedNounMeanings)}.map(\.cue)
         return accepted.contains { cue in
             if cue=="@whole" {return words.allSatisfy{$0.location>=focus.location && NSMaxRange($0)<=NSMaxRange(focus)}}
             return windows[String(cue.dropFirst(2)),default:[]].contains { range in
@@ -30,8 +31,18 @@ struct ContextWitnessLookup {
         }
     }
     static func load(_ db:OpaquePointer,original:String,source:String,target:String,release:String,
-        sources:Set<String>,targets:Set<String>) throws -> ContextWitnessLookup? {
+        sources:Set<String>,targets:Set<String>,contextKeys:Set<String>?=nil) throws -> ContextWitnessLookup? {
         guard sources.count<=256,targets.count<=256,!sources.isEmpty,!targets.isEmpty else {return nil}
+        let sourceWords=LocalImmersion.words(original,language:source)
+        // Query only cues that can occur in the original message. The row cap
+        // and the complete corpus support/denominators remain unchanged.
+        guard let possibleContexts=contextKeys ?? ReviewedFrameLookup.windows(original,language:source).map({
+            Set($0.keys.map(ImmersionEngine.lookupKey))
+        }) else {return nil}
+        // Preserve native subword windows, including French elision and
+        // Japanese compounds; a cue cannot contain whitespace.
+        let activeCues=Set(["@whole"]+possibleContexts.filter{$0.utf16.count<=128 && !$0.contains(where:{$0.isWhitespace})}
+            .flatMap{["L:"+$0,"R:"+$0]}).sorted()
         func query(_ sql:String,_ arguments:[String],_ limit:Int) throws -> [[String]] {
             var statement:OpaquePointer?
             guard sqlite3_prepare_v2(db,sql,-1,&statement,nil)==SQLITE_OK else {throw VocabularyPackError.storage}
@@ -52,7 +63,7 @@ struct ContextWitnessLookup {
             guard status==SQLITE_DONE else {throw VocabularyPackError.storage};return result
         }
         var meta:[String:String]=[:]
-        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy')",[],9) {meta[row[0]]=row[1]}
+        for row in try query("SELECT key,value FROM metadata WHERE key IN ('schema','policy','source_release_id','minimum_support','minimum_agreement','pairs','whole_verb_context_policy','whole_present_context_policy','semantic_alternative_policy','noun_semantic_alternative_policy')",[],10) {meta[row[0]]=row[1]}
         func string(_ name:String) throws -> String {
             guard let raw=meta[name] else {throw VocabularyPackError.invalid}
             return try JSONDecoder().decode(String.self,from:Data(raw.utf8))
@@ -69,14 +80,14 @@ struct ContextWitnessLookup {
         }
         let pairs=try JSONDecoder().decode([String:Int].self,from:Data(pairText.utf8))
         guard pairs[source+"-"+target] != nil else {return nil}
-        var rows:[Pair:[String]]=[:],alternatives:[Pair:[Alternative]]=[:];var count=0
+        var rows:[Pair:[String]]=[:],alternatives:[Pair:[Alternative]]=[:],nounAlternatives:[Pair:[Alternative]]=[:];var count=0
         let semantic=meta["semantic_alternative_policy"] != nil
         if semantic {guard try string("semantic_alternative_policy")=="shared-explicit-verb-alternatives-1" else {throw VocabularyPackError.invalid}}
         let left=sources.sorted(),right=targets.sorted()
         func marks(_ n:Int)->String {Array(repeating:"?",count:n).joined(separator:",")}
-        for i in stride(from:0,to:left.count,by:100) {for j in stride(from:0,to:right.count,by:100) {
-            let a=Array(left[i..<min(i+100,left.count)]),b=Array(right[j..<min(j+100,right.count)])
-            let found=try query("SELECT word,counterpart,cue,support,total FROM witnesses WHERE source=? AND target=? AND word IN (\(marks(a.count))) AND counterpart IN (\(marks(b.count)))",[source,target]+a+b,8192-count)
+        for i in stride(from:0,to:left.count,by:100) {for j in stride(from:0,to:right.count,by:100) {for k in stride(from:0,to:activeCues.count,by:100) {
+            let a=Array(left[i..<min(i+100,left.count)]),b=Array(right[j..<min(j+100,right.count)]),c=Array(activeCues[k..<min(k+100,activeCues.count)])
+            let found=try query("SELECT word,counterpart,cue,support,total FROM witnesses WHERE source=? AND target=? AND word IN (\(marks(a.count))) AND counterpart IN (\(marks(b.count))) AND cue IN (\(marks(c.count)))",[source,target]+a+b+c,8192-count)
             count+=found.count;if count>8192 {return nil}
             for r in found {
                 let cue=r[2]
@@ -84,12 +95,17 @@ struct ContextWitnessLookup {
                       cue=="@whole" || ((cue.hasPrefix("L:") || cue.hasPrefix("R:")) && cue.count>2) else {throw VocabularyPackError.invalid}
                 if cue.utf16.count<=130 {rows[Pair(word:r[0],counterpart:r[1]),default:[]].append(cue)}
             }
-        }}
-        if semantic {
-            let presentLeft=left.filter{$0.hasPrefix("@present:")},presentRight=right.filter{$0.hasPrefix("@present:")}
-            for i in stride(from:0,to:presentLeft.count,by:100) {for j in stride(from:0,to:presentRight.count,by:100) {
-                let a=Array(presentLeft[i..<min(i+100,presentLeft.count)]),b=Array(presentRight[j..<min(j+100,presentRight.count)])
-                let found=try query("SELECT word,counterpart,cue,support,total,counterpart_support,candidate_senses FROM semantic_alternatives WHERE source=? AND target=? AND word IN (\(marks(a.count))) AND counterpart IN (\(marks(b.count)))",[source,target]+a+b,8192-count)
+        }}}
+        let nounSemantic=meta["noun_semantic_alternative_policy"] != nil
+        if nounSemantic {guard try string("noun_semantic_alternative_policy")=="shared-explicit-noun-alternatives-1" else {throw VocabularyPackError.invalid}}
+        for noun in [false,true] {
+            if !(noun ? nounSemantic : semantic) {continue}
+            let table=noun ? "noun_semantic_alternatives" : "semantic_alternatives"
+            func selected(_ word:String)->Bool {noun ? !word.hasPrefix("@") : word.hasPrefix("@present:")}
+            let presentLeft=left.filter(selected),presentRight=right.filter(selected)
+            for i in stride(from:0,to:presentLeft.count,by:100) {for j in stride(from:0,to:presentRight.count,by:100) {for k in stride(from:0,to:activeCues.count,by:100) {
+                let a=Array(presentLeft[i..<min(i+100,presentLeft.count)]),b=Array(presentRight[j..<min(j+100,presentRight.count)]),c=Array(activeCues[k..<min(k+100,activeCues.count)])
+                let found=try query("SELECT word,counterpart,cue,support,total,counterpart_support,candidate_senses FROM \(table) WHERE source=? AND target=? AND word IN (\(marks(a.count))) AND counterpart IN (\(marks(b.count))) AND cue IN (\(marks(c.count)))",[source,target]+a+b+c,8192-count)
                 count+=found.count;if count>8192 {return nil}
                 for r in found {
                     let cue=r[2]
@@ -97,10 +113,13 @@ struct ContextWitnessLookup {
                         cue=="@whole" || ((cue.hasPrefix("L:") || cue.hasPrefix("R:")) && cue.count>2) else {throw VocabularyPackError.invalid}
                     let raw=try JSONDecoder().decode([String].self,from:Data(r[6].utf8)),senses=Set(raw)
                     guard (1...128).contains(raw.count),senses.allSatisfy({$0.count==64 && $0.allSatisfy{"0123456789abcdef".contains($0)}}) else {throw VocabularyPackError.invalid}
-                    if cue.utf16.count<=130 {alternatives[Pair(word:r[0],counterpart:r[1]),default:[]].append(Alternative(cue:cue,senses:senses))}
+                    if cue.utf16.count<=130 {
+                        let pair=Pair(word:r[0],counterpart:r[1]),item=Alternative(cue:cue,senses:senses)
+                        if noun {nounAlternatives[pair,default:[]].append(item)} else {alternatives[pair,default:[]].append(item)}
+                    }
                 }
-            }}
+            }}}
         }
-        return ContextWitnessLookup(cues:rows,alternatives:alternatives,words:LocalImmersion.words(original,language:source))
+        return ContextWitnessLookup(cues:rows,alternatives:alternatives,nounAlternatives:nounAlternatives,words:sourceWords)
     }
 }

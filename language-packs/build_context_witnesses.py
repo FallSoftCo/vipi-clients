@@ -6,6 +6,7 @@ not a calibrated probability of correctness or independent semantic acceptance.
 Dictionary sense labels are deliberately not treated as training truth.
 """
 import argparse
+from contextlib import closing
 from collections import Counter
 from functools import lru_cache
 import hashlib
@@ -100,6 +101,21 @@ def compile(args):
     selected={tuple(pair.split('-')) for pair in args.pair}
     languages={language for _,receipt in inputs for language in receipt['languages']}
     assert selected and all(len(pair)==2 and pair[0]!=pair[1] and all(x in languages for x in pair) for pair in selected)
+    source_filter_path=getattr(args,'source_word_filter',None)
+    observations_only=getattr(args,'observations_only',False)
+    assert not observations_only or source_filter_path, 'Observation-only runs require an exact source filter'
+    source_filter=None;filter_receipt=None
+    if source_filter_path:
+        assert observations_only, 'Filtered observations are a separate experimental artifact'
+        filter_receipt=json.loads(source_filter_path.with_name('receipt.json').read_text())
+        assert filter_receipt['complete'] and filter_receipt['schema']=='vipi-source-word-filter-1'
+        assert filter_receipt['policy']=='complete-explicit-noun-spellings-1'
+        assert filter_receipt['source_release_id']==release
+        assert filter_receipt['dictionary_catalog_sha256']==parent['source_catalog_sha256']
+        assert digest_file(source_filter_path)==filter_receipt['sha256']
+        with closing(sqlite3.connect(source_filter_path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)) as filtered:
+            source_filter=set(filtered.execute('SELECT language,word FROM source_words'))
+        assert {language for language,_ in source_filter}.issuperset(a for a,b in selected)
     sources=[];past_sources=set();present_sources=set();kind_sources=set()
     for index,(path,_) in enumerate(inputs):
         source=sqlite3.connect(path.resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
@@ -195,7 +211,10 @@ def compile(args):
     # Word/context agreement is not a claim that one dictionary label is true.
     query='''SELECT DISTINCT m.a,m.b,m.a_start,m.a_end,m.b_start,m.b_end,@PAST_IDS@,@KIND@
         FROM alignments m JOIN sentences a ON a.id=m.a JOIN sentences b ON b.id=m.b
-        WHERE '''+' OR '.join('(a.language=? AND b.language=?)' for _ in selected|{(b,a) for a,b in selected})
+        WHERE ('''+' OR '.join('(a.language=? AND b.language=?)' for _ in selected|{(b,a) for a,b in selected})+')'
+    if source_filter is not None:
+        assert all(id(db) in kind_sources for db,_,_ in sources), 'Filtered nouns require explicit legacy kind markers'
+        query+=' AND m.kind=0'
     arguments=[x for pair in sorted(selected|{(b,a) for a,b in selected}) for x in pair]
     for a,b,sa,se,ta,te,al,bl,kind in (row for db,_,_ in sources for row in db.execute(
         query.replace('@PAST_IDS@','m.a_lexeme,m.b_lexeme' if id(db) in past_sources else '0,0').replace('@KIND@','m.kind' if id(db) in kind_sources else '1'),arguments)):
@@ -214,6 +233,9 @@ def compile(args):
             # Its nonpresent target remains competing evidence, but reversing
             # that row must not contaminate the unchanged legacy denominator.
             if kind==2 and not word.startswith("@present:"):continue
+            # Filter ONLY the source spelling. Unknown/competing targets and
+            # all existing valid legacy observations remain in its denominator.
+            if source_filter is not None and (language,word) not in source_filter:continue
             pair=pairs.get((language,target_language))
             if not pair or word==target:continue
             for cue in cues:batch.append((pair,atom(word),atom(cue),atom(target),sid,tid))
@@ -223,6 +245,25 @@ def compile(args):
             print(canonical(dict(stage='references',counts=counts)),flush=True)
     work.executemany('INSERT OR IGNORE INTO observations VALUES (?,?,?,?,?,?)',batch);work.commit()
     counts['distinct_observations']=work.execute('SELECT count(*) FROM observations').fetchone()[0]
+    if observations_only:
+        assert work.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+        work.close()
+        for db,_,_ in sources:db.close()
+        receipt=dict(schema='vipi-filtered-context-observations-1',complete=True,
+            source_release_id=release,source_catalog_sha256=parent['source_catalog_sha256'],
+            source_contexts_sha256=[row['sha256'] for _,row in inputs],disjoint_source_proof=proof,
+            source_filter_sha256=filter_receipt['sha256'],source_filter_policy=filter_receipt['policy'],
+            compiler_sha256=digest_file(Path(__file__)),sha256=digest_file(work_path),
+            bytes=work_path.stat().st_size,counts=dict(counts),requested_pairs=sorted(args.pair),
+            alignment_kind=0,all_matching_legacy_competing_targets_retained=True,
+            scope='Existing valid aligned focus observations only; no claim of complete token alignment or contextual POS truth',
+            seconds=round(time.monotonic()-started,2),independent_semantic_acceptance=False)
+        (args.output/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+        (args.output/'ATTRIBUTION.txt').write_text('\n'.join((path.parent/'ATTRIBUTION.txt').read_text() for path,_ in inputs)+
+            'Filtered source spellings; all their existing valid legacy aligned counterparts retained. '
+            'Full sentences and owners remain in the pinned source contexts.\n')
+        print(canonical(receipt),flush=True)
+        return
     work.executescript('''CREATE TABLE frequencies AS SELECT pair,word,cue,target,count(*) AS support FROM observations GROUP BY pair,word,cue,target;
         CREATE INDEX frequencies_lookup ON frequencies(pair,word,cue,target);
         CREATE TABLE totals AS SELECT pair,word,cue,sum(support) AS total FROM frequencies GROUP BY pair,word,cue;
@@ -286,6 +327,8 @@ if __name__=='__main__':
     p.add_argument('--base-supplement-receipt',type=Path,action='append',default=[])
     p.add_argument('--extra-context',type=Path,action='append',default=[])
     p.add_argument('--extra-corpus-receipt',type=Path,action='append',default=[])
+    p.add_argument('--source-word-filter',type=Path)
+    p.add_argument('--observations-only',action='store_true')
     p.add_argument('--pair',action='append',required=True)
     p.add_argument('--minimum-support',type=int,default=3);p.add_argument('--minimum-agreement',type=float,default=.98)
     args=p.parse_args();assert args.minimum_support>=2 and .5<=args.minimum_agreement<=1

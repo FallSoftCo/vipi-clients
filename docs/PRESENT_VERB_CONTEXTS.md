@@ -10,10 +10,15 @@ store readiness have not been achieved.
 Android 508 and iOS simulator 508 both complete the 83-case fixture: 40 captured
 conversation pairs, ten authored/reversed personal clauses, and 33 negative
 grammar/meaning/boundary cases. Android and simulator 605 also complete the
-same retained 200-message SMS replay. The Mac went offline after these tests;
-the last two raw simulator reports remain on that Mac, with completion hashes
-recorded in present-native-review-002. Their final cross-platform comparison is
-pending transfer. Earlier family/reciprocal reports were retained centrally.
+same retained 200-message SMS replay. The Mac went offline after these tests,
+then returned; both raw reports are now retained centrally and match their
+previously recorded hashes. present-native-parity-001 finds identical selected
+spans across the 83 cases. present-sms-native-parity-001 finds three pre-existing
+iOS-only SMS spans: security guard→guardia de seguridad, too→también and
+Hahaha→Jajaja, all in text with joined punctuation. Android selects 80 messages /
+108 spans; iOS selects 83 / 111. These are native tokenizer differences, not
+gains from the subsequent noun experiment. Earlier family/reciprocal reports
+were also retained centrally.
 
 | Diagnostic | Messages with immersion before → after | Spans before → after |
 | --- | --- | --- |

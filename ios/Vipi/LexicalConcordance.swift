@@ -272,6 +272,10 @@ enum LexicalConcordance {
         return form.features.contains("past-source-unambiguous") ||
             (language=="en" && form.features.contains("past-source-requires-finite-clause") && hasFinitePastSubject(text,start:range.location))
     }
+    private static func completeNoun(_ form:Form)->Bool {
+        form.pos=="noun" && (1...2).contains(form.mode) && form.targetSafe &&
+        !form.grammar && !form.proper && form.start==0 && form.end==form.written.utf16.count
+    }
     private static func completePresent(_ form:Form)->Bool {
         form.mode==5 && form.pos=="verb" && form.targetSafe && (!form.grammar || form.head=="need") && form.features.contains(presentRule)
     }
@@ -300,10 +304,10 @@ enum LexicalConcordance {
             if wholeMode != 0 && !completeVerb(form,mode:wholeMode) {continue}
             if let range=focus(form,range:carrier,text:original) {sourceKeys.insert(wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((original as NSString).substring(with:range)))}
         }}}
-        guard let evidence=try ContextWitnessLookup.load(db,original:original,source:source,target:target,release:left.release,sources:sourceKeys,targets:targetKeys) else {return []}
+        guard let evidence=try ContextWitnessLookup.load(db,original:original,source:source,target:target,release:left.release,sources:sourceKeys,targets:targetKeys,contextKeys:Set(left.windows.keys)) else {return []}
         // Reciprocal evidence is anchored to independently accepted nearby
         // vocabulary in both messages, with the original sentence boundaries.
-        let reverseEvidence=wholeMode==5 ? try ContextWitnessLookup.load(db,original:translation,source:target,target:source,release:right.release,sources:targetKeys,targets:sourceKeys) : nil
+        let reverseEvidence=wholeMode==5 ? try ContextWitnessLookup.load(db,original:translation,source:target,target:source,release:right.release,sources:targetKeys,targets:sourceKeys,contextKeys:Set(right.windows.keys)) : nil
         let lexicalWindows=left.windows.filter { word,_ in
             let forms=left.forms[word,default:[]],names=left.forms[word,default:[]].filter(\.proper)
             return (!left.blocked.contains(word) || (left.names.contains(word) && !names.isEmpty && names.allSatisfy{$0.written.first?.isUppercase==true})) &&
@@ -403,7 +407,8 @@ enum LexicalConcordance {
                                     PresentVerbGrammar.pronominalClause(translation,focus:targetFocus,language:target)
                                 if (transparentSource || transparentTarget) && !nearbyLexical && !pronounClause {continue}
                                 let selectedWindows=pronounClause ? left.windows : (wholeMode==5 || transparentTarget ? lexicalWindows : cueWindows)
-                                let forward=evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:selectedWindows,allowedMeanings:sharedMeanings)
+                                let nounMeanings=wholeMode==0 && completeNoun(form) && completeNoun(candidate) ? sharedMeanings : []
+                                let forward=evidence.supports(word:sourceKey,counterpart:targetKey,focus:sourceFocus,text:original,windows:selectedWindows,allowedMeanings:sharedMeanings,allowedNounMeanings:nounMeanings)
                                 let reverse=wholeMode==5 && reverseEvidence?.supports(word:targetKey,counterpart:sourceKey,focus:targetFocus,text:translation,windows:anchoredReverse,allowedMeanings:sharedMeanings)==true
                                 if forward || reverse {
                                     let claim=Claim(sourceRange:sourceFocus,range:targetFocus,reading:needsReading ? readings.first! : "")

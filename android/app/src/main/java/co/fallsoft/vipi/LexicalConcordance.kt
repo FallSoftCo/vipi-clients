@@ -250,6 +250,8 @@ internal object LexicalConcordance {
             (language=="en" && "past-source-requires-finite-clause" in form.features && hasFinitePastSubject(text,range.first))
     }
 
+    private fun completeNoun(form:Form)=form.pos=="noun" && form.mode in 1..2 && form.targetSafe &&
+        !form.grammar && !form.proper && form.start==0 && form.end==form.written.length
     private fun completePresent(form:Form)=form.mode==5 && form.pos=="verb" && form.targetSafe &&
         (!form.grammar || form.head=="need") && PRESENT_RULE in form.features
     private fun completeVerb(form:Form,mode:Int)=if(mode==4)completePast(form) else completePresent(form)
@@ -268,10 +270,10 @@ internal object LexicalConcordance {
         val sourceKeys=left.forms.flatMap { (word,forms) -> forms.flatMap { form ->
             if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(original.substring(it))} }
         }}.toSet()
-        val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,sourceKeys,targetKeys) ?: return emptyList()
+        val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,sourceKeys,targetKeys,left.windows.keys) ?: return emptyList()
         // Reciprocal evidence requires a separately accepted nearby vocabulary
         // anchor in both sentences. A translated context word alone is insufficient.
-        val reverseEvidence=if(wholeMode==5)ContextWitnessLookup.load(db,translation,target,source,right.release,targetKeys,sourceKeys) else null
+        val reverseEvidence=if(wholeMode==5)ContextWitnessLookup.load(db,translation,target,source,right.release,targetKeys,sourceKeys,right.windows.keys) else null
         val lexicalWindows=left.windows.filterKeys { word ->
             val forms=left.forms[word].orEmpty();val names=forms.filter{it.proper}
             (word !in left.blocked || (word in left.names && names.isNotEmpty() && names.all{it.written.firstOrNull()?.isUpperCase()==true})) &&
@@ -362,7 +364,8 @@ internal object LexicalConcordance {
                                     PresentVerbGrammar.pronominalClause(translation,targetFocus,target)
                                 if((transparentSource || transparentTarget) && !nearbyLexical && !pronounClause)continue
                                 val selectedWindows=if(pronounClause)left.windows else if(wholeMode==5 || transparentTarget)lexicalWindows else cueWindows
-                                val forward=evidence.supports(sourceKey,targetKey,sourceFocus,original,selectedWindows,sharedMeanings)
+                                val nounMeanings=if(wholeMode==0 && completeNoun(form) && completeNoun(candidate))sharedMeanings else emptySet()
+                                val forward=evidence.supports(sourceKey,targetKey,sourceFocus,original,selectedWindows,sharedMeanings,nounMeanings)
                                 val reverse=wholeMode==5 && reverseEvidence?.supports(targetKey,sourceKey,targetFocus,translation,anchoredReverse,sharedMeanings)==true
                                 if(forward || reverse) {
                                     val claim=Claim(sourceFocus,targetFocus,if(needsReading)readings.single() else "")

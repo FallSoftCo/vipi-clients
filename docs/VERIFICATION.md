@@ -10,6 +10,17 @@ result, useful small-sample improvements, and the subsequent 78→80/200-message
 result (105→108 selected spans). No majority-coverage claim, store submission or production data
 publication occurred.
 
+The subsequent noun experiment is documented in
+[NOUN_CONTEXT_ALTERNATIVES.md](NOUN_CONTEXT_ALTERNATIVES.md). Android now selects
+81/200 retained SMS messages and 113 spans, versus 80/108 after the present pass.
+Five added spans were contextually assessed; no old span is lost after fixing
+irrelevant-context query overflow. This is a small depth improvement, not the
+required broad immersion standard. iOS adds the same five SMS spans (83→84
+messages, 111→116 spans); three pre-existing platform differences remain.
+The 99 authored/counterfactual outputs match exactly. Broad Android replay 016
+completes 602 directed cases with bundle 009, recovering six Portuguese→English
+spans without losses. The corrected comparison keys by language direction as
+well as message ID. No experimental data is promoted.
 
 Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
 
