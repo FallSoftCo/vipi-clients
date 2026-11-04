@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import co.fallsoft.vipi.core.ImmersionResult
+import co.fallsoft.vipi.core.ImmersionText
 
 /** Native paragraphs with stable inline vocabulary blocks. The underlying source
  * ranges stay fixed for bidi/layout; drawing, accessibility and copy use the face. */
@@ -131,15 +132,9 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     }
     fun visibleText(start: Int = 0, end: Int = result?.original?.length ?: 0): String {
         val value = result ?: return ""
-        return buildString {
-            var cursor = start
-            for (word in value.spans.filter { it.start < end && it.end > start }) {
-                if (word.start > cursor) append(value.original.substring(cursor, word.start))
-                append(display(word, originals, script)); cursor = minOf(word.end, end)
-            }
-            if (cursor < end) append(value.original.substring(cursor, end))
-        }
+        return ImmersionText.project(value, originals, script, start, end)
     }
+
     override fun onTextContextMenuItem(id: Int): Boolean {
         if (id == android.R.id.copy && hasSelection()) {
             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
