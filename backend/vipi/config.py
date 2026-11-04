@@ -1,3 +1,6 @@
+from typing import Literal
+from sqlalchemy.engine import make_url
+from sqlalchemy.exc import ArgumentError
 from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -8,7 +11,7 @@ class Settings(BaseSettings):
     workos_client_id: str = Field(pattern=r"^client_[A-Za-z0-9]+$")
     workos_issuer: str
     service_secret: str = Field(min_length=43)
-    environment: str = "development"
+    environment: Literal["development", "test", "native-qa", "staging", "production"] = "development"
     allowed_subjects: frozenset[str] = frozenset()
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000
@@ -18,6 +21,17 @@ class Settings(BaseSettings):
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
     deletion_web_origin: str | None = None
+
+    @model_validator(mode="after")
+    def deployment_database(self):
+        if self.environment in {"staging", "production"}:
+            try:
+                backend = make_url(self.database_url).get_backend_name()
+            except (ArgumentError, ValueError):
+                raise ValueError("Staging and production require a PostgreSQL database URL") from None
+            if backend != "postgresql":
+                raise ValueError("Staging and production require a PostgreSQL database URL")
+        return self
 
     @model_validator(mode="after")
     def deletion_configuration(self):

@@ -133,7 +133,8 @@ async def test_sensitive_validation_input_is_not_echoed_and_large_body_rejected(
 
 
 async def test_staging_access_requires_real_verification_then_explicit_subject(db):
-    settings = Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
+    # Inert PG config; the fixture Database is explicitly injected below.
+    settings = Settings(database_url="postgresql+asyncpg://fixture.invalid/vipi_test", workos_client_id="client_fixture",
         workos_issuer="https://api.workos.com", service_secret="a" * 43, environment="staging")
     with pytest.raises(ValueError, match="allowlist"):
         create_app(settings, database=db, verifier=TestVerifier())

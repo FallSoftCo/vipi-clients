@@ -191,3 +191,37 @@ async def test_unfinished_signup_serializes_with_account_deletion(db):
     async with db.sessions() as s:
         assert await s.get(User, account) is None
         assert (await s.scalar(select(func.count()).select_from(AccountDeletion))) == 1
+
+
+async def test_s2_cached_recipient_acknowledgement_rechecks_committed_replacement(db):
+    # Actual API authentication helper returns the active Device into the SAME
+    # session identity map before acknowledge acquires its ordered user lock.
+    # All credentials/ciphertext are synthetic fixtures, never real messages.
+    from vipi.accounts import active_device, credential_hash
+    from vipi.delivery import acknowledge
+    key, old_secret = "s" * 43, "o" * 43
+    envelope = message()
+    async with db.sessions.begin() as seed:
+        device = await seed.get(Device, "bob-phone")
+        device.credential_hash = credential_hash(old_secret, key)
+        await accept(seed, envelope, now=NOW)
+    async with db.sessions.begin() as authenticated:
+        cached = await active_device(authenticated, "bob", "bob-phone", old_secret, service_secret=key)
+        assert cached.active
+        async with db.sessions.begin() as replacement:
+            await register_device(replacement, user_id="bob", device_id="bob-new", secret="n" * 43,
+                replace_active=True, service_secret=key, now=NOW)
+        assert cached.active  # deliberately stale ORM object; replacement is committed
+        async with db.sessions() as observer:
+            assert not (await observer.get(Device, "bob-phone")).active
+            assert (await observer.get(Device, "bob-new")).active
+            item = await observer.get(PendingMessage, envelope.id)
+            assert item.state == "identity_changed" and item.ciphertext is None
+        try:
+            returned = await acknowledge(authenticated, envelope.id, "bob", "bob-phone", now=NOW)
+        except DeliveryError as error:
+            assert error.code == "device_revoked" and error.status == 401
+            assert not cached.active  # under-lock refresh updated the actual cached Device
+        else:
+            # Baseline may return identity_changed, NOT delivered or a ciphertext.
+            pytest.fail("revoked cached device was not rejected; acknowledgement state=" + returned)

@@ -96,7 +96,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
 
 async def acknowledge(session: AsyncSession, message_id: str, recipient_id: str, device_id: str, *, now: datetime) -> str:
     user = (await session.execute(select(User).where(User.id == recipient_id, User.deleted.is_(False)).with_for_update())).scalar_one_or_none()
-    device = await session.get(Device, device_id)
+    device = await session.get(Device, device_id, populate_existing=True)
     if not user or not device or not device.active or device.user_id != recipient_id:
         raise DeliveryError("device_revoked", 401)
     item = (await session.execute(select(PendingMessage).where(PendingMessage.id == message_id).with_for_update())).scalar_one_or_none()

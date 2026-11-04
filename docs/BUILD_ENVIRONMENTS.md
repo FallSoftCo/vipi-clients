@@ -40,3 +40,25 @@ The iPad is available as CoreDevice `7B6D180F-1D57-5036-8E42-C057698FBAB2`, iPad
 Native multilingual lookup fixture: run `backend/.venv/bin/python language-packs/make_lookup_fixture.py artifacts/signed-lookup-NNN.json` on OZZZ-OS under storage admission. Copy the generated **public/synthetic** fixture as Android `files/signed-lookup.json` and ignored iOS test resource `Fixtures/signed-lookup.json`. Tests decline to replace existing language-pack anti-rollback receipts, clean up their own installed fixtures, and preserve native account sessions. This fixture's signing private key is ephemeral and never written; it is unrelated to production trust.
 
 Main-browser store access (2026-10-25 UTC): the correct seller is FallSoft.Co / Fallible Software, Co. Google Play is `one@fallsoft.co`, developer `4750854689150545006`; Jeane LLC is unrelated and remains untouched. App Store Connect requires renewed FallSoft sign-in and Account Holder acceptance of updated agreements. No Vipi store record or submission exists. The seller is settled; do not ask the user to choose it again.
+
+## Backend deployment-mode contract (S2, development hardening)
+
+`VIPI_ENVIRONMENT` is an explicit, case-sensitive label: `development` (unchanged
+existing default), `test`, `native-qa` (the existing isolated native-QA caller),
+`staging`, or `production`. Unknown/misspelled labels are rejected; aliases are
+not guessed. The local development/test/isolated-QA modes retain SQLite support.
+They are not production deployment modes or permission to contact providers.
+
+Settings construction for `staging` and `production` requires a PostgreSQL URL
+according to SQLAlchemy's URL backend parser. SQLite, other backends and malformed
+URLs fail before application startup, with generic errors that do not echo URL
+or password/input values. URLs/drivers are not rewritten; the actual existing
+async driver/toolchain still must be qualified. This adds no production config,
+credential, default, routing or security/deployment approval. Existing issuer,
+client-ID/token verification and the staging subject allowlist remain required.
+
+The staging unit fixtures use an inert PostgreSQL configuration URL while
+explicitly injecting their disposable fixture database; that URL is never opened.
+The historical `scripts/check-deletion-provider.py` staging+SQLite combination is
+now intentionally rejected. It was NOT rerun or silently downgraded to a local
+mode; any future provider-QA change requires separate review and isolation.

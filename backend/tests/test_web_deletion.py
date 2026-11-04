@@ -234,8 +234,13 @@ async def test_browser_confirmation_waiting_behind_native_deletion_recovers(db):
 
 async def test_unadmitted_staging_identity_can_delete_its_own_account_but_cannot_chat(db):
     provider = Provider()
-    app = create_app(base_settings(deletion_web_origin=ORIGIN, environment="staging", allowed_subjects=frozenset(["user_qa_other"])),
-        database=db, verifier=TestVerifier(), clock=lambda:NOW, web_provider_transport=httpx.MockTransport(provider.request))
+    # Validate an inert PG deployment config; db remains the explicitly injected fixture.
+    stage = base_settings(deletion_web_origin=ORIGIN)
+    stage = type(stage).model_validate(stage.model_dump() | {
+        "database_url": "postgresql+asyncpg://fixture.invalid/vipi_test", "environment": "staging",
+        "allowed_subjects": frozenset(["user_qa_other"])})
+    app = create_app(stage, database=db, verifier=TestVerifier(), clock=lambda:NOW,
+        web_provider_transport=httpx.MockTransport(provider.request))
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url=ORIGIN) as api:
         headers = {"Authorization":"Bearer alice"}
         assert (await api.get("/v1/me", headers=headers)).status_code == 403
