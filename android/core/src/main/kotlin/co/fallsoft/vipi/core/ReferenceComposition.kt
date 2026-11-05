@@ -14,13 +14,21 @@ object ReferenceComposition {
             val gap = original.substring(end, range.first)
             if (!gap.all(Char::isWhitespace)) return null
             val value = lookup(original.substring(range)) ?: return null
-            if (gap.isEmpty() && output.isNotEmpty() && value.isNotEmpty() &&
-                target.substringBefore('-') !in setOf("zh", "ja") &&
-                output.last() in ".!?。！？”’\"'" &&
-                (Character.isLetterOrDigit(value.codePointAt(0)) || value.first() in "¿¡“‘\"'")) output.append(' ')
+            if (gap.isEmpty() && needsSeparator(output.toString(), value, target)) output.append(' ')
             output.append(gap).append(value); end = range.last + 1
         }
         val tail = original.substring(end)
         return if (tail.all(Char::isWhitespace)) output.append(tail).toString() else null
     }
+
+    /** Shared exact-sentence boundary rule. A displayed reading uses word spacing;
+     * target script retains its own zh/ja no-added-space convention. This only
+     * decides a separator, never rewrites either approved face or source gap.
+     */
+    fun needsSeparator(left: String, right: String, target: String, readingFace: Boolean = false): Boolean =
+        left.isNotEmpty() && right.isNotEmpty() &&
+        (readingFace || target.substringBefore('-') !in setOf("zh", "ja")) &&
+        left.last() in ".!?。！？”’\"'" &&
+        (Character.isLetterOrDigit(right.codePointAt(0)) || right.first() in "¿¡“‘\"'")
+
 }

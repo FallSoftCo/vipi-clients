@@ -24,7 +24,8 @@ data class SourceReferenceUnit(val start: Int, val end: Int, val original: Strin
 data class PartialImmersionResult(override val original: String, override val spans: List<ImmersionSpan>,
                                   val references: List<SourceReferenceUnit>,
                                   val completeTranslation: String? = null,
-                                  val nativeSourceTokenCount: Int? = null) : ImmersionPresentation {
+                                  val nativeSourceTokenCount: Int? = null,
+                                  val targetLanguage: String) : ImmersionPresentation {
     override val translation: String? get() = completeTranslation
 }
 
@@ -60,12 +61,12 @@ object SourceReferencePresentation {
             sourceUnitTokenCounts = units.associate { (it.start to it.end) to requireNotNull(it.nativeSourceTokens) }).spans
         if (selected.isEmpty()) return null
         val proofs = selected.map { span -> units.single { it.start == span.start && it.end == span.end } }
-        return PartialImmersionResult(original, selected.map { it.copy(targetStart = 0, targetEnd = it.translated.length) }, proofs, nativeSourceTokenCount = nativeSourceTokenCount)
+        return PartialImmersionResult(original, selected.map { it.copy(targetStart = 0, targetEnd = it.translated.length) }, proofs, nativeSourceTokenCount = nativeSourceTokenCount, targetLanguage = target)
             .takeIf { isAnchored(it, target) }
     }
     /** Structural proof only; the exact internal catalog producer owns source authorization. */
     fun isAnchored(value: PartialImmersionResult, target: String): Boolean {
-        if (value.original.length > 16_384 || value.spans.isEmpty() || value.spans.size > 128 ||
+        if (value.targetLanguage != target || value.original.length > 16_384 || value.spans.isEmpty() || value.spans.size > 128 ||
             value.references.size != value.spans.size || value.nativeSourceTokenCount == null ||
             value.nativeSourceTokenCount < 0 ||
             value.references.sumOf { it.nativeSourceTokens ?: 0 } > value.nativeSourceTokenCount) return false

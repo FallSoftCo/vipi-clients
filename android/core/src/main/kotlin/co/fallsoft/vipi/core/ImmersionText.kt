@@ -13,11 +13,20 @@ object ImmersionText {
                 start: Int = 0, end: Int = value.original.length): String {
         require(start in 0..end && end <= value.original.length)
         if (start == end) return ""
+        val partial = value as? PartialImmersionResult
+        // Only the typed partial producer authorizes WHOLE catalog sentence units.
+        // Complete/ordinary word slots keep C1's existing letter-edge policy.
+        val sentenceUnits = partial?.references?.associateBy { it.start to it.end }.orEmpty()
+        fun isSentence(word: ImmersionSpan): Boolean = sentenceUnits[word.start to word.end]?.let {
+            it.original == word.original && it.translated == word.translated &&
+                word.targetStart == 0 && word.targetEnd == it.translated.length
+        } == true
         return buildString {
             var cursor = start
             var previous: ImmersionSpan? = null
             var previousFace = ""
             var previousOriginal = true
+            var previousWholeFace = false
             var characters: BreakIterator? = null
             for (word in value.spans.filter { it.start < end && it.end > start }) {
                 if (word.start > cursor) append(value.original.substring(cursor, word.start))
@@ -26,12 +35,22 @@ object ImmersionText {
                     value.original.substring(maxOf(start, word.start), minOf(end, word.end))
                 else if (showScript) word.translated else word.displayedTarget
                 if (previous?.end == word.start && !(previousOriginal && showingOriginal)) {
+                    // Imported faces remain atomic under partial source selection;
+                    // a revealed face must be selected whole for the sentence rule.
+                    val wholeFace = !showingOriginal || (start <= word.start && end >= word.end)
+                    val readingFace = !showScript &&
+                        ((!previousOriginal && previous!!.romanization != null) ||
+                         (!showingOriginal && word.romanization != null))
+                    val sentenceBoundary = partial != null && previousWholeFace && wholeFace &&
+                        isSentence(previous!!) && isSentence(word) &&
+                        ReferenceComposition.needsSeparator(previousFace, face, partial.targetLanguage, readingFace)
                     val boundary = characters ?: BreakIterator.getCharacterInstance(Locale.ROOT).also { characters = it }
-                    if (latinEdge(previousFace, false, boundary) && latinEdge(face, true, boundary)) append(' ')
+                    if (sentenceBoundary || (latinEdge(previousFace, false, boundary) && latinEdge(face, true, boundary))) append(' ')
                 }
                 append(face)
                 cursor = minOf(word.end, end)
                 previous = word; previousFace = face; previousOriginal = showingOriginal
+                previousWholeFace = !showingOriginal || (start <= word.start && end >= word.end)
             }
             if (cursor < end) append(value.original.substring(cursor, end))
         }
