@@ -9,7 +9,7 @@ import java.util.Locale
  * an imported target/reading face. Fully revealed original text stays byte-exact.
  */
 object ImmersionText {
-    fun project(value: ImmersionResult, revealed: Set<Int> = emptySet(), showScript: Boolean = false,
+    fun project(value: ImmersionPresentation, revealed: Set<Int> = emptySet(), showScript: Boolean = false,
                 start: Int = 0, end: Int = value.original.length): String {
         require(start in 0..end && end <= value.original.length)
         if (start == end) return ""

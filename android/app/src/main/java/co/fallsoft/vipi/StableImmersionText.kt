@@ -16,7 +16,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
-import co.fallsoft.vipi.core.ImmersionResult
+import co.fallsoft.vipi.core.ImmersionPresentation
 import co.fallsoft.vipi.core.ImmersionText
 
 /** Native paragraphs with stable inline vocabulary blocks. The underlying source
@@ -25,7 +25,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     var onWord: ((Int) -> Unit)? = null
     var onChooseWord: (() -> Unit)? = null
     var onSelection: ((Boolean) -> Unit)? = null
-    private var result: ImmersionResult? = null
+    private var result: ImmersionPresentation? = null
     private var originals = emptySet<Int>()
     private var script = false
     private var accent = 0
@@ -101,7 +101,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             }
         }
     }
-    fun bind(value: ImmersionResult, revealed: Set<Int>, showScript: Boolean, color: Int, bodyColor: Int) {
+    fun bind(value: ImmersionPresentation, revealed: Set<Int>, showScript: Boolean, color: Int, bodyColor: Int) {
         if (result != value) {
             wordActions.forEach { ViewCompat.removeAccessibilityAction(this, it) }
             // AndroidView's Compose semantics do not reach this native node.

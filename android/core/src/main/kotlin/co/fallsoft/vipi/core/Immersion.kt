@@ -13,18 +13,8 @@ data class ImmersionSpan(val start: Int, val end: Int, val original: String, val
     val displayedTarget: String get() = romanization ?: translated
 }
 data class SpeechSpan(val text: String, val language: String)
-data class ImmersionResult(val original: String, val translation: String, val spans: List<ImmersionSpan>) {
-    fun speech(source: String, target: String, revealed: Set<Int> = emptySet()): List<SpeechSpan> = buildList {
-        var cursor = 0
-        for (span in spans) {
-            if (cursor < span.start) add(SpeechSpan(original.substring(cursor, span.start), source))
-            val showOriginal = span.id in revealed
-            add(SpeechSpan(if (showOriginal) span.original else span.translated, if (showOriginal) source else target))
-            cursor = span.end
-        }
-        if (cursor < original.length) add(SpeechSpan(original.substring(cursor), source))
-    }
-}
+data class ImmersionResult(override val original: String, override val translation: String,
+                          override val spans: List<ImmersionSpan>) : ImmersionPresentation
 
 class ImmersionEngine {
     private val words = Regex("[\\p{L}\\p{M}]+")
@@ -34,7 +24,8 @@ class ImmersionEngine {
     fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double,
               targetLanguage: String? = null, sourceBoundaries: Set<Int>? = null,
               targetBoundaries: Set<Int>? = null, sourceTokenCount: Int? = null,
-              supplementalEntries: List<VocabularyEntry> = emptyList()): ImmersionResult {
+              supplementalEntries: List<VocabularyEntry> = emptyList(),
+              sourceUnitTokenCounts: Map<Pair<Int, Int>, Int>? = null): ImmersionResult {
         val empty = ImmersionResult(original, translation, emptyList())
         if (original.isEmpty() || translation.isEmpty() || !density.isFinite() || density <= 0 || original.length > 16_384 || translation.length > 32_768) return empty
         if (supplementalEntries.isNotEmpty()) {
@@ -42,7 +33,7 @@ class ImmersionEngine {
             // ALL primary entries, including rejected claims and native guards,
             // so a supplemental match cannot erase their negative evidence.
             val primary = align(original, translation, entries, 1.0, targetLanguage,
-                sourceBoundaries, targetBoundaries, sourceTokenCount)
+                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts)
             val additions = supplementalEntries.filter { entry ->
                 val source = entry.sourceScope ?: return@filter false
                 val target = entry.targetScope ?: return@filter false
@@ -66,8 +57,11 @@ class ImmersionEngine {
             // The requested density is applied to the combined candidate set
             // once, not independently to each catalog.
             return align(original, translation, entries + additions, density, targetLanguage,
-                sourceBoundaries, targetBoundaries, sourceTokenCount)
+                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts)
         }
+        // Platform regex extended-grapheme clusters; no custom Unicode segmenter.
+        val sourceGraphemes = graphemes(original)
+        val targetGraphemes = graphemes(translation)
         val protectedRanges = protected.findAll(original).map { it.range }.toList()
         val protectedTargetRanges = protected.findAll(translation).map { it.range }.toList()
         val stops = Regex("[.!?。！？\\n]").findAll(original).map { it.range }.filter { stop -> protectedRanges.none { overlaps(it, stop) } }.toList()
@@ -101,6 +95,8 @@ class ImmersionEngine {
             val targets = claims.getValue(entry).second
             val target = targets.singleOrNull() ?: return@mapNotNull null
             if (protectedTargetRanges.any { overlaps(it, target) }) return@mapNotNull null
+            if (source.first !in sourceGraphemes || source.last + 1 !in sourceGraphemes ||
+                target.first !in targetGraphemes || target.last + 1 !in targetGraphemes) return@mapNotNull null
             val sourceSurface = original.substring(source)
             val targetSurface = translation.substring(target)
             val needsReading = targetLanguage?.substringBefore('-') in setOf("ar", "zh", "ja", "ko")
@@ -140,10 +136,13 @@ class ImmersionEngine {
                 parent.target.first <= child.target.first && parent.target.last >= child.target.last
         } }
         val budget = maxOf(1, ((sourceTokenCount ?: words.findAll(original).count()) * density.coerceAtMost(1.0)).toInt())
+        fun cost(span: ImmersionSpan): Int? = if (sourceUnitTokenCounts == null)
+            maxOf(1, words.findAll(span.original).count())
+        else sourceUnitTokenCounts[span.start to span.end]?.takeIf { it > 0 }
         var used = 0
         val selected = mutableListOf<ImmersionSpan>()
         for (candidate in complete) {
-            val count = maxOf(1, words.findAll(candidate.span.original).count())
+            val count = cost(candidate.span) ?: continue
             if (used + count > budget || selected.any { overlaps(it.start until it.end, candidate.span.start until candidate.span.end) }) continue
             selected += candidate.span
             used += count
@@ -152,8 +151,9 @@ class ImmersionEngine {
         // If every approved item exceeds the rounded budget, expose just the
         // smallest one. All context, ambiguity and reading checks run above.
         if (selected.isEmpty()) {
-            complete.minWithOrNull(compareBy<Candidate> { maxOf(1, words.findAll(it.span.original).count()) }
-                .thenBy { it.span.start })?.let { selected += it.span }
+            complete.mapNotNull { candidate -> cost(candidate.span)?.let { candidate to it } }
+                .minWithOrNull(compareBy<Pair<Candidate, Int>> { it.second }.thenBy { it.first.span.start })
+                ?.let { selected += it.first.span }
         }
         return ImmersionResult(original, translation, selected.sortedBy { it.start })
     }
@@ -181,7 +181,7 @@ class ImmersionEngine {
             form.target==target && form.surface.length<=256 && form.start>=0 && form.end>form.start &&
                 form.end<=form.surface.length && form.surface.substring(form.start,form.end)==target
         }.flatMap { form ->
-            occurrences(form.surface,translation,boundaries).mapNotNull { whole ->
+            (occurrences(form.surface,translation,boundaries) + exactAttestedOccurrences(form.surface,translation,boundaries)).distinct().mapNotNull { whole ->
                 // Preserve exact offsets. Normalization must not move a focus
                 // across Arabic marks or another multi-code-unit character.
                 val actual=translation.substring(whole)
@@ -206,6 +206,16 @@ class ImmersionEngine {
         val pattern = if (boundaries == null) "(?<![\\p{L}\\p{M}\\p{N}_])" + escaped + "(?![\\p{L}\\p{M}\\p{N}_])" else escaped
         return Regex(pattern, RegexOption.IGNORE_CASE).findAll(text).map { it.range }
             .filter { boundaries == null || (it.first in boundaries && it.last + 1 in boundaries) }.toList()
+    }
+    private fun exactAttestedOccurrences(surface: String, text: String, boundaries: Set<Int>?): List<IntRange> {
+        val literal = Regex.escape(surface)
+        val pattern = if (boundaries == null) "(?<![\\p{L}\\p{M}\\p{N}_])" + literal + "(?![\\p{L}\\p{M}\\p{N}_])" else literal
+        return Regex(pattern).findAll(text).map { it.range }
+            .filter { boundaries == null || (it.first in boundaries && it.last + 1 in boundaries) }.toList()
+    }
+    private fun graphemes(text: String): Set<Int> = buildSet {
+        add(0)
+        Regex("\\X").findAll(text).forEach { add(it.range.last + 1) }
     }
     private fun overlaps(a: IntRange, b: IntRange) = a.first <= b.last && b.first <= a.last
     companion object {

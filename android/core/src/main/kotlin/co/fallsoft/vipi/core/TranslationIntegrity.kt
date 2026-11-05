@@ -2,7 +2,7 @@ package co.fallsoft.vipi.core
 
 /** Literal preservation only. Passing this check says nothing about meaning. */
 object TranslationIntegrity {
-    private val literals = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\"「」『』]+|[\\p{L}\\p{N}_.+-]+@[\\p{L}\\p{N}_.-]+\\.[\\p{L}]{2,}|[@#][\\p{L}\\p{N}_]+")
+    private val literals = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+")
     private val punctuation = ".,!?;:。！？、，；：…"
 
     internal fun identifiers(text: String): Map<String, Int> = literals.findAll(text).map { match ->

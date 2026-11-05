@@ -25,19 +25,22 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import co.fallsoft.vipi.core.ImmersionResult
+import co.fallsoft.vipi.core.ImmersionPresentation
 import co.fallsoft.vipi.core.SpeechSpan
 import kotlinx.coroutines.delay
 
 /** Continuous, lifecycle-owned alternation. No per-word timer or network work. */
 @Composable internal fun ImmersionBubble(
-    result: ImmersionResult, mode: ReadingMode, speech: SpeechPlayback? = null,
+    result: ImmersionPresentation, mode: ReadingMode, speech: SpeechPlayback? = null,
     source: String = "en", target: String = "es", messageID: String = "onboarding-example",
     interactionPaused: Boolean = false, targetDwellMs: Long = 4500, meaningDwellMs: Long = 3000, fullReading: String? = null,
     embedded: Boolean = false, onModeChange: ((ReadingMode) -> Unit)? = null, metadata: (@Composable () -> Unit)? = null,
     onVoiceHelp: (() -> Unit)? = null,
     originalMessage: String? = null, inputLanguage: String? = null, onInputLanguage: ((String?) -> Unit)? = null
 ) {
+    // A partial result has no full-target text. Do not expose empty/mixed text as translation.
+    val completeTranslation = result.translation
+    val effectiveMode = if (mode == ReadingMode.TRANSLATION && completeTranslation == null) ReadingMode.IMMERSED else mode
     var originalPhase by remember(result) { mutableStateOf(false) }
     var overrides by remember(result) { mutableStateOf(mapOf<Int, Boolean>()) }
     var paused by remember(result) { mutableStateOf(false) }
@@ -73,7 +76,7 @@ import kotlinx.coroutines.delay
         onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
     }
     val active = speech?.activeMessage == messageID
-    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
+    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
     LaunchedEffect(eligible, result, revision, pace) {
         if (!eligible) return@LaunchedEffect
@@ -84,18 +87,18 @@ import kotlinx.coroutines.delay
             originalPhase = !originalPhase; overrides = emptyMap()
         }
     }
-    LaunchedEffect(result, mode) { if (speech?.activeMessage == messageID) speech.stop(); overrides = emptyMap(); revision++ }
+    LaunchedEffect(result, effectiveMode) { if (speech?.activeMessage == messageID) speech.stop(); overrides = emptyMap(); revision++ }
     val accent = MaterialTheme.colorScheme.primary.toArgb()
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
-    val canShowScript = (mode == ReadingMode.TRANSLATION && fullReading != null) ||
-        (mode == ReadingMode.IMMERSED && result.spans.any { it.romanization != null })
+    val canShowScript = (effectiveMode == ReadingMode.TRANSLATION && fullReading != null) ||
+        (effectiveMode == ReadingMode.IMMERSED && result.spans.any { it.romanization != null })
     fun reveal(id: Int) {
         speech?.stop(); overrides = overrides + (id to !(overrides[id] ?: originalPhase)); revision++
     }
     fun listen() {
-        val spans = when (mode) {
+        val spans = when (effectiveMode) {
             ReadingMode.ORIGINAL -> listOf(SpeechSpan(result.original, source))
-            ReadingMode.TRANSLATION -> listOf(SpeechSpan(result.translation, target))
+            ReadingMode.TRANSLATION -> listOf(SpeechSpan(requireNotNull(completeTranslation), target))
             ReadingMode.IMMERSED -> result.speech(source, target, revealed)
         }
         speech?.toggle(messageID, spans)
@@ -106,7 +109,7 @@ import kotlinx.coroutines.delay
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width
         }) {
-        if (mode == ReadingMode.IMMERSED) {
+        if (effectiveMode == ReadingMode.IMMERSED) {
             AndroidView(factory = { StableImmersionText(it) }, modifier = Modifier.fillMaxWidth(), update = {
                 it.onWord = { id -> reveal(id) }; it.onSelection = { value -> selecting = value }
                 it.onChooseWord = { choosingWord = true }
@@ -114,7 +117,7 @@ import kotlinx.coroutines.delay
             })
         } else {
             androidx.compose.foundation.text.selection.SelectionContainer {
-                Text(if (mode == ReadingMode.ORIGINAL) result.original else if (script) result.translation else (fullReading ?: result.translation), fontSize = 17.sp, lineHeight = 27.sp)
+                Text(if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation)), fontSize = 17.sp, lineHeight = 27.sp)
             }
         }
         if (choosingWord) AlertDialog(onDismissRequest = { choosingWord = false },
@@ -126,7 +129,7 @@ import kotlinx.coroutines.delay
             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text("Done") } })
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
-            if (!embedded && mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
+            if (!embedded && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
                     Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) "Resume word switching" else "Pause word switching", Modifier.size(18.dp))
                 }
@@ -139,17 +142,17 @@ import kotlinx.coroutines.delay
                             if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
                                 enabled = speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null),
                                 onClick = { if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen(); menu = false })
-                            if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
+                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
                                 onClick = { paused = !paused; revision++; menu = false })
                         }
-                        if (onModeChange != null) ReadingMode.entries.forEach { value ->
+                        if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null }.forEach { value ->
                             val title = if (!embedded || value == ReadingMode.IMMERSED) value.label else languageName(if (value == ReadingMode.ORIGINAL) source else target)
-                            DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (mode == value) Icon(Icons.Outlined.Check, null) },
+                            DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
                                 onClick = { onModeChange(value); menu = false })
                         }
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
-                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
-                        if (mode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
                             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false
@@ -157,6 +160,7 @@ import kotlinx.coroutines.delay
                     }
                 }
             }
+            if (completeTranslation == null) Text("Partial immersion · full translation unavailable", fontSize = 11.sp)
             if (!embedded) Spacer(Modifier.weight(1f))
             if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
