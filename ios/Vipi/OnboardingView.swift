@@ -53,7 +53,7 @@ struct OnboardingView: View {
             IntroHeading(eyebrow: "A little more language. A lot more life.", title: "Your conversations.\nA new language.", detail: "Chat about what matters to you. Pick up another language along the way.")
             VStack(alignment: .leading, spacing: 14) {
                 HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
-                ImmersionBubble(result: ImmersionPreview.result, mode: previewMode, speech: speech, interactionPaused: scrolling)
+                ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
                 if let error = speech.error {
                     Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary)
                     if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }

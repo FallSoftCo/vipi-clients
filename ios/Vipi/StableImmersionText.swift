@@ -10,9 +10,12 @@ final class ImmersionWordAttachment: NSTextAttachment {
     let font: UIFont
     let ink: UIColor
     let trailingWidth: CGFloat
-    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0) {
+    let copySlotID: Int?
+    let copyShowsOriginal: Bool
+    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0, copySlotID: Int? = nil, copyShowsOriginal: Bool = true) {
         self.displayed = displayed; self.forms = forms; self.font = font; self.ink = ink
         self.trailingWidth = trailingWidth
+        self.copySlotID = copySlotID; self.copyShowsOriginal = copyShowsOriginal
         super.init(data: nil, ofType: nil)
         accessibilityLabel = displayed
     }
@@ -64,12 +67,15 @@ final class ImmersionWordAttachment: NSTextAttachment {
     }()
     func visibleText(in range: NSRange? = nil) -> String {
         let selected = attributedText.attributedSubstring(from: range ?? NSRange(location: 0, length: attributedText.length))
-        var result = ""
+        var runs: [ImmersionCopyRun] = []
         selected.enumerateAttributes(in: NSRange(location: 0, length: selected.length)) { attributes, part, _ in
-            if let word = attributes[.attachment] as? ImmersionWordAttachment { result += word.displayed }
-            else { result += (selected.string as NSString).substring(with: part) }
+            if let word = attributes[.attachment] as? ImmersionWordAttachment {
+                runs.append(.init(text: word.displayed, slotID: word.copySlotID, showsOriginal: word.copyShowsOriginal))
+            } else {
+                runs.append(.init(text: (selected.string as NSString).substring(with: part)))
+            }
         }
-        return result
+        return ImmersionCopyText.compose(runs)
     }
     override func copy(_ sender: Any?) {
         guard selectedRange.length > 0 else { return }
@@ -149,7 +155,7 @@ final class ImmersionWordAttachment: NSTextAttachment {
 }
 
 struct StableImmersionText: UIViewRepresentable {
-    let result: ImmersionResult
+    let result: ImmersionPresentation
     let revealed: Set<Int>
     let script: Bool
     let onWord: (Int) -> Void
@@ -238,7 +244,8 @@ struct StableImmersionText: UIViewRepresentable {
             style[.link] = URL(string: "vipi-reveal://word/\(word.id)")!
             let suffix = original.substring(from: NSMaxRange(word.range)).prefix { ".,!?;:…؟。！？；，、)]}’”\"".contains($0) }.prefix(8)
             let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
-            let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing)
+            let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing,
+                copySlotID: word.id, copyShowsOriginal: revealed.contains(word.id))
             let token = NSMutableAttributedString(attachment: attachment)
             token.addAttributes(style, range: NSRange(location: 0, length: token.length))
             text.append(token)

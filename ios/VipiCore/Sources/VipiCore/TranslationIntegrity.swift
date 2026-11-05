@@ -2,12 +2,12 @@ import Foundation
 
 /// Literal preservation only. Passing this check says nothing about meaning.
 public enum TranslationIntegrity {
-    private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}_.+-]+@[\p{L}\p{N}_.-]+\.[\p{L}]{2,}|[@#][\p{L}\p{N}_]+"#)
+    private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+"#)
     private static let punctuation = Set(".,!?;:。！？、，；：…")
 
-    static func identifiers(_ text: String) -> [String: Int] {
+    private static func literalOccurrences(_ text: String) -> [String] {
         let ns = text as NSString
-        var result: [String: Int] = [:]
+        var result: [String] = []
         for match in literals.matches(in: text, range: NSRange(location: 0, length: ns.length)) {
             var value = ns.substring(with: match.range)
             let lower = value.lowercased()
@@ -20,12 +20,25 @@ public enum TranslationIntegrity {
                     value.removeLast()
                 }
             }
-            result[value, default: 0] += 1
+            result.append(value)
         }
         return result
     }
 
+    // Retained for existing diagnostics/tests only. Swift String dictionary
+    // equality folds canonically equivalent encodings; NEVER use it to grant
+    // protected-literal integrity.
+    static func identifiers(_ text: String) -> [String: Int] {
+        literalOccurrences(text).reduce(into: [:]) { $0[$1, default: 0] += 1 }
+    }
+    private static func literalByteMultiset(_ text: String) -> [Data: Int] {
+        // Convert EACH raw occurrence before any String-key aggregation.
+        // No normalization, reindexing or change to the user's source bytes.
+        literalOccurrences(text).reduce(into: [:]) { counts, value in
+            counts[Data(value.utf8), default: 0] += 1
+        }
+    }
     public static func preservesIdentifiers(original: String, translation: String) -> Bool {
-        identifiers(original) == identifiers(translation)
+        literalByteMultiset(original) == literalByteMultiset(translation)
     }
 }

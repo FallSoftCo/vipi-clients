@@ -7,7 +7,7 @@ enum ReadingMode: String, CaseIterable, Identifiable {
 }
 
 struct ImmersionBubble: View {
-    let result: ImmersionResult
+    let result: ImmersionPresentation
     var outgoing = false
     var mode: ReadingMode = .immersed
     var speech: SpeechPlayback?
@@ -37,9 +37,17 @@ struct ImmersionBubble: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
 
+    private var effectiveMode: ReadingMode { mode == .translation && result.translation == nil ? .immersed : mode }
+    private var speechMode: ImmersionSpeechMode {
+        switch effectiveMode { case .original: .original; case .immersed: .immersed; case .translation: .fullTarget }
+    }
+    private var speechSpans: [SpeechSpan]? {
+        result.speech(mode: speechMode, source: sourceLanguage, target: targetLanguage, revealed: revealed)
+    }
+    private var canListen: Bool { speechSpans != nil }
     private var revealed: Set<Int> { Set(result.spans.filter { overrides[$0.id] ?? originalPhase }.map(\.id)) }
     private var active: Bool { speech?.activeMessage == messageID }
-    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && mode == .immersed && !result.spans.isEmpty }
+    private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && effectiveMode == .immersed && !result.spans.isEmpty }
     private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
@@ -48,27 +56,22 @@ struct ImmersionBubble: View {
         #endif
     }
     private func listen() {
-        let spans: [(text: String, language: String)]
-        switch mode {
-        case .original: spans = [(result.original, sourceLanguage)]
-        case .translation: spans = [(result.translation, targetLanguage)]
-        case .immersed: spans = result.speech(source: sourceLanguage, target: targetLanguage, revealed: revealed).map { ($0.text, $0.language) }
-        }
-        speech?.toggle(message: messageID, spans: spans)
+        guard let spans = speechSpans else { return }
+        speech?.toggle(message: messageID, spans: spans.map { ($0.text, $0.language) })
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            if mode == .immersed {
+            if effectiveMode == .immersed {
                 StableImmersionText(result: result, revealed: revealed, script: script, onWord: reveal,
                     onSelection: { selecting = $0 })
             } else {
-                Text(mode == .original ? result.original : (script ? result.translation : (fullReading ?? result.translation))).font(.body).lineSpacing(5)
+                Text(effectiveMode == .original ? result.original : (script ? (result.translation ?? result.original) : (fullReading ?? result.translation ?? result.original))).font(.body).lineSpacing(5)
                     .textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
             }
             HStack(spacing: 0) {
                 if embedded { metadata; Spacer(minLength: 8) }
-                if !embedded && mode == .immersed && !result.spans.isEmpty && !voiceOver {
+                if !embedded && effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)
                     }.accessibilityLabel(paused ? "Resume word switching" : "Pause word switching")
@@ -77,29 +80,29 @@ struct ImmersionBubble: View {
                 if !result.spans.isEmpty || fullReading != nil || onModeChange != nil {
                     Menu {
                         if embedded {
-                            if let speech {
+                            if let speech, canListen {
                                 Button(active ? "Stop listening" : (speech.state == .preparing ? "Preparing voices…" : speech.state == .unavailable ? "Set up voices" : "Listen"), systemImage: active ? "stop.fill" : "speaker.wave.2") {
                                     if speech.state == .unavailable { onVoiceHelp?() } else { listen() }
                                 }.disabled(speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil))
                             }
-                            if mode == .immersed && !result.spans.isEmpty && !voiceOver {
+                            if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                                 Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
                             }
                         }
-                        if mode == .immersed && !result.spans.isEmpty && !voiceOver {
+                        if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                             Button("Switching pace") { choosingPace = true }
                         }
                         if let onModeChange {
-                            ForEach(ReadingMode.allCases) { value in
+                            ForEach(ReadingMode.allCases.filter { $0 != .translation || result.translation != nil }) { value in
                                 let label = !embedded || value == .immersed ? value.rawValue
                                     : VipiLanguage.named(value == .original ? sourceLanguage : targetLanguage).name
-                                Button(label, systemImage: mode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
+                                Button(label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
                             }
                         }
-                        if (mode == .translation && fullReading != nil) || (mode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
+                        if (effectiveMode == .translation && fullReading != nil) || (effectiveMode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
                             Button(script ? "Show transliteration" : "Show original script") { script.toggle(); revision += 1 }
                         }
-                        if mode == .immersed && !result.spans.isEmpty { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
+                        if effectiveMode == .immersed && !result.spans.isEmpty { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
                         if let onInputLanguage {
                             MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
                         }
@@ -108,7 +111,7 @@ struct ImmersionBubble: View {
                         .accessibilityLabel("Reading options")
                 }
                 if !embedded { Spacer() }
-                if !embedded, let speech {
+                if !embedded, let speech, canListen {
                     Button {
                         listen()
                     } label: {
@@ -152,7 +155,11 @@ struct ImmersionBubble: View {
                     }
                 } catch { /* Lifecycle changes cancel rather than catch up. */ }
             }
-            .onChange(of: result) { overrides = [:]; originalPhase = false; revision += 1; if active { speech?.stop() } }
+            // A separately arriving real full target must not erase the
+            // already visible source-known faces or the user's reveal state.
+            .onChange(of: result.spans) { overrides = [:]; originalPhase = false; revision += 1; if active { speech?.stop() } }
+            .onChange(of: result.original) { overrides = [:]; originalPhase = false; revision += 1; if active { speech?.stop() } }
+            .onChange(of: result.translation) { if active { speech?.stop() } }
             .onChange(of: mode) { if active { speech?.stop() }; overrides = [:]; selecting = false; choosingPace = false; revision += 1 }
     }
 }

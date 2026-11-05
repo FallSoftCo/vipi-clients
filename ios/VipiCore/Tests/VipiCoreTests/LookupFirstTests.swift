@@ -1,0 +1,148 @@
+import Foundation
+import XCTest
+@testable import VipiCore
+
+// Authored development regressions, not sealed/held-out conversation evidence.
+// SOURCE ONLY: no compiler, XCTest, TranslationSession or native model was run.
+@MainActor private final class LookupHarness {
+    var current = true, ready = false
+    var detected: String? = "en"
+    var known: [String: String] = [:]
+    var partial: PartialImmersionResult?
+    var translated = "Hola. Mensaje desconocido."
+    var readinessCalls = 0, inferenceCalls = 0, alignCalls = 0
+    var staleDuringReadiness = false, staleDuringTranslation = false, cancelTranslation = false
+    var badAlignment = false
+    var partialEvents: [PartialImmersionResult] = []
+    func run(_ text: String = "Hello. Unknown message.", input: String? = "en") async throws -> LookupFirstOutcome {
+        try await LookupFirst.resolve(.init(text: text, source: "en", target: "es", inputLanguage: input),
+            valid: { self.current },
+            reference: { text, source, target in self.known[source + "-" + target + ":" + text] },
+            identify: { _ in self.detected },
+            modelsReady: { _, _ in
+                self.readinessCalls += 1
+                if self.staleDuringReadiness { self.current = false }
+                return self.ready
+            },
+            translate: { _, _, _ in
+                self.inferenceCalls += 1
+                if self.cancelTranslation { throw CancellationError() }
+                if self.staleDuringTranslation { self.current = false }
+                return self.translated
+            },
+            align: { source, target in
+                self.alignCalls += 1
+                return .init(original: self.badAlignment ? "wrong source" : source, translation: target, spans: [])
+            },
+            partialReference: { _, _, _ in self.partial },
+            onPartial: { self.partialEvents.append($0) })
+    }
+}
+
+@MainActor final class LookupFirstTests: XCTestCase {
+    private func partial(_ original: String = "Hello. Unknown message.") throws -> PartialImmersionResult {
+        try XCTUnwrap(SourceReferencePresentation.create(original: original, target: "es",
+            units: [.init(range: NSRange(location: 0, length: 6), original: "Hello.", translated: "Hola.",
+                reading: nil, referenceID: "authored-reference", catalogSHA256: String(repeating: "a", count: 64), nativeSourceTokens: 1)],
+            density: 1, nativeSourceTokenCount: 3))
+    }
+    func testKnownForwardBypassesModelAndInference() async throws {
+        let h = LookupHarness(); h.known["en-es:Hello."] = "Hola."
+        let outcome = try await h.run("Hello.")
+        XCTAssertEqual(outcome.status, .ready); XCTAssertEqual(outcome.origin, .lookupReference)
+        XCTAssertEqual(outcome.result?.translation, "Hola.")
+        XCTAssertEqual(h.readinessCalls, 0); XCTAssertEqual(h.inferenceCalls, 0)
+    }
+    func testKnownReverseKeepsCanonicalSourceAndIncomingTarget() async throws {
+        let h = LookupHarness(); h.known["es-en:Hola."] = "Hello."
+        let outcome = try await h.run("Hola.", input: "es")
+        XCTAssertEqual(outcome.result?.original, "Hello."); XCTAssertEqual(outcome.result?.translation, "Hola.")
+        XCTAssertEqual(h.readinessCalls, 0); XCTAssertEqual(h.inferenceCalls, 0)
+        // UI original-copy must use incoming "Hola.", not canonical result.original.
+    }
+    func testMissingModelsRetainsKnownUnitAndExactUnknownText() async throws {
+        let h = LookupHarness(); h.partial = try partial()
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .partial); XCTAssertEqual(outcome.fallbackStatus, .modelNotReady)
+        XCTAssertNil(outcome.result?.translation); XCTAssertEqual(outcome.result?.original, "Hello. Unknown message.")
+        XCTAssertEqual(outcome.result?.spans.map(\.original), ["Hello."])
+        XCTAssertEqual(h.partialEvents.count, 1); XCTAssertEqual(h.inferenceCalls, 0)
+    }
+    func testActualFullTargetIsSeparateFromReferenceTargetBasis() async throws {
+        let h = LookupHarness(); let initial = try partial(); h.partial = initial; h.ready = true
+        h.translated = "Un mensaje desconocido después de saludar."
+        let outcome = try await h.run()
+        guard case .partial(let value)? = outcome.result else { return XCTFail("expected explicit partial presentation") }
+        XCTAssertEqual(value.completeTranslation, h.translated)
+        XCTAssertEqual(value.spans, initial.spans); XCTAssertEqual(value.references, initial.references)
+        XCTAssertEqual(value.spans.first?.targetRange, NSRange(location: 0, length: 5))
+        XCTAssertEqual(value.references.first?.translated, "Hola.")
+        XCTAssertEqual(h.inferenceCalls, 1); XCTAssertEqual(outcome.localTranslationCalls, 1)
+    }
+    func testReverseUnknownDoesNotInventCanonicalPartial() async throws {
+        let h = LookupHarness(); h.partial = try partial()
+        let outcome = try await h.run("Hola. Texto desconocido.", input: "es")
+        XCTAssertNil(outcome.result); XCTAssertEqual(outcome.status, .modelNotReady)
+        XCTAssertTrue(h.partialEvents.isEmpty); XCTAssertEqual(h.inferenceCalls, 0)
+    }
+    func testWrongLanguageNeverPublishesPreparedPartial() async throws {
+        let h = LookupHarness(); h.partial = try partial(); h.detected = "ja"
+        let outcome = try await h.run(input: nil)
+        XCTAssertEqual(outcome.status, .invalidLanguage); XCTAssertNil(outcome.result)
+        XCTAssertTrue(h.partialEvents.isEmpty); XCTAssertEqual(h.readinessCalls, 0)
+    }
+    func testStaleBeforeLookupNeverCallsProvider() async throws {
+        let h = LookupHarness(); h.current = false
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .stale); XCTAssertNil(outcome.result); XCTAssertEqual(h.readinessCalls, 0)
+    }
+    func testStaleAfterReadinessNeverRunsTranslationOrReturnsPartial() async throws {
+        let h = LookupHarness(); h.partial = try partial(); h.ready = true; h.staleDuringReadiness = true
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .stale); XCTAssertNil(outcome.result); XCTAssertEqual(h.inferenceCalls, 0)
+    }
+    func testStaleAfterTranslationNeverAlignsOrReturnsOldDirection() async throws {
+        let h = LookupHarness(); h.ready = true; h.staleDuringTranslation = true
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .stale); XCTAssertNil(outcome.result); XCTAssertEqual(h.alignCalls, 0)
+    }
+    func testCancelledProviderIsPropagatedNotConvertedToCompleteTranslation() async throws {
+        let h = LookupHarness(); h.partial = try partial(); h.ready = true; h.cancelTranslation = true
+        do { _ = try await h.run(); XCTFail("cancellation must propagate") }
+        catch is CancellationError { XCTAssertEqual(h.partialEvents.count, 1); XCTAssertEqual(h.inferenceCalls, 1) }
+    }
+    func testUnsafeFullTargetKeepsOnlySourceAuthorizedPartial() async throws {
+        let h = LookupHarness(); h.partial = try partial(); h.ready = true; h.translated = "Hola @invented"
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.fallbackStatus, .invalidResult); XCTAssertNil(outcome.result?.translation)
+        XCTAssertEqual(outcome.result?.spans, h.partial?.spans); XCTAssertEqual(h.alignCalls, 0)
+    }
+    func testWrongAlignedSourceRejectsProviderResult() async throws {
+        let h = LookupHarness(); h.ready = true; h.badAlignment = true
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .invalidResult); XCTAssertNil(outcome.result)
+    }
+    func testExplicitInvalidDirectionDoesNotReachModels() async throws {
+        let h = LookupHarness(); let outcome = try await h.run(input: "fr")
+        XCTAssertEqual(outcome.status, .invalidInput); XCTAssertEqual(h.readinessCalls, 0)
+    }
+    func testInvalidReferenceLocalPartialAnchorNeverPublishesOrRequestsModels() async throws {
+        let h = LookupHarness(), good = try partial()
+        let span = try XCTUnwrap(good.spans.first)
+        h.partial = .init(original: good.original, spans: [.init(range: span.range, original: span.original,
+            translated: span.translated, targetRange: .init(location: 1, length: span.targetRange.length),
+            romanization: span.romanization)], references: good.references, nativeSourceTokenCount: good.nativeSourceTokenCount)
+        let outcome = try await h.run()
+        XCTAssertEqual(outcome.status, .invalidResult); XCTAssertNil(outcome.result)
+        XCTAssertTrue(h.partialEvents.isEmpty); XCTAssertEqual(h.readinessCalls, 0)
+    }
+    func testCanonicalEquivalentProtectedLiteralMutationKeepsOnlySourceKnownPartial() async throws {
+        let h = LookupHarness(); h.partial = try partial("Hello. @cafe\u{301}")
+        h.ready = true; h.translated = "Hola. @caf\u{e9}"
+        let outcome = try await h.run("Hello. @cafe\u{301}")
+        XCTAssertEqual(outcome.fallbackStatus, .invalidResult)
+        XCTAssertNil(outcome.result?.translation); XCTAssertEqual(h.alignCalls, 0)
+        XCTAssertEqual(Array((outcome.result?.original ?? "").utf8), Array("Hello. @cafe\u{301}".utf8))
+    }
+
+}

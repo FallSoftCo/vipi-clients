@@ -32,7 +32,7 @@ struct ConversationPreview: View {
         if let result = ConversationExamples.result(source: source, target: target) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("CONVERSATION PREVIEW").font(.caption2.weight(.semibold)).tracking(1.2).foregroundStyle(VipiDesign.secondary)
-                ImmersionBubble(result: result, mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
+                ImmersionBubble(result: .complete(result), mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
                     messageID: "language-preview-\(source)-\(target)", interactionPaused: scrolling, fullReading: ConversationExamples.examples?.languages[target]?.reading)
                 Text("A sample plan with a friend. Words keep switching; their meaning stays close.").font(.footnote).foregroundStyle(VipiDesign.secondary)
                 Button(mode == .translation ? "Back to immersion" : "See the whole thought in \(VipiLanguage.named(target).name)") {

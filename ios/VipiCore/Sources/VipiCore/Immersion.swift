@@ -98,7 +98,7 @@ public struct ImmersionEngine: Sendable {
 
     public func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, targetLanguage: String? = nil,
                       sourceBoundaries: Set<Int>? = nil, targetBoundaries: Set<Int>? = nil, sourceTokenCount: Int? = nil,
-                      supplementalEntries: [VocabularyEntry] = []) -> ImmersionResult {
+                      sourceUnitTokenCounts: [NSRange: Int]? = nil, supplementalEntries: [VocabularyEntry] = []) -> ImmersionResult {
         let empty = ImmersionResult(original: original, translation: translation, spans: [])
         guard !original.isEmpty, !translation.isEmpty, density.isFinite, density > 0,
               original.utf16.count <= 16_384, translation.utf16.count <= 32_768 else { return empty }
@@ -107,7 +107,7 @@ public struct ImmersionEngine: Sendable {
             // gaps but cannot take an accepted source or target focus away.
             let primary = align(original: original, translation: translation, entries: entries, density: 1,
                 targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
-                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount)
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts)
             let additions = supplementalEntries.filter { entry in
                 guard let source = entry.sourceScope, let target = entry.targetScope,
                       source.original == original, target.translation == translation,
@@ -134,8 +134,12 @@ public struct ImmersionEngine: Sendable {
             // Density is applied once to the combined candidates.
             return align(original: original, translation: translation, entries: entries + additions, density: density,
                 targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
-                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount)
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts)
         }
+        // Use the installed Swift platform Character boundaries. Valid UTF16
+        // endpoints alone need not bound a complete user-perceived character.
+        let sourceGraphemes = Set(original.indices.map { $0.utf16Offset(in: original) } + [original.utf16.count])
+        let targetGraphemes = Set(translation.indices.map { $0.utf16Offset(in: translation) } + [translation.utf16.count])
         let protected = matches(#"https?://\S+|www\.\S+|[\w.+-]+@[\w.-]+\.[\p{L}]{2,}|```[\s\S]*?```|`[^`]*`|[@#][\p{L}\p{N}_]+|\p{N}+(?:[.,:]\p{N}+)*"#, in: original)
         let protectedTarget = matches(#"https?://\S+|www\.\S+|[\w.+-]+@[\w.-]+\.[\p{L}]{2,}|```[\s\S]*?```|`[^`]*`|[@#][\p{L}\p{N}_]+|\p{N}+(?:[.,:]\p{N}+)*"#, in: translation)
         let sentenceStops = matches("[.!?。！？\\n]", in: original).filter { stop in !protected.contains { NSIntersectionRange($0, stop).length > 0 } }
@@ -182,6 +186,8 @@ public struct ImmersionEngine: Sendable {
             let targetMatches = claims[index].target
             guard targetMatches.count == 1, let targetRange = targetMatches.first,
                   !protectedTarget.contains(where: { NSIntersectionRange($0, targetRange).length > 0 }) else { continue }
+            guard sourceGraphemes.contains(range.location), sourceGraphemes.contains(NSMaxRange(range)),
+                  targetGraphemes.contains(targetRange.location), targetGraphemes.contains(NSMaxRange(targetRange)) else { continue }
             let targetSurface = (translation as NSString).substring(with: targetRange)
             let sourceSurface = (original as NSString).substring(with: range)
             let needsReading = ["ar", "zh", "ja", "ko"].contains(targetLanguage?.components(separatedBy: "-")[0] ?? "")
@@ -240,10 +246,21 @@ public struct ImmersionEngine: Sendable {
                 NSIntersectionRange(parent.targetRange, child.targetRange) == child.targetRange
         } }
         let budget = max(1, Int(Double(wordCount) * min(density, 1)))
+        // Only the exact-reference partial producer supplies native per-unit
+        // costs. Unknown costs in that mode abstain, NEVER estimate via regex.
+        // The legacy complete matcher keeps its existing default cost policy.
+        let costed = complete.compactMap { candidate -> (span: ImmersionSpan, count: Int)? in
+            let count: Int
+            if let sourceUnitTokenCounts {
+                guard let native = sourceUnitTokenCounts[candidate.span.range], native > 0, native <= wordCount else { return nil }
+                count = native
+            } else { count = max(1, matches(#"[\p{L}\p{M}]+"#, in: candidate.span.original).count) }
+            return (candidate.span, count)
+        }
         var selected: [ImmersionSpan] = []
         var usedWords = 0
-        for candidate in complete {
-            let count = max(1, matches(#"[\p{L}\p{M}]+"#, in: candidate.span.original).count)
+        for candidate in costed {
+            let count = candidate.count
             guard usedWords + count <= budget,
                   !selected.contains(where: { NSIntersectionRange($0.range, candidate.span.range).length > 0 }) else { continue }
             selected.append(candidate.span)
@@ -252,10 +269,8 @@ public struct ImmersionEngine: Sendable {
         // Keep one complete vocabulary item when a low density rounds below
         // its word count. Only candidates that passed every meaning check
         // above participate; zero density still exits before this point.
-        if selected.isEmpty, let smallest = complete.min(by: { a, b in
-            let left = max(1, matches(#"[\p{L}\p{M}]+"#, in: a.span.original).count)
-            let right = max(1, matches(#"[\p{L}\p{M}]+"#, in: b.span.original).count)
-            return left == right ? a.span.range.location < b.span.range.location : left < right
+        if selected.isEmpty, let smallest = costed.min(by: { a, b in
+            a.count == b.count ? a.span.range.location < b.span.range.location : a.count < b.count
         }) { selected.append(smallest.span) }
         return ImmersionResult(original: original, translation: translation, spans: selected.sorted { $0.range.location < $1.range.location })
     }
@@ -283,7 +298,12 @@ public struct ImmersionEngine: Sendable {
             guard form.start>=0,form.end>form.start,form.end<=form.surface.utf16.count else {continue}
             let local=NSRange(location:form.start,length:form.end-form.start)
             guard Range(local,in:form.surface) != nil,(form.surface as NSString).substring(with:local)==value else {continue}
-            for whole in occurrences(form.surface,in:translation,boundaries:boundaries) {
+            // Explicit attested forms alone also try their raw encoded surface;
+            // generic normalized dictionary lookup remains unchanged. The exact
+            // raw-length/whole-surface witness and final grapheme guard still apply.
+            let wholeForms = Set(occurrences(form.surface,in:translation,boundaries:boundaries) +
+                rawAttestedOccurrences(form.surface, in: translation, boundaries: boundaries))
+            for whole in wholeForms {
                 let actual=(translation as NSString).substring(with:whole)
                 guard actual.utf16.count==form.surface.utf16.count,actual.replacingOccurrences(of:"’",with:"'").caseInsensitiveCompare(form.surface.replacingOccurrences(of:"’",with:"'")) == .orderedSame else {continue}
                 let focus=NSRange(location:whole.location+local.location,length:local.length)
@@ -292,6 +312,18 @@ public struct ImmersionEngine: Sendable {
             }
         }
         return Array(Set(plain+explicit))
+    }
+
+    private func rawAttestedOccurrences(_ surface: String, in text: String, boundaries: Set<Int>?) -> [NSRange] {
+        let raw = NSRegularExpression.escapedPattern(for: surface)
+        guard !raw.isEmpty else { return [] }
+        if let boundaries {
+            return matches(raw, in: text, options: [.caseInsensitive]).filter {
+                boundaries.contains($0.location) && boundaries.contains(NSMaxRange($0))
+            }
+        }
+        return matches("(?<![\\p{L}\\p{M}\\p{N}_])" + raw + "(?![\\p{L}\\p{M}\\p{N}_])",
+                       in: text, options: [.caseInsensitive])
     }
 
     private static func readableRomanization(_ value: String) -> Bool {

@@ -3,95 +3,134 @@ import SwiftUI
 @preconcurrency import Translation
 import VipiCore
 
-/// One conversation owns a bounded transient cache and a serial translation
-/// queue. Persisted/encrypted ChatItem text is never rewritten.
+/// Lookup-first native routing. Persisted/encrypted ChatItem text is never rewritten.
 @MainActor @Observable final class ConversationImmersion {
     struct Request: Identifiable {
         let id: UUID; let text: String; let pair: TranslationPair; let epoch: UUID
-        let reversed: Bool; let cacheKey: String
     }
+    private enum ProviderError: Error { case unavailable }
     private(set) var request: Request?
     private(set) var availability = LocalLanguageAvailability.checking
     private(set) var revision = 0
     private(set) var pair = TranslationPair(source: "en", target: "es")
+    private(set) var lastOutcome: LookupFirstOutcome?
+    private(set) var lexicalPreparation = "unmeasured"
     private var density = 0.25
     private var epoch = UUID()
+    private var closed = false
     private var pending: [Request] = []
-    private var replies: [UUID: CheckedContinuation<ImmersionResult?, Never>] = [:]
-    private var cache: [String: ImmersionResult] = [:]
-    private var order: [String] = []
+    private var replies: [UUID: CheckedContinuation<String?, Never>] = [:]
+    private var cache = ImmersionPresentationCache()
     private var inputLanguages: [String: String] = [:]
     private let catalog = BundledImmersionCatalog()
     private let lexical = BundledLexicalCatalog.shared
     private var swahili: [String: SwahiliTranslation] = [:]
     private let language = MessageLanguage()
-    func inputLanguage(for id: String) -> String? { inputLanguages[id] }
-    func selectInputLanguage(_ language: String?, for id: String) {
-        guard language == nil || [pair.source, pair.target].contains(language!) else { return }
-        inputLanguages[id] = language
-    }
-    func cached(_ text: String, messageID: String? = nil) -> ImmersionResult? {
-        let selected = messageID.flatMap { inputLanguages[$0] } ?? "auto"
-        return cache[selected + ":" + text]
-    }
 
+    func inputLanguage(for id: String) -> String? { inputLanguages[id] }
+    func identity(messageID: String, text: String) -> ImmersionRequestIdentity {
+        .init(messageID: messageID, text: text, source: pair.source, target: pair.target,
+              inputLanguage: inputLanguages[messageID], generation: epoch)
+    }
+    func selectInputLanguage(_ language: String?, for id: String) {
+        guard !closed, language == nil || [pair.source, pair.target].contains(language!),
+              inputLanguages[id] != language else { return }
+        inputLanguages[id] = language
+        invalidateOutstanding()
+        revision += 1
+    }
+    func cached(_ text: String, messageID: String? = nil) -> ImmersionPresentation? {
+        guard !closed else { return nil }
+        return cache[(messageID.flatMap { inputLanguages[$0] } ?? "auto") + ":" + text]
+    }
     func refreshAvailability() async {
         let active = epoch
-        _ = try? await lexical.prepare(pair)
         let observed = await LanguagePreparation.nativeStatus(pair)
-        guard active == epoch, !Task.isCancelled else { return }
+        guard !closed, active == epoch, !Task.isCancelled else { return }
+        // Status only: lexical expansion belongs to actual target-dependent alignment.
         if availability != observed { availability = observed; revision += 1 }
     }
-
     func configure(pair: TranslationPair, density: Double) async {
-        close(); self.pair = pair; self.density = density; availability = .checking
-        let active = epoch
-        _ = try? await lexical.prepare(pair)
-        let observed = await LanguagePreparation.nativeStatus(pair)
-        guard active == epoch, !Task.isCancelled else { return }
-        if pair.usesMLKit {
-            swahili[pair.source] = try? SwahiliTranslation(pair: pair)
-            swahili[pair.target] = try? SwahiliTranslation(pair: .init(source: pair.target, target: pair.source))
-        }
-        availability = observed; revision += 1
+        close(); closed = false; self.pair = pair; self.density = density
+        availability = .checking; lexicalPreparation = "unmeasured"
+        // No readiness gate, TranslationSession, translator factory or lexical
+        // materialization before exact/source-only lookup has had its turn.
     }
-    func result(for text: String, inputLanguage: String? = nil) async -> ImmersionResult? {
-        guard !Task.isCancelled, !text.isEmpty, text.utf16.count <= 16_384 else { return nil }
-        if let inputLanguage, ![pair.source, pair.target].contains(inputLanguage) { return nil }
-        let key = (inputLanguage ?? "auto") + ":" + text
-        if let result = cache[key] { return result }
-        let activeEpoch = epoch, activePair = pair
-        let reversePair = TranslationPair(source: activePair.target, target: activePair.source)
-        let forward = inputLanguage == pair.target ? nil : try? await catalog.reference(original: text, pair: activePair)
-        let reverse = forward != nil || inputLanguage == pair.source ? nil : try? await catalog.reference(original: text, pair: reversePair)
-        if let translation = forward ?? reverse {
-            let reversed = forward == nil
-            let result = try? await aligned(original: reversed ? translation : text, translation: reversed ? text : translation, pair: activePair, density: density)
-            guard activeEpoch == epoch, !Task.isCancelled else { return nil }
-            if let result { remember(result, key: key) }
-            return result
+    func result(for text: String, inputLanguage: String? = nil, messageID: String? = nil,
+                onPartial: (PartialImmersionResult) -> Void = { _ in }) async -> ImmersionPresentation? {
+        lastOutcome = nil // Cancellation/early exit must not reuse prior telemetry.
+        guard !closed, !Task.isCancelled, pair.valid else { return nil }
+        let activeEpoch = epoch, activePair = pair, activeDensity = density
+        func valid() -> Bool {
+            !closed && activeEpoch == epoch && pair == activePair && !Task.isCancelled &&
+                (messageID == nil || inputLanguages[messageID!] == inputLanguage)
         }
-        guard activeEpoch == epoch, availability == .installed, !Task.isCancelled else { return nil }
-        let detected: String?
-        if let inputLanguage { detected = inputLanguage } else { detected = try? await language.identify(text) }
-        guard activeEpoch == epoch, !Task.isCancelled, let detected,
-              [activePair.source, activePair.target].contains(detected) else { return nil }
-        let reversed = detected == activePair.target
-        let id = UUID()
-        return await withTaskCancellationHandler {
-            await withCheckedContinuation { continuation in
-                guard !Task.isCancelled else { continuation.resume(returning: nil); return }
-                replies[id] = continuation
-                pending.append(Request(id: id, text: text, pair: reversed ? reversePair : activePair,
-                    epoch: activeEpoch, reversed: reversed, cacheKey: key)); next()
-            }
-        } onCancel: { Task { @MainActor [weak self] in self?.cancel(id) } }
+        guard valid() else { return nil }
+        let key = (inputLanguage ?? "auto") + ":" + text
+        // A partial without full translation can be upgraded after a separately
+        // signalled model-readiness change; never erase its known source faces.
+        if let saved = cache.cachedInvocation(key: key), saved.result?.translation != nil {
+            lastOutcome = saved; return saved.result
+        }
+        do {
+            let outcome = try await LookupFirst.resolve(
+                .init(text: text, source: activePair.source, target: activePair.target, inputLanguage: inputLanguage),
+                valid: valid,
+                reference: { original, source, target in
+                    try await self.catalog.reference(original: original, pair: .init(source: source, target: target))
+                },
+                identify: { try await self.language.identify($0) },
+                modelsReady: { source, target in
+                    let observed = await LanguagePreparation.nativeStatus(.init(source: source, target: target))
+                    guard valid() else { return false }
+                    self.availability = observed
+                    // Do NOT bump task revision here and cancel our own request.
+                    return observed == .installed
+                },
+                translate: { original, source, target in
+                    try await self.enqueue(original, pair: .init(source: source, target: target), epoch: activeEpoch)
+                },
+                align: { original, translated in
+                    try await self.aligned(original: original, translation: translated, pair: activePair, density: activeDensity)
+                },
+                partialReference: { original, source, target in
+                    try await self.catalog.partial(original: original, pair: .init(source: source, target: target), density: activeDensity)
+                },
+                onPartial: { partial in
+                    guard valid() else { return }
+                    self.remember(.partial(partial), key: key); onPartial(partial)
+                })
+            guard valid() else { return nil }
+            lastOutcome = outcome
+            cache.remember(outcome, key: key)
+            return outcome.result
+        } catch is CancellationError { return nil }
+        catch { return valid() ? cache[key] : nil }
     }
     private func aligned(original: String, translation: String, pair: TranslationPair, density: Double) async throws -> ImmersionResult {
-        let supplemental = (try? await lexical.entries(original: original, translation: translation, pair: pair)) ?? []
+        let supplemental: [VocabularyEntry]
+        do {
+            supplemental = try await lexical.entries(original: original, translation: translation, pair: pair)
+            lexicalPreparation = "ready"
+        } catch is CancellationError { throw CancellationError() }
+        catch { lexicalPreparation = "failed"; supplemental = [] }
         try Task.checkCancellation()
         return try await catalog.result(original: original, translation: translation, pair: pair,
             density: density, supplementalEntries: supplemental)
+    }
+    private func enqueue(_ text: String, pair: TranslationPair, epoch active: UUID) async throws -> String {
+        guard !closed, active == epoch, pair.valid, pending.count < 128 else { throw ProviderError.unavailable }
+        let id = UUID()
+        return try await withTaskCancellationHandler {
+            let translated: String? = await withCheckedContinuation { continuation in
+                guard !Task.isCancelled, !closed, active == epoch else { continuation.resume(returning: nil); return }
+                replies[id] = continuation
+                pending.append(.init(id: id, text: text, pair: pair, epoch: active)); next()
+            }
+            try Task.checkCancellation()
+            guard let translated else { throw ProviderError.unavailable }
+            return translated
+        } onCancel: { Task { @MainActor [weak self] in self?.cancel(id) } }
     }
     private func next() { if request == nil, !pending.isEmpty { request = pending.removeFirst() } }
     private func cancel(_ id: UUID) {
@@ -100,31 +139,30 @@ import VipiCore
         if request?.id == id { request = nil; next() }
     }
     func finish(_ active: Request, translation: String?) async {
-        guard active.epoch == epoch, active.id == request?.id else { return }
-        var result: ImmersionResult?
-        if let translation, !Task.isCancelled, TranslationIntegrity.preservesIdentifiers(original: active.text, translation: translation) {
-            result = try? await aligned(original: active.reversed ? translation : active.text,
-                translation: active.reversed ? active.text : translation, pair: pair, density: density)
-        }
-        guard active.epoch == epoch, active.id == request?.id else { return }
-        if let result { remember(result, key: active.cacheKey) }
-        replies.removeValue(forKey: active.id)?.resume(returning: result)
+        guard !closed, active.epoch == epoch, active.id == request?.id else { return }
+        // Router owns literal/anchor/direction validation after this await.
+        replies.removeValue(forKey: active.id)?.resume(returning: translation)
         request = nil; next()
     }
     func translateSwahili(_ active: Request) async {
-        guard active.epoch == epoch, active.id == request?.id, let swahili = swahili[active.pair.source] else { return }
-        let translation = try? await swahili.translate(active.text)
+        guard !closed, active.epoch == epoch, active.id == request?.id else { return }
+        let key = active.pair.source + "-" + active.pair.target
+        if swahili[key] == nil { swahili[key] = try? SwahiliTranslation(pair: active.pair) }
+        guard let translator = swahili[key] else { await finish(active, translation: nil); return }
+        let translation = try? await translator.translate(active.text)
         await finish(active, translation: translation)
     }
-    private func remember(_ result: ImmersionResult, key: String) {
-        cache[key] = result; order.removeAll { $0 == key }; order.append(key)
-        while order.count > 128 { cache.removeValue(forKey: order.removeFirst()) }
+    private func remember(_ result: ImmersionPresentation, key: String) {
+        cache.remember(result, key: key)
+    }
+    private func invalidateOutstanding() {
+        epoch = UUID(); request = nil; pending.removeAll()
+        let outstanding = Array(replies.values); replies.removeAll()
+        for reply in outstanding { reply.resume(returning: nil) }
     }
     func close() {
-        epoch = UUID(); request = nil; pending.removeAll(); cache.removeAll(); order.removeAll(); swahili.removeAll(); inputLanguages.removeAll()
-        let outstanding = replies.values; replies.removeAll()
-        for reply in outstanding { reply.resume(returning: nil) }
-        revision += 1
+        closed = true; invalidateOutstanding(); cache.removeAll()
+        swahili.removeAll(); inputLanguages.removeAll(); lastOutcome = nil; revision += 1
     }
 }
 
@@ -165,52 +203,67 @@ struct ConversationImmersionText: View {
     let paused: Bool
     let metadata: AnyView
     let onVoiceHelp: () -> Void
-    @State private var result: ImmersionResult?
-    @State private var waiting: ImmersionResult?
-    @State private var hasWaiting = false
+    @State private var presentation = ImmersionPresentationState()
     @State private var currentlyPaused = false
     @State private var mode: ReadingMode = .immersed
     private var inputLanguage: String? { immersion.inputLanguage(for: id) }
+    private var identity: ImmersionRequestIdentity { immersion.identity(messageID: id, text: text) }
+    private struct RunKey: Hashable { let identity: ImmersionRequestIdentity; let revision: Int }
     init(text: String, id: String, immersion: ConversationImmersion, speech: SpeechPlayback,
          paused: Bool, metadata: AnyView, onVoiceHelp: @escaping () -> Void) {
         self.text = text; self.id = id; self.immersion = immersion; self.speech = speech
         self.paused = paused; self.metadata = metadata; self.onVoiceHelp = onVoiceHelp
-        _result = State(initialValue: immersion.cached(text, messageID: id))
+        var initial = ImmersionPresentationState()
+        let binding = immersion.identity(messageID: id, text: text)
+        initial.publish(immersion.cached(text, messageID: id), for: binding, current: binding, paused: false)
+        _presentation = State(initialValue: initial)
+        _currentlyPaused = State(initialValue: paused)
     }
     var body: some View {
         Group {
-            if let result {
+            // Gate synchronously during rendering, not only in an onChange task:
+            // SwiftUI can render the new message before cancellation is observed.
+            if let result = presentation.value(for: identity) {
                 ImmersionBubble(result: result, mode: mode, speech: speech,
-                    sourceLanguage: immersion.pair.source, targetLanguage: immersion.pair.target,
-                    messageID: id, interactionPaused: paused, fullReading: SentenceReadings.reading(result.translation, language: immersion.pair.target),
+                    sourceLanguage: identity.source, targetLanguage: identity.target,
+                    messageID: id, interactionPaused: paused,
+                    fullReading: result.translation.flatMap { SentenceReadings.reading($0, language: identity.target) },
                     embedded: true, onModeChange: { mode = $0 }, metadata: metadata, onVoiceHelp: onVoiceHelp,
-                    originalMessage: text, inputLanguage: inputLanguage, onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) })
+                    originalMessage: text, inputLanguage: inputLanguage,
+                    onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) })
+                    .id(identity) // Drop old reveal/selection/full-target action state.
             } else {
                 VStack(alignment: .leading, spacing: 7) {
-                Text(text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
-                    .accessibilityIdentifier("message-body-" + id)
-                HStack {
-                    metadata; Spacer(minLength: 8)
-                    Menu {
-                        MessageLanguageMenu(source: immersion.pair.source, target: immersion.pair.target,
-                            selected: inputLanguage, select: { immersion.selectInputLanguage($0, for: id) })
-                        Button("Copy original message") { UIPasteboard.general.string = text }
-                    } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
-                        .accessibilityLabel("Reading options")
-                }
+                    Text(text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("message-body-" + id)
+                    HStack {
+                        metadata; Spacer(minLength: 8)
+                        Menu {
+                            MessageLanguageMenu(source: identity.source, target: identity.target,
+                                selected: inputLanguage, select: { speech.stop(); immersion.selectInputLanguage($0, for: id) })
+                            Button("Copy original message") { UIPasteboard.general.string = text }
+                        } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
+                            .accessibilityLabel("Reading options")
+                    }
                 }
             }
-        }.task(id: "\(immersion.revision)-\(inputLanguage ?? "auto")-\(text)") {
-                waiting = nil; hasWaiting = false
-                let value = await immersion.result(for: text, inputLanguage: inputLanguage)
+        }.task(id: RunKey(identity: identity, revision: immersion.revision)) {
+            let produced = identity
+            presentation.invalidate(for: produced)
+            let value = await immersion.result(for: produced.text, inputLanguage: produced.inputLanguage, messageID: produced.messageID) { partial in
                 guard !Task.isCancelled else { return }
-                // Read current state after suspension, not the view value
-                // captured before the user began drafting or scrolling.
-                if currentlyPaused { waiting = value; hasWaiting = true } else { result = value }
+                presentation.publish(.partial(partial), for: produced, current: identity, paused: currentlyPaused)
             }
-            .onChange(of: paused, initial: true) { _, paused in
-                currentlyPaused = paused
-                if !paused, hasWaiting { result = waiting; self.waiting = nil; hasWaiting = false }
-            }
+            guard !Task.isCancelled else { return }
+            presentation.publish(value, for: produced, current: identity, paused: currentlyPaused)
+        }
+        .onChange(of: identity) { _, current in
+            presentation.invalidate(for: current); mode = .immersed
+            if speech.activeMessage == id { speech.stop() }
+        }
+        .onChange(of: paused, initial: true) { _, paused in
+            currentlyPaused = paused
+            if !paused { presentation.resume(for: identity) }
+        }
     }
 }
