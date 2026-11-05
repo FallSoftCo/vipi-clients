@@ -51,6 +51,8 @@ val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
     dependsOn(checkBundledLexical)
     from("../../data/immersion") { into("immersion") }
     from("../../data/lexical") { into("lexical") }
+    from(rootProject.file("LICENSE")) { into("licenses/vipi") }
+    from(rootProject.file("NOTICE")) { into("licenses/vipi") }
     into(layout.buildDirectory.dir("generated/immersionAssets"))
 }
 tasks.named("preBuild") { dependsOn(stageImmersionAssets) }
