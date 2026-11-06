@@ -131,7 +131,7 @@ import XCTest
         let span = try XCTUnwrap(good.spans.first)
         h.partial = .init(original: good.original, spans: [.init(range: span.range, original: span.original,
             translated: span.translated, targetRange: .init(location: 1, length: span.targetRange.length),
-            romanization: span.romanization)], references: good.references, nativeSourceTokenCount: good.nativeSourceTokenCount)
+            romanization: span.romanization)], references: good.references, nativeSourceTokenCount: good.nativeSourceTokenCount, targetLanguage: "es")
         let outcome = try await h.run()
         XCTAssertEqual(outcome.status, .invalidResult); XCTAssertNil(outcome.result)
         XCTAssertTrue(h.partialEvents.isEmpty); XCTAssertEqual(h.readinessCalls, 0)

@@ -37,7 +37,7 @@ final class ImmersionPresentationStateTests: XCTestCase {
     }
     func testEveryPartialInsertionIsBoundedBeforeAnyProviderCompletion() {
         var cache = ImmersionPresentationCache()
-        let partial = PartialImmersionResult(original: "Hello unknown", spans: [], references: [], nativeSourceTokenCount: 2)
+        let partial = PartialImmersionResult(original: "Hello unknown", spans: [], references: [], nativeSourceTokenCount: 2, targetLanguage: "es")
         for index in 0..<300 {
             cache.remember(.partial(partial), key: "message\(index)")
             // Simulates a partial callback followed by provider cancellation:

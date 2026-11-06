@@ -51,18 +51,20 @@ public struct PartialImmersionResult: Sendable, Equatable {
     public let spans: [ImmersionSpan]
     public let references: [SourceReferenceUnit]
     public let nativeSourceTokenCount: Int
+    public let targetLanguage: String
     public let completeTranslation: String?
 
     init(original: String, spans: [ImmersionSpan], references: [SourceReferenceUnit],
-         nativeSourceTokenCount: Int, completeTranslation: String? = nil) {
+         nativeSourceTokenCount: Int, targetLanguage: String, completeTranslation: String? = nil) {
         self.original = original; self.spans = spans; self.references = references
         self.nativeSourceTokenCount = nativeSourceTokenCount
+        self.targetLanguage = targetLanguage
         self.completeTranslation = completeTranslation
     }
 
     public func withCompleteTranslation(_ actual: String) -> Self {
         .init(original: original, spans: spans, references: references,
-              nativeSourceTokenCount: nativeSourceTokenCount, completeTranslation: actual)
+              nativeSourceTokenCount: nativeSourceTokenCount, targetLanguage: targetLanguage, completeTranslation: actual)
     }
 }
 
@@ -127,7 +129,7 @@ public enum SourceReferencePresentation {
     /// Revalidate callback shape, including the reference-local target basis.
     /// This structural proof is NOT independent meaning/catalog attestation.
     public static func validPartial(_ value: PartialImmersionResult, target: String) -> Bool {
-        guard value.completeTranslation == nil, value.spans.count == value.references.count,
+        guard value.targetLanguage == target, value.completeTranslation == nil, value.spans.count == value.references.count,
               let checked = create(original: value.original, target: target, units: value.references,
                   density: 1, nativeSourceTokenCount: value.nativeSourceTokenCount) else { return false }
         return checked.spans == value.spans && checked.references == value.references
@@ -173,6 +175,6 @@ public enum SourceReferencePresentation {
         return .init(original: original, spans: selected.map {
             .init(range: $0.range, original: $0.original, translated: $0.translated,
                   targetRange: .init(location: 0, length: $0.translated.utf16.count), romanization: $0.romanization)
-        }, references: proofs, nativeSourceTokenCount: nativeSourceTokenCount)
+        }, references: proofs, nativeSourceTokenCount: nativeSourceTokenCount, targetLanguage: target)
     }
 }
