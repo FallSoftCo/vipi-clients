@@ -14,7 +14,9 @@ import java.util.zip.InflaterInputStream
 /** App-signed, public data. Only the selected pair is expanded; no messages are stored. */
 internal class BundledLexicalCatalog(private val context: Context,
     private val assetRoot: String = "lexical",
-    private val root: File = File(context.noBackupFilesDir, "lexical-public")) {
+    private val root: File = File(context.noBackupFilesDir, "lexical-public"),
+    preparationOperations: OwnedLexicalPreparation.Operations = OwnedLexicalPreparation.Operations()) {
+    private val preparations = OwnedLexicalPreparation(root, preparationOperations)
     private val index: JSONObject? by lazy {
         if (context.assets.list(assetRoot).orEmpty().contains("catalog.json")) {
             JSONObject(context.assets.open("$assetRoot/catalog.json").bufferedReader().use { it.readText() }).also {
@@ -52,19 +54,17 @@ internal class BundledLexicalCatalog(private val context: Context,
         }
     }
     private fun databaseFile(row: JSONObject): File {
-        check(root.isDirectory || root.mkdirs())
         val id = row.getString("id")
         val hash = row.getString("sha256")
-        val file = File(root, "$id-$hash.sqlite")
         val expected = row.getLong("bytes")
-        val stamp = file.length() to file.lastModified()
-        if (file.isFile && stamp.first == expected && verified[file.absolutePath] == stamp) return file
-        if (file.isFile && file.length() == expected && digest(file) == hash) {
-            verified[file.absolutePath] = file.length() to file.lastModified()
-            return file
-        }
-        val temporary = File.createTempFile("prepare-", ".sqlite", root)
-        try {
+        return preparations.materialize(id, hash, expected, accepted = { file ->
+            val stamp = file.length() to file.lastModified()
+            if (stamp.first == expected && verified[file.absolutePath] == stamp) true
+            else if (file.length() == expected && digest(file) == hash) {
+                verified[file.absolutePath] = file.length() to file.lastModified()
+                true
+            } else false
+        }, writeAndValidate = { temporary ->
             val checksum = MessageDigest.getInstance("SHA-256")
             var count = 0L
             context.assets.open(assetRoot + "/" + row.getString("file")).use { compressed ->
@@ -80,9 +80,10 @@ internal class BundledLexicalCatalog(private val context: Context,
                                 require(count <= expected) { "Expanded language data exceeds its manifest" }
                                 checksum.update(buffer, 0, n)
                                 output.write(buffer, 0, n)
+                                preparations.checkpoint(OwnedLexicalPreparation.Point.CHUNK_WRITTEN)
                             }
                         }
-                        output.fd.sync()
+                        preparations.syncData(output)
                     }
                 }
             }
@@ -91,15 +92,11 @@ internal class BundledLexicalCatalog(private val context: Context,
                 val header = ByteArray(16)
                 require(input.read(header) == 16 && header.contentEquals("SQLite format 3\u0000".toByteArray()))
             }
-            // A reader can only observe the old complete file or the new complete file.
-            check(temporary.renameTo(file))
+        }).also { file ->
             verified[file.absolutePath] = file.length() to file.lastModified()
-            val ownedRevision = Regex(Regex.escape(id) + "-[a-f0-9]{64}\\.sqlite")
-            root.listFiles()?.filter { it.name != file.name && it.name.matches(ownedRevision) }?.forEach {
-                verified.remove(it.absolutePath); it.delete()
-            }
-            return file
-        } finally { temporary.delete() }
+        }
+        // Existing finalized revisions are intentionally NOT recovery targets.
+        // Their retirement/quota policy is separate from attributable staging recovery.
     }
     private fun selected(source: String, target: String): List<JSONObject> {
         val languages = initialLanguages.map { it.code }
