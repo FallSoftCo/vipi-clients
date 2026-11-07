@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     apns_team_id: str | None = None
     apns_private_key_path: str | None = None
     apns_bundle_id: str = "co.fallsoft.vipi"
+    foreground_connections_per_worker: int = Field(default=200, ge=1, le=10000)
 
     @model_validator(mode="after")
     def purchases_configuration(self):

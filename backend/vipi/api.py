@@ -171,19 +171,25 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     providers = providers_for(settings) if store_providers is None else store_providers
     subscriptions = Subscriptions(settings, db, providers, now)
     bot = BotGateway(settings, db, subscriptions, now, transport=bot_transport)
+    from .events import InboxEvents, install as install_events
+    events = InboxEvents(db, limit=settings.foreground_connections_per_worker)
 
     @asynccontextmanager
     async def lifespan(app):
-        yield
-        await bot.close()
-        await app.state.pubsub_verifier.close()
-        if store_providers is None:
-            for provider in providers.values():
-                await provider.close()
-        if verifier is None:
-            await token_verifier.close()
-        if database is None:
-            await db.close()
+        try:
+            await events.start()
+            yield
+        finally:
+            await events.close()
+            await bot.close()
+            await app.state.pubsub_verifier.close()
+            if store_providers is None:
+                for provider in providers.values():
+                    await provider.close()
+            if verifier is None:
+                await token_verifier.close()
+            if database is None:
+                await db.close()
 
     app = FastAPI(title="Vipi service", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
     app.add_middleware(BodyLimit)
@@ -191,6 +197,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     app.state.allowed_subjects = settings.allowed_subjects
     app.state.subscriptions = subscriptions
     app.state.bot = bot
+    app.state.events = events
+    install_events(app, settings, db, token_verifier, now, events)
     from .web_deletion import install as install_web_deletion
     install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
     from .public_pages import install as install_public_pages
@@ -243,6 +251,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions() as session:
             await session.execute(text("SELECT 1"))
             if settings.environment in {"staging", "production"}:
+                if not events.ready.is_set():
+                    return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
                 if revision != "20261107_05":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)

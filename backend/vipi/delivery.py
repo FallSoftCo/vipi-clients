@@ -91,6 +91,8 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
         fingerprint=digest, state="accepted", cipher_type=envelope.cipher_type)
     session.add(item)
     await session.flush()
+    from .events import notify
+    await notify(session, envelope.recipient_device_id)
     return item
 
 
@@ -110,6 +112,8 @@ async def acknowledge(session: AsyncSession, message_id: str, recipient_id: str,
         item.ciphertext, item.state = None, "expired"
         return "expired"
     item.ciphertext, item.state = None, "delivered"
+    from .events import notify
+    await notify(session, item.sender_device_id)
     return "delivered"
 
 
