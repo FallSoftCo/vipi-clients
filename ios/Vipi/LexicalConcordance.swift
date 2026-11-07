@@ -206,6 +206,14 @@ enum LexicalConcordance {
         let value=NSRange(location:range.location+form.start,length:form.end-form.start)
         guard Range(value,in:text) != nil else {return nil};return value
     }
+    private static func sourceFocus(_ form:Form,range:NSRange,text:String)->NSRange? {
+        guard let value=focus(form,range:range,text:text) else {return nil}
+        // A dictionary root inside a finite/clitic verb is not a replaceable
+        // source unit: sugerirás -> suggestás would leave foreign morphology.
+        // Attested noun/article/particle carriers retain their existing scopes.
+        if form.pos=="verb" && value != range {return nil}
+        return value
+    }
     private static func targetCaseMatches(_ form:Form,range:NSRange,text:String)->Bool {
         let actual=(text as NSString).substring(with:range)
         if actual==form.written {return true}
@@ -312,7 +320,7 @@ enum LexicalConcordance {
         var sourceKeys=Set<String>()
         for (word,forms) in left.forms {for form in forms {for carrier in left.windows[word,default:[]] {
             if wholeMode != 0 && !completeVerb(form,mode:wholeMode) {continue}
-            if let range=focus(form,range:carrier,text:original) {sourceKeys.insert(wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((original as NSString).substring(with:range)))}
+            if let range=sourceFocus(form,range:carrier,text:original) {sourceKeys.insert(wholeMode != 0 ? verbKey(form,mode:wholeMode) : key((original as NSString).substring(with:range)))}
         }}}
         guard let evidence=try ContextWitnessLookup.load(db,original:original,source:source,target:target,release:left.release,sources:sourceKeys,targets:targetKeys,contextKeys:Set(left.windows.keys)) else {return []}
         // Reciprocal evidence is anchored to independently accepted nearby
@@ -365,7 +373,7 @@ enum LexicalConcordance {
                         : (1...3).contains(form.mode) && targetCaseMatches(form,range:carrier,text:original))
                 }
                 let focuses=Set(usable.compactMap { form in
-                    focus(form,range:carrier,text:original).map{SourceShape(range:$0,number:form.number)}
+                    sourceFocus(form,range:carrier,text:original).map{SourceShape(range:$0,number:form.number)}
                 })
                 // A conflicting carrier may be resolved only as a whole noun with
                 // a noun counterpart and a nearby lexical witness.
@@ -377,7 +385,7 @@ enum LexicalConcordance {
                 var claims=Set<Claim>(),reverseClaims=Set<Claim>(),pronounClaims=Set<Claim>()
                 for form in usable {
                     if conflictingGeometry && (form.pos != "noun" || !(1...2).contains(form.mode)) {continue}
-                    guard let sourceFocus=focus(form,range:carrier,text:original) else {continue}
+                    guard let sourceFocus=sourceFocus(form,range:carrier,text:original) else {continue}
                     let meanings=Set(linkedTerms(left,form).filter{$0.eligible && (source=="en" || target=="en" || $0.explicit)}.map(\.sense))
                     if meanings.isEmpty {continue}
                     let anchoredReverse=reverseWindows(sourceFocus)
@@ -483,7 +491,7 @@ enum LexicalConcordance {
                     guard alignment.uniqueSource(carrier,left.windows[word,default:[]].filter{!protected(left,range:$0)}) else {continue}
                     guard !protected(left,range:carrier) else {diagnostic("source_compound");continue}
                     guard targetCaseMatches(form,range:carrier,text:original) else {diagnostic("source_case");continue}
-                    guard let sourceFocus=focus(form,range:carrier,text:original) else {continue}
+                    guard let sourceFocus=sourceFocus(form,range:carrier,text:original) else {continue}
                     var claims=Set<Claim>()
                     for other in right.forms.keys.sorted() {
                         guard !right.targetBlocked.contains(other) else {continue}

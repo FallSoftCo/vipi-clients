@@ -1,0 +1,40 @@
+{
+  "schema": "vipi-source-verb-boundary-fix-1",
+  "policy": "Only complete attested verb carriers may supply source replacement scopes. Noun/article/particle carriers and target scopes retain existing behavior.",
+  "preserved_work": "Retained infinitive experiment edits remain unstaged; only sourceFocus guard and four source call sites are committed.",
+  "fixture_cases_sha256": "6befe668a3eee444cfe552c0d7b2ca4b2176e9377d480e599c93b0c8d3ec3b8d",
+  "android": {
+    "actual_provider_capture_sha256": "4687c17b817b628e6732400b97d5f93fc04cef376b85efa6f4d4bb33924f1a61",
+    "replay_sha256": "77a2d02d16b2a24871aa93816a67be4635be237619f285f874ed6a9df19a9ee1",
+    "cases": 200,
+    "densities": [
+      0.25,
+      1
+    ],
+    "corrupt_partial_verbs_removed": 11,
+    "affected_messages": 10,
+    "other_spans_retained_exactly": 372,
+    "unexpected_fixed_provider_queries": 2,
+    "limitation": "One mislabeled Spanish corpus row is actually English; auto-detected en-es request explicitly rejected by fixed es-en fixture, excluded from patch effect."
+  },
+  "apple": {
+    "replay_sha256": "4f928a5355b6478825042a5f1f811952744c3b894eaeb01d3599b4fcc016bff6",
+    "cases": 213,
+    "failures": 0,
+    "fresh_translation_inference": false,
+    "positive_assertions": [
+      "visitar -> visit",
+      "museos -> museums"
+    ]
+  },
+  "native_source_closure": {
+    "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": {
+      "before_sha256": "1a9aa56bb0af63d6db3df6bfac0e5b44e5b53fa0fb23eb24fe4082a913964af2",
+      "after_sha256": "6bca38722007e908a5d5ba7a34e26ecc9e1321ded4734097871b40db1d95cda5"
+    },
+    "ios/Vipi/LexicalConcordance.swift": {
+      "before_sha256": "cd9ce5beb26cafc2eef8715eb07b77e93a4a44cff7f4c2cefbfce2ddd61b6867",
+      "after_sha256": "ddc527d5e8f65fd35aab0ac1dcd2b7f1b2ae920330dec089084e175f69f1335d"
+    }
+  }
+}

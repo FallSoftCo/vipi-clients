@@ -182,6 +182,14 @@ internal object LexicalConcordance {
         if((start>0 && Character.isLowSurrogate(text[start])) || (end<text.length && Character.isLowSurrogate(text[end])))return null
         return start until end
     }
+    private fun sourceFocus(form:Form,range:IntRange,text:String):IntRange? {
+        val value=focus(form,range,text) ?: return null
+        // A dictionary root inside a finite/clitic verb is not a replaceable
+        // source unit: sugerirás -> suggestás would leave foreign morphology.
+        // Attested noun/article/particle carriers retain their existing scopes.
+        if(form.pos=="verb" && value!=range)return null
+        return value
+    }
     private fun targetCaseMatches(form:Form,range:IntRange,text:String):Boolean {
         val actual=text.substring(range)
         if(actual==form.written)return true
@@ -274,7 +282,7 @@ internal object LexicalConcordance {
             if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else right.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,translation)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(translation.substring(it))} }
         }}.toSet()
         val sourceKeys=left.forms.flatMap { (word,forms) -> forms.flatMap { form ->
-            if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> focus(form,carrier,original)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(original.substring(it))} }
+            if(wholeMode!=0 && !completeVerb(form,wholeMode))emptyList() else left.windows[word].orEmpty().mapNotNull { carrier -> sourceFocus(form,carrier,original)?.let{if(wholeMode!=0) verbKey(form,wholeMode) else key(original.substring(it))} }
         }}.toSet()
         val evidence=ContextWitnessLookup.load(db,original,source,target,left.release,sourceKeys,targetKeys,left.windows.keys) ?: return emptyList()
         // Reciprocal evidence requires a separately accepted nearby vocabulary
@@ -325,7 +333,7 @@ internal object LexicalConcordance {
                 // Conflicting carrier boundaries require a whole noun, a noun
                 // counterpart and an explicit nearby lexical witness. Do not
                 // guess an internal stem from a competing verbal analysis.
-                val focuses=usable.mapNotNull { form -> focus(form,carrier,original)?.let{it to form.number} }.toSet()
+                val focuses=usable.mapNotNull { form -> sourceFocus(form,carrier,original)?.let{it to form.number} }.toSet()
                 val conflictingGeometry=usable.any{it.mode==3} && focuses.size!=1
                 val sourceTerms=(if(wholeMode!=0) forms.filter{it.targetSafe && key(actual)==key(it.written)} else usable).flatMap{linkedTerms(left,it)}.filter{it.eligible && (source=="en" || target=="en" || it.explicit)}
                 val allMeanings=sourceTerms.map{it.sense}.toSet()
@@ -333,7 +341,7 @@ internal object LexicalConcordance {
                 val claims=mutableSetOf<Claim>();val reverseClaims=mutableSetOf<Claim>();val pronounClaims=mutableSetOf<Claim>()
                 for(form in usable) {
                     if(conflictingGeometry && (form.pos!="noun" || form.mode !in 1..2))continue
-                    val sourceFocus=focus(form,carrier,original) ?: continue
+                    val sourceFocus=sourceFocus(form,carrier,original) ?: continue
                     val meanings=linkedTerms(left,form).filter{it.eligible && (source=="en" || target=="en" || it.explicit)}.map{it.sense}.toSet()
                     if(meanings.isEmpty())continue
                     val anchoredReverse=reverseWindows(sourceFocus)
@@ -436,7 +444,7 @@ internal object LexicalConcordance {
                     if(!alignment.uniqueSource(carrier,left.windows[word].orEmpty().filterNot{containedInKnownWord(left,it)}))continue
                     if(containedInKnownWord(left,carrier)) {diagnostic("source_compound");continue}
                     if(!targetCaseMatches(form,carrier,original)) {diagnostic("source_case");continue}
-                    val sourceFocus=focus(form,carrier,original) ?: continue
+                    val sourceFocus=sourceFocus(form,carrier,original) ?: continue
                     val claims=mutableSetOf<Claim>()
                     for((other,targets) in right.forms) {
                         if(other in right.targetBlocked)continue
