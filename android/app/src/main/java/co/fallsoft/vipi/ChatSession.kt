@@ -41,6 +41,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private var syncDone: kotlinx.coroutines.CompletableDeferred<Unit>? = null
     @Volatile private var closed = false
     private var historyBusy = false
+    private var historyDone: kotlinx.coroutines.CompletableDeferred<Unit>? = null
     private var importedNames = emptyMap<UUID, String>()
     private val blockVersions = mutableMapOf<UUID, Int>()
     private val changingBlocks = mutableSetOf<UUID>()
@@ -73,6 +74,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main.immediate) {
             ensureOpen(); check(!historyBusy && !busy) { "Please wait for message delivery to finish and try again" }
             val store = requireNotNull(vault); historyBusy = true
+            historyDone = kotlinx.coroutines.CompletableDeferred()
             val job = currentCoroutineContext()[kotlinx.coroutines.Job]
             try {
                 // Returning from the system file picker also resumes foreground inbox sync.
@@ -80,7 +82,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 syncDone?.await(); ensureOpen()
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                 block(HistoryBackupStore(store)) { job?.ensureActive(); check(!closed) }
-            } } finally { historyBusy = false; if (!closed) reload() }
+            } } finally {
+                historyBusy = false; historyDone?.complete(Unit); historyDone = null
+                if (!closed) reload()
+            }
         }
     suspend fun exportHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.export(file, password, check) }
     suspend fun inspectHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.validate(file, password, check) }
@@ -212,7 +217,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun synchronize() {
         val core = core ?: return
         if (!ready) return
-        if (historyBusy) { lastSyncComplete = false; return }
+        while (historyBusy) { historyDone?.await(); ensureOpen() }
         if (syncing) { syncAgain = true; syncDone?.await(); return }
         syncing = true
         lastSyncComplete = false
@@ -304,9 +309,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!ready) return
         request("PUT", "/v1/devices/push", JSONObject().put("provider", "fcm").put("token", token).put("environment", "production"), core.device)
     }
+    internal fun eventDevice(): DeviceCredential? = if (ready && !closed) core?.device else null
     override fun close() {
         closed = true; ready = false; needsProfile = false; syncAgain = false
         syncDone?.cancel(); syncDone = null
+        historyDone?.cancel(); historyDone = null
         vault?.close(); vault = null; core = null; history = null
         profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet()
     }

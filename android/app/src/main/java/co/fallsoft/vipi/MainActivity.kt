@@ -135,6 +135,24 @@ private val Green = Color(0xFF33644F)
         } }
         lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
     }
+    DisposableEffect(lifecycle, model.chat, model.chat?.ready, model.authentication.userID) {
+        val chat = model.chat
+        val events = chat?.takeIf { it.ready && it.userID == model.authentication.userID }?.let {
+            ForegroundInboxEvents(syncScope, { rejected -> model.authentication.accessToken(it.userID, rejected) },
+                it::eventDevice, {
+                    it.synchronize()
+                    if (!it.lastSyncComplete) throw java.io.IOException("Inbox synchronization incomplete")
+                })
+        }
+        val observer = LifecycleEventObserver { _, event -> when (event) {
+            Lifecycle.Event.ON_START -> events?.start()
+            Lifecycle.Event.ON_STOP -> events?.stop()
+            else -> Unit
+        } }
+        lifecycle.addObserver(observer)
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) events?.start()
+        onDispose { lifecycle.removeObserver(observer); events?.close() }
+    }
     val scrollState = rememberScrollState()
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
