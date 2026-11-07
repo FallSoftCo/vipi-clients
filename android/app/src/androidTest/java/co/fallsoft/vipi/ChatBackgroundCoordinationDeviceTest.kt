@@ -35,10 +35,14 @@ class ChatBackgroundCoordinationDeviceTest {
                 withTimeout(3000) { firstInbox.await() }
                 val background = async { chat.synchronize() }
                 yield(); assertFalse(background.isCompleted)
+                val backup = File(root, "foreground-picker.vipihistory")
+                val export = async { chat.exportHistory(backup, "correct horse vipi 2026") }
+                yield(); assertFalse(export.isCompleted)
                 releaseInbox.complete(Unit)
-                withTimeout(5000) { foreground.await(); background.await() }
+                withTimeout(15000) { foreground.await(); background.await(); export.await() }
                 assertEquals(2, calls); assertFalse(chat.syncing); assertTrue(chat.ready)
                 assertTrue(chat.lastSyncComplete)
+                assertEquals(0, chat.inspectHistory(backup, "correct horse vipi 2026").summary.messages)
                 failInbox = true; chat.synchronize(); assertFalse(chat.lastSyncComplete); assertNotNull(chat.notice)
                 failInbox = false; chat.synchronize(); assertTrue(chat.lastSyncComplete)
             }

@@ -71,10 +71,14 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     private suspend fun <T> historyOperation(block: (HistoryBackupStore, () -> Unit) -> T): T =
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main.immediate) {
-            ensureOpen(); check(!historyBusy && !busy && !syncing) { "Please wait for message delivery to finish and try again" }
+            ensureOpen(); check(!historyBusy && !busy) { "Please wait for message delivery to finish and try again" }
             val store = requireNotNull(vault); historyBusy = true
             val job = currentCoroutineContext()[kotlinx.coroutines.Job]
-            try { kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            try {
+                // Returning from the system file picker also resumes foreground inbox sync.
+                // Reserve this operation, then await that sync before opening the history.
+                syncDone?.await(); ensureOpen()
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                 block(HistoryBackupStore(store)) { job?.ensureActive(); check(!closed) }
             } } finally { historyBusy = false; if (!closed) reload() }
         }
