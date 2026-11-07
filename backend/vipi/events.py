@@ -89,7 +89,7 @@ class InboxEvents:
                 dsn = self.db.engine.url.set(drivername="postgresql").render_as_string(hide_password=False)
                 connection = await asyncpg.connect(dsn, timeout=8, command_timeout=8)
                 ended = asyncio.Event()
-                connection.add_termination_listener(lambda _: ended.set())
+                connection.add_termination_listener(lambda _, done=ended: done.set())
                 await connection.add_listener(CHANNEL, lambda _c, _pid, _channel, payload: self.publish(payload))
                 self.ready.set(); delay = 1
                 await ended.wait()
