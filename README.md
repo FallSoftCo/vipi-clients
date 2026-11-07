@@ -12,6 +12,8 @@ Native private messaging that helps people acquire another language through conv
 
 Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns its local translation, vocabulary alignment, speech, storage, and navigation. Shared artifacts are schemas, language data, and behavioral fixtures, not a custom shared application engine.
 
-Source authoring mirror: `/home/ai/Development/vipi`. New canonical development/build workspace: `/aosp/development/vipi` on `OZZZ-OS`; iOS build workspace on the existing Mac. No previous repository is being cut over. Keep source mirrors explicitly synchronized and record hashes before release builds. Dependency installation and substantial Linux builds run on OZZZ-OS with `storage-build`; iOS builds run on the authorized Mac environment.
+Current source authority (November 7, 2026): `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Git history, previously uncommitted source and newer native changes were reconciled during recovery. The older `/home/ai/Development/vipi` directory is not authoritative. OZZZ-OS and the dedicated GPU host have been retired; do not use historical commands that reconnect to them.
+
+The live relay runs on consolidated `fallsoft-production-20261106`. Apple development uses the existing `ozzz-development-20261021` VM on the MacBook, user `lume`; the native Mac is its controller. Android uses the existing QA emulator. Reuse these environments and preserve unrelated work. See [current environment receipts](docs/BUILD_ENVIRONMENTS.md) and the November 7 checkpoint in [verification](docs/VERIFICATION.md).
 
 No credentials, signing material, customer content, or provider tokens belong in this repository.

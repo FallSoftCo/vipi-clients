@@ -1,5 +1,50 @@
 # Build environments
 
+## Current authority and consolidation — November 7, 2026
+
+This section supersedes host commands and availability claims in the historical
+receipts below. OZZZ-OS and OZZZ-GPU were provider-cancelled. Do not reconnect,
+restart their services, or create replacement VMs.
+
+- Canonical Git worktree: `/home/ai/Development/vipi-production-20261107`, branch
+  `delivery/production-20261107`. Recovery authority is retained privately in
+  `vipi-recovery-20261107/source-authority.json`. The old local `vipi` tree is stale.
+- Production host: `ssh fallsoft-production`, actual hostname
+  `fallsoft-production-20261106`. Existing Vipi HTTPS origin is
+  `https://api.mambovipi.app`. The backend is still restricted staging with real
+  provider authentication; production subscription enforcement is not waived.
+- Apple: existing `ozzz-development-20261021` VM, user `lume`, controlled through
+  `ozzz-mac-vm`. Current source mirror is
+  `/Users/lume/Development/vipi-delivery-20261107-r01/source`.
+  Use two compiler jobs on the shared 4-CPU/8-GiB VM. Preserve native Mac test
+  processes. Guest free space does not establish physical Mac backing capacity.
+- Android: existing `emulator-5620` QA AVD on system76, two virtual CPUs and 2 GiB
+  RAM. It is a 4-KiB runtime, not physical 16-KiB page-size qualification. The
+  user's Pixel was not reachable through the bounded ADB attempt; do not assume
+  its old device availability still applies.
+- Native iOS model quality is not established by Simulator UI tests. Apple
+  Translation needs a supported runtime and prepared models; the current VM has
+  no attached physical device. Swahili uses the separate ML Kit path, which is
+  excluded from the arm64 Simulator UI configuration.
+- Retained bulk data uses existing Storage Box `u684605`. Exact Mac artifact
+  offload receipts were hash-verified before removing closed duplicate files.
+  No active VM backing, original source, accepted pack, or unrelated project was
+  removed for space.
+- Backend qualification uses the isolated socket-only PostgreSQL 16.15 instance
+  under the November 7 investigation directory. It is stopped after tests.
+  Do not run old container/host scripts against retired environments.
+
+Current provider preparation: a dedicated production WorkOS environment/client
+exists, with Vipi branding and callback URLs. Native live tests still use the
+dedicated staging client. Firebase project `mambo-vipi-4f569` is registered under
+FallSoft; real FCM credentials and push delivery remain unqualified. The first
+Android upload key has an encrypted PKCS#12 recovery copy on Storage Box, with
+its password held separately in private local/production paths. No secret value
+belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
+open; no app-store submission receipt exists.
+
+## Historical October setup — do not replay host commands
+
 Vipi is a new isolated project, not a cutover of the old consumer repositories.
 
 - Linux source/build authority: `/aosp/development/vipi` on `ssh OZZZ-OS`, hostname `ozzz-aosp`.

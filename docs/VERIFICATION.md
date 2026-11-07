@@ -1,5 +1,48 @@
 # Verification ledger
 
+## Consolidated live integration — November 7, 2026
+
+The source authority and retired-host boundaries are recorded in
+[BUILD_ENVIRONMENTS.md](BUILD_ENVIRONMENTS.md). Three active owners cover Apple
+delivery, Android delivery and comparative immersion evaluation; the parent
+integrates the service and reviews retained evidence. No monitoring timer or
+automatic model continuation service was installed.
+
+Both native apps completed real hosted WorkOS sign-in, exchanged human messages
+through the live relay, decrypted them using pinned libsignal, displayed delivery
+receipts, and retained both directions after process restart. Android also passed
+public token refresh. Explicit refresh was used; this does not prove push arrival.
+
+Backend `230d549` is active on the consolidated host, with schema `20261107_04`
+and a migrated final copy of the live staging database. The source database was
+preserved; accepted writes must never be replaced by an old snapshot. Shared
+nginx/PostgreSQL services were unchanged. The complete real-PostgreSQL suite
+passed 102 tests, including reports, restrictions, subscriptions, delivery and
+migrations. Native actual-store billing, actual DeepSeek spend/replies and real
+FCM/APNs delivery remain open.
+
+Swift imported both Python reference vectors and an actual Android-produced
+encrypted history file. Its six native tests passed tamper/password/account,
+footer/truncation/conflict rollback, duplicate suppression and history-only
+restore checks. Reverse-platform import, large-history memory and native picker
+interaction require their separate receipts; this checkpoint is not their proof.
+
+The frozen 400-message English→Spanish/Swahili SMS comparison measured meaningful
+coverage and error, not only regression counts. Author review found current
+clean useful-message coverage of 91/200 and 68/200, with correct word depth
+4.81% and 3.37%. Broader alignment reached 136/200 and 97/200 at 13.22% and 6.21%
+depth, with errors. Of 26 clear selected-span errors, 25 already occurred in
+the full local provider translation and one was introduced by alignment scope.
+This is author assessment of historical SMS, not independent population accuracy.
+The candidate is not promoted. A fresh licensed Taskmaster comparison, source
+lookup and normalization arms are retained under
+`qa/immersion/coverage_ceiling_experiment/`.
+
+Language quality, broader directed-pair evidence, physical-runtime behavior,
+production providers, corresponding-source/dependency closure and actual store
+review remain release gates. No 90% conversation coverage, fluency outcome, or
+store approval is claimed.
+
 ## English gloss cue checkpoint — 2026-10-28
 
 [ENGLISH_GLOSS_CUES.md](ENGLISH_GLOSS_CUES.md) separates incoming foreign gloss
