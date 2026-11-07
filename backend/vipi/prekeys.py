@@ -88,7 +88,7 @@ class PublishInput(BaseModel):
 
 
 async def lock_users(session, *ids):
-    users = (await session.execute(select(User).where(User.id.in_(ids), User.deleted.is_(False))
+    users = (await session.execute(select(User).where(User.id.in_(ids), User.deleted.is_(False), User.suspended.is_(False))
         .order_by(User.id).with_for_update())).scalars().all()
     if len(users) != len(set(ids)):
         raise DeliveryError("recipient_unavailable", 404)

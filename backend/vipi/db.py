@@ -16,6 +16,7 @@ class User(Base):
     display_name: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+    suspended: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
 
 
 class Device(Base):
@@ -135,6 +136,30 @@ class BotReport(Base):
     selected_reply: Mapped[bytes] = mapped_column(LargeBinary)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
+class UserReport(Base):
+    __tablename__ = "user_reports"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    reported_user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    payload: Mapped[bytes] = mapped_column(LargeBinary)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    decision: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    reviewer: Mapped[str | None] = mapped_column(String(128), nullable=True)
+
+
+class ModerationAction(Base):
+    __tablename__ = "moderation_actions"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    operator: Mapped[str] = mapped_column(String(128))
+    action: Mapped[str] = mapped_column(String(16))
+    reason: Mapped[str] = mapped_column(String(32))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class PushToken(Base):

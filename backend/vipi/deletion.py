@@ -8,7 +8,7 @@ from uuid import uuid4
 import httpx
 from sqlalchemy import delete, or_, select, text
 
-from .db import AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User
+from .db import AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim, ModerationAction, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User, UserReport
 from .delivery import DeliveryError, utc
 
 
@@ -61,7 +61,8 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
     await session.execute(delete(PublicBundle).where(PublicBundle.device_id.in_(devices)))
     await session.execute(delete(PendingMessage).where(or_(PendingMessage.sender_id == account_id, PendingMessage.recipient_id == account_id)))
     await session.execute(delete(Block).where(or_(Block.blocker_id == account_id, Block.blocked_id == account_id)))
-    for model in (BotReport, Entitlement, Reservation, UsageBucket, Device):
+    await session.execute(delete(UserReport).where(or_(UserReport.user_id == account_id, UserReport.reported_user_id == account_id)))
+    for model in (ModerationAction, BotReport, Entitlement, Reservation, UsageBucket, Device):
         await session.execute(delete(model).where(model.user_id == account_id))
     await session.execute(delete(RateWindow).where(RateWindow.subject == subject))
     if user:

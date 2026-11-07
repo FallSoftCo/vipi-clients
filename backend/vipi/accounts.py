@@ -36,7 +36,7 @@ async def active_device(session: AsyncSession, user_id: str, device_id: str, sec
 
 async def register_device(session: AsyncSession, *, user_id: str, device_id: str, secret: str,
                           replace_active: bool, service_secret: str, now: datetime) -> Device:
-    user = (await session.execute(select(User).where(User.id == user_id, User.deleted.is_(False)).with_for_update())).scalar_one_or_none()
+    user = (await session.execute(select(User).where(User.id == user_id, User.deleted.is_(False), User.suspended.is_(False)).with_for_update())).scalar_one_or_none()
     if not user:
         raise DeliveryError("account_unavailable", 404)
     digest = credential_hash(secret, service_secret)

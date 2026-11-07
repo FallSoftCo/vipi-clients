@@ -128,6 +128,15 @@ class BotReportInput(Input):
     selected_reply: str = Field(min_length=1, max_length=4000, repr=False)
 
 
+class UserReportInput(Input):
+    report_id: UUID
+    reported_user_id: UUID
+    message_id: UUID | None = None
+    reason: Literal["spam", "harassment", "harmful", "other"]
+    selected_text: str | None = Field(default=None, max_length=32768, repr=False)
+    consent_version: str = Field(max_length=32)
+
+
 def profile(user):
     return {"id": user.id, "username": user.username, "display_name": user.display_name}
 
@@ -183,6 +192,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     app.state.bot = bot
     from .web_deletion import install as install_web_deletion
     install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
+    from .public_pages import install as install_public_pages
+    install_public_pages(app)
 
     @app.exception_handler(AuthenticationError)
     async def auth_error(request, error):
@@ -198,10 +209,12 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         # Default validation responses echo input, which may contain credentials.
         return JSONResponse({"error": "invalid_request"}, status_code=422)
 
-    async def user_for(session, p: Principal):
+    async def user_for(session, p: Principal, *, allow_restricted=False):
         user = (await session.execute(select(User).where(User.subject == p.subject, User.deleted.is_(False)))).scalar_one_or_none()
         if not user:
             raise DeliveryError("profile_required", 404)
+        if user.suspended and not allow_restricted:
+            raise DeliveryError("account_restricted", 403)
         return user
 
     async def phone_for(session, request, user):
@@ -228,7 +241,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             await session.execute(text("SELECT 1"))
             if settings.environment in {"staging", "production"}:
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261107_03":
+                if revision != "20261107_04":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -242,13 +255,13 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     async def entitlements(p: Annotated[Principal, Depends(principal)]):
         await rate(p, "entitlements", 30)
         async with db.sessions() as session:
-            user = await user_for(session, p)
+            user = await user_for(session, p, allow_restricted=True)
         return await subscriptions.snapshot(user.id)
 
     async def purchase_sync(p, store, credential):
         await rate(p, "purchase-sync", 10)
         async with db.sessions() as session:
-            user = await user_for(session, p)
+            user = await user_for(session, p, allow_restricted=True)
         try:
             return await subscriptions.sync(user.id, store, credential)
         except IntegrityError:
@@ -286,6 +299,22 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             await phone_for(session, request, user)
         return await bot.report(user.id, str(body.request_id), body.reason, body.selected_reply)
 
+    @app.post("/v1/reports", status_code=202)
+    async def user_report(body: UserReportInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        from .reports import submit
+        await rate(p, "user-reports", 5)
+        try:
+            async with db.sessions.begin() as session:
+                user = await user_for(session, p)
+                await phone_for(session, request, user)
+                return await submit(session, user_id=user.id, report_id=str(body.report_id),
+                    reported_user_id=str(body.reported_user_id),
+                    message_id=str(body.message_id) if body.message_id else None,
+                    reason=body.reason, selected_text=body.selected_text,
+                    consent_version=body.consent_version, secret=settings.service_secret, now=now())
+        except IntegrityError:
+            raise DeliveryError("report_id_conflict", 409) from None
+
     @app.put("/v1/me")
     async def create_profile(body: ProfileInput, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "registration", 10)
@@ -299,6 +328,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if user:
                     if user.deleted:
                         raise DeliveryError("account_unavailable", 409)
+                    if user.suspended:
+                        raise DeliveryError("account_restricted", 403)
                     if user.username != username:
                         raise DeliveryError("profile_already_exists", 409)
                 else:
@@ -379,7 +410,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             user = await user_for(session, p)
             await phone_for(session, request, user)
             other = await session.get(User, str(peer_id))
-            if not other or other.deleted:
+            if not other or other.deleted or other.suspended:
                 raise DeliveryError("recipient_unavailable", 404)
             blocked = (await session.execute(select(Block).where(or_(
                 and_(Block.blocker_id == user.id, Block.blocked_id == other.id),
@@ -395,7 +426,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions() as session:
             user = await user_for(session, p)
             await phone_for(session, request, user)
-            other = (await session.execute(select(User).where(User.username == name, User.deleted.is_(False)))).scalar_one_or_none()
+            other = (await session.execute(select(User).where(User.username == name, User.deleted.is_(False), User.suspended.is_(False)))).scalar_one_or_none()
             if not other:
                 raise DeliveryError("person_not_found", 404)
             block = (await session.execute(select(Block).where(or_(

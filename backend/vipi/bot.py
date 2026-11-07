@@ -79,7 +79,7 @@ class BotGateway:
             # Same user lock as deletion, then global pool, then personal bucket.
             # No provider call or plaintext is retained in this transaction.
             user = (await session.execute(select(User).where(User.id == user_id).with_for_update())).scalar_one_or_none()
-            if not user or user.deleted:
+            if not user or user.deleted or user.suspended:
                 raise DeliveryError("account_unavailable", 409)
             await insert_once(session, BotPool, {"period": period,
                 "budget_nano_usd": self.settings.bot_global_monthly_budget_nano_usd,
@@ -142,7 +142,9 @@ class BotGateway:
         period = await self.reserve_request(user_id, request_id, maximum)
         actual_cost = None
         try:
-            async with asyncio.timeout(65):
+            # Finish before the deployed relay proxy's 35-second read timeout.
+            # An uncertain provider result retains its reservation; never replay.
+            async with asyncio.timeout(25):
                 async with self.http.stream("POST", "https://api.deepseek.com/chat/completions",
                     headers={"Authorization": "Bearer " + self.settings.deepseek_api_key.get_secret_value()},
                     json={"model": self.settings.bot_model, "messages": [{"role": "system", "content": SYSTEM}, *messages],

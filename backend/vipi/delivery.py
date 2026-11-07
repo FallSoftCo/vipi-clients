@@ -50,7 +50,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     # Lock both users in stable order. Device replacement and blocking take the
     # same locks, so no send can race past a committed revocation.
     users = (await session.execute(select(User).where(User.id.in_([envelope.sender_id, envelope.recipient_id]),
-        User.deleted.is_(False)).order_by(User.id).with_for_update())).scalars().all()
+        User.deleted.is_(False), User.suspended.is_(False)).order_by(User.id).with_for_update())).scalars().all()
     available = {user.id: user for user in users}
     if envelope.sender_id not in available:
         raise DeliveryError("device_revoked", 401)

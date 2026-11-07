@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 from sqlalchemy import delete
 
 from .config import Settings
-from .db import BotReport, Database, RateWindow
+from .db import BotReport, Database, RateWindow, UserReport
 from .delivery import expire
 from .prekeys import expire_claims
 from .deletion import WorkOSUserDeleter, expire_deletion_receipts, process_deletions
@@ -21,6 +21,7 @@ async def main():
             await session.execute(delete(RateWindow).where(RateWindow.window < int(now.timestamp()) // 60 - 120))
             await expire_deletion_receipts(session, now)
             await session.execute(delete(BotReport).where(BotReport.expires_at <= now))
+            await session.execute(delete(UserReport).where(UserReport.expires_at <= now))
         if settings.account_deletion_enabled:
             deleter = WorkOSUserDeleter(settings)
             try:
