@@ -109,3 +109,32 @@ async def test_fcm_payload_has_no_conversation_content_or_identity():
         assert "notification" not in payload and payload["android"]["ttl"] == "3600s"
     finally:
         await providers.close()
+
+
+async def test_slow_provider_backoff_starts_at_completion_not_batch_start(db):
+    await seed(db)
+    current = NOW
+    class SlowFailure:
+        calls = 0
+        async def send(self, registration, token, now, expires_at):
+            nonlocal current
+            self.calls += 1
+            current += timedelta(seconds=90)
+            return "retry"
+    provider = SlowFailure()
+    result = await process_pushes(db, provider, secret="a"*43, now=NOW, clock=lambda: current)
+    assert result["retry"] == 1 and provider.calls == 1
+    async with db.sessions() as session:
+        job = await session.get(PushOutbox, "bob-phone")
+        assert job.next_attempt_at.replace(tzinfo=NOW.tzinfo) == current + timedelta(seconds=30)
+        assert job.lease_until is None
+
+
+async def test_dispatch_deadline_leaves_unclaimed_notifications_for_next_pass(db):
+    await seed(db)
+    provider = Provider()
+    result = await process_pushes(db, provider, secret="a"*43, now=NOW, dispatch_seconds=0)
+    assert not any(result.values()) and not provider.calls
+    async with db.sessions() as session:
+        job = await session.get(PushOutbox, "bob-phone")
+        assert job.lease_token is None and job.attempts == 0

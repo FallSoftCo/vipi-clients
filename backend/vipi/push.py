@@ -4,6 +4,7 @@ import base64
 import hashlib
 import hmac
 import re
+import time
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
@@ -133,12 +134,18 @@ class PushProviders:
         await self.http.aclose()
 
 
-async def process_pushes(db, providers, *, secret, now, limit=100):
+async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, dispatch_seconds=45):
+    current = clock or (lambda: now)
+    deadline = time.monotonic() + dispatch_seconds
+    now = current()
     cipher = token_cipher(secret)
     counts = {"sent": 0, "invalid": 0, "retry": 0, "discarded": 0, "lease_lost": 0}
     async with db.sessions.begin() as session:
         await session.execute(delete(PushOutbox).where(PushOutbox.expires_at <= now))
     for _ in range(limit):
+        if time.monotonic() >= deadline:
+            break
+        now = current()
         lease = str(uuid4())
         async with db.sessions.begin() as session:
             job = (await session.execute(select(PushOutbox).where(PushOutbox.next_attempt_at <= now,
@@ -150,7 +157,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100):
             registration = await session.get(PushToken, job.device_id)
             pending = (await session.execute(select(PendingMessage.id).where(PendingMessage.recipient_device_id == job.device_id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now).limit(1))).scalar_one_or_none()
-            if not device or not device.active or not registration or not pending:
+            if utc(job.expires_at) <= now or not device or not device.active or not registration or not pending:
                 await session.delete(job); counts["discarded"] += 1
                 continue
             job.lease_token, job.lease_until = lease, now + timedelta(minutes=2)
@@ -161,6 +168,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100):
             outcome = await providers.send(registration, token, now, expires_at)
         except Exception:
             outcome = "retry"
+        settled_at = current()
         async with db.sessions.begin() as session:
             job = (await session.execute(select(PushOutbox).where(PushOutbox.device_id == device_id).with_for_update())).scalar_one_or_none()
             if not job or job.lease_token != lease:
@@ -172,7 +180,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100):
                 await session.delete(job)
             else:
                 job.lease_token = job.lease_until = None
-                job.next_attempt_at = now if job.generation != generation else now + timedelta(seconds=min(3600, 15 * 2**min(job.attempts, 8)))
+                job.next_attempt_at = settled_at if job.generation != generation else settled_at + timedelta(seconds=min(3600, 15 * 2**min(job.attempts, 8)))
             counts[outcome] += 1
     return counts
 
@@ -184,7 +192,7 @@ async def main():
     try:
         while True:
             await asyncio.gather(*(process_pushes(db, providers, secret=settings.service_secret,
-                now=datetime.now(UTC), limit=25) for _ in range(4)))
+                now=datetime.now(UTC), clock=lambda: datetime.now(UTC), limit=25) for _ in range(4)))
             await asyncio.sleep(1)
     finally:
         await providers.close()
