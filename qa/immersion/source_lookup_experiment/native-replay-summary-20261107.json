@@ -1,0 +1,41 @@
+{
+  "report_sha256": "1e2c84384d5426127e3d43a3f2085da20de79bc5147aee5bad86b07b8965e112",
+  "captured_provider_report_sha256": "a92ba3ebbd31091feb02e6bd3a818aab171326d336fa8bda259a8d87fb445021",
+  "native_executed_cases": 32,
+  "missing_lexical_cases": [
+    "authored-15",
+    "authored-20"
+  ],
+  "local_translation_calls": 0,
+  "translation_reused": true,
+  "densities": {
+    "0.25": {
+      "messages_with_span": 17,
+      "messages": 32,
+      "spans": 18,
+      "mean_message_depth": 0.10745287698412698
+    },
+    "1": {
+      "messages_with_span": 17,
+      "messages": 32,
+      "spans": 25,
+      "mean_message_depth": 0.14247271825396826
+    }
+  },
+  "diagnostics": {
+    "context_witness_candidate": 15,
+    "multiple_source_entries": 38,
+    "source_guard": 115,
+    "source_sense_or_form": 16,
+    "no_target_claim": 1,
+    "dictionary_candidate": 2
+  },
+  "known_provider_meaning_error": {
+    "id": "contrast-02",
+    "source": "The light bag is under the light.",
+    "provider": "La bolsa de luz está debajo de la luz.",
+    "issue": "First light interpreted as illumination rather than low weight. Current inline output only flips bag, so this error is not imported into its inline span."
+  },
+  "author_review": "All selected mixed outputs inspected by same agent; no clear material inline meaning error observed. This is not independent accuracy. Adjacent Japanese-source English spans render as togetherlunch in plain-text diagnostic; native bubble spacing still needs separate inspection.",
+  "release_ready": false
+}

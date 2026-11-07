@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-07T21:05:20.824481+00:00",
+  "selection": "first20 by existing frozen hash ordering, 400..419; no selection for candidate hit",
+  "cases": 60,
+  "source_messages": 20,
+  "directions": [
+    "en-es",
+    "en-ja",
+    "en-sw"
+  ],
+  "protocol_sha256": "13cffd415c8b73a54686bf2401f75897e7154944eab7c9e9a71a6513d2f85dad",
+  "source_sample_sha256": "35a2ea5034049a450b0e9d1fd5021ca4c828b85dad1e58696424655e5c9875f1",
+  "swahili": "Availability must be recorded; Apple backend may not support Swahili. Do not synthesize replacement results."
+}

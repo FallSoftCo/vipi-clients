@@ -1,0 +1,366 @@
+{
+  "name": "vipi-public-sms-native-pilot-20261107-r01",
+  "strategy": "lowLatency",
+  "cases": [
+    {
+      "id": "uci-sms-line-5190",
+      "source": "en",
+      "target": "es",
+      "text": "WHAT TIME U WRKIN?"
+    },
+    {
+      "id": "uci-sms-line-4091",
+      "source": "en",
+      "target": "es",
+      "text": "How are you, my Love ? Are you with your brother ? Time to talk english with him ? *grins* Say : Hey Muhommad, Penny says hello from across the sea"
+    },
+    {
+      "id": "uci-sms-line-5275",
+      "source": "en",
+      "target": "es",
+      "text": "Hello.How u doing?What u been up 2?When will u b moving out of the flat, cos I will need to arrange to pick up the lamp, etc. Take care. Hello caroline!"
+    },
+    {
+      "id": "uci-sms-line-2698",
+      "source": "en",
+      "target": "es",
+      "text": "Nope but i'm going home now then go pump petrol lor... Like going 2 rain soon..."
+    },
+    {
+      "id": "uci-sms-line-5487",
+      "source": "en",
+      "target": "es",
+      "text": ", ,  and  picking them up from various points | going 2 yeovil | and they will do the motor project 4 3 hours | and then u take them home. || 12 2 5.30 max. || Very easy"
+    },
+    {
+      "id": "uci-sms-line-2016",
+      "source": "en",
+      "target": "es",
+      "text": "Ambrith..madurai..met u in arun dha marrge..remembr?"
+    },
+    {
+      "id": "uci-sms-line-3008",
+      "source": "en",
+      "target": "es",
+      "text": "Also hi wesley how've you been"
+    },
+    {
+      "id": "uci-sms-line-1546",
+      "source": "en",
+      "target": "es",
+      "text": "After completed degree. There is no use in joining finance."
+    },
+    {
+      "id": "uci-sms-line-3913",
+      "source": "en",
+      "target": "es",
+      "text": "How i noe... She's in da car now... Later then c lar... I'm wearing shorts..."
+    },
+    {
+      "id": "uci-sms-line-3103",
+      "source": "en",
+      "target": "es",
+      "text": "Pathaya enketa maraikara pa'"
+    },
+    {
+      "id": "uci-sms-line-2733",
+      "source": "en",
+      "target": "es",
+      "text": "Mm feeling sleepy. today itself i shall get that dear"
+    },
+    {
+      "id": "uci-sms-line-4456",
+      "source": "en",
+      "target": "es",
+      "text": "I'm home. Ard wat time will u reach?"
+    },
+    {
+      "id": "uci-sms-line-5515",
+      "source": "en",
+      "target": "es",
+      "text": "Just making dinner, you ?"
+    },
+    {
+      "id": "uci-sms-line-2343",
+      "source": "en",
+      "target": "es",
+      "text": "Tell dear what happen to you. Why you talking to me like an alian"
+    },
+    {
+      "id": "uci-sms-line-3718",
+      "source": "en",
+      "target": "es",
+      "text": "Networking technical support associate."
+    },
+    {
+      "id": "uci-sms-line-2610",
+      "source": "en",
+      "target": "es",
+      "text": "Hello madam how are you ?"
+    },
+    {
+      "id": "uci-sms-line-4731",
+      "source": "en",
+      "target": "es",
+      "text": "I've reached already."
+    },
+    {
+      "id": "uci-sms-line-5249",
+      "source": "en",
+      "target": "es",
+      "text": "Haven't eaten all day. I'm sitting here staring at this juicy pizza and I can't eat it. These meds are ruining my life."
+    },
+    {
+      "id": "uci-sms-line-2475",
+      "source": "en",
+      "target": "es",
+      "text": "Ok lor wat time ü finish?"
+    },
+    {
+      "id": "uci-sms-line-113",
+      "source": "en",
+      "target": "es",
+      "text": "Going for dinner.msg you after."
+    },
+    {
+      "id": "uci-sms-line-5190",
+      "source": "en",
+      "target": "ja",
+      "text": "WHAT TIME U WRKIN?"
+    },
+    {
+      "id": "uci-sms-line-4091",
+      "source": "en",
+      "target": "ja",
+      "text": "How are you, my Love ? Are you with your brother ? Time to talk english with him ? *grins* Say : Hey Muhommad, Penny says hello from across the sea"
+    },
+    {
+      "id": "uci-sms-line-5275",
+      "source": "en",
+      "target": "ja",
+      "text": "Hello.How u doing?What u been up 2?When will u b moving out of the flat, cos I will need to arrange to pick up the lamp, etc. Take care. Hello caroline!"
+    },
+    {
+      "id": "uci-sms-line-2698",
+      "source": "en",
+      "target": "ja",
+      "text": "Nope but i'm going home now then go pump petrol lor... Like going 2 rain soon..."
+    },
+    {
+      "id": "uci-sms-line-5487",
+      "source": "en",
+      "target": "ja",
+      "text": ", ,  and  picking them up from various points | going 2 yeovil | and they will do the motor project 4 3 hours | and then u take them home. || 12 2 5.30 max. || Very easy"
+    },
+    {
+      "id": "uci-sms-line-2016",
+      "source": "en",
+      "target": "ja",
+      "text": "Ambrith..madurai..met u in arun dha marrge..remembr?"
+    },
+    {
+      "id": "uci-sms-line-3008",
+      "source": "en",
+      "target": "ja",
+      "text": "Also hi wesley how've you been"
+    },
+    {
+      "id": "uci-sms-line-1546",
+      "source": "en",
+      "target": "ja",
+      "text": "After completed degree. There is no use in joining finance."
+    },
+    {
+      "id": "uci-sms-line-3913",
+      "source": "en",
+      "target": "ja",
+      "text": "How i noe... She's in da car now... Later then c lar... I'm wearing shorts..."
+    },
+    {
+      "id": "uci-sms-line-3103",
+      "source": "en",
+      "target": "ja",
+      "text": "Pathaya enketa maraikara pa'"
+    },
+    {
+      "id": "uci-sms-line-2733",
+      "source": "en",
+      "target": "ja",
+      "text": "Mm feeling sleepy. today itself i shall get that dear"
+    },
+    {
+      "id": "uci-sms-line-4456",
+      "source": "en",
+      "target": "ja",
+      "text": "I'm home. Ard wat time will u reach?"
+    },
+    {
+      "id": "uci-sms-line-5515",
+      "source": "en",
+      "target": "ja",
+      "text": "Just making dinner, you ?"
+    },
+    {
+      "id": "uci-sms-line-2343",
+      "source": "en",
+      "target": "ja",
+      "text": "Tell dear what happen to you. Why you talking to me like an alian"
+    },
+    {
+      "id": "uci-sms-line-3718",
+      "source": "en",
+      "target": "ja",
+      "text": "Networking technical support associate."
+    },
+    {
+      "id": "uci-sms-line-2610",
+      "source": "en",
+      "target": "ja",
+      "text": "Hello madam how are you ?"
+    },
+    {
+      "id": "uci-sms-line-4731",
+      "source": "en",
+      "target": "ja",
+      "text": "I've reached already."
+    },
+    {
+      "id": "uci-sms-line-5249",
+      "source": "en",
+      "target": "ja",
+      "text": "Haven't eaten all day. I'm sitting here staring at this juicy pizza and I can't eat it. These meds are ruining my life."
+    },
+    {
+      "id": "uci-sms-line-2475",
+      "source": "en",
+      "target": "ja",
+      "text": "Ok lor wat time ü finish?"
+    },
+    {
+      "id": "uci-sms-line-113",
+      "source": "en",
+      "target": "ja",
+      "text": "Going for dinner.msg you after."
+    },
+    {
+      "id": "uci-sms-line-5190",
+      "source": "en",
+      "target": "sw",
+      "text": "WHAT TIME U WRKIN?"
+    },
+    {
+      "id": "uci-sms-line-4091",
+      "source": "en",
+      "target": "sw",
+      "text": "How are you, my Love ? Are you with your brother ? Time to talk english with him ? *grins* Say : Hey Muhommad, Penny says hello from across the sea"
+    },
+    {
+      "id": "uci-sms-line-5275",
+      "source": "en",
+      "target": "sw",
+      "text": "Hello.How u doing?What u been up 2?When will u b moving out of the flat, cos I will need to arrange to pick up the lamp, etc. Take care. Hello caroline!"
+    },
+    {
+      "id": "uci-sms-line-2698",
+      "source": "en",
+      "target": "sw",
+      "text": "Nope but i'm going home now then go pump petrol lor... Like going 2 rain soon..."
+    },
+    {
+      "id": "uci-sms-line-5487",
+      "source": "en",
+      "target": "sw",
+      "text": ", ,  and  picking them up from various points | going 2 yeovil | and they will do the motor project 4 3 hours | and then u take them home. || 12 2 5.30 max. || Very easy"
+    },
+    {
+      "id": "uci-sms-line-2016",
+      "source": "en",
+      "target": "sw",
+      "text": "Ambrith..madurai..met u in arun dha marrge..remembr?"
+    },
+    {
+      "id": "uci-sms-line-3008",
+      "source": "en",
+      "target": "sw",
+      "text": "Also hi wesley how've you been"
+    },
+    {
+      "id": "uci-sms-line-1546",
+      "source": "en",
+      "target": "sw",
+      "text": "After completed degree. There is no use in joining finance."
+    },
+    {
+      "id": "uci-sms-line-3913",
+      "source": "en",
+      "target": "sw",
+      "text": "How i noe... She's in da car now... Later then c lar... I'm wearing shorts..."
+    },
+    {
+      "id": "uci-sms-line-3103",
+      "source": "en",
+      "target": "sw",
+      "text": "Pathaya enketa maraikara pa'"
+    },
+    {
+      "id": "uci-sms-line-2733",
+      "source": "en",
+      "target": "sw",
+      "text": "Mm feeling sleepy. today itself i shall get that dear"
+    },
+    {
+      "id": "uci-sms-line-4456",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm home. Ard wat time will u reach?"
+    },
+    {
+      "id": "uci-sms-line-5515",
+      "source": "en",
+      "target": "sw",
+      "text": "Just making dinner, you ?"
+    },
+    {
+      "id": "uci-sms-line-2343",
+      "source": "en",
+      "target": "sw",
+      "text": "Tell dear what happen to you. Why you talking to me like an alian"
+    },
+    {
+      "id": "uci-sms-line-3718",
+      "source": "en",
+      "target": "sw",
+      "text": "Networking technical support associate."
+    },
+    {
+      "id": "uci-sms-line-2610",
+      "source": "en",
+      "target": "sw",
+      "text": "Hello madam how are you ?"
+    },
+    {
+      "id": "uci-sms-line-4731",
+      "source": "en",
+      "target": "sw",
+      "text": "I've reached already."
+    },
+    {
+      "id": "uci-sms-line-5249",
+      "source": "en",
+      "target": "sw",
+      "text": "Haven't eaten all day. I'm sitting here staring at this juicy pizza and I can't eat it. These meds are ruining my life."
+    },
+    {
+      "id": "uci-sms-line-2475",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok lor wat time ü finish?"
+    },
+    {
+      "id": "uci-sms-line-113",
+      "source": "en",
+      "target": "sw",
+      "text": "Going for dinner.msg you after."
+    }
+  ]
+}

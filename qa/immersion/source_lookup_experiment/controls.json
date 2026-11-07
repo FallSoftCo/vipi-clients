@@ -1,0 +1,523 @@
+[
+  {
+    "id": "duration",
+    "source": "en",
+    "target": "es",
+    "original": "I need more time tomorrow.",
+    "mixed": "I need more tiempo mañana.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_time:en-es:explicit_source_construction",
+        "sourceStartUTF16": 12,
+        "sourceEndUTF16": 16,
+        "original": "time",
+        "targetText": "tiempo",
+        "reading": null,
+        "matchedContextStartUTF16": 2,
+        "matchedContextEndUTF16": 16,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      },
+      {
+        "mappingId": "vipi-time-social-unit-r1:tomorrow:en-es:01:source_unambiguous_family",
+        "sourceStartUTF16": 17,
+        "sourceEndUTF16": 25,
+        "original": "tomorrow",
+        "targetText": "mañana",
+        "reading": null,
+        "matchedContextStartUTF16": 17,
+        "matchedContextEndUTF16": 25,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "time"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "time-signatures",
+    "source": "en",
+    "target": "es",
+    "original": "I need more time signatures.",
+    "mixed": "I need more time signatures.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "time"
+    ],
+    "passed": true
+  },
+  {
+    "id": "time-zones",
+    "source": "en",
+    "target": "sw",
+    "original": "I need more time zones.",
+    "mixed": "I need more time zones.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "time"
+    ],
+    "passed": true
+  },
+  {
+    "id": "food-negative",
+    "source": "en",
+    "target": "sw",
+    "original": "I don't need food now.",
+    "mixed": "I don't need chakula now.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_food:en-sw:explicit_source_construction",
+        "sourceStartUTF16": 13,
+        "sourceEndUTF16": 17,
+        "original": "food",
+        "targetText": "chakula",
+        "reading": null,
+        "matchedContextStartUTF16": 8,
+        "matchedContextEndUTF16": 17,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "food"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "book-verb",
+    "source": "en",
+    "target": "es",
+    "original": "Please book a table.",
+    "mixed": "Please book a table.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "book"
+    ],
+    "passed": true
+  },
+  {
+    "id": "book-noun",
+    "source": "en",
+    "target": "es",
+    "original": "Please bring the book.",
+    "mixed": "Please bring the libro.",
+    "spans": [
+      {
+        "mappingId": "vipi-everyday-unit-r1:reading_book:en-es:01:source_noun_context",
+        "sourceStartUTF16": 17,
+        "sourceEndUTF16": 21,
+        "original": "book",
+        "targetText": "libro",
+        "reading": null,
+        "matchedContextStartUTF16": 17,
+        "matchedContextEndUTF16": 21,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "book"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "train-verb",
+    "source": "en",
+    "target": "sw",
+    "original": "I train every day.",
+    "mixed": "I train every day.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "train"
+    ],
+    "passed": true
+  },
+  {
+    "id": "train-thought",
+    "source": "en",
+    "target": "es",
+    "original": "I lost my train of thought.",
+    "mixed": "I lost my train of thought.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "train"
+    ],
+    "passed": true
+  },
+  {
+    "id": "school-fish",
+    "source": "en",
+    "target": "sw",
+    "original": "Look at the school of fish.",
+    "mixed": "Look at the school of fish.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "school"
+    ],
+    "passed": true
+  },
+  {
+    "id": "food-idiom",
+    "source": "en",
+    "target": "es",
+    "original": "That is food for thought.",
+    "mixed": "That is food for thought.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "food"
+    ],
+    "passed": true
+  },
+  {
+    "id": "causal-thanks",
+    "source": "en",
+    "target": "es",
+    "original": "Thanks to you, we lost the match.",
+    "mixed": "Thanks to you, we lost the match.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "Thanks"
+    ],
+    "passed": true
+  },
+  {
+    "id": "gratitude",
+    "source": "en",
+    "target": "sw",
+    "original": "Thank you for helping.",
+    "mixed": "Thank you for helping.",
+    "spans": [],
+    "required": [
+      "Thank you"
+    ],
+    "forbidden": [],
+    "passed": false
+  },
+  {
+    "id": "code",
+    "source": "en",
+    "target": "es",
+    "original": "`I need more time tomorrow`",
+    "mixed": "`I need more time tomorrow`",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "time",
+      "tomorrow"
+    ],
+    "passed": true
+  },
+  {
+    "id": "unicode-offset",
+    "source": "en",
+    "target": "sw",
+    "original": "👩🏽‍💻 I need water now.",
+    "mixed": "👩🏽‍💻 I need maji now.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_water:en-sw:explicit_source_construction",
+        "sourceStartUTF16": 15,
+        "sourceEndUTF16": 20,
+        "original": "water",
+        "targetText": "maji",
+        "reading": null,
+        "matchedContextStartUTF16": 10,
+        "matchedContextEndUTF16": 20,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "water"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "sw-need",
+    "source": "sw",
+    "target": "en",
+    "original": "Ninahitaji maji sasa.",
+    "mixed": "Ninahitaji water sasa.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_water:sw-en:explicit_source_construction",
+        "sourceStartUTF16": 11,
+        "sourceEndUTF16": 15,
+        "original": "maji",
+        "targetText": "water",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 15,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "maji"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "sw-need-past",
+    "source": "sw",
+    "target": "en",
+    "original": "Tulihitaji maji jana.",
+    "mixed": "Tulihitaji water yesterday.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_water:sw-en:explicit_source_construction",
+        "sourceStartUTF16": 11,
+        "sourceEndUTF16": 15,
+        "original": "maji",
+        "targetText": "water",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 15,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      },
+      {
+        "mappingId": "vipi-time-social-unit-r1:yesterday:sw-en:01:source_unambiguous_family",
+        "sourceStartUTF16": 16,
+        "sourceEndUTF16": 20,
+        "original": "jana",
+        "targetText": "yesterday",
+        "reading": null,
+        "matchedContextStartUTF16": 16,
+        "matchedContextEndUTF16": 20,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "maji",
+      "jana"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "sw-negative-not-covered",
+    "source": "sw",
+    "target": "en",
+    "original": "Sitahitaji maji sasa.",
+    "mixed": "Sitahitaji maji sasa.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "maji"
+    ],
+    "passed": true
+  },
+  {
+    "id": "sw-duration",
+    "source": "sw",
+    "target": "en",
+    "original": "Ninahitaji muda zaidi leo.",
+    "mixed": "Ninahitaji time zaidi today.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_time:sw-en:explicit_source_construction",
+        "sourceStartUTF16": 11,
+        "sourceEndUTF16": 15,
+        "original": "muda",
+        "targetText": "time",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 21,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      },
+      {
+        "mappingId": "vipi-time-social-unit-r1:today:sw-en:01:source_unambiguous_family",
+        "sourceStartUTF16": 22,
+        "sourceEndUTF16": 25,
+        "original": "leo",
+        "targetText": "today",
+        "reading": null,
+        "matchedContextStartUTF16": 22,
+        "matchedContextEndUTF16": 25,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "muda",
+      "leo"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "sw-possessed",
+    "source": "sw",
+    "target": "en",
+    "original": "Kitabu changu kiko hapa.",
+    "mixed": "book changu kiko hapa.",
+    "spans": [
+      {
+        "mappingId": "vipi-everyday-unit-r1:reading_book:sw-en:01:source_possessive_context",
+        "sourceStartUTF16": 0,
+        "sourceEndUTF16": 6,
+        "original": "Kitabu",
+        "targetText": "book",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 6,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "Kitabu"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "es-duration",
+    "source": "es",
+    "target": "en",
+    "original": "Necesitamos más tiempo hoy.",
+    "mixed": "Necesitamos más time today.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_time:es-en:explicit_source_construction",
+        "sourceStartUTF16": 16,
+        "sourceEndUTF16": 22,
+        "original": "tiempo",
+        "targetText": "time",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 22,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      },
+      {
+        "mappingId": "vipi-time-social-unit-r1:today:es-en:01:source_unambiguous_family",
+        "sourceStartUTF16": 23,
+        "sourceEndUTF16": 26,
+        "original": "hoy",
+        "targetText": "today",
+        "reading": null,
+        "matchedContextStartUTF16": 23,
+        "matchedContextEndUTF16": 26,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 1
+      }
+    ],
+    "required": [
+      "tiempo",
+      "hoy"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "es-music",
+    "source": "es",
+    "target": "en",
+    "original": "Necesitamos más tiempo musical.",
+    "mixed": "Necesitamos más tiempo musical.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "tiempo"
+    ],
+    "passed": true
+  },
+  {
+    "id": "es-postal",
+    "source": "es",
+    "target": "en",
+    "original": "Necesito una dirección postal antes de salir.",
+    "mixed": "Necesito una mailing address antes de salir.",
+    "spans": [
+      {
+        "mappingId": "vipi-authored-r1:needs_address:es-en:explicit_source_construction",
+        "sourceStartUTF16": 13,
+        "sourceEndUTF16": 29,
+        "original": "dirección postal",
+        "targetText": "mailing address",
+        "reading": null,
+        "matchedContextStartUTF16": 0,
+        "matchedContextEndUTF16": 29,
+        "kind": "phrase",
+        "captures": {},
+        "experimentalSourceTokenCount": 2
+      }
+    ],
+    "required": [
+      "dirección postal"
+    ],
+    "forbidden": [],
+    "passed": true
+  },
+  {
+    "id": "near-word",
+    "source": "en",
+    "target": "es",
+    "original": "I need more timer.",
+    "mixed": "I need more timer.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "time"
+    ],
+    "passed": true
+  },
+  {
+    "id": "capital-name",
+    "source": "en",
+    "target": "es",
+    "original": "Coffee is my cat.",
+    "mixed": "Coffee is my cat.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "Coffee"
+    ],
+    "passed": true
+  },
+  {
+    "id": "bus-computing",
+    "source": "en",
+    "target": "es",
+    "original": "Check the bus address.",
+    "mixed": "Check the bus address.",
+    "spans": [],
+    "required": [],
+    "forbidden": [
+      "bus"
+    ],
+    "passed": true
+  }
+]

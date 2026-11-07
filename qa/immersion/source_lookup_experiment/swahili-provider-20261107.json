@@ -1,0 +1,78 @@
+{
+  "checked_utc": "2026-11-07T21:19:22.865657+00:00",
+  "decision": "Retain existing per-platform local ML Kit backend for Swahili. Mac Apple-only availability is not evidence for that backend. Do not migrate models before measured need.",
+  "production_path": {
+    "ios": "GoogleMLKit/Translate8.0.0 via SwahiliTranslation, physicaldevice; simulatorcurrentlyexplicitunsupported",
+    "android": "Existing MLKitlocaltranslation",
+    "supported_language": "sw explicitlylisted byGoogle",
+    "documented_download_about_mb": 30,
+    "documented_translator_memory_mb": [
+      30,
+      150
+    ],
+    "sources": [
+      "https://developers.google.com/ml-kit/language/translation/ios",
+      "https://developers.google.com/ml-kit/language/translation/translation-language-support",
+      "https://developers.google.com/ml-kit/language/translation"
+    ]
+  },
+  "open_source_research_only": [
+    {
+      "model": "Helsinki-NLP/opus-mt-en-sw",
+      "revision": "28780399d37e1161afc94577a717d7fcfa54fecc",
+      "weights_bytes": 299670357,
+      "weights_sha256": "dd3fc2179f4c5e4ff79241d33f644091bd93036e6b11c17e1feb749e0f0324a5",
+      "direction": "en→sw",
+      "license_model_card": "Apache-2.0",
+      "quantized_estimate_mb": [
+        80,
+        100
+      ],
+      "estimate_basis": "Unmeasured inference from FP32bytes and CT2example364MB→100MB; not actualconvertedbytes/RAM/latency",
+      "reverse_candidate": "opus-mt-mul-en explicitlyincludes swh; opus-mt-swc-en isCongoSwahili and isnot a silentstandardSwahilireplacement",
+      "sources": [
+        "https://huggingface.co/Helsinki-NLP/opus-mt-en-sw",
+        "https://huggingface.co/Helsinki-NLP/opus-mt-mul-en",
+        "https://huggingface.co/Helsinki-NLP/opus-mt-swc-en",
+        "https://github.com/OpenNMT/CTranslate2/blob/master/docs/quantization.md"
+      ]
+    },
+    {
+      "model": "facebook/m2m100_418M",
+      "license_model_card": "MIT",
+      "swahili": true,
+      "prior_project_result": "468MiBint8candidatepreviouslyrejectedforobservedmeaningerrors; preserve finding",
+      "source": "https://huggingface.co/facebook/m2m100_418M"
+    },
+    {
+      "model": "facebook/nllb-200-distilled-600M",
+      "license_model_card": "CC-BY-NC4.0",
+      "decision": "Not an eligiblecommercialproductcandidate underpublishedlicense",
+      "source": "https://huggingface.co/facebook/nllb-200-distilled-600M"
+    }
+  ],
+  "runtime_research": {
+    "name": "CTranslate2",
+    "license": "MIT",
+    "published_features": [
+      "ARM64CPU",
+      "Marian/OPUS-MTconversion",
+      "int8quantization"
+    ],
+    "not_proven": [
+      "iOSAndroidbinaryintegration",
+      "phoneRAM/latency/battery",
+      "Swahiliquality",
+      "commercialreleaseartifactlicenseclosure"
+    ],
+    "sources": [
+      "https://opennmt.net/CTranslate2/hardware_support.html",
+      "https://opennmt.net/CTranslate2/conversion.html",
+      "https://github.com/OpenNMT/CTranslate2/blob/master/LICENSE"
+    ]
+  },
+  "license_scope_note": "OPUSupstream saysCCBY4.0modelweights whileHFmodelcardlabelsApache2; retain exact selectedartifact license and attribution rather than infer weightslicense from MITrepositorycode.",
+  "upstream_source": "https://github.com/Helsinki-NLP/Opus-MT",
+  "downloaded_or_installed_new_models": false,
+  "release_ready": false
+}

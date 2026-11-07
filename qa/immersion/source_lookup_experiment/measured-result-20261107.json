@@ -1,0 +1,69 @@
+{
+  "schema": "vipi-source-phrase-experiment-2",
+  "pack_sha256": "ce2d9306e722050d55572a4ae88cc8c237ee3f340479f29bc03b03b77f1c03bb",
+  "matcher_sha256": "46935766abb0db17c2dbbbc7eebc4ce5a190e8f8e4a2e0ca77b731a101ea19f0",
+  "sample_sha256": "35a2ea5034049a450b0e9d1fd5021ca4c828b85dad1e58696424655e5c9875f1",
+  "summary": {
+    "en-es": {
+      "messages": 200,
+      "messages_with_span": 18,
+      "availability_percent": 9.0,
+      "spans": 20,
+      "exact_whole_reference_hits": 0,
+      "candidate1_messages_with_span": 5,
+      "mean_message_depth_percent": 0.7428368241351364,
+      "semantic_accuracy": "unmeasured pending output review"
+    },
+    "en-sw": {
+      "messages": 200,
+      "messages_with_span": 16,
+      "availability_percent": 8.0,
+      "spans": 18,
+      "exact_whole_reference_hits": 0,
+      "candidate1_messages_with_span": 5,
+      "mean_message_depth_percent": 0.6793447606430729,
+      "semantic_accuracy": "unmeasured pending output review"
+    }
+  },
+  "controls_passed": 24,
+  "controls_total": 25,
+  "timing_ms": {
+    "median": 0.025174000000000002,
+    "p95": 0.101174,
+    "max": 0.225806
+  },
+  "pack_bytes": 467223,
+  "limits": [
+    "Python feasibility, not native mobile performance or Unicode conformance",
+    "Unseen to frozen candidate, prior-project corpus overlap unmeasured",
+    "Exact-whole-reference comparison only; existing native sentence-segmentation and local fallback baseline not executed",
+    "Reverse directions controls only, not conversation coverage",
+    "No independent bilingual review or production acceptance"
+  ],
+  "author_review": {
+    "report_sha256": "c53d03553842716b540889313a0ef5a9bf6ac8cebfc9f558474328c9f077a60a",
+    "reviewed_utc": "2026-11-07T21:08:57.781967+00:00",
+    "scope": "All34nonempty pair-output rows,38spans; each rendered source-context and replacement inspected. Author review, not bilingual-panel or learner acceptance.",
+    "observed_material_meaning_errors": 0,
+    "ineffective_case_only_spans": 1,
+    "remaining_ux_defects": [
+      "Sentence-initial target may be lowercase",
+      "Case-only No→no is not immersion; should be withheld",
+      "Only8–9%availability and<1%mean source-token depth: insufficient"
+    ],
+    "failed_control": {
+      "id": "gratitude",
+      "reason": "Thank you for helping has no selectedspan; omission, not wrongtranslation"
+    },
+    "release_ready": false,
+    "independent_semantic_acceptance": false
+  },
+  "retained_artifact_directory": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/candidate3",
+  "scope": "Source-only experiment, not complete native pipeline",
+  "distinct_focuses_by_pair": {
+    "en-es": 59,
+    "en-sw": 59,
+    "es-en": 57,
+    "sw-en": 63
+  }
+}

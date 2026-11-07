@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "cases": 60,
+  "local_translation_calls": 0,
+  "observations": {
+    "en-es: supported / translation_unavailable": 20,
+    "en-ja: supported / translation_unavailable": 20,
+    "en-sw: unsupported / translation_unavailable": 20
+  },
+  "source_hash_mismatches": [],
+  "report_sha256": "e1cffe25d696c10a8ad034398a4297b31d32833fd88c8ebbccf5e4c56676aebb",
+  "build_receipt_sha256": "736e786e95c3dd88a21bd16d5209fc00e09706d9be509b218b6081a2c0e7e143",
+  "release_ready": false,
+  "combined_pipeline_measurement": "Not executed; installed Apple Translation models missing in VM. No sampletext substitutes used."
+}
