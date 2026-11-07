@@ -24,9 +24,10 @@ class Principal:
     authenticated_at: int
 
 
-class WorkOSVerifier:
-    def __init__(self, settings: Settings, *, transport=None):
-        self.settings = settings
+class RSAKeyCache:
+    """Bounded key retrieval from a caller-pinned HTTPS endpoint."""
+    def __init__(self, jwks_url: str, *, transport=None):
+        self.jwks_url = jwks_url
         self.http = httpx.AsyncClient(timeout=8, follow_redirects=False, transport=transport)
         self.keys: dict[str, jwt.PyJWK] = {}
         self.loaded_at = 0.0
@@ -46,7 +47,7 @@ class WorkOSVerifier:
                 raise AuthenticationError("sign_in_required")
             self.attempted_at = now
             try:
-                async with self.http.stream("GET", self.settings.jwks_url) as response:
+                async with self.http.stream("GET", self.jwks_url) as response:
                     response.raise_for_status()
                     body = bytearray()
                     async for chunk in response.aiter_bytes():
@@ -74,6 +75,11 @@ class WorkOSVerifier:
             if kid not in self.keys:
                 raise AuthenticationError("sign_in_required")
             return self.keys[kid].key
+
+class WorkOSVerifier(RSAKeyCache):
+    def __init__(self, settings: Settings, *, transport=None):
+        super().__init__(settings.jwks_url, transport=transport)
+        self.settings = settings
 
     async def verify(self, token: str) -> Principal:
         try:

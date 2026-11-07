@@ -159,7 +159,7 @@ async def principal(request: Request, verified: Annotated[Principal, Depends(ver
 
 
 def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None,
-               store_providers=None, bot_transport=None):
+               store_providers=None, bot_transport=None, notification_transport=None):
     if settings.environment == "staging" and not settings.allowed_subjects:
         raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)
@@ -176,6 +176,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     async def lifespan(app):
         yield
         await bot.close()
+        await app.state.pubsub_verifier.close()
         if store_providers is None:
             for provider in providers.values():
                 await provider.close()
@@ -194,6 +195,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
     from .public_pages import install as install_public_pages
     install_public_pages(app)
+    from .store_notifications import install as install_store_notifications
+    install_store_notifications(app, settings, db, subscriptions, now, google_transport=notification_transport)
 
     @app.exception_handler(AuthenticationError)
     async def auth_error(request, error):
@@ -241,7 +244,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             await session.execute(text("SELECT 1"))
             if settings.environment in {"staging", "production"}:
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261107_04":
+                if revision != "20261107_05":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 

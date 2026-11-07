@@ -1,10 +1,10 @@
 """Content-free expiry task; run by the owned service timer, not request traffic."""
 import asyncio
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from sqlalchemy import delete
 
 from .config import Settings
-from .db import BotReport, Database, RateWindow, UserReport
+from .db import BillingNotification, BotReport, Database, RateWindow, UserReport
 from .delivery import expire
 from .prekeys import expire_claims
 from .deletion import WorkOSUserDeleter, expire_deletion_receipts, process_deletions
@@ -22,6 +22,7 @@ async def main():
             await expire_deletion_receipts(session, now)
             await session.execute(delete(BotReport).where(BotReport.expires_at <= now))
             await session.execute(delete(UserReport).where(UserReport.expires_at <= now))
+            await session.execute(delete(BillingNotification).where(BillingNotification.created_at < now - timedelta(days=30)))
         if settings.account_deletion_enabled:
             deleter = WorkOSUserDeleter(settings)
             try:

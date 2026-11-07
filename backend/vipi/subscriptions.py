@@ -8,7 +8,7 @@ from uuid import uuid4
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
-from sqlalchemy import select
+from sqlalchemy import and_, or_, select
 
 from .db import Entitlement, User
 from .delivery import DeliveryError, utc
@@ -40,7 +40,7 @@ class Subscriptions:
                    info=b"vipi-store-reference-v1").derive(settings.service_secret.encode())
         self.cipher = Fernet(base64.urlsafe_b64encode(key))
 
-    async def apply(self, user_id, purchase, observed_at):
+    async def apply(self, user_id, purchase, observed_at, *, generation=None, lease_token=None):
         # Network verification finishes before taking this lock. Older requests
         # cannot overwrite newer observations, nor transfer another user's grant.
         async with self.db.sessions.begin() as session:
@@ -49,6 +49,8 @@ class Subscriptions:
                 raise DeliveryError("account_unavailable", 409)
             row = (await session.execute(select(Entitlement).where(
                 Entitlement.store == purchase.store, Entitlement.transaction_id == purchase.transaction_id))).scalar_one_or_none()
+            if lease_token and (row is None or row.lease_token != lease_token):
+                return
             if row and row.user_id != user_id:
                 raise DeliveryError("purchase_account_mismatch", 409)
             if row and row.verified_at and utc(row.verified_at) > utc(observed_at):
@@ -67,7 +69,8 @@ class Subscriptions:
                         product=purchase.product, expires_at=utc(observed_at), revoked=True, superseded=True))
             if row is None:
                 row = Entitlement(id=str(uuid4()), user_id=user_id, store=purchase.store,
-                                  transaction_id=purchase.transaction_id, superseded=False)
+                                  transaction_id=purchase.transaction_id, superseded=False,
+                                  refresh_generation=0, completed_generation=0)
                 session.add(row)
             row.product = purchase.product
             row.expires_at = utc(purchase.expires_at)
@@ -76,6 +79,11 @@ class Subscriptions:
             row.verified_at = utc(observed_at)
             row.trial_ends_at = purchase.trial_ends_at
             row.environment = purchase.environment
+            if generation is not None:
+                row.completed_generation = max(row.completed_generation, generation)
+            row.attempts = 0
+            row.next_attempt_at = (self.clock() if row.refresh_generation > row.completed_generation
+                else self.clock() + timedelta(seconds=self.settings.purchase_freshness_seconds))
 
     async def sync(self, user_id, store, value):
         provider = self.providers.get(store)
@@ -87,33 +95,58 @@ class Subscriptions:
         await provider.acknowledge(purchase)
         return await self.snapshot(user_id)
 
-    async def refresh(self, user_id):
-        cutoff = self.clock() - timedelta(seconds=self.settings.purchase_freshness_seconds)
-        async with self.db.sessions() as session:
-            rows = (await session.execute(select(Entitlement).where(
-                Entitlement.user_id == user_id, Entitlement.superseded.is_(False)))).scalars().all()
-        for row in rows:
-            if row.verified_at and utc(row.verified_at) > cutoff:
-                continue
-            provider = self.providers.get(row.store)
-            if not provider or not row.provider_reference:
-                continue
-            observed_at = self.clock()
-            try:
-                reference = self.cipher.decrypt(row.provider_reference).decode()
-                purchase = await provider.verify(reference, user_id, initial=False)
-                await self.apply(user_id, purchase, observed_at)
-                await provider.acknowledge(purchase)
-            except DeliveryError:
-                # Stale grants are inactive in snapshot. Do not invent an expiry
-                # or silently mark an unreachable provider as a refund.
-                continue
-
-    async def snapshot(self, user_id, *, refresh=True):
-        if refresh:
-            await self.refresh(user_id)
+    async def reconcile_one(self):
         now = self.clock()
         cutoff = now - timedelta(seconds=self.settings.purchase_freshness_seconds)
+        async with self.db.sessions.begin() as session:
+            row = (await session.execute(select(Entitlement).where(
+                Entitlement.store.in_(self.providers), Entitlement.superseded.is_(False),
+                Entitlement.provider_reference.is_not(None),
+                or_(Entitlement.lease_until.is_(None), Entitlement.lease_until <= now),
+                or_(Entitlement.next_attempt_at <= now, and_(Entitlement.next_attempt_at.is_(None),
+                    or_(Entitlement.verified_at.is_(None), Entitlement.verified_at <= cutoff))),
+                or_(Entitlement.expires_at > now - timedelta(days=7),
+                    Entitlement.refresh_generation > Entitlement.completed_generation))
+                .order_by(Entitlement.next_attempt_at.asc().nullsfirst(), Entitlement.id)
+                .limit(1).with_for_update(skip_locked=True))).scalar_one_or_none()
+            if row is None:
+                return False
+            token, generation = str(uuid4()), row.refresh_generation
+            row.lease_token, row.lease_until = token, now + timedelta(minutes=2)
+            row.attempts += 1
+            row_id, user_id, store = row.id, row.user_id, row.store
+            reference = self.cipher.decrypt(row.provider_reference).decode()
+        successful, expired_reference = False, False
+        try:
+            provider = self.providers[store]
+            purchase = await provider.verify(reference, user_id, initial=False)
+            await self.apply(user_id, purchase, now, generation=generation, lease_token=token)
+            await provider.acknowledge(purchase)
+            successful = True
+        except DeliveryError as error:
+            successful = False
+            expired_reference = error.code == "purchase_invalid"
+        finally:
+            # An expired lease cannot overwrite a newer worker's outcome.
+            async with self.db.sessions.begin() as session:
+                row = (await session.execute(select(Entitlement).where(
+                    Entitlement.id == row_id, Entitlement.lease_token == token).with_for_update())).scalar_one_or_none()
+                if row:
+                    row.lease_token = None; row.lease_until = None
+                    if expired_reference and utc(row.expires_at) <= self.clock():
+                        # Google invalidates sufficiently old expired tokens.
+                        # Do not keep an obsolete event permanently runnable.
+                        row.completed_generation = max(row.completed_generation, generation)
+                        row.next_attempt_at = self.clock() + timedelta(days=1)
+                    elif not successful:
+                        row.next_attempt_at = self.clock() + timedelta(seconds=min(3600, 30 * 2 ** min(row.attempts, 7)))
+        return True
+
+    async def snapshot(self, user_id):
+        # Only the durable worker and explicit purchase/restore perform remote
+        # reads. Chat cannot repeat a store call or reset provider backoff.
+        now = self.clock()
+        cutoff = now - timedelta(seconds=self.settings.purchase_outage_seconds)
         async with self.db.sessions() as session:
             rows = (await session.execute(select(Entitlement).where(Entitlement.user_id == user_id))).scalars().all()
         if any(not r.revoked and not r.superseded and r.verified_at and utc(r.verified_at) <= cutoff

@@ -97,7 +97,21 @@ class Entitlement(Base):
     verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     environment: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    refresh_generation: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
+    completed_generation: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
+    next_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     __table_args__ = (UniqueConstraint("store", "transaction_id"),)
+
+
+class BillingNotification(Base):
+    __tablename__ = "billing_notifications"
+    store: Mapped[str] = mapped_column(String(8), primary_key=True)
+    id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
 class UsageBucket(Base):

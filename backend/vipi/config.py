@@ -32,7 +32,11 @@ class Settings(BaseSettings):
     google_package_name: str = "co.fallsoft.vipi"
     google_service_account_path: str | None = None
     google_allow_test_purchases: bool = False
-    purchase_freshness_seconds: int = Field(default=300, ge=60, le=900)
+    purchase_freshness_seconds: int = Field(default=86400, ge=60, le=86400)
+    purchase_outage_seconds: int = Field(default=259200, ge=300, le=259200)
+    google_rtdn_audience: str | None = None
+    google_rtdn_service_account: str | None = None
+    google_rtdn_subscription: str | None = None
     deepseek_api_key: SecretStr | None = None
     bot_model: str = "deepseek-flash"
     bot_input_nano_usd_per_token: int = Field(default=300, ge=1)
@@ -49,6 +53,11 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def purchases_configuration(self):
+        notifications = (self.google_rtdn_audience, self.google_rtdn_service_account, self.google_rtdn_subscription)
+        if any(notifications) and not all(notifications):
+            raise ValueError("Google notifications require audience, service account and subscription")
+        if self.purchase_outage_seconds < self.purchase_freshness_seconds:
+            raise ValueError("Purchase outage window must cover the reconciliation interval")
         values = (self.apple_key_id, self.apple_issuer_id, self.apple_private_key_path, self.apple_root_certificate_paths)
         if any(values) and not all(values):
             raise ValueError("Apple verification requires key, issuer and pinned root certificates")

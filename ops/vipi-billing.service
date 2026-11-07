@@ -1,0 +1,24 @@
+[Unit]
+Description=Vipi authenticated store event and subscription reconciliation
+After=postgresql.service network-online.target
+
+[Service]
+Type=oneshot
+User=vipi
+Group=vipi
+WorkingDirectory=/opt/vipi/current
+EnvironmentFile=/etc/vipi/service.env
+Environment=PYTHONPATH=/opt/vipi/current/deps
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 -m vipi.billing_worker
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+MemoryMax=256M
+CPUQuota=100%
+TimeoutStartSec=90
+UMask=0077
+

@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261107_04"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261107_05"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:

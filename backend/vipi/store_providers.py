@@ -44,6 +44,35 @@ class AppleProvider:
         async with self.parallel:
             return await asyncio.to_thread(self.verifier.verify_and_decode_signed_transaction, signed)
 
+    async def notification(self, signed):
+        from .store_notifications import fingerprint
+        from appstoreserverlibrary.signed_data_verifier import VerificationException, VerificationStatus
+        try:
+            async with self.parallel:
+                event = await asyncio.to_thread(self.verifier.verify_and_decode_notification, signed)
+            if event.version != "2.0":
+                raise ValueError()
+            event_id = str(UUID(event.notificationUUID))
+            transaction = None
+            if event.data and event.data.signedTransactionInfo:
+                decoded = await self.decode(event.data.signedTransactionInfo)
+                if decoded.productId in APPLE_PRODUCTS:
+                    transaction = decoded.originalTransactionId
+                    if not transaction or not transaction.isdecimal() or len(transaction) > 64:
+                        raise ValueError()
+            return event_id, transaction, fingerprint({"id": event_id, "transaction": transaction,
+                "type": event.rawNotificationType, "subtype": event.rawSubtype,
+                "signed_date": event.signedDate})
+        except VerificationException as error:
+            if error.status == VerificationStatus.RETRYABLE_VERIFICATION_FAILURE:
+                raise DeliveryError("notification_verification_unavailable", 503) from None
+            raise DeliveryError("notification_invalid", 400) from None
+        except (ValueError, KeyError, TypeError, AttributeError):
+            raise DeliveryError("notification_invalid", 400) from None
+        except Exception:
+            # Do not echo a signed event or an SDK error containing its payload.
+            raise DeliveryError("notification_verification_unavailable", 503) from None
+
     async def verify(self, credential, user_id, *, initial):
         try:
             if initial:

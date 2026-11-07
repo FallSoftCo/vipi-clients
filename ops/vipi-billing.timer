@@ -1,0 +1,10 @@
+[Unit]
+Description=Reconcile Vipi store notifications and expiring subscription grants
+
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=30s
+RandomizedDelaySec=3s
+
+[Install]
+WantedBy=timers.target

@@ -18,6 +18,7 @@ from test_api import TestVerifier, identity
 
 
 def settings(**kwargs):
+    kwargs.setdefault("purchase_freshness_seconds", 300)
     return Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
         workos_issuer="https://api.workos.com", service_secret="a" * 43, **kwargs)
 
@@ -52,9 +53,11 @@ async def test_provider_authority_trial_restore_and_expiry(db):
         assert len(rows) == 1 and b"secret-token" not in rows[0].provider_reference
     provider.result = replace(provider.result, expires_at=NOW + timedelta(days=365), trial_ends_at=None)
     clock[0] += timedelta(minutes=6)
+    assert await service.reconcile_one()
     assert (await service.snapshot("alice"))["base"]["trial_ends_at"] is None
     provider.result = replace(provider.result, revoked=True)
     clock[0] += timedelta(minutes=6)
+    assert await service.reconcile_one()
     assert not (await service.snapshot("alice"))["base"]["active"]
 
 
@@ -65,7 +68,7 @@ async def test_account_binding_supersession_and_old_observation(db):
         await service.apply("bob", purchase(), NOW)
     await service.apply("alice", purchase(revoked=True), NOW + timedelta(seconds=1))
     await service.apply("alice", purchase(revoked=False), NOW)
-    assert not (await service.snapshot("alice", refresh=False))["base"]["active"]
+    assert not (await service.snapshot("alice"))["base"]["active"]
     # Replacement arrived before its predecessor. A late predecessor must never
     # become a second active subscription even if its API expiry is still future.
     await service.apply("alice", purchase(transaction_id="new", linked_transaction_id="old"), NOW)
@@ -75,11 +78,13 @@ async def test_account_binding_supersession_and_old_observation(db):
         assert old.superseded
 
 
-async def test_stale_provider_failure_is_unavailable_not_new_paywall(db):
+async def test_store_outage_preserves_verified_unexpired_access_then_is_unavailable(db):
     clock = [NOW]
     service = Subscriptions(settings(), db, {}, lambda: clock[0])
     await service.apply("alice", purchase(), NOW)
     clock[0] += timedelta(minutes=6)
+    assert (await service.snapshot("alice"))["base"]["active"]
+    clock[0] += timedelta(days=3)
     with pytest.raises(DeliveryError, match="purchase_verification_unavailable"):
         await service.snapshot("alice")
 
