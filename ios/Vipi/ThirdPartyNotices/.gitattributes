@@ -1,0 +1,2 @@
+# Preserve the exact upstream notice texts and their pinned hashes.
+*.txt -whitespace

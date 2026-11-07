@@ -54,6 +54,10 @@ final class ConversationHistory {
         guard let data = try vault.get("history", cursor) else { throw MessageJournal.Failure.missingMessage }
         let ref = try JSONDecoder().decode(Reference.self, from: data)
         guard let bytes = try vault.get(ref.kind, ref.id.uuidString.lowercased()) else { throw MessageJournal.Failure.missingMessage }
+        if ref.kind == "imported" {
+            let value = try JSONDecoder().decode(HistoryBackupMessage.self, from: bytes)
+            return ChatItem(id: value.id, peer: value.peer, text: value.text, createdAt: value.createdAt, outgoing: value.outgoing, state: "imported", cursor: cursor)
+        }
         if ref.kind == "draft" {
             let value = try JSONDecoder().decode(DraftChat.self, from: bytes)
             return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor)
@@ -65,6 +69,41 @@ final class ConversationHistory {
     func messages(peer: UUID, before: String? = nil, limit: Int = 50) throws -> [ChatItem] {
         try vault.transaction {
             try vault.pageIDs("history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: limit).map(item)
+        }
+    }
+    /// Pages bound plaintext memory and release the database lock between pages.
+    /// Unsent drafts and messages still in delivery are never export candidates.
+    func backupPeerIDs() throws -> [UUID] {
+        var peers: [UUID] = []
+        // UUID keys are partitioned by their first hexadecimal character; each
+        // query returns at most 100 opaque IDs, never a latest-message value.
+        for prefix in "0123456789abcdef" {
+            var cursor: String?
+            repeat {
+                try Task.checkCancellation()
+                let page = try vault.transaction { try vault.pageIDs("thread", prefix: String(prefix), before: cursor, limit: 100) }
+                for key in page {
+                    guard peers.count + 2 < HistoryBackupCodec.maxRecords,
+                          let id = UUID(uuidString: key), id.uuidString.lowercased() == key else { throw HistoryBackupCodec.Failure.damaged }
+                    peers.append(id)
+                }
+                cursor = page.count == 100 ? page.last : nil
+            } while cursor != nil
+        }
+        return peers
+    }
+    func backupPage(peer: UUID, before: String?) throws -> (messages: [HistoryBackupMessage], next: String?) {
+        try vault.transaction {
+            let ids = try vault.pageIDs("history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: 100)
+            var result: [HistoryBackupMessage] = []
+            for id in ids {
+                guard let data = try vault.get("history", id) else { throw MessageJournal.Failure.missingMessage }
+                let ref = try JSONDecoder().decode(Reference.self, from: data), value = try item(id)
+                guard ref.kind == "imported" || (ref.kind == "incoming" && value.state == "delivered") ||
+                      (ref.kind == "outgoing" && ["delivered", "failed", "expired", "cancelled"].contains(value.state)) else { continue }
+                result.append(HistoryBackupMessage(id: value.id, peer: value.peer, outgoing: value.outgoing, createdAt: value.createdAt, text: value.text))
+            }
+            return (result, ids.count == 100 ? ids.last : nil)
         }
     }
     func threads() throws -> [ChatThread] {

@@ -2,8 +2,11 @@ import SwiftUI
 
 struct HomeView: View {
     var chat: ChatSession? = nil
+    var subscriptions: SubscriptionStore? = nil
     @Environment(AppState.self) private var state
     @State private var showingSettings = false
+    @State private var offerBase = false
+    @State private var offeredBase = false
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [UUID] = []
@@ -40,8 +43,20 @@ struct HomeView: View {
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
+                        if let subscriptions, !subscriptions.baseActive {
+                            Button("See your Vipi subscription") { offerBase = true }
+                                .font(.subheadline.weight(.semibold))
+                        }
+                        if chat != nil && PushNotifications.shared.authorization == .notDetermined {
+                            Button("Notify me when friends reply") { Task { await PushNotifications.shared.enable() } }
+                                .font(.subheadline.weight(.semibold))
+                        }
                         if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
-                        NavigationLink { BotIntroductionView() } label: {
+                        NavigationLink {
+                            if let profile = chat?.profile, let subscriptions {
+                                BotConversationView(account: profile.id, subscriptions: subscriptions)
+                            } else { BotIntroductionView(subscriptions: subscriptions) }
+                        } label: {
                             HStack(spacing: 16) {
                                 Image(systemName: "sparkle").font(.title2).frame(width: 50, height: 50).background(VipiDesign.outgoing, in: RoundedRectangle(cornerRadius: 18))
                                 VStack(alignment: .leading, spacing: 5) {
@@ -61,10 +76,22 @@ struct HomeView: View {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3) }.accessibilityLabel("Your profile and settings")
                 }
             }
-            .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat) }
+            .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions) }
             .sheet(isPresented: $showingInvite) { NewChatView(chat: chat) { peer in path.append(peer) } }
             .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
-            .refreshable { await chat?.synchronize() }
+            .sheet(isPresented: $offerBase) {
+                if let subscriptions { NavigationStack { SubscriptionOfferView(store: subscriptions, plan: .base)
+                    .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Not now") { offerBase = false } } } } }
+            }
+            .onChange(of: subscriptions?.canPurchase(.base) == true, initial: true) { _, available in
+                guard available, !offeredBase, chat?.threads.isEmpty == true,
+                      let profile = chat?.profile else { return }
+                let key = "vipi.base-offer-seen.\(profile.id.uuidString.lowercased())"
+                guard !UserDefaults.standard.bool(forKey: key) else { return }
+                UserDefaults.standard.set(true, forKey: key)
+                offeredBase = true; offerBase = true
+            }
+            .refreshable { await chat?.synchronize(); await subscriptions?.refresh() }
         }
     }
 }
@@ -105,6 +132,7 @@ struct NewChatView: View {
 }
 
 struct BotIntroductionView: View {
+    var subscriptions: SubscriptionStore? = nil
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
@@ -113,6 +141,10 @@ struct BotIntroductionView: View {
                 Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                 Text("Available with Bot mini").font(.subheadline.weight(.semibold))
+                if let subscriptions {
+                    NavigationLink("See Bot mini") { SubscriptionOfferView(store: subscriptions, plan: .botMini) }
+                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
+                }
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
     }
@@ -120,10 +152,20 @@ struct BotIntroductionView: View {
 
 struct SettingsView: View {
     var chat: ChatSession? = nil
+    var subscriptions: SubscriptionStore? = nil
     @Environment(AppState.self) private var state
     var body: some View {
         @Bindable var state = state
         Form {
+            if let profile = chat?.profile {
+                Section("Your profile") {
+                    LabeledContent("Name", value: profile.display_name)
+                    LabeledContent("Username", value: "@" + profile.username).textSelection(.enabled)
+                    ShareLink(item: "Find me on Vipi: @\(profile.username)\nhttps://mambovipi.app") {
+                        Label("Invite a friend", systemImage: "square.and.arrow.up")
+                    }
+                }
+            }
             Section("Your immersion") {
                 NavigationLink { LanguageDownloadView() } label: {
                     LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
@@ -135,11 +177,16 @@ struct SettingsView: View {
                 }.padding(.vertical, 8)
             }
             Section("Make yourself at home") {
+                if chat != nil { NavigationLink("Notifications") { NotificationSettingsView() } }
                 Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
             }
+            if let subscriptions { Section { NavigationLink("Subscriptions") { SubscriptionsView(store: subscriptions) } } }
+            if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
             Section("About Vipi") {
-                Link("Privacy Policy", destination: URL(string: "https://fallsoft.co/privacy-policy")!)
-                Link("Terms of Service", destination: URL(string: "https://fallsoft.co/terms-of-service")!)
+                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
+                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
+                Link("Help and safety", destination: URL(string: "https://api.mambovipi.app/help")!)
+                NavigationLink("Licenses and notices") { NoticesView() }
                 LabeledContent("Made by", value: "FallSoft.Co")
             }
             if let chat {

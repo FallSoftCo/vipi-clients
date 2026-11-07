@@ -37,7 +37,7 @@ extension ChatTransport {
     let userID: String
     private let endpoint: URL
     private let http: URLSession
-    init(authentication: AuthenticationManager, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!) throws {
+    init(authentication: AuthenticationManager, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!, responseTimeout: TimeInterval = 30) throws {
         var permitted = endpoint.scheme == "https"
         #if DEBUG
         permitted = permitted || (endpoint.scheme == "http" && endpoint.host == "127.0.0.1")
@@ -46,7 +46,9 @@ extension ChatTransport {
             endpoint.path.isEmpty || endpoint.path == "/" else { throw ServiceFailure(status: 0, code: "invalid_service_address") }
         self.authentication = authentication; self.userID = userID; self.endpoint = endpoint
         let config = URLSessionConfiguration.ephemeral
-        config.urlCache = nil; config.httpCookieStorage = nil; config.timeoutIntervalForRequest = 25; config.timeoutIntervalForResource = 30
+        config.urlCache = nil; config.httpCookieStorage = nil
+        config.timeoutIntervalForRequest = max(25, min(90, responseTimeout))
+        config.timeoutIntervalForResource = max(30, min(90, responseTimeout))
         http = URLSession(configuration: config, delegate: NoServiceRedirects(), delegateQueue: nil)
     }
     deinit { http.invalidateAndCancel() }

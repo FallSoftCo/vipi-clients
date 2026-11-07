@@ -1,0 +1,12 @@
+{
+  "producer": "Actual Swift HistoryBackupCodec.Writer in iOS Simulator",
+  "source": "HistoryBackupTests.testDeterministicReferenceEncodingAndNativeInterchangeFile",
+  "sha256": "68a1c1e85376dfffab45fe29c529633219fb21e34cf505d3bf49b39c603a9165",
+  "bytes": 845,
+  "password_and_account": "qa/backup/vectors.json Unicode fixture",
+  "independent_verification": [
+    "Python reference decoded exact five records",
+    "Android native decode + atomic merge 2 + repeated merge 0, native-backup-cross-platform-r13.json"
+  ],
+  "contains_real_user_data": false
+}

@@ -117,8 +117,8 @@ struct OnboardingView: View {
                 Text("I agree to the Terms of Service and have read the Privacy Policy.").font(.footnote).foregroundStyle(VipiDesign.secondary)
             }.tint(VipiDesign.accent)
             HStack(spacing: 20) {
-                Link("Terms of Service", destination: URL(string: "https://fallsoft.co/terms-of-service")!)
-                Link("Privacy Policy", destination: URL(string: "https://fallsoft.co/privacy-policy")!)
+                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
+                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
             }.font(.footnote)
             if let signInError = authentication.errorMessage { Text(signInError).font(.subheadline).foregroundStyle(.red).accessibilityIdentifier("signInError") }
         }

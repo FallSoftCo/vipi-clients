@@ -1,0 +1,1367 @@
+[
+  {
+    "id": "0",
+    "title": "Vipi — GNU Affero General Public License v3",
+    "file": "license-0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0.txt",
+    "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "origin": "ios/LICENSE"
+  },
+  {
+    "id": "1",
+    "title": "spqr 1.6.0, partial-default-derive 0.1.0, partial-default 0.1.0",
+    "file": "license-0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0.txt",
+    "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "2",
+    "title": "libsignal-account-keys, attest, libsignal-ffi, libsignal-ffi-impl, libsignal-bridge, libsignal-bridge-macros, libsignal-bridge-testing, libsignal-bridge-types, libsignal-core, signal-crypto, libsignal-debug, device-transfer, libsignal-keytrans, signal-media, libsignal-message-backup, libsignal-message-backup-macros, libsignal-net, libsignal-net-chat, libsignal-net-grpc, libsignal-net-infra, poksho, libsignal-protocol, libsignal-svrb, usernames, zkcredential, zkgroup",
+    "file": "license-d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee.txt",
+    "sha256": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "3",
+    "title": "sync_wrapper 1.0.2",
+    "file": "license-0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594.txt",
+    "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "4",
+    "title": "nonzero_ext 0.3.0",
+    "file": "license-3b842ae825a82c84830590457664b56d3b45390892bb5a1b73b1468c023a270e.txt",
+    "sha256": "3b842ae825a82c84830590457664b56d3b45390892bb5a1b73b1468c023a270e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "5",
+    "title": "boring-sys 5.2.0",
+    "file": "license-827c8d8fc207c2392794eef9e00fe246f9f61fdcc132556c275be3dd8c3cd97f.txt",
+    "sha256": "827c8d8fc207c2392794eef9e00fe246f9f61fdcc132556c275be3dd8c3cd97f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "6",
+    "title": "ring 0.17.14",
+    "file": "license-005fc765ddc5115da796cca915baa9557abae13ff35e0a47c47affc56f6c414d.txt",
+    "sha256": "005fc765ddc5115da796cca915baa9557abae13ff35e0a47c47affc56f6c414d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "7",
+    "title": "hax-lib-macros 0.3.7, hax-lib 0.3.7",
+    "file": "license-9a50bad5a51e0ad726ea3a7f4b7b758e1b4d1784e6abefe1367f5bf01e972725.txt",
+    "sha256": "9a50bad5a51e0ad726ea3a7f4b7b758e1b4d1784e6abefe1367f5bf01e972725",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "8",
+    "title": "clang-sys 1.8.1",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "9",
+    "title": "sorted-vec 0.8.10",
+    "file": "license-e7b5a75ffce5a74f992b73379ddf6a7b69d47012f265334dae39bb4c6fa7d921.txt",
+    "sha256": "e7b5a75ffce5a74f992b73379ddf6a7b69d47012f265334dae39bb4c6fa7d921",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "10",
+    "title": "libcrux-hacl-rs 0.0.5, libcrux-hmac 0.0.8, libcrux-intrinsics 0.0.8, libcrux-macros 0.0.3, libcrux-ml-kem 0.0.10, libcrux-platform 0.0.3, libcrux-secrets 0.0.6, libcrux-sha2 0.0.8, libcrux-sha3 0.0.10, libcrux-traits 0.0.8",
+    "file": "license-c517c468fc7f8d83319dd8b3743923f6891e0dfbaf7c57a874758c8f39b98564.txt",
+    "sha256": "c517c468fc7f8d83319dd8b3743923f6891e0dfbaf7c57a874758c8f39b98564",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "11",
+    "title": "prost-build 0.14.4, prost-derive 0.14.4, prost-types 0.14.4, prost 0.14.4",
+    "file": "license-a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2.txt",
+    "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "12",
+    "title": "boring 5.2.0",
+    "file": "license-48e488ce333f8a1e86a68b2a1df454464037f1ff580b5bff926053c56dbadc2d.txt",
+    "sha256": "48e488ce333f8a1e86a68b2a1df454464037f1ff580b5bff926053c56dbadc2d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "13",
+    "title": "bindgen 0.72.1",
+    "file": "license-c23953d9deb0a3312dbeaf6c128a657f3591acee45067612fa68405eaa4525db.txt",
+    "sha256": "c23953d9deb0a3312dbeaf6c128a657f3591acee45067612fa68405eaa4525db",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "14",
+    "title": "curve25519-dalek 5.0.0",
+    "file": "license-b790bcf9428074d098a455163df68ec35589ae22536051f3555a592c1e4dd772.txt",
+    "sha256": "b790bcf9428074d098a455163df68ec35589ae22536051f3555a592c1e4dd772",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "15",
+    "title": "subtle 2.6.1",
+    "file": "license-d1fc1bc0d155df60b2e7705b6b2ae02a05c96f948e1cec6e2fb86360b09f346b.txt",
+    "sha256": "d1fc1bc0d155df60b2e7705b6b2ae02a05c96f948e1cec6e2fb86360b09f346b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "16",
+    "title": "curve25519-dalek 5.0.0",
+    "file": "license-db7e563b03fa70fa9998fbcae9b432057b7430740a58672c9a8df17af6e078d7.txt",
+    "sha256": "db7e563b03fa70fa9998fbcae9b432057b7430740a58672c9a8df17af6e078d7",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "17",
+    "title": "ed25519-dalek 3.0.0",
+    "file": "license-7a313964a6e050794d2ad57f4863c11f6bbe055c0ae6ce2cf3b9fc45150bada3.txt",
+    "sha256": "7a313964a6e050794d2ad57f4863c11f6bbe055c0ae6ce2cf3b9fc45150bada3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "18",
+    "title": "x25519-dalek 3.0.0",
+    "file": "license-bebc725b8cb1ba1ed1798cb505cf31bf9bce4cbe942baf358b642666ba8186bd.txt",
+    "sha256": "bebc725b8cb1ba1ed1798cb505cf31bf9bce4cbe942baf358b642666ba8186bd",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "19",
+    "title": "asn1 0.24.1, asn1_derive 0.24.1",
+    "file": "license-c6deb2d156619439e147f8b62e1b3928598c8e3652ec8b56cc039490696b3985.txt",
+    "sha256": "c6deb2d156619439e147f8b62e1b3928598c8e3652ec8b56cc039490696b3985",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "20",
+    "title": "untrusted 0.9.0",
+    "file": "license-7abd9b6960dcf7d4d0a48606a5b71bfe37d472db68d70637f3a58a56785f1621.txt",
+    "sha256": "7abd9b6960dcf7d4d0a48606a5b71bfe37d472db68d70637f3a58a56785f1621",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "21",
+    "title": "ring 0.17.14",
+    "file": "license-f025ccfb7dfb6bdfedc75ca0f67acc69e6fb4998143d834f7c2f38a29989680f.txt",
+    "sha256": "f025ccfb7dfb6bdfedc75ca0f67acc69e6fb4998143d834f7c2f38a29989680f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "22",
+    "title": "libloading 0.8.9",
+    "file": "license-b29f8b01452350c20dd1af16ef83b598fea3053578ccc1c7a0ef40e57be2620f.txt",
+    "sha256": "b29f8b01452350c20dd1af16ef83b598fea3053578ccc1c7a0ef40e57be2620f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "23",
+    "title": "rustls-webpki 0.103.15",
+    "file": "license-5b698ca13897be3afdb7174256fa1574f8c6892b8bea1a66dd6469d3fe27885a.txt",
+    "sha256": "5b698ca13897be3afdb7174256fa1574f8c6892b8bea1a66dd6469d3fe27885a",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "24",
+    "title": "cexpr 0.6.0",
+    "file": "license-d9771b8c6cf4426d3846de54c1febe20907f1eeadf7adfb5ade89a83bd9ea77f.txt",
+    "sha256": "d9771b8c6cf4426d3846de54c1febe20907f1eeadf7adfb5ade89a83bd9ea77f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "25",
+    "title": "sha1 0.10.6",
+    "file": "license-b4eb00df6e2a4d22518fcaa6a2b4646f249b3a3c9814509b22bd2091f1392ff1.txt",
+    "sha256": "b4eb00df6e2a4d22518fcaa6a2b4646f249b3a3c9814509b22bd2091f1392ff1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "26",
+    "title": "rayon-core 1.13.0, rayon 1.12.0",
+    "file": "license-0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720.txt",
+    "sha256": "0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "27",
+    "title": "core-foundation-sys 0.8.7, core-foundation 0.10.1",
+    "file": "license-62065228e42caebca7e7d7db1204cbb867033de5982ca4009928915e4095f3a3.txt",
+    "sha256": "62065228e42caebca7e7d7db1204cbb867033de5982ca4009928915e4095f3a3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "28",
+    "title": "hex 0.4.3",
+    "file": "license-f7bdb3426d045cd50efd4953026e3eb5a83d0199f458a075602611b9344da5b9.txt",
+    "sha256": "f7bdb3426d045cd50efd4953026e3eb5a83d0199f458a075602611b9344da5b9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "29",
+    "title": "percent-encoding 2.3.2",
+    "file": "license-b38f11f6096706e6de553dabe2a7ed142d59b6fa8c97e290c67496154745cdd5.txt",
+    "sha256": "b38f11f6096706e6de553dabe2a7ed142d59b6fa8c97e290c67496154745cdd5",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "30",
+    "title": "backtrace 0.3.76, cc 1.2.66, cfg-if 1.0.4, cmake 0.1.58, find-msvc-tools 0.1.9, rustc-demangle 0.1.27, socket2 0.6.4",
+    "file": "license-378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397.txt",
+    "sha256": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "31",
+    "title": "boring-sys 5.2.0",
+    "file": "license-ad2e7bdef7c00b92eaf4f657a472c7d3f8b36aac3cdc270e65bb0c287eec0d4e.txt",
+    "sha256": "ad2e7bdef7c00b92eaf4f657a472c7d3f8b36aac3cdc270e65bb0c287eec0d4e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "32",
+    "title": "mio 1.2.1",
+    "file": "license-07919255c7e04793d8ea760d6c2ce32d19f9ff02bdbdde3ce90b1e1880929a9b.txt",
+    "sha256": "07919255c7e04793d8ea760d6c2ce32d19f9ff02bdbdde3ce90b1e1880929a9b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "33",
+    "title": "errno 0.3.14",
+    "file": "license-8764a597675778ddfd4e25f81b08a05dbcf089ac05662df7613fe67f150e3aa2.txt",
+    "sha256": "8764a597675778ddfd4e25f81b08a05dbcf089ac05662df7613fe67f150e3aa2",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "34",
+    "title": "base64ct 1.8.3",
+    "file": "license-2d1c57bff28344b9e698f51063bc8509799cc4c99a4e0cf2aa3f7e7c3e1f9a9d.txt",
+    "sha256": "2d1c57bff28344b9e698f51063bc8509799cc4c99a4e0cf2aa3f7e7c3e1f9a9d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "35",
+    "title": "bitflags 2.13.0, glob 0.3.3, log 0.4.33, num-integer 0.1.46, num-traits 0.2.19, regex-automata 0.4.14, regex-syntax 0.8.11, regex 1.12.4",
+    "file": "license-6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb.txt",
+    "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "36",
+    "title": "uuid 1.23.4",
+    "file": "license-436bc5a105d8e57dcd8778730f3754f7bf39c14d2f530e4cde4bd2d17a83ec3d.txt",
+    "sha256": "436bc5a105d8e57dcd8778730f3754f7bf39c14d2f530e4cde4bd2d17a83ec3d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "37",
+    "title": "nom 7.1.3",
+    "file": "license-4dbda04344456f09a7a588140455413a9ac59b6b26a1ef7cdf9c800c012d87f0.txt",
+    "sha256": "4dbda04344456f09a7a588140455413a9ac59b6b26a1ef7cdf9c800c012d87f0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "38",
+    "title": "flate2 1.1.9",
+    "file": "license-025436edff4cfcdde17a5811fdea78892d8482efd1abdec5a17872d07a4f2112.txt",
+    "sha256": "025436edff4cfcdde17a5811fdea78892d8482efd1abdec5a17872d07a4f2112",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "39",
+    "title": "hyper 1.10.1",
+    "file": "license-2d01890414494742ba4a509fcec8efa40f6d8be22cbd72be7cff08d6fda4ec89.txt",
+    "sha256": "2d01890414494742ba4a509fcec8efa40f6d8be22cbd72be7cff08d6fda4ec89",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "40",
+    "title": "either 1.16.0, itertools 0.13.0, itertools 0.14.0, itertools 0.15.0, petgraph 0.8.3, serde_with 3.21.0, serde_with_macros 3.21.0",
+    "file": "license-7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545.txt",
+    "sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "41",
+    "title": "tempfile 3.27.0",
+    "file": "license-8b427f5bc501764575e52ba4f9d95673cf8f6d80a86d0d06599852e1a9a20a36.txt",
+    "sha256": "8b427f5bc501764575e52ba4f9d95673cf8f6d80a86d0d06599852e1a9a20a36",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "42",
+    "title": "object 0.37.3",
+    "file": "license-0b74dfa0bcee5c420c6b7f67b4b2658f9ab8388c97b8e733975f2cecbdd668a6.txt",
+    "sha256": "0b74dfa0bcee5c420c6b7f67b4b2658f9ab8388c97b8e733975f2cecbdd668a6",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "43",
+    "title": "gimli 0.32.3, heck 0.5.0, unicode-segmentation 1.13.3, unicode-xid 0.2.6",
+    "file": "license-7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0.txt",
+    "sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "44",
+    "title": "which 4.4.2",
+    "file": "license-0041560f5d419c30e1594567f3b7ac2bc078ff6a68f437e0348ba85d9cf99112.txt",
+    "sha256": "0041560f5d419c30e1594567f3b7ac2bc078ff6a68f437e0348ba85d9cf99112",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "45",
+    "title": "blake2 0.10.6",
+    "file": "license-9c768944eb4a0422ca2efc25ea9fb2fb9e7fbd3fdb04e86b87366339cb7466db.txt",
+    "sha256": "9c768944eb4a0422ca2efc25ea9fb2fb9e7fbd3fdb04e86b87366339cb7466db",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "46",
+    "title": "fixedbitset 0.5.7",
+    "file": "license-ce592787ff2321feab698a4c612237f4378cc658ebb1d472913e5802cc47afb4.txt",
+    "sha256": "ce592787ff2321feab698a4c612237f4378cc658ebb1d472913e5802cc47afb4",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "47",
+    "title": "hkdf 0.13.0",
+    "file": "license-d288f9c9b4590446ec18c22ead8f8b5a12a3d4025b68f62dc9015063eb9cca69.txt",
+    "sha256": "d288f9c9b4590446ec18c22ead8f8b5a12a3d4025b68f62dc9015063eb9cca69",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "48",
+    "title": "httparse 1.10.1",
+    "file": "license-391a5396cec6230bfabd4ef4eb2350eb895bc5efce377a2218f5702ed020d3e3.txt",
+    "sha256": "391a5396cec6230bfabd4ef4eb2350eb895bc5efce377a2218f5702ed020d3e3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "49",
+    "title": "poly1305 0.9.1",
+    "file": "license-b67acfaaf787b346e1d3bf7654b4fabfd20360fdeb4351cc5e9d624147824527.txt",
+    "sha256": "b67acfaaf787b346e1d3bf7654b4fabfd20360fdeb4351cc5e9d624147824527",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "50",
+    "title": "futures-channel 0.3.32, futures-core 0.3.32, futures-executor 0.3.32, futures-io 0.3.32, futures-macro 0.3.32, futures-sink 0.3.32, futures-task 0.3.32, futures-util 0.3.32, futures 0.3.32",
+    "file": "license-6652c868f35dfe5e8ef636810a4e576b9d663f3a17fb0f5613ad73583e1b88fd.txt",
+    "sha256": "6652c868f35dfe5e8ef636810a4e576b9d663f3a17fb0f5613ad73583e1b88fd",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "51",
+    "title": "hashbrown 0.15.5, hashbrown 0.17.1",
+    "file": "license-ff8f68cb076caf8cefe7a6430d4ac086ce6af2ca8ce2c4e5a2004d4552ef52a2.txt",
+    "sha256": "ff8f68cb076caf8cefe7a6430d4ac086ce6af2ca8ce2c4e5a2004d4552ef52a2",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "52",
+    "title": "intmap 3.1.3",
+    "file": "license-beacfa49956a58449c94346e6c322ec3a2cfd1a502add29a53e043f161b49bb9.txt",
+    "sha256": "beacfa49956a58449c94346e6c322ec3a2cfd1a502add29a53e043f161b49bb9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "53",
+    "title": "rustls 0.23.45",
+    "file": "license-709e3175b4212f7b13aa93971c9f62ff8c69ec45ad8c6532a7e0c41d7a7d6f8c.txt",
+    "sha256": "709e3175b4212f7b13aa93971c9f62ff8c69ec45ad8c6532a7e0c41d7a7d6f8c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "54",
+    "title": "assert_matches 1.5.0",
+    "file": "license-d4c1ce21c702ac8f22b5d23dedc46c21ceb3d42918ed1f631685a722249c71ba.txt",
+    "sha256": "d4c1ce21c702ac8f22b5d23dedc46c21ceb3d42918ed1f631685a722249c71ba",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "55",
+    "title": "httpdate 1.0.3",
+    "file": "license-934887691e05d69d7c86ad3f2c360980fa30c15b035e351f3c9865e99da4debc.txt",
+    "sha256": "934887691e05d69d7c86ad3f2c360980fa30c15b035e351f3c9865e99da4debc",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "56",
+    "title": "rustc_version 0.4.1",
+    "file": "license-c9a75f18b9ab2927829a208fc6aa2cf4e63b8420887ba29cdb265d6619ae82d5.txt",
+    "sha256": "c9a75f18b9ab2927829a208fc6aa2cf4e63b8420887ba29cdb265d6619ae82d5",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "57",
+    "title": "tokio-boring 5.2.0",
+    "file": "license-33814e6855a261a51da73a13ab3fd1c445e0e1856f9df75fc64370ce83be9c76.txt",
+    "sha256": "33814e6855a261a51da73a13ab3fd1c445e0e1856f9df75fc64370ce83be9c76",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "58",
+    "title": "multimap 0.10.1",
+    "file": "license-23ce717d2face34a1ae9af6a8c8fbbf488875afee16374d7a10ce79d41e22f37.txt",
+    "sha256": "23ce717d2face34a1ae9af6a8c8fbbf488875afee16374d7a10ce79d41e22f37",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "59",
+    "title": "indexmap 2.14.0",
+    "file": "license-ecc269ef87fd38a1d98e30bfac9ba964a9dbd9315c3770fed98d4d7cb5882055.txt",
+    "sha256": "ecc269ef87fd38a1d98e30bfac9ba964a9dbd9315c3770fed98d4d7cb5882055",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "60",
+    "title": "equivalent 1.0.2",
+    "file": "license-7365cc8878a1d7ce155a58c4ca09c3d7a6be413efa5334a80ea842912b669349.txt",
+    "sha256": "7365cc8878a1d7ce155a58c4ca09c3d7a6be413efa5334a80ea842912b669349",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "61",
+    "title": "addr2line 0.25.1",
+    "file": "license-e99d88d232bf57d70f0fb87f6b496d44b6653f99f8a63d250a54c61ea4bcde40.txt",
+    "sha256": "e99d88d232bf57d70f0fb87f6b496d44b6653f99f8a63d250a54c61ea4bcde40",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "62",
+    "title": "scopeguard 1.2.0",
+    "file": "license-fb77f0a9c53e473abe5103c8632ef9f0f2874d4fb3f17cb2d8c661aab9cee9d7.txt",
+    "sha256": "fb77f0a9c53e473abe5103c8632ef9f0f2874d4fb3f17cb2d8c661aab9cee9d7",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "63",
+    "title": "cipher 0.5.2",
+    "file": "license-950d712c518a02fcb7cff96950aee304a1cc5283361712c980ea21e8d6d669a5.txt",
+    "sha256": "950d712c518a02fcb7cff96950aee304a1cc5283361712c980ea21e8d6d669a5",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "64",
+    "title": "sha1 0.11.0, sha2 0.11.0",
+    "file": "license-831e0f43ad0bf014c1c4fec5767aae470434c1d66d6e671be2d823e729063e25.txt",
+    "sha256": "831e0f43ad0bf014c1c4fec5767aae470434c1d66d6e671be2d823e729063e25",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "65",
+    "title": "tungstenite 0.29.0",
+    "file": "license-7fea0ee51a4ca5d5cea7464135fd55e8b09caf3a61da3d451ac8a22af95c033f.txt",
+    "sha256": "7fea0ee51a4ca5d5cea7464135fd55e8b09caf3a61da3d451ac8a22af95c033f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "66",
+    "title": "digest 0.10.7, hmac 0.13.0",
+    "file": "license-9e0dfd2dd4173a530e238cb6adb37aa78c34c6bc7444e0e10c1ab5d8881f63ba.txt",
+    "sha256": "9e0dfd2dd4173a530e238cb6adb37aa78c34c6bc7444e0e10c1ab5d8881f63ba",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "67",
+    "title": "bitstream-io 1.10.0",
+    "file": "license-7a65c85c057a5538fdd8215b7aa2f3e0353f3b07c3e00bb409070b2b81375895.txt",
+    "sha256": "7a65c85c057a5538fdd8215b7aa2f3e0353f3b07c3e00bb409070b2b81375895",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "68",
+    "title": "fnv 1.0.7",
+    "file": "license-65fdb6c76cd61612070c066eec9ecdb30ee74fb27859d0d9af58b9f499fd0c3e.txt",
+    "sha256": "65fdb6c76cd61612070c066eec9ecdb30ee74fb27859d0d9af58b9f499fd0c3e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "69",
+    "title": "tokio-tungstenite 0.29.0",
+    "file": "license-fdd55e2b2da854b0fbdc1e607df7c2ba1e1ebf91ecb77c515511ebeef972bc8f.txt",
+    "sha256": "fdd55e2b2da854b0fbdc1e607df7c2ba1e1ebf91ecb77c515511ebeef972bc8f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "70",
+    "title": "foreign-types-macros 0.2.3, foreign-types-shared 0.3.1, foreign-types 0.5.0",
+    "file": "license-333ea3aaa3cadb819f4acd9f9153f9feee060a995ca8710f32bc5bd9a4b91734.txt",
+    "sha256": "333ea3aaa3cadb819f4acd9f9153f9feee060a995ca8710f32bc5bd9a4b91734",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "71",
+    "title": "h2 0.4.16",
+    "file": "license-b21623012e6c453d944b0342c515b631cfcbf30704c2621b291526b69c10724d.txt",
+    "sha256": "b21623012e6c453d944b0342c515b631cfcbf30704c2621b291526b69c10724d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "72",
+    "title": "http 1.4.2",
+    "file": "license-dc91f8200e4b2a1f9261035d4c18c33c246911a6c0f7b543d75347e61b249cff.txt",
+    "sha256": "dc91f8200e4b2a1f9261035d4c18c33c246911a6c0f7b543d75347e61b249cff",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "73",
+    "title": "digest 0.11.3",
+    "file": "license-af59cea35d7f5e2777a713b8d155d65efa2c339eb43f3c14e868c6ac8506edad.txt",
+    "sha256": "af59cea35d7f5e2777a713b8d155d65efa2c339eb43f3c14e868c6ac8506edad",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "74",
+    "title": "bytes 1.12.0",
+    "file": "license-45f522cacecb1023856e46df79ca625dfc550c94910078bd8aec6e02880b3d42.txt",
+    "sha256": "45f522cacecb1023856e46df79ca625dfc550c94910078bd8aec6e02880b3d42",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "75",
+    "title": "autocfg 1.5.1",
+    "file": "license-27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac.txt",
+    "sha256": "27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "76",
+    "title": "smallvec 1.15.2",
+    "file": "license-0b28172679e0009b655da42797c03fd163a3379d5cfa67ba1f1655e974a2a1a9.txt",
+    "sha256": "0b28172679e0009b655da42797c03fd163a3379d5cfa67ba1f1655e974a2a1a9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "77",
+    "title": "want 0.3.1",
+    "file": "license-a65f5d0a945d267751344c95665945b90c030ea107faf5c85d518929886187da.txt",
+    "sha256": "a65f5d0a945d267751344c95665945b90c030ea107faf5c85d518929886187da",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "78",
+    "title": "block-buffer 0.10.4",
+    "file": "license-d5c22aa3118d240e877ad41c5d9fa232f9c77d757d4aac0c2f943afc0a95e0ef.txt",
+    "sha256": "d5c22aa3118d240e877ad41c5d9fa232f9c77d757d4aac0c2f943afc0a95e0ef",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "79",
+    "title": "cbc 0.2.1, ctr 0.10.1",
+    "file": "license-63af4bea227c94d021e99427f6ca3a4b8efddadcca93ab6130f708cf6138cf68.txt",
+    "sha256": "63af4bea227c94d021e99427f6ca3a4b8efddadcca93ab6130f708cf6138cf68",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "80",
+    "title": "try-lock 0.2.5",
+    "file": "license-c816a0749cdc6bf062a5111c159723de51b2bfac66a1dac2655abd9e6b1583eb.txt",
+    "sha256": "c816a0749cdc6bf062a5111c159723de51b2bfac66a1dac2655abd9e6b1583eb",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "81",
+    "title": "aes 0.9.1",
+    "file": "license-25f77efa393854f7c15eaf6a2589a2071db2d7337642742763adb12bdecf0445.txt",
+    "sha256": "25f77efa393854f7c15eaf6a2589a2071db2d7337642742763adb12bdecf0445",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "82",
+    "title": "getrandom 0.2.17",
+    "file": "license-42fa16951ce7f24b5a467a40e5b449a1d41e662f97ca779864f053f39e097737.txt",
+    "sha256": "42fa16951ce7f24b5a467a40e5b449a1d41e662f97ca779864f053f39e097737",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "83",
+    "title": "block-buffer 0.12.1, block-padding 0.4.2",
+    "file": "license-98181e7249d0c01737645ec982499ce99a0f07eb8f7d625b8840d799d10dbc01.txt",
+    "sha256": "98181e7249d0c01737645ec982499ce99a0f07eb8f7d625b8840d799d10dbc01",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "84",
+    "title": "getrandom 0.3.4",
+    "file": "license-29e9fe5074bd27e0e5d5d110394fbbcd841baee2651a3c4b4560a632702cede4.txt",
+    "sha256": "29e9fe5074bd27e0e5d5d110394fbbcd841baee2651a3c4b4560a632702cede4",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "85",
+    "title": "ed25519 3.0.0, signature 3.0.0",
+    "file": "license-9aa4f92bfcde293ebeca9e2379fa18d1d61f000977da144c7b74c2986c9b6466.txt",
+    "sha256": "9aa4f92bfcde293ebeca9e2379fa18d1d61f000977da144c7b74c2986c9b6466",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "86",
+    "title": "rand_core 0.10.1",
+    "file": "license-8b6e9feec03e7c9a5facb26855cecd31662bf989b636bcfe79521bdf8ac863f0.txt",
+    "sha256": "8b6e9feec03e7c9a5facb26855cecd31662bf989b636bcfe79521bdf8ac863f0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "87",
+    "title": "zeroize 1.9.0",
+    "file": "license-8c7516d4b27b1e495be5e38b612298b63de48d05f49cdac94f70f3cd70f8864b.txt",
+    "sha256": "8c7516d4b27b1e495be5e38b612298b63de48d05f49cdac94f70f3cd70f8864b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "88",
+    "title": "getrandom 0.4.3",
+    "file": "license-523a42c25d245dde9c015f882cec7f4555aad883382a6cf19b4b7d9b2cd5419b.txt",
+    "sha256": "523a42c25d245dde9c015f882cec7f4555aad883382a6cf19b4b7d9b2cd5419b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "89",
+    "title": "curve25519-dalek 5.0.0",
+    "file": "license-1804d157a6ab05ff4ac72763fff022339aee96c56dacbc5f3a34563046704137.txt",
+    "sha256": "1804d157a6ab05ff4ac72763fff022339aee96c56dacbc5f3a34563046704137",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "90",
+    "title": "slab 0.4.12",
+    "file": "license-8ce0830173fdac609dfb4ea603fdc002c2f4af0dc9b1a005653f5da9cf534b18.txt",
+    "sha256": "8ce0830173fdac609dfb4ea603fdc002c2f4af0dc9b1a005653f5da9cf534b18",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "91",
+    "title": "protobuf-codegen 3.7.2, protobuf-support 3.7.2, protobuf 3.7.2",
+    "file": "license-7f2fa80a60e84f8dc0747abb0e42342f83bded04a20461a636b47c0331b92ddf.txt",
+    "sha256": "7f2fa80a60e84f8dc0747abb0e42342f83bded04a20461a636b47c0331b92ddf",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "92",
+    "title": "protobuf-parse 3.7.2",
+    "file": "license-ea240b0b1a772a073d2f8941f2145dd8f0b5b2d83c700107a84a1f7eb8ac7af1.txt",
+    "sha256": "ea240b0b1a772a073d2f8941f2145dd8f0b5b2d83c700107a84a1f7eb8ac7af1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "93",
+    "title": "ppv-lite86 0.2.21",
+    "file": "license-4cada0bd02ea3692eee6f16400d86c6508bbd3bafb2b65fed0419f36d4f83e8f.txt",
+    "sha256": "4cada0bd02ea3692eee6f16400d86c6508bbd3bafb2b65fed0419f36d4f83e8f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "94",
+    "title": "aes-gcm-siv 0.12.0",
+    "file": "license-3c0dfa33fd2e6976038555b52095699452653b1fcabe113074f14e0848a6b11e.txt",
+    "sha256": "3c0dfa33fd2e6976038555b52095699452653b1fcabe113074f14e0848a6b11e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "95",
+    "title": "tracing-attributes 0.1.31, tracing-core 0.1.36, tracing 0.1.44",
+    "file": "license-898b1ae9821e98daf8964c8d6c7f61641f5f5aa78ad500020771c0939ee0dea1.txt",
+    "sha256": "898b1ae9821e98daf8964c8d6c7f61641f5f5aa78ad500020771c0939ee0dea1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "96",
+    "title": "tower-layer 0.3.3, tower-service 0.3.3",
+    "file": "license-4249c8e6c5ebb85f97c77e6457c6fafc1066406eb8f1ef61e796fbdc5ff18482.txt",
+    "sha256": "4249c8e6c5ebb85f97c77e6457c6fafc1066406eb8f1ef61e796fbdc5ff18482",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "97",
+    "title": "http-body 1.0.1",
+    "file": "license-cddabf8adc6ccd6c3e68f5d71eac9fae3094116623cf23a46af0a5fd6b8ee813.txt",
+    "sha256": "cddabf8adc6ccd6c3e68f5d71eac9fae3094116623cf23a46af0a5fd6b8ee813",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "98",
+    "title": "universal-hash 0.6.1",
+    "file": "license-efa52eb70a774b62c50cf50f5e57e2625c29d375d09b91132f4f020e47b9944e.txt",
+    "sha256": "efa52eb70a774b62c50cf50f5e57e2625c29d375d09b91132f4f020e47b9944e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "99",
+    "title": "http-body-util 0.1.3",
+    "file": "license-b843fb7430efdf9732c834b6814beda44fccf3f0ddf7c9e030b39da17f6b159c.txt",
+    "sha256": "b843fb7430efdf9732c834b6814beda44fccf3f0ddf7c9e030b39da17f6b159c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "100",
+    "title": "chacha20 0.10.2, chacha20poly1305 0.11.0, ghash 0.6.0, polyval 0.7.3, zeroize_derive 1.5.0",
+    "file": "license-b8c6939380a400f53e11923d50fcc4dd2fa1ba8339fd9d04cda38a0251b6c9b0.txt",
+    "sha256": "b8c6939380a400f53e11923d50fcc4dd2fa1ba8339fd9d04cda38a0251b6c9b0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "101",
+    "title": "aead 0.6.1",
+    "file": "license-33b32a251d445c5c03a634e64c53314c55540fc367fabdd45d9b6c8f260c028c.txt",
+    "sha256": "33b32a251d445c5c03a634e64c53314c55540fc367fabdd45d9b6c8f260c028c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "102",
+    "title": "iana-time-zone 0.1.65",
+    "file": "license-da28ccc6b158fc2d8cccc74e99794b1cff1d29bd7bbeb019442fcf0c04c6cad9.txt",
+    "sha256": "da28ccc6b158fc2d8cccc74e99794b1cff1d29bd7bbeb019442fcf0c04c6cad9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "103",
+    "title": "downcast-rs 2.0.2",
+    "file": "license-fb252fecf98d9af8f1d9201c5860319a514f5a8a24700dc84fc6ea287a7a4958.txt",
+    "sha256": "fb252fecf98d9af8f1d9201c5860319a514f5a8a24700dc84fc6ea287a7a4958",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "104",
+    "title": "pbjson-build 0.9.0, pbjson-types 0.9.0, pbjson 0.9.0",
+    "file": "license-791a00933f2ea7e512856361e026998362241c3918d7be948c24d29441033b55.txt",
+    "sha256": "791a00933f2ea7e512856361e026998362241c3918d7be948c24d29441033b55",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "105",
+    "title": "password-hash 0.5.0",
+    "file": "license-233b95ccbf90dc67e32f3e8995c489f6312d9191ebd141a931c3b684f1e3be6d.txt",
+    "sha256": "233b95ccbf90dc67e32f3e8995c489f6312d9191ebd141a931c3b684f1e3be6d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "106",
+    "title": "cpufeatures 0.2.17, cpufeatures 0.3.0",
+    "file": "license-ae9baa7beea910273c2f384c2a6b721fb7bd02bda3436074a1072e4ee689f985.txt",
+    "sha256": "ae9baa7beea910273c2f384c2a6b721fb7bd02bda3436074a1072e4ee689f985",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "107",
+    "title": "const-oid 0.10.2",
+    "file": "license-73b9dc2e79c7308998dd30296e073aefaefb944a68fb89aa412c23c0edcabcaa.txt",
+    "sha256": "73b9dc2e79c7308998dd30296e073aefaefb944a68fb89aa412c23c0edcabcaa",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "108",
+    "title": "crypto-common 0.1.7",
+    "file": "license-3521672491a3479422d5fe1aca6645dd2984090f85da6e5205abfb18fb7a6897.txt",
+    "sha256": "3521672491a3479422d5fe1aca6645dd2984090f85da6e5205abfb18fb7a6897",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "109",
+    "title": "argon2 0.5.3",
+    "file": "license-33f702959c0ea91c08b21b65cf1f08b6c122ec9e6db0b5db784a7b367d942330.txt",
+    "sha256": "33f702959c0ea91c08b21b65cf1f08b6c122ec9e6db0b5db784a7b367d942330",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "110",
+    "title": "crypto-common 0.2.2",
+    "file": "license-d2e7ec5355c96eeade56b09187ceb48a6a30299da3ce7531a66d3d11405ab963.txt",
+    "sha256": "d2e7ec5355c96eeade56b09187ceb48a6a30299da3ce7531a66d3d11405ab963",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "111",
+    "title": "openssl-macros 0.1.1",
+    "file": "license-ea5ab440900ab271811d5c2dc02a9de6e03a6956ac5727e85c11d76df5883d30.txt",
+    "sha256": "ea5ab440900ab271811d5c2dc02a9de6e03a6956ac5727e85c11d76df5883d30",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "112",
+    "title": "mediasan-common 0.5.4, mp4san-derive 0.5.4, mp4san 0.5.4, webpsan 0.5.4",
+    "file": "license-f78d723e5d254b2037aa633b034dfe314caf37ace39727c66271b119027e5730.txt",
+    "sha256": "f78d723e5d254b2037aa633b034dfe314caf37ace39727c66271b119027e5730",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "113",
+    "title": "inout 0.2.2",
+    "file": "license-a07fcacc3c60de4dc0fab10ac9d6aaba7379974e28451c99da7f7df09c25b28c.txt",
+    "sha256": "a07fcacc3c60de4dc0fab10ac9d6aaba7379974e28451c99da7f7df09c25b28c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "114",
+    "title": "cmov 0.5.4, hybrid-array 0.4.13",
+    "file": "license-70c9d40f1f9545c3f133b8a67206e89da850f6468eed072281bb3701514114a9.txt",
+    "sha256": "70c9d40f1f9545c3f133b8a67206e89da850f6468eed072281bb3701514114a9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "115",
+    "title": "rustls-pki-types 1.15.0",
+    "file": "license-9117d922e667125508dde62b02c1f57ed22f5ad21eb536aa2e2d99e1c796e639.txt",
+    "sha256": "9117d922e667125508dde62b02c1f57ed22f5ad21eb536aa2e2d99e1c796e639",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "116",
+    "title": "hyper-util 0.1.20",
+    "file": "license-9e0a97848ea543aef745c98e84fde696a9a3e0735538f6daefdd3cb1942effc1.txt",
+    "sha256": "9e0a97848ea543aef745c98e84fde696a9a3e0735538f6daefdd3cb1942effc1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "117",
+    "title": "cpubits 0.1.1",
+    "file": "license-003736bc98408b53511b9cc8ff5d1af3bf0a8f17d53841cc39d8ab1b96a195b0.txt",
+    "sha256": "003736bc98408b53511b9cc8ff5d1af3bf0a8f17d53841cc39d8ab1b96a195b0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "118",
+    "title": "tonic-build 0.14.6, tonic-prost-build 0.14.6, tonic-prost 0.14.6, tonic 0.14.6",
+    "file": "license-e24a56698aa6feaf3a02272b3624f9dc255d982970c5ed97ac4525a95056a5b3.txt",
+    "sha256": "e24a56698aa6feaf3a02272b3624f9dc255d982970c5ed97ac4525a95056a5b3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "119",
+    "title": "ctutils 0.4.2",
+    "file": "license-91585c36e4fb9ab4ca0d3dfac5d66d3c0c62cc51f640a0e1196542daf2267eae.txt",
+    "sha256": "91585c36e4fb9ab4ca0d3dfac5d66d3c0c62cc51f640a0e1196542daf2267eae",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "120",
+    "title": "toml_datetime 1.1.1+spec-1.1.0, toml_edit 0.25.12+spec-1.1.0, toml_parser 1.1.2+spec-1.1.0",
+    "file": "license-6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6.txt",
+    "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "121",
+    "title": "libc 0.2.186",
+    "file": "license-123a331b5dbf04c30097fa43b8f858bc85df671fe776de498d01f3d6b7c1f69e.txt",
+    "sha256": "123a331b5dbf04c30097fa43b8f858bc85df671fe776de498d01f3d6b7c1f69e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "122",
+    "title": "arrayvec 0.7.8",
+    "file": "license-4da95ec4ecb65b738d470b7d762894ad9c97da93e6cbfb18b570fc2c96f4b871.txt",
+    "sha256": "4da95ec4ecb65b738d470b7d762894ad9c97da93e6cbfb18b570fc2c96f4b871",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "123",
+    "title": "rand_distr 0.5.1",
+    "file": "license-a771e4354f6b3ad4c92da1a5c9a239b6c291527db869632ecea4f20e24ca1135.txt",
+    "sha256": "a771e4354f6b3ad4c92da1a5c9a239b6c291527db869632ecea4f20e24ca1135",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "124",
+    "title": "rand 0.10.2, rand 0.9.4, rand_chacha 0.9.0, rand_core 0.6.4, rand_core 0.9.5",
+    "file": "license-209fbbe0ad52d9235e37badf9cadfe4dbdc87203179c0899e738b39ade42177b.txt",
+    "sha256": "209fbbe0ad52d9235e37badf9cadfe4dbdc87203179c0899e738b39ade42177b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "125",
+    "title": "rangemap 1.7.1",
+    "file": "license-29a4c3823ee29ee5a97c145574a1bac20629fd5e6708be1df0d25bab563e093c.txt",
+    "sha256": "29a4c3823ee29ee5a97c145574a1bac20629fd5e6708be1df0d25bab563e093c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "126",
+    "title": "zerocopy-derive 0.8.53, zerocopy 0.8.53",
+    "file": "license-1a2f5c12ddc934d58956aa5dbdd3255fe55fd957633ab7d0d39e4f0daa73f7df.txt",
+    "sha256": "1a2f5c12ddc934d58956aa5dbdd3255fe55fd957633ab7d0d39e4f0daa73f7df",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "127",
+    "title": "fs_extra 1.3.0",
+    "file": "license-251ea8ccb1205ce5fa847d6e264d6b6753af62de2cecf2fd9abc0eb02c7c83fc.txt",
+    "sha256": "251ea8ccb1205ce5fa847d6e264d6b6753af62de2cecf2fd9abc0eb02c7c83fc",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "128",
+    "title": "static_assertions 1.1.0",
+    "file": "license-ea084a2373ebc1f0902c09266e7bf25a05ab3814c1805bb017ffa7308f90c061.txt",
+    "sha256": "ea084a2373ebc1f0902c09266e7bf25a05ab3814c1805bb017ffa7308f90c061",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "129",
+    "title": "darling 0.20.11, darling 0.23.0, darling_core 0.20.11, darling_core 0.23.0, darling_macro 0.20.11, darling_macro 0.23.0",
+    "file": "license-8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6.txt",
+    "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "130",
+    "title": "crc32fast 1.5.0",
+    "file": "license-61d383b05b87d78f94d2937e2580cce47226d17823c0430fbcad09596537efcf.txt",
+    "sha256": "61d383b05b87d78f94d2937e2580cce47226d17823c0430fbcad09596537efcf",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "131",
+    "title": "tokio-socks 0.5.3",
+    "file": "license-a0bb5ec9a11d4b34412e0b9867c01f0cc63f5935ab20a087798201b910be5aa1.txt",
+    "sha256": "a0bb5ec9a11d4b34412e0b9867c01f0cc63f5935ab20a087798201b910be5aa1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "132",
+    "title": "macro_rules_attribute-proc_macro 0.2.2, macro_rules_attribute 0.2.2",
+    "file": "license-603fb27ef3266ea516872eefd9ae587746b8c34614a35c0fb24e4e9e0c17e137.txt",
+    "sha256": "603fb27ef3266ea516872eefd9ae587746b8c34614a35c0fb24e4e9e0c17e137",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "133",
+    "title": "strum 0.28.0, strum_macros 0.28.0",
+    "file": "license-8bce3b45e49ecd1461f223b46de133d8f62cd39f745cfdaf81bee554b908bd42.txt",
+    "sha256": "8bce3b45e49ecd1461f223b46de133d8f62cd39f745cfdaf81bee554b908bd42",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "134",
+    "title": "tokio-macros 2.7.0",
+    "file": "license-0b83dc40cba89b9922bb84b0a9c7d2768ce37c1d7e138b7424fd4549915778c9.txt",
+    "sha256": "0b83dc40cba89b9922bb84b0a9c7d2768ce37c1d7e138b7424fd4549915778c9",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "135",
+    "title": "fslock 0.2.1",
+    "file": "license-e7c5e4f7803fa0a4eb1900c54a7afce8af09b70d30d2b71ebde7a613f4cfa6c4.txt",
+    "sha256": "e7c5e4f7803fa0a4eb1900c54a7afce8af09b70d30d2b71ebde7a613f4cfa6c4",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "136",
+    "title": "convert_case 0.10.0",
+    "file": "license-797087750c4103075e96bb7a60202a040812f8679ae2f7263148a1cc0b298d28.txt",
+    "sha256": "797087750c4103075e96bb7a60202a040812f8679ae2f7263148a1cc0b298d28",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "137",
+    "title": "const-str 1.1.0",
+    "file": "license-be6088202447fafda206eda287b58482084aed50d19d6fb4af3b76ee610dd09a.txt",
+    "sha256": "be6088202447fafda206eda287b58482084aed50d19d6fb4af3b76ee610dd09a",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "138",
+    "title": "snow 0.10.0",
+    "file": "license-dd6a6177e441f98b36c8e0e92e399a90e94fe09c3fed92d8bf21fe00a840a6ed.txt",
+    "sha256": "dd6a6177e441f98b36c8e0e92e399a90e94fe09c3fed92d8bf21fe00a840a6ed",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "139",
+    "title": "derive-where 1.6.1",
+    "file": "license-937230c05b5673fe216dda49dfc7c96591c63d0ea4c029e3e1b84aef3a45cbfd.txt",
+    "sha256": "937230c05b5673fe216dda49dfc7c96591c63d0ea4c029e3e1b84aef3a45cbfd",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "140",
+    "title": "rustls-platform-verifier 0.7.1",
+    "file": "license-1c7cf76689c837a68ed8d704994e52a0f2940c087958f860d17f3186afbdcc0c.txt",
+    "sha256": "1c7cf76689c837a68ed8d704994e52a0f2940c087958f860d17f3186afbdcc0c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "141",
+    "title": "visibility 0.1.1",
+    "file": "license-b405b5dbae5d4473f5f932af2b5d47df6114036a0b1382d9f6c411a62b71a547.txt",
+    "sha256": "b405b5dbae5d4473f5f932af2b5d47df6114036a0b1382d9f6c411a62b71a547",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "142",
+    "title": "libm 0.2.16",
+    "file": "license-b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5.txt",
+    "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "143",
+    "title": "tokio-stream 0.1.18, tokio-util 0.7.18, tokio 1.52.3",
+    "file": "license-253cd04c6714889df2d32f3f64d669179a1c95c76ac43c40882c52eb06bc3552.txt",
+    "sha256": "253cd04c6714889df2d32f3f64d669179a1c95c76ac43c40882c52eb06bc3552",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "144",
+    "title": "simd-adler32 0.3.9",
+    "file": "license-42a35170233e83e18856792e748de4c1ce4a63b2afce9a370c89ef3fe23f9f2d.txt",
+    "sha256": "42a35170233e83e18856792e748de4c1ce4a63b2afce9a370c89ef3fe23f9f2d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "145",
+    "title": "miniz_oxide 0.8.9",
+    "file": "license-4108245a1f2df9d4e94df8abed5b4ba0759bb2f9b40a6b939f1be141077ae50b.txt",
+    "sha256": "4108245a1f2df9d4e94df8abed5b4ba0759bb2f9b40a6b939f1be141077ae50b",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "146",
+    "title": "ident_case 1.0.1",
+    "file": "license-508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1.txt",
+    "sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "147",
+    "title": "rustc-hash 2.1.3",
+    "file": "license-30fefc3a7d6a0041541858293bcbea2dde4caa4c0a5802f996a7f7e8c0085652.txt",
+    "sha256": "30fefc3a7d6a0041541858293bcbea2dde4caa4c0a5802f996a7f7e8c0085652",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "148",
+    "title": "adler2 2.0.1, anyhow 1.0.103, async-trait 0.1.89, atomic-waker 1.1.2, auto_enums 0.8.9, derive_utils 0.15.1, displaydoc 0.2.6, dyn-clone 1.0.20, fastrand 2.4.1, home 0.5.12, itoa 1.0.18, linkme-impl 0.3.36, linkme 0.3.36, minimal-lexical 0.2.1, num_enum 0.7.6, num_enum_derive 0.7.6, once_cell 1.21.4, paste 1.0.15, pin-project-internal 1.1.13, pin-project-lite 0.2.17, pin-project 1.1.13, prettyplease 0.2.37, proc-macro-crate 3.5.0, proc-macro2 1.0.106, quote 1.0.46, ref-cast-impl 1.0.25, ref-cast 1.0.25, rustix 0.38.44, rustix 1.1.4, rustversion 1.0.23, semver 1.0.28, serde 1.0.228, serde_core 1.0.228, serde_derive 1.0.228, serde_json 1.0.150, syn-mid 0.6.1, syn 2.0.118, thiserror-impl 1.0.69, thiserror-impl 2.0.18, thiserror 1.0.69, thiserror 2.0.18, unicode-ident 1.0.24, zmij 1.0.21",
+    "file": "license-23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3.txt",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "149",
+    "title": "winnow 1.0.3",
+    "file": "license-cb5aedb296c5246d1f22e9099f925a65146f9f0d6b4eebba97fd27a6cdbbab2d.txt",
+    "sha256": "cb5aedb296c5246d1f22e9099f925a65146f9f0d6b4eebba97fd27a6cdbbab2d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "150",
+    "title": "typenum 1.20.1",
+    "file": "license-a825bd853ab71619a4923d7b4311221427848070ff44d990da39b0b274c1683f.txt",
+    "sha256": "a825bd853ab71619a4923d7b4311221427848070ff44d990da39b0b274c1683f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "151",
+    "title": "chrono 0.4.45",
+    "file": "license-332b974a713ff4e5536be4732fbffd1026694d4a1cbe8d832c969625d991f22c.txt",
+    "sha256": "332b974a713ff4e5536be4732fbffd1026694d4a1cbe8d832c969625d991f22c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "152",
+    "title": "base64 0.22.1",
+    "file": "license-0dd882e53de11566d50f8e8e2d5a651bcf3fabee4987d70f306233cf39094ba7.txt",
+    "sha256": "0dd882e53de11566d50f8e8e2d5a651bcf3fabee4987d70f306233cf39094ba7",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "153",
+    "title": "aho-corasick 1.1.4, memchr 2.8.2",
+    "file": "license-0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f.txt",
+    "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "154",
+    "title": "strsim 0.11.1",
+    "file": "license-1e697ce8d21401fbf1bddd9b5c3fd4c4c79ae1e3bdf51f81761c85e11d5a89cd.txt",
+    "sha256": "1e697ce8d21401fbf1bddd9b5c3fd4c4c79ae1e3bdf51f81761c85e11d5a89cd",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "155",
+    "title": "shlex 1.3.0, shlex 2.0.1",
+    "file": "license-4455bf75a91154108304cb283e0fea9948c14f13e20d60887cf2552449dea3b1.txt",
+    "sha256": "4455bf75a91154108304cb283e0fea9948c14f13e20d60887cf2552449dea3b1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "156",
+    "title": "security-framework-sys 2.17.0, security-framework 3.7.0",
+    "file": "license-91e934255ba3b2f21103d68c5581c23ef34aa95c4628e4405b8c901935e11c69.txt",
+    "sha256": "91e934255ba3b2f21103d68c5581c23ef34aa95c4628e4405b8c901935e11c69",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "157",
+    "title": "data-encoding-macro-internal 0.1.18, data-encoding-macro 0.1.20, data-encoding 2.11.0",
+    "file": "license-b68ad1a3367b825447089e1f8d6829b97f47a89eb78d2f4ebaef4672f5606186.txt",
+    "sha256": "b68ad1a3367b825447089e1f8d6829b97f47a89eb78d2f4ebaef4672f5606186",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "158",
+    "title": "derive_more-impl 2.1.1, derive_more 2.1.1",
+    "file": "license-8a35369f3ca263b3c62fbb5032947e53b6bfebc6c8a4d1bb982de1c069f6fba5.txt",
+    "sha256": "8a35369f3ca263b3c62fbb5032947e53b6bfebc6c8a4d1bb982de1c069f6fba5",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "159",
+    "title": "derive_builder 0.20.2, derive_builder_core 0.20.2, derive_builder_macro 0.20.2",
+    "file": "license-8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c.txt",
+    "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "160",
+    "title": "async-compression 0.4.42, compression-codecs 0.4.38, compression-core 0.4.32",
+    "file": "license-88d1e3160df48926ad3310a8ec5699b502889565908f1be7e77cd21282c7a709.txt",
+    "sha256": "88d1e3160df48926ad3310a8ec5699b502889565908f1be7e77cd21282c7a709",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "161",
+    "title": "atomic-take 1.1.0",
+    "file": "license-ea14ab5236f052be2bf7d55689f82c2bc74fefbd8a39f01ff5c2d5b3992c659d.txt",
+    "sha256": "ea14ab5236f052be2bf7d55689f82c2bc74fefbd8a39f01ff5c2d5b3992c659d",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "162",
+    "title": "crossbeam-deque 0.8.7, crossbeam-epoch 0.9.20, crossbeam-utils 0.8.22",
+    "file": "license-5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab.txt",
+    "sha256": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "163",
+    "title": "dyn-clonable-impl 0.9.2, dyn-clonable 0.9.2",
+    "file": "license-d2c376e2d8ee747383aaf0d5b52997bd6aa04ab73720b6797edeb64fe90c05a3.txt",
+    "sha256": "d2c376e2d8ee747383aaf0d5b52997bd6aa04ab73720b6797edeb64fe90c05a3",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "164",
+    "title": "version_check 0.9.5",
+    "file": "license-b7e650f3fce5c53249d1cdc608b54df156a97edd636cf9d23498d0cfe7aec63e.txt",
+    "sha256": "b7e650f3fce5c53249d1cdc608b54df156a97edd636cf9d23498d0cfe7aec63e",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "165",
+    "title": "bincode 1.3.3",
+    "file": "license-90d7e062634054e6866d3c81e6a2b3058a840e6af733e98e80bdfe1a7dec6912.txt",
+    "sha256": "90d7e062634054e6866d3c81e6a2b3058a840e6af733e98e80bdfe1a7dec6912",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "166",
+    "title": "generic-array 0.14.7",
+    "file": "license-ad4fcfaf8d5b12b97409c137a03d4a4e4b21024c65c54f976cc3b609c1bd5b0f.txt",
+    "sha256": "ad4fcfaf8d5b12b97409c137a03d4a4e4b21024c65c54f976cc3b609c1bd5b0f",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "167",
+    "title": "hpke-rs-crypto 0.7.0, hpke-rs 0.7.0",
+    "file": "license-66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172.txt",
+    "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "168",
+    "title": "unicode-ident 1.0.24",
+    "file": "license-f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1.txt",
+    "sha256": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "169",
+    "title": "foldhash 0.1.5",
+    "file": "license-b1181a40b2a7b25cf66fd01481713bc1005df082c53ef73e851e55071b102744.txt",
+    "sha256": "b1181a40b2a7b25cf66fd01481713bc1005df082c53ef73e851e55071b102744",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "170",
+    "title": "Kyber Patent License",
+    "file": "license-28427006f0b46b5b7609ecb6972b66ec7a425b7bed994093ebc6078aad13c423.txt",
+    "sha256": "28427006f0b46b5b7609ecb6972b66ec7a425b7bed994093ebc6078aad13c423",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "171",
+    "title": "",
+    "file": "license-9397d3e89594ca5317d672d322d6b7be13f5e253067af2bafc0a2b7cff7b63d0.txt",
+    "sha256": "9397d3e89594ca5317d672d322d6b7be13f5e253067af2bafc0a2b7cff7b63d0",
+    "origin": "libsignal and Rust dependencies"
+  },
+  {
+    "id": "172",
+    "title": "GTMSessionFetcher",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "173",
+    "title": "GoogleDataTransport",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "174",
+    "title": "GoogleMLKit",
+    "file": "license-d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6.txt",
+    "sha256": "d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "175",
+    "title": "GoogleToolboxForMac",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "176",
+    "title": "GoogleUtilities",
+    "file": "license-ad6d036b9a78f0e1700d68039c06058033fea063172ce2dc68e382a24b4d1928.txt",
+    "sha256": "ad6d036b9a78f0e1700d68039c06058033fea063172ce2dc68e382a24b4d1928",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "177",
+    "title": "MLKitCommon",
+    "file": "license-d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6.txt",
+    "sha256": "d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "178",
+    "title": "MLKitLanguageID",
+    "file": "license-d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6.txt",
+    "sha256": "d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "179",
+    "title": "MLKitNaturalLanguage",
+    "file": "license-d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6.txt",
+    "sha256": "d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "180",
+    "title": "MLKitTranslate",
+    "file": "license-d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6.txt",
+    "sha256": "d88ebb1b69c30795e2d08e0f625a6265cabb484a2154fd174bfcee9e819a28f6",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "181",
+    "title": "PromisesObjC",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "182",
+    "title": "SSZipArchive",
+    "file": "license-d02a57f131864af6c4c29de50f26d01098bed336277bbf1ae7b5d3d3c56d9f2d.txt",
+    "sha256": "d02a57f131864af6c4c29de50f26d01098bed336277bbf1ae7b5d3d3c56d9f2d",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "183",
+    "title": "nanopb",
+    "file": "license-e2f2fc8fe3faa7dcb09dbe995db48c6ec5c1f72705db915101e4a83fed44f66d.txt",
+    "sha256": "e2f2fc8fe3faa7dcb09dbe995db48c6ec5c1f72705db915101e4a83fed44f66d",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "184",
+    "title": "",
+    "file": "license-409ab9dbe620071f3f6e3ebae674ba800eff86f4b7ea0db3beb68a353a2faa56.txt",
+    "sha256": "409ab9dbe620071f3f6e3ebae674ba800eff86f4b7ea0db3beb68a353a2faa56",
+    "origin": "Native SDK dependencies"
+  },
+  {
+    "id": "185",
+    "title": "workos-ios/LICENSE",
+    "file": "license-c33f799eb6e0a36c1d683f2814daf0a107a505830f107a0f8dfd20a9870c2f51.txt",
+    "sha256": "c33f799eb6e0a36c1d683f2814daf0a107a505830f107a0f8dfd20a9870c2f51",
+    "origin": "workos-ios/LICENSE"
+  },
+  {
+    "id": "186",
+    "title": "espeak-ng-spm/LICENSE",
+    "file": "license-1b3782ccad7b8614100cda30d3faf42fc39f2e97932908c543005053b654ca68.txt",
+    "sha256": "1b3782ccad7b8614100cda30d3faf42fc39f2e97932908c543005053b654ca68",
+    "origin": "espeak-ng-spm/LICENSE"
+  },
+  {
+    "id": "187",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.BSD2",
+    "file": "license-a8b0c1c7d7af6c0415c068be8cf373799d1a42b0707b79dc4ccfcaf593cd902d.txt",
+    "sha256": "a8b0c1c7d7af6c0415c068be8cf373799d1a42b0707b79dc4ccfcaf593cd902d",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.BSD2"
+  },
+  {
+    "id": "188",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.APACHE",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.APACHE"
+  },
+  {
+    "id": "189",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.UCD",
+    "file": "license-be029c50df83105a810e391778b6edcb522d6cb4b4e142332aca54437a499bf7.txt",
+    "sha256": "be029c50df83105a810e391778b6edcb522d6cb4b4e142332aca54437a499bf7",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING.UCD"
+  },
+  {
+    "id": "190",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING",
+    "file": "license-8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903.txt",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/COPYING"
+  },
+  {
+    "id": "191",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/src/ucd-tools/COPYING.UCD",
+    "file": "license-be029c50df83105a810e391778b6edcb522d6cb4b4e142332aca54437a499bf7.txt",
+    "sha256": "be029c50df83105a810e391778b6edcb522d6cb4b4e142332aca54437a499bf7",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/src/ucd-tools/COPYING.UCD"
+  },
+  {
+    "id": "192",
+    "title": "espeak-ng-spm/Sources/libespeak-ng/_repo/src/ucd-tools/COPYING",
+    "file": "license-8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903.txt",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "origin": "espeak-ng-spm/Sources/libespeak-ng/_repo/src/ucd-tools/COPYING"
+  },
+  {
+    "id": "193",
+    "title": "espeak-ng-spm/Sources/libsonic/_repo/LICENSE",
+    "file": "license-cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "origin": "espeak-ng-spm/Sources/libsonic/_repo/LICENSE"
+  },
+  {
+    "id": "194",
+    "title": "Google ML Kit — complete bundled notices",
+    "file": "license-0686eda9b9ffb5b3908a855fb179b9ba6509d50003d76f1b46315a078dc28ee0.txt",
+    "sha256": "0686eda9b9ffb5b3908a855fb179b9ba6509d50003d76f1b46315a078dc28ee0",
+    "origin": "Google ML Kit 8.0.0 installed NOTICES, identical in its five SDK components"
+  }
+]

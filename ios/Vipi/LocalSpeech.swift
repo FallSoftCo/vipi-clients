@@ -170,14 +170,10 @@ private final class ConverterInput: @unchecked Sendable {
         guard prepared else { throw LocalSpeechError.notPrepared }
         guard !busy, !spans.isEmpty, spans.reduce(0, { $0 + $1.text.utf16.count }) <= 16_384 else { throw LocalSpeechError.unavailable }
         busy = true; defer { busy = false }
-        var normalized: [(text: String, language: String)] = []
         for span in spans {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
-            let punctuationOnly = span.text.allSatisfy { $0.isWhitespace || ".,!?;:。！？、؛،".contains($0) }
-            if !normalized.isEmpty && (normalized.last!.language == span.language || punctuationOnly) {
-                normalized[normalized.count - 1].text += span.text
-            } else if !span.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { normalized.append(span) }
         }
+        let normalized = SpeechChunks.coalesced(spans)
         let identity = normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")

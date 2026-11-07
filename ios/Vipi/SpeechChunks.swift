@@ -1,6 +1,26 @@
 import Foundation
 
 enum SpeechChunks {
+    /// Two adjacent immersion units may have no separator in the original
+    /// script. Keep their utterances distinct instead of synthesizing a new
+    /// joined word (for example, English “togetherlunch” from Japanese slots).
+    /// Whitespace and punctuation already supply a natural joining boundary.
+    static func coalesced(_ spans: [(text: String, language: String)]) -> [(text: String, language: String)] {
+        var result: [(text: String, language: String)] = []
+        for span in spans {
+            guard !span.text.isEmpty else { continue }
+            let punctuationOnly = span.text.allSatisfy { $0.isWhitespace || ".,!?;:。！？、؛،".contains($0) }
+            if let last = result.last {
+                let touchingLetters = last.text.last?.isLetter == true && span.text.first?.isLetter == true
+                if punctuationOnly || (last.language == span.language && !touchingLetters) {
+                    result[result.count - 1].text += span.text
+                    continue
+                }
+            }
+            if !span.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { result.append(span) }
+        }
+        return result
+    }
     static func plan(_ spans: [(text: String, language: String)]) -> [[(text: String, language: String)]] {
         var pieces: [(text: String, language: String)] = []
         for span in spans {

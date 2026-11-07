@@ -1,6 +1,7 @@
 import SwiftUI
 
 @main struct VipiApp: App {
+    @UIApplicationDelegateAdaptor(VipiAppDelegate.self) private var appDelegate
     @State private var state = AppState()
     @State private var authentication: AuthenticationManager
     @State private var deletion: AccountDeletion
@@ -18,7 +19,13 @@ import SwiftUI
                 if deletion.active { AccountDeletionProgressView() }
                 else {
                 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") { TimelineQualificationView() }
+                if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
+                    // The explicit native HTTP harness owns inbox ordering.
+                    // It still uses the real account session and production
+                    // cryptography; Release has no such launch path.
+                    Color.clear.accessibilityLabel("Native messaging qualification")
+                }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") { TimelineQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }

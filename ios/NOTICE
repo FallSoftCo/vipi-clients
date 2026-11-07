@@ -20,5 +20,9 @@ Swahili translation uses Google ML Kit's on-device iOS SDK, pinned by
 Podfile.lock (GoogleMLKit/Translate 8.0.0). Its vendor license and privacy
 manifests remain applicable; this notice does not relicense that SDK.
 
-Other dependency notices and a complete release source bundle remain required
-before distribution. This file does not relicense third-party dependencies.
+Complete dependency notice texts, including libsignal's Rust acknowledgments,
+are included in Vipi/ThirdPartyNotices and shown in Settings. BUILDING.md records
+the pinned source, native archive hashes and preparation instructions. The
+complete public corresponding-source release and final dependency compatibility
+review remain required before distribution. This file does not relicense
+third-party dependencies.

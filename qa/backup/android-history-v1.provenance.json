@@ -1,0 +1,8 @@
+{
+  "source": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/android-history-v1.vipihistory",
+  "bytes": 845,
+  "sha256": "a21568787688eb6b5be6d54cf67f44f49b356a9a7c811045273decee5b477018",
+  "producer": "Actual Android native HistoryBackup codec, fresh simulator test",
+  "credentials": "Public Unicode fixture only, qa/backup/vectors.json",
+  "verified_by_reference": "Parent Android agent reported successful Python reference decryption; Apple native import qualification follows"
+}

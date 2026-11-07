@@ -86,6 +86,10 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
         let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Messages").appendingPathComponent(record.account.uuidString.lowercased())
         if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
+        // These are private, temporary encrypted copies, not files the user
+        // chose to save through Files. The coordinator is already closed.
+        let temporaryHistory = folder.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("HistoryFiles")
+        if FileManager.default.fileExists(atPath: temporaryHistory.path) { try FileManager.default.removeItem(at: temporaryHistory) }
         try KeychainStore.deleteChecked(account: "profile-" + record.userID)
     }
     func begin(account: UUID, userID: String, closeChat: () throws -> Void) throws {

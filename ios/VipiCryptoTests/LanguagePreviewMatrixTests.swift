@@ -32,7 +32,7 @@ import SwiftUI
                         var heights: [CGFloat] = []
                         var anchors: [CGRect]?
                         for (face, original, script) in [("target", false, false), ("meaning", true, false), ("script", false, true)] {
-                            let root = StableImmersionText(result: result, revealed: original ? Set(result.spans.map(\.id)) : [], script: script, onWord: { _ in }, onSelection: { _ in })
+                            let root = StableImmersionText(result: .complete(result), revealed: original ? Set(result.spans.map(\.id)) : [], script: script, onWord: { _ in }, onSelection: { _ in })
                                 .environment(\.dynamicTypeSize, size).environment(\.colorScheme, .light)
                             displayHost.rootView = AnyView(root.frame(width: width).fixedSize(horizontal: false, vertical: true))
                             try await Task.sleep(for: .milliseconds(20))
@@ -70,7 +70,7 @@ import SwiftUI
             pair: .init(source: "en", target: "sw"), density: 0.25)
         XCTAssertEqual(greeting.spans.count, 1)
         for revealed in [Set<Int>(), Set(greeting.spans.map(\.id))] {
-            let root = StableImmersionText(result: greeting, revealed: revealed, script: false, onWord: { _ in }, onSelection: { _ in })
+            let root = StableImmersionText(result: .complete(greeting), revealed: revealed, script: false, onWord: { _ in }, onSelection: { _ in })
                 .environment(\.dynamicTypeSize, .accessibility5)
             displayHost.rootView = AnyView(root.frame(width: 280).fixedSize(horizontal: false, vertical: true))
             try await Task.sleep(for: .milliseconds(20))

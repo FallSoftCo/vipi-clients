@@ -1,0 +1,97 @@
+{
+  "identifier": "A838F8F1-54CE-4D4E-A093-C67E47B2C4B1",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_billingGracePeriodEnabled": false,
+    "_billingIssuesEnabled": false,
+    "_disableDialogs": true,
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_timeRate": 0
+  },
+  "subscriptionGroups": [
+    {
+      "id": "11111111-0000-4000-8000-000000000000",
+      "localizations": [
+        {
+          "description": "Vipi yearly plan",
+          "displayName": "Vipi",
+          "locale": "en_US"
+        }
+      ],
+      "name": "Vipi",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "12.00",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "11111111-0000-4000-8000-000000000001",
+          "introductoryOffer": {
+            "internalID": "11111111-0000-4000-8000-000000000002",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1M"
+          },
+          "localizations": [
+            {
+              "description": "Vipi yearly plan",
+              "displayName": "Vipi",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "vipi.base.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Vipi Annual",
+          "subscriptionGroupID": "11111111-0000-4000-8000-000000000000",
+          "type": "RecurringSubscription"
+        }
+      ]
+    },
+    {
+      "id": "22222222-0000-4000-8000-000000000000",
+      "localizations": [
+        {
+          "description": "Bot mini yearly plan",
+          "displayName": "Bot mini",
+          "locale": "en_US"
+        }
+      ],
+      "name": "Bot mini",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "48.00",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "22222222-0000-4000-8000-000000000001",
+          "introductoryOffer": {
+            "internalID": "22222222-0000-4000-8000-000000000002",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1M"
+          },
+          "localizations": [
+            {
+              "description": "Bot mini yearly plan",
+              "displayName": "Bot mini",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "vipi.botmini.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Bot mini Annual",
+          "subscriptionGroupID": "22222222-0000-4000-8000-000000000000",
+          "type": "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

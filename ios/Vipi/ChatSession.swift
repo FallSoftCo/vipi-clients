@@ -25,6 +25,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var ready = false
     private(set) var threads: [ChatThread] = []
     private(set) var contacts: [UUID: ChatProfile] = [:]
+    private(set) var importedPeers: [UUID: HistoryBackupPeer] = [:]
+    private(set) var historyBusy = false
+    private var cancelHistoryWork: (() -> Void)?
     private(set) var blockedPeers = Set<UUID>()
     private(set) var revision = 0
     var notice: String?
@@ -32,6 +35,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var closed = false
     private var blockVersions: [UUID: Int] = [:]
     private var changingBlocks = Set<UUID>()
+    private var nameLookupAfter: [UUID: Date] = [:]
     private var cacheKey: String { "profile-" + userID }
     convenience init(authentication: AuthenticationManager, userID: String) throws {
         try self.init(api: ServiceClient(authentication: authentication, userID: userID), userID: userID)
@@ -55,6 +59,14 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 for key in try store.ids("contact") {
                     guard let data = try store.get("contact", key) else { continue }
                     let contact = try JSONDecoder().decode(ChatProfile.self, from: data); result[contact.id] = contact
+                }
+                return result
+            }
+            importedPeers = try store.transaction {
+                var result: [UUID: HistoryBackupPeer] = [:]
+                for key in try store.ids("imported-peer") {
+                    guard let bytes = try store.get("imported-peer", key) else { continue }
+                    let value = try JSONDecoder().decode(HistoryBackupPeer.self, from: bytes); result[value.id] = value
                 }
                 return result
             }
@@ -119,7 +131,37 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         contacts[value.id] = value
         return value
     }
-    func name(_ peer: UUID) -> String { contacts[peer]?.display_name ?? "New conversation" }
+    func name(_ peer: UUID) -> String { contacts[peer]?.display_name ?? importedPeers[peer]?.displayName ?? "New conversation" }
+    /// Display metadata is not a Signal identity assertion. One bounded pass
+    /// follows a completed inbox sync; offline and deleted peers retain history.
+    private func resolveUnknownNames() async throws {
+        guard let core, let vault else { return }
+        let candidates = threads.map(\.peer).filter {
+            contacts[$0] == nil && !blockedPeers.contains($0) && (nameLookupAfter[$0] ?? .distantPast) <= Date()
+        }.prefix(20)
+        for peer in candidates {
+            nameLookupAfter[peer] = Date().addingTimeInterval(300)
+            do {
+                let value: ChatProfile = try await request("GET", "/v1/people/by-id/" + peer.uuidString.lowercased(), device: core.device)
+                guard value.id == peer, value.id != profile?.id,
+                      value.username.range(of: "^[a-z][a-z0-9_]{2,23}$", options: .regularExpression) != nil,
+                      !value.display_name.isEmpty, value.display_name.unicodeScalars.count <= 80,
+                      !value.display_name.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) }) else { continue }
+                try vault.transaction { try vault.put("contact", peer.uuidString.lowercased(), JSONEncoder().encode(value)) }
+                contacts[peer] = value
+            } catch is CancellationError { throw CancellationError() }
+            catch let error as ServiceFailure where error.status == 404 { nameLookupAfter[peer] = Date().addingTimeInterval(3600) }
+            catch { break }
+        }
+    }
+    func report(peer: UUID, message: ChatItem?, reason: HumanReportReason) async throws {
+        guard ready, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let report = try HumanReportStore.prepare(vault: vault, peer: peer, message: message, reason: reason)
+        if report.reported { return }
+        let reply: HumanReportReply = try await request("POST", "/v1/reports", body: JSONEncoder().encode(report.body), device: core.device)
+        guard reply.reported, reply.report_id == report.body.report_id else { throw ServiceFailure(status: 0, code: "invalid_report_response") }
+        try HumanReportStore.complete(vault: vault, report: report)
+    }
     func refreshBlock(_ peer: UUID) async throws {
         guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !changingBlocks.contains(peer) else { return }
@@ -160,6 +202,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     func saveCompose(_ text: String, peer: UUID) throws { try history?.saveComposeDraft(text, peer: peer) }
     /// Returns only after the user's text and timeline row have committed locally.
     func send(_ text: String, peer: UUID) throws {
+        guard !historyBusy else { throw ServiceFailure(status: 0, code: "history_busy") }
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         try core.journal.saveDraft(id: UUID(), recipient: peer, text: text, createdAt: now, now: now, consumeCompose: true)
@@ -182,7 +225,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         }
     }
     func synchronize() async {
-        guard ready, let core else { return }
+        guard ready, !historyBusy, let core else { return }
         if syncing { syncAgain = true; return }
         syncing = true; defer { syncing = false }
         repeat {
@@ -238,12 +281,62 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             } catch is CancellationError { break }
             catch { notice = Self.explanation(error); break }
         } while syncAgain && !Task.isCancelled
-        do { try reload() } catch { notice = "Your saved conversations couldn’t be opened. Please try again." }
+        do { try reload(); try await resolveUnknownNames() }
+        catch is CancellationError {}
+        catch { notice = "Your saved conversations couldn’t be opened. Please try again." }
     }
+    private struct PushResult: Decodable {}
+    func registerPush(token: String, environment: String) async throws {
+        guard ready, let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let _: PushResult = try await request("PUT", "/v1/devices/push",
+            body: body(["provider": "apns", "token": token, "environment": environment]), device: core.device)
+    }
+    func removePushRegistration() async throws {
+        guard ready, let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let _: PushResult = try await request("DELETE", "/v1/devices/push", device: core.device)
+    }
+
     func close() throws {
+        cancelHistoryWork?(); cancelHistoryWork = nil
         closed = true; ready = false; needsProfile = false; syncAgain = false
         try vault?.close(); vault = nil; core = nil; history = nil
-        profile = nil; threads = []; contacts = [:]; blockedPeers = []
+        profile = nil; threads = []; contacts = [:]; importedPeers = [:]; blockedPeers = []
+    }
+
+    private func historyWork<T: Sendable>(_ operation: @escaping @Sendable (MessageVault) throws -> T) async throws -> T {
+        try ensureOpen()
+        guard !historyBusy, !syncing, !busy, let vault else { throw ServiceFailure(status: 0, code: "history_busy") }
+        historyBusy = true
+        let task = Task.detached(priority: .userInitiated) { try operation(vault) }
+        cancelHistoryWork = { task.cancel() }
+        defer { historyBusy = false; cancelHistoryWork = nil }
+        let result = try await withTaskCancellationHandler(operation: { try await task.value }, onCancel: { task.cancel() })
+        try ensureOpen()
+        return result
+    }
+    func exportHistory(password: String, to url: URL) async throws {
+        try await historyWork { try HistoryBackupStore.export(vault: $0, password: password, to: url) }
+    }
+    func inspectHistory(selected: URL, password: String, staged: URL) async throws -> HistoryBackupCodec.Summary {
+        try await historyWork { vault in
+            _ = try HistoryBackupStore.stage(selected, to: staged)
+            do { return try HistoryBackupCodec.inspect(url: staged, password: password, account: vault.account) }
+            catch { try? FileManager.default.removeItem(at: staged); throw error }
+        }
+    }
+    func importHistory(staged: URL, password: String, verified: HistoryBackupCodec.Summary) async throws -> HistoryBackupStore.ImportResult {
+        let value = try await historyWork { try HistoryBackupStore.merge(vault: $0, staged: staged, password: password, verified: verified) }
+        guard let vault else { throw CancellationError() }
+        importedPeers = try vault.transaction {
+            var result: [UUID: HistoryBackupPeer] = [:]
+            for key in try vault.ids("imported-peer") {
+                guard let bytes = try vault.get("imported-peer", key) else { continue }
+                let peer = try JSONDecoder().decode(HistoryBackupPeer.self, from: bytes); result[peer.id] = peer
+            }
+            return result
+        }
+        try reload()
+        return value
     }
     private func ensureOpen() throws {
         guard !closed else { throw CancellationError() }

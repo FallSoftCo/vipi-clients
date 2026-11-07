@@ -3,7 +3,7 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class NetworkMessagingTests: XCTestCase {
-    private struct Configuration: Decodable { let run: String; let username: String; let peer: String; let endpoint: URL }
+    private struct Configuration: Decodable { let run: String; let username: String; let peer: String; let endpoint: URL; let use_existing_session: Bool? }
     private struct Profile: Codable { let id: UUID; let username: String; let display_name: String }
     private struct Status: Decodable { let state: String }
     private struct Inventory: Decodable { let revision: UInt32; let remaining: Int }
@@ -19,29 +19,58 @@ import XCTest
     private func body(_ values: [String: Any]) throws -> Data { try JSONSerialization.data(withJSONObject: values) }
     func testPublishAndSendToAndroid() async throws {
         let config = try configuration()
-        if let old = try KeychainStore.read(account: "session") { try KeychainStore.save(old, account: "qa-session-backup") }
-        let original = try JSONDecoder().decode(VipiSession.self, from: Data(contentsOf: file("network-session.json")))
-        try FileManager.default.removeItem(at: file("network-session.json"))
-        let forced = VipiSession(userID: original.userID, accessToken: "expired-native-qa-token", refreshToken: original.refreshToken)
-        try KeychainStore.save(JSONEncoder().encode(forced), account: "session")
+        let original: VipiSession
+        if config.use_existing_session == true {
+            // Genuine hosted PKCE has already established this simulator's
+            // session. No token fixture or replacement is used in this mode.
+            original = try XCTUnwrap(AuthenticationManager().session)
+        } else {
+            if let old = try KeychainStore.read(account: "session") { try KeychainStore.save(old, account: "qa-session-backup") }
+            original = try JSONDecoder().decode(VipiSession.self, from: Data(contentsOf: file("network-session.json")))
+            try FileManager.default.removeItem(at: file("network-session.json"))
+            let forced = VipiSession(userID: original.userID, accessToken: "expired-native-qa-token", refreshToken: original.refreshToken)
+            try KeychainStore.save(JSONEncoder().encode(forced), account: "session")
+        }
         let auth = AuthenticationManager(), api = try ServiceClient(authentication: auth, userID: original.userID, endpoint: config.endpoint)
-        let profile: Profile = try await api.request("PUT", "/v1/me", body: body(["username": config.username, "display_name": "Vipi iOS QA"]))
+        if config.use_existing_session == true {
+            let existing: Profile = try await api.request("GET", "/v1/me")
+            XCTAssertEqual(existing.username, config.username)
+            guard existing.username == config.username else { throw XCTSkip("Existing identity is not the owned QA account") }
+        }
+        let profile: Profile
+        if config.use_existing_session == true { profile = try await api.request("GET", "/v1/me") }
+        else { profile = try await api.request("PUT", "/v1/me", body: body(["username": config.username, "display_name": "Vipi iOS QA"])) }
         let vault = try MessageVault(account: profile.id), core = try MessagingCore(vault: vault)
-        let device: DeviceResult = try await api.request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret]))
-        XCTAssertEqual(device.id, core.device.id); XCTAssertTrue(device.active)
-        let publication = try core.keys.publication(now: Int64(Date().timeIntervalSince1970 * 1000))
-        let inventory: Inventory = try await api.request("PUT", "/v1/keys", body: JSONEncoder().encode(publication), device: core.device)
-        try core.keys.published(revision: inventory.revision); XCTAssertEqual(inventory.remaining, 20)
+        if config.use_existing_session != true {
+            let device: DeviceResult = try await api.request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret]))
+            XCTAssertEqual(device.id, core.device.id); XCTAssertTrue(device.active)
+        }
+        if config.use_existing_session == true {
+            let inventory: Inventory = try await api.request("GET", "/v1/keys", device: core.device)
+            XCTAssertGreaterThan(inventory.remaining, 0)
+        } else {
+            let publication = try core.keys.publication(now: Int64(Date().timeIntervalSince1970 * 1000))
+            let inventory: Inventory = try await api.request("PUT", "/v1/keys", body: JSONEncoder().encode(publication), device: core.device)
+            try core.keys.published(revision: inventory.revision); XCTAssertEqual(inventory.remaining, 20)
+        }
         let peer: Profile = try await api.request("GET", "/v1/people/\(config.peer)", device: core.device)
         let request = UUID(), path = "/v1/people/\(peer.id.uuidString.lowercased())/keys"
-        let claimed: ClaimedKeys = try await api.request("POST", path, body: body(["request_id": request.uuidString.lowercased()]), device: core.device)
-        _ = try core.keys.establish(peer: peer.id, requestID: request, response: claimed)
+        if config.use_existing_session == true { XCTAssertTrue(try core.hasSession(peer: peer.id)) }
+        else {
+            let claimed: ClaimedKeys = try await api.request("POST", path, body: body(["request_id": request.uuidString.lowercased()]), device: core.device)
+            _ = try core.keys.establish(peer: peer.id, requestID: request, response: claimed)
+        }
         let now = Int64(Date().timeIntervalSince1970 * 1000), id = UUID()
         let message = try core.queue(id: id, peer: peer.id, text: "Swift over the real relay — café ☕ مرحباً", createdAt: now, now: now)
         let status: Status = try await api.request("POST", "/v1/messages", body: message.sendData(), device: core.device)
         XCTAssertEqual(status.state, "accepted"); try core.journal.applyStatus(id, state: status.state)
-        let again: ClaimedKeys = try await api.request("POST", path, body: body(["request_id": request.uuidString.lowercased()]), device: core.device)
-        _ = try core.keys.establish(peer: peer.id, requestID: request, response: again)
+        if config.use_existing_session == true {
+            let replayed: Status = try await api.request("POST", "/v1/messages", body: message.sendData(), device: core.device)
+            XCTAssertTrue(["accepted", "delivered"].contains(replayed.state))
+        } else {
+            let again: ClaimedKeys = try await api.request("POST", path, body: body(["request_id": request.uuidString.lowercased()]), device: core.device)
+            _ = try core.keys.establish(peer: peer.id, requestID: request, response: again)
+        }
         try JSONEncoder().encode(State(run: config.run, account: profile.id, message: id)).write(to: file("network-state.json"), options: .atomic)
         try body(["run": config.run, "accepted": true]).write(to: file("network-sent.json"), options: .atomic)
     }
@@ -65,9 +94,12 @@ import XCTest
         }
         let empty: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device)
         XCTAssertTrue(empty.messages.isEmpty)
-        if let old = try KeychainStore.read(account: "qa-session-backup") { try KeychainStore.save(old, account: "session") }
-        else { KeychainStore.delete(account: "session") }
-        KeychainStore.delete(account: "qa-session-backup"); try FileManager.default.removeItem(at: file("network-config.json"))
+        if config.use_existing_session != true {
+            if let old = try KeychainStore.read(account: "qa-session-backup") { try KeychainStore.save(old, account: "session") }
+            else { KeychainStore.delete(account: "session") }
+            KeychainStore.delete(account: "qa-session-backup")
+        }
+        try FileManager.default.removeItem(at: file("network-config.json"))
         try body(["run": config.run, "received_out_of_order": 3, "inbox_empty_after_receipts": true]).write(to: file("network-complete.json"), options: .atomic)
     }
 }

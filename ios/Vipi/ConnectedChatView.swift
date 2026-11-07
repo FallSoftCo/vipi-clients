@@ -4,11 +4,12 @@ struct ConnectedChatRoot: View {
     @Environment(AuthenticationManager.self) private var authentication
     @Environment(\.scenePhase) private var scenePhase
     @State private var chat: ChatSession?
+    @State private var subscriptions: SubscriptionStore?
     @State private var error: String?
     var body: some View {
         Group {
             if let chat {
-                if chat.profile != nil && chat.ready { HomeView(chat: chat) }
+                if chat.profile != nil && chat.ready { HomeView(chat: chat, subscriptions: subscriptions) }
                 else if chat.needsProfile { ProfileSetupView(chat: chat) }
                 else {
                     ContentUnavailableView {
@@ -28,6 +29,8 @@ struct ConnectedChatRoot: View {
         }
         .background(VipiDesign.canvas)
         .task(id: authentication.session?.userID) {
+            subscriptions?.close(); subscriptions = nil
+            PushNotifications.shared.detach()
             try? chat?.close(); chat = nil
             guard let userID = authentication.session?.userID else { return }
             do {
@@ -35,8 +38,16 @@ struct ConnectedChatRoot: View {
                 chat = value; await value.start()
             } catch { self.error = "Your saved data is still here. Please close and reopen Vipi to try again." }
         }
-        .onDisappear { try? chat?.close() }
-        .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await chat?.synchronize() } } }
+        .onDisappear { subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
+        .task(id: chat?.profile?.id) {
+            subscriptions?.close(); subscriptions = nil
+            guard let profile = chat?.profile, let userID = authentication.session?.userID,
+                  let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }
+            let store = SubscriptionStore(api: api, accountToken: profile.id)
+            subscriptions = store; await store.start()
+        }
+        .task(id: chat?.ready) { if let chat, chat.ready { await PushNotifications.shared.attach(chat) } }
+        .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await chat?.synchronize(); await subscriptions?.refresh(); await PushNotifications.shared.refresh() } } }
     }
 }
 
@@ -45,6 +56,7 @@ struct ProfileSetupView: View {
     @State private var name = ""
     @State private var username = ""
     @State private var showDelete = false
+    @State private var acceptedTerms = false
     private var valid: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && name.count <= 80 &&
         username.range(of: "^[a-zA-Z][a-zA-Z0-9_]{2,23}$", options: .regularExpression) != nil
@@ -62,10 +74,16 @@ struct ProfileSetupView: View {
                 }.padding(20).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
                 Text("3–24 letters, numbers or underscores. Your phone number and contacts stay private.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                Toggle("I agree to the Terms of Service and have read the Privacy Policy.", isOn: $acceptedTerms)
+                    .font(.footnote).tint(VipiDesign.accent).accessibilityIdentifier("profile-accept-terms")
+                HStack(spacing: 20) {
+                    Link("Terms", destination: URL(string: "https://api.mambovipi.app/terms")!)
+                    Link("Privacy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
+                }.font(.footnote)
                 if let notice = chat.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("profile-error") }
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {
                     HStack { Spacer(); if chat.busy { ProgressView().tint(VipiDesign.onHighlight) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
-                }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(!valid || chat.busy).accessibilityIdentifier("profile-submit")
+                }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(!valid || !acceptedTerms || chat.busy).accessibilityIdentifier("profile-submit")
                 Button("Delete account", role: .destructive) { showDelete = true }.disabled(chat.busy)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.background(VipiDesign.canvas).scrollDismissesKeyboard(.interactively)
@@ -93,6 +111,7 @@ struct FriendConversationView: View {
     @State private var showSecurityNumber = false
     @State private var showVoiceHelp = false
     @State private var showMessageStatus = false
+    @State private var reporting: HumanReportSelection?
     @State private var followingLatest = true
     @State private var scrolling = false
     @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
@@ -215,6 +234,16 @@ struct FriendConversationView: View {
                                 .background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
+                            .contextMenu {
+                                if !item.outgoing && item.state != "imported" {
+                                    Button("Report message", systemImage: "flag") { reporting = HumanReportSelection(message: item) }
+                                }
+                            }
+                            .accessibilityActions {
+                                if !item.outgoing && item.state != "imported" {
+                                    Button("Report message") { reporting = HumanReportSelection(message: item) }
+                                }
+                            }
                             .onGeometryChange(for: CGRect.self) { proxy in proxy.frame(in: .named("conversation-timeline")) } action: { frame in
                                 if item.id == messages.first?.id { firstMessageFrame = frame }
                                 if item.id == pageAnchorID { pageAnchorFrame = frame }
@@ -277,6 +306,7 @@ struct FriendConversationView: View {
             Text(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime.")
         }
         .sheet(isPresented: $showSecurityNumber) { SecurityNumberView(chat: chat, peer: peer) }
+        .sheet(item: $reporting) { selection in HumanReportView(chat: chat, peer: peer, message: selection.message) }
         .sheet(isPresented: $showMessageStatus) {
             NavigationStack {
                 ScrollView {
@@ -336,6 +366,7 @@ struct FriendConversationView: View {
                 NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
                     .accessibilityIdentifier("conversation-languages")
                 Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
+                Button("Report person", systemImage: "flag") { reporting = HumanReportSelection(message: nil) }
                 Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
             } label: {
                 if blockBusy { ProgressView() }
@@ -385,6 +416,7 @@ struct FriendConversationView: View {
     }
     private func messageMetadata(_ item: ChatItem) -> Text {
         let time = Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
+        if item.state == "imported" { return time + Text(" · Saved history") }
         return item.outgoing ? time + Text(" · " + status(item.state)) : time
     }
     private func status(_ value: String) -> String {

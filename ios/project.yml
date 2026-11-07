@@ -5,6 +5,8 @@ configs:
   Release: release
 options:
   bundleIdPrefix: co.fallsoft
+  # CocoaPods requires opening Vipi.xcworkspace.
+  schemePathPrefix: ../
   deploymentTarget:
     iOS: '18.0'
 settings:
@@ -39,7 +41,11 @@ targets:
     type: application
     platform: iOS
     sources:
-      - Vipi
+      - path: Vipi
+        excludes: [ThirdPartyNotices]
+      - path: Vipi/ThirdPartyNotices
+        type: folder
+        buildPhase: resources
       - path: ../data/immersion
         type: folder
         buildPhase: resources
@@ -68,9 +74,14 @@ targets:
           - CFBundleURLSchemes: [co.fallsoft.vipi]
             CFBundleURLName: co.fallsoft.vipi.auth
         WorkOSClientID: $(WORKOS_CLIENT_ID)
+        VipiPushEnvironment: $(VIPI_PUSH_ENVIRONMENT)
+        UIBackgroundModes: [remote-notification]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: co.fallsoft.vipi
+        CODE_SIGN_ENTITLEMENTS: Vipi/Vipi.entitlements
+        VIPI_PUSH_ENVIRONMENT: development
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Vipi
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.social-networking
@@ -92,11 +103,21 @@ targets:
           OTHER_LDFLAGS: '-lsqlite3 -lc++'
         Release:
           WORKOS_CLIENT_ID: ''
+          VIPI_PUSH_ENVIRONMENT: production
   VipiCryptoTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - VipiCryptoTests
+      - path: VipiCryptoTests
+        excludes: [StoreKit]
+      - path: VipiCryptoTests/StoreKit/Vipi.storekit
+        buildPhase: resources
+      - path: ../qa/backup/ascii.vipihistory
+        buildPhase: resources
+      - path: ../qa/backup/unicode.vipihistory
+        buildPhase: resources
+      - path: ../qa/backup/android-history-v1.vipihistory
+        buildPhase: resources
       - path: ../qa/immersion/installer-fixture-assets/lexical-fixture
         type: folder
         buildPhase: resources
@@ -142,3 +163,15 @@ schemes:
     test:
       config: Simulator
       targets: [VipiCryptoTests, VipiUITests]
+  VipiStoreKitTests:
+    build:
+      targets:
+        Vipi: all
+    run:
+      config: Simulator
+      storeKitConfiguration: VipiCryptoTests/StoreKit/Vipi.storekit
+    test:
+      config: Simulator
+      targets:
+        - name: VipiCryptoTests
+          selectedTests: [SubscriptionStoreTests]
