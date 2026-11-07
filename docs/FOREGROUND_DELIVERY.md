@@ -43,6 +43,9 @@ broker.
 Backend qualification includes real PostgreSQL cross-listener commit/rollback,
 recipient and sender wakeups, identity/device denial and revalidation, bounded
 queues, disconnect cleanup, reconnect catch-up and a real loopback WebSocket
-handshake/ping/oversized-frame check. Live TLS proxy and native foreground
-arrival require their own deployment receipts. Background delivery still uses
+handshake/ping/oversized-frame check. The live TLS proxy passed qualification on
+November 7 at service revision `9337972`. Deployment waits for public handshake
+convergence after nginx's asynchronous graceful reload; a successful reload
+command alone does not mean every accepting worker has applied the new headers.
+Native foreground arrival requires its own integration receipts. Background delivery still uses
 APNs/FCM and remains a separate actual-provider qualification gate.

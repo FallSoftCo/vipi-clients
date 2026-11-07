@@ -1,5 +1,48 @@
 # Verification ledger
 
+## Latest delivery checkpoint — November 7, 2026, 23:52 UTC
+
+The consolidated API runs revision `9337972`, schema `20261107_05`, with the
+existing live staging database preserved. Foreground delivery signals are live
+through public TLS. The first deployment rolled back after an HTTP 404 during
+nginx's asynchronous reload. The second separately verified the direct socket,
+observed the brief public transition, then completed three consecutive public
+handshakes that correctly rejected unauthenticated access with close 4401.
+Neither shared nginx nor PostgreSQL was restarted; no database was restored.
+Actual native arrival without refresh is the next integration check.
+
+Store notifications and durable purchase reconciliation are deployed. The
+billing timer ran successfully; real store notification, purchase, renewal and
+refund evidence still requires configured company products and credentials.
+Apple's existing Xcode account can access company certificates, but the actual
+App Store profile/export attempt remains blocked by account reauthentication.
+Google Cloud CLI likewise requires renewed owner authentication. No store upload
+has occurred.
+
+Both native document pickers exported and restored encrypted chat history,
+including cross-platform imports and duplicate suppression. Android's discovered
+foreground-sync/restore race is fixed. Live human chats, delivery receipts,
+out-of-order replies and duplicate ciphertext were qualified through the real
+relay. Apple submitted an explicitly selected QA message through the report UI.
+Android's bundled Swahili synthesizer produced offline PCM; mixed-language
+playback is still being qualified after a system English voice advertised
+offline support but failed synthesis.
+
+Dictionary-independent local word/phrase translation was measured with 4,706
+actual offline ML Kit requests over a frozen 80-message source sample in two
+directions. After preserving numeric tokens in the experimental aligner,
+semantic review at requested 50% density found 30.6% correct word depth for
+English→Spanish and 30.3% for English→Swahili. Material meaning or scope errors
+still affected 21/80 and 27/80 messages. This candidate is not promoted. A
+precommitted reverse-translation filter experiment is pending. Separately, the
+current Spanish source-word slicing defect was fixed in both apps: all eleven
+bad spans disappeared while 372 other Android spans were retained, and the
+213-case Apple replay passed. These results do not establish 90% coverage.
+
+Earlier dated checkpoints below are historical evidence, not current provider,
+host, app-version or release status. Build and source authority remain in
+[BUILD_ENVIRONMENTS.md](BUILD_ENVIRONMENTS.md).
+
 ## Consolidated live integration — November 7, 2026
 
 The source authority and retired-host boundaries are recorded in
