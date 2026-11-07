@@ -35,10 +35,14 @@ struct HistoryBackupView: View {
                     }.disabled(busy).accessibilityIdentifier("history-choose-file")
                     if let selected { Text(selected.lastPathComponent).font(.footnote).lineLimit(2) }
                 }
-                SecureField(restoring ? "Backup password" : "New backup password", text: $password)
-                    .textContentType(restoring ? .password : .newPassword)
-                    .textInputAutocapitalization(.never).autocorrectionDisabled()
-                    .disabled(busy || verified != nil).accessibilityIdentifier("history-password")
+                if verified != nil {
+                    Label("Backup unlocked", systemImage: "lock.open").foregroundStyle(VipiDesign.secondary)
+                } else {
+                    SecureField(restoring ? "Backup password" : "New backup password", text: $password)
+                        .textContentType(restoring ? .password : .newPassword)
+                        .textInputAutocapitalization(.never).autocorrectionDisabled()
+                        .disabled(busy).accessibilityIdentifier("history-password")
+                }
                 if !restoring {
                     SecureField("Confirm backup password", text: $confirmation)
                         .textContentType(.newPassword).textInputAutocapitalization(.never).autocorrectionDisabled()
@@ -49,7 +53,7 @@ struct HistoryBackupView: View {
             }
             if let verified, restoring {
                 Section("Ready to restore") {
-                    Text("\(verified.messages) messages across \(verified.peers) conversations.")
+                    Text("\(verified.messages) \(verified.messages == 1 ? "message" : "messages") across \(verified.peers) \(verified.peers == 1 ? "conversation" : "conversations").")
                     Text("History will be merged with this Vipi account. Matching messages won’t be duplicated. Restored history does not verify anyone’s messaging identity.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                     Button("Restore history", action: restore).disabled(busy).accessibilityIdentifier("history-confirm-restore")
@@ -74,6 +78,7 @@ struct HistoryBackupView: View {
                     .font(.footnote).foregroundStyle(VipiDesign.secondary)
             }
         }
+        .scrollContentBackground(.hidden).background(VipiDesign.canvas)
         .navigationTitle("Chat backup").navigationBarTitleDisplayMode(.inline)
         .sheet(item: $picker, onDismiss: { removeExport() }) { request in
             HistoryDocumentPicker(request: request) { url in
@@ -122,7 +127,12 @@ struct HistoryBackupView: View {
             defer { busy = false; work = nil; clearImport() }
             do {
                 let result = try await chat.importHistory(staged: staged, password: password, verified: verified)
-                notice = "Restored \(result.added) messages. \(result.existing) matching messages were already saved."
+                if result.added == 0 && result.existing > 0 {
+                    notice = result.existing == 1 ? "This message was already saved. Nothing was duplicated." : "All \(result.existing) messages were already saved. Nothing was duplicated."
+                } else if result.added == 0 { notice = "This backup contains no messages to restore." }
+                else {
+                    notice = "Restored \(result.added) \(result.added == 1 ? "message" : "messages"). \(result.existing) matching \(result.existing == 1 ? "message was" : "messages were") already saved."
+                }
                 self.password = ""
             } catch { if !Task.isCancelled { notice = explanation(error) } }
         }

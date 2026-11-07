@@ -115,7 +115,7 @@ struct NewChatView: View {
                         .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty || busy)
                 }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
-            }.navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
+            }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
         }
     }
@@ -192,6 +192,6 @@ struct SettingsView: View {
             if let chat {
                 Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
             }
-        }.navigationTitle("Your Vipi").navigationBarTitleDisplayMode(.inline)
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Your Vipi").navigationBarTitleDisplayMode(.inline)
     }
 }

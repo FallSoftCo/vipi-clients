@@ -113,7 +113,7 @@ struct HumanReportView: View {
                     }
                 }
                 if let notice { Section { Text(notice).accessibilityIdentifier("human-report-notice") } }
-            }.navigationTitle(message == nil ? "Report person" : "Report message").navigationBarTitleDisplayMode(.inline)
+            }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle(message == nil ? "Report person" : "Report message").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button(reported ? "Done" : "Cancel") { dismiss() }.disabled(busy) } }
                 .interactiveDismissDisabled(busy)
         }

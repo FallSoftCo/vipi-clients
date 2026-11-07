@@ -1,0 +1,40 @@
+{
+  "pins": [
+    {
+      "identity": "espeak-ng-spm",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/espeak-ng/espeak-ng-spm.git",
+      "state": {
+        "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c"
+      }
+    },
+    {
+      "identity": "swift-docc-plugin",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/apple/swift-docc-plugin",
+      "state": {
+        "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+        "version": "1.4.3"
+      }
+    },
+    {
+      "identity": "swift-docc-symbolkit",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/swiftlang/swift-docc-symbolkit",
+      "state": {
+        "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "identity": "workos-ios",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/workos/workos-ios",
+      "state": {
+        "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+        "version": "0.8.0"
+      }
+    }
+  ],
+  "version": 2
+}

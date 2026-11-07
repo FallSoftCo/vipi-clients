@@ -25,7 +25,7 @@ struct NoticesView: View {
                     NoticeTextView(text: entry.text).navigationTitle(entry.title).navigationBarTitleDisplayMode(.inline)
                 }
             }
-        }.navigationTitle("Licenses and notices").navigationBarTitleDisplayMode(.inline)
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Licenses and notices").navigationBarTitleDisplayMode(.inline)
     }
 }
 private struct NoticeTextView: UIViewRepresentable {

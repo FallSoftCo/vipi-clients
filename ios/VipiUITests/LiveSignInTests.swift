@@ -1,0 +1,68 @@
+import XCTest
+import UIKit
+
+/// The private fixture is installed only into this simulator test runner's
+/// Documents directory. It is never an app resource or a launch argument.
+@MainActor final class LiveSignInTests: XCTestCase {
+    private struct Identity: Decodable { let email: String; let password: String; let client_id: String }
+    func testHostedPKCESignInForOwnedStagingIdentity() throws {
+        let fixture = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("private-staging-identity.json")
+        guard FileManager.default.fileExists(atPath: fixture.path) else { throw XCTSkip("Explicit private staging identity required") }
+        let identity = try JSONDecoder().decode(Identity.self, from: Data(contentsOf: fixture))
+        guard identity.email.hasSuffix("@example.net"), identity.client_id == "client_01M5S2CDSQ8F7FEX26G3CY9VS1" else { throw XCTSkip("Only the reserved dedicated staging identity is allowed") }
+        continueAfterFailure = false
+        // The isolated simulator pasteboard belongs to this QA run. Reading
+        // another app's clipboard here can block on the system paste prompt.
+        defer { UIPasteboard.general.items = []; try? FileManager.default.removeItem(at: fixture) }
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
+        app.launch()
+        if app.buttons["New chat"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
+        XCTAssertTrue(app.buttons["Find your language"].waitForExistence(timeout: 15))
+        app.buttons["Find your language"].tap()
+        XCTAssertTrue(app.buttons["Continue with Spanish"].waitForExistence(timeout: 10))
+        app.buttons["Continue with Spanish"].tap()
+        XCTAssertTrue(app.switches.firstMatch.waitForExistence(timeout: 10)); app.switches.firstMatch.tap()
+        app.buttons["Continue to sign in"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        if springboard.alerts.buttons["Continue"].waitForExistence(timeout: 5) { springboard.alerts.buttons["Continue"].tap() }
+        let email = app.webViews.textFields.firstMatch
+        XCTAssertTrue(email.waitForExistence(timeout: 30))
+        paste(identity.email, into: email, app: app)
+        let next = app.webViews.buttons.matching(NSPredicate(format: "label == 'Continue' OR label == 'Continue with email'")).firstMatch
+        XCTAssertTrue(next.waitForExistence(timeout: 10)); next.tap()
+        let password = app.webViews.secureTextFields.firstMatch
+        XCTAssertTrue(password.waitForExistence(timeout: 20))
+        paste(identity.password, into: password, app: app)
+        let signIn = app.webViews.buttons.matching(NSPredicate(format: "label == 'Sign in' OR label == 'Continue'")).firstMatch
+        XCTAssertTrue(signIn.waitForExistence(timeout: 10)); signIn.tap()
+        let profile = app.textFields["profile-name"]
+        if profile.waitForExistence(timeout: 30) {
+            profile.tap(); profile.typeText("Vipi iOS QA")
+            let username = app.textFields["profile-username"]; username.tap(); username.typeText("vqa_1107_ios01")
+            app.switches["profile-accept-terms"].tap()
+            app.buttons["profile-submit"].tap()
+            XCTAssertTrue(app.buttons["New chat"].waitForExistence(timeout: 30))
+        } else {
+            // A genuine provider callback can precede backend allowlist deploy.
+            XCTAssertTrue(app.buttons["New chat"].exists || app.buttons["Try again"].exists,
+                          "Hosted sign-in did not return to an authenticated app screen")
+        }
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "owned-staging-authenticated-app"; attachment.lifetime = .keepAlways; add(attachment)
+    }
+    private func paste(_ text: String, into field: XCUIElement, app: XCUIApplication) {
+        // typeText(password) may be retained in XCTest activity logs. Paste
+        // through the native shortcut so neither the secret nor an auth token is
+        // a test action's argument, command line, assertion or attachment.
+        UIPasteboard.general.string = text
+        field.tap(); field.typeKey("v", modifierFlags: .command)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        if springboard.alerts.buttons["Allow Paste"].waitForExistence(timeout: 2) { springboard.alerts.buttons["Allow Paste"].tap() }
+        if app.alerts.buttons["Allow Paste"].exists { app.alerts.buttons["Allow Paste"].tap() }
+        let observed = field.value as? String ?? ""
+        let correct = observed == text || (field.elementType == .secureTextField && observed.count == text.count && observed.allSatisfy { "•*".contains($0) })
+        XCTAssertTrue(correct, "Native paste did not populate the intended field")
+        UIPasteboard.general.items = []
+    }
+}

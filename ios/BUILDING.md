@@ -87,7 +87,9 @@ publication and final licensing compatibility remain release gates owned by the
 integrating release session.
 
 After vendor preparation, run `scripts/prepare-ios-project.sh` in the VM and
-build the generated workspace with `-jobs 2`. StoreKit/provider credentials,
+build the generated workspace with `-jobs 2 -disableAutomaticPackageResolution
+-onlyUsePackageVersionsFromResolvedFile`. The preparation script copies the
+source-controlled `ios/Package.resolved` into the generated workspace. StoreKit/provider credentials,
 production WorkOS configuration and signing are separate release configuration.
 Use the guest `~/.local/bin/apple-xcodebuild` wrapper for signed exports. Never
 upload the old qualification build 63.
