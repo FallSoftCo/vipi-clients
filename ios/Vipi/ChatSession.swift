@@ -5,7 +5,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     let id: UUID; let username: String; let display_name: String
 }
 
-/// Native application coordinator. Lifecycle, send, explicit refresh and future
+/// Native application coordinator. Lifecycle, send, explicit refresh and
 /// contentless relay/push events all enter the same serialized synchronization.
 @MainActor @Observable final class ChatSession {
     private struct Inventory: Decodable { let revision: UInt32; let remaining: Int }
@@ -32,6 +32,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var revision = 0
     var notice: String?
     private var syncAgain = false
+    private var events: ForegroundEvents?
     private var closed = false
     private var blockVersions: [UUID: Int] = [:]
     private var changingBlocks = Set<UUID>()
@@ -225,7 +226,8 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         }
     }
     func synchronize() async {
-        guard ready, !historyBusy, let core else { return }
+        guard ready, !closed, let core else { return }
+        if historyBusy { syncAgain = true; return }
         if syncing { syncAgain = true; return }
         syncing = true; defer { syncing = false }
         repeat {
@@ -286,6 +288,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         catch { notice = "Your saved conversations couldn’t be opened. Please try again." }
     }
     private struct PushResult: Decodable {}
+    func setForeground(_ active: Bool) {
+        guard active, ready, !closed, let core, let api = api as? ServiceClient else { events?.stop(); return }
+        if events == nil {
+            let device = core.device
+            events = ForegroundEvents(connect: { try await api.openEvents(device: device) },
+                                      hint: { [weak self] in await self?.synchronize() })
+        }
+        events?.start()
+    }
     func registerPush(token: String, environment: String) async throws {
         guard ready, let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         let _: PushResult = try await request("PUT", "/v1/devices/push",
@@ -297,6 +308,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
 
     func close() throws {
+        events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
         closed = true; ready = false; needsProfile = false; syncAgain = false
         try vault?.close(); vault = nil; core = nil; history = nil
@@ -309,7 +321,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         historyBusy = true
         let task = Task.detached(priority: .userInitiated) { try operation(vault) }
         cancelHistoryWork = { task.cancel() }
-        defer { historyBusy = false; cancelHistoryWork = nil }
+        defer {
+            historyBusy = false; cancelHistoryWork = nil
+            if syncAgain && !closed { Task { @MainActor [weak self] in await self?.synchronize() } }
+        }
         let result = try await withTaskCancellationHandler(operation: { try await task.value }, onCancel: { task.cancel() })
         try ensureOpen()
         return result

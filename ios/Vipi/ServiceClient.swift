@@ -37,6 +37,7 @@ extension ChatTransport {
     let userID: String
     private let endpoint: URL
     private let http: URLSession
+    private let eventHTTP: URLSession
     init(authentication: AuthenticationManager, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!, responseTimeout: TimeInterval = 30) throws {
         var permitted = endpoint.scheme == "https"
         #if DEBUG
@@ -50,8 +51,27 @@ extension ChatTransport {
         config.timeoutIntervalForRequest = max(25, min(90, responseTimeout))
         config.timeoutIntervalForResource = max(30, min(90, responseTimeout))
         http = URLSession(configuration: config, delegate: NoServiceRedirects(), delegateQueue: nil)
+        let events = URLSessionConfiguration.ephemeral
+        events.urlCache = nil; events.httpCookieStorage = nil
+        events.timeoutIntervalForRequest = 30
+        events.timeoutIntervalForResource = 86_400
+        eventHTTP = URLSession(configuration: events, delegate: NoServiceRedirects(), delegateQueue: nil)
     }
-    deinit { http.invalidateAndCancel() }
+    deinit { http.invalidateAndCancel(); eventHTTP.invalidateAndCancel() }
+    func openEvents(device: DeviceCredential) async throws -> any ForegroundEventSocket {
+        var components = URLComponents(url: endpoint, resolvingAgainstBaseURL: false)!
+        components.scheme = endpoint.scheme == "https" ? "wss" : "ws"
+        components.path = "/v1/events"
+        let token = try await authentication.accessToken(for: userID)
+        try Task.checkCancellation()
+        var request = URLRequest(url: components.url!)
+        request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID")
+        request.setValue(device.secret, forHTTPHeaderField: "X-Vipi-Device-Secret")
+        return NativeEventSocket(task: eventHTTP.webSocketTask(with: request)) { [authentication, userID] in
+            _ = try await authentication.accessToken(for: userID, rejected: token)
+        }
+    }
     func request<T: Decodable>(_ method: String, _ path: String, body: Data? = nil, device: DeviceCredential? = nil, query: [String: String] = [:], as type: T.Type = T.self) async throws -> T {
         guard path.hasPrefix("/v1/"), !path.contains(".."), !path.contains("?"), !path.contains("#"), let url = URL(string: path, relativeTo: endpoint)?.absoluteURL else { throw ServiceFailure(status: 0, code: "invalid_request") }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!

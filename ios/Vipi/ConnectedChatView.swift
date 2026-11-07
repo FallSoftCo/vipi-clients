@@ -46,8 +46,14 @@ struct ConnectedChatRoot: View {
             let store = SubscriptionStore(api: api, accountToken: profile.id)
             subscriptions = store; await store.start()
         }
-        .task(id: chat?.ready) { if let chat, chat.ready { await PushNotifications.shared.attach(chat) } }
-        .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await chat?.synchronize(); await subscriptions?.refresh(); await PushNotifications.shared.refresh() } } }
+        .task(id: chat?.ready) {
+            chat?.setForeground(scenePhase == .active)
+            if let chat, chat.ready { await PushNotifications.shared.attach(chat) }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            chat?.setForeground(phase == .active)
+            if phase == .active { Task { await chat?.synchronize(); await subscriptions?.refresh(); await PushNotifications.shared.refresh() } }
+        }
     }
 }
 
