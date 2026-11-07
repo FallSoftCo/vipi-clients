@@ -38,6 +38,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import android.content.Intent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.collectLatest
 import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
@@ -58,18 +59,18 @@ import java.util.UUID
     chat.notice?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Button(onClick = { scope.launch {
         chat.createProfile(username, name)
-        if (chat.ready) model.navigate(Screen.HOME)
+        if (chat.ready) model.navigate(Screen.PLANS)
     } }, enabled = !chat.busy && name.isNotBlank() && name.length <= 80 && username.matches(Regex("[a-zA-Z][a-zA-Z0-9_]{2,23}")),
         shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().testTag("profile-submit"), contentPadding = PaddingValues(20.dp)) {
         if (chat.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-        else Text("Start chatting", fontWeight = FontWeight.SemiBold)
+        else Text("Continue", fontWeight = FontWeight.SemiBold)
     }
     TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }, enabled = !chat.busy) { Text("Delete account", color = MaterialTheme.colorScheme.error) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
-    density: Double = .25, onLanguages: (() -> Unit)? = null, back: () -> Unit) {
+    density: Double = .25, onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null, back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -79,6 +80,9 @@ import java.util.UUID
     var options by remember(peer) { mutableStateOf(false) }
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
+    var reportedMessage by remember(peer) { mutableStateOf<ChatItem?>(null) }
+    var reportReason by remember(peer) { mutableStateOf("") }
+    var reporting by remember(peer) { mutableStateOf(false) }
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
     var showVoiceHelp by remember(peer) { mutableStateOf(false) }
     var voiceSettingsError by remember { mutableStateOf<String?>(null) }
@@ -132,7 +136,7 @@ import java.util.UUID
         snapshotFlow {
             val layout = list.layoutInfo
             layout.viewportSize.height to layout.visibleItemsInfo.associate { it.key to it.size }
-        }.collect { current ->
+        }.collectLatest { current ->
             val before = previous
             previous = current
             // New visible keys mean scrolling, not resizing. Compare only
@@ -140,9 +144,13 @@ import java.util.UUID
             val resized = before != null && before.first > 0 && before.second.isNotEmpty() && (before.first != current.first ||
                 current.second.any { (key, height) -> before.second[key]?.let { it != height } == true })
             if (resized && followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
-                // Complete this adjustment now. A deferred remeasure request
-                // can otherwise override a later explicit history jump.
-                list.scrollToItem(messages.size + 1)
+                // Layout snapshots can arrive while AndroidView is measuring.
+                // Wait for the next frame before requesting a synchronous
+                // scroll, then respect any intervening jump back to history.
+                withFrameNanos { }
+                if (followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
+                    list.scrollToItem(messages.size + 1)
+                }
             }
         }
     }
@@ -200,6 +208,7 @@ import java.util.UUID
                     Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
                 }
                 (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
+                if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text("View or restore Vipi plan") }
                 if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                     Text("You blocked this person.", fontSize = 14.sp)
                     TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text("Unblock") }
@@ -254,7 +263,12 @@ import java.util.UUID
                         if (item.outgoing) Spacer(Modifier.width(38.dp))
                         Column(Modifier.weight(1f, fill = false).background(if (item.outgoing) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)).padding(horizontal = 15.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
                             val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
-                            ConversationImmersionText(item.text, item.id.toString(), immersion, speech, list.isScrollInProgress || (composing && text.isNotEmpty()), onVoiceHelp = { showVoiceHelp = true }) {
+                            ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
+                                list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,
+                                onVoiceHelp = { showVoiceHelp = true },
+                                onReport = if (!item.outgoing && item.state != "imported") ({
+                                    speech.stop(); reportedMessage = item; reportReason = chat.reportReason(item) ?: ""
+                                }) else null) {
                             Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.testTag("message-meta-${item.id}"))
                             }
@@ -287,6 +301,30 @@ import java.util.UUID
         } },
         confirmButton = { TextButton(onClick = { speech.prepare(warmups) }, enabled = speech.state != SpeechState.PREPARING) { Text("Retry voices") } },
         dismissButton = { TextButton(onClick = { showVoiceHelp = false }) { Text("Done") } })
+    reportedMessage?.let { selected -> AlertDialog(onDismissRequest = { if (!reporting) reportedMessage = null },
+        title = { Text("Report this message") },
+        text = { Column(Modifier.heightIn(max = 380.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("The original message below, its sender and your reason will go to Fallible Software for review. The rest of your conversation stays private. Reports are kept for up to 30 days.")
+            Text(selected.text, style = MaterialTheme.typography.bodyMedium)
+            val savedReason = chat.reportReason(selected)
+            listOf("spam" to "Spam", "harassment" to "Harassment", "harmful" to "Harmful content", "other" to "Something else").forEach { (code, title) ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(reportReason == code, onClick = { reportReason = code }, enabled = !reporting && (savedReason == null || savedReason == code))
+                    Text(title)
+                }
+            }
+            if (savedReason != null) Text("Retrying keeps the same report, so it is not submitted twice.", style = MaterialTheme.typography.bodySmall)
+        } },
+        confirmButton = { TextButton(enabled = !reporting && reportReason.isNotEmpty(), onClick = {
+            reporting = true
+            scope.launch {
+                try { chat.report(selected, reportReason); reportedMessage = null; error = "Report received. You can also block this person from Conversation options." }
+                catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { error = "We couldn’t confirm the report. You can retry this same report." }
+                finally { reporting = false }
+            }
+        }) { Text(if (reporting) "Sending…" else "Send report") } },
+        dismissButton = { TextButton(enabled = !reporting, onClick = { reportedMessage = null }) { Text("Cancel") } }) }
     if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
         title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
         text = { Text(if (blocked) "You can exchange new messages again. Stopped messages won’t be resent." else "Messages between you will stop. Your chat stays on this device. You can unblock anytime.") },
@@ -308,5 +346,6 @@ private fun deliveryLabel(state: String) = when (state) {
     "expired" -> "Not delivered · 72 hours passed"
     "failed" -> "Not delivered"
     "cancelled" -> "Stopped"
+    "imported" -> "Imported"
     else -> "Waiting to send"
 }

@@ -78,7 +78,8 @@ class Authentication(context: Context) {
     private val client get() = PublicClient.create(BuildConfig.WORKOS_CLIENT_ID)
     private val refreshLock = Mutex()
     private var generation = UUID.randomUUID()
-    private val refreshHTTP = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
+    private class ExchangeFailure(val status: Int) : java.io.IOException("Sign-in service unavailable")
+    private val publicHTTP = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(20, TimeUnit.SECONDS).build()
     var userID by mutableStateOf(runCatching { records.read("session")?.getString("userID") }.getOrNull())
         private set
@@ -107,25 +108,43 @@ class Authentication(context: Context) {
     suspend fun complete(uri: Uri) {
         if (uri.scheme != "co.fallsoft.vipi" || uri.host != "auth" || uri.path != "/callback" || uri.port != -1 || uri.userInfo != null || uri.fragment != null || busy) return
         busy = true; error = null
+        var stage = "pending-state"
         try {
             val pending = records.read("pending-sign-in") ?: return
             // Consume before any suspension; a second callback cannot exchange the same verifier.
             records.remove("pending-sign-in")
+            stage = "callback-age"
             require(System.currentTimeMillis() - pending.getLong("createdAt") in 0 until 600_000)
+            stage = "callback-state"
             require(uri.getQueryParameters("state").singleOrNull() == pending.getString("state"))
+            stage = "callback-code"
             val code = requireNotNull(uri.getQueryParameters("code").singleOrNull()?.takeIf { it.isNotBlank() })
             val started = generation
-            val result = client.authenticateWithCode(code, pending.getString("verifier"))
+            stage = "public-pkce-exchange"
+            // WorkOS Android 0.4.0's PublicClient serializes client_secret="".
+            // Public PKCE must omit that field; the provider rejects it with 422.
+            // Exchange once, using the original browser flow's saved verifier.
+            val result = exchange(JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID)
+                .put("grant_type", "authorization_code").put("code", code)
+                .put("code_verifier", pending.getString("verifier")))
+            val resultUser = result.getJSONObject("user").getString("id")
+            stage = "account-binding"
             if (started != generation) throw SignInRequired()
-            if (pending.has("expectedUser") && pending.getString("expectedUser") != result.user.id) {
+            if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
                 error = "Sign in to the same account to continue deleting it."; return
             }
-            records.write("session", JSONObject().put("userID", result.user.id).put("accessToken", result.accessToken).put("refreshToken", result.refreshToken))
+            stage = "private-session-save"
+            records.write("session", sessionRecord(result, resultUser))
             generation = UUID.randomUUID()
-            userID = result.user.id
+            userID = resultUser
             signInRevision++
         } catch (error: CancellationException) { throw error }
-        catch (_: Exception) { error = "We couldn’t verify this sign-in. Please start again." }
+        catch (failure: Exception) {
+            // Debug qualification gets a bounded category, never exception text,
+            // callback URLs, authorization codes, tokens or provider payloads.
+            if (BuildConfig.DEBUG) android.util.Log.w("VipiAuth", "Sign-in failed at $stage (${failure.javaClass.simpleName}, HTTP ${(failure as? ExchangeFailure)?.status ?: 0})")
+            error = "We couldn’t verify this sign-in. Please start again."
+        }
         finally { busy = false }
     }
     suspend fun accessToken(expectedUser: String, rejected: String? = null): String = withContext(Dispatchers.Main.immediate) {
@@ -137,22 +156,29 @@ class Authentication(context: Context) {
             val started = generation
             // The pinned Android SDK has no public-client refresh helper. Use
             // WorkOS's public refresh endpoint without any client secret.
-            val body = JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID).put("grant_type", "refresh_token")
-                .put("refresh_token", current.getString("refreshToken")).toString().toRequestBody("application/json".toMediaType())
-            val result = withContext(Dispatchers.IO) {
-                refreshHTTP.newCall(Request.Builder().url("https://api.workos.com/user_management/authenticate").post(body).build()).execute().use { response ->
-                    if (response.code in setOf(400, 401, 403)) throw SignInRequired()
-                    if (!response.isSuccessful) throw java.io.IOException("Sign-in service unavailable")
-                    val source = requireNotNull(response.body).source()
-                    source.request(65_537); require(source.buffer.size <= 65_536)
-                    JSONObject(source.readUtf8())
-                }
-            }
+            val result = exchange(JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID).put("grant_type", "refresh_token")
+                .put("refresh_token", current.getString("refreshToken")))
             if (generation != started || userID != expectedUser || result.getJSONObject("user").getString("id") != expectedUser) throw SignInRequired()
-            val next = JSONObject().put("userID", expectedUser).put("accessToken", result.getString("access_token")).put("refreshToken", result.getString("refresh_token"))
+            val next = sessionRecord(result, expectedUser)
             records.write("session", next)
             next.getString("accessToken")
         }
+    }
+    private suspend fun exchange(fields: JSONObject): JSONObject = withContext(Dispatchers.IO) {
+        val body = fields.toString().toRequestBody("application/json".toMediaType())
+        publicHTTP.newCall(Request.Builder().url("https://api.workos.com/user_management/authenticate").post(body).build()).execute().use { response ->
+            if (response.code in setOf(400, 401, 403)) throw SignInRequired()
+            if (!response.isSuccessful) throw ExchangeFailure(response.code)
+            val source = requireNotNull(response.body).source()
+            source.request(65_537); require(source.buffer.size <= 65_536)
+            JSONObject(source.readUtf8())
+        }
+    }
+    private fun sessionRecord(result: JSONObject, subject: String): JSONObject {
+        require(subject.startsWith("user_") && subject.length <= 128)
+        val access = result.getString("access_token").also { require(it.isNotBlank() && it.length <= 32_768) }
+        val refresh = result.getString("refresh_token").also { require(it.isNotBlank() && it.length <= 16_384) }
+        return JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh)
     }
     fun signOutLocally() { generation = UUID.randomUUID(); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
 }

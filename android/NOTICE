@@ -10,5 +10,13 @@ This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
-Other dependency notices and a complete release source bundle remain required
-before distribution. This file does not relicense third-party dependencies.
+Verbatim dependency notices are packaged in assets/legal/third-party, with
+resolved release artifact hashes and original notice paths in index.json.
+Pinned upstream license copies are in assets/legal/upstream. The app exposes
+these through Settings > Licenses and notices. Regenerate the artifact inventory
+with scripts/android-dependency-inventory.gradle and package notices with
+scripts/collect-android-notices.py when dependencies change.
+
+A complete corresponding-source release and final combined-distribution review
+remain required before public distribution. This file does not relicense any
+third-party dependency, translation SDK or language dataset.

@@ -49,7 +49,7 @@ class SentenceReadingsDeviceTest {
                 val owner = remember { ConversationImmersion(context, "en", "ja", 1.0) }
                 val speech = remember { SpeechPlayback(context, "en", "ja", scope) }
                 DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
-                ConversationImmersionText("I like music.", "reading-qa", owner, speech, false, {}, { Text("A message") })
+                ConversationImmersionText("I like music.", "reading-qa", owner, speech, false, {}, metadata = { Text("A message") })
             }
         }
         try {

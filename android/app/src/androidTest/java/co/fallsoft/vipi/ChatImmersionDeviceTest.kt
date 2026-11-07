@@ -50,6 +50,8 @@ class ChatImmersionDeviceTest {
         require(run.matches(Regex("[0-9]{3}")))
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val base = instrumentation.targetContext
+        val clipboard = base.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val priorClipboard = clipboard.primaryClip
         val output = File(base.filesDir, "chat-immersion-$run" + if (reversed) "-reverse" else ""); check(!output.exists()); output.mkdirs()
         val root = File(base.cacheDir, "immersion-chat-${UUID.randomUUID()}").apply { mkdirs() }
         val context = object : ContextWrapper(base) {
@@ -102,6 +104,10 @@ class ChatImmersionDeviceTest {
             compose.waitUntil(20_000) { lastParagraph()?.first == "I like muziki." }
             val height = lastParagraph()!!.second
             capture("android-swahili-conversation-light")
+            val metadata = compose.onAllNodes(SemanticsMatcher("message metadata") {
+                it.config.getOrElse(androidx.compose.ui.semantics.SemanticsProperties.TestTag) { "" }.startsWith("message-meta-")
+            }).fetchSemanticsNodes()
+            assertTrue("Message metadata must not be squeezed into a vertical column", metadata.all { it.boundsInRoot.height <= 48 * base.resources.displayMetrics.density })
             compose.waitUntil(10_000) { lastParagraph()?.first == "I like music." }
             assertEquals(height, lastParagraph()!!.second)
             compose.onAllNodesWithContentDescription("Reading options").onLast().performClick()
@@ -152,6 +158,7 @@ class ChatImmersionDeviceTest {
         } finally {
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()
             if (initialized) runBlocking { withContext(Dispatchers.Main) { chat.close() } }
+            if (priorClipboard != null) clipboard.setPrimaryClip(priorClipboard) else clipboard.clearPrimaryClip()
             root.deleteRecursively()
             KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$account") }
         }

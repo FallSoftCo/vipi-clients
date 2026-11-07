@@ -35,8 +35,13 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var blockedPeers by mutableStateOf<Set<UUID>>(emptySet()); private set
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
+    var needsPlan by mutableStateOf(false); private set
     private var syncAgain = false
-    private var closed = false
+    var lastSyncComplete = false; private set
+    private var syncDone: kotlinx.coroutines.CompletableDeferred<Unit>? = null
+    @Volatile private var closed = false
+    private var historyBusy = false
+    private var importedNames = emptyMap<UUID, String>()
     private val blockVersions = mutableMapOf<UUID, Int>()
     private val changingBlocks = mutableSetOf<UUID>()
     private val cacheKey get() = "profile-" + MessageDigest.getInstance("SHA-256").digest(userID.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
@@ -56,7 +61,26 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         }
         profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload()
     }
-    private fun reload() { threads = history?.threads() ?: emptyList(); revision++ }
+    private fun reload() {
+        threads = history?.threads() ?: emptyList()
+        importedNames = vault?.let { store -> store.transaction { store.ids("imported-peer").mapNotNull { id ->
+            val row = JSONObject(requireNotNull(store.get("imported-peer", id)).toString(Charsets.UTF_8))
+            if (row.isNull("display_name")) null else UUID.fromString(id) to row.getString("display_name")
+        }.toMap() } } ?: emptyMap()
+        revision++
+    }
+    private suspend fun <T> historyOperation(block: (HistoryBackupStore, () -> Unit) -> T): T =
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main.immediate) {
+            ensureOpen(); check(!historyBusy && !busy && !syncing) { "Please wait for message delivery to finish and try again" }
+            val store = requireNotNull(vault); historyBusy = true
+            val job = currentCoroutineContext()[kotlinx.coroutines.Job]
+            try { kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                block(HistoryBackupStore(store)) { job?.ensureActive(); check(!closed) }
+            } } finally { historyBusy = false; if (!closed) reload() }
+        }
+    suspend fun exportHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.export(file, password, check) }
+    suspend fun inspectHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.validate(file, password, check) }
+    suspend fun importHistory(file: java.io.File, password: String, confirmed: HistoryBackupCodec.Inspection) = historyOperation { store, check -> store.merge(file, password, confirmed, check) }
     suspend fun start() {
         if (busy || closed) return
         busy = true; notice = null
@@ -104,7 +128,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
         contacts = contacts + (value.id to value); return value
     }
-    fun name(peer: UUID) = contacts[peer]?.displayName ?: "New conversation"
+    fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: "New conversation"
     suspend fun refreshBlock(peer: UUID) {
         val core = core ?: throw ServiceFailure(0, "device_not_ready")
         if (peer in changingBlocks) return
@@ -137,6 +161,27 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
     fun compose(peer: UUID) = history?.composeDraft(peer) ?: ""
     fun saveCompose(text: String, peer: UUID) { history?.saveComposeDraft(text, peer) }
+    fun reportReason(item: ChatItem): String? = vault?.transaction {
+        vault!!.get("human-report", item.id.toString())?.let { JSONObject(it.toString(Charsets.UTF_8)).getJSONObject("request").getString("reason") }
+    }
+    suspend fun report(item: ChatItem, reason: String) {
+        val store = requireNotNull(vault); val core = requireNotNull(core)
+        require(!item.outgoing && item.state != "imported" && reason in setOf("spam", "harassment", "harmful", "other"))
+        val report = store.transaction {
+            val original = StoredChat.parse(requireNotNull(store.get("incoming", item.id.toString())))
+            require(original.envelope.sender == item.peer && original.text == item.text && item.text.toByteArray(Charsets.UTF_8).size <= 32768)
+            store.get("human-report", item.id.toString())?.let { JSONObject(it.toString(Charsets.UTF_8)) }
+                ?: JSONObject().put("state", "pending").put("request", JSONObject()
+                    .put("report_id", UUID.randomUUID().toString()).put("reported_user_id", item.peer.toString())
+                    .put("message_id", item.id.toString()).put("reason", reason).put("selected_text", original.text)
+                    .put("consent_version", "report-v1")).also { store.put("human-report", item.id.toString(), it.toString().toByteArray(Charsets.UTF_8)) }
+        }
+        if (report.getString("state") == "reported") return
+        val body = report.getJSONObject("request"); require(body.getString("reason") == reason)
+        val result = request("POST", "/v1/reports", body, core.device)
+        check(result.getBoolean("reported") && result.getString("report_id") == body.getString("report_id"))
+        store.transaction { store.put("human-report", item.id.toString(), report.put("state", "reported").toString().toByteArray(Charsets.UTF_8)) }
+    }
     fun send(text: String, peer: UUID) {
         val core = core
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
@@ -163,13 +208,18 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun synchronize() {
         val core = core ?: return
         if (!ready) return
-        if (syncing) { syncAgain = true; return }
+        if (historyBusy) { lastSyncComplete = false; return }
+        if (syncing) { syncAgain = true; syncDone?.await(); return }
         syncing = true
+        lastSyncComplete = false
+        var completed = true
+        syncDone = kotlinx.coroutines.CompletableDeferred()
         try {
             do {
                 syncAgain = false; currentCoroutineContext().ensureActive()
                 var cursor: String? = null
                 val seenCursors = mutableSetOf<String>()
+                val unknownSenders = linkedSetOf<UUID>()
                 // Queue capacity is 10,000; restart at its beginning next sync
                 // so transient decryption failures can recover.
                 for (page in 0 until 100) {
@@ -179,14 +229,27 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     repeat(inbox.length()) { index ->
                         try {
                             val item = RoutedMessage.received(inbox.getJSONObject(index), profile!!.id)
-                            if (item.envelope.sender !in blockedPeers) core.receive(item, System.currentTimeMillis())
+                            if (item.envelope.sender !in blockedPeers) {
+                                core.receive(item, System.currentTimeMillis())
+                                if (item.envelope.sender !in contacts && unknownSenders.size < 20) unknownSenders.add(item.envelope.sender)
+                            }
                         }
-                        catch (_: Exception) { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                        catch (_: Exception) { completed = false; notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
                     }
                     if (!result.has("next_cursor") || result.isNull("next_cursor")) break
                     val next = result.getString("next_cursor")
                     if (!seenCursors.add(next)) throw ServiceFailure(0, "invalid_inbox_cursor")
                     cursor = next
+                }
+                // Names are presentation metadata, never evidence of Signal identity trust.
+                for (peer in unknownSenders) {
+                    try {
+                        val value = ChatProfile.parse(request("GET", "/v1/people/by-id/$peer", device = core.device))
+                        require(value.id == peer)
+                        vault!!.transaction { vault!!.put("contact", peer.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
+                        contacts = contacts + (peer to value)
+                    } catch (error: CancellationException) { throw error }
+                    catch (_: Exception) { /* Keep the securely received message even when its profile is unavailable. */ }
                 }
                 for (id in core.journal.pendingReceipts()) {
                     try {
@@ -194,7 +257,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         if (state in setOf("delivered", "expired", "unavailable", "identity_changed")) core.journal.receiptAccepted(id)
                     } catch (error: ServiceFailure) {
                         if (error.status == 404 && error.code == "message_not_found") core.journal.receiptAccepted(id)
-                        else if (error.status == 429) break
+                        else if (error.status == 429) { completed = false; break }
                         else throw error
                     }
                 }
@@ -205,7 +268,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         if (draft.recipient in blockedPeers) continue
                         core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis())
                     } catch (error: CancellationException) { throw error }
-                    catch (error: Exception) { notice = explanation(error) }
+                    catch (error: Exception) { completed = false; notice = explanation(error) }
                 }
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
                     if (envelope.recipient in blockedPeers) continue
@@ -217,19 +280,29 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         val state = terminalSendState(error)
                         if (state != null) core.journal.applyStatus(envelope.id, state)
                         else if (error.code != "recipient_queue_full") throw error
+                        else completed = false
                         notice = explanation(error)
                     }
                 }
             } while (syncAgain)
+            lastSyncComplete = completed
         } catch (error: CancellationException) { throw error }
         catch (error: Exception) { notice = explanation(error) }
         finally {
             syncing = false
-            try { reload() } catch (_: Exception) { notice = "Your saved conversations couldn’t be opened. Please try again." }
+            try { reload() } catch (_: Exception) { lastSyncComplete = false; notice = "Your saved conversations couldn’t be opened. Please try again." }
+            syncDone?.complete(Unit); syncDone = null
         }
+    }
+    suspend fun registerPush(token: String) {
+        require(token.length in 1..4096 && token.none(Char::isISOControl))
+        val core = core ?: return
+        if (!ready) return
+        request("PUT", "/v1/devices/push", JSONObject().put("provider", "fcm").put("token", token).put("environment", "production"), core.device)
     }
     override fun close() {
         closed = true; ready = false; needsProfile = false; syncAgain = false
+        syncDone?.cancel(); syncDone = null
         vault?.close(); vault = null; core = null; history = null
         profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet()
     }
@@ -239,8 +312,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         ensureOpen(); currentCoroutineContext().ensureActive()
         return try {
             val result = api.request(method, path, body, device, query)
+            if (method == "POST" && path == "/v1/messages") { needsPlan = false; notice = null }
             ensureOpen(); currentCoroutineContext().ensureActive(); result
-        } catch (error: Exception) { ensureOpen(); throw error }
+        } catch (error: Exception) {
+            if (error is ServiceFailure && error.code == "base_subscription_required") needsPlan = true
+            ensureOpen(); throw error
+        }
     }
     companion object {
         private fun terminalSendState(error: ServiceFailure): String? = when {
@@ -258,6 +335,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     "invalid_username" -> return "Use 3–24 letters, numbers or underscores, starting with a letter."
                     "own_username" -> return "That’s your username. Enter your friend’s username to start a conversation."
                     "service_not_available" -> return "Vipi is being prepared for launch. This account isn’t in the preview yet."
+                    "base_subscription_required" -> return "Start or restore your Vipi plan to send messages. Your saved chats and drafts remain available."
                     "device_replacement_confirmation_required" -> return "This account is already active on another device. Moving your account needs a separate confirmation."
                     "recent_sign_in_required", "sign_in_required", "device_revoked" -> return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
                     "recipient_keys_unavailable" -> return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."

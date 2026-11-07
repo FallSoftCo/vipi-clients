@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "licenses": [
+    {
+      "coordinate": "com.workos:workos-android:0.4.0",
+      "url": "https://raw.githubusercontent.com/workos/workos-android/v0.4.0/LICENSE",
+      "asset": "legal/upstream/workos-android-0.4.0-LICENSE.txt",
+      "sha256": "440126930e01613ce003165bcf3c3f0c3525a4f820d36bbeffdaad11f70038ec",
+      "bytes": 1063
+    },
+    {
+      "coordinate": "org.signal:libsignal-android:0.105.0",
+      "url": "https://raw.githubusercontent.com/signalapp/libsignal/v0.105.0/LICENSE",
+      "asset": "legal/upstream/libsignal-0.105.0-LICENSE.txt",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    }
+  ]
+}

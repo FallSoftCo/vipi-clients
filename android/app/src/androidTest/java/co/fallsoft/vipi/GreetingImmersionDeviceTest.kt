@@ -57,7 +57,7 @@ class GreetingImmersionDeviceTest {
                     val speech = remember { SpeechPlayback(context, "en", "sw", scope) }
                     DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
-                        ConversationImmersionText("Thank you very much.", "greeting-qa", owner, speech, paused.value, {}, { Text("A message") })
+                        ConversationImmersionText("Thank you very much.", "greeting-qa", owner, speech, paused.value, {}, metadata = { Text("A message") })
                     }
                 }
             }

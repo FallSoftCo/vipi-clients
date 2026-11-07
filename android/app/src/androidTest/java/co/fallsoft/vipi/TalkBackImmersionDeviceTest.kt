@@ -84,7 +84,7 @@ class TalkBackImmersionDeviceTest {
                     DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
                         if (longMessage.value) ImmersionBubble(longResult, ReadingMode.IMMERSED, source = "en", target = "sw")
-                        else ConversationImmersionText("I like music.", "talkback-qa", owner, speech, false, {}, { Text("A message") })
+                        else ConversationImmersionText("I like music.", "talkback-qa", owner, speech, false, {}, metadata = { Text("A message") })
                     }
                 }
             }

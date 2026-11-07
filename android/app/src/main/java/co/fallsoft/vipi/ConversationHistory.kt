@@ -14,10 +14,13 @@ internal class ConversationHistory(private val vault: MessageVault) {
     init { vault.transaction {
         val version = vault.get("metadata", "history-index")
         if (version == null) {
-            for (kind in listOf("draft", "outgoing", "incoming")) {
+            for (kind in listOf("draft", "outgoing", "incoming", "imported")) {
                 for (id in vault.ids(kind)) {
                     val data = requireNotNull(vault.get(kind, id))
-                    if (kind == "draft") {
+                    if (kind == "imported") {
+                        val item = HistoryBackupStore.item(JSONObject(data.toString(Charsets.UTF_8)), "")
+                        record(vault, kind, item.id, item.peer, item.createdAt)
+                    } else if (kind == "draft") {
                         val item = DraftChat.parse(data); record(vault, kind, item.id, item.recipient, item.createdAt)
                     } else {
                         val item = StoredChat.parse(data).envelope
@@ -31,6 +34,7 @@ internal class ConversationHistory(private val vault: MessageVault) {
     private fun item(cursor: String): ChatItem {
         val ref = JSONObject(requireNotNull(vault.get("history", cursor)).toString(Charsets.UTF_8))
         val kind = ref.getString("kind"); val bytes = requireNotNull(vault.get(kind, ref.getString("id")))
+        if (kind == "imported") return HistoryBackupStore.item(JSONObject(bytes.toString(Charsets.UTF_8)), cursor)
         if (kind == "draft") {
             val value = DraftChat.parse(bytes)
             return ChatItem(value.id, value.recipient, value.text, value.createdAt, true, value.state, cursor)

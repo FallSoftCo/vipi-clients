@@ -36,7 +36,8 @@ import kotlinx.coroutines.delay
     interactionPaused: Boolean = false, targetDwellMs: Long = 4500, meaningDwellMs: Long = 3000, fullReading: String? = null,
     embedded: Boolean = false, onModeChange: ((ReadingMode) -> Unit)? = null, metadata: (@Composable () -> Unit)? = null,
     onVoiceHelp: (() -> Unit)? = null,
-    originalMessage: String? = null, inputLanguage: String? = null, onInputLanguage: ((String?) -> Unit)? = null
+    originalMessage: String? = null, inputLanguage: String? = null, onInputLanguage: ((String?) -> Unit)? = null,
+    onInteractionChange: ((Boolean) -> Unit)? = null, onReport: (() -> Unit)? = null
 ) {
     // A partial result has no full-target text. Do not expose empty/mixed text as translation.
     val completeTranslation = result.translation
@@ -52,6 +53,7 @@ import kotlinx.coroutines.delay
     var resumed by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var chooseLanguage by remember { mutableStateOf(false) }
+    SideEffect { onInteractionChange?.invoke(menu || chooseLanguage || selecting || choosingWord || choosingPace) }
     var revision by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
     val preferences = remember { context.getSharedPreferences("preferences", 0) }
@@ -136,7 +138,7 @@ import kotlinx.coroutines.delay
             }
             if (result.spans.isNotEmpty() || fullReading != null || onModeChange != null) {
                 Box {
-                    IconButton(onClick = { menu = true }, modifier = Modifier.size(44.dp)) { Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp)) }
+                    IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp)) { Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp)) }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         if (embedded) {
                             if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
@@ -150,6 +152,7 @@ import kotlinx.coroutines.delay
                             DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
                                 onClick = { onModeChange(value); menu = false })
                         }
+                        if (completeTranslation == null) DropdownMenuItem(text = { Text("Full translation isn’t ready") }, enabled = false, onClick = {})
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
@@ -157,10 +160,10 @@ import kotlinx.coroutines.delay
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
                             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false
                         })
+                        if (onReport != null) DropdownMenuItem(text = { Text("Report reply") }, onClick = { menu = false; onReport() })
                     }
                 }
             }
-            if (completeTranslation == null) Text("Partial immersion · full translation unavailable", fontSize = 11.sp)
             if (!embedded) Spacer(Modifier.weight(1f))
             if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)

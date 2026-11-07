@@ -29,20 +29,37 @@ class NetworkMessagingDeviceTest {
     @Test fun publishAndroidKeys() = runBlocking {
         val config = configuration(); val records = PrivateRecords(context)
         val original = records.read("session")
-        if (original != null) records.write("qa-session-backup", original)
-        val fixture = JSONObject(file("network-session.json").readText()); file("network-session.json").delete()
+        val nativeSession = InstrumentationRegistry.getArguments().getString("vipiUseNativeSession") == "true"
+        val fixture = if (nativeSession) {
+            // A real hosted PKCE login remains in encrypted app storage. Bind
+            // this opt-in probe to the dedicated account, never a real user.
+            requireNotNull(original).also {
+                assertEquals(config.getString("expected_subject"), it.getString("userID"))
+                config.put("native_session", true)
+                file("network-config.json").writeText(config.toString())
+            }
+        } else {
+            if (original != null) records.write("qa-session-backup", original)
+            JSONObject(file("network-session.json").readText()).also { file("network-session.json").delete() }
+        }
         // The first API call must go through a real public refresh-token exchange.
         fixture.put("accessToken", "expired-native-qa-token")
         records.write("session", fixture)
         val api = client(config)
-        val profile = api.request("PUT", "/v1/me", JSONObject().put("username", config.getString("username")).put("display_name", "Vipi Android QA"))
+        val profile = if (nativeSession) api.request("GET", "/v1/me")
+            else api.request("PUT", "/v1/me", JSONObject().put("username", config.getString("username")).put("display_name", "Vipi Android QA"))
+        assertEquals(config.getString("username"), profile.getString("username"))
         val account = UUID.fromString(profile.getString("id"))
         MessageVault(context, account).use { vault ->
             val core = MessagingCore(vault)
-            api.request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
-            val publication = core.keys.publication(System.currentTimeMillis())
-            val result = api.request("PUT", "/v1/keys", publication, core.device)
-            core.keys.published(result.getInt("revision")); assertEquals(20, result.getInt("remaining"))
+            if (!nativeSession) api.request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
+            else assertEquals(core.device.id.toString(), vault.transaction { vault.get("local", "registered-device")?.toString(Charsets.UTF_8) })
+            val inventory = api.request("GET", "/v1/keys", device = core.device)
+            if (!nativeSession || inventory.getInt("remaining") < 10) {
+                val publication = core.keys.publication(System.currentTimeMillis())
+                val result = api.request("PUT", "/v1/keys", publication, core.device)
+                core.keys.published(result.getInt("revision")); assertTrue(result.getInt("remaining") >= 20)
+            } else assertTrue(inventory.getInt("remaining") >= 10)
             assertEquals(core.device.id, DeviceCredential.load(vault).id)
         }
         file("network-state.json").writeText(JSONObject().put("account", account).put("run", config.getString("run")).toString())
@@ -89,8 +106,11 @@ class NetworkMessagingDeviceTest {
             assertTrue(core.journal.pending(System.currentTimeMillis()).isEmpty())
         }
         val records = PrivateRecords(context)
-        records.read("qa-session-backup")?.let { records.write("session", it) } ?: records.remove("session")
-        records.remove("qa-session-backup"); file("network-config.json").delete()
+        if (!config.optBoolean("native_session", false)) {
+            records.read("qa-session-backup")?.let { records.write("session", it) } ?: records.remove("session")
+            records.remove("qa-session-backup")
+        } else assertEquals(config.getString("expected_subject"), records.read("session")!!.getString("userID"))
+        file("network-config.json").delete()
         file("network-complete.json").writeText(JSONObject().put("run", config.getString("run")).put("delivered", 3).put("duplicate_send_preserved_delivery", true).toString())
     }
 }

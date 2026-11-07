@@ -117,8 +117,8 @@ internal class BundledImmersionCatalog(private val context: Context) {
 }
 
 /** Per conversation, serial work and bounded memory. ChatItem is immutable. */
-internal class ConversationImmersion(context: Context, val source: String, val target: String, private val density: Double) : AutoCloseable {
-    private val translator = LocalTranslation()
+internal class ConversationImmersion(context: Context, val source: String, val target: String, private val density: Double,
+    private val translator: LanguageTranslation = LocalTranslation()) : AutoCloseable {
     private val language = MessageLanguage()
     private val catalog = BundledImmersionCatalog(context.applicationContext)
     private val lexical = BundledLexicalCatalog(context.applicationContext)
@@ -199,8 +199,13 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     override fun close() { generation++; closed = true; cache.clear(); inputLanguages.clear(); translator.close(); language.close() }
 }
 
+private data class OriginalOnlyPresentation(override val original: String) : ImmersionPresentation {
+    override val translation: String? = null
+    override val spans = emptyList<co.fallsoft.vipi.core.ImmersionSpan>()
+}
+
 @Composable internal fun ConversationImmersionText(text: String, id: String, immersion: ConversationImmersion,
-    speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, metadata: @Composable () -> Unit) {
+    speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, onReport: (() -> Unit)? = null, metadata: @Composable () -> Unit) {
     val inputLanguage = immersion.inputLanguage(id)
     val request = remember(id, text, immersion, inputLanguage) {
         ImmersionPresentationRequest(id, text, immersion.source, immersion.target, inputLanguage, immersion)
@@ -209,7 +214,8 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     var state by remember(request) {
         mutableStateOf(ImmersionPresentationState(request, immersion.cachedPresentation(text, id)))
     }
-    val currentlyPaused by rememberUpdatedState(paused)
+    var interacting by remember(request) { mutableStateOf(false) }
+    val currentlyPaused by rememberUpdatedState(paused || interacting)
     var mode by remember(request) { mutableStateOf(ReadingMode.IMMERSED) }
     LaunchedEffect(request, immersion.ready) {
         fun accept(value: ImmersionPresentation?) {
@@ -218,17 +224,16 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         val value = immersion.presentation(text, inputLanguage, id) { accept(it) }
         accept(value)
     }
-    LaunchedEffect(paused, request) {
-        if (!paused && latestRequest == request) state = state.resume(request)
+    LaunchedEffect(paused, interacting, request) {
+        if (!paused && !interacting && latestRequest == request) state = state.resume(request)
     }
     // Re-keying immediately clears stale visible/waiting values and full-target actions.
     val current = state.takeIf { it.request == request }?.visible
-    if (current == null) Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
-        SelectionContainer { Text(text) }
-        UntranslatedMessageActions(text, immersion.source, immersion.target, inputLanguage, onLanguage = { immersion.selectInputLanguage(id, it) }, metadata = metadata)
-    }
-    else ImmersionBubble(current, mode, speech, immersion.source, immersion.target, id, paused,
-        fullReading = remember(current, immersion) { current.translation?.let { immersion.reading(it) } },
+    // Keep the same native reading controls mounted while lookup progresses.
+    // Original-only text is not a complete translation or useful-immersion result.
+    ImmersionBubble(current ?: remember(text) { OriginalOnlyPresentation(text) }, mode, speech, immersion.source, immersion.target, id, paused,
+        fullReading = remember(current, immersion) { current?.translation?.let { immersion.reading(it) } },
         embedded = true, onModeChange = { mode = it }, metadata = metadata, onVoiceHelp = onVoiceHelp,
-        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { immersion.selectInputLanguage(id, it) })
+        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { immersion.selectInputLanguage(id, it) },
+        onInteractionChange = { interacting = it }, onReport = onReport)
 }

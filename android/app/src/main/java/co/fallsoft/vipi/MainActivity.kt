@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); setIntent(intent); handleCallback(intent) }
     private fun handleCallback(intent: Intent) {
         if (intent.action == Intent.ACTION_VIEW) intent.data?.let { uri -> lifecycleScope.launch { model.authentication.complete(uri) } }
+        if (intent.action == PushDelivery.ACTION) model.openNotification(intent.getStringExtra("notification_peer"))
     }
 }
 
@@ -122,17 +123,28 @@ private val Green = Color(0xFF33644F)
     if (model.deletion.active) { AccountDeletionProgress(model.deletion, model.authentication) { model.navigate(Screen.WELCOME) }; return }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val syncScope = rememberCoroutineScope()
-    DisposableEffect(lifecycle, model.chat) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) syncScope.launch { model.chat?.synchronize() } }
+    LaunchedEffect(model.subscriptions) { model.subscriptions?.refresh() }
+    LaunchedEffect(model.subscriptions?.access?.base?.usable()) {
+        if (model.subscriptions?.access?.base?.usable() == true) model.chat?.synchronize()
+    }
+    DisposableEffect(lifecycle, model.chat, model.subscriptions) {
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) {
+            androidx.core.app.NotificationManagerCompat.from(model.getApplication()).cancel(1)
+            syncScope.launch { model.chat?.synchronize() }
+            syncScope.launch { model.subscriptions?.refresh() }
+        } }
         lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
     }
     val scrollState = rememberScrollState()
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
+    if (model.screen == Screen.BOT && model.bot != null) { BotConversationScreen(model, model.bot!!); return }
+    if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
+    if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            model.density, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }) { model.back() }; return }
+            model.density, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onPlan = { model.navigate(Screen.PLANS) }) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding) OnboardingAction(model) }) { padding ->
@@ -145,11 +157,13 @@ private val Green = Color(0xFF33644F)
                 Screen.HOME -> HomeView(model)
                 Screen.SETTINGS -> SettingsView(model)
                 Screen.NEW_CHAT -> NewChatView(model)
-                Screen.BOT -> BotView()
+                Screen.BOT -> BotView(model)
+                Screen.BOT_PLAN -> BotView(model)
+                Screen.PLANS -> SubscriptionScreen(model)
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
-                Screen.CONVERSATION -> Unit
+                Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
             }
             Spacer(Modifier.height(20.dp))
         }
@@ -270,8 +284,8 @@ private val Green = Color(0xFF33644F)
         if (model.screen == Screen.ACCOUNT) {
             Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text("I agree to the Terms of Service and have read the Privacy Policy.", fontSize = 12.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://fallsoft.co/terms-of-service"))) }) { Text("Terms of Service", fontSize = 12.sp) }
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://fallsoft.co/privacy-policy"))) }) { Text("Privacy Policy", fontSize = 12.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text("Terms of Service", fontSize = 12.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text("Privacy Policy", fontSize = 12.sp) }
             }
             model.authentication.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.error) }
         }
@@ -314,7 +328,8 @@ private val Green = Color(0xFF33644F)
         PrimaryButton("Start a conversation") { model.navigate(Screen.NEW_CHAT) }
     }
     chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    Row(Modifier.fillMaxWidth().clickable { model.navigate(Screen.BOT) }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+    if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
+    Row(Modifier.fillMaxWidth().clickable { model.openBot() }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(50.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(18.dp)).padding(13.dp), tint = MaterialTheme.colorScheme.primary)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text("vBot", fontWeight = FontWeight.SemiBold); Text("A conversation whenever you feel like one.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         Icon(Icons.Outlined.ChevronRight, null)
@@ -343,16 +358,17 @@ private val Green = Color(0xFF33644F)
     error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
 }
 
-@Composable private fun BotView() {
-    Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(44.dp), tint = MaterialTheme.colorScheme.primary)
-    Heading("Meet vBot", "Something\non your mind?", "Talk about your day, follow a curiosity, or make a plan. vBot keeps the conversation going while your chosen language becomes more familiar.")
-    Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.", fontSize = 13.sp, lineHeight = 21.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Text("Available with Bot mini", fontWeight = FontWeight.SemiBold)
+@Composable private fun BotView(model: VipiModel) {
+    SubscriptionScreen(model, SubscriptionPlan.BOT_MINI)
 }
 
 @Composable private fun SettingsView(model: VipiModel) {
+    val uri = androidx.compose.ui.platform.LocalUriHandler.current
+    var linkError by remember { mutableStateOf<String?>(null) }
     Text("Your Vipi", fontFamily = FontFamily.Serif, fontSize = 34.sp)
     Text("Your immersion", fontWeight = FontWeight.SemiBold)
+    TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text("Your plan") }
+    if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text("Chat backup") }
     Row(Modifier.fillMaxWidth().clickable { model.navigate(Screen.LANGUAGE_DOWNLOAD) }.padding(vertical = 14.dp)) { Text("Languages & downloads"); Spacer(Modifier.weight(1f)); Text(languageName(model.targetLanguage), color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Column {
         Row { Text("A little or a little more"); Spacer(Modifier.weight(1f)); Text("${(model.density * 100).toInt()}%") }
@@ -366,6 +382,13 @@ private val Green = Color(0xFF33644F)
         }
     }
     Text("Made by FallSoft.Co", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    TextButton(onClick = { model.navigate(Screen.LICENSES) }) { Text("Licenses and notices") }
+    Row {
+        listOf("Terms" to "terms", "Privacy" to "privacy", "Help" to "help").forEach { (title, path) ->
+            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = "This page couldn’t open. Please try again." } }) { Text(title) }
+        }
+    }
+    linkError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }) {
         Text("Delete account", color = MaterialTheme.colorScheme.error)
     }

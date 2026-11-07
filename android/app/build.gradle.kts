@@ -1,5 +1,30 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
 val qualifyRelease = providers.gradleProperty("vipiReleaseQualification").map { it.toBooleanStrict() }.getOrElse(false)
+// Public auth configuration and private upload-key inputs are supplied by the release environment.
+// Missing production inputs must never produce an apparently distributable blank-auth build.
+fun releaseInput(property: String, environment: String) =
+    providers.gradleProperty(property).orElse(providers.environmentVariable(environment))
+val releaseWorkosClientId = releaseInput("vipiWorkosClientId", "VIPI_WORKOS_CLIENT_ID")
+val releaseUploadStore = releaseInput("vipiUploadStoreFile", "VIPI_UPLOAD_STORE_FILE")
+val releaseUploadStorePassword = releaseInput("vipiUploadStorePassword", "VIPI_UPLOAD_STORE_PASSWORD")
+val releaseUploadKeyAlias = releaseInput("vipiUploadKeyAlias", "VIPI_UPLOAD_KEY_ALIAS")
+val releaseUploadKeyPassword = releaseInput("vipiUploadKeyPassword", "VIPI_UPLOAD_KEY_PASSWORD")
+val productionClientId = if (qualifyRelease) "" else releaseWorkosClientId.orNull.orEmpty()
+val firebaseConfigFile = releaseInput("vipiFirebaseConfigFile", "VIPI_FIREBASE_CONFIG_FILE")
+val firebaseConfig: Map<String, String> = if (qualifyRelease || !firebaseConfigFile.isPresent) emptyMap() else {
+    val document = groovy.json.JsonSlurper().parse(file(firebaseConfigFile.get())) as Map<*, *>
+    val project = document["project_info"] as Map<*, *>
+    val client = (document["client"] as List<*>).map { it as Map<*, *> }.single {
+        (((it["client_info"] as Map<*, *>)["android_client_info"] as Map<*, *>)["package_name"]) == "co.fallsoft.vipi"
+    }
+    mapOf("PROJECT_ID" to project["project_id"].toString(), "SENDER_ID" to project["project_number"].toString(),
+        "APP_ID" to (client["client_info"] as Map<*, *>)["mobilesdk_app_id"].toString(),
+        "API_KEY" to ((client["api_key"] as List<*>).first() as Map<*, *>)["current_key"].toString())
+        .also { values -> require(values.values.all { it.matches(Regex("[A-Za-z0-9:_-]+")) }) }
+}
+require(productionClientId.isEmpty() || productionClientId.matches(Regex("client_[A-Za-z0-9]+"))) {
+    "Vipi production WorkOS client ID must be a public client_ identifier."
+}
 android {
     namespace = "co.fallsoft.vipi"
     compileSdk = 36
@@ -10,9 +35,20 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
+        for (key in listOf("PROJECT_ID", "SENDER_ID", "APP_ID", "API_KEY"))
+            buildConfigField("String", "FIREBASE_$key", "\"${firebaseConfig[key].orEmpty()}\"")
     }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17; isCoreLibraryDesugaringEnabled = true }
     buildFeatures { compose = true; buildConfig = true }
+    signingConfigs {
+        create("productionUpload") {
+            releaseUploadStore.orNull?.takeIf { it.isNotBlank() }?.let { storeFile = file(it) }
+            storePassword = releaseUploadStorePassword.orNull
+            keyAlias = releaseUploadKeyAlias.orNull
+            keyPassword = releaseUploadKeyPassword.orNull
+        }
+    }
     // Opt-in, separately installed qualification of the optimized release path.
     // The local debug certificate is never configured for a normal release.
     buildTypes {
@@ -21,10 +57,11 @@ android {
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
         getByName("release") {
-            buildConfigField("String", "WORKOS_CLIENT_ID", "\"\"")
+            buildConfigField("String", "WORKOS_CLIENT_ID", "\"$productionClientId\"")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("productionUpload")
             if (qualifyRelease) {
                 applicationIdSuffix = ".qualification"
                 signingConfig = signingConfigs.getByName("debug")
@@ -34,6 +71,8 @@ android {
     }
     sourceSets.getByName("main").assets.srcDir("../../data/examples")
     sourceSets.getByName("androidTest").assets.srcDir("../../qa/immersion/installer-fixture-assets")
+    sourceSets.getByName("androidTest").assets.srcDir("../../qa/immersion/source_lookup_experiment")
+    sourceSets.getByName("androidTest").assets.srcDir("../../qa/backup")
     sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/immersionAssets"))
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
@@ -56,7 +95,39 @@ val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
     into(layout.buildDirectory.dir("generated/immersionAssets"))
 }
 tasks.named("preBuild") { dependsOn(stageImmersionAssets) }
+val verifyProductionRelease = tasks.register("verifyProductionRelease") {
+    group = "verification"
+    description = "Reject production release builds without explicit auth and upload signing configuration."
+    doLast {
+        if (qualifyRelease) return@doLast
+        check(productionClientId.isNotBlank()) {
+            "Set VIPI_WORKOS_CLIENT_ID (or vipiWorkosClientId) to the production public WorkOS client ID."
+        }
+        check(productionClientId != "client_01M5S2CDSQ8F7FEX26G3CY9VS1") {
+            "The known staging WorkOS client must not be used for a production release."
+        }
+        check(!providers.gradleProperty("vipiQaAbi").isPresent) {
+            "vipiQaAbi is a qualification-only option; omit it for production release."
+        }
+        check(firebaseConfig["PROJECT_ID"] == "mambo-vipi-4f569") {
+            "Set VIPI_FIREBASE_CONFIG_FILE to Vipi's registered Android Firebase configuration."
+        }
+        val store = releaseUploadStore.orNull?.takeIf { it.isNotBlank() }?.let { file(it) }
+        check(store != null && store.isFile && store.canRead()) {
+            "Set VIPI_UPLOAD_STORE_FILE (or vipiUploadStoreFile) to the readable production upload keystore."
+        }
+        check(listOf(releaseUploadStorePassword, releaseUploadKeyAlias, releaseUploadKeyPassword)
+            .all { !it.orNull.isNullOrBlank() }) {
+            "Supply the production upload keystore password, key alias and key password through the release environment."
+        }
+    }
+}
+tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(verifyProductionRelease) }
 dependencies {
+    implementation("com.google.firebase:firebase-messaging:26.0.1")
+    implementation("androidx.work:work-runtime-ktx:2.12.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.10.0")
+    implementation("com.android.billingclient:billing:9.1.0")
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(project(":core"))
