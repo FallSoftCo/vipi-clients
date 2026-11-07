@@ -176,3 +176,28 @@ async def test_actual_websocket_protocol_ping_and_frame_limit(db):
             server.should_exit = True
             await asyncio.wait_for(task,5)
             listener.close()
+
+
+async def test_late_database_termination_does_not_close_replacement_listener(db,monkeypatch):
+    connections=[]
+    class Connection:
+        closed=False
+        def add_termination_listener(self,callback): self.terminated=callback
+        async def add_listener(self,*_): pass
+        def is_closed(self): return self.closed
+        async def close(self,**_): self.closed=True
+    async def connect(*_,**__):
+        value=Connection();connections.append(value);return value
+    monkeypatch.setattr("vipi.events.asyncpg.connect",connect)
+    broker=InboxEvents(db)
+    broker.task=asyncio.create_task(broker.listen())
+    try:
+        await asyncio.wait_for(broker.ready.wait(),3)
+        old=connections[0];old.closed=True;old.terminated(old)
+        async with asyncio.timeout(3):
+            while len(connections)<2 or not broker.ready.is_set():await asyncio.sleep(.01)
+        old.terminated(old)  # delayed callback from an earlier connection
+        await asyncio.sleep(.03)
+        assert len(connections)==2 and not connections[1].closed and broker.ready.is_set()
+    finally:
+        await broker.close()
