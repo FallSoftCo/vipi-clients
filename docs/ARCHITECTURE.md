@@ -6,7 +6,7 @@
 |---|---|---|
 | iOS | Swift, SwiftUI, native concurrency and platform storage | Swift/Xcode build and simulator coverage |
 | Android | Kotlin, Compose, coroutines, Room/SQLite, WorkManager | Build, emulator coverage, background behavior |
-| Messaging relay | ejabberd/XMPP, private service with federation disabled | Enforced expiry, encrypted-only policy, retention and load tests |
+| Messaging relay | Native HTTPS clients, FastAPI and PostgreSQL ciphertext inbox | Fresh cross-platform delivery, background wakeups, retention and load tests |
 | E2EE | Official libsignal Swift/Java bindings, 0.105.0 qualification candidate | Native interoperability, durable transactional key stores, identity verification and release license review |
 | Identity | WorkOS AuthKit, native PKCE | Separate Vipi app, callback association and device binding |
 | Account/control API | Small stateless API backed by PostgreSQL | Implementation and provider credentials |
@@ -14,11 +14,11 @@
 | Vocabulary | Versioned downloadable SQLite packs | Source licensing, provenance, contextual alignment quality |
 | Speech | Native offline speech engines | Installed voice checks and mixed-language playback |
 | Push | APNs and FCM, wake hints without message body | Delivery and force-quit limitations tested/disclosed |
-| Purchases | StoreKit / Google Play Billing, server validation | Products, notifications, renewals, refunds, trial eligibility |
-| vBot | Authenticated gateway to DeepSeek | Price/model pin, spend reservation, stream cancellation and limits |
+| Purchases | StoreKit 2 / Google Play Billing; Apple official server SDK and Google subscriptions v2 | Store products and actual sandbox lifecycle receipts |
+| vBot | Separate response-only DeepSeek gateway with atomic personal/global budgets | Real provider quality, latency and spend qualification |
 | Domains | mambovipi.app registered through AWS Route 53 Domains | DNS, TLS and association files |
-| Pack files | Static HTTPS object storage, cacheable and content-addressed | R2 candidate; confirm actual provider account and costs |
-| Initial hosting | One existing small Hetzner app host | Capacity, owner, isolated deployment and rollback receipt |
+| Pack files | Bundled starter SQLite catalogs; versioned HTTPS updates | Release download-size measurement, signed updates and hosting qualification |
+| Initial hosting | Consolidated `fallsoft-production-20261106`; existing Storage Box for retained source/data | Vipi migration, rollback and shared-host capacity receipts |
 
 ## Native boundaries
 
@@ -43,7 +43,7 @@ Native OAuth uses system authentication sessions, PKCE, state and exact redirect
 
 State vocabulary: queued locally, accepted for delivery, delivered, failed, expired. Read receipts are separate, optional metadata. A manual resend after expiry creates a new message with a new deadline. Automatic retry never resurrects expired messages.
 
-Stock ejabberd offline queues/MAM are not assumed to implement these semantics. Verify the exact hooks/modules needed; disable persistent MAM for launch unless a bounded ciphertext-only implementation is proven. Audit offline storage, stream-management queues, logs, database backups, WAL and operational retention so the public deletion description matches what is actually retained. Don't claim physical erasure at a precise second if the system only offers logical expiry plus later cleanup.
+The implemented relay uses PostgreSQL transactions and ordered account locks. It does not run ejabberd or XMPP. Ciphertext expires 72 hours after the original send time, bounded by the server clock, and is cleared after durable recipient receipt. Audit database backups, WAL and operational retention so the public deletion description matches retained data. Logical expiry is distinct from physical erasure of backup media.
 
 Push payload contains an opaque wake/event identifier only. The app reconnects and retrieves encrypted envelopes. OS background limits mean silent push is not a guaranteed live connection; design visible notification behavior and retries from measured platform behavior. Never keep a permanent Android foreground service solely to fake reliable delivery.
 
@@ -57,7 +57,7 @@ Android stores files under noBackupFilesDir with app backups disabled. iOS exclu
 
 `MessageJournal` saves the outgoing text to an encrypted draft before encryption/session work, retaining it across failures and restarts. Drafts have the same immutable deadline. It atomically commits ratchet mutations with the outgoing ciphertext or received plaintext/deduplication record. A retry reads identical saved ciphertext without advancing the ratchet again. The encrypted payload binds message ID, sender, recipient and creation time, which are checked against relay metadata after decryption. Receiver acknowledgement belongs after the commit returns. Incoming duplicate IDs with changed content are rejected. Original creation time fixes the 72-hour delivery deadline. A late authenticated delivered status may resolve a local expiry, but stale statuses cannot regress delivered history. Public transport still must authenticate status responses and enforce its own deadline.
 
-This implementation is not yet connected to the real conversation UI or a production transport. Delivery workers, scheduling/backoff, unread/paging, receipt retry behavior, transactional identity replacement, storage migration and full encrypted backup/restore remain release gates.
+These components are connected to native conversation and delivery workers. Fresh authenticated cross-platform exchange, background recovery, storage migration and encrypted export/restore remain release gates; passing authored conversation fixtures does not establish live delivery.
 
 ## Public key directory and native HTTP integration
 
@@ -71,7 +71,7 @@ The first real native network qualification used this HTTP data path with a real
 
 ## Local immersion pipeline
 
-Original message -> language detection -> whole-sentence/paragraph local translation -> local word/phrase alignment against a licensed bilingual pack -> conservative candidate filtering -> density/familiarity selection -> attributed visible spans.
+Original message -> language detection -> reviewed source-only sentence/phrase lookup -> bounded local whole-text translation on a lookup miss -> local word/phrase alignment against a licensed bilingual pack -> candidate filtering -> density/familiarity selection -> attributed visible spans. Known reviewed source scopes do not require a translation call. A complete target sentence is separate from a partially immersed source sentence.
 
 Keep original text immutable. Cache derived translations locally by source text hash, direction, provider/model version and pack version. Expire affected caches when these change. Shared fixtures specify UTF-8 text plus Unicode-aware ranges; platform adapters explicitly convert indexing rather than assuming Swift and Kotlin offsets are identical.
 
@@ -111,7 +111,13 @@ vBot is a separate conversation type. Explicit consent explains that its message
 
 The gateway reserves the worst-case input/output cost atomically in PostgreSQL before contacting the provider. A unique request ID prevents retry duplication. Settle recorded usage, release unused reservation after verified terminal outcomes, and retain uncertain reservation rather than permitting overspend after a timeout. Enforce per-account/provider concurrency and global budget limits. Disable provider reasoning mode for response-only operation, pin the model, cap input/output, stream safely, and account for context as well as output. Usage events contain tokens and billing metadata, not message text. No prompt or response logging by default.
 
-Store transactions are verified server-side. Persist original transaction/purchase-token binding, product, expiry, revocation and environment; authenticate and deduplicate webhooks. Never trust a client Boolean entitlement. Handle refunds, grace, billing retry, account switching and simultaneous store purchase attempts. Product and trial duration come from stores. Historical local data remains accessible after lapse.
+Store transactions are verified server-side. Apple historical signed transactions are checked against current subscription status. Google purchases are fetched from subscriptions v2, account/product/annual-plan checked, then acknowledged after persistence. Store references are encrypted with a purpose-separated key. Bind Apple appAccountToken to the internal Vipi account UUID; Google obfuscatedExternalAccountId is SHA-256 of `co.fallsoft.vipi:` plus that UUID. Refresh on demand after five minutes. Stale unexpired grants during provider failure return unavailable rather than invite another purchase. Superseded Google tokens cannot become active again. Base and Bot mini have separate store products and independent trial eligibility; Apple requires separate subscription groups. Dates and prices come from verified store data. Historical local data remains accessible after lapse.
+
+The implemented gateway initially returns one bounded reply, with no provider tools or reasoning mode. Client history contains only the chosen vBot conversation, at most 12 messages and 8,192 UTF-8 bytes. Candidate defaults are 150 replies per UTC calendar month and 384 output tokens per response. A $0.50 personal monthly cost ceiling and separate deployment-wide ceiling are enforced before dispatch. These configuration values await real provider measurements and store activation. Unknown provider outcomes retain their reservation and never automatically repeat the request. Ordinary generation stores no prompt/response content. User-confirmed reports retain only selected vBot text, encrypted, for 30 days or until account deletion; reports do not promise a support reply.
+
+`GET /v1/entitlements` exposes `purchases_ready.apple/google`; checkout stays disabled until its verifier is configured. `GET /v1/bot/allowance` separately exposes `service_ready`, remaining reply count and reset date. Configured credentials do not establish successful store sandbox transactions or real inference qualification.
+
+APNs and FCM registrations bind to the current active device. The push outbox coalesces inbox changes, uses bounded leases/retries and suppresses drained, expired or replaced-device inboxes. Payloads contain no human message text, sender identity or ciphertext. APNs uses a generic visible alert and inbox-change hint; Android receives a high-priority data hint and posts a local generic notification after bounded inbox work. Actual OS delivery and permission behavior still require live validation.
 
 ## Backups and recovery
 
@@ -119,9 +125,9 @@ User-initiated encrypted archive export to their chosen storage. No unbounded se
 
 ## Deployment and growth
 
-Begin with isolated service units/containers, PostgreSQL, ejabberd and the control API on a suitable existing host. Separate secrets, database role and filesystem ownership from current workloads. Bind internal ports privately; use TLS and the existing ingress only after confirming owner and impact. Record host security ownership and provisioning receipts. No unrelated restart or firewall change.
+The former OZZZ CPU/GPU hosts are retired. Vipi's restricted staging API and dedicated database now run on the consolidated production host, with a separate runtime user, database privileges and private API listener behind HTTPS ingress. New Apple builds and QA use the existing Mac development VM. Preserve other workloads and the same persistent guests. Deploy Vipi changes with explicit source/dependency manifests, database migration/backup receipts and scoped service restart.
 
-Measure initial connection count, message throughput, p50/p95/p99 latency, CPU/RAM, reconnect storms, backlog and queue-age bounds. Horizontal growth adds ejabberd nodes in a low-latency region, connection-aware load balancing, independently scalable API/push workers and database capacity. Shard only after evidence. Object storage/CDN serves immutable packs. Model a million paying accounts with daily active and simultaneous-online assumptions; account count is not concurrency.
+Measure message throughput, p50/p95/p99 latency, CPU/RAM, reconnect storms, foreground polling, backlog and queue-age bounds. Scale stateless API and push workers from those measurements, then database capacity and transport changes when justified. Immutable pack distribution scales independently. A million registered or paying accounts is not a concurrent connection count or demonstrated capacity.
 
 Observability is content-free: request/error counters, delivery latency, active connections, queue expiry, database health, pack downloads and spend. Redact credentials and contact text. Alert on budget/retention failures, create restorable operational backups and exercise rollback before public release.
 

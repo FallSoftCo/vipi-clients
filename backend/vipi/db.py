@@ -91,6 +91,11 @@ class Entitlement(Base):
     transaction_id: Mapped[str] = mapped_column(String(256))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     revoked: Mapped[bool] = mapped_column(Boolean, default=False)
+    superseded: Mapped[bool] = mapped_column(Boolean, default=False)
+    provider_reference: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    environment: Mapped[str | None] = mapped_column(String(16), nullable=True)
     __table_args__ = (UniqueConstraint("store", "transaction_id"),)
 
 
@@ -112,6 +117,46 @@ class Reservation(Base):
     actual_nano_usd: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     state: Mapped[str] = mapped_column(String(20), default="reserved")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class BotPool(Base):
+    __tablename__ = "bot_pools"
+    period: Mapped[str] = mapped_column(String(7), primary_key=True)
+    budget_nano_usd: Mapped[int] = mapped_column(BigInteger)
+    reserved_nano_usd: Mapped[int] = mapped_column(BigInteger, default=0)
+    spent_nano_usd: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+class BotReport(Base):
+    __tablename__ = "bot_reports"
+    request_id: Mapped[str] = mapped_column(ForeignKey("bot_reservations.id"), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    reason: Mapped[str] = mapped_column(String(16))
+    selected_reply: Mapped[bytes] = mapped_column(LargeBinary)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
+class PushToken(Base):
+    __tablename__ = "push_tokens"
+    device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    provider: Mapped[str] = mapped_column(String(8))
+    environment: Mapped[str] = mapped_column(String(16))
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    token: Mapped[bytes] = mapped_column(LargeBinary)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    __table_args__ = (UniqueConstraint("provider", "environment", "fingerprint"),)
+
+
+class PushOutbox(Base):
+    __tablename__ = "push_outbox"
+    device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    generation: Mapped[int] = mapped_column(BigInteger)
+    next_attempt_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class RateWindow(Base):

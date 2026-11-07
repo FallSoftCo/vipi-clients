@@ -42,6 +42,11 @@ def test_s2_explicit_local_modes_retain_sqlite(environment):
 @pytest.mark.parametrize("url", ["postgresql+asyncpg://fixture.invalid/test?ssl=require",
     "postgresql://fixture.invalid/test"], ids=["asyncpg-unaltered", "postgresql-unaltered"])
 def test_s2_postgresql_url_and_driver_are_not_rewritten(environment, url):
-    settings = configuration(environment=environment, database_url=url)
+    settings = configuration(environment=environment, database_url=url, enforce_subscriptions=True)
     assert settings.environment == environment
     assert settings.database_url == url
+
+
+def test_production_cannot_disable_verified_subscriptions():
+    with pytest.raises(ValueError, match="Production requires verified subscriptions"):
+        configuration(environment="production", database_url="postgresql+asyncpg://fixture.invalid/test")

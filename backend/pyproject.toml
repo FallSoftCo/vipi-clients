@@ -3,9 +3,10 @@ name = "vipi-service"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-  "fastapi==0.162.0", "uvicorn==0.54.0", "httpx==0.28.1",
+  "fastapi==0.162.0", "uvicorn==0.54.0", "httpx[http2]==0.28.1",
   "PyJWT[crypto]==2.15.1", "SQLAlchemy[asyncio]==2.1.6", "asyncpg==0.32.0",
-  "cryptography==50.0.2", "pydantic-settings==2.16.1", "alembic==1.20.1"
+  "cryptography==50.0.2", "pydantic-settings==2.16.1", "alembic==1.20.1",
+  "app-store-server-library[async]==3.1.2", "google-auth==2.62.1"
 ]
 
 [project.optional-dependencies]

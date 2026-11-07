@@ -8,7 +8,7 @@ from uuid import uuid4
 import httpx
 from sqlalchemy import delete, or_, select, text
 
-from .db import AccountDeletion, Block, Device, Entitlement, KeyClaim, PendingMessage, PublicBundle, PublicPreKey, RateWindow, Reservation, UsageBucket, User
+from .db import AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User
 from .delivery import DeliveryError, utc
 
 
@@ -53,13 +53,15 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
     if not user and (await session.get(User, account_id) or await session.get(AccountDeletion, account_id)):
         raise DeliveryError("account_changed", 409)
     devices = select(Device.id).where(Device.user_id == account_id)
+    await session.execute(delete(PushOutbox).where(PushOutbox.device_id.in_(devices)))
+    await session.execute(delete(PushToken).where(PushToken.device_id.in_(devices)))
     await session.execute(delete(KeyClaim).where(or_(KeyClaim.requester_device_id.in_(devices),
         KeyClaim.recipient_id == account_id, KeyClaim.recipient_device_id.in_(devices))))
     await session.execute(delete(PublicPreKey).where(PublicPreKey.device_id.in_(devices)))
     await session.execute(delete(PublicBundle).where(PublicBundle.device_id.in_(devices)))
     await session.execute(delete(PendingMessage).where(or_(PendingMessage.sender_id == account_id, PendingMessage.recipient_id == account_id)))
     await session.execute(delete(Block).where(or_(Block.blocker_id == account_id, Block.blocked_id == account_id)))
-    for model in (Entitlement, Reservation, UsageBucket, Device):
+    for model in (BotReport, Entitlement, Reservation, UsageBucket, Device):
         await session.execute(delete(model).where(model.user_id == account_id))
     await session.execute(delete(RateWindow).where(RateWindow.subject == subject))
     if user:

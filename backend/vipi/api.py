@@ -10,14 +10,14 @@ from uuid import UUID, uuid4
 from fastapi import Depends, FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
-from sqlalchemy import and_, or_, select, text
+from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from starlette.responses import JSONResponse
 
 from .accounts import active_device, normalize_username, register_device, set_block
 from .auth import AuthenticationError, Principal, WorkOSVerifier
 from .config import Settings
-from .db import Block, Database, Device, PendingMessage, User
+from .db import Block, Database, Device, PendingMessage, PushOutbox, PushToken, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
@@ -97,6 +97,37 @@ class ClaimInput(Input):
     request_id: UUID
 
 
+class ApplePurchaseInput(Input):
+    signed_transaction_info: str = Field(min_length=20, max_length=30_000, repr=False)
+
+
+class GooglePurchaseInput(Input):
+    purchase_token: str = Field(min_length=1, max_length=4096, repr=False)
+
+
+class BotMessageInput(Input):
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=8192, repr=False)
+
+
+class BotInput(Input):
+    request_id: UUID
+    consent_version: str = Field(max_length=32)
+    messages: list[BotMessageInput] = Field(min_length=1, max_length=12)
+
+
+class PushInput(Input):
+    provider: Literal["fcm", "apns"]
+    environment: Literal["production", "sandbox"]
+    token: str = Field(min_length=20, max_length=4096, repr=False)
+
+
+class BotReportInput(Input):
+    request_id: UUID
+    reason: Literal["harmful", "inaccurate", "other"]
+    selected_reply: str = Field(min_length=1, max_length=4000, repr=False)
+
+
 def profile(user):
     return {"id": user.id, "username": user.username, "display_name": user.display_name}
 
@@ -118,16 +149,27 @@ async def principal(request: Request, verified: Annotated[Principal, Depends(ver
     return verified
 
 
-def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None):
+def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None,
+               store_providers=None, bot_transport=None):
     if settings.environment == "staging" and not settings.allowed_subjects:
         raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)
     token_verifier = verifier or WorkOSVerifier(settings)
     now = clock or (lambda: datetime.now(UTC))
+    from .store_providers import providers_for
+    from .subscriptions import Subscriptions
+    from .bot import BotGateway
+    providers = providers_for(settings) if store_providers is None else store_providers
+    subscriptions = Subscriptions(settings, db, providers, now)
+    bot = BotGateway(settings, db, subscriptions, now, transport=bot_transport)
 
     @asynccontextmanager
     async def lifespan(app):
         yield
+        await bot.close()
+        if store_providers is None:
+            for provider in providers.values():
+                await provider.close()
         if verifier is None:
             await token_verifier.close()
         if database is None:
@@ -137,6 +179,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     app.add_middleware(BodyLimit)
     app.state.verifier = token_verifier
     app.state.allowed_subjects = settings.allowed_subjects
+    app.state.subscriptions = subscriptions
+    app.state.bot = bot
     from .web_deletion import install as install_web_deletion
     install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
 
@@ -184,7 +228,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             await session.execute(text("SELECT 1"))
             if settings.environment in {"staging", "production"}:
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261025_02":
+                if revision != "20261107_03":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -193,6 +237,54 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         await rate(p, "profile", 60)
         async with db.sessions() as session:
             return profile(await user_for(session, p))
+
+    @app.get("/v1/entitlements")
+    async def entitlements(p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "entitlements", 30)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+        return await subscriptions.snapshot(user.id)
+
+    async def purchase_sync(p, store, credential):
+        await rate(p, "purchase-sync", 10)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+        try:
+            return await subscriptions.sync(user.id, store, credential)
+        except IntegrityError:
+            # Concurrent first claims must not reveal another account binding.
+            raise DeliveryError("purchase_sync_conflict", 409) from None
+
+    @app.post("/v1/purchases/apple")
+    async def apple_purchase(body: ApplePurchaseInput, p: Annotated[Principal, Depends(principal)]):
+        return await purchase_sync(p, "apple", body.signed_transaction_info)
+
+    @app.post("/v1/purchases/google")
+    async def google_purchase(body: GooglePurchaseInput, p: Annotated[Principal, Depends(principal)]):
+        return await purchase_sync(p, "google", body.purchase_token)
+
+    @app.get("/v1/bot/allowance")
+    async def bot_allowance(p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "bot-allowance", 30)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+        return await bot.allowance(user.id)
+
+    @app.post("/v1/bot/messages")
+    async def bot_message(body: BotInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "bot-messages", 10)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            await phone_for(session, request, user)
+        return await bot.reply(user.id, str(body.request_id), [item.model_dump() for item in body.messages], body.consent_version)
+
+    @app.post("/v1/bot/reports", status_code=202)
+    async def bot_report(body: BotReportInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "bot-reports", 5)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            await phone_for(session, request, user)
+        return await bot.report(user.id, str(body.request_id), body.reason, body.selected_reply)
 
     @app.put("/v1/me")
     async def create_profile(body: ProfileInput, p: Annotated[Principal, Depends(principal)]):
@@ -253,6 +345,31 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 replace_active=body.replace_active, service_secret=settings.service_secret, now=now())
             return {"id": value.id, "active": value.active}
 
+    @app.put("/v1/devices/push")
+    async def register_push(body: PushInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        from .push import register
+        await rate(p, "push-registration", 10)
+        try:
+            async with db.sessions.begin() as session:
+                user = await user_for(session, p)
+                device = await phone_for(session, request, user)
+                await register(session, user_id=user.id, device_id=device.id, provider=body.provider,
+                    environment=body.environment, token=body.token, secret=settings.service_secret, now=now())
+            return {"registered": True}
+        except IntegrityError:
+            raise DeliveryError("push_registration_conflict", 409) from None
+
+    @app.delete("/v1/devices/push")
+    async def unregister_push(request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "push-registration", 10)
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            await session.execute(select(User).where(User.id == user.id).with_for_update())
+            device = await phone_for(session, request, user)
+            await session.execute(delete(PushOutbox).where(PushOutbox.device_id == device.id))
+            await session.execute(delete(PushToken).where(PushToken.device_id == device.id))
+        return {"registered": False}
+
     @app.get("/v1/people/{username}")
     async def find_person(username: str, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "exact-lookup", 30)
@@ -298,6 +415,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     @app.post("/v1/messages")
     async def send(body: SendInput, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "send", 120)
+        if settings.enforce_subscriptions:
+            async with db.sessions() as session:
+                user = await user_for(session, p)
+            await subscriptions.require(user.id)
         try:
             ciphertext = base64.b64decode(body.ciphertext, validate=True)
         except (ValueError, binascii.Error):
@@ -308,6 +429,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             value = await accept(session, Envelope(str(body.id), user.id, device.id, str(body.recipient_id),
                 str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type), now=now(),
                 max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
+            if value.state == "accepted":
+                from .push import enqueue
+                await enqueue(session, value.recipient_device_id, now(), value.expires_at)
             return message_status(value)
 
     @app.get("/v1/messages/pending")

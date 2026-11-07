@@ -21,6 +21,42 @@ class Settings(BaseSettings):
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
     deletion_web_origin: str | None = None
+    enforce_subscriptions: bool = False
+    apple_bundle_id: str = "co.fallsoft.vipi"
+    apple_app_id: int | None = None
+    apple_key_id: str | None = None
+    apple_issuer_id: str | None = None
+    apple_private_key_path: str | None = None
+    apple_root_certificate_paths: tuple[str, ...] = ()
+    apple_environment: Literal["Production", "Sandbox"] = "Production"
+    google_package_name: str = "co.fallsoft.vipi"
+    google_service_account_path: str | None = None
+    google_allow_test_purchases: bool = False
+    purchase_freshness_seconds: int = Field(default=300, ge=60, le=900)
+    deepseek_api_key: SecretStr | None = None
+    bot_model: str = "deepseek-flash"
+    bot_input_nano_usd_per_token: int = Field(default=300, ge=1)
+    bot_output_nano_usd_per_token: int = Field(default=1200, ge=1)
+    bot_output_tokens: int = Field(default=384, ge=64, le=512)
+    bot_monthly_replies: int = Field(default=150, ge=1, le=10_000)
+    bot_global_monthly_budget_nano_usd: int = Field(default=20_000_000_000, ge=1)
+    fcm_project_id: str | None = None
+    fcm_service_account_path: str | None = None
+    apns_key_id: str | None = None
+    apns_team_id: str | None = None
+    apns_private_key_path: str | None = None
+    apns_bundle_id: str = "co.fallsoft.vipi"
+
+    @model_validator(mode="after")
+    def purchases_configuration(self):
+        values = (self.apple_key_id, self.apple_issuer_id, self.apple_private_key_path, self.apple_root_certificate_paths)
+        if any(values) and not all(values):
+            raise ValueError("Apple verification requires key, issuer and pinned root certificates")
+        if all(values) and self.apple_environment == "Production" and not self.apple_app_id:
+            raise ValueError("Apple production verification requires the numeric app identifier")
+        if self.environment == "production" and not self.enforce_subscriptions:
+            raise ValueError("Production requires verified subscriptions")
+        return self
 
     @model_validator(mode="after")
     def deployment_database(self):

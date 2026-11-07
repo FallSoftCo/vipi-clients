@@ -1,5 +1,17 @@
 # Implementation sequence and release gates
 
+## Consolidated delivery work — 2026-11-07
+
+The retained CPU source was recovered at `15339619ccce2d7492f5090906b1498b36d93928`, including all dirty tracked edits and 22 untracked source files. Canonical work continues in the reconciled delivery workspace; the retired CPU/GPU hosts are not development targets. The Apple team uses the existing development VM and Android reuses its existing QA emulator. A parent-owned delivery ledger records source authority, host receipts, platform results and remaining gates.
+
+The backend candidate adds provider-verified base/Bot mini subscriptions, a bounded response-only bot gateway, selected-reply reports and a private APNs/FCM outbox. Ninety-seven checks passed against an isolated PostgreSQL 16.15 instance after migrations through `20261107_03`, including concurrent budget admission, account deletion, purchase replacement, uncertain provider responses and push-generation races. These tests use controlled provider responses; actual store transactions, DeepSeek responses and OS push delivery are still open. No candidate capability is advertised as live merely because configuration fields exist.
+
+Selected full-app Apple conversation checks pass continuous flipping, stable geometry, Swahili, non-Roman readings and large text. Android checks exposed and fixed menu unmounting and cramped metadata, with repeated full-app controls passing after those changes. Native bot tests cover consent, private persistence, history bounds, uncertain requests and selected-only reports. These authored cases do not measure general language coverage or live friend delivery.
+
+The first fresh 20-message English-to-Swahili ML Kit sample produced visible immersion in 6 messages. A source-only experimental catalog reached 8–9% availability on a separate 200-message English SMS sample. Neither result meets the desired conversational standard. The next comparison uses a fixed 200-message source sample in English→Spanish and English→Swahili, measures useful depth and material errors, and separates inherited translation errors from errors introduced by inline alignment. Relaxed matching remains evaluation-only. Fresh Apple translations require model preparation inside the existing VM; verified obsolete-output cleanup and cold storage are freeing the necessary physical disk space.
+
+Delivery order remains: finish source/runtime fixes and comparative immersion evidence; prove authenticated native cross-platform encrypted chat and recovery; qualify actual store purchase lifecycles, bot processing, push and privacy disclosures; measure signed release package sizes; prepare corresponding source, store metadata and reviewer access; upload and submit only the qualified builds. Store acceptance requires actual receipts. Apple store sign-in and Google Cloud organization reauthentication currently need owner interaction; other work continues.
+
 Latest bulk expansion and native run 018: [BULK_LANGUAGE_EXPANSION.md](BULK_LANGUAGE_EXPANSION.md). This is experimental language data; the default catalog remains bundle 022.
 
 Latest qualified catalog: bundle 022. Android and physical iPad native catalog suites pass, including Swahili, all 110 directions, exact readings and finite attachments. Both language pickers pass twelve unfiltered physical iPad audits. Actual VoiceOver, speech listening quality, independent meaning accuracy and majority conversational coverage remain open.

@@ -6,7 +6,7 @@ from datetime import datetime
 from sqlalchemy import delete, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .db import Block, Device, PendingMessage, PublicBundle, PublicPreKey, User
+from .db import Block, Device, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, User
 from .delivery import DeliveryError
 
 
@@ -51,6 +51,8 @@ async def register_device(session: AsyncSession, *, user_id: str, device_id: str
         raise DeliveryError("device_replacement_confirmation_required", 409)
     for device in previous:
         device.active = False
+        await session.execute(delete(PushOutbox).where(PushOutbox.device_id == device.id))
+        await session.execute(delete(PushToken).where(PushToken.device_id == device.id))
         await session.execute(delete(PublicPreKey).where(PublicPreKey.device_id == device.id))
         await session.execute(delete(PublicBundle).where(PublicBundle.device_id == device.id))
         # Never redirect ciphertext encrypted for an old identity to a new one.

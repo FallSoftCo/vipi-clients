@@ -225,3 +225,22 @@ async def test_s2_cached_recipient_acknowledgement_rechecks_committed_replacemen
         else:
             # Baseline may return identity_changed, NOT delivered or a ciphertext.
             pytest.fail("revoked cached device was not rejected; acknowledgement state=" + returned)
+
+
+async def test_bot_global_budget_and_one_request_per_account_are_atomic(db):
+    from test_bot import gateway, response
+    from vipi.db import BotPool
+    bot = await gateway(db, lambda request: response(), bot_global_monthly_budget_nano_usd=150)
+    try:
+        async def attempt(user):
+            try:
+                await bot.reserve_request(user, str(uuid4()), 100)
+                return "reserved"
+            except DeliveryError as error:
+                return error.code
+        results = await asyncio.gather(*(attempt(user) for user in ("alice", "bob", "eve") for _ in range(5)))
+        assert results.count("reserved") == 1
+        async with db.sessions() as session:
+            assert (await session.get(BotPool, "2026-10")).reserved_nano_usd == 100
+    finally:
+        await bot.close()
