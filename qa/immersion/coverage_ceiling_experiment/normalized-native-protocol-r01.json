@@ -1,0 +1,4030 @@
+{
+  "schema": "vipi-normalized-conversation-protocol-1",
+  "cases": [
+    {
+      "id": "uci-sms-line-4584",
+      "source": "en",
+      "target": "sw",
+      "text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless you chop it off:-)",
+      "original_text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless u chop it off:-)",
+      "original_id": "uci-sms-line-4584",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            79
+          ],
+          "normalized_range": [
+            0,
+            79
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            79,
+            80
+          ],
+          "normalized_range": [
+            79,
+            82
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            80,
+            95
+          ],
+          "normalized_range": [
+            82,
+            97
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2836",
+      "source": "en",
+      "target": "sw",
+      "text": "You sick still can go shopping?",
+      "original_text": "U sick still can go shopping?",
+      "original_id": "uci-sms-line-2836",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            29
+          ],
+          "normalized_range": [
+            3,
+            31
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1790",
+      "source": "en",
+      "target": "sw",
+      "text": "Arun can you transfr me d amt",
+      "original_text": "Arun can u transfr me d amt",
+      "original_id": "uci-sms-line-1790",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            9
+          ],
+          "normalized_range": [
+            0,
+            9
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            9,
+            10
+          ],
+          "normalized_range": [
+            9,
+            12
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            10,
+            27
+          ],
+          "normalized_range": [
+            12,
+            29
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "source": "en",
+      "target": "sw",
+      "text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldn’t make ur b’day 2 hun!",
+      "original_text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "original_id": "uci-sms-line-3684",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            130
+          ],
+          "normalized_range": [
+            0,
+            130
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            130,
+            131
+          ],
+          "normalized_range": [
+            130,
+            131
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            131,
+            142
+          ],
+          "normalized_range": [
+            131,
+            142
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            142,
+            143
+          ],
+          "normalized_range": [
+            142,
+            143
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            143,
+            153
+          ],
+          "normalized_range": [
+            143,
+            153
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5128",
+      "source": "en",
+      "target": "sw",
+      "text": "After my work ah... Den 6 plus lor... You workin oso rite... Den go orchard lor, no other place to go liao...",
+      "original_text": "After my work ah... Den 6 plus lor... U workin oso rite... Den go orchard lor, no other place to go liao...",
+      "original_id": "uci-sms-line-5128",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            38
+          ],
+          "normalized_range": [
+            0,
+            38
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            38,
+            39
+          ],
+          "normalized_range": [
+            38,
+            41
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            39,
+            107
+          ],
+          "normalized_range": [
+            41,
+            109
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-149",
+      "source": "en",
+      "target": "sw",
+      "text": "Ummma.will call after check in.our life will begin from qatar so please pray very hard.",
+      "original_text": "Ummma.will call after check in.our life will begin from qatar so pls pray very hard.",
+      "original_id": "uci-sms-line-149",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            65
+          ],
+          "normalized_range": [
+            0,
+            65
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            65,
+            68
+          ],
+          "normalized_range": [
+            65,
+            71
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            68,
+            84
+          ],
+          "normalized_range": [
+            71,
+            87
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3329",
+      "source": "en",
+      "target": "sw",
+      "text": " what number do you live at? Is it 11?",
+      "original_text": " what number do u live at? Is it 11?",
+      "original_id": "uci-sms-line-3329",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            16
+          ],
+          "normalized_range": [
+            0,
+            16
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            16,
+            17
+          ],
+          "normalized_range": [
+            16,
+            19
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            17,
+            36
+          ],
+          "normalized_range": [
+            19,
+            38
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "sw",
+      "text": "Ho ho - big belly laugh! See ya tomorrow",
+      "original_text": "Ho ho - big belly laugh! See ya tomo",
+      "original_id": "uci-sms-line-672",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            32
+          ],
+          "normalized_range": [
+            0,
+            32
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            32,
+            36
+          ],
+          "normalized_range": [
+            32,
+            40
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tomo",
+          "replacement": "tomorrow"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2119",
+      "source": "en",
+      "target": "sw",
+      "text": "Wish you many many returns of the day.. Happy birthday vikky..",
+      "original_text": "Wish u many many returns of the day.. Happy birthday vikky..",
+      "original_id": "uci-sms-line-2119",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            5
+          ],
+          "normalized_range": [
+            0,
+            5
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            5,
+            6
+          ],
+          "normalized_range": [
+            5,
+            8
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            6,
+            60
+          ],
+          "normalized_range": [
+            8,
+            62
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3754",
+      "source": "en",
+      "target": "sw",
+      "text": "Why are you up so early?",
+      "original_text": "Why are u up so early?",
+      "original_id": "uci-sms-line-3754",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            8
+          ],
+          "normalized_range": [
+            0,
+            8
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            9
+          ],
+          "normalized_range": [
+            8,
+            11
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            9,
+            22
+          ],
+          "normalized_range": [
+            11,
+            24
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "source": "en",
+      "target": "sw",
+      "text": "Happy birthday... May you find ur prince charming soon n dun work too hard...",
+      "original_text": "Happy birthday... May u find ur prince charming soon n dun work too hard...",
+      "original_id": "uci-sms-line-3498",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            22
+          ],
+          "normalized_range": [
+            0,
+            22
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            22,
+            23
+          ],
+          "normalized_range": [
+            22,
+            25
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            23,
+            75
+          ],
+          "normalized_range": [
+            25,
+            77
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4685",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok you can take me shopping when you get paid =D",
+      "original_text": "Ok u can take me shopping when u get paid =D",
+      "original_id": "uci-sms-line-4685",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            31
+          ],
+          "normalized_range": [
+            6,
+            33
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            31,
+            32
+          ],
+          "normalized_range": [
+            33,
+            36
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            32,
+            44
+          ],
+          "normalized_range": [
+            36,
+            48
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "en",
+      "target": "sw",
+      "text": "Yup... Ok i go home look at the timings then i message ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "original_text": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "original_id": "uci-sms-line-36",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            47
+          ],
+          "normalized_range": [
+            0,
+            47
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            47,
+            50
+          ],
+          "normalized_range": [
+            47,
+            54
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            50,
+            122
+          ],
+          "normalized_range": [
+            54,
+            126
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1741",
+      "source": "en",
+      "target": "sw",
+      "text": "You guys never invite me anywhere :(",
+      "original_text": "U guys never invite me anywhere :(",
+      "original_id": "uci-sms-line-1741",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            34
+          ],
+          "normalized_range": [
+            3,
+            36
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-561",
+      "source": "en",
+      "target": "sw",
+      "text": "Aiyo... You always c our ex one... I dunno abt mei, she haven reply... First time you reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "original_text": "Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "original_id": "uci-sms-line-561",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            8
+          ],
+          "normalized_range": [
+            0,
+            8
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            9
+          ],
+          "normalized_range": [
+            8,
+            11
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            9,
+            80
+          ],
+          "normalized_range": [
+            11,
+            82
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            80,
+            81
+          ],
+          "normalized_range": [
+            82,
+            85
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            81,
+            160
+          ],
+          "normalized_range": [
+            85,
+            164
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4149",
+      "source": "en",
+      "target": "sw",
+      "text": "Please help me tell sura that i'm expecting a battery from hont. And that if should please send me a message about how to download movies. Thanks",
+      "original_text": "Pls help me tell sura that i'm expecting a battery from hont. And that if should pls send me a message about how to download movies. Thanks",
+      "original_id": "uci-sms-line-4149",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            81
+          ],
+          "normalized_range": [
+            6,
+            84
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            81,
+            84
+          ],
+          "normalized_range": [
+            84,
+            90
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            84,
+            139
+          ],
+          "normalized_range": [
+            90,
+            145
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3739",
+      "source": "en",
+      "target": "sw",
+      "text": "Please note: if anyone calling from a mobile Co. &amp; asks you to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN.",
+      "original_text": "Plz note: if anyone calling from a mobile Co. &amp; asks u to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN.",
+      "original_id": "uci-sms-line-3739",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Plz",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            57
+          ],
+          "normalized_range": [
+            6,
+            60
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            57,
+            58
+          ],
+          "normalized_range": [
+            60,
+            63
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            58,
+            263
+          ],
+          "normalized_range": [
+            63,
+            268
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3854",
+      "source": "en",
+      "target": "sw",
+      "text": "No, its true..k,Do you knw dis no. &lt;#&gt; ?",
+      "original_text": "No, its true..k,Do u knw dis no. &lt;#&gt; ?",
+      "original_id": "uci-sms-line-3854",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            19
+          ],
+          "normalized_range": [
+            0,
+            19
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            19,
+            20
+          ],
+          "normalized_range": [
+            19,
+            22
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            20,
+            44
+          ],
+          "normalized_range": [
+            22,
+            46
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4101",
+      "source": "en",
+      "target": "sw",
+      "text": "If you dun drive then how i go 2 sch.",
+      "original_text": "If u dun drive then how i go 2 sch.",
+      "original_id": "uci-sms-line-4101",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            35
+          ],
+          "normalized_range": [
+            6,
+            37
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-354",
+      "source": "en",
+      "target": "sw",
+      "text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? please please JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD",
+      "original_text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? plz plz JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD",
+      "original_id": "uci-sms-line-354",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            85
+          ],
+          "normalized_range": [
+            0,
+            85
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            85,
+            88
+          ],
+          "normalized_range": [
+            85,
+            91
+          ],
+          "kind": "expanded_sms_form",
+          "original": "plz",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            88,
+            89
+          ],
+          "normalized_range": [
+            91,
+            92
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            89,
+            92
+          ],
+          "normalized_range": [
+            92,
+            98
+          ],
+          "kind": "expanded_sms_form",
+          "original": "plz",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            92,
+            148
+          ],
+          "normalized_range": [
+            98,
+            154
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5291",
+      "source": "en",
+      "target": "sw",
+      "text": "An excellent thought by a misundrstud frnd: I knw you hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)",
+      "original_text": "An excellent thought by a misundrstud frnd: I knw u hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)",
+      "original_id": "uci-sms-line-5291",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            50
+          ],
+          "normalized_range": [
+            0,
+            50
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            50,
+            51
+          ],
+          "normalized_range": [
+            50,
+            53
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            51,
+            119
+          ],
+          "normalized_range": [
+            53,
+            121
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5307",
+      "source": "en",
+      "target": "sw",
+      "text": "Please ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars.",
+      "original_text": "Pls ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars.",
+      "original_id": "uci-sms-line-5307",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            94
+          ],
+          "normalized_range": [
+            6,
+            97
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4447",
+      "source": "en",
+      "target": "sw",
+      "text": "2 celebrate my b’day, y else?",
+      "original_text": "2 celebrate my bday, y else?",
+      "original_id": "uci-sms-line-4447",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            16
+          ],
+          "normalized_range": [
+            0,
+            16
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            16,
+            17
+          ],
+          "normalized_range": [
+            16,
+            17
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            17,
+            29
+          ],
+          "normalized_range": [
+            17,
+            29
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-719",
+      "source": "en",
+      "target": "sw",
+      "text": "Book which lesson? then you message me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "original_text": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "original_id": "uci-sms-line-719",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            28
+          ],
+          "normalized_range": [
+            0,
+            28
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            28,
+            31
+          ],
+          "normalized_range": [
+            28,
+            35
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            31,
+            121
+          ],
+          "normalized_range": [
+            35,
+            125
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "source": "en",
+      "target": "sw",
+      "text": "Playin space poker, you?",
+      "original_text": "Playin space poker, u?",
+      "original_id": "uci-sms-line-3935",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            20
+          ],
+          "normalized_range": [
+            0,
+            20
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            20,
+            21
+          ],
+          "normalized_range": [
+            20,
+            23
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            21,
+            22
+          ],
+          "normalized_range": [
+            23,
+            24
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4977",
+      "source": "en",
+      "target": "sw",
+      "text": "Yar... I tot you knew dis would happen long ago already.",
+      "original_text": "Yar... I tot u knew dis would happen long ago already.",
+      "original_id": "uci-sms-line-4977",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            13
+          ],
+          "normalized_range": [
+            0,
+            13
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            13,
+            14
+          ],
+          "normalized_range": [
+            13,
+            16
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            14,
+            54
+          ],
+          "normalized_range": [
+            16,
+            56
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "en",
+      "target": "sw",
+      "text": "Really dun bluff me leh... You sleep early too. Nite...",
+      "original_text": "Really dun bluff me leh... U sleep early too. Nite...",
+      "original_id": "uci-sms-line-2434",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            27
+          ],
+          "normalized_range": [
+            0,
+            27
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            27,
+            28
+          ],
+          "normalized_range": [
+            27,
+            30
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            28,
+            53
+          ],
+          "normalized_range": [
+            30,
+            55
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "sw",
+      "text": "You are not bothering me but you have to trust my answers. Please.",
+      "original_text": "You are not bothering me but you have to trust my answers. Pls.",
+      "original_id": "uci-sms-line-3040",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            59
+          ],
+          "normalized_range": [
+            0,
+            59
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            59,
+            62
+          ],
+          "normalized_range": [
+            59,
+            65
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            62,
+            63
+          ],
+          "normalized_range": [
+            65,
+            66
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4176",
+      "source": "en",
+      "target": "sw",
+      "text": "And please please drink plenty plenty water",
+      "original_text": "And pls pls drink plenty plenty water",
+      "original_id": "uci-sms-line-4176",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            4
+          ],
+          "normalized_range": [
+            0,
+            4
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            4,
+            7
+          ],
+          "normalized_range": [
+            4,
+            10
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            7,
+            8
+          ],
+          "normalized_range": [
+            10,
+            11
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            11
+          ],
+          "normalized_range": [
+            11,
+            17
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            11,
+            37
+          ],
+          "normalized_range": [
+            17,
+            43
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "sw",
+      "text": "is your hamster dead? Hey so tomorrow i meet you at 1pm orchard mrt? ",
+      "original_text": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? ",
+      "original_id": "uci-sms-line-199",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            29
+          ],
+          "normalized_range": [
+            0,
+            29
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            29,
+            32
+          ],
+          "normalized_range": [
+            29,
+            37
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tmr",
+          "replacement": "tomorrow"
+        },
+        {
+          "original_range": [
+            32,
+            64
+          ],
+          "normalized_range": [
+            37,
+            69
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-603",
+      "source": "en",
+      "target": "sw",
+      "text": "If you sending her home first it's ok lor. I'm not ready yet.",
+      "original_text": "If u sending her home first it's ok lor. I'm not ready yet.",
+      "original_id": "uci-sms-line-603",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            59
+          ],
+          "normalized_range": [
+            6,
+            61
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1615",
+      "source": "en",
+      "target": "sw",
+      "text": "Thnx dude. you guys out 2nite?",
+      "original_text": "Thnx dude. u guys out 2nite?",
+      "original_id": "uci-sms-line-1615",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            11
+          ],
+          "normalized_range": [
+            0,
+            11
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            11,
+            12
+          ],
+          "normalized_range": [
+            11,
+            14
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            12,
+            28
+          ],
+          "normalized_range": [
+            14,
+            30
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-760",
+      "source": "en",
+      "target": "sw",
+      "text": "You should have made an appointment",
+      "original_text": "U should have made an appointment",
+      "original_id": "uci-sms-line-760",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            33
+          ],
+          "normalized_range": [
+            3,
+            35
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2145",
+      "source": "en",
+      "target": "sw",
+      "text": "You stayin out of trouble stranger!!saw Dave the other day he’s sorted now!still with me bloke when you gona get a girl MR!ur mum still Thinks we will get 2GETHA! ",
+      "original_text": "You stayin out of trouble stranger!!saw Dave the other day hes sorted now!still with me bloke when u gona get a girl MR!ur mum still Thinks we will get 2GETHA! ",
+      "original_id": "uci-sms-line-2145",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            61
+          ],
+          "normalized_range": [
+            0,
+            61
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            61,
+            62
+          ],
+          "normalized_range": [
+            61,
+            62
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            62,
+            100
+          ],
+          "normalized_range": [
+            62,
+            100
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            100,
+            101
+          ],
+          "normalized_range": [
+            100,
+            103
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            101,
+            161
+          ],
+          "normalized_range": [
+            103,
+            163
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4044",
+      "source": "en",
+      "target": "sw",
+      "text": "What time do you get out?",
+      "original_text": "What time do u get out?",
+      "original_id": "uci-sms-line-4044",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            13
+          ],
+          "normalized_range": [
+            0,
+            13
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            13,
+            14
+          ],
+          "normalized_range": [
+            13,
+            16
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            14,
+            23
+          ],
+          "normalized_range": [
+            16,
+            25
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5520",
+      "source": "en",
+      "target": "sw",
+      "text": "Miles and smiles r made frm same letters but do you know d difference..? smile on ur face keeps me happy even though I am miles away from you.. :-)keep smiling.. Good nyt",
+      "original_text": "Miles and smiles r made frm same letters but do u know d difference..? smile on ur face keeps me happy even though I am miles away from u.. :-)keep smiling.. Good nyt",
+      "original_id": "uci-sms-line-5520",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            48
+          ],
+          "normalized_range": [
+            0,
+            48
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            48,
+            49
+          ],
+          "normalized_range": [
+            48,
+            51
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            49,
+            136
+          ],
+          "normalized_range": [
+            51,
+            138
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            136,
+            137
+          ],
+          "normalized_range": [
+            138,
+            141
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            137,
+            166
+          ],
+          "normalized_range": [
+            141,
+            170
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4460",
+      "source": "en",
+      "target": "sw",
+      "text": "Die... I accidentally deleted e message i suppose 2 put in e sim archive. Haiz... I so sad...",
+      "original_text": "Die... I accidentally deleted e msg i suppose 2 put in e sim archive. Haiz... I so sad...",
+      "original_id": "uci-sms-line-4460",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            32
+          ],
+          "normalized_range": [
+            0,
+            32
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            32,
+            35
+          ],
+          "normalized_range": [
+            32,
+            39
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            35,
+            89
+          ],
+          "normalized_range": [
+            39,
+            93
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5294",
+      "source": "en",
+      "target": "sw",
+      "text": "Xy trying smth now. You eat already? We havent...",
+      "original_text": "Xy trying smth now. U eat already? We havent...",
+      "original_id": "uci-sms-line-5294",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            20
+          ],
+          "normalized_range": [
+            0,
+            20
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            20,
+            21
+          ],
+          "normalized_range": [
+            20,
+            23
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            21,
+            47
+          ],
+          "normalized_range": [
+            23,
+            49
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "en",
+      "target": "sw",
+      "text": "They said if its gonna snow, it will start around 8 or 9 pm tonight! They are predicting an inch of accumulation.",
+      "original_text": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "original_id": "uci-sms-line-2542",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            60
+          ],
+          "normalized_range": [
+            0,
+            60
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            60,
+            66
+          ],
+          "normalized_range": [
+            60,
+            67
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tonite",
+          "replacement": "tonight"
+        },
+        {
+          "original_range": [
+            66,
+            112
+          ],
+          "normalized_range": [
+            67,
+            113
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-200",
+      "source": "en",
+      "target": "sw",
+      "text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Text back if you can. :) xxx",
+      "original_text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Txt back if u can. :) xxx",
+      "original_id": "uci-sms-line-200",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            106
+          ],
+          "normalized_range": [
+            0,
+            106
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            106,
+            109
+          ],
+          "normalized_range": [
+            106,
+            110
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Txt",
+          "replacement": "Text"
+        },
+        {
+          "original_range": [
+            109,
+            118
+          ],
+          "normalized_range": [
+            110,
+            119
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            118,
+            119
+          ],
+          "normalized_range": [
+            119,
+            122
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            119,
+            131
+          ],
+          "normalized_range": [
+            122,
+            134
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "sw",
+      "text": "Does cinema plus drink appeal tomorrow? * Is a fr thriller by director i like on at mac at 8.30.",
+      "original_text": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30.",
+      "original_id": "uci-sms-line-3181",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            30
+          ],
+          "normalized_range": [
+            0,
+            30
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            30,
+            34
+          ],
+          "normalized_range": [
+            30,
+            38
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tomo",
+          "replacement": "tomorrow"
+        },
+        {
+          "original_range": [
+            34,
+            92
+          ],
+          "normalized_range": [
+            38,
+            96
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4584",
+      "source": "en",
+      "target": "es",
+      "text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless you chop it off:-)",
+      "original_text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless u chop it off:-)",
+      "original_id": "uci-sms-line-4584",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            79
+          ],
+          "normalized_range": [
+            0,
+            79
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            79,
+            80
+          ],
+          "normalized_range": [
+            79,
+            82
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            80,
+            95
+          ],
+          "normalized_range": [
+            82,
+            97
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2836",
+      "source": "en",
+      "target": "es",
+      "text": "You sick still can go shopping?",
+      "original_text": "U sick still can go shopping?",
+      "original_id": "uci-sms-line-2836",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            29
+          ],
+          "normalized_range": [
+            3,
+            31
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1790",
+      "source": "en",
+      "target": "es",
+      "text": "Arun can you transfr me d amt",
+      "original_text": "Arun can u transfr me d amt",
+      "original_id": "uci-sms-line-1790",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            9
+          ],
+          "normalized_range": [
+            0,
+            9
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            9,
+            10
+          ],
+          "normalized_range": [
+            9,
+            12
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            10,
+            27
+          ],
+          "normalized_range": [
+            12,
+            29
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "source": "en",
+      "target": "es",
+      "text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldn’t make ur b’day 2 hun!",
+      "original_text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "original_id": "uci-sms-line-3684",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            130
+          ],
+          "normalized_range": [
+            0,
+            130
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            130,
+            131
+          ],
+          "normalized_range": [
+            130,
+            131
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            131,
+            142
+          ],
+          "normalized_range": [
+            131,
+            142
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            142,
+            143
+          ],
+          "normalized_range": [
+            142,
+            143
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            143,
+            153
+          ],
+          "normalized_range": [
+            143,
+            153
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5128",
+      "source": "en",
+      "target": "es",
+      "text": "After my work ah... Den 6 plus lor... You workin oso rite... Den go orchard lor, no other place to go liao...",
+      "original_text": "After my work ah... Den 6 plus lor... U workin oso rite... Den go orchard lor, no other place to go liao...",
+      "original_id": "uci-sms-line-5128",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            38
+          ],
+          "normalized_range": [
+            0,
+            38
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            38,
+            39
+          ],
+          "normalized_range": [
+            38,
+            41
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            39,
+            107
+          ],
+          "normalized_range": [
+            41,
+            109
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-149",
+      "source": "en",
+      "target": "es",
+      "text": "Ummma.will call after check in.our life will begin from qatar so please pray very hard.",
+      "original_text": "Ummma.will call after check in.our life will begin from qatar so pls pray very hard.",
+      "original_id": "uci-sms-line-149",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            65
+          ],
+          "normalized_range": [
+            0,
+            65
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            65,
+            68
+          ],
+          "normalized_range": [
+            65,
+            71
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            68,
+            84
+          ],
+          "normalized_range": [
+            71,
+            87
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3329",
+      "source": "en",
+      "target": "es",
+      "text": " what number do you live at? Is it 11?",
+      "original_text": " what number do u live at? Is it 11?",
+      "original_id": "uci-sms-line-3329",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            16
+          ],
+          "normalized_range": [
+            0,
+            16
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            16,
+            17
+          ],
+          "normalized_range": [
+            16,
+            19
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            17,
+            36
+          ],
+          "normalized_range": [
+            19,
+            38
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "es",
+      "text": "Ho ho - big belly laugh! See ya tomorrow",
+      "original_text": "Ho ho - big belly laugh! See ya tomo",
+      "original_id": "uci-sms-line-672",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            32
+          ],
+          "normalized_range": [
+            0,
+            32
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            32,
+            36
+          ],
+          "normalized_range": [
+            32,
+            40
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tomo",
+          "replacement": "tomorrow"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2119",
+      "source": "en",
+      "target": "es",
+      "text": "Wish you many many returns of the day.. Happy birthday vikky..",
+      "original_text": "Wish u many many returns of the day.. Happy birthday vikky..",
+      "original_id": "uci-sms-line-2119",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            5
+          ],
+          "normalized_range": [
+            0,
+            5
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            5,
+            6
+          ],
+          "normalized_range": [
+            5,
+            8
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            6,
+            60
+          ],
+          "normalized_range": [
+            8,
+            62
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3754",
+      "source": "en",
+      "target": "es",
+      "text": "Why are you up so early?",
+      "original_text": "Why are u up so early?",
+      "original_id": "uci-sms-line-3754",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            8
+          ],
+          "normalized_range": [
+            0,
+            8
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            9
+          ],
+          "normalized_range": [
+            8,
+            11
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            9,
+            22
+          ],
+          "normalized_range": [
+            11,
+            24
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "source": "en",
+      "target": "es",
+      "text": "Happy birthday... May you find ur prince charming soon n dun work too hard...",
+      "original_text": "Happy birthday... May u find ur prince charming soon n dun work too hard...",
+      "original_id": "uci-sms-line-3498",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            22
+          ],
+          "normalized_range": [
+            0,
+            22
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            22,
+            23
+          ],
+          "normalized_range": [
+            22,
+            25
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            23,
+            75
+          ],
+          "normalized_range": [
+            25,
+            77
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4685",
+      "source": "en",
+      "target": "es",
+      "text": "Ok you can take me shopping when you get paid =D",
+      "original_text": "Ok u can take me shopping when u get paid =D",
+      "original_id": "uci-sms-line-4685",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            31
+          ],
+          "normalized_range": [
+            6,
+            33
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            31,
+            32
+          ],
+          "normalized_range": [
+            33,
+            36
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            32,
+            44
+          ],
+          "normalized_range": [
+            36,
+            48
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "en",
+      "target": "es",
+      "text": "Yup... Ok i go home look at the timings then i message ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "original_text": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "original_id": "uci-sms-line-36",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            47
+          ],
+          "normalized_range": [
+            0,
+            47
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            47,
+            50
+          ],
+          "normalized_range": [
+            47,
+            54
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            50,
+            122
+          ],
+          "normalized_range": [
+            54,
+            126
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1741",
+      "source": "en",
+      "target": "es",
+      "text": "You guys never invite me anywhere :(",
+      "original_text": "U guys never invite me anywhere :(",
+      "original_id": "uci-sms-line-1741",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            34
+          ],
+          "normalized_range": [
+            3,
+            36
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-561",
+      "source": "en",
+      "target": "es",
+      "text": "Aiyo... You always c our ex one... I dunno abt mei, she haven reply... First time you reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "original_text": "Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "original_id": "uci-sms-line-561",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            8
+          ],
+          "normalized_range": [
+            0,
+            8
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            9
+          ],
+          "normalized_range": [
+            8,
+            11
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            9,
+            80
+          ],
+          "normalized_range": [
+            11,
+            82
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            80,
+            81
+          ],
+          "normalized_range": [
+            82,
+            85
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            81,
+            160
+          ],
+          "normalized_range": [
+            85,
+            164
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4149",
+      "source": "en",
+      "target": "es",
+      "text": "Please help me tell sura that i'm expecting a battery from hont. And that if should please send me a message about how to download movies. Thanks",
+      "original_text": "Pls help me tell sura that i'm expecting a battery from hont. And that if should pls send me a message about how to download movies. Thanks",
+      "original_id": "uci-sms-line-4149",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            81
+          ],
+          "normalized_range": [
+            6,
+            84
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            81,
+            84
+          ],
+          "normalized_range": [
+            84,
+            90
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            84,
+            139
+          ],
+          "normalized_range": [
+            90,
+            145
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3739",
+      "source": "en",
+      "target": "es",
+      "text": "Please note: if anyone calling from a mobile Co. &amp; asks you to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN.",
+      "original_text": "Plz note: if anyone calling from a mobile Co. &amp; asks u to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN.",
+      "original_id": "uci-sms-line-3739",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Plz",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            57
+          ],
+          "normalized_range": [
+            6,
+            60
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            57,
+            58
+          ],
+          "normalized_range": [
+            60,
+            63
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            58,
+            263
+          ],
+          "normalized_range": [
+            63,
+            268
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3854",
+      "source": "en",
+      "target": "es",
+      "text": "No, its true..k,Do you knw dis no. &lt;#&gt; ?",
+      "original_text": "No, its true..k,Do u knw dis no. &lt;#&gt; ?",
+      "original_id": "uci-sms-line-3854",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            19
+          ],
+          "normalized_range": [
+            0,
+            19
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            19,
+            20
+          ],
+          "normalized_range": [
+            19,
+            22
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            20,
+            44
+          ],
+          "normalized_range": [
+            22,
+            46
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4101",
+      "source": "en",
+      "target": "es",
+      "text": "If you dun drive then how i go 2 sch.",
+      "original_text": "If u dun drive then how i go 2 sch.",
+      "original_id": "uci-sms-line-4101",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            35
+          ],
+          "normalized_range": [
+            6,
+            37
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-354",
+      "source": "en",
+      "target": "es",
+      "text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? please please JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD",
+      "original_text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? plz plz JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD",
+      "original_id": "uci-sms-line-354",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            85
+          ],
+          "normalized_range": [
+            0,
+            85
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            85,
+            88
+          ],
+          "normalized_range": [
+            85,
+            91
+          ],
+          "kind": "expanded_sms_form",
+          "original": "plz",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            88,
+            89
+          ],
+          "normalized_range": [
+            91,
+            92
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            89,
+            92
+          ],
+          "normalized_range": [
+            92,
+            98
+          ],
+          "kind": "expanded_sms_form",
+          "original": "plz",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            92,
+            148
+          ],
+          "normalized_range": [
+            98,
+            154
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5291",
+      "source": "en",
+      "target": "es",
+      "text": "An excellent thought by a misundrstud frnd: I knw you hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)",
+      "original_text": "An excellent thought by a misundrstud frnd: I knw u hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)",
+      "original_id": "uci-sms-line-5291",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            50
+          ],
+          "normalized_range": [
+            0,
+            50
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            50,
+            51
+          ],
+          "normalized_range": [
+            50,
+            53
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            51,
+            119
+          ],
+          "normalized_range": [
+            53,
+            121
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5307",
+      "source": "en",
+      "target": "es",
+      "text": "Please ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars.",
+      "original_text": "Pls ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars.",
+      "original_id": "uci-sms-line-5307",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            3,
+            94
+          ],
+          "normalized_range": [
+            6,
+            97
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4447",
+      "source": "en",
+      "target": "es",
+      "text": "2 celebrate my b’day, y else?",
+      "original_text": "2 celebrate my bday, y else?",
+      "original_id": "uci-sms-line-4447",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            16
+          ],
+          "normalized_range": [
+            0,
+            16
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            16,
+            17
+          ],
+          "normalized_range": [
+            16,
+            17
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            17,
+            29
+          ],
+          "normalized_range": [
+            17,
+            29
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-719",
+      "source": "en",
+      "target": "es",
+      "text": "Book which lesson? then you message me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "original_text": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "original_id": "uci-sms-line-719",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            28
+          ],
+          "normalized_range": [
+            0,
+            28
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            28,
+            31
+          ],
+          "normalized_range": [
+            28,
+            35
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            31,
+            121
+          ],
+          "normalized_range": [
+            35,
+            125
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "source": "en",
+      "target": "es",
+      "text": "Playin space poker, you?",
+      "original_text": "Playin space poker, u?",
+      "original_id": "uci-sms-line-3935",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            20
+          ],
+          "normalized_range": [
+            0,
+            20
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            20,
+            21
+          ],
+          "normalized_range": [
+            20,
+            23
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            21,
+            22
+          ],
+          "normalized_range": [
+            23,
+            24
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4977",
+      "source": "en",
+      "target": "es",
+      "text": "Yar... I tot you knew dis would happen long ago already.",
+      "original_text": "Yar... I tot u knew dis would happen long ago already.",
+      "original_id": "uci-sms-line-4977",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            13
+          ],
+          "normalized_range": [
+            0,
+            13
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            13,
+            14
+          ],
+          "normalized_range": [
+            13,
+            16
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            14,
+            54
+          ],
+          "normalized_range": [
+            16,
+            56
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "en",
+      "target": "es",
+      "text": "Really dun bluff me leh... You sleep early too. Nite...",
+      "original_text": "Really dun bluff me leh... U sleep early too. Nite...",
+      "original_id": "uci-sms-line-2434",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            27
+          ],
+          "normalized_range": [
+            0,
+            27
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            27,
+            28
+          ],
+          "normalized_range": [
+            27,
+            30
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            28,
+            53
+          ],
+          "normalized_range": [
+            30,
+            55
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "es",
+      "text": "You are not bothering me but you have to trust my answers. Please.",
+      "original_text": "You are not bothering me but you have to trust my answers. Pls.",
+      "original_id": "uci-sms-line-3040",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            59
+          ],
+          "normalized_range": [
+            0,
+            59
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            59,
+            62
+          ],
+          "normalized_range": [
+            59,
+            65
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Pls",
+          "replacement": "Please"
+        },
+        {
+          "original_range": [
+            62,
+            63
+          ],
+          "normalized_range": [
+            65,
+            66
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4176",
+      "source": "en",
+      "target": "es",
+      "text": "And please please drink plenty plenty water",
+      "original_text": "And pls pls drink plenty plenty water",
+      "original_id": "uci-sms-line-4176",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            4
+          ],
+          "normalized_range": [
+            0,
+            4
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            4,
+            7
+          ],
+          "normalized_range": [
+            4,
+            10
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            7,
+            8
+          ],
+          "normalized_range": [
+            10,
+            11
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            8,
+            11
+          ],
+          "normalized_range": [
+            11,
+            17
+          ],
+          "kind": "expanded_sms_form",
+          "original": "pls",
+          "replacement": "please"
+        },
+        {
+          "original_range": [
+            11,
+            37
+          ],
+          "normalized_range": [
+            17,
+            43
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "es",
+      "text": "is your hamster dead? Hey so tomorrow i meet you at 1pm orchard mrt? ",
+      "original_text": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? ",
+      "original_id": "uci-sms-line-199",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            29
+          ],
+          "normalized_range": [
+            0,
+            29
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            29,
+            32
+          ],
+          "normalized_range": [
+            29,
+            37
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tmr",
+          "replacement": "tomorrow"
+        },
+        {
+          "original_range": [
+            32,
+            64
+          ],
+          "normalized_range": [
+            37,
+            69
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-603",
+      "source": "en",
+      "target": "es",
+      "text": "If you sending her home first it's ok lor. I'm not ready yet.",
+      "original_text": "If u sending her home first it's ok lor. I'm not ready yet.",
+      "original_id": "uci-sms-line-603",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            3
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            3,
+            4
+          ],
+          "normalized_range": [
+            3,
+            6
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            4,
+            59
+          ],
+          "normalized_range": [
+            6,
+            61
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-1615",
+      "source": "en",
+      "target": "es",
+      "text": "Thnx dude. you guys out 2nite?",
+      "original_text": "Thnx dude. u guys out 2nite?",
+      "original_id": "uci-sms-line-1615",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            11
+          ],
+          "normalized_range": [
+            0,
+            11
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            11,
+            12
+          ],
+          "normalized_range": [
+            11,
+            14
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            12,
+            28
+          ],
+          "normalized_range": [
+            14,
+            30
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-760",
+      "source": "en",
+      "target": "es",
+      "text": "You should have made an appointment",
+      "original_text": "U should have made an appointment",
+      "original_id": "uci-sms-line-760",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            1
+          ],
+          "normalized_range": [
+            0,
+            3
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            1,
+            33
+          ],
+          "normalized_range": [
+            3,
+            35
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2145",
+      "source": "en",
+      "target": "es",
+      "text": "You stayin out of trouble stranger!!saw Dave the other day he’s sorted now!still with me bloke when you gona get a girl MR!ur mum still Thinks we will get 2GETHA! ",
+      "original_text": "You stayin out of trouble stranger!!saw Dave the other day hes sorted now!still with me bloke when u gona get a girl MR!ur mum still Thinks we will get 2GETHA! ",
+      "original_id": "uci-sms-line-2145",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            61
+          ],
+          "normalized_range": [
+            0,
+            61
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            61,
+            62
+          ],
+          "normalized_range": [
+            61,
+            62
+          ],
+          "kind": "legacy_apostrophe",
+          "original": "",
+          "replacement": "’"
+        },
+        {
+          "original_range": [
+            62,
+            100
+          ],
+          "normalized_range": [
+            62,
+            100
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            100,
+            101
+          ],
+          "normalized_range": [
+            100,
+            103
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            101,
+            161
+          ],
+          "normalized_range": [
+            103,
+            163
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4044",
+      "source": "en",
+      "target": "es",
+      "text": "What time do you get out?",
+      "original_text": "What time do u get out?",
+      "original_id": "uci-sms-line-4044",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            13
+          ],
+          "normalized_range": [
+            0,
+            13
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            13,
+            14
+          ],
+          "normalized_range": [
+            13,
+            16
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            14,
+            23
+          ],
+          "normalized_range": [
+            16,
+            25
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5520",
+      "source": "en",
+      "target": "es",
+      "text": "Miles and smiles r made frm same letters but do you know d difference..? smile on ur face keeps me happy even though I am miles away from you.. :-)keep smiling.. Good nyt",
+      "original_text": "Miles and smiles r made frm same letters but do u know d difference..? smile on ur face keeps me happy even though I am miles away from u.. :-)keep smiling.. Good nyt",
+      "original_id": "uci-sms-line-5520",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            48
+          ],
+          "normalized_range": [
+            0,
+            48
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            48,
+            49
+          ],
+          "normalized_range": [
+            48,
+            51
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            49,
+            136
+          ],
+          "normalized_range": [
+            51,
+            138
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            136,
+            137
+          ],
+          "normalized_range": [
+            138,
+            141
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            137,
+            166
+          ],
+          "normalized_range": [
+            141,
+            170
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-4460",
+      "source": "en",
+      "target": "es",
+      "text": "Die... I accidentally deleted e message i suppose 2 put in e sim archive. Haiz... I so sad...",
+      "original_text": "Die... I accidentally deleted e msg i suppose 2 put in e sim archive. Haiz... I so sad...",
+      "original_id": "uci-sms-line-4460",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            32
+          ],
+          "normalized_range": [
+            0,
+            32
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            32,
+            35
+          ],
+          "normalized_range": [
+            32,
+            39
+          ],
+          "kind": "expanded_sms_form",
+          "original": "msg",
+          "replacement": "message"
+        },
+        {
+          "original_range": [
+            35,
+            89
+          ],
+          "normalized_range": [
+            39,
+            93
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-5294",
+      "source": "en",
+      "target": "es",
+      "text": "Xy trying smth now. You eat already? We havent...",
+      "original_text": "Xy trying smth now. U eat already? We havent...",
+      "original_id": "uci-sms-line-5294",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            20
+          ],
+          "normalized_range": [
+            0,
+            20
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            20,
+            21
+          ],
+          "normalized_range": [
+            20,
+            23
+          ],
+          "kind": "expanded_sms_form",
+          "original": "U",
+          "replacement": "You"
+        },
+        {
+          "original_range": [
+            21,
+            47
+          ],
+          "normalized_range": [
+            23,
+            49
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "en",
+      "target": "es",
+      "text": "They said if its gonna snow, it will start around 8 or 9 pm tonight! They are predicting an inch of accumulation.",
+      "original_text": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "original_id": "uci-sms-line-2542",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            60
+          ],
+          "normalized_range": [
+            0,
+            60
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            60,
+            66
+          ],
+          "normalized_range": [
+            60,
+            67
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tonite",
+          "replacement": "tonight"
+        },
+        {
+          "original_range": [
+            66,
+            112
+          ],
+          "normalized_range": [
+            67,
+            113
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-200",
+      "source": "en",
+      "target": "es",
+      "text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Text back if you can. :) xxx",
+      "original_text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Txt back if u can. :) xxx",
+      "original_id": "uci-sms-line-200",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            106
+          ],
+          "normalized_range": [
+            0,
+            106
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            106,
+            109
+          ],
+          "normalized_range": [
+            106,
+            110
+          ],
+          "kind": "expanded_sms_form",
+          "original": "Txt",
+          "replacement": "Text"
+        },
+        {
+          "original_range": [
+            109,
+            118
+          ],
+          "normalized_range": [
+            110,
+            119
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            118,
+            119
+          ],
+          "normalized_range": [
+            119,
+            122
+          ],
+          "kind": "expanded_sms_form",
+          "original": "u",
+          "replacement": "you"
+        },
+        {
+          "original_range": [
+            119,
+            131
+          ],
+          "normalized_range": [
+            122,
+            134
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "es",
+      "text": "Does cinema plus drink appeal tomorrow? * Is a fr thriller by director i like on at mac at 8.30.",
+      "original_text": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30.",
+      "original_id": "uci-sms-line-3181",
+      "normalization_segments": [
+        {
+          "original_range": [
+            0,
+            30
+          ],
+          "normalized_range": [
+            0,
+            30
+          ],
+          "kind": "unchanged"
+        },
+        {
+          "original_range": [
+            30,
+            34
+          ],
+          "normalized_range": [
+            30,
+            38
+          ],
+          "kind": "expanded_sms_form",
+          "original": "tomo",
+          "replacement": "tomorrow"
+        },
+        {
+          "original_range": [
+            34,
+            92
+          ],
+          "normalized_range": [
+            38,
+            96
+          ],
+          "kind": "unchanged"
+        }
+      ]
+    }
+  ],
+  "source_protocol_sha256": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471",
+  "normalizer_sha256": "85464c1144ee98e184e92645a0e54f0941a7295a3d0def3b9ba32035bfb85975",
+  "production_use": false,
+  "review_status": "rules frozen before actual normalized provider capture; source cases already diagnostic",
+  "summary": {
+    "sw": 41,
+    "es": 41
+  },
+  "unchanged_cases_excluded": true
+}

@@ -1,0 +1,11 @@
+{
+  "frozen_utc": "2026-11-07T22:14:58.273617+00:00",
+  "runner_sha256": "f3084601f611dad8264073f293106f356ad7a4a0a566ee975783bfd9e0800732",
+  "fresh_sample_slice": [
+    800,
+    1000
+  ],
+  "sources": "All source rules frozen before fresh200source acquisition. Existing400diagnostic observed; fulltranslations not used in matcher.",
+  "translation_calls": 0,
+  "native_geometry_qualified": false
+}

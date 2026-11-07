@@ -1,0 +1,103 @@
+{
+  "schema": "vipi-canonical-surface-audit-1",
+  "catalog_sha256": "6b8040ae0eacb82dded24d9cf948649551195165d3d1c12a085e17e02e847300",
+  "runner_sha256": "c95c3cd935d4b7ad0462b200bfac0f309c50f45120d257b5007c1f99fd553149",
+  "production_changes": false,
+  "complete": true,
+  "limits": [
+    "Literal headword presence only. No invented citation stems, new sense links, readings, or morphology.",
+    "Competition-only entries preserve negative ambiguity evidence; they are not promised translation vocabulary."
+  ],
+  "languages": [
+    {
+      "language": "ar",
+      "dictionary_sha256": "d4b1c08bbbaf7ca9f186387af0d4853099a3673a097738917772fa1ad086866f",
+      "target_safe_lexemes": 19188,
+      "eligible_linked_lexemes": 14279,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 0
+    },
+    {
+      "language": "de",
+      "dictionary_sha256": "35529352882d2ca9b78534233bf3c1d8dfd85c46a1df0a1ca5b862580a853f6a",
+      "target_safe_lexemes": 50146,
+      "eligible_linked_lexemes": 44789,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 194
+    },
+    {
+      "language": "en",
+      "dictionary_sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+      "target_safe_lexemes": 160540,
+      "eligible_linked_lexemes": 137224,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 895
+    },
+    {
+      "language": "es",
+      "dictionary_sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "target_safe_lexemes": 76048,
+      "eligible_linked_lexemes": 69443,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 614
+    },
+    {
+      "language": "fr",
+      "dictionary_sha256": "5d884557d3a265a88aadde8dfeba2bbbdcd930a20b0ae16ab4f36f4bb196cecc",
+      "target_safe_lexemes": 65088,
+      "eligible_linked_lexemes": 60100,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 523
+    },
+    {
+      "language": "it",
+      "dictionary_sha256": "22ef21aae71fcd403c952b2b3bccfb99421b19ce91d895884dc64670ee8cce19",
+      "target_safe_lexemes": 66273,
+      "eligible_linked_lexemes": 60726,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 1197
+    },
+    {
+      "language": "ja",
+      "dictionary_sha256": "101115ac82b01b2467644a439c1480b913ab5196f3edb125aadf574b5608159d",
+      "target_safe_lexemes": 39623,
+      "eligible_linked_lexemes": 32318,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 86
+    },
+    {
+      "language": "ko",
+      "dictionary_sha256": "114daec103422c6ef8536454f997ba104b25ff6d39523546784b5fa6b8b350db",
+      "target_safe_lexemes": 22425,
+      "eligible_linked_lexemes": 20424,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 0
+    },
+    {
+      "language": "pt",
+      "dictionary_sha256": "930eea59275c254dda3a66d8b68e9fae27eec96958a44599123655dcac812109",
+      "target_safe_lexemes": 53940,
+      "eligible_linked_lexemes": 44305,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 542
+    },
+    {
+      "language": "sw",
+      "dictionary_sha256": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+      "target_safe_lexemes": 6062,
+      "eligible_linked_lexemes": 5158,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 19
+    },
+    {
+      "language": "zh",
+      "dictionary_sha256": "649b6074ea674bfb53fe8fb8a5d0083d3bfb141cc7a7ff1d9b9e1f34133271a8",
+      "target_safe_lexemes": 50684,
+      "eligible_linked_lexemes": 45578,
+      "canonical_absent_linked": 0,
+      "canonical_absent_competition_only": 70
+    }
+  ],
+  "finding": "No eligible-linked lexeme lacks its literal headword in any of11 shipped packs. Competition-only alias roots are not bilingual vocabulary; inserting heads would not supply missing sense links.",
+  "detail_sha256": "26bb328acf64049d3773093fcc6e22f81960d8bd353414908cd4edde0914d309"
+}

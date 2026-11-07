@@ -1,0 +1,23 @@
+{
+  "frozen_utc": "2026-11-07T22:29:20.333464+00:00",
+  "normalizer_sha256": "85464c1144ee98e184e92645a0e54f0941a7295a3d0def3b9ba32035bfb85975",
+  "protocol_sha256": "d1d6909714c810ae1d188941fe6412679bebc391f4cf0bab7a787b2dc3358dde",
+  "cases": 82,
+  "changed_original_messages": 41,
+  "controls_passed": 16,
+  "source_cases_already_inspected": true,
+  "provider_results_seen_before_freeze": false,
+  "production_use": false,
+  "max_runtime_calls": "Same production engines plus labelled evaluation MT when zero production calls, no network translator",
+  "ambiguous_forms_not_normalized": [
+    "ur",
+    "2",
+    "4",
+    "r",
+    "c",
+    "n",
+    "rite",
+    "hear",
+    "lap"
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "schema": "vipi-relaxed-strata-diagnostic-1",
+  "comparison_sha256": "c1352ef1133b493f7a8dc06d601f801690c531aa35ab341cfa22a7b4b0fda87f",
+  "runner_sha256": "7ee7a4b9078c95f659ba0102038eb3b1ef6b908d96cae0ee7e636c0478db40e8",
+  "dictionary_sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+  "posthoc": true,
+  "release_ready": false,
+  "meaning_labels": "Author judgement, not independent bilingual acceptance",
+  "summary": {
+    "en-es": {
+      "strata_added_spans": {
+        "all_B_additions": {
+          "meaning_appears_correct": 219,
+          "material_error": 10,
+          "uncertain": 15,
+          "lexical_category_error": 3
+        },
+        "POS:adv": {
+          "meaning_appears_correct": 19,
+          "uncertain": 1
+        },
+        "finding:author_accepted": {
+          "meaning_appears_correct": 219
+        },
+        "supplied_inflection": {
+          "meaning_appears_correct": 25,
+          "material_error": 1,
+          "uncertain": 1
+        },
+        "POS:noun": {
+          "meaning_appears_correct": 111,
+          "material_error": 5,
+          "lexical_category_error": 3,
+          "uncertain": 7
+        },
+        "POS:adj+noun": {
+          "material_error": 2,
+          "meaning_appears_correct": 6,
+          "uncertain": 1
+        },
+        "finding:contextual_sense_or_idiom": {
+          "material_error": 7
+        },
+        "selected_adjective_or_verb_only": {
+          "meaning_appears_correct": 81,
+          "uncertain": 6,
+          "material_error": 3
+        },
+        "POS:adj": {
+          "meaning_appears_correct": 55,
+          "uncertain": 5,
+          "material_error": 2
+        },
+        "no_competing_source_POS": {
+          "meaning_appears_correct": 37,
+          "material_error": 2,
+          "uncertain": 1
+        },
+        "finding:needs_context_scope_or_native_idiom_review": {
+          "uncertain": 15
+        },
+        "POS:verb": {
+          "meaning_appears_correct": 26,
+          "uncertain": 1,
+          "material_error": 1
+        },
+        "finding:chat_shorthand_or_typo_interpreted_as_other_lexeme": {
+          "material_error": 3
+        },
+        "finding:contextual_grammatical_role_not_resolved_by_dictionary_POS": {
+          "lexical_category_error": 3
+        },
+        "POS:adj+adv": {
+          "meaning_appears_correct": 2
+        },
+        "source_safe_some": {
+          "meaning_appears_correct": 6
+        }
+      },
+      "review_sha256": "e12cb8e4d869c2fdd720fdb76195ce3a31c9c81c5abc5586ce18ac316a6b3b48",
+      "posthoc_policy_A_plus_selected": {
+        "all_B_additions": {
+          "messages_with_author_accepted_span": 148,
+          "clean_useful_messages": 136,
+          "mean_native_word_depth_of_accepted_spans": 0.13215633646935787
+        },
+        "source_safe_some": {
+          "messages_with_author_accepted_span": 95,
+          "clean_useful_messages": 94,
+          "mean_native_word_depth_of_accepted_spans": 0.05198469826798301
+        },
+        "no_competing_source_POS": {
+          "messages_with_author_accepted_span": 110,
+          "clean_useful_messages": 107,
+          "mean_native_word_depth_of_accepted_spans": 0.061740631457536214
+        },
+        "selected_adjective_or_verb_only": {
+          "messages_with_author_accepted_span": 124,
+          "clean_useful_messages": 121,
+          "mean_native_word_depth_of_accepted_spans": 0.08290991142746941
+        },
+        "supplied_inflection": {
+          "messages_with_author_accepted_span": 103,
+          "clean_useful_messages": 101,
+          "mean_native_word_depth_of_accepted_spans": 0.05710776357650657
+        }
+      }
+    },
+    "en-sw": {
+      "strata_added_spans": {
+        "all_B_additions": {
+          "meaning_appears_correct": 85,
+          "material_error": 6,
+          "lexical_category_error": 5,
+          "uncertain": 11
+        },
+        "POS:adv": {
+          "meaning_appears_correct": 22,
+          "material_error": 4,
+          "uncertain": 2
+        },
+        "finding:author_accepted": {
+          "meaning_appears_correct": 85
+        },
+        "supplied_inflection": {
+          "meaning_appears_correct": 11,
+          "uncertain": 1,
+          "material_error": 1
+        },
+        "POS:noun": {
+          "meaning_appears_correct": 40,
+          "lexical_category_error": 5,
+          "material_error": 2,
+          "uncertain": 5
+        },
+        "finding:contextual_sense_or_idiom": {
+          "material_error": 6
+        },
+        "no_competing_source_POS": {
+          "meaning_appears_correct": 13,
+          "material_error": 1,
+          "uncertain": 2
+        },
+        "selected_adjective_or_verb_only": {
+          "meaning_appears_correct": 20,
+          "uncertain": 4
+        },
+        "POS:adj": {
+          "meaning_appears_correct": 14,
+          "uncertain": 4
+        },
+        "POS:verb": {
+          "meaning_appears_correct": 6
+        },
+        "finding:contextual_grammatical_role_not_resolved_by_dictionary_POS": {
+          "lexical_category_error": 5
+        },
+        "POS:noun+verb": {
+          "meaning_appears_correct": 2
+        },
+        "finding:needs_context_scope_or_native_idiom_review": {
+          "uncertain": 11
+        },
+        "source_safe_some": {
+          "meaning_appears_correct": 1
+        },
+        "POS:adj+adv": {
+          "meaning_appears_correct": 1
+        }
+      },
+      "review_sha256": "c07b0f0f43fa3b49c65a9c980586a2d4ae4a342d80845e600465fdc8c5ba6e03",
+      "posthoc_policy_A_plus_selected": {
+        "all_B_additions": {
+          "messages_with_author_accepted_span": 106,
+          "clean_useful_messages": 97,
+          "mean_native_word_depth_of_accepted_spans": 0.06205372580777992
+        },
+        "source_safe_some": {
+          "messages_with_author_accepted_span": 69,
+          "clean_useful_messages": 69,
+          "mean_native_word_depth_of_accepted_spans": 0.034041174881270106
+        },
+        "no_competing_source_POS": {
+          "messages_with_author_accepted_span": 76,
+          "clean_useful_messages": 76,
+          "mean_native_word_depth_of_accepted_spans": 0.03899005443309083
+        },
+        "selected_adjective_or_verb_only": {
+          "messages_with_author_accepted_span": 77,
+          "clean_useful_messages": 77,
+          "mean_native_word_depth_of_accepted_spans": 0.040886383798170195
+        },
+        "supplied_inflection": {
+          "messages_with_author_accepted_span": 75,
+          "clean_useful_messages": 75,
+          "mean_native_word_depth_of_accepted_spans": 0.03802314023392511
+        }
+      }
+    }
+  },
+  "detail_artifact": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-probe/relaxed-strata-r01.json",
+  "detail_sha256": "d198ef0199f5115e67edae08b78d0720850ec7d4e21c561a019e0952939043c0"
+}

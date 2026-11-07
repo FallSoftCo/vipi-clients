@@ -1,0 +1,29 @@
+{
+  "schema": "vipi-immersion-strategy-evaluation-status-1",
+  "updated_utc": "2026-11-07T22:29:20.333922+00:00",
+  "production_changed": false,
+  "strategy_selected": false,
+  "release_ready": false,
+  "complete": [
+    "Actual400-caseAndroidMLKitA/B/Ccomparison",
+    "Author review all400 outputs with source identity binding",
+    "Relaxed candidate strata and message length/cause diagnostics",
+    "Frozen source-only candidate tested on fresh400SMS and400Taskmaster directions",
+    "All11canonical head surfaces audited: no eligible-linked head omission bug",
+    "Conservative normalization protocol82rows frozen;16 UTF16/literal/identifier controls passed",
+    "Licensed human Taskmaster2 protocol400rows pinned and frozen"
+  ],
+  "awaiting": [
+    "Android actual normalized82-row capture",
+    "Android actual Taskmaster400-row capture",
+    "Independent bilingual review before commercial accuracy claims",
+    "Fresh Apple provider execution; VM has no installed models and no qualified preparation UI or attached physical device",
+    "Non-Roman directions, readings and complete pair matrix after strategy evidence"
+  ],
+  "negative_findings": [
+    "Broad source-only unique-word filtering contributes almost nothing; vocabulary breadth is limited despite Taskmaster greeting hit rates",
+    "SourceSafe-only relaxation retains only6Spanish/1Swahili additional accepted SMS spans",
+    "Quantity/determiner noun arms showed tiny gains and systematic wrong-sense controls; not promoted"
+  ],
+  "evidence_directory": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01"
+}

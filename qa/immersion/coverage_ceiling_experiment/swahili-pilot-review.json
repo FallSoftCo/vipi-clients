@@ -1,0 +1,338 @@
+{
+  "schema": "vipi-swahili-native-pilot-semantic-review-1",
+  "comparison_sha256": "bbb2f8094f0d05a2f0b3a50ca4f3de674e448558dc62d9381e3ef9bb07ea7f94",
+  "capture_sha256": "c453e4172ae55116bfce090ca26317241f3166aab224ba8b328be750252b254e",
+  "reviewer": "Current Codex immersion agent; author assessment",
+  "independent_bilingual_acceptance": false,
+  "population_coverage_claim": false,
+  "actual_model": "Google ML Kit native Android",
+  "summary": {
+    "en-sw": {
+      "requested": 20,
+      "captured": 20,
+      "semantic_review_complete": false,
+      "A": {
+        "messages_with_span": 6,
+        "spans": 7,
+        "mean_native_word_depth": 0.03036634460547504
+      },
+      "B": {
+        "messages_with_span": 9,
+        "spans": 12,
+        "mean_native_word_depth": 0.04279666790536356
+      },
+      "C": {
+        "changed_whole_translations": 17
+      }
+    }
+  },
+  "full_translation_review": {
+    "material_errors": 6,
+    "uncertain_or_incomplete": 8,
+    "broad_meaning_preserved": 3,
+    "not_captured": 3
+  },
+  "B_added_review": {
+    "clear_useful": 3,
+    "material_idiom_sense_error": 1,
+    "uncertain": 1
+  },
+  "rows": [
+    {
+      "id": "uci-sms-line-5190",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Abbreviated WRKIN and U remain untranslated; when working is not communicated fully."
+      }
+    },
+    {
+      "id": "uci-sms-line-4091",
+      "A": {
+        "selected": 1,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "How are you becomes who are you (wewe ni nani)."
+      }
+    },
+    {
+      "id": "uci-sms-line-5275",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "What have you been up to is rendered literally as above 2; moving/pickup clauses are also damaged."
+      }
+    },
+    {
+      "id": "uci-sms-line-2698",
+      "A": {
+        "selected": 1,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Core home/petrol/rain concepts survive, but literal SMS 2 and pump syntax are awkward."
+      }
+    },
+    {
+      "id": "uci-sms-line-5487",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [
+        {
+          "source": "points",
+          "target": "pointi",
+          "classification": "uncertain",
+          "finding": "Points means pickup locations; pointi may be a different or unnatural loanword sense. Needs native Swahili assessment."
+        }
+      ],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "SMS numerals for to/for and meeting points are kept literally; target points loanword needs qualified review."
+      }
+    },
+    {
+      "id": "uci-sms-line-2016",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "not_captured",
+        "finding": "Production language classifier abstained; no full provider text in this pilot."
+      }
+    },
+    {
+      "id": "uci-sms-line-3008",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "How have you been becomes repeated umekuwa, losing the question."
+      }
+    },
+    {
+      "id": "uci-sms-line-1546",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [
+        {
+          "source": "use",
+          "target": "matumizi",
+          "classification": "material_idiom_sense_error",
+          "finding": "There is no use means no point/benefit, not absence of usage. Relaxed lookup imports the provider literal-sense error."
+        }
+      ],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "An academic degree becomes kiwango (level); no use becomes no usage rather than no benefit."
+      }
+    },
+    {
+      "id": "uci-sms-line-3913",
+      "A": {
+        "selected": 1,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [
+        {
+          "source": "Later",
+          "target": "baadaye",
+          "classification": "clear_useful",
+          "finding": "Complete lexical meaning appears appropriate in this source context."
+        }
+      ],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Noe/da/c shorthand remains; message has useful car/later concepts but incomplete translation."
+      }
+    },
+    {
+      "id": "uci-sms-line-3103",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "not_captured",
+        "finding": "Production language classifier abstained; no full provider text in this pilot."
+      }
+    },
+    {
+      "id": "uci-sms-line-2733",
+      "A": {
+        "selected": 1,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Sleepy is reduced to feeling sleep; direct address dear is treated as object. Naturalness and intent need qualified review."
+      }
+    },
+    {
+      "id": "uci-sms-line-4456",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Around what time becomes repeated time; home and arrival intent partly survive."
+      }
+    },
+    {
+      "id": "uci-sms-line-5515",
+      "A": {
+        "selected": 1,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "broad_meaning_preserved",
+        "finding": "Author review: core meaning retained, with potentially awkward grammar. Not native-speaker acceptance."
+      }
+    },
+    {
+      "id": "uci-sms-line-2343",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Misspelling alien remains Alian; address/dear grammar is corrupted."
+      }
+    },
+    {
+      "id": "uci-sms-line-3718",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "Job title loses associate and repeats technical; target is a network of technical support."
+      }
+    },
+    {
+      "id": "uci-sms-line-2610",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "uncertain_or_incomplete",
+        "finding": "Question wording is malformed and hello/madam remain; native review needed."
+      }
+    },
+    {
+      "id": "uci-sms-line-4731",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "broad_meaning_preserved",
+        "finding": "Author review: core meaning retained, with potentially awkward grammar. Not native-speaker acceptance."
+      }
+    },
+    {
+      "id": "uci-sms-line-5249",
+      "A": {
+        "selected": 2,
+        "clear_material_error_observed": false,
+        "assessment": "Selected concepts appear correct; this is author review, not independent bilingual accuracy."
+      },
+      "B_added": [
+        {
+          "source": "here",
+          "target": "hapa",
+          "classification": "clear_useful",
+          "finding": "Complete lexical meaning appears appropriate in this source context."
+        }
+      ],
+      "C_full": {
+        "classification": "broad_meaning_preserved",
+        "finding": "Author review: core meaning retained, with potentially awkward grammar. Not native-speaker acceptance."
+      }
+    },
+    {
+      "id": "uci-sms-line-2475",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [],
+      "C_full": {
+        "classification": "not_captured",
+        "finding": "Production language classifier abstained; no full provider text in this pilot."
+      }
+    },
+    {
+      "id": "uci-sms-line-113",
+      "A": {
+        "selected": 0,
+        "clear_material_error_observed": false,
+        "assessment": "No inline immersion"
+      },
+      "B_added": [
+        {
+          "source": "dinner",
+          "target": "chakula cha jioni",
+          "classification": "clear_useful",
+          "finding": "Complete lexical meaning appears appropriate in this source context."
+        }
+      ],
+      "C_full": {
+        "classification": "material_error",
+        "finding": "msg you after becomes Maunganishi (connections), losing both message and later."
+      }
+    }
+  ],
+  "release_ready": false
+}

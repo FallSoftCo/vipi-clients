@@ -1,0 +1,29 @@
+{
+  "schema": "vipi-coverage-ceiling-plan-1",
+  "frozen_utc": "2026-11-07T21:41:25.895794+00:00",
+  "candidate_spec_before_sample": {
+    "A": "Actual current Android pipeline, original full MT and native selected ranges at 0.25 and 1.0 density.",
+    "B": "EVALUATION ONLY: A plus complete attested noun/adjective/adverb/verb forms sharing eligible dictionary senses with unique positions in actual full translation. Relax source-safety and contextual-witness requirements; preserve complete ranges, case, distinct target and overlap/ambiguity abstention. Also inspect complete retained phrase forms. No guessed stems or manufactured forms.",
+    "C": "Lookup-first whole source-reference hits, else automatic original/full-local-translation flip. Mark unchanged or names-only text as non-learning; judge full translation separately from inline introduced errors."
+  },
+  "sample": {
+    "corpus": "UCI SMS Spam Collection, unique ham text",
+    "deterministic_order": "sha256(vipi-source-phrase-20261107-r01 + original)",
+    "slice": [
+      600,
+      800
+    ],
+    "messages": 200,
+    "directions": [
+      "en-es",
+      "en-sw"
+    ],
+    "prior_current_session_samples": [
+      0,
+      600
+    ],
+    "prior_project_training_overlap": "Not yet checked against all historical training corpora; fresh to current session, not a claim of worldwide/model pretraining exclusion."
+  },
+  "assessment": "Author review of every emitted output; split clear correct, material meaning error, uncertain, unchanged/name-only. Separate provider full translation defects from introduced inline defects. Not independent bilingual acceptance.",
+  "release_ready": false
+}

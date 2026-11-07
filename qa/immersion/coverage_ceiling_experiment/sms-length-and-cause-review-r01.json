@@ -1,0 +1,749 @@
+{
+  "schema": "vipi-length-stratified-author-evaluation-1",
+  "comparison_sha256": "c1352ef1133b493f7a8dc06d601f801690c531aa35ab341cfa22a7b4b0fda87f",
+  "runner_sha256": "e49df25db98b40aff1883cf1d568fcc3dbcda4c51ace552df70ee8182e739342",
+  "unit": "Message (may contain multiple sentences); native Android source word count",
+  "assessment": "Author labels, not independent bilingual acceptance; old SMS is diagnostic only",
+  "summary": {
+    "en-es": {
+      "1-5": {
+        "messages": 31,
+        "native_word_count_total": 133,
+        "C_full_labels": {
+          "uncertain_or_incomplete": 8,
+          "unchanged": 3,
+          "material_error": 8,
+          "broad_meaning_preserved": 12
+        },
+        "A": {
+          "clean_useful_messages": 6,
+          "messages_with_accepted_span": 6,
+          "accepted_spans": 6,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.04032258064516129,
+          "macro_mean_accepted_word_depth": 0.04032258064516129,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.045112781954887216
+        },
+        "B": {
+          "clean_useful_messages": 15,
+          "messages_with_accepted_span": 15,
+          "accepted_spans": 19,
+          "clear_bad_spans": 2,
+          "macro_mean_mixed_word_depth": 0.15107526881720432,
+          "macro_mean_accepted_word_depth": 0.13010752688172045,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.14285714285714285
+        }
+      },
+      "6-15": {
+        "messages": 104,
+        "native_word_count_total": 944,
+        "C_full_labels": {
+          "broad_meaning_preserved": 47,
+          "material_error": 29,
+          "uncertain_or_incomplete": 27,
+          "unchanged": 1
+        },
+        "A": {
+          "clean_useful_messages": 39,
+          "messages_with_accepted_span": 39,
+          "accepted_spans": 46,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.05134318139125831,
+          "macro_mean_accepted_word_depth": 0.04909959164766857,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.04978813559322034
+        },
+        "B": {
+          "clean_useful_messages": 66,
+          "messages_with_accepted_span": 71,
+          "accepted_spans": 128,
+          "clear_bad_spans": 5,
+          "macro_mean_mixed_word_depth": 0.14855360985168678,
+          "macro_mean_accepted_word_depth": 0.1356728741344126,
+          "median_accepted_word_depth": 0.125,
+          "word_weighted_accepted_depth": 0.13665254237288135
+        }
+      },
+      "16-30": {
+        "messages": 49,
+        "native_word_count_total": 1077,
+        "C_full_labels": {
+          "uncertain_or_incomplete": 7,
+          "material_error": 22,
+          "broad_meaning_preserved": 20
+        },
+        "A": {
+          "clean_useful_messages": 34,
+          "messages_with_accepted_span": 34,
+          "accepted_spans": 55,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.05346663219279535,
+          "macro_mean_accepted_word_depth": 0.05346663219279535,
+          "median_accepted_word_depth": 0.043478260869565216,
+          "word_weighted_accepted_depth": 0.051996285979572884
+        },
+        "B": {
+          "clean_useful_messages": 40,
+          "messages_with_accepted_span": 46,
+          "accepted_spans": 141,
+          "clear_bad_spans": 6,
+          "macro_mean_mixed_word_depth": 0.1460137433058091,
+          "macro_mean_accepted_word_depth": 0.13673839807866936,
+          "median_accepted_word_depth": 0.125,
+          "word_weighted_accepted_depth": 0.1327762302692665
+        }
+      },
+      "31+": {
+        "messages": 16,
+        "native_word_count_total": 615,
+        "C_full_labels": {
+          "material_error": 9,
+          "broad_meaning_preserved": 3,
+          "uncertain_or_incomplete": 4
+        },
+        "A": {
+          "clean_useful_messages": 12,
+          "messages_with_accepted_span": 13,
+          "accepted_spans": 23,
+          "clear_bad_spans": 1,
+          "macro_mean_mixed_word_depth": 0.044321441919876456,
+          "macro_mean_accepted_word_depth": 0.040415191919876456,
+          "median_accepted_word_depth": 0.03125,
+          "word_weighted_accepted_depth": 0.03902439024390244
+        },
+        "B": {
+          "clean_useful_messages": 15,
+          "messages_with_accepted_span": 16,
+          "accepted_spans": 61,
+          "clear_bad_spans": 1,
+          "macro_mean_mixed_word_depth": 0.10734765660896847,
+          "macro_mean_accepted_word_depth": 0.0992358465440334,
+          "median_accepted_word_depth": 0.09155701754385964,
+          "word_weighted_accepted_depth": 0.1008130081300813
+        }
+      }
+    },
+    "en-sw": {
+      "1-5": {
+        "messages": 31,
+        "native_word_count_total": 133,
+        "C_full_labels": {
+          "uncertain_or_incomplete": 9,
+          "unchanged": 1,
+          "broad_meaning_preserved": 11,
+          "material_error": 10
+        },
+        "A": {
+          "clean_useful_messages": 4,
+          "messages_with_accepted_span": 4,
+          "accepted_spans": 4,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.025806451612903226,
+          "macro_mean_accepted_word_depth": 0.025806451612903226,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.03007518796992481
+        },
+        "B": {
+          "clean_useful_messages": 6,
+          "messages_with_accepted_span": 6,
+          "accepted_spans": 6,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.04516129032258065,
+          "macro_mean_accepted_word_depth": 0.03870967741935484,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.045112781954887216
+        }
+      },
+      "6-15": {
+        "messages": 104,
+        "native_word_count_total": 944,
+        "C_full_labels": {
+          "broad_meaning_preserved": 38,
+          "uncertain_or_incomplete": 26,
+          "material_error": 38,
+          "unchanged": 2
+        },
+        "A": {
+          "clean_useful_messages": 30,
+          "messages_with_accepted_span": 30,
+          "accepted_spans": 33,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.03789562467447083,
+          "macro_mean_accepted_word_depth": 0.036293060571906725,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.036016949152542374
+        },
+        "B": {
+          "clean_useful_messages": 46,
+          "messages_with_accepted_span": 47,
+          "accepted_spans": 64,
+          "clear_bad_spans": 3,
+          "macro_mean_mixed_word_depth": 0.07584837705030012,
+          "macro_mean_accepted_word_depth": 0.06749908745101052,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.06885593220338983
+        }
+      },
+      "16-30": {
+        "messages": 49,
+        "native_word_count_total": 1077,
+        "C_full_labels": {
+          "uncertain_or_incomplete": 18,
+          "material_error": 24,
+          "broad_meaning_preserved": 7
+        },
+        "A": {
+          "clean_useful_messages": 24,
+          "messages_with_accepted_span": 24,
+          "accepted_spans": 36,
+          "clear_bad_spans": 1,
+          "macro_mean_mixed_word_depth": 0.03542437430695133,
+          "macro_mean_accepted_word_depth": 0.034574034170896904,
+          "median_accepted_word_depth": 0.0,
+          "word_weighted_accepted_depth": 0.033426183844011144
+        },
+        "B": {
+          "clean_useful_messages": 35,
+          "messages_with_accepted_span": 39,
+          "accepted_spans": 70,
+          "clear_bad_spans": 5,
+          "macro_mean_mixed_word_depth": 0.07348453658825436,
+          "macro_mean_accepted_word_depth": 0.06630204820828699,
+          "median_accepted_word_depth": 0.05555555555555555,
+          "word_weighted_accepted_depth": 0.06499535747446611
+        }
+      },
+      "31+": {
+        "messages": 16,
+        "native_word_count_total": 615,
+        "C_full_labels": {
+          "uncertain_or_incomplete": 4,
+          "material_error": 11,
+          "broad_meaning_preserved": 1
+        },
+        "A": {
+          "clean_useful_messages": 10,
+          "messages_with_accepted_span": 10,
+          "accepted_spans": 16,
+          "clear_bad_spans": 0,
+          "macro_mean_mixed_word_depth": 0.030872245342418492,
+          "macro_mean_accepted_word_depth": 0.028919120342418492,
+          "median_accepted_word_depth": 0.025122549019607844,
+          "word_weighted_accepted_depth": 0.026016260162601626
+        },
+        "B": {
+          "clean_useful_messages": 10,
+          "messages_with_accepted_span": 14,
+          "accepted_spans": 34,
+          "clear_bad_spans": 4,
+          "macro_mean_mixed_word_depth": 0.07456853067473324,
+          "macro_mean_accepted_word_depth": 0.058877481527801735,
+          "median_accepted_word_depth": 0.061553030303030304,
+          "word_weighted_accepted_depth": 0.055284552845528454
+        }
+      }
+    }
+  },
+  "clear_error_cause_counts": {
+    "same_wrong_sense_or_role_present_in_full_provider_output": 25,
+    "alignment_drops_valid_multiword_verb_scope": 1
+  },
+  "errors": [
+    {
+      "id": "uci-sms-line-3925",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Okay lor... Will they still let us go a not ah? Coz they will not know until later. We drop our cards into the box right?",
+      "full_translation": "Está bien, ¡todavía nos dejarán ir a no ah? COZ no sabrán hasta más tarde. ¿Celdamos nuestras tarjetas en la caja a la derecha?",
+      "span": {
+        "source": "right",
+        "target": "derecha",
+        "source_range": [
+          115,
+          120
+        ],
+        "label": "material_error",
+        "finding": "Confirmation tag becomes right-hand direction."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-395",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down",
+      "full_translation": "Sí, lo creo. Estoy en el cargo, pero mi regazo está en la habitación, creo que eso es en los últimos días. No lo cerró",
+      "span": {
+        "source": "lap",
+        "target": "regazo",
+        "source_range": [
+          38,
+          41
+        ],
+        "label": "material_error",
+        "finding": "Laptop shorthand becomes body lap/regazo."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Kindly send some one to our flat before  &lt;DECIMAL&gt;  today.",
+      "full_translation": "Por favor, envíe un poco a nuestro plano antes de & lt; decimal & gt; hoy en día.",
+      "span": {
+        "source": "flat",
+        "target": "plano",
+        "source_range": [
+          28,
+          32
+        ],
+        "label": "material_error",
+        "finding": "Apartment becomes plane/plan."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "pair": "en-es",
+      "arm": "A",
+      "original": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "full_translation": "Hola, hola, hola Lou, lo siento, tomó tanto tiempo 2 Responder, me fui móvil en amigos en Lancaster, acaba de conseguirlo Bak Neway, lo siento, ¡no pude hacer tu día 2!",
+      "span": {
+        "source": "make",
+        "target": "hacer",
+        "source_range": [
+          133,
+          137
+        ],
+        "label": "material_error",
+        "finding": "Make birthday means attend, not create/hacer."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-149",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Ummma.will call after check in.our life will begin from qatar so pls pray very hard.",
+      "full_translation": "Ummma. Llamada por telefonía después de la entrada. Nuestra vida comenzará de Qatar, así que los pls oren muy duro.",
+      "span": {
+        "source": "call",
+        "target": "Llamada",
+        "source_range": [
+          11,
+          15
+        ],
+        "label": "lexical_category_error",
+        "finding": "Verb call becomes noun Llamada."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-1432",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Don't look back at the building because you have no coat and i don't want you to get more sick. Just hurry home and wear a coat to the gym!!!",
+      "full_translation": "No mires hacia atrás en el edificio porque no tienes abrigo y no quiero que se enferme más. Simplemente date prisa a casa y usa un abrigo al gimnasio!",
+      "span": {
+        "source": "hurry",
+        "target": "prisa",
+        "source_range": [
+          101,
+          106
+        ],
+        "label": "lexical_category_error",
+        "finding": "Imperative hurry becomes noun haste/prisa."
+      },
+      "observed_cause": "alignment_drops_valid_multiword_verb_scope",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-2119",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Wish u many many returns of the day.. Happy birthday vikky..",
+      "full_translation": "Te deseo muchas muchas vueltas del día .. Feliz cumpleaños Vikky ..",
+      "span": {
+        "source": "returns",
+        "target": "vueltas",
+        "source_range": [
+          17,
+          24
+        ],
+        "label": "material_error",
+        "finding": "Birthday recurrence formula becomes literal turns."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Happy birthday... May u find ur prince charming soon n dun work too hard...",
+      "full_translation": "Feliz cumpleaños ... puede encontrar a su príncipe encantador pronto n dun trabajo demasiado duro ...",
+      "span": {
+        "source": "work",
+        "target": "trabajo",
+        "source_range": [
+          59,
+          63
+        ],
+        "label": "lexical_category_error",
+        "finding": "Imperative work uses trabajo noun/first-person form from corrupted provider clause."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-2231",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "haha but no money leh... Later got to go for tuition... Haha and looking for empty slots for driving lessons",
+      "full_translation": "Jaja, pero no hay dinero, leh ... más tarde, se pondrá a la matrícula ... jaja y buscando tragamonedas vacías para conducir lecciones",
+      "span": {
+        "source": "tuition",
+        "target": "matrícula",
+        "source_range": [
+          45,
+          52
+        ],
+        "label": "material_error",
+        "finding": "Extra lessons become enrolment/tuition fee."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3773",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Hi, wlcome back, did wonder if you got eaten by a lion or something, nothing much",
+      "full_translation": "Hola, Wcome la espalda, se preguntó si te has comido por un león o algo, nada mucho.",
+      "span": {
+        "source": "back",
+        "target": "espalda",
+        "source_range": [
+          11,
+          15
+        ],
+        "label": "material_error",
+        "finding": "Return/welcome-back becomes anatomical back."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-1398",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Shall i start from hear.",
+      "full_translation": "¿Voy a empezar de escuchar?",
+      "span": {
+        "source": "hear",
+        "target": "escuchar",
+        "source_range": [
+          19,
+          23
+        ],
+        "label": "material_error",
+        "finding": "Location typo here becomes hearing."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-2223",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "I notice you like looking in the shit mirror youre turning into a right freak",
+      "full_translation": "Me doy cuenta de que te gusta mirar en el espejo de la mierda, convertirte en un fanático derecho.",
+      "span": {
+        "source": "right",
+        "target": "derecho",
+        "source_range": [
+          66,
+          71
+        ],
+        "label": "material_error",
+        "finding": "Intensifier becomes directional/legal right."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-5544",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Yeah it's jus rite...",
+      "full_translation": "Sí, es jus rito ...",
+      "span": {
+        "source": "rite",
+        "target": "rito",
+        "source_range": [
+          14,
+          18
+        ],
+        "label": "material_error",
+        "finding": "Informal right becomes religious rite."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-200",
+      "pair": "en-es",
+      "arm": "B_added",
+      "original": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Txt back if u can. :) xxx",
+      "full_translation": "Hola, es Kate, ¿cómo es tu noche? ¡Espero poder verte mañana por un poco, pero tengo que sangriento babyjontet! TXT APOLVER si puedes. :) xxx",
+      "span": {
+        "source": "bloody",
+        "target": "sangriento",
+        "source_range": [
+          87,
+          93
+        ],
+        "label": "material_error",
+        "finding": "Intensifier becomes covered with blood."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3925",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Okay lor... Will they still let us go a not ah? Coz they will not know until later. We drop our cards into the box right?",
+      "full_translation": "Okay lor ... Je, wao bado turuhusu sisi kwenda ah? Coz hawatajua hadi baadaye. Tunaacha kadi zetu kwenye sanduku la kulia?",
+      "span": {
+        "source": "right",
+        "target": "kulia",
+        "source_range": [
+          115,
+          120
+        ],
+        "label": "material_error",
+        "finding": "Confirmation tag becomes right-hand direction."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3752",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Buzz! Hey, my Love ! I think of you and hope your day goes well. Did you sleep in ? I miss you babe. I long for the moment we are together again*loving smile*",
+      "full_translation": "Buzz! Hey, upendo wangu! Nadhani juu yenu na matumaini siku yako inakwenda vizuri. Je, umelala? Ninakukosa mtoto. Mimi kwa muda mrefu sisi ni pamoja tena * upendo tabasamu *",
+      "span": {
+        "source": "hope",
+        "target": "matumaini",
+        "source_range": [
+          40,
+          44
+        ],
+        "label": "lexical_category_error",
+        "finding": "Verb hope is replaced using noun hopes/matumaini analysis."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-1062",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "I'm working technical support :)voice process.networking field.",
+      "full_translation": "Ninafanya kazi msaada wa kiufundi:) Mchakato wa Sauti.networking shamba.",
+      "span": {
+        "source": "field",
+        "target": "shamba",
+        "source_range": [
+          57,
+          62
+        ],
+        "label": "material_error",
+        "finding": "Networking field becomes farm."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "full_translation": "Hello, hello, hi lolly alichukua muda mrefu 2 jibu- mimi kushoto simu kwa marafiki katika Lancaster, tu got it bak neway im sorry siwezi kufanya ur b siku 2 hun!",
+      "span": {
+        "source": "left",
+        "target": "kushoto",
+        "source_range": [
+          54,
+          58
+        ],
+        "label": "material_error",
+        "finding": "Past leave becomes left-hand direction."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-1938",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "My planning usually stops at \"find hella weed, smoke hella weed\"",
+      "full_translation": "Mpango wangu kawaida huacha \"kupata hella magugu, moshi hella magugu\"",
+      "span": {
+        "source": "smoke",
+        "target": "moshi",
+        "source_range": [
+          47,
+          52
+        ],
+        "label": "lexical_category_error",
+        "finding": "Smoking action replaced by smoke-substance noun moshi."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Happy birthday... May u find ur prince charming soon n dun work too hard...",
+      "full_translation": "Siku ya kuzaliwa ya furaha ... inaweza kupata Prince Prince Hivi karibuni N Dun Kazi pia ngumu ...",
+      "span": {
+        "source": "too",
+        "target": "pia",
+        "source_range": [
+          64,
+          67
+        ],
+        "label": "material_error",
+        "finding": "Excessive intensity becomes also."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-3349",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "No problem baby. Is this is a good time to talk? I called and left a message.",
+      "full_translation": "Hakuna tatizo la mtoto. Je, hii ni wakati mzuri wa kuzungumza? Niliita na kushoto ujumbe.",
+      "span": {
+        "source": "left",
+        "target": "kushoto",
+        "source_range": [
+          62,
+          66
+        ],
+        "label": "material_error",
+        "finding": "Past leave becomes left-hand direction."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-1430",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Tell you what, if you make a little spreadsheet and track whose idea it was to smoke to determine who \"smokes too much\" for the entire month of february, I'll come up",
+      "full_translation": "Kukuambia nini, ikiwa unafanya sahajedwali kidogo na kufuatilia wazo ambalo lilikuwa ni moshi ili kuamua nani \"anavuta sana\" kwa mwezi mzima wa Februari, nitakuja",
+      "span": {
+        "source": "smoke",
+        "target": "moshi",
+        "source_range": [
+          79,
+          84
+        ],
+        "label": "lexical_category_error",
+        "finding": "Smoking action replaced by smoke-substance noun moshi."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "pair": "en-sw",
+      "arm": "A",
+      "original": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "full_translation": "Kitabu cha somo gani? Kisha msg mimi ... nitaita baada ya kazi au sth ... nitaenda kupata specs. Uanachama wangu ni PX3748",
+      "span": {
+        "source": "Book",
+        "target": "Kitabu",
+        "source_range": [
+          0,
+          4
+        ],
+        "label": "material_error",
+        "finding": "Imperative reserve/book is replaced by noun Kitabu."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-5520",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Miles and smiles r made frm same letters but do u know d difference..? smile on ur face keeps me happy even though I am miles away from u.. :-)keep smiling.. Good nyt",
+      "full_translation": "Miles na smiles r alifanya barua sawa lakini unajua D tofauti ..? tabasamu juu ya uso wa ur kunifanya furaha hata ingawa mimi ni maili mbali na u .. :-) Endelea kusisimua .. Nyt nzuri",
+      "span": {
+        "source": "letters",
+        "target": "barua",
+        "source_range": [
+          33,
+          40
+        ],
+        "label": "material_error",
+        "finding": "Alphabet characters become postal letters."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "full_translation": "Walisema kama ni theluji ya gonna, itaanza karibu 8 au 9 jioni Tonite! Wanatabiri inch ya mkusanyiko.",
+      "span": {
+        "source": "snow",
+        "target": "theluji",
+        "source_range": [
+          23,
+          27
+        ],
+        "label": "lexical_category_error",
+        "finding": "Snowing event replaced using noun theluji; target needs a verbal construction."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    },
+    {
+      "id": "uci-sms-line-4272",
+      "pair": "en-sw",
+      "arm": "B_added",
+      "original": "Great. Hope you are using your connections from mode men also cos you can never know why old friends can lead you to today",
+      "full_translation": "Kubwa. Matumaini unatumia uhusiano wako kutoka kwa watu wa mode pia cos huwezi kujua kwa nini marafiki wa zamani wanaweza kukuongoza leo",
+      "span": {
+        "source": "Hope",
+        "target": "Matumaini",
+        "source_range": [
+          7,
+          11
+        ],
+        "label": "lexical_category_error",
+        "finding": "Verb hope is replaced by noun Matumaini."
+      },
+      "observed_cause": "same_wrong_sense_or_role_present_in_full_provider_output",
+      "basis": "Author compared full source and actual full provider output with selected span; no independent bilingual acceptance."
+    }
+  ]
+}

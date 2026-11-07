@@ -1,0 +1,8 @@
+{
+  "frozen_utc": "2026-11-07T21:52:37.173574+00:00",
+  "runner_sha256": "857dccd450466edd80ed6ade004b1423c59297f93fbeaeb293fe2af0be30d932",
+  "shared_dictionary_reader_sha256": "3ca53e5d509fecbd5ecb402b1c12bf7330378e96ea6fd21fa417d40304711678",
+  "change": "Correct comparison bookkeeping: partial reference target coordinates remain local to units; source-only whole references precede evaluation MT in C. No dictionary or ambiguity selection rule changed.",
+  "frozen_before_400_capture": true,
+  "pilot_outputs_inspected": true
+}

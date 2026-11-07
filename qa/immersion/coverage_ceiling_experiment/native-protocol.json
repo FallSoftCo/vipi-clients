@@ -1,0 +1,2406 @@
+{
+  "name": "vipi-public-sms-coverage-ceiling-20261107-r01",
+  "strategy": "production-local-provider",
+  "cases": [
+    {
+      "id": "uci-sms-line-1744",
+      "source": "en",
+      "target": "sw",
+      "text": "\"EY! CALM DOWNON THEACUSATIONS.. ITXT U COS IWANA KNOW WOTU R DOIN AT THEW/END... HAVENTCN U IN AGES..RING ME IF UR UP4 NETHING SAT.LOVE J XXX.\""
+    },
+    {
+      "id": "uci-sms-line-4584",
+      "source": "en",
+      "target": "sw",
+      "text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless u chop it off:-)"
+    },
+    {
+      "id": "uci-sms-line-3925",
+      "source": "en",
+      "target": "sw",
+      "text": "Okay lor... Will they still let us go a not ah? Coz they will not know until later. We drop our cards into the box right?"
+    },
+    {
+      "id": "uci-sms-line-3038",
+      "source": "en",
+      "target": "sw",
+      "text": ";-) ok. I feel like john lennon."
+    },
+    {
+      "id": "uci-sms-line-1420",
+      "source": "en",
+      "target": "sw",
+      "text": "Lmao. Take a pic and send it to me."
+    },
+    {
+      "id": "uci-sms-line-3004",
+      "source": "en",
+      "target": "sw",
+      "text": "Excellent, I'll see what riley's plans are"
+    },
+    {
+      "id": "uci-sms-line-2202",
+      "source": "en",
+      "target": "sw",
+      "text": "Haha... can... But i'm having dinner with my cousin..."
+    },
+    {
+      "id": "uci-sms-line-1491",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok i juz receive.."
+    },
+    {
+      "id": "uci-sms-line-2330",
+      "source": "en",
+      "target": "sw",
+      "text": "That day you asked about anand number. Why:-)"
+    },
+    {
+      "id": "uci-sms-line-5119",
+      "source": "en",
+      "target": "sw",
+      "text": "Thanks. Fills me with complete calm and reassurance! "
+    },
+    {
+      "id": "uci-sms-line-1370",
+      "source": "en",
+      "target": "sw",
+      "text": "Alright. I'm out--have a good night!"
+    },
+    {
+      "id": "uci-sms-line-4497",
+      "source": "en",
+      "target": "sw",
+      "text": "Hope this text meets you smiling. If not then let this text give you a reason to smile. Have a beautiful day."
+    },
+    {
+      "id": "uci-sms-line-788",
+      "source": "en",
+      "target": "sw",
+      "text": "It does it on its own. Most of the time it fixes my spelling. But sometimes it gets a completely diff word. Go figure"
+    },
+    {
+      "id": "uci-sms-line-395",
+      "source": "en",
+      "target": "sw",
+      "text": "Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down"
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "source": "en",
+      "target": "sw",
+      "text": "Kindly send some one to our flat before  &lt;DECIMAL&gt;  today."
+    },
+    {
+      "id": "uci-sms-line-2836",
+      "source": "en",
+      "target": "sw",
+      "text": "U sick still can go shopping?"
+    },
+    {
+      "id": "uci-sms-line-277",
+      "source": "en",
+      "target": "sw",
+      "text": "Thanx..."
+    },
+    {
+      "id": "uci-sms-line-1790",
+      "source": "en",
+      "target": "sw",
+      "text": "Arun can u transfr me d amt"
+    },
+    {
+      "id": "uci-sms-line-3559",
+      "source": "en",
+      "target": "sw",
+      "text": "I had it already..sabarish asked me to go.."
+    },
+    {
+      "id": "uci-sms-line-2826",
+      "source": "en",
+      "target": "sw",
+      "text": "No need to buy lunch for me.. I eat maggi mee.."
+    },
+    {
+      "id": "uci-sms-line-496",
+      "source": "en",
+      "target": "sw",
+      "text": "Are you free now?can i call now?"
+    },
+    {
+      "id": "uci-sms-line-3752",
+      "source": "en",
+      "target": "sw",
+      "text": "Buzz! Hey, my Love ! I think of you and hope your day goes well. Did you sleep in ? I miss you babe. I long for the moment we are together again*loving smile*"
+    },
+    {
+      "id": "uci-sms-line-1062",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm working technical support :)voice process.networking field."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "source": "en",
+      "target": "sw",
+      "text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!"
+    },
+    {
+      "id": "uci-sms-line-5128",
+      "source": "en",
+      "target": "sw",
+      "text": "After my work ah... Den 6 plus lor... U workin oso rite... Den go orchard lor, no other place to go liao..."
+    },
+    {
+      "id": "uci-sms-line-2939",
+      "source": "en",
+      "target": "sw",
+      "text": "Lol yep did that yesterday. Already got my fireplace. Now its just another icon sitting there for me."
+    },
+    {
+      "id": "uci-sms-line-1938",
+      "source": "en",
+      "target": "sw",
+      "text": "My planning usually stops at \"find hella weed, smoke hella weed\""
+    },
+    {
+      "id": "uci-sms-line-149",
+      "source": "en",
+      "target": "sw",
+      "text": "Ummma.will call after check in.our life will begin from qatar so pls pray very hard."
+    },
+    {
+      "id": "uci-sms-line-4310",
+      "source": "en",
+      "target": "sw",
+      "text": "Ha ha - had popped down to the loo when you hello-ed me. Hello!"
+    },
+    {
+      "id": "uci-sms-line-4768",
+      "source": "en",
+      "target": "sw",
+      "text": "Whens your radio show?"
+    },
+    {
+      "id": "uci-sms-line-3928",
+      "source": "en",
+      "target": "sw",
+      "text": "I havent add ü yet right.. "
+    },
+    {
+      "id": "uci-sms-line-4764",
+      "source": "en",
+      "target": "sw",
+      "text": "Me too! Have a lovely night xxx"
+    },
+    {
+      "id": "uci-sms-line-3329",
+      "source": "en",
+      "target": "sw",
+      "text": " what number do u live at? Is it 11?"
+    },
+    {
+      "id": "uci-sms-line-1432",
+      "source": "en",
+      "target": "sw",
+      "text": "Don't look back at the building because you have no coat and i don't want you to get more sick. Just hurry home and wear a coat to the gym!!!"
+    },
+    {
+      "id": "uci-sms-line-5292",
+      "source": "en",
+      "target": "sw",
+      "text": "Hey! Congrats 2u2. id luv 2 but ive had 2 go home!"
+    },
+    {
+      "id": "uci-sms-line-2416",
+      "source": "en",
+      "target": "sw",
+      "text": "O was not into fps then."
+    },
+    {
+      "id": "uci-sms-line-2229",
+      "source": "en",
+      "target": "sw",
+      "text": "Oh k.k..where did you take test?"
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "source": "en",
+      "target": "sw",
+      "text": " came to look at the flat, seems ok, in his 50s? * Is away alot wiv work. Got woman coming at 6.30 too."
+    },
+    {
+      "id": "uci-sms-line-4946",
+      "source": "en",
+      "target": "sw",
+      "text": "Wrong phone! This phone! I answer this one but assume the other is people i don't well"
+    },
+    {
+      "id": "uci-sms-line-4196",
+      "source": "en",
+      "target": "sw",
+      "text": "Can not use foreign stamps in this country."
+    },
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "sw",
+      "text": "Ho ho - big belly laugh! See ya tomo"
+    },
+    {
+      "id": "uci-sms-line-2119",
+      "source": "en",
+      "target": "sw",
+      "text": "Wish u many many returns of the day.. Happy birthday vikky.."
+    },
+    {
+      "id": "uci-sms-line-47",
+      "source": "en",
+      "target": "sw",
+      "text": "Didn't you get hep b immunisation in nigeria."
+    },
+    {
+      "id": "uci-sms-line-3754",
+      "source": "en",
+      "target": "sw",
+      "text": "Why are u up so early?"
+    },
+    {
+      "id": "uci-sms-line-5537",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok which your another number"
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "source": "en",
+      "target": "sw",
+      "text": "That's good. Lets thank God. Please complete the drug. Have lots of water. And have a beautiful day."
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "source": "en",
+      "target": "sw",
+      "text": "Happy birthday... May u find ur prince charming soon n dun work too hard..."
+    },
+    {
+      "id": "uci-sms-line-2076",
+      "source": "en",
+      "target": "sw",
+      "text": "Yar lor actually we quite fast... Cos da ge slow wat... Haha..."
+    },
+    {
+      "id": "uci-sms-line-670",
+      "source": "en",
+      "target": "sw",
+      "text": "Have a good evening! Ttyl"
+    },
+    {
+      "id": "uci-sms-line-4735",
+      "source": "en",
+      "target": "sw",
+      "text": "Good Morning my Dear Shijutta........... Have a great &amp; successful day."
+    },
+    {
+      "id": "uci-sms-line-3232",
+      "source": "en",
+      "target": "sw",
+      "text": "I feel like a dick because I keep sleeping through your texts and facebook messages. Sup, you in town?"
+    },
+    {
+      "id": "uci-sms-line-3380",
+      "source": "en",
+      "target": "sw",
+      "text": "Hows that watch resizing"
+    },
+    {
+      "id": "uci-sms-line-1232",
+      "source": "en",
+      "target": "sw",
+      "text": "I want to send something that can sell fast.  &lt;#&gt; k is not easy money."
+    },
+    {
+      "id": "uci-sms-line-2123",
+      "source": "en",
+      "target": "sw",
+      "text": "In xam hall boy asked girl Tell me the starting term for dis answer I can den manage on my own After lot of hesitation n lookin around silently she said THE! intha ponnungale ipaditan;)"
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok lor then we go tog lor..."
+    },
+    {
+      "id": "uci-sms-line-1582",
+      "source": "en",
+      "target": "sw",
+      "text": "I shall book chez jules for half eight, if that's ok with you?"
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "source": "en",
+      "target": "sw",
+      "text": "\"Hey! do u fancy meetin me at 4 at cha  hav a lil beverage on me. if not txt or ring me and we can meet up l8r. quite tired got in at 3 v.pist ;) love Pete x x x\""
+    },
+    {
+      "id": "uci-sms-line-4685",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok u can take me shopping when u get paid =D"
+    },
+    {
+      "id": "uci-sms-line-4022",
+      "source": "en",
+      "target": "sw",
+      "text": "University of southern california."
+    },
+    {
+      "id": "uci-sms-line-139",
+      "source": "en",
+      "target": "sw",
+      "text": "No no. I will check all rooms befor activities"
+    },
+    {
+      "id": "uci-sms-line-1312",
+      "source": "en",
+      "target": "sw",
+      "text": "I.ll always be there, even if its just in spirit. I.ll get a bb soon. Just trying to be sure i need it."
+    },
+    {
+      "id": "uci-sms-line-15",
+      "source": "en",
+      "target": "sw",
+      "text": "I HAVE A DATE ON SUNDAY WITH WILL!!"
+    },
+    {
+      "id": "uci-sms-line-4088",
+      "source": "en",
+      "target": "sw",
+      "text": "Lemme know when you're here"
+    },
+    {
+      "id": "uci-sms-line-1732",
+      "source": "en",
+      "target": "sw",
+      "text": "Doing project w frens lor. "
+    },
+    {
+      "id": "uci-sms-line-2932",
+      "source": "en",
+      "target": "sw",
+      "text": "Wat's my dear doing? Sleeping ah?"
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "en",
+      "target": "sw",
+      "text": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am"
+    },
+    {
+      "id": "uci-sms-line-5137",
+      "source": "en",
+      "target": "sw",
+      "text": "Sday only joined.so training we started today:)"
+    },
+    {
+      "id": "uci-sms-line-2325",
+      "source": "en",
+      "target": "sw",
+      "text": "Sorry dude. Dont know how i forgot. Even after Dan reminded me. Sorry. Hope you guys had fun."
+    },
+    {
+      "id": "uci-sms-line-4351",
+      "source": "en",
+      "target": "sw",
+      "text": "Ü bot notes oredi... Cos i juz rem i got..."
+    },
+    {
+      "id": "uci-sms-line-1741",
+      "source": "en",
+      "target": "sw",
+      "text": "U guys never invite me anywhere :("
+    },
+    {
+      "id": "uci-sms-line-533",
+      "source": "en",
+      "target": "sw",
+      "text": "What Today-sunday..sunday is holiday..so no work.."
+    },
+    {
+      "id": "uci-sms-line-860",
+      "source": "en",
+      "target": "sw",
+      "text": "Spoons it is then okay?"
+    },
+    {
+      "id": "uci-sms-line-3642",
+      "source": "en",
+      "target": "sw",
+      "text": "He's really into skateboarding now despite the fact that he gets thrown off of it and winds up with bandages and shit all over his arms every five minutes"
+    },
+    {
+      "id": "uci-sms-line-561",
+      "source": "en",
+      "target": "sw",
+      "text": "Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. "
+    },
+    {
+      "id": "uci-sms-line-3349",
+      "source": "en",
+      "target": "sw",
+      "text": "No problem baby. Is this is a good time to talk? I called and left a message."
+    },
+    {
+      "id": "uci-sms-line-3164",
+      "source": "en",
+      "target": "sw",
+      "text": "I can't describe how lucky you are that I'm actually awake by noon"
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "source": "en",
+      "target": "sw",
+      "text": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\""
+    },
+    {
+      "id": "uci-sms-line-2974",
+      "source": "en",
+      "target": "sw",
+      "text": "Sary just need Tim in the bollox &it hurt him a lot so he tol me!"
+    },
+    {
+      "id": "uci-sms-line-2965",
+      "source": "en",
+      "target": "sw",
+      "text": "You dont know you jabo me abi."
+    },
+    {
+      "id": "uci-sms-line-4220",
+      "source": "en",
+      "target": "sw",
+      "text": "Actually i'm waiting for 2 weeks when they start putting ad."
+    },
+    {
+      "id": "uci-sms-line-3657",
+      "source": "en",
+      "target": "sw",
+      "text": "Senthil group company Apnt 5pm."
+    },
+    {
+      "id": "uci-sms-line-3698",
+      "source": "en",
+      "target": "sw",
+      "text": "I am in tirupur.  call you da."
+    },
+    {
+      "id": "uci-sms-line-4149",
+      "source": "en",
+      "target": "sw",
+      "text": "Pls help me tell sura that i'm expecting a battery from hont. And that if should pls send me a message about how to download movies. Thanks"
+    },
+    {
+      "id": "uci-sms-line-2231",
+      "source": "en",
+      "target": "sw",
+      "text": "haha but no money leh... Later got to go for tuition... Haha and looking for empty slots for driving lessons"
+    },
+    {
+      "id": "uci-sms-line-3739",
+      "source": "en",
+      "target": "sw",
+      "text": "Plz note: if anyone calling from a mobile Co. &amp; asks u to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN."
+    },
+    {
+      "id": "uci-sms-line-1430",
+      "source": "en",
+      "target": "sw",
+      "text": "Tell you what, if you make a little spreadsheet and track whose idea it was to smoke to determine who \"smokes too much\" for the entire month of february, I'll come up"
+    },
+    {
+      "id": "uci-sms-line-3123",
+      "source": "en",
+      "target": "sw",
+      "text": "Small problem in auction:)punj now asking tiwary"
+    },
+    {
+      "id": "uci-sms-line-1567",
+      "source": "en",
+      "target": "sw",
+      "text": "The  &lt;#&gt; g that i saw a few days ago, the guy wants sell wifi only for  &lt;#&gt;  and with 3g for  &lt;#&gt; . That's why i blanked him."
+    },
+    {
+      "id": "uci-sms-line-2424",
+      "source": "en",
+      "target": "sw",
+      "text": "A bloo bloo bloo I'll miss the first bowl"
+    },
+    {
+      "id": "uci-sms-line-158",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm leaving my house now..."
+    },
+    {
+      "id": "uci-sms-line-3828",
+      "source": "en",
+      "target": "sw",
+      "text": "Goodmorning,my grandfather expired..so am on leave today."
+    },
+    {
+      "id": "uci-sms-line-4023",
+      "source": "en",
+      "target": "sw",
+      "text": "We have to pick rayan macleran there."
+    },
+    {
+      "id": "uci-sms-line-151",
+      "source": "en",
+      "target": "sw",
+      "text": "Sindu got job in birla soft .."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now"
+    },
+    {
+      "id": "uci-sms-line-3816",
+      "source": "en",
+      "target": "sw",
+      "text": "Can. Dunno wat to get 4 her..."
+    },
+    {
+      "id": "uci-sms-line-3854",
+      "source": "en",
+      "target": "sw",
+      "text": "No, its true..k,Do u knw dis no. &lt;#&gt; ?"
+    },
+    {
+      "id": "uci-sms-line-4101",
+      "source": "en",
+      "target": "sw",
+      "text": "If u dun drive then how i go 2 sch."
+    },
+    {
+      "id": "uci-sms-line-2049",
+      "source": "en",
+      "target": "sw",
+      "text": "No de. But call me after some time. Ill tell you k"
+    },
+    {
+      "id": "uci-sms-line-276",
+      "source": "en",
+      "target": "sw",
+      "text": "No objection. My bf not coming."
+    },
+    {
+      "id": "uci-sms-line-3446",
+      "source": "en",
+      "target": "sw",
+      "text": "Yes but I don't care cause I know its there!"
+    },
+    {
+      "id": "uci-sms-line-3652",
+      "source": "en",
+      "target": "sw",
+      "text": "We are hoping to get away by 7, from Langport. You still up for town tonight?"
+    },
+    {
+      "id": "uci-sms-line-1187",
+      "source": "en",
+      "target": "sw",
+      "text": "Annoying isn't it."
+    },
+    {
+      "id": "uci-sms-line-3772",
+      "source": "en",
+      "target": "sw",
+      "text": "Love it! The girls at the office may wonder why you are smiling but sore..."
+    },
+    {
+      "id": "uci-sms-line-354",
+      "source": "en",
+      "target": "sw",
+      "text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? plz plz JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD"
+    },
+    {
+      "id": "uci-sms-line-4895",
+      "source": "en",
+      "target": "sw",
+      "text": "Send me the new number"
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "source": "en",
+      "target": "sw",
+      "text": "Miss call miss call khelate kintu opponenter miss call dhorte lage. Thats d rule. One with great phone receiving quality wins."
+    },
+    {
+      "id": "uci-sms-line-5291",
+      "source": "en",
+      "target": "sw",
+      "text": "An excellent thought by a misundrstud frnd: I knw u hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)"
+    },
+    {
+      "id": "uci-sms-line-5307",
+      "source": "en",
+      "target": "sw",
+      "text": "Pls ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm done oredi..."
+    },
+    {
+      "id": "uci-sms-line-4287",
+      "source": "en",
+      "target": "sw",
+      "text": "I pocked you up there before"
+    },
+    {
+      "id": "uci-sms-line-2540",
+      "source": "en",
+      "target": "sw",
+      "text": "The monthly amount is not that terrible and you will not pay anything till 6months after finishing school."
+    },
+    {
+      "id": "uci-sms-line-2912",
+      "source": "en",
+      "target": "sw",
+      "text": "How do you guys go to see movies on your side."
+    },
+    {
+      "id": "uci-sms-line-4402",
+      "source": "en",
+      "target": "sw",
+      "text": "Juz go google n search 4 qet..."
+    },
+    {
+      "id": "uci-sms-line-4519",
+      "source": "en",
+      "target": "sw",
+      "text": "Men always needs a beautiful, intelligent, caring, loving, adjustable, cooperative wife. But the law allows only one wife...."
+    },
+    {
+      "id": "uci-sms-line-1057",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm at work. Please call"
+    },
+    {
+      "id": "uci-sms-line-2541",
+      "source": "en",
+      "target": "sw",
+      "text": "Hmmm:)how many players selected?"
+    },
+    {
+      "id": "uci-sms-line-2242",
+      "source": "en",
+      "target": "sw",
+      "text": "K I'll call you when I'm close"
+    },
+    {
+      "id": "uci-sms-line-4707",
+      "source": "en",
+      "target": "sw",
+      "text": "Hey anyway i have to :-)"
+    },
+    {
+      "id": "uci-sms-line-4447",
+      "source": "en",
+      "target": "sw",
+      "text": "2 celebrate my bday, y else?"
+    },
+    {
+      "id": "uci-sms-line-883",
+      "source": "en",
+      "target": "sw",
+      "text": "see, i knew giving you a break a few times woul lead to you always wanting to miss curfew. I was gonna gibe you 'til one, but a MIDNIGHT movie is not gonna get out til after 2. You need to come home. You need to getsleep and, if anything, you need to b studdying ear training."
+    },
+    {
+      "id": "uci-sms-line-4095",
+      "source": "en",
+      "target": "sw",
+      "text": "\"Life is nothing wen v get everything\". But \"life is everything wen v miss something \". Real value of people wil be realized only in their absence.... gud mrng"
+    },
+    {
+      "id": "uci-sms-line-3773",
+      "source": "en",
+      "target": "sw",
+      "text": "Hi, wlcome back, did wonder if you got eaten by a lion or something, nothing much"
+    },
+    {
+      "id": "uci-sms-line-443",
+      "source": "en",
+      "target": "sw",
+      "text": "You were supposed to wake ME up &gt;:("
+    },
+    {
+      "id": "uci-sms-line-90",
+      "source": "en",
+      "target": "sw",
+      "text": "Ela kano.,il download, come wen ur free.."
+    },
+    {
+      "id": "uci-sms-line-4042",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm at home n ready..."
+    },
+    {
+      "id": "uci-sms-line-4852",
+      "source": "en",
+      "target": "sw",
+      "text": "Maybe you should find something else to do instead???"
+    },
+    {
+      "id": "uci-sms-line-888",
+      "source": "en",
+      "target": "sw",
+      "text": "I like to talk pa but am not able to. I dont know y."
+    },
+    {
+      "id": "uci-sms-line-5220",
+      "source": "en",
+      "target": "sw",
+      "text": "Well thats nice. Too bad i cant eat it"
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "source": "en",
+      "target": "sw",
+      "text": "Arms fine, how's Cardiff and uni? "
+    },
+    {
+      "id": "uci-sms-line-3984",
+      "source": "en",
+      "target": "sw",
+      "text": "His frens go then he in lor. Not alone wif my mum n sis lor."
+    },
+    {
+      "id": "uci-sms-line-2563",
+      "source": "en",
+      "target": "sw",
+      "text": "And maybe some pressies"
+    },
+    {
+      "id": "uci-sms-line-719",
+      "source": "en",
+      "target": "sw",
+      "text": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748"
+    },
+    {
+      "id": "uci-sms-line-262",
+      "source": "en",
+      "target": "sw",
+      "text": "Yup"
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "source": "en",
+      "target": "sw",
+      "text": "Playin space poker, u?"
+    },
+    {
+      "id": "uci-sms-line-809",
+      "source": "en",
+      "target": "sw",
+      "text": "Boooo you always work. Just quit."
+    },
+    {
+      "id": "uci-sms-line-220",
+      "source": "en",
+      "target": "sw",
+      "text": "I have to take exam with march 3"
+    },
+    {
+      "id": "uci-sms-line-572",
+      "source": "en",
+      "target": "sw",
+      "text": "Yar lor wait 4 my mum 2 finish sch then have lunch lor... I whole morning stay at home clean my room now my room quite clean... Hee..."
+    },
+    {
+      "id": "uci-sms-line-2685",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm okay. Chasing the dream. What's good. What are you doing next."
+    },
+    {
+      "id": "uci-sms-line-2087",
+      "source": "en",
+      "target": "sw",
+      "text": "Moji i love you more than words. Have a rich day"
+    },
+    {
+      "id": "uci-sms-line-5259",
+      "source": "en",
+      "target": "sw",
+      "text": "Well she's in for a big surprise!"
+    },
+    {
+      "id": "uci-sms-line-1105",
+      "source": "en",
+      "target": "sw",
+      "text": "Aiyah sorry lor... I watch tv watch until i forgot 2 check my phone."
+    },
+    {
+      "id": "uci-sms-line-1492",
+      "source": "en",
+      "target": "sw",
+      "text": "Cant believe i said so many things to you this morning when all i really wanted to say was good morning, i love you! Have a beautiful morning. See you in the library later."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "source": "en",
+      "target": "sw",
+      "text": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?"
+    },
+    {
+      "id": "uci-sms-line-2108",
+      "source": "en",
+      "target": "sw",
+      "text": "Thank you. I like you as well..."
+    },
+    {
+      "id": "uci-sms-line-3044",
+      "source": "en",
+      "target": "sw",
+      "text": "Slaaaaave ! Where are you ? Must I summon you to me all the time now ? Don't you wish to come to me on your own anymore?"
+    },
+    {
+      "id": "uci-sms-line-3581",
+      "source": "en",
+      "target": "sw",
+      "text": "Multiply the numbers independently and count decimal points then, for the division, push the decimal places like i showed you."
+    },
+    {
+      "id": "uci-sms-line-4977",
+      "source": "en",
+      "target": "sw",
+      "text": "Yar... I tot u knew dis would happen long ago already."
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "en",
+      "target": "sw",
+      "text": "Really dun bluff me leh... U sleep early too. Nite..."
+    },
+    {
+      "id": "uci-sms-line-3968",
+      "source": "en",
+      "target": "sw",
+      "text": "I was just callin to say hi. Take care bruv!"
+    },
+    {
+      "id": "uci-sms-line-2357",
+      "source": "en",
+      "target": "sw",
+      "text": "Hello, my love ! How went your day ? Are you alright ? I think of you, my sweet and send a jolt to your heart to remind you ... I LOVE YOU! Can you hear it ? I screamed it across the sea for all the world to hear. Ahmad al Hallaq is loved ! and owned ! *possessive passionate kiss*"
+    },
+    {
+      "id": "uci-sms-line-3700",
+      "source": "en",
+      "target": "sw",
+      "text": "S:)but he had some luck.2 catches put down:)"
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "source": "en",
+      "target": "sw",
+      "text": "Sorry man, my stash ran dry last night and I can't pick up more until sunday"
+    },
+    {
+      "id": "uci-sms-line-1059",
+      "source": "en",
+      "target": "sw",
+      "text": "Ard 515 like dat. Y?"
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "sw",
+      "text": "You are not bothering me but you have to trust my answers. Pls."
+    },
+    {
+      "id": "uci-sms-line-4742",
+      "source": "en",
+      "target": "sw",
+      "text": "I keep seeing weird shit and bein all \"woah\" then realising it's actually reasonable and I'm all \"oh\""
+    },
+    {
+      "id": "uci-sms-line-1114",
+      "source": "en",
+      "target": "sw",
+      "text": "So that means you still think of teju"
+    },
+    {
+      "id": "uci-sms-line-4114",
+      "source": "en",
+      "target": "sw",
+      "text": "I'll see, but prolly yeah"
+    },
+    {
+      "id": "uci-sms-line-5505",
+      "source": "en",
+      "target": "sw",
+      "text": "Apo all other are mokka players only"
+    },
+    {
+      "id": "uci-sms-line-4176",
+      "source": "en",
+      "target": "sw",
+      "text": "And pls pls drink plenty plenty water"
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "sw",
+      "text": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? "
+    },
+    {
+      "id": "uci-sms-line-603",
+      "source": "en",
+      "target": "sw",
+      "text": "If u sending her home first it's ok lor. I'm not ready yet."
+    },
+    {
+      "id": "uci-sms-line-129",
+      "source": "en",
+      "target": "sw",
+      "text": "Are you there in room."
+    },
+    {
+      "id": "uci-sms-line-4841",
+      "source": "en",
+      "target": "sw",
+      "text": "That's one of the issues but california is okay. No snow so its manageable"
+    },
+    {
+      "id": "uci-sms-line-3983",
+      "source": "en",
+      "target": "sw",
+      "text": "Huh i cant thk of more oredi how many pages do we have?"
+    },
+    {
+      "id": "uci-sms-line-3321",
+      "source": "en",
+      "target": "sw",
+      "text": "Kay... Since we are out already "
+    },
+    {
+      "id": "uci-sms-line-1398",
+      "source": "en",
+      "target": "sw",
+      "text": "Shall i start from hear."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "source": "en",
+      "target": "sw",
+      "text": "Esplanade lor. Where else..."
+    },
+    {
+      "id": "uci-sms-line-1615",
+      "source": "en",
+      "target": "sw",
+      "text": "Thnx dude. u guys out 2nite?"
+    },
+    {
+      "id": "uci-sms-line-1504",
+      "source": "en",
+      "target": "sw",
+      "text": "Don no da:)whats you plan?"
+    },
+    {
+      "id": "uci-sms-line-3099",
+      "source": "en",
+      "target": "sw",
+      "text": "Yo, you at jp and hungry like a mofo?"
+    },
+    {
+      "id": "uci-sms-line-3805",
+      "source": "en",
+      "target": "sw",
+      "text": "Yup song bro. No creative. Neva test quality. He said check review online."
+    },
+    {
+      "id": "uci-sms-line-760",
+      "source": "en",
+      "target": "sw",
+      "text": "U should have made an appointment"
+    },
+    {
+      "id": "uci-sms-line-2727",
+      "source": "en",
+      "target": "sw",
+      "text": "No. But we'll do medical missions to nigeria"
+    },
+    {
+      "id": "uci-sms-line-2223",
+      "source": "en",
+      "target": "sw",
+      "text": "I notice you like looking in the shit mirror youre turning into a right freak"
+    },
+    {
+      "id": "uci-sms-line-2145",
+      "source": "en",
+      "target": "sw",
+      "text": "You stayin out of trouble stranger!!saw Dave the other day hes sorted now!still with me bloke when u gona get a girl MR!ur mum still Thinks we will get 2GETHA! "
+    },
+    {
+      "id": "uci-sms-line-3239",
+      "source": "en",
+      "target": "sw",
+      "text": "Ron say fri leh. N he said ding tai feng cant make reservations. But he said wait lor."
+    },
+    {
+      "id": "uci-sms-line-1406",
+      "source": "en",
+      "target": "sw",
+      "text": "Actually getting ready to leave the house."
+    },
+    {
+      "id": "uci-sms-line-1544",
+      "source": "en",
+      "target": "sw",
+      "text": "Now press conference da:)"
+    },
+    {
+      "id": "uci-sms-line-5142",
+      "source": "en",
+      "target": "sw",
+      "text": "Oh shut it. Omg yesterday I had a dream that I had 2 kids both boys. I was so pissed. Not only about the kids but them being boys. I even told mark in my dream that he was changing diapers cause I'm not getting owed in the face."
+    },
+    {
+      "id": "uci-sms-line-3458",
+      "source": "en",
+      "target": "sw",
+      "text": "Ok. I.ll do you right later."
+    },
+    {
+      "id": "uci-sms-line-4044",
+      "source": "en",
+      "target": "sw",
+      "text": "What time do u get out?"
+    },
+    {
+      "id": "uci-sms-line-5544",
+      "source": "en",
+      "target": "sw",
+      "text": "Yeah it's jus rite..."
+    },
+    {
+      "id": "uci-sms-line-5520",
+      "source": "en",
+      "target": "sw",
+      "text": "Miles and smiles r made frm same letters but do u know d difference..? smile on ur face keeps me happy even though I am miles away from u.. :-)keep smiling.. Good nyt"
+    },
+    {
+      "id": "uci-sms-line-2063",
+      "source": "en",
+      "target": "sw",
+      "text": "Hey ! I want you ! I crave you ! I miss you ! I need you ! I love you, Ahmad Saeed al Hallaq ..."
+    },
+    {
+      "id": "uci-sms-line-1419",
+      "source": "en",
+      "target": "sw",
+      "text": "No wonder... Cos i dun rem seeing a silver car... But i thk i saw a black one..."
+    },
+    {
+      "id": "uci-sms-line-2868",
+      "source": "en",
+      "target": "sw",
+      "text": "Smith waste da.i wanna gayle."
+    },
+    {
+      "id": "uci-sms-line-1498",
+      "source": "en",
+      "target": "sw",
+      "text": "I'm always on yahoo messenger now. Just send the message to me and i.ll get it you may have to send it in the mobile mode sha but i.ll get it. And will reply."
+    },
+    {
+      "id": "uci-sms-line-4460",
+      "source": "en",
+      "target": "sw",
+      "text": "Die... I accidentally deleted e msg i suppose 2 put in e sim archive. Haiz... I so sad..."
+    },
+    {
+      "id": "uci-sms-line-2410",
+      "source": "en",
+      "target": "sw",
+      "text": "Dear where you will be when i reach there"
+    },
+    {
+      "id": "uci-sms-line-5294",
+      "source": "en",
+      "target": "sw",
+      "text": "Xy trying smth now. U eat already? We havent..."
+    },
+    {
+      "id": "uci-sms-line-3435",
+      "source": "en",
+      "target": "sw",
+      "text": "Christmas is An occasion that is Celebrated as a Reflection of UR... Values..., Desires..., Affections...&amp; Traditions.... Have an ideal Christmas..."
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "en",
+      "target": "sw",
+      "text": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation."
+    },
+    {
+      "id": "uci-sms-line-250",
+      "source": "en",
+      "target": "sw",
+      "text": "It didnt work again oh. Ok goodnight then. I.ll fix and have it ready by the time you wake up. You are very dearly missed have a good night sleep."
+    },
+    {
+      "id": "uci-sms-line-463",
+      "source": "en",
+      "target": "sw",
+      "text": "Great. Never been better. Each day gives even more reasons to thank God"
+    },
+    {
+      "id": "uci-sms-line-200",
+      "source": "en",
+      "target": "sw",
+      "text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Txt back if u can. :) xxx"
+    },
+    {
+      "id": "uci-sms-line-3048",
+      "source": "en",
+      "target": "sw",
+      "text": "So how's the weather over there?"
+    },
+    {
+      "id": "uci-sms-line-4935",
+      "source": "en",
+      "target": "sw",
+      "text": "Once free call me sir."
+    },
+    {
+      "id": "uci-sms-line-4267",
+      "source": "en",
+      "target": "sw",
+      "text": " &lt;DECIMAL&gt; m but its not a common car here so its better to buy from china or asia. Or if i find it less expensive. I.ll holla"
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "sw",
+      "text": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30."
+    },
+    {
+      "id": "uci-sms-line-4272",
+      "source": "en",
+      "target": "sw",
+      "text": "Great. Hope you are using your connections from mode men also cos you can never know why old friends can lead you to today"
+    },
+    {
+      "id": "uci-sms-line-1744",
+      "source": "en",
+      "target": "es",
+      "text": "\"EY! CALM DOWNON THEACUSATIONS.. ITXT U COS IWANA KNOW WOTU R DOIN AT THEW/END... HAVENTCN U IN AGES..RING ME IF UR UP4 NETHING SAT.LOVE J XXX.\""
+    },
+    {
+      "id": "uci-sms-line-4584",
+      "source": "en",
+      "target": "es",
+      "text": "Wow didn't think it was that common. I take it all back ur not a freak! Unless u chop it off:-)"
+    },
+    {
+      "id": "uci-sms-line-3925",
+      "source": "en",
+      "target": "es",
+      "text": "Okay lor... Will they still let us go a not ah? Coz they will not know until later. We drop our cards into the box right?"
+    },
+    {
+      "id": "uci-sms-line-3038",
+      "source": "en",
+      "target": "es",
+      "text": ";-) ok. I feel like john lennon."
+    },
+    {
+      "id": "uci-sms-line-1420",
+      "source": "en",
+      "target": "es",
+      "text": "Lmao. Take a pic and send it to me."
+    },
+    {
+      "id": "uci-sms-line-3004",
+      "source": "en",
+      "target": "es",
+      "text": "Excellent, I'll see what riley's plans are"
+    },
+    {
+      "id": "uci-sms-line-2202",
+      "source": "en",
+      "target": "es",
+      "text": "Haha... can... But i'm having dinner with my cousin..."
+    },
+    {
+      "id": "uci-sms-line-1491",
+      "source": "en",
+      "target": "es",
+      "text": "Ok i juz receive.."
+    },
+    {
+      "id": "uci-sms-line-2330",
+      "source": "en",
+      "target": "es",
+      "text": "That day you asked about anand number. Why:-)"
+    },
+    {
+      "id": "uci-sms-line-5119",
+      "source": "en",
+      "target": "es",
+      "text": "Thanks. Fills me with complete calm and reassurance! "
+    },
+    {
+      "id": "uci-sms-line-1370",
+      "source": "en",
+      "target": "es",
+      "text": "Alright. I'm out--have a good night!"
+    },
+    {
+      "id": "uci-sms-line-4497",
+      "source": "en",
+      "target": "es",
+      "text": "Hope this text meets you smiling. If not then let this text give you a reason to smile. Have a beautiful day."
+    },
+    {
+      "id": "uci-sms-line-788",
+      "source": "en",
+      "target": "es",
+      "text": "It does it on its own. Most of the time it fixes my spelling. But sometimes it gets a completely diff word. Go figure"
+    },
+    {
+      "id": "uci-sms-line-395",
+      "source": "en",
+      "target": "es",
+      "text": "Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down"
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "source": "en",
+      "target": "es",
+      "text": "Kindly send some one to our flat before  &lt;DECIMAL&gt;  today."
+    },
+    {
+      "id": "uci-sms-line-2836",
+      "source": "en",
+      "target": "es",
+      "text": "U sick still can go shopping?"
+    },
+    {
+      "id": "uci-sms-line-277",
+      "source": "en",
+      "target": "es",
+      "text": "Thanx..."
+    },
+    {
+      "id": "uci-sms-line-1790",
+      "source": "en",
+      "target": "es",
+      "text": "Arun can u transfr me d amt"
+    },
+    {
+      "id": "uci-sms-line-3559",
+      "source": "en",
+      "target": "es",
+      "text": "I had it already..sabarish asked me to go.."
+    },
+    {
+      "id": "uci-sms-line-2826",
+      "source": "en",
+      "target": "es",
+      "text": "No need to buy lunch for me.. I eat maggi mee.."
+    },
+    {
+      "id": "uci-sms-line-496",
+      "source": "en",
+      "target": "es",
+      "text": "Are you free now?can i call now?"
+    },
+    {
+      "id": "uci-sms-line-3752",
+      "source": "en",
+      "target": "es",
+      "text": "Buzz! Hey, my Love ! I think of you and hope your day goes well. Did you sleep in ? I miss you babe. I long for the moment we are together again*loving smile*"
+    },
+    {
+      "id": "uci-sms-line-1062",
+      "source": "en",
+      "target": "es",
+      "text": "I'm working technical support :)voice process.networking field."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "source": "en",
+      "target": "es",
+      "text": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!"
+    },
+    {
+      "id": "uci-sms-line-5128",
+      "source": "en",
+      "target": "es",
+      "text": "After my work ah... Den 6 plus lor... U workin oso rite... Den go orchard lor, no other place to go liao..."
+    },
+    {
+      "id": "uci-sms-line-2939",
+      "source": "en",
+      "target": "es",
+      "text": "Lol yep did that yesterday. Already got my fireplace. Now its just another icon sitting there for me."
+    },
+    {
+      "id": "uci-sms-line-1938",
+      "source": "en",
+      "target": "es",
+      "text": "My planning usually stops at \"find hella weed, smoke hella weed\""
+    },
+    {
+      "id": "uci-sms-line-149",
+      "source": "en",
+      "target": "es",
+      "text": "Ummma.will call after check in.our life will begin from qatar so pls pray very hard."
+    },
+    {
+      "id": "uci-sms-line-4310",
+      "source": "en",
+      "target": "es",
+      "text": "Ha ha - had popped down to the loo when you hello-ed me. Hello!"
+    },
+    {
+      "id": "uci-sms-line-4768",
+      "source": "en",
+      "target": "es",
+      "text": "Whens your radio show?"
+    },
+    {
+      "id": "uci-sms-line-3928",
+      "source": "en",
+      "target": "es",
+      "text": "I havent add ü yet right.. "
+    },
+    {
+      "id": "uci-sms-line-4764",
+      "source": "en",
+      "target": "es",
+      "text": "Me too! Have a lovely night xxx"
+    },
+    {
+      "id": "uci-sms-line-3329",
+      "source": "en",
+      "target": "es",
+      "text": " what number do u live at? Is it 11?"
+    },
+    {
+      "id": "uci-sms-line-1432",
+      "source": "en",
+      "target": "es",
+      "text": "Don't look back at the building because you have no coat and i don't want you to get more sick. Just hurry home and wear a coat to the gym!!!"
+    },
+    {
+      "id": "uci-sms-line-5292",
+      "source": "en",
+      "target": "es",
+      "text": "Hey! Congrats 2u2. id luv 2 but ive had 2 go home!"
+    },
+    {
+      "id": "uci-sms-line-2416",
+      "source": "en",
+      "target": "es",
+      "text": "O was not into fps then."
+    },
+    {
+      "id": "uci-sms-line-2229",
+      "source": "en",
+      "target": "es",
+      "text": "Oh k.k..where did you take test?"
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "source": "en",
+      "target": "es",
+      "text": " came to look at the flat, seems ok, in his 50s? * Is away alot wiv work. Got woman coming at 6.30 too."
+    },
+    {
+      "id": "uci-sms-line-4946",
+      "source": "en",
+      "target": "es",
+      "text": "Wrong phone! This phone! I answer this one but assume the other is people i don't well"
+    },
+    {
+      "id": "uci-sms-line-4196",
+      "source": "en",
+      "target": "es",
+      "text": "Can not use foreign stamps in this country."
+    },
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "es",
+      "text": "Ho ho - big belly laugh! See ya tomo"
+    },
+    {
+      "id": "uci-sms-line-2119",
+      "source": "en",
+      "target": "es",
+      "text": "Wish u many many returns of the day.. Happy birthday vikky.."
+    },
+    {
+      "id": "uci-sms-line-47",
+      "source": "en",
+      "target": "es",
+      "text": "Didn't you get hep b immunisation in nigeria."
+    },
+    {
+      "id": "uci-sms-line-3754",
+      "source": "en",
+      "target": "es",
+      "text": "Why are u up so early?"
+    },
+    {
+      "id": "uci-sms-line-5537",
+      "source": "en",
+      "target": "es",
+      "text": "Ok which your another number"
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "source": "en",
+      "target": "es",
+      "text": "That's good. Lets thank God. Please complete the drug. Have lots of water. And have a beautiful day."
+    },
+    {
+      "id": "uci-sms-line-3498",
+      "source": "en",
+      "target": "es",
+      "text": "Happy birthday... May u find ur prince charming soon n dun work too hard..."
+    },
+    {
+      "id": "uci-sms-line-2076",
+      "source": "en",
+      "target": "es",
+      "text": "Yar lor actually we quite fast... Cos da ge slow wat... Haha..."
+    },
+    {
+      "id": "uci-sms-line-670",
+      "source": "en",
+      "target": "es",
+      "text": "Have a good evening! Ttyl"
+    },
+    {
+      "id": "uci-sms-line-4735",
+      "source": "en",
+      "target": "es",
+      "text": "Good Morning my Dear Shijutta........... Have a great &amp; successful day."
+    },
+    {
+      "id": "uci-sms-line-3232",
+      "source": "en",
+      "target": "es",
+      "text": "I feel like a dick because I keep sleeping through your texts and facebook messages. Sup, you in town?"
+    },
+    {
+      "id": "uci-sms-line-3380",
+      "source": "en",
+      "target": "es",
+      "text": "Hows that watch resizing"
+    },
+    {
+      "id": "uci-sms-line-1232",
+      "source": "en",
+      "target": "es",
+      "text": "I want to send something that can sell fast.  &lt;#&gt; k is not easy money."
+    },
+    {
+      "id": "uci-sms-line-2123",
+      "source": "en",
+      "target": "es",
+      "text": "In xam hall boy asked girl Tell me the starting term for dis answer I can den manage on my own After lot of hesitation n lookin around silently she said THE! intha ponnungale ipaditan;)"
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "source": "en",
+      "target": "es",
+      "text": "Ok lor then we go tog lor..."
+    },
+    {
+      "id": "uci-sms-line-1582",
+      "source": "en",
+      "target": "es",
+      "text": "I shall book chez jules for half eight, if that's ok with you?"
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "source": "en",
+      "target": "es",
+      "text": "\"Hey! do u fancy meetin me at 4 at cha  hav a lil beverage on me. if not txt or ring me and we can meet up l8r. quite tired got in at 3 v.pist ;) love Pete x x x\""
+    },
+    {
+      "id": "uci-sms-line-4685",
+      "source": "en",
+      "target": "es",
+      "text": "Ok u can take me shopping when u get paid =D"
+    },
+    {
+      "id": "uci-sms-line-4022",
+      "source": "en",
+      "target": "es",
+      "text": "University of southern california."
+    },
+    {
+      "id": "uci-sms-line-139",
+      "source": "en",
+      "target": "es",
+      "text": "No no. I will check all rooms befor activities"
+    },
+    {
+      "id": "uci-sms-line-1312",
+      "source": "en",
+      "target": "es",
+      "text": "I.ll always be there, even if its just in spirit. I.ll get a bb soon. Just trying to be sure i need it."
+    },
+    {
+      "id": "uci-sms-line-15",
+      "source": "en",
+      "target": "es",
+      "text": "I HAVE A DATE ON SUNDAY WITH WILL!!"
+    },
+    {
+      "id": "uci-sms-line-4088",
+      "source": "en",
+      "target": "es",
+      "text": "Lemme know when you're here"
+    },
+    {
+      "id": "uci-sms-line-1732",
+      "source": "en",
+      "target": "es",
+      "text": "Doing project w frens lor. "
+    },
+    {
+      "id": "uci-sms-line-2932",
+      "source": "en",
+      "target": "es",
+      "text": "Wat's my dear doing? Sleeping ah?"
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "en",
+      "target": "es",
+      "text": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am"
+    },
+    {
+      "id": "uci-sms-line-5137",
+      "source": "en",
+      "target": "es",
+      "text": "Sday only joined.so training we started today:)"
+    },
+    {
+      "id": "uci-sms-line-2325",
+      "source": "en",
+      "target": "es",
+      "text": "Sorry dude. Dont know how i forgot. Even after Dan reminded me. Sorry. Hope you guys had fun."
+    },
+    {
+      "id": "uci-sms-line-4351",
+      "source": "en",
+      "target": "es",
+      "text": "Ü bot notes oredi... Cos i juz rem i got..."
+    },
+    {
+      "id": "uci-sms-line-1741",
+      "source": "en",
+      "target": "es",
+      "text": "U guys never invite me anywhere :("
+    },
+    {
+      "id": "uci-sms-line-533",
+      "source": "en",
+      "target": "es",
+      "text": "What Today-sunday..sunday is holiday..so no work.."
+    },
+    {
+      "id": "uci-sms-line-860",
+      "source": "en",
+      "target": "es",
+      "text": "Spoons it is then okay?"
+    },
+    {
+      "id": "uci-sms-line-3642",
+      "source": "en",
+      "target": "es",
+      "text": "He's really into skateboarding now despite the fact that he gets thrown off of it and winds up with bandages and shit all over his arms every five minutes"
+    },
+    {
+      "id": "uci-sms-line-561",
+      "source": "en",
+      "target": "es",
+      "text": "Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. "
+    },
+    {
+      "id": "uci-sms-line-3349",
+      "source": "en",
+      "target": "es",
+      "text": "No problem baby. Is this is a good time to talk? I called and left a message."
+    },
+    {
+      "id": "uci-sms-line-3164",
+      "source": "en",
+      "target": "es",
+      "text": "I can't describe how lucky you are that I'm actually awake by noon"
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "source": "en",
+      "target": "es",
+      "text": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\""
+    },
+    {
+      "id": "uci-sms-line-2974",
+      "source": "en",
+      "target": "es",
+      "text": "Sary just need Tim in the bollox &it hurt him a lot so he tol me!"
+    },
+    {
+      "id": "uci-sms-line-2965",
+      "source": "en",
+      "target": "es",
+      "text": "You dont know you jabo me abi."
+    },
+    {
+      "id": "uci-sms-line-4220",
+      "source": "en",
+      "target": "es",
+      "text": "Actually i'm waiting for 2 weeks when they start putting ad."
+    },
+    {
+      "id": "uci-sms-line-3657",
+      "source": "en",
+      "target": "es",
+      "text": "Senthil group company Apnt 5pm."
+    },
+    {
+      "id": "uci-sms-line-3698",
+      "source": "en",
+      "target": "es",
+      "text": "I am in tirupur.  call you da."
+    },
+    {
+      "id": "uci-sms-line-4149",
+      "source": "en",
+      "target": "es",
+      "text": "Pls help me tell sura that i'm expecting a battery from hont. And that if should pls send me a message about how to download movies. Thanks"
+    },
+    {
+      "id": "uci-sms-line-2231",
+      "source": "en",
+      "target": "es",
+      "text": "haha but no money leh... Later got to go for tuition... Haha and looking for empty slots for driving lessons"
+    },
+    {
+      "id": "uci-sms-line-3739",
+      "source": "en",
+      "target": "es",
+      "text": "Plz note: if anyone calling from a mobile Co. &amp; asks u to type # &lt;#&gt;  or # &lt;#&gt; . Do not do so. Disconnect the call,coz it iz an attempt of 'terrorist' to make use of the sim card no. Itz confirmd by nokia n motorola n has been verified by CNN IBN."
+    },
+    {
+      "id": "uci-sms-line-1430",
+      "source": "en",
+      "target": "es",
+      "text": "Tell you what, if you make a little spreadsheet and track whose idea it was to smoke to determine who \"smokes too much\" for the entire month of february, I'll come up"
+    },
+    {
+      "id": "uci-sms-line-3123",
+      "source": "en",
+      "target": "es",
+      "text": "Small problem in auction:)punj now asking tiwary"
+    },
+    {
+      "id": "uci-sms-line-1567",
+      "source": "en",
+      "target": "es",
+      "text": "The  &lt;#&gt; g that i saw a few days ago, the guy wants sell wifi only for  &lt;#&gt;  and with 3g for  &lt;#&gt; . That's why i blanked him."
+    },
+    {
+      "id": "uci-sms-line-2424",
+      "source": "en",
+      "target": "es",
+      "text": "A bloo bloo bloo I'll miss the first bowl"
+    },
+    {
+      "id": "uci-sms-line-158",
+      "source": "en",
+      "target": "es",
+      "text": "I'm leaving my house now..."
+    },
+    {
+      "id": "uci-sms-line-3828",
+      "source": "en",
+      "target": "es",
+      "text": "Goodmorning,my grandfather expired..so am on leave today."
+    },
+    {
+      "id": "uci-sms-line-4023",
+      "source": "en",
+      "target": "es",
+      "text": "We have to pick rayan macleran there."
+    },
+    {
+      "id": "uci-sms-line-151",
+      "source": "en",
+      "target": "es",
+      "text": "Sindu got job in birla soft .."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "source": "en",
+      "target": "es",
+      "text": "I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now"
+    },
+    {
+      "id": "uci-sms-line-3816",
+      "source": "en",
+      "target": "es",
+      "text": "Can. Dunno wat to get 4 her..."
+    },
+    {
+      "id": "uci-sms-line-3854",
+      "source": "en",
+      "target": "es",
+      "text": "No, its true..k,Do u knw dis no. &lt;#&gt; ?"
+    },
+    {
+      "id": "uci-sms-line-4101",
+      "source": "en",
+      "target": "es",
+      "text": "If u dun drive then how i go 2 sch."
+    },
+    {
+      "id": "uci-sms-line-2049",
+      "source": "en",
+      "target": "es",
+      "text": "No de. But call me after some time. Ill tell you k"
+    },
+    {
+      "id": "uci-sms-line-276",
+      "source": "en",
+      "target": "es",
+      "text": "No objection. My bf not coming."
+    },
+    {
+      "id": "uci-sms-line-3446",
+      "source": "en",
+      "target": "es",
+      "text": "Yes but I don't care cause I know its there!"
+    },
+    {
+      "id": "uci-sms-line-3652",
+      "source": "en",
+      "target": "es",
+      "text": "We are hoping to get away by 7, from Langport. You still up for town tonight?"
+    },
+    {
+      "id": "uci-sms-line-1187",
+      "source": "en",
+      "target": "es",
+      "text": "Annoying isn't it."
+    },
+    {
+      "id": "uci-sms-line-3772",
+      "source": "en",
+      "target": "es",
+      "text": "Love it! The girls at the office may wonder why you are smiling but sore..."
+    },
+    {
+      "id": "uci-sms-line-354",
+      "source": "en",
+      "target": "es",
+      "text": "TODAY is Sorry day.! If ever i was angry with you, if ever i misbehaved or hurt you? plz plz JUST SLAP URSELF Bcoz, Its ur fault, I'm basically GOOD"
+    },
+    {
+      "id": "uci-sms-line-4895",
+      "source": "en",
+      "target": "es",
+      "text": "Send me the new number"
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "source": "en",
+      "target": "es",
+      "text": "Miss call miss call khelate kintu opponenter miss call dhorte lage. Thats d rule. One with great phone receiving quality wins."
+    },
+    {
+      "id": "uci-sms-line-5291",
+      "source": "en",
+      "target": "es",
+      "text": "An excellent thought by a misundrstud frnd: I knw u hate me bt the day wen u'll knw the truth u'll hate urself:-( Gn:-)"
+    },
+    {
+      "id": "uci-sms-line-5307",
+      "source": "en",
+      "target": "es",
+      "text": "Pls ask macho how much is budget for bb bold 2 is cos i saw a new one for  &lt;#&gt;  dollars."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "source": "en",
+      "target": "es",
+      "text": "I'm done oredi..."
+    },
+    {
+      "id": "uci-sms-line-4287",
+      "source": "en",
+      "target": "es",
+      "text": "I pocked you up there before"
+    },
+    {
+      "id": "uci-sms-line-2540",
+      "source": "en",
+      "target": "es",
+      "text": "The monthly amount is not that terrible and you will not pay anything till 6months after finishing school."
+    },
+    {
+      "id": "uci-sms-line-2912",
+      "source": "en",
+      "target": "es",
+      "text": "How do you guys go to see movies on your side."
+    },
+    {
+      "id": "uci-sms-line-4402",
+      "source": "en",
+      "target": "es",
+      "text": "Juz go google n search 4 qet..."
+    },
+    {
+      "id": "uci-sms-line-4519",
+      "source": "en",
+      "target": "es",
+      "text": "Men always needs a beautiful, intelligent, caring, loving, adjustable, cooperative wife. But the law allows only one wife...."
+    },
+    {
+      "id": "uci-sms-line-1057",
+      "source": "en",
+      "target": "es",
+      "text": "I'm at work. Please call"
+    },
+    {
+      "id": "uci-sms-line-2541",
+      "source": "en",
+      "target": "es",
+      "text": "Hmmm:)how many players selected?"
+    },
+    {
+      "id": "uci-sms-line-2242",
+      "source": "en",
+      "target": "es",
+      "text": "K I'll call you when I'm close"
+    },
+    {
+      "id": "uci-sms-line-4707",
+      "source": "en",
+      "target": "es",
+      "text": "Hey anyway i have to :-)"
+    },
+    {
+      "id": "uci-sms-line-4447",
+      "source": "en",
+      "target": "es",
+      "text": "2 celebrate my bday, y else?"
+    },
+    {
+      "id": "uci-sms-line-883",
+      "source": "en",
+      "target": "es",
+      "text": "see, i knew giving you a break a few times woul lead to you always wanting to miss curfew. I was gonna gibe you 'til one, but a MIDNIGHT movie is not gonna get out til after 2. You need to come home. You need to getsleep and, if anything, you need to b studdying ear training."
+    },
+    {
+      "id": "uci-sms-line-4095",
+      "source": "en",
+      "target": "es",
+      "text": "\"Life is nothing wen v get everything\". But \"life is everything wen v miss something \". Real value of people wil be realized only in their absence.... gud mrng"
+    },
+    {
+      "id": "uci-sms-line-3773",
+      "source": "en",
+      "target": "es",
+      "text": "Hi, wlcome back, did wonder if you got eaten by a lion or something, nothing much"
+    },
+    {
+      "id": "uci-sms-line-443",
+      "source": "en",
+      "target": "es",
+      "text": "You were supposed to wake ME up &gt;:("
+    },
+    {
+      "id": "uci-sms-line-90",
+      "source": "en",
+      "target": "es",
+      "text": "Ela kano.,il download, come wen ur free.."
+    },
+    {
+      "id": "uci-sms-line-4042",
+      "source": "en",
+      "target": "es",
+      "text": "I'm at home n ready..."
+    },
+    {
+      "id": "uci-sms-line-4852",
+      "source": "en",
+      "target": "es",
+      "text": "Maybe you should find something else to do instead???"
+    },
+    {
+      "id": "uci-sms-line-888",
+      "source": "en",
+      "target": "es",
+      "text": "I like to talk pa but am not able to. I dont know y."
+    },
+    {
+      "id": "uci-sms-line-5220",
+      "source": "en",
+      "target": "es",
+      "text": "Well thats nice. Too bad i cant eat it"
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "source": "en",
+      "target": "es",
+      "text": "Arms fine, how's Cardiff and uni? "
+    },
+    {
+      "id": "uci-sms-line-3984",
+      "source": "en",
+      "target": "es",
+      "text": "His frens go then he in lor. Not alone wif my mum n sis lor."
+    },
+    {
+      "id": "uci-sms-line-2563",
+      "source": "en",
+      "target": "es",
+      "text": "And maybe some pressies"
+    },
+    {
+      "id": "uci-sms-line-719",
+      "source": "en",
+      "target": "es",
+      "text": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748"
+    },
+    {
+      "id": "uci-sms-line-262",
+      "source": "en",
+      "target": "es",
+      "text": "Yup"
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "source": "en",
+      "target": "es",
+      "text": "Playin space poker, u?"
+    },
+    {
+      "id": "uci-sms-line-809",
+      "source": "en",
+      "target": "es",
+      "text": "Boooo you always work. Just quit."
+    },
+    {
+      "id": "uci-sms-line-220",
+      "source": "en",
+      "target": "es",
+      "text": "I have to take exam with march 3"
+    },
+    {
+      "id": "uci-sms-line-572",
+      "source": "en",
+      "target": "es",
+      "text": "Yar lor wait 4 my mum 2 finish sch then have lunch lor... I whole morning stay at home clean my room now my room quite clean... Hee..."
+    },
+    {
+      "id": "uci-sms-line-2685",
+      "source": "en",
+      "target": "es",
+      "text": "I'm okay. Chasing the dream. What's good. What are you doing next."
+    },
+    {
+      "id": "uci-sms-line-2087",
+      "source": "en",
+      "target": "es",
+      "text": "Moji i love you more than words. Have a rich day"
+    },
+    {
+      "id": "uci-sms-line-5259",
+      "source": "en",
+      "target": "es",
+      "text": "Well she's in for a big surprise!"
+    },
+    {
+      "id": "uci-sms-line-1105",
+      "source": "en",
+      "target": "es",
+      "text": "Aiyah sorry lor... I watch tv watch until i forgot 2 check my phone."
+    },
+    {
+      "id": "uci-sms-line-1492",
+      "source": "en",
+      "target": "es",
+      "text": "Cant believe i said so many things to you this morning when all i really wanted to say was good morning, i love you! Have a beautiful morning. See you in the library later."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "source": "en",
+      "target": "es",
+      "text": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?"
+    },
+    {
+      "id": "uci-sms-line-2108",
+      "source": "en",
+      "target": "es",
+      "text": "Thank you. I like you as well..."
+    },
+    {
+      "id": "uci-sms-line-3044",
+      "source": "en",
+      "target": "es",
+      "text": "Slaaaaave ! Where are you ? Must I summon you to me all the time now ? Don't you wish to come to me on your own anymore?"
+    },
+    {
+      "id": "uci-sms-line-3581",
+      "source": "en",
+      "target": "es",
+      "text": "Multiply the numbers independently and count decimal points then, for the division, push the decimal places like i showed you."
+    },
+    {
+      "id": "uci-sms-line-4977",
+      "source": "en",
+      "target": "es",
+      "text": "Yar... I tot u knew dis would happen long ago already."
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "en",
+      "target": "es",
+      "text": "Really dun bluff me leh... U sleep early too. Nite..."
+    },
+    {
+      "id": "uci-sms-line-3968",
+      "source": "en",
+      "target": "es",
+      "text": "I was just callin to say hi. Take care bruv!"
+    },
+    {
+      "id": "uci-sms-line-2357",
+      "source": "en",
+      "target": "es",
+      "text": "Hello, my love ! How went your day ? Are you alright ? I think of you, my sweet and send a jolt to your heart to remind you ... I LOVE YOU! Can you hear it ? I screamed it across the sea for all the world to hear. Ahmad al Hallaq is loved ! and owned ! *possessive passionate kiss*"
+    },
+    {
+      "id": "uci-sms-line-3700",
+      "source": "en",
+      "target": "es",
+      "text": "S:)but he had some luck.2 catches put down:)"
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "source": "en",
+      "target": "es",
+      "text": "Sorry man, my stash ran dry last night and I can't pick up more until sunday"
+    },
+    {
+      "id": "uci-sms-line-1059",
+      "source": "en",
+      "target": "es",
+      "text": "Ard 515 like dat. Y?"
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "es",
+      "text": "You are not bothering me but you have to trust my answers. Pls."
+    },
+    {
+      "id": "uci-sms-line-4742",
+      "source": "en",
+      "target": "es",
+      "text": "I keep seeing weird shit and bein all \"woah\" then realising it's actually reasonable and I'm all \"oh\""
+    },
+    {
+      "id": "uci-sms-line-1114",
+      "source": "en",
+      "target": "es",
+      "text": "So that means you still think of teju"
+    },
+    {
+      "id": "uci-sms-line-4114",
+      "source": "en",
+      "target": "es",
+      "text": "I'll see, but prolly yeah"
+    },
+    {
+      "id": "uci-sms-line-5505",
+      "source": "en",
+      "target": "es",
+      "text": "Apo all other are mokka players only"
+    },
+    {
+      "id": "uci-sms-line-4176",
+      "source": "en",
+      "target": "es",
+      "text": "And pls pls drink plenty plenty water"
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "es",
+      "text": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? "
+    },
+    {
+      "id": "uci-sms-line-603",
+      "source": "en",
+      "target": "es",
+      "text": "If u sending her home first it's ok lor. I'm not ready yet."
+    },
+    {
+      "id": "uci-sms-line-129",
+      "source": "en",
+      "target": "es",
+      "text": "Are you there in room."
+    },
+    {
+      "id": "uci-sms-line-4841",
+      "source": "en",
+      "target": "es",
+      "text": "That's one of the issues but california is okay. No snow so its manageable"
+    },
+    {
+      "id": "uci-sms-line-3983",
+      "source": "en",
+      "target": "es",
+      "text": "Huh i cant thk of more oredi how many pages do we have?"
+    },
+    {
+      "id": "uci-sms-line-3321",
+      "source": "en",
+      "target": "es",
+      "text": "Kay... Since we are out already "
+    },
+    {
+      "id": "uci-sms-line-1398",
+      "source": "en",
+      "target": "es",
+      "text": "Shall i start from hear."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "source": "en",
+      "target": "es",
+      "text": "Esplanade lor. Where else..."
+    },
+    {
+      "id": "uci-sms-line-1615",
+      "source": "en",
+      "target": "es",
+      "text": "Thnx dude. u guys out 2nite?"
+    },
+    {
+      "id": "uci-sms-line-1504",
+      "source": "en",
+      "target": "es",
+      "text": "Don no da:)whats you plan?"
+    },
+    {
+      "id": "uci-sms-line-3099",
+      "source": "en",
+      "target": "es",
+      "text": "Yo, you at jp and hungry like a mofo?"
+    },
+    {
+      "id": "uci-sms-line-3805",
+      "source": "en",
+      "target": "es",
+      "text": "Yup song bro. No creative. Neva test quality. He said check review online."
+    },
+    {
+      "id": "uci-sms-line-760",
+      "source": "en",
+      "target": "es",
+      "text": "U should have made an appointment"
+    },
+    {
+      "id": "uci-sms-line-2727",
+      "source": "en",
+      "target": "es",
+      "text": "No. But we'll do medical missions to nigeria"
+    },
+    {
+      "id": "uci-sms-line-2223",
+      "source": "en",
+      "target": "es",
+      "text": "I notice you like looking in the shit mirror youre turning into a right freak"
+    },
+    {
+      "id": "uci-sms-line-2145",
+      "source": "en",
+      "target": "es",
+      "text": "You stayin out of trouble stranger!!saw Dave the other day hes sorted now!still with me bloke when u gona get a girl MR!ur mum still Thinks we will get 2GETHA! "
+    },
+    {
+      "id": "uci-sms-line-3239",
+      "source": "en",
+      "target": "es",
+      "text": "Ron say fri leh. N he said ding tai feng cant make reservations. But he said wait lor."
+    },
+    {
+      "id": "uci-sms-line-1406",
+      "source": "en",
+      "target": "es",
+      "text": "Actually getting ready to leave the house."
+    },
+    {
+      "id": "uci-sms-line-1544",
+      "source": "en",
+      "target": "es",
+      "text": "Now press conference da:)"
+    },
+    {
+      "id": "uci-sms-line-5142",
+      "source": "en",
+      "target": "es",
+      "text": "Oh shut it. Omg yesterday I had a dream that I had 2 kids both boys. I was so pissed. Not only about the kids but them being boys. I even told mark in my dream that he was changing diapers cause I'm not getting owed in the face."
+    },
+    {
+      "id": "uci-sms-line-3458",
+      "source": "en",
+      "target": "es",
+      "text": "Ok. I.ll do you right later."
+    },
+    {
+      "id": "uci-sms-line-4044",
+      "source": "en",
+      "target": "es",
+      "text": "What time do u get out?"
+    },
+    {
+      "id": "uci-sms-line-5544",
+      "source": "en",
+      "target": "es",
+      "text": "Yeah it's jus rite..."
+    },
+    {
+      "id": "uci-sms-line-5520",
+      "source": "en",
+      "target": "es",
+      "text": "Miles and smiles r made frm same letters but do u know d difference..? smile on ur face keeps me happy even though I am miles away from u.. :-)keep smiling.. Good nyt"
+    },
+    {
+      "id": "uci-sms-line-2063",
+      "source": "en",
+      "target": "es",
+      "text": "Hey ! I want you ! I crave you ! I miss you ! I need you ! I love you, Ahmad Saeed al Hallaq ..."
+    },
+    {
+      "id": "uci-sms-line-1419",
+      "source": "en",
+      "target": "es",
+      "text": "No wonder... Cos i dun rem seeing a silver car... But i thk i saw a black one..."
+    },
+    {
+      "id": "uci-sms-line-2868",
+      "source": "en",
+      "target": "es",
+      "text": "Smith waste da.i wanna gayle."
+    },
+    {
+      "id": "uci-sms-line-1498",
+      "source": "en",
+      "target": "es",
+      "text": "I'm always on yahoo messenger now. Just send the message to me and i.ll get it you may have to send it in the mobile mode sha but i.ll get it. And will reply."
+    },
+    {
+      "id": "uci-sms-line-4460",
+      "source": "en",
+      "target": "es",
+      "text": "Die... I accidentally deleted e msg i suppose 2 put in e sim archive. Haiz... I so sad..."
+    },
+    {
+      "id": "uci-sms-line-2410",
+      "source": "en",
+      "target": "es",
+      "text": "Dear where you will be when i reach there"
+    },
+    {
+      "id": "uci-sms-line-5294",
+      "source": "en",
+      "target": "es",
+      "text": "Xy trying smth now. U eat already? We havent..."
+    },
+    {
+      "id": "uci-sms-line-3435",
+      "source": "en",
+      "target": "es",
+      "text": "Christmas is An occasion that is Celebrated as a Reflection of UR... Values..., Desires..., Affections...&amp; Traditions.... Have an ideal Christmas..."
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "en",
+      "target": "es",
+      "text": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation."
+    },
+    {
+      "id": "uci-sms-line-250",
+      "source": "en",
+      "target": "es",
+      "text": "It didnt work again oh. Ok goodnight then. I.ll fix and have it ready by the time you wake up. You are very dearly missed have a good night sleep."
+    },
+    {
+      "id": "uci-sms-line-463",
+      "source": "en",
+      "target": "es",
+      "text": "Great. Never been better. Each day gives even more reasons to thank God"
+    },
+    {
+      "id": "uci-sms-line-200",
+      "source": "en",
+      "target": "es",
+      "text": "Hi its Kate how is your evening? I hope i can see you tomorrow for a bit but i have to bloody babyjontet! Txt back if u can. :) xxx"
+    },
+    {
+      "id": "uci-sms-line-3048",
+      "source": "en",
+      "target": "es",
+      "text": "So how's the weather over there?"
+    },
+    {
+      "id": "uci-sms-line-4935",
+      "source": "en",
+      "target": "es",
+      "text": "Once free call me sir."
+    },
+    {
+      "id": "uci-sms-line-4267",
+      "source": "en",
+      "target": "es",
+      "text": " &lt;DECIMAL&gt; m but its not a common car here so its better to buy from china or asia. Or if i find it less expensive. I.ll holla"
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "es",
+      "text": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30."
+    },
+    {
+      "id": "uci-sms-line-4272",
+      "source": "en",
+      "target": "es",
+      "text": "Great. Hope you are using your connections from mode men also cos you can never know why old friends can lead you to today"
+    }
+  ]
+}

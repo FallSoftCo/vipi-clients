@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-coverage-ceiling-sample-1",
+  "plan_sha256": "191f68e7a5c8213f09f67ea72cb5152005b6d0d45db7dc4926e15a360968b647",
+  "input_sha256": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471",
+  "cases": 400,
+  "unique_messages": 200,
+  "source_url": "https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip",
+  "zip_sha256": "1587ea43e58e82b14ff1f5425c88e17f8496bfcdb67a583dbff9eefaf9963ce3",
+  "corpus_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+  "slice": [
+    600,
+    800
+  ],
+  "sampling": "No outcome selection; disjoint from all previous 600 messages sampled in this session. Historical pack-building overlap unmeasured.",
+  "attribution": "Almeida, T. & Hidalgo, J. SMS Spam Collection. UCI Machine Learning Repository. DOI 10.24432/C5CC84. Dataset card: CC BY 4.0.",
+  "license_source": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+  "training_use": false,
+  "pack_building_use": false,
+  "captured_utc": "2026-11-07T21:41:26.929562+00:00"
+}
