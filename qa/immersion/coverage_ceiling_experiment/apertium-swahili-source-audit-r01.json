@@ -1,0 +1,120 @@
+{
+  "schema": "vipi-apertium-swahili-source-audit-1",
+  "production": false,
+  "runtime_tested": false,
+  "sources": {
+    "apertium-swa": {
+      "url": "https://github.com/apertium/apertium-swa",
+      "revision": "4d2e6b6714e8fa2eaa3f3d74686ec683b8ee9890",
+      "last_commit_utc": "2021-07-21T18:34:59Z"
+    },
+    "apertium-swa-eng": {
+      "url": "https://github.com/apertium/apertium-swa-eng",
+      "revision": "ab4100d6d257aa3e600106e50d97dd21493a3bff",
+      "last_commit_utc": "2018-03-17T05:57:48Z"
+    }
+  },
+  "monolingual": {
+    "license": "GPL-3.0 (COPYING retained)",
+    "build_source": "apertium-swa.swa.lexd; Makefile uses lexd and HFST, older lexc/twol are not current primary input",
+    "raw_verb_stem_lines": 5406,
+    "raw_noun_stem_lines": 1035,
+    "noun_count_note": "sum noncomment lexical lines in eight noun stem sections; not independently attested unique lemmas",
+    "productive_rules": [
+      "person/number subject concord",
+      "noun class agreement",
+      "present/past/future/perfect",
+      "negative concord",
+      "infinitive/imperative/habitual",
+      "subjunctive",
+      "some irregular kuwa locative forms"
+    ],
+    "quality_gaps": [
+      "Sparse retained tests: four generated words, not conversation acceptance",
+      "Constraint grammar file contains two tutorial-like rules, not broad sense disambiguation",
+      "Negative second-person plural line tagged p3 in VerbPersNum(2), needs validation",
+      "Latest source commit2021; nightly packaging does not imply active linguistic maintenance"
+    ]
+  },
+  "english_pair": {
+    "raw_bilingual_entries": 15,
+    "verbs": 1,
+    "translation_transfer_files": 0,
+    "standalone_license_file": false,
+    "decision": "Incubator-sized bilingual dictionary cannot replace contextual English-Swahili phrase mappings."
+  },
+  "reusable_value": "Potential build-time morphology analyzer/generator for attested forms/classes; useful for validating frame slot features. It does not provide English phrase sense selection or complete translation rules. Do not replace current native runtime merely because a compiled FST exists.",
+  "alternate_distribution": {
+    "url": "https://models.uralicnlp.com/nightly/swa/index.html",
+    "reported_analyser_mb": 16.64,
+    "reported_generator_mb": 12.0,
+    "status": "Publisher listing inspected; binaries not downloaded/qualified; metadata lacks exact upstream commit."
+  },
+  "files": [
+    {
+      "path": "apertium-swa-eng/apertium-swa-eng.swa-eng.dix",
+      "sha256": "6079e241c9fbb9c45e4db755253ebea4116ade20e5766c8729c9250b551ce494",
+      "bytes": 1655
+    },
+    {
+      "path": "apertium-swa/apertium-swa.swa.lexc",
+      "sha256": "be01fe4042a85986da66cf03844b02c919e689b2507c61500d56f7de28a8eb20",
+      "bytes": 12561
+    },
+    {
+      "path": "apertium-swa/apertium-swa.swa.rlx",
+      "sha256": "81922390a3a3f5c83ed6a687fab97e285305ae2d009a519fe2ade4367a5007c8",
+      "bytes": 824
+    },
+    {
+      "path": "apertium-swa/configure.ac",
+      "sha256": "4635bcf1aeda3f97cefe6f69a286b98d7aff132317292ab491c0aa62b9e50816",
+      "bytes": 1619
+    },
+    {
+      "path": "apertium-swa/README",
+      "sha256": "7e315c23df8fbf2f328d97421d26c74cbf652c080a2b2411935caef1167033fa",
+      "bytes": 2858
+    },
+    {
+      "path": "apertium-swa/apertium-swa.swa.lexd",
+      "sha256": "4cc671ebd29623613e1ccf5677828c78772d215c481ef5704eeb8343ef1abab8",
+      "bytes": 182072
+    },
+    {
+      "path": "apertium-swa/COPYING",
+      "sha256": "0ae0485a5bd37a63e63603596417e4eb0e653334fa6c7f932ca3a0e85d4af227",
+      "bytes": 35148
+    },
+    {
+      "path": "apertium-swa/apertium-swa.swa.twol",
+      "sha256": "abc6c257ea03ea2bb655bce0416597b3752dd703bf6b3cd167b4cfd1eadb49a3",
+      "bytes": 582
+    },
+    {
+      "path": "apertium-swa/README.md",
+      "sha256": "2b7814d3fca2e99e56c51b6ff2aa313ea6e9da6424804240aa8ad891fdfe0900",
+      "bytes": 6
+    },
+    {
+      "path": "apertium-swa/apertium-swa.swa.twoc",
+      "sha256": "42515c57ac9eccd0bc627fd1f6da56592939a1cd5d93b4c70ae87ae206fdab4d",
+      "bytes": 1247
+    },
+    {
+      "path": "apertium-swa/Makefile.am",
+      "sha256": "74fa051c7a5795de0843cab81844009b6a76db609dfc8ad4eaf09b127ebc77a0",
+      "bytes": 6230
+    },
+    {
+      "path": "apertium-swa/test/swa-morph-expected.txt",
+      "sha256": "3217656f4374414defa1479e4957c30163dee5465b2c3ef321eb4aeee44645be",
+      "bytes": 306
+    },
+    {
+      "path": "apertium-swa/test/swa-input.txt",
+      "sha256": "adb8b1e7c0e124067c5bfc520ad1745bb48b2def979095a9c1fd5de8cb66a86f",
+      "bytes": 45
+    }
+  ]
+}

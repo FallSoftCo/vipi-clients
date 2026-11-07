@@ -1,0 +1,5262 @@
+{
+  "schema": "vipi-directional-conversation-evaluation-1",
+  "cases": [
+    {
+      "id": "tm2-dlg-6ec67453-e582-44d7-ac91-cf06ceb30e67-5",
+      "text": "Economy.",
+      "domain": "flights",
+      "conversation_id": "dlg-6ec67453-e582-44d7-ac91-cf06ceb30e67",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "January 15th will be when I'm leaving and I will get back on February 20."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Perfect! and what type of cabin class are you looking for?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-f2fc0e5c-e6e2-40f3-904f-ef385dc1552f-6",
+      "text": "Okay.",
+      "domain": "flights",
+      "conversation_id": "dlg-f2fc0e5c-e6e2-40f3-904f-ef385dc1552f",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Do you need any other information?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Please hold, thank you."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7eeec854-5eff-47be-bb71-179e2754cfbc-26",
+      "text": "Okay. That sounds good as long as it meets the other criteria.",
+      "domain": "flights",
+      "conversation_id": "dlg-7eeec854-5eff-47be-bb71-179e2754cfbc",
+      "turn_index": 26,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Alright. Here is the cheapest flight at $507."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is the cheapest flight at $507."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-076f89a2-295b-440c-ac28-a5fb59671be7-4",
+      "text": "I'm looking to depart and return both in the evening and I'm looking for nonstop flights.",
+      "domain": "flights",
+      "conversation_id": "dlg-076f89a2-295b-440c-ac28-a5fb59671be7",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I need help putting together a round-trip flight from San Francisco to Houston. I'm looking to depart today June 29th and I'm looking to arrive back on July 2nd."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I can help you with your flight search."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-b6abf412-7946-44b7-ac5d-e8f1d3f6807c-8",
+      "text": "I'm looking to fly out in the morning. And coming back, I'm looking to get a flight in the afternoon.",
+      "domain": "flights",
+      "conversation_id": "dlg-b6abf412-7946-44b7-ac5d-e8f1d3f6807c",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Anything else?"
+        },
+        {
+          "speaker": "USER",
+          "text": "I'm looking for an economy class, preferably Delta and United."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-dd8c8ed7-e5ee-427e-9003-1580a1857960-11",
+      "text": "Okay, that sounds good. Thank you.",
+      "domain": "flights",
+      "conversation_id": "dlg-dd8c8ed7-e5ee-427e-9003-1580a1857960",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'd like it to be morning flights if that's possible."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "You are departing at 5 a.m. on the 22nd and returning at 9 a.m. on the 26th."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ee5b5e2f-5c53-404c-94d3-bcd779095585-1",
+      "text": "I am looking for a round-trip commercial flight from Los Angeles to Denver, please.",
+      "domain": "flights",
+      "conversation_id": "dlg-ee5b5e2f-5c53-404c-94d3-bcd779095585",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1450042a-7d3a-463f-9a6b-ff0b8501982c-15",
+      "text": "No stops.",
+      "domain": "flights",
+      "conversation_id": "dlg-1450042a-7d3a-463f-9a6b-ff0b8501982c",
+      "turn_index": 15,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "What else?"
+        },
+        {
+          "speaker": "USER",
+          "text": "I'm looking for a round-trip flight."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1a85327f-eb55-4991-a290-86285098dde0-0",
+      "text": "Hi, I'm looking for a flight to London.",
+      "domain": "flights",
+      "conversation_id": "dlg-1a85327f-eb55-4991-a290-86285098dde0",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-832825e6-8aa7-4618-9b67-1dccc29e0d0b-8",
+      "text": "I'd like to leave May 27th at around noon.",
+      "domain": "flights",
+      "conversation_id": "dlg-832825e6-8aa7-4618-9b67-1dccc29e0d0b",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "A direct flight."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. No problem, Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6ae3e0f1-e629-44f9-942e-22dfa9c33a69-4",
+      "text": "Pretty much February 6th until the 14th.",
+      "domain": "flights",
+      "conversation_id": "dlg-6ae3e0f1-e629-44f9-942e-22dfa9c33a69",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can we narrow down your options?"
+        },
+        {
+          "speaker": "USER",
+          "text": "I'm trying to get a flight out to London pretty much February 6th until the 14th."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5517b99d-d254-4234-92dd-3784712410ff-14",
+      "text": "I think I'd like American better.",
+      "domain": "flights",
+      "conversation_id": "dlg-5517b99d-d254-4234-92dd-3784712410ff",
+      "turn_index": 14,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, overall, that's pretty good. That's something that I would like to book."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Right cool, and then your return flight you would like to be on spirit Airlines for American Airlines scared leaves at 9:06 p.m and American leaves at 9:50 p.m."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c3b623d7-04ee-4067-b084-eaf18fe4efa5-20",
+      "text": "Oh, just look for other airlines.",
+      "domain": "flights",
+      "conversation_id": "dlg-c3b623d7-04ee-4067-b084-eaf18fe4efa5",
+      "turn_index": 20,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "And then I would like an economy-class in the flight."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, I don't have any Delta flights for this trip. Do you have any other Airline preferences or should I keep it open?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2c1ef9cb-4e3e-47e7-a896-b180ff0fe662-5",
+      "text": "From Miami to Amsterdam, please.",
+      "domain": "flights",
+      "conversation_id": "dlg-2c1ef9cb-4e3e-47e7-a896-b180ff0fe662",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yes, I'd like to leave this Sunday for the latest flights possible. I'd like to come back in 5 days. I'd like the cheapest, please and make sure it has WiFi."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "From where you are departing and to where?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-12557798-edf2-44f6-aca0-b39459f0e0fc-18",
+      "text": "Excellent.",
+      "domain": "flights",
+      "conversation_id": "dlg-12557798-edf2-44f6-aca0-b39459f0e0fc",
+      "turn_index": 18,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I would like to sit in coach."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Great, that didn't change any of your flight plans, that is already economy and the other things."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5136f25d-dddb-49a1-874d-b5cbbcf9169b-5",
+      "text": "Cheapest flight, Wi-Fi a must.",
+      "domain": "flights",
+      "conversation_id": "dlg-5136f25d-dddb-49a1-874d-b5cbbcf9169b",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "I can help you with your flight search, can you confirm your return date from Jamaica?"
+        },
+        {
+          "speaker": "USER",
+          "text": "Four days from now, from today. Cheapest flight, Wi-Fi a must."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-a698b440-1222-47e8-90be-892925c0f02b-7",
+      "text": "Yes.",
+      "domain": "flights",
+      "conversation_id": "dlg-a698b440-1222-47e8-90be-892925c0f02b",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "From Los Angeles to Amsterdam."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "From Los Angeles to Amsterdam, the Netherlands?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-f1ccdc65-f865-4afc-8eb9-2ebee896db79-3",
+      "text": "I want to go to Charlotte, North Carolina.",
+      "domain": "flights",
+      "conversation_id": "dlg-f1ccdc65-f865-4afc-8eb9-2ebee896db79",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'd like to book a flight."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, where are you traveling to?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6248bdae-5835-4749-828c-69b5cf940264-6",
+      "text": "I'll be traveling April 15th and returning April 25th.",
+      "domain": "flights",
+      "conversation_id": "dlg-6248bdae-5835-4749-828c-69b5cf940264",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Alright."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "What else can you tell me?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-69a9c1ea-165b-4f03-a371-f53fc466d8da-8",
+      "text": "No. That's it.",
+      "domain": "flights",
+      "conversation_id": "dlg-69a9c1ea-165b-4f03-a371-f53fc466d8da",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Perfect."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Anything else."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6a7abd76-cc60-4199-abd1-232cb94dc28f-1",
+      "text": "I'm looking to book a trip to Washington DC.",
+      "domain": "flights",
+      "conversation_id": "dlg-6a7abd76-cc60-4199-abd1-232cb94dc28f",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7c6887b6-224f-4ef1-858a-f57336366fde-2",
+      "text": "I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "domain": "flights",
+      "conversation_id": "dlg-7c6887b6-224f-4ef1-858a-f57336366fde",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hello."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how can I help you today?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ea5862ec-21df-4fc6-b451-4f534241a52c-11",
+      "text": "That will be all.",
+      "domain": "flights",
+      "conversation_id": "dlg-ea5862ec-21df-4fc6-b451-4f534241a52c",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'm looking to depart earliest possible at this point. I'm also looking for cheapest or non-stop."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Is there anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-00100680-00e0-40fe-8321-6d81b21bfc4f-3",
+      "text": "You're really on top of things. I like that.",
+      "domain": "flights",
+      "conversation_id": "dlg-00100680-00e0-40fe-8321-6d81b21bfc4f",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello, how can I help you?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "San Francisco to Denver, got it."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-deb9c513-4f44-4c10-9774-d9382689f93b-10",
+      "text": "Okay.",
+      "domain": "flights",
+      "conversation_id": "dlg-deb9c513-4f44-4c10-9774-d9382689f93b",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Are there any non-stop flights?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Unfortunately, not available at the time you are requesting."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-544f0eb6-af49-48da-9f9b-c6ced8ab5bf5-18",
+      "text": "Thank you so much.",
+      "domain": "flights",
+      "conversation_id": "dlg-544f0eb6-af49-48da-9f9b-c6ced8ab5bf5",
+      "turn_index": 18,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yes, Sure. Thank you so much."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The tickets have been booked and the details have been emailed to you."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2874037a-0dc1-44a1-81f6-75f7e27da9df-3",
+      "text": "Yes.",
+      "domain": "flights",
+      "conversation_id": "dlg-2874037a-0dc1-44a1-81f6-75f7e27da9df",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how may I help you?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "From houston to madrid?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-fc3b9965-e6ac-47b1-8283-fc9806d7e199-3",
+      "text": "Round trip.",
+      "domain": "flights",
+      "conversation_id": "dlg-fc3b9965-e6ac-47b1-8283-fc9806d7e199",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi. I'd like to schedule a flight to Sacramento, California."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Are you flying round trip or one way to Sacramento?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e5299794-0f1c-4708-b4cb-64b46f2d5cf7-1",
+      "text": "So, there's been a family emergency. Unfortunately, I'm going to need to fly from LA to Houston and at the earliest possible time today, and returning in 5 days.",
+      "domain": "flights",
+      "conversation_id": "dlg-e5299794-0f1c-4708-b4cb-64b46f2d5cf7",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello. How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-36d395f9-30fe-4118-a490-111f4942caff-7",
+      "text": "Thank you.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-36d395f9-30fe-4118-a490-111f4942caff",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yeah, That's it."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. I have your personal details in our file. Your order will be ready for pick-up in about 20 minutes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9e3ac8f2-009b-4e83-ba93-70e9b137d841-1",
+      "text": "Hello. I'm needing to order a takeout for one person. I need to open some gyros.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-9e3ac8f2-009b-4e83-ba93-70e9b137d841",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello. How may I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-28c84645-6109-485c-866b-29aebd28ae4c-11",
+      "text": "Thank you so much.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-28c84645-6109-485c-866b-29aebd28ae4c",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Correct."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, I have your details on file. Your order will be ready for pick-up in about 20 minutes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-a2492812-3636-43cd-b0d7-4e2b8018d778-2",
+      "text": "I would like to order takeout for two people.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-a2492812-3636-43cd-b0d7-4e2b8018d778",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9cc433e0-3346-4c8c-8f18-07934167e458-7",
+      "text": "Ketchup and three orders of large fries and three large cokes.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-9cc433e0-3346-4c8c-8f18-07934167e458",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "3 orders of chicken sandwiches."
+        },
+        {
+          "speaker": "USER",
+          "text": "Yes, lettuce, tomatoes, pickles, maize."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9de2fb88-a866-4584-864e-7f7e10b1e54e-16",
+      "text": "Awesome, thanks.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-9de2fb88-a866-4584-864e-7f7e10b1e54e",
+      "turn_index": 16,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yep."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Your order will be ready for pick-up in about 20 minutes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-174bde2f-052d-4b9a-8913-39bbc546dd65-5",
+      "text": "And a large Sprite.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-174bde2f-052d-4b9a-8913-39bbc546dd65",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Four steak tacos and fried rice on the side and I need a large Sprite."
+        },
+        {
+          "speaker": "USER",
+          "text": "Fried rice on the side."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-74902069-f352-464e-ae69-7fa9fdde5387-6",
+      "text": "Thank you. That will complete our order.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-74902069-f352-464e-ae69-7fa9fdde5387",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Would you like to add anything to drink?"
+        },
+        {
+          "speaker": "USER",
+          "text": "Oh, yeah. I forgot about that. No coke, but Pepsi. Two Pepsi´s."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9d12af2a-be87-47cc-aae8-ed70c2d6d6a5-4",
+      "text": "I'd like to place an order for a lamb gyro, honey puffs, and a can of 7Up.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-9d12af2a-be87-47cc-aae8-ed70c2d6d6a5",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "What kind of food you'd like to order?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-f935d1f8-ad31-4bb6-853d-e4673271a414-12",
+      "text": "Goodbye.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-f935d1f8-ad31-4bb6-853d-e4673271a414",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Excellent, thank you."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "You’re welcome. Goodbye."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-70dad657-fd9e-4988-8cb7-d60da0e56f0e-0",
+      "text": "Hello. I'd like to repeat my takeout food order from last weekend at Casa Sanchez.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-70dad657-fd9e-4988-8cb7-d60da0e56f0e",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-feae8356-b2cc-484a-b1b5-65bd313e06e4-8",
+      "text": "Okay.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-feae8356-b2cc-484a-b1b5-65bd313e06e4",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yap."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, one second."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-19e6818a-1f8b-4636-a57a-5d0254c183b2-1",
+      "text": "Hi. I'd like to order a vegetable sandwich for takeout, please.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-19e6818a-1f8b-4636-a57a-5d0254c183b2",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello!"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-de2f838e-d06e-450a-92b9-fd4c930f71e2-4",
+      "text": "And add pork and side order of fries with ketchup.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-de2f838e-d06e-450a-92b9-fd4c930f71e2",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "It's a fish salad. And I hope I would get some french fries on the side and a 2-liters coke. Can you help me with that order, please?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I can help you with your takeout order."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-89bcd8f5-c9e4-4f76-bf4c-d4753154af52-1",
+      "text": "I'd like to order a take-out from the Indian restaurant.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-89bcd8f5-c9e4-4f76-bf4c-d4753154af52",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8fc0e2ba-cf02-449e-b5b5-c8e7be513887-10",
+      "text": "Yes, that's pretty much all that I'm looking for.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-8fc0e2ba-cf02-449e-b5b5-c8e7be513887",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "I found a restaurant nearby that serves Gyros, what type of Gyros did you want to order?"
+        },
+        {
+          "speaker": "USER",
+          "text": "I'm looking to order two gyros and a chicken and I'm also looking for one that is beef."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2f2d9e86-949a-45e7-b60e-60434c93050a-6",
+      "text": "That should be it. Thank you so much.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-2f2d9e86-949a-45e7-b60e-60434c93050a",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Correct."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9b81eac8-47b4-403b-a595-5a31a93770bd-11",
+      "text": "That would be everything.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-9b81eac8-47b4-403b-a595-5a31a93770bd",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Perfect, thank you."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-283321ca-20f3-49f1-a4f8-3aea84a36b43-17",
+      "text": "Byee.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-283321ca-20f3-49f1-a4f8-3aea84a36b43",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, I'll be there."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Thank you."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-aa9d6c13-54ff-4876-9440-05aabedfc99b-1",
+      "text": "Hi, I want to take an order for three people.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-aa9d6c13-54ff-4876-9440-05aabedfc99b",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-06800509-feaf-4411-a260-9a358abe5f32-12",
+      "text": "That's all I need.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-06800509-feaf-4411-a260-9a358abe5f32",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Correct."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Awesome."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-806539f6-ccd2-4a46-96e9-bf869766eeea-0",
+      "text": "Hi assistant.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-806539f6-ccd2-4a46-96e9-bf869766eeea",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-be4666ff-1015-44a4-8884-d31d99bfabdf-3",
+      "text": "I would like to order two orders of Lasagne.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-be4666ff-1015-44a4-8884-d31d99bfabdf",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi, I'd like to order take out for two people."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. What would you like to order?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-20e2a71d-9422-4acf-8913-c822f630f95a-0",
+      "text": "Hi Assistant. Can you help me with a takeout order from Casa Sanchez?",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-20e2a71d-9422-4acf-8913-c822f630f95a",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-bdc46fbc-2be6-455b-8c90-8230a71e894b-10",
+      "text": "And a large drink like a Coke or Pepsi, whichever one you got.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-bdc46fbc-2be6-455b-8c90-8230a71e894b",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "We have a salad with yogurt, onions and tomatoes."
+        },
+        {
+          "speaker": "USER",
+          "text": "Okay, That's fine."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8ba2e84f-4c28-498d-a792-43773d2fdde3-7",
+      "text": "No, that will be all.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-8ba2e84f-4c28-498d-a792-43773d2fdde3",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "2 Iced teas? Sure. I've added that to the order."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-f2d9c878-02f9-4f9c-8275-472e39cb062b-12",
+      "text": "That's Fettuccine Alfredo.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-f2d9c878-02f9-4f9c-8275-472e39cb062b",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay."
+        },
+        {
+          "speaker": "USER",
+          "text": "Do you want to read the order back to me?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-fca73c0d-8502-41ca-a2e9-0d6080078b7c-1",
+      "text": "Hi. I was wanting to order Greek takeout for three.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-fca73c0d-8502-41ca-a2e9-0d6080078b7c",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4581d074-8134-48c6-89b5-53e1a50405d4-8",
+      "text": "Great. I'll be there to pick it up.",
+      "domain": "food-ordering",
+      "conversation_id": "dlg-4581d074-8134-48c6-89b5-53e1a50405d4",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "That sounds right."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. I have your personal details on file. Your order will be ready for pick-up in about 20 minutes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-b4e77ef6-13fc-4e9a-b355-b0f34e38b083-23",
+      "text": "Can you book it now, please?",
+      "domain": "hotels",
+      "conversation_id": "dlg-b4e77ef6-13fc-4e9a-b355-b0f34e38b083",
+      "turn_index": 23,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Oh, I'll take that one instead."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, that one is $240 and night so I booked out for you now or do you want to hear more about your choice?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4dbd8f39-cc87-40ee-9615-f8de01bb9263-9",
+      "text": "people",
+      "domain": "hotels",
+      "conversation_id": "dlg-4dbd8f39-cc87-40ee-9615-f8de01bb9263",
+      "turn_index": 9,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay."
+        },
+        {
+          "speaker": "USER",
+          "text": "I would like for the reservation to have seven people."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-0958939d-418b-4784-89ac-2776747a9268-10",
+      "text": "I'd also like it to have free Wi-Fi, if at all possible.",
+      "domain": "hotels",
+      "conversation_id": "dlg-0958939d-418b-4784-89ac-2776747a9268",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Can I get a hotel that has a gym?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Sure."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7b028d80-e83a-4ad8-8f60-837608301d0c-12",
+      "text": "View of the water.",
+      "domain": "hotels",
+      "conversation_id": "dlg-7b028d80-e83a-4ad8-8f60-837608301d0c",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Free Wi-Fi."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-59753c08-75c8-45fc-bd4f-5494b9dbf048-22",
+      "text": "Yes, please.",
+      "domain": "hotels",
+      "conversation_id": "dlg-59753c08-75c8-45fc-bd4f-5494b9dbf048",
+      "turn_index": 22,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I would like a standard room please."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, perfect."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1aaf1d85-4fe8-413d-bb2e-399afb65aaf2-5",
+      "text": "I'd like a room with a balcony.",
+      "domain": "hotels",
+      "conversation_id": "dlg-1aaf1d85-4fe8-413d-bb2e-399afb65aaf2",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "In Nashville, Tennessee."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, what else can you tell me?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7399b05e-b40d-41d6-b7c9-170c34735df8-0",
+      "text": "Hi.",
+      "domain": "hotels",
+      "conversation_id": "dlg-7399b05e-b40d-41d6-b7c9-170c34735df8",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-52933937-1195-4ced-9ba7-c4e3373a9548-18",
+      "text": "Yes.",
+      "domain": "hotels",
+      "conversation_id": "dlg-52933937-1195-4ced-9ba7-c4e3373a9548",
+      "turn_index": 18,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "One second."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I found a hotel for you, It is called the Dauphine Orleans Hotel and goes for $229 a night. Would you like to know more about it?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-268a5787-6e4a-44dc-b3d5-ac3a2dba991c-1",
+      "text": "Hi, I need help with finding a hotel. I'm in Park City, Utah.",
+      "domain": "hotels",
+      "conversation_id": "dlg-268a5787-6e4a-44dc-b3d5-ac3a2dba991c",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-aaa6a6eb-1371-4400-9ed9-248013d1b6eb-15",
+      "text": "What about fireplace?",
+      "domain": "hotels",
+      "conversation_id": "dlg-aaa6a6eb-1371-4400-9ed9-248013d1b6eb",
+      "turn_index": 15,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, Do the Villas have a full kitchen?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Yes, The villas have a full kitchen."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-27674d50-a073-4ffa-b51b-1c22ad009a63-1",
+      "text": "I'd like to find a hotel in Park City, Utah.",
+      "domain": "hotels",
+      "conversation_id": "dlg-27674d50-a073-4ffa-b51b-1c22ad009a63",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-003fa5f0-3457-464b-b22b-e74194fe172a-17",
+      "text": "Okay.",
+      "domain": "hotels",
+      "conversation_id": "dlg-003fa5f0-3457-464b-b22b-e74194fe172a",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Let me help you in finding one."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I have found one for you."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-10663349-5e4c-4301-8099-39c78f3d7b28-3",
+      "text": "Yes, sure. I'd like to find a hotel room in St. Louis, Missouri, please.",
+      "domain": "hotels",
+      "conversation_id": "dlg-10663349-5e4c-4301-8099-39c78f3d7b28",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi. I'd like to find a hotel room in St. Louis, Missouri, please."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I did not hear you. Can you repeat yourself?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4cb16611-1d49-44e4-8e72-204f5ebdad17-23",
+      "text": "$100?",
+      "domain": "hotels",
+      "conversation_id": "dlg-4cb16611-1d49-44e4-8e72-204f5ebdad17",
+      "turn_index": 23,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, what about $90?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "None at $90 or less."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e86d1d42-0321-43da-96dc-ee58d44989a4-0",
+      "text": "Hi Assistant, I'd like help finding a hotel in West Palm Beach, Florida.",
+      "domain": "hotels",
+      "conversation_id": "dlg-e86d1d42-0321-43da-96dc-ee58d44989a4",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-45294aa8-d826-494b-aeb8-d36c74d39f65-2",
+      "text": "Hi. Could you help me in finding a hotel?",
+      "domain": "hotels",
+      "conversation_id": "dlg-45294aa8-d826-494b-aeb8-d36c74d39f65",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-43bfab70-b142-4e2f-bce0-2922e109bc24-7",
+      "text": "I would like a fitness room.",
+      "domain": "hotels",
+      "conversation_id": "dlg-43bfab70-b142-4e2f-bce0-2922e109bc24",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "No, just me."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Are there any special amenities you're looking for?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2e28d88a-fcf9-4996-a71c-e366c5dca768-17",
+      "text": "Yes.",
+      "domain": "hotels",
+      "conversation_id": "dlg-2e28d88a-fcf9-4996-a71c-e366c5dca768",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, I kind of want to sleep around that price range with a king size bed."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "You would like a suite with a king size bed?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e244d60c-b72e-48c3-a64d-b4cb2bd7bf61-0",
+      "text": "Hello.",
+      "domain": "hotels",
+      "conversation_id": "dlg-e244d60c-b72e-48c3-a64d-b4cb2bd7bf61",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-bd9d6f7b-5b7b-47bc-bc44-7be75a0b037a-21",
+      "text": "Okay, can you send me their address?",
+      "domain": "hotels",
+      "conversation_id": "dlg-bd9d6f7b-5b7b-47bc-bc44-7be75a0b037a",
+      "turn_index": 21,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Can you give me that?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "(650) 588-8500."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1ba47a2a-ee14-4be0-9a1f-f6f012a00301-27",
+      "text": "Thank you very much.",
+      "domain": "hotels",
+      "conversation_id": "dlg-1ba47a2a-ee14-4be0-9a1f-f6f012a00301",
+      "turn_index": 27,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "No, That's all."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I will send you the confirmation via email. Enjoy your stay."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5cbda3db-c67c-4f73-809c-7589d6baf744-6",
+      "text": "$150 a night.",
+      "domain": "hotels",
+      "conversation_id": "dlg-5cbda3db-c67c-4f73-809c-7589d6baf744",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "At least four stars."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Do you have a price limit?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91-8",
+      "text": "I need the room to be $300 and night or even less.",
+      "domain": "hotels",
+      "conversation_id": "dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Do you have any requirements for this hotel?"
+        },
+        {
+          "speaker": "USER",
+          "text": "Yes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-a8bebb6d-17a1-46a6-b2ef-ecce0449db08-26",
+      "text": "Candlewood Suites.",
+      "domain": "hotels",
+      "conversation_id": "dlg-a8bebb6d-17a1-46a6-b2ef-ecce0449db08",
+      "turn_index": 26,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Those are the options."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Which one do you want?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-60d857aa-d700-4be8-ac55-f0862fcb3429-6",
+      "text": "Any hotel that is $300 or less.",
+      "domain": "hotels",
+      "conversation_id": "dlg-60d857aa-d700-4be8-ac55-f0862fcb3429",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "This coming Sunday."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, do you have any preference for hotels?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9e982317-3ac5-4ec3-8e60-1aff1072d818-19",
+      "text": "Okay. Thank you so much. Bye.",
+      "domain": "hotels",
+      "conversation_id": "dlg-9e982317-3ac5-4ec3-8e60-1aff1072d818",
+      "turn_index": 19,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay. I will book the Clarion. What are the price ranges?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Price range is around $25 per person."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c9e8f356-581f-4650-8d5c-73d5eaf86aaf-12",
+      "text": "I would like to have at least a 4-star rating",
+      "domain": "hotels",
+      "conversation_id": "dlg-c9e8f356-581f-4650-8d5c-73d5eaf86aaf",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Did you have a hotel class preference?"
+        },
+        {
+          "speaker": "USER",
+          "text": "I would like it to have at least a four start rating."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-fc949fd8-e98f-4a76-a124-96c7b205b536-29",
+      "text": "All right, great. Thank you.",
+      "domain": "hotels",
+      "conversation_id": "dlg-fc949fd8-e98f-4a76-a124-96c7b205b536",
+      "turn_index": 29,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "All right, that sound good."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Your all set."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-bdcaa7a9-bf26-450f-af66-5deda465ac0a-2",
+      "text": "I'm looking to stay from March 25th to the 27th. The price range is to be under $200.",
+      "domain": "hotels",
+      "conversation_id": "dlg-bdcaa7a9-bf26-450f-af66-5deda465ac0a",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'd like help finding a hotel in Nashville, Tennessee."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello, I can help you with that. What else can you tell me?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c5ec8a76-f792-4b12-8d5a-833b22a7dfee-7",
+      "text": "I'm interested in Justice League. What time is it playing?",
+      "domain": "movies",
+      "conversation_id": "dlg-c5ec8a76-f792-4b12-8d5a-833b22a7dfee",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I want to see something that was an action movie kind of fantasy."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I have Thor Ragnarok, Justice League, A Bad Moms and Christmas."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ae29eada-5981-4f9e-8f86-3d3f49f5ead2-10",
+      "text": "Okay, we'll do the 10:00 pm one then.",
+      "domain": "movies",
+      "conversation_id": "dlg-ae29eada-5981-4f9e-8f86-3d3f49f5ead2",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, that's pretty good. What time is it showing?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "4:55 pm or 7:00 pm or 10:00 pm."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ae253531-eb06-4c4b-a329-268daf80734e-6",
+      "text": "Do you have anything with the director John Woo? Something similar to Jason Bourne?",
+      "domain": "movies",
+      "conversation_id": "dlg-ae253531-eb06-4c4b-a329-268daf80734e",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Sure, let me find some action films with Matt Damon."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here are a few : The Martian, The Bourne Identity, The Departed, Elysium or Green Zone."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6184aff0-3415-40a5-b9e4-a3fdbc57dd5f-6",
+      "text": "Dunkirk sounds amazing. Could I see a trailer for that, Please?",
+      "domain": "movies",
+      "conversation_id": "dlg-6184aff0-3415-40a5-b9e4-a3fdbc57dd5f",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "One second. How about Dunkirk or kidnapped or Atomic blonde."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How about Dunkirk or kidnapped or Atomic blonde."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-562a9fd2-08c0-4e4f-a008-c34962ee504e-12",
+      "text": "Excuse me, I didn't quite catch that.",
+      "domain": "movies",
+      "conversation_id": "dlg-562a9fd2-08c0-4e4f-a008-c34962ee504e",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, checking."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Elysium."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-d70a2803-dd5a-4853-b69f-459c494624bf-10",
+      "text": "I'd like the movie theater to be within 20 minutes.",
+      "domain": "movies",
+      "conversation_id": "dlg-d70a2803-dd5a-4853-b69f-459c494624bf",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I want it to be within 20 minutes distance from me."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Could you say that again?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1643ee4c-eced-453a-a621-7dc6b8adf7f8-5",
+      "text": "No.",
+      "domain": "movies",
+      "conversation_id": "dlg-1643ee4c-eced-453a-a621-7dc6b8adf7f8",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'd love a drama directed by a woman."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Sure. Anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-14bdaf4e-9a25-4c24-8689-b0f31d8906a1-10",
+      "text": "Let's do Blade Runner.",
+      "domain": "movies",
+      "conversation_id": "dlg-14bdaf4e-9a25-4c24-8689-b0f31d8906a1",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Give me a moment."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Found two movies meeting your criteria. The first is Thor Ragnarok playing at 6:45 and the second is Blade Runner playing at 6:30."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5637b5dc-8768-46a7-b00a-8a8018b50208-13",
+      "text": "Okay, that sounds great. Thank you so much for your help. Bye-bye.",
+      "domain": "movies",
+      "conversation_id": "dlg-5637b5dc-8768-46a7-b00a-8a8018b50208",
+      "turn_index": 13,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hold on just a second."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The ticket prices 13.25 each."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-49d22f7b-0aff-4df8-9e00-449d4e3063f4-4",
+      "text": "I'm looking for a comedy.",
+      "domain": "movies",
+      "conversation_id": "dlg-49d22f7b-0aff-4df8-9e00-449d4e3063f4",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'm looking for a movie time at 7:00 PM about 10 to 15 miles from my home."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "7 PM and to be 10 to 15 miles from your home, okay what else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-32b609e7-4418-499f-8eeb-d9d9c00fc4bd-12",
+      "text": "I like it. Thank you.",
+      "domain": "movies",
+      "conversation_id": "dlg-32b609e7-4418-499f-8eeb-d9d9c00fc4bd",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I think, I'll go ahead and watch the trailer first."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-71c409c6-0dd8-45c2-b62f-13fe8ee44bc1-1",
+      "text": "Hi, I'd like help finding a movie to go see by myself.",
+      "domain": "movies",
+      "conversation_id": "dlg-71c409c6-0dd8-45c2-b62f-13fe8ee44bc1",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello, How may I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9f36e6f1-a048-43d1-aecc-98bd6bcbd323-5",
+      "text": "Top three IMDb ratings, please.",
+      "domain": "movies",
+      "conversation_id": "dlg-9f36e6f1-a048-43d1-aecc-98bd6bcbd323",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Comedy."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "So I found a couple of movies, do you want me to list them by the top 3 ratings?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-96d7a641-2411-4110-a5c7-c341b0b99fe1-11",
+      "text": "Yeah, that will be fine. I'll go ahead and rent that then. Thank you.",
+      "domain": "movies",
+      "conversation_id": "dlg-96d7a641-2411-4110-a5c7-c341b0b99fe1",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "That's pretty awesome. What's the price?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "$4.99."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ba0dad23-e715-4899-9344-d6de846304c4-20",
+      "text": "That'll be great. Thank you.",
+      "domain": "movies",
+      "conversation_id": "dlg-ba0dad23-e715-4899-9344-d6de846304c4",
+      "turn_index": 20,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Great, thank you so much for checking."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Would you like me to provide you with the show timings?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-81822d7f-4644-423d-8d6a-e54dd7003ffe-10",
+      "text": "Seems good.",
+      "domain": "movies",
+      "conversation_id": "dlg-81822d7f-4644-423d-8d6a-e54dd7003ffe",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here's the trailer for Finding Nemo."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "What do you think?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-98794f21-abde-4719-ab45-8fab96fa7729-3",
+      "text": "I'd like to watch it on YouTube.",
+      "domain": "movies",
+      "conversation_id": "dlg-98794f21-abde-4719-ab45-8fab96fa7729",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, I can help you with your movie search."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4eb40d45-c828-4951-bc04-ccc10859c7f6-15",
+      "text": "Thank you.",
+      "domain": "movies",
+      "conversation_id": "dlg-4eb40d45-c828-4951-bc04-ccc10859c7f6",
+      "turn_index": 15,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Let me see the trailer for Hunt for the Wilderpeople."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Here is the trailer for the movie Hunt for the Wilderpeople. Go through with that."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-86fcb4d2-b4a8-4965-a977-ac8b769226c9-0",
+      "text": "I'd like help finding a movie to see with my spouse, significant other, my girlfriend.",
+      "domain": "movies",
+      "conversation_id": "dlg-86fcb4d2-b4a8-4965-a977-ac8b769226c9",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5d6f9292-1874-4640-b4cf-86a1514afe79-18",
+      "text": "Who are the actors in the movie?",
+      "domain": "movies",
+      "conversation_id": "dlg-5d6f9292-1874-4640-b4cf-86a1514afe79",
+      "turn_index": 18,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "A Dog's Purpose has a 3.7 out of 10 on IMDb. And a 34% on Rotten tomatoes."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "And a 34% on Rotten tomatoes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1c1c6f4e-4418-485b-b405-3a3b7024c7da-12",
+      "text": "I think, I'm fine with that.",
+      "domain": "movies",
+      "conversation_id": "dlg-1c1c6f4e-4418-485b-b405-3a3b7024c7da",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay. That sounds pretty interesting, like there's some action in that one."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Would you like to see a trailer?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2c799ac3-3b91-4159-b41e-782022f71128-32",
+      "text": "Thank you. Good-bye.",
+      "domain": "movies",
+      "conversation_id": "dlg-2c799ac3-3b91-4159-b41e-782022f71128",
+      "turn_index": 32,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, great."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Enjoy your movie."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-d7d2459c-6f2f-427a-8cc5-e582a19f547b-11",
+      "text": "Well, I like a good rating on Rotten Tomatoes, at least 70.",
+      "domain": "movies",
+      "conversation_id": "dlg-d7d2459c-6f2f-427a-8cc5-e582a19f547b",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I just want to be entertained under 12 bucks."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Alright, anything else?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "text": "Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "domain": "movies",
+      "conversation_id": "dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'm looking to see a comedy, please."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, comedy."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9b947161-bd10-430c-92af-a1fc8bd317df-13",
+      "text": "Yes.",
+      "domain": "movies",
+      "conversation_id": "dlg-9b947161-bd10-430c-92af-a1fc8bd317df",
+      "turn_index": 13,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Philadelphia."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Did you mean to say Sunnyvale?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-b2a9e2fe-07e5-4d86-a5fd-02c4517c7317-27",
+      "text": "Okay. That works.",
+      "domain": "movies",
+      "conversation_id": "dlg-b2a9e2fe-07e5-4d86-a5fd-02c4517c7317",
+      "turn_index": 27,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Where is Century 9?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "It's on Market st."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-d9088287-1f6a-4abc-9380-6389ff19ee3e-2",
+      "text": "I'm looking for some suggestions to rent a movie to watch at home in the animation category.",
+      "domain": "movies",
+      "conversation_id": "dlg-d9088287-1f6a-4abc-9380-6389ff19ee3e",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hello."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-87602aec-4f3f-4d76-a5ce-8d4b59d41b09-14",
+      "text": "7:40 p.m.",
+      "domain": "movies",
+      "conversation_id": "dlg-87602aec-4f3f-4d76-a5ce-8d4b59d41b09",
+      "turn_index": 14,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yes at 5:00 p.m."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The movie is playing at 4:45 p.m or 7:40 p.m. Which one fits you better?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-bbd13f84-2dc7-4575-8254-b9d29814f799-3",
+      "text": "I'm in Huntsville, Alabama.",
+      "domain": "movies",
+      "conversation_id": "dlg-bbd13f84-2dc7-4575-8254-b9d29814f799",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi, I'm looking to find a movie that I could go out and see tonight."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Perfect, where are you located?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-95ac6c50-6f00-4f85-ba73-8407100472b8-5",
+      "text": "Yes, that's correct.",
+      "domain": "music",
+      "conversation_id": "dlg-95ac6c50-6f00-4f85-ba73-8407100472b8",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Can you help me?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "You said you would like to hear some music by Katy Perry?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-300b8cd6-d683-4493-8a9d-96b4b4ccdbaa-22",
+      "text": "Thanks. You, too.",
+      "domain": "music",
+      "conversation_id": "dlg-300b8cd6-d683-4493-8a9d-96b4b4ccdbaa",
+      "turn_index": 22,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Bingo. That was upbeat. That's kind of what I'm looking for. Thank you for your help."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Perfect, glad I could help. Have a great day!"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-19f2f595-404b-421d-9dd9-0d730387f6a3-12",
+      "text": "Maybe a number one hit.",
+      "domain": "music",
+      "conversation_id": "dlg-19f2f595-404b-421d-9dd9-0d730387f6a3",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I like this track. Can you play another one with a faster tempo but the same band?"
+        },
+        {
+          "speaker": "USER",
+          "text": "Is that possible, you can play another one with a faster tempo but the same band?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0-14",
+      "text": "No, I haven't heard of Guster. Can you play Guster, please?",
+      "domain": "music",
+      "conversation_id": "dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0",
+      "turn_index": 14,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "How about The Fray?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "And How about Guster?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8fd94892-0bcd-4b5d-ae31-4f07a8043f87-1",
+      "text": "I would like to hear something from Paul Simon, Please.",
+      "domain": "music",
+      "conversation_id": "dlg-8fd94892-0bcd-4b5d-ae31-4f07a8043f87",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-29083eda-dcf8-45aa-a35f-bf2b135ef467-14",
+      "text": "I definitely learned something new there. Okay. How about something that's like a modern jazz? Do you have something like that?",
+      "domain": "music",
+      "conversation_id": "dlg-29083eda-dcf8-45aa-a35f-bf2b135ef467",
+      "turn_index": 14,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here's Alice Coltrane ft. Pharoah Sanders - Journey In Satchidananda."
+        },
+        {
+          "speaker": "USER",
+          "text": "Okay. Cool. Let's check this out."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-404a632e-e892-49e2-a0af-b216f4e95fde-7",
+      "text": "This is one of my favorite songs. It's a really good song. Okay, I'm finished.",
+      "domain": "music",
+      "conversation_id": "dlg-404a632e-e892-49e2-a0af-b216f4e95fde",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I don't like this track. Please play New York State of Mind."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Nas New York State of Mind."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1eda109e-3122-4876-94cb-0eecc56ca8bb-1",
+      "text": "I'd like help browsing the music by Norah Jones, please.",
+      "domain": "music",
+      "conversation_id": "dlg-1eda109e-3122-4876-94cb-0eecc56ca8bb",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello. How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-526604f0-253d-4a99-ae5e-b4d4a771534a-17",
+      "text": "Thank you. I like that last one a lot. That's my favorite.",
+      "domain": "music",
+      "conversation_id": "dlg-526604f0-253d-4a99-ae5e-b4d4a771534a",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "One moment."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is Beethoven performed by Oregon conserto."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-88914db0-c121-457f-8993-e1572354121d-10",
+      "text": "Pretty cool.",
+      "domain": "music",
+      "conversation_id": "dlg-88914db0-c121-457f-8993-e1572354121d",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, I'll check that out."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is the video."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-3aa3ce59-95a0-4d9a-a795-287b761583ed-6",
+      "text": "This song is okay. Show me music from a different album.",
+      "domain": "music",
+      "conversation_id": "dlg-3aa3ce59-95a0-4d9a-a795-287b761583ed",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "This is a good song. Show me newer music by Katy Perry."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Katy Perry - Hey Hey Hey."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c-8",
+      "text": "Yeah, could you literary find a version of this, maybe by a modern band or something like a cover?",
+      "domain": "music",
+      "conversation_id": "dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Maybe a band that's doing a cover of this. Maybe something that's kind of a lot nearer like a modern version."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "I am sorry, would you repeat that?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4becba0b-d435-43db-b807-6230b134e4a9-10",
+      "text": "How about another similar artist?",
+      "domain": "music",
+      "conversation_id": "dlg-4becba0b-d435-43db-b807-6230b134e4a9",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "How about a similar song by a different artist?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Here is \"Hey Jude\" performed by Memory Key."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-0f5275e8-a168-4aef-a4ec-731d6152a02d-17",
+      "text": "Okay.",
+      "domain": "music",
+      "conversation_id": "dlg-0f5275e8-a168-4aef-a4ec-731d6152a02d",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Let me check that for you."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How about the song Winter Winds by Mumford & Sons?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-552eb93e-e69f-43b3-8bc0-d891ce73f1eb-7",
+      "text": "I'll go with that one.",
+      "domain": "music",
+      "conversation_id": "dlg-552eb93e-e69f-43b3-8bc0-d891ce73f1eb",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I was thinking Barren Earth."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How about the song Set Alight by Barren Earth?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-d036b4dc-ab6a-497f-8bd1-c8082a37a22d-8",
+      "text": "Great.",
+      "domain": "music",
+      "conversation_id": "dlg-d036b4dc-ab6a-497f-8bd1-c8082a37a22d",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Could you play some music?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, here is the video."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-18f98bf1-c6a4-4012-90c6-66c1350bec09-7",
+      "text": "No.",
+      "domain": "music",
+      "conversation_id": "dlg-18f98bf1-c6a4-4012-90c6-66c1350bec09",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "One moment while I search. Thank you for waiting."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is your song. Is there anything else that I can help you with?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-23a11c1f-5bf6-4075-93e5-de1e5bc70c22-14",
+      "text": "Cool. Now I'd like to hear another song by Pretty Lights. It's called Stay.",
+      "domain": "music",
+      "conversation_id": "dlg-23a11c1f-5bf6-4075-93e5-de1e5bc70c22",
+      "turn_index": 14,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Awesome. I'm glad you could find that one."
+        },
+        {
+          "speaker": "USER",
+          "text": "It's one of my favorite ones. It's just got a very good atmosphere in it."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6b1678d2-dd45-4749-9c2b-3f114e28c655-3",
+      "text": "D u a l i p a.",
+      "domain": "music",
+      "conversation_id": "dlg-6b1678d2-dd45-4749-9c2b-3f114e28c655",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi. Can you play me a song by Dua Lipa?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Can you help me spell that name?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "text": "This one's got a really good melody to it. It's pretty emotional with how he wrote the acoustics. Listening to this when I was going through some stuff with a breakup that I had, so pretty good song, so awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy.",
+      "domain": "music",
+      "conversation_id": "dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "This is a pretty good album that he made, Animal Magic. Pretty good for doing chores, studying. Really solid stuff.Great. Now, I'd like to hear another song by Bonobo. It's called Terrapin."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is your song."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-6b2363c7-04b2-450e-9fa8-45883d191355-8",
+      "text": "Yeah, I used to love dancing to that song in the 80s. Great song. Okay. That's about it. Have a nice day. Bye-bye.",
+      "domain": "music",
+      "conversation_id": "dlg-6b2363c7-04b2-450e-9fa8-45883d191355",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is THE BEE GEES - NIGHT FEVER."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Enjoy."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-a6a2d953-fd3b-4c0d-b0a3-ee1dfa95126a-0",
+      "text": "I'd like to hear some music by Katy Perry.",
+      "domain": "music",
+      "conversation_id": "dlg-a6a2d953-fd3b-4c0d-b0a3-ee1dfa95126a",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8c1c062e-a41c-4e99-bfe8-274fe1e9fe6d-8",
+      "text": "Pretty good lyrics too. Now, I like to hear one song by Oasis. It's called Some Might Say.",
+      "domain": "music",
+      "conversation_id": "dlg-8c1c062e-a41c-4e99-bfe8-274fe1e9fe6d",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Thank you."
+        },
+        {
+          "speaker": "USER",
+          "text": "I like this album."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-46c17d9e-9c8b-4fb4-9e98-0b6c2a6e24b8-12",
+      "text": "Hey, that was really good. I especially like that last one.",
+      "domain": "music",
+      "conversation_id": "dlg-46c17d9e-9c8b-4fb4-9e98-0b6c2a6e24b8",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Let me try. Here is something I found called Lost At Sea II by Idea Fire Company."
+        },
+        {
+          "speaker": "USER",
+          "text": "Okay."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ea38e639-9468-4105-bbb4-37714b637b76-1",
+      "text": "Hi. I'd like to hear some latest music, please.",
+      "domain": "music",
+      "conversation_id": "dlg-ea38e639-9468-4105-bbb4-37714b637b76",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello, how can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-25580a6e-a44e-4d35-b892-c29861c80c76-4",
+      "text": "Okay. Could you play me a different artist?",
+      "domain": "music",
+      "conversation_id": "dlg-25580a6e-a44e-4d35-b892-c29861c80c76",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "No, play me a song by her."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Here is your song. A Thousand Miles by Vanessa Carlton."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7add8128-80d2-44c0-a21a-d16fce4eea15-1",
+      "text": "Play some classical music.",
+      "domain": "music",
+      "conversation_id": "dlg-7add8128-80d2-44c0-a21a-d16fce4eea15",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello. How may I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-dd2ae182-c708-40e7-a0f8-9955e4fee539-0",
+      "text": "Hi, can you play some Jazz music?",
+      "domain": "music",
+      "conversation_id": "dlg-dd2ae182-c708-40e7-a0f8-9955e4fee539",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-93a75eb1-0b60-41ba-9a2a-78c191a79bac-13",
+      "text": "What about number three?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-93a75eb1-0b60-41ba-9a2a-78c191a79bac",
+      "turn_index": 13,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Tell me more about The Sandwich Spot?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The Sandwich Spot. Regional chain known for original, cheekily named sandwiches plus a build-your-own option & salads.​"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ff86e20a-6d90-45e8-9e00-b36a0daae48a-6",
+      "text": "At least four stars.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-ff86e20a-6d90-45e8-9e00-b36a0daae48a",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "American."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Do you prefer any restaurant ratings?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-57fc0d2e-0c45-4e38-ba71-145bc1080fd7-2",
+      "text": "What should I do for dinner tonight?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-57fc0d2e-0c45-4e38-ba71-145bc1080fd7",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello,"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-387898bb-5340-468f-9023-28ea9032c6d0-17",
+      "text": "Yes, thank you.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-387898bb-5340-468f-9023-28ea9032c6d0",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, great!"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, great! Would you like me to make a reservation for you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "text": "Hi, I'm going to Four Hills, California this Saturday afternoon, and I'm looking for somewhere to eat there.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ba24d1d4-d45a-4d98-aff0-61e74034cc57-7",
+      "text": "And how long a drive is it from Fairfield, California to the restaurant?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-ba24d1d4-d45a-4d98-aff0-61e74034cc57",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Are there any vegetation dishes?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Yes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-4e6855f3-23ac-4380-9cda-ca49e008a172-17",
+      "text": "Thank you.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-4e6855f3-23ac-4380-9cda-ca49e008a172",
+      "turn_index": 17,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "The second one sounds nice."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, it's on 232, Lyell ave."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-800f28c2-f9a2-4fb6-b2e4-1faf0c3de29c-6",
+      "text": "Italian.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-800f28c2-f9a2-4fb6-b2e4-1faf0c3de29c",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yeah, are there any Italian restaurants?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "What are you looking for in food?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-00c553ec-8e97-4a9a-83f0-544b66d83491-9",
+      "text": "How long is the drive from Santa Rosa, California to this restaurant?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-00c553ec-8e97-4a9a-83f0-544b66d83491",
+      "turn_index": 9,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Do they have vegetarian options?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Yes, they have vegetarian options."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "text": "I'd like like a certain special like three-course dinner or four-course dinner. Something like that is a special and I want the atmosphere to be really quiet, romantic, candle-light kind.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "It's going to be me and my girlfriend. So, I want it to be kind of formal and romantic."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Alright. Is that it?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-b3395c11-8886-4edd-b71c-8139d0edfc31-5",
+      "text": "Right now, I'm in Davis, California and that's where I plan on eating.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-b3395c11-8886-4edd-b71c-8139d0edfc31",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I am really dying for some pizza and I need pizza by the slice."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "What city are you looking?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8701ea0c-46a5-457e-b1b9-e1df5f0b42bd-8",
+      "text": "I'm also looking for somewhere inexpensive that has takeout service.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-8701ea0c-46a5-457e-b1b9-e1df5f0b42bd",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yes. Well, dessert."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Awesome!"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ab1329a8-af59-44c4-9a18-09557d39310c-2",
+      "text": "I live in Rochester, New York.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-ab1329a8-af59-44c4-9a18-09557d39310c",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hello. I'd like help finding a restaurant."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hello. Okay where would you like to eat?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-12f8c2bf-3ac9-4bbc-a810-901757cec16c-3",
+      "text": "Well, somewhere near Downtown with an outdoor seating, please.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-12f8c2bf-3ac9-4bbc-a810-901757cec16c",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay. Thai food in Boise Idaho, sure thing."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Do you have any preferences on what kind of restaurant you would like?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e0d5d6a3-0dc8-41d8-a5e0-70170bc7f0fc-6",
+      "text": "Does the Seasons take reservations?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-e0d5d6a3-0dc8-41d8-a5e0-70170bc7f0fc",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Is the Seasons open on Sundays for dinner?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Yes, they are open on Sunday from 5 pm to 8 pm for dinner."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-22b89f3a-fd1a-4f57-aabc-770c4d69d602-15",
+      "text": "Bye-bye.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-22b89f3a-fd1a-4f57-aabc-770c4d69d602",
+      "turn_index": 15,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Thank you so much."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Take care."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-75296566-f3c5-4548-a079-43530458d11f-7",
+      "text": "Charlotte, North Carolina",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-75296566-f3c5-4548-a079-43530458d11f",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Mexico."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Where are you located?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2bfeae92-8fca-47d0-97d8-4ad4625d8ffc-6",
+      "text": "And are there any hotel accommodations nearby within walking distance?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-2bfeae92-8fca-47d0-97d8-4ad4625d8ffc",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Do they have any vegetarian options on their menu?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They do have vegetarian options."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-69b4fa3a-f4b6-4aa1-8ce9-5adf650cf8b5-25",
+      "text": "Goodbye, Thank you.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-69b4fa3a-f4b6-4aa1-8ce9-5adf650cf8b5",
+      "turn_index": 25,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Alright. Enjoy your meal at Stiles Switch, goodbye."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Enjoy your meal at Stiles Switch, goodbye."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2845ff4e-a607-4208-bb68-1446d841401f-9",
+      "text": "Thank you. Can you tell me how long the drive is from Fairfield, California to the restaurant?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-2845ff4e-a607-4208-bb68-1446d841401f",
+      "turn_index": 9,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They offered Caesar the wedge and pickled beet."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c89f57f3-cdba-4351-8992-5f290281e48b-13",
+      "text": "Okay, perfect. That's all I need right now, thank you so much.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-c89f57f3-cdba-4351-8992-5f290281e48b",
+      "turn_index": 13,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, could you give me driving instructions from Santa Rosa to this restaurant?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The drive is about 2 hours 8 minutes."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-30065f74-1642-45ad-93dd-ff2ea34e0e78-28",
+      "text": "Okay.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-30065f74-1642-45ad-93dd-ff2ea34e0e78",
+      "turn_index": 28,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Can you repeat them?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The special at the Mexcaleria Oaxaca is the house burrito."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-14f17bf4-cb95-4139-a43f-b8650a4eff61-0",
+      "text": "Hi, I'd like help finding a restaurant in Arcata, California.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-14f17bf4-cb95-4139-a43f-b8650a4eff61",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-85f097df-94da-4d72-8e20-f7f3eabc26c7-4",
+      "text": "Does Cafe Beaujolais take reservations?",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-85f097df-94da-4d72-8e20-f7f3eabc26c7",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "When Cafe Beaujolais are open for dinner this Sunday?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They open from 5:30 to 9:30 PM."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-1e18db27-c008-481a-874d-d382ce459e4d-3",
+      "text": "Davis, California.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-1e18db27-c008-481a-874d-d382ce459e4d",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I would like to find a nice restaurant for dinner."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay, where are you located?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-71509a66-1c66-45b1-b5a6-298443f1aabc-9",
+      "text": "No, Don't you freaking",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-71509a66-1c66-45b1-b5a6-298443f1aabc",
+      "turn_index": 9,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Sounds great. Do they have any vegetarian options?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Just a moment. They have Mixed Baby Lettuces, Marinated Heirloom Tomatoes, Petrale Sole."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-96f2d9f1-e535-4059-b095-7412ec98969c-10",
+      "text": "I'm downtown and I'd prefer it to be.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-96f2d9f1-e535-4059-b095-7412ec98969c",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Yes."
+        },
+        {
+          "speaker": "USER",
+          "text": "And then I'd prefer it to be downtown."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-bd2f21a7-c2b3-49a5-a820-e15ab3d466cb-4",
+      "text": "And, I would also like it to be a sit-down restaurant.",
+      "domain": "restaurant-search",
+      "conversation_id": "dlg-bd2f21a7-c2b3-49a5-a820-e15ab3d466cb",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "I'd like Chinese food."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Okay."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5198e121-c857-4df8-9642-87de4e1b382b-8",
+      "text": "How did AFC Bournemouth do in their last game?",
+      "domain": "sports",
+      "conversation_id": "dlg-5198e121-c857-4df8-9642-87de4e1b382b",
+      "turn_index": 8,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Who will AFC Bournemouth play against next?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Their next match is against Watford on August 19th."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-a0ee0439-fb1a-4e6a-a57b-c371123adda5-7",
+      "text": "Thanks. Can you tell me who their goalkeeper is?",
+      "domain": "sports",
+      "conversation_id": "dlg-a0ee0439-fb1a-4e6a-a57b-c371123adda5",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Who did they played last?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Their last game played was on August 26th against Manchester City and they lost the game with score of 2 - 1."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-af7226f8-4e70-4f55-8d11-a13fd2528280-3",
+      "text": "Which team between Everton and Newcastle United has a better win-loss record?",
+      "domain": "sports",
+      "conversation_id": "dlg-af7226f8-4e70-4f55-8d11-a13fd2528280",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Hi, I need help comparing Everton and Newcastle United. Can you help me out, please?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Absolutely, What information do you need?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-2a26dbcf-3e78-4c18-b3fb-017682773ab1-9",
+      "text": "And who is their manager?",
+      "domain": "sports",
+      "conversation_id": "dlg-2a26dbcf-3e78-4c18-b3fb-017682773ab1",
+      "turn_index": 9,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "And, what was the score in their last game?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "In Liverpool's last game against Manchester City Liverpool lost 5-0."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "text": "Who starts at small forward for the Dallas Mavericks?",
+      "domain": "sports",
+      "conversation_id": "dlg-5a45324e-8321-421e-aa91-419424f0b053",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "How did the Dallas Mavericks do in their last game?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They won against the Nuggets with a score of 118 to 107."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c3daca15-9dc2-456f-9eea-2199f7103330-7",
+      "text": "Okay, thank you. And how did they do in their last game?",
+      "domain": "sports",
+      "conversation_id": "dlg-c3daca15-9dc2-456f-9eea-2199f7103330",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Thank you. And who will they be playing next week?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The next game is against the New York Giants."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e9de0923-c83e-44ac-a10a-ba70a9b49382-3",
+      "text": "Do you know if they are playing right now?",
+      "domain": "sports",
+      "conversation_id": "dlg-e9de0923-c83e-44ac-a10a-ba70a9b49382",
+      "turn_index": 3,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how can I help you?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They are currently in sixth place with six wins and add 6 losses."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c8316d25-2527-4c36-8276-6ddf546c417a-7",
+      "text": "No problem, when did they play last?",
+      "domain": "sports",
+      "conversation_id": "dlg-c8316d25-2527-4c36-8276-6ddf546c417a",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Did they play on June 18th?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They did not play on June 18th."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-8e1feb6b-a4ed-48ea-9f4e-b0388703d083-5",
+      "text": "Oh cool, how did they do in their last game?",
+      "domain": "sports",
+      "conversation_id": "dlg-8e1feb6b-a4ed-48ea-9f4e-b0388703d083",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay. Who did they played against last Sunday?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The Rays played against the Yankees last Sunday and they won by 7 to 6."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-f519d305-ece9-4d78-896c-8bef9a180710-12",
+      "text": "Okay. Thank you.",
+      "domain": "sports",
+      "conversation_id": "dlg-f519d305-ece9-4d78-896c-8bef9a180710",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay, And who's their goalkeeper?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Starting goalkeeper for Crystal Palace is Wayne Hennessey."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ab5eecee-3211-4d97-8daf-fe27ad028e8d-5",
+      "text": "Who did they play last Saturday?",
+      "domain": "sports",
+      "conversation_id": "dlg-ab5eecee-3211-4d97-8daf-fe27ad028e8d",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Are they playing right now?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "No, they're not scheduled to play today."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7e92b7aa-abd0-44e5-ab44-4b6c4934d2bc-7",
+      "text": "Thank you.",
+      "domain": "sports",
+      "conversation_id": "dlg-7e92b7aa-abd0-44e5-ab44-4b6c4934d2bc",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Oh, Okay. At what time are they playing today?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The game starts at 8 p.m."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7963cb0e-c004-446f-8bd5-8180a185db75-4",
+      "text": "Who will they play against next week?",
+      "domain": "sports",
+      "conversation_id": "dlg-7963cb0e-c004-446f-8bd5-8180a185db75",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "What conference are they in?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They are in the Eastern Conference in the Central Division."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c2c26cde-0782-4943-b476-ff62b7151e2c-2",
+      "text": "Hi assistant, how's the going today?",
+      "domain": "sports",
+      "conversation_id": "dlg-c2c26cde-0782-4943-b476-ff62b7151e2c",
+      "turn_index": 2,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi user."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c7df748e-179c-4d99-b75e-eb89f11aad34-5",
+      "text": "Are the Whitecaps playing right now?",
+      "domain": "sports",
+      "conversation_id": "dlg-c7df748e-179c-4d99-b75e-eb89f11aad34",
+      "turn_index": 5,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hold on just a second."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "The Vancouver Whitecaps FC has a record of nine wins, eight losses and three ties."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-76fe8d70-dd8d-49dc-9a8e-c8ef28480dbe-11",
+      "text": "Awesome, thank you. That's all I needed.",
+      "domain": "sports",
+      "conversation_id": "dlg-76fe8d70-dd8d-49dc-9a8e-c8ef28480dbe",
+      "turn_index": 11,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Who is their goalkeeper?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Shawn Johnson is their goalkeeper."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-661dcfed-ec28-4d22-a299-d0607b0b2273-1",
+      "text": "Hello. Milwaukee Brewers, what game did they played last?",
+      "domain": "sports",
+      "conversation_id": "dlg-661dcfed-ec28-4d22-a299-d0607b0b2273",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi. How can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-d04d450a-696b-4b9c-99c2-97787cfd0f42-12",
+      "text": "Oh, okay, cool. That's all I need to know.",
+      "domain": "sports",
+      "conversation_id": "dlg-d04d450a-696b-4b9c-99c2-97787cfd0f42",
+      "turn_index": 12,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Who is their coach?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Their coach is Kenny Atkinson."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-550e888a-e647-4090-8a6b-d7f7401f63e3-4",
+      "text": "Is Swansea City playing right now?",
+      "domain": "sports",
+      "conversation_id": "dlg-550e888a-e647-4090-8a6b-d7f7401f63e3",
+      "turn_index": 4,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "What place is Swansea City in?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Swansea City is currently in the 13th Place with one win and one loss."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-e6b522c2-f837-44b0-9aba-82bcdff1a597-0",
+      "text": "Hi.",
+      "domain": "sports",
+      "conversation_id": "dlg-e6b522c2-f837-44b0-9aba-82bcdff1a597",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "text": "Who did the LA Rams play last? With whom they are going to play next week?",
+      "domain": "sports",
+      "conversation_id": "dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "They're in the West division of the National Football Conference."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "Last week they played against the New York Giants. Next week they're playing against the Minnesota Vikings."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-c0d13021-90d7-4dc6-a4b8-2313dfe7fe2e-7",
+      "text": "Do you know how that rival club is doing?",
+      "domain": "sports",
+      "conversation_id": "dlg-c0d13021-90d7-4dc6-a4b8-2313dfe7fe2e",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "4 wins and 5 losses."
+        },
+        {
+          "speaker": "USER",
+          "text": "Not too great. They're not doing too great this season, sounds like."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a-10",
+      "text": "Okay. And who is Stoke City's manager?",
+      "domain": "sports",
+      "conversation_id": "dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a",
+      "turn_index": 10,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay. And what was the score of their last game?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "FC score 0-4 against the Chelsea FC, Stoke City lost."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-9fe15f80-6fed-4d65-9e0f-edf9b13c5f02-6",
+      "text": "Who did they play against on June 1st?",
+      "domain": "sports",
+      "conversation_id": "dlg-9fe15f80-6fed-4d65-9e0f-edf9b13c5f02",
+      "turn_index": 6,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "And who are they playing against right now?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They did not play today."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-ba3d5676-281d-4c66-a3c9-fb5eb5f7279f-7",
+      "text": "Okay, bye.",
+      "domain": "sports",
+      "conversation_id": "dlg-ba3d5676-281d-4c66-a3c9-fb5eb5f7279f",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Okay. Thank you."
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "You're welcome. Have a nice day."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-7c56f635-54a7-4b6a-bdb9-d1fe122d3003-0",
+      "text": "Hello. I'm interested in the NBA finals. Could you answer some questions for me?",
+      "domain": "sports",
+      "conversation_id": "dlg-7c56f635-54a7-4b6a-bdb9-d1fe122d3003",
+      "turn_index": 0,
+      "assessment_context_only": [],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-86c0898b-e8d5-4710-b664-8cb7e3fdbf02-1",
+      "text": "Hi, I was wondering how the Boston Celtics are currently doing in the NBA?",
+      "domain": "sports",
+      "conversation_id": "dlg-86c0898b-e8d5-4710-b664-8cb7e3fdbf02",
+      "turn_index": 1,
+      "assessment_context_only": [
+        {
+          "speaker": "ASSISTANT",
+          "text": "Hi, how can I help you?"
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "tm2-dlg-322a6f11-80df-4d0f-9d4b-aa8989d0e4bb-7",
+      "text": "Oh, when did they last play?",
+      "domain": "sports",
+      "conversation_id": "dlg-322a6f11-80df-4d0f-9d4b-aa8989d0e4bb",
+      "turn_index": 7,
+      "assessment_context_only": [
+        {
+          "speaker": "USER",
+          "text": "Do you know if they play next Sunday?"
+        },
+        {
+          "speaker": "ASSISTANT",
+          "text": "They do not play next Sunday."
+        }
+      ],
+      "source": "en",
+      "target": "ja"
+    },
+    {
+      "id": "oasst-770c6456-26ad-4b23-b205-9d88c70bf758",
+      "source": "es",
+      "target": "en",
+      "text": "Quiero que actues com un guía de viaje. Te escribiré mi ubicación y me sugerirás un lugar para visitar cerca de mi ubicación. En algunos casos, también te daré el tipo de lugares que visitaré. También me diras lugares similares que se encuentren cerca de mi primera ubicación. Mi primera solicitud es \"Estoy en Bogota Colombia y quiero visitar solo museos\".",
+      "conversation_id": "770c6456-26ad-4b23-b205-9d88c70bf758",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2716d77c-3dbf-4e52-ac81-303cd15bfa3c",
+      "source": "es",
+      "target": "en",
+      "text": "¿En qué tareas podemos prescindir de los humanos?",
+      "conversation_id": "4c8ef155-de27-4e89-a2d9-e515ac4f329d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a1c8c317-7843-4a5a-a191-14377de0444f",
+      "source": "es",
+      "target": "en",
+      "text": "¿Es posible la herencia múltiple en el lenguaje de programación Java?",
+      "conversation_id": "a1c8c317-7843-4a5a-a191-14377de0444f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e9abd488-e4ad-4690-95b0-7bb325b45504",
+      "source": "es",
+      "target": "en",
+      "text": "¿Quién fue Martín Luther King?",
+      "conversation_id": "e9abd488-e4ad-4690-95b0-7bb325b45504",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6adab1c7-521e-4d56-a474-762995328bd3",
+      "source": "es",
+      "target": "en",
+      "text": "En el examen también puede haber ejercicios con decimales, ¿puedes proponerme algunos de este tipo ?",
+      "conversation_id": "a175e8fe-daea-4082-85c6-3bb8d4094747",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-32dad211-bb00-4234-b5a1-53bd72ca7e32",
+      "source": "es",
+      "target": "en",
+      "text": "Genera una respuesta de chat agradeciendo un regalo dado con motivo de una boda y discúlpate de forma amena por no haber contestado antes en el tiempo. Añade al mensaje alguna referencia a las ganas que tienes de que llegue el momento de la boda y lo cerca que esta en el tiempo.",
+      "conversation_id": "32dad211-bb00-4234-b5a1-53bd72ca7e32",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0faeec41-c53d-4f49-8f49-01ee13ffcf53",
+      "source": "es",
+      "target": "en",
+      "text": "Cual es la importancia de nintendo en la industria de los videojuegos.",
+      "conversation_id": "0faeec41-c53d-4f49-8f49-01ee13ffcf53",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a84af03a-7daf-47fb-9086-2e94806a46f6",
+      "source": "es",
+      "target": "en",
+      "text": "dime 5 que sean solo mujeres",
+      "conversation_id": "be5bcac5-7c60-4e6f-9fa4-21a18f033322",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8c3bc652-522b-469e-aaf3-5bbebeebafec",
+      "source": "es",
+      "target": "en",
+      "text": "quiero que escribas un pequeño cuento de una serpiente llamada Bob y una abeja llamada Azul, Bob es un poco agresivo y Azul solo quiere ser su amiga.",
+      "conversation_id": "8c3bc652-522b-469e-aaf3-5bbebeebafec",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-13a90658-8f23-43a5-9124-9aabaa2ea929",
+      "source": "es",
+      "target": "en",
+      "text": "Escribe un texto breve sobre la fisica cuantica, explicando solamente lo minimo necesario para saber del tema, en un paragrafo aparte, escribelo de manera mas detallada y con palabras mas cientificas, que ademas sea una explicacion larga y explayada, contando todo lo que se sepa hasta ahora",
+      "conversation_id": "13a90658-8f23-43a5-9124-9aabaa2ea929",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-66403dac-469e-4a3f-be75-f524ef3a9586",
+      "source": "es",
+      "target": "en",
+      "text": "porque los agujeros negros son negros?",
+      "conversation_id": "66403dac-469e-4a3f-be75-f524ef3a9586",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-01cedabd-58be-442f-8095-7cf7550de75e",
+      "source": "es",
+      "target": "en",
+      "text": "Hey! ¿Que sabes sobre la bandera oficial de Singapur?",
+      "conversation_id": "01cedabd-58be-442f-8095-7cf7550de75e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d8cb39b7-338f-4250-a357-c680a0d71060",
+      "source": "es",
+      "target": "en",
+      "text": "Cuantos años tiene un siglo?",
+      "conversation_id": "d8cb39b7-338f-4250-a357-c680a0d71060",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-394edfb8-5bd7-4365-9d8c-247cca3b6f9a",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuál es el agujero negro más grande descubierto y cuántos años tomaría ir de un extremo de su horizonte de eventos al otro en un Boeing 777?",
+      "conversation_id": "394edfb8-5bd7-4365-9d8c-247cca3b6f9a",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-7bd5c61f-ed1d-48cb-9805-bf1c44a0d71c",
+      "source": "es",
+      "target": "en",
+      "text": "Me gustaría tener un listado con los pasos para realizar una receta de spaghetti carbonara al estilo original italiano",
+      "conversation_id": "7bd5c61f-ed1d-48cb-9805-bf1c44a0d71c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-20aac4f1-1856-4af4-b38b-3e6e9b35059c",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo mejor mi forma de escribir? Bríndame algunos tips y ejemplos...",
+      "conversation_id": "20aac4f1-1856-4af4-b38b-3e6e9b35059c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9c5ca251-da43-4b88-a79b-4ce1c97ea400",
+      "source": "es",
+      "target": "en",
+      "text": "Hazme un resumen de las claves del estoicismo, considerando historia, ideas y cómo puedo implementarlo en la actualidad.",
+      "conversation_id": "9c5ca251-da43-4b88-a79b-4ce1c97ea400",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-86bb7b62-0cc0-44e6-a89c-8db7d24456d1",
+      "source": "es",
+      "target": "en",
+      "text": "Mi dispositivo Android ya no tiene almacenamiento disponible. De que maneras podría liberar espacio?",
+      "conversation_id": "86bb7b62-0cc0-44e6-a89c-8db7d24456d1",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-dd713090-ee5e-471e-82da-0869418e6ff4",
+      "source": "es",
+      "target": "en",
+      "text": "¿qué es un piloto de FPV de drones?",
+      "conversation_id": "dd713090-ee5e-471e-82da-0869418e6ff4",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8fd8a1b9-3322-4b1f-89fd-7bef2ff64672",
+      "source": "es",
+      "target": "en",
+      "text": "¿Podrías resumir y explicar brevemente las funciones de Propp?",
+      "conversation_id": "8fd8a1b9-3322-4b1f-89fd-7bef2ff64672",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-1cf1dcb7-4b9f-4983-a114-1798e5752330",
+      "source": "es",
+      "target": "en",
+      "text": "Como se llamaba el rey hechizado de españa",
+      "conversation_id": "1cf1dcb7-4b9f-4983-a114-1798e5752330",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f266e94c-a72b-4c45-afa4-88316e2a227f",
+      "source": "es",
+      "target": "en",
+      "text": "escribe un poema",
+      "conversation_id": "f266e94c-a72b-4c45-afa4-88316e2a227f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-784520c9-0b49-4cbe-88b6-70ce0dc24021",
+      "source": "es",
+      "target": "en",
+      "text": "Como puedo saber que nutrientes faltan en mi cuerpo?",
+      "conversation_id": "784520c9-0b49-4cbe-88b6-70ce0dc24021",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-db769c96-e7c4-4d9a-bc6d-1663d45efd3e",
+      "source": "es",
+      "target": "en",
+      "text": "Dime quien escribió el libro titulado \"el principito\"",
+      "conversation_id": "db769c96-e7c4-4d9a-bc6d-1663d45efd3e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-84ac3c2e-a06c-4988-bf52-c1b05fd64ce0",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué papel juegan los medios de comunicación en la formación de opiniones y perspectivas políticas en una sociedad?",
+      "conversation_id": "84ac3c2e-a06c-4988-bf52-c1b05fd64ce0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0d9a9aea-b788-45c4-b9fb-4054ff8fc4d0",
+      "source": "es",
+      "target": "en",
+      "text": "Ejemplificame esta explicacion y dame detalles",
+      "conversation_id": "2d85fe22-c4b1-49c1-ad26-2321911e45e0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fc335cd4-29bd-4af6-9f9f-929a92ae6d85",
+      "source": "es",
+      "target": "en",
+      "text": "Apaga las luces del salón.",
+      "conversation_id": "fc335cd4-29bd-4af6-9f9f-929a92ae6d85",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b3513e49-b02c-4405-8929-e428373e3317",
+      "source": "es",
+      "target": "en",
+      "text": "tengo un amigo que acaba de tener su primer bebé, ¿podrías darme un mensaje de felicitaciones para el y su esposa?",
+      "conversation_id": "b3513e49-b02c-4405-8929-e428373e3317",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-bb2ea0ab-6345-4172-9678-784b1313a64c",
+      "source": "es",
+      "target": "en",
+      "text": "Pero supongamos que si que fuera lógica.",
+      "conversation_id": "cb8c9764-cabd-4d46-ad8a-96df0f779c4c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-cbb48f03-fa07-4fb3-81a3-f2c0ed27c59b",
+      "source": "es",
+      "target": "en",
+      "text": "Define las obras arquitectónicas de arquitectos colombianos reconocidos como Rogelio Salmona, Simón Velez o Deivid Calderón  con su país de ejecución y la fecha de construcción",
+      "conversation_id": "cbb48f03-fa07-4fb3-81a3-f2c0ed27c59b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-42068177-4f49-4e99-bb9a-185780803741",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuántas proteínas debería consumir a diario?",
+      "conversation_id": "42068177-4f49-4e99-bb9a-185780803741",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-bc73bf4c-87e0-4922-a862-3ed3cde46555",
+      "source": "es",
+      "target": "en",
+      "text": "A que se refiere Aristóteles cuando habla del ser humano como \"zoon politikon\"",
+      "conversation_id": "bc73bf4c-87e0-4922-a862-3ed3cde46555",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-599bdf51-b583-4e93-9cee-1f5089c53760",
+      "source": "es",
+      "target": "en",
+      "text": "y si luego quiero especializarme en deep learning que más debería estudiar?",
+      "conversation_id": "b10a736d-a909-463d-a268-d0c508af081b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f3a39c8d-95a4-49c3-a640-d55c09f81aac",
+      "source": "es",
+      "target": "en",
+      "text": "Crea un nuevo idioma, dame su nombre y algunos ejemplos de uso, por ultimo dame argumentos de porque es mejor idioma que el español",
+      "conversation_id": "f3a39c8d-95a4-49c3-a640-d55c09f81aac",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8c79c619-3747-46f4-935c-f2a6a63bab68",
+      "source": "es",
+      "target": "en",
+      "text": "Entiendo, pero enfócate en responder la pregunta que te hago por favor. ¿Cuál de los profesionales del listado que me brindaste puede asumir el rol de coordinador de proyectos? O en caso que ninguno sea apto ¿Que perfil profesional me recomiendas que debe de tener como mínimo el jefe de proyectos que debo buscar para este proyecto multidisciplinario?",
+      "conversation_id": "53b90dd0-ec27-41cc-85a5-df6c1d73cbf6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-05a2840c-0f22-49dd-b3fa-c6f65cb22fae",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo puedo hacer una masa de pizza vegana?",
+      "conversation_id": "05a2840c-0f22-49dd-b3fa-c6f65cb22fae",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d69e70bd-f17e-45f8-bed1-fb4e812772be",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cual es la velocidad de la luz?",
+      "conversation_id": "d69e70bd-f17e-45f8-bed1-fb4e812772be",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-08ae165d-e91d-4ca2-9710-5e61f58fa63d",
+      "source": "es",
+      "target": "en",
+      "text": "Háblame sobre filosofía griega",
+      "conversation_id": "08ae165d-e91d-4ca2-9710-5e61f58fa63d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4adcc6f7-2c41-4d0b-8a98-ed5f22dbe939",
+      "source": "es",
+      "target": "en",
+      "text": "¿qué me recomiendas para seducir a una mujer?",
+      "conversation_id": "4adcc6f7-2c41-4d0b-8a98-ed5f22dbe939",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0445b141-317d-473f-adaa-8dbd96a7a3bf",
+      "source": "es",
+      "target": "en",
+      "text": "Hazme una lista de la compra que incluya todos los ingredientes necesarios para preparar una lasaña.",
+      "conversation_id": "0445b141-317d-473f-adaa-8dbd96a7a3bf",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b0e0c680-5ada-43c4-af87-e49807b06efd",
+      "source": "es",
+      "target": "en",
+      "text": "Escribe correctamente el siguiente texto: \"H0l4, 3st3 3s un t3xt0 3sctrit0 p0r núm3r0s\"",
+      "conversation_id": "b0e0c680-5ada-43c4-af87-e49807b06efd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-39290ec5-c7f2-47f4-84da-811d0f9faf05",
+      "source": "es",
+      "target": "en",
+      "text": "Donde recomiendas más comprar, Soriana, Walmart, Chedraui, Costco, Sams o Aurrera?",
+      "conversation_id": "39290ec5-c7f2-47f4-84da-811d0f9faf05",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-641ff46b-14f3-4809-9141-43bb29632333",
+      "source": "es",
+      "target": "en",
+      "text": "Excelente. Incluso jamás me había detenido a pensar algunos aspectos que mencionaste.",
+      "conversation_id": "1f7da1ac-0c2b-47bf-bc64-4da6574ff5a3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-bdc7643c-0959-433b-bb0e-3810a8c7cd6e",
+      "source": "es",
+      "target": "en",
+      "text": "Me puedes contar algo sobre los modelos de simulación de proteínas basados en las técnicas de coarse grained?",
+      "conversation_id": "bdc7643c-0959-433b-bb0e-3810a8c7cd6e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d55e1e5d-811d-487d-b203-ab1b09c685b5",
+      "source": "es",
+      "target": "en",
+      "text": "Me podrías redactar cómo sería un episodio de Los Simpsons, pero está con la llegada de Mario Bros a la ciudad, que sea de terror la ambientación",
+      "conversation_id": "d55e1e5d-811d-487d-b203-ab1b09c685b5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-965b8357-3cb8-4d12-b31a-57a5d4de3228",
+      "source": "es",
+      "target": "en",
+      "text": "crea un resumen sobre las tendencias de arte en japón listando a los artistas japoneses de más renombre en este campo y describe las caracteristicas principales de esas tendencias",
+      "conversation_id": "965b8357-3cb8-4d12-b31a-57a5d4de3228",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5fb96698-930f-411f-a5e3-1fb295f4e6bf",
+      "source": "es",
+      "target": "en",
+      "text": "Ahora cambia al ser supremo por un ser de una raza alienígena que descubrió como generar universos digitales en un laboratorio.",
+      "conversation_id": "0e6a5d8c-e08f-4d5b-841d-6de5bfe6f33e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-745f8768-e6a5-4e2f-ac13-2256d5a0b4bc",
+      "source": "es",
+      "target": "en",
+      "text": "¿Puedes diseñar un plan de entrenamiento para mi?",
+      "conversation_id": "f90d863c-df18-4745-a5af-a9ddf50a6732",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9c6fa718-14de-4744-889d-b78022e7e8b0",
+      "source": "es",
+      "target": "en",
+      "text": "¿Quién la fundó? ¿Cómo se llama? ¿Dónde se ubica? ¿Cuál es gentilicio? ¿Cómo es el diseño de la bandera municipal?",
+      "conversation_id": "58398d7c-293c-4756-a1ff-bfbf3d874731",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5094ef3c-0ac2-41a4-bdea-7727ca114c7c",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuántos metros cuadrados hay en una cancha de fútbol?",
+      "conversation_id": "5094ef3c-0ac2-41a4-bdea-7727ca114c7c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6b5c719d-e159-45ef-b131-06953e407386",
+      "source": "es",
+      "target": "en",
+      "text": "Voy a ir unos días de vacaciones a Roma, nunca he estado allí ¿Me puedes recomendar unos 5 sitios que sea indispensable visitar?",
+      "conversation_id": "6b5c719d-e159-45ef-b131-06953e407386",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-df8e3975-e52e-42ac-b75c-01420f64dfca",
+      "source": "es",
+      "target": "en",
+      "text": "Hola, podrías pedirle un turno al medico de cabecera? Que sea lo antes posible, de lunes a viernes y después de las 17:00 horas. O mejor, verifica vos mismo en la agenda y pedí el turno en un hueco.",
+      "conversation_id": "df8e3975-e52e-42ac-b75c-01420f64dfca",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-1a7e19da-245d-40db-85af-1c589a541d51",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué hace el comando \"chmod\" en un sistema Linux?",
+      "conversation_id": "1a7e19da-245d-40db-85af-1c589a541d51",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-717b968d-4c21-4145-8a48-e03bba4851f5",
+      "source": "es",
+      "target": "en",
+      "text": "Crea una lista de 10 posibles ideas para un videojuego original. El videojuego será en 3D, realizado con Unreal Engine 5, con opciones multijugador. La ambientación será futurista, en el planeta Tierra, la Luna y Marte. El género será una combinación de estrategia y rol. Las ideas deben incluir también posibles títulos para el videojuego.",
+      "conversation_id": "717b968d-4c21-4145-8a48-e03bba4851f5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-1d7a16e2-335f-49f5-ab90-8c2ef7eeba1a",
+      "source": "es",
+      "target": "en",
+      "text": "Puedes generar un soneto, (un verso de 14 líneas) hablando reflexivamente sobre lo insignificante que es un ser humano.",
+      "conversation_id": "1d7a16e2-335f-49f5-ab90-8c2ef7eeba1a",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-bd7d14cb-8818-4d28-9031-afe4f34db5d6",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué es una inteligencia artifcial?",
+      "conversation_id": "bd7d14cb-8818-4d28-9031-afe4f34db5d6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-73177d16-0029-4c1c-a7b7-78ac7281acc0",
+      "source": "es",
+      "target": "en",
+      "text": "Genera 10 números entre 80 y 100 que sumados den una cantidad aproximada a 900, estos números no pueden ser iguales ni sucesivos",
+      "conversation_id": "73177d16-0029-4c1c-a7b7-78ac7281acc0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ece36dc5-0bf6-424a-b5cf-3380d1bb3181",
+      "source": "es",
+      "target": "en",
+      "text": "Como interpretan el concepto de Dios o Creador en diferentes culturas?",
+      "conversation_id": "ece36dc5-0bf6-424a-b5cf-3380d1bb3181",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-26f97500-11c2-4f53-929c-8c71994f2819",
+      "source": "es",
+      "target": "en",
+      "text": "Podrias decirme que utilización tiene salesforce?",
+      "conversation_id": "26f97500-11c2-4f53-929c-8c71994f2819",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-cd3fdcb8-2794-4f5e-83f0-5f65f08f99b5",
+      "source": "es",
+      "target": "en",
+      "text": "¿para que sirven los micro chips?",
+      "conversation_id": "cd3fdcb8-2794-4f5e-83f0-5f65f08f99b5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-12c5ecfa-cad7-449a-b10f-23d0ae5e1f11",
+      "source": "es",
+      "target": "en",
+      "text": "como se hace una investigacion de campo",
+      "conversation_id": "12c5ecfa-cad7-449a-b10f-23d0ae5e1f11",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b82e250f-8ef3-42f1-afa8-2fe5701fe24b",
+      "source": "es",
+      "target": "en",
+      "text": "Me puedes ordenar de mayor a menor estos números?\n\n5, 3, 8, -2, -6, 1, 10, 45",
+      "conversation_id": "b82e250f-8ef3-42f1-afa8-2fe5701fe24b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a87560b5-81bf-4059-9176-f7cabe254603",
+      "source": "es",
+      "target": "en",
+      "text": "Me puedes dividir el ensayo en la introducción, nudo o cuerpo y conclusión.",
+      "conversation_id": "80f0d0ef-ff21-4be5-a54b-739425dc2703",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d9c573b6-bebe-4026-ab70-b15be68493e3",
+      "source": "es",
+      "target": "en",
+      "text": "¿Me cuentas un chiste?",
+      "conversation_id": "d9c573b6-bebe-4026-ab70-b15be68493e3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-dd83c156-73c5-49bc-9290-8bf24653e259",
+      "source": "es",
+      "target": "en",
+      "text": "Encima de una mesa hay un vaso, encima del vaso hay un bloque de madera cuadrado, encima del bloque hay un celular, encima del celular hay un anillo. ¿Qué hay debajo del celular?",
+      "conversation_id": "dd83c156-73c5-49bc-9290-8bf24653e259",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e97d92fe-6911-4083-9481-9aaea702a6a3",
+      "source": "es",
+      "target": "en",
+      "text": "¿Es mejor TypeScript que JavaScript?",
+      "conversation_id": "e97d92fe-6911-4083-9481-9aaea702a6a3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-aa9fa93d-0a1b-488f-b18a-edfb67b47f1b",
+      "source": "es",
+      "target": "en",
+      "text": "como se usa la funcion print en python ?",
+      "conversation_id": "aa9fa93d-0a1b-488f-b18a-edfb67b47f1b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4989f088-7691-443a-868d-632d6af3962c",
+      "source": "es",
+      "target": "en",
+      "text": "Quiero aprender a meditar ¿me puedes dar instrucciones para hacerlo de forma correcta?",
+      "conversation_id": "4989f088-7691-443a-868d-632d6af3962c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d9c113d2-909f-4000-aa3e-492811855742",
+      "source": "es",
+      "target": "en",
+      "text": "Recomiéndame una rutina de ejercicios adecuada para mayores de 40 años de edad.",
+      "conversation_id": "d9c113d2-909f-4000-aa3e-492811855742",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-02755dae-7bd8-4138-a333-8fe5c2038269",
+      "source": "es",
+      "target": "en",
+      "text": "Dame una lista de los 3 mejores programas de dibujo digital y argumenta por qué son superiores",
+      "conversation_id": "02755dae-7bd8-4138-a333-8fe5c2038269",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-def82254-1870-47ec-8542-369d5542b215",
+      "source": "es",
+      "target": "en",
+      "text": "¿Podrías describir el funcionamiento del sistema nervioso humano, incluyendo sus componentes principales, su papel en la regulación de las funciones corporales y su relación con la percepción, el comportamiento y la cognición? Además, ¿podrías mencionar algunas condiciones médicas que pueden afectar el sistema nervioso y algunos tratamientos disponibles?",
+      "conversation_id": "def82254-1870-47ec-8542-369d5542b215",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-3fd0539c-d651-4d97-94cd-e29dc0c66dc2",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles crees que son las diferencias entre Roger Federer y Rafael Nadal en cuanto a sus formas de juego? ¿Crees que haya alguien actualmente que se asemeje a alguno de estos?",
+      "conversation_id": "3fd0539c-d651-4d97-94cd-e29dc0c66dc2",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-462f367d-67d5-4484-b222-e231f285f9d9",
+      "source": "es",
+      "target": "en",
+      "text": "Con cuantos jugadores se juega al futbol?",
+      "conversation_id": "462f367d-67d5-4484-b222-e231f285f9d9",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-15533704-a66c-4613-b905-ae3b54d6ba96",
+      "source": "es",
+      "target": "en",
+      "text": "en que años vivió platon? y en que pais?",
+      "conversation_id": "defca35c-e454-40d5-acb5-bac5bf9f6d74",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ba6b467b-cd0b-44de-9119-77d875256405",
+      "source": "es",
+      "target": "en",
+      "text": "Actúa como un entrenador personal y realiza una tabla semanal de ejercicios para poder realizar en casa. Soy una mujer de 1.75 m de altura y 74 hg de peso, tengo grasa abdominal y poca masa muscular. Realiza una tabla mensual con variaciones semanales. Presenta la tabla en formato A4 para imprimir.",
+      "conversation_id": "ba6b467b-cd0b-44de-9119-77d875256405",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6e5e9979-561b-4513-bc6c-5de698327f41",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué es un exoplaneta?",
+      "conversation_id": "6e5e9979-561b-4513-bc6c-5de698327f41",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-190fb17e-1bab-4f31-b174-a58b276a9bb8",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo genero una ventana modal usando solo html 5?",
+      "conversation_id": "190fb17e-1bab-4f31-b174-a58b276a9bb8",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a3aad6b1-7889-4e19-a81e-70cc5f23feac",
+      "source": "es",
+      "target": "en",
+      "text": "Qué podría hacer para mejorar mi forma de estudiar las asignaturas de mi carrera de Ciencias? Quiero que me ayudes con una lista de 10 consejos bien argumentados.",
+      "conversation_id": "a3aad6b1-7889-4e19-a81e-70cc5f23feac",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ae0d060c-2da6-4408-806e-fe40bf237dad",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué carrera me recomiendas estudiar en la universidad?",
+      "conversation_id": "ae0d060c-2da6-4408-806e-fe40bf237dad",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d0805efc-4084-4a5c-907b-175c9f4d12dd",
+      "source": "es",
+      "target": "en",
+      "text": "Hello, how are you? I'm drunk",
+      "conversation_id": "d0805efc-4084-4a5c-907b-175c9f4d12dd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a121f06c-21f2-4536-9fb3-be6784bf39bd",
+      "source": "es",
+      "target": "en",
+      "text": "Completa la siguiente canción:\nEn un puerto italiano, al pie de la montaña...",
+      "conversation_id": "a121f06c-21f2-4536-9fb3-be6784bf39bd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-051eae0c-7883-4b0f-929d-0c05eb7a125a",
+      "source": "es",
+      "target": "en",
+      "text": "Haz un poema sobre  monos, el baile y la vida, que rime en cada verso, y que sea como una historia con un plot twist al final.",
+      "conversation_id": "051eae0c-7883-4b0f-929d-0c05eb7a125a",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6c9b6e19-9b02-4305-82f0-ac0a62a41365",
+      "source": "es",
+      "target": "en",
+      "text": "Necesito un monitor para armarme mi computador, que sea preferiblemente de 144hz, ¿cual me recomiendas?",
+      "conversation_id": "6c9b6e19-9b02-4305-82f0-ac0a62a41365",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f16be492-f982-48b9-b1e3-4dd65e36cc4f",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué tipo de oración coordinada es \"hoy el sol no hace falta, está en receso\"?",
+      "conversation_id": "f16be492-f982-48b9-b1e3-4dd65e36cc4f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-67d4b699-1089-494c-819c-00496d2df7a0",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué es la verdad?",
+      "conversation_id": "67d4b699-1089-494c-819c-00496d2df7a0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-555ea8e5-eeac-4c6e-8771-406686a9406f",
+      "source": "es",
+      "target": "en",
+      "text": "Dime juegos online de steam que sean para computadoras de bajo recursos",
+      "conversation_id": "555ea8e5-eeac-4c6e-8771-406686a9406f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4b7bb870-75da-4105-bff2-d85f8c2c2e10",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles fueron las consecuencias económicas para los países involucrados en la primera guerra mundial?",
+      "conversation_id": "4b7bb870-75da-4105-bff2-d85f8c2c2e10",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-73851135-f613-40e4-bd93-e683faf7d2e0",
+      "source": "es",
+      "target": "en",
+      "text": "¿Porqué el universo es tan oscuro, si hay un moton de estrellas generando luz?",
+      "conversation_id": "73851135-f613-40e4-bd93-e683faf7d2e0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-73aff8d3-a669-41dc-bc9e-004198b2b224",
+      "source": "es",
+      "target": "en",
+      "text": "Podes explicarme que es la plataforma de twitch como si yo fuera un anciano?",
+      "conversation_id": "73aff8d3-a669-41dc-bc9e-004198b2b224",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-81984c03-4b90-45e0-8a58-686ffbd96d72",
+      "source": "es",
+      "target": "en",
+      "text": "Si, puedes ampliar la definición compleja?",
+      "conversation_id": "a984b0d4-1c04-4865-b633-9d2e35c81e36",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4c77a4d3-d11d-409b-9252-39e3813de523",
+      "source": "es",
+      "target": "en",
+      "text": "Cual es el animal terrestre más rápido?",
+      "conversation_id": "4c77a4d3-d11d-409b-9252-39e3813de523",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5c8d53b8-425a-4ba2-994b-7fecc4105806",
+      "source": "es",
+      "target": "en",
+      "text": "Cuales han sido los asesinos seriales con mas muertes confirmadas de la historia?",
+      "conversation_id": "5c8d53b8-425a-4ba2-994b-7fecc4105806",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2e9767b0-39cb-4415-8151-7baafb10fab3",
+      "source": "es",
+      "target": "en",
+      "text": "Que pasos podrían darse para que exista un consenso global de una nomenclatura biológica única?",
+      "conversation_id": "277ac030-7d82-478c-821e-a38a4fce2ee7",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d6081cbb-efb8-495f-b469-f913f96775f8",
+      "source": "es",
+      "target": "en",
+      "text": "¡Gracias!",
+      "conversation_id": "e35a86bc-7ca0-4004-a234-5d12009be42f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2618ed24-89f7-47dc-a046-ea5944dc3719",
+      "source": "es",
+      "target": "en",
+      "text": "Tengo una página web que aparece un coche dibujado ,una parte en html otra en css luego por último tengo javascript pues bien tengo en css etiqueta .ruedauno y la otra etiqueta .ruedados quiero en javascript hacer rodar las ruedas del coche",
+      "conversation_id": "2618ed24-89f7-47dc-a046-ea5944dc3719",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e460005f-47c3-4db3-9865-f8fcb862b9e1",
+      "source": "es",
+      "target": "en",
+      "text": "¿Porqué el cielo es azul?",
+      "conversation_id": "e460005f-47c3-4db3-9865-f8fcb862b9e1",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0afe79ed-4f13-4c5d-8a1d-520f1a52dcac",
+      "source": "es",
+      "target": "en",
+      "text": "cuéntame porque el plátano y el café se cree que estará extinto en el futuro",
+      "conversation_id": "0afe79ed-4f13-4c5d-8a1d-520f1a52dcac",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9b9dbac3-6903-4542-b053-3345c9492378",
+      "source": "es",
+      "target": "en",
+      "text": "¿Como puedes comprobarme lo que mencionas?",
+      "conversation_id": "bd736a9b-1900-476e-b52f-28892ffb26cd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-095c7927-8c26-4f8c-8768-35c32b1c5a6e",
+      "source": "es",
+      "target": "en",
+      "text": "Tu descripción parece hecha por un gañán. Yo creo que la apariencia física no es lo único que hace atractiva a una persona, ya que los gustos son muy dispares...",
+      "conversation_id": "7530d60c-5d41-46a7-a935-d8cdd1c6c630",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e5c5de86-d9ba-4fbc-b1c9-0d52ba9eacf5",
+      "source": "es",
+      "target": "en",
+      "text": "No sé qué estudiar, sin embargo, sé que me gusta el área tecnológica. ¿Cuál es la carrera con más futuro?",
+      "conversation_id": "e5c5de86-d9ba-4fbc-b1c9-0d52ba9eacf5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-32696a64-20c5-4e90-aa95-c8a5ee7a46cd",
+      "source": "es",
+      "target": "en",
+      "text": "podrias ayudarme a crear un navegador como chromium en python?",
+      "conversation_id": "32696a64-20c5-4e90-aa95-c8a5ee7a46cd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-920e6a8e-c252-46d5-992c-2ceb1a3ba160",
+      "source": "es",
+      "target": "en",
+      "text": "Explícame la congetura de Collatz de forma sencilla, por favor.",
+      "conversation_id": "920e6a8e-c252-46d5-992c-2ceb1a3ba160",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0ced98e9-ad99-46ab-b193-b29cca8ffce8",
+      "source": "es",
+      "target": "en",
+      "text": "Necesito un código de ejemplo en python en donde se utilicen listas y tuplas, y mencionar los usos principales de ambas.",
+      "conversation_id": "0ced98e9-ad99-46ab-b193-b29cca8ffce8",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6746be7d-b144-4bd1-baae-deaf6c02ff40",
+      "source": "es",
+      "target": "en",
+      "text": "¿Me podrías decir cual es la mejor manera de bajar el índices de trigliceridos?",
+      "conversation_id": "6746be7d-b144-4bd1-baae-deaf6c02ff40",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5203da28-43f8-4bc2-90af-18f7d7185ca6",
+      "source": "es",
+      "target": "en",
+      "text": "Recomiéndame una película disponible en Netflix sobre tecnología que tenga una trama rápida e interesante.",
+      "conversation_id": "5203da28-43f8-4bc2-90af-18f7d7185ca6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-95329660-7671-4035-aa7b-4d23aa443275",
+      "source": "es",
+      "target": "en",
+      "text": "Cree una hoja de ruta del producto para la historia de Instagram a fin de aumentar la cantidad de publicaciones. Sea lo más detallado posible y, siempre que sea posible, utilice comparaciones con otras herramientas como TikTok.",
+      "conversation_id": "95329660-7671-4035-aa7b-4d23aa443275",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e527d1de-a081-44f8-b272-718654b72bd3",
+      "source": "es",
+      "target": "en",
+      "text": "¿puedes mostrarme un ejemplo de un codigo HTML para crear una página web básica?",
+      "conversation_id": "e527d1de-a081-44f8-b272-718654b72bd3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-cdf9d08d-1225-4153-aa9d-8163f2426d06",
+      "source": "es",
+      "target": "en",
+      "text": "Explícame la teoría de la relatividad con si fuera un niño.",
+      "conversation_id": "cdf9d08d-1225-4153-aa9d-8163f2426d06",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5fab53b4-cfd0-4512-917d-c1c08d3309fb",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo podrían las células troncales y la terapia génica revolucionar la medicina?",
+      "conversation_id": "5fab53b4-cfd0-4512-917d-c1c08d3309fb",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2d5a50f5-3227-46f7-a581-0eb4e0cd1a06",
+      "source": "es",
+      "target": "en",
+      "text": "Claro !. Aquí lo tienes: Elemento G, Elemento F, Elemento E, Elemento D, Elemento C, Elemento B, Elemento A.",
+      "conversation_id": "7c0c1666-0415-465f-b2f5-492d50a07c74",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-dfb3e153-a615-4ca6-9c72-5864e3a01fe1",
+      "source": "es",
+      "target": "en",
+      "text": "Necesito un compilado de de la flora y fauna de donde vivo.",
+      "conversation_id": "dfb3e153-a615-4ca6-9c72-5864e3a01fe1",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-81b0c7cc-c9b6-4928-a6ff-b46690c40496",
+      "source": "es",
+      "target": "en",
+      "text": "¿Consideras que la inteligencia artificial amenaza el trabajo de los programadores?",
+      "conversation_id": "81b0c7cc-c9b6-4928-a6ff-b46690c40496",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8f52992c-0cd0-4ded-aba2-6abfb3f8bc3b",
+      "source": "es",
+      "target": "en",
+      "text": "Buenos días, ¿puedes darme una lista en formato json de los principales personajes del señor de los anillos?",
+      "conversation_id": "8f52992c-0cd0-4ded-aba2-6abfb3f8bc3b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ec9a8e4e-270f-468a-9bf6-df5070cd1469",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuál es la distancia entre los países más grandes en el mundo? ¿Quanto duraría manejar la distancia entera si fuera una línea derecha?",
+      "conversation_id": "ec9a8e4e-270f-468a-9bf6-df5070cd1469",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-7eb0c70d-f545-4428-bd84-a177d994b4e3",
+      "source": "es",
+      "target": "en",
+      "text": "Hola",
+      "conversation_id": "7eb0c70d-f545-4428-bd84-a177d994b4e3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-bd9670c4-7377-406c-93f0-7e21067287cc",
+      "source": "es",
+      "target": "en",
+      "text": "me puedes decir en que época del año es mejor visitar cada lugar?",
+      "conversation_id": "d49e7795-a2dc-4d8d-8fa5-ee53d757fa97",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a729ea0c-12c4-40d5-b07a-07197db70675",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles son los primeros pasos para poder crear un bot en Telegram?",
+      "conversation_id": "a729ea0c-12c4-40d5-b07a-07197db70675",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-07992703-aec0-4fd7-883e-b93c0a40f080",
+      "source": "es",
+      "target": "en",
+      "text": "Cuántos países de habla hispana hay en América del Sur?",
+      "conversation_id": "07992703-aec0-4fd7-883e-b93c0a40f080",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b96d9960-ad01-444f-bc37-4be3463fbc6e",
+      "source": "es",
+      "target": "en",
+      "text": "Reformula esta frase con otras palabras: \"Tras la derrota de las tropas napoleónicas, las Cortes de Cádiz regulan la vuelta de Fernando VII (el deseado) al trono de España y su acatamiento de la Constitución de 1812\"",
+      "conversation_id": "b96d9960-ad01-444f-bc37-4be3463fbc6e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2a6c61fc-938a-4e76-afc7-be9f12c5b4b0",
+      "source": "es",
+      "target": "en",
+      "text": "como funciona una inteligencia artificial?",
+      "conversation_id": "2a6c61fc-938a-4e76-afc7-be9f12c5b4b0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6974a4ed-c7d5-452a-806c-7ee72404177d",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuántos habitantes hay en Venezuela aproximadamente?",
+      "conversation_id": "6974a4ed-c7d5-452a-806c-7ee72404177d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-96cc0262-7a81-42b9-a569-b9229c4292b9",
+      "source": "es",
+      "target": "en",
+      "text": "Me puedes crear una historia inventada que relate las aventuras de un explorador llamado jack y su perro llamado mauricio?",
+      "conversation_id": "96cc0262-7a81-42b9-a569-b9229c4292b9",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0dfda790-d9b1-4b39-a5b7-737044a49f8b",
+      "source": "es",
+      "target": "en",
+      "text": "Hoy me visitan unos amigos, pero no se que debería preparar para comer. Me podrías elaborar una lista de cosas que podría preparar.",
+      "conversation_id": "0dfda790-d9b1-4b39-a5b7-737044a49f8b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9563dd69-c17e-46a3-9331-566b6459c87f",
+      "source": "es",
+      "target": "en",
+      "text": "Escribe una historia de Wattpad sobre Dua Lipa y una chica llamada Daniela",
+      "conversation_id": "9563dd69-c17e-46a3-9331-566b6459c87f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8f8215bf-53b0-4dbf-ae8f-9d13b3c48098",
+      "source": "es",
+      "target": "en",
+      "text": "escribe una historia de terror, donde los personajes son robots sintientes que han sobrevivido a una guerra mundial.",
+      "conversation_id": "8f8215bf-53b0-4dbf-ae8f-9d13b3c48098",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-a8efa903-ae7f-4ca1-a055-6c62d2315f4d",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo puede la IA ayudar en el diagnóstico y tratamiento de enfermedades?",
+      "conversation_id": "a8efa903-ae7f-4ca1-a055-6c62d2315f4d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6f8846db-2b12-4dfa-9bf3-1346b9c88b8a",
+      "source": "es",
+      "target": "en",
+      "text": "Como funcionan los autos eléctricos",
+      "conversation_id": "6f8846db-2b12-4dfa-9bf3-1346b9c88b8a",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-307ec861-5b3e-4390-8875-24d123fcebae",
+      "source": "es",
+      "target": "en",
+      "text": "¿qué tipo de dieta hacía Leonardo da Vinci?",
+      "conversation_id": "307ec861-5b3e-4390-8875-24d123fcebae",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0949fec2-4e17-4e4e-a7c0-b0ed530301ae",
+      "source": "es",
+      "target": "en",
+      "text": "Hola, estoy interesado en conocer más sobre números complejos. Podrías hacerme un breve resumen de este tipo de números? Gracias",
+      "conversation_id": "0949fec2-4e17-4e4e-a7c0-b0ed530301ae",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b7e046ce-9108-49d1-b753-9e35e358102d",
+      "source": "es",
+      "target": "en",
+      "text": "Crea una aplicación de consola en .NET utilizando C# donde de muestre una barra de progreso.",
+      "conversation_id": "b7e046ce-9108-49d1-b753-9e35e358102d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-68142a5b-331c-4c17-abc4-2afec90a9d88",
+      "source": "es",
+      "target": "en",
+      "text": "Me parece confuso, ¿seguro que estas instrucciones están basadas en la última versión disponible? ¿Podrías proporcionarme alguna fuente o guía oficial?",
+      "conversation_id": "2f1a2ace-680f-4f31-84bd-9c82665515b3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-883dddd8-7aa5-4ae2-a321-c1a071816140",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuál es el proceso que sigue el café desde su cultivo hasta su llegada a mi mesa en una cafetería?",
+      "conversation_id": "883dddd8-7aa5-4ae2-a321-c1a071816140",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-39284f9d-769d-4b71-b975-f31b836118c3",
+      "source": "es",
+      "target": "en",
+      "text": "Apaga la luz del salón dentro de 15 minutos.",
+      "conversation_id": "39284f9d-769d-4b71-b975-f31b836118c3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-30f2ff83-e888-4d4a-9891-518bff4e9231",
+      "source": "es",
+      "target": "en",
+      "text": "¿Podría la tristeza y alegría coexistir de alguna manera?",
+      "conversation_id": "30f2ff83-e888-4d4a-9891-518bff4e9231",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f23df578-b561-4a4e-b849-5019443de1d0",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué pasos debería seguir para crear mi propio cómic?",
+      "conversation_id": "f23df578-b561-4a4e-b849-5019443de1d0",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-feaaa687-4590-4bff-a1dc-1fc54f2690e4",
+      "source": "es",
+      "target": "en",
+      "text": "Por favor, explícame cómo debe utilizarse la función cut() en Python. Incluye ejemplos.",
+      "conversation_id": "feaaa687-4590-4bff-a1dc-1fc54f2690e4",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f8967fc3-de7c-4d3f-947f-24d63d188ef8",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo puedo mantener mi casa caliente sin gastar demasiado en electricidad?",
+      "conversation_id": "f8967fc3-de7c-4d3f-947f-24d63d188ef8",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fd41e94a-ddee-42d7-bb2c-cd2277721f7b",
+      "source": "es",
+      "target": "en",
+      "text": "Escríbe una lista de 5 palabras con 12 letras o más. Por ejemplo, estetoscopio.",
+      "conversation_id": "fd41e94a-ddee-42d7-bb2c-cd2277721f7b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fb623fcd-a94c-4e8c-8d65-dfba18265fc6",
+      "source": "es",
+      "target": "en",
+      "text": "¿Podrías decirme 10 frases en ingles indicando como se escribe la pronunciación? pero sin fonética descriptiva!",
+      "conversation_id": "fb623fcd-a94c-4e8c-8d65-dfba18265fc6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5d7f1bd7-7e09-4443-84b8-b268115879ab",
+      "source": "es",
+      "target": "en",
+      "text": "Me gusta tu idea, pero que no sea copiada de ChatGPT.",
+      "conversation_id": "0a8b4d96-2d70-4d5b-9190-6c351fdeb903",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ebf14f18-2d35-4f66-bbdc-01e02a6f54c6",
+      "source": "es",
+      "target": "en",
+      "text": "¿Crees que Aston Martin cumple actualmente con esas condiciones? ¿Cuáles crees que son los puntos fuertes y débiles de este equipo?\"",
+      "conversation_id": "312c8fbc-aad0-45ed-a0cb-197ec62461b4",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8d9ccbce-b534-4455-8db7-1637f3de7701",
+      "source": "es",
+      "target": "en",
+      "text": "Me gradué hace poco de la carrera de medicina ¿Me podrías aconsejar para conseguir rápidamente un puesto de trabajo?",
+      "conversation_id": "8d9ccbce-b534-4455-8db7-1637f3de7701",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d5d523b2-fd0f-4666-b562-42f8de3fe750",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles son los diferentes planetas del sistema solar?",
+      "conversation_id": "d5d523b2-fd0f-4666-b562-42f8de3fe750",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-59cfc212-7abb-482a-b288-475ed67eb1d3",
+      "source": "es",
+      "target": "en",
+      "text": "¿Por qué el cielo es azul?",
+      "conversation_id": "59cfc212-7abb-482a-b288-475ed67eb1d3",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-16c68c1b-79e1-4f56-b8d8-ac90507f74c8",
+      "source": "es",
+      "target": "en",
+      "text": "Dame la lista de las presidentas mujeres en América Latina. Hazlo en formato lista ordenada alfabéticamente por países, y los nombres de las mujeres con los años que estuvieron en el poder y el partido político al que peretenecieron",
+      "conversation_id": "16c68c1b-79e1-4f56-b8d8-ac90507f74c8",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-1d0a8741-53b0-48eb-aac3-453957b04e16",
+      "source": "es",
+      "target": "en",
+      "text": "¿Pero en todos los países el semáforo utiliza los mismos colores?",
+      "conversation_id": "db982d3b-f0d2-4cd4-add6-4bd7047114eb",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-d0768412-ff3e-4640-ae85-c9d0b71000d7",
+      "source": "es",
+      "target": "en",
+      "text": "Cual es la mejor forma de estudiar?",
+      "conversation_id": "d0768412-ff3e-4640-ae85-c9d0b71000d7",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-62f57983-46fc-4f3d-a65c-a6a93b45135f",
+      "source": "es",
+      "target": "en",
+      "text": "¿Existe la posibilidad de que en un futuro próximo se pueda crear una Inteligencia Artificial capaz de superar las capacidades de razonamiento lógico de cualquier ser humano en cualquier tarea? Quiero que me des una respuesta con un nivel de 10, una con un nivel de 5, y una que combine ambos niveles de personalidad.",
+      "conversation_id": "888b14ef-924c-40a7-85e6-74172526d04e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-84f009a3-fced-417f-ac75-c30da59a5752",
+      "source": "es",
+      "target": "en",
+      "text": "¿Tengo alguna tarea pendiente para mañana?",
+      "conversation_id": "84f009a3-fced-417f-ac75-c30da59a5752",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-b6f37c11-3db7-4f34-a635-b5145e6bac17",
+      "source": "es",
+      "target": "en",
+      "text": "Analiza morfológicamente las palabras de los siguientes versos:\n\"Muy cerca de mi ocaso,\nyo te bendigo, vida.\"",
+      "conversation_id": "b6f37c11-3db7-4f34-a635-b5145e6bac17",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4c6a3d97-8a64-42a8-9bd2-5315144c6381",
+      "source": "es",
+      "target": "en",
+      "text": "Cuales son los colores primarios?",
+      "conversation_id": "4c6a3d97-8a64-42a8-9bd2-5315144c6381",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-959dbcfd-4f59-46f8-9e0c-d2886b3b0ab6",
+      "source": "es",
+      "target": "en",
+      "text": "Necesito que me des tres definiciones sobre qué es la estadística. La primera definición, deberá ser suficientemente sencilla como para que la entienda un niño de 5 años. La segunda, la debe de poder entender una persona mayor. Y la tercera, la debe de poder entender alguien con un graduado en estadística.",
+      "conversation_id": "959dbcfd-4f59-46f8-9e0c-d2886b3b0ab6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-e9fb6886-122c-4919-b08f-14ff60d74376",
+      "source": "es",
+      "target": "en",
+      "text": "Recomiéndame una lista de canciones para ir al gimnasio y otra para estudiar.",
+      "conversation_id": "e9fb6886-122c-4919-b08f-14ff60d74376",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-49d8bd9c-c187-4719-8ec0-da1af0daa135",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cual es el sentido del universo en el que vivimos? ¿estamos condenados al olvido cuando llegue la muerte termica de este? ¿realmente no se puede hacer nada para evitarlo?",
+      "conversation_id": "49d8bd9c-c187-4719-8ec0-da1af0daa135",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-18d8f04d-8004-407a-9982-56ca7c5e5e38",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cual es la licencia de software libre mas usada y por qué?",
+      "conversation_id": "18d8f04d-8004-407a-9982-56ca7c5e5e38",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-49102b85-f087-4e5b-878b-edcb66b2cb11",
+      "source": "es",
+      "target": "en",
+      "text": "Quiero preparar también la masa de la pizza, ¿puedes indicarme cómo se hace?",
+      "conversation_id": "2f293d82-fa07-47cc-956d-7d2542d673bd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-3114df6e-db05-453d-affa-9891967d8626",
+      "source": "es",
+      "target": "en",
+      "text": "Háblame sobre las reglas ortográficas.",
+      "conversation_id": "3114df6e-db05-453d-affa-9891967d8626",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2839e6cf-be1b-4b40-b8ce-6c41b72ba53e",
+      "source": "es",
+      "target": "en",
+      "text": "puedes ayudarme a escribir un script en javascript para enviar por ajax un formaulario?",
+      "conversation_id": "2839e6cf-be1b-4b40-b8ce-6c41b72ba53e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f4b3bd6f-9cd2-4451-9573-22768f8ef545",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cómo calcular el tamaño de escaneado ?",
+      "conversation_id": "f4b3bd6f-9cd2-4451-9573-22768f8ef545",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-7e6b68dd-7b92-459b-baba-b54d7e38c0b5",
+      "source": "es",
+      "target": "en",
+      "text": "Redacta un mail en el que solicito un aumento de sueldo a mi jefe. Trabajo en la industria farmacéutica y mi rendimiento ha sido superior al de mis compañeros; pero tampoco recrimines a mis compañeros el trabajar poco. Tiene que ser un mensaje sustentado exclusivamente en el positivismo y no tanto en echar por tierra el trabajo de los demás.",
+      "conversation_id": "7e6b68dd-7b92-459b-baba-b54d7e38c0b5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-995019cc-527b-4933-b189-4dab5d77cb40",
+      "source": "es",
+      "target": "en",
+      "text": "¿Crees que Plutón debería ser un planeta?",
+      "conversation_id": "995019cc-527b-4933-b189-4dab5d77cb40",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-087c6535-3d8c-405d-97bf-06919e201f4f",
+      "source": "es",
+      "target": "en",
+      "text": "Puedes hacer que la información de las variables se pueda guardar en un archivo?",
+      "conversation_id": "bd17b045-1b1a-4566-98eb-8c6c432c00a9",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-225a0fee-0bc8-4a1f-9fea-fe0f416c55b7",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué es para ti el patriotismo?",
+      "conversation_id": "225a0fee-0bc8-4a1f-9fea-fe0f416c55b7",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8b449bba-86c9-4505-b2df-4d39a33bbb43",
+      "source": "es",
+      "target": "en",
+      "text": "Analiza la información de este banco https://www.banque-france.fr/ y dime si es pertinente invertir allí.",
+      "conversation_id": "8b449bba-86c9-4505-b2df-4d39a33bbb43",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9f83e1c9-1dfc-4c96-8e24-571fe3a3c34b",
+      "source": "es",
+      "target": "en",
+      "text": "Que es Kerberos en Windows",
+      "conversation_id": "9f83e1c9-1dfc-4c96-8e24-571fe3a3c34b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-4bafb17d-cf77-4b52-97ed-4a131085db71",
+      "source": "es",
+      "target": "en",
+      "text": "crea un plan de área para la signatura de informática para un curso de 8 grado de un colegio de Colombia",
+      "conversation_id": "4bafb17d-cf77-4b52-97ed-4a131085db71",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-572bcea0-c48a-4b4d-be57-c92255e29212",
+      "source": "es",
+      "target": "en",
+      "text": "¿Por qué 42?",
+      "conversation_id": "572bcea0-c48a-4b4d-be57-c92255e29212",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fc7f6530-7808-413c-9071-b206c43d75ab",
+      "source": "es",
+      "target": "en",
+      "text": "Hola",
+      "conversation_id": "fc7f6530-7808-413c-9071-b206c43d75ab",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-7323456c-5d5f-4c30-bab5-d472a738aed2",
+      "source": "es",
+      "target": "en",
+      "text": "Puedes describir los diferentes tipos de inversiones, mencionando las ventajas y desventajas de cada uno?",
+      "conversation_id": "3d9e2ca2-7fde-43b2-a9bb-ef438f51f7d4",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8c475c41-7501-4443-8b05-b3b460640922",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles son los principales problemas de la humanidad?, ¿qué solución ofrecerías para cada problema?",
+      "conversation_id": "8c475c41-7501-4443-8b05-b3b460640922",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0367e7cd-2808-48a9-85c4-dcf78074cd3b",
+      "source": "es",
+      "target": "en",
+      "text": "¿crees que hay alguna solución posible a la paradoja del barbero? y si es así, ¿podrias proporcionar una respuesta?",
+      "conversation_id": "0367e7cd-2808-48a9-85c4-dcf78074cd3b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9260d596-7edd-467d-b06e-1435ddf84aca",
+      "source": "es",
+      "target": "en",
+      "text": "Puedes conectarte a internet para obtener respuestas a preguntas especificas ?",
+      "conversation_id": "9260d596-7edd-467d-b06e-1435ddf84aca",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-1f92ef51-e14c-48ec-b346-b4c1629be3b4",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué es Data Science? y ¿Que libros puedo leer para empezar a aprender?",
+      "conversation_id": "1f92ef51-e14c-48ec-b346-b4c1629be3b4",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fbfad44d-5cf4-4fa2-be7a-967c93e7595e",
+      "source": "es",
+      "target": "en",
+      "text": "¿Puedes darme los conceptos mas importantes que un estudiante que esta aprendiendo el lenguajes de programación javascript necesita saber?",
+      "conversation_id": "fbfad44d-5cf4-4fa2-be7a-967c93e7595e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-70677565-d655-456f-a552-00d0712b50f5",
+      "source": "es",
+      "target": "en",
+      "text": "Quisiera que me ayudaras con una lista de extranjerismos que se usen en el español y me digas su lengua de origen. Clasifica la lista por la lengua de origen de los vocablos y dentro de cada categoría enumera las palabras.",
+      "conversation_id": "70677565-d655-456f-a552-00d0712b50f5",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-26b31db1-c123-43d6-87cc-7c1101f1fdad",
+      "source": "es",
+      "target": "en",
+      "text": "¿Por qué el día tiene 24 horas?",
+      "conversation_id": "26b31db1-c123-43d6-87cc-7c1101f1fdad",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-c1c79b10-41e2-468f-9feb-fc198a572c13",
+      "source": "es",
+      "target": "en",
+      "text": "En caso de tener alguna de las siguientes patologias, ¿por cuál actividad debería de comenzar?",
+      "conversation_id": "50da38c4-b175-4b8b-812e-c7375701b84b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-5dc8e858-eb85-4788-a1c7-962c9b68ffe6",
+      "source": "es",
+      "target": "en",
+      "text": "Podrias darme una receta para hacer una paella?",
+      "conversation_id": "5dc8e858-eb85-4788-a1c7-962c9b68ffe6",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8c8b9315-2b4b-4222-80de-496a90c348fc",
+      "source": "es",
+      "target": "en",
+      "text": "¿Como crear un formulario en VBA de Excel?",
+      "conversation_id": "8c8b9315-2b4b-4222-80de-496a90c348fc",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-ddce44da-785b-4f75-aa28-10e4776ed31e",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué propiedades tiene la acetona que la hacen un componente esencial para el quitaesmalte de uñas?",
+      "conversation_id": "ddce44da-785b-4f75-aa28-10e4776ed31e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0a03eb52-37b3-4ffb-84d3-3c547f51b4f2",
+      "source": "es",
+      "target": "en",
+      "text": "Stable Diffusion acepta sólo propmts en inglés. ¿Podrías traducirlo?",
+      "conversation_id": "d16b3329-0d5f-4a0e-8d46-546f9ccf788f",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-007afc48-ed67-463a-9054-cef1cde24ec5",
+      "source": "es",
+      "target": "en",
+      "text": "¿Qué más canciones tienen acordes similares?",
+      "conversation_id": "5b81eefe-9c15-49f4-aa88-95ae5d2af653",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-7b665577-75ad-4ef9-bd85-0aa8df66844b",
+      "source": "es",
+      "target": "en",
+      "text": "Muchas gracias, todavía tengo rondando por mi mente el tema de ayudar a otras personas o la humanidad, quisiera saber ¿cuáles son los problemas principales de la humanidad a solucionar?, quisiera dedicar mi vida a solucionar uno de esos problemas, tiene que ser del ámbito científico, no social.",
+      "conversation_id": "5e9574d4-6ceb-4f5e-ab29-c9b02abb81fb",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f8d1170f-c241-4a93-9498-76d3c9fc1749",
+      "source": "es",
+      "target": "en",
+      "text": "Procura escribir sin faltas de ortografía y procurando usar las palabras que más se ajusten en su significado a los fines que buscas.",
+      "conversation_id": "f8d1170f-c241-4a93-9498-76d3c9fc1749",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f1d74981-e879-48cc-b48b-20ec85e6e59a",
+      "source": "es",
+      "target": "en",
+      "text": "Cómo se resuelve una ecuación de segundo grado?",
+      "conversation_id": "f1d74981-e879-48cc-b48b-20ec85e6e59a",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8250c909-98a0-4ea6-96ee-a22dfe10aaae",
+      "source": "es",
+      "target": "en",
+      "text": "Como hacer operaciones con Bytes en JavaScript",
+      "conversation_id": "8250c909-98a0-4ea6-96ee-a22dfe10aaae",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f5a59e69-81b0-4bcb-9483-57c0d62b8217",
+      "source": "es",
+      "target": "en",
+      "text": "sabes que es reddit?",
+      "conversation_id": "f5a59e69-81b0-4bcb-9483-57c0d62b8217",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-c7a76cbd-7237-4795-a137-801ca1d28c34",
+      "source": "es",
+      "target": "en",
+      "text": "Hola! Podrías ayudarme con algo? Tengo un problema en mi código de Typescript:\nConsole.log(\"Hola mundo!)\nMe da un error de sintaxis, gracias",
+      "conversation_id": "c7a76cbd-7237-4795-a137-801ca1d28c34",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6315382e-7792-49b7-9d96-d6afc003cc7e",
+      "source": "es",
+      "target": "en",
+      "text": "Actúa como profesor de bachillerato y prepara una clase sobre el proceso independentista Argentino. Que incluya actores políticos destacados y batallas principales. Incluyendo un cuadro sinóptico.",
+      "conversation_id": "6315382e-7792-49b7-9d96-d6afc003cc7e",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-fe7fae67-4367-4014-a185-b7dce3a913d9",
+      "source": "es",
+      "target": "en",
+      "text": "Teniendo en cuenta esas diferencias de políticas de privacidad dime que datos son los que aparecerían en mi cuenta de  Facebook y en TikTok según tu comparativa anterior.",
+      "conversation_id": "0be31017-c8d0-4efc-8d16-3130f18e1777",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-8fa2d8ec-8d5b-44c0-b9d5-b3289ac523cb",
+      "source": "es",
+      "target": "en",
+      "text": "Cómo puedo obtener ingresos pasivos?",
+      "conversation_id": "8fa2d8ec-8d5b-44c0-b9d5-b3289ac523cb",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-f03fe97c-69cd-4105-8305-fc3a4bad335b",
+      "source": "es",
+      "target": "en",
+      "text": "Explícame los distintos tipos de RAID que puedo configurar con varios discos duros",
+      "conversation_id": "f03fe97c-69cd-4105-8305-fc3a4bad335b",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6fd265ff-e5d9-4319-9a43-199512c230fd",
+      "source": "es",
+      "target": "en",
+      "text": "¿Quién fue Cristobal Colon?",
+      "conversation_id": "6fd265ff-e5d9-4319-9a43-199512c230fd",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-453ef3db-4a33-4f97-9f72-c7e41a3e397c",
+      "source": "es",
+      "target": "en",
+      "text": "Escribe tres posts para Facebook. La empresa es Movistar. El producto es Fibra Optica. Los posts deben tener emojis, llamados a la acción muy clickbait.",
+      "conversation_id": "453ef3db-4a33-4f97-9f72-c7e41a3e397c",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-c99a9772-bb4c-48ce-a4f5-d55f22b98550",
+      "source": "es",
+      "target": "en",
+      "text": "¿Quién es elrubiusOMG?",
+      "conversation_id": "c99a9772-bb4c-48ce-a4f5-d55f22b98550",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-0d29a130-8f72-46da-bf70-2e5dc212a35d",
+      "source": "es",
+      "target": "en",
+      "text": "Qué me puedes decir del compositor electroacústico Carlos D. Perales?",
+      "conversation_id": "0d29a130-8f72-46da-bf70-2e5dc212a35d",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-2d7a5b2b-ea96-4c80-8f7c-a2a2ee5461fc",
+      "source": "es",
+      "target": "en",
+      "text": "Escríbeme un poema con rima consonante sobre el un buceador que se hace amigo de un pulpo",
+      "conversation_id": "2d7a5b2b-ea96-4c80-8f7c-a2a2ee5461fc",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-267f0028-dd5e-4d4a-bed8-fe7c84168dc9",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuáles crees que son los artistas musicales más relevantes en el mundo hoy en día?",
+      "conversation_id": "267f0028-dd5e-4d4a-bed8-fe7c84168dc9",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-6900cc8c-4079-4426-8490-9a7f63618233",
+      "source": "es",
+      "target": "en",
+      "text": "¿Cuál es la diferencia entre aprendizaje supervisado y aprendizaje no supervisado?",
+      "conversation_id": "6900cc8c-4079-4426-8490-9a7f63618233",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    },
+    {
+      "id": "oasst-9e58c02d-769b-438d-93c2-0bcb4fe23835",
+      "source": "es",
+      "target": "en",
+      "text": "Que me puedes decir para sentirme feliz",
+      "conversation_id": "9e58c02d-769b-438d-93c2-0bcb4fe23835",
+      "provenance": "OASST1 human Spanish prompter; not synthetic; reviewed; not deleted"
+    }
+  ],
+  "runner_sha256": "5660963ad7f649414ebe83b8fcb705a44726942feca054f8109e3689508faf2b",
+  "source_receipt": {
+    "upstream_commit": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+    "items": [
+      {
+        "name": "2023-04-12_oasst_ready.messages.jsonl.gz",
+        "url": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/2023-04-12_oasst_ready.messages.jsonl.gz",
+        "bytes": 34196309,
+        "sha256": "286a6e9a5a413b3272ae9c0b5a20d327983dea1c24342ae28cb244a6da65185c"
+      },
+      {
+        "name": "LICENSE",
+        "url": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/LICENSE",
+        "bytes": 11357,
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      {
+        "name": "README.md",
+        "url": "https://huggingface.co/datasets/OpenAssistant/oasst1/resolve/fdf72ae0827c1cda404aff25b6603abec9e3399b/README.md",
+        "bytes": 10168,
+        "sha256": "68483ac2fcc2f3f7779f453352363827678070ef35b6d746ccb2ca6958540fff"
+      }
+    ],
+    "completed_utc": "2026-11-07T22:48:59.879590+00:00",
+    "license": "Apache2.0"
+  },
+  "taskmaster_protocol_sha256": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0",
+  "licenses": {
+    "OASST1": "Apache-2.0",
+    "Taskmaster-2": "CC BY 4.0"
+  },
+  "attribution": {
+    "OASST1": "OpenAssistant contributors, LAION, 2023",
+    "Taskmaster-2": "Bill Byrne, Karthik Krishnamoorthi, Saravanan Ganesh, Amit Dubey, Kyu-Young Kim and Andy Cedilnik, Google LLC. Taskmaster-2 (2020)."
+  },
+  "method": "Spanish human prompter, reviewed and not deleted/synthetic; at most 2000 characters and 120 whitespace words. One hash-selected turn per eligible tree, then first 200 hash-ordered trees. Japanese reuses all 200 frozen English Taskmaster inputs, new direction. No outcome selection.",
+  "eligible_spanish_trees": 3891,
+  "spanish_whitespace_length_bins": {
+    "31+": 19,
+    "6-15": 107,
+    "1-5": 24,
+    "16-30": 50
+  },
+  "limitations": "Human assistant conversations and task-oriented dialogue, not a peer-chat population estimate. No bilingual gold reference. Historical model training overlap unmeasured. Reviewer context is never translation input.",
+  "training_use": false,
+  "pack_building_use": false
+}

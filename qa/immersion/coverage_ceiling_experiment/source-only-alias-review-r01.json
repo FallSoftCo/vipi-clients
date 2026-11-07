@@ -1,0 +1,219 @@
+{
+  "schema": "vipi-source-alias-evaluation-1",
+  "production": false,
+  "translator_input_changed": false,
+  "translation_calls": 0,
+  "inputs": {
+    "source-only-diagnostic-400-r01.json": "87ba1ee71d6c4caaa4fce9fcb97f8e1ab230e921f9dc7d0e077d5b02629682d0",
+    "source-only-normalized-82-r01.json": "af18544602ffb1946cd4c59693a0f37dd9eef7aa45be8abcdb7eab1f9e1b22f4"
+  },
+  "summary": {
+    "es": {
+      "new_correct_spans": 4,
+      "new_messages": 4,
+      "evaluated_changed_messages": 41,
+      "whole_sample_messages": 200
+    },
+    "sw": {
+      "new_correct_spans": 4,
+      "new_messages": 4,
+      "evaluated_changed_messages": 41,
+      "whole_sample_messages": 200
+    }
+  },
+  "review_limit": "Author assessment only; four patterns repeated in two languages, not a general broad coverage claim. Lookup is performed on reversible alias-expanded source; target spans are projected onto original source, and original translator input is retained.",
+  "results": [
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "sw",
+      "original": "Ho ho - big belly laugh! See ya tomo",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 32,
+          "sourceEndUTF16": 36,
+          "original": "tomo",
+          "translated": "kesho",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-sw:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            32,
+            40
+          ]
+        }
+      ],
+      "visible": "Ho ho - big belly laugh! See ya kesho",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "sw",
+      "original": "You are not bothering me but you have to trust my answers. Pls.",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 59,
+          "sourceEndUTF16": 62,
+          "original": "Pls",
+          "translated": "tafadhali",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-authored-r1:chat_response_alias_11e8a27dd7109f4198331370f5316b11:en-sw:source_chat_clause",
+          "normalized_source": "Please",
+          "normalized_source_range": [
+            59,
+            65
+          ]
+        }
+      ],
+      "visible": "You are not bothering me but you have to trust my answers. tafadhali.",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "sw",
+      "original": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? ",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 29,
+          "sourceEndUTF16": 32,
+          "original": "tmr",
+          "translated": "kesho",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-sw:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            29,
+            37
+          ]
+        }
+      ],
+      "visible": "is your hamster dead? Hey so kesho i meet you at 1pm orchard mrt? ",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "sw",
+      "original": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30.",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 30,
+          "sourceEndUTF16": 34,
+          "original": "tomo",
+          "translated": "kesho",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-sw:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            30,
+            38
+          ]
+        }
+      ],
+      "visible": "Does cinema plus drink appeal kesho? * Is a fr thriller by director i like on at mac at 8.30.",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-672",
+      "source": "en",
+      "target": "es",
+      "original": "Ho ho - big belly laugh! See ya tomo",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 32,
+          "sourceEndUTF16": 36,
+          "original": "tomo",
+          "translated": "mañana",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-es:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            32,
+            40
+          ]
+        }
+      ],
+      "visible": "Ho ho - big belly laugh! See ya mañana",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-3040",
+      "source": "en",
+      "target": "es",
+      "original": "You are not bothering me but you have to trust my answers. Pls.",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 59,
+          "sourceEndUTF16": 62,
+          "original": "Pls",
+          "translated": "por favor",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-authored-r1:chat_response_alias_20f0213f68abec457fcaab600be618e0:en-es:source_chat_clause",
+          "normalized_source": "Please",
+          "normalized_source_range": [
+            59,
+            65
+          ]
+        }
+      ],
+      "visible": "You are not bothering me but you have to trust my answers. por favor.",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-199",
+      "source": "en",
+      "target": "es",
+      "original": "is your hamster dead? Hey so tmr i meet you at 1pm orchard mrt? ",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 29,
+          "sourceEndUTF16": 32,
+          "original": "tmr",
+          "translated": "mañana",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-es:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            29,
+            37
+          ]
+        }
+      ],
+      "visible": "is your hamster dead? Hey so mañana i meet you at 1pm orchard mrt? ",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    },
+    {
+      "id": "uci-sms-line-3181",
+      "source": "en",
+      "target": "es",
+      "original": "Does cinema plus drink appeal tomo? * Is a fr thriller by director i like on at mac at 8.30.",
+      "added_spans": [
+        {
+          "sourceStartUTF16": 30,
+          "sourceEndUTF16": 34,
+          "original": "tomo",
+          "translated": "mañana",
+          "origin": "retained_source_phrase_candidate3",
+          "mappingId": "vipi-time-social-unit-r1:tomorrow:en-es:01:source_unambiguous_family",
+          "normalized_source": "tomorrow",
+          "normalized_source_range": [
+            30,
+            38
+          ]
+        }
+      ],
+      "visible": "Does cinema plus drink appeal mañana? * Is a fr thriller by director i like on at mac at 8.30.",
+      "projection_rejections": [],
+      "author_assessment": "correct_source_only_alias_extension"
+    }
+  ]
+}

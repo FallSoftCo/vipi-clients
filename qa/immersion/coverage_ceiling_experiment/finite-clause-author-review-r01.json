@@ -1,0 +1,1327 @@
+{
+  "schema": "vipi-finite-clause-author-review-1",
+  "comparison_sha256": "1ca33bfb0bc7fa679a1d52eb67fcb299c646a5ebb7ae2a0d030eb8b3375701ff",
+  "production": false,
+  "independent_bilingual_acceptance": false,
+  "summary": {
+    "inputs": 400,
+    "attested_mapping_records": 580,
+    "unique_participles": 494,
+    "matched_messages": 4,
+    "labels": {
+      "uncertain": 2,
+      "material_error": 1,
+      "meaning_appears_correct": 1
+    },
+    "contrasts": 26,
+    "known_semantic_failures_in_controls": 2,
+    "legitimate_abstention_example": "drinking water has both nywa and sharabu glossed drink; uniqueness gate rejects"
+  },
+  "generalization_unit": "Clause-initial I/we/he/she + agreeing finite be (including contraction) + dictionary-attested present participle. Whole subject+auxiliary+verb becomes a complete supplied Swahili present-person form. Other objects/complements stay English. Ambiguous pronoun number/class, future cues, obvious particles, questions and unsupported scope abstain. This is syntax applicability, not proven word sense.",
+  "conclusion": "Supplied forms eliminate manual affix invention, but exact English glosses do not resolve source senses. Low applicability and meaning errors prevent promotion. No target MT prerequisite was used.",
+  "corpus_review": [
+    {
+      "id": "uci-sms-line-1062",
+      "original": "I'm working technical support :)voice process.networking field.",
+      "visible": "ninaamili technical support :)voice process.networking field.",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 11,
+          "original": "I'm working",
+          "translated": "ninaamili",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I'm working",
+            "source_range": [
+              0,
+              11
+            ],
+            "english_participle": "working",
+            "claims": [
+              {
+                "english_lemma": "work",
+                "english_participle": "working",
+                "swahili_headword": "amili",
+                "gloss": "to work",
+                "source_line": 3432,
+                "source_url": "https://en.wiktionary.org/wiki/amili",
+                "attested_forms": {
+                  "i": [
+                    "naamili",
+                    "ninaamili"
+                  ],
+                  "we": [
+                    "tunaamili"
+                  ],
+                  "he": [
+                    "anaamili"
+                  ],
+                  "she": [
+                    "anaamili"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninaamili",
+                  "we": "tunaamili",
+                  "he": "anaamili",
+                  "she": "anaamili"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "label": "uncertain",
+      "finding": "amili supplied gloss work is not enough to establish contemporary natural usage in technical support context."
+    },
+    {
+      "id": "uci-sms-line-158",
+      "original": "I'm leaving my house now...",
+      "visible": "ninaacha my house now...",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 11,
+          "original": "I'm leaving",
+          "translated": "ninaacha",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I'm leaving",
+            "source_range": [
+              0,
+              11
+            ],
+            "english_participle": "leaving",
+            "claims": [
+              {
+                "english_lemma": "leave",
+                "english_participle": "leaving",
+                "swahili_headword": "acha",
+                "gloss": "to leave",
+                "source_line": 1844,
+                "source_url": "https://en.wiktionary.org/wiki/acha",
+                "attested_forms": {
+                  "i": [
+                    "naacha",
+                    "ninaacha"
+                  ],
+                  "we": [
+                    "tunaacha"
+                  ],
+                  "he": [
+                    "anaacha"
+                  ],
+                  "she": [
+                    "anaacha"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninaacha",
+                  "we": "tunaacha",
+                  "he": "anaacha",
+                  "she": "anaacha"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "label": "material_error",
+      "finding": "acha selects leave/abandon while source is departing from the house; grammatical person/tense does not resolve sense."
+    },
+    {
+      "id": "uci-sms-line-3652",
+      "original": "We are hoping to get away by 7, from Langport. You still up for town tonight?",
+      "visible": "tunataraja to get away by 7, from Langport. You still up for town tonight?",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 13,
+          "original": "We are hoping",
+          "translated": "tunataraja",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "We are hoping",
+            "source_range": [
+              0,
+              13
+            ],
+            "english_participle": "hoping",
+            "claims": [
+              {
+                "english_lemma": "hope",
+                "english_participle": "hoping",
+                "swahili_headword": "taraja",
+                "gloss": "to hope",
+                "source_line": 17504,
+                "source_url": "https://en.wiktionary.org/wiki/taraja",
+                "attested_forms": {
+                  "i": [
+                    "nataraja",
+                    "ninataraja"
+                  ],
+                  "we": [
+                    "tunataraja"
+                  ],
+                  "he": [
+                    "anataraja"
+                  ],
+                  "she": [
+                    "anataraja"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninataraja",
+                  "we": "tunataraja",
+                  "he": "anataraja",
+                  "she": "anataraja"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "label": "uncertain",
+      "finding": "taraja is attested hope/expect but natural register in this conversational context remains unqualified."
+    },
+    {
+      "id": "tm2-dlg-9e3ac8f2-009b-4e83-ba93-70e9b137d841-1",
+      "original": "Hello. I'm needing to order a takeout for one person. I need to open some gyros.",
+      "visible": "Hello. ninahitaji to order a takeout for one person. I need to open some gyros.",
+      "spans": [
+        {
+          "sourceStartUTF16": 7,
+          "sourceEndUTF16": 18,
+          "original": "I'm needing",
+          "translated": "ninahitaji",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I'm needing",
+            "source_range": [
+              7,
+              18
+            ],
+            "english_participle": "needing",
+            "claims": [
+              {
+                "english_lemma": "need",
+                "english_participle": "needing",
+                "swahili_headword": "hitaji",
+                "gloss": "to need",
+                "source_line": 6516,
+                "source_url": "https://en.wiktionary.org/wiki/hitaji",
+                "attested_forms": {
+                  "i": [
+                    "nahitaji",
+                    "ninahitaji"
+                  ],
+                  "we": [
+                    "tunahitaji"
+                  ],
+                  "he": [
+                    "anahitaji"
+                  ],
+                  "she": [
+                    "anahitaji"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninahitaji",
+                  "we": "tunahitaji",
+                  "he": "anahitaji",
+                  "she": "anahitaji"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "label": "meaning_appears_correct",
+      "finding": "ninahitaji retains I need; remaining English complement stays visible."
+    }
+  ],
+  "contrast_checks": [
+    {
+      "text": "I am cooking dinner.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 12,
+          "original": "I am cooking",
+          "translated": "ninapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I am cooking",
+            "source_range": [
+              0,
+              12
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "ninapika dinner."
+    },
+    {
+      "text": "We are cooking dinner.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 14,
+          "original": "We are cooking",
+          "translated": "tunapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "We are cooking",
+            "source_range": [
+              0,
+              14
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "tunapika dinner."
+    },
+    {
+      "text": "He is cooking dinner.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 13,
+          "original": "He is cooking",
+          "translated": "anapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "He is cooking",
+            "source_range": [
+              0,
+              13
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "anapika dinner."
+    },
+    {
+      "text": "She is cooking dinner.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 14,
+          "original": "She is cooking",
+          "translated": "anapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "She is cooking",
+            "source_range": [
+              0,
+              14
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "anapika dinner."
+    },
+    {
+      "text": "I'm cooking dinner.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 11,
+          "original": "I'm cooking",
+          "translated": "ninapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I'm cooking",
+            "source_range": [
+              0,
+              11
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "ninapika dinner."
+    },
+    {
+      "text": "I am not cooking dinner.",
+      "purpose": "negative",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "I am not cooking dinner."
+    },
+    {
+      "text": "I was cooking dinner.",
+      "purpose": "past",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "I was cooking dinner."
+    },
+    {
+      "text": "I will be cooking dinner.",
+      "purpose": "future",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "I will be cooking dinner."
+    },
+    {
+      "text": "I have been cooking dinner.",
+      "purpose": "perfect",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "I have been cooking dinner."
+    },
+    {
+      "text": "I am already cooking dinner.",
+      "purpose": "adverb",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "I am already cooking dinner."
+    },
+    {
+      "text": "Am I cooking dinner?",
+      "purpose": "question",
+      "status": "inapplicable",
+      "spans": [],
+      "rejections": [],
+      "visible": "Am I cooking dinner?"
+    },
+    {
+      "text": "You are cooking dinner.",
+      "purpose": "ambiguous_number",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "You are cooking",
+          "source_range": [
+            0,
+            15
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "person_number_or_noun_class_ambiguous"
+        }
+      ],
+      "visible": "You are cooking dinner."
+    },
+    {
+      "text": "They are cooking dinner.",
+      "purpose": "ambiguous_number",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "They are cooking",
+          "source_range": [
+            0,
+            16
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "person_number_or_noun_class_ambiguous"
+        }
+      ],
+      "visible": "They are cooking dinner."
+    },
+    {
+      "text": "It is cooking dinner.",
+      "purpose": "noun_class",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "It is cooking",
+          "source_range": [
+            0,
+            13
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "person_number_or_noun_class_ambiguous"
+        }
+      ],
+      "visible": "It is cooking dinner."
+    },
+    {
+      "text": "I are cooking dinner.",
+      "purpose": "disagreement",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I are cooking",
+          "source_range": [
+            0,
+            13
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "subject_auxiliary_disagreement"
+        }
+      ],
+      "visible": "I are cooking dinner."
+    },
+    {
+      "text": "I am cooking tomorrow.",
+      "purpose": "future",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am cooking",
+          "source_range": [
+            0,
+            12
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "future_reading_not_qualified"
+        }
+      ],
+      "visible": "I am cooking tomorrow."
+    },
+    {
+      "text": "I am going to cook dinner.",
+      "purpose": "future_auxiliary",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am going",
+          "source_range": [
+            0,
+            10
+          ],
+          "english_participle": "going",
+          "claims": [],
+          "reason": "particle_or_auxiliary_sense_unqualified"
+        }
+      ],
+      "visible": "I am going to cook dinner."
+    },
+    {
+      "text": "I am cooking up a plan.",
+      "purpose": "particle",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am cooking",
+          "source_range": [
+            0,
+            12
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "particle_or_auxiliary_sense_unqualified"
+        }
+      ],
+      "visible": "I am cooking up a plan."
+    },
+    {
+      "text": "She said \"I am cooking dinner.\"",
+      "purpose": "quote",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am cooking",
+          "source_range": [
+            10,
+            22
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "quoted_or_protected"
+        }
+      ],
+      "visible": "She said \"I am cooking dinner.\""
+    },
+    {
+      "text": "`I am cooking dinner.`",
+      "purpose": "code",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am cooking",
+          "source_range": [
+            1,
+            13
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "quoted_or_protected"
+        }
+      ],
+      "visible": "`I am cooking dinner.`"
+    },
+    {
+      "text": "If I am cooking dinner, call later.",
+      "purpose": "conditional",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am cooking",
+          "source_range": [
+            3,
+            15
+          ],
+          "english_participle": "cooking",
+          "claims": [
+            {
+              "english_lemma": "cook",
+              "english_participle": "cooking",
+              "swahili_headword": "pika",
+              "gloss": "to cook",
+              "source_line": 655,
+              "source_url": "https://en.wiktionary.org/wiki/pika",
+              "attested_forms": {
+                "i": [
+                  "napika",
+                  "ninapika"
+                ],
+                "we": [
+                  "tunapika"
+                ],
+                "he": [
+                  "anapika"
+                ],
+                "she": [
+                  "anapika"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninapika",
+                "we": "tunapika",
+                "he": "anapika",
+                "she": "anapika"
+              }
+            }
+          ],
+          "reason": "source_clause_boundary_unproved"
+        }
+      ],
+      "visible": "If I am cooking dinner, call later."
+    },
+    {
+      "text": "We are reading a book.",
+      "purpose": "valid",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 14,
+          "original": "We are reading",
+          "translated": "tunasoma",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "We are reading",
+            "source_range": [
+              0,
+              14
+            ],
+            "english_participle": "reading",
+            "claims": [
+              {
+                "english_lemma": "read",
+                "english_participle": "reading",
+                "swahili_headword": "soma",
+                "gloss": "to read",
+                "source_line": 386,
+                "source_url": "https://en.wiktionary.org/wiki/soma",
+                "attested_forms": {
+                  "i": [
+                    "nasoma",
+                    "ninasoma"
+                  ],
+                  "we": [
+                    "tunasoma"
+                  ],
+                  "he": [
+                    "anasoma"
+                  ],
+                  "she": [
+                    "anasoma"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninasoma",
+                  "we": "tunasoma",
+                  "he": "anasoma",
+                  "she": "anasoma"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "tunasoma a book."
+    },
+    {
+      "text": "I am drinking water.",
+      "purpose": "valid_but_competing_lexemes",
+      "status": "ambiguous",
+      "spans": [],
+      "rejections": [
+        {
+          "source": "I am drinking",
+          "source_range": [
+            0,
+            13
+          ],
+          "english_participle": "drinking",
+          "claims": [
+            {
+              "english_lemma": "drink",
+              "english_participle": "drinking",
+              "swahili_headword": "nywa",
+              "gloss": "to drink",
+              "source_line": 3722,
+              "source_url": "https://en.wiktionary.org/wiki/nywa",
+              "attested_forms": {
+                "i": [
+                  "nakunywa",
+                  "ninakunywa"
+                ],
+                "we": [
+                  "tunakunywa"
+                ],
+                "he": [
+                  "anakunywa"
+                ],
+                "she": [
+                  "anakunywa"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninakunywa",
+                "we": "tunakunywa",
+                "he": "anakunywa",
+                "she": "anakunywa"
+              }
+            },
+            {
+              "english_lemma": "drink",
+              "english_participle": "drinking",
+              "swahili_headword": "sharabu",
+              "gloss": "to drink",
+              "source_line": 17542,
+              "source_url": "https://en.wiktionary.org/wiki/sharabu",
+              "attested_forms": {
+                "i": [
+                  "nasharabu",
+                  "ninasharabu"
+                ],
+                "we": [
+                  "tunasharabu"
+                ],
+                "he": [
+                  "anasharabu"
+                ],
+                "she": [
+                  "anasharabu"
+                ]
+              },
+              "selected_forms": {
+                "i": "ninasharabu",
+                "we": "tunasharabu",
+                "he": "anasharabu",
+                "she": "anasharabu"
+              }
+            }
+          ],
+          "reason": "competing_target_lexemes"
+        }
+      ],
+      "visible": "I am drinking water."
+    },
+    {
+      "text": "I am cooking the books.",
+      "purpose": "known_idiom_error",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 12,
+          "original": "I am cooking",
+          "translated": "ninapika",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I am cooking",
+            "source_range": [
+              0,
+              12
+            ],
+            "english_participle": "cooking",
+            "claims": [
+              {
+                "english_lemma": "cook",
+                "english_participle": "cooking",
+                "swahili_headword": "pika",
+                "gloss": "to cook",
+                "source_line": 655,
+                "source_url": "https://en.wiktionary.org/wiki/pika",
+                "attested_forms": {
+                  "i": [
+                    "napika",
+                    "ninapika"
+                  ],
+                  "we": [
+                    "tunapika"
+                  ],
+                  "he": [
+                    "anapika"
+                  ],
+                  "she": [
+                    "anapika"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninapika",
+                  "we": "tunapika",
+                  "he": "anapika",
+                  "she": "anapika"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "ninapika the books."
+    },
+    {
+      "text": "I'm leaving my house now.",
+      "purpose": "known_sense_error",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 11,
+          "original": "I'm leaving",
+          "translated": "ninaacha",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "I'm leaving",
+            "source_range": [
+              0,
+              11
+            ],
+            "english_participle": "leaving",
+            "claims": [
+              {
+                "english_lemma": "leave",
+                "english_participle": "leaving",
+                "swahili_headword": "acha",
+                "gloss": "to leave",
+                "source_line": 1844,
+                "source_url": "https://en.wiktionary.org/wiki/acha",
+                "attested_forms": {
+                  "i": [
+                    "naacha",
+                    "ninaacha"
+                  ],
+                  "we": [
+                    "tunaacha"
+                  ],
+                  "he": [
+                    "anaacha"
+                  ],
+                  "she": [
+                    "anaacha"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninaacha",
+                  "we": "tunaacha",
+                  "he": "anaacha",
+                  "she": "anaacha"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "ninaacha my house now."
+    },
+    {
+      "text": "We are hoping to get away.",
+      "purpose": "uncertain_register",
+      "status": "matched",
+      "spans": [
+        {
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 13,
+          "original": "We are hoping",
+          "translated": "tunataraja",
+          "origin": "eval_only_attested_finite_source_clause",
+          "evidence": {
+            "source": "We are hoping",
+            "source_range": [
+              0,
+              13
+            ],
+            "english_participle": "hoping",
+            "claims": [
+              {
+                "english_lemma": "hope",
+                "english_participle": "hoping",
+                "swahili_headword": "taraja",
+                "gloss": "to hope",
+                "source_line": 17504,
+                "source_url": "https://en.wiktionary.org/wiki/taraja",
+                "attested_forms": {
+                  "i": [
+                    "nataraja",
+                    "ninataraja"
+                  ],
+                  "we": [
+                    "tunataraja"
+                  ],
+                  "he": [
+                    "anataraja"
+                  ],
+                  "she": [
+                    "anataraja"
+                  ]
+                },
+                "selected_forms": {
+                  "i": "ninataraja",
+                  "we": "tunataraja",
+                  "he": "anataraja",
+                  "she": "anataraja"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "rejections": [],
+      "visible": "tunataraja to get away."
+    }
+  ]
+}

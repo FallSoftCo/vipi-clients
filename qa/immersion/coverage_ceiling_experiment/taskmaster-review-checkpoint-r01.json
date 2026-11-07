@@ -1,0 +1,746 @@
+{
+  "comparison_sha256": "ac0374bd52cf5b35ecece40560d61341f3a2cefdd2d0107eed3a7d586bcb64e5",
+  "reviewer": "Author agent; independent bilingual acceptance false",
+  "reviewed_indices": {
+    "es": [
+      [
+        0,
+        70
+      ],
+      [
+        70,
+        140
+      ],
+      [
+        140,
+        200
+      ]
+    ],
+    "sw": [
+      [
+        0,
+        100
+      ],
+      [
+        100,
+        200
+      ]
+    ]
+  },
+  "span_overrides": {
+    "es": {
+      "0:Economy": [
+        "material_error",
+        "Airline economy cabin is translated as economics noun Economía."
+      ],
+      "11:American": [
+        "material_error",
+        "American Airlines brand reference becomes nationality adjective estadounidense."
+      ],
+      "23:top": [
+        "material_error",
+        "On top of things idiom becomes a physical peak/cima."
+      ],
+      "30:open": [
+        "uncertain",
+        "Source open some gyros is probably a transcription anomaly; literal abrir correspondence unqualified."
+      ],
+      "35:large": [
+        "uncertain",
+        "Gran before a drink brand may mean great rather than serving size grande."
+      ],
+      "53:Coke": [
+        "uncertain",
+        "Brand Coke becomes lowercase coca; local brand abbreviation versus coca plant unqualified."
+      ],
+      "57:Great": [
+        "uncertain",
+        "Positive exclamation becomes plural Grandes."
+      ],
+      "72:help": [
+        "lexical_category_error",
+        "Request for help noun becomes helping verb; source wants help, not to provide help."
+      ],
+      "98:help": [
+        "lexical_category_error",
+        "Would like help is noun help, not ayudar/to help."
+      ],
+      "105:help": [
+        "lexical_category_error",
+        "Would like help is noun help, not ayudar/to help."
+      ],
+      "105:significant": [
+        "uncertain",
+        "Significant other is a relationship compound; isolated significant correspondence unqualified."
+      ],
+      "108:bye": [
+        "material_error",
+        "A subpart of hyphenated Good-bye takes the translation of the whole word; mixed output leaves Good-Adiós."
+      ],
+      "119:play": [
+        "material_error",
+        "Play artist music becomes jugar/play a game."
+      ],
+      "127:literary": [
+        "lexical_category_error",
+        "Source transcription literary is used in adverb position (literally); adjective literario fails context."
+      ],
+      "127:cover": [
+        "material_error",
+        "Cover performance becomes portada/front cover."
+      ],
+      "131:Great": [
+        "uncertain",
+        "Positive exclamation becomes plural Grandes."
+      ],
+      "133:Cool": [
+        "material_error",
+        "Approval cool becomes temperature adjective Fresco."
+      ],
+      "135:Gypsy": [
+        "material_error",
+        "Song title Gypsy is translated as demonym gitano; naming identity changes."
+      ],
+      "143:play": [
+        "material_error",
+        "Music playback becomes playing a game/jugar."
+      ],
+      "149:drive": [
+        "material_error",
+        "Driving journey becomes disk/disco."
+      ],
+      "163:drive": [
+        "material_error",
+        "Driving journey becomes disk/disco."
+      ],
+      "166:help": [
+        "lexical_category_error",
+        "Would like help is noun assistance, not ayudar/to help others."
+      ],
+      "175:manager": [
+        "uncertain",
+        "Sports context may mean head coach rather than business gerente; sentence alone underspecifies role."
+      ],
+      "176:small": [
+        "material_error",
+        "Part of basketball small-forward position becomes physical size."
+      ],
+      "176:forward": [
+        "material_error",
+        "Basketball forward position becomes direction adelante."
+      ],
+      "194:manager": [
+        "uncertain",
+        "Stoke City football manager likely means coach, not business gerente; native sports-role review needed."
+      ]
+    },
+    "sw": {
+      "0:Economy": [
+        "material_error",
+        "Economy cabin becomes economics/Uchumi."
+      ],
+      "12:look": [
+        "material_error",
+        "Look for/search becomes look at/angalia; phrasal search sense lost."
+      ],
+      "66:City": [
+        "material_error",
+        "Part of named Park City becomes generic city/jiji, changing place name."
+      ],
+      "112:works": [
+        "lexical_category_error",
+        "Whole target inafanya kazi means works; kazi alone is a noun and drops verbal carrier."
+      ],
+      "119:play": [
+        "uncertain",
+        "Cheza commonly means play/dance; music playback versus dance usage needs native review."
+      ],
+      "143:play": [
+        "uncertain",
+        "Music playback use of cheza versus piga requires native usage review."
+      ],
+      "175:manager": [
+        "uncertain",
+        "Sports manager may mean head coach; meneja role requires native domain review."
+      ],
+      "194:manager": [
+        "uncertain",
+        "Football manager/head coach versus business meneja needs native domain review."
+      ]
+    }
+  },
+  "full_overrides": {
+    "es": {
+      "0": [
+        "material_error",
+        "Economy cabin becomes economics."
+      ],
+      "11": [
+        "material_error",
+        "American Airlines preference becomes improving an American person/adjective."
+      ],
+      "15": [
+        "material_error",
+        "Mandatory Wi-Fi becomes a must-see visit expression."
+      ],
+      "23": [
+        "material_error",
+        "Competence idiom translated as physical position."
+      ],
+      "30": [
+        "material_error",
+        "Gyros food becomes turns/giros."
+      ],
+      "33": [
+        "material_error",
+        "Cokes become coques, not cola drinks."
+      ],
+      "37": [
+        "material_error",
+        "Honey puffs food becomes swelling of honey."
+      ],
+      "43": [
+        "material_error",
+        "Take-out becomes desplegable/dropdown."
+      ],
+      "47": [
+        "unchanged",
+        "Byee remains original text."
+      ],
+      "56": [
+        "uncertain_or_incomplete",
+        "A favor de inserted into order construction; takeout sense and phrase uncertain."
+      ],
+      "71": [
+        "unchanged",
+        "Currency amount only; spacing is not language exposure."
+      ],
+      "72": [
+        "material_error",
+        "Wanting assistance becomes wanting to help someone else."
+      ],
+      "81": [
+        "unchanged",
+        "Hotel name retained; no language exposure."
+      ],
+      "87": [
+        "material_error",
+        "Movie showing becomes playing a game/jugando."
+      ],
+      "91": [
+        "material_error",
+        "Did not catch/hear becomes did not catch myself."
+      ],
+      "93": [
+        "unchanged",
+        "No is the same written word."
+      ],
+      "98": [
+        "material_error",
+        "Wanting help becomes offering to help."
+      ],
+      "105": [
+        "material_error",
+        "Wanting help becomes offering help; significant other is also literal."
+      ],
+      "109": [
+        "material_error",
+        "Rotten Tomatoes rating site is translated as rotten vegetables."
+      ],
+      "110": [
+        "material_error",
+        "Rotten Tomatoes rating site is translated as vegetables."
+      ],
+      "114": [
+        "unchanged",
+        "Time only."
+      ],
+      "118": [
+        "material_error",
+        "A hit song becomes a blow/golpe."
+      ],
+      "119": [
+        "material_error",
+        "Play music becomes play a game."
+      ],
+      "127": [
+        "material_error",
+        "Music cover becomes front cover; literary transcription interpreted literally."
+      ],
+      "131": [
+        "uncertain_or_incomplete",
+        "Plural Grandes alone is not a qualified positive exclamation."
+      ],
+      "132": [
+        "unchanged",
+        "No is the same written word."
+      ],
+      "133": [
+        "material_error",
+        "Artist Pretty Lights and song Stay become ordinary translated words."
+      ],
+      "134": [
+        "unchanged",
+        "Spelled artist name retained."
+      ],
+      "135": [
+        "material_error",
+        "Song title Gypsy is translated to gitano, changing named item."
+      ],
+      "138": [
+        "material_error",
+        "Song title Some Might Say is translated, changing named item."
+      ],
+      "141": [
+        "material_error",
+        "Music playback becomes playing a game."
+      ],
+      "142": [
+        "material_error",
+        "Music playback becomes playing a game."
+      ],
+      "143": [
+        "material_error",
+        "Music playback becomes playing a game."
+      ],
+      "148": [
+        "material_error",
+        "Four Hills named location becomes ordinary four hills."
+      ],
+      "149": [
+        "material_error",
+        "Driving time becomes disk."
+      ],
+      "158": [
+        "material_error",
+        "Seasons restaurant name becomes seasons of year."
+      ],
+      "163": [
+        "material_error",
+        "Driving journey becomes disk."
+      ],
+      "166": [
+        "material_error",
+        "Requesting help becomes offering help."
+      ],
+      "168": [
+        "unchanged",
+        "Place name only."
+      ],
+      "169": [
+        "uncertain_or_incomplete",
+        "Source utterance cuts off and target invents ridicies."
+      ],
+      "170": [
+        "uncertain_or_incomplete",
+        "Source and target end before completing preference."
+      ],
+      "171": [
+        "material_error",
+        "Sit-down restaurant service category becomes physically seated restaurant."
+      ],
+      "174": [
+        "material_error",
+        "Win-loss record becomes financial earnings and loss information disappears."
+      ],
+      "175": [
+        "uncertain_or_incomplete",
+        "Sports manager versus business manager role underspecified in isolated turn."
+      ],
+      "176": [
+        "material_error",
+        "Basketball small-forward role becomes small forward direction."
+      ],
+      "192": [
+        "uncertain_or_incomplete",
+        "Last-game query loses last and duplicates team name."
+      ],
+      "193": [
+        "uncertain_or_incomplete",
+        "How club is performing becomes ambiguous doing/making construction."
+      ],
+      "194": [
+        "uncertain_or_incomplete",
+        "Football manager/head coach becomes gerente; native role usage unqualified."
+      ],
+      "198": [
+        "material_error",
+        "Team performance question becomes how the team is being made."
+      ]
+    },
+    "sw": {
+      "0": [
+        "material_error",
+        "Economy cabin becomes economics."
+      ],
+      "3": [
+        "material_error",
+        "Nonstop flights become unusual flights."
+      ],
+      "6": [
+        "material_error",
+        "Round-trip return requirement disappears."
+      ],
+      "11": [
+        "material_error",
+        "American airline becomes USA/country."
+      ],
+      "12": [
+        "material_error",
+        "Search other airlines becomes look at other planes."
+      ],
+      "20": [
+        "material_error",
+        "Booking becomes writing/kuandika."
+      ],
+      "27": [
+        "material_error",
+        "Return trip becomes trip of all sides."
+      ],
+      "30": [
+        "material_error",
+        "Takeout for a person becomes ordering a person."
+      ],
+      "32": [
+        "material_error",
+        "Takeout for two people becomes ordering two people."
+      ],
+      "33": [
+        "material_error",
+        "Food orders become commands/amri."
+      ],
+      "36": [
+        "material_error",
+        "Food order becomes command/amri."
+      ],
+      "37": [
+        "material_error",
+        "Can container becomes ability inaweza and 7Up becomes7."
+      ],
+      "44": [
+        "material_error",
+        "Pretty much all becomes very many, losing completion."
+      ],
+      "48": [
+        "material_error",
+        "Food order becomes command/amri."
+      ],
+      "50": [
+        "material_error",
+        "Greeting becomes assistant of Hi."
+      ],
+      "51": [
+        "material_error",
+        "Food orders become commands/amri."
+      ],
+      "52": [
+        "material_error",
+        "Food order becomes command/amri and greeting is malformed."
+      ],
+      "56": [
+        "material_error",
+        "Greek takeout becomes taking Greek language."
+      ],
+      "58": [
+        "material_error",
+        "Booking becomes writing/kuandika."
+      ],
+      "66": [
+        "material_error",
+        "Park City place name becomes generic city/town."
+      ],
+      "72": [
+        "material_error",
+        "Wanting help becomes wanting to help others."
+      ],
+      "87": [
+        "material_error",
+        "Movie title translated and movie showing becomes you playing."
+      ],
+      "88": [
+        "material_error",
+        "PM qualifier disappears from time."
+      ],
+      "89": [
+        "material_error",
+        "Similar to Jason Bourne becomes another thing with Jason Bourne."
+      ],
+      "91": [
+        "material_error",
+        "Not hearing/catching becomes physically not catching."
+      ],
+      "94": [
+        "material_error",
+        "Blade Runner title translated as ordinary runner/blade."
+      ],
+      "98": [
+        "material_error",
+        "Wanting assistance becomes wanting to help."
+      ],
+      "99": [
+        "material_error",
+        "Top ratings becomes three measurements, losing highest ranking."
+      ],
+      "10": [
+        "uncertain_or_incomplete",
+        "Pretty retained in date approximation; qualifier incomplete."
+      ],
+      "15": [
+        "uncertain_or_incomplete",
+        "Cheap versus cheapest unqualified; Wi-Fi requirement retained."
+      ],
+      "19": [
+        "uncertain_or_incomplete",
+        "That is it clause omitted."
+      ],
+      "23": [
+        "uncertain_or_incomplete",
+        "On top of things literal construction requires native idiom review."
+      ],
+      "34": [
+        "uncertain_or_incomplete",
+        "Awesome remains English."
+      ],
+      "39": [
+        "uncertain_or_incomplete",
+        "Food order becomes routine/utaratibu; intended repeat meal likely recoverable but sense unqualified."
+      ],
+      "43": [
+        "uncertain_or_incomplete",
+        "Take-out requirement missing."
+      ],
+      "57": [
+        "uncertain_or_incomplete",
+        "Great as Kubwa may convey size; exclamation use unqualified."
+      ],
+      "74": [
+        "uncertain_or_incomplete",
+        "Fitness remains English; borrowing usage not qualified."
+      ],
+      "85": [
+        "uncertain_or_incomplete",
+        "Great becomes Kubwa; exclamation usage unqualified."
+      ],
+      "95": [
+        "uncertain_or_incomplete",
+        "Sounds great becomes looks big/kubwa; approval sense unqualified."
+      ],
+      "96": [
+        "uncertain_or_incomplete",
+        "Comedy remains English; borrowing usage unqualified."
+      ],
+      "47": [
+        "unchanged",
+        "Byee unchanged."
+      ],
+      "71": [
+        "unchanged",
+        "Currency only."
+      ],
+      "81": [
+        "unchanged",
+        "Only hotel name is rearranged with a linker; no vocabulary exposure."
+      ],
+      "105": [
+        "material_error",
+        "Requesting help becomes offering help; significant other also literal."
+      ],
+      "109": [
+        "material_error",
+        "Rotten Tomatoes site becomes rotten vegetables."
+      ],
+      "110": [
+        "material_error",
+        "Rotten Tomatoes site becomes rotten vegetables."
+      ],
+      "114": [
+        "material_error",
+        "p.m. time qualifier corrupted to p."
+      ],
+      "119": [
+        "material_error",
+        "Artist Guster becomes gutter in first reference."
+      ],
+      "123": [
+        "material_error",
+        "Requesting help becomes offering help."
+      ],
+      "125": [
+        "material_error",
+        "Approval cool becomes cold/baridi."
+      ],
+      "127": [
+        "material_error",
+        "Cover performance becomes cover/lid kifuniko; literary typo interpreted literally."
+      ],
+      "133": [
+        "material_error",
+        "Artist Pretty Lights and song Stay translated as ordinary words."
+      ],
+      "134": [
+        "material_error",
+        "Spelled Dua Lipa loses letters."
+      ],
+      "135": [
+        "material_error",
+        "Relationship breakup becomes physical breaking/kuvunja."
+      ],
+      "138": [
+        "material_error",
+        "Lyrics disappear and song title is translated."
+      ],
+      "141": [
+        "material_error",
+        "Play me an artist becomes playing/dancing me an artist."
+      ],
+      "142": [
+        "material_error",
+        "Play becomes try/Jaribu."
+      ],
+      "148": [
+        "material_error",
+        "Four Hills location becomes ordinary four hills."
+      ],
+      "152": [
+        "material_error",
+        "Duration question loses how long; asks about car from location."
+      ],
+      "153": [
+        "material_error",
+        "Three/four-course meal becomes three meals/fourth meal."
+      ],
+      "157": [
+        "material_error",
+        "Downtown becomes outside city and seating becomes dwellings."
+      ],
+      "158": [
+        "material_error",
+        "Seasons name translated and bookings become dissatisfaction."
+      ],
+      "166": [
+        "material_error",
+        "Wanting help becomes offering help."
+      ],
+      "167": [
+        "material_error",
+        "Bookings/reservations become dissatisfaction/kutoridhishwa."
+      ],
+      "174": [
+        "material_error",
+        "Win-loss record becomes only loss record."
+      ],
+      "176": [
+        "material_error",
+        "Basketball small-forward role becomes small side."
+      ],
+      "180": [
+        "material_error",
+        "Approval cool becomes cold/baridi."
+      ],
+      "189": [
+        "material_error",
+        "Approval cool becomes cold/baridi."
+      ],
+      "190": [
+        "material_error",
+        "Football team Swansea City becomes city of Swansea."
+      ],
+      "192": [
+        "material_error",
+        "Last opponent question becomes who made Rams play; second opponent query loses who."
+      ],
+      "106": [
+        "uncertain_or_incomplete",
+        "Actors becomes watendaji/doers or executives; movie-role usage unqualified."
+      ],
+      "121": [
+        "uncertain_or_incomplete",
+        "Past learning event lacks qualified finite tense; broad topic remains."
+      ],
+      "122": [
+        "uncertain_or_incomplete",
+        "Favorite songs become songs that like; preference scope unqualified."
+      ],
+      "124": [
+        "uncertain_or_incomplete",
+        "Favorite remains English and last-one clause malformed."
+      ],
+      "130": [
+        "uncertain_or_incomplete",
+        "Choice go with becomes physical go with; idiomatic choice usage unqualified."
+      ],
+      "131": [
+        "uncertain_or_incomplete",
+        "Great becomes big/Kubwa; exclamation usage unqualified."
+      ],
+      "136": [
+        "uncertain_or_incomplete",
+        "Great and that-is-about-it are literal; closure/approval usage unqualified."
+      ],
+      "139": [
+        "uncertain_or_incomplete",
+        "Like preference becomes kama/as; sentence fragment unqualified."
+      ],
+      "149": [
+        "uncertain_or_incomplete",
+        "Duration and car route remain, but finite journey relation is malformed."
+      ],
+      "151": [
+        "uncertain_or_incomplete",
+        "Cuisine Italian becomes country Italia."
+      ],
+      "162": [
+        "uncertain_or_incomplete",
+        "Goodbye is misspelled Kwahe."
+      ],
+      "163": [
+        "uncertain_or_incomplete",
+        "Car departure time versus journey duration not confidently distinguished."
+      ],
+      "169": [
+        "uncertain_or_incomplete",
+        "Source cuts off; target adds withdrawal meaning."
+      ],
+      "170": [
+        "uncertain_or_incomplete",
+        "Incomplete source and target says I am city rather than downtown."
+      ],
+      "171": [
+        "uncertain_or_incomplete",
+        "Sit-down service category expressed literally; native usage unqualified."
+      ],
+      "175": [
+        "uncertain_or_incomplete",
+        "Sports head coach versus meneja role needs native review."
+      ],
+      "184": [
+        "uncertain_or_incomplete",
+        "Opponent versus next-week relation malformed."
+      ],
+      "185": [
+        "uncertain_or_incomplete",
+        "Greeting assistant becomes assistant of Hi; how-going literal."
+      ],
+      "194": [
+        "uncertain_or_incomplete",
+        "Football head coach versus meneja role needs native review."
+      ],
+      "195": [
+        "uncertain_or_incomplete",
+        "Opponent versus June1 date relation malformed."
+      ],
+      "159": [
+        "unchanged",
+        "Bye-bye unchanged."
+      ],
+      "160": [
+        "unchanged",
+        "Place names only."
+      ],
+      "168": [
+        "unchanged",
+        "Place names only."
+      ]
+    }
+  }
+}

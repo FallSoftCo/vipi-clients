@@ -1,0 +1,1424 @@
+{
+  "schema": "vipi-opus-provider-author-review-1",
+  "production": false,
+  "independent_bilingual_acceptance": false,
+  "capture_sha256": "e82d60a13848a3fccc344345a498e4c8bdeecf7581a00698e76cd37cd4bd3946",
+  "review_sampling": "Every fifth input in the existing frozen400case order:40SMS+40Taskmaster; first20 inspected as capture progressed, all80 completed. Review is diagnostic, not a new blind sample. Remaining320 translations retained but not semantically reviewed.",
+  "review_policy": "Main propositions/names/time preserved for broad label; minor grammar allowed. Material omission or altered actions/entities counts as error. Courtesy omission/ambiguous number/register marked uncertain. Author review, no native speaker gold.",
+  "summary": {
+    "SMS": {
+      "sample_size": 40,
+      "opus": {
+        "material_error": 29,
+        "broad_meaning_preserved": 8,
+        "uncertain_or_incomplete": 3
+      },
+      "prior_current_C": {
+        "uncertain_or_incomplete": 14,
+        "broad_meaning_preserved": 11,
+        "material_error": 15
+      },
+      "prior_C_differs_from_raw_mlkit": 0
+    },
+    "Taskmaster2": {
+      "sample_size": 40,
+      "opus": {
+        "material_error": 19,
+        "uncertain_or_incomplete": 8,
+        "unchanged": 3,
+        "broad_meaning_preserved": 10
+      },
+      "prior_current_C": {
+        "material_error": 10,
+        "broad_meaning_preserved": 20,
+        "uncertain_or_incomplete": 9,
+        "unchanged": 1
+      },
+      "prior_C_differs_from_raw_mlkit": 0
+    }
+  },
+  "performance": {
+    "load_ms": 295.4107238911092,
+    "elapsed_seconds": 128.48599219089374,
+    "latency_summary": {
+      "median_ms": 241.84186849743128,
+      "p95_ms": 802.200912963599,
+      "max_ms": 2445.8218531217426
+    },
+    "decode": {
+      "device": "cpu",
+      "compute_type": "int8",
+      "inter_threads": 1,
+      "intra_threads": 2,
+      "beam_size": 6,
+      "length_penalty": 1,
+      "max_decoding_length": 256,
+      "batch_size": 1,
+      "eos": "CTranslate2 converted config add_source_eos=true; caller does not append"
+    }
+  },
+  "memory_note": "Current-executable /proc VmHWM245260KiB, observed steady VmRSS174876KiB; inherited getrusage peak2.7GiB is not model peak. Process and model receipts retained; no phone latency/memory qualification.",
+  "decision": "Do not replace MLKit with this OPUS2020 model. Small footprint and adequate desktop CPU latency do not offset omission/sense errors on the same conversational inputs.",
+  "rows": [
+    {
+      "sample_index": 0,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1744",
+      "source": "\"EY! CALM DOWNON THEACUSATIONS.. ITXT U COS IWANA KNOW WOTU R DOIN AT THEW/END... HAVENTCN U IN AGES..RING ME IF UR UP4 NETHING SAT.LOVE J XXX.\"",
+      "opus_translation": "\"EY! CALM CALMON THEACATIONS.EKUNDU UCOS IWANA JUA WOTOTU ROIN KWENYE THEW/END... BENTICN URES.IE NEUR UT NELOVE JXX.\"",
+      "opus_label": "material_error",
+      "finding": "Heavy shorthand is garbled and content changed.",
+      "mlkit_translation": "\"EY! CLLOWN DOWNON THEEACUSATIONS .. ITXT u Cos Iwana kujua wotu r doin katika sw / mwisho ... haventcn u katika umri .. mimi kama ur up4 nething st.love j xxx.\"",
+      "prior_current_C_translation": "\"EY! CLLOWN DOWNON THEEACUSATIONS .. ITXT u Cos Iwana kujua wotu r doin katika sw / mwisho ... haventcn u katika umri .. mimi kama ur up4 nething st.love j xxx.\"",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 1290.9280881285667,
+      "total_ms": 1317.9027219302952
+    },
+    {
+      "sample_index": 5,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3004",
+      "source": "Excellent, I'll see what riley's plans are",
+      "opus_translation": "Bora sana, nitauona mipango ya riley",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Bora, nitaona nini mipango ya Riley",
+      "prior_current_C_translation": "Bora, nitaona nini mipango ya Riley",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 187.79085599817336,
+      "total_ms": 225.2013678662479
+    },
+    {
+      "sample_index": 10,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1370",
+      "source": "Alright. I'm out--have a good night!",
+      "opus_translation": "Sawa na wewe, naenda nje - uwe na usiku mwema!",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Already out becomes going out and greeting modified.",
+      "mlkit_translation": "Alright. Mimi niko nje - kuwa na usiku mzuri!",
+      "prior_current_C_translation": "Alright. Mimi niko nje - kuwa na usiku mzuri!",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 177.0299558993429,
+      "total_ms": 216.2540229037404
+    },
+    {
+      "sample_index": 15,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2836",
+      "source": "U sick still can go shopping?",
+      "opus_translation": "Je, bado mgonjwa anaweza kwenda dukani?",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "You becomes third-person sick person; source is shorthand.",
+      "mlkit_translation": "U mgonjwa bado anaweza kwenda ununuzi?",
+      "prior_current_C_translation": "U mgonjwa bado anaweza kwenda ununuzi?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 134.56836994737387,
+      "total_ms": 167.6969239488244
+    },
+    {
+      "sample_index": 20,
+      "corpus": "SMS",
+      "id": "uci-sms-line-496",
+      "source": "Are you free now?can i call now?",
+      "opus_translation": "Je, umeachiliwa huru sasa?",
+      "opus_label": "material_error",
+      "finding": "Entire second call question dropped.",
+      "mlkit_translation": "Je, wewe ni huru sasa? Je, ninaweza kupiga simu sasa?",
+      "prior_current_C_translation": "Je, wewe ni huru sasa? Je, ninaweza kupiga simu sasa?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 130.14411507174373,
+      "total_ms": 155.7566609699279
+    },
+    {
+      "sample_index": 25,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2939",
+      "source": "Lol yep did that yesterday. Already got my fireplace. Now its just another icon sitting there for me.",
+      "opus_translation": "Lol yep alifanya hivyo jana na tayari aliwasha moto wangu.",
+      "opus_label": "material_error",
+      "finding": "Fireplace becomes lit fire; final sentence dropped.",
+      "mlkit_translation": "Lol Yep alifanya jana. Tayari got fireplace yangu. Sasa icon yake tu iliyokaa pale kwa ajili yangu.",
+      "prior_current_C_translation": "Lol Yep alifanya jana. Tayari got fireplace yangu. Sasa icon yake tu iliyokaa pale kwa ajili yangu.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 464.32935912162066,
+      "total_ms": 500.58728200383484
+    },
+    {
+      "sample_index": 30,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3928",
+      "source": "I havent add ü yet right.. ",
+      "opus_translation": "Naongeza ü lakini hapa sawa.",
+      "opus_label": "material_error",
+      "finding": "Negation/yet semantics lost.",
+      "mlkit_translation": "Mimi havent kuongeza ü bado haki ..",
+      "prior_current_C_translation": "Mimi havent kuongeza ü bado haki ..",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "confirmation right becomes entitlement/right"
+      },
+      "decode_ms": 153.17459497600794,
+      "total_ms": 192.2571761533618
+    },
+    {
+      "sample_index": 35,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2416",
+      "source": "O was not into fps then.",
+      "opus_translation": "O wakati huo haikuwa imekatwa - katwa.",
+      "opus_label": "material_error",
+      "finding": "fps becomes chopped/cut.",
+      "mlkit_translation": "O hakuwa katika fps basi.",
+      "prior_current_C_translation": "O hakuwa katika fps basi.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 183.9940098579973,
+      "total_ms": 212.6043711323291
+    },
+    {
+      "sample_index": 40,
+      "corpus": "SMS",
+      "id": "uci-sms-line-672",
+      "source": "Ho ho - big belly laugh! See ya tomo",
+      "opus_translation": "Kicheko kikubwa cha tumbo!",
+      "opus_label": "material_error",
+      "finding": "Farewell and tomorrow disappear.",
+      "mlkit_translation": "Ho Ho - Big Belly Laugh! Angalia Ya Tomo",
+      "prior_current_C_translation": "Ho Ho - Big Belly Laugh! Angalia Ya Tomo",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "see you tomorrow farewell becomes literal look"
+      },
+      "decode_ms": 180.3597069811076,
+      "total_ms": 222.38163999281824
+    },
+    {
+      "sample_index": 45,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2433",
+      "source": "That's good. Lets thank God. Please complete the drug. Have lots of water. And have a beautiful day.",
+      "opus_translation": "Ndiyo, acheni tumshukuru Mungu na ukamilishe dawa hiyo na uwe na maji mengi na uwe na siku nzuri.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Hiyo ni nzuri. Hebu kumshukuru Mungu. Tafadhali jaza dawa. Kuwa na maji mengi. Na kuwa na siku nzuri.",
+      "prior_current_C_translation": "Hiyo ni nzuri. Hebu kumshukuru Mungu. Tafadhali jaza dawa. Kuwa na maji mengi. Na kuwa na siku nzuri.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "complete the medication course becomes fill the medicine"
+      },
+      "decode_ms": 429.13201614283025,
+      "total_ms": 468.1881780270487
+    },
+    {
+      "sample_index": 50,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3232",
+      "source": "I feel like a dick because I keep sleeping through your texts and facebook messages. Sup, you in town?",
+      "opus_translation": "Mimi huhisi kama kidokezo kwa sababu nafuliza kulala kupitia maandiko yenu na jumbe za kitabu cha uso. Sup, nyinyi mjini?",
+      "opus_label": "material_error",
+      "finding": "Dick becomes hint; Facebook translated literally as face book.",
+      "mlkit_translation": "Ninahisi kama dick kwa sababu ninaendelea kulala kupitia maandiko yako na ujumbe wa facebook. Sup, wewe katika mji?",
+      "prior_current_C_translation": "Ninahisi kama dick kwa sababu ninaendelea kulala kupitia maandiko yako na ujumbe wa facebook. Sup, wewe katika mji?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 641.8981039896607,
+      "total_ms": 670.1816408894956
+    },
+    {
+      "sample_index": 55,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1582",
+      "source": "I shall book chez jules for half eight, if that's ok with you?",
+      "opus_translation": "Nitakupa kitabu cha chuz jules kwa nusu nane, ikiwa hicho kinakufaa?",
+      "opus_label": "material_error",
+      "finding": "Book/reserve becomes physical book.",
+      "mlkit_translation": "Nitawapa Chez Jules kwa nusu nane, ikiwa ni sawa na wewe?",
+      "prior_current_C_translation": "Nitawapa Chez Jules kwa nusu nane, ikiwa ni sawa na wewe?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "book/reserve becomes I will give you"
+      },
+      "decode_ms": 353.45440707169473,
+      "total_ms": 377.9671909287572
+    },
+    {
+      "sample_index": 60,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1312",
+      "source": "I.ll always be there, even if its just in spirit. I.ll get a bb soon. Just trying to be sure i need it.",
+      "opus_translation": "Nitakuwepo sikuzote, hata ikiwa ni kwa roho tu.",
+      "opus_label": "material_error",
+      "finding": "Last two sentences omitted.",
+      "mlkit_translation": "Mimi daima kuwa huko, hata kama ni tu katika roho. I.ll kupata bb hivi karibuni. Kujaribu tu kuwa na uhakika ninahitaji.",
+      "prior_current_C_translation": "Mimi daima kuwa huko, hata kama ni tu katika roho. I.ll kupata bb hivi karibuni. Kujaribu tu kuwa na uhakika ninahitaji.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 460.8545717783272,
+      "total_ms": 521.4882970321923
+    },
+    {
+      "sample_index": 65,
+      "corpus": "SMS",
+      "id": "uci-sms-line-36",
+      "source": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "opus_translation": "Yop... Oko ninaenda nyumbani kutazama wakati ambapo mimi ni msg ü tena... Xuhaui atajifunza kwa saa mbili lakini somo lake ni 8am",
+      "opus_label": "material_error",
+      "finding": "Date/lesson details corrupted.",
+      "mlkit_translation": "Yup ... ok mimi kwenda nyumbani kuangalia wakati basi msg ü tena ... Xuhui kwenda kujifunza juu ya 2 Mei pia lakini somo lake ni saa 8am",
+      "prior_current_C_translation": "Yup ... ok mimi kwenda nyumbani kuangalia wakati basi msg ü tena ... Xuhui kwenda kujifunza juu ya 2 Mei pia lakini somo lake ni saa 8am",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 1086.4911880344152,
+      "total_ms": 1118.424423970282
+    },
+    {
+      "sample_index": 70,
+      "corpus": "SMS",
+      "id": "uci-sms-line-533",
+      "source": "What Today-sunday..sunday is holiday..so no work..",
+      "opus_translation": "Basi leo hapatakuwa na kazi.",
+      "opus_label": "material_error",
+      "finding": "Sunday/holiday explanation omitted.",
+      "mlkit_translation": "Nini leo-Jumapili..Sunday ni likizo .. sio kazi ..",
+      "prior_current_C_translation": "Nini leo-Jumapili..Sunday ni likizo .. sio kazi ..",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 626.6293202061206,
+      "total_ms": 753.6318439524621
+    },
+    {
+      "sample_index": 75,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3164",
+      "source": "I can't describe how lucky you are that I'm actually awake by noon",
+      "opus_translation": "Siwezi kueleza jinsi ulivyo na bahati kwamba niko macho kufikia adhuhuri",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Siwezi kuelezea jinsi wewe ni bahati kwamba mimi ni kweli macho na mchana",
+      "prior_current_C_translation": "Siwezi kuelezea jinsi wewe ni bahati kwamba mimi ni kweli macho na mchana",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 288.4366540238261,
+      "total_ms": 339.7252520080656
+    },
+    {
+      "sample_index": 80,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3657",
+      "source": "Senthil group company Apnt 5pm.",
+      "opus_translation": "Kampuni ya Senmhul Apnt 5 mchana.",
+      "opus_label": "material_error",
+      "finding": "Company/name/time corrupted.",
+      "mlkit_translation": "Kampuni ya Kikundi cha Senthil Apnt 5pm.",
+      "prior_current_C_translation": "Kampuni ya Kikundi cha Senthil Apnt 5pm.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 864.0562370419502,
+      "total_ms": 1001.8724468536675
+    },
+    {
+      "sample_index": 85,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1430",
+      "source": "Tell you what, if you make a little spreadsheet and track whose idea it was to smoke to determine who \"smokes too much\" for the entire month of february, I'll come up",
+      "opus_translation": "Waambieni, ukitengeneza shuka ndogo na kufuatilia ni nani atakayepaswa kuvuta sigareti ili kuamua ni nani \"atakataka nyingi mno\" kwa mwezi mzima wa makosa ya jinai, nitajitokeza",
+      "opus_label": "material_error",
+      "finding": "Spreadsheet becomes sheet, February becomes crime.",
+      "mlkit_translation": "Kukuambia nini, ikiwa unafanya sahajedwali kidogo na kufuatilia wazo ambalo lilikuwa ni moshi ili kuamua nani \"anavuta sana\" kwa mwezi mzima wa Februari, nitakuja",
+      "prior_current_C_translation": "Kukuambia nini, ikiwa unafanya sahajedwali kidogo na kufuatilia wazo ambalo lilikuwa ni moshi ili kuamua nani \"anavuta sana\" kwa mwezi mzima wa Februari, nitakuja",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 809.207950020209,
+      "total_ms": 849.9935190193355
+    },
+    {
+      "sample_index": 90,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3828",
+      "source": "Goodmorning,my grandfather expired..so am on leave today.",
+      "opus_translation": "Babu yangu alipoamka, alikufa.",
+      "opus_label": "material_error",
+      "finding": "Good morning becomes grandfather waking, leave omitted.",
+      "mlkit_translation": "Nzuri, babu yangu alikufa .. kwa hiyo niko leo.",
+      "prior_current_C_translation": "Nzuri, babu yangu alikufa .. kwa hiyo niko leo.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "on leave omitted"
+      },
+      "decode_ms": 230.66517896950245,
+      "total_ms": 254.77272202260792
+    },
+    {
+      "sample_index": 95,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3854",
+      "source": "No, its true..k,Do u knw dis no. &lt;#&gt; ?",
+      "opus_translation": "La, ni kweli..k, Je, unw huondoa la. &lt;#&gt; ?",
+      "opus_label": "material_error",
+      "finding": "Abbreviations/number question garbled.",
+      "mlkit_translation": "Hapana, ni ya kweli ..., je, un kNW bila. & lt; # & gt; ?",
+      "prior_current_C_translation": "Hapana, ni ya kweli ..., je, un kNW bila. & lt; # & gt; ?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "this number abbreviation becomes without"
+      },
+      "decode_ms": 656.951721990481,
+      "total_ms": 689.5193110685796
+    },
+    {
+      "sample_index": 100,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3652",
+      "source": "We are hoping to get away by 7, from Langport. You still up for town tonight?",
+      "opus_translation": "Tunatumaini kuondoka hadi saa saba usiku, kutoka Langport.",
+      "opus_label": "material_error",
+      "finding": "Second question omitted and time interpreted as seven at night.",
+      "mlkit_translation": "Tunatarajia kuondoka na 7, kutoka Langport. Bado kwa mji wa leo?",
+      "prior_current_C_translation": "Tunatarajia kuondoka na 7, kutoka Langport. Bado kwa mji wa leo?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 478.32963918335736,
+      "total_ms": 518.9043038990349
+    },
+    {
+      "sample_index": 105,
+      "corpus": "SMS",
+      "id": "uci-sms-line-4489",
+      "source": "Miss call miss call khelate kintu opponenter miss call dhorte lage. Thats d rule. One with great phone receiving quality wins.",
+      "opus_translation": "Si rahisi kupiga simu kwa kutumia simu ya juu ya simu inayopokea ushindi.",
+      "opus_label": "material_error",
+      "finding": "Most mixed-language content lost.",
+      "mlkit_translation": "Miss Call Miss Call Khelate Kintu mpinzani Miss Call Dhorte Lage. Hiyo ni utawala. Moja kwa simu nzuri ya kupokea mafanikio ya ubora.",
+      "prior_current_C_translation": "Miss Call Miss Call Khelate Kintu mpinzani Miss Call Dhorte Lage. Hiyo ni utawala. Moja kwa simu nzuri ya kupokea mafanikio ya ubora.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "mixed-language sentence not translated; rule becomes governance in remaining English portion"
+      },
+      "decode_ms": 305.4481940343976,
+      "total_ms": 338.4625860489905
+    },
+    {
+      "sample_index": 110,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2540",
+      "source": "The monthly amount is not that terrible and you will not pay anything till 6months after finishing school.",
+      "opus_translation": "Kiasi cha kila mwezi si kibaya sana na hutalipa chochote mpaka miezi 6 baada ya kumaliza shule.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Kiasi cha kila mwezi sio cha kutisha na huwezi kulipa chochote hadi 6months baada ya kumaliza shule.",
+      "prior_current_C_translation": "Kiasi cha kila mwezi sio cha kutisha na huwezi kulipa chochote hadi 6months baada ya kumaliza shule.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 388.9276781119406,
+      "total_ms": 424.3626818060875
+    },
+    {
+      "sample_index": 115,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2541",
+      "source": "Hmmm:)how many players selected?",
+      "opus_translation": "Hmmm:) Ni wachezaji wangapi waliochaguliwa?",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Hmmm :) Wachezaji wengi walichaguliwa?",
+      "prior_current_C_translation": "Hmmm :) Wachezaji wengi walichaguliwa?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "how many players becomes many players"
+      },
+      "decode_ms": 224.43562909029424,
+      "total_ms": 251.25366006977856
+    },
+    {
+      "sample_index": 120,
+      "corpus": "SMS",
+      "id": "uci-sms-line-4095",
+      "source": "\"Life is nothing wen v get everything\". But \"life is everything wen v miss something \". Real value of people wil be realized only in their absence.... gud mrng",
+      "opus_translation": "\"Uhai hauna maana yoyote.\" Lakini, \"maisha ni kila kitu cha kung'ang'ania kitu\" thamani halisi ya maisha ya watu ni kutokupatikana tu....",
+      "opus_label": "material_error",
+      "finding": "Quoted propositions corrupted/omitted.",
+      "mlkit_translation": "\"Maisha sio kitu cha kupata kila kitu\". Lakini \"Maisha ni kila kitu ambacho wen v miss kitu\". Thamani halisi ya watu itatambuliwa tu kwa kutokuwepo kwao .... Gud Mrng",
+      "prior_current_C_translation": "\"Maisha sio kitu cha kupata kila kitu\". Lakini \"Maisha ni kila kitu ambacho wen v miss kitu\". Thamani halisi ya watu itatambuliwa tu kwa kutokuwepo kwao .... Gud Mrng",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 692.3547801561654,
+      "total_ms": 721.5813500806689
+    },
+    {
+      "sample_index": 125,
+      "corpus": "SMS",
+      "id": "uci-sms-line-4852",
+      "source": "Maybe you should find something else to do instead???",
+      "opus_translation": "Labda utafute jambo jingine la kufanya????",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Labda unapaswa kupata kitu kingine cha kufanya badala yake?",
+      "prior_current_C_translation": "Labda unapaswa kupata kitu kingine cha kufanya badala yake?",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 227.81516006216407,
+      "total_ms": 266.3982098456472
+    },
+    {
+      "sample_index": 130,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2563",
+      "source": "And maybe some pressies",
+      "opus_translation": "Na labda baadhi ya vyombo vya habari",
+      "opus_label": "material_error",
+      "finding": "Presents slang becomes media.",
+      "mlkit_translation": "Na labda baadhi ya vyombo vya habari",
+      "prior_current_C_translation": "Na labda baadhi ya vyombo vya habari",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "pressies/presents becomes media/press"
+      },
+      "decode_ms": 138.82386405020952,
+      "total_ms": 168.21412206627429
+    },
+    {
+      "sample_index": 135,
+      "corpus": "SMS",
+      "id": "uci-sms-line-220",
+      "source": "I have to take exam with march 3",
+      "opus_translation": "Lazima nifanye mtihani kwa kutembea 3",
+      "opus_label": "material_error",
+      "finding": "March/date becomes walking.",
+      "mlkit_translation": "Ninahitaji kuchunguza na Machi 3",
+      "prior_current_C_translation": "Ninahitaji kuchunguza na Machi 3",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "take an exam becomes examine/investigate"
+      },
+      "decode_ms": 142.35280314460397,
+      "total_ms": 166.96315514855087
+    },
+    {
+      "sample_index": 140,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1105",
+      "source": "Aiyah sorry lor... I watch tv watch until i forgot 2 check my phone.",
+      "opus_translation": "Aiyahbour lor... Natazama tv tazama mpaka niliposahau 2 kuangalia simu yangu.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Core TV/phone meaning approximately retained but introductory material malformed.",
+      "mlkit_translation": "Aiyah sorry lor ... mimi kuangalia TV kuangalia mpaka mimi kusahau 2 kuangalia simu yangu.",
+      "prior_current_C_translation": "Aiyah sorry lor ... mimi kuangalia TV kuangalia mpaka mimi kusahau 2 kuangalia simu yangu.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 404.382255859673,
+      "total_ms": 432.83689906820655
+    },
+    {
+      "sample_index": 145,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3581",
+      "source": "Multiply the numbers independently and count decimal points then, for the division, push the decimal places like i showed you.",
+      "opus_translation": "Basi, jumlisha nambari hizo kwa kujitegemea na kuhesabu visehemu vya desimali, kwa ajili ya mgawanyiko huo, sukuma desimali kama mimi kukuonyesha.",
+      "opus_label": "material_error",
+      "finding": "Multiply becomes add.",
+      "mlkit_translation": "Kuzidisha namba kwa kujitegemea na kuhesabu pointi za decimal basi, kwa mgawanyiko, kushinikiza maeneo ya decimal kama nilivyokuonyesha.",
+      "prior_current_C_translation": "Kuzidisha namba kwa kujitegemea na kuhesabu pointi za decimal basi, kwa mgawanyiko, kushinikiza maeneo ya decimal kama nilivyokuonyesha.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 779.1895649861544,
+      "total_ms": 802.5928549468517
+    },
+    {
+      "sample_index": 150,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3700",
+      "source": "S:)but he had some luck.2 catches put down:)",
+      "opus_translation": "S:) Lakini alikuwa na kiasi fulani cha bahati.2 alichosha:)",
+      "opus_label": "material_error",
+      "finding": "Cricket catches corrupted.",
+      "mlkit_translation": "S :) Lakini alikuwa na bahati.2 samaki kuweka chini :)",
+      "prior_current_C_translation": "S :) Lakini alikuwa na bahati.2 samaki kuweka chini :)",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "dropped catches becomes fish put down"
+      },
+      "decode_ms": 314.19503688812256,
+      "total_ms": 344.6079499553889
+    },
+    {
+      "sample_index": 155,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1114",
+      "source": "So that means you still think of teju",
+      "opus_translation": "Kwa hiyo hilo lamaanisha bado unafikiria teju",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Kwa hiyo hiyo inamaanisha bado unafikiri ya Teju",
+      "prior_current_C_translation": "Kwa hiyo hiyo inamaanisha bado unafikiri ya Teju",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 182.594349142164,
+      "total_ms": 218.90195715241134
+    },
+    {
+      "sample_index": 160,
+      "corpus": "SMS",
+      "id": "uci-sms-line-603",
+      "source": "If u sending her home first it's ok lor. I'm not ready yet.",
+      "opus_translation": "Kama unatuma nyumba yake kwanza ni ok lor.",
+      "opus_label": "material_error",
+      "finding": "Her home becomes her house; not-ready sentence dropped.",
+      "mlkit_translation": "Ikiwa unatuma nyumbani kwake kwanza ni sawa. Siko tayari bado.",
+      "prior_current_C_translation": "Ikiwa unatuma nyumbani kwake kwanza ni sawa. Siko tayari bado.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 406.5420429687947,
+      "total_ms": 429.75091305561364
+    },
+    {
+      "sample_index": 165,
+      "corpus": "SMS",
+      "id": "uci-sms-line-1398",
+      "source": "Shall i start from hear.",
+      "opus_translation": "Nianzie kusikia.",
+      "opus_label": "material_error",
+      "finding": "Intended here/source hear typo translated hearing.",
+      "mlkit_translation": "Je, nitaanza kusikia.",
+      "prior_current_C_translation": "Je, nitaanza kusikia.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "hear typo meaning here becomes hearing"
+      },
+      "decode_ms": 173.56113903224468,
+      "total_ms": 210.82279505208135
+    },
+    {
+      "sample_index": 170,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3805",
+      "source": "Yup song bro. No creative. Neva test quality. He said check review online.",
+      "opus_translation": "Hakuna kipawa cha kupima ubora wa wimbo kwenye mtandao wa Yup.",
+      "opus_label": "material_error",
+      "finding": "Multiple propositions collapsed or omitted.",
+      "mlkit_translation": "Yup song bro. Hakuna ubunifu. Ubora wa mtihani wa Neva. Alisema ukaguzi wa ukaguzi mtandaoni.",
+      "prior_current_C_translation": "Yup song bro. Hakuna ubunifu. Ubora wa mtihani wa Neva. Alisema ukaguzi wa ukaguzi mtandaoni.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "never loses negation through Neva as name"
+      },
+      "decode_ms": 307.42968595586717,
+      "total_ms": 336.06779598630965
+    },
+    {
+      "sample_index": 175,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3239",
+      "source": "Ron say fri leh. N he said ding tai feng cant make reservations. But he said wait lor.",
+      "opus_translation": "Ron anasema fri leh, N akasema ding tai feng ant hatest.",
+      "opus_label": "material_error",
+      "finding": "Reservation/wait content corrupted/omitted.",
+      "mlkit_translation": "Ron anasema fri leh. N Alisema Ding Tai Feng Cant kufanya kutoridhishwa. Lakini alisema kusubiri lor.",
+      "prior_current_C_translation": "Ron anasema fri leh. N Alisema Ding Tai Feng Cant kufanya kutoridhishwa. Lakini alisema kusubiri lor.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "restaurant reservations becomes dissatisfaction/reservations"
+      },
+      "decode_ms": 667.391198920086,
+      "total_ms": 720.764443045482
+    },
+    {
+      "sample_index": 180,
+      "corpus": "SMS",
+      "id": "uci-sms-line-4044",
+      "source": "What time do u get out?",
+      "opus_translation": "Unafika wakati gani?",
+      "opus_label": "material_error",
+      "finding": "Get out/depart becomes arrive.",
+      "mlkit_translation": "Je, unatoka wakati gani?",
+      "prior_current_C_translation": "Je, unatoka wakati gani?",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "decode_ms": 168.6958228237927,
+      "total_ms": 218.4306439012289
+    },
+    {
+      "sample_index": 185,
+      "corpus": "SMS",
+      "id": "uci-sms-line-2868",
+      "source": "Smith waste da.i wanna gayle.",
+      "opus_translation": "Smith aharibu da.i lanna shogale.",
+      "opus_label": "material_error",
+      "finding": "Cricket player name Gayle corrupted.",
+      "mlkit_translation": "Smith taka da.i wanataka Gayle.",
+      "prior_current_C_translation": "Smith taka da.i wanataka Gayle.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 293.16375800408423,
+      "total_ms": 326.6768509056419
+    },
+    {
+      "sample_index": 190,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3435",
+      "source": "Christmas is An occasion that is Celebrated as a Reflection of UR... Values..., Desires..., Affections...&amp; Traditions.... Have an ideal Christmas...",
+      "opus_translation": "Krismasi ni pindi ambayo huonwa kuwa kumbukumbu ya maadili..., tamaa..., shauku... bila ubaguzi; Mapokeo....",
+      "opus_label": "material_error",
+      "finding": "Greetings/values content distorted/omitted.",
+      "mlkit_translation": "Krismasi ni tukio ambalo linaadhimishwa kama kutafakari ... Maadili ..., tamaa ..., Mapenzi ... & amp; Hadithi .... Kuwa na Krismasi bora ...",
+      "prior_current_C_translation": "Krismasi ni tukio ambalo linaadhimishwa kama kutafakari ... Maadili ..., tamaa ..., Mapenzi ... & amp; Hadithi .... Kuwa na Krismasi bora ...",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "traditions become stories"
+      },
+      "decode_ms": 512.8397850785404,
+      "total_ms": 547.3095171619207
+    },
+    {
+      "sample_index": 195,
+      "corpus": "SMS",
+      "id": "uci-sms-line-3048",
+      "source": "So how's the weather over there?",
+      "opus_translation": "Kwa hiyo hali ya hewa ikoje huko?",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Kwa hiyo hali ya hewa ya juu huko?",
+      "prior_current_C_translation": "Kwa hiyo hali ya hewa ya juu huko?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "decode_ms": 206.541198072955,
+      "total_ms": 254.2353740427643
+    },
+    {
+      "sample_index": 200,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-6ec67453-e582-44d7-ac91-cf06ceb30e67-5",
+      "source": "Economy.",
+      "opus_translation": "Uchumi.",
+      "opus_label": "material_error",
+      "finding": "Airline cabin economy becomes economics.",
+      "mlkit_translation": "Uchumi.",
+      "prior_current_C_translation": "Uchumi.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Economy cabin becomes economics."
+      },
+      "decode_ms": 57.70347104407847,
+      "total_ms": 77.82354415394366
+    },
+    {
+      "sample_index": 205,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-dd8c8ed7-e5ee-427e-9003-1580a1857960-11",
+      "source": "Okay, that sounds good. Thank you.",
+      "opus_translation": "Sawa, hilo lasikika kuwa jambo zuri.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Thanks omitted.",
+      "mlkit_translation": "Sawa, hiyo inaonekana nzuri. Asante.",
+      "prior_current_C_translation": "Sawa, hiyo inaonekana nzuri. Asante.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 148.85378605686128,
+      "total_ms": 171.88028898090124
+    },
+    {
+      "sample_index": 210,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-6ae3e0f1-e629-44f9-942e-22dfa9c33a69-4",
+      "source": "Pretty much February 6th until the 14th.",
+      "opus_translation": "Andika tarehe 6 Februari hadi tarehe 14.",
+      "opus_label": "material_error",
+      "finding": "Pretty much becomes write imperative.",
+      "mlkit_translation": "Pretty sana Februari 6 hadi 14.",
+      "prior_current_C_translation": "Pretty sana Februari 6 hadi 14.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Pretty retained in date approximation; qualifier incomplete."
+      },
+      "decode_ms": 143.48137518391013,
+      "total_ms": 171.4497790671885
+    },
+    {
+      "sample_index": 215,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-5136f25d-dddb-49a1-874d-b5cbbcf9169b-5",
+      "source": "Cheapest flight, Wi-Fi a must.",
+      "opus_translation": "Safari ngumu zaidi, ni lazima Wi-Fi.",
+      "opus_label": "material_error",
+      "finding": "Cheapest becomes most difficult.",
+      "mlkit_translation": "Ndege ya bei nafuu, Wi-Fi lazima.",
+      "prior_current_C_translation": "Ndege ya bei nafuu, Wi-Fi lazima.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Cheap versus cheapest unqualified; Wi-Fi requirement retained."
+      },
+      "decode_ms": 170.4300120472908,
+      "total_ms": 191.9165209401399
+    },
+    {
+      "sample_index": 220,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-6a7abd76-cc60-4199-abd1-232cb94dc28f-1",
+      "source": "I'm looking to book a trip to Washington DC.",
+      "opus_translation": "Ninatafuta kitabu kwenda Washington DC.",
+      "opus_label": "material_error",
+      "finding": "Book a trip becomes looking for a book.",
+      "mlkit_translation": "Ninaangalia kuandika safari ya Washington DC.",
+      "prior_current_C_translation": "Ninaangalia kuandika safari ya Washington DC.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Booking becomes writing/kuandika."
+      },
+      "decode_ms": 153.79389422014356,
+      "total_ms": 173.56177209876478
+    },
+    {
+      "sample_index": 225,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-544f0eb6-af49-48da-9f9b-c6ced8ab5bf5-18",
+      "source": "Thank you so much.",
+      "opus_translation": "Asanteni sana.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Plural asanteni in one-assistant context; number not established by source.",
+      "mlkit_translation": "Asante sana.",
+      "prior_current_C_translation": "Asante sana.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 69.2181191407144,
+      "total_ms": 92.42296381853521
+    },
+    {
+      "sample_index": 230,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-9e3ac8f2-009b-4e83-ba93-70e9b137d841-1",
+      "source": "Hello. I'm needing to order a takeout for one person. I need to open some gyros.",
+      "opus_translation": "Nahitaji kuagiza zawadi kwa ajili ya mtu mmoja na nifungue gyros.",
+      "opus_label": "material_error",
+      "finding": "Takeout becomes gift.",
+      "mlkit_translation": "Hello. Ninahitaji kuagiza mtu mmoja. Ninahitaji kufungua gyros.",
+      "prior_current_C_translation": "Hello. Ninahitaji kuagiza mtu mmoja. Ninahitaji kufungua gyros.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Takeout for a person becomes ordering a person."
+      },
+      "decode_ms": 242.85233113914728,
+      "total_ms": 262.5638209283352
+    },
+    {
+      "sample_index": 235,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-174bde2f-052d-4b9a-8913-39bbc546dd65-5",
+      "source": "And a large Sprite.",
+      "opus_translation": "Na alama nyengine.",
+      "opus_label": "material_error",
+      "finding": "Sprite drink becomes another symbol.",
+      "mlkit_translation": "Na sprite kubwa.",
+      "prior_current_C_translation": "Na sprite kubwa.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 135.98901499062777,
+      "total_ms": 158.1788850016892
+    },
+    {
+      "sample_index": 240,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-feae8356-b2cc-484a-b1b5-65bd313e06e4-8",
+      "source": "Okay.",
+      "opus_translation": "Okay.",
+      "opus_label": "unchanged",
+      "finding": "Unchanged source; no useful target-language rendering.",
+      "mlkit_translation": "Sawa.",
+      "prior_current_C_translation": "Sawa.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 62.601972138509154,
+      "total_ms": 84.69969010911882
+    },
+    {
+      "sample_index": 245,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-2f2d9e86-949a-45e7-b60e-60434c93050a-6",
+      "source": "That should be it. Thank you so much.",
+      "opus_translation": "Asanteni sana.",
+      "opus_label": "material_error",
+      "finding": "Completion statement dropped.",
+      "mlkit_translation": "Hiyo inapaswa kuwa hivyo. Asante sana.",
+      "prior_current_C_translation": "Hiyo inapaswa kuwa hivyo. Asante sana.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 108.01099706441164,
+      "total_ms": 127.23169685341418
+    },
+    {
+      "sample_index": 250,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-806539f6-ccd2-4a46-96e9-bf869766eeea-0",
+      "source": "Hi assistant.",
+      "opus_translation": "Msaidizi wake.",
+      "opus_label": "material_error",
+      "finding": "Greeting becomes his assistant.",
+      "mlkit_translation": "Msaidizi wa Hi.",
+      "prior_current_C_translation": "Msaidizi wa Hi.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Greeting becomes assistant of Hi."
+      },
+      "decode_ms": 94.94267194531858,
+      "total_ms": 115.10145687498152
+    },
+    {
+      "sample_index": 255,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-f2d9c878-02f9-4f9c-8275-472e39cb062b-12",
+      "source": "That's Fettuccine Alfredo.",
+      "opus_translation": "Huo ni Alfredo aina ya Fettusicine.",
+      "opus_label": "material_error",
+      "finding": "Dish name Fettuccine corrupted.",
+      "mlkit_translation": "Hiyo ni fettuccine alfredo.",
+      "prior_current_C_translation": "Hiyo ni fettuccine alfredo.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 195.2034558635205,
+      "total_ms": 214.027140988037
+    },
+    {
+      "sample_index": 260,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-0958939d-418b-4784-89ac-2776747a9268-10",
+      "source": "I'd also like it to have free Wi-Fi, if at all possible.",
+      "opus_translation": "Ningependa pia kuwa huru na Wi-Fi, ikiwezekana.",
+      "opus_label": "material_error",
+      "finding": "Free Wi-Fi becomes free from Wi-Fi.",
+      "mlkit_translation": "Ningependa pia kuwa na Wi-Fi ya bure, ikiwa inawezekana.",
+      "prior_current_C_translation": "Ningependa pia kuwa na Wi-Fi ya bure, ikiwa inawezekana.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 243.3719108812511,
+      "total_ms": 264.4957019947469
+    },
+    {
+      "sample_index": 265,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-52933937-1195-4ced-9ba7-c4e3373a9548-18",
+      "source": "Yes.",
+      "opus_translation": "Ndiyo.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ndiyo.",
+      "prior_current_C_translation": "Ndiyo.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 41.7201709933579,
+      "total_ms": 88.51763093844056
+    },
+    {
+      "sample_index": 270,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-10663349-5e4c-4301-8099-39c78f3d7b28-3",
+      "source": "Yes, sure. I'd like to find a hotel room in St. Louis, Missouri, please.",
+      "opus_translation": "Naam, ningependa kupata chumba cha hoteli katika St. Louis, Missouri, tafadhali.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ndiyo, hakika. Ningependa kupata chumba cha hoteli huko St. Louis, Missouri, tafadhali.",
+      "prior_current_C_translation": "Ndiyo, hakika. Ningependa kupata chumba cha hoteli huko St. Louis, Missouri, tafadhali.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 286.3804299850017,
+      "total_ms": 308.7931531481445
+    },
+    {
+      "sample_index": 275,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-2e28d88a-fcf9-4996-a71c-e366c5dca768-17",
+      "source": "Yes.",
+      "opus_translation": "Ndiyo.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ndiyo.",
+      "prior_current_C_translation": "Ndiyo.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 46.136141987517476,
+      "total_ms": 68.55555716902018
+    },
+    {
+      "sample_index": 280,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91-8",
+      "source": "I need the room to be $300 and night or even less.",
+      "opus_translation": "Nahitaji chumba hiki kiwe dola 300 na usiku au hata chini zaidi.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ninahitaji chumba kuwa $ 300 na usiku au hata kidogo.",
+      "prior_current_C_translation": "Ninahitaji chumba kuwa $ 300 na usiku au hata kidogo.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 175.05684006027877,
+      "total_ms": 195.37995918653905
+    },
+    {
+      "sample_index": 285,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-fc949fd8-e98f-4a76-a124-96c7b205b536-29",
+      "source": "All right, great. Thank you.",
+      "opus_translation": "Ni sawa kabisa.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Great/thanks omitted.",
+      "mlkit_translation": "Sawa, kubwa. Asante.",
+      "prior_current_C_translation": "Sawa, kubwa. Asante.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Great becomes Kubwa; exclamation usage unqualified."
+      },
+      "decode_ms": 129.68522193841636,
+      "total_ms": 154.35082791373134
+    },
+    {
+      "sample_index": 290,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-6184aff0-3415-40a5-b9e4-a3fdbc57dd5f-6",
+      "source": "Dunkirk sounds amazing. Could I see a trailer for that, Please?",
+      "opus_translation": "Dunkirk asikika kuwa jambo la kushangaza, je, naweza kuona trela kwa ajili ya hilo, tafadhali?",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Trailer rendered trela; film sense/natural borrowing requires bilingual review.",
+      "mlkit_translation": "Dunkirk inaonekana kushangaza. Je, ninaweza kuona trailer kwa hiyo, tafadhali?",
+      "prior_current_C_translation": "Dunkirk inaonekana kushangaza. Je, ninaweza kuona trailer kwa hiyo, tafadhali?",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 439.13746788166463,
+      "total_ms": 462.5591340009123
+    },
+    {
+      "sample_index": 295,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-5637b5dc-8768-46a7-b00a-8a8018b50208-13",
+      "source": "Okay, that sounds great. Thank you so much for your help. Bye-bye.",
+      "opus_translation": "Sawa, hiyo yasikika kuwa nzuri sana. Asante sana kwa msaada wako.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Bye-bye omitted.",
+      "mlkit_translation": "Sawa, hiyo inaonekana kubwa. Asante sana kwa msaada wako. Bye-bye.",
+      "prior_current_C_translation": "Sawa, hiyo inaonekana kubwa. Asante sana kwa msaada wako. Bye-bye.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Sounds great becomes looks big/kubwa; approval sense unqualified."
+      },
+      "decode_ms": 282.5650409795344,
+      "total_ms": 304.73196995444596
+    },
+    {
+      "sample_index": 300,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-96d7a641-2411-4110-a5c7-c341b0b99fe1-11",
+      "source": "Yeah, that will be fine. I'll go ahead and rent that then. Thank you.",
+      "opus_translation": "Nitakuwa na matokeo mazuri, nitalipa kodi ya nyumba.",
+      "opus_label": "material_error",
+      "finding": "Rent movie becomes pay house rent.",
+      "mlkit_translation": "Naam, hiyo itakuwa nzuri. Nitaendelea mbele na kukodisha basi. Asante.",
+      "prior_current_C_translation": "Naam, hiyo itakuwa nzuri. Nitaendelea mbele na kukodisha basi. Asante.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 220.461905002594,
+      "total_ms": 248.99997795000672
+    },
+    {
+      "sample_index": 305,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-86fcb4d2-b4a8-4965-a977-ac8b769226c9-0",
+      "source": "I'd like help finding a movie to see with my spouse, significant other, my girlfriend.",
+      "opus_translation": "Ningependa kusaidia kupata sinema ya kumwona mwenzi wangu wa ndoa, mwingine wa maana, rafiki yangu wa kike.",
+      "opus_label": "material_error",
+      "finding": "Request help becomes offer help; seeing movie with spouse becomes seeing spouse.",
+      "mlkit_translation": "Ningependa kusaidia kutafuta filamu ili kuona na mwenzi wangu, mwingine muhimu, mpenzi wangu.",
+      "prior_current_C_translation": "Ningependa kusaidia kutafuta filamu ili kuona na mwenzi wangu, mwingine muhimu, mpenzi wangu.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Requesting help becomes offering help; significant other also literal."
+      },
+      "decode_ms": 428.27363195829093,
+      "total_ms": 459.13492795079947
+    },
+    {
+      "sample_index": 310,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "source": "Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "opus_translation": "Je, waweza kuniambia ni kitu gani kilichojengwa juu zaidi kwenye nyanya za Rotten ambazo kwa sasa zinaonyeshwa, tafadhali?",
+      "opus_label": "material_error",
+      "finding": "Highest-rated comedy becomes highest-built object; proper website name translated.",
+      "mlkit_translation": "Je! Unaweza kuniambia ni nini comedy iliyopimwa juu juu ya nyanya zilizooza ambayo kwa sasa inaonyesha ni, tafadhali?",
+      "prior_current_C_translation": "Je! Unaweza kuniambia ni nini comedy iliyopimwa juu juu ya nyanya zilizooza ambayo kwa sasa inaonyesha ni, tafadhali?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Rotten Tomatoes site becomes rotten vegetables."
+      },
+      "decode_ms": 452.5053119286895,
+      "total_ms": 472.17044490389526
+    },
+    {
+      "sample_index": 315,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-bbd13f84-2dc7-4575-8254-b9d29814f799-3",
+      "source": "I'm in Huntsville, Alabama.",
+      "opus_translation": "Niko Huntsville, Alabama.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Mimi niko Huntsville, Alabama.",
+      "prior_current_C_translation": "Mimi niko Huntsville, Alabama.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 170.99441913887858,
+      "total_ms": 200.75750607065856
+    },
+    {
+      "sample_index": 320,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-8fd94892-0bcd-4b5d-ae31-4f07a8043f87-1",
+      "source": "I would like to hear something from Paul Simon, Please.",
+      "opus_translation": "Ningependa kusikia jambo fulani kutoka kwa Paul Simon, tafadhali.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ningependa kusikia kitu kutoka kwa Paul Simon, tafadhali.",
+      "prior_current_C_translation": "Ningependa kusikia kitu kutoka kwa Paul Simon, tafadhali.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 221.22085187584162,
+      "total_ms": 246.48429593071342
+    },
+    {
+      "sample_index": 325,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-88914db0-c121-457f-8993-e1572354121d-10",
+      "source": "Pretty cool.",
+      "opus_translation": "Mandhari yenye baridi kali.",
+      "opus_label": "material_error",
+      "finding": "Cool approval becomes cold scenery.",
+      "mlkit_translation": "Pretty baridi.",
+      "prior_current_C_translation": "Pretty baridi.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Approval cool becomes cold/baridi."
+      },
+      "decode_ms": 100.0500509981066,
+      "total_ms": 123.46032401546836
+    },
+    {
+      "sample_index": 330,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-552eb93e-e69f-43b3-8bc0-d891ce73f1eb-7",
+      "source": "I'll go with that one.",
+      "opus_translation": "Nitaambatana naye.",
+      "opus_label": "material_error",
+      "finding": "Select item becomes accompany him.",
+      "mlkit_translation": "Nitaenda na hiyo.",
+      "prior_current_C_translation": "Nitaenda na hiyo.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Choice go with becomes physical go with; idiomatic choice usage unqualified."
+      },
+      "decode_ms": 89.95078294537961,
+      "total_ms": 113.17754280753434
+    },
+    {
+      "sample_index": 335,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "source": "This one's got a really good melody to it. It's pretty emotional with how he wrote the acoustics. Listening to this when I was going through some stuff with a breakup that I had, so pretty good song, so awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy.",
+      "opus_translation": "Inapendeza sana jinsi alivyoiandikia sauti ya sauti.",
+      "opus_label": "material_error",
+      "finding": "Most of long message omitted.",
+      "mlkit_translation": "Huyu ana sauti nzuri sana. Ni kihisia sana na jinsi alivyoandika acoustics. Kusikiliza kwa hili wakati nilikuwa nikienda kwa vitu vingine na kuvunja niliyokuwa nayo, wimbo mzuri sana, hivyo ni ya kushangaza. Sasa ningependa kusikia wimbo mmoja zaidi na BONOBO. Inaitwa Gypsy.",
+      "prior_current_C_translation": "Huyu ana sauti nzuri sana. Ni kihisia sana na jinsi alivyoandika acoustics. Kusikiliza kwa hili wakati nilikuwa nikienda kwa vitu vingine na kuvunja niliyokuwa nayo, wimbo mzuri sana, hivyo ni ya kushangaza. Sasa ningependa kusikia wimbo mmoja zaidi na BONOBO. Inaitwa Gypsy.",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Relationship breakup becomes physical breaking/kuvunja."
+      },
+      "decode_ms": 219.19058822095394,
+      "total_ms": 241.76003597676754
+    },
+    {
+      "sample_index": 340,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-ea38e639-9468-4105-bbb4-37714b637b76-1",
+      "source": "Hi. I'd like to hear some latest music, please.",
+      "opus_translation": "Mimi ningependa kusikiliza muziki wa karibuni zaidi, tafadhali.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Hi. Ningependa kusikia muziki wa hivi karibuni, tafadhali.",
+      "prior_current_C_translation": "Hi. Ningependa kusikia muziki wa hivi karibuni, tafadhali.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 194.14355885237455,
+      "total_ms": 220.10357002727687
+    },
+    {
+      "sample_index": 345,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-ff86e20a-6d90-45e8-9e00-b36a0daae48a-6",
+      "source": "At least four stars.",
+      "opus_translation": "Angalau nyota nne.",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Angalau nyota nne.",
+      "prior_current_C_translation": "Angalau nyota nne.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 90.96851712092757,
+      "total_ms": 115.60047417879105
+    },
+    {
+      "sample_index": 350,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-4e6855f3-23ac-4380-9cda-ca49e008a172-17",
+      "source": "Thank you.",
+      "opus_translation": "Asanteni.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Plural addressee introduced.",
+      "mlkit_translation": "Asante.",
+      "prior_current_C_translation": "Asante.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 63.61468182876706,
+      "total_ms": 85.94471798278391
+    },
+    {
+      "sample_index": 355,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-8701ea0c-46a5-457e-b1b9-e1df5f0b42bd-8",
+      "source": "I'm also looking for somewhere inexpensive that has takeout service.",
+      "opus_translation": "Pia ninatafuta kitu fulani kisicho ghali ambacho kimetoa utumishi.",
+      "opus_label": "material_error",
+      "finding": "Takeout service becomes supplied service.",
+      "mlkit_translation": "Mimi pia ninatafuta mahali fulani gharama nafuu ambayo ina huduma ya kuchukua.",
+      "prior_current_C_translation": "Mimi pia ninatafuta mahali fulani gharama nafuu ambayo ina huduma ya kuchukua.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 230.66044389270246,
+      "total_ms": 253.75419086776674
+    },
+    {
+      "sample_index": 360,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-75296566-f3c5-4548-a079-43530458d11f-7",
+      "source": "Charlotte, North Carolina",
+      "opus_translation": "Charlotte, North Carolina",
+      "opus_label": "unchanged",
+      "finding": "Unchanged source; no useful target-language rendering.",
+      "mlkit_translation": "Charlotte, North Carolina",
+      "prior_current_C_translation": "Charlotte, North Carolina",
+      "prior_current_C_review": {
+        "label": "unchanged",
+        "finding": "Place names only."
+      },
+      "decode_ms": 59.69294696114957,
+      "total_ms": 76.52913080528378
+    },
+    {
+      "sample_index": 365,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-30065f74-1642-45ad-93dd-ff2ea34e0e78-28",
+      "source": "Okay.",
+      "opus_translation": "Okay.",
+      "opus_label": "unchanged",
+      "finding": "Unchanged source; no useful target-language rendering.",
+      "mlkit_translation": "Sawa.",
+      "prior_current_C_translation": "Sawa.",
+      "prior_current_C_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "decode_ms": 80.25698992423713,
+      "total_ms": 95.59834189713001
+    },
+    {
+      "sample_index": 370,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-96f2d9f1-e535-4059-b095-7412ec98969c-10",
+      "source": "I'm downtown and I'd prefer it to be.",
+      "opus_translation": "Niko mjini na ningeipendelea.",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Original is incomplete and downtown is generalized.",
+      "mlkit_translation": "Mimi ni jiji na ningependa kuwa.",
+      "prior_current_C_translation": "Mimi ni jiji na ningependa kuwa.",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Incomplete source and target says I am city rather than downtown."
+      },
+      "decode_ms": 149.70907615497708,
+      "total_ms": 172.6498738862574
+    },
+    {
+      "sample_index": 375,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-2a26dbcf-3e78-4c18-b3fb-017682773ab1-9",
+      "source": "And who is their manager?",
+      "opus_translation": "Na meneja wao ni nani?",
+      "opus_label": "uncertain_or_incomplete",
+      "finding": "Sports manager/coach title remains context-sensitive.",
+      "mlkit_translation": "Na meneja wao ni nani?",
+      "prior_current_C_translation": "Na meneja wao ni nani?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Sports head coach versus meneja role needs native review."
+      },
+      "decode_ms": 148.48616416566074,
+      "total_ms": 183.05433099158108
+    },
+    {
+      "sample_index": 380,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-8e1feb6b-a4ed-48ea-9f4e-b0388703d083-5",
+      "source": "Oh cool, how did they do in their last game?",
+      "opus_translation": "Lo, walifanyaje katika mchezo wao wa mwisho?",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Oh baridi, walifanyaje katika mchezo wao wa mwisho?",
+      "prior_current_C_translation": "Oh baridi, walifanyaje katika mchezo wao wa mwisho?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Approval cool becomes cold/baridi."
+      },
+      "decode_ms": 130.19711105152965,
+      "total_ms": 153.39446696452796
+    },
+    {
+      "sample_index": 385,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-c2c26cde-0782-4943-b476-ff62b7151e2c-2",
+      "source": "Hi assistant, how's the going today?",
+      "opus_translation": "Msaidiaji huyo, anaelekeaje leo?",
+      "opus_label": "material_error",
+      "finding": "Greeting/question addressed to assistant becomes about a third-person assistant.",
+      "mlkit_translation": "Msaidizi wa Hi, ni jinsi gani kwenda leo?",
+      "prior_current_C_translation": "Msaidizi wa Hi, ni jinsi gani kwenda leo?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Greeting assistant becomes assistant of Hi; how-going literal."
+      },
+      "decode_ms": 206.23627095483243,
+      "total_ms": 227.89343586191535
+    },
+    {
+      "sample_index": 390,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-550e888a-e647-4090-8a6b-d7f7401f63e3-4",
+      "source": "Is Swansea City playing right now?",
+      "opus_translation": "Je, Jiji la Swansea linacheza sasa hivi?",
+      "opus_label": "material_error",
+      "finding": "Swansea City team becomes city/place.",
+      "mlkit_translation": "Je, mji wa Swansea unacheza hivi sasa?",
+      "prior_current_C_translation": "Je, mji wa Swansea unacheza hivi sasa?",
+      "prior_current_C_review": {
+        "label": "material_error",
+        "finding": "Football team Swansea City becomes city of Swansea."
+      },
+      "decode_ms": 222.63697301968932,
+      "total_ms": 248.6183710861951
+    },
+    {
+      "sample_index": 395,
+      "corpus": "Taskmaster2",
+      "id": "tm2-dlg-9fe15f80-6fed-4d65-9e0f-edf9b13c5f02-6",
+      "source": "Who did they play against on June 1st?",
+      "opus_translation": "Walicheza na nani Juni 1?",
+      "opus_label": "broad_meaning_preserved",
+      "finding": "Broad main proposition appears preserved, allowing minor grammar differences.",
+      "mlkit_translation": "Ni nani walicheza dhidi ya Juni 1?",
+      "prior_current_C_translation": "Ni nani walicheza dhidi ya Juni 1?",
+      "prior_current_C_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Opponent versus June1 date relation malformed."
+      },
+      "decode_ms": 105.95725104212761,
+      "total_ms": 131.213144864887
+    }
+  ]
+}
