@@ -1,0 +1,17 @@
+// Reproducible input for collect-android-notices.py. Paths stay in the local
+// build report; the packaged public index contains coordinates and hashes only.
+gradle.projectsEvaluated {
+    def app = gradle.rootProject.project(':app')
+    app.tasks.register('vipiDependencyInventory') {
+        doLast {
+            def name = app.providers.gradleProperty('vipiInventoryConfiguration').getOrElse('releaseRuntimeClasspath')
+            assert name in ['releaseRuntimeClasspath', 'debugRuntimeClasspath']
+            def rows = app.configurations.getByName(name).resolvedConfiguration.resolvedArtifacts.collect {
+                [coordinate: it.moduleVersion.id.toString(), classifier: it.classifier, type: it.type, path: it.file.absolutePath]
+            }.sort { a, b -> (a.coordinate + ':' + a.type) <=> (b.coordinate + ':' + b.type) }
+            def output = app.layout.buildDirectory.file('reports/vipi/runtime-dependencies.json').get().asFile
+            output.parentFile.mkdirs()
+            output.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(rows)) + '\n'
+        }
+    }
+}
