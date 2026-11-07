@@ -1,0 +1,74 @@
+{
+  "test_only": true,
+  "records": [
+    {
+      "type": "metadata",
+      "version": 1,
+      "account_id": "11111111-1111-4111-8111-111111111111",
+      "created_at_ms": 1794089000000
+    },
+    {
+      "type": "peer",
+      "id": "22222222-2222-4222-8222-222222222222",
+      "username": "rafiki",
+      "display_name": "Rafiki 日本語"
+    },
+    {
+      "type": "message",
+      "id": "33333333-3333-4333-8333-333333333333",
+      "peer_id": "22222222-2222-4222-8222-222222222222",
+      "direction": "incoming",
+      "sent_at_ms": 1794088000000,
+      "text": "Habari! Tutaonana kesho. 👋"
+    },
+    {
+      "type": "message",
+      "id": "44444444-4444-4444-8444-444444444444",
+      "peer_id": "22222222-2222-4222-8222-222222222222",
+      "direction": "outgoing",
+      "sent_at_ms": 1794088100000,
+      "text": "See you tomorrow. 日本語 العربية café"
+    },
+    {
+      "type": "end",
+      "record_count": 4,
+      "peer_count": 1,
+      "message_count": 2
+    }
+  ],
+  "vectors": [
+    {
+      "file": "ascii.vipihistory",
+      "sha256": "e58cd0f0d6e70e7f3869d1feabd8cf55039e6a08d2ade2054b8ea5764eaf1dee",
+      "password": "correct horse vipi 2026",
+      "nfd_password": "correct horse vipi 2026",
+      "salt_hex": "000102030405060708090a0b0c0d0e0f",
+      "nonce_prefix_hex": "a0a1a2a3a4a5a6a7",
+      "derived_key_hex": "079034750cbd645e9b0996f286f2e8764ac4e8dc767eb4785beeeba56d8b5c49",
+      "bytes": 845,
+      "encode_seconds_reference_host": 0.26544454018585384
+    },
+    {
+      "file": "unicode.vipihistory",
+      "sha256": "d9816acbdf966e84ca3932120f95433ce3a73b6e80da1de08f670dc209be90d2",
+      "password": "Vipi café 日本語 🔐 2026",
+      "nfd_password": "Vipi café 日本語 🔐 2026",
+      "salt_hex": "000102030405060708090a0b0c0d0e0f",
+      "nonce_prefix_hex": "a0a1a2a3a4a5a6a7",
+      "derived_key_hex": "f7b46c2cabeabad5ea88a382849c969ce422aebeaf3ab637440b076d6ef2d1b3",
+      "bytes": 845,
+      "encode_seconds_reference_host": 0.27912935381755233
+    }
+  ],
+  "negative_cases": [
+    "truncated_footer",
+    "missing_footer",
+    "trailing_data",
+    "tampered_header",
+    "tampered_ciphertext",
+    "unsupported_iterations",
+    "oversized_frame",
+    "wrong_password",
+    "different_account"
+  ]
+}

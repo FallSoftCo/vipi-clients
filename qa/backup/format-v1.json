@@ -1,0 +1,45 @@
+{
+  "format": "VIPIHST1",
+  "status": "native_implementation_and_cross_platform_qualification_required",
+  "extension": ".vipihistory",
+  "mime_type": "application/octet-stream",
+  "header": [
+    {"offset": 0, "bytes": 8, "value": "VIPIHST1", "encoding": "ASCII"},
+    {"offset": 8, "bytes": 4, "value": 600000, "encoding": "unsigned big endian; reject all other values before deriving"},
+    {"offset": 12, "bytes": 16, "value": "fresh cryptographic random salt per export"},
+    {"offset": 28, "bytes": 8, "value": "fresh cryptographic random nonce prefix per export"}
+  ],
+  "key": {"algorithm": "PBKDF2-HMAC-SHA256", "iterations": 600000, "bytes": 32, "password": "NFC normalize then strict UTF-8; preserve spaces/case; minimum12Unicode scalars, maximum1024UTF8bytes; reject invalid surrogates"},
+  "records": {
+    "framing": "uint32BE(ciphertextPlusTagByteCount) followed by AES256GCM ciphertext and16byte tag",
+    "nonce": "8byte file nonce prefix || uint32BE zero-based record index",
+    "authenticated_data": "entire36byteheader || uint32BE(recordIndex) || original4byteframeLength",
+    "plaintext": "strict UTF8 JSON object; type field inside authenticated encryption; exact schemas in history_v1.py; reject unknown record types/fields and duplicate keys",
+    "order": "one metadata record, all peer records, all message records, one end footer; require EOF immediately after footer",
+    "limits": {"plaintext_bytes_per_record": 262144, "total_file_bytes": 1073741824, "total_records_including_metadata_footer": 200000, "message_text_utf8_bytes": 32768},
+    "compression": "none"
+  },
+  "scope": {
+    "included": "human conversation peer display metadata and completed incoming/outgoing message text; source text, timestamps, direction and IDs; existing imported history may be exported again",
+    "excluded": ["Signal identities and ratchets", "device credentials", "authentication tokens", "public key directory", "trust or safety-number decisions", "outbox and retry tasks", "unsent drafts", "block state", "subscriptions", "vBot history in version1"],
+    "identity": "metadata account_id must equal currently opened Vipi account UUID; do not alter signed-in identity or device registration",
+    "imported_message": "dedicated history-only record kind imported; state imported; never create incoming/outgoing transport journal entries, acknowledgements, retries or deliveries"
+  },
+  "atomic_import": [
+    "Copy selected encrypted input to an app-private encrypted-file staging path with total byte cap; no plaintext temporary files.",
+    "Validate all authenticated records, schemas, duplicates, peer references, footer counts and EOF before showing import confirmation.",
+    "Within one vault transaction, reread and reauthenticate that immutable owned staging file; validate again and commit only after full footer and EOF verification. Any failure rolls back everything.",
+    "Do not overwrite contacts already known from live chat. Skip existing message IDs only when peer,direction,timestamp,text match; reject conflicting IDs and roll back. Never overwrite live records with an imported status.",
+    "Imported history is read, not unread. Refresh conversation summaries after successful transaction. Imported records cannot confer verified peer identity.",
+    "Cancel/signout/account deletion closes work, rolls back and removes owned staging. Native background work must serialize vault access with live messaging. Delete owned temporary export after share/picker completion, not before the OS has consumed it."
+  ],
+  "ux": {
+    "title": "Chat backup",
+    "disclosure": "Saves your friend chat history in an encrypted file you choose where to keep. It does not transfer your messaging identity or unsent messages. vBot history is not included. Keep your backup password; Vipi cannot recover it.",
+    "password": "new password and confirmation on export; secure entry; no logging or clipboard capture; suggest a long unique passphrase",
+    "subscription": "read, export and restore existing user history must remain available when a subscription lapses",
+    "save": "native file/document picker, user selects local or cloud provider; no Vipi backup hosting",
+    "import": "show peer/message counts and confirm before atomic merge; wrong password or damaged file gets one neutral error; same-account check explained separately"
+  },
+  "acceptance": ["both native codecs decrypt both fixed vectors including Unicode NFC/NFD", "iOS-produced file imported by Android and vice versa", "tamper, truncation, footer omission, trailing bytes, reordering, wrong account/password, oversize and conflicts reject without partial import", "repeated import adds no duplicates", "no transport/runtime keys change and no network sends occur", "large multi-record file remains bounded in memory", "actual native picker and post-restart restored history proof"]
+}
