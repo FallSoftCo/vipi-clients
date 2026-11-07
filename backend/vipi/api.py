@@ -370,6 +370,24 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             await session.execute(delete(PushToken).where(PushToken.device_id == device.id))
         return {"registered": False}
 
+    @app.get("/v1/people/by-id/{peer_id}")
+    async def peer_profile(peer_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):
+        # Incoming encrypted envelopes identify the sender by opaque account ID.
+        # Resolve display metadata without exposing email or implying key trust.
+        await rate(p, "peer-profile", 30)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            await phone_for(session, request, user)
+            other = await session.get(User, str(peer_id))
+            if not other or other.deleted:
+                raise DeliveryError("recipient_unavailable", 404)
+            blocked = (await session.execute(select(Block).where(or_(
+                and_(Block.blocker_id == user.id, Block.blocked_id == other.id),
+                and_(Block.blocker_id == other.id, Block.blocked_id == user.id))))).first()
+            if blocked:
+                raise DeliveryError("recipient_unavailable", 404)
+            return profile(other)
+
     @app.get("/v1/people/{username}")
     async def find_person(username: str, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "exact-lookup", 30)

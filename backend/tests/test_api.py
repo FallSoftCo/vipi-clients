@@ -76,6 +76,24 @@ async def test_delivery_receipt_and_cross_account_access(api):
     assert (await api.get(message_url, headers=alice_headers)).json()["state"] == "delivered"
 
 
+async def test_incoming_peer_profile_requires_device_and_honors_blocks(api, db):
+    alice, _, headers = await identity(api, "alice")
+    bob, _, bob_headers = await identity(api, "bob")
+    path = "/v1/people/by-id/" + bob["id"]
+    assert (await api.get(path, headers={"Authorization":"Bearer alice"})).status_code == 401
+    result = await api.get(path, headers=headers)
+    assert result.status_code == 200 and result.json() == bob
+    assert set(result.json()) == {"id", "username", "display_name"}
+    await api.put("/v1/blocks/"+alice["id"], headers=bob_headers, json={"blocked":True})
+    assert (await api.get(path, headers=headers)).json() == {"error":"recipient_unavailable"}
+    await api.put("/v1/blocks/"+alice["id"], headers=bob_headers, json={"blocked":False})
+    from vipi.db import User
+    async with db.sessions.begin() as session:
+        person = await session.get(User, bob["id"]); person.deleted = True
+    assert (await api.get(path, headers=headers)).status_code == 404
+    assert (await api.get("/v1/people/by-id/"+str(uuid4()), headers=headers)).status_code == 404
+
+
 async def test_blocking_and_replacement_are_explicit(api):
     alice, _, alice_headers = await identity(api, "alice")
     bob, _, bob_headers = await identity(api, "bob")

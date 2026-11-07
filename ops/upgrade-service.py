@@ -79,7 +79,7 @@ def main():
     parser.add_argument("--expected-current", required=True)
     parser.add_argument("--verify-only", action="store_true")
     args = parser.parse_args()
-    require(socket.gethostname() == "ubuntu-16gb-ash-1" and os.geteuid() == 0, "Wrong host or user")
+    require(socket.gethostname() == "fallsoft-production-20261106" and os.geteuid() == 0, "Wrong host or user")
     for value in (args.revision, args.expected_current):
         require(re.fullmatch(r"[0-9a-f]{40}", value), "Invalid revision")
     releases = Path("/opt/vipi/releases")

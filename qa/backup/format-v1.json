@@ -20,7 +20,8 @@
     "compression": "none"
   },
   "scope": {
-    "included": "human conversation peer display metadata and completed incoming/outgoing message text; source text, timestamps, direction and IDs; existing imported history may be exported again",
+    "included": "human conversation peer display metadata and completed incoming/outgoing message text; source text, timestamps, direction and IDs; existing imported history may be exported again; completed outgoing means delivered/failed/expired/cancelled, never queued/accepted; incoming means delivered",
+    "unknown_peer": "peer username and display_name may each be null for unknown/deleted peers. Preserve opaque peer ID and history without inventing profile metadata. Native UI supplies its own unknown-conversation fallback. Both keys remain required.",
     "excluded": ["Signal identities and ratchets", "device credentials", "authentication tokens", "public key directory", "trust or safety-number decisions", "outbox and retry tasks", "unsent drafts", "block state", "subscriptions", "vBot history in version1"],
     "identity": "metadata account_id must equal currently opened Vipi account UUID; do not alter signed-in identity or device registration",
     "imported_message": "dedicated history-only record kind imported; state imported; never create incoming/outgoing transport journal entries, acknowledgements, retries or deliveries"

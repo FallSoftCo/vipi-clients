@@ -79,10 +79,10 @@ def validate_records(records, expected_account):
             if row['id'] in peers or row['id'] == expected_account or messages:
                 raise ValueError('duplicate_or_misordered_peer')
             import re
-            if not isinstance(row['username'], str) or re.fullmatch('[a-z][a-z0-9_]{2,23}', row['username']) is None:
+            if row['username'] is not None and (not isinstance(row['username'], str) or re.fullmatch('[a-z][a-z0-9_]{2,23}', row['username']) is None):
                 raise ValueError('invalid_username')
             name = row['display_name']
-            if not isinstance(name, str) or not 1 <= len(name) <= 80 or any(unicodedata.category(c).startswith('C') for c in name):
+            if name is not None and (not isinstance(name, str) or not 1 <= len(name) <= 80 or any(unicodedata.category(c).startswith('C') for c in name)):
                 raise ValueError('invalid_display_name')
             peers.add(row['id'])
         elif row.get('type') == 'message':
