@@ -1,0 +1,289 @@
+{
+  "schema": "vipi-complement-frame-author-review-1",
+  "production": false,
+  "comparison_sha256": "a3f59bc313a901b5e087b290684b0134004de985df51fae8a3fb04a137ad03b0",
+  "holdout_sha256": "e24f6af0d353b7a3028581eaf5d68f025d93b83ef7ebb79234fe208d1379a42b",
+  "summary": {
+    "es": {
+      "frames": 147,
+      "messages": 200,
+      "messages_with_spans": 3,
+      "spans": 3
+    },
+    "sw": {
+      "frames": 79,
+      "messages": 200,
+      "messages_with_spans": 0,
+      "spans": 0
+    }
+  },
+  "author_labels": {
+    "meaning_appears_correct": 2,
+    "uncertain": 1
+  },
+  "independent_bilingual_acceptance": false,
+  "candidate_mining_limit": "First-token dictionary verb analysis does not prove a verb construction: at/in/a and compound nouns can possess rare verb entries. Candidate counts147/79 are not validated grammatical frames. No resulting frame is promoted.",
+  "context_data_quality": "Spanish retained context-index is explicitly unreviewed; source/target direction inversion found in record105699 (a la redonda). Native POS of target focus can differ from source phrase, e.g scared→miedo requires a verbal carrier. Full phrase sense and category must be reviewed.",
+  "generalization_unit": "Full fixed source verb+complement lexical context; outside verb may use dictionary-attested inflections only when target nonverbal focus remains invariant. Such scope needs proper parsing/assessment; naive first-word POS is insufficient.",
+  "corpus_review": [
+    {
+      "id": "tm2-holdout-dlg-58625ec4-0296-4ed6-b9d8-4a63910a1390-5",
+      "original": "I need to leave at night, or in the evening.",
+      "visible": "I need to leave at noche, or in the evening.",
+      "spans": [
+        {
+          "sourceStartUTF16": 19,
+          "sourceEndUTF16": 24,
+          "original": "night",
+          "translated": "noche",
+          "source_context": "at night",
+          "context_range_utf16": [
+            16,
+            24
+          ],
+          "mapping_id": "8525",
+          "origin": "eval_only_explicit_complement_frame"
+        }
+      ],
+      "label": "meaning_appears_correct",
+      "finding": "night→noche is correct within at night; this is a prepositional phrase, not a verb-complement construction."
+    },
+    {
+      "id": "tm2-holdout-dlg-f4af0aca-bdd6-4582-8d75-d127878a3e74-5",
+      "original": "I like to come back at night, at least tonight.",
+      "visible": "I like to come back at noche, at least tonight.",
+      "spans": [
+        {
+          "sourceStartUTF16": 23,
+          "sourceEndUTF16": 28,
+          "original": "night",
+          "translated": "noche",
+          "source_context": "at night",
+          "context_range_utf16": [
+            20,
+            28
+          ],
+          "mapping_id": "8525",
+          "origin": "eval_only_explicit_complement_frame"
+        }
+      ],
+      "label": "meaning_appears_correct",
+      "finding": "night→noche is correct within at night; this is a prepositional phrase, not a verb-complement construction."
+    },
+    {
+      "id": "tm2-holdout-dlg-e273cf2e-c178-4342-850b-6fa771d6a15c-11",
+      "original": "Awesome. I'll be waiting for them, I appreciate your help today. Enjoy your day.",
+      "visible": "Awesome. I'll be al aguaite for them, I appreciate your help today. Enjoy your day.",
+      "spans": [
+        {
+          "sourceStartUTF16": 17,
+          "sourceEndUTF16": 24,
+          "original": "waiting",
+          "translated": "al aguaite",
+          "source_context": "be waiting",
+          "context_range_utf16": [
+            14,
+            24
+          ],
+          "mapping_id": "66425",
+          "origin": "eval_only_explicit_complement_frame"
+        }
+      ],
+      "label": "uncertain",
+      "finding": "al aguaite is a region-dependent waiting/watchful expression; source and register require bilingual review."
+    }
+  ],
+  "pgv_resource_audit": {
+    "archive_sha256": "bd2106b2a093a87375e87e3e01561a5cbac6d40331ea036462f1053f75727094",
+    "direct_pairs": 32754,
+    "counts": {
+      "short_complete_pairs": 7383,
+      "going home": 2,
+      "go home": 7,
+      "go to school": 7,
+      "come back": 16,
+      "look for": 12,
+      "pay attention": 6,
+      "get back": 2,
+      "look forward": 8,
+      "take care": 13,
+      "find out": 23,
+      "have a look": 4,
+      "get ready": 4,
+      "make a mistake": 1,
+      "leave home": 1,
+      "make a decision": 1
+    },
+    "examples": {
+      "going home": [
+        {
+          "unit": "225",
+          "source": "When he was at high school (William Knibb Memorial High) almost every evening he used to hang out in my video store before going home so I have always watched his progress over the years.",
+          "target": "Alipokuwa shule ya sekondari ya juu (Shule ya kumbukumbu ya William Knibb) karibu kila jioni alikuwa akibarizi kwenye duka langu la luninga kabla ya kwenda nyumbani kwa hiyo nimekuwa nikangalia maendeleo yake kwa miaka kadhaa."
+        },
+        {
+          "unit": "12253",
+          "source": "In Konyokonyo and Jebel Markets in Juba, many foreign traders said they are going home for Christmas, and then wait till the referendum exercise is completed before returning.",
+          "target": "Kwenye masoko ya Konyokonyo na Jebel huko Juba, wafanyabiashara wengi wakigeni walisema wanaenda nyumbani kwa sikukuu ya Krismas, na kisha watangoja mpaka zoezi la kura ya maoni limalizike ndipo warudi."
+        }
+      ],
+      "go home": [
+        {
+          "unit": "509",
+          "source": "By 1:30 I'm having lunch from Subway with the girls, then go back to work and leave at 4:30, go home, relax, take a shower, get dressed, wait for the driver to take me to the Chinese place since I invited the girls out.",
+          "target": "Mida ya saa 7:30 napata chakula cha mchana na marafiki zangu wa kike kutoka mgahawa wa Subway, halafu nikarejea kazini na kutoka saa 10:30 jioni, narejea nyumbani, napumzika, naoga natinga mavazi yangu, namsubiri dereva anipeleke mgahawa wa Wachina kwani nilikuwa nimewakaribisha marafiki zangu wa kike."
+        },
+        {
+          "unit": "4203",
+          "source": "And yet members of the opposition are refusing to go home quietly.",
+          "target": "Na bado wanachama wa upinzani wanakataa kurudi makwao kwa utulivu."
+        }
+      ],
+      "go to school": [
+        {
+          "unit": "797",
+          "source": "Xiao Qing carrying a placard stands at the gate of Gongbei Xiawan Primary School and she is so anxious to go to school like other little boys and girls.",
+          "target": "Binti huyo, Xiao Qing, akiwa amebeba bango husimama katika lango la kuingia katika Shule ya Msingi Gongbei Xiawan huku akiwa amejawa na hamu tele ya kujiunga na shule kama wanavyofanya watoto wengine wa kike na kiume."
+        },
+        {
+          "unit": "2064",
+          "source": "In Indonesia, women are considered successful not from what they have achieved, but from their husbands, how many kids they can deliver and how fat their kids are and where their kids go to school.",
+          "target": "Katika Indonesia wanawake wanaangaliwa mafanikio yao si kwa yale waliyoyafanya, bali kutokana na waume zao, ni watoto wangapi wanaweza kuzaa na watoto wao wana siha kiasi gani, na watoto wanasoma shule zipi."
+        }
+      ],
+      "come back": [
+        {
+          "unit": "895",
+          "source": "I don't mean to say that the West is not greedy, that capitalism would not come back with a savage fury if they let it.",
+          "target": "Sina maana kwamba nchi za magharibi hazina tamaa, kwamba mabepari hawatatushukia kwa hasira ikiwa watapata mwanya.  Hapana."
+        },
+        {
+          "unit": "5674",
+          "source": "We talked back and forth a few minutes and finally he wanted 50 more CFA (like 10 cents) and I wouldn't pay it and so I grabbed a plastic bag and bagged my own apples and left the money on his cart while we both laughed and I walked away saying thank you and that I would come back next time (this is a common way to leave a conversation in Cameroon - saying thanks, next time).”",
+          "target": "Tukazungumza kwa kuvutana dakika chache na mwishowe akataka CFA50 zaidi (kama senti 10) na sikuweza kulipa na ndipo nikachukua mfuko wangu na kupakia matunda yangu na kuacha hela kwenye mkokoteni wake wakati sote tukicheka na kuondoka huku nikisema asante na kwamba ningerudi wakati mwingine (hii ni namna iliyozoeleka ya kumaliza mazungumzo nchini Cameroon -kusema asante, wakati mwingine).”"
+        }
+      ],
+      "look for": [
+        {
+          "unit": "898",
+          "source": "We go to the Chinese and the Indians and look for models, but we don't want to look at their conditions and methods of operating.",
+          "target": "Tunawageukia Wahindi na Wachina ili kuiga mifumo yao, lakini hatutaki kuangalia mazingira na mbinu wanazotumia."
+        },
+        {
+          "unit": "1938",
+          "source": "Most of the times, they will tell you that ‘Sorry come next month, give us time to look for it'.  Now Imagine a person is coming from Nsanje to the AG's office in Blantyre; he comes again as per the arrangement and is told that he should wait for another week, very frustrating isn't it?",
+          "target": "Mara nyingi, watakuambia, ‘Samahani, njoo mwezi ujao, tupe muda wa kulitafuta faili lako' hebu fikiria mtu anakuja kutoka Nsanje kuja kwa Mwanasheria Mkuu mjini Blantyre; anakuja tena kama alivyoahidiwa na anaambiwa asubiri tena kwa wiki moja nyingine, inaghafirisha, au sivyo?"
+        }
+      ],
+      "pay attention": [
+        {
+          "unit": "1484",
+          "source": "In contrast, the conflict in Congo seems like just another tragedy on a cursed continent that people don't pay attention to anymore because these kinds of tragedies are so frequent.",
+          "target": "Tofauti na mgogoro wa Kongo ambao unaonekana kana kwamba ni moja tu ya madhila mengine yanayotokea kwenye bara lililolaaniwa ambalo watu hawalitilii maanani tena kwa sababu madhila ya namna hii hutokea mara kwa mara."
+        },
+        {
+          "unit": "7033",
+          "source": "Few international media outlets pay attention to the situation here.",
+          "target": "Vyombo vichache vya habari vya kimataifa vinatilia maanani hali ilivyo hapa."
+        }
+      ],
+      "get back": [
+        {
+          "unit": "2922",
+          "source": "The fishmongers are yelling to get back to work.",
+          "target": "Wauza samaki wanahimizwa kurejea kazini."
+        },
+        {
+          "unit": "7859",
+          "source": "I even manage to keep down my anxiety not being able to get back to Jehanne by noticing that the one-storied buildings held out the tremors.",
+          "target": "Ninafaulu hata kuimiliki hali yangu ya kuwa na wasiwasi hasa baada ya kushindwa kufika kwa Jehanne baada ya kuona kwamba jengo fulani la ghorofa moja lilionesha mitikisiko."
+        }
+      ],
+      "look forward": [
+        {
+          "unit": "3193",
+          "source": "We look forward to seeing the collection online.",
+          "target": "Tunatarajia kuona mkusanyiko huo mtandaoni."
+        },
+        {
+          "unit": "3778",
+          "source": "#lightupnigeria so that her 140million nigerians can say goodnight and really look forward to having one",
+          "target": "#iangazenigeria ili wanaijeria wake milioni 140 waweze kusema usiku mwema na kweli wautegemee usiku mwema"
+        }
+      ],
+      "take care": [
+        {
+          "unit": "3716",
+          "source": "Those are the only two things we ask the West to do, and we will take care of the rest.",
+          "target": "2) Wazuieni watawala wa Afrika kupata matibabu aina yoyote nje ya Afrika. Hayo ni masuala mawili pekee tunayoomba Wamagharibi wayafanye, na sisi tutayashughulikia yaliyobaki."
+        },
+        {
+          "unit": "5021",
+          "source": "She fell sick with a high fever and wasn't in a state to take care of their baby girl but her husband refused to take paid leave or come home earlier than usual.",
+          "target": "Alipatwa na homa kali kiasi cha kushindwa kumhudumia binti yao mchanga, lakini mumewe alikataa katakata kuchukua likizo yenye malipo na alikataa pia kurejea nyumbani mapema kuliko ilivyo kawaida."
+        }
+      ],
+      "find out": [
+        {
+          "unit": "4992",
+          "source": "Blogger Ahmed Shokeir conducted a survey to find out the 10 most influential people in Egypt after he was surprised to find out that Gamal Mubarak, son of Egyptian president Hosni Mubarak - who is expected to succeed his father - was among the 2009 TIME 100 Finalists .",
+          "target": "Mwanablogu Ahmed Shokeir aliendesha taftishi ya kutafuta watu 10 wenye ushawishi zaidi nchini Misri baada ya kushangazwa na matokeo ya Gamal Mubarak, mtoto wa Rais Hosni Mubarak wa Misri - kama mmoja wa washindi 100 wa mwisho wa mwaka 2009 wa TIME."
+        },
+        {
+          "unit": "6669",
+          "source": "As the first day of the Second Annual Arab Bloggers Workshop comes to a close, we'll take a look at participants' reflections from the whole day, to find out what they learned and how they're feeling.",
+          "target": "Wakati siku ya kwanza ya Warsha ya Pili ya Mwaka ya Wanablogu wa Uarabuni ikifungwa, tutaangalia tafakuri za washiriki kwa siku nzima, kujua wamejifunza nini na namna wanavyojisikia."
+        }
+      ],
+      "have a look": [
+        {
+          "unit": "6436",
+          "source": "I try to smile, but instead I have a look of revulsion.",
+          "target": "Najaribu kutabasamu badala yake sura yangu inakuwa kama ya mtu aliye na kinyaa."
+        },
+        {
+          "unit": "11152",
+          "source": "And if you're still not convinced, have a look at this passionate plea by The Elders",
+          "target": "Na kama bado hujashawishika, hebu tazama wito huu mtamu wa kutoka The Elders"
+        }
+      ],
+      "get ready": [
+        {
+          "unit": "7861",
+          "source": "We get ready for our first night fearing the tremors which filled our evening.",
+          "target": "Tunajiandaa kwenda kulala huku tukihofia mitikisiko zaidi ambayo iliigubika jioni yote."
+        },
+        {
+          "unit": "9789",
+          "source": "So I recommend people to change or get ready to change jobs with an organization that value work.",
+          "target": "Mfumo wa ajira wa Japani ulikuwa matunda ya mashirika makubwa yaliyothamini kutoyumbayumba kwa haliya mambo:"
+        }
+      ],
+      "make a mistake": [
+        {
+          "unit": "13305",
+          "source": "We had been educated on how to correctly complete the process for our votes to count, and I didn't want to make a mistake, certainly not at the last moment.",
+          "target": "Tulielimishwa jinsi ya kushiriki kwenye mchakato ili kwamba kura zetu zihasibiwe, na sikutaka kufanya makosa, bila ya shaka kwenye bhatua za mwisho."
+        }
+      ],
+      "leave home": [
+        {
+          "unit": "21848",
+          "source": "It is strong tradition in China to respect the elderly and take care of parents as they get older, but modern lifestyles has meant that young people leave home for their own love and career.",
+          "target": "Ni utaratibu wa lazima kabisa kwa nchi ya China kuheshimiwa watu wazima na kuwatunza wazazi kwa kadiri ya umri wao unavyosogea, lakini aina mpya ya maisha imewalazimu vijana wadogo huondoka nyumbani kwenda kutafuta maisha yao."
+        }
+      ],
+      "make a decision": [
+        {
+          "unit": "22105",
+          "source": "Why did (the government) intend to make a decision that affects our lives and our offsprings' lives, in only 13 days?",
+          "target": "Kwa nini serikali ilidhamiria kufanya maamuzi yatakayoathiri maisha yetu na ya watoto wetu ndani ya siku 13 tuu?"
+        }
+      ]
+    },
+    "license": "Attribution-only publisher README; retained corpus receipt identifies CC BY4.0 alignment distribution",
+    "partition_scope": "Counts inspect source availability only. These are not mined/promoted frames and not scored as runtime coverage. Retained development/reserved component membership must be consulted before future authoring.",
+    "assessment": "Provides real long contextual bilingual evidence for some common constructions, but domain is news/citizen media and automatic alignment is not vetted phrase alignment."
+  },
+  "decision": "Current actual local translation plus conservative spans remains the strongest measured mixed path, with low SMS depth. Test dictionary-independent word/window/top-down local translation before further sparse frame expansion."
+}

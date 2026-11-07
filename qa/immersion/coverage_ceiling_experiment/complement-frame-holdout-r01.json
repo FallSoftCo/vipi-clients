@@ -1,0 +1,3677 @@
+{
+  "schema": "vipi-complement-frame-holdout-1",
+  "cases": [
+    {
+      "id": "tm2-holdout-dlg-7d168979-df0e-4da3-b898-191e595ca6aa-19",
+      "text": "Nothing else for today.",
+      "conversation_id": "dlg-7d168979-df0e-4da3-b898-191e595ca6aa",
+      "turn_index": 19,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-0811bb1f-3cbc-43b7-b59a-fa0628b9fa0a-7",
+      "text": "And how much would that be?",
+      "conversation_id": "dlg-0811bb1f-3cbc-43b7-b59a-fa0628b9fa0a",
+      "turn_index": 7,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7ab97904-e935-48e5-a2a4-7efca6685792-11",
+      "text": "Yes, please. Just one ticket.",
+      "conversation_id": "dlg-7ab97904-e935-48e5-a2a4-7efca6685792",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-35adabba-cae4-4ba2-9dc2-566e2c208b3c-10",
+      "text": "This is a business trip, so I would like to fly Business class.",
+      "conversation_id": "dlg-35adabba-cae4-4ba2-9dc2-566e2c208b3c",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6f826ab6-163d-40af-a5f3-1872c976ecf4-11",
+      "text": "I'd like something in business class.",
+      "conversation_id": "dlg-6f826ab6-163d-40af-a5f3-1872c976ecf4",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d5e357c2-347f-4e0b-8468-116ed1d39c0c-1",
+      "text": "Yeah, I was wondering, If you could help me to book a flight from Sacramento to Denver?",
+      "conversation_id": "dlg-d5e357c2-347f-4e0b-8468-116ed1d39c0c",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6b574f46-e882-4fd3-801a-866cf716c432-1",
+      "text": "Hi. I'm looking for a commercial airline flight.",
+      "conversation_id": "dlg-6b574f46-e882-4fd3-801a-866cf716c432",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-58625ec4-0296-4ed6-b9d8-4a63910a1390-5",
+      "text": "I need to leave at night, or in the evening.",
+      "conversation_id": "dlg-58625ec4-0296-4ed6-b9d8-4a63910a1390",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-bd8b8477-c53e-4e4b-9c09-e1616a6d8fad-4",
+      "text": "Within the next two weeks from today.",
+      "conversation_id": "dlg-bd8b8477-c53e-4e4b-9c09-e1616a6d8fad",
+      "turn_index": 4,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1cb12bba-8d50-40f3-8bea-cfd2d81966c1-8",
+      "text": "Thank you.",
+      "conversation_id": "dlg-1cb12bba-8d50-40f3-8bea-cfd2d81966c1",
+      "turn_index": 8,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c3050de6-87bb-433e-8723-6cf2e702aeec-40",
+      "text": "Thank you. Goodbye.",
+      "conversation_id": "dlg-c3050de6-87bb-433e-8723-6cf2e702aeec",
+      "turn_index": 40,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1b10a33f-e9ef-4d85-8c8d-a5d367e345bf-22",
+      "text": "Bye.",
+      "conversation_id": "dlg-1b10a33f-e9ef-4d85-8c8d-a5d367e345bf",
+      "turn_index": 22,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-879e1c19-fe50-4913-97b0-8011587a9449-11",
+      "text": "Okay, that sounds great. Let's book both legs of the trip.",
+      "conversation_id": "dlg-879e1c19-fe50-4913-97b0-8011587a9449",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8945c0f6-0d06-4e64-b8f5-fdbaa859132f-5",
+      "text": "I'd like to leave on March 20th and I'll be back on March 25th.",
+      "conversation_id": "dlg-8945c0f6-0d06-4e64-b8f5-fdbaa859132f",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f4af0aca-bdd6-4582-8d75-d127878a3e74-5",
+      "text": "I like to come back at night, at least tonight.",
+      "conversation_id": "dlg-f4af0aca-bdd6-4582-8d75-d127878a3e74",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d118b652-cd25-4bb4-bfc1-423d5e10e94a-1",
+      "text": "Hi. I would like help in finding a flight to Rome.",
+      "conversation_id": "dlg-d118b652-cd25-4bb4-bfc1-423d5e10e94a",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e5127f8c-d099-43e7-8d91-f6a5618c6a2a-10",
+      "text": "Okay.",
+      "conversation_id": "dlg-e5127f8c-d099-43e7-8d91-f6a5618c6a2a",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-036864cd-fc93-42c5-88b4-c2aa121a871f-26",
+      "text": "Bye.",
+      "conversation_id": "dlg-036864cd-fc93-42c5-88b4-c2aa121a871f",
+      "turn_index": 26,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-ce9e3593-5c2d-4a3f-acf6-8491ccb7db2e-7",
+      "text": "Whatever is the cheapest amongst the classes.",
+      "conversation_id": "dlg-ce9e3593-5c2d-4a3f-acf6-8491ccb7db2e",
+      "turn_index": 7,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-2fbabe72-c70b-461a-8391-9e98be9df510-18",
+      "text": "Alright, I'm a fan of that.",
+      "conversation_id": "dlg-2fbabe72-c70b-461a-8391-9e98be9df510",
+      "turn_index": 18,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7ba2b3f0-e505-41ae-b352-5cca8410defc-0",
+      "text": "I would like help finding a flight to Portland, Oregon.",
+      "conversation_id": "dlg-7ba2b3f0-e505-41ae-b352-5cca8410defc",
+      "turn_index": 0,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-b53b2a0f-0657-4dc0-a36b-1dd825bf91d8-16",
+      "text": "Alright, then I'll have to take that. Get me a flight, economy leaving today and coming back in 4 days, please.",
+      "conversation_id": "dlg-b53b2a0f-0657-4dc0-a36b-1dd825bf91d8",
+      "turn_index": 16,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9ccb2bad-dec2-4910-a53c-34d8f4b54608-37",
+      "text": "Okay. That sounds like probably the flight I'd prefer.",
+      "conversation_id": "dlg-9ccb2bad-dec2-4910-a53c-34d8f4b54608",
+      "turn_index": 37,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-526c4d12-da4f-4d34-9015-be18c361c91b-25",
+      "text": "Great. What about a return flight on April 7th?",
+      "conversation_id": "dlg-526c4d12-da4f-4d34-9015-be18c361c91b",
+      "turn_index": 25,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a19789a3-ce5e-42c2-8e82-3fb5ac4971c0-23",
+      "text": "I think that's it.",
+      "conversation_id": "dlg-a19789a3-ce5e-42c2-8e82-3fb5ac4971c0",
+      "turn_index": 23,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d15a2433-c7ee-41d9-8b91-ad5b04ce30c2-10",
+      "text": "Okay, then. One stop flight.",
+      "conversation_id": "dlg-d15a2433-c7ee-41d9-8b91-ad5b04ce30c2",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-56eb6c92-3865-45c6-805a-156a13ee9e89-20",
+      "text": "I prefer first class.",
+      "conversation_id": "dlg-56eb6c92-3865-45c6-805a-156a13ee9e89",
+      "turn_index": 20,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9871c753-4cb4-4f3a-8ae8-b50549aa40ce-10",
+      "text": "Okay. Do you know what the time of the layover is?",
+      "conversation_id": "dlg-9871c753-4cb4-4f3a-8ae8-b50549aa40ce",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1961e087-edf6-42fb-bf11-7bf5e094e5cf-9",
+      "text": "Can you book that for me?",
+      "conversation_id": "dlg-1961e087-edf6-42fb-bf11-7bf5e094e5cf",
+      "turn_index": 9,
+      "domain": "flights",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6ecd7ef2-8729-4433-9169-3f381955dc07-3",
+      "text": "Breakfast Burritos.",
+      "conversation_id": "dlg-6ecd7ef2-8729-4433-9169-3f381955dc07",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1439800b-4407-430a-bbb5-18a921e1f921-6",
+      "text": "I would like to order a takeout.",
+      "conversation_id": "dlg-1439800b-4407-430a-bbb5-18a921e1f921",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d407b13c-15a8-4270-9121-815eb5630ff8-6",
+      "text": "Yes.",
+      "conversation_id": "dlg-d407b13c-15a8-4270-9121-815eb5630ff8",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-80556911-99b3-4732-9321-c737f61702cd-14",
+      "text": "No, Thank you.",
+      "conversation_id": "dlg-80556911-99b3-4732-9321-c737f61702cd",
+      "turn_index": 14,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-2203cd63-7602-4be7-87c5-6c11f46b7ae6-1",
+      "text": "Hi. I'd like to order takeout, please.",
+      "conversation_id": "dlg-2203cd63-7602-4be7-87c5-6c11f46b7ae6",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-0419f6a2-94d8-43d0-8182-4ea7802de061-1",
+      "text": "I'd like to take out some food.",
+      "conversation_id": "dlg-0419f6a2-94d8-43d0-8182-4ea7802de061",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e89452e-be19-40e0-9e26-fa0b8d902a49-11",
+      "text": "That's correct.",
+      "conversation_id": "dlg-7e89452e-be19-40e0-9e26-fa0b8d902a49",
+      "turn_index": 11,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-06a169dc-2913-4346-bd15-190ce5fb6559-6",
+      "text": "Yes and that should be it for me.",
+      "conversation_id": "dlg-06a169dc-2913-4346-bd15-190ce5fb6559",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c775db05-43cb-4b53-841c-aeb03fd1875e-4",
+      "text": "Great.",
+      "conversation_id": "dlg-c775db05-43cb-4b53-841c-aeb03fd1875e",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6dd5fe48-004b-4e5b-a792-830990735b98-7",
+      "text": "I'd like one breakfast quesadilla.",
+      "conversation_id": "dlg-6dd5fe48-004b-4e5b-a792-830990735b98",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-822008cb-4b9b-49fb-afba-2c5eae76bdfc-3",
+      "text": "Can I get a turkey club with bacon, cheddar cheese, lettuce, tomato, oil and vinegar, and salt and pepper in an Italian bread?",
+      "conversation_id": "dlg-822008cb-4b9b-49fb-afba-2c5eae76bdfc",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-b5694e10-8877-40d7-9b15-4b3254176902-7",
+      "text": "No, thank you.",
+      "conversation_id": "dlg-b5694e10-8877-40d7-9b15-4b3254176902",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8e452a0c-080f-47fd-a669-7c8c33c85c4c-5",
+      "text": "Oh, no, two orders of lo mein and one order of sweet and sour chicken. Do those come in different sizes lo mein?",
+      "conversation_id": "dlg-8e452a0c-080f-47fd-a669-7c8c33c85c4c",
+      "turn_index": 5,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d18a3699-a1c6-47f2-8888-6a45a33af7c7-1",
+      "text": "Hi, I'm going to order some pork.",
+      "conversation_id": "dlg-d18a3699-a1c6-47f2-8888-6a45a33af7c7",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-882dd6fe-f64a-4896-a92a-dc522031f166-4",
+      "text": "I'm looking to order a take out for two people and my wife really likes great food, so can you recommend a great restaurant?",
+      "conversation_id": "dlg-882dd6fe-f64a-4896-a92a-dc522031f166",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f54d2775-71cf-4d7c-82c6-baf9179b8fcc-5",
+      "text": "Three small orders of spaghetti and meatballs.",
+      "conversation_id": "dlg-f54d2775-71cf-4d7c-82c6-baf9179b8fcc",
+      "turn_index": 5,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-80468663-3313-4318-a487-15dbd7404b35-4",
+      "text": "Thank you so much.",
+      "conversation_id": "dlg-80468663-3313-4318-a487-15dbd7404b35",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8cc9d6c8-58e4-4e21-8a4b-6baab816017c-7",
+      "text": "Perfect.",
+      "conversation_id": "dlg-8cc9d6c8-58e4-4e21-8a4b-6baab816017c",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-38e09630-55d3-408d-9281-fcf572a242c7-18",
+      "text": "Thank you.",
+      "conversation_id": "dlg-38e09630-55d3-408d-9281-fcf572a242c7",
+      "turn_index": 18,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-3e57e4fb-7306-40da-b364-7a48feeedf93-8",
+      "text": "That'll be it. Thank you very much.",
+      "conversation_id": "dlg-3e57e4fb-7306-40da-b364-7a48feeedf93",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-92529017-943e-46c4-a5c7-06c5123144b4-0",
+      "text": "Hi. Can you pull up my regular order from Casa Sanchez? I want to order the same thing I got last week.",
+      "conversation_id": "dlg-92529017-943e-46c4-a5c7-06c5123144b4",
+      "turn_index": 0,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7d319f19-dc4f-4818-bf84-5889421875f1-8",
+      "text": "Yes. That is correct.",
+      "conversation_id": "dlg-7d319f19-dc4f-4818-bf84-5889421875f1",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5053191b-aa4b-4494-bfbc-20ecdeed42ed-7",
+      "text": "Alright, great. Thank you.",
+      "conversation_id": "dlg-5053191b-aa4b-4494-bfbc-20ecdeed42ed",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e09e01c4-3c9d-4689-a6fd-bf690554949b-4",
+      "text": "Chicken curry with a hummus and a 2 liter of Coke.",
+      "conversation_id": "dlg-e09e01c4-3c9d-4689-a6fd-bf690554949b",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9d371926-4125-48d4-8a90-0c1bc428a1d4-6",
+      "text": "Okay. For the first one I'd like you to get a Reuben on Rye.",
+      "conversation_id": "dlg-9d371926-4125-48d4-8a90-0c1bc428a1d4",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-44be84fb-e2a5-4de3-9984-e17981e86913-8",
+      "text": "Yeah, that's all for me. Thank you.",
+      "conversation_id": "dlg-44be84fb-e2a5-4de3-9984-e17981e86913",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4fc8a18a-9ae1-4827-9032-457b5a2b7d39-3",
+      "text": "Two hot dogs, please, everything on it, extra relish, two large orders of fries, one order of mozzarella sticks, and two large Cokes, please.",
+      "conversation_id": "dlg-4fc8a18a-9ae1-4827-9032-457b5a2b7d39",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6f2aaf11-6c1b-49eb-ac22-3fe94b9df25d-3",
+      "text": "Okay, so I'm looking to get two regular-sized hot dogs, one with sour cream and beans, and another one with I think they just want ketchup and relish, and that's it.",
+      "conversation_id": "dlg-6f2aaf11-6c1b-49eb-ac22-3fe94b9df25d",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5050d44a-1540-4577-abbe-e2b0b2672f08-6",
+      "text": "And I need to get a a salad with that one.",
+      "conversation_id": "dlg-5050d44a-1540-4577-abbe-e2b0b2672f08",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-bb011b23-e6b3-48cc-8193-8a55d363c51d-18",
+      "text": "Tell me more about that?",
+      "conversation_id": "dlg-bb011b23-e6b3-48cc-8193-8a55d363c51d",
+      "turn_index": 18,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-3b883cf0-928c-4a9d-bbe4-49ee1933bdba-5",
+      "text": "From March 10th to 17th.",
+      "conversation_id": "dlg-3b883cf0-928c-4a9d-bbe4-49ee1933bdba",
+      "turn_index": 5,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-ddbf008b-6678-462e-adf4-965fa8e47849-22",
+      "text": "I would like to know about Staybridge.",
+      "conversation_id": "dlg-ddbf008b-6678-462e-adf4-965fa8e47849",
+      "turn_index": 22,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9cabadfa-b742-4f2a-bf33-2aaac60a7864-9",
+      "text": "Okay, thank you. That's all I need.",
+      "conversation_id": "dlg-9cabadfa-b742-4f2a-bf33-2aaac60a7864",
+      "turn_index": 9,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4ea42e5c-f24e-4e66-a27f-1c60c7eb8b35-16",
+      "text": "Room service.",
+      "conversation_id": "dlg-4ea42e5c-f24e-4e66-a27f-1c60c7eb8b35",
+      "turn_index": 16,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-854cc388-7b94-4caf-9560-a8bbbbfc30f6-28",
+      "text": "How large are the bedrooms?",
+      "conversation_id": "dlg-854cc388-7b94-4caf-9560-a8bbbbfc30f6",
+      "turn_index": 28,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-cda27801-8c5c-4247-8cf1-0980d551768f-0",
+      "text": "I'd like help in finding a hotel in Nashville, Tennessee.",
+      "conversation_id": "dlg-cda27801-8c5c-4247-8cf1-0980d551768f",
+      "turn_index": 0,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-34401fdd-b260-437a-890b-64dc6940cf46-5",
+      "text": "Yeah, I needed less than $300 a night.",
+      "conversation_id": "dlg-34401fdd-b260-437a-890b-64dc6940cf46",
+      "turn_index": 5,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-ef5dd760-5409-4a5e-9327-4f917c68ca28-7",
+      "text": "At least four. I'd also like a microwave in the room and a hotel with a bar or a bar in a restaurant. Either one is fine.",
+      "conversation_id": "dlg-ef5dd760-5409-4a5e-9327-4f917c68ca28",
+      "turn_index": 7,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-cacb9b4b-c79e-430d-a2bb-4197deb4c513-19",
+      "text": "I'll take the second one.",
+      "conversation_id": "dlg-cacb9b4b-c79e-430d-a2bb-4197deb4c513",
+      "turn_index": 19,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c0297e60-1215-462e-b2b4-fd86dcba7a14-25",
+      "text": "Thank you.",
+      "conversation_id": "dlg-c0297e60-1215-462e-b2b4-fd86dcba7a14",
+      "turn_index": 25,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-bcf778e9-cbd8-4d18-bbb2-ba48b5f5ef12-22",
+      "text": "Nothing. Thank you so much.",
+      "conversation_id": "dlg-bcf778e9-cbd8-4d18-bbb2-ba48b5f5ef12",
+      "turn_index": 22,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-b449d3a8-7b28-4a08-8b60-243039a51029-1",
+      "text": "Hi, I'm looking for a hotel in New Orleans.",
+      "conversation_id": "dlg-b449d3a8-7b28-4a08-8b60-243039a51029",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5eececb5-7e23-4323-89e3-4da2227fd5cd-19",
+      "text": "Can you talk right now or can you leave it as a parent?",
+      "conversation_id": "dlg-5eececb5-7e23-4323-89e3-4da2227fd5cd",
+      "turn_index": 19,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-55338c5c-0f48-4260-b76c-061553dcd117-3",
+      "text": "I'll be staying from June 16th to June 19th 2017.",
+      "conversation_id": "dlg-55338c5c-0f48-4260-b76c-061553dcd117",
+      "turn_index": 3,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-0c3a8450-9031-4322-8a94-44ac0254c951-26",
+      "text": "Okay great, is there a fitness center at the hotel?",
+      "conversation_id": "dlg-0c3a8450-9031-4322-8a94-44ac0254c951",
+      "turn_index": 26,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-844ce64e-de5d-4763-a9da-63cdafae3086-17",
+      "text": "Yes, please.",
+      "conversation_id": "dlg-844ce64e-de5d-4763-a9da-63cdafae3086",
+      "turn_index": 17,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8c5b3585-c34a-4332-adce-e303b6fab696-11",
+      "text": "No bedroom requirements and hotel ratings should be 4 stars and up.",
+      "conversation_id": "dlg-8c5b3585-c34a-4332-adce-e303b6fab696",
+      "turn_index": 11,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-2bf04ec4-ddd6-4ce1-89f0-2069383ebdd8-4",
+      "text": "I don't want to spend more than $300 a night and I want the hotel to have good customer review. So, four stars.",
+      "conversation_id": "dlg-2bf04ec4-ddd6-4ce1-89f0-2069383ebdd8",
+      "turn_index": 4,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-76206a5d-2086-4025-90a1-276b6e8ff2b8-2",
+      "text": "This Friday to the following Sunday.",
+      "conversation_id": "dlg-76206a5d-2086-4025-90a1-276b6e8ff2b8",
+      "turn_index": 2,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-dd7506c7-7bac-423b-bece-6b7c711c4d7b-23",
+      "text": "Price and cleanliness.",
+      "conversation_id": "dlg-dd7506c7-7bac-423b-bece-6b7c711c4d7b",
+      "turn_index": 23,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-53c2f449-290e-4b33-a79c-d6240751c339-1",
+      "text": "Hi, I need help in finding a hotel in Salem, Oregon.",
+      "conversation_id": "dlg-53c2f449-290e-4b33-a79c-d6240751c339",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-12d94ac7-d148-4058-a119-aff64d53a7e3-1",
+      "text": "I need to find a hotel in Palm Springs, California where my family can stay in February.",
+      "conversation_id": "dlg-12d94ac7-d148-4058-a119-aff64d53a7e3",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f49ebd61-42f3-40ae-bce6-cdec27ea167b-10",
+      "text": "I don't want to spend more than $250 a night.",
+      "conversation_id": "dlg-f49ebd61-42f3-40ae-bce6-cdec27ea167b",
+      "turn_index": 10,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5848c621-1a58-4589-b500-d445b612f64d-10",
+      "text": "No, but I would like a good room like a suite or something rather than just a regular standard room.",
+      "conversation_id": "dlg-5848c621-1a58-4589-b500-d445b612f64d",
+      "turn_index": 10,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c8c4feb7-9314-4cdf-a020-74d53f711b42-20",
+      "text": "Thank you.",
+      "conversation_id": "dlg-c8c4feb7-9314-4cdf-a020-74d53f711b42",
+      "turn_index": 20,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-2366de72-6693-4d32-bc8b-8a46565106bb-8",
+      "text": "I would like it to be a four star hotel.",
+      "conversation_id": "dlg-2366de72-6693-4d32-bc8b-8a46565106bb",
+      "turn_index": 8,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-191ffa05-c50e-4408-9b00-24b81570446b-45",
+      "text": "No.",
+      "conversation_id": "dlg-191ffa05-c50e-4408-9b00-24b81570446b",
+      "turn_index": 45,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-efea5f05-1c7c-4264-83cc-1f70f58c96c2-12",
+      "text": "Okay.",
+      "conversation_id": "dlg-efea5f05-1c7c-4264-83cc-1f70f58c96c2",
+      "turn_index": 12,
+      "domain": "hotels",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8351ea85-2f8e-4503-89f2-d6c1ffcca555-5",
+      "text": "Some action movies.",
+      "conversation_id": "dlg-8351ea85-2f8e-4503-89f2-d6c1ffcca555",
+      "turn_index": 5,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4cc007af-07cb-4e69-a706-396c8a5e1663-11",
+      "text": "When is The Shape of Water showing?",
+      "conversation_id": "dlg-4cc007af-07cb-4e69-a706-396c8a5e1663",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1c2f7c9a-befb-4c04-b80a-e38de831a6a8-5",
+      "text": "I want to see a comedy for tonight. What comedies are out right now?",
+      "conversation_id": "dlg-1c2f7c9a-befb-4c04-b80a-e38de831a6a8",
+      "turn_index": 5,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a81853ba-c27b-42ef-9ea8-01af2c410250-0",
+      "text": "Hello Assistant.",
+      "conversation_id": "dlg-a81853ba-c27b-42ef-9ea8-01af2c410250",
+      "turn_index": 0,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8d69b298-8b60-4449-8304-3682478b9a0a-0",
+      "text": "Hi, I want to see a movie that is still in the theaters.",
+      "conversation_id": "dlg-8d69b298-8b60-4449-8304-3682478b9a0a",
+      "turn_index": 0,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-dd2223e2-f32b-45a3-b8e1-6fd9122f16ce-18",
+      "text": "Sounds great.",
+      "conversation_id": "dlg-dd2223e2-f32b-45a3-b8e1-6fd9122f16ce",
+      "turn_index": 18,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-ca5c4203-450b-47d0-9f99-8ae28390433a-2",
+      "text": "My favorite actor is Matt Damon.",
+      "conversation_id": "dlg-ca5c4203-450b-47d0-9f99-8ae28390433a",
+      "turn_index": 2,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-813e90cb-db1d-48c2-a5e7-f22cfdb57868-1",
+      "text": "I'm looking for information on finding a movie to watch at home.",
+      "conversation_id": "dlg-813e90cb-db1d-48c2-a5e7-f22cfdb57868",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8548ad69-2f3b-45bd-bb04-c7eef253f878-9",
+      "text": "Thank you.",
+      "conversation_id": "dlg-8548ad69-2f3b-45bd-bb04-c7eef253f878",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e40bfcfa-b21a-4617-8610-7fa0e5d2aeca-4",
+      "text": "Are Philadelphia up drama?",
+      "conversation_id": "dlg-e40bfcfa-b21a-4617-8610-7fa0e5d2aeca",
+      "turn_index": 4,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-963d2f71-34de-4d77-90f1-53865bec1c46-9",
+      "text": "Yeah, I freak at things like that. Is it available?",
+      "conversation_id": "dlg-963d2f71-34de-4d77-90f1-53865bec1c46",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-99a6ec44-5d33-4ab0-871e-4413e969fa4d-3",
+      "text": "Sounds great.",
+      "conversation_id": "dlg-99a6ec44-5d33-4ab0-871e-4413e969fa4d",
+      "turn_index": 3,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e273cf2e-c178-4342-850b-6fa771d6a15c-11",
+      "text": "Awesome. I'll be waiting for them, I appreciate your help today. Enjoy your day.",
+      "conversation_id": "dlg-e273cf2e-c178-4342-850b-6fa771d6a15c",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-b19184a8-5ebd-419b-87ee-3a8a27523f9e-23",
+      "text": "It's just going to be me.",
+      "conversation_id": "dlg-b19184a8-5ebd-419b-87ee-3a8a27523f9e",
+      "turn_index": 23,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-875cba54-704d-4bb9-bc11-13ecce6843f8-9",
+      "text": "On Amazon.",
+      "conversation_id": "dlg-875cba54-704d-4bb9-bc11-13ecce6843f8",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-fddc1cdc-a6e7-4854-9658-189c23856bbb-11",
+      "text": "Amazon.",
+      "conversation_id": "dlg-fddc1cdc-a6e7-4854-9658-189c23856bbb",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f3b68d73-a6db-4365-9cdc-e16716fcde98-6",
+      "text": "I'll choose The Circle.",
+      "conversation_id": "dlg-f3b68d73-a6db-4365-9cdc-e16716fcde98",
+      "turn_index": 6,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d3400bf2-27c9-4cbd-b94c-80eb3d91bcf3-15",
+      "text": "Okay. Well, then that's what I want. Thank you.",
+      "conversation_id": "dlg-d3400bf2-27c9-4cbd-b94c-80eb3d91bcf3",
+      "turn_index": 15,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5d71180b-f4aa-49ef-8c10-226b6c8f782d-11",
+      "text": "No.",
+      "conversation_id": "dlg-5d71180b-f4aa-49ef-8c10-226b6c8f782d",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-35d4a2b6-aad1-4dc4-b93e-9cfecbf79afa-1",
+      "text": "Hello. I'm looking for an uplifting thriller movie starring Brad Pitt that's available on Redbox.",
+      "conversation_id": "dlg-35d4a2b6-aad1-4dc4-b93e-9cfecbf79afa",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-cf753af9-9c36-476d-9a7e-3dde5441a743-23",
+      "text": "Okay.",
+      "conversation_id": "dlg-cf753af9-9c36-476d-9a7e-3dde5441a743",
+      "turn_index": 23,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1c8fd729-7652-441b-a171-26b3c685820b-12",
+      "text": "No.",
+      "conversation_id": "dlg-1c8fd729-7652-441b-a171-26b3c685820b",
+      "turn_index": 12,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9fbbd1c7-c542-4084-ae71-b11b36e7b112-1",
+      "text": "Hi. I like to rent a movie tonight for my house.",
+      "conversation_id": "dlg-9fbbd1c7-c542-4084-ae71-b11b36e7b112",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c5cba869-96aa-453b-96ae-c869400740bf-26",
+      "text": "Thanks.",
+      "conversation_id": "dlg-c5cba869-96aa-453b-96ae-c869400740bf",
+      "turn_index": 26,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-3652e953-2503-4404-994f-cc97f3c28282-4",
+      "text": "Alright.",
+      "conversation_id": "dlg-3652e953-2503-4404-994f-cc97f3c28282",
+      "turn_index": 4,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4283958c-eb3f-4ed9-b53a-001c513035a6-25",
+      "text": "Nice. How long is the movie?",
+      "conversation_id": "dlg-4283958c-eb3f-4ed9-b53a-001c513035a6",
+      "turn_index": 25,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-51539126-87f7-498e-bda1-7d05835edb9f-1",
+      "text": "I'm looking to rent a movie at home tonight. I'm looking for something that's kind of been like really heralded by critics. Can you help me?",
+      "conversation_id": "dlg-51539126-87f7-498e-bda1-7d05835edb9f",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1442d1c2-7adb-424e-b6db-2c9faec188ad-13",
+      "text": "I'd like to choose the Kingsman, please.",
+      "conversation_id": "dlg-1442d1c2-7adb-424e-b6db-2c9faec188ad",
+      "turn_index": 13,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-97a6375e-8133-469a-a43a-a4a7986370fc-11",
+      "text": "You know what? Book the tickets now. I don't even need to hear the ratings. There's one at 10:15, right? Is that 10:10?",
+      "conversation_id": "dlg-97a6375e-8133-469a-a43a-a4a7986370fc",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7d193ea7-9d04-4e15-a097-615e856bcf47-0",
+      "text": "Hi Assistant. I would like to music by Rihanna.",
+      "conversation_id": "dlg-7d193ea7-9d04-4e15-a097-615e856bcf47",
+      "turn_index": 0,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-070bb8a3-fa36-40dc-9fc3-a597d08cb237-9",
+      "text": "Thank you.",
+      "conversation_id": "dlg-070bb8a3-fa36-40dc-9fc3-a597d08cb237",
+      "turn_index": 9,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-98b07df0-bb4d-4447-8dc0-9494ccd4be33-13",
+      "text": "Thank you.",
+      "conversation_id": "dlg-98b07df0-bb4d-4447-8dc0-9494ccd4be33",
+      "turn_index": 13,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-77ec4889-22fe-4aeb-8233-933c60007a4b-15",
+      "text": "I shall.",
+      "conversation_id": "dlg-77ec4889-22fe-4aeb-8233-933c60007a4b",
+      "turn_index": 15,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e58a122a-92b2-41ed-b6b2-1573ba91adba-0",
+      "text": "Hello. I'm trying to find some new music to work out to. Do you think you can help me with that?",
+      "conversation_id": "dlg-e58a122a-92b2-41ed-b6b2-1573ba91adba",
+      "turn_index": 0,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa0a2089-4ab1-4c91-b23e-533f1a960c5e-1",
+      "text": "Want to see if you can find me a new musician to listen to.",
+      "conversation_id": "dlg-aa0a2089-4ab1-4c91-b23e-533f1a960c5e",
+      "turn_index": 1,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-da2d6816-30aa-4c7a-bb22-2a4fa6adc375-5",
+      "text": "Well, these songs remind me of like going on prom and having to deal with girlfriends and all that sort of thing.",
+      "conversation_id": "dlg-da2d6816-30aa-4c7a-bb22-2a4fa6adc375",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-852c3521-e18a-407e-b457-3d208324942a-4",
+      "text": "Play a different album.",
+      "conversation_id": "dlg-852c3521-e18a-407e-b457-3d208324942a",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-43964599-f13e-4486-a242-ee4feda5f524-4",
+      "text": "Yes.",
+      "conversation_id": "dlg-43964599-f13e-4486-a242-ee4feda5f524",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-73cbf4cf-19d3-4a9f-bb60-1aab8a314377-19",
+      "text": "Thank you. That's not playing either. Can you play me something else because that one's not playing?",
+      "conversation_id": "dlg-73cbf4cf-19d3-4a9f-bb60-1aab8a314377",
+      "turn_index": 19,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d7545c76-f6e8-402b-8635-bce54b5701b3-24",
+      "text": "Oh, this one is blocked from playing Bibo.",
+      "conversation_id": "dlg-d7545c76-f6e8-402b-8635-bce54b5701b3",
+      "turn_index": 24,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-26d7d907-4aa4-4e54-ae65-c837191509dd-4",
+      "text": "Okay, great. Can you put some older material?",
+      "conversation_id": "dlg-26d7d907-4aa4-4e54-ae65-c837191509dd",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a295acbd-1979-4726-b958-099955f126ac-1",
+      "text": "Hi, can you help in browsing new to me music?",
+      "conversation_id": "dlg-a295acbd-1979-4726-b958-099955f126ac",
+      "turn_index": 1,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-032a0b65-9f12-4ddc-9d5c-5f244f48a65e-4",
+      "text": "Are you with me?",
+      "conversation_id": "dlg-032a0b65-9f12-4ddc-9d5c-5f244f48a65e",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-2ff4752e-5f1a-4a60-b978-92d9c94c168c-15",
+      "text": "Okay. Just play some newer material, but something else.",
+      "conversation_id": "dlg-2ff4752e-5f1a-4a60-b978-92d9c94c168c",
+      "turn_index": 15,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-545533bd-1a7c-4018-8506-63efc52fdfe0-7",
+      "text": "I don't think. I've ever heard this one before. Thank you.",
+      "conversation_id": "dlg-545533bd-1a7c-4018-8506-63efc52fdfe0",
+      "turn_index": 7,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-dc3fa2af-a118-44d4-b1ff-b08d0a6ac911-11",
+      "text": "That's excellent.",
+      "conversation_id": "dlg-dc3fa2af-a118-44d4-b1ff-b08d0a6ac911",
+      "turn_index": 11,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-adfb2b13-0307-4914-aaee-d332b165e6af-3",
+      "text": "Play Lumineers.",
+      "conversation_id": "dlg-adfb2b13-0307-4914-aaee-d332b165e6af",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f066ae14-c437-4ee7-addc-ea63bcec0e05-8",
+      "text": "Oh, I would love to hear.",
+      "conversation_id": "dlg-f066ae14-c437-4ee7-addc-ea63bcec0e05",
+      "turn_index": 8,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-985b9228-75e1-4b1f-8128-2ff773a44cba-5",
+      "text": "No.",
+      "conversation_id": "dlg-985b9228-75e1-4b1f-8128-2ff773a44cba",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8c8ea1e9-fe6a-4bb0-ab8d-0e7cc51ec397-9",
+      "text": "You know what? I don't want playing this, can you play some different album, please?",
+      "conversation_id": "dlg-8c8ea1e9-fe6a-4bb0-ab8d-0e7cc51ec397",
+      "turn_index": 9,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-199342b9-e44a-44bd-9b89-1b75dd3f5698-10",
+      "text": "Okay. This is great. Thank you. That's all I needed.",
+      "conversation_id": "dlg-199342b9-e44a-44bd-9b89-1b75dd3f5698",
+      "turn_index": 10,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e42c108c-8997-44f3-bf6d-33a0a361597d-3",
+      "text": "Song is okay. Show me older music by this artist.",
+      "conversation_id": "dlg-e42c108c-8997-44f3-bf6d-33a0a361597d",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-267880d9-b151-439c-991b-d7ae9c8b69fb-8",
+      "text": "And that whole Masterplan album was awesome.",
+      "conversation_id": "dlg-267880d9-b151-439c-991b-d7ae9c8b69fb",
+      "turn_index": 8,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c2a7c8dd-7ea8-4d93-ac2d-d5813c573470-5",
+      "text": "And I guess I'm interested in something more specific, like new wave rock of the 80's, like David Byrne.",
+      "conversation_id": "dlg-c2a7c8dd-7ea8-4d93-ac2d-d5813c573470",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5ef47e97-5c2b-4829-aabc-b31d4b07511c-11",
+      "text": "Thank you. This one will be perfect, bye.",
+      "conversation_id": "dlg-5ef47e97-5c2b-4829-aabc-b31d4b07511c",
+      "turn_index": 11,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1f3201df-105c-4eb2-9dda-f4afec8d7a1c-3",
+      "text": "Nope.",
+      "conversation_id": "dlg-1f3201df-105c-4eb2-9dda-f4afec8d7a1c",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7cceb03b-e71c-4ed5-a8e5-47da484a7cc7-6",
+      "text": "I'm not actually a fan of her new album. Do you think you can play a different song by her?",
+      "conversation_id": "dlg-7cceb03b-e71c-4ed5-a8e5-47da484a7cc7",
+      "turn_index": 6,
+      "domain": "music",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4633e61f-1c13-43b3-9a1c-32608a591b57-4",
+      "text": "Yes, family-friendly.",
+      "conversation_id": "dlg-4633e61f-1c13-43b3-9a1c-32608a591b57",
+      "turn_index": 4,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-87bf6233-0af3-4d82-a795-0ea01a12d033-14",
+      "text": "Nope. You've done great. Thank you.",
+      "conversation_id": "dlg-87bf6233-0af3-4d82-a795-0ea01a12d033",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a0254668-1533-4363-8a74-efdc1bd0d62c-10",
+      "text": "Oh, that's perfect. Thank you.",
+      "conversation_id": "dlg-a0254668-1533-4363-8a74-efdc1bd0d62c",
+      "turn_index": 10,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7db99b19-63a2-4e73-9f3b-ed6682cfbcaf-25",
+      "text": "Bye-bye.",
+      "conversation_id": "dlg-7db99b19-63a2-4e73-9f3b-ed6682cfbcaf",
+      "turn_index": 25,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-46725742-4f1d-4d9b-be57-2ec5acdd53f7-7",
+      "text": "Great, Can you tell me anything else about the Sandwich Shop? Or I'm sorry, The Sandwich Spot.",
+      "conversation_id": "dlg-46725742-4f1d-4d9b-be57-2ec5acdd53f7",
+      "turn_index": 7,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-d954ba11-61c1-49d4-8fdc-abdc592efa74-8",
+      "text": "I'd like to just order at a counter.",
+      "conversation_id": "dlg-d954ba11-61c1-49d4-8fdc-abdc592efa74",
+      "turn_index": 8,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-b76dd839-3e95-4bf3-8208-b4767e741ba6-0",
+      "text": "Hi assistant, I'm looking for a restaurant in Austin, Texas.",
+      "conversation_id": "dlg-b76dd839-3e95-4bf3-8208-b4767e741ba6",
+      "turn_index": 0,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-73856c19-3558-46f3-bf2d-a738f1354280-14",
+      "text": "You too. Bye.",
+      "conversation_id": "dlg-73856c19-3558-46f3-bf2d-a738f1354280",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-70f1484b-78b9-449b-9747-fb3cb16c0a1d-8",
+      "text": "Okay and how long is the drive from Santa Rosa, California to the restaurant?",
+      "conversation_id": "dlg-70f1484b-78b9-449b-9747-fb3cb16c0a1d",
+      "turn_index": 8,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-0233b5f1-6d02-4a77-82e1-3f6ca2abc3c1-14",
+      "text": "Okay. I'll check it out. Thank you.",
+      "conversation_id": "dlg-0233b5f1-6d02-4a77-82e1-3f6ca2abc3c1",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-fa9b2fae-aef1-4847-a523-e59d27645470-28",
+      "text": "I will. Thank you.",
+      "conversation_id": "dlg-fa9b2fae-aef1-4847-a523-e59d27645470",
+      "turn_index": 28,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-31577305-c063-4fa8-9864-9689696c6bf6-42",
+      "text": "Wow. Alright. So, I think I'm going to go to Zocalo's. What's the address again?",
+      "conversation_id": "dlg-31577305-c063-4fa8-9864-9689696c6bf6",
+      "turn_index": 42,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-ba5c8331-86ef-4b34-8ea2-34b685333576-7",
+      "text": "I need to find like a good hamburger joint.",
+      "conversation_id": "dlg-ba5c8331-86ef-4b34-8ea2-34b685333576",
+      "turn_index": 7,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-61a0fdfb-95e7-4dae-9ce7-e396ccc628fb-15",
+      "text": "Bye.",
+      "conversation_id": "dlg-61a0fdfb-95e7-4dae-9ce7-e396ccc628fb",
+      "turn_index": 15,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-38997908-a32c-4065-a9e7-65cc906868c9-20",
+      "text": "How do I get there?",
+      "conversation_id": "dlg-38997908-a32c-4065-a9e7-65cc906868c9",
+      "turn_index": 20,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-31382912-2621-4222-b87d-cf77de66fbb7-19",
+      "text": "I'd like for the place to serve alcohol.",
+      "conversation_id": "dlg-31382912-2621-4222-b87d-cf77de66fbb7",
+      "turn_index": 19,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-1f2e5c7e-fcca-490b-87e5-06cfc2ce4118-5",
+      "text": "Yes, I'd like something fairly inexpensive and possibly an outdoor sitting.",
+      "conversation_id": "dlg-1f2e5c7e-fcca-490b-87e5-06cfc2ce4118",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-90ca631b-2d32-4aa8-a3a5-6ace65243aba-16",
+      "text": "Okay.",
+      "conversation_id": "dlg-90ca631b-2d32-4aa8-a3a5-6ace65243aba",
+      "turn_index": 16,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-62d10db7-5061-41fb-bd01-a89f5f279be4-25",
+      "text": "No.",
+      "conversation_id": "dlg-62d10db7-5061-41fb-bd01-a89f5f279be4",
+      "turn_index": 25,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-134c9aaa-01b3-48a1-8983-352c01103a2f-16",
+      "text": "Yeah. Could you find me a different place? I need somewhere play some words up a little later.",
+      "conversation_id": "dlg-134c9aaa-01b3-48a1-8983-352c01103a2f",
+      "turn_index": 16,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-96eea888-e3fa-486a-8a37-27fe742fb526-4",
+      "text": "American food.",
+      "conversation_id": "dlg-96eea888-e3fa-486a-8a37-27fe742fb526",
+      "turn_index": 4,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-f210d4b5-a32f-4375-af0a-33a8aeb4e996-2",
+      "text": "Do they take reservations?",
+      "conversation_id": "dlg-f210d4b5-a32f-4375-af0a-33a8aeb4e996",
+      "turn_index": 2,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-48038ab0-5b73-47ae-88c3-6aada1b3bb5a-11",
+      "text": "Okay.",
+      "conversation_id": "dlg-48038ab0-5b73-47ae-88c3-6aada1b3bb5a",
+      "turn_index": 11,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a5ffe1df-e1a2-43c2-8445-e1401900a7b0-13",
+      "text": "Thank you.",
+      "conversation_id": "dlg-a5ffe1df-e1a2-43c2-8445-e1401900a7b0",
+      "turn_index": 13,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e357f23-b367-4bc2-a130-6606db0505a4-5",
+      "text": "Around $20 to $30 per plate. I'd like it in the downtown area.",
+      "conversation_id": "dlg-7e357f23-b367-4bc2-a130-6606db0505a4",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa4d4499-a35c-40e7-8df1-76cafb824699-3",
+      "text": "Seafood.",
+      "conversation_id": "dlg-aa4d4499-a35c-40e7-8df1-76cafb824699",
+      "turn_index": 3,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c7d0d5a9-f317-4976-817a-51b52390568d-30",
+      "text": "Do I need a reservation?",
+      "conversation_id": "dlg-c7d0d5a9-f317-4976-817a-51b52390568d",
+      "turn_index": 30,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-af742632-e6c9-4ea3-8ec0-a69695966b19-5",
+      "text": "And the vegetarian options?",
+      "conversation_id": "dlg-af742632-e6c9-4ea3-8ec0-a69695966b19",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-37c0ae30-cd91-4cc9-9095-7cb643aa1bd8-8",
+      "text": "What was the score of Minnesota United FC last game?",
+      "conversation_id": "dlg-37c0ae30-cd91-4cc9-9095-7cb643aa1bd8",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5a307d28-020c-4ca5-83cf-33a35ea8ebe9-4",
+      "text": "Thank you. And, how many games have they played so far?",
+      "conversation_id": "dlg-5a307d28-020c-4ca5-83cf-33a35ea8ebe9",
+      "turn_index": 4,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-3c736237-20f1-4bd5-a663-298389a57526-12",
+      "text": "Okay. Great! That's all I needed. Thanks.",
+      "conversation_id": "dlg-3c736237-20f1-4bd5-a663-298389a57526",
+      "turn_index": 12,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-72c078f2-2cdb-4abe-b697-7aaf5fd8a824-17",
+      "text": "Oh, nice. Okay, Thank you very much, that's all I needed to know.",
+      "conversation_id": "dlg-72c078f2-2cdb-4abe-b697-7aaf5fd8a824",
+      "turn_index": 17,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a5c7bc0f-c760-4df1-acaf-064ea9a391e3-7",
+      "text": "And when did they play last?",
+      "conversation_id": "dlg-a5c7bc0f-c760-4df1-acaf-064ea9a391e3",
+      "turn_index": 7,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5572f4a8-2e74-4af7-8e7e-3d34e4ecd905-9",
+      "text": "Who's the star player of the Chicago Bulls?",
+      "conversation_id": "dlg-5572f4a8-2e74-4af7-8e7e-3d34e4ecd905",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7cefa107-5632-4b15-a180-4d09d40cf24d-15",
+      "text": "Okay. That's all I needed to know.",
+      "conversation_id": "dlg-7cefa107-5632-4b15-a180-4d09d40cf24d",
+      "turn_index": 15,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e34176e-2390-4b76-909f-8e963f3c48df-12",
+      "text": "Okay, that will be it for me. Thank you.",
+      "conversation_id": "dlg-7e34176e-2390-4b76-909f-8e963f3c48df",
+      "turn_index": 12,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-23301b9d-613d-4202-9a32-9978dbb029aa-3",
+      "text": "How many games have they played so far?",
+      "conversation_id": "dlg-23301b9d-613d-4202-9a32-9978dbb029aa",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-c5658f94-b8f0-4fe8-b68d-8fdb0f6a0429-1",
+      "text": "Hi, my favorite team are the Cincinnati Reds. Did they lose in the last game?",
+      "conversation_id": "dlg-c5658f94-b8f0-4fe8-b68d-8fdb0f6a0429",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-deb91eec-78a1-4349-ad40-f57137d20152-5",
+      "text": "Who do they play next Saturday?",
+      "conversation_id": "dlg-deb91eec-78a1-4349-ad40-f57137d20152",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a270034e-8c1e-4103-a983-e013c49f33db-13",
+      "text": "No. That's it.",
+      "conversation_id": "dlg-a270034e-8c1e-4103-a983-e013c49f33db",
+      "turn_index": 13,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa3ef179-69e7-4ac1-8913-543b54e9a714-6",
+      "text": "Who's the Sacramento Kings coach?",
+      "conversation_id": "dlg-aa3ef179-69e7-4ac1-8913-543b54e9a714",
+      "turn_index": 6,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-8d201d69-8df2-47fc-a6d3-52ed817ebd9b-9",
+      "text": "Who's their goalkeeper?",
+      "conversation_id": "dlg-8d201d69-8df2-47fc-a6d3-52ed817ebd9b",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-373e2111-b5aa-4040-aba9-2c10937261a8-9",
+      "text": "Alright. And who is their quarterback?",
+      "conversation_id": "dlg-373e2111-b5aa-4040-aba9-2c10937261a8",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-9ba4cc41-60e0-45f1-ab4f-107d0bb01598-3",
+      "text": "Is Manchester City playing right now?",
+      "conversation_id": "dlg-9ba4cc41-60e0-45f1-ab4f-107d0bb01598",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-a92ad404-757b-4397-9ec3-f9b24249d2b8-5",
+      "text": "Great, can you tell me if they are playing right now?",
+      "conversation_id": "dlg-a92ad404-757b-4397-9ec3-f9b24249d2b8",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e1d0ba3d-b49c-406e-a991-b887e24aede1-13",
+      "text": "Thanks! Those were all the questions I had for you.",
+      "conversation_id": "dlg-e1d0ba3d-b49c-406e-a991-b887e24aede1",
+      "turn_index": 13,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-4ae72957-dc64-4d2e-a800-82e4a351306e-6",
+      "text": "Okay. Who did they play against on June 1st?",
+      "conversation_id": "dlg-4ae72957-dc64-4d2e-a800-82e4a351306e",
+      "turn_index": 6,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-6c364fcc-3b8a-4c73-a0ea-e4d79247dee0-3",
+      "text": "Okay, what is the Galaxy's rank in their division?",
+      "conversation_id": "dlg-6c364fcc-3b8a-4c73-a0ea-e4d79247dee0",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-21453076-056f-4c6a-8290-5c7ee04ef2f2-8",
+      "text": "By what score?",
+      "conversation_id": "dlg-21453076-056f-4c6a-8290-5c7ee04ef2f2",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-e36ab8cc-411e-41b9-8955-d28ff342f40a-1",
+      "text": "Hi, I was wondering about some information, That I want to know about the Chicago Cubs. And my question is what place are they in?",
+      "conversation_id": "dlg-e36ab8cc-411e-41b9-8955-d28ff342f40a",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-75e500c4-038c-49fe-a140-a50eb7acece5-1",
+      "text": "Yeah. I'm a San Francisco Giants fan, and I was wondering, when was their last game?",
+      "conversation_id": "dlg-75e500c4-038c-49fe-a140-a50eb7acece5",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-3239a8aa-561c-42ed-add0-0c9760aad950-11",
+      "text": "Who is in last place in American League Central?",
+      "conversation_id": "dlg-3239a8aa-561c-42ed-add0-0c9760aad950",
+      "turn_index": 11,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-5a10d82a-bdf5-4279-8be8-d2b1dae906e5-3",
+      "text": "In their conference.",
+      "conversation_id": "dlg-5a10d82a-bdf5-4279-8be8-d2b1dae906e5",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-180c4ea6-ae49-4924-ab59-cf53386be883-5",
+      "text": "Are they playing next Saturday?",
+      "conversation_id": "dlg-180c4ea6-ae49-4924-ab59-cf53386be883",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-46f44020-a95e-476a-b15d-0acb6e5d75fe-15",
+      "text": "Okay. Thank you.",
+      "conversation_id": "dlg-46f44020-a95e-476a-b15d-0acb6e5d75fe",
+      "turn_index": 15,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-fb55a727-1c6b-43b6-85a8-9ed96ddaef00-8",
+      "text": "Alright, thank you very much for your help today.",
+      "conversation_id": "dlg-fb55a727-1c6b-43b6-85a8-9ed96ddaef00",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "es"
+    },
+    {
+      "id": "tm2-holdout-dlg-7d168979-df0e-4da3-b898-191e595ca6aa-19",
+      "text": "Nothing else for today.",
+      "conversation_id": "dlg-7d168979-df0e-4da3-b898-191e595ca6aa",
+      "turn_index": 19,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-0811bb1f-3cbc-43b7-b59a-fa0628b9fa0a-7",
+      "text": "And how much would that be?",
+      "conversation_id": "dlg-0811bb1f-3cbc-43b7-b59a-fa0628b9fa0a",
+      "turn_index": 7,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7ab97904-e935-48e5-a2a4-7efca6685792-11",
+      "text": "Yes, please. Just one ticket.",
+      "conversation_id": "dlg-7ab97904-e935-48e5-a2a4-7efca6685792",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-35adabba-cae4-4ba2-9dc2-566e2c208b3c-10",
+      "text": "This is a business trip, so I would like to fly Business class.",
+      "conversation_id": "dlg-35adabba-cae4-4ba2-9dc2-566e2c208b3c",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6f826ab6-163d-40af-a5f3-1872c976ecf4-11",
+      "text": "I'd like something in business class.",
+      "conversation_id": "dlg-6f826ab6-163d-40af-a5f3-1872c976ecf4",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d5e357c2-347f-4e0b-8468-116ed1d39c0c-1",
+      "text": "Yeah, I was wondering, If you could help me to book a flight from Sacramento to Denver?",
+      "conversation_id": "dlg-d5e357c2-347f-4e0b-8468-116ed1d39c0c",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6b574f46-e882-4fd3-801a-866cf716c432-1",
+      "text": "Hi. I'm looking for a commercial airline flight.",
+      "conversation_id": "dlg-6b574f46-e882-4fd3-801a-866cf716c432",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-58625ec4-0296-4ed6-b9d8-4a63910a1390-5",
+      "text": "I need to leave at night, or in the evening.",
+      "conversation_id": "dlg-58625ec4-0296-4ed6-b9d8-4a63910a1390",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-bd8b8477-c53e-4e4b-9c09-e1616a6d8fad-4",
+      "text": "Within the next two weeks from today.",
+      "conversation_id": "dlg-bd8b8477-c53e-4e4b-9c09-e1616a6d8fad",
+      "turn_index": 4,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1cb12bba-8d50-40f3-8bea-cfd2d81966c1-8",
+      "text": "Thank you.",
+      "conversation_id": "dlg-1cb12bba-8d50-40f3-8bea-cfd2d81966c1",
+      "turn_index": 8,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c3050de6-87bb-433e-8723-6cf2e702aeec-40",
+      "text": "Thank you. Goodbye.",
+      "conversation_id": "dlg-c3050de6-87bb-433e-8723-6cf2e702aeec",
+      "turn_index": 40,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1b10a33f-e9ef-4d85-8c8d-a5d367e345bf-22",
+      "text": "Bye.",
+      "conversation_id": "dlg-1b10a33f-e9ef-4d85-8c8d-a5d367e345bf",
+      "turn_index": 22,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-879e1c19-fe50-4913-97b0-8011587a9449-11",
+      "text": "Okay, that sounds great. Let's book both legs of the trip.",
+      "conversation_id": "dlg-879e1c19-fe50-4913-97b0-8011587a9449",
+      "turn_index": 11,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8945c0f6-0d06-4e64-b8f5-fdbaa859132f-5",
+      "text": "I'd like to leave on March 20th and I'll be back on March 25th.",
+      "conversation_id": "dlg-8945c0f6-0d06-4e64-b8f5-fdbaa859132f",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f4af0aca-bdd6-4582-8d75-d127878a3e74-5",
+      "text": "I like to come back at night, at least tonight.",
+      "conversation_id": "dlg-f4af0aca-bdd6-4582-8d75-d127878a3e74",
+      "turn_index": 5,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d118b652-cd25-4bb4-bfc1-423d5e10e94a-1",
+      "text": "Hi. I would like help in finding a flight to Rome.",
+      "conversation_id": "dlg-d118b652-cd25-4bb4-bfc1-423d5e10e94a",
+      "turn_index": 1,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e5127f8c-d099-43e7-8d91-f6a5618c6a2a-10",
+      "text": "Okay.",
+      "conversation_id": "dlg-e5127f8c-d099-43e7-8d91-f6a5618c6a2a",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-036864cd-fc93-42c5-88b4-c2aa121a871f-26",
+      "text": "Bye.",
+      "conversation_id": "dlg-036864cd-fc93-42c5-88b4-c2aa121a871f",
+      "turn_index": 26,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-ce9e3593-5c2d-4a3f-acf6-8491ccb7db2e-7",
+      "text": "Whatever is the cheapest amongst the classes.",
+      "conversation_id": "dlg-ce9e3593-5c2d-4a3f-acf6-8491ccb7db2e",
+      "turn_index": 7,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-2fbabe72-c70b-461a-8391-9e98be9df510-18",
+      "text": "Alright, I'm a fan of that.",
+      "conversation_id": "dlg-2fbabe72-c70b-461a-8391-9e98be9df510",
+      "turn_index": 18,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7ba2b3f0-e505-41ae-b352-5cca8410defc-0",
+      "text": "I would like help finding a flight to Portland, Oregon.",
+      "conversation_id": "dlg-7ba2b3f0-e505-41ae-b352-5cca8410defc",
+      "turn_index": 0,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-b53b2a0f-0657-4dc0-a36b-1dd825bf91d8-16",
+      "text": "Alright, then I'll have to take that. Get me a flight, economy leaving today and coming back in 4 days, please.",
+      "conversation_id": "dlg-b53b2a0f-0657-4dc0-a36b-1dd825bf91d8",
+      "turn_index": 16,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9ccb2bad-dec2-4910-a53c-34d8f4b54608-37",
+      "text": "Okay. That sounds like probably the flight I'd prefer.",
+      "conversation_id": "dlg-9ccb2bad-dec2-4910-a53c-34d8f4b54608",
+      "turn_index": 37,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-526c4d12-da4f-4d34-9015-be18c361c91b-25",
+      "text": "Great. What about a return flight on April 7th?",
+      "conversation_id": "dlg-526c4d12-da4f-4d34-9015-be18c361c91b",
+      "turn_index": 25,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a19789a3-ce5e-42c2-8e82-3fb5ac4971c0-23",
+      "text": "I think that's it.",
+      "conversation_id": "dlg-a19789a3-ce5e-42c2-8e82-3fb5ac4971c0",
+      "turn_index": 23,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d15a2433-c7ee-41d9-8b91-ad5b04ce30c2-10",
+      "text": "Okay, then. One stop flight.",
+      "conversation_id": "dlg-d15a2433-c7ee-41d9-8b91-ad5b04ce30c2",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-56eb6c92-3865-45c6-805a-156a13ee9e89-20",
+      "text": "I prefer first class.",
+      "conversation_id": "dlg-56eb6c92-3865-45c6-805a-156a13ee9e89",
+      "turn_index": 20,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9871c753-4cb4-4f3a-8ae8-b50549aa40ce-10",
+      "text": "Okay. Do you know what the time of the layover is?",
+      "conversation_id": "dlg-9871c753-4cb4-4f3a-8ae8-b50549aa40ce",
+      "turn_index": 10,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1961e087-edf6-42fb-bf11-7bf5e094e5cf-9",
+      "text": "Can you book that for me?",
+      "conversation_id": "dlg-1961e087-edf6-42fb-bf11-7bf5e094e5cf",
+      "turn_index": 9,
+      "domain": "flights",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6ecd7ef2-8729-4433-9169-3f381955dc07-3",
+      "text": "Breakfast Burritos.",
+      "conversation_id": "dlg-6ecd7ef2-8729-4433-9169-3f381955dc07",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1439800b-4407-430a-bbb5-18a921e1f921-6",
+      "text": "I would like to order a takeout.",
+      "conversation_id": "dlg-1439800b-4407-430a-bbb5-18a921e1f921",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d407b13c-15a8-4270-9121-815eb5630ff8-6",
+      "text": "Yes.",
+      "conversation_id": "dlg-d407b13c-15a8-4270-9121-815eb5630ff8",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-80556911-99b3-4732-9321-c737f61702cd-14",
+      "text": "No, Thank you.",
+      "conversation_id": "dlg-80556911-99b3-4732-9321-c737f61702cd",
+      "turn_index": 14,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-2203cd63-7602-4be7-87c5-6c11f46b7ae6-1",
+      "text": "Hi. I'd like to order takeout, please.",
+      "conversation_id": "dlg-2203cd63-7602-4be7-87c5-6c11f46b7ae6",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-0419f6a2-94d8-43d0-8182-4ea7802de061-1",
+      "text": "I'd like to take out some food.",
+      "conversation_id": "dlg-0419f6a2-94d8-43d0-8182-4ea7802de061",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e89452e-be19-40e0-9e26-fa0b8d902a49-11",
+      "text": "That's correct.",
+      "conversation_id": "dlg-7e89452e-be19-40e0-9e26-fa0b8d902a49",
+      "turn_index": 11,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-06a169dc-2913-4346-bd15-190ce5fb6559-6",
+      "text": "Yes and that should be it for me.",
+      "conversation_id": "dlg-06a169dc-2913-4346-bd15-190ce5fb6559",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c775db05-43cb-4b53-841c-aeb03fd1875e-4",
+      "text": "Great.",
+      "conversation_id": "dlg-c775db05-43cb-4b53-841c-aeb03fd1875e",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6dd5fe48-004b-4e5b-a792-830990735b98-7",
+      "text": "I'd like one breakfast quesadilla.",
+      "conversation_id": "dlg-6dd5fe48-004b-4e5b-a792-830990735b98",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-822008cb-4b9b-49fb-afba-2c5eae76bdfc-3",
+      "text": "Can I get a turkey club with bacon, cheddar cheese, lettuce, tomato, oil and vinegar, and salt and pepper in an Italian bread?",
+      "conversation_id": "dlg-822008cb-4b9b-49fb-afba-2c5eae76bdfc",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-b5694e10-8877-40d7-9b15-4b3254176902-7",
+      "text": "No, thank you.",
+      "conversation_id": "dlg-b5694e10-8877-40d7-9b15-4b3254176902",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8e452a0c-080f-47fd-a669-7c8c33c85c4c-5",
+      "text": "Oh, no, two orders of lo mein and one order of sweet and sour chicken. Do those come in different sizes lo mein?",
+      "conversation_id": "dlg-8e452a0c-080f-47fd-a669-7c8c33c85c4c",
+      "turn_index": 5,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d18a3699-a1c6-47f2-8888-6a45a33af7c7-1",
+      "text": "Hi, I'm going to order some pork.",
+      "conversation_id": "dlg-d18a3699-a1c6-47f2-8888-6a45a33af7c7",
+      "turn_index": 1,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-882dd6fe-f64a-4896-a92a-dc522031f166-4",
+      "text": "I'm looking to order a take out for two people and my wife really likes great food, so can you recommend a great restaurant?",
+      "conversation_id": "dlg-882dd6fe-f64a-4896-a92a-dc522031f166",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f54d2775-71cf-4d7c-82c6-baf9179b8fcc-5",
+      "text": "Three small orders of spaghetti and meatballs.",
+      "conversation_id": "dlg-f54d2775-71cf-4d7c-82c6-baf9179b8fcc",
+      "turn_index": 5,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-80468663-3313-4318-a487-15dbd7404b35-4",
+      "text": "Thank you so much.",
+      "conversation_id": "dlg-80468663-3313-4318-a487-15dbd7404b35",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8cc9d6c8-58e4-4e21-8a4b-6baab816017c-7",
+      "text": "Perfect.",
+      "conversation_id": "dlg-8cc9d6c8-58e4-4e21-8a4b-6baab816017c",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-38e09630-55d3-408d-9281-fcf572a242c7-18",
+      "text": "Thank you.",
+      "conversation_id": "dlg-38e09630-55d3-408d-9281-fcf572a242c7",
+      "turn_index": 18,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-3e57e4fb-7306-40da-b364-7a48feeedf93-8",
+      "text": "That'll be it. Thank you very much.",
+      "conversation_id": "dlg-3e57e4fb-7306-40da-b364-7a48feeedf93",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-92529017-943e-46c4-a5c7-06c5123144b4-0",
+      "text": "Hi. Can you pull up my regular order from Casa Sanchez? I want to order the same thing I got last week.",
+      "conversation_id": "dlg-92529017-943e-46c4-a5c7-06c5123144b4",
+      "turn_index": 0,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7d319f19-dc4f-4818-bf84-5889421875f1-8",
+      "text": "Yes. That is correct.",
+      "conversation_id": "dlg-7d319f19-dc4f-4818-bf84-5889421875f1",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5053191b-aa4b-4494-bfbc-20ecdeed42ed-7",
+      "text": "Alright, great. Thank you.",
+      "conversation_id": "dlg-5053191b-aa4b-4494-bfbc-20ecdeed42ed",
+      "turn_index": 7,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e09e01c4-3c9d-4689-a6fd-bf690554949b-4",
+      "text": "Chicken curry with a hummus and a 2 liter of Coke.",
+      "conversation_id": "dlg-e09e01c4-3c9d-4689-a6fd-bf690554949b",
+      "turn_index": 4,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9d371926-4125-48d4-8a90-0c1bc428a1d4-6",
+      "text": "Okay. For the first one I'd like you to get a Reuben on Rye.",
+      "conversation_id": "dlg-9d371926-4125-48d4-8a90-0c1bc428a1d4",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-44be84fb-e2a5-4de3-9984-e17981e86913-8",
+      "text": "Yeah, that's all for me. Thank you.",
+      "conversation_id": "dlg-44be84fb-e2a5-4de3-9984-e17981e86913",
+      "turn_index": 8,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4fc8a18a-9ae1-4827-9032-457b5a2b7d39-3",
+      "text": "Two hot dogs, please, everything on it, extra relish, two large orders of fries, one order of mozzarella sticks, and two large Cokes, please.",
+      "conversation_id": "dlg-4fc8a18a-9ae1-4827-9032-457b5a2b7d39",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6f2aaf11-6c1b-49eb-ac22-3fe94b9df25d-3",
+      "text": "Okay, so I'm looking to get two regular-sized hot dogs, one with sour cream and beans, and another one with I think they just want ketchup and relish, and that's it.",
+      "conversation_id": "dlg-6f2aaf11-6c1b-49eb-ac22-3fe94b9df25d",
+      "turn_index": 3,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5050d44a-1540-4577-abbe-e2b0b2672f08-6",
+      "text": "And I need to get a a salad with that one.",
+      "conversation_id": "dlg-5050d44a-1540-4577-abbe-e2b0b2672f08",
+      "turn_index": 6,
+      "domain": "food-ordering",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-bb011b23-e6b3-48cc-8193-8a55d363c51d-18",
+      "text": "Tell me more about that?",
+      "conversation_id": "dlg-bb011b23-e6b3-48cc-8193-8a55d363c51d",
+      "turn_index": 18,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-3b883cf0-928c-4a9d-bbe4-49ee1933bdba-5",
+      "text": "From March 10th to 17th.",
+      "conversation_id": "dlg-3b883cf0-928c-4a9d-bbe4-49ee1933bdba",
+      "turn_index": 5,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-ddbf008b-6678-462e-adf4-965fa8e47849-22",
+      "text": "I would like to know about Staybridge.",
+      "conversation_id": "dlg-ddbf008b-6678-462e-adf4-965fa8e47849",
+      "turn_index": 22,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9cabadfa-b742-4f2a-bf33-2aaac60a7864-9",
+      "text": "Okay, thank you. That's all I need.",
+      "conversation_id": "dlg-9cabadfa-b742-4f2a-bf33-2aaac60a7864",
+      "turn_index": 9,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4ea42e5c-f24e-4e66-a27f-1c60c7eb8b35-16",
+      "text": "Room service.",
+      "conversation_id": "dlg-4ea42e5c-f24e-4e66-a27f-1c60c7eb8b35",
+      "turn_index": 16,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-854cc388-7b94-4caf-9560-a8bbbbfc30f6-28",
+      "text": "How large are the bedrooms?",
+      "conversation_id": "dlg-854cc388-7b94-4caf-9560-a8bbbbfc30f6",
+      "turn_index": 28,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-cda27801-8c5c-4247-8cf1-0980d551768f-0",
+      "text": "I'd like help in finding a hotel in Nashville, Tennessee.",
+      "conversation_id": "dlg-cda27801-8c5c-4247-8cf1-0980d551768f",
+      "turn_index": 0,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-34401fdd-b260-437a-890b-64dc6940cf46-5",
+      "text": "Yeah, I needed less than $300 a night.",
+      "conversation_id": "dlg-34401fdd-b260-437a-890b-64dc6940cf46",
+      "turn_index": 5,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-ef5dd760-5409-4a5e-9327-4f917c68ca28-7",
+      "text": "At least four. I'd also like a microwave in the room and a hotel with a bar or a bar in a restaurant. Either one is fine.",
+      "conversation_id": "dlg-ef5dd760-5409-4a5e-9327-4f917c68ca28",
+      "turn_index": 7,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-cacb9b4b-c79e-430d-a2bb-4197deb4c513-19",
+      "text": "I'll take the second one.",
+      "conversation_id": "dlg-cacb9b4b-c79e-430d-a2bb-4197deb4c513",
+      "turn_index": 19,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c0297e60-1215-462e-b2b4-fd86dcba7a14-25",
+      "text": "Thank you.",
+      "conversation_id": "dlg-c0297e60-1215-462e-b2b4-fd86dcba7a14",
+      "turn_index": 25,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-bcf778e9-cbd8-4d18-bbb2-ba48b5f5ef12-22",
+      "text": "Nothing. Thank you so much.",
+      "conversation_id": "dlg-bcf778e9-cbd8-4d18-bbb2-ba48b5f5ef12",
+      "turn_index": 22,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-b449d3a8-7b28-4a08-8b60-243039a51029-1",
+      "text": "Hi, I'm looking for a hotel in New Orleans.",
+      "conversation_id": "dlg-b449d3a8-7b28-4a08-8b60-243039a51029",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5eececb5-7e23-4323-89e3-4da2227fd5cd-19",
+      "text": "Can you talk right now or can you leave it as a parent?",
+      "conversation_id": "dlg-5eececb5-7e23-4323-89e3-4da2227fd5cd",
+      "turn_index": 19,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-55338c5c-0f48-4260-b76c-061553dcd117-3",
+      "text": "I'll be staying from June 16th to June 19th 2017.",
+      "conversation_id": "dlg-55338c5c-0f48-4260-b76c-061553dcd117",
+      "turn_index": 3,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-0c3a8450-9031-4322-8a94-44ac0254c951-26",
+      "text": "Okay great, is there a fitness center at the hotel?",
+      "conversation_id": "dlg-0c3a8450-9031-4322-8a94-44ac0254c951",
+      "turn_index": 26,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-844ce64e-de5d-4763-a9da-63cdafae3086-17",
+      "text": "Yes, please.",
+      "conversation_id": "dlg-844ce64e-de5d-4763-a9da-63cdafae3086",
+      "turn_index": 17,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8c5b3585-c34a-4332-adce-e303b6fab696-11",
+      "text": "No bedroom requirements and hotel ratings should be 4 stars and up.",
+      "conversation_id": "dlg-8c5b3585-c34a-4332-adce-e303b6fab696",
+      "turn_index": 11,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-2bf04ec4-ddd6-4ce1-89f0-2069383ebdd8-4",
+      "text": "I don't want to spend more than $300 a night and I want the hotel to have good customer review. So, four stars.",
+      "conversation_id": "dlg-2bf04ec4-ddd6-4ce1-89f0-2069383ebdd8",
+      "turn_index": 4,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-76206a5d-2086-4025-90a1-276b6e8ff2b8-2",
+      "text": "This Friday to the following Sunday.",
+      "conversation_id": "dlg-76206a5d-2086-4025-90a1-276b6e8ff2b8",
+      "turn_index": 2,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-dd7506c7-7bac-423b-bece-6b7c711c4d7b-23",
+      "text": "Price and cleanliness.",
+      "conversation_id": "dlg-dd7506c7-7bac-423b-bece-6b7c711c4d7b",
+      "turn_index": 23,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-53c2f449-290e-4b33-a79c-d6240751c339-1",
+      "text": "Hi, I need help in finding a hotel in Salem, Oregon.",
+      "conversation_id": "dlg-53c2f449-290e-4b33-a79c-d6240751c339",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-12d94ac7-d148-4058-a119-aff64d53a7e3-1",
+      "text": "I need to find a hotel in Palm Springs, California where my family can stay in February.",
+      "conversation_id": "dlg-12d94ac7-d148-4058-a119-aff64d53a7e3",
+      "turn_index": 1,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f49ebd61-42f3-40ae-bce6-cdec27ea167b-10",
+      "text": "I don't want to spend more than $250 a night.",
+      "conversation_id": "dlg-f49ebd61-42f3-40ae-bce6-cdec27ea167b",
+      "turn_index": 10,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5848c621-1a58-4589-b500-d445b612f64d-10",
+      "text": "No, but I would like a good room like a suite or something rather than just a regular standard room.",
+      "conversation_id": "dlg-5848c621-1a58-4589-b500-d445b612f64d",
+      "turn_index": 10,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c8c4feb7-9314-4cdf-a020-74d53f711b42-20",
+      "text": "Thank you.",
+      "conversation_id": "dlg-c8c4feb7-9314-4cdf-a020-74d53f711b42",
+      "turn_index": 20,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-2366de72-6693-4d32-bc8b-8a46565106bb-8",
+      "text": "I would like it to be a four star hotel.",
+      "conversation_id": "dlg-2366de72-6693-4d32-bc8b-8a46565106bb",
+      "turn_index": 8,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-191ffa05-c50e-4408-9b00-24b81570446b-45",
+      "text": "No.",
+      "conversation_id": "dlg-191ffa05-c50e-4408-9b00-24b81570446b",
+      "turn_index": 45,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-efea5f05-1c7c-4264-83cc-1f70f58c96c2-12",
+      "text": "Okay.",
+      "conversation_id": "dlg-efea5f05-1c7c-4264-83cc-1f70f58c96c2",
+      "turn_index": 12,
+      "domain": "hotels",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8351ea85-2f8e-4503-89f2-d6c1ffcca555-5",
+      "text": "Some action movies.",
+      "conversation_id": "dlg-8351ea85-2f8e-4503-89f2-d6c1ffcca555",
+      "turn_index": 5,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4cc007af-07cb-4e69-a706-396c8a5e1663-11",
+      "text": "When is The Shape of Water showing?",
+      "conversation_id": "dlg-4cc007af-07cb-4e69-a706-396c8a5e1663",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1c2f7c9a-befb-4c04-b80a-e38de831a6a8-5",
+      "text": "I want to see a comedy for tonight. What comedies are out right now?",
+      "conversation_id": "dlg-1c2f7c9a-befb-4c04-b80a-e38de831a6a8",
+      "turn_index": 5,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a81853ba-c27b-42ef-9ea8-01af2c410250-0",
+      "text": "Hello Assistant.",
+      "conversation_id": "dlg-a81853ba-c27b-42ef-9ea8-01af2c410250",
+      "turn_index": 0,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8d69b298-8b60-4449-8304-3682478b9a0a-0",
+      "text": "Hi, I want to see a movie that is still in the theaters.",
+      "conversation_id": "dlg-8d69b298-8b60-4449-8304-3682478b9a0a",
+      "turn_index": 0,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-dd2223e2-f32b-45a3-b8e1-6fd9122f16ce-18",
+      "text": "Sounds great.",
+      "conversation_id": "dlg-dd2223e2-f32b-45a3-b8e1-6fd9122f16ce",
+      "turn_index": 18,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-ca5c4203-450b-47d0-9f99-8ae28390433a-2",
+      "text": "My favorite actor is Matt Damon.",
+      "conversation_id": "dlg-ca5c4203-450b-47d0-9f99-8ae28390433a",
+      "turn_index": 2,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-813e90cb-db1d-48c2-a5e7-f22cfdb57868-1",
+      "text": "I'm looking for information on finding a movie to watch at home.",
+      "conversation_id": "dlg-813e90cb-db1d-48c2-a5e7-f22cfdb57868",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8548ad69-2f3b-45bd-bb04-c7eef253f878-9",
+      "text": "Thank you.",
+      "conversation_id": "dlg-8548ad69-2f3b-45bd-bb04-c7eef253f878",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e40bfcfa-b21a-4617-8610-7fa0e5d2aeca-4",
+      "text": "Are Philadelphia up drama?",
+      "conversation_id": "dlg-e40bfcfa-b21a-4617-8610-7fa0e5d2aeca",
+      "turn_index": 4,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-963d2f71-34de-4d77-90f1-53865bec1c46-9",
+      "text": "Yeah, I freak at things like that. Is it available?",
+      "conversation_id": "dlg-963d2f71-34de-4d77-90f1-53865bec1c46",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-99a6ec44-5d33-4ab0-871e-4413e969fa4d-3",
+      "text": "Sounds great.",
+      "conversation_id": "dlg-99a6ec44-5d33-4ab0-871e-4413e969fa4d",
+      "turn_index": 3,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e273cf2e-c178-4342-850b-6fa771d6a15c-11",
+      "text": "Awesome. I'll be waiting for them, I appreciate your help today. Enjoy your day.",
+      "conversation_id": "dlg-e273cf2e-c178-4342-850b-6fa771d6a15c",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-b19184a8-5ebd-419b-87ee-3a8a27523f9e-23",
+      "text": "It's just going to be me.",
+      "conversation_id": "dlg-b19184a8-5ebd-419b-87ee-3a8a27523f9e",
+      "turn_index": 23,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-875cba54-704d-4bb9-bc11-13ecce6843f8-9",
+      "text": "On Amazon.",
+      "conversation_id": "dlg-875cba54-704d-4bb9-bc11-13ecce6843f8",
+      "turn_index": 9,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-fddc1cdc-a6e7-4854-9658-189c23856bbb-11",
+      "text": "Amazon.",
+      "conversation_id": "dlg-fddc1cdc-a6e7-4854-9658-189c23856bbb",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f3b68d73-a6db-4365-9cdc-e16716fcde98-6",
+      "text": "I'll choose The Circle.",
+      "conversation_id": "dlg-f3b68d73-a6db-4365-9cdc-e16716fcde98",
+      "turn_index": 6,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d3400bf2-27c9-4cbd-b94c-80eb3d91bcf3-15",
+      "text": "Okay. Well, then that's what I want. Thank you.",
+      "conversation_id": "dlg-d3400bf2-27c9-4cbd-b94c-80eb3d91bcf3",
+      "turn_index": 15,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5d71180b-f4aa-49ef-8c10-226b6c8f782d-11",
+      "text": "No.",
+      "conversation_id": "dlg-5d71180b-f4aa-49ef-8c10-226b6c8f782d",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-35d4a2b6-aad1-4dc4-b93e-9cfecbf79afa-1",
+      "text": "Hello. I'm looking for an uplifting thriller movie starring Brad Pitt that's available on Redbox.",
+      "conversation_id": "dlg-35d4a2b6-aad1-4dc4-b93e-9cfecbf79afa",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-cf753af9-9c36-476d-9a7e-3dde5441a743-23",
+      "text": "Okay.",
+      "conversation_id": "dlg-cf753af9-9c36-476d-9a7e-3dde5441a743",
+      "turn_index": 23,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1c8fd729-7652-441b-a171-26b3c685820b-12",
+      "text": "No.",
+      "conversation_id": "dlg-1c8fd729-7652-441b-a171-26b3c685820b",
+      "turn_index": 12,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9fbbd1c7-c542-4084-ae71-b11b36e7b112-1",
+      "text": "Hi. I like to rent a movie tonight for my house.",
+      "conversation_id": "dlg-9fbbd1c7-c542-4084-ae71-b11b36e7b112",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c5cba869-96aa-453b-96ae-c869400740bf-26",
+      "text": "Thanks.",
+      "conversation_id": "dlg-c5cba869-96aa-453b-96ae-c869400740bf",
+      "turn_index": 26,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-3652e953-2503-4404-994f-cc97f3c28282-4",
+      "text": "Alright.",
+      "conversation_id": "dlg-3652e953-2503-4404-994f-cc97f3c28282",
+      "turn_index": 4,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4283958c-eb3f-4ed9-b53a-001c513035a6-25",
+      "text": "Nice. How long is the movie?",
+      "conversation_id": "dlg-4283958c-eb3f-4ed9-b53a-001c513035a6",
+      "turn_index": 25,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-51539126-87f7-498e-bda1-7d05835edb9f-1",
+      "text": "I'm looking to rent a movie at home tonight. I'm looking for something that's kind of been like really heralded by critics. Can you help me?",
+      "conversation_id": "dlg-51539126-87f7-498e-bda1-7d05835edb9f",
+      "turn_index": 1,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1442d1c2-7adb-424e-b6db-2c9faec188ad-13",
+      "text": "I'd like to choose the Kingsman, please.",
+      "conversation_id": "dlg-1442d1c2-7adb-424e-b6db-2c9faec188ad",
+      "turn_index": 13,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-97a6375e-8133-469a-a43a-a4a7986370fc-11",
+      "text": "You know what? Book the tickets now. I don't even need to hear the ratings. There's one at 10:15, right? Is that 10:10?",
+      "conversation_id": "dlg-97a6375e-8133-469a-a43a-a4a7986370fc",
+      "turn_index": 11,
+      "domain": "movies",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7d193ea7-9d04-4e15-a097-615e856bcf47-0",
+      "text": "Hi Assistant. I would like to music by Rihanna.",
+      "conversation_id": "dlg-7d193ea7-9d04-4e15-a097-615e856bcf47",
+      "turn_index": 0,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-070bb8a3-fa36-40dc-9fc3-a597d08cb237-9",
+      "text": "Thank you.",
+      "conversation_id": "dlg-070bb8a3-fa36-40dc-9fc3-a597d08cb237",
+      "turn_index": 9,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-98b07df0-bb4d-4447-8dc0-9494ccd4be33-13",
+      "text": "Thank you.",
+      "conversation_id": "dlg-98b07df0-bb4d-4447-8dc0-9494ccd4be33",
+      "turn_index": 13,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-77ec4889-22fe-4aeb-8233-933c60007a4b-15",
+      "text": "I shall.",
+      "conversation_id": "dlg-77ec4889-22fe-4aeb-8233-933c60007a4b",
+      "turn_index": 15,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e58a122a-92b2-41ed-b6b2-1573ba91adba-0",
+      "text": "Hello. I'm trying to find some new music to work out to. Do you think you can help me with that?",
+      "conversation_id": "dlg-e58a122a-92b2-41ed-b6b2-1573ba91adba",
+      "turn_index": 0,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa0a2089-4ab1-4c91-b23e-533f1a960c5e-1",
+      "text": "Want to see if you can find me a new musician to listen to.",
+      "conversation_id": "dlg-aa0a2089-4ab1-4c91-b23e-533f1a960c5e",
+      "turn_index": 1,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-da2d6816-30aa-4c7a-bb22-2a4fa6adc375-5",
+      "text": "Well, these songs remind me of like going on prom and having to deal with girlfriends and all that sort of thing.",
+      "conversation_id": "dlg-da2d6816-30aa-4c7a-bb22-2a4fa6adc375",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-852c3521-e18a-407e-b457-3d208324942a-4",
+      "text": "Play a different album.",
+      "conversation_id": "dlg-852c3521-e18a-407e-b457-3d208324942a",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-43964599-f13e-4486-a242-ee4feda5f524-4",
+      "text": "Yes.",
+      "conversation_id": "dlg-43964599-f13e-4486-a242-ee4feda5f524",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-73cbf4cf-19d3-4a9f-bb60-1aab8a314377-19",
+      "text": "Thank you. That's not playing either. Can you play me something else because that one's not playing?",
+      "conversation_id": "dlg-73cbf4cf-19d3-4a9f-bb60-1aab8a314377",
+      "turn_index": 19,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d7545c76-f6e8-402b-8635-bce54b5701b3-24",
+      "text": "Oh, this one is blocked from playing Bibo.",
+      "conversation_id": "dlg-d7545c76-f6e8-402b-8635-bce54b5701b3",
+      "turn_index": 24,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-26d7d907-4aa4-4e54-ae65-c837191509dd-4",
+      "text": "Okay, great. Can you put some older material?",
+      "conversation_id": "dlg-26d7d907-4aa4-4e54-ae65-c837191509dd",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a295acbd-1979-4726-b958-099955f126ac-1",
+      "text": "Hi, can you help in browsing new to me music?",
+      "conversation_id": "dlg-a295acbd-1979-4726-b958-099955f126ac",
+      "turn_index": 1,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-032a0b65-9f12-4ddc-9d5c-5f244f48a65e-4",
+      "text": "Are you with me?",
+      "conversation_id": "dlg-032a0b65-9f12-4ddc-9d5c-5f244f48a65e",
+      "turn_index": 4,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-2ff4752e-5f1a-4a60-b978-92d9c94c168c-15",
+      "text": "Okay. Just play some newer material, but something else.",
+      "conversation_id": "dlg-2ff4752e-5f1a-4a60-b978-92d9c94c168c",
+      "turn_index": 15,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-545533bd-1a7c-4018-8506-63efc52fdfe0-7",
+      "text": "I don't think. I've ever heard this one before. Thank you.",
+      "conversation_id": "dlg-545533bd-1a7c-4018-8506-63efc52fdfe0",
+      "turn_index": 7,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-dc3fa2af-a118-44d4-b1ff-b08d0a6ac911-11",
+      "text": "That's excellent.",
+      "conversation_id": "dlg-dc3fa2af-a118-44d4-b1ff-b08d0a6ac911",
+      "turn_index": 11,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-adfb2b13-0307-4914-aaee-d332b165e6af-3",
+      "text": "Play Lumineers.",
+      "conversation_id": "dlg-adfb2b13-0307-4914-aaee-d332b165e6af",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f066ae14-c437-4ee7-addc-ea63bcec0e05-8",
+      "text": "Oh, I would love to hear.",
+      "conversation_id": "dlg-f066ae14-c437-4ee7-addc-ea63bcec0e05",
+      "turn_index": 8,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-985b9228-75e1-4b1f-8128-2ff773a44cba-5",
+      "text": "No.",
+      "conversation_id": "dlg-985b9228-75e1-4b1f-8128-2ff773a44cba",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8c8ea1e9-fe6a-4bb0-ab8d-0e7cc51ec397-9",
+      "text": "You know what? I don't want playing this, can you play some different album, please?",
+      "conversation_id": "dlg-8c8ea1e9-fe6a-4bb0-ab8d-0e7cc51ec397",
+      "turn_index": 9,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-199342b9-e44a-44bd-9b89-1b75dd3f5698-10",
+      "text": "Okay. This is great. Thank you. That's all I needed.",
+      "conversation_id": "dlg-199342b9-e44a-44bd-9b89-1b75dd3f5698",
+      "turn_index": 10,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e42c108c-8997-44f3-bf6d-33a0a361597d-3",
+      "text": "Song is okay. Show me older music by this artist.",
+      "conversation_id": "dlg-e42c108c-8997-44f3-bf6d-33a0a361597d",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-267880d9-b151-439c-991b-d7ae9c8b69fb-8",
+      "text": "And that whole Masterplan album was awesome.",
+      "conversation_id": "dlg-267880d9-b151-439c-991b-d7ae9c8b69fb",
+      "turn_index": 8,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c2a7c8dd-7ea8-4d93-ac2d-d5813c573470-5",
+      "text": "And I guess I'm interested in something more specific, like new wave rock of the 80's, like David Byrne.",
+      "conversation_id": "dlg-c2a7c8dd-7ea8-4d93-ac2d-d5813c573470",
+      "turn_index": 5,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5ef47e97-5c2b-4829-aabc-b31d4b07511c-11",
+      "text": "Thank you. This one will be perfect, bye.",
+      "conversation_id": "dlg-5ef47e97-5c2b-4829-aabc-b31d4b07511c",
+      "turn_index": 11,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1f3201df-105c-4eb2-9dda-f4afec8d7a1c-3",
+      "text": "Nope.",
+      "conversation_id": "dlg-1f3201df-105c-4eb2-9dda-f4afec8d7a1c",
+      "turn_index": 3,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7cceb03b-e71c-4ed5-a8e5-47da484a7cc7-6",
+      "text": "I'm not actually a fan of her new album. Do you think you can play a different song by her?",
+      "conversation_id": "dlg-7cceb03b-e71c-4ed5-a8e5-47da484a7cc7",
+      "turn_index": 6,
+      "domain": "music",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4633e61f-1c13-43b3-9a1c-32608a591b57-4",
+      "text": "Yes, family-friendly.",
+      "conversation_id": "dlg-4633e61f-1c13-43b3-9a1c-32608a591b57",
+      "turn_index": 4,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-87bf6233-0af3-4d82-a795-0ea01a12d033-14",
+      "text": "Nope. You've done great. Thank you.",
+      "conversation_id": "dlg-87bf6233-0af3-4d82-a795-0ea01a12d033",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a0254668-1533-4363-8a74-efdc1bd0d62c-10",
+      "text": "Oh, that's perfect. Thank you.",
+      "conversation_id": "dlg-a0254668-1533-4363-8a74-efdc1bd0d62c",
+      "turn_index": 10,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7db99b19-63a2-4e73-9f3b-ed6682cfbcaf-25",
+      "text": "Bye-bye.",
+      "conversation_id": "dlg-7db99b19-63a2-4e73-9f3b-ed6682cfbcaf",
+      "turn_index": 25,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-46725742-4f1d-4d9b-be57-2ec5acdd53f7-7",
+      "text": "Great, Can you tell me anything else about the Sandwich Shop? Or I'm sorry, The Sandwich Spot.",
+      "conversation_id": "dlg-46725742-4f1d-4d9b-be57-2ec5acdd53f7",
+      "turn_index": 7,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-d954ba11-61c1-49d4-8fdc-abdc592efa74-8",
+      "text": "I'd like to just order at a counter.",
+      "conversation_id": "dlg-d954ba11-61c1-49d4-8fdc-abdc592efa74",
+      "turn_index": 8,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-b76dd839-3e95-4bf3-8208-b4767e741ba6-0",
+      "text": "Hi assistant, I'm looking for a restaurant in Austin, Texas.",
+      "conversation_id": "dlg-b76dd839-3e95-4bf3-8208-b4767e741ba6",
+      "turn_index": 0,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-73856c19-3558-46f3-bf2d-a738f1354280-14",
+      "text": "You too. Bye.",
+      "conversation_id": "dlg-73856c19-3558-46f3-bf2d-a738f1354280",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-70f1484b-78b9-449b-9747-fb3cb16c0a1d-8",
+      "text": "Okay and how long is the drive from Santa Rosa, California to the restaurant?",
+      "conversation_id": "dlg-70f1484b-78b9-449b-9747-fb3cb16c0a1d",
+      "turn_index": 8,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-0233b5f1-6d02-4a77-82e1-3f6ca2abc3c1-14",
+      "text": "Okay. I'll check it out. Thank you.",
+      "conversation_id": "dlg-0233b5f1-6d02-4a77-82e1-3f6ca2abc3c1",
+      "turn_index": 14,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-fa9b2fae-aef1-4847-a523-e59d27645470-28",
+      "text": "I will. Thank you.",
+      "conversation_id": "dlg-fa9b2fae-aef1-4847-a523-e59d27645470",
+      "turn_index": 28,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-31577305-c063-4fa8-9864-9689696c6bf6-42",
+      "text": "Wow. Alright. So, I think I'm going to go to Zocalo's. What's the address again?",
+      "conversation_id": "dlg-31577305-c063-4fa8-9864-9689696c6bf6",
+      "turn_index": 42,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-ba5c8331-86ef-4b34-8ea2-34b685333576-7",
+      "text": "I need to find like a good hamburger joint.",
+      "conversation_id": "dlg-ba5c8331-86ef-4b34-8ea2-34b685333576",
+      "turn_index": 7,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-61a0fdfb-95e7-4dae-9ce7-e396ccc628fb-15",
+      "text": "Bye.",
+      "conversation_id": "dlg-61a0fdfb-95e7-4dae-9ce7-e396ccc628fb",
+      "turn_index": 15,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-38997908-a32c-4065-a9e7-65cc906868c9-20",
+      "text": "How do I get there?",
+      "conversation_id": "dlg-38997908-a32c-4065-a9e7-65cc906868c9",
+      "turn_index": 20,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-31382912-2621-4222-b87d-cf77de66fbb7-19",
+      "text": "I'd like for the place to serve alcohol.",
+      "conversation_id": "dlg-31382912-2621-4222-b87d-cf77de66fbb7",
+      "turn_index": 19,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-1f2e5c7e-fcca-490b-87e5-06cfc2ce4118-5",
+      "text": "Yes, I'd like something fairly inexpensive and possibly an outdoor sitting.",
+      "conversation_id": "dlg-1f2e5c7e-fcca-490b-87e5-06cfc2ce4118",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-90ca631b-2d32-4aa8-a3a5-6ace65243aba-16",
+      "text": "Okay.",
+      "conversation_id": "dlg-90ca631b-2d32-4aa8-a3a5-6ace65243aba",
+      "turn_index": 16,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-62d10db7-5061-41fb-bd01-a89f5f279be4-25",
+      "text": "No.",
+      "conversation_id": "dlg-62d10db7-5061-41fb-bd01-a89f5f279be4",
+      "turn_index": 25,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-134c9aaa-01b3-48a1-8983-352c01103a2f-16",
+      "text": "Yeah. Could you find me a different place? I need somewhere play some words up a little later.",
+      "conversation_id": "dlg-134c9aaa-01b3-48a1-8983-352c01103a2f",
+      "turn_index": 16,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-96eea888-e3fa-486a-8a37-27fe742fb526-4",
+      "text": "American food.",
+      "conversation_id": "dlg-96eea888-e3fa-486a-8a37-27fe742fb526",
+      "turn_index": 4,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-f210d4b5-a32f-4375-af0a-33a8aeb4e996-2",
+      "text": "Do they take reservations?",
+      "conversation_id": "dlg-f210d4b5-a32f-4375-af0a-33a8aeb4e996",
+      "turn_index": 2,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-48038ab0-5b73-47ae-88c3-6aada1b3bb5a-11",
+      "text": "Okay.",
+      "conversation_id": "dlg-48038ab0-5b73-47ae-88c3-6aada1b3bb5a",
+      "turn_index": 11,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a5ffe1df-e1a2-43c2-8445-e1401900a7b0-13",
+      "text": "Thank you.",
+      "conversation_id": "dlg-a5ffe1df-e1a2-43c2-8445-e1401900a7b0",
+      "turn_index": 13,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e357f23-b367-4bc2-a130-6606db0505a4-5",
+      "text": "Around $20 to $30 per plate. I'd like it in the downtown area.",
+      "conversation_id": "dlg-7e357f23-b367-4bc2-a130-6606db0505a4",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa4d4499-a35c-40e7-8df1-76cafb824699-3",
+      "text": "Seafood.",
+      "conversation_id": "dlg-aa4d4499-a35c-40e7-8df1-76cafb824699",
+      "turn_index": 3,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c7d0d5a9-f317-4976-817a-51b52390568d-30",
+      "text": "Do I need a reservation?",
+      "conversation_id": "dlg-c7d0d5a9-f317-4976-817a-51b52390568d",
+      "turn_index": 30,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-af742632-e6c9-4ea3-8ec0-a69695966b19-5",
+      "text": "And the vegetarian options?",
+      "conversation_id": "dlg-af742632-e6c9-4ea3-8ec0-a69695966b19",
+      "turn_index": 5,
+      "domain": "restaurant-search",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-37c0ae30-cd91-4cc9-9095-7cb643aa1bd8-8",
+      "text": "What was the score of Minnesota United FC last game?",
+      "conversation_id": "dlg-37c0ae30-cd91-4cc9-9095-7cb643aa1bd8",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5a307d28-020c-4ca5-83cf-33a35ea8ebe9-4",
+      "text": "Thank you. And, how many games have they played so far?",
+      "conversation_id": "dlg-5a307d28-020c-4ca5-83cf-33a35ea8ebe9",
+      "turn_index": 4,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-3c736237-20f1-4bd5-a663-298389a57526-12",
+      "text": "Okay. Great! That's all I needed. Thanks.",
+      "conversation_id": "dlg-3c736237-20f1-4bd5-a663-298389a57526",
+      "turn_index": 12,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-72c078f2-2cdb-4abe-b697-7aaf5fd8a824-17",
+      "text": "Oh, nice. Okay, Thank you very much, that's all I needed to know.",
+      "conversation_id": "dlg-72c078f2-2cdb-4abe-b697-7aaf5fd8a824",
+      "turn_index": 17,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a5c7bc0f-c760-4df1-acaf-064ea9a391e3-7",
+      "text": "And when did they play last?",
+      "conversation_id": "dlg-a5c7bc0f-c760-4df1-acaf-064ea9a391e3",
+      "turn_index": 7,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5572f4a8-2e74-4af7-8e7e-3d34e4ecd905-9",
+      "text": "Who's the star player of the Chicago Bulls?",
+      "conversation_id": "dlg-5572f4a8-2e74-4af7-8e7e-3d34e4ecd905",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7cefa107-5632-4b15-a180-4d09d40cf24d-15",
+      "text": "Okay. That's all I needed to know.",
+      "conversation_id": "dlg-7cefa107-5632-4b15-a180-4d09d40cf24d",
+      "turn_index": 15,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-7e34176e-2390-4b76-909f-8e963f3c48df-12",
+      "text": "Okay, that will be it for me. Thank you.",
+      "conversation_id": "dlg-7e34176e-2390-4b76-909f-8e963f3c48df",
+      "turn_index": 12,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-23301b9d-613d-4202-9a32-9978dbb029aa-3",
+      "text": "How many games have they played so far?",
+      "conversation_id": "dlg-23301b9d-613d-4202-9a32-9978dbb029aa",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-c5658f94-b8f0-4fe8-b68d-8fdb0f6a0429-1",
+      "text": "Hi, my favorite team are the Cincinnati Reds. Did they lose in the last game?",
+      "conversation_id": "dlg-c5658f94-b8f0-4fe8-b68d-8fdb0f6a0429",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-deb91eec-78a1-4349-ad40-f57137d20152-5",
+      "text": "Who do they play next Saturday?",
+      "conversation_id": "dlg-deb91eec-78a1-4349-ad40-f57137d20152",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a270034e-8c1e-4103-a983-e013c49f33db-13",
+      "text": "No. That's it.",
+      "conversation_id": "dlg-a270034e-8c1e-4103-a983-e013c49f33db",
+      "turn_index": 13,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-aa3ef179-69e7-4ac1-8913-543b54e9a714-6",
+      "text": "Who's the Sacramento Kings coach?",
+      "conversation_id": "dlg-aa3ef179-69e7-4ac1-8913-543b54e9a714",
+      "turn_index": 6,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-8d201d69-8df2-47fc-a6d3-52ed817ebd9b-9",
+      "text": "Who's their goalkeeper?",
+      "conversation_id": "dlg-8d201d69-8df2-47fc-a6d3-52ed817ebd9b",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-373e2111-b5aa-4040-aba9-2c10937261a8-9",
+      "text": "Alright. And who is their quarterback?",
+      "conversation_id": "dlg-373e2111-b5aa-4040-aba9-2c10937261a8",
+      "turn_index": 9,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-9ba4cc41-60e0-45f1-ab4f-107d0bb01598-3",
+      "text": "Is Manchester City playing right now?",
+      "conversation_id": "dlg-9ba4cc41-60e0-45f1-ab4f-107d0bb01598",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-a92ad404-757b-4397-9ec3-f9b24249d2b8-5",
+      "text": "Great, can you tell me if they are playing right now?",
+      "conversation_id": "dlg-a92ad404-757b-4397-9ec3-f9b24249d2b8",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e1d0ba3d-b49c-406e-a991-b887e24aede1-13",
+      "text": "Thanks! Those were all the questions I had for you.",
+      "conversation_id": "dlg-e1d0ba3d-b49c-406e-a991-b887e24aede1",
+      "turn_index": 13,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-4ae72957-dc64-4d2e-a800-82e4a351306e-6",
+      "text": "Okay. Who did they play against on June 1st?",
+      "conversation_id": "dlg-4ae72957-dc64-4d2e-a800-82e4a351306e",
+      "turn_index": 6,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-6c364fcc-3b8a-4c73-a0ea-e4d79247dee0-3",
+      "text": "Okay, what is the Galaxy's rank in their division?",
+      "conversation_id": "dlg-6c364fcc-3b8a-4c73-a0ea-e4d79247dee0",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-21453076-056f-4c6a-8290-5c7ee04ef2f2-8",
+      "text": "By what score?",
+      "conversation_id": "dlg-21453076-056f-4c6a-8290-5c7ee04ef2f2",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-e36ab8cc-411e-41b9-8955-d28ff342f40a-1",
+      "text": "Hi, I was wondering about some information, That I want to know about the Chicago Cubs. And my question is what place are they in?",
+      "conversation_id": "dlg-e36ab8cc-411e-41b9-8955-d28ff342f40a",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-75e500c4-038c-49fe-a140-a50eb7acece5-1",
+      "text": "Yeah. I'm a San Francisco Giants fan, and I was wondering, when was their last game?",
+      "conversation_id": "dlg-75e500c4-038c-49fe-a140-a50eb7acece5",
+      "turn_index": 1,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-3239a8aa-561c-42ed-add0-0c9760aad950-11",
+      "text": "Who is in last place in American League Central?",
+      "conversation_id": "dlg-3239a8aa-561c-42ed-add0-0c9760aad950",
+      "turn_index": 11,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-5a10d82a-bdf5-4279-8be8-d2b1dae906e5-3",
+      "text": "In their conference.",
+      "conversation_id": "dlg-5a10d82a-bdf5-4279-8be8-d2b1dae906e5",
+      "turn_index": 3,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-180c4ea6-ae49-4924-ab59-cf53386be883-5",
+      "text": "Are they playing next Saturday?",
+      "conversation_id": "dlg-180c4ea6-ae49-4924-ab59-cf53386be883",
+      "turn_index": 5,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-46f44020-a95e-476a-b15d-0acb6e5d75fe-15",
+      "text": "Okay. Thank you.",
+      "conversation_id": "dlg-46f44020-a95e-476a-b15d-0acb6e5d75fe",
+      "turn_index": 15,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    },
+    {
+      "id": "tm2-holdout-dlg-fb55a727-1c6b-43b6-85a8-9ed96ddaef00-8",
+      "text": "Alright, thank you very much for your help today.",
+      "conversation_id": "dlg-fb55a727-1c6b-43b6-85a8-9ed96ddaef00",
+      "turn_index": 8,
+      "domain": "sports",
+      "source": "en",
+      "target": "sw"
+    }
+  ],
+  "source_protocol_sha256": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0",
+  "source_receipts": [
+    {
+      "domain": "flights",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/flights.json",
+      "bytes": 23029880,
+      "sha256": "86b37b5ae25f530fd18ced78800d30c3b54f7b34bb208ecb51842718f04e760b",
+      "git_blob": "21c0317c583f3533e517a4e500aea7979de9e513",
+      "dialogs": 2481,
+      "sampled": 29
+    },
+    {
+      "domain": "food-ordering",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/food-ordering.json",
+      "bytes": 5376675,
+      "sha256": "0a042e566a816a5d0abebe6f7e8cfd6abaa89729ffc42f433d327df7342b12f8",
+      "git_blob": "1637d76fc83ad7bd20814f8c11b9462c77af1cfc",
+      "dialogs": 1050,
+      "sampled": 29
+    },
+    {
+      "domain": "hotels",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/hotels.json",
+      "bytes": 22507266,
+      "sha256": "975b0242f1e37ea1ab94ccedd7e0d6ee5831599d5df1f16143e71110d6c6006a",
+      "git_blob": "5d68cd83f03a647b16b6c26dc298194b1532b99c",
+      "dialogs": 2357,
+      "sampled": 29
+    },
+    {
+      "domain": "movies",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/movies.json",
+      "bytes": 21189893,
+      "sha256": "6f67c9a1f04abc111186e5bcfbe3050be01d0737fd6422901402715bc1f3dd0d",
+      "git_blob": "4d0112272ce72d7b954f2a5a2a2b3d077513382c",
+      "dialogs": 3056,
+      "sampled": 29
+    },
+    {
+      "domain": "music",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/music.json",
+      "bytes": 8981720,
+      "sha256": "e5db60d6576fa010bef87a70a8b371d293d48cde8524c1d3ed7c3022f079d95d",
+      "git_blob": "0463a81fec65fe7a708384a1b0f8a29ed4530953",
+      "dialogs": 1603,
+      "sampled": 28
+    },
+    {
+      "domain": "restaurant-search",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/restaurant-search.json",
+      "bytes": 21472680,
+      "sha256": "fb9735f89e7ebc7c877f976da4c30391af6a6277991b597c0755564657ff8f47",
+      "git_blob": "1a82c985f43d0e2390b1049e279352c6e523ce4c",
+      "dialogs": 3276,
+      "sampled": 28
+    },
+    {
+      "domain": "sports",
+      "url": "https://raw.githubusercontent.com/google-research-datasets/Taskmaster/d92cb6af3005f1dc09c39e75e7daf4a04905e00b/TM-2-2020/data/sports.json",
+      "bytes": 19549440,
+      "sha256": "8191531bfa5a8426b1508c396ab9886a19c7c620b443c436ec10d8d4708d0eac",
+      "git_blob": "e61ae729224b24c3ab6c812473396a93c78d8c80",
+      "dialogs": 3481,
+      "sampled": 28
+    }
+  ],
+  "license": "CC BY4.0",
+  "attribution": "Bill Byrne, Karthik Krishnamoorthi, Saravanan Ganesh, Amit Dubey, Kyu-Young Kim and Andy Cedilnik, Google LLC. Taskmaster-2 (2020).",
+  "method": "New deterministic per-dialog/per-turn hashes with seed vipi-frame-holdout-r01; exclude all200 prior Taskmaster dialogs, same29/28 domain stratification. Frozen before frame matching.",
+  "training_use": false,
+  "pack_building_use": false,
+  "limitations": "Human task-oriented conversations, not peer-chat population. No bilingual gold. Not used for frame extraction."
+}

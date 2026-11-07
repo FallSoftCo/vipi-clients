@@ -1,0 +1,2580 @@
+{
+  "schema": "vipi-direct-error-cause-review-1",
+  "review_sha256": "0da26b909a419bdf1933c1a2ac8566ff685c943f1182d7cfe66eb40c1bd7d926",
+  "reviewer": "Same author, after own meaning labels fixed. Primary cause can coexist with other provider errors; no independent bilingual gold.",
+  "summary": [
+    {
+      "target": "es",
+      "arm": "word",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 4,
+        "introduced_alignment_or_unit_scope": 5
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 4,
+        "introduced_alignment_or_unit_scope": 4
+      }
+    },
+    {
+      "target": "es",
+      "arm": "word",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 8,
+        "introduced_alignment_or_unit_scope": 8
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 8,
+        "introduced_alignment_or_unit_scope": 6
+      }
+    },
+    {
+      "target": "es",
+      "arm": "word",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 11,
+        "introduced_alignment_or_unit_scope": 10
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 10,
+        "introduced_alignment_or_unit_scope": 7
+      }
+    },
+    {
+      "target": "es",
+      "arm": "window",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 2,
+        "introduced_alignment_or_unit_scope": 4
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 2,
+        "introduced_alignment_or_unit_scope": 4
+      }
+    },
+    {
+      "target": "es",
+      "arm": "window",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 9,
+        "introduced_alignment_or_unit_scope": 3
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 9,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "es",
+      "arm": "window",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 22,
+        "introduced_alignment_or_unit_scope": 4
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 18,
+        "introduced_alignment_or_unit_scope": 4
+      }
+    },
+    {
+      "target": "es",
+      "arm": "split",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 5,
+        "introduced_alignment_or_unit_scope": 3
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 5,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "es",
+      "arm": "split",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 8,
+        "introduced_alignment_or_unit_scope": 4
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 8,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "es",
+      "arm": "split",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 17,
+        "introduced_alignment_or_unit_scope": 3
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 17,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "es",
+      "arm": "union",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 4,
+        "introduced_alignment_or_unit_scope": 4
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 4,
+        "introduced_alignment_or_unit_scope": 4
+      }
+    },
+    {
+      "target": "es",
+      "arm": "union",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7,
+        "introduced_alignment_or_unit_scope": 3
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "es",
+      "arm": "union",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 21,
+        "introduced_alignment_or_unit_scope": 2
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 19,
+        "introduced_alignment_or_unit_scope": 2
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "word",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 10,
+        "introduced_alignment_or_unit_scope": 9
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 10,
+        "introduced_alignment_or_unit_scope": 9
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "word",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 15,
+        "introduced_alignment_or_unit_scope": 12
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 12,
+        "introduced_alignment_or_unit_scope": 12
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "word",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 16,
+        "introduced_alignment_or_unit_scope": 13
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 13,
+        "introduced_alignment_or_unit_scope": 13
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "window",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "window",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 17,
+        "introduced_alignment_or_unit_scope": 2
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 15,
+        "introduced_alignment_or_unit_scope": 2
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "window",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 27,
+        "introduced_alignment_or_unit_scope": 7
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 21,
+        "introduced_alignment_or_unit_scope": 7
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "split",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 9
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 9
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "split",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 16,
+        "introduced_alignment_or_unit_scope": 3
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 16,
+        "introduced_alignment_or_unit_scope": 3
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "split",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 21,
+        "introduced_alignment_or_unit_scope": 5
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 20,
+        "introduced_alignment_or_unit_scope": 5
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "union",
+      "density": 0.1,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 7
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "union",
+      "density": 0.25,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 17,
+        "introduced_alignment_or_unit_scope": 2
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 17,
+        "introduced_alignment_or_unit_scope": 2
+      }
+    },
+    {
+      "target": "sw",
+      "arm": "union",
+      "density": 0.5,
+      "error_spans_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 24,
+        "introduced_alignment_or_unit_scope": 4
+      },
+      "messages_by_primary_cause": {
+        "wrong_sense_or_omission_already_in_full_reference": 21,
+        "introduced_alignment_or_unit_scope": 4
+      }
+    }
+  ],
+  "rows": [
+    {
+      "id": "uci-sms-line-4088",
+      "target": "sw",
+      "scope": [
+        0,
+        10,
+        0,
+        12
+      ],
+      "source": "Lemme know",
+      "translated": "Lemme anajua",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Lemme know becomes Lemme knows."
+    },
+    {
+      "id": "uci-sms-line-4088",
+      "target": "sw",
+      "scope": [
+        0,
+        15,
+        0,
+        19
+      ],
+      "source": "Lemme know when",
+      "translated": "Lemme anajua wakati",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Lemme know becomes Lemme knows."
+    },
+    {
+      "id": "uci-sms-line-2868",
+      "target": "sw",
+      "scope": [
+        12,
+        28,
+        11,
+        30
+      ],
+      "source": "da.i wanna gayle",
+      "translated": "da.i wanataka Gayle",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Smith waste source unclear; I wanna becomes they want."
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "target": "sw",
+      "scope": [
+        7,
+        12,
+        7,
+        13
+      ],
+      "source": "space",
+      "translated": "nafasi",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "space poker likely space game, nafasi is opportunity/place."
+    },
+    {
+      "id": "uci-sms-line-5537",
+      "target": "sw",
+      "scope": [
+        0,
+        8,
+        0,
+        4
+      ],
+      "source": "Ok which",
+      "translated": "Sawa",
+      "label": "material",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Ok which loses which."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "target": "sw",
+      "scope": [
+        15,
+        25,
+        15,
+        19
+      ],
+      "source": "Where else",
+      "translated": "Wapi",
+      "label": "material",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Where else drops else; mwingine is person/thing agreement not locative pengine."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "target": "sw",
+      "scope": [
+        21,
+        25,
+        20,
+        28
+      ],
+      "source": "else",
+      "translated": "mwingine",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Where else drops else; mwingine is person/thing agreement not locative pengine."
+    },
+    {
+      "id": "uci-sms-line-2826",
+      "target": "sw",
+      "scope": [
+        15,
+        20,
+        23,
+        34
+      ],
+      "source": "lunch",
+      "translated": "chakula cha",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "lunch becomes incomplete chakula cha, excluding mchana from reference."
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "target": "sw",
+      "scope": [
+        0,
+        4,
+        0,
+        6
+      ],
+      "source": "Arms",
+      "translated": "Silaha",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Arms injury becomes weapons; how is becomes how to."
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "target": "sw",
+      "scope": [
+        0,
+        9,
+        0,
+        12
+      ],
+      "source": "Arms fine",
+      "translated": "Silaha nzuri",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Arms injury becomes weapons; how is becomes how to."
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "target": "sw",
+      "scope": [
+        5,
+        24,
+        7,
+        30
+      ],
+      "source": "fine, how's Cardiff",
+      "translated": "nzuri, jinsi ya Cardiff",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Arms injury becomes weapons; how is becomes how to."
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "target": "sw",
+      "scope": [
+        11,
+        16,
+        14,
+        22
+      ],
+      "source": "how's",
+      "translated": "jinsi ya",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Arms injury becomes weapons; how is becomes how to."
+    },
+    {
+      "id": "uci-sms-line-443",
+      "target": "sw",
+      "scope": [
+        18,
+        25,
+        9,
+        15
+      ],
+      "source": "to wake",
+      "translated": "kuamka",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "wake ME requires causative kuamsha, not intransitive kuamka."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "target": "sw",
+      "scope": [
+        17,
+        20,
+        14,
+        18
+      ],
+      "source": "one",
+      "translated": "moja",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "one in some one treated as numeral; full translation also loses person."
+    },
+    {
+      "id": "uci-sms-line-3968",
+      "target": "sw",
+      "scope": [
+        29,
+        43,
+        30,
+        46
+      ],
+      "source": "Take care bruv",
+      "translated": "Jihadharini BRUV",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Farewell take care becomes beware."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "sw",
+      "scope": [
+        0,
+        4,
+        0,
+        6
+      ],
+      "source": "Book",
+      "translated": "Kitabu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Book a lesson becomes a noun book; I points to earlier me; call up phone sense lost."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "sw",
+      "scope": [
+        0,
+        17,
+        0,
+        15
+      ],
+      "source": "Book which lesson",
+      "translated": "Kitabu cha somo",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Book a lesson becomes a noun book; I points to earlier me; call up phone sense lost."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "sw",
+      "scope": [
+        32,
+        58,
+        32,
+        54
+      ],
+      "source": "me... I will call up after",
+      "translated": "mimi ... nitaita baada",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Book a lesson becomes a noun book; I points to earlier me; call up phone sense lost."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "sw",
+      "scope": [
+        38,
+        39,
+        32,
+        36
+      ],
+      "source": "I",
+      "translated": "mimi",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Book a lesson becomes a noun book; I points to earlier me; call up phone sense lost."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "sw",
+      "scope": [
+        38,
+        49,
+        41,
+        48
+      ],
+      "source": "I will call",
+      "translated": "nitaita",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Book a lesson becomes a noun book; I points to earlier me; call up phone sense lost."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "sw",
+      "scope": [
+        1,
+        4,
+        1,
+        3
+      ],
+      "source": "CAN",
+      "translated": "Je",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "CAN maps interrogative Je, not ability. REALLYNEED loses need; NO means know in this SMS, not hakuna."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "sw",
+      "scope": [
+        64,
+        122,
+        75,
+        126
+      ],
+      "source": "JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS",
+      "translated": "tu kweli 2DOCD.Please Dontplease Dontignore Mycalls",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "CAN maps interrogative Je, not ability. REALLYNEED loses need; NO means know in this SMS, not hakuna."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "sw",
+      "scope": [
+        64,
+        160,
+        75,
+        170
+      ],
+      "source": "JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO",
+      "translated": "tu kweli 2DOCD.Please Dontplease Dontignore Mycalls, u Hakuna TheCD isv.impportant tome 4 2moro",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "CAN maps interrogative Je, not ability. REALLYNEED loses need; NO means know in this SMS, not hakuna."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "sw",
+      "scope": [
+        123,
+        133,
+        128,
+        142
+      ],
+      "source": "U NO THECD",
+      "translated": "u Hakuna TheCD",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "CAN maps interrogative Je, not ability. REALLYNEED loses need; NO means know in this SMS, not hakuna."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "sw",
+      "scope": [
+        125,
+        127,
+        130,
+        136
+      ],
+      "source": "NO",
+      "translated": "Hakuna",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "CAN maps interrogative Je, not ability. REALLYNEED loses need; NO means know in this SMS, not hakuna."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "sw",
+      "scope": [
+        0,
+        38,
+        0,
+        46
+      ],
+      "source": "Sorry man, my stash ran dry last night",
+      "translated": "Samahani mtu, stash yangu mbio kavu usiku jana",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "ran dry idiom rendered literal race/dry."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "sw",
+      "scope": [
+        20,
+        23,
+        26,
+        30
+      ],
+      "source": "ran",
+      "translated": "mbio",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "ran dry idiom rendered literal race/dry."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "sw",
+      "scope": [
+        24,
+        27,
+        31,
+        35
+      ],
+      "source": "dry",
+      "translated": "kavu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "ran dry idiom rendered literal race/dry."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "sw",
+      "scope": [
+        24,
+        38,
+        31,
+        46
+      ],
+      "source": "dry last night",
+      "translated": "kavu usiku jana",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "ran dry idiom rendered literal race/dry."
+    },
+    {
+      "id": "uci-sms-line-395",
+      "target": "sw",
+      "scope": [
+        67,
+        73,
+        103,
+        106
+      ],
+      "source": "on for",
+      "translated": "kwa",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "on for maps for alone, loses powered-on sense."
+    },
+    {
+      "id": "uci-sms-line-4272",
+      "target": "sw",
+      "scope": [
+        0,
+        5,
+        0,
+        5
+      ],
+      "source": "Great",
+      "translated": "Kubwa",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Great positive acknowledgement becomes big; Hope becomes noun matumaini."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "target": "sw",
+      "scope": [
+        0,
+        21,
+        0,
+        15
+      ],
+      "source": "Tyler (getting an 8th",
+      "translated": "Tyler (kupata 8",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "getting an eighth loses quantity; long after loses after; to in has to maps unrelated kwa before hour."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "target": "sw",
+      "scope": [
+        27,
+        29,
+        70,
+        73
+      ],
+      "source": "to",
+      "translated": "kwa",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "getting an eighth loses quantity; long after loses after; to in has to maps unrelated kwa before hour."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "target": "sw",
+      "scope": [
+        40,
+        50,
+        27,
+        37
+      ],
+      "source": "long after",
+      "translated": "muda mrefu",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "getting an eighth loses quantity; long after loses after; to in has to maps unrelated kwa before hour."
+    },
+    {
+      "id": "uci-sms-line-36",
+      "target": "sw",
+      "scope": [
+        83,
+        85,
+        92,
+        95
+      ],
+      "source": "on",
+      "translated": "juu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on a date becomes spatial juu ya."
+    },
+    {
+      "id": "uci-sms-line-36",
+      "target": "sw",
+      "scope": [
+        83,
+        89,
+        92,
+        100
+      ],
+      "source": "on 2nd",
+      "translated": "juu ya 2",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on a date becomes spatial juu ya."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "target": "sw",
+      "scope": [
+        59,
+        72,
+        81,
+        100
+      ],
+      "source": "alot wiv work",
+      "translated": "kazi ya WIV ya ALOT",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "in his50s loses50; wiv treated proper name; got a woman coming becomes obtained a woman."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "target": "sw",
+      "scope": [
+        74,
+        83,
+        102,
+        118
+      ],
+      "source": "Got woman",
+      "translated": "Alipata mwanamke",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "in his50s loses50; wiv treated proper name; got a woman coming becomes obtained a woman."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        62,
+        85,
+        60,
+        87
+      ],
+      "source": "lage. Thats d rule. One",
+      "translated": "Lage. Hiyo ni utawala. Moja",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        62,
+        125,
+        60,
+        132
+      ],
+      "source": "lage. Thats d rule. One with great phone receiving quality wins",
+      "translated": "Lage. Hiyo ni utawala. Moja kwa simu nzuri ya kupokea mafanikio ya ubora",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        68,
+        80,
+        66,
+        81
+      ],
+      "source": "Thats d rule",
+      "translated": "Hiyo ni utawala",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        76,
+        80,
+        74,
+        81
+      ],
+      "source": "rule",
+      "translated": "utawala",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        103,
+        125,
+        106,
+        132
+      ],
+      "source": "receiving quality wins",
+      "translated": "kupokea mafanikio ya ubora",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "sw",
+      "scope": [
+        113,
+        125,
+        114,
+        132
+      ],
+      "source": "quality wins",
+      "translated": "mafanikio ya ubora",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "rule becomes governance utawala; wins becomes noun success."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "target": "sw",
+      "scope": [
+        0,
+        53,
+        0,
+        57
+      ],
+      "source": "That's good. Lets thank God. Please complete the drug",
+      "translated": "Hiyo ni nzuri. Hebu kumshukuru Mungu. Tafadhali jaza dawa",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "complete medication course becomes fill medication."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "target": "sw",
+      "scope": [
+        24,
+        53,
+        31,
+        57
+      ],
+      "source": "God. Please complete the drug",
+      "translated": "Mungu. Tafadhali jaza dawa",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "complete medication course becomes fill medication."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "target": "sw",
+      "scope": [
+        29,
+        48,
+        38,
+        52
+      ],
+      "source": "Please complete the",
+      "translated": "Tafadhali jaza",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "complete medication course becomes fill medication."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "sw",
+      "scope": [
+        54,
+        58,
+        57,
+        64
+      ],
+      "source": "left",
+      "translated": "kushoto",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile becomes leftward kushoto; make birthday means attend, not do/create."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "sw",
+      "scope": [
+        54,
+        65,
+        57,
+        69
+      ],
+      "source": "left mobile",
+      "translated": "kushoto simu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile becomes leftward kushoto; make birthday means attend, not do/create."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "sw",
+      "scope": [
+        80,
+        152,
+        90,
+        160
+      ],
+      "source": "Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun",
+      "translated": "Lancaster, tu got it bak neway im sorry siwezi kufanya ur b siku 2 hun",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile becomes leftward kushoto; make birthday means attend, not do/create."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "sw",
+      "scope": [
+        133,
+        137,
+        137,
+        144
+      ],
+      "source": "make",
+      "translated": "kufanya",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile becomes leftward kushoto; make birthday means attend, not do/create."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "sw",
+      "scope": [
+        133,
+        142,
+        137,
+        149
+      ],
+      "source": "make ur b",
+      "translated": "kufanya ur b",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile becomes leftward kushoto; make birthday means attend, not do/create."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "sw",
+      "scope": [
+        60,
+        62,
+        67,
+        70
+      ],
+      "source": "on",
+      "translated": "juu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on me means paid by me; ring matches closing proper name Pete; L8R becomes a person to meet with. Tired becomes noun fatigue."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "sw",
+      "scope": [
+        60,
+        65,
+        67,
+        76
+      ],
+      "source": "on me",
+      "translated": "juu yangu",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on me means paid by me; ring matches closing proper name Pete; L8R becomes a person to meet with. Tired becomes noun fatigue."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "sw",
+      "scope": [
+        81,
+        85,
+        190,
+        194
+      ],
+      "source": "ring",
+      "translated": "Pete",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "on me means paid by me; ring matches closing proper name Pete; L8R becomes a person to meet with. Tired becomes noun fatigue."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "sw",
+      "scope": [
+        100,
+        111,
+        122,
+        137
+      ],
+      "source": "meet up l8r",
+      "translated": "kukutana na L8R",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on me means paid by me; ring matches closing proper name Pete; L8R becomes a person to meet with. Tired becomes noun fatigue."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "target": "sw",
+      "scope": [
+        123,
+        162,
+        109,
+        143
+      ],
+      "source": "Hows school. Or do you call it work now",
+      "translated": "Jinsis shule. Au unaiita kazi sasa",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Hows becomes malformed Jinsis; do maps unrelated initial question marker."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "target": "sw",
+      "scope": [
+        139,
+        141,
+        32,
+        34
+      ],
+      "source": "do",
+      "translated": "Je",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Hows becomes malformed Jinsis; do maps unrelated initial question marker."
+    },
+    {
+      "id": "tm2-dlg-57fc0d2e-0c45-4e38-ba71-145bc1080fd7-2",
+      "target": "sw",
+      "scope": [
+        0,
+        13,
+        0,
+        12
+      ],
+      "source": "What should I",
+      "translated": "Nifanye nini",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "What should I maps what should I DO, consuming action outside source scope."
+    },
+    {
+      "id": "tm2-dlg-550e888a-e647-4090-8a6b-d7f7401f63e3-4",
+      "target": "sw",
+      "scope": [
+        3,
+        15,
+        4,
+        18
+      ],
+      "source": "Swansea City",
+      "translated": "mji wa Swansea",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Swansea City football club becomes town."
+    },
+    {
+      "id": "tm2-dlg-550e888a-e647-4090-8a6b-d7f7401f63e3-4",
+      "target": "sw",
+      "scope": [
+        11,
+        15,
+        4,
+        7
+      ],
+      "source": "City",
+      "translated": "mji",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Swansea City football club becomes town."
+    },
+    {
+      "id": "tm2-dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0-14",
+      "target": "sw",
+      "scope": [
+        31,
+        34,
+        33,
+        35
+      ],
+      "source": "Can",
+      "translated": "Je",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Can maps Je; music playback kucheza kept uncertain rather than assuming wrong."
+    },
+    {
+      "id": "tm2-dlg-d04d450a-696b-4b9c-99c2-97787cfd0f42-12",
+      "target": "sw",
+      "scope": [
+        0,
+        14,
+        0,
+        16
+      ],
+      "source": "Oh, okay, cool",
+      "translated": "Oh, sawa, baridi",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "cool positive acknowledgement becomes cold."
+    },
+    {
+      "id": "tm2-dlg-076f89a2-295b-440c-ac28-a5fb59671be7-4",
+      "target": "sw",
+      "scope": [
+        73,
+        88,
+        50,
+        73
+      ],
+      "source": "nonstop flights",
+      "translated": "ndege zisizo za kawaida",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "nonstop flights becomes unusual planes."
+    },
+    {
+      "id": "tm2-dlg-bdcaa7a9-bf26-450f-af66-5deda465ac0a-2",
+      "target": "sw",
+      "scope": [
+        49,
+        64,
+        43,
+        54
+      ],
+      "source": "The price range",
+      "translated": "Aina ya bei",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Date25/27 omitted from spans; price range becomes type of price."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "sw",
+      "scope": [
+        49,
+        67,
+        52,
+        75
+      ],
+      "source": "on Rotten Tomatoes",
+      "translated": "juu ya nyanya zilizooza",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Rotten Tomatoes proper title literal; movie showing treated as actively showing something."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "sw",
+      "scope": [
+        52,
+        72,
+        59,
+        75
+      ],
+      "source": "Rotten Tomatoes that",
+      "translated": "nyanya zilizooza",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Rotten Tomatoes proper title literal; movie showing treated as actively showing something."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "sw",
+      "scope": [
+        59,
+        67,
+        59,
+        65
+      ],
+      "source": "Tomatoes",
+      "translated": "nyanya",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Rotten Tomatoes proper title literal; movie showing treated as actively showing something."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "sw",
+      "scope": [
+        73,
+        93,
+        83,
+        102
+      ],
+      "source": "is currently showing",
+      "translated": "kwa sasa inaonyesha",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Rotten Tomatoes proper title literal; movie showing treated as actively showing something."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "sw",
+      "scope": [
+        73,
+        104,
+        83,
+        116
+      ],
+      "source": "is currently showing is, please",
+      "translated": "kwa sasa inaonyesha ni, tafadhali",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Rotten Tomatoes proper title literal; movie showing treated as actively showing something."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "sw",
+      "scope": [
+        17,
+        27,
+        13,
+        25
+      ],
+      "source": "Four Hills",
+      "translated": "milima minne",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills place literal; looking for becomes looking at."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "sw",
+      "scope": [
+        17,
+        39,
+        13,
+        37
+      ],
+      "source": "Four Hills, California",
+      "translated": "milima minne, California",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills place literal; looking for becomes looking at."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "sw",
+      "scope": [
+        69,
+        80,
+        58,
+        69
+      ],
+      "source": "I'm looking",
+      "translated": "ninaangalia",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills place literal; looking for becomes looking at."
+    },
+    {
+      "id": "tm2-dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c-8",
+      "target": "sw",
+      "scope": [
+        40,
+        42,
+        68,
+        70
+      ],
+      "source": "of",
+      "translated": "ya",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "literary appears typo in original; music cover becomes lid. of aligns band ya kisasa rather than version la hili."
+    },
+    {
+      "id": "tm2-dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c-8",
+      "target": "sw",
+      "scope": [
+        72,
+        97,
+        78,
+        99
+      ],
+      "source": "or something like a cover",
+      "translated": "au kitu kama kifuniko",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "literary appears typo in original; music cover becomes lid. of aligns band ya kisasa rather than version la hili."
+    },
+    {
+      "id": "tm2-dlg-2845ff4e-a607-4208-bb68-1446d841401f-9",
+      "target": "sw",
+      "scope": [
+        11,
+        14,
+        8,
+        10
+      ],
+      "source": "Can",
+      "translated": "Je",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Can maps Je while reference ability is Unaweza."
+    },
+    {
+      "id": "tm2-dlg-d9088287-1f6a-4abc-9380-6389ff19ee3e-2",
+      "target": "sw",
+      "scope": [
+        4,
+        11,
+        52,
+        61
+      ],
+      "source": "looking",
+      "translated": "kuangalia",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "looking for aligns kuangalia from later watch, while reference source looking is ninatafuta."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "sw",
+      "scope": [
+        0,
+        3,
+        0,
+        10
+      ],
+      "source": "I'd",
+      "translated": "Ningependa",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Id becomes full would like, dinner courses become numbered dinners; atmosphere sense uncertain."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "sw",
+      "scope": [
+        0,
+        94,
+        0,
+        93
+      ],
+      "source": "I'd like like a certain special like three-course dinner or four-course dinner. Something like",
+      "translated": "Ningependa kama maalum kama ya chakula cha jioni tatu au chakula cha jioni cha nne. Kitu kama",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Id becomes full would like, dinner courses become numbered dinners; atmosphere sense uncertain."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "sw",
+      "scope": [
+        60,
+        78,
+        57,
+        82
+      ],
+      "source": "four-course dinner",
+      "translated": "chakula cha jioni cha nne",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Id becomes full would like, dinner courses become numbered dinners; atmosphere sense uncertain."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        121,
+        132,
+        103,
+        120
+      ],
+      "source": "I was going",
+      "translated": "nilikuwa nikienda",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        121,
+        140,
+        103,
+        120
+      ],
+      "source": "I was going through",
+      "translated": "nilikuwa nikienda",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        152,
+        166,
+        138,
+        148
+      ],
+      "source": "with a breakup",
+      "translated": "na kuvunja",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        157,
+        166,
+        141,
+        148
+      ],
+      "source": "a breakup",
+      "translated": "kuvunja",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        212,
+        219,
+        208,
+        223
+      ],
+      "source": "Now I'd",
+      "translated": "Sasa ningependa",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "sw",
+      "scope": [
+        216,
+        219,
+        213,
+        223
+      ],
+      "source": "I'd",
+      "translated": "ningependa",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "going through difficulties becomes physically going; breakup becomes breaking an object. Id maps whole would-like verb."
+    },
+    {
+      "id": "uci-sms-line-4088",
+      "target": "es",
+      "scope": [
+        0,
+        15,
+        0,
+        17
+      ],
+      "source": "Lemme know when",
+      "translated": "Lemme sabe cuando",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Lemme know mistranslated as third-person sabe; reference shares error."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "target": "es",
+      "scope": [
+        4,
+        8,
+        6,
+        11
+      ],
+      "source": "done",
+      "translated": "hecho",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "done is finished a task, not made/hecho."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "target": "es",
+      "scope": [
+        4,
+        14,
+        6,
+        17
+      ],
+      "source": "done oredi",
+      "translated": "hecho oredi",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "done is finished a task, not made/hecho."
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "target": "es",
+      "scope": [
+        12,
+        21,
+        13,
+        24
+      ],
+      "source": "we go tog",
+      "translated": "vamos a TOG",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "tog likely together, treated as destination TOG."
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "target": "es",
+      "scope": [
+        12,
+        25,
+        13,
+        28
+      ],
+      "source": "we go tog lor",
+      "translated": "vamos a TOG LOR",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "tog likely together, treated as destination TOG."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "target": "es",
+      "scope": [
+        12,
+        20,
+        17,
+        24
+      ],
+      "source": "some one",
+      "translated": "un poco",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "some one becomes a little; flat becomes plane."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "target": "es",
+      "scope": [
+        28,
+        32,
+        35,
+        40
+      ],
+      "source": "flat",
+      "translated": "plano",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "some one becomes a little; flat becomes plane."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "target": "es",
+      "scope": [
+        28,
+        39,
+        35,
+        46
+      ],
+      "source": "flat before",
+      "translated": "plano antes",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "some one becomes a little; flat becomes plane."
+    },
+    {
+      "id": "uci-sms-line-3968",
+      "target": "es",
+      "scope": [
+        0,
+        20,
+        5,
+        21
+      ],
+      "source": "I was just callin to",
+      "translated": "estaba llamado a",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "calling becomes being called/summoned."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "es",
+      "scope": [
+        87,
+        96,
+        91,
+        115
+      ],
+      "source": "get specs",
+      "translated": "obtener especificaciones",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "specs means glasses, not specifications."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "es",
+      "scope": [
+        87,
+        100,
+        91,
+        119
+      ],
+      "source": "get specs. My",
+      "translated": "obtener especificaciones. Mi",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "specs means glasses, not specifications."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "es",
+      "scope": [
+        87,
+        121,
+        91,
+        139
+      ],
+      "source": "get specs. My membership is PX3748",
+      "translated": "obtener especificaciones. Mi membresía es PX3748",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "specs means glasses, not specifications."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "target": "es",
+      "scope": [
+        91,
+        96,
+        99,
+        115
+      ],
+      "source": "specs",
+      "translated": "especificaciones",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "specs means glasses, not specifications."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "target": "es",
+      "scope": [
+        19,
+        30,
+        25,
+        35
+      ],
+      "source": "UP NOW IMIN",
+      "translated": "ahora imin",
+      "label": "material",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "UP lost from its source scope."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "es",
+      "scope": [
+        0,
+        19,
+        0,
+        30
+      ],
+      "source": "Sorry man, my stash",
+      "translated": "Lo siento hombre, mi escondite",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "stash becomes hiding place rather than supply; ran dry loses tense."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "target": "es",
+      "scope": [
+        0,
+        38,
+        0,
+        45
+      ],
+      "source": "Sorry man, my stash ran dry last night",
+      "translated": "Lo siento hombre, mi escondite se seca anoche",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "stash becomes hiding place rather than supply; ran dry loses tense."
+    },
+    {
+      "id": "uci-sms-line-395",
+      "target": "es",
+      "scope": [
+        31,
+        41,
+        32,
+        46
+      ],
+      "source": "but my lap",
+      "translated": "pero mi regazo",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "lap likely laptop, reference uses lap/regazo."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "target": "es",
+      "scope": [
+        62,
+        65,
+        7,
+        14
+      ],
+      "source": "get",
+      "translated": "obtener",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "get here aligned to obtener in earlier getting an eighth; reference renders get here as llegar."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "target": "es",
+      "scope": [
+        17,
+        20,
+        99,
+        101
+      ],
+      "source": "the",
+      "translated": "la",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "the aligned to la before woman, not el piso; wiv treated as name WIV."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "target": "es",
+      "scope": [
+        64,
+        72,
+        77,
+        91
+      ],
+      "source": "wiv work",
+      "translated": "trabajo de WIV",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "the aligned to la before woman, not el piso; wiv treated as name WIV."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "target": "es",
+      "scope": [
+        62,
+        125,
+        75,
+        145
+      ],
+      "source": "lage. Thats d rule. One with great phone receiving quality wins",
+      "translated": "Lage. Esa es la regla. Uno con un gran teléfono que recibe una calidad",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "long phrase drops wins and misparses receiving quality."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "target": "es",
+      "scope": [
+        0,
+        53,
+        0,
+        65
+      ],
+      "source": "That's good. Lets thank God. Please complete the drug",
+      "translated": "Eso es bueno. Agrademos a Dios. Por favor complete el medicamento",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Agrademos is please (agradar), not thank (agradecer)."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "target": "es",
+      "scope": [
+        13,
+        27,
+        14,
+        30
+      ],
+      "source": "Lets thank God",
+      "translated": "Agrademos a Dios",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Agrademos is please (agradar), not thank (agradecer)."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "es",
+      "scope": [
+        0,
+        79,
+        0,
+        89
+      ],
+      "source": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in",
+      "translated": "Hola, hola, hola Lou, lo siento, tomó tanto tiempo 2 Responder, me fui móvil en amigos en",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile interpreted as departed/me fui; source object relationship lost."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "es",
+      "scope": [
+        45,
+        58,
+        53,
+        70
+      ],
+      "source": "reply- I left",
+      "translated": "Responder, me fui",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile interpreted as departed/me fui; source object relationship lost."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "es",
+      "scope": [
+        52,
+        58,
+        64,
+        70
+      ],
+      "source": "I left",
+      "translated": "me fui",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile interpreted as departed/me fui; source object relationship lost."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "target": "es",
+      "scope": [
+        59,
+        76,
+        71,
+        86
+      ],
+      "source": "mobile at friends",
+      "translated": "móvil en amigos",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "left mobile interpreted as departed/me fui; source object relationship lost."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "es",
+      "scope": [
+        60,
+        62,
+        74,
+        79
+      ],
+      "source": "on",
+      "translated": "sobre",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on me means paid by me; sobre mi is spatial. tired got drops arrival verb."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "es",
+      "scope": [
+        60,
+        65,
+        74,
+        82
+      ],
+      "source": "on me",
+      "translated": "sobre mí",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "on me means paid by me; sobre mi is spatial. tired got drops arrival verb."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "es",
+      "scope": [
+        113,
+        128,
+        134,
+        150
+      ],
+      "source": "quite tired got",
+      "translated": "Bastante cansado",
+      "label": "material",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "on me means paid by me; sobre mi is spatial. tired got drops arrival verb."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "target": "es",
+      "scope": [
+        119,
+        128,
+        143,
+        150
+      ],
+      "source": "tired got",
+      "translated": "cansado",
+      "label": "material",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "on me means paid by me; sobre mi is spatial. tired got drops arrival verb."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "target": "es",
+      "scope": [
+        55,
+        76,
+        40,
+        71
+      ],
+      "source": "get the money. Cheers",
+      "translated": "obtener el dinero? Aclamaciones",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Cheers closing becomes applause."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "target": "es",
+      "scope": [
+        70,
+        76,
+        59,
+        71
+      ],
+      "source": "Cheers",
+      "translated": "Aclamaciones",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Cheers closing becomes applause."
+    },
+    {
+      "id": "tm2-dlg-a2492812-3636-43cd-b0d7-4e2b8018d778-2",
+      "target": "es",
+      "scope": [
+        0,
+        7,
+        0,
+        11
+      ],
+      "source": "I would",
+      "translated": "Me gustaría",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "I would aligned to complete would-like gustaria; infinitive to aligned to a before two people."
+    },
+    {
+      "id": "tm2-dlg-a2492812-3636-43cd-b0d7-4e2b8018d778-2",
+      "target": "es",
+      "scope": [
+        13,
+        15,
+        37,
+        38
+      ],
+      "source": "to",
+      "translated": "a",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "I would aligned to complete would-like gustaria; infinitive to aligned to a before two people."
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "target": "es",
+      "scope": [
+        4,
+        13,
+        7,
+        18
+      ],
+      "source": "starts at",
+      "translated": "comienza en",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "small forward and starter basketball roles translated literally."
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "target": "es",
+      "scope": [
+        14,
+        19,
+        22,
+        29
+      ],
+      "source": "small",
+      "translated": "pequeño",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "small forward and starter basketball roles translated literally."
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "target": "es",
+      "scope": [
+        14,
+        31,
+        22,
+        43
+      ],
+      "source": "small forward for",
+      "translated": "pequeño adelante para",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "small forward and starter basketball roles translated literally."
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "target": "es",
+      "scope": [
+        20,
+        52,
+        30,
+        64
+      ],
+      "source": "forward for the Dallas Mavericks",
+      "translated": "adelante para los Dallas Mavericks",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "small forward and starter basketball roles translated literally."
+    },
+    {
+      "id": "tm2-dlg-25580a6e-a44e-4d35-b892-c29861c80c76-4",
+      "target": "es",
+      "scope": [
+        16,
+        25,
+        15,
+        25
+      ],
+      "source": "play me a",
+      "translated": "jugarme un",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "playing music becomes playing a game."
+    },
+    {
+      "id": "tm2-dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a-10",
+      "target": "es",
+      "scope": [
+        14,
+        37,
+        15,
+        42
+      ],
+      "source": "is Stoke City's manager",
+      "translated": "es el gerente de Stoke City",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "manager of soccer team becomes business gerente."
+    },
+    {
+      "id": "tm2-dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a-10",
+      "target": "es",
+      "scope": [
+        30,
+        37,
+        21,
+        28
+      ],
+      "source": "manager",
+      "translated": "gerente",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "manager of soccer team becomes business gerente."
+    },
+    {
+      "id": "tm2-dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0-14",
+      "target": "es",
+      "scope": [
+        23,
+        58,
+        25,
+        66
+      ],
+      "source": "Guster. Can you play Guster, please",
+      "translated": "Guster. ¿Puedes jugar a Guster, por favor",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "playing music becomes jugar."
+    },
+    {
+      "id": "tm2-dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0-14",
+      "target": "es",
+      "scope": [
+        31,
+        43,
+        34,
+        46
+      ],
+      "source": "Can you play",
+      "translated": "Puedes jugar",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "playing music becomes jugar."
+    },
+    {
+      "id": "tm2-dlg-bdcaa7a9-bf26-450f-af66-5deda465ac0a-2",
+      "target": "es",
+      "scope": [
+        20,
+        30,
+        42,
+        50
+      ],
+      "source": "from March",
+      "translated": "de marzo",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "from March loses temporal from; to the27th loses date entirely."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "es",
+      "scope": [
+        28,
+        48,
+        27,
+        43
+      ],
+      "source": "highest-rated comedy",
+      "translated": "comedia más alta",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "highest rated loses rating; Rotten Tomatoes title literal; showing cinema sense wrong."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "es",
+      "scope": [
+        52,
+        72,
+        51,
+        71
+      ],
+      "source": "Rotten Tomatoes that",
+      "translated": "tomates podridos que",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "highest rated loses rating; Rotten Tomatoes title literal; showing cinema sense wrong."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "es",
+      "scope": [
+        59,
+        67,
+        51,
+        58
+      ],
+      "source": "Tomatoes",
+      "translated": "tomates",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "highest rated loses rating; Rotten Tomatoes title literal; showing cinema sense wrong."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "target": "es",
+      "scope": [
+        86,
+        93,
+        77,
+        86
+      ],
+      "source": "showing",
+      "translated": "mostrando",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "highest rated loses rating; Rotten Tomatoes title literal; showing cinema sense wrong."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "es",
+      "scope": [
+        17,
+        27,
+        12,
+        26
+      ],
+      "source": "Four Hills",
+      "translated": "cuatro colinas",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills proper place becomes generic four hills."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "es",
+      "scope": [
+        17,
+        39,
+        12,
+        38
+      ],
+      "source": "Four Hills, California",
+      "translated": "cuatro colinas, California",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills proper place becomes generic four hills."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "target": "es",
+      "scope": [
+        22,
+        27,
+        19,
+        26
+      ],
+      "source": "Hills",
+      "translated": "colinas",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Four Hills proper place becomes generic four hills."
+    },
+    {
+      "id": "tm2-dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c-8",
+      "target": "es",
+      "scope": [
+        49,
+        97,
+        59,
+        116
+      ],
+      "source": "maybe by a modern band or something like a cover",
+      "translated": "tal vez por una banda moderna o algo así como una portada",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "music cover becomes cover/page portada."
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "target": "es",
+      "scope": [
+        8,
+        11,
+        55,
+        57
+      ],
+      "source": "the",
+      "translated": "la",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "the before LA Rams aligns to la semana; infinitive to aligns question-initial A."
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "target": "es",
+      "scope": [
+        56,
+        58,
+        1,
+        2
+      ],
+      "source": "to",
+      "translated": "A",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "the before LA Rams aligns to la semana; infinitive to aligns question-initial A."
+    },
+    {
+      "id": "tm2-dlg-29083eda-dcf8-45aa-a35f-bf2b135ef467-14",
+      "target": "es",
+      "scope": [
+        122,
+        126,
+        61,
+        64
+      ],
+      "source": "that",
+      "translated": "que",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "final that (asi) aligns unrelated relative que."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "es",
+      "scope": [
+        0,
+        3,
+        0,
+        2
+      ],
+      "source": "I'd",
+      "translated": "Me",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Id becomes me without modal; demonstrative that aligns relative que; candle-light becomes candle type."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "es",
+      "scope": [
+        95,
+        99,
+        118,
+        121
+      ],
+      "source": "that",
+      "translated": "que",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Id becomes me without modal; demonstrative that aligns relative que; candle-light becomes candle type."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "target": "es",
+      "scope": [
+        169,
+        186,
+        171,
+        183
+      ],
+      "source": "candle-light kind",
+      "translated": "tipo de vela",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Id becomes me without modal; demonstrative that aligns relative que; candle-light becomes candle type."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        203,
+        275,
+        195,
+        279
+      ],
+      "source": "awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy",
+      "translated": "impresionante. Ahora me gustaría escuchar una canción más de Bonobo. Se llama gitano",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        216,
+        219,
+        216,
+        218
+      ],
+      "source": "I'd",
+      "translated": "me",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        247,
+        249,
+        128,
+        131
+      ],
+      "source": "by",
+      "translated": "por",
+      "label": "wrong_scope",
+      "primary_cause": "introduced_alignment_or_unit_scope",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        250,
+        275,
+        256,
+        279
+      ],
+      "source": "Bonobo. It's called Gypsy",
+      "translated": "Bonobo. Se llama gitano",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        258,
+        275,
+        264,
+        279
+      ],
+      "source": "It's called Gypsy",
+      "translated": "Se llama gitano",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "target": "es",
+      "scope": [
+        270,
+        275,
+        273,
+        279
+      ],
+      "source": "Gypsy",
+      "translated": "gitano",
+      "label": "material",
+      "primary_cause": "wrong_sense_or_omission_already_in_full_reference",
+      "finding": "Gypsy song title literal; Id loses modal; by Bonobo aligns unrelated por in went through."
+    }
+  ]
+}

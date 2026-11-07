@@ -1,0 +1,58 @@
+{
+  "schema": "vipi-direct-independent-review-comparison-1",
+  "comparison": "Root blind24 window50%r02 vs independently fixed author labels for matchingr03 selections. Minor grammar excluded from disagreement classification.",
+  "exact_agreement": 20,
+  "cases": 24,
+  "disagreements": [
+    {
+      "id": "uci-sms-line-4489",
+      "target": "es",
+      "root": "meaning_error",
+      "immersion_author": "uncertain",
+      "author_span_labels": [
+        "uncertain",
+        "correct",
+        "correct",
+        "uncertain",
+        "correct"
+      ],
+      "root_note": "Miss call expression is split and call becomes the imperative Llame in mixed Bengali/English text. with great phone also cuts across the phone-receiving-quality construction.",
+      "author_note": "long phrase drops wins and misparses receiving quality."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "target": "es",
+      "root": "uncertain",
+      "immersion_author": "meaning_error",
+      "author_span_labels": [
+        "material"
+      ],
+      "root_note": "done→hecho in I am done is at best a weak context match; completed-person/activity sense is not demonstrated by isolated hecho. Unknown oredi is merely copied.",
+      "author_note": "done is finished a task, not made/hecho."
+    },
+    {
+      "id": "tm2-dlg-71509a66-1c66-45b1-b5a6-298443f1aabc-9",
+      "target": "es",
+      "root": "uncertain",
+      "immersion_author": "clean",
+      "author_span_labels": [
+        "minor"
+      ],
+      "root_note": "No, Do not→No, no in an incomplete source leaves an awkward mixed fragment. No clear polarity reversal, but not a reliable construction.",
+      "author_note": "Selected scopes inspected; no material meaning/scope defect identified by author."
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "target": "es",
+      "root": "uncertain",
+      "immersion_author": "meaning_error",
+      "author_span_labels": [
+        "correct",
+        "wrong_scope",
+        "correct"
+      ],
+      "root_note": "to→A matches the first question in full MT, not the later going-to construction. Exact token presence is not evidence of correct alignment; the mixed text may remain guessable.",
+      "author_note": "the before LA Rams aligns to la semana; infinitive to aligns question-initial A."
+    }
+  ]
+}
