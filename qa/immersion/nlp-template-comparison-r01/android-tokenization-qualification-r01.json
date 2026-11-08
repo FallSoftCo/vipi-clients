@@ -1,0 +1,66 @@
+{
+  "schema": "vipi-android-nlp-tokenization-qualification-1",
+  "complete": true,
+  "production_changes": false,
+  "source_only": true,
+  "translation_calls": 0,
+  "model_downloads": 0,
+  "source_commit": "01614ec19f53721a5a04d1ef34cdaf2d5c9a8a77",
+  "source_snapshot_manifest_sha256": "4b36621a49c645cdf8315b8e35408fa29cf89262c4528ca515778020f013c1ca",
+  "source_hashes": {
+    "android/app/src/androidTest/java/co/fallsoft/vipi/NlpTemplateTokenizationDeviceTest.kt": "927e55f1fe05d9ab45f8dfce66faa272d718caf748c7a90ae51714bcbd7a18ba",
+    "android/app/src/main/java/co/fallsoft/vipi/LocalImmersion.kt": "4805b5f9abd6dacda9ec8e0c1b8b37852c28a04b7be8232cf986a50bf274c02b",
+    "android/app/src/main/java/co/fallsoft/vipi/ReviewedFrameLookup.kt": "17509677f93a9ba185f7db3566df50676974d145324cf3a1426a6194e9059d0d"
+  },
+  "input_sha256": "4f0102f6a74dd79c60a770e24ed502bcc8c53158f070fdbe9545bdc0214507b3",
+  "contract_sha256": "3767a5f794023ff1fef85f5120658ce7881be0c143fd2357dcfcfe705272fdf2",
+  "rows": 9535,
+  "native_words": 121960,
+  "native_windows": 572040,
+  "window_bound_rejections": 0,
+  "all_first_warm_geometry_equal": true,
+  "elapsed_ms": 12181,
+  "timing": {
+    "first": {
+      "median_ms": 0.282332,
+      "max_ms": 10.94789
+    },
+    "warm": {
+      "median_ms": 0.266127,
+      "max_ms": 10.922225
+    }
+  },
+  "pss_kib_sampled": [
+    128459,
+    227934
+  ],
+  "memory_scope": "Whole instrumentation app process including decoded source JSON and serialization; not isolated matcher allocation or a peak profiler.",
+  "artifact_bytes": 9133177,
+  "evidence": {
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/rows.jsonl": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/summary.json": "179d901522bd5738ea36d969a0069ea4ad2e189490a475899bb6e62e9e8f004c",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/runner.json": "04b667285ec687481fb8d1653f482f977ccdc2cc15e3f8b559927e8b9fb9bd4d",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/native.log": "72f4f0abab9a9269f3120d221d0762efd6b26d9b3c1bfa525eb56a06e05b7a7f",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/build-r87.log": "4de6d649647b518c8f9df55736a0f6c90f8773949d44757b4547d6a49ceded08"
+  },
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r87/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "2e480d644ad64289b4818702d3afab552dde09326288272be41e7bd36ab42003",
+      "bytes": 509556394
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r87/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "sha256": "130ac58b6fe440e7436057037f81b52a149ca8a501f677c2d41c6e3bdc61f069",
+      "bytes": 4835380
+    }
+  ],
+  "settings_restored": true,
+  "retained_failure": "First input transport r87 used exec-out stdin and left an empty file. No test began; owned transfer client was stopped and settings restored. r87b reused exact binaries with adb push/private copy and hash readback.",
+  "limits": [
+    "No phrase/template matching outputs yet",
+    "No target/meaning evaluation or new corpus claim",
+    "No physical/API28/ARM64 qualification",
+    "Canonical inherited matcher experiments were excluded from this clean source snapshot and remain untouched"
+  ]
+}
