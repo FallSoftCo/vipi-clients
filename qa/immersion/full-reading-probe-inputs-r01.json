@@ -1,0 +1,301 @@
+{
+  "schema": "vipi-full-reading-probe-1",
+  "purpose": "Frozen input-only native reading experiment; no expected readings or author labels included",
+  "selection": {
+    "control": "first4 per language by SHA256(language NUL exact text), before native outputs",
+    "control_source": "data/examples/sentence-readings.json",
+    "control_source_sha256": "41dc56026038176348580016725ce1197e58b21586a719d3b40aa5c07d457c24",
+    "contrast": "four language-specific cases already proposed before native output",
+    "mixed_unknown": "four authored identifier/name/unknown-script stress cases per language; not conversational population sampling"
+  },
+  "cases": [
+    {
+      "id": "ja-authored_control-1",
+      "language": "ja",
+      "group": "authored_control",
+      "text": "大学の学生が本を読んでいます。"
+    },
+    {
+      "id": "ja-authored_control-2",
+      "language": "ja",
+      "group": "authored_control",
+      "text": "いい知らせがあります。"
+    },
+    {
+      "id": "ja-authored_control-3",
+      "language": "ja",
+      "group": "authored_control",
+      "text": "もっと時間が必要です。"
+    },
+    {
+      "id": "ja-authored_control-4",
+      "language": "ja",
+      "group": "authored_control",
+      "text": "電車の切符を買いました。"
+    },
+    {
+      "id": "ja-contrast-1",
+      "language": "ja",
+      "group": "contrast",
+      "text": "私は葉を見ます。"
+    },
+    {
+      "id": "ja-contrast-2",
+      "language": "ja",
+      "group": "contrast",
+      "text": "学校へ行きます。へびがいます。"
+    },
+    {
+      "id": "ja-contrast-3",
+      "language": "ja",
+      "group": "contrast",
+      "text": "こんにちは。または明日。"
+    },
+    {
+      "id": "ja-contrast-4",
+      "language": "ja",
+      "group": "contrast",
+      "text": "生の魚と生ビール。"
+    },
+    {
+      "id": "ja-mixed_unknown-1",
+      "language": "ja",
+      "group": "mixed_unknown",
+      "text": "明日はVipiで18:30に会おう 😊。"
+    },
+    {
+      "id": "ja-mixed_unknown-2",
+      "language": "ja",
+      "group": "mixed_unknown",
+      "text": "ZoëとJoséにメッセージを送った。"
+    },
+    {
+      "id": "ja-mixed_unknown-3",
+      "language": "ja",
+      "group": "mixed_unknown",
+      "text": "住所はhttps://example.com/a?x=1です。"
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "language": "ja",
+      "group": "mixed_unknown",
+      "text": "𠮷田さんに¥1,250を渡した。"
+    },
+    {
+      "id": "zh-authored_control-1",
+      "language": "zh",
+      "group": "authored_control",
+      "text": "我需要一把门钥匙。"
+    },
+    {
+      "id": "zh-authored_control-2",
+      "language": "zh",
+      "group": "authored_control",
+      "text": "我正在遛狗。"
+    },
+    {
+      "id": "zh-authored_control-3",
+      "language": "zh",
+      "group": "authored_control",
+      "text": "我正在看一部电影。"
+    },
+    {
+      "id": "zh-authored_control-4",
+      "language": "zh",
+      "group": "authored_control",
+      "text": "公交车晚点了。"
+    },
+    {
+      "id": "zh-contrast-1",
+      "language": "zh",
+      "group": "contrast",
+      "text": "银行的行长明天有空。"
+    },
+    {
+      "id": "zh-contrast-2",
+      "language": "zh",
+      "group": "contrast",
+      "text": "我还要还书。"
+    },
+    {
+      "id": "zh-contrast-3",
+      "language": "zh",
+      "group": "contrast",
+      "text": "音乐让他快乐。"
+    },
+    {
+      "id": "zh-contrast-4",
+      "language": "zh",
+      "group": "contrast",
+      "text": "重庆见，18:30。"
+    },
+    {
+      "id": "zh-mixed_unknown-1",
+      "language": "zh",
+      "group": "mixed_unknown",
+      "text": "明天18:30在Vipi见 😊。"
+    },
+    {
+      "id": "zh-mixed_unknown-2",
+      "language": "zh",
+      "group": "mixed_unknown",
+      "text": "请联系Zoë和José。"
+    },
+    {
+      "id": "zh-mixed_unknown-3",
+      "language": "zh",
+      "group": "mixed_unknown",
+      "text": "链接是https://example.com/a?x=1。"
+    },
+    {
+      "id": "zh-mixed_unknown-4",
+      "language": "zh",
+      "group": "mixed_unknown",
+      "text": "𠮷先生的订单是A-104，价格¥1,250。"
+    },
+    {
+      "id": "ko-authored_control-1",
+      "language": "ko",
+      "group": "authored_control",
+      "text": "음식이 더 필요해요."
+    },
+    {
+      "id": "ko-authored_control-2",
+      "language": "ko",
+      "group": "authored_control",
+      "text": "기차가 늦어요."
+    },
+    {
+      "id": "ko-authored_control-3",
+      "language": "ko",
+      "group": "authored_control",
+      "text": "아니요."
+    },
+    {
+      "id": "ko-authored_control-4",
+      "language": "ko",
+      "group": "authored_control",
+      "text": "숙제를 끝냈어요."
+    },
+    {
+      "id": "ko-contrast-1",
+      "language": "ko",
+      "group": "contrast",
+      "text": "같이 학교에 갑니다."
+    },
+    {
+      "id": "ko-contrast-2",
+      "language": "ko",
+      "group": "contrast",
+      "text": "같다. 같이."
+    },
+    {
+      "id": "ko-contrast-3",
+      "language": "ko",
+      "group": "contrast",
+      "text": "국물을 먹어요."
+    },
+    {
+      "id": "ko-contrast-4",
+      "language": "ko",
+      "group": "contrast",
+      "text": "책을 읽어요."
+    },
+    {
+      "id": "ko-mixed_unknown-1",
+      "language": "ko",
+      "group": "mixed_unknown",
+      "text": "내일 18:30에 Vipi에서 만나요 😊."
+    },
+    {
+      "id": "ko-mixed_unknown-2",
+      "language": "ko",
+      "group": "mixed_unknown",
+      "text": "Zoë와 José에게 메시지를 보냈어요."
+    },
+    {
+      "id": "ko-mixed_unknown-3",
+      "language": "ko",
+      "group": "mixed_unknown",
+      "text": "주소는 https://example.com/a?x=1 입니다."
+    },
+    {
+      "id": "ko-mixed_unknown-4",
+      "language": "ko",
+      "group": "mixed_unknown",
+      "text": "𠮷 씨의 주문은 A-104이고 가격은 ₩1,250입니다."
+    },
+    {
+      "id": "ar-authored_control-1",
+      "language": "ar",
+      "group": "authored_control",
+      "text": "أبحث عن فندق."
+    },
+    {
+      "id": "ar-authored_control-2",
+      "language": "ar",
+      "group": "authored_control",
+      "text": "لا."
+    },
+    {
+      "id": "ar-authored_control-3",
+      "language": "ar",
+      "group": "authored_control",
+      "text": "تبدأ الحصة قريبًا."
+    },
+    {
+      "id": "ar-authored_control-4",
+      "language": "ar",
+      "group": "authored_control",
+      "text": "أعمل اليوم."
+    },
+    {
+      "id": "ar-contrast-1",
+      "language": "ar",
+      "group": "contrast",
+      "text": "علم"
+    },
+    {
+      "id": "ar-contrast-2",
+      "language": "ar",
+      "group": "contrast",
+      "text": "هذا علم جديد."
+    },
+    {
+      "id": "ar-contrast-3",
+      "language": "ar",
+      "group": "contrast",
+      "text": "سأذهب إلى البنك غدا."
+    },
+    {
+      "id": "ar-contrast-4",
+      "language": "ar",
+      "group": "contrast",
+      "text": "قهوة في 18:30 مع Vipi."
+    },
+    {
+      "id": "ar-mixed_unknown-1",
+      "language": "ar",
+      "group": "mixed_unknown",
+      "text": "موعدنا مع Vipi في 18:30 😊."
+    },
+    {
+      "id": "ar-mixed_unknown-2",
+      "language": "ar",
+      "group": "mixed_unknown",
+      "text": "أرسلت رسالة إلى Zoë وJosé."
+    },
+    {
+      "id": "ar-mixed_unknown-3",
+      "language": "ar",
+      "group": "mixed_unknown",
+      "text": "الرابط هو https://example.com/a?x=1."
+    },
+    {
+      "id": "ar-mixed_unknown-4",
+      "language": "ar",
+      "group": "mixed_unknown",
+      "text": "طلب 𠮷 هو A-104 بسعر 1,250."
+    }
+  ]
+}

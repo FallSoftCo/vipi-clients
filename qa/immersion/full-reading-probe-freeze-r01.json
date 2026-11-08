@@ -1,0 +1,7 @@
+{
+  "input_sha256": "98e26a9fa030796ea138bb92a5dd62d445c405259e90127b6a572b296d042a38",
+  "source_sha256": "dfe95852c102e34f131554245551aa4f1be30de7088e8a24c940b400059c675b",
+  "count": 48,
+  "expected_readings_or_labels_in_packet": false,
+  "planned_native_execution": false
+}
