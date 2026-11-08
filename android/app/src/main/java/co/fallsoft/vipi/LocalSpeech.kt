@@ -147,9 +147,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
         prepared = true
     } }
 
-    /** Fully renders one PCM file before playback; latency is measured by QA.
-     * Different PCM formats fail explicitly until a qualified resampler exists.
-     */
+    /** Render native voices, normalize their PCM formats, then play one joined file. */
     suspend fun render(spans: List<SpeechSpan>): RenderedSpeech = cache.track { mutex.withLock {
         check(prepared)
         require(spans.isNotEmpty() && spans.sumOf { it.text.length } <= 16_384)
@@ -162,7 +160,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 normalized[normalized.lastIndex] = normalized.last().copy(text = normalized.last().text + span.text)
             } else normalized += span
         }
-        val identity = normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
+        val identity = "pcm24-mono-v1\u0000" + normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
         val hash = MessageDigest.getInstance("SHA-256").digest(identity.toByteArray()).joinToString("") { "%02x".format(it) }
         val result = cache.access { File(it, "$hash.wav") }
         if (result.exists()) {
@@ -177,8 +175,8 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 voices.getValue(span.language).render(span.text, temp)
             }
             withContext(Dispatchers.IO) {
-                val waves = pieces.map(PcmWave::read)
-                require(waves.isNotEmpty() && waves.all { it.sampleRate == waves.first().sampleRate && it.channels == waves.first().channels }) { "Voice PCM formats differ" }
+                val waves = pieces.map { PcmNormalization.normalize(PcmWave.read(it)) { ensureActive() } }
+                require(waves.isNotEmpty())
                 val total = waves.sumOf { it.samples.size }
                 require(total <= 32 * 1024 * 1024)
                 val bytes = ByteArray(total)
