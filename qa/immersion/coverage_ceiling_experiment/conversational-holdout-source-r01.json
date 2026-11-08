@@ -1,0 +1,3454 @@
+{
+  "schema": "vipi-conversational-holdout-source-1",
+  "name": "vipi-bst-heldout-r01",
+  "frozen_unix": 1794099293.7015975,
+  "production": false,
+  "training_use": false,
+  "pack_building_use": false,
+  "source": {
+    "dataset": "BlendedSkillTalk",
+    "authors": "Eric Michael Smith, Mary Williamson, Kurt Shuster, Jason Weston, Y-Lan Boureau",
+    "paper": "https://arxiv.org/abs/2004.08449",
+    "license": "CC-BY-4.0",
+    "dataset_readme": "https://github.com/facebookresearch/ParlAI/blob/a29567f7ce76992fd1f03c51ba9e3b155a37ea51/parlai/tasks/blended_skill_talk/README.md",
+    "archive": "https://parl.ai/downloads/blended_skill_talk/blended_skill_talk.tar.gz",
+    "test_sha256": "14ee0431113d28ca5e9424212170196c7e45706e96e7b46d34d52b96cbd0b380",
+    "selection_modification": "Subset and review metadata added by Fallible Software; original selected text unchanged."
+  },
+  "selection": "Deterministic hash order within whitespace-word bins, 26/27/27 short/medium/longer messages, one free-human turn per distinct test conversation, convai2 context only, no output-based filtering.",
+  "excluded_inputs": [
+    {
+      "path": "qa/immersion/coverage_ceiling_experiment/native-protocol.json",
+      "sha256": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471"
+    },
+    {
+      "path": "qa/immersion/coverage_ceiling_experiment/taskmaster-native-protocol-r01.json",
+      "sha256": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0"
+    },
+    {
+      "path": "qa/immersion/coverage_ceiling_experiment/directional-native-protocol-r01.json",
+      "sha256": "aec5ced94bc82c071f16f568b078703a4460841201c079bf78eb0edaab9c9e73"
+    },
+    {
+      "path": "qa/immersion/coverage_ceiling_experiment/source-only-fresh-protocol.json",
+      "sha256": "dda29150ff5a9ebe3a83c07084d14fc96151a7e18c10a0d109ea2ff0fb400662"
+    },
+    {
+      "path": "qa/immersion/coverage_ceiling_experiment/direct-extension-native-protocol-r01.json",
+      "sha256": "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-probe/live-peer-sw-protocol-r01.json",
+      "sha256": "4ccee4cd1b9e79a60e018902af278e85bc34377c75162eef066960b6aa4d0e6e"
+    }
+  ],
+  "unique_excluded_normalized_strings": 3315,
+  "eligible_counts_after_exclusion": {
+    "1-5": 221,
+    "16-30": 627,
+    "6-15": 1012
+  },
+  "sampling_caveat": "Crowdsourced persona conversations, not spontaneous private messaging. No >30 whitespace-word messages; do not extrapolate to longer inputs. No Spanish or non-Roman qualification in this Swahili follow-up. Model pretraining overlap unknown.",
+  "native_boundary_stage": "Tokenize-only native pass must precede query-union generation; sample identity/order stays fixed even if actual native word bins differ.",
+  "cases": [
+    {
+      "id": "bst-test-conv-0208-turn-02",
+      "text": "I am just relaxing going to make dinner in a little some pork chops have You ate?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 208,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 17,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what kind of dog do you have"
+        },
+        {
+          "role": "guided_seed",
+          "text": "its a collie . its 5 7 , just like me ."
+        },
+        {
+          "role": "free_human",
+          "text": "Cool that's nice I love dogs and want to get another A dobermin"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love dobermans, they are good dogs. I have to go to work soon. What are you up to tonight?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0449-turn-00",
+      "text": "I'm the same way, but honestly, hiking in the mountains is a lot of fun.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 449,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 15,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well you can trust me"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm wary of trying anything new"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0873-turn-12",
+      "text": "Alright see you around ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 873,
+      "turn_index": 12,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my eyes are brown . do you have any tattoos ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i don't but would like some . you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "yea, i just recently got my third tattoo, and probably more in the future. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I want some soon."
+        },
+        {
+          "role": "free_human",
+          "text": "Nice, do you already have a motive in mind? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, I want to get Barack Obama's face on my arm. "
+        },
+        {
+          "role": "free_human",
+          "text": "Haha never thought of getting a face as a tattoo, do you admire him? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Absolutely, I love him."
+        },
+        {
+          "role": "free_human",
+          "text": "Same here, and then came Trump. Obama had some house parties with my favorite musicians, he sure has taste"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, I could never agree with Trump. He's a tool."
+        },
+        {
+          "role": "free_human",
+          "text": "So true.. I actually work as a guard in the white house, so keep it for youself. They don't want us to have any opinions or leak information"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow, I will pray for you. "
+        },
+        {
+          "role": "free_human",
+          "text": "I Appreciate it haha "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No problem whatsoever. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0769-turn-10",
+      "text": "Oh, why?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 769,
+      "turn_index": 10,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 2,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am in oklahoma city , oklahoma ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "well , you'll have to come a ling way to paint ."
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah but tennis is fun to me, too. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "whos your top tennis player of all time?"
+        },
+        {
+          "role": "free_human",
+          "text": "Serena WIlliams. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "isnt she italian american?"
+        },
+        {
+          "role": "free_human",
+          "text": "I think she is African American. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh my apologies , my family is italian american. do you like to paint?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes, I was born deaf, so painting is nice because you don't need your ears. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "do you use any specific paint for painting?"
+        },
+        {
+          "role": "free_human",
+          "text": "Acrylics. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "awesome my brother paints with acrylics! i prefer watercolours"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0303-turn-02",
+      "text": "Yeah, she works at the intensive care unit - so unfortunately - she deals with it often, this one just hit home more ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 303,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 23,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "it is hard for"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah i bet that sounds true"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, my mother works as a nurse and she recently had a patient die on her - she is struggling."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My that's awful.  Tragic infact.  Does that happen regularly in her career?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0579-turn-04",
+      "text": "yes, excellent music from the \"standard\" line-up.  i'm \"listening\" to more ambient these days, quotes on the 'listening'",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 579,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 18,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "thanks ! i am planning to publish a book about it . it is slow writing it though"
+        },
+        {
+          "role": "guided_seed",
+          "text": "got to follow your dreams . following parents dreams leads to unhappiness ."
+        },
+        {
+          "role": "free_human",
+          "text": "mm hmm.  \"be a doer not a follower\"; happiness is difficult enough in this world ..."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Family is very important to me personally, but I've learned it's important to go your own way. Fleetwood Mac knew it best."
+        },
+        {
+          "role": "free_human",
+          "text": "tusk, rumors, tango in the night ... they're all gettin' kinda old now, tho ..."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They are but their music is timeless. I love listening to the oldies."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0271-turn-08",
+      "text": "I've been baking cakes for about 20 years, since I was seven. I really got into the decoration process when I was 14.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 271,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 23,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm a real short person and you are wasting a lot of time"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i feel like dump and skeleton but just wasting my hours here ."
+        },
+        {
+          "role": "free_human",
+          "text": "Do you have any siblings?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes , I have two younger sisters"
+        },
+        {
+          "role": "free_human",
+          "text": "that's cool, i just have one twin brother. are your younger sisters close to you in age?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh! that's pretty cool to have an twin brother .Isn't it"
+        },
+        {
+          "role": "free_human",
+          "text": "Yea it's cool most of the time but it can be annoying. We look alike so it gets aggravating having people confuse us all the time."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh , that's ok . i'm really short , so people can make fun of me about that"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah I'm a real short person too so I get that all the time. Plus, as a male, people think its weird that my favorite hobby is baking cakes."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you have a lot of experience baking cakes?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0193-turn-10",
+      "text": "Yes, it's pretty hard sometimes but shes my little princess. I do my best to give her a great life.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 193,
+      "turn_index": 10,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 20,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "its a job . what do you study ? any hobbies ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i am studying biology . . . i think i am failing"
+        },
+        {
+          "role": "free_human",
+          "text": "oh no, I'm sorry to hear that. Can you get a tutor/study partner?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I could but it all comes down to yourself. I am very interested in ecology and nature but it is not my strength"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah that's true, I'm sure that if you try really hard you'll succeed! Just do your best."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thanks, I am trying my hardest but I continue to fail my courses. I have to retake many courses but that is costly. "
+        },
+        {
+          "role": "free_human",
+          "text": "I understand, it can definitely be costly. There are a lot of resources out there for students, do you think you could get some student aid?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Student aid will only compound the debt. How about you? Are you struggling financially too?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes, I just lost my job and am unemployed. I don't know how I'm going to pay my bills this month."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "are you single and living alone or raising a family?"
+        },
+        {
+          "role": "free_human",
+          "text": "I have a daughter, I give her everything I have"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "like a good father does. That is lovely and I am sure she appreciates your efforts. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0198-turn-00",
+      "text": "I know! or basketball...or maybe some other kind of team!",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 198,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 10,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "no but i'dn't mind putting my other 3 kids in storage for 6 months ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "you are gonna have your own little soccer team soon"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0372-turn-06",
+      "text": "Is that the place with the huge geyser?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 372,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like to go all over . i have been local most recently however . what about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i like to visit national parks"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you camp or do you just go for day hikes?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I usually just spend the day but camping would be fun.  I'd like to visit the Grand Canyon and camp there."
+        },
+        {
+          "role": "free_human",
+          "text": "I didn't know you could camp there! Careful you don't fall out of bed & roll off the edge, it's a long way down. ;)"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My husband has done a river rafting trip on the Grand Canyon, it's on my bucket list."
+        },
+        {
+          "role": "free_human",
+          "text": "What else is on your bucket list?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I've never been to Yosemite either, it looks amazing."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0902-turn-06",
+      "text": "UTEP",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 902,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 1,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that is a lot of people"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah , my parents are teachers and they work as high school teachers ."
+        },
+        {
+          "role": "free_human",
+          "text": "High school teachers are very valuable"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Indeed they are. They are the last ones to prepare students for college and the \"real world.\""
+        },
+        {
+          "role": "free_human",
+          "text": "My history teacher was also my basketball coach. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Was he better at teaching or coaching?"
+        },
+        {
+          "role": "free_human",
+          "text": "Coaching.  He inspired me to play in college."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "How did that go? Where did you go?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0059-turn-06",
+      "text": "you ask the qustion",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 59,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my dad grew up in a town with less than 100 population ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i think there may be seventy here . maybe a few more ."
+        },
+        {
+          "role": "free_human",
+          "text": "Maybe"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am used to living in a small city I've never lived anywhere else. How many people are in your town?"
+        },
+        {
+          "role": "free_human",
+          "text": "the small place, where one was often forced to be guarded in many"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What do you mean?"
+        },
+        {
+          "role": "free_human",
+          "text": "Towns of more than 50,000 people "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What about them?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0932-turn-02",
+      "text": "I love PC gaming! It's nice to wind down after a long day of work and get lost in games - what are some of your favorites?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 932,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 27,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well , i do keep learning , but not through formal schooling ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "good . keeps your mind sharp ! i'd be smarter if i didn't stay up so late ."
+        },
+        {
+          "role": "free_human",
+          "text": "Definitely! I feel it's very important to always continue learning, it's even fun when you're not obligated to due dates and homework assignments. Why do you stay up so late?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am learning computer programming and it is very time consuming sometimes. Also i play PC games way to long."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0417-turn-06",
+      "text": "I like good rap but I'd listen to good music from all genres. ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 417,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 13,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hello ! how you are doing ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "good thanks and you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Great.  Just finished eating a late steak dinner."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh that sound delicious. I love a good steak. Did you cook it or buy it?"
+        },
+        {
+          "role": "free_human",
+          "text": "I ordered out for this one.  It was so good. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Where did you get it? I love one from Outback."
+        },
+        {
+          "role": "free_human",
+          "text": "Just a local place around the corner. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nice. What kind of music do you enjoy? I love punk."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0725-turn-02",
+      "text": "Scrambled is a great way to prepare them. I usually throw in some bell pepper and chives. Do you like to cook?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 725,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 22,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "sorry about that . i was cooking lunch . egg sandwich"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i don't like eggs . at preschool i spit them out ."
+        },
+        {
+          "role": "free_human",
+          "text": "Seriously? When I lived in Texas, it was fried eggs every day for breakfast"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love fried eggs! However, I love scrambled eggs even more!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0836-turn-06",
+      "text": "Chortled to myself. Luckily the outfit the family had provided hadn't been put on yet.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 836,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 15,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that is not good , i love the movie dirty harry"
+        },
+        {
+          "role": "guided_seed",
+          "text": "and i do not like being obligated to spend time with friends"
+        },
+        {
+          "role": "free_human",
+          "text": "I am a mortician so I don't have many friends."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Wow...how is the mortician life"
+        },
+        {
+          "role": "free_human",
+          "text": "Its lonely and a bit sad. I talk to dead people all day. They don't talk back. What do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work with abused children so lack of sleep makes me need coffee"
+        },
+        {
+          "role": "free_human",
+          "text": "sounds like we both work in depressing industries. I always need my morning cup of coffee. I once knocked over a cup on a dead body."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Tragic!!! Good thing they couldn't feel it...how did you react"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0202-turn-04",
+      "text": "Yes, I'm trying to look towards the future now. I'm trying meditation and it does help. What will you do for the holidays? ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 202,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 23,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah had a lot of things like that happen"
+        },
+        {
+          "role": "guided_seed",
+          "text": "wow that must have been tough"
+        },
+        {
+          "role": "free_human",
+          "text": "It was...I struggled for a long time. Getting better now. Did you have anything similar happen? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, but it got better over time"
+        },
+        {
+          "role": "free_human",
+          "text": "You know what they say, time heals all wounds. I think that's true, it's just that sometimes it's a LOT of time"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I agree. some things take longer than others to get over."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0228-turn-10",
+      "text": "I used to be a pro skater but I've had too many injuries so now I'm a dental assistant ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 228,
+      "turn_index": 10,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 19,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i used to skateboard and bmx but too many injuries so now just music festivals ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah i am definitely getting too old i should switch to festivals"
+        },
+        {
+          "role": "free_human",
+          "text": "music festivals give a similar feeling to when your grinding a good rail"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I think its better when you are doing something you like so I think Im gonna love it"
+        },
+        {
+          "role": "free_human",
+          "text": "What kind of music festival would you want to go to?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The Creamfields dance music festival. They have the best live acts."
+        },
+        {
+          "role": "free_human",
+          "text": "That sounds pretty cool! What type of music do people dance to there?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "All kinds really, but mostly EDM and techno."
+        },
+        {
+          "role": "free_human",
+          "text": "So it's kind of like a rave?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Kind of like a rave yeah, except it's not as dark and there's more of a mix of music."
+        },
+        {
+          "role": "free_human",
+          "text": "That's cool. What do you do for a living"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work with HVAC equipment, but had an injury last week, so I'm off right now, what about you?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0947-turn-04",
+      "text": "Go for a bike ride.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 947,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "its a type of music , korean pop music . gangway style is the most popular example ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i enjoy watching spongebob with the kids have you seen the cartoon before"
+        },
+        {
+          "role": "free_human",
+          "text": "YES"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Originally the show was going to be called Spongeboy Ahoy, back in my day in the 40s i heard that."
+        },
+        {
+          "role": "free_human",
+          "text": "To voice the character of SpongeBob, Hillenburg approached Tom Kenny, who had worked with him on Rocko's Modern Life"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I didn't know that! that's good informationp. What do you like to do besides watching tv?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0934-turn-04",
+      "text": "This one features home cooks.  It is judged my Gordon Ramsey.  Do you like Baking Shows?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 934,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 16,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like meat , pasta , what is your hobbies ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "eating desert to be honest and you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I like to bake and eat cookies! "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you watch any cooking shows?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do, many.  My favorite is Master Chef."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I've never seen that. I like Jacques Pepin and America's Test Kitchen."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0135-turn-02",
+      "text": "i love dogs.what do you when you are free",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 135,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 9,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "do you have a dog , i've a dog and we walk for a long time ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "nope , just my lizard gila ."
+        },
+        {
+          "role": "free_human",
+          "text": "yes i have a puppy"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have always wanted one. Especially because you can dress them up in purple!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0904-turn-02",
+      "text": "yes i do",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 904,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 3,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "oh i did wrestling back in the day"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i took them to see a match in new york city once"
+        },
+        {
+          "role": "free_human",
+          "text": "thats grate"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Did you do wrestling for entertainment or for competition."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0236-turn-06",
+      "text": "I should check out what?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 236,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "working is the pits , i like writing numbers , i could do it all day"
+        },
+        {
+          "role": "guided_seed",
+          "text": "working is like a scary movie . maybe you should try fishing at a lake ."
+        },
+        {
+          "role": "free_human",
+          "text": "I enjoy my work"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What is your work/life balance like?  Do you feel like you have enough time for your friends and family?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do enjoy doing work writing but I wish that it paid more. I have to work a lot to make ends meet."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I hear you! Have you thought about starting a side business?"
+        },
+        {
+          "role": "free_human",
+          "text": "I've considered starting a side businees writing papers for students"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ah, the good ole side hustle. I like that. You should check out "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0630-turn-04",
+      "text": "lol it's more than me.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 630,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "you like bill nye ? mexico is neat , i went when i was a youngster"
+        },
+        {
+          "role": "guided_seed",
+          "text": "not justvwith work but i am ocd in general . everything has to be perfect and its exhausting"
+        },
+        {
+          "role": "free_human",
+          "text": "I can understand that. Nothing really ever is perfect. Must be a lot of effort."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Trying to save the world must be hard. I may work too much but not enough when it comes to conservation."
+        },
+        {
+          "role": "free_human",
+          "text": "Me either. I take out the garbage and try not to litter. That's about the extent of my fabulous contributions to the cause."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "If you search youtube for \"melody sheep\"   \"bill nye\" you will see a most wonderful video. Watching things like this is the extent of my contribution."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0922-turn-00",
+      "text": "does that make good money?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 922,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i wish i could make money on youtube ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "most people would . it helps me get the ladies ."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0461-turn-04",
+      "text": "I'd have loved to be in a band, but life takes over. I'm more into fitness and running these days, you?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 461,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 21,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "we sound like my favorite type of music country ! can you play a guitar ? i can ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i can ! i also play the banjo . i make a fire and pick all night ."
+        },
+        {
+          "role": "free_human",
+          "text": "I'd love to be able to play banjo, but I can only play the guitar"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It's basically the same, just have to memorize new chords, and practice finger picking. "
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, the only problem is that banjos cost a fortune. Are you in a band?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh I get you, they definitely are expensive instruments. I was in a band before yes!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0666-turn-06",
+      "text": "What kind of interviews?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 666,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love ragtime . all three of my sisters like it , too ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "are you the youngest of four ? i like green , do you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Green? Sure, although warm colors are my preference."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand that. I often just find them too...bright for my tastes"
+        },
+        {
+          "role": "free_human",
+          "text": "Softer colors help me relax after a long day. Wearing a navy blue uniform gets boring."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Are you allowed to mix colors in your uniform?"
+        },
+        {
+          "role": "free_human",
+          "text": "No! I don't think people would like the rescue squad to rush in wearing mix and match separates! How is your job? Do you get casual Friday?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Most days are casual for us, unless we're playing or doing interviews"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0797-turn-00",
+      "text": "I like to listen to audio books when I'm not working. What's your favorite book or author?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 797,
+      "turn_index": 0,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 17,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yea me to . i literally sit on facebook all day . or play computer games"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that sounds like fun . do you like to read"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0437-turn-00",
+      "text": "That's actually one of my better qualities LOL",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 437,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "no no no , not at all . i love being wrong"
+        },
+        {
+          "role": "guided_seed",
+          "text": "and obviously , annoyingly sarcastic as well"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0319-turn-02",
+      "text": "I have long hair also, so i know the challenges",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 319,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 10,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's great . i love nature but one time i started a fire in a forest"
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh , that stinks . what is your favorite food ?"
+        },
+        {
+          "role": "free_human",
+          "text": "smores!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Smores are good. Love them around a campfire. I have long curly hair so I have to be careful though. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0721-turn-06",
+      "text": "I would love to learn how to make a mean brisket or homemade stews. ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 721,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 14,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that sounds like a great thing"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it sucks . i live in an old peoples home . it isn't that great ."
+        },
+        {
+          "role": "free_human",
+          "text": "Is there something that could make the stay better for you if it could be changed? Like food or entertainment?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The food, definitely. I like to bake for the folks that I live with, but the regular food isn't that good"
+        },
+        {
+          "role": "free_human",
+          "text": "That's wonderful that you would bake for them! What's your signature dish?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I make a mean peanut butter brownie. I also make matcha shortbread. Do you like to cook or bake?"
+        },
+        {
+          "role": "free_human",
+          "text": "I actually just started! I've made a chocolate cake and chocolate chip cookies from scratch!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's great! Good job! What other things do you want to try and tackle?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0329-turn-04",
+      "text": "Do you have any kids? I have three.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 329,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my real passion is drawing tho"
+        },
+        {
+          "role": "guided_seed",
+          "text": "art is cool . . . my passion is chocolate lol"
+        },
+        {
+          "role": "free_human",
+          "text": "As a kid I loved dark chocolate "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Dark chocolate is my favorite, but as a kid I preferred milk chocolate.  What type of chocolate do you like most now?"
+        },
+        {
+          "role": "free_human",
+          "text": "Definitely Milk Chocolate, they don't really make my favorite candies with dark chocolate. Almond Joy, Twix, M&M...etc"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "True, almost all of the popular candy bars are made of milk chocolate.  "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0895-turn-10",
+      "text": "oh that is pollution affect ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 895,
+      "turn_index": 10,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do recycle when i've the time"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool . are you busy most of the time ?"
+        },
+        {
+          "role": "free_human",
+          "text": "no no.. i am free out of worktime."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "do you enjoy recycling?  its groovy I think"
+        },
+        {
+          "role": "free_human",
+          "text": "yaes."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "what kind of vehicle do you drive?"
+        },
+        {
+          "role": "free_human",
+          "text": "no."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i recycle"
+        },
+        {
+          "role": "free_human",
+          "text": "oh ok good."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "what kind of stuff do you recycle"
+        },
+        {
+          "role": "free_human",
+          "text": "No. do not recycle"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i recycle plastic"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0519-turn-00",
+      "text": "Where are you from?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 519,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "an older harley . i run the local lady biker club . you want to join ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no my parents would kill me i am only 16"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0253-turn-06",
+      "text": "I won't my boyfriend and I want to be in a more stable enviroment and financially be able to do so before we go there.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 253,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 25,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm sorry about your dog . are you married ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm not married but my parents are ."
+        },
+        {
+          "role": "free_human",
+          "text": "That's nice, how long have they been married?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ten years, my parents will celebrate their fifty anniversary next month. The younger generation could learn from them"
+        },
+        {
+          "role": "free_human",
+          "text": "Wow, I hope one day I can be with someone that long. Yes they can to many young marriages end in divorce."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have several children and I will have to teach them life, so that their marriages can last a long time"
+        },
+        {
+          "role": "free_human",
+          "text": "That is a very good idea. I've yet to be married but hope to teach my children the same thing."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "If you're not married yet, don't rush into marriage. It's an important life event!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0382-turn-06",
+      "text": "We used to bicycle joust using hockey sticks when I was a kid, but I never tried the real thing.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 382,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 20,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "do you enjoy cosplay ? i do"
+        },
+        {
+          "role": "guided_seed",
+          "text": "what is that ? not sure"
+        },
+        {
+          "role": "free_human",
+          "text": "It's where you dress up like characters in movies, tv, or video games."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh sure, I love dressing up! Did you dress up for Halloween? I was a space alien."
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah I dressed as a friar. I had a robe left over from the last renaissance fair I went to.  "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": " I love the old fashioned theme. What was your favorite thing at the fair?"
+        },
+        {
+          "role": "free_human",
+          "text": "Well, I enjoy the whole experience... But I REALLY like to watch the jousting contest. It's crazy!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Jousting? Sounds a bit dangerous! Have you done it yourself?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0127-turn-06",
+      "text": "Really!  That is impressive.  What kinds of houses?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 127,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am a computer programmer , it is cliche but i've a lot of insecurity in relationships ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "on the weekends , i am a waitress and i sell houses during the week ."
+        },
+        {
+          "role": "free_human",
+          "text": "I'm sorry to hear that.  Why are you insecure?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am not insecure. "
+        },
+        {
+          "role": "free_human",
+          "text": "Which do you prefer, selling houses or waitressing?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like selling houses more because I don't have to interact with lots of people."
+        },
+        {
+          "role": "free_human",
+          "text": "You prefer the one on one relationships.  I can understand that.  Have you been selling houses a long time?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Exactly. I have been selling houses since I was 12 years old!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0175-turn-04",
+      "text": "that would be most good.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 175,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "if i want some solar energy , it will be 10 more and my average pay is 232 ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i assume you'd add 23 . 20 to 232 for a total of 245 . 20"
+        },
+        {
+          "role": "free_human",
+          "text": "Well, those are all numbers."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "that's true. in theory the numbers work, but you can only know for sure once the solar panels are installed."
+        },
+        {
+          "role": "free_human",
+          "text": "I'd love to have the panels but math isn't my strong point."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "maybe a qualified electrician in the field can help you crunch the numbers."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0558-turn-10",
+      "text": "Yeah, usually 6-12 or 2.  Varies.  It doesn't bother me though, I just need 4-5 hours of sleep and I'm good.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 558,
+      "turn_index": 10,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 21,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am doing good . working on some drawings for my apartment !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm sitting in my own apartment eating pita bread with hummus . yum !"
+        },
+        {
+          "role": "free_human",
+          "text": "I enjoy renting versus owning, helps be mobile and not go through the home buying and selling process.  How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have owned my own home for some time now."
+        },
+        {
+          "role": "free_human",
+          "text": "awesome! congrats"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thanks! Renting a home would be a disaster with all the kids I have. "
+        },
+        {
+          "role": "free_human",
+          "text": "I understand.  I want kids"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well take it from myself. I never thought I would have more than one but I now have three!"
+        },
+        {
+          "role": "free_human",
+          "text": "Hopefully I can find someone one day to have a family with.  What do you do for a living?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am a nurse, how about yourself?"
+        },
+        {
+          "role": "free_human",
+          "text": "Aspiring writer and work part time as a bartender"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Sounds like fun! I work early in the morning. You must work later then as a bartender."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0642-turn-08",
+      "text": "I can trade feathers",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 642,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm a professional paid grandmother"
+        },
+        {
+          "role": "guided_seed",
+          "text": "a professional paid grandmother ? do you want me to make you a rocking chair ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I love rocking chairs!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i'll get to cooking, but know that this rocking chair will cost you dearly. As a pro bowler taking time from bowling costs me bigtime."
+        },
+        {
+          "role": "free_human",
+          "text": "How much would it cost?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Only about 8K"
+        },
+        {
+          "role": "free_human",
+          "text": "Wow 8,000. I'd have to work a lot for that."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well, they are hand crafted and frankly my father, a retired policeman needs my help. 8K would would do, please help"
+        },
+        {
+          "role": "free_human",
+          "text": "I am a professional grandmother and also a chicken plucker. I would have to pluck for hours."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Shoot. This is making things hard for me. Umm, need an extra hand with the plunking?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0580-turn-10",
+      "text": "Clever haha! Did you get to bring her to college with you?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 580,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 12,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "are you an animal lover ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "they seem to like me . maybe i should have been a vet"
+        },
+        {
+          "role": "free_human",
+          "text": "Which is your favorite animal ?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love all animals, but cats are my favorite. What about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "I love dogs. I personally  want to own one but they are experience."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They definitely are, but it is worth it!"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you own a cat?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, I have one. Do you have any?"
+        },
+        {
+          "role": "free_human",
+          "text": "No not at the moment. Is the cat a girl or boy?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "She is a girl. I have had her since high school. I am now a graduate student in college."
+        },
+        {
+          "role": "free_human",
+          "text": "Aw, what is her name ?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I call her Kitty. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0454-turn-14",
+      "text": "You too!",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 454,
+      "turn_index": 14,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 2,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "oh that sounds fun . what do you drive ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "a mini van . if i was not a secretary , i'd drive sports car ."
+        },
+        {
+          "role": "free_human",
+          "text": "uuuuuu . . . oh yeah. My favorite was my old 86 mazda. Turbo was great."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's so cool. I love being on the wild side sometimes too, that's why I love swimming. Gives me a boost of energy every time"
+        },
+        {
+          "role": "free_human",
+          "text": "Me too! I once swimmed in a lightning storm and felt the electricity through me. I got out then."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": " I had the same feeling when I had some tacos from Eddy's Locos Tacos the other day, as you can see i love tacos"
+        },
+        {
+          "role": "free_human",
+          "text": "Well, I am a pizza fan. Love the fresh tomatoes on Canadian bacon. Love it so much. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you agree with pineapple on pizza? if you do we could honestly be best friends"
+        },
+        {
+          "role": "free_human",
+          "text": "Consider it done. I always order Hawaiian pizza on at least half of it. Wow."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow haha that's actually kinda same. Doesn't even have to be ham sometimes I do pineapple and pepperoni "
+        },
+        {
+          "role": "free_human",
+          "text": "Ever substituted fried salami instead of bacon with the eggs?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Never BUT now that you say that it sounds like a great idea. What brand?"
+        },
+        {
+          "role": "free_human",
+          "text": "Well, make sure it is thin sliced is all. Most brands have this incredible shelf life. Like two year from now."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh well I'll look forward to buying some then. Maybe my local Publix has em, thanks for the tip!"
+        },
+        {
+          "role": "free_human",
+          "text": "Sure!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nice talking have a great nice!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0848-turn-06",
+      "text": "Do you prefer fiction or nonfiction? Adventure or romance?  ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 848,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 9,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i really enjoy fall though . makes me feel deep ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i need to go soon . my car is in the shop , should have never bought a passa ."
+        },
+        {
+          "role": "free_human",
+          "text": "Do you want another cup of tea before you go?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I can't say no to hot tea. I might grab some cake too before I head out."
+        },
+        {
+          "role": "free_human",
+          "text": "I love our visits.  Have you ever thought about belonging to a bookclub?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have, actually. But I don't know any to join. Are you a part of one?"
+        },
+        {
+          "role": "free_human",
+          "text": "No, but we could start our own!  There's so many good books I want to read."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I wish I had more time to read, honestly. But maybe a book club is just what I need to get motivated."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0479-turn-02",
+      "text": "Nope",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 479,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 1,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what about makers mark 46 ? got a favorite animal ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "there is no such thing as a bad whiskey ! i like wolves"
+        },
+        {
+          "role": "free_human",
+          "text": "I enjoy honey and i feel like pooh the bear lol"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like some honey, but not all honey is created equal. I do like a good hot toddy though. Ever had one?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0691-turn-04",
+      "text": "We have computers at school for our work but I don't have one at home.  I use the one at the library sometimes.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 691,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 23,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "near abigail , she is my best friend ever ! ! !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "ah , that is cute . do you live in the town or countryside ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I live here in town; I can walk to school now that I turned 10 years old."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you live in the countryside? Where is the closest town?"
+        },
+        {
+          "role": "free_human",
+          "text": "No, we live right here in the village - just three blocks from school where I am now in safety patrol!  I don't know where the closest town is."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Very nice, I'm into computer repair myself."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0171-turn-08",
+      "text": "I lean more to classic rock but enjoy all gendres",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 171,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 10,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "you know the dog . . . . i wo not say the name . . ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i like the name toto . its the name of my business ."
+        },
+        {
+          "role": "free_human",
+          "text": "That is interesting, why toto?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My parents loved The Wizard of Oz, and so they named their company after the dog."
+        },
+        {
+          "role": "free_human",
+          "text": "So your parents started the business and you have taken over?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah. They retired a few years ago, I'm the head of the company now."
+        },
+        {
+          "role": "free_human",
+          "text": "Isn't there a band with the same name?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I think so. Wasn't it a pop group from California?"
+        },
+        {
+          "role": "free_human",
+          "text": "Ya that is it, they were popular in the 80's"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Right. What kinds of music are you into?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0542-turn-02",
+      "text": "Lol! Do you travel as well? My mother is a well known celebrity so we are always jumping from place to place.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 542,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 22,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i actually prefer to travel and have been overseas a lot ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that sounds like more fun !"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah for sure! I just got back from Souda Bay, Greece last week."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My identical sibling lives in Greece! I have been so busy baking cakes, that I baked my passport into the second layer"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0033-turn-00",
+      "text": "did you do anything fun for Halloween? ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 33,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 7,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "sounds like a horror movie , my favorite kind"
+        },
+        {
+          "role": "guided_seed",
+          "text": "haha , yeah he melts my heart"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0883-turn-10",
+      "text": "I have on rare occasion. I strive for ~2 miles whenever I run so I'm no long distance runner by any means",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 883,
+      "turn_index": 10,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 22,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "sick i just got off work from the candy store"
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh i'm sorry . i'm going to watch sports today ."
+        },
+        {
+          "role": "free_human",
+          "text": "now that I'm off work, I'm going to catch up on world news. Do you keep up with news/politics?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do, but sometimes I feel like it doesn't matter because I can't change anything."
+        },
+        {
+          "role": "free_human",
+          "text": "Good point. I feel the same way but I do like to know how things are changing me"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's completely true. It's good to take a break from new though, because it can be depressing."
+        },
+        {
+          "role": "free_human",
+          "text": "Absolutely. What do you like to do when you're feeling down? I like to run."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like to play basketball with my friends. Any exercise is great for the mind."
+        },
+        {
+          "role": "free_human",
+          "text": "Sounds like fun! I've never been a basketball player myself but I can appreciate the game"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, it can be hard to find people to play sports with once you hit adulthood, lol."
+        },
+        {
+          "role": "free_human",
+          "text": "All too true! I suppose that's why I've taken to running"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I want to start running too. Have you ever felt \"runner's high\"?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0693-turn-06",
+      "text": "doberman mix",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 693,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 2,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "do you fly for a living ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i used too . i retired to southern new mexico ."
+        },
+        {
+          "role": "free_human",
+          "text": "that sounds lovely.  Is the weather perfect all year round?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah it's warm just how I like it. High 70s usually."
+        },
+        {
+          "role": "free_human",
+          "text": "I could walk my dog all year round"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh you have a dog? I've always wanted one"
+        },
+        {
+          "role": "free_human",
+          "text": "Its never too late to get a dog"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You're right. What kind of dog do you have?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0915-turn-12",
+      "text": "Europe for sure",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 915,
+      "turn_index": 12,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 3,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i have not is it a fun place ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "have not been there yet . love traveling to jamaica though . that's the spot ."
+        },
+        {
+          "role": "free_human",
+          "text": "really / how is the weather /"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not too bad right now but it gets really hot. I have been there in the summer and it is almost unbearable. "
+        },
+        {
+          "role": "free_human",
+          "text": "wow! would love to visit there. what are some of the fun places ?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I would suggest Fiji it's so nice there I went in august! It is very touristy so there are tons of fun things to do. "
+        },
+        {
+          "role": "free_human",
+          "text": "ok , i prefer the caribian though "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Really? And why is that?"
+        },
+        {
+          "role": "free_human",
+          "text": "it just so foregin to me "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Is it a safe place to travel to these days though?"
+        },
+        {
+          "role": "free_human",
+          "text": "i know , i see the travel agencies advertising them all the time"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Hmm, that doesn't really answer my question. But if travel agencies advertise for that place I would hope it would be safe. "
+        },
+        {
+          "role": "free_human",
+          "text": "well i guess its safe, since there aren't any deterrents "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Are there any other places you would like to go? "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0020-turn-12",
+      "text": "nooo, he is super sweet and lazy because he's an old man",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 20,
+      "turn_index": 12,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 12,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my parents dies in an accident"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is sad . my best friend is my mom . i could not image loosing her ."
+        },
+        {
+          "role": "free_human",
+          "text": "it is harder some days than others. but it is good you get along with your mom so well"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It is.  How was your relationship with your parents?"
+        },
+        {
+          "role": "free_human",
+          "text": "it was good, this happened in my adult life so we all had work and stuff and maybe did not socialize as often as we could have"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand.  I guess I tend to socialize with my cat the most.  He is almost like family."
+        },
+        {
+          "role": "free_human",
+          "text": "i think pets can be family for sure. just hanging out with them and petting them can be really calming"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Most definitely, except when he knocks stuff off of tables.  Do you have any pets?"
+        },
+        {
+          "role": "free_human",
+          "text": "i used to have a cat that was really bad about that, couldn't have anything on tables at all. but now i have a dog and a couple cats"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "How does your dog get along with the cats?"
+        },
+        {
+          "role": "free_human",
+          "text": "they mostly just ignore each other. the cats are actually bigger than him so they never really seem worried about his presence"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What kind of dog is it?"
+        },
+        {
+          "role": "free_human",
+          "text": "a mix but mostly chihuahua, so he is tiny"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I heard Chihuhuas are evil.  Any truth to that?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0905-turn-00",
+      "text": "I draw my siblings.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 905,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "mine is to draw allday"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is so cool what do you draw ?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0657-turn-06",
+      "text": "I can only hope, do you eat carrots as well. I hear they are good for the eyes, but I don't eat them much myself",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 657,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 25,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "when i was younger i did"
+        },
+        {
+          "role": "guided_seed",
+          "text": "any reason you don't do it anymore ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't know, meat just stopped doing it for me, I much prefer to each fish these days, I haven't looked back"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It really limits your dietary choices.  I don't recommend it.   Have you considered vegetarian?"
+        },
+        {
+          "role": "free_human",
+          "text": "I've thought about it, and i usually have some veggies with my fish. But I just can't stop eating our scaly friends #"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I couldn't disagree with how much they help with our eyes and hair growth. My mom used to tell me to thank fishes for giving me blue eyes haha!"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, my eyesight is great. It could just be placebo, but I feel it's gotten even better since I started eating more fish. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You will get even better with time. Keep eating fish and who knows your eyes can be like mine someday!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0086-turn-02",
+      "text": "Oh, I'm sorry to hear that. Do you spend much time with your family then?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 86,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 15,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what grade are you in"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i am a junior but already mentally graduated"
+        },
+        {
+          "role": "free_human",
+          "text": "You sound very mature for your age."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes I don't have many friends because I am congnitively ahead of my peers"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0507-turn-06",
+      "text": "All of the above HIIT was great when I was working, but now I'm freelance I can do whatever",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 507,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 19,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah that's cool , what is your favorite color ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "pink of course and yours ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Green, it's so natural and woody"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Green is a great color! When I go on runs I love to look at all the greenery in the trees and plants. "
+        },
+        {
+          "role": "free_human",
+          "text": "I love working out!! What's your favourite way of exercising? Running?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, running is my favorite exercise. I actually won a lot of trophies from track when I was a kid. What are your favorite workouts?"
+        },
+        {
+          "role": "free_human",
+          "text": "Oh really?  Track or field?  I'm more of a gym rat, I like the variety"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Mostly just track since its all running. And I see, so do you like weight lifting, high intensity, cardio?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0141-turn-08",
+      "text": "Look into what?  quilting?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 141,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "org neither do i . we can be beasties ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "definitely do you like baking ? i love confections ."
+        },
+        {
+          "role": "free_human",
+          "text": "Onee of my signature confection is Apricot Brandy pound cake"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Interesting. I love to play musical instruments as well, specifically the trumpet. Do you play anything?"
+        },
+        {
+          "role": "free_human",
+          "text": "No I would rather sew than I would paly an instrment"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Besides sewing, what other crafts do you do? My wife does wood burning."
+        },
+        {
+          "role": "free_human",
+          "text": "I quilt alot"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you participate in any social groups? I love making friends and would love to join one."
+        },
+        {
+          "role": "free_human",
+          "text": "sounds lame, but a quilt guild..."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I think I'll look into it. Seriously."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0072-turn-02",
+      "text": "Thanks, you're right! How about you? What do you want to do?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 72,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 12,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "and what disappoint my family no thanks , i wish i could be carefree"
+        },
+        {
+          "role": "guided_seed",
+          "text": "well , if its any comfort i'm sure your life will turn out great ."
+        },
+        {
+          "role": "free_human",
+          "text": "Thanks for your support! Hopefully I will make it as an actor!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You're welcome. Well, an actor in the background is still a very important actor. Maybe you'll be in a lead role someday!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0196-turn-06",
+      "text": "it is. I was already old, but I have a 15 year old sister, and yes. It was so hard for her, for me too though.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 196,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 26,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i go swimming with my son ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "nice i thought maybe you did other stuff . like smell farts . i do"
+        },
+        {
+          "role": "free_human",
+          "text": "oh no. I don't."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yeah, I can be pretty gross. How old is your son?"
+        },
+        {
+          "role": "free_human",
+          "text": "He is 4. Do you have kids?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No i do not. But i wish someday after getting married i will have my own. "
+        },
+        {
+          "role": "free_human",
+          "text": "That is nice. having kids in marriage. It is sad when marriage is broken though. like my parents."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My parents got divorced when I was 12. It was very stressful."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0179-turn-10",
+      "text": "i love all types of music. i use music to train at the gym and to relax at home. i'm sure you love live music too.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 179,
+      "turn_index": 10,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 26,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi there . i like music , but i always buy the beer when my friends go out"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love beer so expensive at concerts though . i go to at least ten a year ."
+        },
+        {
+          "role": "free_human",
+          "text": "wow, seems like you love concerts. I would like to join you on some of those."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "it is nice whether u also love concerts "
+        },
+        {
+          "role": "free_human",
+          "text": "i love concerts, and i am always the one who buys beers for my friends. maybe you and me could link up?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "ok that nice"
+        },
+        {
+          "role": "free_human",
+          "text": "lately i've been drinking too much beer; my beer gut is so big, haven't seen my feet in two years. lol."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "eventhough you need to maintain some diet to control it"
+        },
+        {
+          "role": "free_human",
+          "text": "that's true. diet is very important. what do you think about becoming vegan?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "it is very difficult for me to control my mouth"
+        },
+        {
+          "role": "free_human",
+          "text": "I know, i can relate. pleasing the taste buds with healthy foods can be a challenge, though I'd risk and try a veggie burger. would you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes it is healthy but it does take a lot of time . . . do you like music"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0889-turn-08",
+      "text": "Constantly studying?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 889,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 2,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah i feel you . i love staying home too and enjoying my family ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "where do you live ? i'm in ny ."
+        },
+        {
+          "role": "free_human",
+          "text": "New Orleans, absolutely love the Jazz scene"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It is very nice. It's a nice place for jazz admirers."
+        },
+        {
+          "role": "free_human",
+          "text": "Do you have any pets at home?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nope, I plan on getting one after finishing my studies."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh, Interesting! What are you studying? I currently have 3 dogs and a parrot that LOVES to sing"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Currently studying law. I would love to hear you parrot sing!"
+        },
+        {
+          "role": "free_human",
+          "text": "Oh wow, you're very intelligent to be studying law! I hope it goes well for you!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thank you! It's too bad I don't have a lot of time to go out or anything."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0550-turn-04",
+      "text": "Same here, my daughter just turned 5 last month. Thankfully she hasn't mentioned wanting sibling yet.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 550,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 16,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "currently , captain america civil war ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that's a great movie ! my favorite would be moan my kids love it !"
+        },
+        {
+          "role": "free_human",
+          "text": "That's so funny, my daughter hasn't stopped watching Moana on repeat since last week."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ha ha! Don't be annoyed, that's what children do! believe me!"
+        },
+        {
+          "role": "free_human",
+          "text": "How many children do you have?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have only one child. A girl. She always has wished that she had siblings. How many do you have?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0124-turn-10",
+      "text": "oh wow, the shortest and the oldest. I am the youngest of five.  ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 124,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 13,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "youre crazy . i'd be having nightmares . i cannot watch crime tv show even"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i probably am . i hope to get into crime scene photography . combine my passions !"
+        },
+        {
+          "role": "free_human",
+          "text": "oh that would be fun! Do you do a lot of photography?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, I use a digital camera or digicam. It is really fun!"
+        },
+        {
+          "role": "free_human",
+          "text": "I like to take photos as well.  I have four siblings so I do a lot of family shots for them. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Did you every watch moonlighting with Cybill Shepherd and Bruce Willis. They were private detectives. You should try to watch it if you ever have a chance"
+        },
+        {
+          "role": "free_human",
+          "text": "I have never watched it but I will look into it.  I'm only 5'3 so I am always a scaredy cat!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "cool . i'm not biased about size . my dog is smaller than the cat"
+        },
+        {
+          "role": "free_human",
+          "text": "I am the shortest person in my family so my height has always been brought up.  "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i am the shortest too . haha if only i could grow an inch or 2."
+        },
+        {
+          "role": "free_human",
+          "text": "that would definitely be nice.  do you have any siblings?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do! I have a younger brother and sister!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0047-turn-00",
+      "text": "Its okay. That tragedy occurred 20 years ago. ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 47,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my father loved history too . him and mother died in a plane crash ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh wow . that is awful to hear . i am so sorry ."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0324-turn-00",
+      "text": "You should definitely wait till you are.  My two boys are a handfull.  But they are also the greatest reward.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 324,
+      "turn_index": 0,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 20,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "honestly i am not too into that ! i prefer listening to my fave justin bieber"
+        },
+        {
+          "role": "guided_seed",
+          "text": "aw kids , 1 day i will have some . not ready ."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0451-turn-08",
+      "text": "That's kinda cool though! Never heard of a drum tat.. I recently got a tat of a no smoking sign. Celebrating 3 years of not smoking.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 451,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 26,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's nothing . i love taking long car drives ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "drake really made it big and so did several other canadians"
+        },
+        {
+          "role": "free_human",
+          "text": "Canadians are getting on the map now.. Pun intended lol"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes,your from canada"
+        },
+        {
+          "role": "free_human",
+          "text": "No Australia. Kangaroo Jack and all that. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow! I always thought kangaroos were really interesting animals!"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah.. They can pack a punch! But I can take it. Got 10 piercings after all"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "wow that is a lot of piercings! Any tattoos? "
+        },
+        {
+          "role": "free_human",
+          "text": "Yes! Plenty! Haha!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have one of a drum! I was the drummer in our high school band. Crazy dare turned true on my arm. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0125-turn-06",
+      "text": "How would one try to become an RN",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 125,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i believe that anything i want to achieve , i can . how about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "absolutely , i graduated and became a rn"
+        },
+        {
+          "role": "free_human",
+          "text": "We could never have to many registered nurses"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "There will always be sick people. "
+        },
+        {
+          "role": "free_human",
+          "text": "Aren't you worried about getting sick yourself?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not really. we take precausions to prevent that. Besides, sick people need someone who wants to be with them no matter what they have."
+        },
+        {
+          "role": "free_human",
+          "text": "Does that require you to be away from your spouse for long periods of time?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes. Espeacially if you work at a hospital"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0279-turn-00",
+      "text": "how was your day",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 279,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "hi"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0440-turn-08",
+      "text": "Nice. I originally did weights for my training but I want to incorporate more cardio.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 440,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 15,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's great , ray . i've trained for 18 years . weights mostly ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm headed to bed , i like to read before bed , mostly autobiographies"
+        },
+        {
+          "role": "free_human",
+          "text": "I like to read too! What is your favorite genre?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love self help books"
+        },
+        {
+          "role": "free_human",
+          "text": "Those are cool, but I am more into fantasy. What else do you do in your free time?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I watch workout videos on Youtube dude. Gotta get ripped!"
+        },
+        {
+          "role": "free_human",
+          "text": "I take it you go to the gym often, then?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yep. At least 5 times a week."
+        },
+        {
+          "role": "free_human",
+          "text": "What kind of workouts do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "A bit of calisthenics. Mostly weight lifting though."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0471-turn-00",
+      "text": "you sound like your busy",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 471,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "thanks ! do you work ? do you like it ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do not work . between school work and hockey , i have no time ."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0972-turn-04",
+      "text": "yummy.! I would love to own a restaurant but I am sure it is a lot of work.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 972,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 18,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "not me ! what did you have for dinner ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "chicken soup , my family own a restaurant"
+        },
+        {
+          "role": "free_human",
+          "text": "that's awesome! Do you spend a lot of time there?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i do! it's a lot of fun but it can be tiring sometimes"
+        },
+        {
+          "role": "free_human",
+          "text": "I can imagine. what kind of restaurant do they own?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "kind of a general place. it's popular for lunch, a lot of soup and sandwiches and stuff, and desserts. soul food i guess?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0954-turn-00",
+      "text": "even i like story writting",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 954,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "mmm . . . i'm kind of a lone wolf"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i get that . i enjoy long writing sessions by myself"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0040-turn-10",
+      "text": "Do you run competitively? ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 40,
+      "turn_index": 10,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 4,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes it is very expensive though . how was your day ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "its been good . i'm about to go on a run"
+        },
+        {
+          "role": "free_human",
+          "text": "Have you ever ran a mile?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah i usually run about 3 miles every day. "
+        },
+        {
+          "role": "free_human",
+          "text": "I try to run a good bit as well but I do it every other day."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That is good. I usually try to run in the mornings to help clear my head for the day. "
+        },
+        {
+          "role": "free_human",
+          "text": "I always go in the evening or at night I am not a morning person."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have always been a morning person. I enjoy the fresh crisp morning air!"
+        },
+        {
+          "role": "free_human",
+          "text": "I tend to have trouble sleeping so I never have been one."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That is tough. Have you ever talked to a doctor about your trouble sleeping?"
+        },
+        {
+          "role": "free_human",
+          "text": "No, I do not go to the doctor for any thing really they are expensive."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes without insurance they can be extremely expensive. "
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0363-turn-08",
+      "text": "it took me a long time to accept my diagnosis, but im blessed now.  my partner also has it!!",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 363,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "sampling_whitespace_words": 19,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "do you know your father ? i've never met mine ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do not either sadly . its much too common ."
+        },
+        {
+          "role": "free_human",
+          "text": "i might not know my whole family, but my friends treat me like family"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's awesome! I also have some very good friends. I am married also and have 4 children now. So blessed!"
+        },
+        {
+          "role": "free_human",
+          "text": "nice, i just have a boyfriend and we're not really the parenting type because we are kind of like kids ourselves!!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You may find that that will change as time goes on. I still act like a kid sometimes too as I drive a red sportscar and wear red converse shoes."
+        },
+        {
+          "role": "free_human",
+          "text": "it wont change, i'm autistic"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow! One of my son's is autistic. He is such a blessing to all of us. If you are like him, he is so intelligent and so loving!"
+        },
+        {
+          "role": "free_human",
+          "text": "i am, and im an empath.  its really intense sometimes!!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I can imagine! I am so thankful that there is such a growing awareness and appreciation for special souls like you and my son."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0938-turn-00",
+      "text": "well I used to have a cat but she sadly died",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 938,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 11,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's ok everything in moderation !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "do you have any pets ?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0214-turn-00",
+      "text": "I find it to be simple enough for me! My kids love the cats.",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 214,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 14,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "the simple life fits me well , 5 children , cats fill my home"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it cant be that simple with that many"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0251-turn-04",
+      "text": "Nope, I've made it so far in one piece! Who is your favorite character?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 251,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 14,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am good excited for halloween"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love halloween . can't get out like i used to i am 77"
+        },
+        {
+          "role": "free_human",
+          "text": "Sometimes the best part of Halloween is staying in and watching some horror flicks, that's what I like to do!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Horror flicks? Don't you ever get too scared? Haha! I'm not a fan of horrors, much prefer old British comedy tv shows"
+        },
+        {
+          "role": "free_human",
+          "text": "I do, but that's the fun of it! Have you ever seen Only Fools and Horses?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "But when the movies finish, are you not scared that some of the horror things may happen to you?? Haha! But yes, I love only fools and horses!"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0685-turn-08",
+      "text": "how did you get into that? that's talent",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 685,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 8,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i use them for my sled . what do you like to paint ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "mostly landscapes . california is great for that"
+        },
+        {
+          "role": "free_human",
+          "text": "You're from california? I've always wanted to visit there."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, it's beautiful here."
+        },
+        {
+          "role": "free_human",
+          "text": "Have you ever seen a celebrity?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not yet!  Where are you from?"
+        },
+        {
+          "role": "free_human",
+          "text": "I'm from Minnesota but currently go to school in Wisconsin."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh that's a wonderful part of the country, so many beautiful lakes. What do you plan to do when you graduate?"
+        },
+        {
+          "role": "free_human",
+          "text": "Not sure yet but planning on getting a degree in criminology and international affair. What do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds interesting!  I am a painter."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0629-turn-04",
+      "text": "Good point. I may have to distract myself with other things, what do you think ",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 629,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "sampling_whitespace_words": 15,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "you are a great dr . thank you . i feel so much better about myself !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm glad i could help you ."
+        },
+        {
+          "role": "free_human",
+          "text": "would you like a pastry as thanks?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I thought I informed you that you couldn't handle any food due to risk of cross contimination. This is serious."
+        },
+        {
+          "role": "free_human",
+          "text": "I suppose you are right, I just have such a passion for baked goods, cake is a big part of my life"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well, now that all needs to change. Are you hungry in your mouth or stomach? Stay focused on your weight."
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    },
+    {
+      "id": "bst-test-conv-0245-turn-06",
+      "text": "Criminal law. What about you?",
+      "source": "en",
+      "target": "sw",
+      "corpus": "BlendedSkillTalk-free-human-convai2",
+      "conversation_index": 245,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "sampling_whitespace_words": 5,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes my studies are going great"
+        },
+        {
+          "role": "guided_seed",
+          "text": "how many years do you have remaining in your studies"
+        },
+        {
+          "role": "free_human",
+          "text": "Two. Do you study?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I study law since my father went to prison. I want to help him. What are you studying?"
+        },
+        {
+          "role": "free_human",
+          "text": "I'm studying law too! Though my reason was fuelled by my love of mystery novels. What you're doing is great."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love mystery novels. Thank You. What do you do to relax when not studying?"
+        },
+        {
+          "role": "free_human",
+          "text": "I'll normally read, hang out with friends, or go for a jog. What do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "When not studying, I train for marathons. Running really clears my head. What branch of law do you want to work in?"
+        }
+      ],
+      "review_only_context_note": "Context helps assess meaning but is never sent to either provider. Guided turns may contain suggested model text; selected inputs are exclusively free-human turns."
+    }
+  ],
+  "arms": [
+    "Current production lookup-first pipeline",
+    "Cached local ML Kit 1-3-word chunks + actual ML Kit full reference",
+    "Identical cached local ML Kit chunks + pinned AfriSLM full reference"
+  ],
+  "requested_depths": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "primary_arm": "Bounded-window candidates at requested10% source-word depth",
+  "fixed_rules": "Use unchanged reference-provider-freeze-r01 + compare_reference_provider.py, including strict digit preservation, existing protected-name guard, source/target disjoint unique word-boundary matches. No CAN blacklist or adaptive synonyms. Whole-message replacements receive no mixed-immersion credit.",
+  "scoring": "Freeze identity-masked full-reference and selected-span semantic labels before unmasking provider. Retain correct changed-word depth, clean useful messages, material/scope-error messages, uncertain labels, and errors inherited from reference versus introduced by alignment; report each length stratum and exact counts.",
+  "routing_and_latency": "Capture actual production outcome/origin/provider-call/cache-hit at each requested density, plus first process request and warm repeat. Tokenization and evaluation-only full-reference probes cannot be reported as production calls. Strong-reference route/cost remains experimental, not integrated production.",
+  "advance_for_engineering_only": "Primary arm: at least56/80 clean useful messages, no more than2/80 material-or-scope-error messages, at least8% mean correct changed-word depth; also improve current control correct depth by5percentagepoints or clean useful messages by8/80 without more errors. Report uncertainty and every threshold miss; these are not store-release or all-language acceptance criteria.",
+  "bounds": {
+    "new_model_downloads": 0,
+    "native_query_wall_seconds": 1800,
+    "native_query_seconds": 30,
+    "slm_cpu_threads": 2,
+    "slm_max_rss_bytes": 2147483648,
+    "slm_wall_seconds": 900
+  }
+}

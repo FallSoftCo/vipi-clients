@@ -1,0 +1,2522 @@
+{
+  "schema": "vipi-reference-provider-decision-1",
+  "production": false,
+  "decision": "Proceed to the frozen independent conversational sample for beginner-depth validation; do not integrate this model or accept higher immersion depth yet.",
+  "sample": "Same80 inspected English-source SMS/Taskmaster development messages, Swahili only. Identity-masked author review and separate24-row agent review; not native bilingual gold.",
+  "bindings": {
+    "freeze": {
+      "path": "qa/immersion/coverage_ceiling_experiment/reference-provider-freeze-r01.json",
+      "sha256": "4c107713d65587a08dfb1a555b8e4c7d9391164111c00adfa694a0ee7829bbd7"
+    },
+    "provider_capture": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/afri-slm-sw-80-r01.json",
+      "sha256": "8b3c762bff2ad7e5a211e8f8ae5d7d3e43dfc375893b295e2ec141335c803525"
+    },
+    "paired_review": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/paired-author-review-r01.json",
+      "sha256": "b1d061eff0ddc589ae4998651ff70f4a9e0858be0d2c0cd879621ff6726a6661"
+    },
+    "independent_review": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/independent-review-comparison-r01.json",
+      "sha256": "e7c463ae4d282c244952ff0d5bda5e08d46ace72f749bc6392cea2ee0ef14dbf"
+    },
+    "mlkit_spans": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/chunk-agreement/mlkit-author-review-r01.json",
+      "sha256": "b5a9bb920f5f8d57530f822cfc8920e75da13f848cf0984b24c754b1d5cdb267"
+    },
+    "afrislm_spans": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/chunk-agreement/afrislm-author-review-r01.json",
+      "sha256": "dfa04aaeb7a688d16a52b37e12d71832b5018ceda40b74ae3ba4fda32251f154"
+    },
+    "current_native_projection": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-probe/direct-sample-baseline-projection-r01.json",
+      "sha256": "2c17561b03f5098e4c380d0292e01c48d695e6a28a7b8d8ba7dfe1001363a1fa"
+    },
+    "actual_source_first_routing": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-slm-r01/source-first-contribution-r01.json",
+      "sha256": "9b63f09714efbd59173f84baee09b71b44bd22def3de3573637bdc534f068d97"
+    }
+  },
+  "window_summary_by_provider": {
+    "mlkit": [
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 80,
+        "messages_with_correct_changed_word": 56,
+        "strict_clean_useful_messages": 52,
+        "messages_with_material_or_scope_error": 6,
+        "messages_with_uncertain_span": 2,
+        "span_labels": {
+          "correct": 58,
+          "uncertain": 2,
+          "material": 5,
+          "wrong_scope": 1,
+          "minor": 4
+        },
+        "mean_changed_depth": 0.12627213963416373,
+        "mean_correct_changed_depth": 0.1075710674483374,
+        "mean_correct_or_minor_changed_depth": 0.1126250927927519
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 80,
+        "messages_with_correct_changed_word": 59,
+        "strict_clean_useful_messages": 50,
+        "messages_with_material_or_scope_error": 17,
+        "messages_with_uncertain_span": 2,
+        "span_labels": {
+          "material": 17,
+          "correct": 86,
+          "uncertain": 2,
+          "wrong_scope": 2,
+          "minor": 4
+        },
+        "mean_changed_depth": 0.23215327134981228,
+        "mean_correct_changed_depth": 0.18463928637887853,
+        "mean_correct_or_minor_changed_depth": 0.1892912649396673
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 80,
+        "messages_with_correct_changed_word": 64,
+        "strict_clean_useful_messages": 39,
+        "messages_with_material_or_scope_error": 26,
+        "messages_with_uncertain_span": 5,
+        "span_labels": {
+          "material": 24,
+          "correct": 142,
+          "uncertain": 5,
+          "minor": 9,
+          "wrong_scope": 7
+        },
+        "mean_changed_depth": 0.3928773920237055,
+        "mean_correct_changed_depth": 0.3034559658682618,
+        "mean_correct_or_minor_changed_depth": 0.3163073509821686
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 26,
+        "messages_with_correct_changed_word": 12,
+        "strict_clean_useful_messages": 12,
+        "messages_with_material_or_scope_error": 2,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 12,
+          "uncertain": 1,
+          "material": 2
+        },
+        "mean_changed_depth": 0.16794871794871796,
+        "mean_correct_changed_depth": 0.14102564102564102,
+        "mean_correct_or_minor_changed_depth": 0.14102564102564102
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 26,
+        "messages_with_correct_changed_word": 11,
+        "strict_clean_useful_messages": 11,
+        "messages_with_material_or_scope_error": 4,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "material": 4,
+          "correct": 11,
+          "uncertain": 1
+        },
+        "mean_changed_depth": 0.19871794871794873,
+        "mean_correct_changed_depth": 0.14871794871794872,
+        "mean_correct_or_minor_changed_depth": 0.14871794871794872
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 26,
+        "messages_with_correct_changed_word": 13,
+        "strict_clean_useful_messages": 13,
+        "messages_with_material_or_scope_error": 3,
+        "messages_with_uncertain_span": 2,
+        "span_labels": {
+          "material": 3,
+          "correct": 13,
+          "uncertain": 2
+        },
+        "mean_changed_depth": 0.3269230769230769,
+        "mean_correct_changed_depth": 0.2519230769230769,
+        "mean_correct_or_minor_changed_depth": 0.2519230769230769
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 26,
+        "messages_with_correct_changed_word": 20,
+        "strict_clean_useful_messages": 20,
+        "messages_with_material_or_scope_error": 1,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 20,
+          "material": 1
+        },
+        "mean_changed_depth": 0.1100968475968476,
+        "mean_correct_changed_depth": 0.10368659118659118,
+        "mean_correct_or_minor_changed_depth": 0.10368659118659118
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 26,
+        "messages_with_correct_changed_word": 22,
+        "strict_clean_useful_messages": 22,
+        "messages_with_material_or_scope_error": 3,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 25,
+          "material": 3,
+          "uncertain": 1
+        },
+        "mean_changed_depth": 0.26293983793983794,
+        "mean_correct_changed_depth": 0.22146742146742146,
+        "mean_correct_or_minor_changed_depth": 0.22146742146742146
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 26,
+        "messages_with_correct_changed_word": 24,
+        "strict_clean_useful_messages": 18,
+        "messages_with_material_or_scope_error": 5,
+        "messages_with_uncertain_span": 2,
+        "span_labels": {
+          "correct": 40,
+          "minor": 1,
+          "material": 3,
+          "wrong_scope": 2,
+          "uncertain": 2
+        },
+        "mean_changed_depth": 0.414979464979465,
+        "mean_correct_changed_depth": 0.32497224997224994,
+        "mean_correct_or_minor_changed_depth": 0.33939532689532687
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 22,
+        "messages_with_correct_changed_word": 18,
+        "strict_clean_useful_messages": 18,
+        "messages_with_material_or_scope_error": 2,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 18,
+          "material": 1,
+          "wrong_scope": 1,
+          "minor": 2
+        },
+        "mean_changed_depth": 0.10220063668626732,
+        "mean_correct_changed_depth": 0.08299852237545736,
+        "mean_correct_or_minor_changed_depth": 0.0945425339194689
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 22,
+        "messages_with_correct_changed_word": 20,
+        "strict_clean_useful_messages": 15,
+        "messages_with_material_or_scope_error": 6,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 37,
+          "material": 5,
+          "wrong_scope": 2,
+          "minor": 1
+        },
+        "mean_changed_depth": 0.2365514144774476,
+        "mean_correct_changed_depth": 0.19475730882464629,
+        "mean_correct_or_minor_changed_depth": 0.20125081531815278
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 22,
+        "messages_with_correct_changed_word": 21,
+        "strict_clean_useful_messages": 8,
+        "messages_with_material_or_scope_error": 13,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 60,
+          "material": 11,
+          "wrong_scope": 5,
+          "minor": 2
+        },
+        "mean_changed_depth": 0.4365321763196645,
+        "mean_correct_changed_depth": 0.3445786927211076,
+        "mean_correct_or_minor_changed_depth": 0.3561227042651191
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 2,
+        "messages_with_material_or_scope_error": 1,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 8,
+          "uncertain": 1,
+          "minor": 2,
+          "material": 1
+        },
+        "mean_changed_depth": 0.10402874324175218,
+        "mean_correct_changed_depth": 0.06953331101481548,
+        "mean_correct_or_minor_changed_depth": 0.09459227327896642
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 2,
+        "messages_with_material_or_scope_error": 4,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 13,
+          "minor": 3,
+          "material": 5
+        },
+        "mean_changed_depth": 0.22750468939644708,
+        "mean_correct_changed_depth": 0.14361041522473994,
+        "mean_correct_or_minor_changed_depth": 0.181827272225733
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 0,
+        "messages_with_material_or_scope_error": 5,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 29,
+          "uncertain": 1,
+          "minor": 6,
+          "material": 7
+        },
+        "mean_changed_depth": 0.4228362322329552,
+        "mean_correct_changed_depth": 0.2827445883863461,
+        "mean_correct_or_minor_changed_depth": 0.3492683475770616
+      }
+    ],
+    "afrislm": [
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 80,
+        "messages_with_correct_changed_word": 58,
+        "strict_clean_useful_messages": 56,
+        "messages_with_material_or_scope_error": 1,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 66,
+          "wrong_scope": 1,
+          "minor": 2
+        },
+        "mean_changed_depth": 0.11963769129741277,
+        "mean_correct_changed_depth": 0.11691689474080384,
+        "mean_correct_or_minor_changed_depth": 0.11909421303654319
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 80,
+        "messages_with_correct_changed_word": 60,
+        "strict_clean_useful_messages": 52,
+        "messages_with_material_or_scope_error": 5,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 104,
+          "minor": 7,
+          "material": 1,
+          "wrong_scope": 4,
+          "uncertain": 1
+        },
+        "mean_changed_depth": 0.21834859603862375,
+        "mean_correct_changed_depth": 0.19765945888620712,
+        "mean_correct_or_minor_changed_depth": 0.21287638970757874
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "all",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 80,
+        "messages_with_correct_changed_word": 62,
+        "strict_clean_useful_messages": 45,
+        "messages_with_material_or_scope_error": 12,
+        "messages_with_uncertain_span": 3,
+        "span_labels": {
+          "correct": 160,
+          "wrong_scope": 10,
+          "minor": 10,
+          "material": 2,
+          "uncertain": 3
+        },
+        "mean_changed_depth": 0.32865867150628636,
+        "mean_correct_changed_depth": 0.28529020030964597,
+        "mean_correct_or_minor_changed_depth": 0.30334034775099894
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 26,
+        "messages_with_correct_changed_word": 12,
+        "strict_clean_useful_messages": 12,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 12
+        },
+        "mean_changed_depth": 0.14102564102564102,
+        "mean_correct_changed_depth": 0.14102564102564102,
+        "mean_correct_or_minor_changed_depth": 0.14102564102564102
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 26,
+        "messages_with_correct_changed_word": 12,
+        "strict_clean_useful_messages": 12,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 12
+        },
+        "mean_changed_depth": 0.1717948717948718,
+        "mean_correct_changed_depth": 0.1717948717948718,
+        "mean_correct_or_minor_changed_depth": 0.1717948717948718
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "1-5",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 26,
+        "messages_with_correct_changed_word": 13,
+        "strict_clean_useful_messages": 13,
+        "messages_with_material_or_scope_error": 1,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 15,
+          "wrong_scope": 1
+        },
+        "mean_changed_depth": 0.24807692307692308,
+        "mean_correct_changed_depth": 0.22884615384615384,
+        "mean_correct_or_minor_changed_depth": 0.22884615384615384
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 26,
+        "messages_with_correct_changed_word": 19,
+        "strict_clean_useful_messages": 19,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 20
+        },
+        "mean_changed_depth": 0.10246558996558996,
+        "mean_correct_changed_depth": 0.10246558996558996,
+        "mean_correct_or_minor_changed_depth": 0.10246558996558996
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 26,
+        "messages_with_correct_changed_word": 21,
+        "strict_clean_useful_messages": 21,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 27,
+          "minor": 3
+        },
+        "mean_changed_depth": 0.24425851925851924,
+        "mean_correct_changed_depth": 0.2117909867909868,
+        "mean_correct_or_minor_changed_depth": 0.24425851925851924
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "6-15",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 26,
+        "messages_with_correct_changed_word": 22,
+        "strict_clean_useful_messages": 20,
+        "messages_with_material_or_scope_error": 2,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 40,
+          "wrong_scope": 2,
+          "minor": 2,
+          "uncertain": 1
+        },
+        "mean_changed_depth": 0.36096819846819844,
+        "mean_correct_changed_depth": 0.30902014652014653,
+        "mean_correct_or_minor_changed_depth": 0.330498667998668
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 22,
+        "messages_with_correct_changed_word": 21,
+        "strict_clean_useful_messages": 20,
+        "messages_with_material_or_scope_error": 1,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 23,
+          "wrong_scope": 1,
+          "minor": 1
+        },
+        "mean_changed_depth": 0.11514255587818652,
+        "mean_correct_changed_depth": 0.10883726696420194,
+        "mean_correct_or_minor_changed_depth": 0.11316627129320628
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 22,
+        "messages_with_correct_changed_word": 21,
+        "strict_clean_useful_messages": 15,
+        "messages_with_material_or_scope_error": 5,
+        "messages_with_uncertain_span": 1,
+        "span_labels": {
+          "correct": 44,
+          "material": 1,
+          "wrong_scope": 4,
+          "uncertain": 1,
+          "minor": 2
+        },
+        "mean_changed_depth": 0.23733657702731603,
+        "mean_correct_changed_depth": 0.20832395159020545,
+        "mean_correct_or_minor_changed_depth": 0.2174376449144251
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "16-30",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 22,
+        "messages_with_correct_changed_word": 21,
+        "strict_clean_useful_messages": 9,
+        "messages_with_material_or_scope_error": 7,
+        "messages_with_uncertain_span": 2,
+        "span_labels": {
+          "correct": 69,
+          "material": 1,
+          "uncertain": 2,
+          "wrong_scope": 6,
+          "minor": 6
+        },
+        "mean_changed_depth": 0.38029842683901105,
+        "mean_correct_changed_depth": 0.3173630656409294,
+        "mean_correct_or_minor_changed_depth": 0.34976637784300324
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.1,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 5,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 11,
+          "minor": 1
+        },
+        "mean_changed_depth": 0.11785117811681864,
+        "mean_correct_changed_depth": 0.10469328337997653,
+        "mean_correct_or_minor_changed_depth": 0.11785117811681864
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.25,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 4,
+        "messages_with_material_or_scope_error": 0,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 21,
+          "minor": 2
+        },
+        "mean_changed_depth": 0.23818247018346322,
+        "mean_correct_changed_depth": 0.20939957544662113,
+        "mean_correct_or_minor_changed_depth": 0.23818247018346322
+      },
+      {
+        "target": "sw",
+        "corpus": "all",
+        "length_bin": "31+",
+        "arm": "window",
+        "density": 0.5,
+        "messages": 6,
+        "messages_with_correct_changed_word": 6,
+        "strict_clean_useful_messages": 3,
+        "messages_with_material_or_scope_error": 2,
+        "messages_with_uncertain_span": 0,
+        "span_labels": {
+          "correct": 36,
+          "minor": 2,
+          "material": 1,
+          "wrong_scope": 1
+        },
+        "mean_changed_depth": 0.34849252831191757,
+        "mean_correct_changed_depth": 0.3094507951912371,
+        "mean_correct_or_minor_changed_depth": 0.33823368992807923
+      }
+    ]
+  },
+  "current_control_summary": [
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 80,
+      "correct_depth": 0.054585218842743734,
+      "clean_useful_messages": 37,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 80,
+      "correct_depth": 0.05795940184927968,
+      "clean_useful_messages": 37,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 80,
+      "correct_depth": 0.05795940184927968,
+      "clean_useful_messages": 37,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 80,
+      "correct_depth": 0.08771036979856255,
+      "clean_useful_messages": 43,
+      "error_messages": 6
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 80,
+      "correct_depth": 0.12411355118674781,
+      "clean_useful_messages": 40,
+      "error_messages": 8
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 80,
+      "correct_depth": 0.1312818625902566,
+      "clean_useful_messages": 40,
+      "error_messages": 8
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.047435897435897434,
+      "clean_useful_messages": 4,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.047435897435897434,
+      "clean_useful_messages": 4,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.047435897435897434,
+      "clean_useful_messages": 4,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.10128205128205128,
+      "clean_useful_messages": 8,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.11666666666666667,
+      "clean_useful_messages": 8,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.1294871794871795,
+      "clean_useful_messages": 8,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.04931734931734932,
+      "clean_useful_messages": 12,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.05316350316350316,
+      "clean_useful_messages": 12,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.05316350316350316,
+      "clean_useful_messages": 12,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.06203379953379953,
+      "clean_useful_messages": 11,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.10884532134532134,
+      "clean_useful_messages": 11,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.11365301365301365,
+      "clean_useful_messages": 11,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 22,
+      "correct_depth": 0.07084958749466086,
+      "clean_useful_messages": 17,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 22,
+      "correct_depth": 0.07857388933660975,
+      "clean_useful_messages": 17,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 22,
+      "correct_depth": 0.07857388933660975,
+      "clean_useful_messages": 17,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 22,
+      "correct_depth": 0.10144546220818262,
+      "clean_useful_messages": 20,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 22,
+      "correct_depth": 0.15480649960559772,
+      "clean_useful_messages": 17,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 22,
+      "correct_depth": 0.16003975319411448,
+      "clean_useful_messages": 17,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 6,
+      "correct_depth": 0.04875702782542405,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 6,
+      "correct_depth": 0.04875702782542405,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 6,
+      "correct_depth": 0.04875702782542405,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 6,
+      "correct_depth": 0.08980288234881086,
+      "clean_useful_messages": 4,
+      "error_messages": 2
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 6,
+      "correct_depth": 0.11000490255083105,
+      "clean_useful_messages": 4,
+      "error_messages": 2
+    },
+    {
+      "target": "es",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 6,
+      "correct_depth": 0.11000490255083105,
+      "clean_useful_messages": 4,
+      "error_messages": 2
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 40,
+      "correct_depth": 0.052677189205721814,
+      "clean_useful_messages": 20,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 40,
+      "correct_depth": 0.0565660780946107,
+      "clean_useful_messages": 20,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 40,
+      "correct_depth": 0.0565660780946107,
+      "clean_useful_messages": 20,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 40,
+      "correct_depth": 0.0759461926803174,
+      "clean_useful_messages": 23,
+      "error_messages": 2
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 40,
+      "correct_depth": 0.11861484347396818,
+      "clean_useful_messages": 21,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 40,
+      "correct_depth": 0.12017734347396819,
+      "clean_useful_messages": 21,
+      "error_messages": 3
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.05,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.08333333333333334,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.08333333333333334,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.05086279461279461,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.05919612794612795,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.05919612794612795,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.06885521885521885,
+      "clean_useful_messages": 6,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.13112373737373736,
+      "clean_useful_messages": 6,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.13112373737373736,
+      "clean_useful_messages": 6,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.07868932597193466,
+      "clean_useful_messages": 10,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.0833189556015643,
+      "clean_useful_messages": 10,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.0833189556015643,
+      "clean_useful_messages": 10,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.10735996089256958,
+      "clean_useful_messages": 11,
+      "error_messages": 0
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.1539869450195537,
+      "clean_useful_messages": 9,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.15919527835288705,
+      "clean_useful_messages": 9,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 4,
+      "correct_depth": 0.038115530303030304,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 4,
+      "correct_depth": 0.038115530303030304,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 4,
+      "correct_depth": 0.038115530303030304,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 4,
+      "correct_depth": 0.0808163875598086,
+      "clean_useful_messages": 3,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 4,
+      "correct_depth": 0.0808163875598086,
+      "clean_useful_messages": 3,
+      "error_messages": 1
+    },
+    {
+      "target": "es",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 4,
+      "correct_depth": 0.0808163875598086,
+      "clean_useful_messages": 3,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 80,
+      "correct_depth": 0.054820841600618814,
+      "clean_useful_messages": 34,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 80,
+      "correct_depth": 0.05665164968142689,
+      "clean_useful_messages": 34,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 80,
+      "correct_depth": 0.06290164968142689,
+      "clean_useful_messages": 35,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 80,
+      "correct_depth": 0.06745936855246813,
+      "clean_useful_messages": 37,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 80,
+      "correct_depth": 0.0838697167826693,
+      "clean_useful_messages": 37,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 80,
+      "correct_depth": 0.09584888344933597,
+      "clean_useful_messages": 38,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.05705128205128205,
+      "clean_useful_messages": 5,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.05705128205128205,
+      "clean_useful_messages": 5,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.07628205128205129,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.07628205128205129,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.08397435897435898,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.11602564102564103,
+      "clean_useful_messages": 7,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.062444499944499944,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.06594100344100344,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.06594100344100344,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 26,
+      "correct_depth": 0.0642926517926518,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 26,
+      "correct_depth": 0.096513209013209,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 26,
+      "correct_depth": 0.10132090132090132,
+      "clean_useful_messages": 13,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 22,
+      "correct_depth": 0.048961087277987266,
+      "clean_useful_messages": 13,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 22,
+      "correct_depth": 0.051486339803239786,
+      "clean_useful_messages": 13,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 22,
+      "correct_depth": 0.051486339803239786,
+      "clean_useful_messages": 13,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 22,
+      "correct_depth": 0.06307781849998165,
+      "clean_useful_messages": 14,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 22,
+      "correct_depth": 0.07558206262187282,
+      "clean_useful_messages": 14,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 22,
+      "correct_depth": 0.07558206262187282,
+      "clean_useful_messages": 14,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 6,
+      "correct_depth": 0.0336055126739089,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 6,
+      "correct_depth": 0.0336055126739089,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 6,
+      "correct_depth": 0.0336055126739089,
+      "clean_useful_messages": 3,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 6,
+      "correct_depth": 0.059015866209262434,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 6,
+      "correct_depth": 0.059015866209262434,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "all",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 6,
+      "correct_depth": 0.059015866209262434,
+      "clean_useful_messages": 4,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 40,
+      "correct_depth": 0.04559611056214317,
+      "clean_useful_messages": 16,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 40,
+      "correct_depth": 0.04698499945103206,
+      "clean_useful_messages": 16,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 40,
+      "correct_depth": 0.04698499945103206,
+      "clean_useful_messages": 16,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 40,
+      "correct_depth": 0.05684092477570738,
+      "clean_useful_messages": 18,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 40,
+      "correct_depth": 0.07565044858523119,
+      "clean_useful_messages": 18,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "all",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 40,
+      "correct_depth": 0.07565044858523119,
+      "clean_useful_messages": 18,
+      "error_messages": 4
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.03333333333333333,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.05,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.05,
+      "clean_useful_messages": 2,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.05218855218855219,
+      "clean_useful_messages": 5,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.05218855218855219,
+      "clean_useful_messages": 5,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.05218855218855219,
+      "clean_useful_messages": 5,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.06052188552188552,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.08853114478114478,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.08853114478114478,
+      "clean_useful_messages": 6,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.05628522544283414,
+      "clean_useful_messages": 8,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.06091485507246377,
+      "clean_useful_messages": 8,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.06091485507246377,
+      "clean_useful_messages": 8,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 12,
+      "correct_depth": 0.07777993443754314,
+      "clean_useful_messages": 8,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 12,
+      "correct_depth": 0.09580242121002991,
+      "clean_useful_messages": 8,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 12,
+      "correct_depth": 0.09580242121002991,
+      "clean_useful_messages": 8,
+      "error_messages": 3
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.1,
+      "messages": 4,
+      "correct_depth": 0.030539772727272728,
+      "clean_useful_messages": 1,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.25,
+      "messages": 4,
+      "correct_depth": 0.030539772727272728,
+      "clean_useful_messages": 1,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "A",
+      "density": 0.5,
+      "messages": 4,
+      "correct_depth": 0.030539772727272728,
+      "clean_useful_messages": 1,
+      "error_messages": 0
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.1,
+      "messages": 4,
+      "correct_depth": 0.05350378787878788,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.25,
+      "messages": 4,
+      "correct_depth": 0.05350378787878788,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    },
+    {
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "arm": "B",
+      "density": 0.5,
+      "messages": 4,
+      "correct_depth": 0.05350378787878788,
+      "clean_useful_messages": 2,
+      "error_messages": 1
+    }
+  ],
+  "errors": [
+    {
+      "id": "uci-sms-line-4999",
+      "density": 0.5,
+      "original": "Esplanade lor. Where else...",
+      "full_reference": "Esplanade lor. Wapi kwingine...",
+      "mixed": "Esplanade lor. Wapi...",
+      "span": {
+        "sourceStartUTF16": 15,
+        "sourceEndUTF16": 25,
+        "targetStartUTF16": 15,
+        "targetEndUTF16": 19,
+        "original": "Where else",
+        "translated": "Wapi",
+        "source_words": 2,
+        "changed_source_words": 2,
+        "unchanged_source_tokens": [],
+        "query_id": "70ec166714b3dccfe9373a332712e3ee0f988a5fc6f725a480555fece38102c9",
+        "isolated_translation": "Wapi",
+        "arms": [
+          "bounded_window",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Where else projects only Wapi, omitting else/kwingine present in the full reference.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-2826",
+      "density": 0.5,
+      "original": "No need to buy lunch for me.. I eat maggi mee..",
+      "full_reference": "Hakuna haja ya kuninunulia chakula cha mchana.. mimi nakula maggi mee..",
+      "mixed": "Hakuna haja ya buy chakula cha for me.. nakula maggi mee..",
+      "span": {
+        "sourceStartUTF16": 15,
+        "sourceEndUTF16": 20,
+        "targetStartUTF16": 27,
+        "targetEndUTF16": 38,
+        "original": "lunch",
+        "translated": "chakula cha",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "dc89580dbab3a601f6f3a21ba6f70d8810ab2f7562d064020a6310750f3692f3",
+        "isolated_translation": "chakula cha",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Lunch projects only chakula cha(food of), omitting mchana that completes the meal sense.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-719",
+      "density": 0.25,
+      "original": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "full_reference": "Kitabu ni somo gani? kisha unipe msg... nitapiga simu baada ya kazi au sth... nitapata specs. membership yangu ni PX3748",
+      "mixed": "Kitabu somo gani? then you msg me... I will call up baada ya kazi au sth... I'm going to get specs. My membership is PX3748",
+      "span": {
+        "sourceStartUTF16": 0,
+        "sourceEndUTF16": 4,
+        "targetStartUTF16": 0,
+        "targetEndUTF16": 6,
+        "original": "Book",
+        "translated": "Kitabu",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "04d40926d60a87be3073fa62381a794786988dd7aa6c640748c7647003e6f37a",
+        "isolated_translation": "Kitabu",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "material",
+        "label_basis": "Book/reserve is rendered as noun Kitabu.",
+        "error_origin": "reference_inherited"
+      }
+    },
+    {
+      "id": "uci-sms-line-719",
+      "density": 0.5,
+      "original": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "full_reference": "Kitabu ni somo gani? kisha unipe msg... nitapiga simu baada ya kazi au sth... nitapata specs. membership yangu ni PX3748",
+      "mixed": "Kitabu somo gani? kisha you msg me... I will call up baada ya kazi au sth... I'm going to get specs. yangu membership is PX3748",
+      "span": {
+        "sourceStartUTF16": 0,
+        "sourceEndUTF16": 4,
+        "targetStartUTF16": 0,
+        "targetEndUTF16": 6,
+        "original": "Book",
+        "translated": "Kitabu",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "04d40926d60a87be3073fa62381a794786988dd7aa6c640748c7647003e6f37a",
+        "isolated_translation": "Kitabu",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "material",
+        "label_basis": "Book/reserve is rendered as noun Kitabu.",
+        "error_origin": "reference_inherited"
+      }
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "density": 0.1,
+      "original": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "full_reference": "\"Je, unaweza kunijulisha sasa mjini? Haijalishi kama unajua nini, ninahitaji tu kufanya kazi. Tafadhali usipuuze simu zangu, kwa sababu nina shauku kubwa na wewe\".",
+      "mixed": "\"Je I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "span": {
+        "sourceStartUTF16": 1,
+        "sourceEndUTF16": 4,
+        "targetStartUTF16": 1,
+        "targetEndUTF16": 3,
+        "original": "CAN",
+        "translated": "Je",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "c624a7c12c08fc1c13807fc3d9812ba230a6a5c39dfde1cee5d135a267d2fa90",
+        "isolated_translation": "Je,",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "CAN modality aligns only question particle Je; full modality is in unaweza.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "density": 0.25,
+      "original": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "full_reference": "\"Je, unaweza kunijulisha sasa mjini? Haijalishi kama unajua nini, ninahitaji tu kufanya kazi. Tafadhali usipuuze simu zangu, kwa sababu nina shauku kubwa na wewe\".",
+      "mixed": "\"Je I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "span": {
+        "sourceStartUTF16": 1,
+        "sourceEndUTF16": 4,
+        "targetStartUTF16": 1,
+        "targetEndUTF16": 3,
+        "original": "CAN",
+        "translated": "Je",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "c624a7c12c08fc1c13807fc3d9812ba230a6a5c39dfde1cee5d135a267d2fa90",
+        "isolated_translation": "Je,",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "CAN modality aligns only question particle Je; full modality is in unaweza.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "density": 0.5,
+      "original": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "full_reference": "\"Je, unaweza kunijulisha sasa mjini? Haijalishi kama unajua nini, ninahitaji tu kufanya kazi. Tafadhali usipuuze simu zangu, kwa sababu nina shauku kubwa na wewe\".",
+      "mixed": "\"Je I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "span": {
+        "sourceStartUTF16": 1,
+        "sourceEndUTF16": 4,
+        "targetStartUTF16": 1,
+        "targetEndUTF16": 3,
+        "original": "CAN",
+        "translated": "Je",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "c624a7c12c08fc1c13807fc3d9812ba230a6a5c39dfde1cee5d135a267d2fa90",
+        "isolated_translation": "Je,",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "CAN modality aligns only question particle Je; full modality is in unaweza.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-395",
+      "density": 0.5,
+      "original": "Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down",
+      "full_reference": "Ndiyo nadhani ndio. niko ofisini lakini lango langu liko chumbani nadhani hilo lipo kwa siku chache zilizopita. sikufunga hilo",
+      "mixed": "Ndiyo nadhani so. I niko office lakini my lap is in room i think thats kwa the siku chache zilizopita. I didnt shut that down",
+      "span": {
+        "sourceStartUTF16": 67,
+        "sourceEndUTF16": 73,
+        "targetStartUTF16": 84,
+        "targetEndUTF16": 87,
+        "original": "on for",
+        "translated": "kwa",
+        "source_words": 2,
+        "changed_source_words": 2,
+        "unchanged_source_tokens": [],
+        "query_id": "119da40146bdc279f3c9c6ae337adaf3ce44ecf561378ee9966ce2ef7d47478f",
+        "isolated_translation": "kwa",
+        "arms": [
+          "bounded_window",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "On-for projects only for, dropping laptop powered-on state.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "density": 0.25,
+      "original": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?",
+      "full_reference": "Tyler (anapata alama ya 8) anapaswa kuondoka muda mfupi baada ya saa 9, unaweza kufika hapa kwa saa moja?",
+      "mixed": "Tyler (getting an 8th) has kuondoka long after 9, unaweza get here in like an hour?",
+      "span": {
+        "sourceStartUTF16": 27,
+        "sourceEndUTF16": 39,
+        "targetStartUTF16": 36,
+        "targetEndUTF16": 44,
+        "original": "to leave not",
+        "translated": "kuondoka",
+        "source_words": 3,
+        "changed_source_words": 3,
+        "unchanged_source_tokens": [],
+        "query_id": "896184c167da4843129b2afc05d69a17b061d4a73043b2041f6b2991138d3a88",
+        "isolated_translation": "kuondoka",
+        "arms": [
+          "bounded_window"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Chunk consumes not from not-long but target only leave, reversing remaining time phrase.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "density": 0.5,
+      "original": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?",
+      "full_reference": "Tyler (anapata alama ya 8) anapaswa kuondoka muda mfupi baada ya saa 9, unaweza kufika hapa kwa saa moja?",
+      "mixed": "Tyler (getting an 8th) has kuondoka long baada ya 9, unaweza get hapa like an hour?",
+      "span": {
+        "sourceStartUTF16": 27,
+        "sourceEndUTF16": 39,
+        "targetStartUTF16": 36,
+        "targetEndUTF16": 44,
+        "original": "to leave not",
+        "translated": "kuondoka",
+        "source_words": 3,
+        "changed_source_words": 3,
+        "unchanged_source_tokens": [],
+        "query_id": "896184c167da4843129b2afc05d69a17b061d4a73043b2041f6b2991138d3a88",
+        "isolated_translation": "kuondoka",
+        "arms": [
+          "bounded_window"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Chunk consumes not from not-long but target only leave, reversing remaining time phrase.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "density": 0.5,
+      "original": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "full_reference": "Hello, hello, hi lou samahani ilichukua muda mrefu sana kujibu- niliacha simu ya mkononi kwa marafiki huko Lancaster, niliipata tu bak Neway im sorry sikuweza kufanya bday 2 hun!",
+      "mixed": "Hello, hello, hi lou sorry ilichukua muda mrefu 2 reply- niliacha simu kwa marafiki Lancaster, tu got it bak Neway im sorry sikuweza kufanya ur bday 2 hun!",
+      "span": {
+        "sourceStartUTF16": 133,
+        "sourceEndUTF16": 137,
+        "targetStartUTF16": 159,
+        "targetEndUTF16": 166,
+        "original": "make",
+        "translated": "kufanya",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "f93a2396aa16f2398359cfb70f6eba2da59e85fddb191e6a2e042e10a5ebfa54",
+        "isolated_translation": "kufanya",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "material",
+        "label_basis": "Make in attend-birthday context rendered as do/make.",
+        "error_origin": "reference_inherited"
+      }
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "density": 0.5,
+      "original": "I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now",
+      "full_reference": "Nitarudi Alhamisi. Je, itakuwa sawa kupata pesa? Asanteni. Oh ndiyo na unaendeleaje. Kila kitu kiko sawa. Shule ikoje. Au unaiita kazi sasa?",
+      "mixed": "I'm coming back on Thursday. Yay. Is itakuwa sawa kupata the money. Cheers. Oh yeah na how are you. Kila kitu alright. Hows Shule. Au Je unaiita kazi sasa",
+      "span": {
+        "sourceStartUTF16": 139,
+        "sourceEndUTF16": 141,
+        "targetStartUTF16": 19,
+        "targetEndUTF16": 21,
+        "original": "do",
+        "translated": "Je",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "581d2777cab526fb3720df0cbf6f087cf8a318d982c99d5cd8d18cea3bde4a73",
+        "isolated_translation": "Je,",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Do in final question aligns Je from earlier money question.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-57fc0d2e-0c45-4e38-ba71-145bc1080fd7-2",
+      "density": 0.5,
+      "original": "What should I do for dinner tonight?",
+      "full_reference": "Nifanye nini kwa chakula cha jioni leo?",
+      "mixed": "Nifanye nini do kwa dinner tonight?",
+      "span": {
+        "sourceStartUTF16": 0,
+        "sourceEndUTF16": 13,
+        "targetStartUTF16": 0,
+        "targetEndUTF16": 12,
+        "original": "What should I",
+        "translated": "Nifanye nini",
+        "source_words": 3,
+        "changed_source_words": 3,
+        "unchanged_source_tokens": [],
+        "query_id": "502610b5ffdd6526cd5e8e60e6fe9929b7232b385270272d1099b5fc05605d82",
+        "isolated_translation": "Nifanye nini",
+        "arms": [
+          "bounded_window",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "What should I projects Nifanye nini containing do; source do remains outside scope.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "density": 0.25,
+      "original": "Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "full_reference": "Je, unaweza kuniambia ni vichekesho gani vilivyopewa alama za juu zaidi kwenye Rotten Tomatoes ambavyo vinaonyeshwa kwa sasa?",
+      "mixed": "unaweza tell me what is the highest-rated comedy juu Rotten Tomatoes that kwa sasa showing is, please?",
+      "span": {
+        "sourceStartUTF16": 49,
+        "sourceEndUTF16": 51,
+        "targetStartUTF16": 62,
+        "targetEndUTF16": 65,
+        "original": "on",
+        "translated": "juu",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "ff7eabb679056f6e327ece4b0ff0a036bae5d3acb38a9f746df296d1e992b3be",
+        "isolated_translation": "juu",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "On in on-Rotten-Tomatoes aligns juu(high) in highest-rating construction, not website kweny e.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "density": 0.5,
+      "original": "Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "full_reference": "Je, unaweza kuniambia ni vichekesho gani vilivyopewa alama za juu zaidi kwenye Rotten Tomatoes ambavyo vinaonyeshwa kwa sasa?",
+      "mixed": "unaweza tell me what is the highest-rated comedy juu Rotten Tomatoes that kwa sasa showing is, please?",
+      "span": {
+        "sourceStartUTF16": 49,
+        "sourceEndUTF16": 51,
+        "targetStartUTF16": 62,
+        "targetEndUTF16": 65,
+        "original": "on",
+        "translated": "juu",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "ff7eabb679056f6e327ece4b0ff0a036bae5d3acb38a9f746df296d1e992b3be",
+        "isolated_translation": "juu",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "On in on-Rotten-Tomatoes aligns juu(high) in highest-rating construction, not website kweny e.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-7c6887b6-224f-4ef1-858a-f57336366fde-2",
+      "density": 0.25,
+      "original": "I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "full_reference": "Ninatafuta ndege ya kwenda Los Angeles, California. Nitakuwa nikienda nchini Marekani tarehe 3 Machi.",
+      "mixed": "I'm looking to get ndege out to Los Angeles, California. Nitakuwa flying out on the 3rd ya March.",
+      "span": {
+        "sourceStartUTF16": 90,
+        "sourceEndUTF16": 92,
+        "targetStartUTF16": 17,
+        "targetEndUTF16": 19,
+        "original": "of",
+        "translated": "ya",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "d2a06c264781d6172d348e441c81af942d1af9a9add1109962905c40d1339af9",
+        "isolated_translation": "ya",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Of in3rd-of-March aligns ya in earlier flight route, not date.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-7c6887b6-224f-4ef1-858a-f57336366fde-2",
+      "density": 0.5,
+      "original": "I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "full_reference": "Ninatafuta ndege ya kwenda Los Angeles, California. Nitakuwa nikienda nchini Marekani tarehe 3 Machi.",
+      "mixed": "I'm looking to get ndege out to Los Angeles, California. Nitakuwa flying out on the 3rd ya March.",
+      "span": {
+        "sourceStartUTF16": 90,
+        "sourceEndUTF16": 92,
+        "targetStartUTF16": 17,
+        "targetEndUTF16": 19,
+        "original": "of",
+        "translated": "ya",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "d2a06c264781d6172d348e441c81af942d1af9a9add1109962905c40d1339af9",
+        "isolated_translation": "ya",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Of in3rd-of-March aligns ya in earlier flight route, not date.",
+        "error_origin": "introduced_scope"
+      }
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "density": 0.5,
+      "original": "Who did the LA Rams play last? With whom they are going to play next week?",
+      "full_reference": "Ni nani aliyecheza LA Rams mara ya mwisho? Watacheza na nani wiki ijayo?",
+      "mixed": "Who did the LA Rams play mwisho? na nani they Ni going to play wiki ijayo?",
+      "span": {
+        "sourceStartUTF16": 46,
+        "sourceEndUTF16": 49,
+        "targetStartUTF16": 0,
+        "targetEndUTF16": 2,
+        "original": "are",
+        "translated": "Ni",
+        "source_words": 1,
+        "changed_source_words": 1,
+        "unchanged_source_tokens": [],
+        "query_id": "b343a56843a82df00f4c31f57f48c8cc5645f43f91206153438f6f5a64acc22b",
+        "isolated_translation": "ni",
+        "arms": [
+          "isolated_word",
+          "top_down_split"
+        ],
+        "label": "wrong_scope",
+        "label_basis": "Are from second future-play question aligns Ni in first question.",
+        "error_origin": "introduced_scope"
+      }
+    }
+  ],
+  "primary_error_explanation": "At10%, CAN→Je substitutes a question marker for modal ability. The ability meaning resides in unaweza elsewhere in the otherwise better full reference. Exact isolated/full-reference agreement proves string presence, not the correspondence of source meaning. This generic scope failure is retained without a CAN blacklist.",
+  "routing": {
+    "messages": 80,
+    "actual_full_translation_calls_at_density_0_25": 69,
+    "actual_path_counts": [
+      {
+        "path": "LOCAL_FULL_CONTEXT",
+        "status": "READY",
+        "local_calls": 1,
+        "count": 63
+      },
+      {
+        "path": null,
+        "status": "INVALID_LANGUAGE",
+        "local_calls": 0,
+        "count": 5
+      },
+      {
+        "path": "LOOKUP_REFERENCE",
+        "status": "READY",
+        "local_calls": 0,
+        "count": 5
+      },
+      {
+        "path": "LOCAL_FULL_CONTEXT",
+        "status": "READY",
+        "local_calls": 0,
+        "count": 1
+      },
+      {
+        "path": "SOURCE_REFERENCE_PARTIAL",
+        "status": "PARTIAL",
+        "local_calls": 1,
+        "count": 6
+      }
+    ],
+    "note": "69/80 actual production invocations called local full translation. Five no-call exact references were whole-message replacements with zero mixed-depth credit. One additional zero-call local-reference path was conversation-cache reuse. This does not establish inference-free coverage for most chats."
+  },
+  "provider_runtime": {
+    "total_seconds": 363.69043176504783,
+    "median_ms": 3414.510895498097,
+    "p95_ms": 10183.71820403263,
+    "max_ms": 24977.926483144984,
+    "preparation_ms": 2273.3847009949386,
+    "observed_peak_rss_bytes": 1957056512,
+    "status_counts": {
+      "translated": 80
+    }
+  },
+  "runtime_caveat": "Observed1.82GiB peak includes llama-server default RAM prompt cache despite per-request cache_prompt=false. CPU desktop throughput is not mobile latency or minimum memory. Cache-disabled qualification remains separate.",
+  "boundary_caveat": "Full-reference target ranges use the same QA Unicode approximation in both arms;74/80 old MLKit full references matched native ranges. New-provider native boundaries and mobile execution unqualified.",
+  "meaning_caveat": "Paired author labels differ from previous baseline assessment; provider-review-label-audit-r01 retains changes. Swahili clock convention ambiguity adjudicated separately without rewriting frozen labels.",
+  "fresh_protocol": {
+    "path": "qa/immersion/coverage_ceiling_experiment/conversational-holdout-source-r01.json",
+    "sha256": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586"
+  }
+}

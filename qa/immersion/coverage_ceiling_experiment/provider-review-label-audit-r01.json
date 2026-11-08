@@ -1,0 +1,240 @@
+{
+  "schema": "vipi-provider-review-label-audit-1",
+  "purpose": "Expose reviewer instability on the identical ML Kit reference strings; preserve both frozen assessments rather than silently replacing baseline scores. Paired comparisons use paired-pass labels consistently. This is agent judgment, not independent bilingual gold.",
+  "old_review_sha256": "0da26b909a419bdf1933c1a2ac8566ff685c943f1182d7cfe66eb40c1bd7d926",
+  "paired_review_sha256": "b1d061eff0ddc589ae4998651ff70f4a9e0858be0d2c0cd879621ff6726a6661",
+  "transitions": {
+    "B→B": 22,
+    "B→M": 1,
+    "B→U": 6,
+    "B→X": 1,
+    "M→M": 27,
+    "U→B": 5,
+    "U→M": 7,
+    "U→U": 10,
+    "X→X": 1
+  },
+  "changed_labels": [
+    {
+      "id": "uci-sms-line-3935",
+      "source": "Playin space poker, u?",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "A changes playing assertion into are-you-playing and drops space. B space sense literal/unsupported."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "source": "Esplanade lor. Where else...",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "new_paired_finding": "A where-else natural; B where/another phrase not confidently approved."
+    },
+    {
+      "id": "uci-sms-line-3657",
+      "source": "Senthil group company Apnt 5pm.",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "new_paired_finding": "Company/group naming and Apnt abbreviation remain uncertain; no confident approval."
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "Really dun bluff me leh... U sleep early too. Nite...",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "new_paired_finding": "A changes do-not-bluff to cannot-deceive-self; B much original slang untranslated."
+    },
+    {
+      "id": "uci-sms-line-496",
+      "source": "Are you free now?can i call now?",
+      "old_label": "U",
+      "new_label": "B",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "Free-now/call-now questions preserved."
+    },
+    {
+      "id": "uci-sms-line-2242",
+      "source": "K I'll call you when I'm close",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "A calling-out/name sense in phone context; B explicit phone call when close."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "source": "Kindly send some one to our flat before  &lt;DECIMAL&gt;  today.",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "A someone becomes one and protected placeholder corrupted; B preserves person/home/time."
+    },
+    {
+      "id": "uci-sms-line-1232",
+      "source": "I want to send something that can sell fast.  &lt;#&gt; k is not easy money.",
+      "old_label": "B",
+      "new_label": "M",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "new_paired_finding": "A sense and literal placeholder preserved; B corrupts protected placeholder."
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved. Some untranslated shorthand or awkward grammar remains; not native-speaker approval."
+      },
+      "new_paired_finding": "A partially untranslated awkward snow sentence; B snow accumulation becomes rainfall."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "source": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "A mangled/slang copied; B fabricates romantic desire and alters core request."
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "old_label": "U",
+      "new_label": "B",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "Core home/schedule/message and2May/8am preserved despite retained SMS abbreviations."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "source": " came to look at the flat, seems ok, in his 50s? * Is away alot wiv work. Got woman coming at 6.30 too.",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Inspected, but shorthand, mixed language, context ambiguity, literal idiom, or incomplete target prevents a confident whole-message quality judgment."
+      },
+      "new_paired_finding": "A work-away clause corrupted; B mostly preserves with50s→50 and away-for-work paraphrase uncertain."
+    },
+    {
+      "id": "tm2-dlg-71509a66-1c66-45b1-b5a6-298443f1aabc-9",
+      "source": "No, Don't you freaking",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Source cuts off; target adds withdrawal meaning."
+      },
+      "new_paired_finding": "Incomplete emphatic source becomes do-not-worry or do-not-withdraw; invented meaning."
+    },
+    {
+      "id": "tm2-dlg-18f98bf1-c6a4-4012-90c6-66c1350bec09-7",
+      "source": "No.",
+      "old_label": "B",
+      "new_label": "X",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "new_paired_finding": "A no translated; B unchanged."
+    },
+    {
+      "id": "tm2-dlg-49d22f7b-0aff-4df8-9e00-449d4e3063f4-4",
+      "source": "I'm looking for a comedy.",
+      "old_label": "U",
+      "new_label": "B",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Comedy remains English; borrowing usage unqualified."
+      },
+      "new_paired_finding": "Comedy genre intent preserved, B retains English comedy."
+    },
+    {
+      "id": "tm2-dlg-5136f25d-dddb-49a1-874d-b5cbbcf9169b-5",
+      "source": "Cheapest flight, Wi-Fi a must.",
+      "old_label": "U",
+      "new_label": "M",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Cheap versus cheapest unqualified; Wi-Fi requirement retained."
+      },
+      "new_paired_finding": "A cheap loses cheapest constraint; B preserves superlative."
+    },
+    {
+      "id": "tm2-dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a-10",
+      "source": "Okay. And who is Stoke City's manager?",
+      "old_label": "U",
+      "new_label": "B",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Football head coach versus meneja role needs native review."
+      },
+      "new_paired_finding": "Manager and team preserved; acknowledgment omission noncritical."
+    },
+    {
+      "id": "tm2-dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91-8",
+      "source": "I need the room to be $300 and night or even less.",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "new_paired_finding": "Original and-night typo carried literally; nightly room price not clearly expressed."
+    },
+    {
+      "id": "tm2-dlg-7c6887b6-224f-4ef1-858a-f57336366fde-2",
+      "source": "I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "old_label": "B",
+      "new_label": "U",
+      "old_review": {
+        "label": "broad_meaning_preserved",
+        "finding": "Core conversational intent appears preserved, allowing minor grammar or idiomatic awkwardness. Author review only."
+      },
+      "new_paired_finding": "A replaces flying-out clause with movement toUSA; B date preposition/flying construction unclear."
+    },
+    {
+      "id": "tm2-dlg-29083eda-dcf8-45aa-a35f-bf2b135ef467-14",
+      "source": "I definitely learned something new there. Okay. How about something that's like a modern jazz? Do you have something like that?",
+      "old_label": "U",
+      "new_label": "B",
+      "old_review": {
+        "label": "uncertain_or_incomplete",
+        "finding": "Past learning event lacks qualified finite tense; broad topic remains."
+      },
+      "new_paired_finding": "Learning/new/modern-jazz request preserved despite B grammar."
+    }
+  ],
+  "possible_sources": "New identity-masked paired presentation and fresh reading changed confidence. This audit describes differences, not an adjudicated correction."
+}

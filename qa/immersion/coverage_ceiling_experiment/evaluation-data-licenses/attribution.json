@@ -1,0 +1,17 @@
+{
+  "dataset": "BlendedSkillTalk",
+  "authors": [
+    "Eric Michael Smith",
+    "Mary Williamson",
+    "Kurt Shuster",
+    "Jason Weston",
+    "Y-Lan Boureau"
+  ],
+  "paper": "https://arxiv.org/abs/2004.08449",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "official_source": "https://parl.ai/downloads/blended_skill_talk/blended_skill_talk.tar.gz",
+  "source_readme_revision": "a29567f7ce76992fd1f03c51ba9e3b155a37ea51",
+  "modifications": "Selected80 free-human English turns from test.json, retained original spelling and punctuation, omitted worker identifiers, added review-context and evaluation metadata. No training/pack use.",
+  "selected_protocol_sha256": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586"
+}

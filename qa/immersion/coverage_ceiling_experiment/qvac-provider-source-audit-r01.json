@@ -1,0 +1,181 @@
+{
+  "schema": "vipi-local-provider-source-audit-1",
+  "production": false,
+  "research_only": true,
+  "commercial_distribution_clearance": false,
+  "license_interpretation": "Metadata/actual grants and upstream provenance recorded separately. A noncommercial teacher or dataset does not by itself establish a noncommercial restriction on explicitly Apache-licensed fine-tuned weights. No legal clearance conclusion is made here.",
+  "nano": {
+    "schema": "vipi-qvac-native-compatibility-audit-1",
+    "production": false,
+    "model_card_revision": "7a793aac03e34b31f53388c22eda26ae108c58e5",
+    "model_embedded_marian_version": "v1.12.43 c9f287db 2025-06-23 19:47:45 +0000",
+    "runtime_wheel": {
+      "name": "bergamot0.4.5 cp310 manylinux2014 x86_64",
+      "published": "2022-06-21",
+      "sha256": "2582019813a491af5a3a4e7f3823ceb9aeb1653a3b682a706c0455536355e56d",
+      "tag_marian_submodule": "e88c1aa5d5c5622cb52c7df09fbb7c3d7f4b5b5a",
+      "source_binary_identity_limit": "PyPI wheel and corresponding release tag inspected; no reproducible-build verification of wheel against tag."
+    },
+    "configuration_comparison": [
+      {
+        "area": "Architecture",
+        "model": "transformer, SSRU recurrent decoder,6encoder/2decoder,512embedding,8heads,2048FFN,postprocess dan,sinusoidal positions,tied embeddings",
+        "runtime_source": "SSRU class and transformer autoreg=rnn branch exist in retained2022 Marian source; runtime logs load type transformer without parameter error.",
+        "status": "Supported at source/API level; no numerical parity with official current runtime yet."
+      },
+      {
+        "area": "New decoder FFN options",
+        "model": "decoder-dim-ffn=0; decoder-ffn-depth=0",
+        "runtime_source": "2025 source treats0as fallback to shared FFN options2048/depth2.2022 source uses shared options directly.",
+        "status": "These two newer keys do not change this checkpoint architecture."
+      },
+      {
+        "area": "Decoding",
+        "official": "beam12,normalize1,word-penalty0,mini-batch64,maxi-batch100,sortsrc",
+        "experiment": "beam12,normalize1,word-penalty0,sequential requests,mini-batch-words1536,sortnone",
+        "status": "Beam/score match; batching differs deliberately. Official Python toolkit is greedybeam1; no greedy comparison on reviewed corpus performed."
+      },
+      {
+        "area": "Language tag",
+        "official": "##SW plus a space before English paragraph",
+        "experiment": "Exact ##SW prefix before exact original source; all80 inputs verified single-paragraph",
+        "status": "Matches official model-card/API convention."
+      },
+      {
+        "area": "Length",
+        "official": "training max120tokens; decoder yaml does not override max-length-factor",
+        "experiment": "max-length-break512, runtime default max-length-factor3; corpus has long/slang paragraphs",
+        "status": "No intentional source truncation; long output repetition could reach decoder length cap. Short ordinary Taskmaster errors remain."
+      },
+      {
+        "area": "Shortlist",
+        "official": "QVAC SDK example passes model/vocab and no shortlist; directory contains optional lexical shortlist",
+        "experiment": "No shortlist, matching minimal SDK example. Shortlist control retained separately and produced mostlyEnglish.",
+        "status": "Optional shortlist excluded from80run; actual QVAC SDK effective decoder defaults not independently observed."
+      },
+      {
+        "area": "Runtime parity",
+        "official": "Current model released2026; embedded Marian2025; current QVAC SDK Bergamot backend",
+        "experiment": "Old2022 PyPI Bergamot0.4.5 native CPU wheel",
+        "status": "Cross-runtime numerical parity unproven. Failed outputs are attributed to this exact model/runtime/config combination, not conclusively to published model quality."
+      }
+    ],
+    "public_documentation_controls": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-native-r01/runtime-resolved-control.log",
+      "results": [
+        {
+          "source": "Where is the nearest hospital?",
+          "translation": "Hospitali ya karibu iko wapi?"
+        },
+        {
+          "source": "Where is the bus stop?",
+          "translation": "Bus Stop iko wapi?"
+        },
+        {
+          "source": "Good morning, my friend.",
+          "translation": "Habari za asubuhi, rafiki yangu."
+        }
+      ],
+      "limitation": "Controls show language selection and basic inference, not numerical fidelity or conversational quality."
+    },
+    "capture": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-native-r01/afri-sw-80-r01.json",
+      "sha256": "bfeb194e68798332982f396d946b99b9d2b0e61806f7884b88891de7374cd55f",
+      "bytes": 93803
+    },
+    "actual_supplied_config": {
+      "alignment": "soft",
+      "beam-size": 12,
+      "cpu-threads": 2,
+      "gemm-precision": "int8shiftAlphaAll",
+      "max-length-break": 512,
+      "maxi-batch-sort": "none",
+      "mini-batch-words": 1536,
+      "models": [
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-native-r01/afri-base-en-xx/model.intgemm.alphas.bin"
+      ],
+      "normalize": 1,
+      "skip-cost": false,
+      "ssplit-mode": "paragraph",
+      "ssplit-prefix-file": "",
+      "vocabs": [
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-native-r01/afri-base-en-xx/vocab.spm",
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-native-r01/afri-base-en-xx/vocab.spm"
+      ],
+      "word-penalty": 0,
+      "workspace": 128
+    },
+    "resolved_settings_limit": "Python binding exposes neither resolved model config nor vocabulary token IDs. Embedded YAML and supplied config retained; source defaults inspected. Do not claim a complete runtime-resolved-config dump.",
+    "sources": [
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/afri-base-embedded-model.yml",
+        "sha256": "f018a9ef5462ec1bf920f204033912f1f2c0a442ec3467627bae533f7b151dfb",
+        "bytes": 1515
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/TranslatePsy-AfriNano-en-xx_Base_fp32_model.npz.best-chrf.npz.decoder.yml",
+        "sha256": "92e7e686f9b993efff3eb6e50ae7b275f9911e01e95978b6515003a832651209",
+        "bytes": 464
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/marian045-transformer.h",
+        "sha256": "726138a19fa86ee67cfb755e718da345d12c38478995ee9ba383831b2bac3749",
+        "bytes": 41318
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/marian045-cells.h",
+        "sha256": "b024e97b9f7913f69242ee8b52649da4750b17ec20f7d7b51e1c3e12a3cbc1b5",
+        "bytes": 33269
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/marian-model-c9f287db-transformer.h",
+        "sha256": "3b77b43840b29736982c0762727947ccc84381c62305750dbd2cf5ec065c7f19",
+        "bytes": 42866
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/bergamot045-pypi.json",
+        "sha256": "2ee23a55419168aaae5c79f0e7bb2bcbf664bb1141b2bfa1486fdfa722020014",
+        "bytes": 9264
+      }
+    ]
+  },
+  "afrislm": {
+    "model": "qvac/TranslatePsy-AfriSLM-0.8B-Q4-GGUF",
+    "revision": "14d6fd1e24c9f94a5e40c2e91c066241aede0dce",
+    "weight_sha256": "4af8ee1df3ec9008f763ebe95e6f21df3acd8d42c541feeb13314ca22e560afc",
+    "bytes": 672329792,
+    "base_model": "Qwen3.5-0.8B",
+    "weight_license": "Apache2 stated in model metadata and actual ATTRIBUTIONS licensing grant",
+    "runtime_license": "llama.cpp MIT, exactLICENSE retained",
+    "teacher": "NLLB-200-3.3B,CC-BY-NC4.0 stated in ATTRIBUTIONS",
+    "synthetic_dataset": "TranslatePsy-AfriSLM-Synthetic-Mix,CC-BY-NC4.0 stated in ATTRIBUTIONS",
+    "wording_caveat": "ATTRIBUTIONS introductory prose describes research/educational use while the specific model licensing section grants Apache2. Preserve both rather than silently rewriting the license.",
+    "languages": "English with19 African languages, explicitly including Swahili. Research now evaluates en-to-sw only.",
+    "runtime": "llama.cpp0.9.0-dev build12110 commitcd959bae99ff4bed22bef2604f45241c09bbb8c8, official CPU x86_64 binary",
+    "runtime_archive_sha256": "368227edcc229be5f9bed16a2223d79b5e41d0ac2e19bcf5825e82291c060e55",
+    "mobile_feasibility": "Mobile feasibility remains unqualified: no native app integration, mobile latency, memory or battery measurement performed here.",
+    "primary_sources": [
+      "https://huggingface.co/qvac/TranslatePsy-AfriSLM-0.8B-Q4-GGUF/blob/14d6fd1e24c9f94a5e40c2e91c066241aede0dce/README.md",
+      "https://huggingface.co/qvac/TranslatePsy-AfriSLM-0.8B-Q4-GGUF/blob/14d6fd1e24c9f94a5e40c2e91c066241aede0dce/ATTRIBUTIONS.md",
+      "https://github.com/ggml-org/llama.cpp/releases/tag/b12110"
+    ]
+  },
+  "retained_sources": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/AfriSLM-Q4-README.md",
+      "sha256": "0b4b7888d097722da22ad8856cb5899ef545a28c23b7ed087ddd2a1afb34b5da"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/AfriSLM-Q4-ATTRIBUTIONS.md",
+      "sha256": "f1a0f11d5ba4a9e67b058aa8fa88ff2a3459c67370561179cac4bac1b67ad1ec"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/AfriSLM-chat_template.jinja",
+      "sha256": "89ecbd82b0b7c6012b479c5d1529706b9f459d094c754d16d56ffb5092908e62"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/qvac-source-audit-r01/llama-cd959bae-LICENSE",
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    }
+  ]
+}

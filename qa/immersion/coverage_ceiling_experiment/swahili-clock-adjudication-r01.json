@@ -1,0 +1,44 @@
+{
+  "schema": "vipi-swahili-clock-adjudication-1",
+  "production_change": false,
+  "original_blinded_labels_changed": false,
+  "sources": [
+    {
+      "url": "https://kiswahili.ku.edu/sites/kiswahili/files/documents/lessons/Lesson%201-10/all.pdf",
+      "location": "Printed page99, PDF page98",
+      "support": "Teaching table maps5pm to saa kumi na moja jioni and8am to saa mbili asubuhi."
+    },
+    {
+      "url": "https://www.langmedia.fivecolleges.edu/resources/tanzania/basic-communications/telling-time",
+      "support": "English and Swahili clock systems coexist; schedules and appointments require identifying the convention."
+    }
+  ],
+  "adjudication": "A bare saa5jioni or saa8asubuhi is not automatically accepted as equivalent to5pm or8am. Convention ambiguity is unresolved and may be material; preserve literal anchors or establish convention explicitly. This affects full-reference acceptance and must be checked even if numeric digits are unchanged.",
+  "observed_rows": [
+    {
+      "id": "uci-sms-line-3657",
+      "corpus": "SMS",
+      "source": "Senthil group company Apnt 5pm.",
+      "A": "Kampuni ya Kikundi cha Senthil Apnt 5pm.",
+      "B": "Kampuni ya Senthil Group Apnt saa 5 jioni.",
+      "labels": {
+        "mlkit": "U",
+        "afrislm": "U"
+      },
+      "finding": "Company/group naming and Apnt abbreviation remain uncertain; no confident approval."
+    },
+    {
+      "id": "uci-sms-line-36",
+      "corpus": "SMS",
+      "source": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "A": "Yup... Ok ninaenda nyumbani angalia muda basi nitaandika msg ü tena... Xuhui nayo ataenda kujifunza tarehe 2 mayi pia ila somo lake ni saa 8 asubuhi",
+      "B": "Yup ... ok mimi kwenda nyumbani kuangalia wakati basi msg ü tena ... Xuhui kwenda kujifunza juu ya 2 Mei pia lakini somo lake ni saa 8am",
+      "labels": {
+        "afrislm": "B",
+        "mlkit": "B"
+      },
+      "finding": "Core home/schedule/message and2May/8am preserved despite retained SMS abbreviations."
+    }
+  ],
+  "limitations": "Source-backed adjudication after blinded scoring; no catalog row or matcher rule was fitted to these held-out examples."
+}
