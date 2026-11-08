@@ -1,0 +1,50 @@
+{
+  "schema": "vipi-full-reading-cache-qualification-1",
+  "state": "production_cache_source_qualified_by_standalone_native_cli",
+  "source_sha256": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+  "probe_sha256": "99d797cda01a09c6daedc0e0860ff791071bbcf29672c588ab506c7364cef367",
+  "xctest_source_sha256": "f140961ce8912af5b4bac8d6417e1bbf33058227cbeb50c5b30fd74e6d48ae09",
+  "xctest_executed": false,
+  "app_integration_validated": false,
+  "cases": [
+    {
+      "case": "coalescing_negative_cache_independent_key",
+      "milliseconds": 7.306791725568473,
+      "passed": true
+    },
+    {
+      "case": "reset_rejects_late_completion",
+      "milliseconds": 0.2660000463947654,
+      "passed": true
+    },
+    {
+      "case": "cancelled_waiter_does_not_cancel_shared_work",
+      "milliseconds": 0.1350833335891366,
+      "passed": true,
+      "prompt_cancellation_claimed": false
+    },
+    {
+      "case": "exact_encoding_language_bounds_eviction",
+      "milliseconds": 6.839833338744938,
+      "passed": true
+    }
+  ],
+  "peak_rss_bytes": 6832128,
+  "native_binary_sha256": "ae53a16c731f97ec925b49518141657129173903246afa20bb4770eb3508eabd",
+  "native_output_sha256": "fbd696403edb8191f831ed5491cd18b20ee57a9e60cabb0572f50df896ff666f",
+  "initial_failure": "r01 probe helper needed private visibility because its parameter type was private; r02 corrected only harness visibility. Production cache unchanged.",
+  "capacity": {
+    "scope": "Parent-authorized two-file existing-module-cache CLI exception; normal app/package build reserve not met",
+    "reserve_bytes": 536870912,
+    "declared_incremental_bytes": 67108864,
+    "guest_before_bytes": 1059733504,
+    "guest_minimum_bytes": 1059311616,
+    "native_before_bytes": 766783488,
+    "native_minimum_bytes": 766459904
+  },
+  "limits": [
+    "No package/XCTest/Simulator/iOS provider or UI claim",
+    "Cancelled waiter is rejected after shared producer finishes; prompt cancellation is not claimed for a producer that never returns",
+    "Full sentence audio/original preservation requires separate app integration qualification"
+  ]
+}
