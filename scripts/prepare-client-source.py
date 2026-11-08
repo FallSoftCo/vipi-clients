@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 from pathlib import Path, PurePosixPath
+import posixpath
 import shutil
 import subprocess
 import tarfile
@@ -94,7 +95,7 @@ def main():
         metadata, raw_name = item.split(b"\t", 1)
         mode, kind, oid, size = metadata.decode().split()
         name = safe_name(raw_name.decode())
-        if kind != "blob" or mode not in ("100644", "100755"):
+        if kind != "blob" or mode not in ("100644", "100755", "120000"):
             raise ValueError("Source export needs explicit handling for: " + name)
         blobs[name] = {"git_blob": oid, "bytes": int(size), "mode": mode}
     additional_bytes = sum(x["bytes"] for x in blobs.values()) + sum(x[2] for x in extra) + sum(x["bytes"] for x in upstream)
@@ -130,10 +131,26 @@ def main():
                 for member in source:
                     if member.isdir():
                         continue
-                    if not member.isfile() or member.name not in blobs:
+                    if member.name not in blobs:
                         raise ValueError("Unexpected source member")
                     expected = blobs[member.name]
-                    content = add(member.name, source.extractfile(member), member.size, int(expected["mode"], 8) & 0o777)
+                    if member.issym() and expected["mode"] == "120000":
+                        # Preserve the upstream eSpeak compatibility header link;
+                        # never dereference host files or permit an escaping link.
+                        name = member.name
+                        link = member.linkname
+                        resolved = posixpath.normpath(posixpath.join(posixpath.dirname(name), link))
+                        if link.startswith("/") or resolved not in blobs or blobs[resolved]["mode"] == "120000":
+                            raise ValueError("Source symlink does not resolve to an included regular source file")
+                        content = link.encode()
+                        info = tarfile.TarInfo(name); info.type = tarfile.SYMTYPE
+                        info.linkname = link; info.mode = 0o777
+                        target.addfile(info)
+                        manifest["files"][name] = {"bytes": len(content), "sha256": hashlib.sha256(content).hexdigest(), "symlink": link, "resolved_member": resolved}
+                    elif member.isfile() and expected["mode"] != "120000":
+                        content = add(member.name, source.extractfile(member), member.size, int(expected["mode"], 8) & 0o777)
+                    else:
+                        raise ValueError("Source entry type differs from Git")
                     git_hash = hashlib.sha1(b"blob " + str(len(content)).encode() + b"\0" + content).hexdigest()
                     if git_hash != expected["git_blob"]:
                         raise ValueError("Source blob identity differs: " + member.name)
