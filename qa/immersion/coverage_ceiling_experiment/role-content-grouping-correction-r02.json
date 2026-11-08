@@ -1,0 +1,340 @@
+{
+  "production": false,
+  "fresh_validation": false,
+  "prior_r01_outputs_preserved": true,
+  "targets_and_role_policy_unchanged": true,
+  "scope": "The r01 adapter incorrectly split authoritative curated synonym/number groups through incomplete/unresolved raw lemma labels. Reuse curated groups plus the already documented four merges. Keep all original r01 scores as superseded diagnostic output.",
+  "known_order_correction": "Global TRAIN frequency order after authoritative concept grouping. Add previously omitted curated families such as mother/mom; incomplete raw native source analyses cannot hide these known vocabulary groups. Other raw resolved families remain the previously declared simulation, not validated learner concepts.",
+  "curated_groups": 132,
+  "split_groups_corrected": [
+    {
+      "curated_concept": "apples",
+      "sources": [
+        "apple",
+        "apples"
+      ],
+      "incorrect_r01_families": [
+        "apple",
+        "unresolved:apples"
+      ]
+    },
+    {
+      "curated_concept": "beds",
+      "sources": [
+        "bed",
+        "beds"
+      ],
+      "incorrect_r01_families": [
+        "beds",
+        "unresolved:bed"
+      ]
+    },
+    {
+      "curated_concept": "boy",
+      "sources": [
+        "boy",
+        "boys"
+      ],
+      "incorrect_r01_families": [
+        "boy",
+        "unresolved:boys"
+      ]
+    },
+    {
+      "curated_concept": "child",
+      "sources": [
+        "child",
+        "children",
+        "kids"
+      ],
+      "incorrect_r01_families": [
+        "child",
+        "kid"
+      ]
+    },
+    {
+      "curated_concept": "day",
+      "sources": [
+        "day",
+        "days"
+      ],
+      "incorrect_r01_families": [
+        "day",
+        "unresolved:days"
+      ]
+    },
+    {
+      "curated_concept": "doctors",
+      "sources": [
+        "doctor",
+        "doctors"
+      ],
+      "incorrect_r01_families": [
+        "doctor",
+        "doctors"
+      ]
+    },
+    {
+      "curated_concept": "dog",
+      "sources": [
+        "dog",
+        "dogs"
+      ],
+      "incorrect_r01_families": [
+        "dog",
+        "unresolved:dogs"
+      ]
+    },
+    {
+      "curated_concept": "egg",
+      "sources": [
+        "egg",
+        "eggs"
+      ],
+      "incorrect_r01_families": [
+        "egg",
+        "unresolved:egg"
+      ]
+    },
+    {
+      "curated_concept": "families",
+      "sources": [
+        "families",
+        "family"
+      ],
+      "incorrect_r01_families": [
+        "families",
+        "family"
+      ]
+    },
+    {
+      "curated_concept": "father",
+      "sources": [
+        "dad",
+        "father"
+      ],
+      "incorrect_r01_families": [
+        "dad",
+        "father"
+      ]
+    },
+    {
+      "curated_concept": "gardens",
+      "sources": [
+        "garden",
+        "gardens"
+      ],
+      "incorrect_r01_families": [
+        "garden",
+        "gardens"
+      ]
+    },
+    {
+      "curated_concept": "girl",
+      "sources": [
+        "girl",
+        "girls"
+      ],
+      "incorrect_r01_families": [
+        "girl",
+        "unresolved:girls"
+      ]
+    },
+    {
+      "curated_concept": "holiday",
+      "sources": [
+        "holiday",
+        "holidays",
+        "vacation"
+      ],
+      "incorrect_r01_families": [
+        "holiday",
+        "unresolved:holidays",
+        "vacation"
+      ]
+    },
+    {
+      "curated_concept": "horse",
+      "sources": [
+        "horse",
+        "horses"
+      ],
+      "incorrect_r01_families": [
+        "horse",
+        "unresolved:horses"
+      ]
+    },
+    {
+      "curated_concept": "houses",
+      "sources": [
+        "house",
+        "houses"
+      ],
+      "incorrect_r01_families": [
+        "houses",
+        "unresolved:house"
+      ]
+    },
+    {
+      "curated_concept": "lakes",
+      "sources": [
+        "lake",
+        "lakes"
+      ],
+      "incorrect_r01_families": [
+        "lake",
+        "lakes"
+      ]
+    },
+    {
+      "curated_concept": "laws",
+      "sources": [
+        "law",
+        "laws"
+      ],
+      "incorrect_r01_families": [
+        "law",
+        "laws"
+      ]
+    },
+    {
+      "curated_concept": "minute",
+      "sources": [
+        "minute",
+        "minutes"
+      ],
+      "incorrect_r01_families": [
+        "minute",
+        "unresolved:minutes"
+      ]
+    },
+    {
+      "curated_concept": "mother",
+      "sources": [
+        "mom",
+        "mother"
+      ],
+      "incorrect_r01_families": [
+        "unresolved:mom",
+        "unresolved:mother"
+      ]
+    },
+    {
+      "curated_concept": "mountain",
+      "sources": [
+        "mountain",
+        "mountains"
+      ],
+      "incorrect_r01_families": [
+        "mountain",
+        "unresolved:mountains"
+      ]
+    },
+    {
+      "curated_concept": "movie",
+      "sources": [
+        "movie",
+        "movies"
+      ],
+      "incorrect_r01_families": [
+        "movie",
+        "unresolved:movies"
+      ]
+    },
+    {
+      "curated_concept": "nurses",
+      "sources": [
+        "nurse",
+        "nurses"
+      ],
+      "incorrect_r01_families": [
+        "nurse",
+        "nurses"
+      ]
+    },
+    {
+      "curated_concept": "pet",
+      "sources": [
+        "pet",
+        "pets"
+      ],
+      "incorrect_r01_families": [
+        "pet",
+        "unresolved:pet"
+      ]
+    },
+    {
+      "curated_concept": "reasons",
+      "sources": [
+        "reason",
+        "reasons"
+      ],
+      "incorrect_r01_families": [
+        "reason",
+        "unresolved:reasons"
+      ]
+    },
+    {
+      "curated_concept": "shops",
+      "sources": [
+        "shop",
+        "shops"
+      ],
+      "incorrect_r01_families": [
+        "shop",
+        "shops"
+      ]
+    },
+    {
+      "curated_concept": "story",
+      "sources": [
+        "stories",
+        "story"
+      ],
+      "incorrect_r01_families": [
+        "story",
+        "unresolved:story"
+      ]
+    },
+    {
+      "curated_concept": "thing",
+      "sources": [
+        "thing",
+        "things"
+      ],
+      "incorrect_r01_families": [
+        "thing",
+        "unresolved:things"
+      ]
+    },
+    {
+      "curated_concept": "year",
+      "sources": [
+        "year",
+        "years"
+      ],
+      "incorrect_r01_families": [
+        "unresolved:years",
+        "year"
+      ]
+    }
+  ],
+  "additional_attested_number_merge": {
+    "forms": [
+      "name",
+      "names"
+    ],
+    "concept": "name",
+    "basis": "Both existing content entries are nouns and their retained source native family is name; the prior four-merge audit omitted this pair."
+  },
+  "old_global_family_count": 2002,
+  "corrected_global_family_count": 2004,
+  "candidate_sha256": "d8d01089dca641d923d96939ce34b1c29b3ac2d3f3e1d318fba4a8a13a641e85",
+  "inputs": {
+    "role-content-candidate-r01.json": "b55170ff993112cac33e472ec9da11742742a38df3b661f4044567c95302054e",
+    "content-expansion-candidate-r01.json": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+    "content-expansion-concept-group-audit-r02.json": "21efcaf302c22980752d52b486d8ea04e30c2e62a82822707e8e18f625ce4782",
+    "scaled-training-source3000-r01.json": "766eab10248a4213ebf0654661552f5770597c4360502bdbfe244b0bc038be36",
+    "prepare_role_content_groups_r02.py": "c39dafe1c88d8843bd03344271a2474c05ba836ead9b719e6f221108c7ff7f7a"
+  }
+}

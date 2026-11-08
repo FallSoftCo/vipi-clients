@@ -1,0 +1,10 @@
+{
+  "production": false,
+  "frozen_before_candidate_outputs": true,
+  "scope": "TRAIN-only mechanism comparison; source/target author already knows the ten illustrative training cases.",
+  "files": {
+    "role-content-policy-r01.json": "5edf47e614416924fac0c259edb7d371a06d85aad9c77d09cfa0c778afa6078f",
+    "role-content-candidate-r01.json": "b55170ff993112cac33e472ec9da11742742a38df3b661f4044567c95302054e",
+    "role-content-contrasts-r01.json": "5021d99eba81f8352284a6a0390cce79f966820870410e2815df2f05ec643682"
+  }
+}

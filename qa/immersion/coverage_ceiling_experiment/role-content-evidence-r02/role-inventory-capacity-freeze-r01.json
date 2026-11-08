@@ -1,0 +1,29 @@
+{
+  "production": false,
+  "target_selection": false,
+  "semantic_approval": false,
+  "purpose": "Measure reusable positive local source-role capacity across the entire ranked inventory before broader target selection; no surface emitted.",
+  "source_conditions": "Existing complete source mappings with active modern native noun/verb/adj/adv entries. Exclude closed-class usage reinterpretation. Keep canonical/explicit-alternative and inflected tiers separate. No all-senses agreement.",
+  "role_rules": "Frozen classify() implementation; positive local noun/adjective/verb/adverb clues with protected/capital boundaries. General preceding copula inversion guard applies to all verbs. Rules are an unqualified capacity hypothesis, not semantic gold.",
+  "target_conditions": "Existing complete target head, required reading, compatible POS, source lexical entry active. Retain competing targets/senses; target choice, ordinary-sense fit and inflection are unresolved.",
+  "knowledge": [
+    0,
+    50,
+    100,
+    300
+  ],
+  "densities": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "source_sha256": "bb772baef6062f503e72e8586df8c147b0654d0090cbcad3e27da0092abf01a9",
+  "inputs": {
+    "audit": "90f1967f467f43c3789e9535f56088a2d89575eb6e26d5c1d643113af256f160",
+    "source": "809eaf1e5fd97bafff792fcbe7b0f89536c389b6f70a67c64d29d0d45a5e9e63",
+    "targets": "daa68e8bf5785937eb2a0d5d682b235ccd52f67a8fe9324f221e92293b973bb1",
+    "train": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+    "groups": "d8d01089dca641d923d96939ce34b1c29b3ac2d3f3e1d318fba4a8a13a641e85",
+    "closed": "07817b38f31cf029efe16da505eb7bf4f1de9f70c91dc18ca1763561dd2222df"
+  }
+}

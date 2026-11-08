@@ -1,0 +1,264 @@
+{
+  "authored_before_output": true,
+  "semantic_gold": false,
+  "cases": [
+    {
+      "id": "role-contrast-001",
+      "text": "I like coffee.",
+      "source": "like",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-002",
+      "text": "We really like music.",
+      "source": "like",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-003",
+      "text": "I don't like coffee.",
+      "source": "like",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-004",
+      "text": "Do you like music?",
+      "source": "like",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-005",
+      "text": "Does she like music?",
+      "source": "like",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-006",
+      "text": "I would like coffee.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-007",
+      "text": "I feel like coffee.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-008",
+      "text": "It looks like coffee.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-009",
+      "text": "Nothing like a warm drink.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-010",
+      "text": "I am like my father.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-011",
+      "text": "I, like my father, enjoy tea.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-012",
+      "text": "I said \"I like coffee\".",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-013",
+      "text": "I like.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-014",
+      "text": "I like! Coffee is good.",
+      "source": "like",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-015",
+      "text": "I live with my parents.",
+      "source": "live",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-016",
+      "text": "We live in a house.",
+      "source": "live",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-017",
+      "text": "Do you live here?",
+      "source": "live",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-018",
+      "text": "I want to live with my sister.",
+      "source": "live",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-019",
+      "text": "I live with pain.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-020",
+      "text": "I live in fear.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-021",
+      "text": "I live off my savings.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-022",
+      "text": "I live it up.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-023",
+      "text": "I enjoy live music.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-024",
+      "text": "We broadcast live.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-025",
+      "text": "I live in December.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-026",
+      "text": "I live. With my parents watching, I left.",
+      "source": "live",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-027",
+      "text": "My parents are home.",
+      "source": "parents",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-028",
+      "text": "The company parents a subsidiary.",
+      "source": "parents",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-029",
+      "text": "I go shopping.",
+      "source": "shopping",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-030",
+      "text": "I enjoy shopping.",
+      "source": "shopping",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-031",
+      "text": "The shopping cart is empty.",
+      "source": "shopping",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-032",
+      "text": "The shopping arrived.",
+      "source": "shopping",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-033",
+      "text": "I am currently studying.",
+      "source": "currently",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-034",
+      "text": "Interesting.",
+      "source": "interesting",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-035",
+      "text": "That is interesting.",
+      "source": "interesting",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-036",
+      "text": "It was an interesting idea.",
+      "source": "interesting",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-037",
+      "text": "My birthday is tomorrow.",
+      "source": "birthday",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-038",
+      "text": "I work in a hospital.",
+      "source": "hospital",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-039",
+      "text": "I don't eat fish either.",
+      "source": "either",
+      "expected_role_admission": true
+    },
+    {
+      "id": "role-contrast-040",
+      "text": "Either book is fine.",
+      "source": "either",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-041",
+      "text": "I like either book.",
+      "source": "either",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-042",
+      "text": "Me either.",
+      "source": "either",
+      "expected_role_admission": false
+    },
+    {
+      "id": "role-contrast-043",
+      "text": "I do not know. Either book is fine.",
+      "source": "either",
+      "expected_role_admission": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "production": false,
+  "additive_replay": true,
+  "targets_and_role_guards_unchanged": true,
+  "files": {
+    "role-content-data-freeze-r01.json": "fb3a12a1c92e4819cefc4c5c7fab9fb6d9cdf037b6af7c7de094a0fe4a22d2c6",
+    "role-content-candidate-r02.json": "d8d01089dca641d923d96939ce34b1c29b3ac2d3f3e1d318fba4a8a13a641e85",
+    "role-content-grouping-correction-r02.json": "4db918564ab5756b8fb513d22bef15357902d3cc99efc93c49101e04e6997664",
+    "evaluate_role_content_r02.py": "4264cb25096d61d91c0c45a4afe679ca4945ae8e877b7e77494af86873333899",
+    "evaluate_content_expansion_r01.py": "7d631d9b6653f94bc3ae4cb503b86aea12971d6944fca4718fb26adbeb9e2136",
+    "evaluate_short_conversation_units.py": "1212eee44cfc2499bdcc1f3c8309c6f8d92a16ab2f6bb887e47856aa417b1fe2",
+    "evaluate_source_concepts.py": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+    "evaluate_reviewed_words.py": "9e17aec210d282a8dd75596ee681e02e9f772f120f1ca8ed9c502791636668df",
+    "content-expansion-candidate-r01.json": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+  }
+}

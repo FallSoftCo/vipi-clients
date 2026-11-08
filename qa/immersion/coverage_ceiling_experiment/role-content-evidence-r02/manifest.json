@@ -1,0 +1,126 @@
+{
+  "production": false,
+  "purpose": "Immutable role/morphology pilot plus all-inventory source-role capacity evidence. No new packs or native activation.",
+  "decision": "Pilot not sufficient for progression; keep material whole-path parents bypass and copular-inversion failures. Next candidate requires shared source eligibility across all equivalent paths.",
+  "files": [
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/cases.json",
+      "source_sha256": "d7d1862d00e5ac86a8f569907d4af28df5b6cbdfbde9f1811446260a7f7dcfec",
+      "retained_file": "cases.json.gz",
+      "retained_sha256": "1ed5d98d31e61ff9b80c4dd0943daa45ff60d67437f06356dde809dec1c8a840",
+      "source_bytes": 521185,
+      "retained_bytes": 31083
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/primary-target-records.json.gz",
+      "source_sha256": "29795d515f0e64fa21746e39cbf5d78f6f31a692915364ef6d193fa942b7350a",
+      "retained_file": "primary-target-records.json.gz",
+      "retained_sha256": "29795d515f0e64fa21746e39cbf5d78f6f31a692915364ef6d193fa942b7350a",
+      "source_bytes": 25212,
+      "retained_bytes": 25212
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-TRAIN-output-r01.json",
+      "source_sha256": "fe73801607e032b97dcf3d726a1cf31c78fa970a0052ec29b8aa6b888bb32ce7",
+      "retained_file": "role-content-TRAIN-output-r01.json.gz",
+      "retained_sha256": "411b68ed160695832402a40f855c766f18a15e461b35ff96052f951138bf18f7",
+      "source_bytes": 22391686,
+      "retained_bytes": 740528
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-TRAIN-output-r02.json",
+      "source_sha256": "79ffb07677570187532d98acbe198a65ef6e97704d58f9526eea844e576af72e",
+      "retained_file": "role-content-TRAIN-output-r02.json.gz",
+      "retained_sha256": "04e46847617d68ad666e93d74276e8065f03f0d9c0e968adace6ba1bb7b3af94",
+      "source_bytes": 21773116,
+      "retained_bytes": 732905
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-contrasts-output-r01.json",
+      "source_sha256": "bb43020e44105d395b163a2234b448aab9e87670e7db1e7331c5f094f114a93d",
+      "retained_file": "role-content-contrasts-output-r01.json.gz",
+      "retained_sha256": "4d339324eb74813be910907ba27bfaff221d4784c6396e3376e540f990c69f05",
+      "source_bytes": 4378229,
+      "retained_bytes": 72081
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-author72-review-r02.json",
+      "source_sha256": "a40fb9b6a72e4c6405738cb49c3b3c11c1d583f0bc6e8f1a26487352b8ac17e9",
+      "retained_file": "role-content-author72-review-r02.json.gz",
+      "retained_sha256": "471bd5247e44fe325d9d8ad74ead7c4cda1d8ff87c60f88c125892176554ddfa",
+      "source_bytes": 545800,
+      "retained_bytes": 32291
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-independent24-review-r02.json",
+      "source_sha256": "185cb65a5698c1816144298efb4b3dbf0f56e0cdeeee450b2a1d786b21daa303",
+      "retained_file": "role-content-independent24-review-r02.json",
+      "retained_sha256": "185cb65a5698c1816144298efb4b3dbf0f56e0cdeeee450b2a1d786b21daa303",
+      "source_bytes": 149783,
+      "retained_bytes": 149783
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-author-review-r02.json",
+      "source_sha256": "82a05b9f63727e0d9ca5db1657c2ff6ee483ee9d58503697b8adf1dd071241d5",
+      "retained_file": "role-content-author-review-r02.json",
+      "retained_sha256": "82a05b9f63727e0d9ca5db1657c2ff6ee483ee9d58503697b8adf1dd071241d5",
+      "source_bytes": 70186,
+      "retained_bytes": 70186
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-independent-root-review-r02.json",
+      "source_sha256": "bc2ac7ccb5eb23eeb70be76894d1121a215957c9433900d82d258f54dc0ff156",
+      "retained_file": "role-content-independent-root-review-r02.json",
+      "retained_sha256": "bc2ac7ccb5eb23eeb70be76894d1121a215957c9433900d82d258f54dc0ff156",
+      "source_bytes": 20047,
+      "retained_bytes": 20047
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-joined-decision-r02.json",
+      "source_sha256": "e90bc85f52f20c400653f3ef4deec7955764df061256d43ded318c90e77c3f6f",
+      "retained_file": "role-content-joined-decision-r02.json.gz",
+      "retained_sha256": "9887a67408f72ac519cad2e445dc44359aa92f18d42ce0fe72721dd17a47a4ec",
+      "source_bytes": 2611673,
+      "retained_bytes": 51801
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-copular-inversion-diagnostic-r01.json",
+      "source_sha256": "4890ddb0f1ce5506b4fceb5489a9d2ead41dbfe75d19c20519c7a5ce7e93d038",
+      "retained_file": "role-content-copular-inversion-diagnostic-r01.json",
+      "retained_sha256": "4890ddb0f1ce5506b4fceb5489a9d2ead41dbfe75d19c20519c7a5ce7e93d038",
+      "source_bytes": 13213,
+      "retained_bytes": 13213
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-inventory-capacity-freeze-r01.json",
+      "source_sha256": "2f94585e8dd37ee1ea585b3da6d8c92981113cbb6ca1132983f7be3f5a4c4756",
+      "retained_file": "role-inventory-capacity-freeze-r01.json",
+      "retained_sha256": "2f94585e8dd37ee1ea585b3da6d8c92981113cbb6ca1132983f7be3f5a4c4756",
+      "source_bytes": 1672,
+      "retained_bytes": 1672
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-inventory-capacity-r01.json",
+      "source_sha256": "bd770e6db4f8aacadf787f16ceada45643d14231c9403c9c888d905aa697b7ce",
+      "retained_file": "role-inventory-capacity-r01.json.gz",
+      "retained_sha256": "2a0a0e5fa52a12eabab2297537867d2895885288241226c9b3f411dac0f80d8a",
+      "source_bytes": 6087516,
+      "retained_bytes": 478398
+    },
+    {
+      "source": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-capacity-linked-denominator-r01.json",
+      "source_sha256": "408a867b5074a2f8bd7b2678de11a0629db95164ad9878c6835f9484e6d0f2f4",
+      "retained_file": "role-capacity-linked-denominator-r01.json",
+      "retained_sha256": "408a867b5074a2f8bd7b2678de11a0629db95164ad9878c6835f9484e6d0f2f4",
+      "source_bytes": 535,
+      "retained_bytes": 535
+    }
+  ],
+  "reproduction": "prepare_role_content_candidate_r01.py; original data/evaluation freezes; prepare_role_content_groups_r02.py; evaluate_role_content_r02.py --kind train/contrasts with exact retained corpus hash. measure_role_inventory_capacity_r01.py is capacity-only and emits no translations.",
+  "limits": [
+    "9,535 TRAIN persona role-play turns, not an unseen coverage estimate.",
+    "Raw candidate reach is separate from 74 author-reviewed and23 independent-reviewed added TRAIN/contrast scopes.",
+    "Group correction preserves originalr01 outputs; no revised heldout claim.",
+    "Primary source selection and licenses are retained in candidate entries and case inputs; exact upstream SQLite archive hash was inherited, selected bytes freshly hashed."
+  ]
+}

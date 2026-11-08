@@ -1,0 +1,567 @@
+{
+  "reviewer": "/root",
+  "frozen_at_utc": "2026-11-08T06:45:08.914450+00:00",
+  "production": false,
+  "input_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/role-content-independent24-review-r02.json",
+  "input_sha256": "185cb65a5698c1816144298efb4b3dbf0f56e0cdeeee450b2a1d786b21daa303",
+  "author_labels_seen_before_freeze": false,
+  "author_review_committed_sha256": "82a05b9f63727e0d9ca5db1657c2ff6ee483ee9d58503697b8adf1dd071241d5",
+  "review_type": "Fixed24 diagnostic cases,23 unique added scopes; familiar TRAIN mechanism design, not fresh blind or bilingual-human gold. Existing unchanged spans are not blanket reapproved.",
+  "interpretation": "English grammar is intentionally retained for lexical immersion. Dictionary-form/register caveats are recorded separately from material loss of source meaning. Correct lexical sense is not a full target-language grammar claim.",
+  "scope_counts": {
+    "correct": 10,
+    "minor": 13
+  },
+  "lexical_counts": {
+    "correct": 23
+  },
+  "rows": [
+    {
+      "id": "bst-train-1945-02",
+      "target_language": "sw",
+      "source": "What is your favorite part of working at the hospital?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "hospital",
+          "target": "hospitali",
+          "range_utf16": [
+            45,
+            53
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-4261-00",
+      "target_language": "sw",
+      "source": "I like to pratice baseball when its nice outside",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "I like",
+          "target": "ninapenda",
+          "range_utf16": [
+            0,
+            6
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Attested first-person singular present form preserves both the speaker and the preference/residence sense in this mixed frame."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-3838-04",
+      "target_language": "sw",
+      "source": "Do you live in the country?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "live",
+          "target": "kuishi",
+          "range_utf16": [
+            7,
+            11
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0169-08",
+      "target_language": "sw",
+      "source": "Sometimes, just the to the French neighborhood. Why do you like it?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "kupenda",
+          "range_utf16": [
+            59,
+            63
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0748-06",
+      "target_language": "sw",
+      "source": "Hmm might not know anything to recommend, I mainly read fiction. What else do you like to do?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "kupenda",
+          "range_utf16": [
+            82,
+            86
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0640-00",
+      "target_language": "sw",
+      "source": "Yea, a good bit actually. I really like going to concerts. Who are you into currently?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "kupenda",
+          "range_utf16": [
+            35,
+            39
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "role-contrast-003",
+      "target_language": "sw",
+      "source": "I don't like coffee.",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "kupenda",
+          "range_utf16": [
+            8,
+            12
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "role-contrast-015",
+      "target_language": "sw",
+      "source": "I live with my parents.",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "live",
+          "target": "kuishi",
+          "range_utf16": [
+            2,
+            6
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct residence/preference sense, but the target is an infinitive inside an English finite/base-verb frame; it does not teach the complete Swahili inflection."
+        },
+        {
+          "original": "I live",
+          "target": "ninaishi",
+          "range_utf16": [
+            0,
+            6
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Attested first-person singular present form preserves both the speaker and the preference/residence sense in this mixed frame."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0581-02",
+      "target_language": "ja",
+      "source": "really interesting character and it works well in this way. you keep move forward with the spirit",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "interesting",
+          "target": "面白い",
+          "range_utf16": [
+            7,
+            18
+          ],
+          "reading": "omoshiroi",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "correct",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-3960-02",
+      "target_language": "ja",
+      "source": "I'm lucky, my parents are still healthy and my kids are doing great. I had better knock on wood!",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "parents",
+          "target": "親",
+          "range_utf16": [
+            14,
+            21
+          ],
+          "reading": "oya",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "correct",
+          "combined_judgment": "correct",
+          "reason": "親 can denote parents without obligatory grammatical plural marking; oya is correct here."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-1398-04",
+      "target_language": "ja",
+      "source": "I don't know. I just like the sound and beats and it's fun to listen to",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "好む",
+          "range_utf16": [
+            21,
+            25
+          ],
+          "reading": "konomu",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "correct",
+          "combined_judgment": "minor",
+          "reason": "Correct preference sense and reading; more formal/written than the everyday 好き construction. Mixed English syntax does not illustrate Japanese argument marking."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-1785-10",
+      "target_language": "ja",
+      "source": "You won't catch me denying climate change! I don't like big cities either. It's too hard to live there.",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "好む",
+          "range_utf16": [
+            51,
+            55
+          ],
+          "reading": "konomu",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "correct",
+          "combined_judgment": "minor",
+          "reason": "Correct preference sense and reading; more formal/written than the everyday 好き construction. Mixed English syntax does not illustrate Japanese argument marking."
+        },
+        {
+          "original": "live",
+          "target": "住む",
+          "range_utf16": [
+            92,
+            96
+          ],
+          "reading": "sumu",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "correct",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0125-02",
+      "target_language": "ja",
+      "source": "haha i feel you! i used to think like that, now i hate tht i can't go shopping as long as i wanted to, but i don't have complains",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "shopping",
+          "target": "買い物",
+          "range_utf16": [
+            70,
+            78
+          ],
+          "reading": "kaimono",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "correct",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-0294-00",
+      "target_language": "ja",
+      "source": "dancing is fun. i like to do it",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "好む",
+          "range_utf16": [
+            18,
+            22
+          ],
+          "reading": "konomu",
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "correct",
+          "combined_judgment": "minor",
+          "reason": "Correct preference sense and reading; more formal/written than the everyday 好き construction. Mixed English syntax does not illustrate Japanese argument marking."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "role-contrast-019",
+      "target_language": "ja",
+      "source": "I live with pain.",
+      "context_reviewed": true,
+      "scopes": [],
+      "no_new_scope": true,
+      "whole_path_judgment": "new_ambiguous_span_correctly_withheld",
+      "whole_path_reason": "No new residence/preference span is inserted for tolerance/live-with-pain or desiderative/would-like."
+    },
+    {
+      "id": "role-contrast-028",
+      "target_language": "ja",
+      "source": "The company parents a subsidiary.",
+      "context_reviewed": true,
+      "scopes": [],
+      "no_new_scope": true,
+      "whole_path_judgment": "material_existing_candidate_error",
+      "whole_path_reason": "New noun guard rejects verbal parents, but the older unguarded reviewed_starter still inserts noun 親. The whole selection therefore did not abstain. A guard must cover equivalent older paths; not a new-scope accuracy error."
+    },
+    {
+      "id": "bst-train-1962-06",
+      "target_language": "es",
+      "source": "Well I have always been interested in law, but I like the federal system because the cases are more interesting to me",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "gustar",
+          "range_utf16": [
+            49,
+            53
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct preference/residence sense, but an infinitive remains in the English frame. Spanish gustar also uses a different argument structure; this must not be represented as a Spanish sentence template."
+        },
+        {
+          "original": "interesting",
+          "target": "interesante",
+          "range_utf16": [
+            100,
+            111
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Meaning is preserved, but the target singular adjective is not agreeing with plural cases in this mixed frame."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-2782-06",
+      "target_language": "es",
+      "source": "YES!! There is no shame in my game either!! You just can't beat free",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "either",
+          "target": "tampoco",
+          "range_utf16": [
+            35,
+            41
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-2310-08",
+      "target_language": "es",
+      "source": "Wow! I hope you get that cat. I love cats, I have a white one named Duey. I hope your birthday dreams come true. ",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "birthday",
+          "target": "cumpleaños",
+          "range_utf16": [
+            86,
+            94
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-3970-04",
+      "target_language": "es",
+      "source": "I like to paint the places I've been. What about you?",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "like",
+          "target": "gustar",
+          "range_utf16": [
+            2,
+            6
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct preference/residence sense, but an infinitive remains in the English frame. Spanish gustar also uses a different argument structure; this must not be represented as a Spanish sentence template."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-4243-08",
+      "target_language": "es",
+      "source": "Oh sorry, my bad...I just wondering if you live here in usa",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "live",
+          "target": "vivir",
+          "range_utf16": [
+            43,
+            47
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "minor",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "minor",
+          "reason": "Correct preference/residence sense, but an infinitive remains in the English frame."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "bst-train-4662-08",
+      "target_language": "es",
+      "source": "That sounds interesting. I am a student too, going for agricultural studies currently.",
+      "context_reviewed": true,
+      "scopes": [
+        {
+          "original": "currently",
+          "target": "actualmente",
+          "range_utf16": [
+            76,
+            85
+          ],
+          "reading": null,
+          "lexical_meaning_judgment": "correct",
+          "meaning_judgment": "correct",
+          "reading_judgment": "not_applicable",
+          "combined_judgment": "correct",
+          "reason": "Lexical meaning matches this source context while the source-language sentence frame remains."
+        }
+      ],
+      "no_new_scope": false
+    },
+    {
+      "id": "role-contrast-006",
+      "target_language": "es",
+      "source": "I would like coffee.",
+      "context_reviewed": true,
+      "scopes": [],
+      "no_new_scope": true,
+      "whole_path_judgment": "new_ambiguous_span_correctly_withheld",
+      "whole_path_reason": "No new residence/preference span is inserted for tolerance/live-with-pain or desiderative/would-like."
+    },
+    {
+      "id": "role-contrast-039",
+      "target_language": "es",
+      "source": "I don't eat fish either.",
+      "context_reviewed": true,
+      "scopes": [],
+      "no_new_scope": true,
+      "whole_path_judgment": "not_selected_due_to_budget",
+      "whole_path_reason": "No new either→tampoco span selected; cannot count this case as a successful new substitution or guard abstention."
+    }
+  ],
+  "limitations": [
+    "Small preselected mechanism diagnostic, no population coverage or all-language readiness claim.",
+    "One older noun candidate bypasses the new rejection guard in an authored edge case.",
+    "Correct finite forms are evidenced only in the inspected contexts; no universal morphology certification."
+  ]
+}

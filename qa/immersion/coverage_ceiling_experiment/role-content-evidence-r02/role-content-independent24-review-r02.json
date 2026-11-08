@@ -1,0 +1,4816 @@
+{
+  "production": false,
+  "meaning_labels_present": false,
+  "prior_source_familiarity": "Author and root saw the ten illustrative TRAIN mechanism cases and exact target policy. These are deterministic diagnostic label reviews, not new blind samples. No current TRAIN semantic labels read before packet creation.",
+  "selection": "First six cases from each language’s frozen salted-hash/guard-stratified24 TRAIN packet, plus prespecified two contrast edges per language. Added scopes only; existing control scopes are not blanket reapproved.",
+  "input_sha256": {
+    "train_capture": "79ffb07677570187532d98acbe198a65ef6e97704d58f9526eea844e576af72e",
+    "contrast_capture": "bb43020e44105d395b163a2234b448aab9e87670e7db1e7331c5f094f114a93d"
+  },
+  "cases": [
+    {
+      "id": "bst-train-1945-02",
+      "text": "What is your favorite part of working at the hospital?",
+      "language": "sw",
+      "preceding_context_for_review": [
+        [
+          0,
+          "That has got to be very confusing hearing so many phones. "
+        ],
+        [
+          1,
+          "Yes its hard to keep up at the hospital"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 45,
+          "end": 53,
+          "sourceStartUTF16": 45,
+          "sourceEndUTF16": 53,
+          "original": "hospital",
+          "translated": "hospitali",
+          "reading": null,
+          "category": "content",
+          "concept_id": "hospital",
+          "lexicon_id": "role-r01-en-sw-hospital",
+          "train_rank": 1689,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 2156320
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 4,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 4,
+            "original": "What",
+            "translated": "nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-what",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:what"
+          }
+        ],
+        "mixed_text": "nini is your favorite part of working at the hospital?",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 4,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 4,
+            "original": "What",
+            "translated": "nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-what",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:what"
+          },
+          {
+            "start": 45,
+            "end": 53,
+            "sourceStartUTF16": 45,
+            "sourceEndUTF16": 53,
+            "original": "hospital",
+            "translated": "hospitali",
+            "reading": null,
+            "category": "content",
+            "concept_id": "hospital",
+            "lexicon_id": "role-r01-en-sw-hospital",
+            "train_rank": 1689,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 2156320
+          }
+        ],
+        "mixed_text": "nini is your favorite part of working at the hospitali?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 4,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 4,
+            "original": "What",
+            "translated": "nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-what",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:what"
+          },
+          {
+            "start": 45,
+            "end": 53,
+            "sourceStartUTF16": 45,
+            "sourceEndUTF16": 53,
+            "original": "hospital",
+            "translated": "hospitali",
+            "reading": null,
+            "category": "content",
+            "concept_id": "hospital",
+            "lexicon_id": "role-r01-en-sw-hospital",
+            "train_rank": 1689,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 2156320
+          }
+        ],
+        "mixed_text": "nini is your favorite part of working at the hospitali?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 5,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 45,
+          "end": 53,
+          "sourceStartUTF16": 45,
+          "sourceEndUTF16": 53,
+          "original": "hospital",
+          "translated": "hospitali",
+          "reading": null,
+          "category": "content",
+          "concept_id": "hospital",
+          "lexicon_id": "role-r01-en-sw-hospital",
+          "train_rank": 1689,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 2156320
+        }
+      ]
+    },
+    {
+      "id": "bst-train-4261-00",
+      "text": "I like to pratice baseball when its nice outside",
+      "language": "sw",
+      "preceding_context_for_review": [],
+      "added_candidates": [
+        {
+          "start": 2,
+          "end": 6,
+          "sourceStartUTF16": 2,
+          "sourceEndUTF16": 6,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        },
+        {
+          "start": 0,
+          "end": 6,
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 6,
+          "original": "I like",
+          "translated": "ninapenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like:i",
+          "train_rank": 14,
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "source_kind": "attested_finite",
+          "guard": "preference_verb",
+          "native_entry_id": 705329,
+          "primary_form": [
+            705329,
+            "ninapenda",
+            "ninapenda",
+            "[\"first-person\",\"present\",\"singular\"]"
+          ]
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 18,
+            "end": 26,
+            "sourceStartUTF16": 18,
+            "sourceEndUTF16": 26,
+            "original": "baseball",
+            "translated": "besiboli",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-sw-baseball",
+            "train_rank": 623,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "baseball"
+          }
+        ],
+        "mixed_text": "mimi like to pratice besiboli when its nice outside",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 6,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 6,
+            "original": "I like",
+            "translated": "ninapenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like:i",
+            "train_rank": 14,
+            "changed_source_words": 2,
+            "content_source_words": 1,
+            "source_kind": "attested_finite",
+            "guard": "preference_verb",
+            "native_entry_id": 705329,
+            "primary_form": [
+              705329,
+              "ninapenda",
+              "ninapenda",
+              "[\"first-person\",\"present\",\"singular\"]"
+            ]
+          }
+        ],
+        "mixed_text": "ninapenda to pratice baseball when its nice outside",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 2,
+        "rejections": {
+          "same_concept": 1,
+          "remaining_budget": 1,
+          "overlap": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 6,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 6,
+            "original": "I like",
+            "translated": "ninapenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like:i",
+            "train_rank": 14,
+            "changed_source_words": 2,
+            "content_source_words": 1,
+            "source_kind": "attested_finite",
+            "guard": "preference_verb",
+            "native_entry_id": 705329,
+            "primary_form": [
+              705329,
+              "ninapenda",
+              "ninapenda",
+              "[\"first-person\",\"present\",\"singular\"]"
+            ]
+          },
+          {
+            "start": 18,
+            "end": 26,
+            "sourceStartUTF16": 18,
+            "sourceEndUTF16": 26,
+            "original": "baseball",
+            "translated": "besiboli",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-sw-baseball",
+            "train_rank": 623,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "baseball"
+          }
+        ],
+        "mixed_text": "ninapenda to pratice besiboli when its nice outside",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1,
+          "overlap": 1
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 0,
+          "end": 6,
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 6,
+          "original": "I like",
+          "translated": "ninapenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like:i",
+          "train_rank": 14,
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "source_kind": "attested_finite",
+          "guard": "preference_verb",
+          "native_entry_id": 705329,
+          "primary_form": [
+            705329,
+            "ninapenda",
+            "ninapenda",
+            "[\"first-person\",\"present\",\"singular\"]"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bst-train-3838-04",
+      "text": "Do you live in the country?",
+      "language": "sw",
+      "preceding_context_for_review": [
+        [
+          0,
+          "Nope, I've dedicated my life to medical school. Once I've finished with that maybe."
+        ],
+        [
+          1,
+          "What kind of medicine do you want to specialize in?"
+        ],
+        [
+          0,
+          "I'd like to work in the pharmaceutical sector."
+        ],
+        [
+          1,
+          "That sounds great. I'd like to go to college but I've never been in a city. Seems overwhelming."
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 7,
+          "end": 11,
+          "sourceStartUTF16": 7,
+          "sourceEndUTF16": 11,
+          "original": "live",
+          "translated": "kuishi",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-sw-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 399500
+        }
+      ],
+      "control25": {
+        "spans": [],
+        "mixed_text": "Do you live in the country?",
+        "changed_source_words": 0,
+        "content_source_words": 0,
+        "budget": 1,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 7,
+            "end": 11,
+            "sourceStartUTF16": 7,
+            "sourceEndUTF16": 11,
+            "original": "live",
+            "translated": "kuishi",
+            "reading": null,
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-sw-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 399500
+          }
+        ],
+        "mixed_text": "Do you kuishi in the country?",
+        "changed_source_words": 1,
+        "content_source_words": 1,
+        "budget": 1,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 7,
+            "end": 11,
+            "sourceStartUTF16": 7,
+            "sourceEndUTF16": 11,
+            "original": "live",
+            "translated": "kuishi",
+            "reading": null,
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-sw-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 399500
+          }
+        ],
+        "mixed_text": "Do you kuishi in the country?",
+        "changed_source_words": 1,
+        "content_source_words": 1,
+        "budget": 3,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 7,
+          "end": 11,
+          "sourceStartUTF16": 7,
+          "sourceEndUTF16": 11,
+          "original": "live",
+          "translated": "kuishi",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-sw-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 399500
+        }
+      ]
+    },
+    {
+      "id": "bst-train-0169-08",
+      "text": "Sometimes, just the to the French neighborhood. Why do you like it?",
+      "language": "sw",
+      "preceding_context_for_review": [
+        [
+          0,
+          "That doesn't sound exciting, I am retired though so all I do is watch movies."
+        ],
+        [
+          1,
+          "I like to do something worthwhile in my spare time so I volunteer."
+        ],
+        [
+          0,
+          "Great, what do you volunteer for by the way?"
+        ],
+        [
+          1,
+          "I work with the little kids."
+        ],
+        [
+          0,
+          "Good for you. Where do you live?"
+        ],
+        [
+          1,
+          "I am from the DMV area in the east coast, you?"
+        ],
+        [
+          0,
+          "I live in central Louisiana, pretty boring here."
+        ],
+        [
+          1,
+          "Oh I love New Orleans, do you go there a lot?"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 59,
+          "end": 63,
+          "sourceStartUTF16": 59,
+          "sourceEndUTF16": 63,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 48,
+            "end": 51,
+            "sourceStartUTF16": 48,
+            "sourceEndUTF16": 51,
+            "original": "Why",
+            "translated": "kwa nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-why",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:why"
+          }
+        ],
+        "mixed_text": "Sometimes, just the to the French neighborhood. kwa nini do you like it?",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 48,
+            "end": 51,
+            "sourceStartUTF16": 48,
+            "sourceEndUTF16": 51,
+            "original": "Why",
+            "translated": "kwa nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-why",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:why"
+          },
+          {
+            "start": 59,
+            "end": 63,
+            "sourceStartUTF16": 59,
+            "sourceEndUTF16": 63,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          }
+        ],
+        "mixed_text": "Sometimes, just the to the French neighborhood. kwa nini do you kupenda it?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 48,
+            "end": 51,
+            "sourceStartUTF16": 48,
+            "sourceEndUTF16": 51,
+            "original": "Why",
+            "translated": "kwa nini",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-why",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:why"
+          },
+          {
+            "start": 59,
+            "end": 63,
+            "sourceStartUTF16": 59,
+            "sourceEndUTF16": 63,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          }
+        ],
+        "mixed_text": "Sometimes, just the to the French neighborhood. kwa nini do you kupenda it?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 6,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 59,
+          "end": 63,
+          "sourceStartUTF16": 59,
+          "sourceEndUTF16": 63,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ]
+    },
+    {
+      "id": "bst-train-0748-06",
+      "text": "Hmm might not know anything to recommend, I mainly read fiction. What else do you like to do?",
+      "language": "sw",
+      "preceding_context_for_review": [
+        [
+          0,
+          "I'm alright! Just listened to a new audiobook last night and I really enjoyed it"
+        ],
+        [
+          1,
+          "I love audiobooks too! They make the commute fly by."
+        ],
+        [
+          0,
+          "Oh! Maybe we can swap recommendations, so you'll have something to do while you're stuck in bed. "
+        ],
+        [
+          1,
+          "Yes that sounds great."
+        ],
+        [
+          0,
+          "Do you have any preferences? I really like books about undersea adventures! "
+        ],
+        [
+          1,
+          "I like books about philosophy. "
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 82,
+          "end": 86,
+          "sourceStartUTF16": 82,
+          "sourceEndUTF16": 86,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 18,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 18,
+            "original": "know",
+            "translated": "kujua",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-sw-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 42,
+            "end": 43,
+            "sourceStartUTF16": 42,
+            "sourceEndUTF16": 43,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "Hmm might not kujua anything to recommend, mimi mainly read fiction. What else do you like to do?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 18,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 18,
+            "original": "know",
+            "translated": "kujua",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-sw-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 42,
+            "end": 43,
+            "sourceStartUTF16": 42,
+            "sourceEndUTF16": 43,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 82,
+            "end": 86,
+            "sourceStartUTF16": 82,
+            "sourceEndUTF16": 86,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          }
+        ],
+        "mixed_text": "Hmm might not kujua anything to recommend, mimi mainly read fiction. What else do you kupenda to do?",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 18,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 18,
+            "original": "know",
+            "translated": "kujua",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-sw-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 42,
+            "end": 43,
+            "sourceStartUTF16": 42,
+            "sourceEndUTF16": 43,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 82,
+            "end": 86,
+            "sourceStartUTF16": 82,
+            "sourceEndUTF16": 86,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          }
+        ],
+        "mixed_text": "Hmm might not kujua anything to recommend, mimi mainly read fiction. What else do you kupenda to do?",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 9,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 82,
+          "end": 86,
+          "sourceStartUTF16": 82,
+          "sourceEndUTF16": 86,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ]
+    },
+    {
+      "id": "bst-train-0640-00",
+      "text": "Yea, a good bit actually. I really like going to concerts. Who are you into currently?",
+      "language": "sw",
+      "preceding_context_for_review": [],
+      "added_candidates": [
+        {
+          "start": 35,
+          "end": 39,
+          "sourceStartUTF16": 35,
+          "sourceEndUTF16": 39,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 26,
+            "end": 27,
+            "sourceStartUTF16": 26,
+            "sourceEndUTF16": 27,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 28,
+            "end": 34,
+            "sourceStartUTF16": 28,
+            "sourceEndUTF16": 34,
+            "original": "really",
+            "translated": "kweli",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-sw-really",
+            "train_rank": 33,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "really"
+          },
+          {
+            "start": 49,
+            "end": 57,
+            "sourceStartUTF16": 49,
+            "sourceEndUTF16": 57,
+            "original": "concerts",
+            "translated": "matamasha",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-sw-concerts",
+            "train_rank": 1004,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "concert"
+          },
+          {
+            "start": 59,
+            "end": 62,
+            "sourceStartUTF16": 59,
+            "sourceEndUTF16": 62,
+            "original": "Who",
+            "translated": "nani",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-who",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:who"
+          }
+        ],
+        "mixed_text": "Yea, a good bit actually. mimi kweli like going to matamasha. nani are you into currently?",
+        "changed_source_words": 4,
+        "content_source_words": 1,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 26,
+            "end": 27,
+            "sourceStartUTF16": 26,
+            "sourceEndUTF16": 27,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 35,
+            "end": 39,
+            "sourceStartUTF16": 35,
+            "sourceEndUTF16": 39,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          },
+          {
+            "start": 49,
+            "end": 57,
+            "sourceStartUTF16": 49,
+            "sourceEndUTF16": 57,
+            "original": "concerts",
+            "translated": "matamasha",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-sw-concerts",
+            "train_rank": 1004,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "concert"
+          },
+          {
+            "start": 59,
+            "end": 62,
+            "sourceStartUTF16": 59,
+            "sourceEndUTF16": 62,
+            "original": "Who",
+            "translated": "nani",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-who",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:who"
+          }
+        ],
+        "mixed_text": "Yea, a good bit actually. mimi really kupenda going to matamasha. nani are you into currently?",
+        "changed_source_words": 4,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {
+          "remaining_budget": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 26,
+            "end": 27,
+            "sourceStartUTF16": 26,
+            "sourceEndUTF16": 27,
+            "original": "I",
+            "translated": "mimi",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-sw-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 28,
+            "end": 34,
+            "sourceStartUTF16": 28,
+            "sourceEndUTF16": 34,
+            "original": "really",
+            "translated": "kweli",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-sw-really",
+            "train_rank": 33,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "really"
+          },
+          {
+            "start": 35,
+            "end": 39,
+            "sourceStartUTF16": 35,
+            "sourceEndUTF16": 39,
+            "original": "like",
+            "translated": "kupenda",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-sw-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 705329
+          },
+          {
+            "start": 49,
+            "end": 57,
+            "sourceStartUTF16": 49,
+            "sourceEndUTF16": 57,
+            "original": "concerts",
+            "translated": "matamasha",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-sw-concerts",
+            "train_rank": 1004,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "concert"
+          },
+          {
+            "start": 59,
+            "end": 62,
+            "sourceStartUTF16": 59,
+            "sourceEndUTF16": 62,
+            "original": "Who",
+            "translated": "nani",
+            "category": "function",
+            "pos": "interrogative",
+            "lexicon_id": "question-en-sw-who",
+            "train_rank": 16,
+            "changed_source_words": 1,
+            "guard": "interrogative",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "question:who"
+          }
+        ],
+        "mixed_text": "Yea, a good bit actually. mimi kweli kupenda going to matamasha. nani are you into currently?",
+        "changed_source_words": 5,
+        "content_source_words": 2,
+        "budget": 8,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 35,
+          "end": 39,
+          "sourceStartUTF16": 35,
+          "sourceEndUTF16": 39,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ]
+    },
+    {
+      "id": "role-contrast-003",
+      "text": "I don't like coffee.",
+      "language": "sw",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": true,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 8,
+              "end": 12,
+              "sourceStartUTF16": 8,
+              "sourceEndUTF16": 12,
+              "original": "like",
+              "translated": "kupenda",
+              "reading": null,
+              "category": "content",
+              "concept_id": "like",
+              "lexicon_id": "role-r01-en-sw-like",
+              "train_rank": 14,
+              "changed_source_words": 1,
+              "content_source_words": 1,
+              "source_kind": "role_lexical",
+              "guard": "preference_verb",
+              "native_entry_id": 705329
+            }
+          ],
+          "mixed_text": "I don't kupenda coffee.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 1,
+          "rejections": {
+            "remaining_budget": 2
+          }
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 8,
+              "end": 12,
+              "sourceStartUTF16": 8,
+              "sourceEndUTF16": 12,
+              "original": "like",
+              "translated": "kupenda",
+              "reading": null,
+              "category": "content",
+              "concept_id": "like",
+              "lexicon_id": "role-r01-en-sw-like",
+              "train_rank": 14,
+              "changed_source_words": 1,
+              "content_source_words": 1,
+              "source_kind": "role_lexical",
+              "guard": "preference_verb",
+              "native_entry_id": 705329
+            },
+            {
+              "start": 13,
+              "end": 19,
+              "sourceStartUTF16": 13,
+              "sourceEndUTF16": 19,
+              "original": "coffee",
+              "translated": "kahawa",
+              "category": "content",
+              "pos": "noun",
+              "lexicon_id": "word-en-sw-coffee",
+              "train_rank": 370,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "coffee"
+            }
+          ],
+          "mixed_text": "I don't kupenda kahawa.",
+          "changed_source_words": 2,
+          "content_source_words": 2,
+          "budget": 2,
+          "rejections": {
+            "remaining_budget": 1
+          }
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 8,
+          "end": 12,
+          "sourceStartUTF16": 8,
+          "sourceEndUTF16": 12,
+          "original": "like",
+          "translated": "kupenda",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-sw-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 705329
+        }
+      ],
+      "rejected": []
+    },
+    {
+      "id": "role-contrast-015",
+      "text": "I live with my parents.",
+      "language": "sw",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": true,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 2,
+              "end": 6,
+              "sourceStartUTF16": 2,
+              "sourceEndUTF16": 6,
+              "original": "live",
+              "translated": "kuishi",
+              "reading": null,
+              "category": "content",
+              "concept_id": "live",
+              "lexicon_id": "role-r01-en-sw-live",
+              "train_rank": 92,
+              "changed_source_words": 1,
+              "content_source_words": 1,
+              "source_kind": "role_lexical",
+              "guard": "residence_verb",
+              "native_entry_id": 399500
+            }
+          ],
+          "mixed_text": "I kuishi with my parents.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 1,
+          "rejections": {
+            "remaining_budget": 2
+          }
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 0,
+              "end": 6,
+              "sourceStartUTF16": 0,
+              "sourceEndUTF16": 6,
+              "original": "I live",
+              "translated": "ninaishi",
+              "reading": null,
+              "category": "content",
+              "concept_id": "live",
+              "lexicon_id": "role-r01-en-sw-live:i",
+              "train_rank": 92,
+              "changed_source_words": 2,
+              "content_source_words": 1,
+              "source_kind": "attested_finite",
+              "guard": "residence_verb",
+              "native_entry_id": 399500,
+              "primary_form": [
+                399500,
+                "ninaishi",
+                "ninaishi",
+                "[\"first-person\",\"present\",\"singular\"]"
+              ]
+            }
+          ],
+          "mixed_text": "ninaishi with my parents.",
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "budget": 2,
+          "rejections": {
+            "same_concept": 1,
+            "remaining_budget": 1,
+            "overlap": 1
+          }
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 2,
+          "end": 6,
+          "sourceStartUTF16": 2,
+          "sourceEndUTF16": 6,
+          "original": "live",
+          "translated": "kuishi",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-sw-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 399500
+        },
+        {
+          "start": 0,
+          "end": 6,
+          "sourceStartUTF16": 0,
+          "sourceEndUTF16": 6,
+          "original": "I live",
+          "translated": "ninaishi",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-sw-live:i",
+          "train_rank": 92,
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "source_kind": "attested_finite",
+          "guard": "residence_verb",
+          "native_entry_id": 399500,
+          "primary_form": [
+            399500,
+            "ninaishi",
+            "ninaishi",
+            "[\"first-person\",\"present\",\"singular\"]"
+          ]
+        }
+      ],
+      "rejected": []
+    },
+    {
+      "id": "bst-train-0581-02",
+      "text": "really interesting character and it works well in this way. you keep move forward with the spirit",
+      "language": "ja",
+      "preceding_context_for_review": [
+        [
+          0,
+          "good to hear. i love to do saving for college. i am same character like you"
+        ],
+        [
+          1,
+          "Yes she wants to do some form of counseling. The mind to her is very interesting"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 7,
+          "end": 18,
+          "sourceStartUTF16": 7,
+          "sourceEndUTF16": 18,
+          "original": "interesting",
+          "translated": "面白い",
+          "reading": "omoshiroi",
+          "category": "content",
+          "concept_id": "interesting",
+          "lexicon_id": "role-r01-en-ja-interesting",
+          "train_rank": 151,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "adjective",
+          "native_entry_id": 483799
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 6,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 6,
+            "original": "really",
+            "translated": "本当に",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-ja-really",
+            "train_rank": 33,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "hontouni",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "really"
+          }
+        ],
+        "mixed_text": "本当に interesting character and it works well in this way. you keep move forward with the spirit",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 6,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 6,
+            "original": "really",
+            "translated": "本当に",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-ja-really",
+            "train_rank": 33,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "hontouni",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "really"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "sourceStartUTF16": 7,
+            "sourceEndUTF16": 18,
+            "original": "interesting",
+            "translated": "面白い",
+            "reading": "omoshiroi",
+            "category": "content",
+            "concept_id": "interesting",
+            "lexicon_id": "role-r01-en-ja-interesting",
+            "train_rank": 151,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "adjective",
+            "native_entry_id": 483799
+          }
+        ],
+        "mixed_text": "本当に 面白い character and it works well in this way. you keep move forward with the spirit",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 6,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 6,
+            "original": "really",
+            "translated": "本当に",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-ja-really",
+            "train_rank": 33,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "hontouni",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "really"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "sourceStartUTF16": 7,
+            "sourceEndUTF16": 18,
+            "original": "interesting",
+            "translated": "面白い",
+            "reading": "omoshiroi",
+            "category": "content",
+            "concept_id": "interesting",
+            "lexicon_id": "role-r01-en-ja-interesting",
+            "train_rank": 151,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "adjective",
+            "native_entry_id": 483799
+          }
+        ],
+        "mixed_text": "本当に 面白い character and it works well in this way. you keep move forward with the spirit",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 8,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 7,
+          "end": 18,
+          "sourceStartUTF16": 7,
+          "sourceEndUTF16": 18,
+          "original": "interesting",
+          "translated": "面白い",
+          "reading": "omoshiroi",
+          "category": "content",
+          "concept_id": "interesting",
+          "lexicon_id": "role-r01-en-ja-interesting",
+          "train_rank": 151,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "adjective",
+          "native_entry_id": 483799
+        }
+      ]
+    },
+    {
+      "id": "bst-train-3960-02",
+      "text": "I'm lucky, my parents are still healthy and my kids are doing great. I had better knock on wood!",
+      "language": "ja",
+      "preceding_context_for_review": [
+        [
+          0,
+          "I can't even imagine. My kids are everything to me."
+        ],
+        [
+          1,
+          "next to losing a child , losing parents is the hardest thing a person can go through"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 14,
+          "end": 21,
+          "sourceStartUTF16": 14,
+          "sourceEndUTF16": 21,
+          "original": "parents",
+          "translated": "親",
+          "reading": "oya",
+          "category": "content",
+          "concept_id": "parents",
+          "lexicon_id": "role-r01-en-ja-parents",
+          "train_rank": 228,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 117536
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 21,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 21,
+            "original": "parents",
+            "translated": "親",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-parents",
+            "train_rank": 228,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "oya",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "parents"
+          },
+          {
+            "start": 47,
+            "end": 51,
+            "sourceStartUTF16": 47,
+            "sourceEndUTF16": 51,
+            "original": "kids",
+            "translated": "子供",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-kids",
+            "train_rank": 121,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kodomo",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "child"
+          },
+          {
+            "start": 69,
+            "end": 70,
+            "sourceStartUTF16": 69,
+            "sourceEndUTF16": 70,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "I'm lucky, my 親 are still healthy and my 子供 are doing great. 私 had better knock on wood!",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 21,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 21,
+            "original": "parents",
+            "translated": "親",
+            "reading": "oya",
+            "category": "content",
+            "concept_id": "parents",
+            "lexicon_id": "role-r01-en-ja-parents",
+            "train_rank": 228,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 117536
+          },
+          {
+            "start": 47,
+            "end": 51,
+            "sourceStartUTF16": 47,
+            "sourceEndUTF16": 51,
+            "original": "kids",
+            "translated": "子供",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-kids",
+            "train_rank": 121,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kodomo",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "child"
+          },
+          {
+            "start": 69,
+            "end": 70,
+            "sourceStartUTF16": 69,
+            "sourceEndUTF16": 70,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "I'm lucky, my 親 are still healthy and my 子供 are doing great. 私 had better knock on wood!",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 14,
+            "end": 21,
+            "sourceStartUTF16": 14,
+            "sourceEndUTF16": 21,
+            "original": "parents",
+            "translated": "親",
+            "reading": "oya",
+            "category": "content",
+            "concept_id": "parents",
+            "lexicon_id": "role-r01-en-ja-parents",
+            "train_rank": 228,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 117536
+          },
+          {
+            "start": 47,
+            "end": 51,
+            "sourceStartUTF16": 47,
+            "sourceEndUTF16": 51,
+            "original": "kids",
+            "translated": "子供",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-kids",
+            "train_rank": 121,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kodomo",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "child"
+          },
+          {
+            "start": 69,
+            "end": 70,
+            "sourceStartUTF16": 69,
+            "sourceEndUTF16": 70,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "I'm lucky, my 親 are still healthy and my 子供 are doing great. 私 had better knock on wood!",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 9,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 14,
+          "end": 21,
+          "sourceStartUTF16": 14,
+          "sourceEndUTF16": 21,
+          "original": "parents",
+          "translated": "親",
+          "reading": "oya",
+          "category": "content",
+          "concept_id": "parents",
+          "lexicon_id": "role-r01-en-ja-parents",
+          "train_rank": 228,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 117536
+        }
+      ]
+    },
+    {
+      "id": "bst-train-1398-04",
+      "text": "I don't know. I just like the sound and beats and it's fun to listen to",
+      "language": "ja",
+      "preceding_context_for_review": [
+        [
+          0,
+          "I haven't"
+        ],
+        [
+          1,
+          "I enjoy going to rock concerts. What kind of music do you enjoy listening to?"
+        ],
+        [
+          0,
+          "eletronic. they're the best concerts to go to"
+        ],
+        [
+          1,
+          "I'm not big on electronic. What do you like about that genre?"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 21,
+          "end": 25,
+          "sourceStartUTF16": 21,
+          "sourceEndUTF16": 25,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "sourceStartUTF16": 8,
+            "sourceEndUTF16": 12,
+            "original": "know",
+            "translated": "知っている",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shitteiru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 62,
+            "end": 68,
+            "sourceStartUTF16": 62,
+            "sourceEndUTF16": 68,
+            "original": "listen",
+            "translated": "聞く",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-listen",
+            "train_rank": 294,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kiku",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "listen"
+          }
+        ],
+        "mixed_text": "私 don't 知っている. I just like the sound and beats and it's fun to 聞く to",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "sourceStartUTF16": 8,
+            "sourceEndUTF16": 12,
+            "original": "know",
+            "translated": "知っている",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shitteiru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 21,
+            "end": 25,
+            "sourceStartUTF16": 21,
+            "sourceEndUTF16": 25,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          },
+          {
+            "start": 62,
+            "end": 68,
+            "sourceStartUTF16": 62,
+            "sourceEndUTF16": 68,
+            "original": "listen",
+            "translated": "聞く",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-listen",
+            "train_rank": 294,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kiku",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "listen"
+          }
+        ],
+        "mixed_text": "私 don't 知っている. I just 好む the sound and beats and it's fun to 聞く to",
+        "changed_source_words": 4,
+        "content_source_words": 3,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 8,
+            "end": 12,
+            "sourceStartUTF16": 8,
+            "sourceEndUTF16": 12,
+            "original": "know",
+            "translated": "知っている",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-know",
+            "train_rank": 79,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shitteiru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "know"
+          },
+          {
+            "start": 21,
+            "end": 25,
+            "sourceStartUTF16": 21,
+            "sourceEndUTF16": 25,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          },
+          {
+            "start": 62,
+            "end": 68,
+            "sourceStartUTF16": 62,
+            "sourceEndUTF16": 68,
+            "original": "listen",
+            "translated": "聞く",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-listen",
+            "train_rank": 294,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kiku",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "listen"
+          }
+        ],
+        "mixed_text": "私 don't 知っている. I just 好む the sound and beats and it's fun to 聞く to",
+        "changed_source_words": 4,
+        "content_source_words": 3,
+        "budget": 8,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 21,
+          "end": 25,
+          "sourceStartUTF16": 21,
+          "sourceEndUTF16": 25,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        }
+      ]
+    },
+    {
+      "id": "bst-train-1785-10",
+      "text": "You won't catch me denying climate change! I don't like big cities either. It's too hard to live there.",
+      "language": "ja",
+      "preceding_context_for_review": [
+        [
+          0,
+          "I'm getting a music industry degree. What do you do?"
+        ],
+        [
+          1,
+          "Nothing in music! I have no musical talent at all. Only person I know who was told to quit piano lessons!"
+        ],
+        [
+          0,
+          "LOL! You should have taken up the tuba for spite."
+        ],
+        [
+          1,
+          "I envy you. I grew up in Nashville, Music City. How did you get into music?"
+        ],
+        [
+          0,
+          "I had a musical family. Everybody played an instrument so it just came naturally. What's Nashville like?"
+        ],
+        [
+          1,
+          "It's way too big now. It's lost a lot of it's charm. Where are you from?"
+        ],
+        [
+          0,
+          "Alabama believe it or not, but I haven't been there in a while. I like it up north."
+        ],
+        [
+          1,
+          "I love Alabama. It still has that slow, southern feel to it."
+        ],
+        [
+          0,
+          "No doubt. I think people are slow there because of that awful heat. Hottest place next to Texas I've ever been."
+        ],
+        [
+          1,
+          "That's about right! I have family in Houston. It's miserable!"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 51,
+          "end": 55,
+          "sourceStartUTF16": 51,
+          "sourceEndUTF16": 55,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        },
+        {
+          "start": 92,
+          "end": 96,
+          "sourceStartUTF16": 92,
+          "sourceEndUTF16": 96,
+          "original": "live",
+          "translated": "住む",
+          "reading": "sumu",
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-ja-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 823703
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 43,
+            "end": 44,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 44,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 60,
+            "end": 66,
+            "sourceStartUTF16": 60,
+            "sourceEndUTF16": 66,
+            "original": "cities",
+            "translated": "都市",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-cities",
+            "train_rank": 405,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "toshi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "city"
+          }
+        ],
+        "mixed_text": "You won't catch me denying climate change! 私 don't like big 都市 either. It's too hard to live there.",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 43,
+            "end": 44,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 44,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 51,
+            "end": 55,
+            "sourceStartUTF16": 51,
+            "sourceEndUTF16": 55,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          },
+          {
+            "start": 60,
+            "end": 66,
+            "sourceStartUTF16": 60,
+            "sourceEndUTF16": 66,
+            "original": "cities",
+            "translated": "都市",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-cities",
+            "train_rank": 405,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "toshi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "city"
+          },
+          {
+            "start": 92,
+            "end": 96,
+            "sourceStartUTF16": 92,
+            "sourceEndUTF16": 96,
+            "original": "live",
+            "translated": "住む",
+            "reading": "sumu",
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-ja-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 823703
+          }
+        ],
+        "mixed_text": "You won't catch me denying climate change! 私 don't 好む big 都市 either. It's too hard to 住む there.",
+        "changed_source_words": 4,
+        "content_source_words": 3,
+        "budget": 4,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 43,
+            "end": 44,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 44,
+            "original": "I",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 51,
+            "end": 55,
+            "sourceStartUTF16": 51,
+            "sourceEndUTF16": 55,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          },
+          {
+            "start": 60,
+            "end": 66,
+            "sourceStartUTF16": 60,
+            "sourceEndUTF16": 66,
+            "original": "cities",
+            "translated": "都市",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-ja-cities",
+            "train_rank": 405,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "toshi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "city"
+          },
+          {
+            "start": 92,
+            "end": 96,
+            "sourceStartUTF16": 92,
+            "sourceEndUTF16": 96,
+            "original": "live",
+            "translated": "住む",
+            "reading": "sumu",
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-ja-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 823703
+          }
+        ],
+        "mixed_text": "You won't catch me denying climate change! 私 don't 好む big 都市 either. It's too hard to 住む there.",
+        "changed_source_words": 4,
+        "content_source_words": 3,
+        "budget": 9,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 51,
+          "end": 55,
+          "sourceStartUTF16": 51,
+          "sourceEndUTF16": 55,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        },
+        {
+          "start": 92,
+          "end": 96,
+          "sourceStartUTF16": 92,
+          "sourceEndUTF16": 96,
+          "original": "live",
+          "translated": "住む",
+          "reading": "sumu",
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-ja-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 823703
+        }
+      ]
+    },
+    {
+      "id": "bst-train-0125-02",
+      "text": "haha i feel you! i used to think like that, now i hate tht i can't go shopping as long as i wanted to, but i don't have complains",
+      "language": "ja",
+      "preceding_context_for_review": [
+        [
+          0,
+          "i have a husband and two kids,what about you ? "
+        ],
+        [
+          1,
+          "I have a dog but I don't have kids yet, I'm not ready for the full responsibility lol."
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 70,
+          "end": 78,
+          "sourceStartUTF16": 70,
+          "sourceEndUTF16": 78,
+          "original": "shopping",
+          "translated": "買い物",
+          "reading": "kaimono",
+          "category": "content",
+          "concept_id": "shopping",
+          "lexicon_id": "role-r01-en-ja-shopping",
+          "train_rank": 568,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "shopping_activity",
+          "native_entry_id": 4009410
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 27,
+            "end": 32,
+            "sourceStartUTF16": 27,
+            "sourceEndUTF16": 32,
+            "original": "think",
+            "translated": "考える",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-think",
+            "train_rank": 70,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kangaeru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "think"
+          },
+          {
+            "start": 50,
+            "end": 54,
+            "sourceStartUTF16": 50,
+            "sourceEndUTF16": 54,
+            "original": "hate",
+            "translated": "嫌う",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-hate",
+            "train_rank": 380,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kirau",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "hate"
+          },
+          {
+            "start": 103,
+            "end": 106,
+            "sourceStartUTF16": 103,
+            "sourceEndUTF16": 106,
+            "original": "but",
+            "translated": "しかし",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-ja-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shikashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          }
+        ],
+        "mixed_text": "haha 私 feel you! i used to 考える like that, now i 嫌う tht i can't go shopping as long as i wanted to, しかし i don't have complains",
+        "changed_source_words": 4,
+        "content_source_words": 2,
+        "budget": 7,
+        "rejections": {
+          "same_concept": 5
+        }
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 27,
+            "end": 32,
+            "sourceStartUTF16": 27,
+            "sourceEndUTF16": 32,
+            "original": "think",
+            "translated": "考える",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-think",
+            "train_rank": 70,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kangaeru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "think"
+          },
+          {
+            "start": 50,
+            "end": 54,
+            "sourceStartUTF16": 50,
+            "sourceEndUTF16": 54,
+            "original": "hate",
+            "translated": "嫌う",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-hate",
+            "train_rank": 380,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kirau",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "hate"
+          },
+          {
+            "start": 70,
+            "end": 78,
+            "sourceStartUTF16": 70,
+            "sourceEndUTF16": 78,
+            "original": "shopping",
+            "translated": "買い物",
+            "reading": "kaimono",
+            "category": "content",
+            "concept_id": "shopping",
+            "lexicon_id": "role-r01-en-ja-shopping",
+            "train_rank": 568,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "shopping_activity",
+            "native_entry_id": 4009410
+          },
+          {
+            "start": 103,
+            "end": 106,
+            "sourceStartUTF16": 103,
+            "sourceEndUTF16": 106,
+            "original": "but",
+            "translated": "しかし",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-ja-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shikashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          }
+        ],
+        "mixed_text": "haha 私 feel you! i used to 考える like that, now i 嫌う tht i can't go 買い物 as long as i wanted to, しかし i don't have complains",
+        "changed_source_words": 5,
+        "content_source_words": 3,
+        "budget": 7,
+        "rejections": {
+          "same_concept": 5
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 27,
+            "end": 32,
+            "sourceStartUTF16": 27,
+            "sourceEndUTF16": 32,
+            "original": "think",
+            "translated": "考える",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-think",
+            "train_rank": 70,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kangaeru",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "think"
+          },
+          {
+            "start": 50,
+            "end": 54,
+            "sourceStartUTF16": 50,
+            "sourceEndUTF16": 54,
+            "original": "hate",
+            "translated": "嫌う",
+            "category": "content",
+            "pos": "verb",
+            "lexicon_id": "word-en-ja-hate",
+            "train_rank": 380,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "kirau",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "hate"
+          },
+          {
+            "start": 70,
+            "end": 78,
+            "sourceStartUTF16": 70,
+            "sourceEndUTF16": 78,
+            "original": "shopping",
+            "translated": "買い物",
+            "reading": "kaimono",
+            "category": "content",
+            "concept_id": "shopping",
+            "lexicon_id": "role-r01-en-ja-shopping",
+            "train_rank": 568,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "shopping_activity",
+            "native_entry_id": 4009410
+          },
+          {
+            "start": 103,
+            "end": 106,
+            "sourceStartUTF16": 103,
+            "sourceEndUTF16": 106,
+            "original": "but",
+            "translated": "しかし",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-ja-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "shikashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          }
+        ],
+        "mixed_text": "haha 私 feel you! i used to 考える like that, now i 嫌う tht i can't go 買い物 as long as i wanted to, しかし i don't have complains",
+        "changed_source_words": 5,
+        "content_source_words": 3,
+        "budget": 14,
+        "rejections": {
+          "same_concept": 5
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 70,
+          "end": 78,
+          "sourceStartUTF16": 70,
+          "sourceEndUTF16": 78,
+          "original": "shopping",
+          "translated": "買い物",
+          "reading": "kaimono",
+          "category": "content",
+          "concept_id": "shopping",
+          "lexicon_id": "role-r01-en-ja-shopping",
+          "train_rank": 568,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "shopping_activity",
+          "native_entry_id": 4009410
+        }
+      ]
+    },
+    {
+      "id": "bst-train-0294-00",
+      "text": "dancing is fun. i like to do it",
+      "language": "ja",
+      "preceding_context_for_review": [],
+      "added_candidates": [
+        {
+          "start": 18,
+          "end": 22,
+          "sourceStartUTF16": 18,
+          "sourceEndUTF16": 22,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 16,
+            "end": 17,
+            "sourceStartUTF16": 16,
+            "sourceEndUTF16": 17,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "dancing is fun. 私 like to do it",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 16,
+            "end": 17,
+            "sourceStartUTF16": 16,
+            "sourceEndUTF16": 17,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 18,
+            "end": 22,
+            "sourceStartUTF16": 18,
+            "sourceEndUTF16": 22,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          }
+        ],
+        "mixed_text": "dancing is fun. 私 好む to do it",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 16,
+            "end": 17,
+            "sourceStartUTF16": 16,
+            "sourceEndUTF16": 17,
+            "original": "i",
+            "translated": "私",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-ja-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": "watashi",
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 18,
+            "end": 22,
+            "sourceStartUTF16": 18,
+            "sourceEndUTF16": 22,
+            "original": "like",
+            "translated": "好む",
+            "reading": "konomu",
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-ja-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 1173167
+          }
+        ],
+        "mixed_text": "dancing is fun. 私 好む to do it",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 4,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 18,
+          "end": 22,
+          "sourceStartUTF16": 18,
+          "sourceEndUTF16": 22,
+          "original": "like",
+          "translated": "好む",
+          "reading": "konomu",
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-ja-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 1173167
+        }
+      ]
+    },
+    {
+      "id": "role-contrast-019",
+      "text": "I live with pain.",
+      "language": "ja",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": false,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 0,
+              "end": 1,
+              "sourceStartUTF16": 0,
+              "sourceEndUTF16": 1,
+              "original": "I",
+              "translated": "私",
+              "category": "function",
+              "pos": "pron",
+              "lexicon_id": "word-en-ja-i",
+              "train_rank": 1,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": "watashi",
+              "source_kind": "reviewed_starter",
+              "content_source_words": 0,
+              "concept_id": "i"
+            }
+          ],
+          "mixed_text": "私 live with pain.",
+          "changed_source_words": 1,
+          "content_source_words": 0,
+          "budget": 1,
+          "rejections": {}
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 0,
+              "end": 1,
+              "sourceStartUTF16": 0,
+              "sourceEndUTF16": 1,
+              "original": "I",
+              "translated": "私",
+              "category": "function",
+              "pos": "pron",
+              "lexicon_id": "word-en-ja-i",
+              "train_rank": 1,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": "watashi",
+              "source_kind": "reviewed_starter",
+              "content_source_words": 0,
+              "concept_id": "i"
+            }
+          ],
+          "mixed_text": "私 live with pain.",
+          "changed_source_words": 1,
+          "content_source_words": 0,
+          "budget": 2,
+          "rejections": {}
+        }
+      },
+      "review_only_new_scopes": [],
+      "rejected": [
+        {
+          "source": "live",
+          "start": 2,
+          "end": 6,
+          "reason": "residence_complement_unresolved"
+        }
+      ]
+    },
+    {
+      "id": "role-contrast-028",
+      "text": "The company parents a subsidiary.",
+      "language": "ja",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": false,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 12,
+              "end": 19,
+              "sourceStartUTF16": 12,
+              "sourceEndUTF16": 19,
+              "original": "parents",
+              "translated": "親",
+              "category": "content",
+              "pos": "noun",
+              "lexicon_id": "word-en-ja-parents",
+              "train_rank": 228,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": "oya",
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "parent"
+            }
+          ],
+          "mixed_text": "The company 親 a subsidiary.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 1,
+          "rejections": {}
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 12,
+              "end": 19,
+              "sourceStartUTF16": 12,
+              "sourceEndUTF16": 19,
+              "original": "parents",
+              "translated": "親",
+              "category": "content",
+              "pos": "noun",
+              "lexicon_id": "word-en-ja-parents",
+              "train_rank": 228,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": "oya",
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "parent"
+            }
+          ],
+          "mixed_text": "The company 親 a subsidiary.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 2,
+          "rejections": {}
+        }
+      },
+      "review_only_new_scopes": [],
+      "rejected": [
+        {
+          "source": "parents",
+          "start": 12,
+          "end": 19,
+          "reason": "noun_context_absent"
+        }
+      ]
+    },
+    {
+      "id": "bst-train-1962-06",
+      "text": "Well I have always been interested in law, but I like the federal system because the cases are more interesting to me",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "What are you're favorite books?"
+        ],
+        [
+          1,
+          "Game of thrones is my top one. I love the books and the series. "
+        ],
+        [
+          0,
+          "I love the show!  I have not yet read the books but they are on my list to read!  What kind of job do you have?"
+        ],
+        [
+          1,
+          "I work as a sales person but my dream job is to be a swim instructor since I love to swim."
+        ],
+        [
+          0,
+          "That would be awesome.  You can do definitely do it, and open up a swim shop for kids!  I want to work in the federal court system"
+        ],
+        [
+          1,
+          "That looks like a fun job. What do you like about the job?"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 49,
+          "end": 53,
+          "sourceStartUTF16": 49,
+          "sourceEndUTF16": 53,
+          "original": "like",
+          "translated": "gustar",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-es-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 293318
+        },
+        {
+          "start": 100,
+          "end": 111,
+          "sourceStartUTF16": 100,
+          "sourceEndUTF16": 111,
+          "original": "interesting",
+          "translated": "interesante",
+          "reading": null,
+          "category": "content",
+          "concept_id": "interesting",
+          "lexicon_id": "role-r01-en-es-interesting",
+          "train_rank": 151,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "adjective",
+          "native_entry_id": 985479
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 12,
+            "end": 18,
+            "sourceStartUTF16": 12,
+            "sourceEndUTF16": 18,
+            "original": "always",
+            "translated": "siempre",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-always",
+            "train_rank": 96,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "always"
+          },
+          {
+            "start": 43,
+            "end": 46,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 46,
+            "original": "but",
+            "translated": "pero",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-es-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          },
+          {
+            "start": 73,
+            "end": 80,
+            "sourceStartUTF16": 73,
+            "sourceEndUTF16": 80,
+            "original": "because",
+            "translated": "porque",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-because",
+            "train_rank": 130,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "because"
+          },
+          {
+            "start": 95,
+            "end": 99,
+            "sourceStartUTF16": 95,
+            "sourceEndUTF16": 99,
+            "original": "more",
+            "translated": "más",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-more",
+            "train_rank": 82,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "more"
+          }
+        ],
+        "mixed_text": "Well yo have siempre been interested in law, pero I like the federal system porque the cases are más interesting to me",
+        "changed_source_words": 5,
+        "content_source_words": 0,
+        "budget": 5,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 43,
+            "end": 46,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 46,
+            "original": "but",
+            "translated": "pero",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-es-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          },
+          {
+            "start": 49,
+            "end": 53,
+            "sourceStartUTF16": 49,
+            "sourceEndUTF16": 53,
+            "original": "like",
+            "translated": "gustar",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-es-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 293318
+          },
+          {
+            "start": 95,
+            "end": 99,
+            "sourceStartUTF16": 95,
+            "sourceEndUTF16": 99,
+            "original": "more",
+            "translated": "más",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-more",
+            "train_rank": 82,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "more"
+          },
+          {
+            "start": 100,
+            "end": 111,
+            "sourceStartUTF16": 100,
+            "sourceEndUTF16": 111,
+            "original": "interesting",
+            "translated": "interesante",
+            "reading": null,
+            "category": "content",
+            "concept_id": "interesting",
+            "lexicon_id": "role-r01-en-es-interesting",
+            "train_rank": 151,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "adjective",
+            "native_entry_id": 985479
+          }
+        ],
+        "mixed_text": "Well yo have always been interested in law, pero I gustar the federal system because the cases are más interesante to me",
+        "changed_source_words": 5,
+        "content_source_words": 2,
+        "budget": 5,
+        "rejections": {
+          "same_concept": 1,
+          "remaining_budget": 2
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 12,
+            "end": 18,
+            "sourceStartUTF16": 12,
+            "sourceEndUTF16": 18,
+            "original": "always",
+            "translated": "siempre",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-always",
+            "train_rank": 96,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "always"
+          },
+          {
+            "start": 43,
+            "end": 46,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 46,
+            "original": "but",
+            "translated": "pero",
+            "category": "function",
+            "pos": "conj",
+            "lexicon_id": "word-en-es-but",
+            "train_rank": 18,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "but"
+          },
+          {
+            "start": 49,
+            "end": 53,
+            "sourceStartUTF16": 49,
+            "sourceEndUTF16": 53,
+            "original": "like",
+            "translated": "gustar",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-es-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 293318
+          },
+          {
+            "start": 73,
+            "end": 80,
+            "sourceStartUTF16": 73,
+            "sourceEndUTF16": 80,
+            "original": "because",
+            "translated": "porque",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-because",
+            "train_rank": 130,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "because"
+          },
+          {
+            "start": 95,
+            "end": 99,
+            "sourceStartUTF16": 95,
+            "sourceEndUTF16": 99,
+            "original": "more",
+            "translated": "más",
+            "category": "function",
+            "pos": "adv",
+            "lexicon_id": "word-en-es-more",
+            "train_rank": 82,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "more"
+          },
+          {
+            "start": 100,
+            "end": 111,
+            "sourceStartUTF16": 100,
+            "sourceEndUTF16": 111,
+            "original": "interesting",
+            "translated": "interesante",
+            "reading": null,
+            "category": "content",
+            "concept_id": "interesting",
+            "lexicon_id": "role-r01-en-es-interesting",
+            "train_rank": 151,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "adjective",
+            "native_entry_id": 985479
+          }
+        ],
+        "mixed_text": "Well yo have siempre been interested in law, pero I gustar the federal system porque the cases are más interesante to me",
+        "changed_source_words": 7,
+        "content_source_words": 2,
+        "budget": 11,
+        "rejections": {
+          "same_concept": 1
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 49,
+          "end": 53,
+          "sourceStartUTF16": 49,
+          "sourceEndUTF16": 53,
+          "original": "like",
+          "translated": "gustar",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-es-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 293318
+        },
+        {
+          "start": 100,
+          "end": 111,
+          "sourceStartUTF16": 100,
+          "sourceEndUTF16": 111,
+          "original": "interesting",
+          "translated": "interesante",
+          "reading": null,
+          "category": "content",
+          "concept_id": "interesting",
+          "lexicon_id": "role-r01-en-es-interesting",
+          "train_rank": 151,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "adjective",
+          "native_entry_id": 985479
+        }
+      ]
+    },
+    {
+      "id": "bst-train-2782-06",
+      "text": "YES!! There is no shame in my game either!! You just can't beat free",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "Oh how I love coco chanel! Shoes are my weakness lol"
+        ],
+        [
+          1,
+          "Me too!!!!  shoes are life!  I wish they were free, lol"
+        ],
+        [
+          0,
+          "if only! I would love to have an entire room just for shoes. I don't think i'd ever leave though haha"
+        ],
+        [
+          1,
+          "haha, right?  I used to clean house for a lady who had a shoe ROOM...a whole ROOM of shoes!!!!"
+        ],
+        [
+          0,
+          "I aspire to be that lady! Shoes, handbags, and clothes.. who needs a best friend lol"
+        ],
+        [
+          1,
+          "right?  she did give me some handmedown handbags...and I have no shame, I'm poor and love couture, I took them!"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 35,
+          "end": 41,
+          "sourceStartUTF16": 35,
+          "sourceEndUTF16": 41,
+          "original": "either",
+          "translated": "tampoco",
+          "reading": null,
+          "category": "function",
+          "concept_id": "either",
+          "lexicon_id": "role-r01-en-es-either",
+          "train_rank": 396,
+          "changed_source_words": 1,
+          "content_source_words": 0,
+          "source_kind": "role_lexical",
+          "guard": "negative_additive",
+          "native_entry_id": 441483
+        }
+      ],
+      "control25": {
+        "spans": [],
+        "mixed_text": "YES!! There is no shame in my game either!! You just can't beat free",
+        "changed_source_words": 0,
+        "content_source_words": 0,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 35,
+            "end": 41,
+            "sourceStartUTF16": 35,
+            "sourceEndUTF16": 41,
+            "original": "either",
+            "translated": "tampoco",
+            "reading": null,
+            "category": "function",
+            "concept_id": "either",
+            "lexicon_id": "role-r01-en-es-either",
+            "train_rank": 396,
+            "changed_source_words": 1,
+            "content_source_words": 0,
+            "source_kind": "role_lexical",
+            "guard": "negative_additive",
+            "native_entry_id": 441483
+          }
+        ],
+        "mixed_text": "YES!! There is no shame in my game tampoco!! You just can't beat free",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 35,
+            "end": 41,
+            "sourceStartUTF16": 35,
+            "sourceEndUTF16": 41,
+            "original": "either",
+            "translated": "tampoco",
+            "reading": null,
+            "category": "function",
+            "concept_id": "either",
+            "lexicon_id": "role-r01-en-es-either",
+            "train_rank": 396,
+            "changed_source_words": 1,
+            "content_source_words": 0,
+            "source_kind": "role_lexical",
+            "guard": "negative_additive",
+            "native_entry_id": 441483
+          }
+        ],
+        "mixed_text": "YES!! There is no shame in my game tampoco!! You just can't beat free",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 7,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 35,
+          "end": 41,
+          "sourceStartUTF16": 35,
+          "sourceEndUTF16": 41,
+          "original": "either",
+          "translated": "tampoco",
+          "reading": null,
+          "category": "function",
+          "concept_id": "either",
+          "lexicon_id": "role-r01-en-es-either",
+          "train_rank": 396,
+          "changed_source_words": 1,
+          "content_source_words": 0,
+          "source_kind": "role_lexical",
+          "guard": "negative_additive",
+          "native_entry_id": 441483
+        }
+      ]
+    },
+    {
+      "id": "bst-train-2310-08",
+      "text": "Wow! I hope you get that cat. I love cats, I have a white one named Duey. I hope your birthday dreams come true. ",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "Sweet! I also live in my parents basement because I have issues. "
+        ],
+        [
+          1,
+          "What kind of problems?"
+        ],
+        [
+          0,
+          "Not sure exactly, though people close to me often comment that I am a neurotic hypochondriac. I guess I do always think I'm dying of an illness.  "
+        ],
+        [
+          1,
+          "Have you seen a doctor about these issues?"
+        ],
+        [
+          0,
+          "Yes but it's hard to find a doctor who sees things my way. I am a pious Seventh Day Adventist and I try to find doctors with my beliefs. "
+        ],
+        [
+          1,
+          "I find that doctors and religion don't always agree. Do you sometimes talk to your pastor about your problem?"
+        ],
+        [
+          0,
+          "No, maybe I should do that. That's good advice, thanks. What are your interests, religion or otherwise?"
+        ],
+        [
+          1,
+          "I am hoping my parents will let me adopt a cat for my birthday."
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 86,
+          "end": 94,
+          "sourceStartUTF16": 86,
+          "sourceEndUTF16": 94,
+          "original": "birthday",
+          "translated": "cumpleaños",
+          "reading": null,
+          "category": "content",
+          "concept_id": "birthday",
+          "lexicon_id": "role-r01-en-es-birthday",
+          "train_rank": 1075,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 226286
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 37,
+            "end": 41,
+            "sourceStartUTF16": 37,
+            "sourceEndUTF16": 41,
+            "original": "cats",
+            "translated": "gatos",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-cats",
+            "train_rank": 192,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "cat"
+          }
+        ],
+        "mixed_text": "Wow! yo hope you get that cat. I love gatos, I have a white one named Duey. I hope your birthday dreams come true. ",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 6,
+        "rejections": {
+          "same_concept": 4
+        }
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 37,
+            "end": 41,
+            "sourceStartUTF16": 37,
+            "sourceEndUTF16": 41,
+            "original": "cats",
+            "translated": "gatos",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-cats",
+            "train_rank": 192,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "cat"
+          },
+          {
+            "start": 86,
+            "end": 94,
+            "sourceStartUTF16": 86,
+            "sourceEndUTF16": 94,
+            "original": "birthday",
+            "translated": "cumpleaños",
+            "reading": null,
+            "category": "content",
+            "concept_id": "birthday",
+            "lexicon_id": "role-r01-en-es-birthday",
+            "train_rank": 1075,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 226286
+          }
+        ],
+        "mixed_text": "Wow! yo hope you get that cat. I love gatos, I have a white one named Duey. I hope your cumpleaños dreams come true. ",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 6,
+        "rejections": {
+          "same_concept": 4
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 5,
+            "end": 6,
+            "sourceStartUTF16": 5,
+            "sourceEndUTF16": 6,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 37,
+            "end": 41,
+            "sourceStartUTF16": 37,
+            "sourceEndUTF16": 41,
+            "original": "cats",
+            "translated": "gatos",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-cats",
+            "train_rank": 192,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "cat"
+          },
+          {
+            "start": 86,
+            "end": 94,
+            "sourceStartUTF16": 86,
+            "sourceEndUTF16": 94,
+            "original": "birthday",
+            "translated": "cumpleaños",
+            "reading": null,
+            "category": "content",
+            "concept_id": "birthday",
+            "lexicon_id": "role-r01-en-es-birthday",
+            "train_rank": 1075,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "ordinary_noun",
+            "native_entry_id": 226286
+          }
+        ],
+        "mixed_text": "Wow! yo hope you get that cat. I love gatos, I have a white one named Duey. I hope your cumpleaños dreams come true. ",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 12,
+        "rejections": {
+          "same_concept": 4
+        }
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 86,
+          "end": 94,
+          "sourceStartUTF16": 86,
+          "sourceEndUTF16": 94,
+          "original": "birthday",
+          "translated": "cumpleaños",
+          "reading": null,
+          "category": "content",
+          "concept_id": "birthday",
+          "lexicon_id": "role-r01-en-es-birthday",
+          "train_rank": 1075,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "ordinary_noun",
+          "native_entry_id": 226286
+        }
+      ]
+    },
+    {
+      "id": "bst-train-3970-04",
+      "text": "I like to paint the places I've been. What about you?",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "Sometimes. I also take my sister Jessica flying too."
+        ],
+        [
+          1,
+          "Sounds like an awesome experience. I want to learn how to fly, but I can't decide between flying or self-defense lol."
+        ],
+        [
+          0,
+          "Self-defense is a good thing to learn though. Even as just a way to exercise."
+        ],
+        [
+          1,
+          "Yes it is, good exercise and can be useful for dangerous situation. Do you have any hobbies beside flying sometimes?"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 2,
+          "end": 6,
+          "sourceStartUTF16": 2,
+          "sourceEndUTF16": 6,
+          "original": "like",
+          "translated": "gustar",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-es-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 293318
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 20,
+            "end": 26,
+            "sourceStartUTF16": 20,
+            "sourceEndUTF16": 26,
+            "original": "places",
+            "translated": "lugares",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-places",
+            "train_rank": 342,
+            "changed_source_words": 1,
+            "guard": "ordinary_noun_context",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "place"
+          }
+        ],
+        "mixed_text": "yo like to paint the lugares I've been. What about you?",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 2,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 2,
+            "end": 6,
+            "sourceStartUTF16": 2,
+            "sourceEndUTF16": 6,
+            "original": "like",
+            "translated": "gustar",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-es-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 293318
+          },
+          {
+            "start": 20,
+            "end": 26,
+            "sourceStartUTF16": 20,
+            "sourceEndUTF16": 26,
+            "original": "places",
+            "translated": "lugares",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-places",
+            "train_rank": 342,
+            "changed_source_words": 1,
+            "guard": "ordinary_noun_context",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "place"
+          }
+        ],
+        "mixed_text": "I gustar to paint the lugares I've been. What about you?",
+        "changed_source_words": 2,
+        "content_source_words": 2,
+        "budget": 2,
+        "rejections": {
+          "remaining_budget": 1
+        }
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 0,
+            "end": 1,
+            "sourceStartUTF16": 0,
+            "sourceEndUTF16": 1,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 2,
+            "end": 6,
+            "sourceStartUTF16": 2,
+            "sourceEndUTF16": 6,
+            "original": "like",
+            "translated": "gustar",
+            "reading": null,
+            "category": "content",
+            "concept_id": "like",
+            "lexicon_id": "role-r01-en-es-like",
+            "train_rank": 14,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "preference_verb",
+            "native_entry_id": 293318
+          },
+          {
+            "start": 20,
+            "end": 26,
+            "sourceStartUTF16": 20,
+            "sourceEndUTF16": 26,
+            "original": "places",
+            "translated": "lugares",
+            "category": "content",
+            "pos": "noun",
+            "lexicon_id": "word-en-es-places",
+            "train_rank": 342,
+            "changed_source_words": 1,
+            "guard": "ordinary_noun_context",
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 1,
+            "concept_id": "place"
+          }
+        ],
+        "mixed_text": "yo gustar to paint the lugares I've been. What about you?",
+        "changed_source_words": 3,
+        "content_source_words": 2,
+        "budget": 5,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 2,
+          "end": 6,
+          "sourceStartUTF16": 2,
+          "sourceEndUTF16": 6,
+          "original": "like",
+          "translated": "gustar",
+          "reading": null,
+          "category": "content",
+          "concept_id": "like",
+          "lexicon_id": "role-r01-en-es-like",
+          "train_rank": 14,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "preference_verb",
+          "native_entry_id": 293318
+        }
+      ]
+    },
+    {
+      "id": "bst-train-4243-08",
+      "text": "Oh sorry, my bad...I just wondering if you live here in usa",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "great!...what kinf of volunteer gig are you doing"
+        ],
+        [
+          1,
+          "Providing food to the homeless at a shelter. "
+        ],
+        [
+          0,
+          "awesome!...I'd like to try something with kids without parents"
+        ],
+        [
+          1,
+          "That would have to be something like a summer camp."
+        ],
+        [
+          0,
+          "I'm new in this country and I need to get more info about how to do that job"
+        ],
+        [
+          1,
+          "Well I have been doing this for 8 years so I have a bit of experience. "
+        ],
+        [
+          0,
+          "nice!...where do you do that gig?...I mean what location"
+        ],
+        [
+          1,
+          "Unfortunately I am not allowed to share that information. "
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 43,
+          "end": 47,
+          "sourceStartUTF16": 43,
+          "sourceEndUTF16": 47,
+          "original": "live",
+          "translated": "vivir",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-es-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 295895
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 19,
+            "end": 20,
+            "sourceStartUTF16": 19,
+            "sourceEndUTF16": 20,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "Oh sorry, my bad...yo just wondering if you live here in usa",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 19,
+            "end": 20,
+            "sourceStartUTF16": 19,
+            "sourceEndUTF16": 20,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 43,
+            "end": 47,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 47,
+            "original": "live",
+            "translated": "vivir",
+            "reading": null,
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-es-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 295895
+          }
+        ],
+        "mixed_text": "Oh sorry, my bad...yo just wondering if you vivir here in usa",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 19,
+            "end": 20,
+            "sourceStartUTF16": 19,
+            "sourceEndUTF16": 20,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 43,
+            "end": 47,
+            "sourceStartUTF16": 43,
+            "sourceEndUTF16": 47,
+            "original": "live",
+            "translated": "vivir",
+            "reading": null,
+            "category": "content",
+            "concept_id": "live",
+            "lexicon_id": "role-r01-en-es-live",
+            "train_rank": 92,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "residence_verb",
+            "native_entry_id": 295895
+          }
+        ],
+        "mixed_text": "Oh sorry, my bad...yo just wondering if you vivir here in usa",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 6,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 43,
+          "end": 47,
+          "sourceStartUTF16": 43,
+          "sourceEndUTF16": 47,
+          "original": "live",
+          "translated": "vivir",
+          "reading": null,
+          "category": "content",
+          "concept_id": "live",
+          "lexicon_id": "role-r01-en-es-live",
+          "train_rank": 92,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "residence_verb",
+          "native_entry_id": 295895
+        }
+      ]
+    },
+    {
+      "id": "bst-train-4662-08",
+      "text": "That sounds interesting. I am a student too, going for agricultural studies currently.",
+      "language": "es",
+      "preceding_context_for_review": [
+        [
+          0,
+          "I really enjoy a good beef wellington. Do you have a favorite beef dish?"
+        ],
+        [
+          1,
+          "No, but I am more of a BBQ person myself.  I love the meat that is marinated than basted with sauce"
+        ],
+        [
+          0,
+          "BBQ is pretty delicious as well, and since it often also contains beef I'm a big fan of it as well."
+        ],
+        [
+          1,
+          "I wonder if bbq from all coast incorporate the smoky taste in their food and if they use sauces."
+        ],
+        [
+          0,
+          "I would imagine so. I live on a horse ranch in the south, and our BBQ has a great smoky flavor."
+        ],
+        [
+          1,
+          "Interesting! I live in the south as well, I moved here for school. Do you barbecue with charcoal?"
+        ],
+        [
+          0,
+          "Yeah, wouldn't want to any other way! What are you studying in school?"
+        ],
+        [
+          1,
+          "I am getting my B.A. in business management. What about you? Are you a student?"
+        ]
+      ],
+      "added_candidates": [
+        {
+          "start": 76,
+          "end": 85,
+          "sourceStartUTF16": 76,
+          "sourceEndUTF16": 85,
+          "original": "currently",
+          "translated": "actualmente",
+          "reading": null,
+          "category": "content",
+          "concept_id": "currently",
+          "lexicon_id": "role-r01-en-es-currently",
+          "train_rank": 332,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "temporal_adverb",
+          "native_entry_id": 407601
+        }
+      ],
+      "control25": {
+        "spans": [
+          {
+            "start": 25,
+            "end": 26,
+            "sourceStartUTF16": 25,
+            "sourceEndUTF16": 26,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          }
+        ],
+        "mixed_text": "That sounds interesting. yo am a student too, going for agricultural studies currently.",
+        "changed_source_words": 1,
+        "content_source_words": 0,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role25": {
+        "spans": [
+          {
+            "start": 25,
+            "end": 26,
+            "sourceStartUTF16": 25,
+            "sourceEndUTF16": 26,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 76,
+            "end": 85,
+            "sourceStartUTF16": 76,
+            "sourceEndUTF16": 85,
+            "original": "currently",
+            "translated": "actualmente",
+            "reading": null,
+            "category": "content",
+            "concept_id": "currently",
+            "lexicon_id": "role-r01-en-es-currently",
+            "train_rank": 332,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "temporal_adverb",
+            "native_entry_id": 407601
+          }
+        ],
+        "mixed_text": "That sounds interesting. yo am a student too, going for agricultural studies actualmente.",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 3,
+        "rejections": {}
+      },
+      "role50": {
+        "spans": [
+          {
+            "start": 25,
+            "end": 26,
+            "sourceStartUTF16": 25,
+            "sourceEndUTF16": 26,
+            "original": "I",
+            "translated": "yo",
+            "category": "function",
+            "pos": "pron",
+            "lexicon_id": "word-en-es-i",
+            "train_rank": 1,
+            "changed_source_words": 1,
+            "guard": null,
+            "reading": null,
+            "source_kind": "reviewed_starter",
+            "content_source_words": 0,
+            "concept_id": "i"
+          },
+          {
+            "start": 76,
+            "end": 85,
+            "sourceStartUTF16": 76,
+            "sourceEndUTF16": 85,
+            "original": "currently",
+            "translated": "actualmente",
+            "reading": null,
+            "category": "content",
+            "concept_id": "currently",
+            "lexicon_id": "role-r01-en-es-currently",
+            "train_rank": 332,
+            "changed_source_words": 1,
+            "content_source_words": 1,
+            "source_kind": "role_lexical",
+            "guard": "temporal_adverb",
+            "native_entry_id": 407601
+          }
+        ],
+        "mixed_text": "That sounds interesting. yo am a student too, going for agricultural studies actualmente.",
+        "changed_source_words": 2,
+        "content_source_words": 1,
+        "budget": 6,
+        "rejections": {}
+      },
+      "review_only_new_scopes": [
+        {
+          "start": 76,
+          "end": 85,
+          "sourceStartUTF16": 76,
+          "sourceEndUTF16": 85,
+          "original": "currently",
+          "translated": "actualmente",
+          "reading": null,
+          "category": "content",
+          "concept_id": "currently",
+          "lexicon_id": "role-r01-en-es-currently",
+          "train_rank": 332,
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "source_kind": "role_lexical",
+          "guard": "temporal_adverb",
+          "native_entry_id": 407601
+        }
+      ]
+    },
+    {
+      "id": "role-contrast-006",
+      "text": "I would like coffee.",
+      "language": "es",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": false,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 13,
+              "end": 19,
+              "sourceStartUTF16": 13,
+              "sourceEndUTF16": 19,
+              "original": "coffee",
+              "translated": "café",
+              "category": "content",
+              "pos": "noun",
+              "lexicon_id": "word-en-es-coffee",
+              "train_rank": 370,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "coffee"
+            }
+          ],
+          "mixed_text": "I would like café.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 1,
+          "rejections": {
+            "remaining_budget": 1
+          }
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 0,
+              "end": 1,
+              "sourceStartUTF16": 0,
+              "sourceEndUTF16": 1,
+              "original": "I",
+              "translated": "yo",
+              "category": "function",
+              "pos": "pron",
+              "lexicon_id": "word-en-es-i",
+              "train_rank": 1,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 0,
+              "concept_id": "i"
+            },
+            {
+              "start": 13,
+              "end": 19,
+              "sourceStartUTF16": 13,
+              "sourceEndUTF16": 19,
+              "original": "coffee",
+              "translated": "café",
+              "category": "content",
+              "pos": "noun",
+              "lexicon_id": "word-en-es-coffee",
+              "train_rank": 370,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "coffee"
+            }
+          ],
+          "mixed_text": "yo would like café.",
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "budget": 2,
+          "rejections": {}
+        }
+      },
+      "review_only_new_scopes": [],
+      "rejected": [
+        {
+          "source": "like",
+          "start": 8,
+          "end": 12,
+          "reason": "preference_subject_or_complement_absent"
+        }
+      ]
+    },
+    {
+      "id": "role-contrast-039",
+      "text": "I don't eat fish either.",
+      "language": "es",
+      "source_kind": "authored contrast, not corpus",
+      "source_role_expected": true,
+      "selections": {
+        "role_word|0.25|none": {
+          "spans": [
+            {
+              "start": 8,
+              "end": 11,
+              "sourceStartUTF16": 8,
+              "sourceEndUTF16": 11,
+              "original": "eat",
+              "translated": "comer",
+              "category": "content",
+              "pos": "verb",
+              "lexicon_id": "word-en-es-eat",
+              "train_rank": 138,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "eat"
+            }
+          ],
+          "mixed_text": "I don't comer fish either.",
+          "changed_source_words": 1,
+          "content_source_words": 1,
+          "budget": 1,
+          "rejections": {
+            "remaining_budget": 2
+          }
+        },
+        "role_finite|0.50|none": {
+          "spans": [
+            {
+              "start": 0,
+              "end": 1,
+              "sourceStartUTF16": 0,
+              "sourceEndUTF16": 1,
+              "original": "I",
+              "translated": "yo",
+              "category": "function",
+              "pos": "pron",
+              "lexicon_id": "word-en-es-i",
+              "train_rank": 1,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 0,
+              "concept_id": "i"
+            },
+            {
+              "start": 8,
+              "end": 11,
+              "sourceStartUTF16": 8,
+              "sourceEndUTF16": 11,
+              "original": "eat",
+              "translated": "comer",
+              "category": "content",
+              "pos": "verb",
+              "lexicon_id": "word-en-es-eat",
+              "train_rank": 138,
+              "changed_source_words": 1,
+              "guard": null,
+              "reading": null,
+              "source_kind": "reviewed_starter",
+              "content_source_words": 1,
+              "concept_id": "eat"
+            }
+          ],
+          "mixed_text": "yo don't comer fish either.",
+          "changed_source_words": 2,
+          "content_source_words": 1,
+          "budget": 2,
+          "rejections": {
+            "remaining_budget": 1
+          }
+        }
+      },
+      "review_only_new_scopes": [],
+      "rejected": []
+    }
+  ]
+}
