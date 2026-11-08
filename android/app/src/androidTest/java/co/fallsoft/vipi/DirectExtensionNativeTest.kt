@@ -39,11 +39,14 @@ class DirectExtensionNativeTest {
         val context = instrumentation.targetContext
         val input = File(context.filesDir, "direct-extension-native-protocol.json").readBytes()
         val arm = args.getString("vipiDirectArm") ?: "forward"
-        require(arm in setOf("forward", "round-trip"))
-        val expected = if (arm == "forward") "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e"
-            else "ee79e818f4dc7d4101b8175456a6ed59d7faec2ef478cac7d4511d5ad414e4ca"
-        val count = if (arm == "forward") 4706 else 858
-        val budgetMs = if (arm == "forward") 1_800_000L else 600_000L
+        require(arm in setOf("forward", "round-trip", "conversational"))
+        val expected = when (arm) {
+            "forward" -> "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e"
+            "conversational" -> "95fb58995247f49b192e131581fca9c3f4fc826d7b4e3536c2afb9b3a9df02d8"
+            else -> "ee79e818f4dc7d4101b8175456a6ed59d7faec2ef478cac7d4511d5ad414e4ca"
+        }
+        val count = when (arm) { "forward" -> 4706; "conversational" -> 1969; else -> 858 }
+        val budgetMs = if (arm == "round-trip") 600_000L else 1_800_000L
         val hash = MessageDigest.getInstance("SHA-256").digest(input).joinToString("") { "%02x".format(it) }
         assertEquals(expected, hash)
         val protocol = JSONObject(input.toString(Charsets.UTF_8))
@@ -51,10 +54,10 @@ class DirectExtensionNativeTest {
         val requests = (0 until array.length()).map(array::getJSONObject)
         assertEquals(count, requests.size)
         assertEquals(count, requests.map { it.getString("id") }.distinct().size)
-        assertEquals(if (arm == "forward") setOf("en" to "es", "en" to "sw") else setOf("es" to "en", "sw" to "en"),
+        assertEquals(when (arm) { "forward" -> setOf("en" to "es", "en" to "sw"); "conversational" -> setOf("en" to "sw"); else -> setOf("es" to "en", "sw" to "en") },
             requests.map { it.getString("source") to it.getString("target") }.toSet())
         val run = args.getString("vipiDirectRun") ?: "001"; require(run.matches(Regex("[0-9]{3}")))
-        val stem = if (arm == "forward") "direct-extension" else "round-trip"
+        val stem = when (arm) { "forward" -> "direct-extension"; "conversational" -> "conversational-direct"; else -> "round-trip" }
         val directory = File(context.filesDir, "$stem-$run-cache").apply { mkdirs() }
         val output = File(context.filesDir, "$stem-$run.json")
         val cached = linkedMapOf<String, JSONObject>()
@@ -94,7 +97,7 @@ class DirectExtensionNativeTest {
                 for (pair in requests.map { it.getString("source") to it.getString("target") }.distinct()) {
                     val translator = LocalTranslation(); translators[pair] = translator
                     val began = android.os.SystemClock.elapsedRealtimeNanos()
-                    if (arm == "round-trip") {
+                    if (arm != "forward") {
                         // This arm must never start a model download, even if preparation state changed.
                         val manager = RemoteModelManager.getInstance()
                         for (code in listOf(pair.first, pair.second).filter { it != "en" })

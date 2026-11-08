@@ -7,6 +7,11 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
+import android.net.ConnectivityManager
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.*
@@ -17,11 +22,12 @@ import java.time.Instant
 
 /** Held-out public SMS only. Never imported by a production catalog builder. */
 class CoverageCeilingNativeTest {
-    private class TrackingTranslation : LanguageTranslation {
+    private class TrackingTranslation(private val offlineCheck: (() -> Unit)? = null) : LanguageTranslation {
         private val native = LocalTranslation()
         val calls = mutableListOf<JSONObject>()
         override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = native.prepare(source, target, cellularAllowed)
         override suspend fun translate(text: String, source: String, target: String): String {
+            offlineCheck?.invoke()
             val began = android.os.SystemClock.elapsedRealtimeNanos()
             val row = JSONObject().put("source", source).put("target", target)
             try {
@@ -30,7 +36,11 @@ class CoverageCeilingNativeTest {
                     row.put("native_target_word_ranges", ranges(it, target))
                 }
             } catch (failure: Exception) { row.put("error_class", failure.javaClass.simpleName); throw failure }
-            finally { row.put("elapsed_ms", (android.os.SystemClock.elapsedRealtimeNanos() - began) / 1e6); calls.add(row) }
+            finally {
+                offlineCheck?.invoke()
+                if (offlineCheck != null) row.put("active_network", "none")
+                row.put("elapsed_ms", (android.os.SystemClock.elapsedRealtimeNanos() - began) / 1e6); calls.add(row)
+            }
         }
         override fun close() = native.close()
     }
@@ -45,26 +55,29 @@ class CoverageCeilingNativeTest {
             "normalization" -> "d1d6909714c810ae1d188941fe6412679bebc391f4cf0bab7a787b2dc3358dde"
             "taskmaster" -> "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0"
             "directional" -> "aec5ced94bc82c071f16f568b078703a4460841201c079bf78eb0edaab9c9e73"
+            "conversational" -> "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586"
             else -> error("Unregistered evaluation protocol")
         }
         assertEquals(expected, sha(input))
         val array = JSONObject(input.toString(Charsets.UTF_8)).getJSONArray("cases")
         val cases = (0 until array.length()).map(array::getJSONObject)
-        val perLanguage = if (arm == "normalization") 41 else 200
-        assertEquals(perLanguage * 2, cases.size)
+        val fresh = arm == "conversational"
+        val perLanguage = if (fresh) 80 else if (arm == "normalization") 41 else 200
+        assertEquals(perLanguage * if (fresh) 1 else 2, cases.size)
         val pairs = cases.map { it.getString("source") to it.getString("target") }.distinct()
-        val expectedPairs = if (arm == "directional") listOf("en" to "ja", "es" to "en") else listOf("en" to "sw", "en" to "es")
+        val expectedPairs = if (fresh) listOf("en" to "sw") else if (arm == "directional") listOf("en" to "ja", "es" to "en") else listOf("en" to "sw", "en" to "es")
         assertEquals(expectedPairs.toSet(), pairs.toSet())
         for ((source, target) in expectedPairs) assertEquals(perLanguage, cases.count { it.getString("source") == source && it.getString("target") == target })
         val run = InstrumentationRegistry.getArguments().getString("vipiPilotRun") ?: "001"
         require(run.matches(Regex("[0-9]{3}")))
-        val stem = when (arm) { "normalization" -> "normalized-ceiling"; "taskmaster" -> "taskmaster-ceiling"; "directional" -> "directional-ceiling"; else -> "coverage-ceiling" }
+        val stem = when (arm) { "conversational" -> "conversational-routing"; "normalization" -> "normalized-ceiling"; "taskmaster" -> "taskmaster-ceiling"; "directional" -> "directional-ceiling"; else -> "coverage-ceiling" }
         val output = File(context.filesDir, "$stem-$run.json"); check(!output.exists())
         val rows = JSONArray()
         val report = JSONObject().put("input_sha256", expected).put("started_at", Instant.now().toString()).put("complete", false)
             .put("evaluation_arm", arm)
             .put("provider", "Google ML Kit translate 17.0.3 on device").put("translation_reused", false)
             .put("engine_reused_between_messages", true).put("input_language_override", JSONObject.NULL)
+            .put("process_pss_kib_start", android.os.Debug.getPss()).put("process_id", android.os.Process.myPid())
             .put("network_observation", "Native models prepared before capture; no remote translation API. Packet-level offline observation not performed.")
             .put("evaluation_probe_policy", "If both production densities make no translation request, a separate native full translation measures the evaluation ceiling only; never enters production presentation or call count.")
             .put("catalog_sha256", sha(context.assets.open("immersion/catalog.json").use { it.readBytes() }))
@@ -72,14 +85,34 @@ class CoverageCeilingNativeTest {
         fun save() = output.writeText(report.toString(2))
         val engines = mutableMapOf<Triple<String, String, Double>, Pair<ConversationImmersion, TrackingTranslation>>()
         val evaluation = mutableMapOf<Pair<String, String>, TrackingTranslation>()
+        val densitiesToTest = if (fresh) listOf(.10, .25, .50) else listOf(.25, 1.0)
+        val network = context.getSystemService(ConnectivityManager::class.java)
+        fun shell(command: String) = InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(command).use {
+            java.io.FileInputStream(it.fileDescriptor).bufferedReader().use { stream -> stream.readText() }
+        }
+        val wifi = if (fresh) shell("settings get global wifi_on").trim() else ""
+        val mobile = if (fresh) shell("settings get global mobile_data").trim() else ""
+        var changedNetwork = false
+        val offlineCheck: (() -> Unit)? = if (fresh) ({ assertNull(network.activeNetwork) }) else null
         save()
         try {
-            withTimeout(2_700_000) {
+            withTimeout(if (fresh) 1_800_000 else 2_700_000) {
+                if (fresh) {
+                    check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+                    check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
+                    assertTrue("Swahili model must already be installed", RemoteModelManager.getInstance()
+                        .isModelDownloaded(TranslateRemoteModel.Builder("sw").build()).await())
+                    changedNetwork = true; shell("svc wifi disable"); shell("svc data disable")
+                    withTimeout(15_000) { while (network.activeNetwork != null) delay(100) }
+                    assertNull(network.activeNetwork)
+                    report.put("network_observation", "Emulator Wi-Fi/data disabled; activeNetwork absent before/after every actual provider call. No model download API invoked.")
+                        .put("warm_repeat_per_message", true)
+                }
                 for ((source, target) in pairs) {
-                    withTimeout(600_000) { LocalTranslation().use { it.prepare(source, target, true) } }
-                    evaluation[source to target] = TrackingTranslation()
-                    for (density in listOf(.25, 1.0)) {
-                        val tracker = TrackingTranslation()
+                    if (!fresh) withTimeout(600_000) { LocalTranslation().use { it.prepare(source, target, true) } }
+                    evaluation[source to target] = TrackingTranslation(offlineCheck)
+                    for (density in densitiesToTest) {
+                        val tracker = TrackingTranslation(offlineCheck)
                         val engine = ConversationImmersion(context, source, target, density, tracker)
                         engine.checkDownloads()
                         engines[Triple(source, target, density)] = engine to tracker
@@ -95,13 +128,13 @@ class CoverageCeilingNativeTest {
                     for (field in listOf("original_text", "original_id", "normalization_segments")) if (item.has(field)) row.put(field, item.get(field))
                     rows.put(row)
                     var productionCalls = 0
-                    for (density in listOf(.25, 1.0)) {
+                    for (density in densitiesToTest) {
                         val (engine, tracker) = engines.getValue(Triple(source, target, density))
                         val firstCall = tracker.calls.size
                         val value = JSONObject().put("density", density)
                         val began = android.os.SystemClock.elapsedRealtimeNanos()
                         try {
-                            val presentation = withTimeout(90_000) { engine.presentation(original) }
+                            val presentation = withTimeout(if (fresh) 30_000L else 90_000L) { engine.presentation(original) }
                             val outcome = engine.lastOutcome
                             value.put("status", outcome?.status?.name ?: "NO_OUTCOME").put("path", outcome?.origin?.name ?: JSONObject.NULL)
                                 .put("local_translation_calls", outcome?.localTranslationCalls ?: 0).put("fallback_status", outcome?.fallbackStatus?.name ?: JSONObject.NULL)
@@ -122,22 +155,49 @@ class CoverageCeilingNativeTest {
                             value.put("provider_calls", JSONArray(calls)).put("elapsed_ms", (android.os.SystemClock.elapsedRealtimeNanos() - began) / 1e6)
                             densities.put(value); save()
                         }
+                        if (fresh) {
+                            val firstWarmCall = tracker.calls.size
+                            val warm = JSONObject(); val warmBegan = android.os.SystemClock.elapsedRealtimeNanos()
+                            try {
+                                val presentation = withTimeout(30_000) { engine.presentation(original) }
+                                val outcome = engine.lastOutcome
+                                warm.put("status", outcome?.status?.name ?: "NO_OUTCOME").put("path", outcome?.origin?.name ?: JSONObject.NULL)
+                                    .put("local_translation_calls", outcome?.localTranslationCalls ?: 0)
+                                    .put("complete_translation", presentation?.translation ?: JSONObject.NULL)
+                                    .put("visible", presentation?.let { ImmersionText.project(it) } ?: original)
+                                    .put("spans", JSONArray().apply { presentation?.spans?.forEach { span ->
+                                        put(JSONObject().put("original", span.original).put("translated", span.translated)
+                                            .put("sourceStartUTF16", span.start).put("sourceEndUTF16", span.end)
+                                            .put("targetStartUTF16", span.targetStart).put("targetEndUTF16", span.targetEnd)
+                                            .put("reading", span.romanization ?: JSONObject.NULL))
+                                    } })
+                            } catch (failure: Exception) { currentCoroutineContext().ensureActive(); warm.put("error_class", failure.javaClass.simpleName) }
+                            finally {
+                                val calls = tracker.calls.drop(firstWarmCall); productionCalls += calls.size
+                                warm.put("provider_calls", JSONArray(calls)).put("elapsed_ms", (android.os.SystemClock.elapsedRealtimeNanos() - warmBegan) / 1e6)
+                                value.put("warm_repeat", warm); save()
+                            }
+                        }
                     }
                     if (productionCalls == 0) {
                         val tracker = evaluation.getValue(source to target); val first = tracker.calls.size
-                        try { withTimeout(90_000) { tracker.translate(original, source, target) } }
+                        try { withTimeout(if (fresh) 30_000L else 90_000L) { tracker.translate(original, source, target) } }
                         catch (failure: Exception) { currentCoroutineContext().ensureActive() }
                         finally {
                             row.put("evaluation_full_translation_probe", tracker.calls.drop(first).singleOrNull() ?: JSONObject().put("error_class", "NoProviderResult"))
                             save()
                         }
                     }
+                    if (fresh && rows.length() % 20 == 0) row.put("process_pss_kib_after_case", android.os.Debug.getPss())
                 }
                 report.put("complete", true)
             }
         } finally {
             engines.values.forEach { it.first.close() }; evaluation.values.forEach { it.close() }
-            report.put("finished_at", Instant.now().toString()); save()
+            if (changedNetwork) { if (wifi == "1") shell("svc wifi enable"); if (mobile == "1") shell("svc data enable") }
+            if (fresh) report.put("restored_wifi_setting", shell("settings get global wifi_on").trim())
+                .put("restored_mobile_data_setting", shell("settings get global mobile_data").trim())
+            report.put("finished_at", Instant.now().toString()).put("process_pss_kib_end", android.os.Debug.getPss()); save()
         }
     }
     companion object {
