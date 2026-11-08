@@ -1,0 +1,171 @@
+{
+  "state": "default_chinese_native_component_cache_chat_gate_passed",
+  "production_default_enabled": true,
+  "policy": "pinyin-pro-3.29.5-ordinary-native-1",
+  "sources": [
+    {
+      "path": "android/READINGS.md",
+      "sha256": "90e063fcb80eeb93a2bbe97bd5636ef500cf8edf9c9af7e4f167759cd3c8c097",
+      "bytes": 4090
+    },
+    {
+      "path": "android/app/build.gradle.kts",
+      "sha256": "a09e8d6f8c63dd75e9837905482b0f0f8b98220e1feb08ec5777ec1b1c9882c1",
+      "bytes": 10005
+    },
+    {
+      "path": "android/app/src/main/assets/legal/upstream/index.json",
+      "sha256": "cc34bee1257952028e7743b3da56301af968198ab5e69c78193627b02fab4713",
+      "bytes": 3142
+    },
+    {
+      "path": "android/app/src/main/assets/legal/upstream/pinyin-pro-3.29.5-LICENSE.txt",
+      "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
+      "bytes": 1070
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ChineseReadings.kt",
+      "sha256": "185ba5df12c74489a30e4c9c2a85079fd6ac2bb352a40d62da42cd65c9aa090f",
+      "bytes": 9482
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/NativeFullReadings.kt",
+      "sha256": "2969641d61e79593c79927c44ee13b206e86ebd9499b3aa0f10ad94f100cb2c2",
+      "bytes": 1462
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt",
+      "sha256": "93e90d1e654e7a8241ea5b0a5a031c3c1ab1222edc2902d6dc48a5d970e651e8",
+      "bytes": 24387
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/ChineseReadingsDeviceTest.kt",
+      "sha256": "7ee1bba7fb67144a8c91cbd0b6422d7c5e12813359e8a08189971ecc28e416da",
+      "bytes": 8010
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/ChineseReadingConversationDeviceTest.kt",
+      "sha256": "0139a95b5a6308080033ae52913cf14cbd84f92f6bb3ae225dbf99521b9f2f38",
+      "bytes": 12457
+    },
+    {
+      "path": "qa/immersion/AndroidChineseReadingHostProbe.kt",
+      "sha256": "ccdc5ddae2e0317456bed20df1f8fde8c88d63682200addb5b0b6f812f68f343",
+      "bytes": 2057
+    },
+    {
+      "path": "qa/immersion/android-default-chinese-chat-plan-r01.json",
+      "sha256": "bcd53867f55988bc719140e14560ce359a6a77d8d295225e715176571b37ee37",
+      "bytes": 1596
+    }
+  ],
+  "results": {
+    "host_exact_swift_parity": {
+      "cases": 332,
+      "differences": 0,
+      "raw_first_warm": true
+    },
+    "native_exact_swift_parity": {
+      "cases": 332,
+      "raw_first_warm": true,
+      "full_string_piece_literal_and_unknown_ranges": true,
+      "resource_cases": 5,
+      "resource_passes_each": 2,
+      "resource_hash_differences": 0,
+      "java_maximum_repeated_identifier_control": true,
+      "tampered_asset_rejected": true,
+      "load_ms_observed": 201.734855,
+      "max_three_calls_ms_observed": 4.733761,
+      "max_resource_raw_plus_guarded_ms_observed": 244.096409
+    },
+    "default_cache": {
+      "cases": 4,
+      "authored_first": true,
+      "same_cached_instance": true,
+      "closed_owner_rejected": true,
+      "actual_translation_model_installed": false
+    },
+    "actual_chat": {
+      "cases": 4,
+      "default_producer_uninjected": true,
+      "synthetic_contact_transport": true,
+      "fixed_qa_references_and_readiness": true,
+      "authored_precedence": true,
+      "original_script_toggle_copy": true,
+      "unknown_no_false_reading_toggle": true,
+      "guide_reentry": true
+    },
+    "original_script_audio": {
+      "original_script": "请联系Zoë、José和Müller。",
+      "native_cache_identity_matches": true,
+      "created_by_ui": true,
+      "observed_player_bound_ms": 726,
+      "active_samples": 33,
+      "sha256": "5b3d9d9815e2d491a4aa28fc280430cbc9d1af1f64c2556b991d7ac529de7b47",
+      "milliseconds": 2630.5833333333335,
+      "sample_rate": 24000,
+      "acoustic_acceptance": false
+    },
+    "packaged_data_bytes": 773812,
+    "packaged_data_sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+    "packaged_license_sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
+    "offline_network_restored": true
+  },
+  "limitations": [
+    "Implementation parity is not semantic perfection. Existing data/readings/chinese-quality-debt.json retains10known contextual-syllable-error messages in the reused332diagnostic. No phrase patches or population claim.",
+    "Ordinary tone-free pinyin; authored readings first. Audio/copy/storage retain original script.",
+    "Chinese translation model absent on this emulator. UI uses explicit DEBUG fixed-reference/readiness only; no actual provider or download claim.",
+    "API35/x86_64 emulator. ExactAPI28 and physical/ARM64/store qualification remain open. Unicode-category behavior on older runtimes still needs verification.",
+    "Audio proves native synthesis/player activity and source identity, not acoustic/listening quality.",
+    "Observed timing/PSS are diagnostic, not peak-memory or broad throughput guarantees.",
+    "No matcher/source-unit candidate promotion, learned-word progression change, or contextual action-menu activation."
+  ],
+  "failures_retained": [
+    {
+      "run": "host-r01",
+      "failure": "Missing list delimiter prevented compilation; retained source/log, no outputs."
+    },
+    {
+      "run": "host-r02",
+      "failure": "One raw-only decomposed-accent control differed in reading/unresolved range because generic letter predicate incorrectly included marks. Corrected generic predicate; all332raw/first/warm match inr03."
+    },
+    {
+      "run": "native-r83",
+      "failure": "Core JUnit class did not initialize because Kotlin test inferred non-void return. UI4/4passed. Test-only explicitUnit +preciseIllegalArgumentException controls inr84; same main app, core2/2passed."
+    }
+  ],
+  "swift_source_sha256": "68fc186ecb1c01306f5dd3af28522d148c2f1352f575f3f6ce80b7a3071cf131",
+  "data_provenance_sha256": "c0d3d089e591e0a4fd08d587242eeab6b6d26d191e23f41da77f3446edc6a6ef",
+  "quality_debt_sha256": "20ae33aeed9790157e98c151eb4919ca2f7dfe4d8953cd71d8d7cd692be9d054",
+  "schema": "android-default-chinese-reading-qualification-1",
+  "private_closure_sha256": "47bc239f451acff1b3dde06a7b395fd7c1ef0bced08eaf17db90353c3a55cb2a",
+  "main_apk_sha256": "518982b483b6fe113d897b829b6b9c9de1ebbc080c8df74e8edf7561421c968b",
+  "test_apk_sha256": "8be30b6bd864f300dcb21bb926893f1fb54b01c8300ab5a605437d1da510c8cc",
+  "evidence_sha256": {
+    "build-r83.log": "c76be13137405ebe562167891bfed4d8eb85f1b9a2d22c022587b1d01184b0b6",
+    "build-r84.log": "5520746f8726ea1362e1a4e3033335765869778573ec38f89666275c4d8939dc",
+    "environment-r83.json": "2e1cab877f839e8e52c21863d67db87966091042c4d0ba342964b2960315105d",
+    "environment-r84.json": "e6abb9ba2ec19ed7a0d5674d8a1dafae30f7f7394d48548f307bd279b0f28541",
+    "native-r83.log": "9ac35ca9e7057051d895bd6dc8dad3085e7cf9e8de2404c5cfaf0d5c401c2338",
+    "native-r84.log": "674b08471681ac6d53d8b12654f092b0800eb81bbddc70a0b878779179cc252d",
+    "native-parity-r84.json": "cf1840d8eb6a6ffc941e06f38f8490ed985c414d4f56ae404254ae6547cf097d",
+    "default-cache-r84.json": "f774d0a50a98247b62306c3851c59ee03ccaa16d4567d726468a3554fcde70d7",
+    "default-chat-r83.json": "940ef7d35d21e76393cd49aaca83ebcfd3a10698c1ed0271070422d2157c0fb2",
+    "test-source-r84-manifest.json": "ea6b08a0c58bb2746aee320a09d68e7f4764f77f576a39eb97f21df0eb75265e",
+    "build-r01/freeze.json": "1aecca39f081ca9937923958a3b4d4bc26452b1de8e322164e5ebbf7e1005544",
+    "build-r01/compile.log": "c5dcb665be96b7ae7bc686ea069306ccd610ef2d85ffbb8ed5e92c49bbd00ec1",
+    "build-r02/freeze.json": "57e134e797b0db3b0a28e5114bad06ba28c8133daab5dfe97cb993f7fe5b19f1",
+    "build-r02/comparison.json": "02b543053da539de9f92db5cb57e46f1e98edc014015f901a0e1890d8e81c43a",
+    "build-r03/freeze.json": "d903f086b2baa37dfcfc5ac22b426226a12a7bf4eed4d1036ce065bd777ae4da",
+    "build-r03/comparison.json": "84818d986e3b52c9b758d2cd26d73ffe4f7d2ab356f3b14bd611d983b7d4a37f",
+    "build-r03/capture.json": "75f9c5b228e30362cdd72103bbba402a934f5dc54261c32fafc14a81ab9392ee",
+    "r83-media/additional-control-01-reading.png": "3444bcdb1b726f00fcb9e03f5a250e0e97c29b859b91b74c895efab933ca621b",
+    "r83-media/additional-control-01-script.png": "bc3d8c10bdcfc1113021636b45853c591b1fedbc79534686fdde7df07b549f0e",
+    "r83-media/additional-control-19-reading.png": "9551f0fbde73ee05a2ccab05b91f38aa6d1d788e0ce124a93a210ba18934bf23",
+    "r83-media/additional-control-19-script.png": "78af6c767f83024b98b75bd285b5957d5df3ea787d0cd5ff435cd9013d48dd85",
+    "r83-media/additional-control-21-reading.png": "20814e0023db6ee964ab2707315cd5f1a5f5376d05320d94338f297aefdbf516",
+    "r83-media/zh-authored-reading.png": "1485deda1b00ebe5524c04fa4c2cbdfffe15dd5a6d9881847234aa803af2402d",
+    "r83-media/zh-authored-script.png": "b2ee17188f8c82d3fde032205eb4f45934bc770f3e23156d582ff57d36cc8c08",
+    "r83-media/zh-original-script.wav": "5b3d9d9815e2d491a4aa28fc280430cbc9d1af1f64c2556b991d7ac529de7b47"
+  }
+}

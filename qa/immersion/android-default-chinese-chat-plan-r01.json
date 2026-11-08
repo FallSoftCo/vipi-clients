@@ -1,0 +1,50 @@
+{
+  "schema": "android-default-chinese-chat-1",
+  "policy": "authored-first-ja-kana-ko-cldr-zh-pinyin-v1",
+  "default_producer": true,
+  "synthetic_contact_transport": true,
+  "no_model_downloads": true,
+  "selection_reference_sha256": "e219575e9ffab2f18111d7c05d180fad252d424f71a070918d17996802af8c9b",
+  "cases": [
+    {
+      "id": "zh-authored",
+      "language": "zh",
+      "text": "我喜欢音乐。",
+      "reading": "Wǒ xǐhuan yīnyuè.",
+      "provenance": "AUTHORED",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "I like music.",
+      "audio": false
+    },
+    {
+      "id": "additional-control-01",
+      "language": "zh",
+      "text": "银行行长正在走路。",
+      "reading": "yin hang hang zhang zheng zai zou lu。",
+      "provenance": "LOCAL_TRANSLITERATION",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "The bank manager is walking.",
+      "audio": false
+    },
+    {
+      "id": "additional-control-19",
+      "language": "zh",
+      "text": "请联系Zoë、José和Müller。",
+      "reading": "qing lian xi Zoë、José he Müller。",
+      "provenance": "LOCAL_TRANSLITERATION",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "Please contact Zoë, José and Müller.",
+      "audio": true
+    },
+    {
+      "id": "additional-control-21",
+      "language": "zh",
+      "text": "𠮷先生与𰻞字怎么读？",
+      "reading": null,
+      "provenance": null,
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "How do you read Mr 𠮷 and 𰻞?",
+      "audio": false
+    }
+  ]
+}

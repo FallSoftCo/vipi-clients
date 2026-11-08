@@ -56,6 +56,13 @@
       "asset": "legal/upstream/unicode-cldr-f6925792-LICENSE.txt",
       "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
       "bytes": 3193
+    },
+    {
+      "coordinate": "pinyin-pro:3.29.5:ordinary-native-data-and-selection",
+      "url": "https://www.npmjs.com/package/pinyin-pro/v/3.29.5",
+      "asset": "legal/upstream/pinyin-pro-3.29.5-LICENSE.txt",
+      "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
+      "bytes": 1070
     }
   ]
 }

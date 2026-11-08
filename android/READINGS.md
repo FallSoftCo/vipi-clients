@@ -3,8 +3,8 @@
 Full-message display uses exact authored readings first. If no authored reading
 exists, Japanese uses the existing Kuromoji/IPADIC pronunciation and reading
 features with Vipi's deterministic kana-to-Roman-letter conversion. Korean uses
-a small spelling-based converter derived from pinned Unicode CLDR rules. Arabic
-and Chinese retain their existing authored-only Android path in this revision.
+a small spelling-based converter derived from pinned Unicode CLDR rules. Chinese uses the pinned ordinary-pinyin data and native phrase selection described
+below. Arabic retains its existing authored-only Android path in this revision.
 
 These are ordinary display guides. They do not replace original-script audio,
 copying, stored messages, or translation. Users can switch between the guide and
@@ -37,7 +37,19 @@ adaptation of `qa/immersion/korean-reading-cldr-r01`: object renaming and a doc
 comment only, with `KoreanLetterRules.kt` byte-identical. The pinned Unicode
 license ships in the app's Licenses and notices inventory.
 
-There is no new runtime model or dictionary download for either reader.
+Chinese packages the exact 773,812-byte pinyin-pro 3.29.5 ordinary resource and
+MIT notice. The Kotlin port preserves its phrase probabilities, tie ordering and
+numeric behavior; a bounded trie and backward dynamic program select phrases.
+The resource SHA-256 is verified before loading. A process-wide immutable public
+table can serve separate conversation caches without retaining message history.
+Unknown unprotected script withholds the complete guide. Protected identifiers,
+URLs and code retain exact source characters. The tone-free guide has recorded
+contextual syllable errors, including return-context 还 and some traditional
+phrases. `data/readings/chinese-quality-debt.json` preserves those findings;
+implementation parity does not make them correct. No evaluation phrase overrides
+or blanket multi-reading suppression are used.
+
+There is no new runtime model or dictionary download for these readers.
 Kuromoji/IPADIC and its notices were already packaged. Japanese source supports
 API 28 without an Android ICU 29 dependency; exact API 28 runtime and physical
 hardware qualification remain separate release gates. Current emulator evidence
@@ -45,5 +57,5 @@ is API 35/x86_64, not an acoustic-quality or broad conversational-accuracy claim
 
 The debug-only supplied translator/readiness parameters support isolated native
 UI qualification when a translation model is absent. Production defaults do not
-supply them. In particular a fixed Korean QA reference is not evidence that the
-Korean ML Kit model is installed or that a provider produced a correct translation.
+supply them. In particular a fixed Korean or Chinese QA reference is not evidence that the
+corresponding ML Kit model is installed or that a provider produced a correct translation.

@@ -153,7 +153,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val applicationContext = context.applicationContext
     private val readings by lazy { SentenceReadings(applicationContext) }
     private val fullReadings = FullReadingCache(NativeFullReadings.POLICY, producer = qaReadingProducer ?: { text, language ->
-        NativeFullReadings.resolve(text, language, readings)
+        NativeFullReadings.resolve(text, language, readings, applicationContext)
     })
     // Waiting for inference must not stall a different row's local source lookup.
     private val stateLock = Any()
