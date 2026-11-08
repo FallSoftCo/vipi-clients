@@ -36,7 +36,7 @@ There are 48/77 units with at least one normalized axis disagreement, including 
 | 014:5 | Defective auxiliary substitution | Compatible lexical substitution | Defective auxiliary substitution |
 | 017:2 | Material role/form mismatch | Wrong form, role uncertain | Meaning correct, role/form wrong |
 | 018:4 | Unresolved target auxiliary | Unresolved target auxiliary | Material auxiliary mismatch |
-| 020:1 | Defective title substitution | Defective title, form uncertain | Defective title substitution |
+| 020:1 | Defective title substitution | Defective title and form, role uncertain | Defective title substitution |
 
 The receipt lists every other disagreement by case, zero-based union index and axis, including the original normalized values. Utility varies substantially: accepted content-unit counts across the six arms are 45/42/39/39/40/39 for author, 45/43/40/40/41/40 for root, and 35/33/33/34/33/33 for Apple. Thus identical whole-pass totals do not establish identical useful-content judgments.
 

@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 22:28 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 23:10 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -70,10 +70,34 @@ verbal visit and degree/additive too. Swahili has no musical-play verb in this
 frozen corpus pool. Some dictionary sense links also disagree with the actual
 aligned occurrence's grammatical role. A selector cannot repair absent evidence
 or treat a dictionary link as a training label without occurrence checks.
-The next bounded analysis compares agreement across all retained source senses
-with agreement after conditioning on an independently inferred POS. Missing
-mapped senses remain explicit; valid synonymous alternatives are not mistaken
-for conflicting meanings. This is still candidate-eligibility analysis.
+The completed sense-agreement analysis was too restrictive to serve as the main
+lookup strategy. It covered only explicitly linked pivot senses, and hundreds
+of keys also had eligible direct-English links outside that subset. It did not
+establish agreement across every source meaning. The negative result is retained;
+another strict all-sense gate is not the next step.
+
+The next completed experiment annotated all 9,535 sources with actual Apple
+NLTagger and OpenNLP, then compared six fixed-pool selection policies at 25%
+density and five known-vocabulary states. All 95,350 original decisions were
+reproduced exactly before filtering. Three independent reviews cover every one
+of 77 displayed scopes across 32 complete messages, including newly selected
+replacements after filtering frees the immersion budget. Each reviewer found
+21/32 nonempty whole outputs acceptable with minor issues tolerated in the
+original arm, 22/32 after dictionary eligibility checks, 26/32 with Apple role
+required and 23/32 with OpenNLP role required. These are selected diagnostic
+cases, not population accuracy; strict judgments and utility classifications
+differ. Empty outputs earn no pass. Original labels and disagreements remain in
+`qa/immersion/source-role-veto-r01/comparison.md` and its linked receipts.
+
+Occurrence roles remove real noun/verb errors but can also reject valid
+substitutions. A role-compatible target can still have the wrong sense, and a
+newly selected replacement can introduce another error. Neither policy is
+activated as a semantic acceptance gate. Apple role-required raw content reach
+is 5,933 Swahili and 8,197 Spanish messages, falling to 2,685 and 5,539 after the
+simulated function-plus-300 known state. These are match counts, not correct
+coverage. Apple measurements are from the existing macOS VM; OpenNLP measurements
+are from a JVM. Android runtime/model loading and optimized packaging remain
+separate qualification work.
 
 The corpus comparison uses retained native token geometry and 9,535 reused
 TRAIN messages at three immersion densities and five simulated vocabulary
@@ -90,9 +114,16 @@ content families are simulated known, dictionary-corroborated content reach
 falls to 3,181 Swahili and 6,235 Spanish messages. This is source-vocabulary
 exhaustion, not a demonstrated user learning model. A large file or a high raw
 match rate cannot establish sustained accurate immersion. The next comparison
-is contextual eligibility over the larger corroborated pool: source roles,
-names, idioms and competing senses, with separate matched-context and display
-ranges. Do not replace this with another small list of hand-picked word fixes.
+must address contextual senses and complete constructions beyond the completed
+role-filter comparison, with separate matched-context and display ranges. Do not
+replace this with another small list of hand-picked word fixes. The retained
+Tatoeba corpus has now been located in the existing Storage Box namespace and
+its full checksum verified in place. Its retained metadata records 283,800
+direct English–Spanish pairs across all partitions; this is not the eligible
+development count. The separate Swahili supplement still needs an exact source
+route. A matched-size comparison with the news-derived corpus has not yet run.
+Development eligibility, attribution and a frozen comparison protocol precede
+that work; see `qa/immersion/corpus-phrase-extraction-r01/tatoeba-retained-source-r01.json`.
 
 Japanese native tokenization is now qualified as a research prerequisite:
 36 inputs reconstruct exactly, one oversized input rejects as expected, and
