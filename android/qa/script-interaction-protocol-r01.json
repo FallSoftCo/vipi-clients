@@ -1,0 +1,87 @@
+{
+  "schema": "vipi-native-script-interaction-1",
+  "scope": "Eight deliberately curated existing reference cases, synthetic contact/transport; actual production conversation/renderer/voice path. Not unseen meaning coverage or fresh network exchange.",
+  "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+  "cases": [
+    {
+      "id": "en-ar",
+      "source": "en",
+      "target": "ar",
+      "original": "I like music.",
+      "translation": "أنا أحب الموسيقى.",
+      "filler": "I need water.",
+      "font_scale": 1.0,
+      "appearance": "light"
+    },
+    {
+      "id": "ar-en",
+      "source": "ar",
+      "target": "en",
+      "original": "أنا أحب الموسيقى.",
+      "translation": "I like music.",
+      "filler": "أحتاج إلى ماء.",
+      "font_scale": 1.8,
+      "appearance": "dark"
+    },
+    {
+      "id": "en-ja",
+      "source": "en",
+      "target": "ja",
+      "original": "I like music.",
+      "translation": "私は音楽が好きです。",
+      "filler": "I need water.",
+      "font_scale": 1.0,
+      "appearance": "light"
+    },
+    {
+      "id": "ja-en",
+      "source": "ja",
+      "target": "en",
+      "original": "私は音楽が好きです。",
+      "translation": "I like music.",
+      "filler": "水が必要です。",
+      "font_scale": 1.8,
+      "appearance": "dark"
+    },
+    {
+      "id": "en-ko",
+      "source": "en",
+      "target": "ko",
+      "original": "I like music.",
+      "translation": "저는 음악을 좋아해요.",
+      "filler": "I need water.",
+      "font_scale": 1.0,
+      "appearance": "light"
+    },
+    {
+      "id": "ko-en",
+      "source": "ko",
+      "target": "en",
+      "original": "저는 음악을 좋아해요.",
+      "translation": "I like music.",
+      "filler": "물이 필요해요.",
+      "font_scale": 1.8,
+      "appearance": "dark"
+    },
+    {
+      "id": "en-zh",
+      "source": "en",
+      "target": "zh",
+      "original": "I like music.",
+      "translation": "我喜欢音乐。",
+      "filler": "I need water.",
+      "font_scale": 1.0,
+      "appearance": "light"
+    },
+    {
+      "id": "zh-en",
+      "source": "zh",
+      "target": "en",
+      "original": "我喜欢音乐。",
+      "translation": "I like music.",
+      "filler": "我需要水。",
+      "font_scale": 1.8,
+      "appearance": "dark"
+    }
+  ]
+}
