@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 06:26 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 07:03 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -12,13 +12,13 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `f4cd2d4`, same database/schema/environment. Scoped activation took 9.49 seconds; policies return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
+| Service | Restricted staging runs `c07e656`, same database/schema/environment. The privacy-only activation took 7.89 seconds; policy returns 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
 | Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
 | Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
-| Full readings | Native Chinese 332-case mechanical parity; Japanese 270-case repeatability and kana conversion; Android authored readings run asynchronously and preserve actual chat history position. | Gated native fallback integration, broader correctness, API 28 runtime, Korean guarded orthographic qualification and Arabic reading coverage. |
+| Full readings | Chinese 332-case mechanical parity, gated native Apple coordinator/display; Japanese 270-case repeatability and gated actual Android chat. Authored readings run asynchronously; Android actual older-history position is preserved. | Production fallback policy/packaging, Apple actual history growth, broader correctness, API 28 runtime, Korean orthographic qualification and Arabic reading coverage. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
@@ -74,8 +74,19 @@ collapses usable content; shortest-target selection introduces meaning/register
 errors. The next bounded candidate uses ordinary source roles, attested forms
 and phrase evidence, measured on all 9,535 TRAIN turns. An Arabic alias audit
 also found a concrete compiler identity defect: vocalized coffee and a different
-son alias collapse to the same stripped key. A general exact-form correction is
-under qualification; no revised pack has been activated.
+son alias collapse to the same stripped key. The general correction in `badc399`
+preserves all 1,671 attested links in its marked/unmarked cohort and removes
+1,334 unsupported links. No revised pack has been built or activated.
+
+The subsequent role-based pilot retains two concrete failures: copular
+questions such as “What is it like…” can be mistaken for preference, and an
+older noun lookup can bypass a newer rejection of verbal “parents.” These are
+whole-pipeline issues, not evidence that every word needs all-sense agreement.
+The broader inventory has 2,209 linked surfaces with a positive reusable source
+role on TRAIN. This is potential reach before choosing correct target senses.
+An editorial first-500 noun/adjective candidate is being prepared with exact
+primary sense/form IDs and shared eligibility across old and new paths.
+No broad semantic-coverage result or native promotion is credited.
 
 ## Native full-reading work
 
@@ -103,21 +114,30 @@ corpus messages have a candidate, but known Han/context errors remain; complete
 output is not complete correctness. The new converter removes its dependency
 on the API-29 ICU Romanizer, while API-28 execution is still untested. A measured
 quadratic URL-tail path was replaced by one delimiter pass in `2bb2f99`, retaining
-the prior output hashes. The candidate remains dormant pending gated chat QA.
+the prior output hashes. The eight-case gated Android chat check passed on the existing API 35 runtime
+in `10bc065`, including authored precedence, cache reentry, exact original copy
+and actual original-script speech. It retains the known `一人→ichinin` reading
+error, and separately records real local-translation errors in names and a
+snake sentence. Candidate availability does not establish translation quality.
+The default reader remains authored-only pending the release-policy decision.
 
 Android `4df1d63` moves authored readings off the rendering path into a bounded,
 coalescing cache. Seven cache/Compose cases plus an actual ChatScreens history
 case passed on API 35. Delayed reading grew from 71 to 142 pixels while its top
 stayed at 761 pixels and the older-history position remained stable. This uses
 synthetic transport and authored data, not a live translation-provider result.
-Apple `bfb9216`'s actual cache source passed four small CLI cases; its app/XCTest
-integration awaits physical storage admission. The shared receipt-name collision
+Apple `4c4457b` passed a normal app build, three native coordinator cases and one
+gated large-text display case after verified storage recovery. Metadata does not
+block completed script/audio or another row; closed identities reject late
+completion. These use supplied/injected translation results. Actual production
+history growth is being checked separately; no passing result is credited yet. The shared receipt-name collision
 was corrected in `759764a`, preserving Apple's exact original receipt bytes.
 
 Korean retained output follows a documented spelling-based convention permitted
 by NIKL, so differences from pronunciation-based romanization are not inherently
-errors. A guarded orthographic candidate is prepared for QA; no new phonetic
-engine is required just to meet transliteration. Unknown-script handling and
+errors. The Swift guard and a standalone Kotlin port of pinned Unicode CLDR
+letter rules are under qualification; no new pronunciation model is required.
+The Kotlin host check is separate from native Android execution. Unknown-script handling and
 Arabic vowel/readability gaps remain open. Full-reader metadata must not delay
 the original script, chat interaction or original-language audio.
 
@@ -128,7 +148,10 @@ low-space threshold plus roughly 1.85 GiB model peak, and the native backing vol
 also needs room. The normal app build reserve is 1 GiB plus measured operation
 peak. Two tiny existing-cache CLI probes used an explicit narrower exception
 with measured peaks and watchdogs; that exception does not authorize a full app
-build, model download, VM resize or unrelated cleanup.
+build, model download, VM resize or unrelated cleanup. A later exact offload of
+28 closed files verified 1.12 GB before retirement and restored normal physical
+build admission. Guest test capacity is checked independently; current app,
+message data and unrelated simulator applications remain protected.
 
 Fresh hosted Apple reauthentication stopped at a generic confirmation-code
 screen. Bounded WorkOS admin lookup found no matching code event. No renewed
