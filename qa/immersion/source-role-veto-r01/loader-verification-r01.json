@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "production": false,
+  "full_projection_executed": false,
+  "annotation_sources": 9535,
+  "ordered_pass0_ids_and_original_source_hashes_verified": true,
+  "apple_tokens": 143975,
+  "opennlp_tokens": 140603,
+  "opennlp_repeat_records_verified": 20,
+  "repeat_policy": "Exactly20pass1records,orderedfirst20IDs,identicalrawtokensandsourcehash;mainmaponlyorderedpass0;otherpasses/duplicate/outoforder/missingrepeatsfail",
+  "baseline_source_id": "bst-train-0004-00",
+  "baseline_full_decisions_equal": 10,
+  "code_sha256": "6c080ce26ef9a3efa4fea025155e72949781be2bd680e559fcfacbe61f8888f9",
+  "assembler_sha256": "115ea76ff5968f856c7c8fbd538c6ad5016a88979aab180ded3b000fc61af5cd",
+  "seconds": 1.457567899953574,
+  "measurement": {
+    "VmPeak": 163651584,
+    "VmHWM": 140398592,
+    "VmRSS": 118050816
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "complete": true,
+  "production": false,
+  "semantic_approval": false,
+  "rows": 9535,
+  "baseline_decisions_verified": 95350,
+  "review_cases": 32,
+  "seconds": 241.0846482780762,
+  "measurement": {
+    "VmPeak": 242696192,
+    "VmHWM": 218525696,
+    "VmRSS": 181760000
+  },
+  "limits": {
+    "cpu_threads": 1,
+    "max_address_space_bytes": 536870912,
+    "max_seconds": 450,
+    "maximum_added_output_bytes": 134217728,
+    "minimum_free_bytes": 8589934592,
+    "output_directory": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/projection-r01"
+  },
+  "outputs": {
+    "complete-baseline-cache.jsonl.gz": {
+      "bytes": 37420095,
+      "sha256": "3e466387446c88a9d9067b3b413b95e7df48597e922cb0c53379e589b19a6328"
+    },
+    "catalog-link-evidence.json": {
+      "bytes": 11839632,
+      "sha256": "91711b9357606d8df2ca62d9c65c2cea8776efdd275143eea6c514314c5ebfb9"
+    },
+    "metrics.json": {
+      "bytes": 48562,
+      "sha256": "782fc030949a6cc7675be50c2c78773b9666e50ea2e58ef12d020988af8a8c69"
+    },
+    "baseline-reproduction.json": {
+      "bytes": 436,
+      "sha256": "494b9de0ef019d79d967638cca1f439734daa177ffdd764fff84e41600077bda"
+    },
+    "review-packet.json": {
+      "bytes": 2143019,
+      "sha256": "daef98710599c6465a2b82938191d20c069ab6a1183c55582b320f17bf56032f"
+    },
+    "execution-freeze.json": {
+      "bytes": 4587,
+      "sha256": "54c951bf22f4afaf06789f084bde6f88a4ab51d5324032fc932738820fc797ac"
+    },
+    "annotation-verification.json": {
+      "bytes": 254,
+      "sha256": "86043e9dd24caedd6eb748e5c1c08a634017ab2ff5e29513d55ca81a4fb6d099"
+    },
+    "review-selection-freeze.json": {
+      "bytes": 9020,
+      "sha256": "0ec62c703218f73dacf78e8950366a9a0b2fa08e8374638c60536ccb48ad24c4"
+    },
+    "decisions.jsonl.gz": {
+      "bytes": 6116791,
+      "sha256": "e03d01351134f3b4843eb99caed2b55cbc094434ce7c784de72159c41be4e409"
+    }
+  }
+}

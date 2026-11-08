@@ -1,0 +1,5825 @@
+{
+  "schema": 1,
+  "production": false,
+  "script_sha256": "9200284e5525ab0c638d2ef91560cb204cd3f5e66dbc0179f4ff6dae5c7b0d70",
+  "packet_sha256": "daef98710599c6465a2b82938191d20c069ab6a1183c55582b320f17bf56032f",
+  "reviews": {
+    "author": {
+      "path": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/projection-r01/author-review-r01.json",
+      "sha256": "57985d67e63a52fa38c9d15aa8b8e7d362480a4505e0d49f3fc8f9c472ea80e2"
+    },
+    "root": {
+      "path": "/home/ai/Development/investigations/vipi-production-delivery-20261107/source-role-veto-root-independent-review-r01.json",
+      "sha256": "961204fe1b75c6d01eb1c7b662fe68fc41b12b092804ba3ec92a34b2fb339859"
+    },
+    "apple": {
+      "path": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/source-role-veto-r01/apple-independent-review-r01.json",
+      "sha256": "a0115f13a634342a4ec5e5ad7f701852cbf2b6d93fd1e16d60ac338e6aa67765"
+    }
+  },
+  "joined_private": {
+    "path": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/projection-r01/joined-reviews-r01.json",
+    "sha256": "524ddba54aa8713513fb8341dcbe81341c11f370be64c1619f4d555063ac08ef"
+  },
+  "denominators": {
+    "cases": 32,
+    "union_units": 77,
+    "arms_per_case": 6
+  },
+  "normalization": "Raw labels preserved privately. Material/material_error unified. Author combined form/role cannot be separated; separate_role=null. Wrong role, wrong form, incomplete unit, entity/idiom flag or material meaning is a defect. Any uncertain axis blocks pass. Strict excludes minor; minor-tolerant permits minor. Empty outputs never pass. These are rubric-normalized judgments, not gold. Author completeness often bundles wrong role; see raw notes.",
+  "summary": {
+    "author": {
+      "all": {
+        "original": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 10,
+            "minor_or_correct": 21,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 21,
+          "selected_units": 67,
+          "accepted_content_units": 45
+        },
+        "eligible_links": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 9,
+            "minor_or_correct": 22,
+            "empty": 1
+          },
+          "strict_whole_pass": 14,
+          "minor_tolerant_whole_pass": 22,
+          "selected_units": 61,
+          "accepted_content_units": 42
+        },
+        "apple_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 53,
+          "accepted_content_units": 39
+        },
+        "apple_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 26,
+            "empty": 4,
+            "defect": 1,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 14,
+          "minor_tolerant_whole_pass": 26,
+          "selected_units": 45,
+          "accepted_content_units": 39
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 24,
+            "defect": 5,
+            "empty": 3
+          },
+          "strict_whole_pass": 14,
+          "minor_tolerant_whole_pass": 24,
+          "selected_units": 54,
+          "accepted_content_units": 40
+        },
+        "opennlp_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 14,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 47,
+          "accepted_content_units": 39
+        }
+      },
+      "en-es": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 7,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 31,
+          "accepted_content_units": 19
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 8,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 28,
+          "accepted_content_units": 18
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 9,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 18
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 14,
+            "empty": 1,
+            "defect": 1
+          },
+          "strict_whole_pass": 9,
+          "minor_tolerant_whole_pass": 14,
+          "selected_units": 23,
+          "accepted_content_units": 18
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 9,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 18
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 2,
+            "defect": 2
+          },
+          "strict_whole_pass": 8,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 21,
+          "accepted_content_units": 17
+        }
+      },
+      "en-sw": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 5,
+            "minor_or_correct": 10,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 6,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 36,
+          "accepted_content_units": 26
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 4,
+            "minor_or_correct": 11,
+            "empty": 1
+          },
+          "strict_whole_pass": 6,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 33,
+          "accepted_content_units": 24
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 10,
+            "defect": 3,
+            "empty": 3
+          },
+          "strict_whole_pass": 4,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 28,
+          "accepted_content_units": 21
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 3,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 5,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 22,
+          "accepted_content_units": 21
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 5,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 29,
+          "accepted_content_units": 22
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 6,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 26,
+          "accepted_content_units": 22
+        }
+      }
+    },
+    "root": {
+      "all": {
+        "original": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 10,
+            "minor_or_correct": 21,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 19,
+          "minor_tolerant_whole_pass": 21,
+          "selected_units": 67,
+          "accepted_content_units": 45
+        },
+        "eligible_links": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 9,
+            "minor_or_correct": 22,
+            "empty": 1
+          },
+          "strict_whole_pass": 21,
+          "minor_tolerant_whole_pass": 22,
+          "selected_units": 61,
+          "accepted_content_units": 43
+        },
+        "apple_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 21,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 53,
+          "accepted_content_units": 40
+        },
+        "apple_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 26,
+            "empty": 4,
+            "defect": 1,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 25,
+          "minor_tolerant_whole_pass": 26,
+          "selected_units": 45,
+          "accepted_content_units": 40
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 24,
+            "defect": 5,
+            "empty": 3
+          },
+          "strict_whole_pass": 22,
+          "minor_tolerant_whole_pass": 24,
+          "selected_units": 54,
+          "accepted_content_units": 41
+        },
+        "opennlp_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 21,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 47,
+          "accepted_content_units": 40
+        }
+      },
+      "en-es": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 10,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 31,
+          "accepted_content_units": 19
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 11,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 28,
+          "accepted_content_units": 19
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 12,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 19
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 14,
+            "empty": 1,
+            "defect": 1
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 14,
+          "selected_units": 23,
+          "accepted_content_units": 20
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 12,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 19
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 2,
+            "defect": 2
+          },
+          "strict_whole_pass": 11,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 21,
+          "accepted_content_units": 18
+        }
+      },
+      "en-sw": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 5,
+            "minor_or_correct": 10,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 9,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 36,
+          "accepted_content_units": 26
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 4,
+            "minor_or_correct": 11,
+            "empty": 1
+          },
+          "strict_whole_pass": 10,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 33,
+          "accepted_content_units": 24
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 10,
+            "defect": 3,
+            "empty": 3
+          },
+          "strict_whole_pass": 9,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 28,
+          "accepted_content_units": 21
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 3,
+            "unresolved": 1
+          },
+          "strict_whole_pass": 12,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 22,
+          "accepted_content_units": 20
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 10,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 29,
+          "accepted_content_units": 22
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 10,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 26,
+          "accepted_content_units": 22
+        }
+      }
+    },
+    "apple": {
+      "all": {
+        "original": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 11,
+            "minor_or_correct": 21
+          },
+          "strict_whole_pass": 18,
+          "minor_tolerant_whole_pass": 21,
+          "selected_units": 67,
+          "accepted_content_units": 35
+        },
+        "eligible_links": {
+          "denominator": 32,
+          "status_counts": {
+            "defect": 9,
+            "minor_or_correct": 22,
+            "empty": 1
+          },
+          "strict_whole_pass": 19,
+          "minor_tolerant_whole_pass": 22,
+          "selected_units": 61,
+          "accepted_content_units": 33
+        },
+        "apple_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 20,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 53,
+          "accepted_content_units": 33
+        },
+        "apple_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 26,
+            "empty": 4,
+            "defect": 2
+          },
+          "strict_whole_pass": 25,
+          "minor_tolerant_whole_pass": 26,
+          "selected_units": 45,
+          "accepted_content_units": 34
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 24,
+            "defect": 5,
+            "empty": 3
+          },
+          "strict_whole_pass": 21,
+          "minor_tolerant_whole_pass": 24,
+          "selected_units": 54,
+          "accepted_content_units": 33
+        },
+        "opennlp_role_required": {
+          "denominator": 32,
+          "status_counts": {
+            "minor_or_correct": 23,
+            "defect": 5,
+            "empty": 4
+          },
+          "strict_whole_pass": 22,
+          "minor_tolerant_whole_pass": 23,
+          "selected_units": 47,
+          "accepted_content_units": 33
+        }
+      },
+      "en-es": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 11,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 31,
+          "accepted_content_units": 15
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 5
+          },
+          "strict_whole_pass": 11,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 28,
+          "accepted_content_units": 16
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 16
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 14,
+            "empty": 1,
+            "defect": 1
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 14,
+          "selected_units": 23,
+          "accepted_content_units": 17
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 13,
+            "empty": 1,
+            "defect": 2
+          },
+          "strict_whole_pass": 13,
+          "minor_tolerant_whole_pass": 13,
+          "selected_units": 25,
+          "accepted_content_units": 16
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 2,
+            "defect": 2
+          },
+          "strict_whole_pass": 12,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 21,
+          "accepted_content_units": 16
+        }
+      },
+      "en-sw": {
+        "original": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 6,
+            "minor_or_correct": 10
+          },
+          "strict_whole_pass": 7,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 36,
+          "accepted_content_units": 20
+        },
+        "eligible_links": {
+          "denominator": 16,
+          "status_counts": {
+            "defect": 4,
+            "minor_or_correct": 11,
+            "empty": 1
+          },
+          "strict_whole_pass": 8,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 33,
+          "accepted_content_units": 17
+        },
+        "apple_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 10,
+            "defect": 3,
+            "empty": 3
+          },
+          "strict_whole_pass": 7,
+          "minor_tolerant_whole_pass": 10,
+          "selected_units": 28,
+          "accepted_content_units": 17
+        },
+        "apple_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 12,
+            "empty": 3,
+            "defect": 1
+          },
+          "strict_whole_pass": 12,
+          "minor_tolerant_whole_pass": 12,
+          "selected_units": 22,
+          "accepted_content_units": 17
+        },
+        "opennlp_disagreement_veto": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 8,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 29,
+          "accepted_content_units": 17
+        },
+        "opennlp_role_required": {
+          "denominator": 16,
+          "status_counts": {
+            "minor_or_correct": 11,
+            "defect": 3,
+            "empty": 2
+          },
+          "strict_whole_pass": 10,
+          "minor_tolerant_whole_pass": 11,
+          "selected_units": 26,
+          "accepted_content_units": 17
+        }
+      }
+    }
+  },
+  "transitions": {
+    "author": {
+      "all": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 11,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 1,
+            "removed_minor_tolerant_units": 6,
+            "introduced_units": 5,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "introduced_defect": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [
+              "role-veto-018"
+            ],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 9,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 6,
+            "removed_defect": 8,
+            "removed_units": 20,
+            "removed_defect_units": 9,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 11,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 4,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-018",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 8,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 1,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 4,
+            "removed_defect": 5,
+            "removed_units": 17,
+            "removed_defect_units": 7,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 10,
+            "lost_nonempty_pass": 3,
+            "emptied": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "introduced_defect": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009",
+              "role-veto-021"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-es": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 6,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 1,
+            "removed_minor_tolerant_units": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [],
+            "emptied": []
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "removed_units": 8,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "emptied": 1,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "removed_units": 9,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 5,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-021"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-sw": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1,
+            "introduced_defect": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [
+              "role-veto-018"
+            ],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 2,
+            "emptied": 2
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 12,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 7,
+            "lost_nonempty_pass": 2,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011",
+              "role-veto-018"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 4,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 2,
+            "removed_defect": 2,
+            "removed_units": 8,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 5,
+            "lost_nonempty_pass": 2,
+            "emptied": 1,
+            "introduced_defect": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 0
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        }
+      }
+    },
+    "root": {
+      "all": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 11,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 3,
+            "removed_minor_tolerant_units": 6,
+            "introduced_units": 5,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "introduced_defect": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [
+              "role-veto-018"
+            ],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 9,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 6,
+            "removed_defect": 8,
+            "removed_units": 20,
+            "removed_defect_units": 9,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 11,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 4,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-018",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 8,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 1,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 4,
+            "removed_defect": 5,
+            "removed_units": 17,
+            "removed_defect_units": 6,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 11,
+            "lost_nonempty_pass": 3,
+            "emptied": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "introduced_defect": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009",
+              "role-veto-021"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-es": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 6,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 1,
+            "removed_minor_tolerant_units": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [],
+            "emptied": []
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "removed_units": 8,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "emptied": 1,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "removed_units": 9,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 6,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-021"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-sw": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 2,
+            "removed_minor_tolerant_units": 3,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1,
+            "introduced_defect": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [
+              "role-veto-018"
+            ],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 2,
+            "emptied": 2
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 12,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 7,
+            "lost_nonempty_pass": 2,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011",
+              "role-veto-018"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 4,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 2,
+            "removed_defect": 2,
+            "removed_units": 8,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 5,
+            "lost_nonempty_pass": 2,
+            "emptied": 1,
+            "introduced_defect": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 0
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        }
+      }
+    },
+    "apple": {
+      "all": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 11,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 1,
+            "removed_minor_tolerant_units": 6,
+            "introduced_units": 5,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 9,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 6,
+            "removed_defect": 7,
+            "removed_units": 20,
+            "removed_defect_units": 9,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 11,
+            "lost_nonempty_pass": 2,
+            "emptied": 3,
+            "introduced_units": 4,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 4
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "removed_units": 8,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 1,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 4,
+            "removed_defect": 5,
+            "removed_units": 17,
+            "removed_defect_units": 7,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 10,
+            "lost_nonempty_pass": 3,
+            "emptied": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "introduced_defect": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009",
+              "role-veto-021"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-es": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 6,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 1,
+            "removed_minor_tolerant_units": 3,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [],
+            "emptied": []
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "removed_units": 8,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 4,
+            "gained_nonempty_pass": 3,
+            "removed_defect": 4,
+            "emptied": 1,
+            "introduced_units": 3,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 3
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008",
+              "role-veto-022"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "removed_units": 4,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 1,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "removed_units": 9,
+            "removed_defect_units": 4,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 5,
+            "gained_nonempty_pass": 2,
+            "removed_defect": 3,
+            "emptied": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-006",
+              "role-veto-008"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-021"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-006",
+              "role-veto-007",
+              "role-veto-008"
+            ],
+            "emptied": [
+              "role-veto-007",
+              "role-veto-021"
+            ]
+          }
+        }
+      },
+      "en-sw": {
+        "original->eligible_links": {
+          "counts": {
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "gained_nonempty_pass": 1,
+            "removed_defect": 2,
+            "introduced_units": 2,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-017"
+            ],
+            "lost_nonempty_pass": [],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-017",
+              "role-veto-020"
+            ],
+            "emptied": [
+              "role-veto-020"
+            ]
+          }
+        },
+        "eligible_links->apple_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 5,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 3,
+            "lost_nonempty_pass": 2,
+            "emptied": 2
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->apple_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 3,
+            "removed_defect": 3,
+            "removed_units": 12,
+            "removed_defect_units": 5,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 7,
+            "lost_nonempty_pass": 2,
+            "emptied": 2,
+            "introduced_units": 1,
+            "introduced_defect_units": 0,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-004"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-002",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003",
+              "role-veto-004"
+            ]
+          }
+        },
+        "eligible_links->opennlp_disagreement_veto": {
+          "counts": {
+            "gained_nonempty_pass": 1,
+            "removed_defect": 1,
+            "removed_units": 4,
+            "removed_defect_units": 2,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 2,
+            "lost_nonempty_pass": 1,
+            "emptied": 1
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003"
+            ],
+            "introduced_defect": [],
+            "removed_defect": [
+              "role-veto-001"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        },
+        "eligible_links->opennlp_role_required": {
+          "counts": {
+            "gained_nonempty_pass": 2,
+            "removed_defect": 2,
+            "removed_units": 8,
+            "removed_defect_units": 3,
+            "removed_uncertain_units": 0,
+            "removed_minor_tolerant_units": 5,
+            "lost_nonempty_pass": 2,
+            "emptied": 1,
+            "introduced_defect": 1,
+            "introduced_units": 1,
+            "introduced_defect_units": 1,
+            "introduced_uncertain_units": 0,
+            "introduced_minor_tolerant_units": 0
+          },
+          "case_ids": {
+            "gained_nonempty_pass": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "lost_nonempty_pass": [
+              "role-veto-003",
+              "role-veto-009"
+            ],
+            "introduced_defect": [
+              "role-veto-009"
+            ],
+            "removed_defect": [
+              "role-veto-001",
+              "role-veto-011"
+            ],
+            "emptied": [
+              "role-veto-003"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "disagreements": [
+    {
+      "review_id": "role-veto-001",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-001",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-001",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 3,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 4,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-003",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-004",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-004",
+      "union_index": 1,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-005",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-006",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-006",
+      "union_index": 1,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": null,
+          "completeness": "uncertain",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "uncertain",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-007",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-008",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-008",
+      "union_index": 1,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 2,
+      "axes": [
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 3,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "utility",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 4,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-010",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-010",
+      "union_index": 1,
+      "axes": [
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-011",
+      "union_index": 0,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-012",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-012",
+      "union_index": 1,
+      "axes": [
+        "form_or_role",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "minor",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-013",
+      "union_index": 1,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 0,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 2,
+      "axes": [
+        "completeness",
+        "entity_or_idiom_flag",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "changed_unverified",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 3,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 4,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "completeness",
+        "utility",
+        "defect",
+        "strict_pass",
+        "minor_tolerant_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-015",
+      "union_index": 1,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-017",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility",
+        "uncertain"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "uncertain",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "wrong",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-017",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "utility",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-018",
+      "union_index": 2,
+      "axes": [
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-018",
+      "union_index": 3,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "completeness",
+        "utility",
+        "defect",
+        "uncertain"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": null,
+          "completeness": "uncertain",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-018",
+      "union_index": 4,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-020",
+      "union_index": 0,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility",
+        "uncertain"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "changed_unverified",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "uncertain",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "changed_unverified",
+          "utility": "proper_name",
+          "defect": true,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "changed_unverified",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-021",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "utility",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 0,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 1,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "apple": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "wrong",
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 3,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-023",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-024",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-024",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-026",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-031",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-032",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "apple": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    }
+  ],
+  "raw_corpus_metrics": {
+    "en-es|original|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 66898,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 9171,
+      "content_messages": 8865,
+      "function_only_messages": 304,
+      "unresolved_only_messages": 2,
+      "changed_words": 25874,
+      "content_anchor_words": 23111,
+      "prebudget_available_messages": 9178,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.2121515250901935,
+      "content_anchor_depth": 0.18949655624795014
+    },
+    "en-es|eligible_links|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 51513,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 15385,
+      "displayed_messages": 9048,
+      "content_messages": 8758,
+      "function_only_messages": 288,
+      "unresolved_only_messages": 2,
+      "changed_words": 24521,
+      "content_anchor_words": 22251,
+      "prebudget_available_messages": 9055,
+      "changed_output_vs_original_messages": 2738,
+      "added_vs_original_scopes": 1818,
+      "removed_vs_original_scopes": 3171,
+      "changed_word_depth": 0.20105772384388323,
+      "content_anchor_depth": 0.1824450639553952
+    },
+    "en-es|apple_disagreement_veto|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 44233,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 22665,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 8806,
+      "content_messages": 8398,
+      "function_only_messages": 406,
+      "unresolved_only_messages": 2,
+      "changed_words": 22964,
+      "content_anchor_words": 20070,
+      "prebudget_available_messages": 8814,
+      "changed_output_vs_original_messages": 4968,
+      "added_vs_original_scopes": 3822,
+      "removed_vs_original_scopes": 6732,
+      "changed_word_depth": 0.1882912430305018,
+      "content_anchor_depth": 0.16456215152509018
+    },
+    "en-es|apple_role_required|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38217,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28681,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 8555,
+      "content_messages": 8197,
+      "function_only_messages": 358,
+      "unresolved_only_messages": 0,
+      "changed_words": 21465,
+      "content_anchor_words": 18858,
+      "prebudget_available_messages": 8555,
+      "changed_output_vs_original_messages": 5964,
+      "added_vs_original_scopes": 4487,
+      "removed_vs_original_scopes": 8756,
+      "changed_word_depth": 0.1760003279763857,
+      "content_anchor_depth": 0.15462446703837324
+    },
+    "en-es|opennlp_disagreement_veto|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 43678,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 23220,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 8788,
+      "content_messages": 8390,
+      "function_only_messages": 396,
+      "unresolved_only_messages": 2,
+      "changed_words": 22803,
+      "content_anchor_words": 19962,
+      "prebudget_available_messages": 8796,
+      "changed_output_vs_original_messages": 5082,
+      "added_vs_original_scopes": 3832,
+      "removed_vs_original_scopes": 6903,
+      "changed_word_depth": 0.18697113807805837,
+      "content_anchor_depth": 0.16367661528369956
+    },
+    "en-es|opennlp_role_required|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38202,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28696,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 8559,
+      "content_messages": 8192,
+      "function_only_messages": 367,
+      "unresolved_only_messages": 0,
+      "changed_words": 21451,
+      "content_anchor_words": 18752,
+      "prebudget_available_messages": 8559,
+      "changed_output_vs_original_messages": 5994,
+      "added_vs_original_scopes": 4510,
+      "removed_vs_original_scopes": 8793,
+      "changed_word_depth": 0.1758855362413906,
+      "content_anchor_depth": 0.15375532961626762
+    },
+    "en-es|original|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 66898,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 8867,
+      "content_messages": 8865,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 23154,
+      "content_anchor_words": 23111,
+      "prebudget_available_messages": 8874,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.1898491308625779,
+      "content_anchor_depth": 0.18949655624795014
+    },
+    "en-es|eligible_links|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 51513,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 15385,
+      "displayed_messages": 8760,
+      "content_messages": 8758,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 22295,
+      "content_anchor_words": 22251,
+      "prebudget_available_messages": 8767,
+      "changed_output_vs_original_messages": 1526,
+      "added_vs_original_scopes": 802,
+      "removed_vs_original_scopes": 1661,
+      "changed_word_depth": 0.18280583797966546,
+      "content_anchor_depth": 0.1824450639553952
+    },
+    "en-es|apple_disagreement_veto|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 44233,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 22665,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 8400,
+      "content_messages": 8398,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 20114,
+      "content_anchor_words": 20070,
+      "prebudget_available_messages": 8408,
+      "changed_output_vs_original_messages": 4088,
+      "added_vs_original_scopes": 2124,
+      "removed_vs_original_scopes": 5164,
+      "changed_word_depth": 0.16492292554936044,
+      "content_anchor_depth": 0.16456215152509018
+    },
+    "en-es|apple_role_required|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38217,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28681,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 8197,
+      "content_messages": 8197,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 18858,
+      "content_anchor_words": 18858,
+      "prebudget_available_messages": 8197,
+      "changed_output_vs_original_messages": 5064,
+      "added_vs_original_scopes": 2791,
+      "removed_vs_original_scopes": 6947,
+      "changed_word_depth": 0.15462446703837324,
+      "content_anchor_depth": 0.15462446703837324
+    },
+    "en-es|opennlp_disagreement_veto|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 43678,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 23220,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 8392,
+      "content_messages": 8390,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 20005,
+      "content_anchor_words": 19962,
+      "prebudget_available_messages": 8400,
+      "changed_output_vs_original_messages": 4205,
+      "added_vs_original_scopes": 2151,
+      "removed_vs_original_scopes": 5300,
+      "changed_word_depth": 0.16402918989832732,
+      "content_anchor_depth": 0.16367661528369956
+    },
+    "en-es|opennlp_role_required|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38202,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28696,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 8192,
+      "content_messages": 8192,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 18752,
+      "content_anchor_words": 18752,
+      "prebudget_available_messages": 8192,
+      "changed_output_vs_original_messages": 5123,
+      "added_vs_original_scopes": 2720,
+      "removed_vs_original_scopes": 6982,
+      "changed_word_depth": 0.15375532961626762,
+      "content_anchor_depth": 0.15375532961626762
+    },
+    "en-es|original|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 66898,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 8175,
+      "content_messages": 8173,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 19080,
+      "content_anchor_words": 19033,
+      "prebudget_available_messages": 8183,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.1564447359790095,
+      "content_anchor_depth": 0.15605936372581175
+    },
+    "en-es|eligible_links|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 51513,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 15385,
+      "displayed_messages": 8059,
+      "content_messages": 8057,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 18338,
+      "content_anchor_words": 18291,
+      "prebudget_available_messages": 8067,
+      "changed_output_vs_original_messages": 956,
+      "added_vs_original_scopes": 266,
+      "removed_vs_original_scopes": 1008,
+      "changed_word_depth": 0.15036077402427026,
+      "content_anchor_depth": 0.1499754017710725
+    },
+    "en-es|apple_disagreement_veto|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 44233,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 22665,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 7699,
+      "content_messages": 7696,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 3,
+      "changed_words": 16625,
+      "content_anchor_words": 16577,
+      "prebudget_available_messages": 7708,
+      "changed_output_vs_original_messages": 2681,
+      "added_vs_original_scopes": 708,
+      "removed_vs_original_scopes": 3163,
+      "changed_word_depth": 0.13631518530665793,
+      "content_anchor_depth": 0.13592161364381763
+    },
+    "en-es|apple_role_required|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38217,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28681,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 7562,
+      "content_messages": 7562,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 15857,
+      "content_anchor_words": 15857,
+      "prebudget_available_messages": 7562,
+      "changed_output_vs_original_messages": 3268,
+      "added_vs_original_scopes": 932,
+      "removed_vs_original_scopes": 4015,
+      "changed_word_depth": 0.1300180387012135,
+      "content_anchor_depth": 0.1300180387012135
+    },
+    "en-es|opennlp_disagreement_veto|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 43678,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 23220,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 7708,
+      "content_messages": 7706,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 16607,
+      "content_anchor_words": 16563,
+      "prebudget_available_messages": 7717,
+      "changed_output_vs_original_messages": 2681,
+      "added_vs_original_scopes": 672,
+      "removed_vs_original_scopes": 3145,
+      "changed_word_depth": 0.13616759593309283,
+      "content_anchor_depth": 0.13580682190882257
+    },
+    "en-es|opennlp_role_required|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38202,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28696,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 7551,
+      "content_messages": 7551,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 15730,
+      "content_anchor_words": 15730,
+      "prebudget_available_messages": 7551,
+      "changed_output_vs_original_messages": 3345,
+      "added_vs_original_scopes": 899,
+      "removed_vs_original_scopes": 4109,
+      "changed_word_depth": 0.12897671367661528,
+      "content_anchor_depth": 0.12897671367661528
+    },
+    "en-es|original|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 66898,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 7657,
+      "content_messages": 7655,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 16299,
+      "content_anchor_words": 16251,
+      "prebudget_available_messages": 7668,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.13364217776320106,
+      "content_anchor_depth": 0.13324860610036077
+    },
+    "en-es|eligible_links|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 51513,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 15385,
+      "displayed_messages": 7532,
+      "content_messages": 7530,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 15682,
+      "content_anchor_words": 15634,
+      "prebudget_available_messages": 7543,
+      "changed_output_vs_original_messages": 689,
+      "added_vs_original_scopes": 101,
+      "removed_vs_original_scopes": 718,
+      "changed_word_depth": 0.12858314201377502,
+      "content_anchor_depth": 0.12818957035093473
+    },
+    "en-es|apple_disagreement_veto|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 44233,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 22665,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 7127,
+      "content_messages": 7124,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 3,
+      "changed_words": 14100,
+      "content_anchor_words": 14052,
+      "prebudget_available_messages": 7139,
+      "changed_output_vs_original_messages": 2221,
+      "added_vs_original_scopes": 353,
+      "removed_vs_original_scopes": 2552,
+      "changed_word_depth": 0.11561167595933093,
+      "content_anchor_depth": 0.11521810429649065
+    },
+    "en-es|apple_role_required|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38217,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28681,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 6985,
+      "content_messages": 6985,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 13394,
+      "content_anchor_words": 13394,
+      "prebudget_available_messages": 6985,
+      "changed_output_vs_original_messages": 2742,
+      "added_vs_original_scopes": 479,
+      "removed_vs_original_scopes": 3244,
+      "changed_word_depth": 0.10982289275172187,
+      "content_anchor_depth": 0.10982289275172187
+    },
+    "en-es|opennlp_disagreement_veto|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 43678,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 23220,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 7125,
+      "content_messages": 7123,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 2,
+      "changed_words": 14059,
+      "content_anchor_words": 14015,
+      "prebudget_available_messages": 7137,
+      "changed_output_vs_original_messages": 2234,
+      "added_vs_original_scopes": 331,
+      "removed_vs_original_scopes": 2571,
+      "changed_word_depth": 0.11527550016398819,
+      "content_anchor_depth": 0.11491472613971794
+    },
+    "en-es|opennlp_role_required|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38202,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28696,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 6955,
+      "content_messages": 6955,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 13246,
+      "content_anchor_words": 13246,
+      "prebudget_available_messages": 6955,
+      "changed_output_vs_original_messages": 2833,
+      "added_vs_original_scopes": 452,
+      "removed_vs_original_scopes": 3365,
+      "changed_word_depth": 0.10860938012463103,
+      "content_anchor_depth": 0.10860938012463103
+    },
+    "en-es|original|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 66898,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 6238,
+      "content_messages": 6235,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 3,
+      "changed_words": 10994,
+      "content_anchor_words": 10986,
+      "prebudget_available_messages": 6239,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.0901443096097081,
+      "content_anchor_depth": 0.09007871433256806
+    },
+    "en-es|eligible_links|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 51513,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 15385,
+      "displayed_messages": 6115,
+      "content_messages": 6111,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 4,
+      "changed_words": 10597,
+      "content_anchor_words": 10589,
+      "prebudget_available_messages": 6116,
+      "changed_output_vs_original_messages": 421,
+      "added_vs_original_scopes": 31,
+      "removed_vs_original_scopes": 428,
+      "changed_word_depth": 0.08688914398163332,
+      "content_anchor_depth": 0.08682354870449327
+    },
+    "en-es|apple_disagreement_veto|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 44233,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 22665,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 5679,
+      "content_messages": 5675,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 4,
+      "changed_words": 9384,
+      "content_anchor_words": 9376,
+      "prebudget_available_messages": 5680,
+      "changed_output_vs_original_messages": 1555,
+      "added_vs_original_scopes": 104,
+      "removed_vs_original_scopes": 1714,
+      "changed_word_depth": 0.07694326008527386,
+      "content_anchor_depth": 0.07687766480813381
+    },
+    "en-es|apple_role_required|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38217,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28681,
+      "eligible_candidate_role_unassessed": 6016,
+      "eligible_candidate_role_compatible": 38217,
+      "eligible_candidate_role_conflict": 7280,
+      "displayed_messages": 5539,
+      "content_messages": 5539,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 9024,
+      "content_anchor_words": 9024,
+      "prebudget_available_messages": 5539,
+      "changed_output_vs_original_messages": 1843,
+      "added_vs_original_scopes": 127,
+      "removed_vs_original_scopes": 2059,
+      "changed_word_depth": 0.07399147261397179,
+      "content_anchor_depth": 0.07399147261397179
+    },
+    "en-es|opennlp_disagreement_veto|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 43678,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 23220,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 5664,
+      "content_messages": 5661,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 3,
+      "changed_words": 9337,
+      "content_anchor_words": 9333,
+      "prebudget_available_messages": 5665,
+      "changed_output_vs_original_messages": 1597,
+      "added_vs_original_scopes": 103,
+      "removed_vs_original_scopes": 1760,
+      "changed_word_depth": 0.0765578878320761,
+      "content_anchor_depth": 0.07652509019350606
+    },
+    "en-es|opennlp_role_required|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 66898,
+      "admitted_arm_candidates": 38202,
+      "metadata_ineligible_candidates": 15385,
+      "arm_filter_rejected_candidates": 28696,
+      "eligible_candidate_role_unassessed": 5476,
+      "eligible_candidate_role_compatible": 38202,
+      "eligible_candidate_role_conflict": 7835,
+      "displayed_messages": 5481,
+      "content_messages": 5481,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 8864,
+      "content_anchor_words": 8864,
+      "prebudget_available_messages": 5481,
+      "changed_output_vs_original_messages": 1975,
+      "added_vs_original_scopes": 126,
+      "removed_vs_original_scopes": 2218,
+      "changed_word_depth": 0.07267956707117088,
+      "content_anchor_depth": 0.07267956707117088
+    },
+    "en-sw|original|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 28439,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 7868,
+      "content_messages": 6872,
+      "function_only_messages": 996,
+      "unresolved_only_messages": 0,
+      "changed_words": 16938,
+      "content_anchor_words": 12529,
+      "prebudget_available_messages": 7868,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.13888160052476223,
+      "content_anchor_depth": 0.10273040341095441
+    },
+    "en-sw|eligible_links|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 27657,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 782,
+      "displayed_messages": 7806,
+      "content_messages": 6784,
+      "function_only_messages": 1022,
+      "unresolved_only_messages": 0,
+      "changed_words": 16682,
+      "content_anchor_words": 12228,
+      "prebudget_available_messages": 7806,
+      "changed_output_vs_original_messages": 321,
+      "added_vs_original_scopes": 70,
+      "removed_vs_original_scopes": 326,
+      "changed_word_depth": 0.13678255165628075,
+      "content_anchor_depth": 0.10026238110856019
+    },
+    "en-sw|apple_disagreement_veto|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 23865,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4574,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 7312,
+      "content_messages": 6137,
+      "function_only_messages": 1175,
+      "unresolved_only_messages": 0,
+      "changed_words": 14613,
+      "content_anchor_words": 10284,
+      "prebudget_available_messages": 7312,
+      "changed_output_vs_original_messages": 2555,
+      "added_vs_original_scopes": 569,
+      "removed_vs_original_scopes": 2894,
+      "changed_word_depth": 0.11981797310593638,
+      "content_anchor_depth": 0.08432272876352903
+    },
+    "en-sw|apple_role_required|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 19828,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 8611,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 6771,
+      "content_messages": 5933,
+      "function_only_messages": 838,
+      "unresolved_only_messages": 0,
+      "changed_words": 12535,
+      "content_anchor_words": 9653,
+      "prebudget_available_messages": 6771,
+      "changed_output_vs_original_messages": 4013,
+      "added_vs_original_scopes": 657,
+      "removed_vs_original_scopes": 5060,
+      "changed_word_depth": 0.10277959986880944,
+      "content_anchor_depth": 0.07914890127910791
+    },
+    "en-sw|opennlp_disagreement_veto|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 24392,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4047,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 7371,
+      "content_messages": 6147,
+      "function_only_messages": 1224,
+      "unresolved_only_messages": 0,
+      "changed_words": 14827,
+      "content_anchor_words": 10250,
+      "prebudget_available_messages": 7371,
+      "changed_output_vs_original_messages": 2390,
+      "added_vs_original_scopes": 565,
+      "removed_vs_original_scopes": 2676,
+      "changed_word_depth": 0.12157264676943261,
+      "content_anchor_depth": 0.08404394883568383
+    },
+    "en-sw|opennlp_role_required|none": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 20805,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 7634,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 6937,
+      "content_messages": 5966,
+      "function_only_messages": 971,
+      "unresolved_only_messages": 0,
+      "changed_words": 13001,
+      "content_anchor_words": 9680,
+      "prebudget_available_messages": 6937,
+      "changed_output_vs_original_messages": 3773,
+      "added_vs_original_scopes": 699,
+      "removed_vs_original_scopes": 4636,
+      "changed_word_depth": 0.10660052476221712,
+      "content_anchor_depth": 0.07937028533945556
+    },
+    "en-sw|original|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 28439,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 6872,
+      "content_messages": 6872,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 12529,
+      "content_anchor_words": 12529,
+      "prebudget_available_messages": 6872,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.10273040341095441,
+      "content_anchor_depth": 0.10273040341095441
+    },
+    "en-sw|eligible_links|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 27657,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 782,
+      "displayed_messages": 6784,
+      "content_messages": 6784,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 12228,
+      "content_anchor_words": 12228,
+      "prebudget_available_messages": 6784,
+      "changed_output_vs_original_messages": 321,
+      "added_vs_original_scopes": 25,
+      "removed_vs_original_scopes": 326,
+      "changed_word_depth": 0.10026238110856019,
+      "content_anchor_depth": 0.10026238110856019
+    },
+    "en-sw|apple_disagreement_veto|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 23865,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4574,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 6137,
+      "content_messages": 6137,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 10284,
+      "content_anchor_words": 10284,
+      "prebudget_available_messages": 6137,
+      "changed_output_vs_original_messages": 2219,
+      "added_vs_original_scopes": 233,
+      "removed_vs_original_scopes": 2478,
+      "changed_word_depth": 0.08432272876352903,
+      "content_anchor_depth": 0.08432272876352903
+    },
+    "en-sw|apple_role_required|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 19828,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 8611,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 5933,
+      "content_messages": 5933,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 9653,
+      "content_anchor_words": 9653,
+      "prebudget_available_messages": 5933,
+      "changed_output_vs_original_messages": 2706,
+      "added_vs_original_scopes": 274,
+      "removed_vs_original_scopes": 3150,
+      "changed_word_depth": 0.07914890127910791,
+      "content_anchor_depth": 0.07914890127910791
+    },
+    "en-sw|opennlp_disagreement_veto|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 24392,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4047,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 6147,
+      "content_messages": 6147,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 10250,
+      "content_anchor_words": 10250,
+      "prebudget_available_messages": 6147,
+      "changed_output_vs_original_messages": 2269,
+      "added_vs_original_scopes": 231,
+      "removed_vs_original_scopes": 2510,
+      "changed_word_depth": 0.08404394883568383,
+      "content_anchor_depth": 0.08404394883568383
+    },
+    "en-sw|opennlp_role_required|all_function": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 20805,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 7634,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 5966,
+      "content_messages": 5966,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 9680,
+      "content_anchor_words": 9680,
+      "prebudget_available_messages": 5966,
+      "changed_output_vs_original_messages": 2704,
+      "added_vs_original_scopes": 266,
+      "removed_vs_original_scopes": 3115,
+      "changed_word_depth": 0.07937028533945556,
+      "content_anchor_depth": 0.07937028533945556
+    },
+    "en-sw|original|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 28439,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 5633,
+      "content_messages": 5633,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 8891,
+      "content_anchor_words": 8891,
+      "prebudget_available_messages": 5633,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.07290095113151852,
+      "content_anchor_depth": 0.07290095113151852
+    },
+    "en-sw|eligible_links|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 27657,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 782,
+      "displayed_messages": 5542,
+      "content_messages": 5542,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 8642,
+      "content_anchor_words": 8642,
+      "prebudget_available_messages": 5542,
+      "changed_output_vs_original_messages": 257,
+      "added_vs_original_scopes": 13,
+      "removed_vs_original_scopes": 262,
+      "changed_word_depth": 0.0708592981305346,
+      "content_anchor_depth": 0.0708592981305346
+    },
+    "en-sw|apple_disagreement_veto|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 23865,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4574,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 5078,
+      "content_messages": 5078,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7614,
+      "content_anchor_words": 7614,
+      "prebudget_available_messages": 5078,
+      "changed_output_vs_original_messages": 1231,
+      "added_vs_original_scopes": 48,
+      "removed_vs_original_scopes": 1325,
+      "changed_word_depth": 0.0624303050180387,
+      "content_anchor_depth": 0.0624303050180387
+    },
+    "en-sw|apple_role_required|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 19828,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 8611,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 4967,
+      "content_messages": 4967,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7341,
+      "content_anchor_words": 7341,
+      "prebudget_available_messages": 4967,
+      "changed_output_vs_original_messages": 1458,
+      "added_vs_original_scopes": 60,
+      "removed_vs_original_scopes": 1610,
+      "changed_word_depth": 0.060191866185634636,
+      "content_anchor_depth": 0.060191866185634636
+    },
+    "en-sw|opennlp_disagreement_veto|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 24392,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4047,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 5109,
+      "content_messages": 5109,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7623,
+      "content_anchor_words": 7623,
+      "prebudget_available_messages": 5109,
+      "changed_output_vs_original_messages": 1232,
+      "added_vs_original_scopes": 47,
+      "removed_vs_original_scopes": 1315,
+      "changed_word_depth": 0.06250409970482125,
+      "content_anchor_depth": 0.06250409970482125
+    },
+    "en-sw|opennlp_role_required|all_function_global50": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 20805,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 7634,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 4957,
+      "content_messages": 4957,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7283,
+      "content_anchor_words": 7283,
+      "prebudget_available_messages": 4957,
+      "changed_output_vs_original_messages": 1515,
+      "added_vs_original_scopes": 60,
+      "removed_vs_original_scopes": 1668,
+      "changed_word_depth": 0.0597163004263693,
+      "content_anchor_depth": 0.0597163004263693
+    },
+    "en-sw|original|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 28439,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 5056,
+      "content_messages": 5056,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7430,
+      "content_anchor_words": 7430,
+      "prebudget_available_messages": 5056,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.060921613643817644,
+      "content_anchor_depth": 0.060921613643817644
+    },
+    "en-sw|eligible_links|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 27657,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 782,
+      "displayed_messages": 4959,
+      "content_messages": 4959,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 7199,
+      "content_anchor_words": 7199,
+      "prebudget_available_messages": 4959,
+      "changed_output_vs_original_messages": 237,
+      "added_vs_original_scopes": 10,
+      "removed_vs_original_scopes": 241,
+      "changed_word_depth": 0.05902755001639882,
+      "content_anchor_depth": 0.05902755001639882
+    },
+    "en-sw|apple_disagreement_veto|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 23865,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4574,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 4546,
+      "content_messages": 4546,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 6404,
+      "content_anchor_words": 6404,
+      "prebudget_available_messages": 4546,
+      "changed_output_vs_original_messages": 994,
+      "added_vs_original_scopes": 31,
+      "removed_vs_original_scopes": 1057,
+      "changed_word_depth": 0.052509019350606756,
+      "content_anchor_depth": 0.052509019350606756
+    },
+    "en-sw|apple_role_required|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 19828,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 8611,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 4424,
+      "content_messages": 4424,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 6132,
+      "content_anchor_words": 6132,
+      "prebudget_available_messages": 4424,
+      "changed_output_vs_original_messages": 1232,
+      "added_vs_original_scopes": 40,
+      "removed_vs_original_scopes": 1338,
+      "changed_word_depth": 0.05027877992784519,
+      "content_anchor_depth": 0.05027877992784519
+    },
+    "en-sw|opennlp_disagreement_veto|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 24392,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4047,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 4582,
+      "content_messages": 4582,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 6432,
+      "content_anchor_words": 6432,
+      "prebudget_available_messages": 4582,
+      "changed_output_vs_original_messages": 978,
+      "added_vs_original_scopes": 30,
+      "removed_vs_original_scopes": 1028,
+      "changed_word_depth": 0.05273860282059692,
+      "content_anchor_depth": 0.05273860282059692
+    },
+    "en-sw|opennlp_role_required|all_function_global100": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 20805,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 7634,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 4414,
+      "content_messages": 4414,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 6089,
+      "content_anchor_words": 6089,
+      "prebudget_available_messages": 4414,
+      "changed_output_vs_original_messages": 1272,
+      "added_vs_original_scopes": 42,
+      "removed_vs_original_scopes": 1383,
+      "changed_word_depth": 0.049926205313217446,
+      "content_anchor_depth": 0.049926205313217446
+    },
+    "en-sw|original|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 28439,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 0,
+      "displayed_messages": 3181,
+      "content_messages": 3181,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 4023,
+      "content_anchor_words": 4023,
+      "prebudget_available_messages": 3181,
+      "changed_output_vs_original_messages": 0,
+      "added_vs_original_scopes": 0,
+      "removed_vs_original_scopes": 0,
+      "changed_word_depth": 0.03298622499180059,
+      "content_anchor_depth": 0.03298622499180059
+    },
+    "en-sw|eligible_links|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 27657,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 782,
+      "displayed_messages": 3091,
+      "content_messages": 3091,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 3865,
+      "content_anchor_words": 3865,
+      "prebudget_available_messages": 3091,
+      "changed_output_vs_original_messages": 160,
+      "added_vs_original_scopes": 5,
+      "removed_vs_original_scopes": 163,
+      "changed_word_depth": 0.031690718268284686,
+      "content_anchor_depth": 0.031690718268284686
+    },
+    "en-sw|apple_disagreement_veto|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 23865,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4574,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 2776,
+      "content_messages": 2776,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 3373,
+      "content_anchor_words": 3373,
+      "prebudget_available_messages": 2776,
+      "changed_output_vs_original_messages": 628,
+      "added_vs_original_scopes": 11,
+      "removed_vs_original_scopes": 661,
+      "changed_word_depth": 0.02765660872417186,
+      "content_anchor_depth": 0.02765660872417186
+    },
+    "en-sw|apple_role_required|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 19828,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 8611,
+      "eligible_candidate_role_unassessed": 4037,
+      "eligible_candidate_role_compatible": 19828,
+      "eligible_candidate_role_conflict": 3792,
+      "displayed_messages": 2685,
+      "content_messages": 2685,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 3237,
+      "content_anchor_words": 3237,
+      "prebudget_available_messages": 2685,
+      "changed_output_vs_original_messages": 754,
+      "added_vs_original_scopes": 12,
+      "removed_vs_original_scopes": 798,
+      "changed_word_depth": 0.02654148901279108,
+      "content_anchor_depth": 0.02654148901279108
+    },
+    "en-sw|opennlp_disagreement_veto|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 24392,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 4047,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 2802,
+      "content_messages": 2802,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 3402,
+      "content_anchor_words": 3402,
+      "prebudget_available_messages": 2802,
+      "changed_output_vs_original_messages": 604,
+      "added_vs_original_scopes": 10,
+      "removed_vs_original_scopes": 631,
+      "changed_word_depth": 0.027894391603804525,
+      "content_anchor_depth": 0.027894391603804525
+    },
+    "en-sw|opennlp_role_required|all_function_global300": {
+      "messages": 9535,
+      "source_words": 121960,
+      "pool_candidates": 28439,
+      "admitted_arm_candidates": 20805,
+      "metadata_ineligible_candidates": 782,
+      "arm_filter_rejected_candidates": 7634,
+      "eligible_candidate_role_unassessed": 3587,
+      "eligible_candidate_role_compatible": 20805,
+      "eligible_candidate_role_conflict": 3265,
+      "displayed_messages": 2655,
+      "content_messages": 2655,
+      "function_only_messages": 0,
+      "unresolved_only_messages": 0,
+      "changed_words": 3188,
+      "content_anchor_words": 3188,
+      "prebudget_available_messages": 2655,
+      "changed_output_vs_original_messages": 801,
+      "added_vs_original_scopes": 11,
+      "removed_vs_original_scopes": 846,
+      "changed_word_depth": 0.026139717940308296,
+      "content_anchor_depth": 0.026139717940308296
+    }
+  },
+  "limits": [
+    "Changed-case/reused TRAIN diagnostic sample, not representative accuracy.",
+    "No majority gold. Original review files and earlier 96 judgments unchanged.",
+    "Corpus metrics are catalog classifications, not reviewed semantic coverage.",
+    "Noun/verb/adjective/adverb mapping only; closed classes, PROPN and composites unassessed.",
+    "No projection rerun or activation."
+  ]
+}
