@@ -1,10 +1,14 @@
 import Foundation
 
+public enum ImmersionRequestIntent: Sendable, Equatable { case automaticImmersion, fullTranslation }
 public struct LookupFirstRequest: Sendable {
     public let text: String, source: String, target: String
     public let inputLanguage: String?
-    public init(text: String, source: String, target: String, inputLanguage: String? = nil) {
+    public let intent: ImmersionRequestIntent
+    public init(text: String, source: String, target: String, inputLanguage: String? = nil,
+                intent: ImmersionRequestIntent = .automaticImmersion) {
         self.text = text; self.source = source; self.target = target; self.inputLanguage = inputLanguage
+        self.intent = intent
     }
 }
 public enum ImmersionOrigin: String, Sendable { case lookupReference, sourceReferencePartial, localFullContext }
@@ -18,10 +22,14 @@ public struct LookupFirstOutcome: Sendable {
     public let localTranslationCalls: Int
     public let fallbackStatus: ImmersionStatus?
     public let cacheHit: Bool
+    public let modelReadinessCalls: Int
+    public let alignmentCalls: Int
     public init(result: ImmersionPresentation?, origin: ImmersionOrigin?, status: ImmersionStatus,
-                localTranslationCalls: Int, fallbackStatus: ImmersionStatus?, cacheHit: Bool = false) {
+                localTranslationCalls: Int, fallbackStatus: ImmersionStatus?, cacheHit: Bool = false,
+                modelReadinessCalls: Int = 0, alignmentCalls: Int = 0) {
         self.result = result; self.origin = origin; self.status = status
         self.localTranslationCalls = localTranslationCalls; self.fallbackStatus = fallbackStatus; self.cacheHit = cacheHit
+        self.modelReadinessCalls = modelReadinessCalls; self.alignmentCalls = alignmentCalls
     }
     public func cachedInvocation() -> Self {
         .init(result: result, origin: origin, status: status, localTranslationCalls: 0,
@@ -43,14 +51,17 @@ public enum LookupFirst {
         onPartial: (PartialImmersionResult) -> Void = { _ in }
     ) async throws -> LookupFirstOutcome {
         var calls = 0
+        var readinessCalls = 0, alignmentCalls = 0
         var origin: ImmersionOrigin?
         var partial: PartialImmersionResult?
         func stop(_ status: ImmersionStatus) -> LookupFirstOutcome {
             if let partial, valid(), status != .stale {
                 return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
-                             localTranslationCalls: calls, fallbackStatus: status)
+                             localTranslationCalls: calls, fallbackStatus: status,
+                             modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
             }
-            return .init(result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil)
+            return .init(result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil,
+                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
         }
         guard valid() else { return stop(.stale) }
         let text = request.text, source = request.source, target = request.target, input = request.inputLanguage
@@ -77,10 +88,15 @@ public enum LookupFirst {
                 partial = sourcePartial; onPartial(sourcePartial)
             }
             guard valid() else { return stop(.stale) }
+            if let partial, !partial.spans.isEmpty, request.intent == .automaticImmersion {
+                return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
+                             localTranslationCalls: 0, fallbackStatus: nil)
+            }
             let reversed = detected == target
             let known = forward ?? reverse
             let from = reversed ? target : source, to = reversed ? source : target
             if known == nil {
+                readinessCalls += 1
                 let ready = try await modelsReady(from, to)
                 guard valid() else { return stop(.stale) }
                 guard ready else { return stop(.modelNotReady) }
@@ -96,15 +112,18 @@ public enum LookupFirst {
                   TranslationIntegrity.preservesIdentifiers(original: text, translation: translated) else { return stop(.invalidResult) }
             let original = reversed ? translated : text
             let targetText = reversed ? text : translated
+            if let partial {
+                return .init(result: .partial(partial.withCompleteTranslation(targetText)), origin: .sourceReferencePartial,
+                             status: .partial, localTranslationCalls: calls, fallbackStatus: .ready,
+                             modelReadinessCalls: readinessCalls, alignmentCalls: 0)
+            }
+            alignmentCalls += 1
             let result = try await align(original, targetText)
             guard valid() else { return stop(.stale) }
             guard result.original == original, result.translation == targetText, anchored(result) else { return stop(.invalidResult) }
-            if let partial {
-                return .init(result: .partial(partial.withCompleteTranslation(targetText)), origin: .sourceReferencePartial,
-                             status: .partial, localTranslationCalls: calls, fallbackStatus: .ready)
-            }
             return .init(result: .complete(result), origin: origin, status: .ready,
-                         localTranslationCalls: calls, fallbackStatus: nil)
+                         localTranslationCalls: calls, fallbackStatus: nil,
+                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
         } catch is CancellationError { throw CancellationError() }
         catch { return stop(valid() ? .error : .stale) }
     }

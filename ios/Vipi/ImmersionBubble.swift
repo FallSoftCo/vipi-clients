@@ -25,6 +25,8 @@ struct ImmersionBubble: View {
     var originalMessage: String? = nil
     var inputLanguage: String? = nil
     var onInputLanguage: ((String?) -> Void)? = nil
+    var requestingTranslation = false
+    var onRequestTranslation: (() -> Void)? = nil
     @State private var originalPhase = false
     @State private var overrides: [Int: Bool] = [:]
     @State private var paused = false
@@ -104,10 +106,13 @@ struct ImmersionBubble: View {
                             Button("Switching pace") { choosingPace = true }
                         }
                         if let onModeChange {
-                            ForEach(ReadingMode.allCases.filter { $0 != .translation || result.translation != nil }) { value in
+                            ForEach(ReadingMode.allCases.filter { $0 != .translation || result.translation != nil || onRequestTranslation != nil }) { value in
                                 let label = !embedded || value == .immersed ? value.rawValue
                                     : VipiLanguage.named(value == .original ? sourceLanguage : targetLanguage).name
-                                Button(label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
+                                Button(label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") {
+                                    if value == .translation, result.translation == nil { onRequestTranslation?() }
+                                    else { onModeChange(value) }
+                                }.disabled(value == .translation && requestingTranslation)
                             }
                         }
                         if (effectiveMode == .translation && fullReading != nil) || (effectiveMode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {

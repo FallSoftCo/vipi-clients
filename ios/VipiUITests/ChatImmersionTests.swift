@@ -1,6 +1,72 @@
 import XCTest
 
 final class ChatImmersionTests: XCTestCase {
+
+    @MainActor func testPartialLookupKeepsSwitchingAfterUnavailableWholeTranslation() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source-unit-routing-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-dark", "-vipi-live-immersion-state", "016"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+        }
+        // The frozen protocol explicitly chooses English. ML Kit language ID
+        // has no simulator binary, so use the real message-language action;
+        // do not inject a classifier or infer direction from a lexical hit.
+        let options = app.buttons["Reading options"].firstMatch
+        XCTAssertTrue(options.waitForExistence(timeout: 20)); options.tap()
+        app.buttons["Message language"].tap(); app.buttons["English"].tap()
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
+        let slot = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-'")).firstMatch
+        XCTAssertTrue(slot.exists)
+        let bounds = slot.frame
+        app.buttons["Reading options"].firstMatch.tap()
+        let full = app.buttons["Swahili"]
+        XCTAssertTrue(full.waitForExistence(timeout: 5)); full.tap()
+        let error = app.descendants(matching: .any).matching(identifier: "full-translation-error").firstMatch
+        XCTAssertTrue(error.waitForExistence(timeout: 10))
+        XCTAssertFalse(error.buttons["Try again"].exists)
+        XCTAssertFalse(error.buttons["Prepare languages"].exists)
+        XCTAssertTrue(app.staticTexts["Full translation for this language pair isn’t supported on this device. Your message stays here."].exists)
+        XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
+        capture("ios-partial-whole-reference-unavailable")
+        // Observe the native attachment throughout several real clock phases;
+        // retained error text must not turn continuous immersion into tap-only UI.
+        var samples: [[String: Any]] = [], transitions = 0
+        var previous: String?
+        let start = Date()
+        while Date().timeIntervalSince(start) < 29 {
+            let label = slot.label
+            let frame = slot.frame
+            // UIKit replaces the accessibility attachment on each face change.
+            // A query racing that replacement may have no label/frame; retain
+            // that observation without counting it as a language transition.
+            let complete = ["I need water.", "Ninahitaji maji."].contains(label) && frame.height > 0
+            if complete {
+                if let previous, label != previous { transitions += 1 }
+                previous = label
+                XCTAssertEqual(frame.width, bounds.width, accuracy: 1)
+                XCTAssertEqual(frame.height, bounds.height, accuracy: 1)
+            }
+            samples.append(["seconds": Date().timeIntervalSince(start), "label": label,
+                "width": frame.width, "height": frame.height, "complete_accessibility_snapshot": complete])
+            Thread.sleep(forTimeInterval: 0.3)
+        }
+        XCTAssertGreaterThanOrEqual(transitions, 6)
+        XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
+        app.buttons["Reading options"].firstMatch.tap()
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.buttons["English"].tap()
+        XCTAssertTrue(app.staticTexts["I need water. Did you finish the report?"].waitForExistence(timeout: 5))
+        capture("ios-partial-original-message-preserved")
+        let attachment = XCTAttachment(data: try JSONSerialization.data(withJSONObject: ["samples": samples,
+            "transitions": transitions, "real_provider": "simulator unsupported; no injected inference"], options: [.sortedKeys]),
+            uniformTypeIdentifier: "public.json")
+        attachment.name = "source-unit-partial-switching"; attachment.lifetime = .keepAlways; add(attachment)
+    }
     @MainActor func testWholeGreetingKeepsItsBlockStableAtLargestText() throws {
         continueAfterFailure = false
         let app = XCUIApplication()

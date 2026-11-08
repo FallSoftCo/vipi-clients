@@ -67,6 +67,9 @@ public struct ImmersionPresentationCache {
     public mutating func remember(_ value: LookupFirstOutcome, key: String) {
         guard value.result != nil else { return }
         let encodedKey = Data(key.utf8)
+        // Concurrent rows may request the same text. A late partial callback or
+        // failed extension must not erase an already validated whole reference.
+        if values[encodedKey]?.result?.translation != nil, value.result?.translation == nil { return }
         values[encodedKey] = value; order.removeAll { $0 == encodedKey }; order.append(encodedKey)
         while order.count > 128 { values.removeValue(forKey: order.removeFirst()) }
     }

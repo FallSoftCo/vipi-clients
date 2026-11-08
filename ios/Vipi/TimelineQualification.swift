@@ -80,7 +80,9 @@ struct TimelineQualificationView: View {
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
                 let immersionQA = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-chat-qa")
-                let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-learning-language-qa")
+                let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-source-unit-routing-qa")
+                    ? ["I need water. Did you finish the report?"]
+                    : ProcessInfo.processInfo.arguments.contains("-vipi-learning-language-qa")
                     ? ["Ninapenda muziki."]
                     : ProcessInfo.processInfo.arguments.contains("-vipi-immersion-response-qa")
                     ? ["yes"]

@@ -60,4 +60,15 @@ final class ImmersionPresentationStateTests: XCTestCase {
         XCTAssertEqual(inferred.localTranslationCalls, 0); XCTAssertTrue(inferred.cacheHit)
         XCTAssertEqual(inferred.origin, .localFullContext)
     }
+    func testLatePartialCannotDowngradeCompletedReference() throws {
+        let unit = SourceReferenceUnit(range: .init(location: 0, length: 6), original: "Hello.", translated: "Hola.",
+            reading: nil, referenceID: "authored", catalogSHA256: String(repeating: "a", count: 64), nativeSourceTokens: 1)
+        let partial = try XCTUnwrap(SourceReferencePresentation.create(original: "Hello. Another message.", target: "es",
+            units: [unit], density: 1, nativeSourceTokenCount: 3))
+        var cache = ImmersionPresentationCache()
+        cache.remember(.partial(partial.withCompleteTranslation("Hola. Otro mensaje.")), key: "same")
+        cache.remember(.partial(partial), key: "same")
+        XCTAssertEqual(cache["same"]?.translation, "Hola. Otro mensaje.")
+        XCTAssertEqual(cache["same"]?.spans, partial.spans)
+    }
 }
