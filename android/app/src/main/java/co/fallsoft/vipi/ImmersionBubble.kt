@@ -45,8 +45,10 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     onInteractionChange: ((Boolean) -> Unit)? = null, onReport: (() -> Unit)? = null,
     onFullTranslation: (() -> Unit)? = null, fullTranslationLoading: Boolean = false,
     fullTranslationError: ImmersionStatus? = null, onCancelFullTranslation: (() -> Unit)? = null,
-    onTranslationSetup: (() -> Unit)? = null
+    onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false
 ) {
+    require(!contextualActions || BuildConfig.DEBUG)
+    val nativeActions = contextualActions && embedded
     // A partial result has no full-target text. Do not expose empty/mixed text as translation.
     val completeTranslation = result.translation
     val effectiveMode = if (mode == ReadingMode.TRANSLATION && completeTranslation == null) ReadingMode.IMMERSED else mode
@@ -65,11 +67,12 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     var choosingPace by remember(inlineIdentity) { mutableStateOf(false) }
     var script by remember(inlineIdentity) { mutableStateOf(false) }
     var selecting by remember { mutableStateOf(false) }
+    var selectText by remember(visibleIdentity) { mutableStateOf(false) }
     var visible by remember { mutableStateOf(false) }
     var resumed by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var chooseLanguage by remember { mutableStateOf(false) }
-    SideEffect { onInteractionChange?.invoke(menu || chooseLanguage || selecting || choosingWord || choosingPace) }
+    SideEffect { onInteractionChange?.invoke(menu || chooseLanguage || selecting || selectText || choosingWord || choosingPace) }
     var revision by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
     val preferences = remember { context.getSharedPreferences("preferences", 0) }
@@ -94,7 +97,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
     }
     val active = speech?.activeMessage == messageID
-    val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
+    val eligible = visible && resumed && !paused && !selecting && !selectText && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
     // Opt-in local QA diagnostics contain no message text or account identifiers.
     if (BuildConfig.DEBUG && android.util.Log.isLoggable("VipiFlip", android.util.Log.DEBUG)) {
         val reasons = "visible=$visible resumed=$resumed paused=$paused selecting=$selecting word=$choosingWord pace=$choosingPace menu=$menu language=$chooseLanguage interaction=$interactionPaused speaking=${speech?.activeMessage != null} reader=$screenReader mode=$effectiveMode spans=${result.spans.size}"
@@ -120,6 +123,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     fun reveal(id: Int) {
         speech?.stop(); overrides = overrides + (id to !(overrides[id] ?: originalPhase)); revision++
     }
+    fun messageActions() { onInteractionChange?.invoke(true); menu = true }
     fun listen() {
         val spans = when (effectiveMode) {
             ReadingMode.ORIGINAL -> listOf(SpeechSpan(result.original, source))
@@ -139,6 +143,21 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 it.onWord = { id -> reveal(id) }; it.onSelection = { value -> selecting = value }
                 it.onChooseWord = { choosingWord = true }
                 it.bind(result, revealed, script, accent, ink)
+                it.configureMessageActions(if (nativeActions) ::messageActions else null, selectText) { selectText = false; selecting = false; revision++ }
+            })
+        } else if (nativeActions) {
+            val displayed = if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation))
+            val plain = remember(displayed) { object : ImmersionPresentation {
+                override val original = displayed
+                override val translation: String? = null
+                override val spans = emptyList<ImmersionSpan>()
+            } }
+            AndroidView(factory = { StableImmersionText(it).apply {
+                setLineHeight(android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_SP, 27f, resources.displayMetrics).toInt())
+            } }, modifier = Modifier.fillMaxWidth(), update = {
+                it.onWord = null; it.onChooseWord = null; it.onSelection = { value -> selecting = value }
+                it.bind(plain, emptySet(), false, accent, ink)
+                it.configureMessageActions(::messageActions, selectText) { selectText = false; selecting = false; revision++ }
             })
         } else {
             androidx.compose.foundation.text.selection.SelectionContainer {
@@ -161,7 +180,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             }
             if (result.spans.isNotEmpty() || fullReading != null || onModeChange != null) {
                 Box {
-                    IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp).semantics {
+                    if (!nativeActions) IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp).semantics {
                         if (fullTranslationLoading) stateDescription = "Translating full message"
                     }) {
                         if (fullTranslationLoading) CircularProgressIndicator(Modifier.size(18.dp).semantics { contentDescription = "Reading options" }, strokeWidth = 2.dp)
@@ -208,6 +227,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
+                        if (nativeActions) DropdownMenuItem(text = { Text("Select text") }, onClick = { selectText = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
                             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false
                         })

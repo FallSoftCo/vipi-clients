@@ -316,7 +316,7 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
 
 @Composable internal fun ConversationImmersionText(text: String, id: String, immersion: ConversationImmersion,
     speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, onReport: (() -> Unit)? = null,
-    onTranslationSetup: (() -> Unit)? = null, metadata: @Composable () -> Unit) {
+    onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false, metadata: @Composable () -> Unit) {
     val inputLanguage = immersion.inputLanguage(id)
     val request = remember(id, text, immersion, inputLanguage) {
         ImmersionPresentationRequest(id, text, immersion.source, immersion.target, inputLanguage, immersion)
@@ -388,5 +388,6 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
         originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { cancelFull(); immersion.selectInputLanguage(id, it) },
         onInteractionChange = { interacting = it }, onReport = onReport,
         onFullTranslation = ::requestFull, fullTranslationLoading = fullLoading, fullTranslationError = fullError,
-        onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup)
+        onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup,
+        contextualActions = contextualActions)
 }

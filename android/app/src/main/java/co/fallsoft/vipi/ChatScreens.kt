@@ -72,8 +72,9 @@ import java.util.UUID
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     density: Double = .25, onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
     qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
-    qaTranslator: LanguageTranslation? = null, back: () -> Unit) {
+    qaTranslator: LanguageTranslation? = null, qaContextualActions: Boolean = false, back: () -> Unit) {
     require(qaTranslator == null || BuildConfig.DEBUG)
+    require(!qaContextualActions || BuildConfig.DEBUG)
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -272,6 +273,7 @@ import java.util.UUID
                             val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
                             ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
                                 list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,
+                                contextualActions = qaContextualActions,
                                 onVoiceHelp = { showVoiceHelp = true },
                                 onTranslationSetup = onLanguages,
                                 onReport = if (!item.outgoing && item.state != "imported") ({

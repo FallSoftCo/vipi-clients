@@ -1,0 +1,82 @@
+{
+  "schema": "vipi-contextual-action-candidate-checkpoint-1",
+  "at": 1794122773.5957007,
+  "state": "gated_incomplete",
+  "production_default_changed": false,
+  "debug_entry_only": true,
+  "app_snapshot": "source-snapshot-r76",
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r76/android/app/build/outputs/apk/debug/app-debug.apk",
+      "package": "co.fallsoft.vipi",
+      "bytes": 509311849,
+      "sha256": "e1558ede04eaf54bad36d2d5e041691732806f76d5f7c06a83dd73e3cb45dec8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r76/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "package": "co.fallsoft.vipi.test",
+      "bytes": 6846097,
+      "sha256": "0485577ce10cd2f1a644a9343c085d6c8d6b2f6339306700cb753e6dbcda995a"
+    }
+  ],
+  "current_source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt": "de1af7cba686e43f27b93f4fb175451096159f48ce156d294cfde51fd04ef514",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "a9b8d5e52e2b06421238271b1dc02e9cd20615cf6214d83a10685e3547b4ba1b",
+    "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": "d5ba26c5e2def73444165e957b258c6c7c3620f28dbc54fde1e53a4df28dbd04",
+    "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": "c99b4594d9c181ce2d80e453dfbfda120925d2fb1a100e581d2b1f3ff361a8f7",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ContextualMessageActionsDeviceTest.kt": "14ec257c35793dbe7683805ad297e75503f9d6d8101afecd443850da20bdccfe",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/MessageActionCapacityDeviceTest.kt": "f93b9a4a7785b3d0d9508dfff7b89f0befbc3eb7f7e5791fccf2c4b8102b7480",
+    "qa/immersion/android-contextual-message-actions-contract-r01.json": "30f2015cf80381a4155d9eac2e5a458c3a2a4beebfcd5b31c4536e7190ff448f",
+    "qa/immersion/android-contextual-message-actions-extension-r01.json": "bd882ffd4e7a316365f279ef369ea6436f020afe70f67e1d700acadf0bf69056"
+  },
+  "passed_observations": [
+    "four actual automatic phases with identical bounds",
+    "short native word tap",
+    "stationary native long-press opens menu when actual window focus is present",
+    "Copy original remains exact",
+    "public native selection ActionMode and Copy preserve full visible reading I like ongaku.",
+    "keyboard Menu opens actions",
+    "authored full-reading/original-script toggle in r76"
+  ],
+  "open": [
+    "end-to-end TalkBack custom Message actions execution",
+    "Shift+F10/Escape completion",
+    "original-script audio controls in candidate",
+    "incoming report confirmation in candidate",
+    "large-text RTL/menu scrolling",
+    "overflow custom action capacity native test"
+  ],
+  "failures_retained": {
+    "r71": "initial plain preparation incorrectly included in geometry measurement",
+    "r72": "real Select text activation failure before public selection action correction",
+    "r73": "inconsistent zero-distance swipe hold failed before selection",
+    "r76": "later full-script popup activation not established; input coordinates absent",
+    "r77": "popup activation still failed; no evidence to promote candidate",
+    "r78": "exact probe found next touch beginning while previous popup still held window focus; immediate native-tree lookup failed after keyboard Back; wrapper empty-property restore separately corrected",
+    "r79": "touch/copy/Menu passed; assertion assumed second ACTION_FOCUS must return true instead of accepting an already-focused node"
+  },
+  "latest_test_only_correction": "isFocused OR performAction(ACTION_FOCUS), unexecuted; no further standalone gesture cycle before Korean work",
+  "settings": "r79 log flag restored; r78 correction receipt retains earlier quoting failure; accessibility disabled and network1/1 restored",
+  "scope_limits": [
+    "No release activation",
+    "No real peer transport traffic",
+    "No new linguistic coverage",
+    "No acoustic pronunciation claim"
+  ],
+  "framework_source": {
+    "android15_TextView_sha256": "28df78f28a87faafd48906c2f36de0ec4bfaafe0c1fe8451d86daa432ea1759a",
+    "android15_Editor_sha256": "bc9815cca4cd32fbc0fe3429a31a43b95bb3bbf757beb949a8c5b5bb5a739848",
+    "url": "https://android.googlesource.com/platform/frameworks/base/+/android-15.0.0_r1/core/java/android/widget/",
+    "basis": "Public ACTION_SET_SELECTION starts native selection ActionMode; native long-click selection depends on saved touch offsets; native Copy normally stops selection ActionMode."
+  },
+  "receipts": [
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/capture-r72.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/capture-r76.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/capture-r78.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/capture-r79.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/environment-r79.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/flip-r78.log",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/r78-cleanup-receipt.json",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/flip-r79.log"
+  ]
+}

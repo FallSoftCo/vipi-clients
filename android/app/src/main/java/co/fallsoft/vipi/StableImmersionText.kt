@@ -14,6 +14,13 @@ import android.text.style.ReplacementSpan
 import android.text.TextPaint
 import android.view.MotionEvent
 import android.view.View
+import android.view.KeyEvent
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
+import android.os.Bundle
+import android.view.accessibility.AccessibilityNodeInfo
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import co.fallsoft.vipi.core.ImmersionPresentation
@@ -39,6 +46,11 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var tokenWidth = 10000
     private val tokenSpans = mutableListOf<WordSlot>()
     private var wordActions = emptyList<Int>()
+    private var messageActions: (() -> Unit)? = null
+    private var selectionFinished: (() -> Unit)? = null
+    private var explicitSelection = false
+    private var pendingSelection = false
+    private var nativeSelectionMode: ActionMode? = null
     init {
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 17f)
         setPadding(0, 0, 0, 0); includeFontPadding = false
@@ -46,6 +58,71 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         setTextIsSelectable(true)
         accessibilityLiveRegion = ACCESSIBILITY_LIVE_REGION_NONE
         tag = "immersionText"
+    }
+    /** Message gestures leave short word taps intact. Explicit selection gives
+     * native TextView its normal handles and copy action mode. */
+    fun configureMessageActions(action: (() -> Unit)?, selectText: Boolean, finished: () -> Unit) {
+        val changed = (messageActions == null) != (action == null) || explicitSelection != selectText
+        messageActions = action; selectionFinished = finished
+        if (!changed) return
+        val enteringSelection = action != null && selectText && !explicitSelection
+        explicitSelection = selectText
+        if (!selectText) pendingSelection = false
+        customSelectionActionModeCallback = if (action == null) null else object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean { nativeSelectionMode = mode; return true }
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem) = false
+            override fun onDestroyActionMode(mode: ActionMode) {
+                nativeSelectionMode = null
+                post { if (explicitSelection) selectionFinished?.invoke() }
+            }
+        }
+        setTextIsSelectable(action == null || selectText)
+        setOnLongClickListener(if (action != null && !selectText) OnLongClickListener { messageActions?.invoke(); true } else null)
+        if (action != null) { isFocusable = true; isFocusableInTouchMode = true; isLongClickable = true }
+        if (action != null && !selectText) ViewCompat.replaceAccessibilityAction(this,
+            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK, "Message actions") { _, _ -> messageActions?.invoke(); true }
+        else ViewCompat.removeAccessibilityAction(this, AccessibilityNodeInfoCompat.ACTION_LONG_CLICK)
+        result?.let(::updateAccessibilityActions)
+        if (enteringSelection) { pendingSelection = true; beginPendingSelection() }
+    }
+    private fun beginPendingSelection() {
+        // A focused popup is still being dismissed when its action updates this
+        // view. Starting ActionMode before window focus returns immediately loses
+        // the selection. Resume on the real window-focus event, without polling.
+        post {
+            if (pendingSelection && explicitSelection && isAttachedToWindow && hasWindowFocus()) {
+                pendingSelection = false; requestFocus()
+                // Public TextView selection action starts its native ActionMode
+                // without requiring stale touch offsets from before selection
+                // was enabled. Handles let the user narrow this initial range.
+                performAccessibilityAction(AccessibilityNodeInfo.ACTION_SET_SELECTION, Bundle().apply {
+                    putInt(AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, 0)
+                    putInt(AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, text.length)
+                })
+            }
+        }
+    }
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        super.onWindowFocusChanged(hasWindowFocus)
+        if (hasWindowFocus && pendingSelection) beginPendingSelection()
+    }
+    private fun updateAccessibilityActions(value: ImmersionPresentation) {
+        wordActions.forEach { ViewCompat.removeAccessibilityAction(this, it) }
+        val cap = if (messageActions != null) 30 else 31
+        val repeated = value.spans.groupingBy { it.original to it.displayedTarget }.eachCount()
+        wordActions = value.spans.take(cap).mapIndexed { index, word ->
+            val occurrence = if (repeated.getValue(word.original to word.displayedTarget) > 1) ", word ${index + 1}" else ""
+            ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}$occurrence") { _, _ -> onWord?.invoke(word.id); true }
+        } + if (value.spans.size > cap) listOf(ViewCompat.addAccessibilityAction(this, "Choose a word to switch") { _, _ -> onChooseWord?.invoke(); true }) else emptyList()
+        if (messageActions != null) wordActions += ViewCompat.addAccessibilityAction(this, "Message actions") { _, _ -> messageActions?.invoke(); true }
+    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (messageActions != null && (keyCode == KeyEvent.KEYCODE_MENU || (keyCode == KeyEvent.KEYCODE_F10 && event.isShiftPressed))) {
+            messageActions?.invoke(); return true
+        }
+        if (explicitSelection && keyCode == KeyEvent.KEYCODE_ESCAPE) { nativeSelectionMode?.finish(); return true }
+        return super.onKeyDown(keyCode, event)
     }
     private class WordLink(val id: Int, val color: Int, val action: (Int) -> Unit) : ClickableSpan() {
         override fun onClick(widget: View) { action(id) }
@@ -103,19 +180,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     }
     fun bind(value: ImmersionPresentation, revealed: Set<Int>, showScript: Boolean, color: Int, bodyColor: Int) {
         if (result != value) {
-            wordActions.forEach { ViewCompat.removeAccessibilityAction(this, it) }
             // AndroidView's Compose semantics do not reach this native node.
             // Register on TextView itself. Android supports 32 custom actions;
             // longer messages expose a chooser for every remaining word.
-            val repeated = value.spans.groupingBy { it.original to it.displayedTarget }.eachCount()
-            wordActions = value.spans.take(31).mapIndexed { index, word ->
-                val occurrence = if (repeated.getValue(word.original to word.displayedTarget) > 1) ", word ${index + 1}" else ""
-                ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}$occurrence") { _, _ ->
-                    onWord?.invoke(word.id); true
-                }
-            } + if (value.spans.size > 31) listOf(ViewCompat.addAccessibilityAction(this, "Choose a word to switch") { _, _ ->
-                onChooseWord?.invoke(); true
-            }) else emptyList()
+            updateAccessibilityActions(value)
         }
         val changed = result != value || originals != revealed || script != showScript || accent != color
         result = value; originals = revealed; script = showScript; accent = color
@@ -139,6 +207,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         if (id == android.R.id.copy && hasSelection()) {
             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
                 .setPrimaryClip(android.content.ClipData.newPlainText("Message", visibleText(minOf(selectionStart, selectionEnd), maxOf(selectionStart, selectionEnd))))
+            if (messageActions != null) nativeSelectionMode?.finish()
             return true
         }
         return super.onTextContextMenuItem(id)

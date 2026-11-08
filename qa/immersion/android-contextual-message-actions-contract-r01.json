@@ -1,0 +1,35 @@
+{
+  "schema": "vipi-android-contextual-message-actions-candidate-1",
+  "frozen_at": "2026-11-08T06:52:06.860Z",
+  "scope": "Debug-only candidate routed through actual FriendConversationScreen and existing ImmersionBubble; default visible Reading options button retained until root-reviewed acceptance.",
+  "sources": [
+    "https://mobbin.com/screens/f95b630a-93ca-437f-825e-86235a109257",
+    "https://mobbin.com/flows/4f6a5818-5861-4374-89b4-1ca4f36aeed7",
+    "https://developer.android.com/develop/ui/compose/accessibility/semantics"
+  ],
+  "interactions": {
+    "rest": "No per-message ellipsis in candidate. Existing timestamp/delivery and inline slot remain; regular conversation header retained.",
+    "touch": "Short tap on vocabulary keeps the existing flip action. Touch-and-hold on message text opens the existing contextual Reading options menu. No tap-to-menu competing with vocabulary.",
+    "selection": "Select text is a menu action. It explicitly enters the existing native TextView selection handles/action mode. Selected text copy uses the visible face; Copy original message always uses the exact original sent text.",
+    "accessibility": "Message actions is exposed on the actual native text node, with labeled long-click and custom action. Existing word actions/overflow chooser remain. Actual installed TalkBack service must execute message action; source inspection alone does not qualify.",
+    "keyboard": "Focused message supports Menu key or Shift+F10; Back/Escape dismisses menu. Menu activation must restore or preserve useful focus without changing message text.",
+    "state": "Menu/selection pauses automatic alternation; dismissal resumes with fresh dwell. No arrival/language/message identity changes may invoke an action on a different row. Full/script mode, unavailable state, report consent and original audio route remain current.",
+    "fallback": "If touch/selection/TalkBack paths fail, candidate stays disabled and the current visible button remains default. No hidden inaccessible release state."
+  },
+  "bounded_evidence": [
+    "Actual production conversation with isolated synthetic peer/transport; no live backend mutation",
+    "At least three automatic phases with stable bounds, short word tap, native long-press menu",
+    "Explicit native Select text and selected-visible copy plus exact Copy original",
+    "Incoming Report opens existing explicit-consent sheet; no network submission",
+    "Full target and script toggles and native audio play/stop remain reachable",
+    "Actual TalkBack active, Message actions executes, word switching remains, automatic flipping paused",
+    "Keyboard context menu and dismissal",
+    "RTL/large text overflow menu reachable through native scrolling"
+  ],
+  "nonclaims": [
+    "No new linguistic coverage",
+    "No gesture-discoverability user study",
+    "No app-store release or production activation",
+    "No acoustical voice-quality claim"
+  ]
+}

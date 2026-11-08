@@ -1,0 +1,36 @@
+{
+  "schema": "vipi-contextual-message-actions-extension-1",
+  "frozen_at": "2026-11-08T07:15:58.149Z",
+  "app": "same r76 binary",
+  "test_source": "next frozen r78 test-only overlay",
+  "cases": [
+    {
+      "target": "ja",
+      "font_scale": 1,
+      "theme": "light",
+      "input": [
+        "I need water.",
+        "I like music."
+      ],
+      "scope": "settled native layout/touch, selection original-vs-visible copy, keyboard, full/script/audio, report consent, actual TalkBack native action"
+    },
+    {
+      "target": "ar",
+      "font_scale": 1.8,
+      "theme": "dark",
+      "input": [
+        "I need water.",
+        "I like music."
+      ],
+      "full_script": "أنا أحب الموسيقى.",
+      "full_reading": "Anā uḥibb al-mūsīqā.",
+      "scope": "same authored fixtures; actual native menu scrolling; explicit custom Message actions ID excluding standard long-click; original-script RTL/full reading; exact font setting restoration"
+    },
+    {
+      "kind": "native accessibility capacity",
+      "input": "33 synthetic music slots",
+      "scope": "30 word actions + overflow chooser + custom message action coexist; no linguistic claim"
+    }
+  ],
+  "unchanged": "No app source, reading policy, lexical mappings or default rollout change."
+}
