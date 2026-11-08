@@ -25,6 +25,8 @@ import org.json.JSONObject
 import java.io.File
 import java.io.FileDescriptor
 import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.security.KeyStore
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -123,8 +125,16 @@ internal class PrivateRecords(context: Context) {
         JSONObject(cipher.doFinal(bytes.copyOfRange(13, bytes.size)).toString(Charsets.UTF_8))
     }
     fun remove(name: String): Unit = synchronized(recordLock) {
-        val target = file(name); target.delete()
-        check(!target.baseFile.exists() && !File(target.baseFile.path + ".bak").exists()) { "Private record could not be removed" }
+        val base = file(name).baseFile
+        // A failed sidecar deletion must leave the authoritative record available
+        // to a newly opened account-deletion coordinator so it can retry.
+        val paths = listOf(File(base.path + ".new"), File(base.path + ".bak"), base).map { it.toPath() }
+        for (path in paths) {
+            Files.deleteIfExists(path)
+            check(!Files.exists(path, NOFOLLOW_LINKS)) { "Private record could not be removed" }
+        }
+        syncDirectory()
+        check(paths.none { Files.exists(it, NOFOLLOW_LINKS) }) { "Private record removal could not be confirmed" }
     }
 }
 
