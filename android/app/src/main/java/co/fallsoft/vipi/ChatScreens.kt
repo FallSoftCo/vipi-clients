@@ -71,7 +71,9 @@ import java.util.UUID
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     density: Double = .25, onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
-    qaReadingProducer: (suspend (String, String) -> FullReading?)? = null, back: () -> Unit) {
+    qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
+    qaTranslator: LanguageTranslation? = null, back: () -> Unit) {
+    require(qaTranslator == null || BuildConfig.DEBUG)
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -92,8 +94,8 @@ import java.util.UUID
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val immersion = remember(chat, peer, source, target, density, qaReadingProducer) {
-        ConversationImmersion(context, source, target, density, qaReadingProducer = qaReadingProducer)
+    val immersion = remember(chat, peer, source, target, density, qaReadingProducer, qaTranslator) {
+        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer)
     }
     val speech = remember(chat, peer, source, target) { SpeechPlayback(context, source, target, scope) }
     val warmups = remember(source, target) {

@@ -1,0 +1,237 @@
+{
+  "schema": "vipi-android-debug-japanese-chat-qualification-1",
+  "complete": true,
+  "scope": "Explicit instrumentation-only authored-first Japanese reading fallback in production FriendConversationScreen, synthetic contact/transport, actual installed local MT and native speech",
+  "default_or_release_reader_changed": false,
+  "app_sha256": "64f6232df186b2f7583acd7c1b13bb58b512c94babfdc1e732f2969dcab12664",
+  "same_app_after_test_correction": true,
+  "actual_runtime_api": 35,
+  "api28_runtime_qualified": false,
+  "source": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt",
+      "sha256": "7e933b3a8e3977f7e187b2b6bda4cc20a86d85238a3972f7eb1c174e2ec407e0"
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseReadingConversationDeviceTest.kt",
+      "sha256": "925ca4e77354b3f983ea2cf843d1e7931e43fb18b28ed9749c7bc29bf104aa0f"
+    }
+  ],
+  "plan_sha256": "4e4d2907fcd0c3bdc14772886a2b66d831177f6e8a4cb68edc89c9eae65e7a2e",
+  "cases": [
+    {
+      "id": "authored-precedence",
+      "message_language_selection": "ja",
+      "provider_calls": 0,
+      "provider_completed": 0,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "AUTHORED",
+      "displayed": "Watashi wa ongaku ga suki desu.",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    },
+    {
+      "id": "ja-mixed_unknown-2",
+      "message_language_selection": "ja",
+      "provider_calls": 2,
+      "provider_completed": 1,
+      "provider_cancelled": 1,
+      "reader_calls": 1,
+      "provenance": "LOCAL_TRANSLITERATION",
+      "displayed": "Zoë to José ni messēji wo okutta。",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": {
+        "observed_start_bound_ms": 713,
+        "active_samples": 55,
+        "original_script": "ZoëとJoséにメッセージを送った。",
+        "cache_basename_matched_original_script": true,
+        "created_by_this_ui_play": true,
+        "cache_sha256": "3fe4cf3cb62eed54ce2bfa4d7a35ca2b3878c7df87216d6168cb4a2a997fe931",
+        "milliseconds": 4356.083333333333,
+        "sample_rate": 24000,
+        "channels": 1,
+        "acoustic_quality_verified": false
+      }
+    },
+    {
+      "id": "ja-contrast-2",
+      "message_language_selection": "ja",
+      "provider_calls": 2,
+      "provider_completed": 2,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "LOCAL_TRANSLITERATION",
+      "displayed": "gakkō e ikimasu。hebi ga imasu。",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    },
+    {
+      "id": "r03-kana-decomposed",
+      "message_language_selection": "ja",
+      "provider_calls": 1,
+      "provider_completed": 1,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "LOCAL_TRANSLITERATION",
+      "displayed": "ga piru。",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    },
+    {
+      "id": "r03-copula-polite",
+      "message_language_selection": "ja",
+      "provider_calls": 2,
+      "provider_completed": 2,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "LOCAL_TRANSLITERATION",
+      "displayed": "nan desu ka。",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    },
+    {
+      "id": "ja-mixed_unknown-3",
+      "message_language_selection": "ja",
+      "provider_calls": 3,
+      "provider_completed": 3,
+      "provider_cancelled": 0,
+      "reader_calls": 0,
+      "provenance": "pipeline_unavailable",
+      "displayed": null,
+      "reader_issues": [],
+      "copy_original_exact": null,
+      "reading_reentry_cached": null,
+      "audio": null
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "message_language_selection": "ja",
+      "provider_calls": 2,
+      "provider_completed": 2,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "unavailable",
+      "displayed": "𠮷田さんに¥1,250を渡した。",
+      "reader_issues": [
+        "UNRESOLVED_JAPANESE"
+      ],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    },
+    {
+      "id": "retained-xpv-2f013a8ff6f029d5fbb854df",
+      "message_language_selection": "ja",
+      "provider_calls": 2,
+      "provider_completed": 2,
+      "provider_cancelled": 0,
+      "reader_calls": 1,
+      "provenance": "LOCAL_TRANSLITERATION",
+      "displayed": "wakarimasu。watashi ga ichinin de iru hitsuyō ga aru toki、watashi wa maishū sūkai undō shimasu。",
+      "reader_issues": [],
+      "copy_original_exact": true,
+      "reading_reentry_cached": true,
+      "audio": null
+    }
+  ],
+  "meaning_observations": [
+    {
+      "id": "ja-mixed_unknown-2",
+      "type": "actual_native_full_translation_name_error",
+      "original": "ZoëとJoséにメッセージを送った。",
+      "provider": "I sent a message to zoë and JOSS.",
+      "note": "Candidate reading preserves exact Latin source; this does not validate reverse MT names."
+    },
+    {
+      "id": "ja-contrast-2",
+      "type": "actual_native_full_translation_meaning_error",
+      "original": "学校へ行きます。へびがいます。",
+      "provider": "I will go to school. I have a good time.",
+      "note": "Second sentence is about a snake, not having a good time."
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "type": "actual_native_full_translation_proper_name_uncertain_wrong",
+      "original": "𠮷田さんに¥1,250を渡した。",
+      "provider": "Mr. Kashida passed ¥ 1,250.",
+      "note": "No name gold claimed; native output does not justify a reading for unknown Han. Reader correctly abstained."
+    },
+    {
+      "id": "retained-xpv-2f013a8ff6f029d5fbb854df",
+      "type": "retained_known_reader_context_error",
+      "note": "一人 remains ichinin instead of ordinary hitori here. Deliberately retained and not promoted as correct."
+    }
+  ],
+  "failure_retained": {
+    "run": "r69",
+    "stage": "Second row audio assertion",
+    "reason": "Harness compared full cache paths across intentionally separate per-owner directories, and would have read the independent owner file after close. Corrected test compares basename/source+voice identity while the UI owner remains alive. No runtime/audio/reading changes."
+  },
+  "visual_review": {
+    "inspected": [
+      "ja-mixed_unknown-2-full-reading.png",
+      "ja-mixed_unknown-4-full-reading.png",
+      "ja-mixed_unknown-3-unavailable-menu.png"
+    ],
+    "unavailable_capture_limit": "Screenshot caught original fallback before menu animation settled; it proves source retention, not readable menu explanation.",
+    "transport_label": "Waiting to send and connection warning are expected synthetic transport state, not relay evidence."
+  },
+  "counts_do_not_mean_accuracy": true,
+  "nonclaims": [
+    "No fresh semantic coverage; same8previously inspected diagnostic texts",
+    "No acoustic/pronunciation quality or physical-device claim",
+    "No Japanese default/release activation; known contextual errors remain",
+    "First observed player start713ms is a sampling bound, not acoustic latency",
+    "Explicit language selection can cancel/repeat an earlier automatic MT request; raw calls retained separately from reader-cache hits"
+  ],
+  "receipts": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/capture-r69.json",
+      "sha256": "a3447091173c2e83f30a594fc11c1392eaa8fd131b90f78f6f01ea1ff0d5d8c9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/native-r69.log",
+      "sha256": "59003adf00726fc0fb1f05916ac7034d10f4cecc53853c4b1be187a506c65d10"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/capture-r70.json",
+      "sha256": "712818a3b8f1cd20aaf21e82db2bb9e210eb48f927ebc22a314d5896e0126f00"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/native-r70.log",
+      "sha256": "6c50ebe0506cb47066874c3a3406f7cc3dc43a7762db8220ab4eaed6fe221755"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/environment-r70.json",
+      "sha256": "05a349fd592062c5fb914f65a70e5c0b086f3bbc6e96fe8cbd34d2d948424e2f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/test-source-r70-manifest.json",
+      "sha256": "f4f93f011f21e1559e237d0a70a2a4ff6eb76e16cdbe286952a0d1b492e9f448"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-test-source-r70.gradle",
+      "sha256": "b38a837f2c029c55c9dba13fa5a029a80e0c34d3217039b21978462e040093c8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r70-test-build.log",
+      "sha256": "e23c02fc088e2cb29af5cbdd0370e2ce6dad45ff56bae88b2434f70ef635cc3f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/japanese-chat-r01/r70-media/original-script-audio.wav",
+      "sha256": "3fe4cf3cb62eed54ce2bfa4d7a35ca2b3878c7df87216d6168cb4a2a997fe931"
+    }
+  ],
+  "created_epoch": 1794120089.7223935
+}

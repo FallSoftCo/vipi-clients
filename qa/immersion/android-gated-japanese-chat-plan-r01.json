@@ -1,0 +1,81 @@
+{
+  "schema": "vipi-android-debug-japanese-live-chat-plan-1",
+  "frozen_epoch": 1794119200.6892362,
+  "scope": "Production FriendConversationScreen with isolated synthetic contact/transport and existing actual local Japanese↔English translation path; not a new real-peer E2EE proof",
+  "policy": "Explicit DEBUG-only qaReadingProducer: exact authored SentenceReadings first; only missing ja reading calls qualified dormant JapaneseReadings; retain null/issue abstentions and cache provenance. No release/default enablement.",
+  "data_source_sha256": "e325bb8b60567f594a7de72aeb1d263fc65e26c64c1bd57bd4beb670e3ca6462",
+  "runtime_source": {
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseReadings.kt": "5219d242aef43d9416e91915cddfcf65b3f01a21d98517aa1e8087fcb177a454",
+    "android/app/src/main/java/co/fallsoft/vipi/KanaRomanizer.kt": "71d8f633f0e1237a9b15e2c06fbb2e1d7999bb842c431f55b6e23c27e4118923",
+    "android/app/src/main/java/co/fallsoft/vipi/FullReadingCache.kt": "1dfcdc12ce9f8fc6d4b276716f80c71d99f44c0f75f334ec984d126b30d2b7e5"
+  },
+  "cases": [
+    {
+      "id": "authored-precedence",
+      "text": "私は音楽が好きです。",
+      "basis": "Existing authored reference; fallback must not be called for this text",
+      "expected_scope": "AUTHORED"
+    },
+    {
+      "id": "ja-mixed_unknown-2",
+      "text": "ZoëとJoséにメッセージを送った。",
+      "basis": "General contextual gemination and preserved Latin names; no lexical overrides",
+      "prior_group": "frozen12"
+    },
+    {
+      "id": "ja-contrast-2",
+      "text": "学校へ行きます。へびがいます。",
+      "basis": "Native particle e vs lexical hebi; context-preserving morphology",
+      "prior_group": "frozen12"
+    },
+    {
+      "id": "r03-kana-decomposed",
+      "text": "ガピル。",
+      "basis": "Canonical kana normalization with original UTF16 spelling preserved; short input may need explicit Japanese message-language selection",
+      "prior_group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-polite",
+      "text": "何ですか。",
+      "basis": "Narrow native copular nan context; authored precedence still applies if available",
+      "prior_group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "ja-mixed_unknown-3",
+      "text": "住所はhttps://example.com/a?x=1です。",
+      "basis": "Ambiguous undelimited URL must remain exact and unavailable; pipeline identifier guard may withhold full reference before reader",
+      "prior_group": "frozen12"
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "text": "𠮷田さんに¥1,250を渡した。",
+      "basis": "Unknown Han must abstain without fabricated reading; literal amount must remain exact",
+      "prior_group": "frozen12"
+    },
+    {
+      "id": "retained-xpv-2f013a8ff6f029d5fbb854df",
+      "text": "わかります。私が一人でいる必要があるとき、私は毎週数回運動します。",
+      "basis": "Known unresolved 一人 contextual pronunciation is deliberately retained, not labelled correct or excluded",
+      "prior_group": "retained_xpersona_validation"
+    }
+  ],
+  "execution": {
+    "known_language": "en",
+    "immersion_language": "ja",
+    "sent_message_language": "ja",
+    "input_language_selection": "Use existing per-message Japanese language action when automatic classification cannot establish the short input; record this user action explicitly. Do not override translation guards.",
+    "models": "Existing installed en/ja only; no model download or remote translation API",
+    "provider_policy": "Actual native reverse translation for Japanese messages when accepted catalog cannot resolve; preserve each unsupported/invalid/identifier-rejected outcome as a row, no fixture fitting",
+    "ui": "Select Japanese full view, capture actual reading/script states and copy original. Retain at least authored, candidate, guarded-unavailable and known-risk frames. Confirm reopening/scroll reentry does not repeat cached producer work.",
+    "audio": "On one available candidate use native Listen from full view; verify actual player start/completion and source-script request/cache behavior; reading text never replaces speech input. No acoustic-quality claim.",
+    "geometry": "Actual history path already qualifiedr68; retain visible bounds before/after metadata and mandatory source fallback for this candidate. No separate large UI matrix."
+  },
+  "nonclaims": [
+    "Previously inspected diagnostic/retained validation texts, not fresh language coverage",
+    "Known Han/contextual errors remain; no blanket withholding or corpus-specific replacement",
+    "Actual API35 only; API28 and physical-device/listening qualification remain open",
+    "Synthetic transport is explicitly separate from prior genuine Swift↔Kotlin relay proof",
+    "No release activation, store readiness or pronunciation perfection claim"
+  ],
+  "promotion": "Root review of exact native output/UI required before any broader candidate use"
+}
