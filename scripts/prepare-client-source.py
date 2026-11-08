@@ -19,6 +19,7 @@ import tarfile
 
 TREES = ("android", "ios", "data", "language-packs")
 FILES = (
+    "CLIENT_SOURCE.md",
     "scripts/build-android.sh", "scripts/build-android-speech-data.py",
     "scripts/android-dependency-inventory.gradle", "scripts/collect-android-notices.py",
     "scripts/check-android-release.py", "scripts/check-bundled-lexical.py",
@@ -31,6 +32,7 @@ FILES = (
     "qa/backup/vectors.json", "qa/backup/format-v1.json", "qa/backup/history_v1.py",
 )
 FIXTURE_TREES = ("qa/packs/signed-pack-fixtures", "qa/immersion/installer-fixture-assets")
+EXCLUDED = frozenset(("android/BUILDING.md", "ios/BUILDING.md"))
 
 
 def sha_file(path):
@@ -95,6 +97,8 @@ def main():
         metadata, raw_name = item.split(b"\t", 1)
         mode, kind, oid, size = metadata.decode().split()
         name = safe_name(raw_name.decode())
+        if name in EXCLUDED:
+            continue
         if kind != "blob" or mode not in ("100644", "100755", "120000"):
             raise ValueError("Source export needs explicit handling for: " + name)
         blobs[name] = {"git_blob": oid, "bytes": int(size), "mode": mode}
@@ -108,7 +112,8 @@ def main():
     manifest = {"schema": "vipi-private-client-source-candidate-1", "revision": revision,
         "published": False, "complete_corresponding_source_claim": False,
         "included": selections, "upstream_manifest_sha256": args.upstream_manifest_sha256,
-        "exclusions": ["Git history", "backend and operations", "private receipts", "external conversation research datasets", "signing and provider credentials"],
+        "exclusions": ["Git history", "backend and operations", "private receipts", "external conversation research datasets", "signing and provider credentials", "Internal host-specific build instructions"],
+        "excluded_source_paths": sorted(EXCLUDED),
         "files": {}, "remaining": ["Final signed build/source identity", "Native dependency source-build instructions and complete combined dependency review", "Secret/privacy and language-data attribution review of this exact archive", "Public publication and store submission"]}
     archive_path = output / "vipi-client-source-candidate.tar.gz"
     with archive_path.open("xb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0, compresslevel=1) as compressed, tarfile.open(fileobj=compressed, mode="w|") as target:
@@ -130,6 +135,8 @@ def main():
             with tarfile.open(fileobj=command.stdout, mode="r|") as source:
                 for member in source:
                     if member.isdir():
+                        continue
+                    if member.name in EXCLUDED:
                         continue
                     if member.name not in blobs:
                         raise ValueError("Unexpected source member")

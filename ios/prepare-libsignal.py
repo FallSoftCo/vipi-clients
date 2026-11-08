@@ -45,7 +45,7 @@ def main():
         required = 1024**3 + ARCHIVE_BYTES + sum(v[0] for v in LIBRARIES.values()) + 512 * 1024**2
         if shutil.disk_usage(root).free < required: raise RuntimeError("Insufficient disk margin for vendor preparation")
     if not source.exists():
-        if not args.fetch: raise RuntimeError("Pinned libsignal source is absent; see ios/BUILDING.md")
+        if not args.fetch: raise RuntimeError("Pinned libsignal source is absent; see CLIENT_SOURCE.md")
         with tempfile.TemporaryDirectory(prefix="libsignal-source-", dir=root) as staging:
             path = Path(staging) / "source"
             subprocess.run(["git", "init", str(path)], check=True)
