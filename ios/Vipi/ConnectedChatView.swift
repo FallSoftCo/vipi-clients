@@ -153,11 +153,15 @@ struct FriendConversationView: View {
     @State private var jumpRevision = 0
     @State private var firstMessageFrame = CGRect.zero
     @State private var viewportHeight: CGFloat = 0
+    @State private var viewportBottomInset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     @State private var pageAnchorID: UUID?
     @State private var pageAnchorFrame = CGRect.zero
     @State private var pageRestore: Task<Void, Never>?
     @State private var viewportRestore: Task<Void, Never>?
+    @State private var textSizeRestore: Task<Void, Never>?
+    @State private var textSizeAnchorID: UUID?
+    @State private var textSizeAnchorFrame = CGRect.zero
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     private var messageNotice: String? { error ?? chat.notice }
     private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
@@ -287,6 +291,7 @@ struct FriendConversationView: View {
                             .onGeometryChange(for: CGRect.self) { proxy in proxy.frame(in: .named("conversation-timeline")) } action: { frame in
                                 if item.id == messages.first?.id { firstMessageFrame = frame }
                                 if item.id == pageAnchorID { pageAnchorFrame = frame }
+                                if item.id == textSizeAnchorID { textSizeAnchorFrame = frame }
                             }
                     }
                     Color.clear.frame(height: 1).id("bottom")
@@ -302,6 +307,8 @@ struct FriendConversationView: View {
                     if phase == .tracking || phase == .interacting {
                         cancelPageRestoration()
                         viewportRestore?.cancel(); viewportRestore = nil
+                        textSizeRestore?.cancel(); textSizeRestore = nil
+                        textSizeAnchorID = nil
                     }
                 }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
@@ -316,6 +323,7 @@ struct FriendConversationView: View {
                         "composing": composing, "draft_empty": text.isEmpty])
                     #endif
                     viewportHeight = new.height
+                    viewportBottomInset = new.bottomInset
                     scrollOffset = new.offset
                     // Only a user's scroll changes reading intent. Lazy row
                     // estimates can briefly look like the bottom during a
@@ -324,7 +332,7 @@ struct FriendConversationView: View {
                     // Wait until a real viewport resize settles before moving
                     // the scroll position. Mutating it during lazy layout can
                     // invalidate the visible rows or feed another measurement.
-                    if followingLatest && !scrolling && abs(old.height - new.height) > 0.5 {
+                    if followingLatest && !scrolling && textSizeRestore == nil && abs(old.height - new.height) > 0.5 {
                         viewportRestore?.cancel()
                         viewportRestore = Task { @MainActor in
                             do { try await Task.sleep(for: .milliseconds(80)) }
@@ -339,6 +347,51 @@ struct FriendConversationView: View {
                 .onChange(of: messages.last?.id) { _, _ in if followingLatest { position.scrollTo(edge: .bottom) } }
                 .onChange(of: jumpRevision) { _, _ in position.scrollTo(edge: .bottom) }
                 .onChange(of: composing) { _, focused in if focused && followingLatest { position.scrollTo(edge: .bottom) } }
+                .onChange(of: typeSize) { _, _ in
+                    // Font changes invalidate every lazy row's measured height.
+                    // Restore a semantic message anchor after the new layout,
+                    // rather than keeping an offset calculated with old fonts.
+                    let latest = followingLatest
+                    guard let target = latest ? messages.last?.id : position.viewID(type: UUID.self) else { return }
+                    cancelPageRestoration()
+                    viewportRestore?.cancel(); viewportRestore = nil
+                    textSizeRestore?.cancel()
+                    textSizeAnchorID = target; textSizeAnchorFrame = .zero
+                    textSizeRestore = Task { @MainActor in
+                        do { try await Task.sleep(for: .milliseconds(80)) }
+                        catch { return }
+                        guard !scrolling else { textSizeRestore = nil; return }
+                        position.scrollTo(id: target, anchor: latest ? .bottom : .top)
+                        // Realizing a large lazy row can replace another size
+                        // estimate after the initial ID scroll. Settle only this
+                        // explicit font change against its measured row; never
+                        // turn ordinary content growth into automatic following.
+                        var settled = 0
+                        for _ in 0..<8 {
+                            do { try await Task.sleep(for: .milliseconds(40)) }
+                            catch { return }
+                            guard textSizeAnchorID == target, !userScrolling,
+                                  messages.contains(where: { $0.id == target }) else { return }
+                            guard textSizeAnchorFrame.height > 0 else { continue }
+                            let desired = latest ? viewportHeight - viewportBottomInset - 18 : 0
+                            let actual = latest ? textSizeAnchorFrame.maxY : textSizeAnchorFrame.minY
+                            let delta = actual - desired
+                            #if DEBUG
+                            LiveImmersionQualification.record(["event": "text_size_anchor", "message_id": target.uuidString,
+                                "latest": latest, "actual": Double(actual), "desired": Double(desired), "delta": Double(delta)])
+                            #endif
+                            if abs(delta) > 0.5 {
+                                settled = 0
+                                position.scrollTo(y: scrollOffset + delta)
+                            } else {
+                                settled += 1
+                                if settled >= 2 { break }
+                            }
+                        }
+                        textSizeAnchorID = nil
+                        textSizeRestore = nil
+                    }
+                }
                 .overlay(alignment: .bottomTrailing) {
                     if !followingLatest && !messages.isEmpty {
                         Button { cancelPageRestoration(); followingLatest = true; position.scrollTo(edge: .bottom) } label: {
@@ -400,7 +453,7 @@ struct FriendConversationView: View {
             await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
             prepareVoices()
         }
-        .onDisappear { cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; immersion.close(); speech.close() }
+        .onDisappear { cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; immersion.close(); speech.close() }
         .onChange(of: scenePhase) { _, phase in
             if phase != .active { cancelPageRestoration(); speech.stop() }
             else { Task { await immersion.refreshAvailability(); prepareVoices() } }

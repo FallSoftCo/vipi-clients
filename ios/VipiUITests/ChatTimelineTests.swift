@@ -1,6 +1,49 @@
 import XCTest
 
 final class ChatTimelineTests: XCTestCase {
+    @MainActor func testConversationRespondsToLiveSystemTextSize() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_QA_LIVE_TEXT_SIZE"] == "restore-system-setting-r01" else {
+            throw XCTSkip("Requires coordinated system text-size change and restoration")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-appearance-dark", "-vipi-live-immersion-state", "012"]
+        app.launch()
+        defer {
+            app.terminate()
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+            app.launch()
+            XCTAssertTrue(app.staticTexts["Synthetic conversation removed"].waitForExistence(timeout: 5))
+        }
+        let message = app.staticTexts["History message 70. We are making plans for tomorrow."]
+        XCTAssertTrue(message.waitForExistence(timeout: 20)); XCTAssertTrue(message.isHittable)
+        let metadataID = try XCTUnwrap(app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH %@", "message-meta-")).allElementsBoundByIndex.last).identifier
+        let metadata = app.descendants(matching: .any).matching(identifier: metadataID).firstMatch
+        let bodyHeight = message.frame.height, metadataHeight = metadata.frame.height
+        capture("ios-live-system-text-size-before")
+        print("VIPI_SYSTEM_TEXT_SIZE_READY")
+        let expanded = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            guard message.exists && metadata.exists else { return false }
+            return message.frame.height > bodyHeight * 1.5 && metadata.frame.height > metadataHeight * 1.5
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [expanded], timeout: 45), .completed)
+        let largeBody = message.frame.height, largeMetadata = metadata.frame.height
+        XCTAssertTrue(message.isHittable)
+        capture("ios-live-system-text-size-expanded")
+        print("VIPI_SYSTEM_TEXT_SIZE_RESTORE")
+        let restored = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            guard message.exists && metadata.exists else { return false }
+            return abs(message.frame.height - bodyHeight) < 1 && abs(metadata.frame.height - metadataHeight) < 1
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [restored], timeout: 45), .completed)
+        capture("ios-live-system-text-size-restored")
+        let report: [String: Any] = ["body_before": bodyHeight, "body_large": largeBody,
+            "body_restored": message.frame.height, "metadata_before": metadataHeight,
+            "metadata_large": largeMetadata, "metadata_restored": metadata.frame.height,
+            "same_process": true, "relaunch_between_sizes": false]
+        let attachment = XCTAttachment(data: try JSONSerialization.data(withJSONObject: report, options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+        attachment.name = "live-system-text-size"; attachment.lifetime = .keepAlways; add(attachment)
+    }
     @MainActor func testEarlierPagePreservesVisibleMessage() throws {
         continueAfterFailure = true
         let app = XCUIApplication(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-appearance-dark"]; app.launch()
