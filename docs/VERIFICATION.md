@@ -1,6 +1,6 @@
 # Verification ledger
 
-## Latest delivery checkpoint — November 8, 2026, 01:01 UTC
+## Latest delivery checkpoint — November 8, 2026, 01:50 UTC
 
 The current restricted staging service is `52d1f90`, deployed in 8.77 seconds
 with the existing database, schema, authentication configuration and shared
@@ -13,9 +13,24 @@ The frozen eight-message English→Swahili exchange completed between the two
 real native clients. Received and sent messages used real encryption and the
 live relay. Apple observed at least three automatic cycles with fixed geometry;
 Android rendered one mixed 24-kHz mono file and observed its actual player.
-The same run exposed intermittent stalled alternation on both platforms after
-composition. Those failures are retained and under diagnosis. The continuous
-live immersion gate remains open; earlier preview tests do not close it.
+Correction to the initial checkpoint: direct recording/screenshot review shows
+that both clients did alternate during the original exchange. Sequential XML
+and sparse screenshot sampling missed phases and incorrectly suggested a stall;
+those failed measurements remain retained. A later Apple replay separately
+exposed a real keyboard-triggered visibility feedback loop and event-loop stall.
+That specific defect is under repair. It does not justify an Android timer change.
+The complete continuous live immersion gate remains open.
+
+Later direct video review counts eight Android phase transitions with identical
+bounds in eleven geometry samples. Apple's narrow viewport-height correction
+passes the 126.9-second live regression: transitions continue before the
+keyboard, with an empty focused composer, after clearing a draft, and after
+Listen; a nonempty draft pauses them. Text dimensions remain 298×28 throughout.
+History/scroll-anchor qualification is still pending before that change is
+accepted: a later replay exposes a real blank initial long-history viewport.
+The agent is correcting the resize/scroll sequencing and includes the keyboard
+bottom inset in the near-bottom calculation. The initial blanket stall
+diagnosis must not be repeated.
 
 Native device recovery now preserves remote trust across own-device replacement,
 binds confirmation to the reviewed new peer keys, handles uncertain responses
@@ -37,12 +52,66 @@ packs do not avoid inference for most of these conversations. A disjoint
 80-dialogue BlendedSkillTalk sample and scoring rules were frozen before output.
 None of these experimental policies or models is promoted to runtime.
 
+The fresh 80-dialogue primary comparison is now complete and fails its frozen
+error gate. Author review gives the experimental AfriSLM-reference arm 57 clean
+useful messages, 12.03% correct changed-word depth and six material/scope-error
+messages; the ML Kit-reference window arm gives 59, 12.27% and eight. Better
+whole references (47 broadly preserved versus 31) did not produce better clean
+mixed coverage. Independent identity-masked review of 24 cases agrees on 41/48
+whole-reference labels and 38/45 selected spans; severity and grammatical scope
+remain explicit disagreements. The unchanged current native policy gives 27
+clean useful messages, zero observed material focus errors and 3.11% correct
+depth at requested 10%. It invokes local full translation in 77/80 cases, with
+three language-detection abstentions and no source-only hits. None of these
+small-sample results establishes population error rates or the 90% goal.
+
+The secondary 25%/50% review was performed after provider unmasking. The
+AfriSLM-reference arm gives 61/57 clean useful messages and 6/15 material or
+scope-error messages; the ML Kit arm gives 50/53 and 17/18. A development-only
+shortening check removes two beginner errors but creates different scope errors
+at higher density. Neither result changes the failed primary gate. A separate
+frequency-selected source-only vocabulary baseline is being prepared to test
+meaning ambiguity without rejecting harmless target synonyms.
+
 The local AfriSLM 0.8B Q4 development run took median 3.41 seconds, p95 10.18
 seconds and about 1.82 GiB peak RSS over 80 inputs. Disabling the server's prompt
 cache in a separate eight-input check preserved all eight outputs and reduced
 observed peak RSS to about 1.04 GiB. These are desktop CPU measurements, not
 native mobile latency or memory qualification. Assistant semantic reviews
 disagree on some cases and are not bilingual gold labels or population accuracy.
+
+The current optimized Android qualification bundle measures 405.34–405.37 MB
+compressed for ARM64 delivery. All six ARM64 native libraries and delivered
+splits pass 16-KiB alignment checks, but physical execution is unqualified. It
+is a separate qualification package with debug signing and blank production
+authentication, and must never be uploaded. The initial offline voice audit found only English and Swahili working.
+After adding 2,767,365 bytes of dictionaries to the same pinned fallback, actual
+offline synthesis now passes eleven original-script samples and ten joined
+English/language pairs. Japanese fallback audio reuses the bundled tokenizer
+for kana readings and rejects unresolved Han; displayed text and matching are
+unchanged. Network and TTS settings were restored. The bundle size above
+predates those additional dictionaries; its replacement is being measured.
+These results establish synthesis and pair preparation, not pronunciation
+quality or physical-device acceptance.
+
+Apple also rendered eleven original-script samples and ten joined pairs using
+ten actual system voices and the Swahili fallback. No voice download was
+requested. That run does not establish network absence or listening quality.
+
+Apple's model preparation is not complete: MobileAsset purged a required
+download under guest disk pressure, then reported a completed set referencing
+the missing descriptor. Owned superseded test bundles were retired after
+exporting their evidence. Guest logical space and native physical space are
+measured separately; no new download retry is accepted without enough headroom
+for both the approximately 1.85-GiB asset peak and the observed 10-GiB macOS
+low-disk threshold. Closed historical diagnostic logs are being losslessly
+compressed with full readback checks; accepted source, audio and release
+evidence remain preserved. Five logs shrank from 9.35 GB to 111.5 MB, but
+available space did not increase, consistent with shared extents. That apparent
+size reduction must not be reported as reclaimed capacity. Exact obsolete Vipi
+installation bundles are being assessed separately. A fresh controller check
+finds the iPad offline and no attached USB mobile device; no physical install
+was attempted.
 
 Company store authentication, actual billing and push providers, broader
 language quality, physical-runtime evidence and final corresponding-source
