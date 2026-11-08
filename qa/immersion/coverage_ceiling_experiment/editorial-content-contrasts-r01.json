@@ -1,0 +1,256 @@
+{
+  "production": false,
+  "kind": "Authored development contrasts, not unseen human corpus. Exact occurrence role probes plus whole-path forbidden spans; absence of a dictionary candidate is not evidence a guard works.",
+  "cases": [
+    {
+      "id": "editorial-role-negative-001",
+      "text": "My parents work nearby.",
+      "role_probe_source": "parents",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-002",
+      "text": "The company parents a subsidiary.",
+      "role_probe_source": "parents",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "parents"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-003",
+      "text": "What is it like to travel?",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "like"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-004",
+      "text": "What was she like?",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "like"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-005",
+      "text": "What are they like at home?",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "like"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-006",
+      "text": "Do they like jazz?",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-007",
+      "text": "What do they like about jazz?",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-008",
+      "text": "I really like music.",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-009",
+      "text": "They do not like loud music.",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-010",
+      "text": "She is like her sister.",
+      "role_probe_source": "like",
+      "role_probe_pos": "verb",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "like"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-011",
+      "text": "This is a good book.",
+      "role_probe_source": "book",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-012",
+      "text": "Please book a table.",
+      "role_probe_source": "book",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "book"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-013",
+      "text": "They book tables online.",
+      "role_probe_source": "book",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "book"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-014",
+      "text": "My quiet parents are home.",
+      "role_probe_source": "parents",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-015",
+      "text": "That is pretty.",
+      "role_probe_source": "pretty",
+      "role_probe_pos": "adj",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-016",
+      "text": "I am pretty tired.",
+      "role_probe_source": "pretty",
+      "role_probe_pos": "adj",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "pretty"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-017",
+      "text": "A good idea helps.",
+      "role_probe_source": "good",
+      "role_probe_pos": "adj",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-018",
+      "text": "The full cup is here.",
+      "role_probe_source": "full",
+      "role_probe_pos": "adj",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-019",
+      "text": "Turkey is a country.",
+      "role_probe_source": "turkey",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "turkey"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-020",
+      "text": "The turkey is ready.",
+      "role_probe_source": "turkey",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-021",
+      "text": "Apple makes computers.",
+      "role_probe_source": "apple",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "apple"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-022",
+      "text": "An apple is fruit.",
+      "role_probe_source": "apple",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-023",
+      "text": "My book is at https://book.example/path.",
+      "role_probe_source": "book",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-024",
+      "text": "The code is `book`.",
+      "role_probe_source": "book",
+      "role_probe_pos": "noun",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "book"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-025",
+      "text": "GOOD news is here.",
+      "role_probe_source": "good",
+      "role_probe_pos": "adj",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "good"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-026",
+      "text": "My friend Green called.",
+      "role_probe_source": "green",
+      "role_probe_pos": "adj",
+      "expected_shared_role": false,
+      "forbidden_sources": [
+        "green"
+      ]
+    },
+    {
+      "id": "editorial-role-negative-027",
+      "text": "Music!",
+      "role_probe_source": "music",
+      "role_probe_pos": "noun",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    },
+    {
+      "id": "editorial-role-negative-028",
+      "text": "Cold water is ready.",
+      "role_probe_source": "cold",
+      "role_probe_pos": "adj",
+      "expected_shared_role": true,
+      "forbidden_sources": []
+    }
+  ]
+}

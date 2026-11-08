@@ -1,0 +1,501 @@
+source	sw	ja	es	intended_ordinary_sense
+music	muziki	音楽	música	organized musical sound
+job	kazi	仕事	trabajo	paid employment
+school	shule	学校	escuela	teaching institution
+food	chakula	食べ物	comida	edible substance
+family	familia	家族	familia	parents children related people
+life	maisha	人生	vida	living existence or lifetime
+home	nyumba	家	hogar	dwelling
+car	gari	車	coche	automobile
+country	nchi	国	país	nation
+cat	paka	猫	gato	domestic animal
+dog	mbwa	犬	perro	domestic animal
+day	siku	日	día	24 hour period
+year	mwaka	年	año	calendar year
+money	pesa	お金	dinero	currency
+book	kitabu	本	libro	bound written work
+pizza	piza	ピザ	pizza	food
+movie	filamu	映画	película	motion picture
+beach	pwani	ビーチ	playa	shore
+game	mchezo	ゲーム	juego	playful activity
+mom	mama	お母さん	mamá	mother
+name	jina	名前	nombre	identifying name
+night	usiku	夜	noche	dark part of day
+hair	nywele	髪	pelo	head hair
+football				ambiguous American versus association football; retain alternatives, no default
+house	nyumba	家	casa	dwelling building
+weather	hali ya hewa	天気	tiempo	atmospheric conditions
+idea	wazo	考え	idea	thought or plan
+person	mtu	人	persona	individual human
+week	wiki	週	semana	seven day period
+dad	baba	お父さん	papá	father
+wife	mke	妻	esposa	female spouse
+summer	kiangazi	夏	verano	summer season
+world	ulimwengu	世界	mundo	world
+art	sanaa	芸術	arte	creative arts
+drink	kinywaji	飲み物	bebida	beverage
+color	rangi	色	color	visual color
+team	timu	チーム	equipo	group working or playing together
+video	video	ビデオ	vídeo	video recording
+coffee	kahawa	コーヒー	café	beverage
+dance	dansi	ダンス	baile	dance activity
+exercise	mazoezi	運動	ejercicio	physical fitness activity
+farm	shamba	農場	granja	agricultural place
+hobby	hobi	趣味	afición	leisure interest
+man	mwanaume	男	hombre	adult male human
+chicken	kuku	鶏	pollo	bird or its meat
+fish	samaki	魚	pez	fish animal; prepared food counterpart differs in Spanish
+friend	rafiki	友達	amigo	friend
+water	maji	水	agua	water
+city	jiji	都市	ciudad	large town
+teacher	mwalimu	先生	profesor	person teaching
+business	biashara	事業	negocio	commercial activity
+chocolate	chokoleti	チョコレート	chocolate	food
+store	duka	店	tienda	retail place
+experience	uzoefu	経験	experiencia	experience gained or event
+son	mwana	息子	hijo	male child of parent
+weekend	wikendi	週末	fin de semana	end of week
+state				political state versus condition unresolved
+walk	matembezi	散歩	paseo	walking excursion
+shop	duka	店	tienda	retail place
+winter	majira ya baridi	冬	invierno	cold season
+brother	kaka	兄弟	hermano	male sibling
+meat	nyama	肉	carne	animal flesh food
+mother	mama	母	madre	female parent
+restaurant	mkahawa	レストラン	restaurante	eating establishment
+steak	steki	ステーキ	bistec	cut of meat
+husband	mume	夫	marido	male spouse
+ocean	bahari	海洋	océano	large sea
+outdoors	nje	屋外	aire libre	outside environment
+problem	tatizo	問題	problema	difficulty
+swimming	kuogelea	水泳	natación	swimming activity
+animal	mnyama	動物	animal	nonhuman animal
+cheese	jibini	チーズ	queso	food
+hiking		ハイキング	senderismo	recreational walking
+kid	mtoto	子供	niño	child
+park	bustani	公園	parque	public green area
+pet	kipenzi	ペット	mascota	kept companion animal
+study	masomo	勉強	estudio	learning activity
+girl	msichana	女の子	niña	female child or young woman
+luck	bahati	運	suerte	fortune
+snow	theluji	雪	nieve	frozen precipitation
+cake	keki	ケーキ	pastel	dessert
+career	kazi	職業	carrera	professional life
+child	mtoto	子供	niño	child
+garden	bustani	庭	jardín	garden
+soccer	mpira wa miguu	サッカー	fútbol	association football
+yoga	yoga	ヨガ	yoga	practice
+rain	mvua	雨	lluvia	precipitation
+trip	safari	旅行	viaje	journey
+vacation	likizo	休暇	vacaciones	time away from work
+father	baba	父	padre	male parent
+genre	aina	ジャンル	género	art category
+science	sayansi	科学	ciencia	systematic knowledge
+shopping		買い物	compras	shopping activity
+beer	bia	ビール	cerveza	beverage
+party	sherehe	パーティー	fiesta	social celebration
+sister	dada	姉妹	hermana	female sibling
+song	wimbo	歌	canción	musical song
+sport	mchezo	スポーツ	deporte	sport
+baby	mtoto	赤ちゃん	bebé	infant
+future	mustakabali	未来	futuro	time to come
+health	afya	健康	salud	wellbeing
+month	mwezi	月	mes	calendar month; Japanese duration realization requires separate counter form
+nature	asili	自然	naturaleza	natural world
+pasta	pasta	パスタ	pasta	food
+age	umri	年齢	edad	age in years
+baseball	besiboli	野球	béisbol	sport
+basketball	mpira wa kikapu	バスケットボール	baloncesto	sport
+boy	mvulana	男の子	niño	male child
+chance	nafasi	機会	oportunidad	opportunity
+lake	ziwa	湖	lago	body of water
+law	sheria	法律	ley	legal rule
+reason	sababu	理由	razón	cause or explanation
+truck	lori	トラック	camión	large vehicle
+area	eneo	地域	zona	geographic area
+coast	pwani	海岸	costa	shore
+company	kampuni	会社	empresa	business organization
+guitar	gitaa	ギター	guitarra	instrument
+gym		ジム	gimnasio	exercise facility
+jazz	jazi	ジャズ	jazz	music genre
+list	orodha	リスト	lista	ordered collection
+milk	maziwa	牛乳	leche	milk
+morning	asubuhi	朝	mañana	first part of day
+mountains	milima	山	montañas	plural landform; require explicit source and target plural or number neutral realization
+stress	msongo	ストレス	estrés	psychological pressure
+training	mafunzo	訓練	entrenamiento	practice instruction
+wine	divai	ワイン	vino	beverage
+boat	mashua	ボート	barco	vessel
+character				fictional person versus personality versus written symbol unresolved
+history	historia	歴史	historia	past events
+meal	mlo	食事	comida	meal
+sleep	usingizi	睡眠	sueño	sleep state
+town	mji	町	pueblo	town
+train	treni	列車	tren	rail vehicle
+degree				academic qualification versus temperature/angle unit unresolved
+dish				prepared food versus plate unresolved
+fashion	mitindo	ファッション	moda	clothing style
+fiction	tamthiliya	フィクション	ficción	imagined narrative
+god	mungu	神	dios	deity
+grade				school level versus mark unresolved
+hockey	hoki	ホッケー	hockey	sport
+paint	rangi	ペンキ	pintura	pigment material
+season	msimu	季節	estación	season of year
+subject				topic versus school discipline versus grammar role unresolved
+tea	chai	お茶	té	beverage
+anime	anime	アニメ	anime	animation genre
+boyfriend	mpenzi	彼氏	novio	male romantic partner
+breakfast	kiamsha kinywa	朝食	desayuno	morning meal
+ice	barafu	氷	hielo	frozen water
+library	maktaba	図書館	biblioteca	book collection institution
+piano	piano	ピアノ	piano	instrument
+singer	mwimbaji	歌手	cantante	person singing
+student	mwanafunzi	学生	estudiante	learner
+vet	daktari wa mifugo	獣医	veterinario	animal doctor
+volunteer	mjitolea	ボランティア	voluntario	unpaid willing worker
+artist	msanii	芸術家	artista	artist
+ball	mpira	ボール	pelota	spherical play object
+bike	baiskeli	自転車	bicicleta	bicycle
+cream	krimu	クリーム	nata	dairy cream; cosmetic alternative retained
+doctor	daktari	医者	médico	medical practitioner
+girlfriend	mpenzi	彼女	novia	female romantic partner
+grocery				grocery shop versus food items unresolved
+heart	moyo	心臓	corazón	organ; emotion metaphor separate
+horse	farasi	馬	caballo	animal
+metal	chuma	金属	metal	material
+race				competition versus ethnicity unresolved
+space				outer space versus room/area unresolved
+story	hadithi	物語	historia	narrative
+university	chuo kikuu	大学	universidad	higher education institution
+army	jeshi	軍隊	ejército	military force
+body	mwili	体	cuerpo	physical body
+candy	pipi	飴	caramelo	sweet food
+choice	chaguo	選択	elección	selection
+class	darasa	授業	clase	school lesson
+club	klabu	クラブ	club	association
+computer	kompyuta	コンピューター	ordenador	computer
+culture	utamaduni	文化	cultura	shared customs
+dinner	chakula cha jioni	夕食	cena	evening meal
+fruit	matunda	果物	fruta	fruit
+math	hisabati	数学	matemáticas	mathematics
+office	ofisi	事務所	oficina	workplace
+room	chumba	部屋	habitación	room in building
+service	huduma	サービス	servicio	service
+sun	jua	太陽	sol	star
+sushi	sushi	寿司	sushi	food
+technology	teknolojia	技術	tecnología	technology
+air	hewa	空気	aire	atmosphere
+apple	tufaha	りんご	manzana	fruit
+attention	makini	注意	atención	mental focus
+bar	baa	バー	bar	drinking establishment
+bed	kitanda	ベッド	cama	sleeping furniture
+blood	damu	血	sangre	body fluid
+clothes	nguo	服	ropa	clothing
+crime	uhalifu	犯罪	delito	criminal act
+cup	kikombe	カップ	taza	drinking vessel
+daughter	binti	娘	hija	female child of parent
+diet	lishe	食事	dieta	usual nutrition
+dress	gauni	ドレス	vestido	clothing
+face	uso	顔	cara	body part
+fact	ukweli	事実	hecho	fact
+issue				problem versus edition versus matter unresolved
+oil	mafuta	油	aceite	oily liquid
+pie	pai	パイ	tarta	food
+profession	taaluma	職業	profesión	occupation
+respect	heshima	尊敬	respeto	regard
+sea	bahari	海	mar	body of salt water
+spaghetti	spageti	スパゲッティ	espagueti	food
+star	nyota	星	estrella	celestial object
+street	barabara	通り	calle	urban road
+talent	kipaji	才能	talento	aptitude
+action	kitendo	行動	acción	act
+author	mwandishi	著者	autor	writer
+beef	nyama ya ng'ombe	牛肉	carne de res	food
+bread	mkate	パン	pan	food
+channel				television channel versus waterway unresolved
+church	kanisa	教会	iglesia	Christian institution/building
+comedy	vichekesho	喜劇	comedia	comedy
+engineering	uhandisi	工学	ingeniería	engineering
+film	filamu	映画	película	motion picture
+group	kundi	グループ	grupo	collection of people/things
+king	mfalme	王	rey	male monarch
+language	lugha	言語	idioma	language
+line				queue versus drawn line versus verse unresolved
+news	habari	ニュース	noticias	news
+passion	shauku	情熱	pasión	strong enthusiasm
+program	programu	プログラム	programa	organized program
+puppy	mbwa mdogo	子犬	cachorro	young dog
+salad	saladi	サラダ	ensalada	food
+shape	umbo	形	forma	outline
+theater	ukumbi wa michezo	劇場	teatro	performance venue
+track				path versus recording versus racecourse unresolved
+bacon	bekoni	ベーコン	beicon	food
+cruise		クルーズ	crucero	leisure voyage
+date				calendar day versus romantic meeting versus fruit unresolved
+distance	umbali	距離	distancia	spatial distance
+door	mlango	ドア	puerta	entrance barrier
+driver	dereva	運転手	conductor	vehicle operator
+heat	joto	熱	calor	high temperature
+holiday	likizo	休暇	vacaciones	period off work; public holiday separate
+human	binadamu	人間	ser humano	human being
+insurance	bima	保険	seguro	insurance
+mountain	mlima	山	montaña	landform
+opinion	maoni	意見	opinión	view
+pool	bwawa	プール	piscina	swimming pool
+position				location versus job versus stance unresolved
+research	utafiti	研究	investigación	investigation
+sauce	mchuzi	ソース	salsa	food
+shrimp	kamba	エビ	gamba	animal/food
+soda	soda	ソーダ	refresco	soft drink
+system	mfumo	システム	sistema	organized system
+wedding	harusi	結婚式	boda	marriage ceremony
+advice	ushauri	助言	consejo	guidance
+album	albamu	アルバム	álbum	collection of music/images
+alcohol	pombe	アルコール	alcohol	alcohol
+apartment	fleti	アパート	apartamento	dwelling
+bank	benki	銀行	banco	financial institution; riverbank remains risk
+birthday	siku ya kuzaliwa	誕生日	cumpleaños	birth anniversary
+butter	siagi	バター	mantequilla	food
+campus	kampasi	キャンパス	campus	university grounds
+energy	nishati	エネルギー	energía	capacity/energy
+event	tukio	出来事	evento	event
+grandmother	bibi	祖母	abuela	grandparent
+hand	mkono	手	mano	body part
+head	kichwa	頭	cabeza	body part
+horror	hofu	恐怖	horror	fear
+hour	saa	時間	hora	sixty minutes
+lunch	chakula cha mchana	昼食	almuerzo	midday meal
+marathon	marathoni	マラソン	maratón	long race
+nurse	muuguzi	看護師	enfermero	medical professional
+politics	siasa	政治	política	politics
+radio	redio	ラジオ	radio	broadcast medium
+rap		ラップ	rap	music genre
+rent	kodi	家賃	alquiler	payment for property use
+seafood		魚介類	marisco	food from sea
+shelter	makazi	避難所	refugio	protective place
+ski	ski	スキー	esquí	sports equipment
+tattoo	chale	入れ墨	tatuaje	body marking
+therapy	tiba	療法	terapia	treatment
+turtles	kasa	亀	tortugas	plural animal; attested forms required
+violin	fidla	バイオリン	violín	instrument
+voice	sauti	声	voz	vocal sound
+war	vita	戦争	guerra	armed conflict
+weight	uzito	重さ	peso	weight
+writer	mwandishi	作家	escritor	writer
+zoo	bustani ya wanyama	動物園	zoológico	animal park
+apples	matufaha	りんご	manzanas	plural fruit; attested forms required
+benefits	faida	利益	beneficios	advantages; attested forms required
+burger	baga	ハンバーガー	hamburguesa	food
+caffeine	kafeini	カフェイン	cafeína	stimulant
+case				instance versus container versus legal case unresolved
+cause	sababu	原因	causa	causal reason
+comic		漫画	cómic	illustrated narrative
+community	jamii	地域社会	comunidad	community
+conversation	mazungumzo	会話	conversación	talk
+cricket				sport versus insect unresolved
+death	kifo	死	muerte	end of life
+difference	tofauti	違い	diferencia	dissimilarity
+divorce	talaka	離婚	divorcio	end of marriage
+doubt	shaka	疑い	duda	uncertainty
+dragon	joka	竜	dragón	mythical animal
+effort	juhudi	努力	esfuerzo	exertion
+finance	fedha	財政	finanzas	financial matters
+foot	mguu	足	pie	body part
+heights				plural height versus elevated places; no target form yet
+information	taarifa	情報	información	information
+joke	utani	冗談	broma	humorous remark
+league	ligi	リーグ	liga	sports association
+lobster	kamba	ロブスター	langosta	crustacean
+management	usimamizi	管理	gestión	management
+media	vyombo vya habari	メディア	medios	communication media
+model				person versus representation versus product type unresolved
+museum	makumbusho	博物館	museo	institution
+nails				fingernails versus fasteners unresolved
+peace	amani	平和	paz	peace
+picture	picha	写真	foto	photograph; drawing alternative risk
+plane	ndege	飛行機	avión	aircraft
+pressure	shinikizo	圧力	presión	pressure
+project	mradi	プロジェクト	proyecto	planned work
+question	swali	質問	pregunta	query
+recipe	mapishi	レシピ	receta	cooking instructions
+ring	pete	指輪	anillo	jewelry
+road	barabara	道路	carretera	road
+scenery	mandhari	景色	paisaje	view
+schedule	ratiba	予定	horario	planned timing
+shower	bafu	シャワー	ducha	washing shower
+society	jamii	社会	sociedad	society
+truth	ukweli	真実	verdad	truth
+turkey	bata mzinga	七面鳥	pavo	bird; country protected by capitalization
+window	dirisha	窓	ventana	window
+actress	mwigizaji	女優	actriz	female actor
+adventure	matukio	冒険	aventura	adventure
+ballet	bale	バレエ	ballet	dance form
+beauty	uzuri	美しさ	belleza	beauty
+good	mzuri	良い	bueno	positive quality; specific fit/flavor alternatives retained
+great		素晴らしい	genial	excellent; size alternative retained
+nice	nzuri	素敵	agradable	pleasant; kindness alternative retained
+fun		楽しい	divertido	enjoyable
+cool				temperature versus approving evaluation unresolved
+sure		確か	seguro	certain
+right		正しい	correcto	correct; directional alternative retained
+kind		親切	amable	considerate
+pretty		可愛い	bonito	attractive; degree adverb must be rejected
+long		長い	largo	extended length/duration
+best	bora	最高	mejor	superlative good
+awesome		素晴らしい	genial	excellent
+hard		難しい	difícil	difficult; physical hardness alternative retained
+old			viejo	aged or longstanding; Japanese person versus object distinction unresolved
+big	kubwa	大きい	grande	large
+true	kweli	本当	verdadero	factually true
+new	pya	新しい	nuevo	recently created
+interesting		面白い	interesante	holding interest
+bad	mbaya	悪い	malo	poor quality
+better	bora	より良い	mejor	comparative good
+different	tofauti	違う	diferente	not the same
+little	ndogo	小さい	pequeño	small size
+sorry				apology versus regrettable quality requires construction
+amazing		すごい	asombroso	causing amazement
+beautiful	zuri	美しい	hermoso	attractive
+high		高い	alto	elevated; drug state alternative retained
+able		有能	capaz	capable; can/to-complement construction separate
+free	huru	自由	libre	unconstrained; no-cost sense separate
+important	muhimu	重要	importante	significant
+cold	baridi		frío	low temperature; Japanese weather/object distinction unresolved
+local		地元	local	nearby region
+real		本当	real	genuine
+hot			caliente	high temperature; Japanese weather/object distinction unresolved
+funny		面白い	gracioso	amusing; strange sense alternative retained
+married		既婚	casado	having spouse
+busy		忙しい	ocupado	occupied with activity
+easy	rahisi	簡単	fácil	not difficult
+small	ndogo	小さい	pequeño	small size
+sweet	tamu	甘い	dulce	sweet taste; kind-person metaphor retained
+glad		嬉しい	contento	pleased
+red	nyekundu	赤い	rojo	color
+near	karibu	近い	cercano	close in distance
+whole	zima	全体	entero	complete
+online		オンライン	en línea	connected to network
+happy		幸せ	feliz	feeling happiness
+lucky		幸運	afortunado	fortunate
+cute		可愛い	lindo	endearing
+delicious	tamu	美味しい	delicioso	good tasting
+tough				difficult versus strong versus resilient unresolved
+classic		古典的	clásico	established classic
+crazy				mental illness versus enthusiastic versus unreasonable unresolved
+expensive	ghali	高い	caro	high cost
+relaxing			relajante	causing relaxation
+black	nyeusi	黒い	negro	color
+exciting			emocionante	causing excitement
+blue	buluu	青い	azul	color
+full	jaa	いっぱい	lleno	filled
+wonderful		素晴らしい	maravilloso	excellent
+perfect		完璧	perfecto	flawless
+difficult	gumu	難しい	difícil	hard to do
+fast	haraka	速い	rápido	moving rapidly
+young	changa	若い	joven	not old
+healthy		健康	sano	in good health
+alone	peke	独り	solo	without others
+boring		退屈	aburrido	not interesting
+fresh		新鮮	fresco	fresh food or air; new/novel sense retained
+neat				tidy versus approving evaluation unresolved
+short	fupi	短い	corto	short extent or duration
+special	maalum	特別	especial	distinctive
+afraid			asustado	fearful
+sad		悲しい	triste	unhappy
+weird		変	raro	strange
+wrong		間違い	incorrecto	not correct
+allergic		アレルギー性	alérgico	having allergy
+green	kijani	緑	verde	color
+huge	kubwa	巨大	enorme	very large
+lost				unable to find way versus missing versus defeated unresolved
+fine				well versus thin/delicate versus acceptable unresolved
+scared			asustado	fearful
+social		社会的	social	relating to society/interaction
+early	mapema	早い	temprano	before usual time
+honest		正直	honesto	truthful
+lovely		素敵	encantador	pleasant attractive
+major		主要	principal	important or main
+late		遅い	tardío	after expected time; deceased sense retained
+professional		専門的	profesional	professional
+quiet	kimya	静か	tranquilo	little noise/activity
+retired			jubilado	no longer working
+rough				not smooth versus difficult versus approximate unresolved
+stressful			estresante	causing stress
+cheap	rahisi	安い	barato	low cost
+clean	safi	清潔	limpio	free of dirt
+dark	giza	暗い	oscuro	little light
+fair				just versus pale versus moderate unresolved
+jealous		嫉妬深い	celoso	envious/possessive
+smart		賢い	inteligente	intelligent
+vegetarian		菜食主義	vegetariano	avoiding meat
+warm			cálido	moderately hot; Japanese atmosphere/touch distinction unresolved
+fantastic		素晴らしい	fantástico	excellent
+large	kubwa	大きい	grande	large size
+peaceful		平和	pacífico	free of conflict
+tasty	tamu	美味しい	sabroso	good tasting
+unique	pekee	独特	único	one of a kind
+younger		若い	menor	comparative young; morphology needed
+brown	kahawia	茶色	marrón	color
+excited			emocionado	feeling excitement
+finished			terminado	completed
+fit				healthy versus suitable versus correctly sized unresolved
+interested			interesado	having interest
+popular		人気	popular	widely liked
+possible		可能	posible	can occur
+ready	tayari	準備ができた	listo	prepared
+simple	rahisi	簡単	sencillo	not complex
+single				one versus unmarried unresolved
+tall	refu	背が高い	alto	great height
+understandable			comprensible	can be understood
+general		一般的	general	not specific
+golden		金色	dorado	gold colored
+safe	salama	安全	seguro	free from danger
+scary		怖い	aterrador	causing fear
+active		活発	activo	active
+adorable		可愛い	adorable	endearing
+deep	kina	深い	profundo	great depth
+human		人間の	humano	human adjective; noun has separate target binding
+male	kiume	男性	masculino	male
+opposite		反対	opuesto	opposing
+organic		有機	orgánico	organic; food vs chemistry sense retained
+pink	waridi	ピンク	rosa	color
+related			relacionado	connected
+rich	tajiri	裕福	rico	wealthy; rich flavor alternative retained
+tired		疲れた	cansado	needing rest
+adopted			adoptado	adopted; familial/legal context retained
+excellent		素晴らしい	excelente	very good
+famous	maarufu	有名	famoso	widely known
+friendly		親切	amistoso	amicable
+hungry		空腹	hambriento	needing food
+lazy	vivu	怠惰	perezoso	avoiding effort
+medical		医学的	médico	relating to medicine
+national		全国的	nacional	relating to nation
+nervous			nervioso	anxious
+regular				usual versus scheduled versus even pattern unresolved
+similar		似ている	similar	alike
+alive	hai	生きている	vivo	living
+blonde		金髪	rubio	light hair
+bright		明るい	brillante	giving light; intelligent/cheerful alternatives retained
+low		低い	bajo	small height/level
+odd		変	extraño	strange; numerical odd separate
+original		独創的	original	innovative; first/original version separate
+outdoor		屋外	al aire libre	outside buildings
+personal		個人的	personal	relating to individual
+physical		身体的	físico	bodily; material/physics alternatives retained
+poor	maskini	貧しい	pobre	lacking money; poor quality separate
+positive				optimistic versus affirmative versus test result unresolved
+sick	mgonjwa	病気	enfermo	ill
+specific	maalum	特定	específico	particular
+spicy		辛い	picante	hot flavored
+strong	imara	強い	fuerte	having strength
+crowded			concurrido	full of people
+current		現在の	actual	present
+ended			terminado	finished
+heavy	zito	重い	pesado	great weight
+natural	asili	自然	natural	not artificial
+serious		真剣	serio	earnest; severe/dangerous alternative retained
+shy		内気	tímido	timid
+worried		心配	preocupado	anxious
+yummy	tamu	美味しい	rico	good tasting
+college	chuo	大学		institution of higher education; Spanish institution distinction unresolved
+terrible	mbaya	ひどい	terrible	very bad

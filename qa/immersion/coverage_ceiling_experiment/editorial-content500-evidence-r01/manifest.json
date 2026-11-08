@@ -1,0 +1,250 @@
+{
+  "schema": "vipi.editorial500.retained-evidence.r01",
+  "production": false,
+  "semantic_acceptance": false,
+  "files": [
+    {
+      "file": "editorial-source-seed-r01.json.gz",
+      "bytes": 4383,
+      "sha256": "6fe92dd40cd64e18c1a39e47df369ed1c74dbd71667bac2d08a93ccde9b698ed",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-source-seed-r01.json",
+      "source_bytes": 8429,
+      "source_sha256": "6e4c6a10ee7096b46eed78d8a8163f8943d715097517a3ea1f6b8308ad383317",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-source-selection-r01.json.gz",
+      "bytes": 21250,
+      "sha256": "35bb7bbf1d57fd7deb1e7aa5f369e8260d6e99d77479fc3a284ac7ba03b81b03",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-source-selection-r01.json",
+      "source_bytes": 275671,
+      "source_sha256": "a0f6fdbda25b81f7222a31802131155a10e2c1d50c7a17fb41b647a33ad0a649",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-preferences500-r01.tsv",
+      "bytes": 22788,
+      "sha256": "f2464707c6e8d632216bb260c328464fc513a7432a0a824d377908ead1d30aa2",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-preferences500-r01.tsv",
+      "source_bytes": 22788,
+      "source_sha256": "f2464707c6e8d632216bb260c328464fc513a7432a0a824d377908ead1d30aa2",
+      "already_compressed": false,
+      "retained_raw": true
+    },
+    {
+      "file": "editorial-target-alternatives500-r01.json.gz",
+      "bytes": 905527,
+      "sha256": "3b9decf82f37c4a6d6648d0acbba54a8c7071dd6a5ef507c149bef9991aa3038",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-alternatives500-r01.json.gz",
+      "source_bytes": 905527,
+      "source_sha256": "3b9decf82f37c4a6d6648d0acbba54a8c7071dd6a5ef507c149bef9991aa3038",
+      "already_compressed": true,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-jmdict-target-records500-r01.json.gz",
+      "bytes": 45872,
+      "sha256": "385355c26507f29c04eba4f48abb6cb9a41a62f190c5504f1fe320f670567b4c",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-jmdict-target-records500-r01.json.gz",
+      "source_bytes": 45872,
+      "source_sha256": "385355c26507f29c04eba4f48abb6cb9a41a62f190c5504f1fe320f670567b4c",
+      "already_compressed": true,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-japanese-primary-choices500-r01.json.gz",
+      "bytes": 41772,
+      "sha256": "9d5d5c2484e8179ee69ea72f966a02832e6ed0a18b151039337dfc6b87d42cd3",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-japanese-primary-choices500-r01.json",
+      "source_bytes": 671852,
+      "source_sha256": "f54187012492161ef98fb3fc44762447dbdd0de6f492234e9d131e32e7190511",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-primary-read-closure-r01.json.gz",
+      "bytes": 855,
+      "sha256": "9ddec1b1e25773abd1811cb63bfadd7d84095fac0614edd1bd3877c0a9fd4513",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-primary-read-closure-r01.json",
+      "source_bytes": 1858,
+      "source_sha256": "b39587a90c603dbe6ae09620e8000811f2b7eaba9714416698b90aac75537eaf",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-primary-request500-r01.json.gz",
+      "bytes": 11360,
+      "sha256": "bd90ffc72b5a613db4f93b8728ced2879023fab2844809b78b249a61834d1321",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-primary-request500-r01.json",
+      "source_bytes": 80701,
+      "source_sha256": "b972d0921df254e04518e6825263b941630990606fd39c5c9e4802a6718f7bb8",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-supplemental-request500-r03.json.gz",
+      "bytes": 3283,
+      "sha256": "1b728f03f217f8fe26a3b24756c103e0685abacb56ff4cc7a2d8d6d4c812a021",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-supplemental-request500-r03.json",
+      "source_bytes": 41359,
+      "source_sha256": "1ab83476843168ab487eedc690aed1c4ce251f92b760f2ef8c91aba82fd4f97d",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-candidate-r01.json.gz",
+      "bytes": 450624,
+      "sha256": "b8f64e7d59c8b2603b3a408440004066685ceca72017dcc3d660e5942135254f",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-candidate-r01.json",
+      "source_bytes": 6765602,
+      "source_sha256": "9de4a7ef6651e95a571f66b2fa3f59ed084dc6d36232bcd61660f85330d282bc",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-evaluation-freeze-r01.json.gz",
+      "bytes": 1380,
+      "sha256": "fdfa862dbf4d225b5f15c8afda21b45cb8d36601d6e7fa86067ae36617666317",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-evaluation-freeze-r01.json",
+      "source_bytes": 3246,
+      "source_sha256": "5bb404e4f3fda9fbfb10ddd7ad338042aeba710878f41d49fa08f2e2afd02f94",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-TRAIN-output-r01.json.gz",
+      "bytes": 3805412,
+      "sha256": "5e4c50c13b99a95fa7851540248bac780c68f393fe2a2ae127ed29aa396442b2",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-TRAIN-output-r01.json",
+      "source_bytes": 69151570,
+      "source_sha256": "9cfc772d35183610809672770f8b83c80449b1fd5f2dd887a09d2d1653b411ac",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-independent96-review-r01.json.gz",
+      "bytes": 97326,
+      "sha256": "7b86b1f01f3246c11b87c49526c1b918958a54a6164a88b5bcb819852858dab2",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-independent96-review-r01.json",
+      "source_bytes": 807823,
+      "source_sha256": "0f15af0047b2bec93a2da8490dd88412948922fa6b60d6ebfff56f59ef375a32",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-author-review-r01.json.gz",
+      "bytes": 11600,
+      "sha256": "2b063fe13db38b812dac96877613390666412fc37ab0dac7dbfa08330d5aeb6e",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-author-review-r01.json",
+      "source_bytes": 61398,
+      "source_sha256": "312a6e6f538b81d03723c2c7c91cdce1ebb6d7d06f115053765dc576a44e26d8",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-independent-root-review-r01.json.gz",
+      "bytes": 6812,
+      "sha256": "7b4864df22946071347b26f892eebed070ea60a62ca3ab37ffe991e8eb33c4ca",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-independent-root-review-r01.json",
+      "source_bytes": 57576,
+      "source_sha256": "d9f8a42a5936de1957f9d5e92ee5a09312fb546f9b60bb2a0bae48765ee53a6a",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-content500-joined-decision-r01.json.gz",
+      "bytes": 34042,
+      "sha256": "95219dae4fcb20b3aace91fef3441835909b321a422e3bda7d50c9d6f2fe8586",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-content500-joined-decision-r01.json",
+      "source_bytes": 411811,
+      "source_sha256": "74cce7816f76af71be76346d15a7f0af4163e7d299f0852dad991bd58d152176",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-primary500-r01/selected-native-targets.json.gz",
+      "bytes": 121294,
+      "sha256": "3a3c9858c5b62acf74308261aa34d6464460b6d9053cfd0b2fe22c77bd26558b",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-primary500-r01/selected-native-targets.json.gz",
+      "source_bytes": 121294,
+      "source_sha256": "3a3c9858c5b62acf74308261aa34d6464460b6d9053cfd0b2fe22c77bd26558b",
+      "already_compressed": true,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-primary500-r02/selected-native-targets.json.gz",
+      "bytes": 28567,
+      "sha256": "49d820b858688363a27e7d608e7ec9ec2da694696bc1bee90cf99c8ec70a8236",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-primary500-r02/selected-native-targets.json.gz",
+      "source_bytes": 28567,
+      "source_sha256": "49d820b858688363a27e7d608e7ec9ec2da694696bc1bee90cf99c8ec70a8236",
+      "already_compressed": true,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-primary500-r01/failed-read-r01.json.gz",
+      "bytes": 441,
+      "sha256": "0c81d465c2b7a4e6a4d24b13173e3d158aaaaa64c7af18b44b6e00fe8fe91119",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-primary500-r01/failed-read-r01.json",
+      "source_bytes": 744,
+      "source_sha256": "7e6aa33d3c505181cdd72893f4e5e968a5c2ea49770513c9cf6f16c8519d2629",
+      "already_compressed": false,
+      "retained_raw": false
+    },
+    {
+      "file": "editorial-target-primary500-r01/isolated-open-failure-r01.json.gz",
+      "bytes": 274,
+      "sha256": "92b97230e64dc82534e18976b2f2d8d884f2b58322f4ae5b74f3a73fc236c29b",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-target-primary500-r01/isolated-open-failure-r01.json",
+      "source_bytes": 411,
+      "source_sha256": "eb5a661ef13ba5776f6d0176e3bf44c6aa1705a4f92ba7dc23735fb7cf553ad5",
+      "already_compressed": false,
+      "retained_raw": false
+    }
+  ],
+  "retained_input_dependencies": [
+    {
+      "path": "../scaled-content-evidence-r01/selected-native-senses.json.gz",
+      "sha256": "327f1fd02f2623ddadf6071ea93f81d28dd61a7968e8f3dcf1d1740cca9fd4ac",
+      "role": "Exact raw source primary entries/senses"
+    },
+    {
+      "path": "../scaled-content-evidence-r01/source-inventory.json.gz",
+      "decompressed_sha256": "809eaf1e5fd97bafff792fcbe7b0f89536c389b6f70a67c64d29d0d45a5e9e63",
+      "role": "Attested complete source forms and lexical IDs"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/train.json",
+      "sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+      "role": "Full licensed TRAIN source, already retained separately; all9535 eligible turns and all output/review text retained in output"
+    },
+    {
+      "path": "../role-content-candidate-r02.json",
+      "role": "Authoritative existing source grouping and learned-family order; exact hash in candidate"
+    },
+    {
+      "path": "../content-expansion-candidate-r01.json",
+      "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+      "role": "Old reviewed research control, NOT native production runtime"
+    }
+  ],
+  "source_licenses": [
+    "Wiktionary contributors; exact retained Kaikki/wiktextract native records, CC BY-SA4.0, per-entry URLs and IDs retained.",
+    "EDRDG JMdict, CC BY-SA4.0; selected exact spelling/reading/sense records retained. Full original archive SHA490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d retained in parent evidence.",
+    "BST/ParlAI source conversations CC BY4.0; notices in ../evaluation-data-licenses."
+  ],
+  "reproduction": [
+    "Uncompress each new file to source basename in an isolated evidence-dir layout shown by source_path (preserve originally-compressed files as gzip). Reuse existing raw-source/source-inventory dependencies, baseline and frozen scripts.",
+    "build_editorial_content500_r01.py --evidence-dir E --output NEW_CANDIDATE validates primary extraction completeness and reproduces frozen candidate bytes from the exact input files.",
+    "evaluate_editorial_content500_r01.py --candidate CANDIDATE --train TRAIN --contrasts editorial-content-contrasts-r01.json --freeze FREEZE --output NEW_OUTPUT enforces input hashes. Outputs contain elapsed_seconds so semantic content is reproducible, not byte-identical wall time.",
+    "No archive re-read, model call or native build is required to inspect or replay these frozen candidate outputs."
+  ],
+  "limitations": [
+    "Unqualified candidate: wrong selected sense-proof indexing, contextual sense/compound errors and over-conservative common guards are explicitly retained.",
+    "500 source/POS editorial rows yielded1140 target mappings; unselected remainder616 POS pairs remains queued, not silently rejected.",
+    "Current output is TRAIN diagnostic; no new holdout or product90% claim. No package activation or production data changed.",
+    "Transient selected SQLite read failures were followed by one state-changed exact-ID recovery; not proof of whole-archive corruption or repair."
+  ]
+}
