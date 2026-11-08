@@ -1,0 +1,43 @@
+{
+  "schema": "vipi.native-source-annotation-assessment.1",
+  "output_sha256": "27fb33481bc2f6e5abf673d0817a28369658057fc3e3aee0304019e2e04e062d",
+  "expectations_sha256": "191eb78e0cf07c3883520933542e127493da1aa746a1ef346823a740051129c8",
+  "comparison_sha256": "57f466767e3875daf52c416e2cd0af17619397e6ec3e926152a83bf40093035e",
+  "scope": "116 reused diagnostics;52 nominated coarse-role scopes plus2 same-POS sense and9 entity/literal scopes. Not population accuracy or whole-message qualification.",
+  "role_mapping": "Apple lexicalClass raw tags lowercased; exact UTF16 token boundaries required; no credit transferred between axes.",
+  "coarse_role": {
+    "matched": 51,
+    "total": 52,
+    "failed": [
+      {
+        "case_id": "corpus-context-059",
+        "focus": "hike",
+        "observed": "Noun",
+        "expected": "Verb",
+        "confidence": 0.5916671096512107
+      }
+    ]
+  },
+  "source_role_usefulness": [
+    "088 visit is Verb (0.9868883211919983), conflicting with the selected noun dictionary sense; this is potentially useful exclusion evidence.",
+    "Book and water noun/verb positive controls match expectations."
+  ],
+  "unresolved": [
+    "074 musical play is Verb; game-play alternatives also have verb POS.",
+    "089 degree too and058 degree/additive too are Adverb; labels do not discriminate meanings.",
+    "Fruits Baskets title unrecognized: Fruits Adjective, Baskets Noun, both NameType OtherWord. A POS veto of Fruits would be incidental, not proof of title protection.",
+    "GA Tech institution and Flash character are not recognized names; Tech remains noun and could still pass noun eligibility.",
+    "Bob is PersonalName but Burgers remains common noun; no full-title safety.",
+    "URL/email split into lexical/punctuation pieces; annotations supply no identifier protection."
+  ],
+  "entity_positive_controls": [
+    "Dorothy and Alice: PersonalName",
+    "USA: PlaceName"
+  ],
+  "context_limit": "Probe receives exact current message only. Prior dialogue is retained but not concatenated; intent conveyed only there is unavailable to the annotator.",
+  "confidence_limit": "Raw tagHypotheses confidence is retained, not calibrated semantic certainty. Lemma values of1 are not meaning confidence.",
+  "decision": "Useful bounded source-role evidence, insufficient general lexical/phrase qualification or production gate. Preserve explicit identifier masks and separately qualified entity/sense/target evidence. No expansion to9535 or runtime implementation follows from this assessment.",
+  "platform": "Version 26.6.2 (Build 25G83) macOS desktop VM only; no phone performance claim",
+  "private_outputs": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-source-annotations-r01/outputs.json",
+  "private_comparison": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-source-annotations-r01/expectation-comparison-r01.json"
+}

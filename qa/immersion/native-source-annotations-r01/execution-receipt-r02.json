@@ -1,0 +1,85 @@
+{
+  "schema": "vipi.native-source-annotation-execution.1",
+  "original_blocker_retained": "receipt.json",
+  "status": "completed_after_exact_duplicate_retirement",
+  "source_freeze": {
+    "at": "2026-11-08T22:18:57.008621+00:00",
+    "before_native_outputs": true,
+    "files": {
+      "Probe.swift": "46493e876dff85707d72130217feaffe711f03e7b8b7a09c9e350dc8a5b30fd0",
+      "inputs.json": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14"
+    },
+    "command": [
+      "xcrun",
+      "swiftc",
+      "-num-threads",
+      "1",
+      "-module-cache-path",
+      "/Users/lume/Development/vipi-delivery-20261107-r01/core-build/arm64-apple-macosx/debug/ModuleCache",
+      "Probe.swift",
+      "-o",
+      "probe"
+    ],
+    "revision": 2,
+    "correction": "Use installed SDK Swift overlay signature; first compile produced no annotation outputs."
+  },
+  "validation": {
+    "files": {
+      "Probe.swift": "46493e876dff85707d72130217feaffe711f03e7b8b7a09c9e350dc8a5b30fd0",
+      "inputs.json": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+      "outputs.json": "27fb33481bc2f6e5abf673d0817a28369658057fc3e3aee0304019e2e04e062d",
+      "probe": "a832534ed738b89c45479b0c283abf5ce429fa2aa00bd333dc14b90411a44b91"
+    },
+    "allocated_bytes": 7753728,
+    "cases_verified": 116,
+    "original_id_text_and_utf16_substrings_verified": true,
+    "annotations_withheld_pending_root_expectation_freeze": true
+  },
+  "execution": {
+    "compile_exit": 0,
+    "compile_seconds": 1.304057917,
+    "compile_stderr": "",
+    "run_exit": 0,
+    "run_seconds": 0.883375542,
+    "run_stderr": ""
+  },
+  "capacity_admission": {
+    "at": "2026-11-08T22:17:17.663357+00:00",
+    "guest": {
+      "free_bytes": 617041920
+    },
+    "native": {
+      "free_bytes": 3164213248
+    },
+    "guest_required_bytes": 603979776,
+    "native_required_bytes": 1140850688,
+    "guest_pass": true,
+    "native_pass": true
+  },
+  "private_output_path": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-source-annotations-r01/outputs.json",
+  "output_sha256": "27fb33481bc2f6e5abf673d0817a28369658057fc3e3aee0304019e2e04e062d",
+  "os": "Version 26.6.2 (Build 25G83)",
+  "timing_ms": {
+    "first": 22.011375,
+    "median": 1.0746045,
+    "max": 22.011375,
+    "total": 146.849547
+  },
+  "process_rss_bytes": {
+    "max_observed_after": 37945344,
+    "lifetime_peak": 37945344
+  },
+  "rss_scope": "Whole process RSS sampled before/after each case; lifetime peak cumulative, not per-case isolated allocation.",
+  "initial_compile_failure": "Swift SDK overlay tagHypotheses returns tuple([String:Double],Range<String.Index>); corrected source before annotation run. First failure and source freeze retained privately.",
+  "retirement": {
+    "manifest_sha256": "e56bca9c3f5748357dc11c78e4e293f3f7937912818e38bc969928f08ab8cdaf",
+    "exact_relative_symlinks": 133,
+    "execution_receipt_sha256": "bc6964be68a270d3db99cad83f15ea70ba85bac62d15321398ad706090c95a6f",
+    "all_before_after_hashes_match": true
+  },
+  "limitations": [
+    "macOS desktop VM, not phone",
+    "No assets request, download, newSDK or app runtime change",
+    "No bilingual semantic labels altered; independently frozen source expectations compared separately."
+  ]
+}
