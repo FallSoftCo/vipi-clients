@@ -4,7 +4,7 @@ import VipiCore
 /// Optional native integration seam, inactive unless an owner supplies a
 /// verified catalog. No research file or default resource is loaded here.
 @MainActor struct SourceUnitLookup {
-    struct Context {
+    struct Context: Sendable {
         let original: String
         let pair: TranslationPair
         let density: Double
@@ -14,8 +14,9 @@ import VipiCore
     /// requires a new conversation owner; changing its knowledge snapshot uses
     /// configure(), which invalidates pending work and all cached presentations.
     let identity: String
-    let resolve: (Context) async throws -> PartialImmersionResult?
-    init(identity: String, resolve: @escaping (Context) async throws -> PartialImmersionResult?) {
+    typealias Resolver = @MainActor (Context) async throws -> PartialImmersionResult?
+    let resolve: Resolver
+    init(identity: String, resolve: @escaping Resolver) {
         precondition(!identity.isEmpty)
         self.identity = identity; self.resolve = resolve
     }

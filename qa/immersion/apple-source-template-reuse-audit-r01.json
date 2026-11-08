@@ -1,0 +1,77 @@
+{
+  "schema": "vipi-apple-source-template-reuse-audit-1",
+  "state": "comparative_design_only_no_new_templates_activated",
+  "source_hashes": {
+    "ios/VipiCore/Sources/VipiCore/ContextMapping.swift": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+    "ios/VipiCore/Sources/VipiCore/ContextFrame.swift": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+    "ios/Vipi/ReviewedContextLookup.swift": "617eb6ee8fea98775b4b6463c5fe4dcdd6a617179959e7d806e96626b1b081ee",
+    "ios/Vipi/ReviewedFrameLookup.swift": "c002d6bbdc99737e171015685bae35a8d8a61a3431ce92b49b52056e35a08949",
+    "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384"
+  },
+  "existing_primitives": [
+    {
+      "component": "ContextMappingMatcher.focus",
+      "source_only": true,
+      "behavior": "Exact finite full-window matching; returns one unique sourcefocusrange",
+      "caps": {
+        "parts": 12,
+        "alternatives_per_slot": 32,
+        "states": 128,
+        "focus_utf16": 128,
+        "literal_or_slot_value_utf16": 256
+      },
+      "slots": "Unnamed enumerated strings, not named/typed bindings; unchanged slot bytes remain source text",
+      "not_present": [
+        "slot binding values in output",
+        "morphological analysis",
+        "target-template construction",
+        "general unknown-name placeholders"
+      ]
+    },
+    {
+      "component": "ContextMappingMatcher.entries",
+      "source_only": true,
+      "behavior": "Groups matching source focuses and rejects conflicting meanings; emits source-scoped VocabularyEntry with allowed targetfaces. Existing app laterrequires actual target witness.",
+      "cap_shortlist": 256,
+      "reuse_limit": "Existing target-dependent record approval is not retroactively source-only semantic approval."
+    },
+    {
+      "component": "ReviewedFrameLookup.windows",
+      "behavior": "Native word windows inside sentences,1–8words,≤256UTF16,≤4096total; no sentence-stop crossing; preserves exact source positions",
+      "reuse": "Build once and examine longest first in a separately frozen comparative arm; current dictionary return order is not a longest-match architecture."
+    },
+    {
+      "component": "ContextFrameMatcher",
+      "source_only": false,
+      "behavior": "Both source and targetwindows required; source meaning conflicts survive absent targetmatches. Must remain unchanged."
+    },
+    {
+      "component": "SourceUnitSelection",
+      "source_only": true,
+      "behavior": "Alreadyadmitted complete-word ranges; strict nativebudget/known filter/content-rank order/oneconcept/disjoint; existing presentation validation",
+      "reuse": "Output common partial DTO preserves stable slots/readings/speech; ranking is word-arm policy, not template specificity."
+    }
+  ],
+  "smallest_comparative_candidate": {
+    "whole_sentence": "Existing authored reference precedence unchanged",
+    "finite_template": "New explicitly reviewed source-context/focus targetface records may reuse ContextMappingMatcher.focus against bounded nativewindows; emit exactly one approved face/readings and explicit concept/provenance",
+    "morphology": "Only already attested complete source forms with explicit targetform binding; no inferred root/suffix rewriting",
+    "phrase_vs_word": "Freeze specificity/atomic source scopes separately from focusrange/cost. Qualifying fullphrase guards survive known/budgetdisplayineligibility so nestedwords cannot silently reinterpret idioms.",
+    "ambiguous_face": "No first-target choice; unresolved source meanings or targetface/readings conflict abstain",
+    "target_text": "Partial-only references; no fabricated complete translation or variable-dependent target grammar generation"
+  },
+  "requires_dataowner_freeze": [
+    "Exact eligible records and targets/readings/sourceapproval authority",
+    "Same realconversation inputs and negativecontrast corpus across arms",
+    "Named slot types if needed; finite allowed surface/binding relationships",
+    "Longestcontext/overlap/compound atomicity and budget policy",
+    "Selection/progression identity scope and allfailure outcomes"
+  ],
+  "qa_plan": [
+    "Reuse existing book/possessor/plural core fixtures as structural controls, not newlanguage-quality evidence",
+    "Run frozen source-only template vs word vs target-dependent baseline with identicaltext/sourcepair/density/knownsnapshot",
+    "Record matchedcontextrange, replacementfocusrange, nativecost, templateID, boundalternative IDs ifavailable, literal exclusions and reasons",
+    "No model/download or wholeapp rebuild until clean committedsnapshot and finalcontractready"
+  ],
+  "no_data_or_dependency_activation": true
+}

@@ -5,7 +5,7 @@
     "ios/VipiCore/Sources/VipiCore/SourceReferencePresentation.swift": "260cac9e49874d149d1ddc735507f126272dc5c7926cfccf6a0a4c140deb09e9",
     "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
     "ios/VipiCore/Tests/VipiCoreTests/SourceUnitSelectionTests.swift": "4c0beb5479ea1be767e26a27f1faac030eecefcadea9acdb4bdd36ee1a8c786e",
-    "ios/Vipi/SourceUnitLookup.swift": "bc5a21c2967048407af101855e080ce5bfad460006062cc0b42cd8b5a854d28e",
+    "ios/Vipi/SourceUnitLookup.swift": "93f630f7ee0fed12c793bc33ecf959b28768771deea8e4657223f65dc2726928",
     "ios/Vipi/ConversationImmersion.swift": "4acbde678c815bcaf7d0c1dd9c8fd868c7f462a392354a58258878655f0477e0",
     "ios/VipiCryptoTests/ConversationImmersionTests.swift": "f2fb203e31a7ceec88ba3cbf7960eea90adb401e73e3d6057b179abf4a20a998"
   },
@@ -52,5 +52,6 @@
     "No persisted learner model, exposure-based mastery or new controls.",
     "KnownIDs apply to reviewed source-unit family scope only; legacy targetalignment and authored sentence paths lack comparable IDs.",
     "Unqualified inherited source experiments remain untouched and excluded from future release snapshot."
-  ]
+  ],
+  "uncompiled_app_followup": "Context explicitly Sendable and Resolver explicitly MainActor; same intended orchestration, app compile still pending clean snapshot. Tested core files unchanged."
 }
