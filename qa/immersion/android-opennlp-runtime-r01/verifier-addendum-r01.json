@@ -1,0 +1,12 @@
+{
+  "frozen_at_utc": "2026-11-08T23:22:03.133020+00:00",
+  "before_any_native_model_output": true,
+  "verifier_sha256": "113741a95c6b05c67d7103bce6f4731c44a2bec32c57d6885eb1355bb6ab2fef",
+  "changes": [
+    "Bind pinned116and9535referencehashes",
+    "Assert frozen148IDs exactorder/all3passes",
+    "Independently verify originalUTF16sentence/token bytes",
+    "Report exactrawtags/ranges separatefrom1e-12POSscore tolerance",
+    "Label passwalltimeend-to-end includingBinder/ADBtransport"
+  ]
+}

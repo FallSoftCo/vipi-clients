@@ -1,0 +1,56 @@
+{
+  "schema": "vipi.android-opennlp-runtime-plan.r01",
+  "frozen_at_utc": "2026-11-08T23:09:52.949374+00:00",
+  "before_build_or_runtime": true,
+  "inputs_source_sha256": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+  "id_text_only_sha256": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266",
+  "cases": 148,
+  "review32_input_sha256": "8644ec214a61c2c23f5e3a020cf1325507468e555713caf3d57b8692d6fbf7c7",
+  "assets": {
+    "opennlp-tools-2.5.10.jar": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "slf4j-api-2.0.18.jar": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+    "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce",
+    "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a",
+    "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8"
+  },
+  "source_hashes": {
+    "gradle.properties": "4f5843b8c59f69032ee707af234216c900be8d8248ff85e0132b75fadc13af12",
+    "boot.py": "acf0ddd382f7a34fead93aa70be16633a3b46bf3b19807453c92b8cebd6187a9",
+    "prepare.py": "63ef9342706dbce1e813674a306b114d4d42a12f1bf6360a2209913450b5c10b",
+    "build.gradle.kts": "e5b4d8ef374ce9fcb50de81dc1e358e05a989501e3ace48a31698aeb14270f0b",
+    "settings.gradle.kts": "7840712e495225f013dc632f8a1e0d12e7c89a9f4f05c1e659d20a572712b4b8",
+    "app/proguard-rules.pro": "9c1490724169deb4e8c231d43a428905c431e500d6bd11455d2322b5b4272326",
+    "app/build.gradle.kts": "3b377629ed6af1979736d10219da24a12cad70a8887d70c1460132b80f3e6fc2",
+    "app/src/main/AndroidManifest.xml": "8e7d0efb098d45dfada64cb48448d01bec11f6acdd43f76d1aa0582172327380",
+    "app/src/main/java/co/fallsoft/vipi/opennlpqa/ProbeInstrumentation.java": "8960aed70218c3f79930a6fd3a02ee7c0e25ee5cdfa62d3980716c1710dbf9f5"
+  },
+  "scope": "Isolated Java Android QA package co.fallsoft.vipi.opennlpqa; debug then R8 optimized debug-signed qualification build; no production dependency/catalog change",
+  "runtime": "Reuse existing pocket_verify_api35 AVD on5620; no new AVD/disk/snapshot. Existing5584 untouched.",
+  "limits": {
+    "combined_additional_bytes": 402653184,
+    "build_growth_ceiling_bytes": 268435456,
+    "emulator_growth_ceiling_bytes": 134217728,
+    "free_floor_bytes": 8589934592,
+    "build_workers": 1,
+    "build_jvm_heap_mib": 384,
+    "emulator_cores": 1,
+    "emulator_requested_ram_mib": 2048,
+    "boot_seconds": 180,
+    "each_build_seconds": 240,
+    "each_runtime_seconds": 120
+  },
+  "admission_basis": "Retained small isolated harness app/build21.4MiB +.gradle0.6MiB.256MiB build and128MiB emulator startup are enforced ceilings, not claimed measured peak.38GiB hostRAM available.",
+  "network": "Offline Gradle; no INTERNET permission in QA package; model assets bundled, no model downloads; no shared network settings changed.",
+  "measurements": [
+    "exactUTF16/rawtags/rawscores vs same116 JVMreference",
+    "threepassesrepeat",
+    "model-load/per-pass timings",
+    "ownprocessVmHWM/VmRSS/PSS,Javaheapused/committed/max,nativeheap"
+  ],
+  "coverage_limits": [
+    "API35 x86_64 only",
+    "API28 andARM64 not qualified",
+    "No lexicalsense or genericNERapproval"
+  ],
+  "execution_state": "prepared"
+}

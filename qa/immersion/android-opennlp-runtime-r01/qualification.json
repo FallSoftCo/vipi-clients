@@ -1,0 +1,190 @@
+{
+  "schema": "vipi.android-opennlp-runtime-qualification.r01",
+  "status": "debug_and_optimized_R8_native_parity_passed",
+  "platform": {
+    "device": "existingemulator-5620/pocket_verify_api35",
+    "API": 35,
+    "ABI": "x86_64",
+    "not_qualified": [
+      "API28",
+      "ARM64",
+      "physicalphone"
+    ]
+  },
+  "source_only_cases": 148,
+  "source_groups": {
+    "previous_probe": 116,
+    "review_source_only": 32
+  },
+  "input_hashes": {
+    "116": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+    "32": "8644ec214a61c2c23f5e3a020cf1325507468e555713caf3d57b8692d6fbf7c7",
+    "148_id_text": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266"
+  },
+  "private_evidence_directory": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01",
+  "runtime_package": "co.fallsoft.vipi.opennlpqa",
+  "production_activated": false,
+  "models": {
+    "opennlp-tools-2.5.10.jar": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "slf4j-api-2.0.18.jar": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+    "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce",
+    "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a",
+    "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8"
+  },
+  "variants": {
+    "debug": {
+      "apk_sha256": "dfecdbe5a7c27cd91e93f32f32f3ca6e4aac3d60ae92b95f5656c7b9bf6a7cb7",
+      "apk_bytes": 2898869,
+      "output_sha256": "62132387b036d3b084f2789d38369dd029897b46383fe28acff8e0b182eca5ab",
+      "cases": 148,
+      "tokens_per_pass": 2382,
+      "passes": 3,
+      "exact_ID_order_and_UTF16": true,
+      "exact_raw_POS_and_ranges": true,
+      "POS_score_max_absolute_difference": 0,
+      "POS_score_tolerance": 1e-12,
+      "repeat_identical": true,
+      "model_load_ms": 28006.308767,
+      "end_to_end_pass_ms": [
+        3787.29459,
+        2492.112377,
+        3253.254605
+      ],
+      "timing_scope": "freshapp-processload; filesystemcache notflushed; eachpass includesJSON/filewrites/BinderADBtransport, notisolatedinference latency",
+      "final_memory": {
+        "pid": 2742,
+        "pss_kib": 53100,
+        "java_heap_used_bytes": 34271344,
+        "java_heap_committed_bytes": 34271344,
+        "java_heap_max_bytes": 201326592,
+        "native_heap_allocated_bytes": 6116048,
+        "VmHWM": "147012 kB",
+        "VmRSS": "125944 kB"
+      },
+      "memory_scope": "ownAndroidprocess /procVmHWM/VmRSS,DebugPSS,nativeheap andJavaRuntimeheap; nothost/emulatorRSS",
+      "build": {
+        "variant": "Debug",
+        "cmd": [
+          "taskset",
+          "-c",
+          "2",
+          "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+          "--offline",
+          "--no-daemon",
+          "--max-workers=1",
+          "--console=plain",
+          "-PretainedAssets=/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01",
+          ":app:assembleDebug"
+        ],
+        "source_sha256": "1c14b5d4d2a81792c4c2ee49e43dee759046d6fcc9c1f8653b2f1644ac91fe6f",
+        "free_before": 9814536192,
+        "success": true,
+        "min_free_bytes": 9363845120,
+        "peak_project_plus_shared_cache_growth_bytes": 22749184,
+        "exit": 0,
+        "elapsed_seconds": 84.70958754606545,
+        "free_after": 9363750912
+      }
+    },
+    "release": {
+      "apk_sha256": "4adbde21eaedf468eede0042caa3d7e0e2a68631ab51a1bd35ce50b6f6312ce4",
+      "apk_bytes": 1657633,
+      "output_sha256": "62132387b036d3b084f2789d38369dd029897b46383fe28acff8e0b182eca5ab",
+      "cases": 148,
+      "tokens_per_pass": 2382,
+      "passes": 3,
+      "exact_ID_order_and_UTF16": true,
+      "exact_raw_POS_and_ranges": true,
+      "POS_score_max_absolute_difference": 0,
+      "POS_score_tolerance": 1e-12,
+      "repeat_identical": true,
+      "model_load_ms": 417.98281,
+      "end_to_end_pass_ms": [
+        494.498066,
+        384.045487,
+        440.038875
+      ],
+      "timing_scope": "freshapp-processload; filesystemcache notflushed; eachpass includesJSON/filewrites/BinderADBtransport, notisolatedinference latency",
+      "final_memory": {
+        "pid": 3465,
+        "pss_kib": 120895,
+        "java_heap_used_bytes": 118747488,
+        "java_heap_committed_bytes": 201326592,
+        "java_heap_max_bytes": 201326592,
+        "native_heap_allocated_bytes": 7041440,
+        "VmHWM": "195768 kB",
+        "VmRSS": "195768 kB"
+      },
+      "memory_scope": "ownAndroidprocess /procVmHWM/VmRSS,DebugPSS,nativeheap andJavaRuntimeheap; nothost/emulatorRSS",
+      "build": {
+        "variant": "Release",
+        "cmd": [
+          "taskset",
+          "-c",
+          "2",
+          "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+          "--offline",
+          "--no-daemon",
+          "--max-workers=1",
+          "--console=plain",
+          "-PretainedAssets=/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01",
+          ":app:assembleRelease"
+        ],
+        "source_sha256": "1c14b5d4d2a81792c4c2ee49e43dee759046d6fcc9c1f8653b2f1644ac91fe6f",
+        "free_before": 9362042880,
+        "success": true,
+        "min_free_bytes": 8890728448,
+        "peak_project_plus_shared_cache_growth_bytes": 7483392,
+        "exit": 0,
+        "elapsed_seconds": 80.69822544092312,
+        "free_after": 8915025920
+      }
+    }
+  },
+  "retained_artifacts_manifest_sha256": "689aa3667719ef07dbc3cea58cd51eb65593891448e0a78727ea2dd0bc9cf75f",
+  "R8_proof": "release debuggable=false; minifyReleaseWithR8 completed; mapping renames opennlp.tools.ml.maxent.GISModel to k0; configurationhas no-dontoptimize/no-dontobfuscate; selective reflectionkeep rules retained.",
+  "no_INTERNET": "APKpermissiondumps and installedpackage dumps verify noINTERNET; modelsbundled and verifiedbyteforbyte; no shared network settings changed.",
+  "cleanup": {
+    "scope": "RemoveonlynewisolatedQApackage;stoponlyownresumedAVD;preserveoriginalVipiand5584",
+    "before_free": 8504020992,
+    "steps": [
+      {
+        "args": [
+          "adb",
+          "-s",
+          "emulator-5620",
+          "uninstall",
+          "co.fallsoft.vipi.opennlpqa"
+        ],
+        "exit": 0,
+        "stdout": "Success\n",
+        "stderr": ""
+      },
+      {
+        "args": [
+          "adb",
+          "-s",
+          "emulator-5620",
+          "emu",
+          "kill"
+        ],
+        "exit": 0,
+        "stdout": "OK: killing emulator, bye bye\r\nOK\r\n",
+        "stderr": ""
+      }
+    ],
+    "after_free": 8499826688
+  },
+  "own_emulator_exit_confirmed": true,
+  "retained_failures": [
+    "attempt1ownbootstoppedbyreservedbuildheadroomguard; globaldiskdrop notattributed",
+    "initialstaticbuildstoppedexit143onrootcapacityhold",
+    "attempt2onecorebootdeadline180s; no distinctKVM/fatalbootcause established",
+    "attempt3restoredprior2cores andbooted107.98s; observedcontrastnotcausalproof"
+  ],
+  "capacity_limit": "Build snapshots stayed above8GiBfloor. Latest postnative check fell belowfloor dueunattributed/concurrentfilesystemgrowth; stopped ownruntime andperformed no morebuild/deviceevaluation. Cannot claim floor continuously held through finalnativeexecution.",
+  "semantic_limit": "Exactruntimeparity onreusedfixtures is not semanticaccuracy/senseapproval/NERqualification.",
+  "build_limits": "offlinecacheddependencies;1buildCPU,384MiBGradleheap;existingAVD2vCPU/2hostCPUs; no newVM/overlay",
+  "timing_comparison_limit": "Debug model loading took28.006s and later optimized-release loading0.418s under different boot, filesystem cache, JIT and concurrent build conditions. This is neither an R8 speedup estimate nor universal cold-start latency.",
+  "memory_comparison_limit": "Release PSS and Java used heap grew across three passes without forced GC or retained-heap analysis. Whole-process VmHWM includes JSON serialization and Binder instrumentation. These measurements establish neither model-resident memory nor a leak."
+}

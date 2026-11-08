@@ -1,0 +1,16 @@
+{
+  "schema": "vipi.android-opennlp-launch-correction.r03",
+  "frozen_at_utc": "2026-11-08T23:24:13.823825+00:00",
+  "cause_not_established": true,
+  "observed_r02": "1core sustained~97%CPU,ADBonline,bootanimrunning,no distinct KVM/fatalbootproblem in retainedlog;deadline180s",
+  "correction": "Restore priorqualified2guestcores/2boundedhostCPUs and300sbootdeadline. Staticbuild1distincthostCPU canproceedindependently.",
+  "RAM_admission": "Last available38GiB; emulatorrequested2GiB (mayraise2.5GiB) +Gradle384MiB heap; no newVM/overlay.",
+  "free_before": 9888628736,
+  "budgets": "384MiBcombinedownworkingceiling/8GiBglobalfloor; buildproject+sharedcachegrowth conservativelycapped256MiB,AVDgrowth128MiB; unrelated globalfreevariation notattributed",
+  "source_hashes": {
+    "boot-r03.py": "6cc1646cf48831da59ba94130c2e398a324d16bc7a2ff1115c39dfbb17724355",
+    "build-r03.py": "1c14b5d4d2a81792c4c2ee49e43dee759046d6fcc9c1f8653b2f1644ac91fe6f",
+    "compare.py": "113741a95c6b05c67d7103bce6f4731c44a2bec32c57d6885eb1355bb6ab2fef",
+    "run-device.py": "e93b877f1cdda6c64eceafa0642e9e0bf5303ee6f5ad3205afc83ecfe31cffbe"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "vipi.android-opennlp-resume-freeze.r02",
+  "frozen_at_utc": "2026-11-08T23:19:32.430289+00:00",
+  "before_corrected_build_and_any_model_output": true,
+  "prior_attempts_preserved": [
+    "boot-receipt.json",
+    "emulator.log",
+    "build-Debug.json",
+    "build-Debug.log",
+    "attempt-r01-source"
+  ],
+  "corrections": [
+    "release debuggable=false soR8optimizes",
+    "Instrumentationstatus transports eachJSONrow and finalreceipt without run-as onrelease",
+    "licensesbundled"
+  ],
+  "capacity_receipt": "generated-lexical-retirement-receipt.json",
+  "free_before": 11468111872,
+  "source_hashes": {
+    "compare.py": "6124f2eb367031db5094f760580f1f3f479868214efac5be55139ea6387b9d1e",
+    "static-build-addendum.json": "167d72113800584569de0b563581906970fd0bb86dac7d2ba92e9aa056c6ffc5",
+    "boot-r02.py": "c6170c34bcf1b047c0714181cfc9508fe367b6e5dd5c6153d33bc025602dea8e",
+    "build.py": "b10614fe6bbb81e13b0a4c84d118692d3eec3e4249fbd6209594dda249391666",
+    "gradle.properties": "4f5843b8c59f69032ee707af234216c900be8d8248ff85e0132b75fadc13af12",
+    "boot.py": "acf0ddd382f7a34fead93aa70be16633a3b46bf3b19807453c92b8cebd6187a9",
+    "build-r02.py": "e4407aa1da16cf38502cffb40f8e3a3eef72854e2dc3e6ebfb24d363a8282f12",
+    "run-device.py": "e93b877f1cdda6c64eceafa0642e9e0bf5303ee6f5ad3205afc83ecfe31cffbe",
+    "prepare.py": "18eff4532b0828be266f665372025429b647068395df7acd47a79f21f200937b",
+    "plan.json": "eca827b45c9e31745bee1834dc58cd07b218d8e8a20e310d9c53795080f48806",
+    "build-static.py": "61774382e10b7c9a011a3b3a66f9cceb49ebace165178d364754fb551a299b55",
+    "build.gradle.kts": "e5b4d8ef374ce9fcb50de81dc1e358e05a989501e3ace48a31698aeb14270f0b",
+    "settings.gradle.kts": "7840712e495225f013dc632f8a1e0d12e7c89a9f4f05c1e659d20a572712b4b8",
+    "app/proguard-rules.pro": "9c1490724169deb4e8c231d43a428905c431e500d6bd11455d2322b5b4272326",
+    "app/build.gradle.kts": "cddef80272f0bde20ff5c2a237b17e56c38db40fa026c6654ca576dc3ecd5709",
+    "app/src/main/AndroidManifest.xml": "8e7d0efb098d45dfada64cb48448d01bec11f6acdd43f76d1aa0582172327380",
+    "app/src/main/java/co/fallsoft/vipi/opennlpqa/ProbeInstrumentation.java": "d048b6924fc7165feb847b9834dbbcaebcac89bc5db1eac0b8db68d965574fa5"
+  },
+  "id_text_only_input_sha256": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266",
+  "limits": "Original384MiBcombinedceiling,8GiBfloor,1CPU,384MiBGradleheap,180sboot,240sperbuild,120sperruntime",
+  "execution": "No unrelated jobs orAVDchanges"
+}

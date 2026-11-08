@@ -1,0 +1,21 @@
+from pathlib import Path
+import os,json,subprocess,time,signal,shutil,sys,hashlib
+p=Path('/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01');q=Path(__file__).resolve().parent;variant=sys.argv[1];assert variant in ['Debug','Release']
+b=json.loads((p/'boot-receipt.json').read_text());assert not b['booted']
+assert not (p/('build-'+variant+'.json')).exists()
+free0=shutil.disk_usage(p).free;assert free0>8589934592+134217728
+cmd=['taskset','-c',str(min(os.sched_getaffinity(0))),'/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle','--offline','--no-daemon','--max-workers=1','--console=plain','-PretainedAssets=/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01',':app:assemble'+variant]
+x={'variant':variant,'cmd':cmd,'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'free_before':free0,'success':False};(p/('build-'+variant+'-intent.json')).write_text(json.dumps(x,indent=2)+'\n')
+start=time.monotonic()
+with (p/('build-'+variant+'.log')).open('w') as log:proc=subprocess.Popen(cmd,cwd=p/'project',stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+try:
+ while proc.poll() is None:
+  free=shutil.disk_usage(p).free;x['min_free_bytes']=min(x.get('min_free_bytes',free),free)
+  if free<8589934592 or free0-free>134217728 or time.monotonic()-start>240:raise RuntimeError('build budget/deadline')
+  time.sleep(1)
+ x['exit']=proc.returncode;x['success']=proc.returncode==0
+except Exception as e:
+ x['error']=repr(e)
+ if proc.poll() is None:os.killpg(proc.pid,signal.SIGTERM);proc.wait(timeout=10)
+finally:
+ x['elapsed_seconds']=time.monotonic()-start;x['free_after']=shutil.disk_usage(p).free;(p/('build-'+variant+'.json')).write_text(json.dumps(x,indent=2)+'\n');print(json.dumps(x,indent=2))

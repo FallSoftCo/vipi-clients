@@ -1,0 +1,27 @@
+{
+  "schema": "vipi.android-opennlp-static-build-addendum.r01",
+  "frozen_at_utc": "2026-11-08T23:12:32.845494+00:00",
+  "boot_failure_retained": "boot-receipt.json",
+  "runtime_pending": true,
+  "own_emulator_pid840828_exited_verified": true,
+  "build_only_ceiling_bytes": 134217728,
+  "floor_bytes": 8589934592,
+  "free_bytes_before": 8792100864,
+  "basis": "Existing isolatedAndroid harness build21.4MiB +.gradle0.6MiB; cached AGP/R8/desugar.128MiB enforced staticbuild ceiling; stop rather than download/new dependency tree.",
+  "source_hashes": {
+    "build.py": "b10614fe6bbb81e13b0a4c84d118692d3eec3e4249fbd6209594dda249391666",
+    "gradle.properties": "4f5843b8c59f69032ee707af234216c900be8d8248ff85e0132b75fadc13af12",
+    "boot.py": "acf0ddd382f7a34fead93aa70be16633a3b46bf3b19807453c92b8cebd6187a9",
+    "run-device.py": "0dcb0e562661ea80eec1c34581ea9e41b5feb9956d033717322c4d868afe96dd",
+    "prepare.py": "63ef9342706dbce1e813674a306b114d4d42a12f1bf6360a2209913450b5c10b",
+    "plan.json": "eca827b45c9e31745bee1834dc58cd07b218d8e8a20e310d9c53795080f48806",
+    "build-static.py": "61774382e10b7c9a011a3b3a66f9cceb49ebace165178d364754fb551a299b55",
+    "build.gradle.kts": "e5b4d8ef374ce9fcb50de81dc1e358e05a989501e3ace48a31698aeb14270f0b",
+    "settings.gradle.kts": "7840712e495225f013dc632f8a1e0d12e7c89a9f4f05c1e659d20a572712b4b8",
+    "app/proguard-rules.pro": "9c1490724169deb4e8c231d43a428905c431e500d6bd11455d2322b5b4272326",
+    "app/build.gradle.kts": "3b377629ed6af1979736d10219da24a12cad70a8887d70c1460132b80f3e6fc2",
+    "app/src/main/AndroidManifest.xml": "8e7d0efb098d45dfada64cb48448d01bec11f6acdd43f76d1aa0582172327380",
+    "app/src/main/java/co/fallsoft/vipi/opennlpqa/ProbeInstrumentation.java": "8960aed70218c3f79930a6fd3a02ee7c0e25ee5cdfa62d3980716c1710dbf9f5"
+  },
+  "runtime_source_unchanged": true
+}
