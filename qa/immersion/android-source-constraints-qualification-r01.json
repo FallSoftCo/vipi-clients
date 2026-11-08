@@ -1,0 +1,100 @@
+{
+  "schema": "vipi.android.source-constraints.qualification.r01",
+  "status": "native_core_and_conversation_checks_passed",
+  "default_provider": "null; no research data activated",
+  "closure": {
+    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-constraints-r01/closure-r01.json",
+    "sha256": "b548f876c05c57cc931bfc743cfac8f8f37f6e024a3d5e80eab2e41db4f4ec91",
+    "bytes": 10575
+  },
+  "main_source_commit": "d5629bef803e40d1321e936b4830de32c30cd542",
+  "test_only_commit": "182c1c17397b0f8c6d993f7ebfadfb88d2e67b5f",
+  "core_results": [
+    {
+      "class": "co.fallsoft.vipi.core.LookupFirstTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "class": "co.fallsoft.vipi.core.ImmersionProductionStateTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "class": "co.fallsoft.vipi.core.SourceLookupEvidenceTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "native": {
+    "runtime": "Existing emulator-5620 Android15/API35 x86_64",
+    "actual_conversation_cases": 6,
+    "complete": true,
+    "output": {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-constraints-r01/native-r93/native.json",
+      "sha256": "9dff020b75ccd9ae154be2acb9e14e4f6c9576d3f7af3e300faab161a8bf80ca",
+      "bytes": 2571
+    },
+    "network_restored": true,
+    "provider_type": "Fixed retained actual ML Kit reference, injected only by instrumentation; no new inference/download/peer traffic.",
+    "known_reference_control": "Existing bundled I need water. reference with actual catalog lookup and zero translation calls.",
+    "cases": [
+      "Null partial preserves source mask through actual lexical alignment, suppresses masked country/music only, retains unmasked book and exact full reference.",
+      "Known-concept/provider identity change prevents cached result reuse; new engine required for new immutable identity.",
+      "Whole-reference lookup still obtains independent source masks.",
+      "Explicit approved output ID and source range permits music head; explicit full translation preserves head with zero discarded heavy alignment.",
+      "Message language switch rejects late source evidence and never publishes/caches it.",
+      "Explicit target-language input never invokes forward source producer."
+    ]
+  },
+  "contract": {
+    "binding": "Exact original string, language pair and immutable provider catalog/policy/known-snapshot identity; valid source grapheme ranges, context-bound masks and approvals, record SHA256.",
+    "limits": {
+      "recognitions": 4096,
+      "total_approvals": 4096,
+      "source_utf16": 16384
+    },
+    "modes": {
+      "atomic": "Only exact whole-mask approvals.",
+      "head_backoff": "Approved output fully contained within mask.",
+      "ambiguous": "No approvals.",
+      "none": "No mask; approvals remain context-scoped."
+    },
+    "independent_recognition": "Evidence nonnullable when provider exists even if partial is nil. Result metadata retains recognition on missing-model/filtered paths; stale and reverse paths never inherit it.",
+    "legacy_selection": "No inferred approved IDs from text equality. Every overlapping mask must permit exact source output ID+scope. Legacy alignment has no such proof and loses overlapping candidates before budget. All lexical claims retained; both supplemental passes carry constraints. Defensive postfilter preserves full reference/unmasked spans.",
+    "partial_proofs": "Optional outputID on SourceReferenceUnit, nil for existing sources. Explicitly admitted head can survive only if every overlapping mask approves exact ID+geometry.",
+    "direction": "Forward producer is invoked only after confirmed source direction, including whole-reference hits; automatic reverse throwing-provider test passes.",
+    "cache": "Provider identity captured at construction and included in request cache key. Language epoch and close checks reject late completion. No learned-word persistence is invented."
+  },
+  "retained_failures": [
+    {
+      "scope": "Historical cancellation test",
+      "old_control": "Unchanged r87 clean source reproduces samefailure as initial r93 group. Automatic partial correctly returns before inference.",
+      "correction": "Test requests FULL_TRANSLATION explicitly to reach intended cancellation path; production code unchanged.",
+      "final": "All34 focused tests pass, including12newconstraintcases."
+    },
+    {
+      "scope": "Prebuild review",
+      "correction": "Moved forward-only lookup after language detection and tightened mode-specific output validation before any candidate app build. Never-built r92 duplicate retired only after3722fileverification; commit/manifest/artifacts retained."
+    }
+  ],
+  "repeated_invalid_result_cache_issue": {
+    "status": "Observed and documented; no redesign in this change.",
+    "evidence": {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/spot-structural-r91/provider.json",
+      "sha256": "50ca105970b20cc764a338861dfa4f5cf04eee87fb94bb20a9735756f0ca4775",
+      "bytes": 234031
+    },
+    "mechanism": "ConversationImmersion caches only outcomes with nonnull result. Failed identifier validation yields null, so automatic reentry retries. Explicit fullAttempts only deduplicate same request epoch.",
+    "measured": "Two Japanese URL/email sources retry on warm automatic calls in each source-selection mode; accepted Spanish/Swahili results warm-cache with0calls."
+  },
+  "limits": [
+    "No linguistic data activation or corrected full-reference claim; source masks do not repair provider mistranslations.",
+    "Current native full reference containing country\u2192nation remains available unchanged; masking only corrects eligibility of mixed spans.",
+    "No UI layout change or new physical/API28/store readiness claim.",
+    "Research generic fallback still has known meaning errors and is not installed."
+  ]
+}
