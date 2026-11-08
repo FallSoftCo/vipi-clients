@@ -73,6 +73,18 @@ The first native qualification used private SSH/ADB forwards and was followed by
 
 Original message -> language detection -> reviewed source-only sentence/phrase lookup -> bounded local whole-text translation on a lookup miss -> local word/phrase alignment against a licensed bilingual pack -> candidate filtering -> density/familiarity selection -> attributed visible spans. Known reviewed source scopes do not require a translation call. A complete target sentence is separate from a partially immersed source sentence.
 
+The native coordinators now also accept optional source-lookup evidence bound to
+the exact original text, confirmed language direction and catalog revision. A
+recognized context and its smaller displayed vocabulary span are separate
+records. Every overlapping phrase restriction must permit the exact output and
+source range; restrictions survive familiarity filtering, insufficient density
+budget and missing target faces. The aligners apply these restrictions before
+spending the display budget and check the final result again. This prevents a
+rejected phrase from leaking through a later word fallback. It does not correct
+an erroneous full translation. The new evidence provider is absent by default:
+its native integration is qualified, but the experimental catalogs are not
+activated by that qualification.
+
 Keep original text immutable. Cache derived translations locally by source text hash, direction, provider/model version and pack version. Expire affected caches when these change. Shared fixtures specify UTF-8 text plus Unicode-aware ranges; platform adapters explicitly convert indexing rather than assuming Swift and Kotlin offsets are identical.
 
 Translation APIs provide full text, not reliable token alignment. Dictionary candidates must be corroborated in the actual full translation and constrained by context, morphology and phrase boundaries. Multiple possible senses, repeated words or uncertain alignment reduce confidence; abstain rather than display a confident wrong replacement. This approach needs measured precision and coverage. If it cannot meet quality targets, improve the local alignment technique before expanding language claims.
@@ -82,6 +94,25 @@ The next data path expands the catalog into contextual word/phrase records, infl
 The mapping unit is a word or phrase **in a particular meaning**, not an arbitrary source spelling. Keep its attested written/inflected forms, grammatical and register evidence, source-language contexts, target forms and readable transliteration together with provenance. Retain exact focus spans in both example sentences: copying an example's target phrase can otherwise import a person or possession absent from the new message (for example, `de camino` → `on my way` in a request addressed to someone else). Phrase constraints remain unresolved unless established by data or evaluated generation. FTS results are candidates for the native selector; incidental shared context words must not make them display-ready.
 
 Build the catalog incrementally with SQLite: immutable record revisions, exact provenance, transactionally committed input checkpoints, per-revision assessments and correction/quarantine history. Export compact per-pair client data separately. PostgreSQL/pgvector is not needed on the phone or in the catalog build path. A future local embedding index must earn its place through better measured meaning selection; the existing vector experiments have not done so.
+
+The current expansion experiment learns reusable phrase candidates offline from
+retained direct bilingual corpora. Bidirectional statistical alignment supplies
+contiguous source/target spans, including competing complete target-boundary
+variants; dictionary sense and form records can corroborate a complete lexical
+head inside a matched context. Corpus frequency, alignment consistency and
+dictionary membership are evidence for review, not permission to show a
+translation. Evaluate actual conversational substitutions and vocabulary
+depletion before exporting an accepted increment. The first frozen corpus arm
+covers English–Spanish and English–Swahili; it does not qualify the remaining
+languages or directions. Details and immutable input identities are in
+`qa/immersion/corpus-phrase-extraction-r01`.
+
+Finite-state tools such as HFST are a possible build-time source of attested
+morphological analyses and forms. The Swahili feasibility run found both useful
+analyses and concrete missing or incorrect forms, so no general grammar generator
+or new native dependency is adopted. Bounded typed templates likewise preserve
+literal captures and require supplied target faces; they do not infer arbitrary
+target grammar. Native Swift and Kotlin retain their separate runtime ownership.
 
 Supplement whole-message local translation with bounded word/phrase observations where useful. Cache by exact text, direction and data/provider version; changing `my` to `your` must not reuse a sentence translation. Phrase agreement supplies alignment evidence, not an independent meaning verdict. Keep authored context patterns finite: literals, enumerated variations outside one lexical focus, and target forms/readings attached to that meaning. Preserve original characters outside the focus. Native Kotlin/Swift matchers implement this constraint separately; the approved bundled context/frame catalogs now run in the actual native conversation components, with a bounded per-conversation cache and immutable sender originals. Broad conversational coverage remains unproven.
 
