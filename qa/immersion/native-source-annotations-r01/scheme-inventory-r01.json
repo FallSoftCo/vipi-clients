@@ -1,0 +1,202 @@
+{
+  "compile_exit": 0,
+  "compile_seconds": 0.966416625,
+  "compile_stderr": "",
+  "run_exit": 0,
+  "run_seconds": 1.4399484999999999,
+  "run_stderr": "",
+  "inventory": {
+    "chinese_api_aliases_supplemental": [
+      {
+        "api_language_raw_value": "zh-Hans",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType",
+          "LexicalClass"
+        ]
+      },
+      {
+        "api_language_raw_value": "zh-Hant",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      }
+    ],
+    "limits": "Availability inventory only; no tagger inference, asset request or download. Not accuracy, local-data completeness, phone availability or source-role qualification.",
+    "os": "Version 26.6.2 (Build 25G83)",
+    "requested_count": 12,
+    "requested_languages_exact": [
+      "en",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "it",
+      "ar",
+      "hi",
+      "zh",
+      "ja",
+      "ko",
+      "sw"
+    ],
+    "rows": [
+      {
+        "queried_language_raw_value": "en",
+        "requested_language": "en",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType",
+          "NameType",
+          "LexicalClass",
+          "NameTypeOrLexicalClass",
+          "Lemma"
+        ]
+      },
+      {
+        "queried_language_raw_value": "es",
+        "requested_language": "es",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "fr",
+        "requested_language": "fr",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "de",
+        "requested_language": "de",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "pt",
+        "requested_language": "pt",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "it",
+        "requested_language": "it",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "ar",
+        "requested_language": "ar",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "hi",
+        "requested_language": "hi",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "zh",
+        "requested_language": "zh",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "ja",
+        "requested_language": "ja",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "ko",
+        "requested_language": "ko",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      },
+      {
+        "queried_language_raw_value": "sw",
+        "requested_language": "sw",
+        "word_schemes": [
+          "Language",
+          "Script",
+          "TokenType"
+        ]
+      }
+    ],
+    "schema": "vipi.native-tag-scheme-inventory.1",
+    "unit": "word"
+  },
+  "source_freeze": {
+    "at": "2026-11-08T22:22:56.940661+00:00",
+    "source_sha256": "694798f457dc81a952a35972c10bd33ac903a9adf30a71231c241a1debcd4cba",
+    "source_version": "4cd175f1a7db05890117f27c52efef6cecb2d9d3",
+    "before_outputs": true,
+    "exact_list": [
+      "en",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "it",
+      "ar",
+      "hi",
+      "zh",
+      "ja",
+      "ko",
+      "sw"
+    ],
+    "chinese_aliases": "Supplemental explicit SDK aliases queried separately; exact zh row preserved."
+  },
+  "capacity": {
+    "at": "2026-11-08T22:22:28.753090+00:00",
+    "guest": {
+      "free_bytes": 613982208
+    },
+    "native": {
+      "free_bytes": 3161300992
+    },
+    "guest_required_bytes": 603979776,
+    "native_required_bytes": 1140850688,
+    "guest_pass": true,
+    "native_pass": true
+  },
+  "interpretation": [
+    "Exact12-code query returned LexicalClass/NameType/NameTypeOrLexicalClass/Lemma only for en on this current VM. Other exact codes returned Language/Script/TokenType only.",
+    "Supplemental SDK zh-Hans reports LexicalClass; zh-Hant does not. Generic zh must not be silently treated as zh-Hans.",
+    "This inventories current API-reported availability, not accuracy or universal platform support. No non-English token inference or data download was performed.",
+    "No automatic source-role extension beyond English is qualified. Even zh-Hans needs separate actual-data and linguistic evaluation."
+  ]
+}
