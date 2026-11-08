@@ -83,6 +83,8 @@ class DeviceRecoveryUIDeviceTest {
             compose.onNodeWithText("Friend changed their phone?").performScrollTo().performClick()
             compose.waitUntil(5000) { compose.onAllNodesWithText("Use these keys").fetchSemanticsNodes().isNotEmpty() }
             capture("peer-confirm-dark-large")
+            compose.onNodeWithText("Continuing uses these keys but does not mark them verified. Compare all 12 groups with your friend in person or over a trusted call before marking them verified.").performScrollTo().assertIsDisplayed()
+            capture("peer-confirm-scrolled-dark-large")
             assertEquals(1, claims.size); assertTrue(chat.securityNumber(peer)!!.verified)
             compose.onNodeWithText("Use these keys").performClick()
             compose.waitUntil(5000) { compose.onAllNodesWithText("Not yet compared").fetchSemanticsNodes().isNotEmpty() }

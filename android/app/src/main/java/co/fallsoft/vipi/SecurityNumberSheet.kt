@@ -114,7 +114,7 @@ import kotlinx.coroutines.CancellationException
     recovery?.let { candidate -> AlertDialog(onDismissRequest = { if (!recoveryBusy) recovery = null },
         title = { Text("Update encryption?") },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("Your friend’s device or encryption identity changed. Your saved history stays here. Previous waiting messages will stop and will not be resent.")
+            Text("${chat.name(peer)}’s device or encryption identity changed. Your saved history stays here. Previous waiting messages will stop and will not be resent.")
             Text(candidate.number.groups.joinToString("  "), fontFamily = FontFamily.Monospace)
             Text("Continuing uses these keys but does not mark them verified. Compare all 12 groups with your friend in person or over a trusted call before marking them verified.")
             recoveryError?.let { Text(it) }
