@@ -1,0 +1,670 @@
+{
+  "schema": "vipi-release-data-inventory-1",
+  "status": "review_draft_not_submitted",
+  "reviewed_at": "2026-11-08",
+  "scope": "Source inspection and pinned dependency declarations. This is not a completed store questionnaire, release-binary network audit, or legal approval.",
+  "policy_url": "https://api.mambovipi.app/privacy",
+  "deletion_url": "https://api.mambovipi.app/delete-account",
+  "source_commit": "759764a487f6fe52c3dfe2a0525c1ceb06b343f5",
+  "source_files": [
+    {
+      "path": "android/app/build.gradle.kts",
+      "sha256": "16ae69978dce9b72f4b3ce0e747b3da3c95f1e5e05ff019088dab0c9b027348c",
+      "bytes": 9918
+    },
+    {
+      "path": "android/app/src/main/AndroidManifest.xml",
+      "sha256": "fe1e5107424fc911c9436cf867ba8d12a13602f654462673713cf14c9f55fa77",
+      "bytes": 2057
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt",
+      "sha256": "a9dd8bad8b11ec05cbac30909272c7f50c8d510a4909a59c029459c8eafd3e49",
+      "bytes": 14737
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt",
+      "sha256": "016113daaa8b6b3dcd31ec6a2b43c1df2fb4599f7e5715778fc12111e8687066",
+      "bytes": 10238
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupCodec.kt",
+      "sha256": "0a767c922a12ccf5e37ed39e3ff5e13d2bbb680447132b3cddcdf0d93f011d31",
+      "bytes": 10822
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupScreen.kt",
+      "sha256": "243d5459fd3c4c36e7f11a971ca7666615e27a8bcc6721e83565247ca83f068d",
+      "bytes": 9826
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupStore.kt",
+      "sha256": "4134e094772b8cf588c7dcac2de6b3e347fbe0f98e81db332343419e71325d4b",
+      "bytes": 5525
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/LocalTranslation.kt",
+      "sha256": "92a377efbd94a9d9e90301acd511287769c3bb4e7a048cabcb92ceb64396e35e",
+      "bytes": 1974
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt",
+      "sha256": "093134373573ca7831b81bfb3c8efc7d06d832293887c73308a272c789fcc20c",
+      "bytes": 1160
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/NotificationSetup.kt",
+      "sha256": "a8e077c8345dba0de72735add48ab3fdb28c8042c5edb70a76d3d0a2fa132782",
+      "bytes": 2474
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/PushDelivery.kt",
+      "sha256": "8e25ac77e8802436afa0bfaed0cd72d4ebdceac74d26d6a804e2f4882b48fac9",
+      "bytes": 6913
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt",
+      "sha256": "8445c265fdf60c5013d19460e2d7745765ffc18bc43be17dd45260c1b8433982",
+      "bytes": 10665
+    },
+    {
+      "path": "backend/vipi/accounts.py",
+      "sha256": "3ac1b9cb09de6d6f1d05bc7844d7caeca5db93ae62051374ecf25f387c5ff473",
+      "bytes": 4408
+    },
+    {
+      "path": "backend/vipi/api.py",
+      "sha256": "9a12f5cf3ee8f2e5d5c0fc3a9ff871afb0385613318d1f9b52903c3fb6037a88",
+      "bytes": 27698
+    },
+    {
+      "path": "backend/vipi/bot.py",
+      "sha256": "e35bc4c1d743534dfd9bed77ca2ef275f570206fa8beb5ae2b2a27f88f59c539",
+      "bytes": 11187
+    },
+    {
+      "path": "backend/vipi/config.py",
+      "sha256": "cbdd9aeca599a5f1c371de60bc1ac15165a4b634f421a651a011986a57cf3b5c",
+      "bytes": 5318
+    },
+    {
+      "path": "backend/vipi/db.py",
+      "sha256": "0d730a663f8f76b8e4f47d6e72662df3dd79eb4e368dde38d7c00c345f54a00d",
+      "bytes": 11966
+    },
+    {
+      "path": "backend/vipi/deletion.py",
+      "sha256": "ad33f761acf55e8256caa06c36b57fd204b61089ac7e809b45d629873e714f17",
+      "bytes": 8250
+    },
+    {
+      "path": "backend/vipi/delivery.py",
+      "sha256": "f33cd27dd3a36b7c810fbd1be5ad237bff816014fc0d07d31a54e8541753a3b7",
+      "bytes": 6547
+    },
+    {
+      "path": "backend/vipi/inbox.py",
+      "sha256": "8ddf7bd098b8d2c84256cd7ef2bce008fbbfb6e52a861741362c872b93d720eb",
+      "bytes": 1517
+    },
+    {
+      "path": "backend/vipi/maintenance.py",
+      "sha256": "589b9beb0548b563789e394f4be2bdc7729681e3ed8aacf155b6c05130d78d19",
+      "bytes": 1506
+    },
+    {
+      "path": "backend/vipi/moderation.py",
+      "sha256": "b8234f30ff0711b33da799478d44e03dbb60bc44bb82273ce99abf8f16e1b55e",
+      "bytes": 4171
+    },
+    {
+      "path": "backend/vipi/prekeys.py",
+      "sha256": "bb08194cf5765215965a1e794295cc1e1035af5f34c163e5f9d4be4984df7a46",
+      "bytes": 8408
+    },
+    {
+      "path": "backend/vipi/public_pages.py",
+      "sha256": "0dfbcb48eaaeff5271bc38fc98320e0d71db174fc3178f35daf85509543861da",
+      "bytes": 16461
+    },
+    {
+      "path": "backend/vipi/push.py",
+      "sha256": "aa6f23ea930992201eaa7b44708c070e8748637320efd33c22bc37530f76a394",
+      "bytes": 11299
+    },
+    {
+      "path": "backend/vipi/rates.py",
+      "sha256": "46282fe5a35193695db4bc6157fde5b255a0e14271c756bc21a5c6159947da6e",
+      "bytes": 842
+    },
+    {
+      "path": "backend/vipi/reports.py",
+      "sha256": "68a2c4e25d320a1c2a600fc9fc3ac226a6911c2defd5744462c7c9ec55775fb3",
+      "bytes": 5012
+    },
+    {
+      "path": "backend/vipi/store_notifications.py",
+      "sha256": "5d9b3e558abc946c369ed5f03da13d2beb20afed73368deb8a72070d4bc52b8f",
+      "bytes": 6934
+    },
+    {
+      "path": "backend/vipi/store_providers.py",
+      "sha256": "d5bc80874831bc523fb31dde058671bc34fa87c943009b9c6a3c4d9d925546df",
+      "bytes": 11723
+    },
+    {
+      "path": "backend/vipi/web_deletion.py",
+      "sha256": "7624b322b920f4a390a14852bdfc52cc6df31c9f001d5b27a7077c1aa2a72365",
+      "bytes": 16133
+    },
+    {
+      "path": "ios/Package.resolved",
+      "sha256": "7c60bdb0b15d3230deb99c2e42f074e1062ac81ce2ca06287ed7f9ef6b52d723",
+      "bytes": 1080
+    },
+    {
+      "path": "ios/Podfile",
+      "sha256": "b1b714b3fe797b2686c96377f441ddc723a573e3368b500495f68a7c6170f937",
+      "bytes": 1165
+    },
+    {
+      "path": "ios/Podfile.lock",
+      "sha256": "bff77f25dda46f07ed10057c319ba53b4700f40fc2ff26e9d121292d9f3e43f4",
+      "bytes": 3120
+    },
+    {
+      "path": "ios/Vipi/Authentication.swift",
+      "sha256": "80956c8604d23f2fe9042a662d07fdf477b072c4049ebed3579660e2f71391ad",
+      "bytes": 9872
+    },
+    {
+      "path": "ios/Vipi/BotConversation.swift",
+      "sha256": "3dc690c32c50a9c37f13e831cbb2d95e01935ae19e4bfbc6c6267ad01b16243d",
+      "bytes": 21057
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupCodec.swift",
+      "sha256": "c884a003f6c30018b7752ccd86788032030d8771b7655915d2a863a14e889805",
+      "bytes": 16978
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupStore.swift",
+      "sha256": "365663048f4657b19fd43de51b14945b936a4840e393d5690aba60d83643fe6b",
+      "bytes": 8340
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupView.swift",
+      "sha256": "5048de14bb151636047aeab10ce893dda5afabfd4d4ea406d3af1cdd8fcd20a4",
+      "bytes": 10211
+    },
+    {
+      "path": "ios/Vipi/MessageLanguage.swift",
+      "sha256": "e7383aca8103c7203471e3a66d7bf48f9c873f503ed47b363fa3b9213c0752de",
+      "bytes": 1551
+    },
+    {
+      "path": "ios/Vipi/PrivacyInfo.xcprivacy",
+      "sha256": "0246faebd2d86277e1a40f44db7d3cef3d300a42397e9e5c3a34f8b2dab92b0d",
+      "bytes": 3875
+    },
+    {
+      "path": "ios/Vipi/PushNotifications.swift",
+      "sha256": "eb61f79eacfd391f83ff7a8254fc5fcb303db3f19a02bef53de28f2bf756e303",
+      "bytes": 7070
+    },
+    {
+      "path": "ios/Vipi/SwahiliTranslation.swift",
+      "sha256": "c5cd0dc44ec5a18b247e7a7ebc6d9fcd53be06a28e05ba550d8bd1cef1c16f14",
+      "bytes": 4044
+    },
+    {
+      "path": "ios/project.yml",
+      "sha256": "1f3373f58246663784ac7220d2ceba5ab7acf00973924c2eab79ea98b812b537",
+      "bytes": 6152
+    },
+    {
+      "path": "ops/nginx-api-https.conf",
+      "sha256": "5e67f0530415146704d16946be400d04eddb6227f86b28df0563b746bde137e1",
+      "bytes": 1609
+    },
+    {
+      "path": "ops/vipi-api.service",
+      "sha256": "c5da13e9aa9cda7814c0d84bd2785254fec41ee90d814a01de3391dc18ce43a3",
+      "bytes": 1115
+    }
+  ],
+  "flows": [
+    {
+      "id": "identity_and_profile",
+      "data": [
+        "email for hosted authentication",
+        "WorkOS subject",
+        "Vipi account ID",
+        "username",
+        "display name",
+        "authentication records"
+      ],
+      "recipients": [
+        "WorkOS",
+        "Fallible Software, Co. on Hetzner"
+      ],
+      "purpose": [
+        "account management",
+        "app functionality",
+        "security"
+      ],
+      "linked": true,
+      "required_for": "Account-based chat; the introductory local preview does not establish that every account field is optional.",
+      "retention": "Vipi profile until account deletion; WorkOS deletion is retried separately. Provider authentication/security retention must be reconciled with the actual production configuration.",
+      "apple_candidates": [
+        "Name",
+        "Email Address",
+        "User ID"
+      ],
+      "google_candidates": [
+        "Name",
+        "Email address",
+        "User IDs"
+      ],
+      "evidence": [
+        "backend/vipi/db.py:User",
+        "backend/vipi/api.py:create_profile",
+        "ios/Vipi/Authentication.swift:AuthenticationManager",
+        "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt:Authentication"
+      ]
+    },
+    {
+      "id": "device_and_public_messaging_keys",
+      "data": [
+        "app-generated device ID",
+        "device credential hash",
+        "public identity/prekeys",
+        "key claim metadata"
+      ],
+      "recipients": [
+        "Fallible Software, Co. on Hetzner",
+        "intended conversation peers receive public messaging keys"
+      ],
+      "purpose": [
+        "app functionality",
+        "security"
+      ],
+      "linked": true,
+      "retention": "Managed with the account/device lifecycle; key-claim receipts have separate expiry. Private Signal keys remain on device.",
+      "apple_candidates": [
+        "Device ID",
+        "User ID"
+      ],
+      "google_candidates": [
+        "Device or other IDs",
+        "User IDs"
+      ],
+      "evidence": [
+        "backend/vipi/db.py:Device, PublicBundle, PublicPreKey, KeyClaim",
+        "backend/vipi/accounts.py:register_device",
+        "backend/vipi/prekeys.py"
+      ]
+    },
+    {
+      "id": "human_message_ciphertext_and_metadata",
+      "data": [
+        "ciphertext",
+        "sender/recipient account and device IDs",
+        "message ID",
+        "timing",
+        "delivery state",
+        "ciphertext fingerprint"
+      ],
+      "recipients": [
+        "Fallible Software, Co. relay on Hetzner",
+        "intended recipient device"
+      ],
+      "purpose": [
+        "app functionality",
+        "security"
+      ],
+      "linked": true,
+      "retention": "Ciphertext is cleared on receipt, cancellation or expiry cleanup. Delivery window is 72 hours from message creation; metadata expires seven days after the window. Cleanup outages can delay deletion.",
+      "apple_candidates": [
+        "Emails or Text Messages",
+        "User ID",
+        "Device ID",
+        "Product Interaction"
+      ],
+      "google_candidates": [
+        "User IDs",
+        "Device or other IDs",
+        "App interactions"
+      ],
+      "google_content_boundary": "Apply Google's E2EE exclusion only to content unreadable by every intermediary. It does not exclude readable routing/timing metadata or separately reported messages.",
+      "evidence": [
+        "backend/vipi/db.py:PendingMessage",
+        "backend/vipi/delivery.py",
+        "backend/vipi/maintenance.py",
+        "backend/vipi/inbox.py"
+      ]
+    },
+    {
+      "id": "local_language_and_speech_content",
+      "data": [
+        "human-message translation input/output",
+        "immersion matches",
+        "ordinary readings",
+        "synthesized speech",
+        "learning preferences"
+      ],
+      "recipients": [
+        "on-device engines"
+      ],
+      "purpose": [
+        "app functionality"
+      ],
+      "collection_candidate": "Local content is outside store collection definitions while it stays on device. SDK operational data and model downloads are separate flows below.",
+      "evidence": [
+        "ios/Vipi/SwahiliTranslation.swift",
+        "ios/Vipi/MessageLanguage.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/LocalTranslation.kt",
+        "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt"
+      ],
+      "open": [
+        "Complete final release-device network observations, including installed system voices; source review is not proof of every third-party runtime behavior."
+      ]
+    },
+    {
+      "id": "language_sdk_operations",
+      "data": [
+        "installation identifiers",
+        "device/app/OS information",
+        "model and API events",
+        "identified/configured languages where documented",
+        "latency and errors"
+      ],
+      "recipients": [
+        "Google through ML Kit"
+      ],
+      "purpose": [
+        "app functionality",
+        "diagnostics",
+        "usage analytics"
+      ],
+      "retention": "Provider controlled; no app-defined expiry or zero-retention guarantee established.",
+      "apple_candidates": [
+        "Device ID",
+        "Performance Data",
+        "Other Diagnostic Data",
+        "Product Interaction",
+        "Other User Content",
+        "Other Data Types"
+      ],
+      "google_candidates": [
+        "Device or other IDs",
+        "Diagnostics",
+        "App interactions",
+        "Other app performance data"
+      ],
+      "apple_linkage": "Pinned ML Kit manifests declare their SDK data unlinked and not used for tracking. App account/device identifiers are separately linked; final console aggregation must preserve these distinct purposes.",
+      "evidence": [
+        "ios/Podfile.lock",
+        "android/app/build.gradle.kts",
+        "pinned_dependency_privacy"
+      ],
+      "open": [
+        "Map exact Android dependency versions and final release configuration to current SDK disclosures.",
+        "Confirm manifests are included in the actual signed Apple archive. Simulator excludes the ML Kit binary adapters.",
+        "Do not equate disabled Firebase Analytics with absence of ML Kit operational analytics."
+      ]
+    },
+    {
+      "id": "push_registration",
+      "data": [
+        "APNs or FCM token",
+        "app/device identifiers",
+        "generic inbox-change signal",
+        "provider delivery metadata"
+      ],
+      "recipients": [
+        "Fallible Software, Co. on Hetzner",
+        "Apple APNs on iOS",
+        "Google FCM on Android"
+      ],
+      "purpose": [
+        "app functionality"
+      ],
+      "linked": true,
+      "retention": "Encrypted token held by Vipi while registered; removed through device/account lifecycle. Provider retention is separate.",
+      "apple_candidates": [
+        "Device ID"
+      ],
+      "google_candidates": [
+        "Device or other IDs",
+        "Diagnostics"
+      ],
+      "evidence": [
+        "backend/vipi/push.py",
+        "ios/Vipi/PushNotifications.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/PushDelivery.kt",
+        "android/app/src/main/java/co/fallsoft/vipi/NotificationSetup.kt",
+        "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt"
+      ],
+      "open": [
+        "Corrected notice is prepared in source, not yet deployed. Reconcile per-installation SDK retention separately from Vipi account-token deletion and qualify actual final delivery behavior.",
+        "No real production APNs/FCM delivery qualification yet. Analytics flags alone do not prove absence of all SDK identifiers."
+      ],
+      "registration_choice": "Android data-only background delivery registers when account is ready, independent of visible alert permission. iOS registration follows permission and the Vipi notification setting.",
+      "native_sdk_lifecycle": "Android account deletion cancels app work/alerts and deletes server token/outbox. Current native code does not call Firebase token/installation deletion or disable auto-init; per-installation SDK state may persist. Workers without authentication cannot drain chat or register account tokens."
+    },
+    {
+      "id": "subscriptions",
+      "data": [
+        "product",
+        "store transaction/purchase references",
+        "expiry/trial/revocation status",
+        "account binding",
+        "notification ID and fingerprint"
+      ],
+      "recipients": [
+        "Apple or Google",
+        "Fallible Software, Co. on Hetzner"
+      ],
+      "purpose": [
+        "app functionality",
+        "account management",
+        "fraud prevention"
+      ],
+      "linked": true,
+      "retention": "Entitlement records until account deletion; duplicate-notification receipts expire after 30 days. Store payment records follow provider requirements.",
+      "apple_candidates": [
+        "Purchase History",
+        "User ID"
+      ],
+      "google_candidates": [
+        "Purchase history",
+        "User IDs"
+      ],
+      "excluded_claim": "Vipi does not receive payment card details through the implemented store verification path. Do not infer that it receives no purchase data.",
+      "evidence": [
+        "backend/vipi/db.py:Entitlement, BillingNotification",
+        "backend/vipi/store_providers.py",
+        "backend/vipi/store_notifications.py"
+      ],
+      "open": [
+        "Actual production products, sandbox transactions and store notifications remain unqualified."
+      ]
+    },
+    {
+      "id": "optional_vbot_content",
+      "data": [
+        "up to 12 recent vBot messages",
+        "generated reply",
+        "request and usage/cost records"
+      ],
+      "recipients": [
+        "Fallible Software, Co. on Hetzner",
+        "DeepSeek API"
+      ],
+      "purpose": [
+        "app functionality",
+        "usage limits and billing controls"
+      ],
+      "linked": true,
+      "optional": true,
+      "retention": "Vipi keeps usage/request records, not normal prompt/reply text. API-provider retention and processing terms require account-specific verification; do not mark the entire flow ephemeral based only on Vipi's transient text handling.",
+      "apple_candidates": [
+        "Emails or Text Messages",
+        "Other User Content",
+        "Product Interaction",
+        "User ID"
+      ],
+      "google_candidates": [
+        "Other in-app messages",
+        "Other user-generated content",
+        "App interactions",
+        "User IDs"
+      ],
+      "evidence": [
+        "backend/vipi/bot.py:BotGateway.reply",
+        "ios/Vipi/BotConversation.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt"
+      ],
+      "open": [
+        "Verify the existing company API account's applicable processing terms before customer activation. DeepSeek's general February 2026 privacy policy expressly excludes downstream apps from its scope.",
+        "Evaluate Google sharing exceptions from actual contract/consent, not from the provider's name or TLS."
+      ]
+    },
+    {
+      "id": "selected_reports_and_blocks",
+      "data": [
+        "selected original message or vBot reply",
+        "report IDs/reason/timing",
+        "reporter/reported account IDs",
+        "block relationships",
+        "restriction/review records"
+      ],
+      "recipients": [
+        "Fallible Software, Co. authorized reviewers on Hetzner"
+      ],
+      "purpose": [
+        "security and abuse prevention",
+        "app functionality"
+      ],
+      "linked": true,
+      "optional": true,
+      "retention": "Reports expire after 30 days or relevant account deletion. Other block/restriction records have account-lifecycle retention. Server encryption is readable by authorized reviewers and is not human-chat E2EE.",
+      "apple_candidates": [
+        "Emails or Text Messages",
+        "Other User Content",
+        "User ID",
+        "Product Interaction"
+      ],
+      "google_candidates": [
+        "Other in-app messages",
+        "Other user-generated content",
+        "User IDs",
+        "App interactions"
+      ],
+      "evidence": [
+        "backend/vipi/reports.py",
+        "backend/vipi/bot.py:BotGateway.report",
+        "backend/vipi/moderation.py",
+        "backend/vipi/accounts.py:set_block"
+      ]
+    },
+    {
+      "id": "backup_and_recovery",
+      "data": [
+        "user-directed password-encrypted completed human-message history export",
+        "separate encrypted service metadata backup"
+      ],
+      "recipients": [
+        "user-selected storage provider for history export",
+        "Fallible Software, Co. private disaster-recovery storage"
+      ],
+      "purpose": [
+        "app functionality",
+        "disaster recovery"
+      ],
+      "retention": "User manages exported files and password. Service retains up to three verified generations, excluding relayed messages, public messaging-key records, push tokens and report text. Earlier metadata copies can outlive account deletion until replaced/deleted.",
+      "classification": "Account for collected metadata in its original categories. Do not describe all backups as uncollected merely because encrypted; Vipi can decrypt its own service backups. User export is a distinct, explicit action.",
+      "open": [
+        "Final native export provider interaction must match the submitted binary.",
+        "Restored services must reconcile later deletions and restrictions before reopening; this final disaster-recovery gate is not yet qualified."
+      ],
+      "evidence": [
+        "ios/Vipi/HistoryBackupCodec.swift",
+        "ios/Vipi/HistoryBackupStore.swift",
+        "ios/Vipi/HistoryBackupView.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupCodec.kt",
+        "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupStore.kt",
+        "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupScreen.kt"
+      ]
+    },
+    {
+      "id": "operational_security",
+      "data": [
+        "request IP used for ingress throttling",
+        "keyed IP-derived browser-deletion rate key",
+        "account rate windows",
+        "critical infrastructure errors"
+      ],
+      "recipients": [
+        "Fallible Software, Co. on Hetzner",
+        "independent authentication/provider systems for their requests"
+      ],
+      "purpose": [
+        "security and abuse prevention",
+        "app functionality"
+      ],
+      "retention": "Service access logs are disabled in source configuration; critical error logging remains. Rate windows are cleaned after roughly two hours. No IP-derived location feature is implemented.",
+      "classification": "Hashing does not by itself anonymize a rate key. Determine category and linkage from actual use; do not declare precise/coarse location merely because the network receives an IP address.",
+      "evidence": [
+        "ops/nginx-api-https.conf",
+        "ops/vipi-api.service",
+        "backend/vipi/web_deletion.py:throttle",
+        "backend/vipi/rates.py",
+        "backend/vipi/maintenance.py"
+      ],
+      "open": [
+        "Reconcile final deployed infrastructure log fields/retention and production WorkOS auth metadata without reading customer content."
+      ]
+    }
+  ],
+  "pinned_dependency_privacy": {
+    "apple_app_manifest": "ios/Vipi/PrivacyInfo.xcprivacy",
+    "mlkit_common_languageid_naturallanguage_manifest_sha256": "c8a396f0eea4373773d60036f40dc5b12d84cae0e1e565030bd7b069a55e4028",
+    "mlkit_translate_manifest_sha256": "5a02b3c3de3b9a41d85520ad4be75c7b3d342db1fd6eeaac197fab1dd4b2d1e5",
+    "provenance": "Exact retained installed dependency manifests, hash-verified November 8. These add SDK categories/purposes to the app's declaration; app-only manifest inspection is incomplete.",
+    "android_source_permissions": [
+      "INTERNET",
+      "ACCESS_NETWORK_STATE",
+      "POST_NOTIFICATIONS"
+    ],
+    "android_source_flags": {
+      "allowBackup": false,
+      "usesCleartextTraffic": false,
+      "firebase_analytics_collection_enabled": false,
+      "firebase_messaging_auto_init_enabled": false,
+      "firebase_messaging_installation_id_enabled": false
+    },
+    "caveat": "These are source-manifest flags, not the final merged release manifest or proof that runtime never changes a setting. No address-book, microphone or location permission appears in this source manifest. Final dependency merge must be inspected. Apple APNs integration does not use Firebase Messaging."
+  },
+  "submission_gates": [
+    "Aggregate exact signed-release privacy manifests and inspect Android's final merged manifest/dependency graph.",
+    "Reconcile all SDK/provider purposes, linkage, optionality, retention and sharing classification with actual release configuration.",
+    "Deploy the corrected notice distinguishing Android background registration from optional visible alerts, then verify against final behavior.",
+    "Verify vBot API processing terms and real consent path before offering the optional plan.",
+    "Exercise final release network behavior with owned synthetic accounts, including initial setup, model download, background delivery, report, subscription, deletion and backup flows.",
+    "Enter and retain actual company-console answers only after reconciliation. No form has been submitted by this inventory."
+  ],
+  "primary_references": [
+    "https://developer.apple.com/app-store/app-privacy-details/",
+    "https://support.google.com/googleplay/android-developer/answer/10787469?hl=en",
+    "https://developers.google.com/ml-kit/android-data-disclosure",
+    "https://developers.google.com/ml-kit/ios-data-disclosure",
+    "https://firebase.google.com/docs/android/play-data-disclosure",
+    "https://firebase.google.com/docs/ios/app-store-data-collection",
+    "https://workos.com/legal/privacy",
+    "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+    "https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html"
+  ],
+  "working_tree_note": "Hash list binds the inspected bytes; backend/vipi/public_pages.py includes the pending notice correction beyond source_commit. Unrelated team edits are outside this inventory."
+}

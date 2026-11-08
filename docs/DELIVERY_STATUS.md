@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 05:12 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 06:26 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -18,7 +18,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
 | Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
-| Full readings | Native macOS and Android probes identify usable Chinese pinyin/Japanese contextual kana and specific conversion limits. | Production integration, broader correctness, API 28 behavior, Korean ordinary reading policy and Arabic vowels. |
+| Full readings | Native Chinese 332-case mechanical parity; Japanese 270-case repeatability and kana conversion; Android authored readings run asynchronously and preserve actual chat history position. | Gated native fallback integration, broader correctness, API 28 runtime, Korean guarded orthographic qualification and Arabic reading coverage. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
@@ -68,6 +68,15 @@ These are agent judgments, not certified bilingual gold or a 90% claim. See
 `qa/immersion/coverage_ceiling_experiment/CONTENT_EXPANSION_R01.md` and its
 additive concept-group audit.
 
+The larger inventory covers 3,000 frequent TRAIN surfaces but does not establish
+safe contextual choices. Requiring agreement across every dictionary sense
+collapses usable content; shortest-target selection introduces meaning/register
+errors. The next bounded candidate uses ordinary source roles, attested forms
+and phrase evidence, measured on all 9,535 TRAIN turns. An Arabic alias audit
+also found a concrete compiler identity defect: vocalized coffee and a different
+son alias collapse to the same stripped key. A general exact-form correction is
+under qualification; no revised pack has been activated.
+
 ## Native full-reading work
 
 Existing production complete readings cover authored references; arbitrary
@@ -75,26 +84,42 @@ non-Roman full-text readings remain incomplete. Audio remains the pronunciation
 authority. A valid orthographic convention must not be mistaken for an acoustic
 error or described as a verified ordinary pronunciation guide.
 
-The native macOS 48-case probe found contextual Chinese readings promising,
-Japanese topic/directional particle gaps, Korean reversible orthographic forms
-that differ from ordinary pronunciation-based romanization, and unresolved
-Arabic vowels. No generic transform was promoted. The follow-up Chinese
-candidate preserves protected literals and exact source ranges; 140 first/warm
-cases completed. Root's fixed 24 subset has 20 readable, three tone-notation
-caveats and one correctly withheld unknown Han case. Complete Latin output is
-not uniformly correct marked pinyin. Full author/join review and integration
-remain separate.
+Chinese candidate `d6181e0` uses reproducibly exported MIT-licensed pinyin-pro
+data with a native Swift implementation. All 332 cases preserve source pieces
+and match the pinned upstream mechanically. Root's corrected 80-case review
+has 72 readable, four guarded abstentions, two context-limited standalone forms
+and two syllable errors. The informed full review retains ten syllable errors,
+including eight of 200 reused conversational messages. These are agent reviews,
+not fresh population accuracy. Root's earlier label calling `睡觉→shui jiao`
+wrong was corrected and the original review retained. A general maximum-input
+fix reduced the observed worst mixed probe from 4.9 seconds to 81 ms on the VM;
+it is not a physical-device latency guarantee. Broad CC-CEDICT augmentation and
+a separate small neural reader introduced regressions and were not adopted.
 
-Android's QA-only `bab5635` probe uses the already bundled Kuromoji dictionary.
-All 12 source partitions and repeated token sequences were exact. It correctly
-distinguishes particle `は→wa` from lexical `葉→ha`, but independent token Roman
-conversion breaks cross-token gemination (`送った→oku~tsu ta`) and hides identifier
-boundaries. Unknown supplementary Han correctly withholds a full reading.
-The general conversion fix is under development. The observed tokenizer first
-call was 679 ms and warm median 0.283 ms; these are instrumented emulator observations,
-not production cold-start or physical latency bounds. ICU's public Romanizer
-path requires API 29 while the app supports API 28. No audio/provider/model call
-was made by either reading experiment.
+Japanese `6ccba15` combines existing Kuromoji readings with a native kana chart
+converter and exact literal/source guards. The cross-token gemination defect
+is corrected. All 270 repeated sentence outputs are stable and all 100 reused
+corpus messages have a candidate, but known Han/context errors remain; complete
+output is not complete correctness. The new converter removes its dependency
+on the API-29 ICU Romanizer, while API-28 execution is still untested. A measured
+quadratic URL-tail path was replaced by one delimiter pass in `2bb2f99`, retaining
+the prior output hashes. The candidate remains dormant pending gated chat QA.
+
+Android `4df1d63` moves authored readings off the rendering path into a bounded,
+coalescing cache. Seven cache/Compose cases plus an actual ChatScreens history
+case passed on API 35. Delayed reading grew from 71 to 142 pixels while its top
+stayed at 761 pixels and the older-history position remained stable. This uses
+synthetic transport and authored data, not a live translation-provider result.
+Apple `bfb9216`'s actual cache source passed four small CLI cases; its app/XCTest
+integration awaits physical storage admission. The shared receipt-name collision
+was corrected in `759764a`, preserving Apple's exact original receipt bytes.
+
+Korean retained output follows a documented spelling-based convention permitted
+by NIKL, so differences from pronunciation-based romanization are not inherently
+errors. A guarded orthographic candidate is prepared for QA; no new phonetic
+engine is required just to meet transliteration. Unknown-script handling and
+Arabic vowel/readability gaps remain open. Full-reader metadata must not delay
+the original script, chat interaction or original-language audio.
 
 ## Resource and external gates
 

@@ -5,6 +5,11 @@ submitted. `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
 
+`privacy-data-inventory.json` maps implemented data flows and pinned SDK
+declarations to candidate store categories. It records remaining questions and
+source hashes; it is not a completed questionnaire. Reconcile it with the final
+signed binaries, provider configuration and deployed notice before submission.
+
 ## Listing and screenshots
 
 `store-metadata-en-US.json` contains the proposed English copy, working policy
