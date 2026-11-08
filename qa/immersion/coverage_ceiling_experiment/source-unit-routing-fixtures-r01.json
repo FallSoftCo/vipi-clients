@@ -1,0 +1,170 @@
+{
+  "schema": "vipi-existing-source-unit-routing-fixtures-1",
+  "production_pack_changes": false,
+  "frozen_unix": 1794106919.982357,
+  "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+  "source": "Existing phrase022 references, no new accepted text. Unmatched surrounding text is a routing fixture only.",
+  "fixtures": [
+    {
+      "id": "whole-water",
+      "text": "I need water.",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "complete_reference",
+      "accepted_catalog_units": [
+        {
+          "original": "I need water.",
+          "translation": "Ninahitaji maji.",
+          "start_utf16": 0,
+          "end_utf16": 13,
+          "reference_id": "catalog-reference-sha256:d30bcbcf18f49a2a3890a7d9dd4124417d1589d246311c0b1582f1b08612ef4b",
+          "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+        }
+      ],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 0,
+        "candidate_automatic_translation_calls": 0,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 0,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    },
+    {
+      "id": "partial-prefix",
+      "text": "I need water. Did you finish the report?",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "approved_partial",
+      "accepted_catalog_units": [
+        {
+          "original": "I need water.",
+          "translation": "Ninahitaji maji.",
+          "start_utf16": 0,
+          "end_utf16": 13,
+          "reference_id": "catalog-reference-sha256:d30bcbcf18f49a2a3890a7d9dd4124417d1589d246311c0b1582f1b08612ef4b",
+          "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+        }
+      ],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 1,
+        "candidate_automatic_translation_calls": 0,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 1,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    },
+    {
+      "id": "partial-suffix",
+      "text": "Did you finish the report? I need water.",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "approved_partial",
+      "accepted_catalog_units": [
+        {
+          "original": "I need water.",
+          "translation": "Ninahitaji maji.",
+          "start_utf16": 27,
+          "end_utf16": 40,
+          "reference_id": "catalog-reference-sha256:d30bcbcf18f49a2a3890a7d9dd4124417d1589d246311c0b1582f1b08612ef4b",
+          "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+        }
+      ],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 1,
+        "candidate_automatic_translation_calls": 0,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 1,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    },
+    {
+      "id": "partial-two-units",
+      "text": "I need water. I like music. Did you finish the report?",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "approved_partial",
+      "accepted_catalog_units": [
+        {
+          "original": "I need water.",
+          "translation": "Ninahitaji maji.",
+          "start_utf16": 0,
+          "end_utf16": 13,
+          "reference_id": "catalog-reference-sha256:d30bcbcf18f49a2a3890a7d9dd4124417d1589d246311c0b1582f1b08612ef4b",
+          "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+        },
+        {
+          "original": "I like music.",
+          "translation": "Ninapenda muziki.",
+          "start_utf16": 14,
+          "end_utf16": 27,
+          "reference_id": "catalog-reference-sha256:9059635ebd65b9c741ae3bb593a94217401f28d28838cc3087129414e0dc5aed",
+          "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+        }
+      ],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 1,
+        "candidate_automatic_translation_calls": 0,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 1,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    },
+    {
+      "id": "miss-report",
+      "text": "Did you finish the report?",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "lookup_miss",
+      "accepted_catalog_units": [],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 1,
+        "candidate_automatic_translation_calls": 1,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 0,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    },
+    {
+      "id": "miss-meeting",
+      "text": "Can you meet me after work?",
+      "source": "en",
+      "target": "sw",
+      "explicit_input_language": "en",
+      "density": 0.25,
+      "kind": "lookup_miss",
+      "accepted_catalog_units": [],
+      "expected_models_prepared": {
+        "control_automatic_translation_calls": 1,
+        "candidate_automatic_translation_calls": 1,
+        "candidate_automatic_warm_translation_calls": 0,
+        "candidate_full_request_after_automatic_translation_calls": 0,
+        "candidate_repeated_full_translation_calls": 0
+      },
+      "native_boundary_qualification": "Native sentence/word boundaries must actually produce a nonempty anchored partial at the specified density. If absent, retain failure; do not add pack rows or adjust input."
+    }
+  ],
+  "semantic_scope": "Approved catalog unit meanings retained. Fresh full provider translations must be recorded literally and are not automatically semantically approved.",
+  "separate_negative_scenarios": [
+    "No models: approved automatic partial does not query readiness or translator; explicit full returns model-not-ready while keeping partial.",
+    "Translator error/timeout: explicit full keeps identical approved source slots and exposes retry.",
+    "Two simultaneous explicit requests for same request identity share at most one provider task.",
+    "Identity/generation/input-language changes: late extension cannot update the new message; approved previous slots are not transferred.",
+    "Cancel or return to immersed/original: stop/cancel pending intent where possible; if provider cannot cancel, discard stale output.",
+    "Zero spans or failed source anchoring cannot qualify automatic sufficiency."
+  ]
+}

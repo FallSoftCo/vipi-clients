@@ -1,0 +1,48 @@
+{
+  "schema": "vipi-source-unit-routing-candidate-contract-1",
+  "production_enabled": false,
+  "root_acceptance_required": true,
+  "fixture_sha256": "1a2e1d5974df1053fbda0901fe268f98a2c6fde99c8076cb23bf34db667deb74",
+  "scope": "Routing/UI/cache qualification with existing source-approved sentence units. New219-word/target transfer packs remain separately unpromoted.",
+  "ownership": {
+    "android": "android_delivery: core LookupFirst request/policy/tests, ConversationImmersion cache/action, ImmersionBubble state, native capture",
+    "apple": "apple_delivery: Swift corresponding routing/cache/UI/tests and native capture",
+    "immersion": "immersion_engine: exact fixtures, source-unit catalog/semantic proof, evaluation contract",
+    "promotion": "root: cross-platform acceptance and release decision"
+  },
+  "request_intents": {
+    "automaticImmersion": "Visible message preparation. Existing exact complete reference remains first. A confirmed-source, nonempty anchored approved partial satisfies this request without checking model readiness, full translation, or alignment.",
+    "fullTranslation": "Explicit user request for whole target language. Reuse valid complete cache/reference, otherwise request at most one bounded local full translation. Preserve approved source faces throughout."
+  },
+  "sufficiency": [
+    "Normal input validation and confirmed source direction remain required; do not infer language solely from one lexical hit.",
+    "At least one approved, changed, source-anchored selected span at requested density; native word/token budgets and mandatory target readings pass existing structural checks.",
+    "Producer is the exact verified accepted catalog in this experiment, with catalog SHA and reference IDs; target-dependent dictionary guesses cannot enter source-only producer.",
+    "No synthetic full target message assembled from mixed words. translation remains nil until a valid full reference exists."
+  ],
+  "cache": [
+    "Automatic accepts same-identity valid partial or complete cache, including after model-ready changes and re-entry; no automatic second inference.",
+    "Explicit full accepts only a valid complete cache as complete. Keep partial cache while loading/error; failure does not erase useful slots.",
+    "Coalesce identical full requests by conversation/request generation, selected input language, exact source text, pair and accepted catalog version; do not share stale identities."
+  ],
+  "full_extension": [
+    "Use installed local provider through existing literal translation/identifier validation; no remote translation API or silent model download.",
+    "30second provider timeout per extension, based on observed prepared-model first-call peaks above11seconds; cancellation/invalidation remains immediate for UI.",
+    "Preserve partial span identities, source ranges, readings and continuous-flip phase; attach completeTranslation without replacing source-authorized faces with newly guessed alignment.",
+    "When approved partial exists, avoid heavy target-dependent lexical/frame alignment whose result would otherwise be discarded. Misses retain existing full-context alignment path."
+  ],
+  "ui": [
+    "Whole-target language action is visible for supported pairs even when translation is absent. Explicit action invokes fullTranslation; no proactive call just to display the menu.",
+    "While awaiting full reference, keep current approved immersion visible with a bounded loading indication; never label mixed text as complete target language.",
+    "On success show exact full target text; on error/model absence retain partial, show a concise recoverable state and explicit retry/download-management route.",
+    "Prevent duplicate taps from launching duplicate inference. Leaving/changing message/conversation/language or canceling cannot publish a stale result.",
+    "Existing copy-original/report/speech and continuous slots remain available. Speech follows the visible original/mixed/full state only."
+  ],
+  "qualification": [
+    "Freeze unchanged native control source and record actual calls to modelsReady, translate, heavy align plus partial callbacks and first/warm timings.",
+    "Run exact six fixtures; valid old partial should change control1provider call→candidate0 automatic, explicit extension0→1 then repeat0 with prepared models.",
+    "Record actual unsupported/provider-unavailable platform status rather than injecting a translation and claiming native inference. Deterministic core error/cancel tests are labelled synthetic.",
+    "Actual UI: partial visible, target action invokes once, in-flight indication/error preserves slots and phase, source copy and original mode remain correct.",
+    "No promotion from tests alone; root reviews native receipts and existing source-unit semantic provenance."
+  ]
+}

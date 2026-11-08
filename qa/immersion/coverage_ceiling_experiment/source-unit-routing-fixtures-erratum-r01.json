@@ -1,0 +1,10 @@
+{
+  "schema": "vipi-source-unit-routing-fixture-erratum-1",
+  "frozen_fixture_sha256": "1a2e1d5974df1053fbda0901fe268f98a2c6fde99c8076cb23bf34db667deb74",
+  "scope": "Correct the generic native_boundary_qualification note by fixture kind only. No source text, expected call count, approved unit, catalog or routing policy changes.",
+  "native_boundary_qualification_by_kind": {
+    "approved_partial": "Native sentence/word boundaries must actually produce a nonempty anchored partial at specified density. Retain failure if absent; do not add pack rows or alter fixture text.",
+    "complete_reference": "The exact complete catalog reference must resolve. No source-only partial is required for this first-priority whole-reference control; record actual alignment/spans and zero provider calls.",
+    "lookup_miss": "Both complete and partial accepted-catalog lookup must miss. No approved span is expected; retain the real model-ready/provider fallback outcome and prescribed call count."
+  }
+}
