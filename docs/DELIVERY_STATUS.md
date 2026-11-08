@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 11:35 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 22:28 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -53,6 +53,27 @@ The latest comparisons establish these limits:
 | Heads combined with the earlier editorial candidate | All three reviewers accept 15 of 16 nominated scopes; degree too is still confused with also. | No complete candidate accepted. Whole-path errors and later-learning depth remain gates. |
 | HFST/lexd Swahili morphology | Actual isolated compilation/query succeeds with small analyzer/generator files, but common words and some negative/person forms fail. | Possible build-time evidence; no general generator or native dependency adopted. |
 | Apertium English–Spanish transfer | Actual stage capture handles possessive birthdays and noun/verb book, but fails country musician, on my way and other ordinary contexts. | Useful morphology/tagging/transfer components, not a complete meaning authority. |
+
+Actual source-annotation probes now exercise the same 116 frozen messages with
+Apple NLTagger in the existing macOS VM and OpenNLP 2.5.10/English UD-EWT on the
+existing Linux JVM. Against 52 independently frozen nominated role expectations,
+Apple matches 51 and OpenNLP 49; different mistakes remain. OpenNLP labels the
+noun planes as a verb with a raw score of 0.98, so confidence cannot substitute
+for qualification. Both recognize verbal visit, but POS does not resolve musical
+play, degree/additive too, titles or all personal names. These selected reused
+cases are not population accuracy or an Android runtime qualification. Original
+text/ranges and repeated OpenNLP output are verified. See
+`qa/immersion/native-source-annotations-r01`.
+
+The same inventory retains supported Spanish alternatives for musical play,
+verbal visit and degree/additive too. Swahili has no musical-play verb in this
+frozen corpus pool. Some dictionary sense links also disagree with the actual
+aligned occurrence's grammatical role. A selector cannot repair absent evidence
+or treat a dictionary link as a training label without occurrence checks.
+The next bounded analysis compares agreement across all retained source senses
+with agreement after conditioning on an independently inferred POS. Missing
+mapped senses remain explicit; valid synonymous alternatives are not mistaken
+for conflicting meanings. This is still candidate-eligibility analysis.
 
 The corpus comparison uses retained native token geometry and 9,535 reused
 TRAIN messages at three immersion densities and five simulated vocabulary
