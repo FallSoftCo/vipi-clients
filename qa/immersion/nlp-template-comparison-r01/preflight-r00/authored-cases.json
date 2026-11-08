@@ -1,0 +1,1582 @@
+{
+  "schema": "vipi.nlp-template-cases.r01",
+  "production": false,
+  "contract_sha256": "3767a5f794023ff1fef85f5120658ce7881be0c143fd2357dcfcfe705272fdf2",
+  "payload_sha256": "b91aefe7856e5cec9fd8fd7349d5d509f6ad4d45ee6aed3ead2e36ed35eeac87",
+  "provenance": "Project-authored diagnostic contrasts frozen before comparator output, not held-out conversation coverage.",
+  "cases": [
+    {
+      "id": "nlp-r01-book_object-000",
+      "text": "I am reading a book now.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "existing_exact",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-001",
+      "text": "She reads a book every week.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "finite_existing",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-002",
+      "text": "I read a book yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "tense_preserved",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-003",
+      "text": "Can you bring my book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_pronoun",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-004",
+      "text": "Can you bring Alice's book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-005",
+      "text": "Please bring Alice Smith's book today.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_multi_name",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-006",
+      "text": "Please bring alice's book today.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_lowercase",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-007",
+      "text": "Can you bring my friend's book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_common_possessor",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-008",
+      "text": "Can you bring James' book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_s_possessive",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-009",
+      "text": "Can you bring O'Connor's book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_internal_apostrophe",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-010",
+      "text": "Can you bring my friend's sister's book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "nested_possessive_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-011",
+      "text": "Please bring 3 books tomorrow.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "plural_number",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-012",
+      "text": "She brought their books yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "attested_past_context",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-013",
+      "text": "I did not bring her book.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negation_retained",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-014",
+      "text": "We will bring our books.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "auxiliary_retained",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-015",
+      "text": "Please book my flight.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "verb_homograph_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-016",
+      "text": "I read a bookkeeper report.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-017",
+      "text": "The book is on the table.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unmatched_smaller_fallback",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-018",
+      "text": "My books are missing.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "no_typed_context",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-019",
+      "text": "She said \"bring my book\" yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-020",
+      "text": "She said \"hello\" and will bring my book.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unrelated_quote",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-021",
+      "text": "Please bring `book` today.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "code_focus_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-022",
+      "text": "Please bring my book and my book.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "duplicate_context",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-023",
+      "text": "Please bring 1 books.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "malformed_agreement_source",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-024",
+      "text": "Can you bring Alice book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "missing_possessive_negative",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-000",
+      "text": "I am drinking water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "existing_exact",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-001",
+      "text": "She drinks water every day.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "finite_existing",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-002",
+      "text": "We drink water together.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "existing_exact",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-003",
+      "text": "He drank my water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "past_context",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-004",
+      "text": "She is drinking Alice's water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-005",
+      "text": "I did not drink your water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negation_retained",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-006",
+      "text": "I will water my plants.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "verb_homograph_negative",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-007",
+      "text": "The drinking water is cold.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "noun_modifier_context",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-008",
+      "text": "I am drinking watercolors.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-009",
+      "text": "Please drink some water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unmatched_smaller_fallback",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-010",
+      "text": "Please drink my water at 10:30.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "protected_number_outside",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-011",
+      "text": "\"drink my water",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unclosed_quote_negative",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-000",
+      "text": "I am going to my birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "short_exact_reuse",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-001",
+      "text": "I am going to Alice's birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name_no_artificial_gain",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-002",
+      "text": "We went to the man's birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_common_possessor",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-003",
+      "text": "We are going to Alice Smith's birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "window_limit",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-004",
+      "text": "Her birthday party was fun.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "sentence_case_boundary",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-005",
+      "text": "The birthday party starts at 5 pm.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "protected_time_outside",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-006",
+      "text": "The party won the election.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "political_party_negative",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-007",
+      "text": "I am going to my birthday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "no_party_focus",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-008",
+      "text": "I am going to @alice birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "handle_not_possessor",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-009",
+      "text": "I love birthday parties.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unavailable_plural_face",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-010",
+      "text": "The birthday party is not tomorrow.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negation_retained",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-011",
+      "text": "\"birthday party\" is the title.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-000",
+      "text": "I need a phone charger.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "short_exact",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-001",
+      "text": "Where is Alice's phone charger?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name_no_artificial_gain",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-002",
+      "text": "I found my phone charger.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_pronoun",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-003",
+      "text": "The phone charger costs 20 dollars.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "protected_number_outside",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-004",
+      "text": "The horse was a charger.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "other_sense_negative",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-005",
+      "text": "I need a phone charger cable.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_compound_context",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-006",
+      "text": "The phone chargers are here.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unavailable_plural_face",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-007",
+      "text": "My phone charged overnight.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-008",
+      "text": "The code is `phone charger`.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "code_focus_negative",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-009",
+      "text": "My friend mentioned \"hello\" beside the phone charger.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unrelated_quote",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-000",
+      "text": "I opened a bank account.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "short_exact",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-001",
+      "text": "This is Alice's bank account.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name_no_artificial_gain",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-002",
+      "text": "Please check my bank account.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_pronoun",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-003",
+      "text": "I sat on the river bank.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "other_sense_negative",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-004",
+      "text": "Her account of the event was clear.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "other_sense_negative",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-005",
+      "text": "The bank account number is private.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_compound_context",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-006",
+      "text": "My bank accounts are closed.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "unavailable_plural_face",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-007",
+      "text": "The text says \"bank account\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quote_negative",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-008",
+      "text": "Do not change my bank account.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negation_retained",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-bank_account-009",
+      "text": "My bank account is 123456.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "number_preservation",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-000",
+      "text": "What is your phone number?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "existing_exact",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-001",
+      "text": "My phone number is 555-0123.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_number_case_boundary",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-002",
+      "text": "You can see my phone number is 555-0123.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_number",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-003",
+      "text": "Alice's phone number is +1 (555) 0123.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name_number",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-004",
+      "text": "Check the phone number at https://example.com/contact.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_url_exact",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-005",
+      "text": "The phone number at @alice is old.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_handle",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-006",
+      "text": "The phone number at `contact` is wrong.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_code",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-007",
+      "text": "There is a phone number at alice@example.com.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_email",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-008",
+      "text": "My phone number is not 1234.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negative_copula_not_matched",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-009",
+      "text": "I number my books.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "verb_number_negative",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-010",
+      "text": "The phone number is 12:30.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "number_format_limit",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-011",
+      "text": "The phone number is `555`.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "code_not_number",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-012",
+      "text": "The phone number at https://example.com/phone-number stays unchanged.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "url_binding_preserved",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-013",
+      "text": "Please copy \"your phone number\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-000",
+      "text": "I teach at a high school.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "head_backoff",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-001",
+      "text": "My high school is nearby.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "head_backoff",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-002",
+      "text": "The school is high on the hill.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "literal_adjective_context",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-003",
+      "text": "That price is high.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "generic_component_valid_elsewhere",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-004",
+      "text": "I went to high school yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "budget_quantization",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-005",
+      "text": "The high school music teacher is here.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_compound",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-006",
+      "text": "We discuss a high school of thought.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "crossing_ambiguity_diagnostic",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-007",
+      "text": "The word is \"high school\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-000",
+      "text": "I eat a hot dog for lunch.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "food_context",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-001",
+      "text": "We ate a hot dog yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "food_past_context",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-002",
+      "text": "She is eating a hot dog.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "food_progressive",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-003",
+      "text": "I want a hot dog.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "bare_sense_unresolved",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-004",
+      "text": "That poor hot dog needs water.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "literal_animal_ambiguity",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-005",
+      "text": "The hot dog is panting.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "literal_animal_ambiguity",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-006",
+      "text": "The hot dog barked loudly.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "literal_animal_ambiguity",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-007",
+      "text": "He likes to hot dog on stage.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "verb_sense_negative",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-008",
+      "text": "Hot dog!",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "interjection_negative",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-009",
+      "text": "I eat a hot dog.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "overbudget_and_known_mask",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-010",
+      "text": "I eat a hot dog and walk my dog.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "protected_compound_other_dog",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-011",
+      "text": "I eat a hot dog while my dog sleeps.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "compound_and_valid_smaller",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-012",
+      "text": "I eat a hot dogfish.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-013",
+      "text": "The menu says \"eat a hot dog\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-000",
+      "text": "I like country music.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "head_backoff",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-001",
+      "text": "My country music collection is large.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "head_backoff",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-002",
+      "text": "The country has great music.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "separate_literal_words",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-003",
+      "text": "I love the music in this country.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "separate_literal_words",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-004",
+      "text": "Our country music school is excellent.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "overlapping_compounds",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-005",
+      "text": "I am reading a country music book.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_context_retains_inner_mask",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-006",
+      "text": "The country musician is famous.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-007",
+      "text": "The playlist is \"country music\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-000",
+      "text": "We raise the bar every year.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "idiom_unavailable",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-001",
+      "text": "She raised the bar yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "attested_past",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-002",
+      "text": "He is raising the bar again.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "attested_progressive",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-003",
+      "text": "She raises the bar for everyone.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "attested_third_person",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-004",
+      "text": "Please raise the bar above your head.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "literal_physical_ambiguity",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-005",
+      "text": "The bar is open tonight.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "generic_component_elsewhere",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-006",
+      "text": "I will not raise the bar.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "negative_ambiguity",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-007",
+      "text": "The poster says \"raise the bar\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quote_negative",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    }
+  ]
+}

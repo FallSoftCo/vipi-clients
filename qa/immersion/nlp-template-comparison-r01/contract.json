@@ -1,0 +1,154 @@
+{
+  "schema": "vipi.nlp-template-comparison.contract.r01",
+  "production": false,
+  "frozen_before_new_outputs": true,
+  "created_utc": "2026-11-08T08:30:59.152494+00:00",
+  "purpose": "Assess the missing top-down source phrase/typed-slot/morphology mechanism distinctly from the source-word research. Matched context and flipped lexical output are separate. No framework adoption or default runtime data activation.",
+  "baseline_source": {
+    "ios/VipiCore/Sources/VipiCore/ContextMapping.swift": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+    "ios/VipiCore/Sources/VipiCore/ContextFrame.swift": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+    "ios/Vipi/ReviewedFrameLookup.swift": "c002d6bbdc99737e171015685bae35a8d8a61a3431ce92b49b52056e35a08949",
+    "language-packs/authored_phrase_frames.py": "2744b31310b4735195eff5e0c64f7e5214b22e0ba3e6df355e179e1cab2acc6f",
+    "language-packs/authored_swahili_frames.py": "b3fe6e9c1dae5facbd421d539dc8e294172b9a24db54ff399b11b643e8a9c79d",
+    "language-packs/authored_everyday.py": "ed8eef8f36891493c5ce01ee9a3e6e805e4d1e190cd6e7c12bc9609bf58bc795",
+    "qa/immersion/coverage_ceiling_experiment/SOURCE_UNIT_RUNTIME_R03.md": "97f8842294e2ad97d1890c67a8da262a7b62e26d01b9041d100cd76654ad4ba3"
+  },
+  "directions": [
+    "en-sw",
+    "en-ja",
+    "en-es"
+  ],
+  "additional_morphology_direction": "sw-en only if a retained source morphology toolchain is actually qualified; absent capability is recorded, never replaced by invented output.",
+  "arms": [
+    {
+      "id": "existing_reference_route",
+      "meaning": "Current native catalog whole/sentence reference and current source-partial route; retain explicit-source and automatic-language outcomes separately. Provider-backed path only in separately bounded native spot checks, never fabricated full reference."
+    },
+    {
+      "id": "exact_top_down",
+      "meaning": "Existing bounded native phrase windows, descending complete context length, exact reviewed phrase contexts. Report matches and lexical output separately."
+    },
+    {
+      "id": "existing_finite_slots",
+      "meaning": "Existing ContextMappingMatcher with explicit finite literal/slot/focus alternatives and same bounds. No named arbitrary capture or unseen morphology permission."
+    },
+    {
+      "id": "typed_slots_attested_morphology",
+      "meaning": "Bounded source-only typed capture of possessor/name, numeric or protected identifier slots, plus full attested source morphological forms. Captured text remains original outside output focus; no target-string interpolation or automatic grammar transfer."
+    },
+    {
+      "id": "finite_state_morphology_optional",
+      "meaning": "Compare actual retained HFST/Apertium or equivalent finite-state source morphology only where tool/data are qualified. Keep analysis/generation provenance and ambiguity. Analyzer tags do not alone authorize target meaning."
+    }
+  ],
+  "sentence_families": [
+    {
+      "id": "book_object",
+      "basis": "Existing physical-book request/reading frames; possessed book/books and attested bring/read forms."
+    },
+    {
+      "id": "drinking_water",
+      "basis": "Existing beverage-water frame; attested drink forms and bounded quantity/possessor context."
+    },
+    {
+      "id": "birthday_party",
+      "basis": "Existing birthday-party frame; novel possessors/names and motion/attendance forms outside party focus. Bare birthday metonymy and political/legal party retained as contrast."
+    },
+    {
+      "id": "phone_charger",
+      "basis": "Existing device-charger frame; arbitrary possessors kept outside lexical focus; horse/plate/agent alternatives remain negatives."
+    },
+    {
+      "id": "bank_account",
+      "basis": "Existing financial bank-account frame, ownership/number variants; riverbank and accounting verbs remain contrast."
+    },
+    {
+      "id": "phone_number",
+      "basis": "Existing whole phone-number unit; names/URLs/numerals copied unchanged outside focus, no manufactured reading."
+    },
+    {
+      "id": "high_school",
+      "basis": "Complete source lexical compound; compare approved head school backoff with unsafe generic high. Full target or head faces require separately retained evidence."
+    },
+    {
+      "id": "hot_dog",
+      "basis": "Atomic food compound; no generic dog fallback when larger unit is known, overbudget or unavailable."
+    },
+    {
+      "id": "country_music",
+      "basis": "Genre compound; preserve approved music head only, never geography country merely because the larger unit cannot be emitted."
+    },
+    {
+      "id": "raise_the_bar",
+      "basis": "Idiomatic standard-raising context; withhold generic drinking-bar face. If no qualified whole phrase/morphology exists, report source recognition plus output abstention."
+    }
+  ],
+  "typed_slot_contract": {
+    "possessive_pronoun": "Finite explicit English possessive determiners; exact captured bytes retained.",
+    "possessive_np": "Bounded1–3name-shaped tokens followed by apostrophe-s or plural possessive apostrophe. Shape proves grammatical possessor only, not named-entity identity. Nested/ambiguous parses retained as abstentions.",
+    "number": "Existing native protected-number boundaries, no normalization or value change; agreement may only use explicit attested features.",
+    "identifier": "Exact original URL/handle/code/name range stays outside flipped focus. A protected span may lie in matched context but may never overlap replaced output.",
+    "binding_output": "Every slot reports exact source UTF16 range and original value; no slot text generated by the matcher."
+  },
+  "precedence": {
+    "context_vs_output": "Context range may be much longer than emitted noun/phrase focus. Density cost counts only complete native tokens in the output focus.",
+    "longest_first": "Build windows once, index candidates, match longer more-specific contexts first. An ambiguous longer atomic construction blocks unsafe nested generic fallback before known/budget filtering.",
+    "backoff": "Unmatched larger windows may try smaller complete windows. Recognized compound may permit only explicitly reviewed inner head units; no global ban on valid school/music/window components.",
+    "ambiguity": "Multiple analyses assigning conflicting meaning/atomicity/output geometry withhold the affected scope. Lexical identity/POS alone does not settle sense.",
+    "budgets": "Identical10/25/50percent native whole-message budgets across arms; max1 floor, disjoint outputs, one concept occurrence/message,128units, no budget override.",
+    "known": "none,all_function,all_function_plus50/100/300frozenconcepts, plus an atomic-known contrast. Known larger units cannot expose unsafe nested words."
+  },
+  "bounds": {
+    "native_context_window_words": 8,
+    "native_window_utf16": 256,
+    "native_windows_per_message": 4096,
+    "pattern_parts": 12,
+    "finite_slot_alternatives": 32,
+    "active_match_states": 128,
+    "output_unit_utf16": 128,
+    "input_utf16": 16384,
+    "extended_window_policy": "Longer-than8word family contexts recorded as capability gaps; no hidden cap enlargement."
+  },
+  "evaluation": {
+    "authored_cases": "At most160 frozen positive/negative/metamorphic cases, clearly authored diagnostics; targets/patterns/expected scope categories fixed before matching output.",
+    "TRAIN": "All9535 existing eligible BST TRAIN role-play turns. Report family/context reach, actual output availability, content depth, distinct concepts, known-word exhaustion and per-length bins; not population acceptance.",
+    "negative_strata": [
+      "negation/auxiliary/time/adverb",
+      "possessor vs proposition and nested names",
+      "singular/plural/irregular/full-form mismatch",
+      "idiom/literal/lexical-compound ambiguity",
+      "quotes/code/URLs/numbers/handles",
+      "overbudget/known atomic unit and unsafe inner fallback",
+      "repeated/overlapping context and competing parses",
+      "unknown vocabulary and punctuation/sentence boundaries"
+    ],
+    "native_trace": [
+      "source/target",
+      "matched_context_range",
+      "selected_rule_and_evidence",
+      "bindings",
+      "morphological_analyses",
+      "candidate_output_range_and_reading",
+      "protected/atomicblockedranges",
+      "selected_spans",
+      "rejection/backoff_reason",
+      "density/nativewordcost",
+      "providercalls",
+      "startup/warmtime",
+      "RSS/PSSwhereavailable"
+    ],
+    "semantic_review": "Fixed deterministic packet of actual outputs and abstentions; meaning/form/reading separate, author and root labels frozen independently. Authored expectations are not independent quality evidence."
+  },
+  "resource_limits": {
+    "native_provider": "No new models; reuse installed models only in explicitly bounded spotcheck, at most12sourcecases per available direction. Apple unavailable provider remains explicit.",
+    "toolchain": "Inspect existing retained source and package feasibility first; no system install/service/VM change. Optional isolated tool qualification must have exact versions/licenses and explicit bounded disk/CPU/RSS/time.",
+    "runtime": "No network inference, no provider/model calls in source-only matching arms."
+  },
+  "not_claimed": [
+    "General target grammar generation or arbitrary named-slot target inflection",
+    "HFST/Apertium deployment merely because a family has finite states",
+    "90percent useful conversation coverage",
+    "All110directions or automatic language identification from a word hit",
+    "Production promotion of R03wordcatalog or newtemplateentries"
+  ]
+}

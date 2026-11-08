@@ -1,0 +1,36 @@
+{
+  "production": false,
+  "status": "Frozen before comparator outputs",
+  "payload_sha256": "b91aefe7856e5cec9fd8fd7349d5d509f6ad4d45ee6aed3ead2e36ed35eeac87",
+  "cases_sha256": "b3b80f3c039526a9d45629c7278da09b5a971deaaaac67befe3480f471b280e9",
+  "proofs_sha256": "21800c1da98afd9bf70c0ea036555880d78575c8798f0de5478460f56d2fdee4",
+  "compiler_sha256": "6e4eafdefc2f4a1129039f190c97995f9c5c2b2929b2c37cb366c484cb456689",
+  "patterns": 38,
+  "faces": 32,
+  "form_sets": 15,
+  "forms": 30,
+  "families": [
+    "bank_account",
+    "birthday_party",
+    "book_object",
+    "country_music",
+    "drinking_water",
+    "high_school",
+    "hot_dog",
+    "phone_charger",
+    "phone_number",
+    "raise_the_bar"
+  ],
+  "inputs": {
+    "qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+    "data/immersion/en-sw.sqlite": "33f0e9f2e52ceafc1000b60209ffb41a5c25e24fa8568a0f5199b8af94401854",
+    "data/immersion/en-ja.sqlite": "3e2c4df2c21c8db6f0b9360c97690c6f8ff90efd7ac4ca9eeacd2ddbef06895b",
+    "data/immersion/en-es.sqlite": "7801e15470327dc2c5e7bb8337c4e454d75e994b0b0af417efd106d74034eb6a",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-en.sqlite": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-sw.sqlite": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-ja.sqlite": "101115ac82b01b2467644a439c1480b913ab5196f3edb125aadf574b5608159d",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-es.sqlite": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-runtime-candidate-r03.json": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+  },
+  "policy": "Do not change targets/matcher after reviewing comparison output; retain any correction as explicit new revision."
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "vipi.nlp-template-payload.schema.r01",
+  "contract_sha256": "3767a5f794023ff1fef85f5120658ce7881be0c143fd2357dcfcfe705272fdf2",
+  "top_level": {
+    "schema": "vipi.nlp-template-payload.r01",
+    "production": false,
+    "contract_sha256": "exact contract digest",
+    "faces": "array of Face",
+    "form_sets": "object mapping stable setID to array of Form",
+    "patterns": "array of Pattern",
+    "fallback_entries": "array of explicitly labelled diagnostic generic word Face IDs; not production authority",
+    "provenance": "exact input hashes and record proof files"
+  },
+  "Face": {
+    "id": "unique stable string",
+    "concept_id": "shared meaning/family identifier",
+    "source_language": "en or sw",
+    "source_form": "exact complete source output text",
+    "target_language": "sw/ja/es/en",
+    "target": "exact target lexical face",
+    "reading": "string or null; non-Roman target requires nonempty",
+    "primary_ref": "content-addressed proof ID",
+    "qualification": "existing_assessed_frame_face|existing_reviewed_word_face|new_experimental_compound_face; none alone implies broader typed-context acceptance"
+  },
+  "Form": {
+    "id": "unique stable string",
+    "surface": "exact surface, not stem",
+    "lexeme_id": "string or integer source identity",
+    "pos": "noun|verb|phrase|...",
+    "features": "array of exact retained tags, no invented POS certainty",
+    "face_ids": "target language→Face ID map; may be empty for context-only morphology",
+    "primary_ref": "content-addressed source form proof ID"
+  },
+  "Pattern": {
+    "id": "unique stable string",
+    "family": "one of10 frozen families",
+    "source_language": "en or sw",
+    "arms": "subset of exact_top_down|existing_finite_slots|typed_slots_attested_morphology|finite_state_morphology_optional",
+    "parts": "ordered array of Part;1–12",
+    "atomicity": {
+      "mode": "none|atomic|head_backoff|ambiguous",
+      "scope": "RangeSpec or null",
+      "reason": "explicit source semantic rationale"
+    },
+    "approved_outputs": "array of Output; empty for recognized-but-unavailable/ambiguous whole idiom",
+    "meaning_id": "stable intended sense; competing matched IDs on same atomic context trigger ambiguity withholding",
+    "priority": "integer; higher is more specific only after context-length comparison",
+    "evidence_ref": "content-addressed source/target/context proof ID"
+  },
+  "Part": {
+    "discriminant": "kind",
+    "common": "name is unique within pattern; every part including literal has one",
+    "literal": {
+      "kind": "literal",
+      "name": "string",
+      "value": "exact string"
+    },
+    "enum": {
+      "kind": "enum",
+      "name": "string",
+      "values": "1–32exact nonempty strings"
+    },
+    "typed": {
+      "kind": "typed",
+      "name": "string",
+      "type": "possessor|number|identifier",
+      "max_words": "positive int≤3 forpossessor; native-word budget does not permit partial capture",
+      "max_utf16": "positive int≤128"
+    },
+    "morph": {
+      "kind": "morph",
+      "name": "string",
+      "form_set": "existing set ID; complete attested surfaces only"
+    },
+    "focus": {
+      "kind": "focus",
+      "name": "string",
+      "form_set": "existing set ID; complete attested source output forms"
+    }
+  },
+  "RangeSpec": {
+    "kind": "context|part|parts",
+    "context": "entire matched context ifkind=context",
+    "part": "named part ifkind=part",
+    "from": "named first part ifkind=parts",
+    "through": "named final part ifkind=parts; inclusive end. Ranges are exact consumed UTF16 scopes, never target offsets."
+  },
+  "Output": {
+    "id": "unique output policy ID",
+    "scope": "RangeSpec",
+    "face_from_part": "named focus part, OR null",
+    "face_ids": "explicit target→Face ID map used only whenface_from_part=null",
+    "concept_id": "explicit approved output concept; must match selectedFace",
+    "native_cost": "computed from complete native source tokens at runtime, not literal training count"
+  },
+  "case_wrapper": {
+    "schema": "vipi.nlp-template-cases.r01",
+    "contract_sha256": "digest",
+    "cases": "array of {id,text,source_language,target_languages,stratum,family_hint,expected_scope_category}; authored expectations are diagnostics not independent correctness"
+  },
+  "typed_grammar": {
+    "possessor": "my/your/his/her/its/our/their OR1–3letter/mark name-shaped tokens ending apostrophe-s (ASCII orcurly), OR final-s plus possessive apostrophe. Internal apostrophes/hyphens permitted; nested possessive endings in earlier tokens rejected. No claim of actual person/NER identity. Exact captured text retained.",
+    "number": "ASCII digits with optional leading+ and spaces/dashes/parentheses/decimalpoint, at leastone digit; no linebreak. Source values preserved, no number normalization. Count agreement only where explicit pattern constraint is supplied; no inferred agreement.",
+    "identifier": "A complete existing protected URL/handle/code range; capture can be in context but output cannot overlap. Plain names use possessor grammar, no target insertion.",
+    "matching": "Literal/enum/morph/focus case variants must be explicitly supplied; no silent casefold matching. Native wholecontext windows bound parsing. Typed alternatives must end at complete source word/literal boundaries, not prefixes."
+  },
+  "recognition_trace": {
+    "required": [
+      "rule_id",
+      "meaning_id",
+      "context_range_utf16",
+      "part_ranges_utf16",
+      "bindings_original",
+      "form_ids",
+      "atomic_range_utf16",
+      "record_sha256",
+      "allowed_inner_output_ids",
+      "reason"
+    ],
+    "retention": "Keep independently of selectedoutputs and even when known/overbudget/no-target; ambiguity masks precede smaller-backoff."
+  },
+  "selection_trace": {
+    "required": [
+      "density",
+      "known_snapshot_id",
+      "native_source_word_count",
+      "native_budget",
+      "output_candidates",
+      "selected_spans",
+      "rejections",
+      "provider_calls",
+      "elapsed_ns"
+    ],
+    "output_candidate": "output_id,face_id,source_range_utf16,target,reading,native_cost,concept_id"
+  },
+  "output_storage": "Stream one JSONL record per input source with contexts/recognitions once and nested target/arm/density/known decisions. TRAIN may aggregate wholly unmatched rows while retaining exactIDs+counts; retain all matched/rejected/protected scopes. Bound native output20MiB, reportincomplete ifexceeded. No repeated entire inputpercombination."
+}

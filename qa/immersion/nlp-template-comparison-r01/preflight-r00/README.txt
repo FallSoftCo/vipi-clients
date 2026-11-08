@@ -1,0 +1,1 @@
+Preserved pre-execution builder check. No matcher or native outputs were run. Incorrect research entry language key omitted six intended diagnostic component faces; corrected before dispatch. Frozen comparator input is ../payload.json.

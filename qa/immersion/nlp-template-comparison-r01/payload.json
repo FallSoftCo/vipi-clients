@@ -1,0 +1,3316 @@
+{
+  "schema": "vipi.nlp-template-payload.r01",
+  "production": false,
+  "contract_sha256": "3767a5f794023ff1fef85f5120658ce7881be0c143fd2357dcfcfe705272fdf2",
+  "schema_sha256": "72a1d20d2c60a09ae4ba0c4c1694691343f7d00793eaaab38cb47546b375397f",
+  "semantics_sha256": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7",
+  "faces": [
+    {
+      "id": "en:book:sw:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "book",
+      "target_language": "sw",
+      "target": "kitabu",
+      "reading": null,
+      "primary_ref": "becd1a31adec6dc8672ae18606d6774493b18f9278e62cf43841b3b7026b8c71",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:book:ja:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "book",
+      "target_language": "ja",
+      "target": "本",
+      "reading": "hon",
+      "primary_ref": "a5e1697492265ffb81b7e6b30e36e21dc8bd1515ad9b599e3d5ec1c559c33acd",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:book:es:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "book",
+      "target_language": "es",
+      "target": "libro",
+      "reading": null,
+      "primary_ref": "b83cf8e936491a62c01f30ca1fa76968fb3aab5e2644e56d6f66d97f7126b299",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:water:sw:water",
+      "concept_id": "water",
+      "source_language": "en",
+      "source_form": "water",
+      "target_language": "sw",
+      "target": "maji",
+      "reading": null,
+      "primary_ref": "0399c934e37faf4149e19d62ced551aad45fb62fb48ff163d570f0cbb0e418e7",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:water:ja:water",
+      "concept_id": "water",
+      "source_language": "en",
+      "source_form": "water",
+      "target_language": "ja",
+      "target": "水",
+      "reading": "mizu",
+      "primary_ref": "ebcc3fde2a0ae2faa1b9be631fdc1ba612909d8176f537befc3aad37a5627cb3",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:water:es:water",
+      "concept_id": "water",
+      "source_language": "en",
+      "source_form": "water",
+      "target_language": "es",
+      "target": "agua",
+      "reading": null,
+      "primary_ref": "00f2227380e6445fa4f68b41f42265763c85220c6b1caa0b02996fb8b4b5f3a2",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:party:sw:party",
+      "concept_id": "party",
+      "source_language": "en",
+      "source_form": "party",
+      "target_language": "sw",
+      "target": "Sherehe",
+      "reading": null,
+      "primary_ref": "b86f4f6bbd4dd6e06898759ac6f6c28be95fb42089d69ebfbdf6837ff9f9289b",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:party:ja:party",
+      "concept_id": "party",
+      "source_language": "en",
+      "source_form": "party",
+      "target_language": "ja",
+      "target": "パーティー",
+      "reading": "pātī",
+      "primary_ref": "2881d6c409cf4b7e3fc8832870682a78041f320d6032ec12e855318556b4677d",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:party:es:party",
+      "concept_id": "party",
+      "source_language": "en",
+      "source_form": "party",
+      "target_language": "es",
+      "target": "fiesta",
+      "reading": null,
+      "primary_ref": "d4db2c242ec3d8f6ed0d4714e2877d3fd75cb581d9cc00294183858402c3d59b",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:charger:sw:charger",
+      "concept_id": "charger",
+      "source_language": "en",
+      "source_form": "charger",
+      "target_language": "sw",
+      "target": "chaja",
+      "reading": null,
+      "primary_ref": "5a9cdac0293e502e5bb9ed741354f407b24d666b26991321320fb2c5afa56de0",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:charger:ja:charger",
+      "concept_id": "charger",
+      "source_language": "en",
+      "source_form": "charger",
+      "target_language": "ja",
+      "target": "充電器",
+      "reading": "jūdenki",
+      "primary_ref": "39ec6adfeab2b83fe460956bdeec788c495d1af513e943c4685ab94cd386d33a",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:charger:es:charger",
+      "concept_id": "charger",
+      "source_language": "en",
+      "source_form": "charger",
+      "target_language": "es",
+      "target": "cargador",
+      "reading": null,
+      "primary_ref": "4a31b1cbee7e304a5d6c4440fd2b45046853a0bc1375797d0621693849f63853",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:account:sw:account",
+      "concept_id": "account",
+      "source_language": "en",
+      "source_form": "account",
+      "target_language": "sw",
+      "target": "akaunti",
+      "reading": null,
+      "primary_ref": "a96aea313f774aa3eca58ce21be3aa80bbb26b3fb16cfe39d4e6ae284eaad230",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:account:ja:account",
+      "concept_id": "account",
+      "source_language": "en",
+      "source_form": "account",
+      "target_language": "ja",
+      "target": "口座",
+      "reading": "kōza",
+      "primary_ref": "3747a76ccbd2e96c8deb2495487081ee1ea1147f2e9115f887b9be1a4e3121b1",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:account:es:account",
+      "concept_id": "account",
+      "source_language": "en",
+      "source_form": "account",
+      "target_language": "es",
+      "target": "cuenta",
+      "reading": null,
+      "primary_ref": "80d10c24c6f9e3ecd558b8c036febb81cb795b412073060110d978500e67e67c",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:phone number:sw:phone_number",
+      "concept_id": "phone_number",
+      "source_language": "en",
+      "source_form": "phone number",
+      "target_language": "sw",
+      "target": "Nambari ya simu",
+      "reading": null,
+      "primary_ref": "210653fb07e683cd6eb198e6f3f2fc693d29c9c984c0cd3e8a68ad6d184476a0",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:phone number:ja:phone_number",
+      "concept_id": "phone_number",
+      "source_language": "en",
+      "source_form": "phone number",
+      "target_language": "ja",
+      "target": "電話番号",
+      "reading": "denwa bangō",
+      "primary_ref": "da72b4490d055253cafae93555788fb49de3255377681ff18b0f0414f26fbb27",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:phone number:es:phone_number",
+      "concept_id": "phone_number",
+      "source_language": "en",
+      "source_form": "phone number",
+      "target_language": "es",
+      "target": "número de teléfono",
+      "reading": null,
+      "primary_ref": "d6204afb65e48a00adb34e78d1365c36a8f38203d1c25cc4bc003390679445ff",
+      "qualification": "existing_assessed_frame_face"
+    },
+    {
+      "id": "en:books:sw:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "books",
+      "target_language": "sw",
+      "target": "vitabu",
+      "reading": null,
+      "primary_ref": "53f979a016284e278b59a905752e95f70689c66d1d8cce97bf59b84bd1f53639",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:books:ja:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "books",
+      "target_language": "ja",
+      "target": "本",
+      "reading": "hon",
+      "primary_ref": "9e91bcca73a93d6f9f7bd1434fed58a22228b05a5b78c29c28764d8275fd9507",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:books:es:book",
+      "concept_id": "book",
+      "source_language": "en",
+      "source_form": "books",
+      "target_language": "es",
+      "target": "libros",
+      "reading": null,
+      "primary_ref": "055199b41af0b9b6f731babc77b4b9b63212fe801d7ecde39c6382ad02fc6062",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:school:sw:schools",
+      "concept_id": "schools",
+      "source_language": "en",
+      "source_form": "school",
+      "target_language": "sw",
+      "target": "shule",
+      "reading": null,
+      "primary_ref": "edd9815fa1c61dce611488ee22d7ce52023634a433e1135816afef71a8b2138e",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:school:ja:schools",
+      "concept_id": "schools",
+      "source_language": "en",
+      "source_form": "school",
+      "target_language": "ja",
+      "target": "学校",
+      "reading": "gakkou",
+      "primary_ref": "afaf65e136f4f795d6c99af95cfb93ae9ea1ac38914e59cc680998a49ccfb77f",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:school:es:schools",
+      "concept_id": "schools",
+      "source_language": "en",
+      "source_form": "school",
+      "target_language": "es",
+      "target": "escuela",
+      "reading": null,
+      "primary_ref": "693601e8abdf2fd16cda7cb2af88d3988059c41602ea361b559ab1af11ff1d34",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:music:sw:music",
+      "concept_id": "music",
+      "source_language": "en",
+      "source_form": "music",
+      "target_language": "sw",
+      "target": "muziki",
+      "reading": null,
+      "primary_ref": "5e475959336d1cf60fc7d71ac2ab7783e07ca1876aaf7e1b8af699fb2b4837d4",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:music:ja:music",
+      "concept_id": "music",
+      "source_language": "en",
+      "source_form": "music",
+      "target_language": "ja",
+      "target": "音楽",
+      "reading": "ongaku",
+      "primary_ref": "f66b19b37adf2d3cfc6f609b92b2217af9bcd27f9d92f189d80d53ce1f31380a",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:music:es:music",
+      "concept_id": "music",
+      "source_language": "en",
+      "source_form": "music",
+      "target_language": "es",
+      "target": "música",
+      "reading": null,
+      "primary_ref": "db5e19a1431714e603e75ea829c355858188445c4aed6e9cf2e5d9e7c7386fc5",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:dog:sw:dog",
+      "concept_id": "dog",
+      "source_language": "en",
+      "source_form": "dog",
+      "target_language": "sw",
+      "target": "mbwa",
+      "reading": null,
+      "primary_ref": "ad01d0443f40459e94a67b92d275a40454849502be0060aa7f4bdef4415a9816",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:dog:ja:dog",
+      "concept_id": "dog",
+      "source_language": "en",
+      "source_form": "dog",
+      "target_language": "ja",
+      "target": "犬",
+      "reading": "inu",
+      "primary_ref": "1f47baf5dc255cc5772d93f9eb502ec9604b749d6139f211590b0b6a926d3e2c",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:dog:es:dog",
+      "concept_id": "dog",
+      "source_language": "en",
+      "source_form": "dog",
+      "target_language": "es",
+      "target": "perro",
+      "reading": null,
+      "primary_ref": "2e78e35993906cdb1cb199bbcb82b77fc7b6df7d46a72477d9ceed59497c4429",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:hot dog:ja:compound:hot_dog",
+      "concept_id": "compound:hot_dog",
+      "source_language": "en",
+      "source_form": "hot dog",
+      "target_language": "ja",
+      "target": "ホットドッグ",
+      "reading": "hottodoggu",
+      "primary_ref": "dd483c57b6bd853ee2e9467ee707af3fc509d9d6e421eddf9e24d091ee2815e9",
+      "qualification": "new_experimental_compound_face"
+    },
+    {
+      "id": "en:hot dog:es:compound:hot_dog",
+      "concept_id": "compound:hot_dog",
+      "source_language": "en",
+      "source_form": "hot dog",
+      "target_language": "es",
+      "target": "perrito caliente",
+      "reading": null,
+      "primary_ref": "05a3ea102db22a03c644fceb621f46b1cc00b89edfc489d23c366de5c544cd16",
+      "qualification": "new_experimental_compound_face"
+    },
+    {
+      "id": "en:high:ja:high",
+      "concept_id": "high",
+      "source_language": "en",
+      "source_form": "high",
+      "target_language": "ja",
+      "target": "高い",
+      "reading": "takai",
+      "primary_ref": "44237f4de66a87eea0911421c0564f932989615621fe0cdec8ebd7bc3873535c",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:high:es:high",
+      "concept_id": "high",
+      "source_language": "en",
+      "source_form": "high",
+      "target_language": "es",
+      "target": "alto",
+      "reading": null,
+      "primary_ref": "230a07a4c68d7b57a8603fe8e0ed76fdd9e68dccd6839932fd10d564c257a75a",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:country:sw:country",
+      "concept_id": "country",
+      "source_language": "en",
+      "source_form": "country",
+      "target_language": "sw",
+      "target": "nchi",
+      "reading": null,
+      "primary_ref": "a9db51fda100df8736f4f6e76f8a5a91f935321c570a284918df71fae6bf16f7",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:country:ja:country",
+      "concept_id": "country",
+      "source_language": "en",
+      "source_form": "country",
+      "target_language": "ja",
+      "target": "国",
+      "reading": "kuni",
+      "primary_ref": "d9524cfabf789c7889639d8d79eb9515055ba22fe5dbbfb657aac0bb9d44cad8",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:country:es:country",
+      "concept_id": "country",
+      "source_language": "en",
+      "source_form": "country",
+      "target_language": "es",
+      "target": "país",
+      "reading": null,
+      "primary_ref": "969eff05729f0caaff0b3ccd016e2a5ec44ca8fda36cfb8e5f5aac3187afc8ac",
+      "qualification": "existing_reviewed_word_face"
+    },
+    {
+      "id": "en:bar:ja:bar",
+      "concept_id": "bar",
+      "source_language": "en",
+      "source_form": "bar",
+      "target_language": "ja",
+      "target": "バー",
+      "reading": "bā",
+      "primary_ref": "5d2457b27396e44dcd6511562081b271cf301485baaea47ed70a96501eeaadaa",
+      "qualification": "existing_reviewed_word_face"
+    }
+  ],
+  "form_sets": {
+    "focus:book": [
+      {
+        "id": "focus:book:0",
+        "surface": "book",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:book:sw:book",
+          "ja": "en:book:ja:book",
+          "es": "en:book:es:book"
+        },
+        "primary_ref": "491a5e04bc8fbfbf2b2d3fdac5b7800eea254b8d77b479dad6cd84c120074d17"
+      }
+    ],
+    "focus:water": [
+      {
+        "id": "focus:water:0",
+        "surface": "water",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:water:sw:water",
+          "ja": "en:water:ja:water",
+          "es": "en:water:es:water"
+        },
+        "primary_ref": "40e2611ed3390f2fedb6de64d54b3e9a854db41e2fe2f265ebba7599bb9dc1d7"
+      }
+    ],
+    "focus:party": [
+      {
+        "id": "focus:party:0",
+        "surface": "party",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:party:sw:party",
+          "ja": "en:party:ja:party",
+          "es": "en:party:es:party"
+        },
+        "primary_ref": "2b26e4e3c3baa401f740bfd88552af69cfcfc6365445cbf08ae5b174fcc91c2c"
+      }
+    ],
+    "focus:charger": [
+      {
+        "id": "focus:charger:0",
+        "surface": "charger",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:charger:sw:charger",
+          "ja": "en:charger:ja:charger",
+          "es": "en:charger:es:charger"
+        },
+        "primary_ref": "fab41811daea005010b2a7d9b6c7f9c6f18ecee3535c35e7ed5a139376d6d211"
+      }
+    ],
+    "focus:account": [
+      {
+        "id": "focus:account:0",
+        "surface": "account",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:account:sw:account",
+          "ja": "en:account:ja:account",
+          "es": "en:account:es:account"
+        },
+        "primary_ref": "6e9aa03a0a43fbf06ef2109e881f011905808ca4b5524b7573bdbda0342f0b46"
+      }
+    ],
+    "focus:phone number": [
+      {
+        "id": "focus:phone number:0",
+        "surface": "phone number",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:phone number:sw:phone_number",
+          "ja": "en:phone number:ja:phone_number",
+          "es": "en:phone number:es:phone_number"
+        },
+        "primary_ref": "ee27df77f26da0358bef3f3c9d2433f38c4381b90a2e6e0f7a80601c4d9753fa"
+      }
+    ],
+    "focus:books": [
+      {
+        "id": "focus:books:0",
+        "surface": "books",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [
+          "plural"
+        ],
+        "face_ids": {
+          "sw": "en:books:sw:book",
+          "ja": "en:books:ja:book",
+          "es": "en:books:es:book"
+        },
+        "primary_ref": "b5582353e95a44de4db217625cf8a314d45a9051eb74c785bce7209af91e0210"
+      }
+    ],
+    "focus:school": [
+      {
+        "id": "focus:school:0",
+        "surface": "school",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:school:sw:schools",
+          "ja": "en:school:ja:schools",
+          "es": "en:school:es:schools"
+        },
+        "primary_ref": "288a50da65dc813a309676cb512275d51bddc58722e1439aa3b8b9e27170de8e"
+      }
+    ],
+    "focus:music": [
+      {
+        "id": "focus:music:0",
+        "surface": "music",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:music:sw:music",
+          "ja": "en:music:ja:music",
+          "es": "en:music:es:music"
+        },
+        "primary_ref": "66be05af79e03ffc22b1336cae216909b5831d22374c62714224e37195c074fe"
+      }
+    ],
+    "focus:dog": [
+      {
+        "id": "focus:dog:0",
+        "surface": "dog",
+        "lexeme_id": "authored frame focus",
+        "pos": "noun",
+        "features": [],
+        "face_ids": {
+          "sw": "en:dog:sw:dog",
+          "ja": "en:dog:ja:dog",
+          "es": "en:dog:es:dog"
+        },
+        "primary_ref": "c831886366215e5410bd2deac154c24819d2702d8e89364686e5f93c7b222796"
+      }
+    ],
+    "verb:read": [
+      {
+        "id": "verb:read:read",
+        "surface": "read",
+        "lexeme_id": 24035,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "first-person",
+              "past",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "first-person",
+              "present",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "form-of",
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "imperative",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "infinitive"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "past",
+              "plural"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "past",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "past",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "past",
+              "subjunctive"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "plural",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "present",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "present",
+              "subjunctive"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "attested-positive-past-verb-1",
+              "past",
+              "positive",
+              "active",
+              "past-source-syncretic"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "c64761890f70db8646d1a1f89888d5e9d5d9d9a9302c0cf94ceaefebd3367df5"
+      },
+      {
+        "id": "verb:read:reads",
+        "surface": "reads",
+        "lexeme_id": 24035,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "form-of",
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "174d0a8f1d9a10c3cbf79457c68877c741e5ad280265a3ca6f2b995673d95883"
+      },
+      {
+        "id": "verb:read:reading",
+        "surface": "reading",
+        "lexeme_id": 24035,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "form-of",
+              "gerund",
+              "participle",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 24035,
+            "features": [
+              "participle",
+              "present"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "fdf5ba3d0bc68ac9e8e8f8d7c3c421fe2d47df76ca8ae65246732c2cd2fee949"
+      }
+    ],
+    "verb:bring": [
+      {
+        "id": "verb:bring:bring",
+        "surface": "bring",
+        "lexeme_id": 30179,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "first-person",
+              "present",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "imperative",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "infinitive"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "plural",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "present",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "present",
+              "subjunctive"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "c3a028899168e3230ea2951832c52e56b26688384456bfea011fb093b34f5566"
+      },
+      {
+        "id": "verb:bring:brings",
+        "surface": "brings",
+        "lexeme_id": 30179,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "form-of",
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "8d1b9d29915d0b9fc1f7f6d2b0f8e3b59f8b76324e182bc7361d4db8b45b05d0"
+      },
+      {
+        "id": "verb:bring:bringing",
+        "surface": "bringing",
+        "lexeme_id": 30179,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "form-of",
+              "gerund",
+              "participle",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "participle",
+              "present"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "b2c8ec8cdd00b9ed0d1a8ed8e1db3602b74d0146a0de571f725d2c00eb793bbb"
+      },
+      {
+        "id": "verb:bring:brought",
+        "surface": "brought",
+        "lexeme_id": 30179,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "first-person",
+              "past",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "form-of",
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "past",
+              "plural"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "past",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "past",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "past",
+              "subjunctive"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 30179,
+            "features": [
+              "attested-positive-past-verb-1",
+              "past",
+              "positive",
+              "active",
+              "past-source-requires-finite-clause"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "3dd16bb7c179af0687fe4fb53c4a3101ef1d8b0c652394b999f8b7ead2a24369"
+      }
+    ],
+    "verb:drink": [
+      {
+        "id": "verb:drink:drink",
+        "surface": "drink",
+        "lexeme_id": 12133,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 12133,
+            "features": []
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "60c309bf55294414ad07e66903f03a4596be3dff9ec71e480d8752735dee3d27"
+      },
+      {
+        "id": "verb:drink:drinks",
+        "surface": "drinks",
+        "lexeme_id": 12133,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "form-of",
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "dbd16460e5f519a47cd15b2cb3d8595ee0c2dc2dd6fd109efd538f47347e96f9"
+      },
+      {
+        "id": "verb:drink:drinking",
+        "surface": "drinking",
+        "lexeme_id": 12133,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "form-of",
+              "gerund",
+              "participle",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "participle",
+              "present"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "3b840849c4a25fc56d2b90c567a6fb8f211052f14b6ddd439b2a5bc252a0f1a0"
+      },
+      {
+        "id": "verb:drink:drank",
+        "surface": "drank",
+        "lexeme_id": 12133,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "dialectal",
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "form-of",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "alternative"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "attested-positive-past-verb-1",
+              "past",
+              "positive",
+              "active",
+              "past-source-requires-finite-clause"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "09b867aa7e75e03deed8bef876782e0d9f8a32c14e407989191a8cf5fdb4be41"
+      },
+      {
+        "id": "verb:drink:drunk",
+        "surface": "drunk",
+        "lexeme_id": 12133,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "Southern-US",
+              "form-of",
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "Southern-US",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 12133,
+            "features": [
+              "participle",
+              "past"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "399a3cdac733b40078bb6ecf6ee32612f27162e22497657d7189b6e8a3df4b06"
+      }
+    ],
+    "verb:go": [
+      {
+        "id": "verb:go:go",
+        "surface": "go",
+        "lexeme_id": 30997,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "first-person",
+              "present",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "imperative",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "infinitive"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "plural",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "present",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "present",
+              "subjunctive"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "12e83825caf86cab84c50632ecb4cfbf8a28119e8e23c833ae948c30d52e6fc8"
+      },
+      {
+        "id": "verb:go:goes",
+        "surface": "goes",
+        "lexeme_id": 30997,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "form-of",
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "eee9ca6a066577a7146a5a3cd53e36530aac02c3b47f0fde89039f92ca0aa446"
+      },
+      {
+        "id": "verb:go:going",
+        "surface": "going",
+        "lexeme_id": 30997,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "participle",
+              "present"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "afc0acff35b474524b6d9f06659cbb6b90f77d010ec7b1c5f38bd350821f868f"
+      },
+      {
+        "id": "verb:go:went",
+        "surface": "went",
+        "lexeme_id": 30997,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "first-person",
+              "past",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "form-of",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "past",
+              "plural"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "past",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "past",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "past",
+              "subjunctive"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 30997,
+            "features": [
+              "attested-positive-past-verb-1",
+              "past",
+              "positive",
+              "active",
+              "past-source-unambiguous"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "edffa0ac00a85b621b847aa5d77cbbed0fd0853c4c81e387c0f36abd7f49bcb1"
+      }
+    ],
+    "verb:raise": [
+      {
+        "id": "verb:raise:raise",
+        "surface": "raise",
+        "lexeme_id": 193167,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "first-person",
+              "present",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "imperative",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "infinitive"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "plural",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "present",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "present",
+              "subjunctive"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "2dbd38c28ee1ebf102209c659c7bf0e0c4bf5ab0c32800f65ec25d38d78558b1"
+      },
+      {
+        "id": "verb:raise:raises",
+        "surface": "raises",
+        "lexeme_id": 193167,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "form-of",
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "8c1819668fc4c8018b4794405f82c299221d99d97d9f84241c64ad7add4b8d31"
+      },
+      {
+        "id": "verb:raise:raised",
+        "surface": "raised",
+        "lexeme_id": 193167,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "first-person",
+              "past",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "form-of",
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "participle",
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "past",
+              "plural"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "past",
+              "second-person",
+              "singular"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "past",
+              "singular",
+              "third-person"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "past",
+              "subjunctive"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "past"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "attested-positive-past-verb-1",
+              "past",
+              "positive",
+              "active",
+              "past-source-requires-finite-clause"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "8d9191678de133227058daa2b7964d9daf115eabec7f46a7564faa8679396341"
+      },
+      {
+        "id": "verb:raise:raising",
+        "surface": "raising",
+        "lexeme_id": 193167,
+        "pos": "verb",
+        "features": [],
+        "analyses": [
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "form-of",
+              "gerund",
+              "participle",
+              "present"
+            ]
+          },
+          {
+            "lexeme_id": 193167,
+            "features": [
+              "participle",
+              "present"
+            ]
+          }
+        ],
+        "face_ids": {},
+        "primary_ref": "8adacb7f47e1287ef2367a768d7f314a0056f0f20e98e5ece562352ce7de90a3"
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "id": "finite:reading_book",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "read"
+        },
+        {
+          "kind": "enum",
+          "name": "p1",
+          "values": [
+            "ing a ",
+            " a ",
+            "s a "
+          ]
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "491a5e04bc8fbfbf2b2d3fdac5b7800eea254b8d77b479dad6cd84c120074d17",
+      "record_sha256": "ae7fdfab685b56c7cd2f5f4bfbb5e3e63d23f2c4229a9611569c9b2e43e711ce"
+    },
+    {
+      "id": "exact:reading_book:0",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "read a "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "491a5e04bc8fbfbf2b2d3fdac5b7800eea254b8d77b479dad6cd84c120074d17",
+      "record_sha256": "66ff6ca413484ee6b18d7ff4507a9ce91d3a005b107856ba0e09418fe786deba"
+    },
+    {
+      "id": "exact:reading_book:1",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "reading a "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "491a5e04bc8fbfbf2b2d3fdac5b7800eea254b8d77b479dad6cd84c120074d17",
+      "record_sha256": "50b8eb8f213cca2fb6f276b22c41083fc54f6bfc3dcd8e3d079cd281d67d6ef4"
+    },
+    {
+      "id": "exact:reading_book:2",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "reads a "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "491a5e04bc8fbfbf2b2d3fdac5b7800eea254b8d77b479dad6cd84c120074d17",
+      "record_sha256": "34408026c0116f1238e8cf87a5b357dea10943a3b9b13eedaa90a18baf8b0a5c"
+    },
+    {
+      "id": "finite:drinking_water",
+      "family": "drinking_water",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "drink"
+        },
+        {
+          "kind": "enum",
+          "name": "p1",
+          "values": [
+            "ing ",
+            " ",
+            "s "
+          ]
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:water"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:water",
+          "concept_id": "water",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "drinking_water",
+      "priority": 0,
+      "evidence_ref": "40e2611ed3390f2fedb6de64d54b3e9a854db41e2fe2f265ebba7599bb9dc1d7",
+      "record_sha256": "d04373123eb101a6b43bb91f43020fba3c1ca6128764fd0e3416db5ae8fc4675"
+    },
+    {
+      "id": "exact:drinking_water:0",
+      "family": "drinking_water",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "drink "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:water"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:water",
+          "concept_id": "water",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "drinking_water",
+      "priority": 0,
+      "evidence_ref": "40e2611ed3390f2fedb6de64d54b3e9a854db41e2fe2f265ebba7599bb9dc1d7",
+      "record_sha256": "21a3bce42a9239718890d272174064dab90d9cfb9f2b8a96850211bb9f77062a"
+    },
+    {
+      "id": "exact:drinking_water:1",
+      "family": "drinking_water",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "drinking "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:water"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:water",
+          "concept_id": "water",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "drinking_water",
+      "priority": 0,
+      "evidence_ref": "40e2611ed3390f2fedb6de64d54b3e9a854db41e2fe2f265ebba7599bb9dc1d7",
+      "record_sha256": "9db3398be7883318236402f4182225f044ddd386fe3d6fdacfde57e7038b9273"
+    },
+    {
+      "id": "exact:drinking_water:2",
+      "family": "drinking_water",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "drinks "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:water"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:water",
+          "concept_id": "water",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "drinking_water",
+      "priority": 0,
+      "evidence_ref": "40e2611ed3390f2fedb6de64d54b3e9a854db41e2fe2f265ebba7599bb9dc1d7",
+      "record_sha256": "3662a2aab46ed1b8029c7be5473156463dbe0adef2e975cb60744f814e6e31a7"
+    },
+    {
+      "id": "finite:birthday_party",
+      "family": "birthday_party",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "birthday "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:party"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:party",
+          "concept_id": "party",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "birthday_party",
+      "priority": 0,
+      "evidence_ref": "2b26e4e3c3baa401f740bfd88552af69cfcfc6365445cbf08ae5b174fcc91c2c",
+      "record_sha256": "0392e1488e8a94046e4e06ccd642b8ce0a9083c9ff25e50faa52e95173bb735b"
+    },
+    {
+      "id": "exact:birthday_party:0",
+      "family": "birthday_party",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "birthday "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:party"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:party",
+          "concept_id": "party",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "birthday_party",
+      "priority": 0,
+      "evidence_ref": "2b26e4e3c3baa401f740bfd88552af69cfcfc6365445cbf08ae5b174fcc91c2c",
+      "record_sha256": "7126081c245169aab742e2b66e7cf7c158a56b3e1ab7956c0bd8f0371836e99d"
+    },
+    {
+      "id": "finite:phone_charger",
+      "family": "phone_charger",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "phone "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:charger"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:charger",
+          "concept_id": "charger",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_charger",
+      "priority": 0,
+      "evidence_ref": "fab41811daea005010b2a7d9b6c7f9c6f18ecee3535c35e7ed5a139376d6d211",
+      "record_sha256": "f826acb993d11fea8b907077bc0d70497bbe197a8c84e7fc725f4921e9b9d3b3"
+    },
+    {
+      "id": "exact:phone_charger:0",
+      "family": "phone_charger",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "phone "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:charger"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:charger",
+          "concept_id": "charger",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_charger",
+      "priority": 0,
+      "evidence_ref": "fab41811daea005010b2a7d9b6c7f9c6f18ecee3535c35e7ed5a139376d6d211",
+      "record_sha256": "54f88116b37703d48a198e31d2ae4ae84a79180c778fe3eaacdc649e888cd7d4"
+    },
+    {
+      "id": "finite:bank_account",
+      "family": "bank_account",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "bank "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:account"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:account",
+          "concept_id": "account",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "bank_account",
+      "priority": 0,
+      "evidence_ref": "6e9aa03a0a43fbf06ef2109e881f011905808ca4b5524b7573bdbda0342f0b46",
+      "record_sha256": "99ed1b746ab910ed101e5d8ce7cbb0c7b05c09383ac365272d54cc4d1b628b59"
+    },
+    {
+      "id": "exact:bank_account:0",
+      "family": "bank_account",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "bank "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:account"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:account",
+          "concept_id": "account",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "bank_account",
+      "priority": 0,
+      "evidence_ref": "6e9aa03a0a43fbf06ef2109e881f011905808ca4b5524b7573bdbda0342f0b46",
+      "record_sha256": "c465698f4dadbe138cf82c71787d3c4b012963f3ed5195451cd5cd27890eb62d"
+    },
+    {
+      "id": "finite:phone_number",
+      "family": "phone_number",
+      "source_language": "en",
+      "arms": [
+        "existing_finite_slots"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "p0",
+          "value": "your "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:phone number"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:phone_number",
+          "concept_id": "phone_number",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_number",
+      "priority": 0,
+      "evidence_ref": "ee27df77f26da0358bef3f3c9d2433f38c4381b90a2e6e0f7a80601c4d9753fa",
+      "record_sha256": "8e9cad46b6636d6562261c50c61901f3dc5f36741cd9843a063e4d3841fcb017"
+    },
+    {
+      "id": "exact:phone_number:0",
+      "family": "phone_number",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "your "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:phone number"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:phone_number",
+          "concept_id": "phone_number",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_number",
+      "priority": 0,
+      "evidence_ref": "ee27df77f26da0358bef3f3c9d2433f38c4381b90a2e6e0f7a80601c4d9753fa",
+      "record_sha256": "9f5da7affa8940718c14f3223d1a6e6e16e3ae3c9799e3120a7d58e719e4141e"
+    },
+    {
+      "id": "typed:read:possessor:book",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:read"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "ba5bff7e823a5587e52819e48d224a376e98ce16016af15a7cf9d8a1d6417c88"
+    },
+    {
+      "id": "typed:bring:possessor:book",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:bring"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:book"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "217af4b8f3be40e0b99774bb04da757c8d3a186bd2d8e6359b75799d1c9472f2"
+    },
+    {
+      "id": "typed:read:possessor:books",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:read"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:books"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "bf351f060cfa0bdd63cf112380c6c9b415893704ee40a97c774467757cc0b044"
+    },
+    {
+      "id": "typed:bring:possessor:books",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:bring"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:books"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "bbd48c5ae2a5efe76a59bf6763da483a3def554f3b51459d645f0e3072b5f905"
+    },
+    {
+      "id": "typed:bring:number:books",
+      "family": "book_object",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:bring"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "count",
+          "type": "number",
+          "max_words": 8,
+          "max_utf16": 64
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:books"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Plural face is attested; numeral value is preserved, not used to generate agreement."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:book",
+          "concept_id": "book",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "book_object",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "5e07a4773b5579173489ca4ce24ddf93275f73a3a3aedd6c7c0cfdfd5ec0bf36"
+    },
+    {
+      "id": "typed:drink:possessor:water",
+      "family": "drinking_water",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:drink"
+        },
+        {
+          "kind": "literal",
+          "name": "space1",
+          "value": " "
+        },
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space2",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:water"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:water",
+          "concept_id": "water",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "drinking_water",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "30da4cf477685cdebe8b73ead2211583a5016afdbc6b0ea4e1b72460a3971e18"
+    },
+    {
+      "id": "typed:possessor:birthday_party",
+      "family": "birthday_party",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space",
+          "value": " "
+        },
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "birthday "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:party"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "parts",
+          "from": "prefix",
+          "through": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:party",
+          "concept_id": "party",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "birthday_party",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "0268be23779d507687378f6eaab00742dc2564c44bacf4ecf69d2c803b375926"
+    },
+    {
+      "id": "typed:possessor:phone_charger",
+      "family": "phone_charger",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space",
+          "value": " "
+        },
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "phone "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:charger"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "parts",
+          "from": "prefix",
+          "through": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:charger",
+          "concept_id": "charger",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_charger",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "2fc07573d69d3801616e1b13e4365a67080d98e225bd04a524004ceebd20a50a"
+    },
+    {
+      "id": "typed:possessor:bank_account",
+      "family": "bank_account",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space",
+          "value": " "
+        },
+        {
+          "kind": "literal",
+          "name": "prefix",
+          "value": "bank "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:account"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "parts",
+          "from": "prefix",
+          "through": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:account",
+          "concept_id": "account",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "bank_account",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "c3cbdad4b3460d6f83edaaba5ccc4db45b73b3c418f3da51aea20e37e1bd3974"
+    },
+    {
+      "id": "typed:phone:number",
+      "family": "phone_number",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "typed",
+          "name": "owner",
+          "type": "possessor",
+          "max_words": 3,
+          "max_utf16": 128
+        },
+        {
+          "kind": "literal",
+          "name": "space",
+          "value": " "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:phone number"
+        },
+        {
+          "kind": "literal",
+          "name": "copula",
+          "value": " is "
+        },
+        {
+          "kind": "typed",
+          "name": "number",
+          "type": "number",
+          "max_words": 8,
+          "max_utf16": 64
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:phone_number",
+          "concept_id": "phone_number",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_number",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "f84ee882ceefabed845a62d80d56b3ee948a0af9988a5e33a0b3cad85499019f"
+    },
+    {
+      "id": "typed:phone:identifier",
+      "family": "phone_number",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:phone number"
+        },
+        {
+          "kind": "literal",
+          "name": "location",
+          "value": " at "
+        },
+        {
+          "kind": "typed",
+          "name": "identifier",
+          "type": "identifier",
+          "max_words": 8,
+          "max_utf16": 128
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "part",
+          "part": "focus"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:phone_number",
+          "concept_id": "phone_number",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "phone_number",
+      "priority": 0,
+      "evidence_ref": "39c2f4d9b469070bee9f25f2ae14d51c211a2021b8caf23bc33f4a36eb1a768a",
+      "record_sha256": "06fbc7d57b0ae52d11b162c6f355ef8cefaa3da7e51a9829a6d0a34f60482d07"
+    },
+    {
+      "id": "exact:high_school",
+      "family": "high_school",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "modifier",
+          "value": "high "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:school"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:schools",
+          "concept_id": "schools",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "high_school",
+      "priority": 0,
+      "evidence_ref": "a1837deca322409ae1234e875ace6d3d6d95a9fe75f302dc4f06fe1ae90d337d",
+      "record_sha256": "0fbda3fadfea8765b84bb618d46d871049455c85792265f3929d5e57c8846886"
+    },
+    {
+      "id": "exact:country_music",
+      "family": "country_music",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "modifier",
+          "value": "country "
+        },
+        {
+          "kind": "focus",
+          "name": "focus",
+          "form_set": "focus:music"
+        }
+      ],
+      "atomicity": {
+        "mode": "head_backoff",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Only the approved focus is replaced; source grammar is retained."
+      },
+      "approved_outputs": [
+        {
+          "id": "focus:music",
+          "concept_id": "music",
+          "scope": {
+            "kind": "part",
+            "part": "focus"
+          },
+          "face_from_part": "focus",
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "country_music",
+      "priority": 0,
+      "evidence_ref": "67851404f5366086fccb0fc0d4f8b03af1af8fcc42ac00044b981243ccb26c22",
+      "record_sha256": "1ffacaffb40d74df70ef1d78fae371e3310fded77aa3cdbff917fc272eda411f"
+    },
+    {
+      "id": "mask:hot_dog",
+      "family": "hot_dog",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "compound",
+          "value": "hot dog"
+        }
+      ],
+      "atomicity": {
+        "mode": "atomic",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Compound shape alone is not food sense. Empty face map is recognition-only; longer food context can permit same ID and exact geometry."
+      },
+      "approved_outputs": [
+        {
+          "id": "compound:hot_dog",
+          "concept_id": "compound:hot_dog",
+          "scope": {
+            "kind": "context"
+          },
+          "face_from_part": null,
+          "face_ids": {},
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "hot_dog",
+      "priority": 0,
+      "evidence_ref": "50b17bdb2c2bed4328100d81478fb18be2b9e458ba7316c04ab32e2725c5d5e2",
+      "record_sha256": "8b697ce5135e498924e31df5aea7f7122c9423c1c6446bcac5d0ddc15fd885d4"
+    },
+    {
+      "id": "exact:hot_dog:food:0",
+      "family": "hot_dog",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "food_context",
+          "value": "eat a "
+        },
+        {
+          "kind": "literal",
+          "name": "compound",
+          "value": "hot dog"
+        }
+      ],
+      "atomicity": {
+        "mode": "atomic",
+        "scope": {
+          "kind": "part",
+          "part": "compound"
+        },
+        "reason": "Authored food-predicate context. Literal animal counterreadings remain semantic review cases, not guaranteed by string matching."
+      },
+      "approved_outputs": [
+        {
+          "id": "compound:hot_dog",
+          "concept_id": "compound:hot_dog",
+          "scope": {
+            "kind": "part",
+            "part": "compound"
+          },
+          "face_from_part": null,
+          "face_ids": {
+            "ja": "en:hot dog:ja:compound:hot_dog",
+            "es": "en:hot dog:es:compound:hot_dog"
+          },
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "hot_dog",
+      "priority": 10,
+      "evidence_ref": "50b17bdb2c2bed4328100d81478fb18be2b9e458ba7316c04ab32e2725c5d5e2",
+      "record_sha256": "190fc88c25f191ea5f6dc9fe0989b2799111d95a9a200728b95b4ed6f09213c9"
+    },
+    {
+      "id": "exact:hot_dog:food:1",
+      "family": "hot_dog",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "food_context",
+          "value": "ate a "
+        },
+        {
+          "kind": "literal",
+          "name": "compound",
+          "value": "hot dog"
+        }
+      ],
+      "atomicity": {
+        "mode": "atomic",
+        "scope": {
+          "kind": "part",
+          "part": "compound"
+        },
+        "reason": "Authored food-predicate context. Literal animal counterreadings remain semantic review cases, not guaranteed by string matching."
+      },
+      "approved_outputs": [
+        {
+          "id": "compound:hot_dog",
+          "concept_id": "compound:hot_dog",
+          "scope": {
+            "kind": "part",
+            "part": "compound"
+          },
+          "face_from_part": null,
+          "face_ids": {
+            "ja": "en:hot dog:ja:compound:hot_dog",
+            "es": "en:hot dog:es:compound:hot_dog"
+          },
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "hot_dog",
+      "priority": 10,
+      "evidence_ref": "50b17bdb2c2bed4328100d81478fb18be2b9e458ba7316c04ab32e2725c5d5e2",
+      "record_sha256": "9a30962ac8564afc6e3908d95f2f5a5f8b01aab45a0088dcac8d3ca92fcd718f"
+    },
+    {
+      "id": "exact:hot_dog:food:2",
+      "family": "hot_dog",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "food_context",
+          "value": "eating a "
+        },
+        {
+          "kind": "literal",
+          "name": "compound",
+          "value": "hot dog"
+        }
+      ],
+      "atomicity": {
+        "mode": "atomic",
+        "scope": {
+          "kind": "part",
+          "part": "compound"
+        },
+        "reason": "Authored food-predicate context. Literal animal counterreadings remain semantic review cases, not guaranteed by string matching."
+      },
+      "approved_outputs": [
+        {
+          "id": "compound:hot_dog",
+          "concept_id": "compound:hot_dog",
+          "scope": {
+            "kind": "part",
+            "part": "compound"
+          },
+          "face_from_part": null,
+          "face_ids": {
+            "ja": "en:hot dog:ja:compound:hot_dog",
+            "es": "en:hot dog:es:compound:hot_dog"
+          },
+          "native_cost": "computed at runtime"
+        }
+      ],
+      "meaning_id": "hot_dog",
+      "priority": 10,
+      "evidence_ref": "50b17bdb2c2bed4328100d81478fb18be2b9e458ba7316c04ab32e2725c5d5e2",
+      "record_sha256": "b644eeb12f18136f2ac51b93892d44ece7da94c0a3c3b94d77cf6c9578e3a7f6"
+    },
+    {
+      "id": "exact:raise_bar:raise",
+      "family": "raise_the_bar",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "idiom",
+          "value": "raise the bar"
+        }
+      ],
+      "atomicity": {
+        "mode": "ambiguous",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Idiom and physical bar are unresolved; no smaller generic bar output."
+      },
+      "approved_outputs": [],
+      "meaning_id": "raise_the_bar",
+      "priority": 0,
+      "evidence_ref": "7eb32400c08968ec9e5cf20d309531256e6162a393768c3a35867ee8c3eae62d",
+      "record_sha256": "2e3c965e699cc9328de321cabf27b2e6160d2f024741736c802eb4191127eb80"
+    },
+    {
+      "id": "exact:raise_bar:raises",
+      "family": "raise_the_bar",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "idiom",
+          "value": "raises the bar"
+        }
+      ],
+      "atomicity": {
+        "mode": "ambiguous",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Idiom and physical bar are unresolved; no smaller generic bar output."
+      },
+      "approved_outputs": [],
+      "meaning_id": "raise_the_bar",
+      "priority": 0,
+      "evidence_ref": "7eb32400c08968ec9e5cf20d309531256e6162a393768c3a35867ee8c3eae62d",
+      "record_sha256": "66f02788f61ec4375d27de7fae38e0cd715a22aa6ae64279f5d8e532ad7ee7fe"
+    },
+    {
+      "id": "exact:raise_bar:raised",
+      "family": "raise_the_bar",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "idiom",
+          "value": "raised the bar"
+        }
+      ],
+      "atomicity": {
+        "mode": "ambiguous",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Idiom and physical bar are unresolved; no smaller generic bar output."
+      },
+      "approved_outputs": [],
+      "meaning_id": "raise_the_bar",
+      "priority": 0,
+      "evidence_ref": "7eb32400c08968ec9e5cf20d309531256e6162a393768c3a35867ee8c3eae62d",
+      "record_sha256": "d3821e9a92718cd8eb43bfe8ccb15cba7e654147c0bdee160fadf46f68e84d0f"
+    },
+    {
+      "id": "exact:raise_bar:raising",
+      "family": "raise_the_bar",
+      "source_language": "en",
+      "arms": [
+        "exact_top_down"
+      ],
+      "parts": [
+        {
+          "kind": "literal",
+          "name": "idiom",
+          "value": "raising the bar"
+        }
+      ],
+      "atomicity": {
+        "mode": "ambiguous",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Idiom and physical bar are unresolved; no smaller generic bar output."
+      },
+      "approved_outputs": [],
+      "meaning_id": "raise_the_bar",
+      "priority": 0,
+      "evidence_ref": "7eb32400c08968ec9e5cf20d309531256e6162a393768c3a35867ee8c3eae62d",
+      "record_sha256": "f6812ae2c2f4ea3d8500f6aa764ab18baf8e37a5869c1591141ef49c87921e7e"
+    },
+    {
+      "id": "morph:raise_bar",
+      "family": "raise_the_bar",
+      "source_language": "en",
+      "arms": [
+        "typed_slots_attested_morphology"
+      ],
+      "parts": [
+        {
+          "kind": "morph",
+          "name": "action",
+          "form_set": "verb:raise"
+        },
+        {
+          "kind": "literal",
+          "name": "rest",
+          "value": " the bar"
+        }
+      ],
+      "atomicity": {
+        "mode": "ambiguous",
+        "scope": {
+          "kind": "context"
+        },
+        "reason": "Same attested surface set as exact expansions; morphology is a representation comparison, not invented extra reach."
+      },
+      "approved_outputs": [],
+      "meaning_id": "raise_the_bar",
+      "priority": 0,
+      "evidence_ref": "7eb32400c08968ec9e5cf20d309531256e6162a393768c3a35867ee8c3eae62d",
+      "record_sha256": "bce6094f9ca9d775a092e2b823b92ab71185453671cf2d7ac6cc2d36e55edec0"
+    }
+  ],
+  "fallback_entries": [
+    "en:bar:ja:bar",
+    "en:country:es:country",
+    "en:country:ja:country",
+    "en:country:sw:country",
+    "en:dog:es:dog",
+    "en:dog:ja:dog",
+    "en:dog:sw:dog",
+    "en:high:es:high",
+    "en:high:ja:high",
+    "en:music:es:music",
+    "en:music:ja:music",
+    "en:music:sw:music",
+    "en:school:es:schools",
+    "en:school:ja:schools",
+    "en:school:sw:schools",
+    "en:water:es:water",
+    "en:water:ja:water",
+    "en:water:sw:water"
+  ],
+  "provenance": {
+    "inputs": {
+      "qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+      "data/immersion/en-sw.sqlite": "33f0e9f2e52ceafc1000b60209ffb41a5c25e24fa8568a0f5199b8af94401854",
+      "data/immersion/en-ja.sqlite": "3e2c4df2c21c8db6f0b9360c97690c6f8ff90efd7ac4ca9eeacd2ddbef06895b",
+      "data/immersion/en-es.sqlite": "7801e15470327dc2c5e7bb8337c4e454d75e994b0b0af417efd106d74034eb6a",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-en.sqlite": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-sw.sqlite": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-ja.sqlite": "101115ac82b01b2467644a439c1480b913ab5196f3edb125aadf574b5608159d",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-es.sqlite": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-runtime-candidate-r03.json": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "proof_file": "proofs.json",
+    "proof_sha256": "f640e75266c3b967ce2cdb6f0fbd0a9fdc15aa055c9db85b648dd4aed1d7e162",
+    "license": "Retained dictionary excerpts CC-BY-SA-4.0; project-authored frame/context records retain their original provenance.",
+    "record_hash": "SHA256 of sorted compact UTF-8 JSON of pattern excluding record_sha256.",
+    "limitations": [
+      "Research only; exact source-only frame use is not current bidirectional frame acceptance.",
+      "No source or target model calls. No target interpolation or arbitrary inflection generation.",
+      "Fallback entries are deliberately unguarded diagnostic comparators, not a production word policy.",
+      "Hot-dog Swahili face unavailable; no invented translation.",
+      "HFST branch retained independently; this payload does not silently accept all analyzer features."
+    ]
+  }
+}

@@ -1,0 +1,501 @@
+{
+  "production": false,
+  "linguistic_authority": false,
+  "selection": "Three structural fixtures from unchanged authored cases; synthetic recognition overlays exercise shared mask/conflict stage only, excluded from TRAIN and language coverage.",
+  "payload_sha256": "5c6a1c513a68f861ca28fd8c45b99b347e130940a29e6898bcc811fcfb47e5bc",
+  "cases": [
+    {
+      "id": "longer_outer_cannot_erase_short_mask",
+      "source_case_id": "nlp-r01-country_music-005",
+      "text": "I am reading a country music book.",
+      "native_source_word_ranges_utf16": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          15,
+          22
+        ],
+        [
+          23,
+          28
+        ],
+        [
+          29,
+          33
+        ]
+      ],
+      "original_recognitions": [
+        {
+          "rule_id": "exact:country_music",
+          "family": "country_music",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "country_music",
+          "context_range_utf16": [
+            15,
+            28
+          ],
+          "part_ranges_utf16": {
+            "modifier": [
+              15,
+              23
+            ],
+            "focus": [
+              23,
+              28
+            ]
+          },
+          "bindings_original": {
+            "modifier": "country ",
+            "focus": "music"
+          },
+          "form_ids": {
+            "focus": "focus:music:0"
+          },
+          "atomic_mode": "head_backoff",
+          "atomic_range_utf16": [
+            15,
+            28
+          ],
+          "allowed_inner_output_ids": [
+            "focus:music"
+          ],
+          "outputs": [
+            {
+              "id": "focus:music",
+              "concept_id": "music",
+              "scope": {
+                "kind": "part",
+                "part": "focus"
+              },
+              "face_from_part": "focus",
+              "face_ids": {},
+              "native_cost": "computed at runtime",
+              "source_range_utf16": [
+                23,
+                28
+              ],
+              "resolved_face_ids": {
+                "sw": "en:music:sw:music",
+                "ja": "en:music:ja:music",
+                "es": "en:music:es:music"
+              }
+            }
+          ],
+          "record_sha256": "1ffacaffb40d74df70ef1d78fae371e3310fded77aa3cdbff917fc272eda411f",
+          "reason": "Only the approved focus is replaced; source grammar is retained.",
+          "priority": 0,
+          "context_native_words": 2
+        }
+      ],
+      "synthetic_recognitions": [
+        {
+          "rule_id": "structural-only:longer_outer_cannot_erase_short_mask",
+          "family": "structural_test_only",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "outer_reading_context",
+          "context_range_utf16": [
+            5,
+            33
+          ],
+          "part_ranges_utf16": {},
+          "bindings_original": {},
+          "form_ids": {},
+          "atomic_mode": "none",
+          "atomic_range_utf16": null,
+          "allowed_inner_output_ids": [
+            "diagnostic:country"
+          ],
+          "outputs": [
+            {
+              "id": "diagnostic:country",
+              "source_range_utf16": [
+                15,
+                22
+              ],
+              "concept_id": "country",
+              "resolved_face_ids": {
+                "sw": "en:country:sw:country",
+                "ja": "en:country:ja:country",
+                "es": "en:country:es:country"
+              }
+            }
+          ],
+          "record_sha256": "fixture hash bound by enclosing file",
+          "reason": "Synthetic collision for eligibility-stage qualification, not a source grammar rule.",
+          "priority": 999,
+          "context_native_words": 8
+        }
+      ],
+      "expected": {
+        "reject_output_ids": [
+          "diagnostic:country"
+        ],
+        "keep_output_ids": [
+          "focus:music"
+        ]
+      }
+    },
+    {
+      "id": "crossing_ambiguous_mask",
+      "source_case_id": "nlp-r01-country_music-004",
+      "text": "Our country music school is excellent.",
+      "native_source_word_ranges_utf16": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          18,
+          24
+        ],
+        [
+          25,
+          27
+        ],
+        [
+          28,
+          37
+        ]
+      ],
+      "original_recognitions": [
+        {
+          "rule_id": "exact:country_music",
+          "family": "country_music",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "country_music",
+          "context_range_utf16": [
+            4,
+            17
+          ],
+          "part_ranges_utf16": {
+            "modifier": [
+              4,
+              12
+            ],
+            "focus": [
+              12,
+              17
+            ]
+          },
+          "bindings_original": {
+            "modifier": "country ",
+            "focus": "music"
+          },
+          "form_ids": {
+            "focus": "focus:music:0"
+          },
+          "atomic_mode": "head_backoff",
+          "atomic_range_utf16": [
+            4,
+            17
+          ],
+          "allowed_inner_output_ids": [
+            "focus:music"
+          ],
+          "outputs": [
+            {
+              "id": "focus:music",
+              "concept_id": "music",
+              "scope": {
+                "kind": "part",
+                "part": "focus"
+              },
+              "face_from_part": "focus",
+              "face_ids": {},
+              "native_cost": "computed at runtime",
+              "source_range_utf16": [
+                12,
+                17
+              ],
+              "resolved_face_ids": {
+                "sw": "en:music:sw:music",
+                "ja": "en:music:ja:music",
+                "es": "en:music:es:music"
+              }
+            }
+          ],
+          "record_sha256": "1ffacaffb40d74df70ef1d78fae371e3310fded77aa3cdbff917fc272eda411f",
+          "reason": "Only the approved focus is replaced; source grammar is retained.",
+          "priority": 0,
+          "context_native_words": 2
+        }
+      ],
+      "synthetic_recognitions": [
+        {
+          "rule_id": "structural-only:crossing_ambiguous_mask",
+          "family": "structural_test_only",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "ambiguous_music_school",
+          "context_range_utf16": [
+            12,
+            24
+          ],
+          "part_ranges_utf16": {},
+          "bindings_original": {},
+          "form_ids": {},
+          "atomic_mode": "ambiguous",
+          "atomic_range_utf16": [
+            12,
+            24
+          ],
+          "allowed_inner_output_ids": [],
+          "outputs": [],
+          "record_sha256": "fixture hash bound by enclosing file",
+          "reason": "Synthetic collision for eligibility-stage qualification, not a source grammar rule.",
+          "priority": 999,
+          "context_native_words": 8
+        }
+      ],
+      "expected": {
+        "reject_output_ids": [
+          "focus:music",
+          "diagnostic:music",
+          "diagnostic:schools"
+        ],
+        "keep_output_ids": []
+      }
+    },
+    {
+      "id": "same_context_conflicting_meanings",
+      "source_case_id": "nlp-r01-bank_account-000",
+      "text": "I opened a bank account.",
+      "native_source_word_ranges_utf16": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          23
+        ]
+      ],
+      "original_recognitions": [
+        {
+          "rule_id": "finite:bank_account",
+          "family": "bank_account",
+          "arms": [
+            "existing_finite_slots"
+          ],
+          "meaning_id": "bank_account",
+          "context_range_utf16": [
+            11,
+            23
+          ],
+          "part_ranges_utf16": {
+            "p0": [
+              11,
+              16
+            ],
+            "focus": [
+              16,
+              23
+            ]
+          },
+          "bindings_original": {
+            "p0": "bank ",
+            "focus": "account"
+          },
+          "form_ids": {
+            "focus": "focus:account:0"
+          },
+          "atomic_mode": "head_backoff",
+          "atomic_range_utf16": [
+            11,
+            23
+          ],
+          "allowed_inner_output_ids": [
+            "focus:account"
+          ],
+          "outputs": [
+            {
+              "id": "focus:account",
+              "concept_id": "account",
+              "scope": {
+                "kind": "part",
+                "part": "focus"
+              },
+              "face_from_part": "focus",
+              "face_ids": {},
+              "native_cost": "computed at runtime",
+              "source_range_utf16": [
+                16,
+                23
+              ],
+              "resolved_face_ids": {
+                "sw": "en:account:sw:account",
+                "ja": "en:account:ja:account",
+                "es": "en:account:es:account"
+              }
+            }
+          ],
+          "record_sha256": "99ed1b746ab910ed101e5d8ce7cbb0c7b05c09383ac365272d54cc4d1b628b59",
+          "reason": "Only the approved focus is replaced; source grammar is retained.",
+          "priority": 0,
+          "context_native_words": 2
+        },
+        {
+          "rule_id": "exact:bank_account:0",
+          "family": "bank_account",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "bank_account",
+          "context_range_utf16": [
+            11,
+            23
+          ],
+          "part_ranges_utf16": {
+            "prefix": [
+              11,
+              16
+            ],
+            "focus": [
+              16,
+              23
+            ]
+          },
+          "bindings_original": {
+            "prefix": "bank ",
+            "focus": "account"
+          },
+          "form_ids": {
+            "focus": "focus:account:0"
+          },
+          "atomic_mode": "head_backoff",
+          "atomic_range_utf16": [
+            11,
+            23
+          ],
+          "allowed_inner_output_ids": [
+            "focus:account"
+          ],
+          "outputs": [
+            {
+              "id": "focus:account",
+              "concept_id": "account",
+              "scope": {
+                "kind": "part",
+                "part": "focus"
+              },
+              "face_from_part": "focus",
+              "face_ids": {},
+              "native_cost": "computed at runtime",
+              "source_range_utf16": [
+                16,
+                23
+              ],
+              "resolved_face_ids": {
+                "sw": "en:account:sw:account",
+                "ja": "en:account:ja:account",
+                "es": "en:account:es:account"
+              }
+            }
+          ],
+          "record_sha256": "c465698f4dadbe138cf82c71787d3c4b012963f3ed5195451cd5cd27890eb62d",
+          "reason": "Only the approved focus is replaced; source grammar is retained.",
+          "priority": 0,
+          "context_native_words": 2
+        }
+      ],
+      "synthetic_recognitions": [
+        {
+          "rule_id": "structural-only:same_context_conflicting_meanings",
+          "family": "structural_test_only",
+          "arms": [
+            "exact_top_down"
+          ],
+          "meaning_id": "different_account_sense",
+          "context_range_utf16": [
+            11,
+            23
+          ],
+          "part_ranges_utf16": {},
+          "bindings_original": {},
+          "form_ids": {},
+          "atomic_mode": "head_backoff",
+          "atomic_range_utf16": [
+            11,
+            23
+          ],
+          "allowed_inner_output_ids": [
+            "focus:account"
+          ],
+          "outputs": [
+            {
+              "id": "focus:account",
+              "concept_id": "account",
+              "scope": {
+                "kind": "part",
+                "part": "focus"
+              },
+              "face_from_part": "focus",
+              "face_ids": {},
+              "native_cost": "computed at runtime",
+              "source_range_utf16": [
+                16,
+                23
+              ],
+              "resolved_face_ids": {
+                "sw": "en:account:sw:account",
+                "ja": "en:account:ja:account",
+                "es": "en:account:es:account"
+              }
+            }
+          ],
+          "record_sha256": "fixture hash bound by enclosing file",
+          "reason": "Synthetic collision for eligibility-stage qualification, not a source grammar rule.",
+          "priority": 999,
+          "context_native_words": 8
+        }
+      ],
+      "expected": {
+        "reject_output_ids": [
+          "focus:account"
+        ],
+        "keep_output_ids": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "production": false,
+  "selection_basis": "Source-only salted hash minimum in each10 frozen families plus typed_name and typed_url_exact strata; no selection by native coverage/provider output. Authored diagnostic, not fresh unseen language sample.",
+  "cases_sha256": "736be225fc4b6615e04efdfe8566bdf2e65681817377031ba61380c3f45f4f4f",
+  "source_ids": [
+    "nlp-r01-bank_account-005",
+    "nlp-r01-birthday_party-001",
+    "nlp-r01-book_object-005",
+    "nlp-r01-country_music-005",
+    "nlp-r01-drinking_water-007",
+    "nlp-r01-high_school-007",
+    "nlp-r01-hot_dog-001",
+    "nlp-r01-phone_charger-007",
+    "nlp-r01-phone_number-007",
+    "nlp-r01-raise_the_bar-003",
+    "nlp-r01-book_object-004",
+    "nlp-r01-phone_number-004"
+  ],
+  "cases": [
+    {
+      "id": "nlp-r01-bank_account-005",
+      "text": "The bank account number is private.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_compound_context",
+      "family_hint": "bank_account",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-birthday_party-001",
+      "text": "I am going to Alice's birthday party.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name_no_artificial_gain",
+      "family_hint": "birthday_party",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-005",
+      "text": "Please bring Alice Smith's book today.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_multi_name",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-country_music-005",
+      "text": "I am reading a country music book.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "longer_context_retains_inner_mask",
+      "family_hint": "country_music",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-drinking_water-007",
+      "text": "The drinking water is cold.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "noun_modifier_context",
+      "family_hint": "drinking_water",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-high_school-007",
+      "text": "The word is \"high school\".",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "quoted_focus_negative",
+      "family_hint": "high_school",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-hot_dog-001",
+      "text": "We ate a hot dog yesterday.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "food_past_context",
+      "family_hint": "hot_dog",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_charger-007",
+      "text": "My phone charged overnight.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "whole_token_negative",
+      "family_hint": "phone_charger",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-007",
+      "text": "There is a phone number at alice@example.com.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_email",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-raise_the_bar-003",
+      "text": "She raises the bar for everyone.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "attested_third_person",
+      "family_hint": "raise_the_bar",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-book_object-004",
+      "text": "Can you bring Alice's book?",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_name",
+      "family_hint": "book_object",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    },
+    {
+      "id": "nlp-r01-phone_number-004",
+      "text": "Check the phone number at https://example.com/contact.",
+      "source_language": "en",
+      "target_languages": [
+        "sw",
+        "ja",
+        "es"
+      ],
+      "stratum": "typed_url_exact",
+      "family_hint": "phone_number",
+      "expected_scope_category": "Diagnostic authored contrast; expected scope is not semantic gold."
+    }
+  ],
+  "targets": [
+    "sw",
+    "ja",
+    "es"
+  ],
+  "maximum_source_messages": 12,
+  "provider_calls": "Existing installed native provider only, no model download; preserve unavailable/cold/warm outcome and exact raw translations."
+}

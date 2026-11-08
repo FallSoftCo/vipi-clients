@@ -1,0 +1,25 @@
+{
+  "production": false,
+  "fixture_sha256": "4f5f9b4e0b6823ed0aaa7807ac962003c09b96f99f728b23df7ae690d8d88c8c",
+  "clarification": "Synthetic context_native_words=8 is an adversarial rank placeholder, not measured tokenization. Native and future reference replay must compute actual context cost from frozen complete native word ranges; retain supplied value only as fixture metadata. No mask/output/meaning/expected decision changes. Original frozen fixture and first reference receipt remain unchanged.",
+  "corrections": [
+    {
+      "case_id": "longer_outer_cannot_erase_short_mask",
+      "rule_id": "structural-only:longer_outer_cannot_erase_short_mask",
+      "supplied_context_native_words": 8,
+      "actual_from_frozen_native_ranges": 5
+    },
+    {
+      "case_id": "crossing_ambiguous_mask",
+      "rule_id": "structural-only:crossing_ambiguous_mask",
+      "supplied_context_native_words": 8,
+      "actual_from_frozen_native_ranges": 2
+    },
+    {
+      "case_id": "same_context_conflicting_meanings",
+      "rule_id": "structural-only:same_context_conflicting_meanings",
+      "supplied_context_native_words": 8,
+      "actual_from_frozen_native_ranges": 2
+    }
+  ]
+}
