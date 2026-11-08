@@ -1,0 +1,150 @@
+{
+  "schema": "vipi.android-source-annotation-assessment.r01",
+  "output_sha256": "5de5ba4efc6ba0696ca0999ccee86640d3949ac6e4629709fe4c8f3e34fa7910",
+  "expectations_sha256": "191eb78e0cf07c3883520933542e127493da1aa746a1ef346823a740051129c8",
+  "role_mapping": {
+    "ADJ": "adjective",
+    "ADP": "preposition",
+    "ADV": "adverb",
+    "AUX": "verb",
+    "CCONJ": "conjunction",
+    "SCONJ": "conjunction",
+    "DET": "determiner",
+    "INTJ": "interjection",
+    "NOUN": "noun",
+    "PROPN": "noun",
+    "NUM": "numeral",
+    "PART": "particle",
+    "PRON": "pronoun",
+    "PUNCT": "punctuation",
+    "VERB": "verb"
+  },
+  "role_mapping_policy": "Only exact single-token UTF16 match. PROPN maps to coarse noun, not entity approval. AUX maps to verb. Composite tags preserved, not silently collapsed.",
+  "matched": 49,
+  "role_total": 52,
+  "failures": [
+    {
+      "id": "source-expectation-006",
+      "case_id": "corpus-context-006",
+      "focus": "planes",
+      "focus_utf16": [
+        40,
+        46
+      ],
+      "axis": "coarse_role",
+      "expected": [
+        "noun"
+      ],
+      "rationale": "aircraft",
+      "observed_tokens": [
+        {
+          "start": 40,
+          "end": 46,
+          "text": "planes",
+          "pos": "VERB",
+          "pos_score": 0.980412730359311,
+          "token_score": 0.9996969002131164,
+          "substring_exact": true
+        }
+      ],
+      "exact_single_token": true,
+      "coarse_observed": "verb",
+      "matched": false
+    },
+    {
+      "id": "source-expectation-049",
+      "case_id": "apertium-14",
+      "focus": "water",
+      "focus_utf16": [
+        8,
+        13
+      ],
+      "axis": "coarse_role",
+      "expected": [
+        "verb"
+      ],
+      "rationale": "watering plants",
+      "observed_tokens": [
+        {
+          "start": 8,
+          "end": 13,
+          "text": "water",
+          "pos": "NOUN",
+          "pos_score": 0.43516037114262934,
+          "token_score": 0.9996093438252573,
+          "substring_exact": true
+        }
+      ],
+      "exact_single_token": true,
+      "coarse_observed": "noun",
+      "matched": false
+    },
+    {
+      "id": "source-expectation-051",
+      "case_id": "apertium-17",
+      "focus": "email",
+      "focus_utf16": [
+        39,
+        44
+      ],
+      "axis": "coarse_role",
+      "expected": [
+        "verb"
+      ],
+      "rationale": "send email action; later email address is separately protected",
+      "observed_tokens": [
+        {
+          "start": 39,
+          "end": 44,
+          "text": "email",
+          "pos": "NOUN",
+          "pos_score": 0.48354201088809895,
+          "token_score": 0.9987021052847427,
+          "substring_exact": true
+        }
+      ],
+      "exact_single_token": true,
+      "coarse_observed": "noun",
+      "matched": false
+    }
+  ],
+  "scope": "Frozen nominated roles on116 reused diagnostic sources, not population accuracy. No Android runtime qualification.",
+  "private_comparison_path": "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/expectation-comparison.json",
+  "process_metrics": {
+    "model_load_ms": 887.14009,
+    "passes_ms": [
+      721.538037,
+      317.707996,
+      217.540765
+    ],
+    "VmHWM_kib": 90140,
+    "measurement": "JVM /proc/self/status; whole process high-water resident memory, not heap or launcher historical rusage",
+    "three_passes_identical": true
+  },
+  "scope_limits": [
+    "JVM21 on Linux; no Android/Dalvik/R8/minSdk check",
+    "POS scores not calibrated sense confidence",
+    "No NER model or idiom recognizer",
+    "Raw POS output includes composite UD tags such as PRON+AUX; preserve them",
+    "No release/runtime approval; no automatic9535 expansion"
+  ],
+  "cross_platform_comparison": {
+    "apple_receipt": "assessment-r01.json",
+    "apple_nominated_roles_matched": 51,
+    "apple_role_total": 52,
+    "apple_miss": "hike as Noun",
+    "opennlp_misses": [
+      "planes as VERB",
+      "water as NOUN",
+      "email as NOUN"
+    ],
+    "not_a_ranking": "Different systems, runtimes and raw conventions on selected diagnostics; no population accuracy or phone latency ranking."
+  },
+  "important_limits": [
+    "planes incorrect VERB has raw score0.9804; a high score does not ensure even coarse-role correctness.",
+    "visit correct VERB0.996 can contradict noun dictionary metadata, but cannot approve target form or sense.",
+    "Dorothy AUX0.415; GA Tech both NOUN; Fruits PROPN/Baskets NOUN. POS is not a general entity/title protector.",
+    "URLs/email may be single lexical tokens with PROPN/NOUN tags; use identifier masks independently.",
+    "Composite tags such as PROPN+PART preserved; Apple may split differently, so exact-range mismatches are annotation-convention differences, not automatic role errors."
+  ]
+}

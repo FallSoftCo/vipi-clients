@@ -1,0 +1,73 @@
+{
+  "schema": "vipi.source-role-ablation-contract.r01",
+  "frozen_at_utc": "2026-11-08T22:23:13.962865+00:00",
+  "status": "proposal_frozen_before_any_broad_replay; not_execution_authorization",
+  "motivation": "Separate actual source-role exclusion from dictionary metadata and entity/idiom protections; raw confidence does not certify correctness.",
+  "arms": {
+    "A": {
+      "candidate_pool": "Same frozen complete dictionary-backed pool for every arm",
+      "source_POS_filter": false,
+      "additional_entity_idiom_guards": false
+    },
+    "B": {
+      "candidate_pool": "Exactly A",
+      "source_POS_filter": true,
+      "additional_entity_idiom_guards": false,
+      "no_automatic_fuzzy_NER_suppression": true
+    },
+    "C": {
+      "candidate_pool": "Exactly A",
+      "source_POS_filter": true,
+      "additional_entity_idiom_guards": "Only independently declared, versioned deterministic guards with exact recognized scopes and explicit allowed/ambiguous outcomes; no generic PROPN or fuzzy name suppression"
+    }
+  },
+  "shared_invariants": [
+    "Identical original messages/conversation partition, dictionary candidates, target availability, source/target languages, density25%, known-word profiles, order, overlap policy, atomic-scope policy and budgets.",
+    "Only original current-message source text enters annotator. Any conversation-context variant requires separate declared arm.",
+    "Compute source token/role evidence before budget allocation; filtering cannot invent or rewrite target candidates.",
+    "Preserve recognition masks even when a known-word or budget decision displays nothing.",
+    "Preserve competing same-POS senses; POS matching is necessary evidence only, never lexical-sense approval.",
+    "No threshold tuned on116diagnostics or broad replay labels; raw POS scores retained as diagnostics.",
+    "No identifier/entity protection from predicted POS alone; existing baseline identifier controls remain identical across A/B/C."
+  ],
+  "POS_decision_policy": {
+    "matching": "Exact original UTF16 token or declared multi-token phrase span; preserve raw UD/composite tags and independent dictionary source POS.",
+    "eligible": "Explicit source-role compatibility; do not compare only target POS.",
+    "incompatible": "Record source_role_conflict and exclude that candidate before budget.",
+    "unknown_or_ambiguous": "Record abstention, not default sense approval; no legacy fallback inside a masked unresolved scope.",
+    "composite_tags": "Preserve e.g.PROPN+PART; do not silently collapse or shift offsets. Require separately specified mapping or abstain.",
+    "PROPN": "Coarse noun compatibility does not authorize name translation or create a blanket name veto.",
+    "beyond_POS": "No implied dependency relation, infinitive form, target morphology, idiom identity or sense resolution."
+  },
+  "C_guard_manifest_required": [
+    "guard_id/version/hash and independent evidence provenance",
+    "source trigger and exact original UTF16 scope",
+    "positive and confusable-negative contexts",
+    "atomic/head_backoff/ambiguous mode",
+    "permitted output identity or explicit no-output",
+    "failure/unknown policy; no changed lexical candidate inventory"
+  ],
+  "reporting": [
+    "Per-arm raw candidate/content-anchor availability before budget and actual displayed coverage after budget.",
+    "All displayed replacement correctness in independent heldout conversation sample, not nominated focus only.",
+    "Source-role-conflict errors, false rejection, entity/title/identifier corruption, idiom fragmentation, same-POS sense errors and abstentions separately.",
+    "Known-word profilesnone/function/global50/global100/global300 exactly paired across arms.",
+    "Native unchanged-span geometry, selected content depth, whole-message errors and guard-trigger provenance.",
+    "Agreement/disagreement sets between A/B/C; no conditioning review only on retained correct candidates.",
+    "Conversation-level uncertainty intervals; diagnostic116reported separately from independent heldout sample."
+  ],
+  "execution_binding_still_required": [
+    "Exact baseline catalog and replay-input hashes",
+    "Immutable POS compatibility mapping and C guard manifest",
+    "Independent heldout conversation IDs and evaluation rubric frozen before outputs",
+    "Explicit compute/storage/time budget and authorized execution route",
+    "Android native R8/model loading/device/API-floor qualification before any app integration"
+  ],
+  "current_evidence": {
+    "input116_sha256": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+    "OpenNLP_output_sha256": "5de5ba4efc6ba0696ca0999ccee86640d3949ac6e4629709fe4c8f3e34fa7910",
+    "role_match": "49of52 selected diagnostics; planeswrongVERBscore0.9804",
+    "platform": "Linux JVM21 only"
+  },
+  "prohibited_inference": "This contract grants no9535replay, build, dependency/runtime change, new model/training job, or production approval."
+}

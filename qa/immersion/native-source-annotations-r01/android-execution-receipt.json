@@ -1,0 +1,100 @@
+{
+  "schema": "vipi.android-source-annotation-execution.r01",
+  "scope": "Existing Linux JVM21, not Android app/device; one frozen116-source experiment with3determinism passes",
+  "private_directory": "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01",
+  "run": {
+    "compile_returncode": 0,
+    "run_returncode": 0,
+    "pass_content_sha256": [
+      "14943c942abcb837398240364d793bc76db1e38e311f6dc7f83c010e87c1dda7",
+      "14943c942abcb837398240364d793bc76db1e38e311f6dc7f83c010e87c1dda7",
+      "14943c942abcb837398240364d793bc76db1e38e311f6dc7f83c010e87c1dda7"
+    ],
+    "three_passes_equal": true,
+    "rows": 348,
+    "output_sha256": "5de5ba4efc6ba0696ca0999ccee86640d3949ac6e4629709fe4c8f3e34fa7910",
+    "frozen_at_utc": "2026-11-08T22:21:00.690056+00:00",
+    "elapsed_compute_seconds": 4.808301910990849,
+    "additional_file_bytes": 3967426,
+    "free_bytes_after": 10044870656
+  },
+  "input_sha256": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+  "expectations_sha256": "191eb78e0cf07c3883520933542e127493da1aa746a1ef346823a740051129c8",
+  "acquisition": [
+    {
+      "url": "https://repo.maven.apache.org/maven2/org/apache/opennlp/opennlp-tools/2.5.10/opennlp-tools-2.5.10.jar",
+      "file": "opennlp-tools-2.5.10.jar",
+      "bytes": 1394488,
+      "publisher_checksum_algorithm": "sha1",
+      "publisher_checksum": "f83f8450290317a31ce8514af590126dc3002433",
+      "checksum_match": true,
+      "local_sha256": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea"
+    },
+    {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar",
+      "file": "slf4j-api-2.0.18.jar",
+      "bytes": 69982,
+      "publisher_checksum_algorithm": "sha512",
+      "publisher_checksum": "539288fa0c96cea750d11293dbed4c562630587aa7cd88bbf76ad04390d1c40636506da48faa6453090c7e9baa6b690b9fbded55a7e2b4a91547eeea011f971a",
+      "checksum_match": true,
+      "local_sha256": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55"
+    },
+    {
+      "signature": "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin.asc",
+      "returncode": 0,
+      "validsig": "[GNUPG:] VALIDSIG 955F5159724A49477EC00B69B845CB643861D30E 2025-06-12 1749698404 0 4 0 1 8 00 955F5159724A49477EC00B69B845CB643861D30E",
+      "note": "Apache publisher KEYS establish key provenance; key owner trust is not independently certified. SLF4J key absent if NO_PUBKEY."
+    },
+    {
+      "signature": "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin.asc",
+      "returncode": 0,
+      "validsig": "[GNUPG:] VALIDSIG 955F5159724A49477EC00B69B845CB643861D30E 2025-06-12 1749698380 0 4 0 1 8 00 955F5159724A49477EC00B69B845CB643861D30E",
+      "note": "Apache publisher KEYS establish key provenance; key owner trust is not independently certified. SLF4J key absent if NO_PUBKEY."
+    },
+    {
+      "signature": "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin.asc",
+      "returncode": 0,
+      "validsig": "[GNUPG:] VALIDSIG 955F5159724A49477EC00B69B845CB643861D30E 2025-06-12 1749698369 0 4 0 1 8 00 955F5159724A49477EC00B69B845CB643861D30E",
+      "note": "Apache publisher KEYS establish key provenance; key owner trust is not independently certified. SLF4J key absent if NO_PUBKEY."
+    },
+    {
+      "signature": "opennlp-tools-2.5.10.jar.asc",
+      "returncode": 0,
+      "validsig": "[GNUPG:] VALIDSIG 955F5159724A49477EC00B69B845CB643861D30E 2026-06-17 1781722017 0 4 0 1 10 00 955F5159724A49477EC00B69B845CB643861D30E",
+      "note": "Apache publisher KEYS establish key provenance; key owner trust is not independently certified. SLF4J key absent if NO_PUBKEY."
+    },
+    {
+      "signature": "slf4j-api-2.0.18.jar.asc",
+      "returncode": 2,
+      "validsig": null,
+      "note": "Apache publisher KEYS establish key provenance; key owner trust is not independently certified. SLF4J key absent if NO_PUBKEY."
+    }
+  ],
+  "initial_acquisition_failure": {
+    "retained_receipt": "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/acquisition.json",
+    "error": "HTTP404 for opennlp-tools-2.5.10.jar.sha512 after JAR acquired; no annotations existed. Resumed only missing verification/files, using publisher SHA1 plus verified Apache signature; exact version unchanged."
+  },
+  "logger": "SLF4J API found no provider and used NOP; warnings retained only in private run.stderr. No network logger installed.",
+  "source_files": {
+    "android-execution-plan.json": "64857a999dc697483cd8613a7bbf933a9697764dc76b06f12519e3a098fb8ccd",
+    "android-acquire.py": "a0f4ee1462d1a6829b053e3196728fc4474ae483ef063f708508292d410050d4",
+    "android-acquire-complete.py": "0c1d29126e78a6dca98d3a73fb8437870852832ed0688470b64262a1a552c051",
+    "android-SourceProbe.java": "fac8feb57d40605e452acad9bbf266905c2a526b8736064deb4415c33d1ab5b7",
+    "android-run.py": "34a8be2c93c37aabdfca2bea61deaf1d0dd2e4f1d8ddb6a182a3b3323eaa05b1",
+    "android-assess.py": "0f3c2f05ac425fff3b49664735080ceadcd07576e587bc61ad9adc9175e6282f"
+  },
+  "interpretation": [
+    "Original UTF16 token substrings verified in all emitted tokens.",
+    "116source data received only through id/text TSV; no translation/arm/focus/reviewer inputs.",
+    "Observed three identical full content hashes include raw scores.",
+    "Raw scores are model scores, not calibrated sense probabilities.",
+    "Model loading887.14ms; full116source pass721.54/317.71/217.54ms includes serialization and stdout.",
+    "JVM self /proc/self/status final VmHWM90140KiB; not launcher historical rusage or isolated model heap.",
+    "No app dependency, Gradle/device build, runtime edit, NER claim, or corpus9535 expansion."
+  ],
+  "independent_acquisition_review": {
+    "path": "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/independent-acquisition-review.json",
+    "sha256": "092a952a966adc0087a71041bc79bee360a6ee4ae2c40db6d34c394f5a6d968d",
+    "findings": "All3modelbytes rehashed against publisher SHA256; embedded model manifests en/OpenNLP2.5.4; embedded tools Maven properties2.5.10 and ApacheLICENSE/NOTICE retained; embedded SLF4JMITlicense retained."
+  }
+}
