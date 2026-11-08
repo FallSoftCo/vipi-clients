@@ -1,0 +1,25 @@
+{
+  "schema": "vipi-chinese-reading-qa-1",
+  "production_enabled": false,
+  "policy": "CF-token reconstruction with exact protected literals; whole reading unavailable for missing Han or unsupported script. No phrase-specific overrides.",
+  "inputs_sha256": "33115ffc15f96b9bd4554b78e6aae8bf48e80f90fa3d2f6db918d0d1b1736129",
+  "candidate_sha256": "cdbf46370f4d588f27f7d9bbd0956767552ded7948f4a7708f59a8dbe7663269",
+  "probe_sha256": "182e59630c78fe8253b68e91135eff6ccc00ff4be657af716e104f2132ce0b13",
+  "raw_output_sha256": "ac36b0dee2fc7be8fb6fd95c5ce6cd468cd9b4df7cbd783a5da18ef89a122919",
+  "author_review_sha256": "912fbb7d58f82f1957f26fff82db3a528ea3e6f1562462875e069fc8735ebcaa",
+  "independent_review_sha256": "0b9f8daddf7858e60745af26dadd9d5d7cbb89dfe08701ea644a1d78d8a5be06",
+  "joined_review_sha256": "af50cfd520b787f16164e4f36a30569e2776396741e77db401976711c5767a40",
+  "scope": "104 existing authored readings, 32 separately hash-selected reused NUS Chinese diagnostic messages, 4 prior structural controls. Inputs/raw outputs retained in private QA evidence; no claim of untouched population testing or physical-iOS acceptance.",
+  "observations": {
+    "cases": 140,
+    "complete": 139,
+    "unknown_han_abstention": 1,
+    "first_warm_identical": 140,
+    "exact_source_partitions": 280,
+    "runtime_seconds": 1.8533,
+    "external_peak_rss_bytes": 82345984,
+    "meaning": "Complete Latin output is not a correctness metric. Review found true context-dependent syllable errors, tone-only errors/omissions, a v/umlaut encoding issue, and an ambiguous original message. Legitimate dictionary/regional/underlying-tone conventions are not rejected as pronunciation errors. Audio remains pronunciation authority."
+  },
+  "admission": "Explicit bounded existing-module-cache CLI exception only; normal 1GiB physical build reserve was not met. No app/simulator build, dependency compilation, assets, downloads, or production fallback promotion.",
+  "command": "Compile the two Swift files with Foundation/CoreFoundation/CryptoKit on the approved existing macOS guest; run INPUT_JSON NEW_OUTPUT_JSON EXPECTED_INPUT_SHA256. Probe refuses to overwrite output and verifies the exact input hash."
+}
