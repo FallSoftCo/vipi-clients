@@ -1,12 +1,12 @@
 # Current delivery status
 
-Updated 2026-11-08 23:34 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 23:57 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
 The canonical workspace is `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Private checkpoints preserve committed source on the consolidated host; the exact verified references are in `BUILD_ENVIRONMENTS.md` and private delivery receipts. Source is private until the client corresponding-source release has been assembled and checked.
 
-OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. Apple work uses the existing `ozzz-development-20261021` VM with two compiler jobs. Preserve native Mac test processes, unrelated applications and the VM disk chain. Android uses the existing QA emulator on system76.
+OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. The November 8 owner directive moves new Apple work to native `apple@macbook-pro`. A separate migration owner is preserving the existing VM's work before retirement; reconcile those receipts and native source authority before builds. Preserve native projects, accounts and unrelated applications. Historical VM results below remain historical evidence. Android uses the existing QA emulator on system76.
 
 ## Demonstrated behavior and remaining work
 
@@ -114,6 +114,19 @@ memory nor a leak was established. No further run was needed for this scoped
 functional result. Original failed and stopped attempts, exact artifacts and
 closure receipts are preserved; the isolated package was removed and only the
 owned emulator was stopped.
+
+A follow-up compares withholding catalog-function units using already computed
+outputs for 16 of those messages. All 96 prior outputs match exactly, and the
+48 reviewed units are unchanged; no selector or model ran again. The two
+reviewers preserve their previous labels and reread every resulting output.
+Nonempty whole passes move from 14 to 13 for Apple role-required and from 10 to
+12 for OpenNLP role-required. Withholding removes errors but also valid content,
+and empties useful messages. Wrong construction choices in “keep appointments”
+and “touch-ups” remain; the catalog also misclassifies some grammatical words as
+content. This supports an explicit native-grammar product policy, not blanket
+activation of the current catalog filter. It supplies no new coverage or fresh
+independent semantic evidence. See
+`qa/immersion/function-withheld-comparison-r01/comparison.md`.
 
 The corpus comparison uses retained native token geometry and 9,535 reused
 TRAIN messages at three immersion densities and five simulated vocabulary

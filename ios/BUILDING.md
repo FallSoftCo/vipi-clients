@@ -1,10 +1,12 @@
 # Native Apple source and dependencies
 
-New owner builds run in the existing `ozzz-development-20261021` macOS VM,
-not on the native Mac controller. Use two compiler jobs. Check both guest free
-space and the controller's physical APFS backing capacity before restoring
-large dependencies. Keep at least 1 GiB physical headroom in addition to the
-measured operation size; a full source build needs its own larger admission.
+New owner builds run on native `apple@macbook-pro` under the November 8 owner
+directive. Reconcile the existing VM migration receipts before using retained
+sources or artifacts; do not create new guest work or a replacement VM. Use a
+clean committed-source mirror, preserve native projects and accounts, and keep
+two compiler jobs. Check physical APFS capacity before restoring dependencies.
+Keep at least 1 GiB headroom in addition to measured operation size; a full
+source build needs its own larger admission.
 
 The qualified project uses Xcode 26.6 (iOS Simulator 26.5), Swift 6, iOS deployment
 18.0, XcodeGen 2.46.0 and CocoaPods 1.17.0. Commit `Podfile.lock` and
@@ -40,8 +42,8 @@ To modify and rebuild libsignal, retain its complete repository, `Cargo.lock`,
 acknowledgments. Pinned upstream `.github/workflows/ios_artifacts.yml` is the
 canonical build recipe. It requires Rust **1.98.1**, its `rust-src` component,
 Apple iOS targets and `protoc` (protobuf). The pinned libsignal checkout has no
-Git submodules. Install tools only in the authorized VM after capacity review.
-The existing guest does not currently have a Rust toolchain qualified.
+Git submodules. Reuse native tools and install any missing prerequisites only
+after capacity review. A matching native Rust toolchain is not yet qualified.
 
 From `vendor/libsignal/source`, after those prerequisites are installed:
 
@@ -86,10 +88,11 @@ locks/notices. A dependency URL alone is not the retained source closure. Public
 publication and final licensing compatibility remain release gates owned by the
 integrating release session.
 
-After vendor preparation, run `scripts/prepare-ios-project.sh` in the VM and
+After vendor preparation, run `scripts/prepare-ios-project.sh` on the native Mac and
 build the generated workspace with `-jobs 2 -disableAutomaticPackageResolution
 -onlyUsePackageVersionsFromResolvedFile`. The preparation script copies the
 source-controlled `ios/Package.resolved` into the generated workspace. StoreKit/provider credentials,
 production WorkOS configuration and signing are separate release configuration.
-Use the guest `~/.local/bin/apple-xcodebuild` wrapper for signed exports. Never
-upload the old qualification build 63.
+Inspect the migrated signing wrapper and native Xcode account readiness before
+signed exports; a guest wrapper receipt does not qualify its native replacement.
+Never upload the old qualification build 63.

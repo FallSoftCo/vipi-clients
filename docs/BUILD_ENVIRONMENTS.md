@@ -1,6 +1,6 @@
 # Build environments
 
-## Current authority and consolidation — November 7, 2026
+## Current authority and consolidation — November 8, 2026
 
 This section supersedes host commands and availability claims in the historical
 receipts below. OZZZ-OS and OZZZ-GPU were provider-cancelled. Do not reconnect,
@@ -13,18 +13,22 @@ restart their services, or create replacement VMs.
   `fallsoft-production-20261106`. Existing Vipi HTTPS origin is
   `https://api.mambovipi.app`. The backend is still restricted staging with real
   provider authentication; production subscription enforcement is not waived.
-- Apple: existing `ozzz-development-20261021` VM, user `lume`, controlled through
-  `ozzz-mac-vm`. Current source mirror is
-  `/Users/lume/Development/vipi-delivery-20261107-r01/source`.
-  Use two compiler jobs on the shared 4-CPU/8-GiB VM. Preserve native Mac test
-  processes. Guest free space does not establish physical Mac backing capacity.
+- Apple: new work belongs on native `apple@macbook-pro`, under the owner's
+  November 8 instruction. The separate Mac migration owner is preserving the
+  existing VM before its retirement. Do not start new guest builds or create a
+  replacement VM. The historical guest mirror is
+  `/Users/lume/Development/vipi-delivery-20261107-r01/source`; the old native
+  `/Users/Apple/Development/vipi` tree is not automatically current source.
+  Reconcile the migration receipts and establish a clean committed-source native
+  mirror before building. Preserve native projects, accounts and unrelated jobs;
+  keep two compiler jobs and measured physical storage admission.
 - Android: existing `emulator-5620` QA AVD on system76, two virtual CPUs and 2 GiB
   RAM. It is a 4-KiB runtime, not physical 16-KiB page-size qualification. The
   user's Pixel was not reachable through the bounded ADB attempt; do not assume
   its old device availability still applies.
 - Native iOS model quality is not established by Simulator UI tests. Apple
-  Translation needs a supported runtime and prepared models; the current VM has
-  no attached physical device. Swahili uses the separate ML Kit path, which is
+  Translation needs a supported runtime and prepared models; historical guest
+  runs did not establish physical-device capability. Swahili uses the separate ML Kit path, which is
   excluded from the arm64 Simulator UI configuration.
 - Retained bulk data uses existing Storage Box `u684605`. Exact Mac artifact
   offload receipts were hash-verified before removing closed duplicate files.
@@ -42,12 +46,23 @@ dedicated staging client. Firebase project `mambo-vipi-4f569` is registered unde
 FallSoft; real FCM credentials and push delivery remain unqualified. The first
 Android upload key has an encrypted PKCS#12 recovery copy on Storage Box, with
 its password held separately in private local/production paths. No secret value
-belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
-open; no app-store submission receipt exists.
+belongs in source. New November 8 migration evidence demonstrates native company
+Xcode account access for the separate 8bar release. Vipi's App Store Connect
+browser session and app record remain unverified: the bounded read-only browser
+check stayed queued behind shared desktop use and was cancelled before dispatch.
+That is not a fresh authentication failure. Google Cloud and AWS authentication
+steps remain open; no Vipi app-store submission receipt exists.
 
-Committed private source through `01614ec19f53721a5a04d1ef34cdaf2d5c9a8a77` is
+The native migration reconciliation retained the legacy Vipi source snapshot and
+verified two Vipi runtime-state files. The current `vipi-delivery-20261107-r01`
+workspace is not yet established at the migration destination. Final preservation,
+consistent post-drain state and native active-app qualification remain pending.
+The Vipi team has no outstanding guest build or model job and is not duplicating
+the migration owner's transfer or retirement work.
+
+Committed private source through `15675ec9ac13ee29ed56df30b5a1dec76049d6e5` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261108-r17`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261108-r25`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
@@ -82,12 +97,15 @@ verified private copy at Storage Box path
 Rebuilding the native library and completing the public source closure remain
 separate requirements.
 
-Apple model preparation is held: the guest's observed low-disk purge threshold
+Historical guest model preparation was held: the guest's observed low-disk purge threshold
 is 10 GiB and the pending model requires roughly 1.85 GiB peak additional space.
 Removing 69 proven obsolete Vipi app-only simulator bundles reclaimed 3.60 GB,
 but guest free space is still below the threshold. Native physical free space
 is independently low. Do not retry preparation, override the purge service or
 resize/restart the shared VM on the strength of apparent file-size savings.
+The November 8 native migration changes the execution host, not this historical
+result. Native model availability, resource requirements and actual Translation
+execution need fresh qualification after migration reconciliation.
 
 ## Historical October setup — do not replay host commands
 
