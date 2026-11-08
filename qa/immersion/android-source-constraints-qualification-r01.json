@@ -3,9 +3,9 @@
   "status": "native_core_and_conversation_checks_passed",
   "default_provider": "null; no research data activated",
   "closure": {
-    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-constraints-r01/closure-r01.json",
-    "sha256": "b548f876c05c57cc931bfc743cfac8f8f37f6e024a3d5e80eab2e41db4f4ec91",
-    "bytes": 10575
+    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-constraints-r01/closure-r02-retained-artifacts.json",
+    "sha256": "205a88127c142fccffac10ce6ed5ebbbe989056dcf753e2e61dda6ecbcb5ac99",
+    "bytes": 10748
   },
   "main_source_commit": "d5629bef803e40d1321e936b4830de32c30cd542",
   "test_only_commit": "182c1c17397b0f8c6d993f7ebfadfb88d2e67b5f",

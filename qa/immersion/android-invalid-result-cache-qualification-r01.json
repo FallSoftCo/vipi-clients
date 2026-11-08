@@ -1,0 +1,137 @@
+{
+  "schema": "vipi.android.invalid-result-cache.qualification.r01",
+  "status": "passed_same_regression_and_eight_native_lifecycle_cases",
+  "closure": {
+    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/invalid-result-cache-r01/closure-r01.json",
+    "sha256": "173511b1bbe55d79f384487a82e4ba8a88092469a32e591c7a98ad4212a2bfe0",
+    "bytes": 7063
+  },
+  "runtime_commit": "70aec3c",
+  "change": "One existing128-entry bounded cache now retains eligible rejected local results for automatic reuse only; no new cache subsystem, identifier policy, model or language data.",
+  "eligibility": {
+    "result": "null",
+    "status": "INVALID_RESULT",
+    "origin": "LOCAL_FULL_CONTEXT",
+    "local_translation_calls": ">0",
+    "excluded": [
+      "Transient ERROR",
+      "TIMEOUT",
+      "cancellation",
+      "MODEL_NOT_READY",
+      "malformed source metadata/known reference before a local call"
+    ]
+  },
+  "reuse": "Exact existing request key includes source engine/pair, exact text/input language, catalog/policy/known identity. Negative entry additionally carries its original request generation and observed model-readiness revision. Useful partial/full entries are retained unchanged.",
+  "explicit_retry": "Full intent bypasses negatives; same explicit epoch deduplicates, new explicit epoch requests once. An eligible negative never overwrites a useful positive.",
+  "invalidation": "Language generation and observed readiness transitions expire negative reuse, including true\u2192false\u2192true and a response completed after its old readiness revision. Catalog/known identity changes require a new engine as before. No claim to detect vendor model-version changes that do not alter readiness.",
+  "native": {
+    "runtime": "Existing API35 x86_64 emulator-5620",
+    "offline": true,
+    "model_downloads": 0,
+    "network_restored": true,
+    "cases": [
+      {
+        "id": "fake_identifier",
+        "actual_native_provider": false,
+        "text": "Send @alice a message.",
+        "first_actual_translation_identical": true,
+        "old_automatic_cumulative_calls": [
+          1,
+          2,
+          3
+        ],
+        "new_automatic_cumulative_calls": [
+          1,
+          1,
+          1
+        ],
+        "new_automatic_after_explicit_added_calls": 0,
+        "same_explicit_epoch_deduplicated": true,
+        "new_explicit_epoch_added_one_call": true
+      },
+      {
+        "id": "nlp-r01-phone_number-007",
+        "actual_native_provider": true,
+        "text": "There is a phone number at alice@example.com.",
+        "first_actual_translation_identical": true,
+        "old_automatic_cumulative_calls": [
+          1,
+          2,
+          3
+        ],
+        "new_automatic_cumulative_calls": [
+          1,
+          1,
+          1
+        ],
+        "new_automatic_after_explicit_added_calls": 0,
+        "same_explicit_epoch_deduplicated": true,
+        "new_explicit_epoch_added_one_call": true
+      },
+      {
+        "id": "nlp-r01-phone_number-004",
+        "actual_native_provider": true,
+        "text": "Check the phone number at https://example.com/contact.",
+        "first_actual_translation_identical": true,
+        "old_automatic_cumulative_calls": [
+          1,
+          2,
+          3
+        ],
+        "new_automatic_cumulative_calls": [
+          1,
+          1,
+          1
+        ],
+        "new_automatic_after_explicit_added_calls": 0,
+        "same_explicit_epoch_deduplicated": true,
+        "new_explicit_epoch_added_one_call": true
+      }
+    ],
+    "lifecycle": [
+      {
+        "case": "exact_text_language_epoch_and_observed_readiness_invalidate_only_negatives",
+        "calls": 4
+      },
+      {
+        "case": "inflight_rejection_retains_original_readiness_revision",
+        "calls": 2
+      },
+      {
+        "case": "partial_success_survives_readiness_and_invalid_full_extension",
+        "calls": 1
+      },
+      {
+        "case": "transient_error_not_negative_cached",
+        "calls": 2
+      },
+      {
+        "case": "transient_timeout_not_negative_cached",
+        "calls": 2
+      },
+      {
+        "case": "transient_cancellation_not_negative_cached",
+        "calls": 2
+      },
+      {
+        "case": "negative_entries_use_existing_128_bound_and_eviction",
+        "calls": 130
+      },
+      {
+        "case": "new_catalog_known_identity_requires_new_engine_and_new_attempt",
+        "calls": 2
+      }
+    ]
+  },
+  "retained_failures": [
+    "Old unchanged r93 main fails desired regression after all3cases are captured: each automatic cumulative count[1,2,3], another call after explicit retry.",
+    "r96 runtime compile failed on cross-module smart cast; only safe nullable access corrected.",
+    "r97 main assembled successfully; QA compilation failed on evidence-label interpolation only. r98 changed that label and rebuilt AndroidTest only, reusing exact r97 main."
+  ],
+  "limits": [
+    "Two actual Japanese cases use installed ML Kit models and retain their original identifier-validation failure; this fixes repeated work, not the translation or guard.",
+    "Readiness lifecycle controls invoke the real private setter reflectively; no actual models were installed/removed.",
+    "No physical/API28/store or broad linguistic coverage claim.",
+    "Source-constraints default research provider remains absent."
+  ]
+}
