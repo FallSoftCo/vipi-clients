@@ -1,0 +1,1755 @@
+{
+  "schema": "vipi-japanese-reading-protocol-3",
+  "frozen_epoch": 1794115557.440557,
+  "source_hashes": {
+    "full-reading-probe-inputs-r01.json": "98e26a9fa030796ea138bb92a5dd62d445c405259e90127b6a572b296d042a38",
+    "sentence-readings.json": "41dc56026038176348580016725ce1197e58b21586a719d3b40aa5c07d457c24",
+    "retained-xpersona-protocol": "eed5df30c1676795c6d6c38d5910fcf192777bcef8322a6c02d2e241e1541d2f"
+  },
+  "groups": {
+    "frozen12": 12,
+    "existing_authored_reference": 106,
+    "retained_xpersona_validation": 100,
+    "general_authored_control": 28,
+    "kana_copula_authored_contrast": 24
+  },
+  "retained_corpus": {
+    "name": "XPersona human-adapted validation role-play",
+    "revision": "1da049a1bbf3b01548f98cc23ba75ef871416e50",
+    "source": "https://github.com/HLTCHKUST/Xpersona",
+    "license": "CAiRE MIT; underlying PersonaChat CC BY4.0; retained provenance in docs/CONVERSATION_COVERAGE.md and qa/immersion/acquire_xpersona.py",
+    "selection": "All100 retained distinct(case,original) Japanese source pairs from900direction rows; order SHA256(vipi-japanese-reading-r02:+case+:+original). No target gold used.",
+    "new_holdout": false,
+    "official_test_used": false
+  },
+  "limits": [
+    "Previously seen/authored diagnostic text, not representative spontaneous chat or untouched semantic acceptance.",
+    "Native string outputs are not acoustic pronunciation or pitch-accent validation.",
+    "API28 runtime support remains unqualified; explicit unsupported guard."
+  ],
+  "cases": [
+    {
+      "id": "ja-authored_control-1",
+      "text": "大学の学生が本を読んでいます。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-authored_control-2",
+      "text": "いい知らせがあります。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-authored_control-3",
+      "text": "もっと時間が必要です。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-authored_control-4",
+      "text": "電車の切符を買いました。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-contrast-1",
+      "text": "私は葉を見ます。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-contrast-2",
+      "text": "学校へ行きます。へびがいます。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-contrast-3",
+      "text": "こんにちは。または明日。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-contrast-4",
+      "text": "生の魚と生ビール。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-mixed_unknown-1",
+      "text": "明日はVipiで18:30に会おう 😊。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-mixed_unknown-2",
+      "text": "ZoëとJoséにメッセージを送った。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-mixed_unknown-3",
+      "text": "住所はhttps://example.com/a?x=1です。",
+      "group": "frozen12"
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "text": "𠮷田さんに¥1,250を渡した。",
+      "group": "frozen12"
+    },
+    {
+      "id": "authored-fb80c73646c430917841",
+      "text": "あなたの電話番号は何ですか。",
+      "reference_reading": "Anata no denwa bangō wa nan desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-4e0b8a523dce367faa4b",
+      "text": "ありがとう。",
+      "reference_reading": "Arigatō.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-56eb4b75f3ab28fa7231",
+      "text": "いいえ。",
+      "reference_reading": "Iie.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2bba5b82de68a8392123",
+      "text": "いい知らせがあります。",
+      "reference_reading": "Ii shirase ga arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-263b9d704e2bf1d17d2b",
+      "text": "お金が必要です。",
+      "reference_reading": "Okane ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-de64ca555e6756564bc6",
+      "text": "お金が足りません。",
+      "reference_reading": "Okane ga tarimasen.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-0dff9c22444294d7fdf0",
+      "text": "お願いします。",
+      "reference_reading": "Onegaishimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2376e4be4b5829687ba5",
+      "text": "かばんはテーブルの上にあります。",
+      "reference_reading": "Kaban wa tēburu no ue ni arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-439e44a82b28f76c2661",
+      "text": "こんにちは。",
+      "reference_reading": "Konnichiwa.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-baec2edc48981d02e631",
+      "text": "その家には庭があります。",
+      "reference_reading": "Sono ie ni wa niwa ga arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-972b4c60837101aba74e",
+      "text": "どうもありがとう。",
+      "reference_reading": "Dōmo arigatō.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2910a18eec8fd2dd5cd1",
+      "text": "はい。",
+      "reference_reading": "Hai.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-79f5e2333195c7b1cb21",
+      "text": "また明日。",
+      "reference_reading": "Mata ashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-4cbf8a5f5fc53f9c77b3",
+      "text": "もっと時間が必要です。",
+      "reference_reading": "Motto jikan ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-8b56621cfd5dc94ee8a1",
+      "text": "もっと食べ物が必要です。",
+      "reference_reading": "Motto tabemono ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-c98c95d7f5d73f62da82",
+      "text": "わかりました。",
+      "reference_reading": "Wakarimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-085dba32c919fe80d692",
+      "text": "インターネット接続が遅いです。",
+      "reference_reading": "Intānetto setsuzoku ga osoi desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-78c7baff9eaced5bcf2c",
+      "text": "タクシーが必要です。",
+      "reference_reading": "Takushī ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-e7cee4292514ebb00d1f",
+      "text": "ドアの鍵が必要です。",
+      "reference_reading": "Doa no kagi ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-81610445cc59fd6a7d59",
+      "text": "ドアの鍵はどこですか。",
+      "reference_reading": "Doa no kagi wa doko desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ebbc854b2e9295fd56e0",
+      "text": "ドアを閉めてください。",
+      "reference_reading": "Doa o shimete kudasai.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-bd4157927e46dbb73cea",
+      "text": "バスが遅れています。",
+      "reference_reading": "Basu ga okurete imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ae2723ad5d2849b2fe4d",
+      "text": "バス停はどこですか。",
+      "reference_reading": "Basutei wa doko desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-416264b31cf2caf3eb5e",
+      "text": "ホテルの住所は何ですか。",
+      "reference_reading": "Hoteru no jūsho wa nan desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-0a5f73b2179e8e14c7aa",
+      "text": "ホテルの部屋が必要です。",
+      "reference_reading": "Hoteru no heya ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-b2e8cf42c4539487891f",
+      "text": "ホテルの部屋は静かです。",
+      "reference_reading": "Hoteru no heya wa shizuka desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ba332ec1a4d3c51c3c4b",
+      "text": "ホテルは空港の近くにあります。",
+      "reference_reading": "Hoteru wa kūkō no chikaku ni arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-df8c32dff6c933293e19",
+      "text": "ホテルを探しています。",
+      "reference_reading": "Hoteru o sagashite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-95aa5099de346ac54c16",
+      "text": "メッセージを送っています。",
+      "reference_reading": "Messēji o okutte imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-c4554042c7ff31ca7b92",
+      "text": "メッセージを送りました。",
+      "reference_reading": "Messēji o okurimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-c3afa225674f49d76184",
+      "text": "メールを送っています。",
+      "reference_reading": "Mēru o okutte imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-52210b13aaba5606c76e",
+      "text": "メールを送りました。",
+      "reference_reading": "Mēru o okurimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2f371c644657fe217498",
+      "text": "レストランはホテルの近くにあります。",
+      "reference_reading": "Resutoran wa hoteru no chikaku ni arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-e263615ebc29111ae9f8",
+      "text": "レストランを探しています。",
+      "reference_reading": "Resutoran o sagashite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-fc8d8099aa06c2797f9b",
+      "text": "事務所にいます。",
+      "reference_reading": "Jimusho ni imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-17ffbda4bab8e75c7b81",
+      "text": "今、お茶を飲んでいます。",
+      "reference_reading": "Ima, ocha o nonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-99434e2cf0a9405af356",
+      "text": "今、コーヒーを飲んでいます。",
+      "reference_reading": "Ima, kōhī o nonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ee5c8e0b9a79e760dc3e",
+      "text": "今、チーズを食べています。",
+      "reference_reading": "Ima, chīzu o tabete imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-884ddb6ec569031ab530",
+      "text": "今、パンを食べています。",
+      "reference_reading": "Ima, pan o tabete imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-98056c7a2c936f872dcb",
+      "text": "今、ピアノを弾いています。",
+      "reference_reading": "Ima, piano o hiite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-5b3aa952e2b91f2bcc04",
+      "text": "今、映画を見ています。",
+      "reference_reading": "Ima, eiga o mite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-b9d255b919ac8c9eaffb",
+      "text": "今、本を読んでいます。",
+      "reference_reading": "Ima, hon o yonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-abcbcc59607d72a2930a",
+      "text": "今、水を飲んでいます。",
+      "reference_reading": "Ima, mizu o nonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-125bc866e8e5c6a8fc9a",
+      "text": "今、犬を散歩させています。",
+      "reference_reading": "Ima, inu o sanpo sasete imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-4e3bcae3b413bd5ef0b6",
+      "text": "今、音楽を聴いています。",
+      "reference_reading": "Ima, ongaku o kiite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-141f9e152d07bb31f952",
+      "text": "今日は仕事です。",
+      "reference_reading": "Kyō wa shigoto desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-b299f9679b5c3e772642",
+      "text": "今週末は暇です。",
+      "reference_reading": "Konshūmatsu wa hima desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-aa103be1cc3a301b1702",
+      "text": "仕事を探しています。",
+      "reference_reading": "Shigoto o sagashite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-d3ebad4eef170ff79021",
+      "text": "休息が必要です。",
+      "reference_reading": "Kyūsoku ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-e2c4fa128d25ce07e720",
+      "text": "会議は正午に始まります。",
+      "reference_reading": "Kaigi wa shōgo ni hajimarimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ff2dcbcd0f950d99b699",
+      "text": "値段が高すぎます。",
+      "reference_reading": "Nedan ga takasugimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2d8946b3ce58df5c05f3",
+      "text": "傘が必要です。",
+      "reference_reading": "Kasa ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2c4640e68001c5191264",
+      "text": "先生が授業の内容を説明します。",
+      "reference_reading": "Sensei ga jugyō no naiyō o setsumei shimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-6673c0e613de85913ed1",
+      "text": "写真を撮りました。",
+      "reference_reading": "Shashin o torimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-8e18cecc93aeaa844374",
+      "text": "列車が遅れています。",
+      "reference_reading": "Ressha ga okurete imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-c3f7c82aa9767d641124",
+      "text": "列車の切符が必要です。",
+      "reference_reading": "Ressha no kippu ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-51fb11a1b4c8f2dcbef3",
+      "text": "助けが必要です。",
+      "reference_reading": "Tasuke ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-07e2ac8d3e32cc49fecb",
+      "text": "医師が必要です。",
+      "reference_reading": "Ishi ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2e8e7b7c462d488d1b2d",
+      "text": "去年ここに引っ越しました。",
+      "reference_reading": "Kyonen koko ni hikkoshimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-4053622ef2d91a2fd843",
+      "text": "問題があります。",
+      "reference_reading": "Mondai ga arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-be6c0307f8b1ea2aa8e2",
+      "text": "夕食ができました。",
+      "reference_reading": "Yūshoku ga dekimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-7b9a4b0bce72e3fce5dd",
+      "text": "夜に働いています。",
+      "reference_reading": "Yoru ni hataraite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-fa13e0a2cb55112b1934",
+      "text": "大学の学生が本を読んでいます。",
+      "reference_reading": "Daigaku no gakusei ga hon o yonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2b35c3371da884db6a8e",
+      "text": "天気がいいです。",
+      "reference_reading": "Tenki ga ii desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-6bb7265527a2609f5329",
+      "text": "学校の試験は明日です。",
+      "reference_reading": "Gakkō no shiken wa ashita desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-cb38501a34a0a17683cb",
+      "text": "学校は公園の近くにあります。",
+      "reference_reading": "Gakkō wa kōen no chikaku ni arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-25e279c45ea88a572d57",
+      "text": "家にいます。",
+      "reference_reading": "Ie ni imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-a7cfeea19dbc883e37aa",
+      "text": "宿題が終わりました。",
+      "reference_reading": "Shukudai ga owarimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-addb87552ef58e6e3fae",
+      "text": "情報が必要です。",
+      "reference_reading": "Jōhō ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-5585c169da7adb9d9c7a",
+      "text": "授業がもうすぐ始まります。",
+      "reference_reading": "Jugyō ga mō sugu hajimarimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-aa4e692345b236709d9f",
+      "text": "携帯の充電器はどこですか。",
+      "reference_reading": "Keitai no jūdenki wa doko desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-e15bb73086a9dea383d5",
+      "text": "携帯電話の充電器が必要です。",
+      "reference_reading": "Keitai denwa no jūdenki ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-d142974112ea58ab4e52",
+      "text": "旅行の計画は何ですか。",
+      "reference_reading": "Ryokō no keikaku wa nan desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-35e7660491aa14998a42",
+      "text": "明日は仕事です。",
+      "reference_reading": "Ashita wa shigoto desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-835432f0d82f596794f3",
+      "text": "明日は私の誕生日です。",
+      "reference_reading": "Ashita wa watashi no tanjōbi desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-06b1ae760d7c0a9c0b7c",
+      "text": "映画を見ました。",
+      "reference_reading": "Eiga o mimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-f2671f1cfecabdd7b2f2",
+      "text": "昨日は仕事でした。",
+      "reference_reading": "Kinō wa shigoto deshita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-0931be83c1564797de03",
+      "text": "昼食ができました。",
+      "reference_reading": "Chūshoku ga dekimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ae799df602cb9c38751c",
+      "text": "最近どう？",
+      "reference_reading": "Saikin dō?",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-6ed5836e49c4c240123a",
+      "text": "朝に勉強します。",
+      "reference_reading": "Asa ni benkyō shimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-4b66e9a29689c3eaa549",
+      "text": "朝食ができました。",
+      "reference_reading": "Chōshoku ga dekimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-d1b96cf3c4c6c5a62708",
+      "text": "朝食が必要です。",
+      "reference_reading": "Chōshoku ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-6634091af16d922c2838",
+      "text": "本を読んでいます。",
+      "reference_reading": "Hon o yonde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-d5b368cb1bb0ce437624",
+      "text": "来月引っ越します。",
+      "reference_reading": "Raigetsu hikkoshimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2041b91f67b016932dee",
+      "text": "来週会いましょう。",
+      "reference_reading": "Raishū aimashō.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-9c8382cd2085727497ad",
+      "text": "水が必要です。",
+      "reference_reading": "Mizu ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-494063af0dfcb985f0f9",
+      "text": "私の友達はここにいます。",
+      "reference_reading": "Watashi no tomodachi wa koko ni imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-db43125c21f1d41007bb",
+      "text": "私の家族は近くに住んでいます。",
+      "reference_reading": "Watashi no kazoku wa chikaku ni sunde imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-065d35d0f08e8b3d2f92",
+      "text": "私の犬と一緒にいます。",
+      "reference_reading": "Watashi no inu to issho ni imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-17900e1cc2c7346b001a",
+      "text": "私は音楽が好きです。",
+      "reference_reading": "Watashi wa ongaku ga suki desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-2f4494eb6cfafd167d26",
+      "text": "空港に行きます。",
+      "reference_reading": "Kūkō ni ikimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-cf5d3ae94577302264ee",
+      "text": "誕生日パーティーは今夜です。",
+      "reference_reading": "Tanjōbi pātī wa kon'ya desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-7bc7d222564f47bd0cb2",
+      "text": "誕生日パーティーは明日です。",
+      "reference_reading": "Tanjōbi pātī wa ashita desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-1f65d5aa5d130adeffd1",
+      "text": "質問があります。",
+      "reference_reading": "Shitsumon ga arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-bffdfd3344d69ae47928",
+      "text": "車は外にあります。",
+      "reference_reading": "Kuruma wa soto ni arimasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-eaa3ac2a9dd18d141fda",
+      "text": "通話は短かったです。",
+      "reference_reading": "Tsūwa wa mijikakatta desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-607734008e9f21e75352",
+      "text": "郵送先の住所が必要です。",
+      "reference_reading": "Yūsōsaki no jūsho ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-5b68b0c6b283aed2252a",
+      "text": "銀行口座を持っています。",
+      "reference_reading": "Ginkō kōza o motte imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-feb5b38a2792745361ea",
+      "text": "雨がやみました。",
+      "reference_reading": "Ame ga yamimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-378773b3b61534111abc",
+      "text": "電話が鳴っています。",
+      "reference_reading": "Denwa ga natte imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-01874c853dcf5dfcf59e",
+      "text": "電話番号が必要です。",
+      "reference_reading": "Denwa bangō ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-0a7075cd3136e6dd5d1c",
+      "text": "電車の切符を買いました。",
+      "reference_reading": "Densha no kippu o kaimashita.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-b840a2dc6a8a1435888e",
+      "text": "音楽を聴いています。",
+      "reference_reading": "Ongaku o kiite imasu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-1cdec46d0e3aa497f601",
+      "text": "領収書が必要です。",
+      "reference_reading": "Ryōshūsho ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-58420186ba6d45feadef",
+      "text": "食べ物が必要です。",
+      "reference_reading": "Tabemono ga hitsuyō desu.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "authored-ce4ca053973b0ffcecc9",
+      "text": "駅はどこですか。",
+      "reference_reading": "Eki wa doko desu ka.",
+      "group": "existing_authored_reference"
+    },
+    {
+      "id": "retained-xpv-06a9d31d1bd82623114be5f2",
+      "text": "どんな業界で働いていますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-07937c95716158601257dc29",
+      "text": "良いです 。私もです 。トラクターを運転して、一日中クラシック音楽を聴くだけです",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-016d8b4853a427368467e33e",
+      "text": "私はチーズの下にある赤いものが好きです！あなたは何歳ですか ？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-039841b1978296bb42b74f75",
+      "text": "私は歌います 。あなたはアナと雪の女王の映画を見たことがありますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-3407f54385ad287ba49c8c16",
+      "text": "非常に慎重に。テキサスで洪水に遭いましたか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-24950ff98fd60758392f7055",
+      "text": "私は夜を楽しんでいます。ビールを少し飲んで、カントリーミュージックを聴いています。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2f013a8ff6f029d5fbb854df",
+      "text": "わかります。私が一人でいる必要があるとき、私は毎週数回運動します。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1b0ccf159e515c9c416d0ecf",
+      "text": "私は現在、私の好きな色である赤と銀の絵に取り組んでいます。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-02482d43563bb07df42ec01b",
+      "text": "赤とピンクと青が好き",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-15219513370080850ab75761",
+      "text": "私も結婚しています、妻と3人の女の子がいます。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-24cc71a0a1c75bb88d829d47",
+      "text": "あなたもそうです。直感ですが 。私は私のクライアントをトレーニングするときにあなたを覚えておく必要があります",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2b79328f5b4bf02ce54377a1",
+      "text": "私は7年生からビーガンです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1d8e099834cee635a8a2a5b1",
+      "text": "母の雲と父の雲。それが私の家族です。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0f2e811736d209becdfb3fc1",
+      "text": "金持ちはたぶんいいです。旅行にもっとお金が欲しい",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-08bb894c5f87b1773ef87a07",
+      "text": "ペットを飼っていて、チャーリーと呼ばれています",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-00fb00059290407ab2f85c42",
+      "text": "私はコメディの方が好きです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1ae283c252d7371d46359148",
+      "text": "あなたは子供もいますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-118025a10ba9e658eb25f654",
+      "text": "私は自宅でインターネット検索をして働いています",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-60313773b1fcef9c4b39ddf9",
+      "text": "高校を卒業した後、イタリアンのレストランで働きました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-221b7730950f46231765f9a7",
+      "text": "ええ。私も忙しくなります。ハンバーガーとフライドポテトしか食べない",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-04a460f765dfbd1d10bfd0b1",
+      "text": "ああすごい 。寒さで関節が痛くなります。笑",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-173b675697780f414058533f",
+      "text": "獣医になりたいと思います。私は馬に乗ってビーガンの食事をします",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0073fc6cd35658cd2897ebfa",
+      "text": "上から14歳、10歳、7歳です",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-390d2e086d3d38d63b957954",
+      "text": "もちろん、このテーマに関して非常に熟練したトレーナーだからです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1f434efc36bc11321806d441",
+      "text": "私は犬が好きです！どんな犬を飼っていますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-49e1c672c2c6caf3a25f6fd4",
+      "text": "おはようございます ！調子はどう？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-23ac38ce1845a2a6a5c4b68a",
+      "text": "あなたとあなたの友人はどんな楽しみが好きですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-183f3d5f09be45a7b0d33b0e",
+      "text": "果物や野菜、クリーンものは何でも。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0eabe3654b19f8f4597cd405",
+      "text": "あなたの子猫は鳥が好きなのですか？彼らは彼らを狩ろうとしませんか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-11ebe4e294b3d966f1e13f49",
+      "text": "クールです。ワークアウトは1日4時間なので、それが私の人生の中心です",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-006045100708f78084ca5696",
+      "text": "はい、自転車に乗るのが大好きです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-05cc6e245e34b9a86f871e17",
+      "text": "あなたはどんなゲームをしますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-03ca319e52bcb7b8bcffd44d",
+      "text": "それは面白いです。冬に向けて南に降りてきてうれしいです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1043a98ff4cbcbf005210ebe",
+      "text": "それは大丈夫です、私は家族の誰とも仲良くありません",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-00969e029deb812681969ad7",
+      "text": "ええ、でも私はするのが好きなのです",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-281170959c8f8599822989ed",
+      "text": "特別なユニフォームはありましたか？スキニージーンズとレギンスが大好きです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-15bc44881ef4293bd9026826",
+      "text": "はい、でも私は若いです。変なことを言います",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1c40c44bf4dd117c20c557f4",
+      "text": "ああ、私はリラックスが大好きです。仕事で長い日を過ごした後の泡風呂は最高です。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1d73a4ee18dcff0f829f4e9d",
+      "text": "はい。それは大変です 。お菓子作りをしますか？私は料理が大好きです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-000530929f481dd1ecb75859",
+      "text": "ここで涼しくなり始めました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-24116b8a39975d59d5b2f4ee",
+      "text": "アマゾンは本を注文するのに最適な場所です",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-01a4e63e6a570b80bf23f2da",
+      "text": "妻と私は医者です。家族がいますか",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0e190c63d17170e4a8620a17",
+      "text": "わかります、でも私たちは皆無給のようです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0502d68121e65011ee369e9c",
+      "text": "世界平和を願っています",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-053cd6ed5c2159bc87caaee7",
+      "text": "私は瞑想をしますが、するべきほど頻繁でははありません。ストレス解消に役立ちます。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-26eb9e465754f0ea39f0ef0c",
+      "text": "かなりまともだった。卓球の試合で勝ちました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0b4f1dcf797bf553e8cc1657",
+      "text": "ブラウンズはあまり良くないと思います",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-184cc63288faedae87472eed",
+      "text": "私の両親はブリトニースピアーズを聞いたら大声で叫ぶでしょう！彼らの農場はカントリーだけです！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-21b3734af5c29638c2bc9d78",
+      "text": "そうそう、そうだと思う",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0830200a917f500224802a2b",
+      "text": "疲れました！ あと三ヶ月で三つ子が生まれます！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0157595f44a731dfdbfbaf45",
+      "text": "いつかビッグになったら、理想の車を買います",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-010b5cf8ed6b476e4a3fb7ff",
+      "text": "それは非常に奇妙なことです！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-105ec14e1a668e5a6547003c",
+      "text": "サソリはどこにでもあります！ ！ ！サソリの海はあらゆる方向の数マイル先にあります！リー！ ！ ！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-18efbbadc552129d23fbdcdb",
+      "text": "私は司書として働いていますが、今後数年で引退するつもりです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1be023c67981f05e5613d211",
+      "text": "ああすごい 。おめでとうございます。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-008af7512eff893026cf7996",
+      "text": "はい、しかしそれを維持するのは非常に困難でした。切り刻み増田。あなたはどうですか ？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-367e22363c6d5ec06285870b",
+      "text": "ただ一般的なものです、でもそれ以来私には奇妙な力が備わりました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-13985441e5b70457d1d2f675",
+      "text": "ベーキング以外に趣味はありますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-19690e4ea7d45ec9c50bf5e9",
+      "text": "私は芸術を勉強しているので、ヨーロッパでそれを見るのが好きです。私の家族は遠くに住んでいます",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2d7e86fc829dacfc32616508",
+      "text": "ハハ私はそれについて一度本を読んだことがあります",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-127715619a7630c85f7957b2",
+      "text": "それは誰もが努力すべきものです",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0f5596b3848fb4afa9e19759",
+      "text": "ぜひ走るのを試して見てください！その楽しさ！移動も良いです！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0054866a9c04ed9f8696c1b7",
+      "text": "家でジュエリーを作り、オンラインで販売しています。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0c907ce70e89d378dd1b558f",
+      "text": "アラブ種の馬も3頭あるので、よく乗っています。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-09d513a313d87c29642357e4",
+      "text": "ピクサーの映画カーズを見たことがありません、私よりも少しあとの時代なので",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-05776c4b7c4f291674a646b2",
+      "text": "そうだったでしょうね。趣味は乗馬です。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2c3c3c61e4ed1a00e46e80be",
+      "text": "私は彼女がバレーガールをしていることを知っているが、彼女は本当に歌うことができます",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-024495e868966caa4d4f87ba",
+      "text": "私はアメリカのシェフで、釣りも大好きです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-005795e9b122fc568e6711e3",
+      "text": "それは高貴な仕事です。 2011年、私はイェール大学で金融学の学位を取得しました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-22afb1aae0d4009018b8f7d1",
+      "text": "ちょっと疲れました。私は月曜日が嫌いです 。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-03f676927955e74433c979c2",
+      "text": "あなたは私のように男の子ですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0190daae06c715f0c21cc870",
+      "text": "良いですね、散歩から戻ったとき、足が痛かったです",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1b8cb011443f5b9476a325ff",
+      "text": "私はミシガンに行ったことがありませんが、そこでハイキングしたいです。ハイキングは好きですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-08e5b091b0b6b18f0de8d561",
+      "text": "私の仕事は車を売ることです。車は好きですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1b9b3755232a40856d5b4426",
+      "text": "よくわからない、女の子だと思う、最後に確かめた時は",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-009eb1897781d11c416ca515",
+      "text": "銀行の窓口係ですが、あとどれくらい続けるかはわかりません。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2b0ef9ce508daf6b7e7b25a8",
+      "text": "成長のために沈黙を選びました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0ce2388c467659a038b7cedd",
+      "text": "私は日没前の朝のハイキングが好き",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-09c89bd062aa3b685bfc0169",
+      "text": "私はモンゴメリーに住んでいます",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-007c96aa983e3fc5745161d9",
+      "text": "私は庭の余地のある家を買いました。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0be99824b8a281270fc4a8b8",
+      "text": "できます 。結婚するということは、孤独を感じないということですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0c71f3a3b2e1cf9c4f4d5621",
+      "text": "いいえ、今夜は快晴です。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-165504bf3bf00062439dba93",
+      "text": "旅行中に世界中からオリンピックのキーホルダーを集めるのが大好き",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-11cda3ee5d7dc18a9a2df1eb",
+      "text": "私は読むのが好き 。本でいっぱいの図書館があります。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-32011127b5aeca202c939f6b",
+      "text": "こんばんは、今夜はいかがお過ごしですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-07f517251485db8dfe6f0b9b",
+      "text": "いいえ。私にとって一番難しかったのは、話すのをあきらめることでしたが、それは可能でした",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-00b6e9a489babc91b8a366dc",
+      "text": "子供が学ぶのを見るのが私の情熱です。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1781f9091447d49f3c11a656",
+      "text": "引越しする準備はできていますか",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0f8ffc987aa00c44e85715cb",
+      "text": "あなたの好きな犬は何ですか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0172426d144276d556ec4702",
+      "text": "こんにちは、ジョージです。元気です。お元気ですか ？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0656f25fa45101a32a94330e",
+      "text": "ありがとう、早く引退することができたらどんなに良いことか。どんなお仕事をしていらっしゃいますか ？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0d0513ee93503a3dbadea07d",
+      "text": "それはいいです 。一人で退屈しています、一緒に遊ぶ人がいたらいいのに。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-1111a116f531294383c16b52",
+      "text": "こんにちは ！私は教会から戻ってきたばかりです。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-00107c6780048b9e86e1a4e1",
+      "text": "ああ ！ハイキングが好きですか？私は毎朝ハイキングして夕日を見ます！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-2b07c24256340a55c1b05801",
+      "text": "それは楽しそうです 。ワインもダンスも好きです！",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0c58379b1be414adaa93331c",
+      "text": "最後にコーヒーを一緒に飲んだ人はシュナップスを追加しようとした。クールではありません 。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-08e5d8284b9143075fdd5551",
+      "text": "彼らはあなたを幸せにしますか？",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-08d5398ce7801f9cd58f2d8d",
+      "text": "いいえ、コロラドに行ったことがありません",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-0641b2901ab0fd3efc8831a0",
+      "text": "私はあまり買い物しません。家で牛とリラックスすることを好む。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "retained-xpv-15f103c0d9febb07ce2f3c3e",
+      "text": "彼らは木にいるでしょう！私もコミコンをしています。彼らを連れてきてください。",
+      "group": "retained_xpersona_validation"
+    },
+    {
+      "id": "new-control-sent",
+      "text": "送った。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "okutta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-bought",
+      "text": "買った。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "katta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-wait",
+      "text": "待って。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "matte"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-know",
+      "text": "知っている。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "shitteiru"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-cut",
+      "text": "切った。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "kitta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-spoke",
+      "text": "話した。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "hanashita"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-hurried",
+      "text": "急いだ。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "isoida"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-drank",
+      "text": "飲んだ。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "nonda"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-read",
+      "text": "読んだ。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "yonda"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-swam",
+      "text": "泳いだ。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "oyoida"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-wrote",
+      "text": "書いた。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "kaita"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-returned",
+      "text": "帰ってきました。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "kaettekimashita"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-running",
+      "text": "走っていた。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "hashitteita"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-hot",
+      "text": "暑かった。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "atsukatta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-didnotgo",
+      "text": "行かなかった。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "ikanakatta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-beautiful",
+      "text": "美しかった。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "utsukushikatta"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-didnotcall",
+      "text": "電話しませんでした。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "shimasendeshita"
+      ],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-app",
+      "text": "Vipiで会う。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "Vipi de"
+      ],
+      "preserved_literals": [
+        "Vipi"
+      ]
+    },
+    {
+      "id": "new-control-names",
+      "text": "ZoëとJoséに電話した。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "Zoë to José ni"
+      ],
+      "preserved_literals": [
+        "Zoë",
+        "José"
+      ]
+    },
+    {
+      "id": "new-control-time",
+      "text": "18:30に会う。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "18:30 ni"
+      ],
+      "preserved_literals": [
+        "18:30"
+      ]
+    },
+    {
+      "id": "new-control-money",
+      "text": "¥1,250を渡した。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "¥1,250 wo"
+      ],
+      "preserved_literals": [
+        "¥1,250"
+      ]
+    },
+    {
+      "id": "new-control-url-delimited",
+      "text": "https://example.com/a?x=1 で会おう。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "https://example.com/a?x=1 de"
+      ],
+      "preserved_literals": [
+        "https://example.com/a?x=1"
+      ]
+    },
+    {
+      "id": "new-control-iri-ambiguous",
+      "text": "ここはhttps://example.com/東京です。",
+      "group": "general_authored_control",
+      "expected_available": false,
+      "required_fragments": [],
+      "preserved_literals": [
+        "https://example.com/東京です"
+      ]
+    },
+    {
+      "id": "new-control-opaque-code",
+      "text": "コードは`東京=1`です。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "`東京=1` desu"
+      ],
+      "preserved_literals": [
+        "`東京=1`"
+      ]
+    },
+    {
+      "id": "new-control-email",
+      "text": "メールは qa+vipi@example.com です。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "qa+vipi@example.com"
+      ],
+      "preserved_literals": [
+        "qa+vipi@example.com"
+      ]
+    },
+    {
+      "id": "new-control-handle",
+      "text": "@vipi_01 で会う。",
+      "group": "general_authored_control",
+      "expected_available": true,
+      "required_fragments": [
+        "@vipi_01 de"
+      ],
+      "preserved_literals": [
+        "@vipi_01"
+      ]
+    },
+    {
+      "id": "new-control-unknown-name",
+      "text": "𠮷田さんが来た。",
+      "group": "general_authored_control",
+      "expected_available": false,
+      "required_fragments": [],
+      "preserved_literals": []
+    },
+    {
+      "id": "new-control-terminal-small-tsu",
+      "text": "あっ！",
+      "group": "general_authored_control",
+      "expected_available": false,
+      "required_fragments": [],
+      "preserved_literals": []
+    },
+    {
+      "id": "r03-kana-nonce-katakana",
+      "text": "ズピラミコ。",
+      "expected_available": true,
+      "required_fragments": [
+        "zupiramiko"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-nonce-hiragana",
+      "text": "ずぴらみこ。",
+      "expected_available": true,
+      "group": "kana_copula_authored_contrast",
+      "required_ignoring_spaces": [
+        "zupiramiko"
+      ]
+    },
+    {
+      "id": "r03-kana-long",
+      "text": "ヌポレール。",
+      "expected_available": true,
+      "required_fragments": [
+        "nuporēru"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-small-ya",
+      "text": "ヌピャル。",
+      "expected_available": true,
+      "required_fragments": [
+        "nupyaru"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-halfwidth",
+      "text": "ﾇﾋﾟｬﾙ。",
+      "required_if_available": [
+        "nupyaru"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-decomposed",
+      "text": "ガピル。",
+      "required_if_available": [
+        "gapiru"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-han-mixture",
+      "text": "ヌピ𠮷。",
+      "expected_available": false,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-latin-boundary",
+      "text": "X7ヌピャル。",
+      "expected_available": true,
+      "required_fragments": [
+        "X7 nupyaru"
+      ],
+      "preserved_literals": [
+        "X7"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-orphan-dakuten",
+      "text": "゙",
+      "expected_available": false,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-orphan-halfwidth-dakuten",
+      "text": "ﾞ",
+      "expected_available": false,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-kana-haha",
+      "text": "ハハ。",
+      "expected_available": true,
+      "required_fragments": [
+        "haha"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-polite",
+      "text": "何ですか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nan desu ka"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-polite-past",
+      "text": "何でしたか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nan deshita ka"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-plain",
+      "text": "何だ。",
+      "expected_available": true,
+      "group": "kana_copula_authored_contrast",
+      "required_ignoring_spaces": [
+        "nanda"
+      ]
+    },
+    {
+      "id": "r03-copula-plain-past",
+      "text": "何だった。",
+      "expected_available": true,
+      "required_fragments": [
+        "nan datta"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-modal",
+      "text": "何でしょう。",
+      "expected_available": true,
+      "required_fragments": [
+        "nan deshou"
+      ],
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-ga-control",
+      "text": "何が好きですか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nani ga"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-wo-control",
+      "text": "何を食べますか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nani wo"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-ni-control",
+      "text": "何にしますか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nani ni"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-de-control",
+      "text": "何で行きますか。",
+      "expected_available": true,
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-punctuation-control",
+      "text": "何。です。",
+      "expected_available": true,
+      "required_fragments": [
+        "nani。desu"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-quote-control",
+      "text": "「何」です。",
+      "expected_available": true,
+      "required_fragments": [
+        "「nani」desu"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-gap-control",
+      "text": "何 です。",
+      "expected_available": true,
+      "required_fragments": [
+        "nani desu"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    },
+    {
+      "id": "r03-copula-counter-control",
+      "text": "何歳ですか。",
+      "expected_available": true,
+      "required_fragments": [
+        "nansai desu ka"
+      ],
+      "forbid_copular_rule": true,
+      "group": "kana_copula_authored_contrast"
+    }
+  ],
+  "previous_protocol_sha256": "87091763596886fb7a62f6c81d4f017a784053609840f29d935986c1acb90dca",
+  "previous_cases_unchanged": 246,
+  "expected_spacing_erratum": {
+    "original_protocol_sha256": "453b06d9605cc5548ec15c315017f801f47140dfa79f58f4db5ac14a0ca8615d",
+    "original_failed_capture_sha256": "6813d17c15c56bc37ecbcda53596305a5793d5167ef9f2868e1c49ac294862d7",
+    "changes": [
+      {
+        "id": "r03-kana-nonce-hiragana",
+        "reason": "Native token boundary yields zu piramiko; both spellings preserve the same kana sequence. No required literal boundary is relaxed.",
+        "old_exact_fragment": "zupiramiko",
+        "new_ignoring_ASCII_spaces": "zupiramiko"
+      },
+      {
+        "id": "r03-copula-plain",
+        "reason": "Native dictionary recognizes whole interjection何だ with readingナンダ; nanda is valid and does not need an inserted space to satisfy the narrow copula rule.",
+        "old_exact_fragment": "nan da",
+        "new_ignoring_ASCII_spaces": "nanda"
+      }
+    ],
+    "component_changed": false
+  }
+}

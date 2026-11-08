@@ -1,0 +1,26 @@
+{
+  "schema": "vipi-japanese-reading-rules-2",
+  "production_call_sites_enabled": false,
+  "tokenizer": "Existing pinned Kuromoji ipadic0.9.0; no dictionary or tokenizer changes",
+  "script_conversion": "API29+ public Android ICU Hiragana-Katakana; Katakana-Latin, one conversion per context-preserving kana group",
+  "selection": "Native kana pronunciation, otherwise native kana reading. No expected phrase overrides and no guessed unknown reading.",
+  "grouping": [
+    "Join adjacent tokens when previous kana ends in small tsu or next begins with vowel-length mark.",
+    "Join auxiliary verbs and nonindependent/suffix verbs/adjectives with a preceding predicate; attach connective particles to that predicate.",
+    "Join noun suffixes and a following token after native prefix POS. Other native words get external spaces.",
+    "No transformations across punctuation, whitespace, protected literals or unresolved tokens."
+  ],
+  "literal_rules": [
+    "Backtick code spans are opaque exact text, including Japanese inside code.",
+    "Broad URI/IRI, email and handle spans are opaque; trim only sentence punctuation and unmatched closing brackets. Undelimited Japanese inside noncode identifier makes full reading unavailable: never infer identifier end from grammatical-looking suffix.",
+    "Contiguous non-Japanese token runs preserve original names, times, number/currency punctuation and accents. Insert spaces outside neighboring word/literal units, never inside opaque runs."
+  ],
+  "full_reading_abstentions": [
+    "Blank or >16384UTF16 input; API<29 explicitly unsupported.",
+    "Unresolved Japanese script outside protected code, ambiguous Japanese in a noncode identifier.",
+    "ICU artifacts or unexpected output characters (Latin letters/combining marks/apostrophe only per converted group).",
+    "Invalid source bounds or reconstruction."
+  ],
+  "conventions": "Retain native pronunciation spelling through ICU; wo, macrons and apostrophe conventions are not acoustic claims.",
+  "gates": "Frozen controls and mechanical source/literal preservation first; semantic author/independent review of existing references and reused corpus separately. No default integration or production approval."
+}
