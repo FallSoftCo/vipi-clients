@@ -1,0 +1,205 @@
+{
+  "schema": "vipi-authored-full-reading-cache-qualification-1",
+  "complete": true,
+  "scope": "Asynchronous authored-only full reading metadata and production ChatScreens history anchor; Japanese fallback remains dormant",
+  "source": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/FullReadingCache.kt",
+      "sha256": "1dfcdc12ce9f8fc6d4b276716f80c71d99f44c0f75f334ec984d126b30d2b7e5"
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt",
+      "sha256": "170d2c34ae0668c62b2f02197065a4eb52c058d4ab9188a8b67c521199043a76"
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt",
+      "sha256": "147bf12df9ba51a7e11de3df973df4d44b63530279264c4cbbd4b568db1952d3"
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingCacheDeviceTest.kt",
+      "sha256": "254f40546429948b42b5cec1e213a79295d6b3a5e1a5ffec028a5e908ae4c00c"
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingCacheUIDeviceTest.kt",
+      "sha256": "d8d4fb2241daae284493f0bf4bca7387faf546391c3288288c5e4e8fb7117328"
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingConversationDeviceTest.kt",
+      "sha256": "412daf2e25577da015d712f98e82bf9b649f24aac72171ae9eb4cefeab9248f9"
+    }
+  ],
+  "actual_runtime_api": 35,
+  "api28_runtime_qualified": false,
+  "cache_contract": {
+    "keys": "Exact Kotlin UTF16 text + language + policy; no canonical Unicode equality",
+    "resolved_limit": 128,
+    "pending_limit": 128,
+    "input_utf16_limit": 16384,
+    "output_utf16_limit": 65536,
+    "negative_results_cached": true,
+    "worker_dispatcher": "Dispatchers.Default",
+    "waiter_cancellation": "Waiter may cancel independently; shared producer remains owned by cache",
+    "reset_and_close": "Rotate generation, clear entries, cancel owned work, reject late completion; no promise of forcibly stopping noncooperative producer",
+    "provenance": "AUTHORED only in production; LOCAL_TRANSLITERATION reserved and unused"
+  },
+  "native_cases": [
+    "Shared requests coalesce; independent row proceeds while another is held",
+    "Unavailable readings cache once",
+    "Cancelled waiter cannot cancel shared producer/other waiter",
+    "Reset rejects intentionally noncooperative late producer and allows fresh generation",
+    "Exact composed/decomposed text, malformed-surrogate strings, languages and policies remain distinct",
+    "128 pending/resolved caps; oversized input/output; close clears",
+    "Actual Compose continuous2transitions plus60metadata updates, off-main actual authored producer; Japanese-to-Chinese stale completion rejected",
+    "Actual FriendConversationScreen/LazyColumn history:5ordinary swipes; row grows71to142px, top761px and timeline unchanged; exactly1authored lookup"
+  ],
+  "production_reading_policy_changed": false,
+  "original_text_and_audio_path_changed": false,
+  "fallback_enabled": false,
+  "ui_r65": {
+    "complete": true,
+    "started_at": "2026-11-08T06:06:16.465935Z",
+    "authored_assets_only": true,
+    "synthetic_first_producer_delay": true,
+    "translation_calls": 0,
+    "download_calls": 0,
+    "no_peer_traffic": true,
+    "events": [
+      {
+        "name": "continuous_transition_1",
+        "elapsed_ms": 33379937
+      },
+      {
+        "name": "continuous_transition_2",
+        "elapsed_ms": 33382944
+      },
+      {
+        "name": "japanese-inline-reading-pending",
+        "elapsed_ms": 33383123
+      },
+      {
+        "name": "chinese-authored-reading",
+        "elapsed_ms": 33385436
+      },
+      {
+        "name": "late_japanese_completion_not_published",
+        "elapsed_ms": 33386820
+      },
+      {
+        "name": "chinese-original-script",
+        "elapsed_ms": 33387651
+      },
+      {
+        "name": "japanese-authored-reading",
+        "elapsed_ms": 33390399
+      },
+      {
+        "name": "japanese-original-script",
+        "elapsed_ms": 33391492
+      }
+    ],
+    "continuous_transitions": 2,
+    "metadata_recompositions": 60,
+    "observed_parent_compositions": 65,
+    "ja_producer_calls": 2,
+    "zh_producer_calls": 1,
+    "producer_off_main_thread": true,
+    "late_language_completion_rejected": true,
+    "references": {
+      "ja": "私は音楽が好きです。",
+      "zh": "我喜欢音乐。"
+    },
+    "authored_readings": {
+      "ja": "Watashi wa ongaku ga suki desu.",
+      "zh": "Wǒ xǐhuan yīnyuè."
+    },
+    "finished_at": "2026-11-08T06:06:38.721459Z"
+  },
+  "production_chat_r68": {
+    "complete": true,
+    "production_chat_screens": true,
+    "synthetic_contact_and_transport": true,
+    "synthetic_reading_delay": true,
+    "authored_assets_only": true,
+    "no_peer_traffic": true,
+    "system_font_scale": 1,
+    "density_dpi": 420,
+    "bounded_viewport_width_dp": 300,
+    "history_scroll_gestures": 5,
+    "focus_inline_bounds": "[186,761][702,813]",
+    "script_bounds": "[186,761][635,832]",
+    "timeline_before": "[0,304][788,2043]",
+    "reading_bounds": "[186,761][702,903]",
+    "timeline_after": "[0,304][788,2043]",
+    "row_height_grew": true,
+    "history_anchor_unchanged": true,
+    "remained_in_history": true,
+    "producer_calls": 1
+  },
+  "same_app_after_test_correction": {
+    "sha256": "c6e19bbcf1a03aa99ed2170ccec7090875b7b3aaeed3a98f3128aa84411b52e7",
+    "main_reinstalled_in_r68": false
+  },
+  "failures_retained": [
+    {
+      "run": "r67",
+      "result": "Harness accessibility ACTION_SCROLL_TO_POSITION returned false before reading action; production runtime unchanged, switched to normal swipes"
+    },
+    {
+      "run": "r68/r68b",
+      "result": "Test-only Gradle source-set override duplicated original Kotlin test sources; no native run. Pinned plugin inspected; exact compile-task frozen source set succeeded r68c."
+    }
+  ],
+  "nonclaims": [
+    "No fresh linguistic coverage or pronunciation-quality claim",
+    "No API28 or physical-device qualification",
+    "Standalone r65 frame is component QA; r68 uses production conversation with synthetic transport and explicit300dp viewport",
+    "No Japanese candidate enablement or store readiness/submission"
+  ],
+  "receipts": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/ui-r65.json",
+      "sha256": "548038543784b9cb51264c725100307549077454da7a62bc7aef21a8fdff1987"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/native-r65.log",
+      "sha256": "a80973a61182661b1f07feffaab01396a4f5cfcf3ed74933cc3d1db711ed03f5"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/environment-r65.json",
+      "sha256": "59261fd2bb61682dd7e6d5e82f416b7989dbd4408b389db63b159a881056531a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/chat-r67.json",
+      "sha256": "5603b4454f8232a249b6617bfb615d80ea78bc1b75aec7e4f7db27491933a498"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/native-r67.log",
+      "sha256": "96730eb6fd4a2e7415925d4b806ffd56ea65a15385b987d93d685c2bae47dd5e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/chat-r68.json",
+      "sha256": "888778dfc1bad368ed2fa0cd179c07722888f75cd149ff186a0001fc55f2e9af"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/native-r68.log",
+      "sha256": "02db73eac225e539962fef10675e09711d28573aa8a9cb1e8fb493003385e9e2"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/environment-r68.json",
+      "sha256": "98c3e3d10900cedcdd8f6ab4f7d6bd76a81ccc35a7b7723b7a33289556b9ed67"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/test-source-r68-manifest.json",
+      "sha256": "5b74f71c02f103c2136f750cf11262bd0430f8dc77f8852fe53b2336e364b2da"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-test-source-r68c.gradle",
+      "sha256": "c3026507cee41e32b5850afe86eec249e255a0b6c58a3989b94cba6f270bf728"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-r68c-test-build.log",
+      "sha256": "c76b8f9d87aaf984afe8685c02125287db390a534f7454fe6308926622febf42"
+    }
+  ],
+  "created_epoch": 1794118938.4983366
+}
