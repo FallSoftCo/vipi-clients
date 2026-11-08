@@ -5,6 +5,9 @@ import android.util.AtomicFile
 import androidx.test.platform.app.InstrumentationRegistry
 import co.fallsoft.vipi.core.TranslationIntegrity
 import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.*
@@ -35,18 +38,25 @@ class DirectExtensionNativeTest {
         check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
         val context = instrumentation.targetContext
         val input = File(context.filesDir, "direct-extension-native-protocol.json").readBytes()
-        val expected = "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e"
+        val arm = args.getString("vipiDirectArm") ?: "forward"
+        require(arm in setOf("forward", "round-trip"))
+        val expected = if (arm == "forward") "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e"
+            else "ee79e818f4dc7d4101b8175456a6ed59d7faec2ef478cac7d4511d5ad414e4ca"
+        val count = if (arm == "forward") 4706 else 858
+        val budgetMs = if (arm == "forward") 1_800_000L else 600_000L
         val hash = MessageDigest.getInstance("SHA-256").digest(input).joinToString("") { "%02x".format(it) }
         assertEquals(expected, hash)
         val protocol = JSONObject(input.toString(Charsets.UTF_8))
         val array = protocol.getJSONArray("requests")
         val requests = (0 until array.length()).map(array::getJSONObject)
-        assertEquals(4706, requests.size)
-        assertEquals(4706, requests.map { it.getString("id") }.distinct().size)
-        assertEquals(setOf("en" to "es", "en" to "sw"), requests.map { it.getString("source") to it.getString("target") }.toSet())
+        assertEquals(count, requests.size)
+        assertEquals(count, requests.map { it.getString("id") }.distinct().size)
+        assertEquals(if (arm == "forward") setOf("en" to "es", "en" to "sw") else setOf("es" to "en", "sw" to "en"),
+            requests.map { it.getString("source") to it.getString("target") }.toSet())
         val run = args.getString("vipiDirectRun") ?: "001"; require(run.matches(Regex("[0-9]{3}")))
-        val directory = File(context.filesDir, "direct-extension-$run-cache").apply { mkdirs() }
-        val output = File(context.filesDir, "direct-extension-$run.json")
+        val stem = if (arm == "forward") "direct-extension" else "round-trip"
+        val directory = File(context.filesDir, "$stem-$run-cache").apply { mkdirs() }
+        val output = File(context.filesDir, "$stem-$run.json")
         val cached = linkedMapOf<String, JSONObject>()
         for (request in requests) {
             val id = request.getString("id"); require(id.matches(Regex("[a-f0-9]{64}")))
@@ -63,7 +73,7 @@ class DirectExtensionNativeTest {
             check(!previous.getBoolean("complete")) { "Complete capture already exists; do not replay it" }
         }
         val report = JSONObject().put("schema", "vipi-direct-extension-native-capture-1")
-            .put("input_sha256", expected).put("production", false).put("training_use", false)
+            .put("input_sha256", expected).put("evaluation_arm", arm).put("budget_ms", budgetMs).put("production", false).put("training_use", false)
             .put("provider", "Google ML Kit translate 17.0.3 on device")
             .put("build_fingerprint", android.os.Build.FINGERPRINT)
             .put("started_at", Instant.now().toString()).put("complete", false)
@@ -80,11 +90,16 @@ class DirectExtensionNativeTest {
         var changedNetwork = false
         var calls = 0
         try {
-            val finished = withTimeoutOrNull(1_800_000) {
+            val finished = withTimeoutOrNull(budgetMs) {
                 for (pair in requests.map { it.getString("source") to it.getString("target") }.distinct()) {
                     val translator = LocalTranslation(); translators[pair] = translator
                     val began = android.os.SystemClock.elapsedRealtimeNanos()
-                    withTimeout(300_000) { translator.prepare(pair.first, pair.second, true) }
+                    if (arm == "round-trip") {
+                        // This arm must never start a model download, even if preparation state changed.
+                        val manager = RemoteModelManager.getInstance()
+                        for (code in listOf(pair.first, pair.second).filter { it != "en" })
+                            assertTrue("Required native model is absent", manager.isModelDownloaded(TranslateRemoteModel.Builder(code).build()).await())
+                    } else withTimeout(300_000) { translator.prepare(pair.first, pair.second, true) }
                     report.getJSONArray("models").put(JSONObject().put("source", pair.first).put("target", pair.second)
                         .put("prepare_ms", (android.os.SystemClock.elapsedRealtimeNanos() - began) / 1e6))
                 }
@@ -127,7 +142,7 @@ class DirectExtensionNativeTest {
                 true
             }
             report.put("complete", finished == true && cached.size == requests.size)
-            if (finished == null) report.put("stopped_reason", "Thirty minute run budget reached; verified cached results may resume")
+            if (finished == null) report.put("stopped_reason", "Bounded run budget reached; verified cached results may resume")
         } finally {
             translators.values.forEach { it.close() }
             if (changedNetwork) { if (wifi) shell("svc wifi enable"); if (mobile) shell("svc data enable") }
