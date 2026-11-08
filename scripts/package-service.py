@@ -39,7 +39,7 @@ with tarfile.open(source_archive) as archive:
 tree = output / "release"; tree.mkdir()
 installer = ([shutil.which("uv"), "pip", "install", "--python", sys.executable] if shutil.which("uv")
              else [sys.executable, "-m", "pip", "install", "--no-compile"])
-subprocess.run(installer + ["--only-binary=:all:", "--constraint", str(source / "backend/requirements.lock"),
+subprocess.run(installer + ["--only-binary=:all:", "--no-binary=vipi-service", "--constraint", str(source / "backend/requirements.lock"),
     "--target", str(tree / "deps"), str(source / "backend")], check=True)
 shutil.copytree(source / "backend/migrations", tree / "migrations", ignore=shutil.ignore_patterns("__pycache__"))
 shutil.copy(source / "backend/alembic.ini", tree)
