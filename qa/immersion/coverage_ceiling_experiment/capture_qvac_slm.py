@@ -50,7 +50,12 @@ def main():
     assert sha(args.model) == plan["model_sha256"]
     assert args.model.stat().st_size == plan["model_bytes"]
     rows = [r for r in protocol["messages"] if r["source"] == "en" and r["target"] == "sw"]
-    assert len(rows) == len({r["id"] for r in rows}) == 80
+    if "selected_message_ids" in plan:
+        selected = plan["selected_message_ids"]
+        by_id = {row["id"]: row for row in rows}
+        assert len(selected) == len(set(selected)) and all(item in by_id for item in selected)
+        rows = [by_id[item] for item in selected]
+    assert len(rows) == len({r["id"] for r in rows}) == plan.get("expected_message_count", 80)
     limits = plan["limits"]
     with socket.socket() as reservation:
         reservation.bind(("127.0.0.1", 0))
@@ -61,6 +66,8 @@ def main():
                "--n-gpu-layers", "0", "--device", "none", "--jinja",
                "--chat-template-file", str(args.chat_template), "--no-webui",
                "--no-warmup"]
+    if plan.get("disable_server_prompt_cache", False):
+        command += ["--cache-ram", "0", "--no-cache-prompt", "--no-cache-idle-slots"]
     env = dict(os.environ, OMP_NUM_THREADS="2", OPENBLAS_NUM_THREADS="2")
     result = {"schema": "vipi-qvac-slm-local-provider-1", "production": False,
               "mobile_runtime_qualified": False, "independent_semantic_acceptance": False,
@@ -152,7 +159,7 @@ def main():
                     "request": body, "raw_response": raw})
                 result.pop("in_flight", None)
                 save()
-                print(f"{index+1}/80 {elapsed:.0f}ms", flush=True)
+                print(f"{index+1}/{len(rows)} {elapsed:.0f}ms", flush=True)
             result["complete"] = True
         except Exception as exc:
             result["error"] = repr(exc)

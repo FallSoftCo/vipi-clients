@@ -1,0 +1,93 @@
+{
+  "schema": "vipi-afrislm-cache-disabled-runtime-1",
+  "production": false,
+  "mobile_qualified": false,
+  "capture_sha256": "7257a8caa40aee9edf4b799727fde1a836a2f2b8c92c552d814646255e57af94",
+  "original_capture_sha256": "8b3c762bff2ad7e5a211e8f8ae5d7d3e43dfc375893b295e2ec141335c803525",
+  "sample": "Eight reused development inputs selected by earlier parity protocol, no semantic validation claim.",
+  "complete": true,
+  "observed_peak_rss_bytes": 1112907776,
+  "preparation_ms": 2450.285938102752,
+  "elapsed_ms": 45574.380286969244,
+  "median_after_ms": 4345.493222936057,
+  "median_before_same_eight_ms": 4589.538005995564,
+  "max_after_ms": 11160.264605190605,
+  "owned_process_absent": true,
+  "server_exit_code": 0,
+  "exact_output_match_count": 8,
+  "rows": [
+    {
+      "id": "uci-sms-line-2084",
+      "source": "I'm done oredi...",
+      "before": "Nimekamilisha oredi...",
+      "after": "Nimekamilisha oredi...",
+      "exact_output_match": true,
+      "before_ms": 2753.5984099376947,
+      "after_ms": 3015.2283019851893
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "source": "Ok lor then we go tog lor...",
+      "before": "Ok lor basi twende tog lor...",
+      "after": "Ok lor basi twende tog lor...",
+      "exact_output_match": true,
+      "before_ms": 3935.4616859927773,
+      "after_ms": 2772.148698102683
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "source": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?",
+      "before": "Tyler (anapata alama ya 8) anapaswa kuondoka muda mfupi baada ya saa 9, unaweza kufika hapa kwa saa moja?",
+      "after": "Tyler (anapata alama ya 8) anapaswa kuondoka muda mfupi baada ya saa 9, unaweza kufika hapa kwa saa moja?",
+      "exact_output_match": true,
+      "before_ms": 10094.179606996477,
+      "after_ms": 5011.682667071
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "source": "I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now",
+      "before": "Nitarudi Alhamisi. Je, itakuwa sawa kupata pesa? Asanteni. Oh ndiyo na unaendeleaje. Kila kitu kiko sawa. Shule ikoje. Au unaiita kazi sasa?",
+      "after": "Nitarudi Alhamisi. Je, itakuwa sawa kupata pesa? Asanteni. Oh ndiyo na unaendeleaje. Kila kitu kiko sawa. Shule ikoje. Au unaiita kazi sasa?",
+      "exact_output_match": true,
+      "before_ms": 5243.614325998351,
+      "after_ms": 9213.318434078246
+    },
+    {
+      "id": "tm2-dlg-06800509-feaf-4411-a260-9a358abe5f32-12",
+      "source": "That's all I need.",
+      "before": "Ndiyo yote ninayohitaji.",
+      "after": "Ndiyo yote ninayohitaji.",
+      "exact_output_match": true,
+      "before_ms": 1480.5350981187075,
+      "after_ms": 3235.774132888764
+    },
+    {
+      "id": "tm2-dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91-8",
+      "source": "I need the room to be $300 and night or even less.",
+      "before": "Nahitaji chumba kiwe na $300 na usiku au hata chini ya hapo.",
+      "after": "Nahitaji chumba kiwe na $300 na usiku au hata chini ya hapo.",
+      "exact_output_match": true,
+      "before_ms": 2212.538124062121,
+      "after_ms": 4399.008783046156
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "source": "Who did the LA Rams play last? With whom they are going to play next week?",
+      "before": "Ni nani aliyecheza LA Rams mara ya mwisho? Watacheza na nani wiki ijayo?",
+      "after": "Ni nani aliyecheza LA Rams mara ya mwisho? Watacheza na nani wiki ijayo?",
+      "exact_output_match": true,
+      "before_ms": 8090.906438883394,
+      "after_ms": 4291.977662825957
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "source": "This one's got a really good melody to it. It's pretty emotional with how he wrote the acoustics. Listening to this when I was going through some stuff with a breakup that I had, so pretty good song, so awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy.",
+      "before": "Hii ina wimbo mzuri sana. Ni wa kihisia sana kwa jinsi alivyoandika sauti. Kusikiliza wimbo huu nilipokuwa na matatizo ya kuvunjika kwa uhusiano, hivyo ni wimbo mzuri sana, mzuri sana. Sasa ningependa kusikia wimbo mwingine wa Bonobo. Inaitwa Gypsy.",
+      "after": "Hii ina wimbo mzuri sana. Ni wa kihisia sana kwa jinsi alivyoandika sauti. Kusikiliza wimbo huu nilipokuwa na matatizo ya kuvunjika kwa uhusiano, hivyo ni wimbo mzuri sana, mzuri sana. Sasa ningependa kusikia wimbo mwingine wa Bonobo. Inaitwa Gypsy.",
+      "exact_output_match": true,
+      "before_ms": 24977.926483144984,
+      "after_ms": 11160.264605190605
+    }
+  ],
+  "limitation": "Eight calls cannot establish steady-state80-message memory. Same desktopCPU runtime, not mobile minimum or latency. Different workload/cache conditions can affect timing. No threads or other decoding changes."
+}
