@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 23:10 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 23:34 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -95,9 +95,25 @@ newly selected replacement can introduce another error. Neither policy is
 activated as a semantic acceptance gate. Apple role-required raw content reach
 is 5,933 Swahili and 8,197 Spanish messages, falling to 2,685 and 5,539 after the
 simulated function-plus-300 known state. These are match counts, not correct
-coverage. Apple measurements are from the existing macOS VM; OpenNLP measurements
-are from a JVM. Android runtime/model loading and optimized packaging remain
-separate qualification work.
+coverage. The broad source annotations use the existing macOS VM and a JVM.
+OpenNLP has since passed a separate actual Android API 35 x86_64 qualification:
+148 source messages, three repeated passes, and exact JVM tags, UTF-16 ranges
+and scores in both debug and genuinely optimized R8 builds. Both qualification
+packages lack Internet permission and use the pinned local model assets.
+The 1.66 MB release qualification APK is not the size of the complete Vipi app.
+API 28, ARM64, physical-phone performance and integration into Vipi's normal
+conversation path remain open. This component result does not approve its
+semantic decisions; see `qa/immersion/android-opennlp-runtime-r01/qualification.json`.
+
+Observed debug model loading took 28 seconds and the later release load took
+0.418 seconds under different boot/cache/JIT and concurrent-build conditions;
+this is not an R8 speedup or cold-start guarantee. Release passes over 148
+messages took 384–494 ms including JSON, file output and instrumentation
+transport. Process memory includes that instrumentation; neither model-resident
+memory nor a leak was established. No further run was needed for this scoped
+functional result. Original failed and stopped attempts, exact artifacts and
+closure receipts are preserved; the isolated package was removed and only the
+owned emulator was stopped.
 
 The corpus comparison uses retained native token geometry and 9,535 reused
 TRAIN messages at three immersion densities and five simulated vocabulary
