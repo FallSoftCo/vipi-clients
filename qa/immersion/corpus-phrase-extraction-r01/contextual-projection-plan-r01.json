@@ -1,0 +1,37 @@
+{
+  "schema": "vipi.corpus-phrase-context-projection-plan.r01",
+  "production": false,
+  "frozen_before_contextual_projection_and_meaning_labels": true,
+  "inputs": {
+    "qa/immersion/corpus-phrase-extraction-r01/protocol.json": "57e5ece9c986a3058e04be6b3873ac391d009fac614985f3fcfe391839ae6efa",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/input-freeze.json": "00eab5bf4cea0e8d6bae1061c60d2beaa6f5b3247f33eaf014615768da145efe",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/phrases/candidates.sqlite": "54cbd4e1bc1af66b5045fb5e683b2e6e5abbd333421dd272357e061a32772747",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/phrases/dictionary-units.sqlite": "8a382e08cab53e7a26095d849192508df1cff3b4ab0a55dd494fef459d414f57",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/rows.jsonl": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780",
+    "qa/immersion/nlp-template-comparison-r01/train-source-protocol.json": "4f0102f6a74dd79c60a770e24ed502bcc8c53158f070fdbe9545bdc0214507b3",
+    "qa/immersion/nlp-template-comparison-r01/semantics.json": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7"
+  },
+  "source_messages": 9535,
+  "source_context": "Retained BST TRAIN messages and preceding dialogue context; reused diagnostic, not fresh holdout or worldwide chat frequency. Prior context is review-only, never matcher input.",
+  "target_choices": "For each pair/arm/source_key retain all variants. Diagnostic top variant follows already frozen distinct-component support desc, mean bidirectional lexical score desc, stable variant ID. Identical normalized source/target faces do not count as immersion. A separate dictionary-complete-unit view remains explicit.",
+  "heads": "Within matched corpus context, independently supplied complete noun/adj/adv forms require shared dictionary sense/POS/number, a mutual anchor and no union alignment crossing the focus. Larger recognized complete dictionary units protect interiors. Keep unresolved alternatives and explicit eligibility flags; no generative target interpolation.",
+  "geometry": "Exact retained Android native whole word/window ranges; UTF16 source context separate from output focus. Source scopes are whole native tokens; original strings remain untouched. Each actual occurrence determines cost, not aggregate first-example token count.",
+  "literal_protection": "Reuse frozen NLP-r01 quote/code/URL/handle/number ranges. A matched context may contain protected text, but selected focus cannot overlap it. Recognized complete dictionary compound masks survive known/budget filtering across union paths; no target text is interpolated from captures.",
+  "selection": "Strict floor native density budget max(1,floor(nativeWordCount*density)), source-disjoint packing, repeated concept/unit once per message. Recognized longer context ranks ahead of shorter contexts; then content category, source-frequency rank, focus cost descending, source offset, stableID. Overbudget non-atomic contexts may back off; compound masks remain.",
+  "densities": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "known": [
+    "none",
+    "all_function",
+    "all_function_global50",
+    "all_function_global100",
+    "all_function_global300"
+  ],
+  "knowledge_scope": "Retain existing source-family order for lexical heads. Whole phrase/source-token depletion is separately labelled a vocabulary-exhaustion projection, not proof the user learned that phrase meaning. No persisted product learning capability inferred.",
+  "metrics": "Availability/depth by length and source words; content-anchor, function-only and unresolved-role separated; distinct lexical concepts versus distinct phrase units; raw whole-reference availability separate from budgeted automatic output. No clean/correct credit before meaning review.",
+  "review": "Deterministic96 scoped emitted outputs from actual evaluation messages; stratify pair,source-frequency quartile,1 vs2–3vs4–8 output words, boundary expansion/minimal/head class and target ambiguity. Prefer one per stratum then deterministic salted fill, preserving all empty strata. Include source+priorcontext, actual mixed output, recognized context, emitted source+target+readings, original bilingual evidence and alternative variants. Root+Android label independently before author labels disclose.",
+  "limits": "Connected-component counts are evidence support, not independent articles; PGV news alignments and retained normalized representative strings are not semantic gold."
+}

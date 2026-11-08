@@ -1,0 +1,31 @@
+{
+  "schema": "vipi.corpus-context-review-selection.r01",
+  "production": false,
+  "before_contextual_projection": true,
+  "count": 96,
+  "seed": "vipi-corpus-context-review-r01-20261108",
+  "primary_view": {
+    "density": 0.25,
+    "known": "none"
+  },
+  "arms": [
+    "mutual_word",
+    "raw_intersect",
+    "raw_grow",
+    "complete_grow",
+    "heads_grow",
+    "heads_r03_union"
+  ],
+  "targets": [
+    "en-sw",
+    "en-es"
+  ],
+  "quota": 8,
+  "selection": "For each pair/arm, deduplicate exact case+focus+target across arms, then select round-robin salted-hash minima across source-frequency quartile, focus cost1/2-3/4-8, expanded-vs-minimal-vs-head and alternative-count1/multiple strata. Prefer one selected focus per case within each arm. If a cell lacks8 unique scopes, record shortage and fill from remaining salted candidates round-robin pair/arm, preserving origin. Selection never uses a semantic verdict. All uncensored rows retained.",
+  "context": "Exact full BST source and all preceding dialogue turns retained for review only; no prior dialogue used at matching runtime.",
+  "reviewers": [
+    "root",
+    "apple_delivery"
+  ],
+  "limitations": "Reused TRAIN; corpus proposal surfaces and some source examples may be familiar. This is independent contextual labeling, not new unseen population evidence."
+}

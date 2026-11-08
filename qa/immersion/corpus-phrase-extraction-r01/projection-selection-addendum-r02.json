@@ -1,0 +1,22 @@
+{
+  "schema": "vipi.corpus-projection-selection-addendum.r02",
+  "production": false,
+  "before_contextual_projection": true,
+  "preserved_r01": {
+    "compiler": "qa/immersion/corpus-phrase-extraction-r01/prepare_projection_catalog.py",
+    "compiler_sha256": "9b09ba29ebd726df118810245ddaa031a26d0391f318a11171d39b60e43029c5",
+    "catalog_receipt": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/projection/catalog-receipt.json",
+    "catalog_receipt_sha256": "e9c65a7af4e38fd85a1d39557de16cc8b0724f7747f62d0c28a3e4e0e39538f2",
+    "label": "Top-nonidentical diagnostic; not top-overall primary."
+  },
+  "r02": {
+    "compiler_sha256": "a587d0118b5e255269dc8d55094b597af295406fc0d7d8dd177c5774e36ce4f3",
+    "policy": "Select top overall in each frozen ranking, including identical faces. Identical source/target receives zero credit and no fallback target. Dictionary-complete view independently takes highest-ranked corroborated variant, including identity. All variants retained."
+  },
+  "reviewers": [
+    "root",
+    "apple_delivery"
+  ],
+  "reviewer_change_reason": "Android authored contextual-head helper, so Apple replaces Android as independent semantic reviewer.",
+  "budget_diagnostic": "Retain pre-budget availability, budget-only withholdings and short/mid/long views. No selector policy change."
+}
