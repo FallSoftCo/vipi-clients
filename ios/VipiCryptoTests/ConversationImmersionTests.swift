@@ -183,6 +183,7 @@ private actor DelayedFullReadingQA {
     }
 
     func testSourceConstraintsApplyToActualAuthoredWholeReferenceAndCache() async throws {
+        // Existing installed en/sw lexical assets keep this routing check bounded.
         let text = "I need water."
         var observations = 0, readiness = 0
         let provider = SourceUnitLookup(identity: "synthetic-water-mask-v1") { context in
@@ -195,7 +196,7 @@ private actor DelayedFullReadingQA {
         }
         let owner = ConversationImmersion(modelStatus: { _ in readiness += 1; return .unsupported }, sourceUnits: provider)
         defer { owner.close() }
-        await owner.configure(pair: .init(source: "en", target: "es"), density: 1)
+        await owner.configure(pair: .init(source: "en", target: "sw"), density: 1)
         let first = await owner.result(for: text, inputLanguage: "en")
         XCTAssertNotNil(first?.translation)
         XCTAssertTrue(first?.spans.allSatisfy { NSIntersectionRange($0.range, .init(location: 7, length: 5)).length == 0 } == true)
@@ -205,7 +206,7 @@ private actor DelayedFullReadingQA {
         _ = await owner.result(for: text, inputLanguage: "en")
         XCTAssertEqual(observations, 1); XCTAssertTrue(owner.lastOutcome?.cacheHit == true)
         XCTAssertEqual(owner.lastOutcome?.sourceConstraints?.recognitions.count, 1)
-        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.25, knownConceptIDs: ["water"])
+        await owner.configure(pair: .init(source: "en", target: "sw"), density: 0.25, knownConceptIDs: ["water"])
         _ = await owner.result(for: text, inputLanguage: "en")
         XCTAssertEqual(observations, 2); XCTAssertEqual(readiness, 0)
     }
