@@ -1,5 +1,7 @@
 # Local vocabulary data
 
+Current host authority is [Build environments](../docs/BUILD_ENVIRONMENTS.md). OZZZ-OS and OZZZ-GPU were provider-cancelled; do not run their historical commands. Use the canonical November 7 workspace and existing Apple VM. The commands below describe data-tool interfaces and require a current host, measured disk budget and preserved input provenance before execution.
+
 First source: FreeDict + WikDict English–Spanish 2025.11.23, 64,258 upstream headwords. Its own TEI header declares **CC BY-SA 3.0** and credits Karl Bartel, Wiktionary contributors and DBnary. The source archive is pinned by SHA-512 and size. This does not imply the same license applies to every FreeDict dictionary.
 
 `build_pack.py` reads exact bounded archive members, verifies the declared license, retains attribution/license/header, removes grammatical function-word and proper-name entries by part of speech, normalizes source forms and creates SQLite mappings. It keeps all viable senses; the native context filter must abstain when translation corroborates more than one. It does not infer morphology, certify translations, or produce a frequency-ranked learning curriculum.
@@ -34,7 +36,7 @@ The catalog/export descriptions above record the initial qualification. Current 
 
 `build_context_examples.py` scans the pinned selected source for ordinary usage examples with explicit source and translation focus spans. It excludes quoted works/references, retains explicit readable romanization spans, and creates a native-portable SQLite FTS4 index. Schema `vipi-context-example-research-2` retains independent source/target code-point offsets and the original entry/sense/example usage evidence. These fields do not infer missing grammatical conditions. Native source and target positions may differ; example romanization must not be attached to an unrelated inflection. CJK bigrams assist retrieval without claiming word segmentation.
 
-Build on OZZZ-OS under storage admission. The complete enriched research index is about 73 MiB for 18 direct English directions, not all 90 pairs. It is not a signed native vocabulary pack and exceeds that installer's current 64 MiB per-file bound. No production schema/trust change is implied. `qa/immersion/context_index_queries.py` creates portability checks; `context_retrieval_pilot.py` measures source-context retrieval on captured messages. Neither is a linguistic acceptance test. The latter's ranking has observed sense/person errors and is not integrated.
+Use the current build environment and its measured disk-capacity admission. The complete enriched research index is about 73 MiB for 18 direct English directions, not all 90 pairs. It is not a signed native vocabulary pack and exceeds that installer's current 64 MiB per-file bound. No production schema/trust change is implied. `qa/immersion/context_index_queries.py` creates portability checks; `context_retrieval_pilot.py` measures source-context retrieval on captured messages. Neither is a linguistic acceptance test. The latter's ranking has observed sense/person errors and is not integrated.
 
 `sources/cygnet-20260512.json` pins a second research source, [Cygnet](https://github.com/omwn/cygnet/releases/tag/2026.05.12), including its separate provenance database. `fetch_cygnet.py` enforces release asset hashes, compressed/decompressed sizes, gzip integrity and SQLite integrity. Its measured acquisition bound is 991,307,668 data bytes plus a small receipt allowance. `qa/immersion/cygnet_coverage.py` measures ten-language concept links while retaining accent distinctions and grammatical exclusions. A source concept link does not prove that its synonyms are interchangeable in a new sentence. Korean coverage and several languages' native contexts are sparse. Source pronunciations are not automatically readable transliteration. Per-resource licenses and per-row attribution must be reviewed/preserved before distribution; do not apply the Cygnet code license to its mixed-source data.
 
@@ -44,7 +46,7 @@ Build on OZZZ-OS under storage admission. The complete enriched research index i
 
 The ledger started with 112,304 attested context records. `authored_everyday.py` adds 370 project-authored candidates across all 90 directions, with explicit meanings, exact lexical spans and Roman readings for non-Roman targets. These are development seeds, not independent acceptance data. The four initial beverage/food concepts and book/route examples are deliberately bounded; this count must not be advertised as broad everyday coverage. New JSONL batches do not require rescanning dictionaries or rebuilding accepted history.
 
-Run on OZZZ-OS with the applicable storage admission budget:
+Run in the current canonical build environment with a measured disk budget:
 
 ```sh
 python3 language-packs/mapping_catalog.py import-index --catalog artifacts/mapping-catalog-001/catalog.sqlite --input artifacts/context-index-003 --batch-size 1000
@@ -139,7 +141,8 @@ python3 language-packs/export_context_pair_packs.py --source artifacts/context-w
 python3 scripts/measure-language-downloads.py --catalog artifacts/context-pair-packs-NEW/catalog.json --output artifacts/context-pair-packs-NEW-downloads
 ```
 
-Run substantial operations under OZZZ-OS storage-build admission. The measurement
+Run substantial operations only under the current host and capacity rules in
+[Build environments](../docs/BUILD_ENVIRONMENTS.md). The measurement
 script verifies each ZIP payload after decompression; store release sizes and
 native signed background installation still require separate qualification.
 Current data volumes, exact receipts, native replay results and limits are in

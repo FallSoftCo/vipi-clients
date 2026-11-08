@@ -46,6 +46,22 @@ The activation record is the commit point:
   conflicting hashes remain rejected. A missing/corrupt active file must never
   cause automatic fallback to an older version.
 
+The native write primitive must report actual outcomes. Android's installed
+`AtomicFile.finishWrite` logs some synchronization and rename failures instead of
+throwing. `PrivateRecords` therefore explicitly synchronizes before finishing,
+synchronizes the record directory, and verifies exact committed encrypted bytes.
+An error after the record changes is reported as committed with durability
+uncertain, or unknown when readback cannot establish state. Preserve both
+revisions in either case; inspect the trusted record on recovery before retrying
+or reclaiming files. A successful API return without verified committed bytes
+is insufficient authority for old-pack cleanup. Apple checks Keychain status and
+synchronizes the finalized payload directory before the Keychain update.
+
+Status and lookup must validate the active payload. A size/mtime-only cache is
+not content-integrity evidence: same-size corruption can preserve timestamps.
+The current small-store qualification hashes the payload at these boundaries;
+no claim about large-pack hot-path performance follows from this choice.
+
 The record protects against stale signed update replay within the existing
 application storage model. It is not a new claim of hardware monotonic storage,
 protection against a compromised device, or tested device-power-loss durability.
