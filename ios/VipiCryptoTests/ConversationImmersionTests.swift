@@ -3,6 +3,24 @@ import VipiCore
 import CryptoKit
 @testable import Vipi
 
+private actor FullReadingInvocationQA {
+    private(set) var count = 0
+    private(set) var ranOnMainThread = false
+    func record() { count += 1; ranOnMainThread = ranOnMainThread || Thread.isMainThread }
+}
+
+private actor DelayedFullReadingQA {
+    private var waiter: CheckedContinuation<Void, Never>?
+    private var opened = false
+    private(set) var started = false
+    func hold() async {
+        started = true
+        if opened { return }
+        await withCheckedContinuation { waiter = $0 }
+    }
+    func release() { opened = true; waiter?.resume(); waiter = nil }
+}
+
 /// Hash-pinned research pack. This producer is in the test target, never in the
 /// shipping app bundle. It receives source text only, not a target translation.
 @MainActor private final class StarterSourceUnitQA {
@@ -114,6 +132,131 @@ import CryptoKit
 }
 
 @MainActor final class ConversationImmersionTests: XCTestCase {
+
+    private func awaitReading(_ owner: ConversationImmersion, result: ImmersionPresentation,
+                              identity: ImmersionRequestIdentity) async throws -> FullReading {
+        let deadline = ContinuousClock.now + .seconds(3)
+        while ContinuousClock.now < deadline {
+            if let reading = owner.fullReading(for: result, identity: identity) { return reading }
+            try await Task.sleep(for: .milliseconds(5))
+        }
+        return try XCTUnwrap(owner.fullReading(for: result, identity: identity), "Reading metadata did not complete")
+    }
+
+    func testSlowReadingDoesNotDelayTranslationAudioOrAnotherRowAndCannotPublishAfterClose() async throws {
+        let gate = DelayedFullReadingQA()
+        let owner = ConversationImmersion(modelStatus: { _ in .unsupported }, fullReadingProducer: { text, language in
+            if text == "我需要水。" { await gate.hold() }
+            return SentenceReadings.reading(text, language: language).map { .init(text: $0, provenance: .authored) }
+        })
+        await owner.configure(pair: .init(source: "en", target: "zh"), density: 0.25)
+        defer { owner.close(); Task { await gate.release() } }
+        var completed = false
+        var first: ImmersionPresentation?
+        let request = Task { @MainActor in
+            first = await owner.result(for: "I need water.", inputLanguage: "en")
+            completed = true
+        }
+        let deadline = ContinuousClock.now + .seconds(5)
+        while !completed && ContinuousClock.now < deadline { try await Task.sleep(for: .milliseconds(5)) }
+        // Release on failure before joining, so a regression cannot strand the
+        // fixture's deliberate producer continuation or hang the test process.
+        if !completed { await gate.release() }
+        XCTAssertTrue(completed, "Optional reading work delayed a complete reference")
+        await request.value
+        let result = try XCTUnwrap(first)
+        let identity = owner.identity(messageID: "slow-reading", text: "I need water.")
+        XCTAssertEqual(result.translation, "我需要水。")
+        XCTAssertEqual(result.speech(mode: .fullTarget, source: "en", target: "zh"), [.init(text: "我需要水。", language: "zh")])
+        XCTAssertNil(owner.fullReading(for: result, identity: identity))
+        let secondValue = await owner.result(for: "I like music.", inputLanguage: "en")
+        let second = try XCTUnwrap(secondValue)
+        let secondIdentity = owner.identity(messageID: "other-reading", text: "I like music.")
+        _ = try await awaitReading(owner, result: second, identity: secondIdentity)
+        let started = await gate.started; XCTAssertTrue(started)
+        owner.close()
+        await gate.release()
+        try await Task.sleep(for: .milliseconds(30))
+        XCTAssertNil(owner.fullReading(for: result, identity: identity))
+        XCTAssertNil(owner.fullReading(for: second, identity: secondIdentity))
+    }
+
+    func testCandidateFullReadingKeepsAuthoredPrecedenceAndOriginalSpeech() async throws {
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let data = try Data(contentsOf: documents.appendingPathComponent("chinese-reading-qa/ordinary-data.json"))
+        let reader = FullSentenceReadings(chinese: try ChineseFullReading(data: data))
+        let authored = "我需要水。"
+        XCTAssertEqual(reader.reading(authored, language: "zh"),
+                       .init(text: try XCTUnwrap(SentenceReadings.reading(authored, language: "zh")), provenance: .authored))
+        XCTAssertNil(reader.reading("𠮷先生与𰻞字怎么读？", language: "zh"))
+        XCTAssertNil(reader.reading("未知的新しい文。", language: "ja"))
+        let literal = try XCTUnwrap(reader.reading("请打开https://例子.测试/中文?q=银行。", language: "zh"))
+        XCTAssertTrue(literal.text.contains("https://例子.测试/中文?q=银行"))
+        XCTAssertEqual(literal.provenance, .localTransliteration)
+        let calls = FullReadingInvocationQA()
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, fullTranslationTimeout: .seconds(2),
+            fullReadingProducer: { text, language in await calls.record(); return reader.reading(text, language: language) })
+        defer { owner.close() }
+        await owner.configure(pair: .init(source: "en", target: "zh"), density: 0.25)
+        let source = "I need water. Did you finish the report?", id = "candidate-full-reading"
+        owner.selectInputLanguage("en", for: id)
+        let partialValue = await owner.result(for: source, inputLanguage: "en", messageID: id)
+        let partial = try XCTUnwrap(partialValue)
+        let identity = owner.identity(messageID: id, text: source)
+        XCTAssertNil(owner.fullReading(for: partial, identity: identity))
+        let requestTask = Task { await owner.fullTranslation(for: identity) }
+        let request = try await pending(owner)
+        // Deliberately injected full translation for coordinator/reading QA;
+        // this does not establish local Translation/ML Kit inference.
+        let translated = "我需要水。你写完报告了吗？"
+        await owner.finish(request, translation: translated)
+        let completion = await requestTask.value
+        let result = try XCTUnwrap(completion?.result)
+        let expected = try XCTUnwrap(reader.reading(translated, language: "zh"))
+        XCTAssertEqual(expected.provenance, .localTransliteration)
+        let resolved = try await awaitReading(owner, result: result, identity: identity)
+        XCTAssertEqual(resolved, expected)
+        for _ in 0..<100 { XCTAssertEqual(owner.fullReading(for: result, identity: identity), expected) }
+        _ = await owner.fullTranslation(for: identity)
+        let count = await calls.count; XCTAssertEqual(count, 1)
+        XCTAssertEqual(result.spans, partial.spans)
+        XCTAssertEqual(result.original, source); XCTAssertEqual(result.translation, translated)
+        XCTAssertEqual(result.speech(mode: .fullTarget, source: "en", target: "zh"), [.init(text: translated, language: "zh")])
+        XCTAssertEqual(result.speech(mode: .original, source: "en", target: "zh"), [.init(text: source, language: "en")])
+    }
+
+    func testFullAuthoredReadingIsResolvedOnceOutsideRenderingAndClearedWithIdentity() async throws {
+        let calls = FullReadingInvocationQA()
+        let owner = ConversationImmersion(modelStatus: { _ in .unsupported }, fullReadingProducer: { text, language in
+            await calls.record()
+            return SentenceReadings.reading(text, language: language).map { FullReading(text: $0, provenance: .authored) }
+        })
+        await owner.configure(pair: .init(source: "en", target: "zh"), density: 0.25)
+        defer { owner.close() }
+        let text = "I need water.", id = "authored-reading-cache"
+        let result = await owner.result(for: text, inputLanguage: "en")
+        let value = try XCTUnwrap(result), translation = try XCTUnwrap(value.translation)
+        let identity = owner.identity(messageID: id, text: text)
+        let expected = try XCTUnwrap(SentenceReadings.reading(translation, language: "zh"))
+        _ = try await awaitReading(owner, result: value, identity: identity)
+        for _ in 0..<100 {
+            XCTAssertEqual(owner.fullReading(for: value, identity: identity), .init(text: expected, provenance: .authored))
+        }
+        _ = await owner.result(for: text, inputLanguage: "en")
+        let count = await calls.count, main = await calls.ranOnMainThread
+        XCTAssertEqual(count, 1); XCTAssertFalse(main)
+        XCTAssertEqual(value.speech(mode: .fullTarget, source: "en", target: "zh")?.map(\.text), [translation])
+        owner.selectInputLanguage("en", for: id)
+        XCTAssertNil(owner.fullReading(for: value, identity: identity))
+        // Input-language changes invalidate metadata. A retained full-reference
+        // cache hit repopulates it exactly once for the new identity.
+        _ = await owner.result(for: text, inputLanguage: "en", messageID: id)
+        let fresh = owner.identity(messageID: id, text: text)
+        _ = try await awaitReading(owner, result: value, identity: fresh)
+        XCTAssertEqual(owner.fullReading(for: value, identity: fresh)?.text, expected)
+        let refreshed = await calls.count; XCTAssertEqual(refreshed, 2)
+        owner.close(); XCTAssertNil(owner.fullReading(for: value, identity: fresh))
+    }
 
     func testSourceUnitStarterBaseline() async throws { try await captureSourceUnitStarter(candidate: false) }
     func testSourceUnitStarterCandidate() async throws { try await captureSourceUnitStarter(candidate: true) }

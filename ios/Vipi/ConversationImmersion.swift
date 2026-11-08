@@ -23,6 +23,10 @@ import VipiCore
     private var deadlines: [UUID: Task<Void, Never>] = [:]
     private var fullRequests: [ImmersionRequestIdentity: (UUID, Task<LookupFirstOutcome?, Never>)] = [:]
     private var cache = ImmersionPresentationCache()
+    private let readings: FullReadingCache
+    private var readingRevision = 0
+    private struct ReadingRequest: Hashable { let utf8: Data, language: String }
+    private var readingTasks: [ReadingRequest: (UUID, Task<Void, Never>)] = [:]
     private var inputLanguages: [String: String] = [:]
     private let catalog = BundledImmersionCatalog()
     private let lexical = BundledLexicalCatalog.shared
@@ -52,9 +56,11 @@ import VipiCore
     }
 
     init(modelStatus: @escaping (TranslationPair) async -> LocalLanguageAvailability = { await LanguagePreparation.nativeStatus($0) },
-         fullTranslationTimeout: Duration = .seconds(30)) {
+         fullTranslationTimeout: Duration = .seconds(30),
+         fullReadingProducer: @escaping FullReadingCache.Producer = { FullSentenceReadings.resolve($0, language: $1) }) {
         precondition(fullTranslationTimeout > .zero && fullTranslationTimeout <= .seconds(30))
         self.modelStatus = modelStatus; self.fullTranslationTimeout = fullTranslationTimeout
+        self.readings = FullReadingCache(policy: FullSentenceReadings.policy, producer: fullReadingProducer)
     }
 
     func inputLanguage(for id: String) -> String? { inputLanguages[id] }
@@ -72,6 +78,31 @@ import VipiCore
     func cached(_ text: String, messageID: String? = nil) -> ImmersionPresentation? {
         guard !closed else { return nil }
         return cache[cacheKey(text: text, inputLanguage: messageID.flatMap { inputLanguages[$0] })]
+    }
+    func fullReading(for result: ImmersionPresentation, identity: ImmersionRequestIdentity) -> FullReading? {
+        guard !closed, identity == self.identity(messageID: identity.messageID, text: identity.text),
+              let translated = result.translation else { return nil }
+        _ = readingRevision // Observe completed metadata without doing work during a flip.
+        return readings.cached(text: translated, language: identity.target)
+    }
+    private func prepareReading(_ result: ImmersionPresentation?, language: String) {
+        guard let translated = result?.translation, !readings.hasResolved(text: translated, language: language),
+              ["ar", "zh", "ja", "ko"].contains(language), (1...16_384).contains(translated.utf16.count) else { return }
+        let key = ReadingRequest(utf8: Data(translated.utf8), language: language)
+        guard readingTasks[key] == nil, readingTasks.count < 128 else { return }
+        let token = UUID(), active = epoch, readings = readings
+        // Translation/display/audio readiness never waits for optional reading
+        // metadata. Hold the cache, not the conversation, across producer work.
+        let task = Task { @MainActor [weak self] in
+            _ = await readings.resolve(text: translated, language: language)
+            guard let self, self.epoch == active, !self.closed,
+                  self.readingTasks[key]?.0 == token else { return }
+            self.readingTasks.removeValue(forKey: key)
+            if !Task.isCancelled && readings.hasResolved(text: translated, language: language) {
+                self.readingRevision += 1
+            }
+        }
+        readingTasks[key] = (token, task)
     }
     func refreshAvailability() async {
         let active = epoch
@@ -130,6 +161,7 @@ import VipiCore
         // partial. Only the explicit whole-language action requests that work.
         if let saved = cache.cachedInvocation(key: key),
            intent == .automaticImmersion || saved.result?.translation != nil {
+            prepareReading(saved.result, language: activePair.target)
             lastOutcome = saved; return saved
         }
         do {
@@ -171,6 +203,7 @@ import VipiCore
                     self.remember(.partial(partial), key: key); onPartial(partial)
                 })
             guard valid() else { return nil }
+            prepareReading(outcome.result, language: activePair.target)
             lastOutcome = outcome
             cache.remember(outcome, key: key)
             return outcome
@@ -236,7 +269,8 @@ import VipiCore
     private func invalidateOutstanding() {
         for (_, task) in fullRequests.values { task.cancel() }; fullRequests.removeAll()
         for task in deadlines.values { task.cancel() }; deadlines.removeAll()
-        epoch = UUID(); request = nil; pending.removeAll()
+        for (_, task) in readingTasks.values { task.cancel() }; readingTasks.removeAll()
+        epoch = UUID(); readings.removeAll(); readingRevision += 1; request = nil; pending.removeAll()
         let outstanding = Array(replies.values); replies.removeAll()
         for reply in outstanding { reply.resume(returning: nil) }
     }
@@ -332,7 +366,7 @@ struct ConversationImmersionText: View {
                 ImmersionBubble(result: result, mode: mode, speech: speech,
                     sourceLanguage: identity.source, targetLanguage: identity.target,
                     messageID: id, interactionPaused: paused,
-                    fullReading: result.translation.flatMap { SentenceReadings.reading($0, language: identity.target) },
+                    fullReading: immersion.fullReading(for: result, identity: identity)?.text,
                     embedded: true, onModeChange: chooseMode, metadata: metadata, onVoiceHelp: onVoiceHelp,
                     originalMessage: text, inputLanguage: inputLanguage,
                     onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) },

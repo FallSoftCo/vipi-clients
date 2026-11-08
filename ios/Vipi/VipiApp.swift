@@ -27,6 +27,7 @@ import SwiftUI
                     Color.clear.accessibilityLabel("Native messaging qualification")
                 }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") { TimelineQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-full-reading-qa") { FullReadingQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }

@@ -1363,5 +1363,12 @@
     "file": "license-0686eda9b9ffb5b3908a855fb179b9ba6509d50003d76f1b46315a078dc28ee0.txt",
     "sha256": "0686eda9b9ffb5b3908a855fb179b9ba6509d50003d76f1b46315a078dc28ee0",
     "origin": "Google ML Kit 8.0.0 installed NOTICES, identical in its five SDK components"
+  },
+  {
+    "id": "195",
+    "title": "pinyin-pro 3.29.5 — native reading adapter source",
+    "file": "license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt",
+    "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
+    "origin": "Pinned MIT upstream source retained in qa/immersion/chinese-reading-upstream-r01; native port in ChineseFullReading.swift. Data remains QA-only."
   }
 ]

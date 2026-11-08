@@ -1,0 +1,90 @@
+{
+  "schema": "vipi-apple-full-reading-app-qualification-1",
+  "state": "bounded_native_app_and_gated_display_passed",
+  "created_utc": "2026-11-08T06:42:54.661384+00:00",
+  "platform": "existing macOS VM, Xcode26.6, existing iOS26.5 simulator; not physical iOS or actual MT provider evidence",
+  "source": {
+    "ios/Vipi/ChineseFullReading.swift": "68fc186ecb1c01306f5dd3af28522d148c2f1352f575f3f6ce80b7a3071cf131",
+    "ios/Vipi/ConversationImmersion.swift": "27a91664b539182a6459fd5ecab71e1f4d852b03cf4d58f2d41235baf889380c",
+    "ios/Vipi/SentenceReadings.swift": "6bb2feb4bbebd32591d2ede6f1141656d54921d1457ba066375571b3cf34e222",
+    "ios/Vipi/FullReadingQualification.swift": "bc19639b196f7d5f299dd0f89c2ec3d196be2bb7ff723a236dce90ccc8e9a216",
+    "ios/Vipi/VipiApp.swift": "0870ea37410887699961ee5d5d9cb5886db23e2ad3d0d5e1070e6dd3cbf88f43",
+    "ios/VipiCryptoTests/ConversationImmersionTests.swift": "7c00c6aeadda8d2edbe9436cc9c4137f9b3d0276513642c13186040ee0c20276",
+    "ios/VipiUITests/ChatImmersionTests.swift": "d28abf481788a99d23898518027c18c2524c807128a3d5009d7af1e39d04210f",
+    "ios/VipiCore/Sources/VipiCore/FullReadingCache.swift": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+    "ios/VipiCore/Tests/VipiCoreTests/FullReadingCacheTests.swift": "f140961ce8912af5b4bac8d6417e1bbf33058227cbeb50c5b30fd74e6d48ae09",
+    "ios/Vipi/ThirdPartyNotices/index.json": "94f993000d6539c94f4070cb8297427f191d856c71ef335545f9d91b0e53499e",
+    "ios/Vipi/ThirdPartyNotices/license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2"
+  },
+  "source_manifest_sha256": "65cdc2ed4e4ae4d6bddf24e81c5704bcb9452665dea5a0b6b40d50d347f6a7a9",
+  "build": {
+    "exit": 0,
+    "wall_seconds": 77.14904117584229,
+    "native_minimum_free_bytes": 1874456576,
+    "guest_minimum_free_bytes": 1040240640,
+    "normal_native_reserve_bytes": 1073741824,
+    "declared_peak_bytes": 268435456,
+    "observed_incremental_native_peak_bytes": 18161664
+  },
+  "native_test": {
+    "groups": [
+      {
+        "group": "coordinator",
+        "exit": 0,
+        "seconds": 12.648707866668701,
+        "selectors": [
+          "VipiCryptoTests/ConversationImmersionTests/testFullAuthoredReadingIsResolvedOnceOutsideRenderingAndClearedWithIdentity",
+          "VipiCryptoTests/ConversationImmersionTests/testCandidateFullReadingKeepsAuthoredPrecedenceAndOriginalSpeech",
+          "VipiCryptoTests/ConversationImmersionTests/testSlowReadingDoesNotDelayTranslationAudioOrAnotherRowAndCannotPublishAfterClose"
+        ]
+      },
+      {
+        "group": "display",
+        "exit": 0,
+        "seconds": 36.434114933013916,
+        "selectors": [
+          "VipiUITests/ChatImmersionTests/testGatedChineseFullReadingUsesNativeDisplayAndOriginalScript"
+        ]
+      }
+    ],
+    "binary_sha256": {
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib": "c198293b7a965f73c3c480de5a94a3468d6e829c9ae8e4eadf3f5a84ac54ca0f",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "d91063f7a5773564f02ed9d5cd00cc22a538a8cb547d85f18fbcef743bdc6a59",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "e4489e1d3a085bf880b5d79ddd38a0f3c5c9664c10816ef3a9e1d42f062e6c38"
+    },
+    "native_minimum_free_bytes": 1886588928,
+    "guest_minimum_free_bytes": 900980736,
+    "meaningful_assertions": [
+      "Authored precedence; exact full result cached once across100 render lookups and repeat full requests.",
+      "Slow metadata cannot delay completed translation/script speech or independent row; closed identity rejects late completion.",
+      "Explicit local Chinese candidate preserves approved partial spans, exact message/target speech, literal URL and guarded unknown abstention.",
+      "Actual maximum-text dark simulator screen switches Latin/original script and keeps unknown original; authored exact text takes precedence."
+    ],
+    "injected_provider": true,
+    "supplied_target_text": true,
+    "live_provider_claim": false
+  },
+  "display": {
+    "attachments": {
+      "00A072C0-2900-49B0-A90A-8639AAF5FC2D.png": "5fa75d43eca8d1d0f30d46ed7cc4964de2d5adee6492976b368960063550567d",
+      "5643FA16-57AD-4D18-A1E1-ADCF0829B1E9.png": "7bb788005d0b31dd215341f6c36a8cc00288723871787a7c6053830d1c288a0b",
+      "A11CCD00-FF3A-40F4-B12D-A930D1799BC6.png": "e70639565dfb5c81ac2d956a110c57416a719dc31bf08cf829384b3687ea85bc"
+    },
+    "inspected": "All3 screenshots visually inspected; clear text and green Listen action retained. QA-only maximum-text navigation title truncates; no claim about shipping chat timeline anchors from this isolated fixture."
+  },
+  "activation": {
+    "release": "authored readings only",
+    "new_chinese_reader": "DEBUG-only -vipi-chinese-reading-qa exact773812B/hash-checked Documents data; no production resource/data promotion",
+    "reading_cache": "full-result metadata prepared once outside SwiftUI, bounded independent tasks; no source/audio rewriting",
+    "known_reading_error_messages_in_reused332": 10,
+    "semantic_limit_reference": "qa/immersion/chinese-native-pinyin-qualification-r01.json"
+  },
+  "evidence": "investigations/vipi-apple-delivery-20261107-r01/full-reading-app-r01",
+  "unproven": [
+    "Fresh Apple Translation/MLKit inference",
+    "Physical Apple device behavior",
+    "Production conversation viewport under delayed new reading metadata",
+    "Complete Chinese contextual reading accuracy",
+    "Store submission and production purchase credentials"
+  ]
+}

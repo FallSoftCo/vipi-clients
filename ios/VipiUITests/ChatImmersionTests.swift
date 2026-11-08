@@ -2,6 +2,34 @@ import XCTest
 
 final class ChatImmersionTests: XCTestCase {
 
+    @MainActor func testGatedChineseFullReadingUsesNativeDisplayAndOriginalScript() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-full-reading-qa", "-vipi-chinese-reading-qa", "-vipi-appearance-dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch(); defer { app.terminate() }
+        let latin = app.staticTexts["yin hang hang zhang zheng zai zou lu。"]
+        XCTAssertTrue(latin.waitForExistence(timeout: 15))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
+        capture("ios-chinese-local-full-reading")
+        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        XCTAssertTrue(app.staticTexts["银行行长正在走路。"].waitForExistence(timeout: 5))
+        capture("ios-chinese-local-original-script")
+        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        XCTAssertTrue(latin.waitForExistence(timeout: 5))
+        app.buttons["Authored"].tap()
+        XCTAssertTrue(app.staticTexts["Wǒ xūyào shuǐ."].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "authored")
+        app.buttons["Unknown"].tap()
+        XCTAssertTrue(app.staticTexts["𠮷先生与𰻞字怎么读？"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
+        capture("ios-chinese-unknown-reading-abstains")
+        app.buttons["Reading options"].tap()
+        XCTAssertFalse(app.buttons["Show original script"].exists)
+        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+    }
+
     @MainActor func testPartialLookupKeepsSwitchingAfterUnavailableWholeTranslation() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
