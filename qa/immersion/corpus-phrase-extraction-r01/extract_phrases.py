@@ -55,12 +55,15 @@ def parse_links(line, source_count, target_count):
     return result
 
 
-def parameters(path):
+def parameters(path, started=None):
     result = {}
+    started = time.monotonic() if started is None else started
     with path.open() as f:
-        for line in f:
+        for index,line in enumerate(f):
             condition,prediction,prob = line.rstrip('\n').split('\t')
             result[(condition,prediction)] = float(prob)
+            if index%20000==0:
+                guards(started,1800)
     return result
 
 
@@ -121,8 +124,8 @@ def main():
     receipt = dict(complete=False, production=False, pairs=[])
     try:
         for pair in ['en-sw','en-es']:
-            forward = parameters(OUT/f'alignments/{pair}-forward.params')
-            reverse = parameters(OUT/f'alignments/{pair}-reverse.params')
+            forward = parameters(OUT/f'alignments/{pair}-forward.params',start)
+            reverse = parameters(OUT/f'alignments/{pair}-reverse.params',start)
             counts = collections.Counter()
             handles = {name:(OUT/f'alignments/{pair}-{name}.align').open() for name in ['forward','reverse','intersect','grow-diag-final-and']}
             with gzip.open(OUT/f'{pair}-pairs.jsonl.gz','rt') as rows, gzip.open(destination/f'{pair}-observations.jsonl.gz','xt',encoding='utf-8') as obs:

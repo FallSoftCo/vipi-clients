@@ -73,4 +73,12 @@ def main():
     print(json.dumps(receipt))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    try:
+        main()
+    except BaseException as exc:
+        # An interrupted partial SQLite is not a completed corroboration result.
+        failure=dict(complete=False,production=False,error=repr(exc),compiler_sha256=sha(Path(__file__)),
+                     process_vm_hwm_bytes=process_hwm(),partial_files={p.name:p.stat().st_size for p in (OUT/'phrases').glob('dictionary-units.sqlite*')})
+        (OUT/'phrases/dictionary-units-incomplete-receipt.json').write_text(json.dumps(failure,indent=2)+'\n')
+        raise
