@@ -1,0 +1,70 @@
+{
+  "schema": "vipi-apple-japanese-reading-qualification-1",
+  "status": "dormant_native_QA_no_app_activation",
+  "input_sha256": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80",
+  "source_sha256": "1f40fb854fc7d43dd9d1d09bc9ba73979582acabaaf81447caaf79e398e1ef47",
+  "probe_sha256": "5940ef88c04d9c76da37e2b8f83b8edb0e18b64035cf3dcaca475eadd3288116",
+  "capture_sha256": "f85bff1d66b00abcc21b05e6113bead2a0b43333e0b32222116f73642cb9975e",
+  "native": {
+    "complete": true,
+    "elapsedSeconds": 1.1118757916847244,
+    "generatedAudio": false,
+    "inputSHA256": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80",
+    "lexicalSchemes": [
+      "Language",
+      "Script",
+      "TokenType"
+    ],
+    "networkDisabled": false,
+    "os": "Version 26.6.2 (Build 25G83)",
+    "peakRSSBytes": 74825728,
+    "platform": "macOS VM native APIs; not physical iOS or acoustic validation",
+    "policy": "cf-japanese-guard-sokuon-1",
+    "requestedAssets": false,
+    "schema": "vipi-japanese-native-guard-report-1"
+  },
+  "mechanical": {
+    "complete": true,
+    "cases": 32,
+    "first_warm_equal": true,
+    "partition_errors": [],
+    "readings": 25,
+    "median_first_ms": 7.593791699036956,
+    "max_first_ms": 218.5002916958183,
+    "peak_rss_bytes": 74825728,
+    "lexical_schemes": [
+      "Language",
+      "Script",
+      "TokenType"
+    ],
+    "semantic_labels_included": false
+  },
+  "capacity": {
+    "mode": "normal native1GiB+64MiB, guest512MiB+64MiB, existing module cache",
+    "native_minimum_bytes": 1873502208,
+    "guest_before_bytes": 718176256,
+    "guest_minimum_bytes": 702853120,
+    "allocated_output_bytes": 344064,
+    "no_models_or_dependencies": true
+  },
+  "limits": [
+    "32 reused/structural inputs are not population coverage or fresh translation evidence.",
+    "Native orthographic ha/he/wo, valid variants and morpheme spacing remain; original script/audio is pronunciation authority.",
+    "Final small-tsu and decomposed kana may abstain; unknown unprotected characters are never dropped.",
+    "Nonspaced URL/prose boundary remains opaque and may retain Japanese bytes.",
+    "Candidate is not included in app runtime or resources."
+  ],
+  "author_review_sha256": "ba7a826cfe5ea7101365e8fdc70bef65fee5e8925f4601076028f46ed892a892",
+  "independent_review": {
+    "root_sha256": "0d81972d84e084d251078ff24551d5169d03bc415e1e30aed6525b48b2db9b5f",
+    "joined_sha256": "9d9fc6020b8c959b1a119a1896dec829d365319a15bcfd9a690bc32ef6a9ca24",
+    "ordinary_readable": 22,
+    "opaque_boundary": 1,
+    "guarded_abstentions": 5,
+    "no_guide_needed": 1,
+    "resources": 2,
+    "over_length": 1,
+    "semantic_disagreements": [],
+    "decision": "Proceed authored-first default native integration; no semantic disagreements after explicit category mapping; retain representation, URL boundary and convention limits."
+  }
+}

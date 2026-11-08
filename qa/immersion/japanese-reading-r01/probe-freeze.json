@@ -1,0 +1,17 @@
+{
+  "schema": "vipi-japanese-native-source-freeze-1",
+  "files": {
+    "qa/immersion/JapaneseReadingCandidate.swift": "1f40fb854fc7d43dd9d1d09bc9ba73979582acabaaf81447caaf79e398e1ef47",
+    "qa/immersion/MacJapaneseReadingProbe.swift": "5940ef88c04d9c76da37e2b8f83b8edb0e18b64035cf3dcaca475eadd3288116",
+    "qa/immersion/japanese-reading-r01/inputs.json": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80"
+  },
+  "counts": {
+    "retained": 12,
+    "new_controls": 20,
+    "total": 32
+  },
+  "author_semantic_labels_included": false,
+  "no_app_activation": true,
+  "capacity": "Existing module cache two-source CLI, normal native1GiB reserve+64MiB; guest512MiB margin+64MiB; fresh measurements required",
+  "retained_source_capture_sha256": "901eb1209321ec5fed75b191c6ed6638ee21eeea1934ecdda9dc0827d563869a"
+}

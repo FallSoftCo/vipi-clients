@@ -1,0 +1,24 @@
+{
+  "schema": "vipi-japanese-native-guard-design-1",
+  "policy": "cf-japanese-guard-sokuon-1",
+  "status": "frozen_source_not_executed_or_promoted",
+  "algorithm": [
+    "Reviewed authored readings retain future cache precedence; this component is QA-only.",
+    "Protect code/URLs/Latin identifiers and exact numeric/name bytes. Email punctuation remains between protected Latin chunks without introduced separators. No global email-validation regex.",
+    "Apply locale-ja CF LatinTranscription only to contiguous Japanese-script runs; retain exact source UTF16 partitions, raw native tokens and any gaps.",
+    "Accept native Latin letters/combining marks/apostrophes/hyphens, including spelling-based particles and ordinary long-vowel conventions. No generic toLatin.",
+    "Only an exact terminal raw~tsu backed by sourceっ/ッ/ｯ may compose across immediately adjacent converted tokens with a valid consonant onset. ch maps doubled onset t; bdfghjkpstvwz map their initial. Unknown/final/unsupported marker abstains. Raw token evidence retained separately from merged display pieces.",
+    "Unknown unprotected scripts, missing/nonLatin native readings, invalid ranges, or >16384UTF16 produce no full reading, never silently dropped source.",
+    "Original script/audio/copy unaffected; no sentence overrides, added models, phonetic-perfection or population claims."
+  ],
+  "retained_limits": [
+    "ha/he/wo particles,watakushi/asu variants and morpheme-separated words are retained as convention limits, not verified pronunciation.",
+    "Adjacent nonspaced URL text is inherently ambiguous; whole opaque URL bytes stay untouched.",
+    "System dictionaries can choose contextual readings incorrectly; this capture cannot establish comprehensive semantic accuracy."
+  ],
+  "source": {
+    "qa/immersion/JapaneseReadingCandidate.swift": "1f40fb854fc7d43dd9d1d09bc9ba73979582acabaaf81447caaf79e398e1ef47",
+    "qa/immersion/MacJapaneseReadingProbe.swift": "5940ef88c04d9c76da37e2b8f83b8edb0e18b64035cf3dcaca475eadd3288116",
+    "qa/immersion/japanese-reading-r01/inputs.json": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80"
+  }
+}
