@@ -1,0 +1,328 @@
+{
+  "schema": "vipi-fresh-conversation-research-decision-1",
+  "production": false,
+  "primary_gate": "FAILED; no experimental provider/matcher promotion",
+  "evidence_root": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/heldout-conversation-r01",
+  "input_hashes": {
+    "primary-decision-r01.json": "20a006b1b194c3124bd2d5d2a3162e548bc5a7d88d2f195df989639964900fa0",
+    "secondary-decision-r01.json": "2f1005b6ac29cd9816be9d2c4b9bd84edfca0dc6b722e6520eff9f57355aba47",
+    "constituent-shortening-decision-r01.json": "bcfa29124a3e3a29bf0e3c67928bc65aa2efdb7741238bd06471206afef33ccd",
+    "blind-review/author-primary-80-masked-review-r01.json": "bd13c25cfa3059ca63a36f469983559ac9cc493449e1a0928dd11ab4699fba38",
+    "blind-review/author-secondary-80-review-r01.json": "fa9c2adf81261fd107ba0e9d804fa13382a44a68bcbfdcabd0171d87cd25148c",
+    "blind-review/independent-24-root-review-r01.json": "dbc095e1775a5239807ea2f6fcb32b3fbf8e051b30b7aae5bc33754b6afd08f6",
+    "current-native-author-review-r02.json": "c675dc452df607bf1076b62e591068861a9dc44d89fd3efd17dcae3856f183c1"
+  },
+  "primary": {
+    "current": {
+      "clean_useful": 27,
+      "material_errors": 0,
+      "correct_word_depth": 0.0311258
+    },
+    "mlkit_reference": {
+      "clean_useful": 59,
+      "material_errors": 8,
+      "correct_word_depth": 0.1226768
+    },
+    "afrislm_reference": {
+      "clean_useful": 57,
+      "material_errors": 6,
+      "correct_word_depth": 0.1203071
+    }
+  },
+  "actual_routing": {
+    "messages": 80,
+    "local_full_translation": 77,
+    "source_only_hits": 0,
+    "invalid_language": 3,
+    "latency_note": "First invocation after installed-model preparation, not first-ever model cold start; actual warm repeats retained."
+  },
+  "secondary": [
+    {
+      "provider": "mlkit",
+      "density": 0.25,
+      "length_bin": "all",
+      "messages": 80,
+      "mean_correct_changed_depth": 0.18797894068361157,
+      "clean_useful_messages": 50,
+      "material_or_scope_error_messages": 17,
+      "uncertain_messages": 3,
+      "span_labels": {
+        "material": 17,
+        "uncertain": 3,
+        "correct": 85,
+        "minor": 10,
+        "wrong_scope": 1,
+        "proper_name": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.25,
+      "length_bin": "1-5",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.1685897435897436,
+      "clean_useful_messages": 13,
+      "material_or_scope_error_messages": 2,
+      "uncertain_messages": 0,
+      "span_labels": {
+        "material": 2,
+        "correct": 13,
+        "minor": 3,
+        "proper_name": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.25,
+      "length_bin": "6-15",
+      "messages": 28,
+      "mean_correct_changed_depth": 0.19763986013986012,
+      "clean_useful_messages": 22,
+      "material_or_scope_error_messages": 5,
+      "uncertain_messages": 1,
+      "span_labels": {
+        "material": 5,
+        "correct": 30,
+        "minor": 4,
+        "uncertain": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.25,
+      "length_bin": "16-30",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.19696407067075034,
+      "clean_useful_messages": 15,
+      "material_or_scope_error_messages": 10,
+      "uncertain_messages": 2,
+      "span_labels": {
+        "material": 10,
+        "uncertain": 2,
+        "minor": 3,
+        "correct": 42,
+        "wrong_scope": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.5,
+      "length_bin": "all",
+      "messages": 80,
+      "mean_correct_changed_depth": 0.3603517639831452,
+      "clean_useful_messages": 53,
+      "material_or_scope_error_messages": 18,
+      "uncertain_messages": 6,
+      "span_labels": {
+        "material": 19,
+        "uncertain": 8,
+        "correct": 157,
+        "minor": 19,
+        "wrong_scope": 3,
+        "proper_name": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.5,
+      "length_bin": "1-5",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.33205128205128204,
+      "clean_useful_messages": 18,
+      "material_or_scope_error_messages": 2,
+      "uncertain_messages": 0,
+      "span_labels": {
+        "material": 2,
+        "correct": 19,
+        "minor": 3,
+        "proper_name": 1
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.5,
+      "length_bin": "6-15",
+      "messages": 28,
+      "mean_correct_changed_depth": 0.367687074829932,
+      "clean_useful_messages": 21,
+      "material_or_scope_error_messages": 5,
+      "uncertain_messages": 2,
+      "span_labels": {
+        "minor": 10,
+        "correct": 56,
+        "material": 6,
+        "uncertain": 2
+      }
+    },
+    {
+      "provider": "mlkit",
+      "density": 0.5,
+      "length_bin": "16-30",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.3807526803876996,
+      "clean_useful_messages": 14,
+      "material_or_scope_error_messages": 11,
+      "uncertain_messages": 4,
+      "span_labels": {
+        "material": 11,
+        "uncertain": 6,
+        "correct": 82,
+        "minor": 6,
+        "wrong_scope": 3
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.25,
+      "length_bin": "all",
+      "messages": 80,
+      "mean_correct_changed_depth": 0.20404037211423803,
+      "clean_useful_messages": 61,
+      "material_or_scope_error_messages": 6,
+      "uncertain_messages": 1,
+      "span_labels": {
+        "correct": 106,
+        "uncertain": 1,
+        "minor": 12,
+        "wrong_scope": 4,
+        "proper_name": 1,
+        "material": 3
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.25,
+      "length_bin": "1-5",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.18397435897435896,
+      "clean_useful_messages": 15,
+      "material_or_scope_error_messages": 1,
+      "uncertain_messages": 0,
+      "span_labels": {
+        "correct": 15,
+        "minor": 3,
+        "proper_name": 1,
+        "wrong_scope": 1
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.25,
+      "length_bin": "6-15",
+      "messages": 28,
+      "mean_correct_changed_depth": 0.21207165850022994,
+      "clean_useful_messages": 25,
+      "material_or_scope_error_messages": 2,
+      "uncertain_messages": 0,
+      "span_labels": {
+        "correct": 36,
+        "material": 2,
+        "minor": 2
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.25,
+      "length_bin": "16-30",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.21545730760766432,
+      "clean_useful_messages": 21,
+      "material_or_scope_error_messages": 3,
+      "uncertain_messages": 1,
+      "span_labels": {
+        "correct": 55,
+        "uncertain": 1,
+        "minor": 7,
+        "wrong_scope": 3,
+        "material": 1
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.5,
+      "length_bin": "all",
+      "messages": 80,
+      "mean_correct_changed_depth": 0.33729239645009346,
+      "clean_useful_messages": 57,
+      "material_or_scope_error_messages": 15,
+      "uncertain_messages": 2,
+      "span_labels": {
+        "correct": 177,
+        "uncertain": 2,
+        "minor": 13,
+        "wrong_scope": 9,
+        "material": 8,
+        "proper_name": 1
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.5,
+      "length_bin": "1-5",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.31794871794871793,
+      "clean_useful_messages": 18,
+      "material_or_scope_error_messages": 1,
+      "uncertain_messages": 1,
+      "span_labels": {
+        "correct": 22,
+        "minor": 3,
+        "uncertain": 1,
+        "proper_name": 1,
+        "wrong_scope": 1
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.5,
+      "length_bin": "6-15",
+      "messages": 28,
+      "mean_correct_changed_depth": 0.325537062144205,
+      "clean_useful_messages": 24,
+      "material_or_scope_error_messages": 4,
+      "uncertain_messages": 0,
+      "span_labels": {
+        "correct": 55,
+        "material": 4,
+        "wrong_scope": 1,
+        "minor": 2
+      }
+    },
+    {
+      "provider": "afrislm",
+      "density": 0.5,
+      "length_bin": "16-30",
+      "messages": 26,
+      "mean_correct_changed_depth": 0.36929566574242584,
+      "clean_useful_messages": 15,
+      "material_or_scope_error_messages": 10,
+      "uncertain_messages": 1,
+      "span_labels": {
+        "correct": 100,
+        "uncertain": 1,
+        "minor": 8,
+        "wrong_scope": 7,
+        "material": 4
+      }
+    }
+  ],
+  "constituent_conservation": {
+    "status": "development diagnosis only; primary acceptance still failed",
+    "afrislm_10_percent": {
+      "errors_before": 6,
+      "errors_after": 4,
+      "clean_before": 57,
+      "clean_after": 60,
+      "correct_depth_retained": 0.9739066
+    },
+    "higher_density_harm": "Naive shortening creates new scope errors for Ive been→Ive/Nimekuwa and a long time→long/muda mrefu; identical outputs do not prove scope.",
+    "new_holdout_required": true
+  },
+  "review_limitations": [
+    "Author review is not independent native bilingual gold.",
+    "Primary provider labels were masked and fixed before unmasking; secondary labels were explicitly post-unmask.",
+    "Independent root24 disagreements retained; no silent adjudication.",
+    "80 crowdsourced free-human turns, English→Swahili only; no all110-direction claim."
+  ],
+  "source_only_next": "Separately test reviewed low-ambiguity concepts chosen by TRAIN frequency; content and function/pronoun contributions separate. No held-out phrase imports."
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "vipi-conversational-reference-bindings-1",
+  "production": false,
+  "frozen_unix": 1794098259.7405472,
+  "sample": "Fresh80 exact disjoint human-conversational source turns. Selection, independent24 subset, query recipe and semantic thresholds frozen before outputs; this later binding pins completed raw captures without changing rules.",
+  "hypothesis": "A stronger full reference rejects existing literal chunk senses and may retain useful correctly scoped chunks. Independent provider agreement is still not semantic gold.",
+  "input_hashes": {
+    "protocol": {
+      "path": "qa/immersion/coverage_ceiling_experiment/conversational-direct-protocol-r01.json",
+      "sha256": "95fb58995247f49b192e131581fca9c3f4fc826d7b4e3536c2afb9b3a9df02d8"
+    },
+    "chunks": {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/conversational-direct-001.json",
+      "sha256": "0e6371fbc00878363ed6265991c6fa9198d7b697758b285dc728354f93d13666"
+    },
+    "slm_reference": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/heldout-conversation-r01/afrislm-full-80-r01.json",
+      "sha256": "3e445a425ab42b9f31862c5e1557dd6eb7f5b4725887897179fd0d49c44a4013"
+    },
+    "current_native_control": {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/conversational-routing-001.json",
+      "sha256": "e9f382619c7b976a1cb09073686a619e89b891e646e91942efef512eea891a03"
+    }
+  },
+  "arms": [
+    "Original MLKit full reference plus cached MLKit chunks",
+    "AfriSLM full reference plus identical cached MLKit chunks"
+  ],
+  "candidate_strategy": "Unchanged word/window selection and guards, only1-3word candidate union captured for this focused follow-up. Primary window10%, secondary25/50%. No recursive candidates were queried.",
+  "requested_depths": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "full_target_boundaries": "QA-only Unicode letter runs with internal straight/curly apostrophes, applied equally to both providers. Measure agreement with retained native MLKit boundaries; do not claim native new-reference qualification.",
+  "shared_protection": [
+    "Candidate source and target Arabic-digit content must match as multisets; numeric-only change supplies no learning credit.",
+    "Mid-sentence capitalized source words exceptI are conservatively protected names. Preserve them verbatim(casefold) if inside source scope, and reject target claims borrowing a protected name from another source scope. Sentence-initial single names/lowercase names remain a known guard gap; semantic review still required."
+  ],
+  "scoring": "Explicit source/span meaning labels. Report mean correct changed-word depth, clean useful messages, material/scope errors at10/25/50 and bylength; distinguish reference-inherited versus introduced errors.",
+  "advancement_criterion": "Primary arm: at least56/80 clean useful messages, no more than2/80 material-or-scope-error messages, at least8% mean correct changed-word depth; also improve current control correct depth by5percentagepoints or clean useful messages by8/80 without more errors. Report uncertainty and every threshold miss; these are not store-release or all-language acceptance criteria.",
+  "cost_policy": "Actual native route/first-owner-invocation and immediate warm-repeat captured separately. Strong-reference first-process preparation and per-message CPUlatency measured, not mobile qualification.",
+  "capture_binding_unix": 1794100702.226958,
+  "source_protocol_sha256": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586",
+  "review_freeze_sha256": "513defa4326ef44a91aecbe6c51c85fe7415c298ccd6b7d097365c7ae33258d0",
+  "prior_policy_freeze_sha256": "4c107713d65587a08dfb1a555b8e4c7d9391164111c00adfa694a0ee7829bbd7"
+}

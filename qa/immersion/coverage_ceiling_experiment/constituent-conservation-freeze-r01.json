@@ -1,0 +1,32 @@
+{
+  "schema": "vipi-constituent-conservation-development-freeze-1",
+  "production": false,
+  "evaluation_status": "Development diagnosis on already reviewed fresh80; not a new holdout or validation claim.",
+  "hypothesis": "A selected multiword translation that exactly equals its proper contained subphrase translation should claim only the shortest uniquely supported source scope. This may preserve useful content without crediting words that translation dropped.",
+  "inputs": {
+    "protocol_sha256": "95fb58995247f49b192e131581fca9c3f4fc826d7b4e3536c2afb9b3a9df02d8",
+    "native_direct_sha256": "0e6371fbc00878363ed6265991c6fa9198d7b697758b285dc728354f93d13666",
+    "primary_labels_sha256": "bd13c25cfa3059ca63a36f469983559ac9cc493449e1a0928dd11ab4699fba38",
+    "secondary_labels_sha256": "fa9c2adf81261fd107ba0e9d804fa13382a44a68bcbfdcabd0171d87cd25148c"
+  },
+  "rule": [
+    "Operate on frozen window projections at10/25/50 percent for both full-reference providers.",
+    "For each selected candidate, inspect already captured proper contained source windows with identical normalized translation and identical aligned target range.",
+    "Choose the minimum source-word-count supported scope only if its source range is unique. Ambiguous shortest ranges cause the original claim to abstain.",
+    "Existing name/number protection, native source boundaries, target word boundaries and disjoint source/target claims remain prerequisites.",
+    "Do not refill the freed source budget or run additional model queries. No blacklist, learned synonyms, or article exception.",
+    "Reuse immutable labels only for exact source and target ranges. Review genuinely shortened scopes explicitly, preserving their original labels too."
+  ],
+  "research_continuation_threshold": {
+    "purpose": "Whether this specific correction is promising enough to include in a new disjoint validation, not a release decision.",
+    "afrislm_primary_six_errors_fixed_at_least": 2,
+    "afrislm_primary_correct_depth_retained_fraction_at_least": 0.8,
+    "additional_material_errors_allowed": 0
+  },
+  "limitations": [
+    "Identical translations do not establish semantic correctness or function-word scope.",
+    "Legitimate omitted articles may reduce credited depth; report this cost.",
+    "One-word sense errors and borrowed cross-clause target tokens may survive unchanged.",
+    "The original primary gate remains failed regardless of this development result."
+  ]
+}

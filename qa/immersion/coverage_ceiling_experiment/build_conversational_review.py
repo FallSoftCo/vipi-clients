@@ -26,7 +26,7 @@ def main():
     inputs = {name: json.loads(getattr(args, name).read_text()) for name in ("mlkit", "afrislm")}
     records = {name: {row["id"]: row for row in value["rows"]} for name, value in inputs.items()}
     assert all(set(records[name]) == {row["id"] for row in source["cases"]} for name in records)
-    packets, keys = [], []
+    packets, secondary_packets, keys = [], [], []
     for case in source["cases"]:
         order = ["mlkit", "afrislm"]
         if hashlib.sha256(("vipi-bst-masked-provider-order-r01:" + case["id"]).encode()).digest()[0] & 1:
@@ -35,6 +35,7 @@ def main():
             "sampling_length_bin": case["sampling_length_bin"],
             "review_only_preceding_context": case["review_only_preceding_context"],
             "context_note": "No preceding context was supplied to either provider. Indicate whether your meaning judgment needs it."}
+        secondary = {"id": case["id"], "source": case["text"], "sampling_length_bin": case["sampling_length_bin"]}
         key = {"id": case["id"]}
         for slot, name in zip(("A", "B"), order):
             row = records[name][case["id"]]
@@ -48,8 +49,16 @@ def main():
                     "sourceStartUTF16", "sourceEndUTF16", "targetStartUTF16", "targetEndUTF16",
                     "original", "translated", "source_words", "changed_source_words", "isolated_translation")}
                     for span in projection["spans"]]}
+            secondary[slot] = {"full_reference": row["full_translation"], "projections": [
+                {"requested_density": p["requested_density"], "mixed_text": p["visible"],
+                 "selected_spans": [{field: span[field] for field in (
+                     "sourceStartUTF16", "sourceEndUTF16", "targetStartUTF16", "targetEndUTF16",
+                     "original", "translated", "source_words", "changed_source_words", "isolated_translation")}
+                     for span in p["spans"]]}
+                for p in row["arms"]["window"]["projections"] if p["requested_density"] in (0.25, 0.5)]}
             key[slot] = name
         packets.append(output)
+        secondary_packets.append(secondary)
         keys.append(key)
     header = {"schema": "vipi-conversational-masked-review-1", "production": False,
         "source_protocol_sha256": sha(args.source), "review_freeze_sha256": sha(args.review_freeze),
@@ -62,6 +71,9 @@ def main():
     values = {
         "all-80-masked.json": dict(header, rows=packets),
         "independent-24-masked.json": dict(header, rows=subset),
+        "secondary-80-masked.json": dict(header,
+            instructions="Review secondary25/50% window projections after freezing primary10% labels. Keep provider key hidden; source context is in the corresponding primary packet.",
+            rows=secondary_packets),
         "provider-key.json": {"rows": keys, "input_bindings": {name: sha(getattr(args, name)) for name in records}}
     }
     for name, value in values.items():
