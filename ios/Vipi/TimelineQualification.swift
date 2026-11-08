@@ -2,6 +2,108 @@
 import SwiftUI
 import Security
 
+/// Actual hosted reauthentication using only the already-owned staging account.
+/// Never supplies a token, creates a device, rotates keys, or takes over another
+/// device. Only safe metadata is retained; Release has no launch route.
+struct ReauthenticationQualificationView: View {
+    @Environment(AuthenticationManager.self) private var authentication
+    @State private var subject: String?
+    @State private var account: UUID?
+    @State private var device: DeviceCredential?
+    @State private var before: TimeInterval?
+    @State private var status = "Checking owned staging session"
+    @State private var started = false
+    @State private var completing = false
+    @State private var proof: [String: Any] = [:]
+    private var receipt: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("reauth-native-r01.json")
+    }
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Owned staging sign-in check").font(.title2)
+            Text(status).accessibilityIdentifier("reauth-qa-status")
+            if subject != nil && !started {
+                Button("Sign in again") {
+                    started = true
+                    authentication.signIn(expectedUser: subject)
+                }
+            }
+            if let error = authentication.errorMessage { Text(error) }
+        }.padding().task { await prepare() }
+        .onChange(of: authentication.session?.accessToken) { _, _ in
+            guard started, !completing else { return }
+            completing = true; Task { await finish() }
+        }
+    }
+    private func authTime(_ token: String) throws -> TimeInterval {
+        // Decode solely for observation. ServiceClient independently proves that
+        // the provider-issued token authenticates to the actual live service.
+        let parts = token.split(separator: ".")
+        guard parts.count == 3 else { throw ServiceFailure(status: 0, code: "invalid_observed_token") }
+        var encoded = String(parts[1]).replacingOccurrences(of: "-", with: "+").replacingOccurrences(of: "_", with: "/")
+        encoded += String(repeating: "=", count: (4 - encoded.count % 4) % 4)
+        guard let data = Data(base64Encoded: encoded),
+              let claims = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let value = claims["auth_time"] as? Double else { throw ServiceFailure(status: 0, code: "missing_auth_time") }
+        return value
+    }
+    private func save(_ stage: String) throws {
+        proof["stage"] = stage; proof["recorded_at"] = Date().timeIntervalSince1970
+        try JSONSerialization.data(withJSONObject: proof, options: [.sortedKeys, .prettyPrinted]).write(to: receipt, options: .atomic)
+    }
+    private func prepare() async {
+        do {
+            guard !FileManager.default.fileExists(atPath: receipt.path),
+                  Bundle.main.object(forInfoDictionaryKey: "WorkOSClientID") as? String == "client_01M5S2CDSQ8F7FEX26G3CY9VS1",
+                  let session = authentication.session else { throw ServiceFailure(status: 0, code: "owned_staging_session_required") }
+            let api = try ServiceClient(authentication: authentication, userID: session.userID)
+            let profile: ChatProfile = try await api.request("GET", "/v1/me")
+            guard profile.username == "vqa_1107_ios01", let current = authentication.session,
+                  current.userID == session.userID else { throw ServiceFailure(status: 0, code: "owned_staging_identity_required") }
+            let vault = try MessageVault(account: profile.id)
+            guard let saved = try vault.transaction({ try vault.get("local", "service-device") }) else { throw ServiceFailure(status: 0, code: "existing_device_required") }
+            let credential = try JSONDecoder().decode(DeviceCredential.self, from: saved)
+            guard try vault.transaction({ try vault.get("local", "registered-device") }) == Data(credential.id.uuidString.lowercased().utf8) else {
+                throw ServiceFailure(status: 0, code: "registered_device_required")
+            }
+            let time = try authTime(current.accessToken)
+            before = time; account = profile.id; device = credential; subject = current.userID
+            proof = ["subject": current.userID, "account": profile.id.uuidString.lowercased(),
+                "device": credential.id.uuidString.lowercased(), "before_auth_time": time,
+                "native_hosted_pkce": true, "requested_max_age": 0, "replace_active": false,
+                "token_injection": false, "credentials_logged": false]
+            try save("prepared"); status = "Ready to sign in again"
+        } catch { status = "Preparation failed: " + ((error as? ServiceFailure)?.code ?? String(describing: type(of: error))) }
+    }
+    private func finish() async {
+        do {
+            guard let before, let account, let device, let session = authentication.session,
+                  session.userID == subject else { throw ServiceFailure(status: 0, code: "same_account_required") }
+            let after = try authTime(session.accessToken), now = Date().timeIntervalSince1970
+            guard after > before, (0..<600).contains(now-after) else { throw ServiceFailure(status: 0, code: "active_authentication_not_advanced") }
+            let api = try ServiceClient(authentication: authentication, userID: session.userID)
+            let profile: ChatProfile = try await api.request("GET", "/v1/me")
+            guard profile.id == account, profile.username == "vqa_1107_ios01" else { throw ServiceFailure(status: 0, code: "profile_changed") }
+            let vault = try MessageVault(account: account)
+            guard let saved = try vault.transaction({ try vault.get("local", "service-device") }),
+                  let currentDevice = try? JSONDecoder().decode(DeviceCredential.self, from: saved),
+                  currentDevice.id == device.id, currentDevice.secret == device.secret else {
+                throw ServiceFailure(status: 0, code: "device_changed")
+            }
+            struct Registered: Decodable { let id: UUID; let active: Bool }
+            let body = try JSONSerialization.data(withJSONObject: ["device_id": device.id.uuidString.lowercased(), "secret": device.secret, "replace_active": false])
+            let result: Registered = try await api.request("POST", "/v1/devices", body: body)
+            guard result.active, result.id == device.id else { throw ServiceFailure(status: 0, code: "registration_changed") }
+            proof["after_auth_time"] = after; proof["auth_time_advanced_seconds"] = after-before
+            proof["same_account"] = true; proof["same_device"] = true; proof["live_idempotent_registration_accepted"] = true
+            try save("complete"); status = "Fresh sign-in verified"
+        } catch {
+            proof["failure_code"] = (error as? ServiceFailure)?.code ?? "local_validation"
+            try? save("failed"); status = "Reauthentication proof failed"
+        }
+    }
+}
+
 /// Explicit debug-only observation of owned live QA sessions. Contains no
 /// message text, keys, tokens or audio; it never changes presentation state.
 @MainActor enum LiveImmersionQualification {

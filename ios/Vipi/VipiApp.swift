@@ -19,7 +19,8 @@ import SwiftUI
                 if deletion.active { AccountDeletionProgressView() }
                 else {
                 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
+                if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
                     // The explicit native HTTP harness owns inbox ordering.
                     // It still uses the real account session and production
                     // cryptography; Release has no such launch path.

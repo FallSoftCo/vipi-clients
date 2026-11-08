@@ -5,6 +5,41 @@ import UIKit
 /// Documents directory. It is never an app resource or a launch argument.
 @MainActor final class LiveSignInTests: XCTestCase {
     private struct Identity: Decodable { let email: String; let password: String; let client_id: String }
+    func testHostedFreshReauthenticationKeepsOwnedDevice() throws {
+        let fixture = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("private-staging-identity.json")
+        guard FileManager.default.fileExists(atPath: fixture.path) else { throw XCTSkip("Explicit private staging identity required") }
+        let identity = try JSONDecoder().decode(Identity.self, from: Data(contentsOf: fixture))
+        guard identity.email.hasSuffix("@example.net"), identity.client_id == "client_01M5S2CDSQ8F7FEX26G3CY9VS1" else { throw XCTSkip("Only the reserved dedicated staging identity is allowed") }
+        continueAfterFailure = false
+        defer { UIPasteboard.general.items = []; try? FileManager.default.removeItem(at: fixture) }
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-reauth-qa", "-vipi-appearance-light"]; app.launch()
+        XCTAssertTrue(app.staticTexts["Ready to sign in again"].waitForExistence(timeout: 30))
+        app.buttons["Sign in again"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        if springboard.alerts.buttons["Continue"].waitForExistence(timeout: 5) { springboard.alerts.buttons["Continue"].tap() }
+        if app.webViews.textFields["One-time code"].waitForExistence(timeout: 5) {
+            return XCTFail("Provider requested a one-time code; stop without input, resend, or bypass")
+        }
+        let email = app.webViews.textFields.matching(NSPredicate(format: "label CONTAINS[c] 'email' OR identifier == 'email' OR placeholderValue CONTAINS[c] 'email'")).firstMatch
+        if email.waitForExistence(timeout: 10) {
+            if email.value as? String != identity.email {
+                email.tap(); email.typeKey("a", modifierFlags: .command)
+                paste(identity.email, into: email, app: app)
+            }
+            let next = app.webViews.buttons.matching(NSPredicate(format: "label == 'Continue' OR label == 'Continue with email'")).firstMatch
+            XCTAssertTrue(next.waitForExistence(timeout: 10)); next.tap()
+        }
+        let password = app.webViews.secureTextFields.firstMatch
+        XCTAssertTrue(password.waitForExistence(timeout: 25))
+        paste(identity.password, into: password, app: app)
+        let signIn = app.webViews.buttons.matching(NSPredicate(format: "label == 'Sign in' OR label == 'Continue'")).firstMatch
+        XCTAssertTrue(signIn.waitForExistence(timeout: 10)); signIn.tap()
+        XCTAssertTrue(app.staticTexts["Fresh sign-in verified"].waitForExistence(timeout: 35))
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "owned-staging-fresh-reauthentication"; attachment.lifetime = .keepAlways; add(attachment)
+        app.terminate(); app.launchArguments = []; app.launch()
+        XCTAssertTrue(app.buttons["New chat"].waitForExistence(timeout: 20))
+    }
     func testHostedPKCESignInForOwnedStagingIdentity() throws {
         let fixture = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("private-staging-identity.json")
         guard FileManager.default.fileExists(atPath: fixture.path) else { throw XCTSkip("Explicit private staging identity required") }
@@ -26,7 +61,10 @@ import UIKit
         app.buttons["Continue to sign in"].tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         if springboard.alerts.buttons["Continue"].waitForExistence(timeout: 5) { springboard.alerts.buttons["Continue"].tap() }
-        let email = app.webViews.textFields.firstMatch
+        if app.webViews.textFields["One-time code"].waitForExistence(timeout: 5) {
+            return XCTFail("Provider requested a one-time code; stop without input, resend, or bypass")
+        }
+        let email = app.webViews.textFields.matching(NSPredicate(format: "label CONTAINS[c] 'email' OR identifier == 'email' OR placeholderValue CONTAINS[c] 'email'")).firstMatch
         XCTAssertTrue(email.waitForExistence(timeout: 30))
         paste(identity.email, into: email, app: app)
         let next = app.webViews.buttons.matching(NSPredicate(format: "label == 'Continue' OR label == 'Continue with email'")).firstMatch
