@@ -44,11 +44,21 @@ internal object JapaneseReadings {
                     var end = match.range.last + 1
                     val isCode = match.value.startsWith('`')
                     if (!isCode) {
+                        // Count delimiters once. Recounting each shortened URL is
+                        // quadratic for long runs of unmatched trailing brackets.
+                        val delimiters = "()[]{}"
+                        val counts = IntArray(delimiters.length)
+                        for (index in match.range) {
+                            val delimiter = delimiters.indexOf(original[index])
+                            if (delimiter >= 0) counts[delimiter]++
+                        }
                         while (end > match.range.first) {
                             val last = original[end - 1]
-                            val opening = when (last) { ')' -> '('; ']' -> '['; '}' -> '{'; else -> null }
-                            val value = original.substring(match.range.first, end)
-                            if (last in sentencePunctuation || (opening != null && value.count { it == last } > value.count { it == opening })) end-- else break
+                            val delimiter = delimiters.indexOf(last)
+                            if (last in sentencePunctuation) end--
+                            else if (delimiter >= 0 && delimiter % 2 == 1 && counts[delimiter] > counts[delimiter - 1]) {
+                                counts[delimiter]--; end--
+                            } else break
                         }
                     }
                     if (end <= match.range.first) continue

@@ -1,0 +1,71 @@
+{
+  "schema": "vipi-japanese-literal-limits-qualification-1",
+  "scope": "Linear URL-tail delimiter counting only; Japanese reader remains dormant",
+  "actual_runtime_api": 35,
+  "api28_runtime_qualified": false,
+  "native_tests": "r65 four old implementation stress controls; r66 same four plus unchanged270 Japanese readings",
+  "cases": [
+    {
+      "id": "trailing-punctuation",
+      "input_utf16": 16020,
+      "before_ms": 1812.419522,
+      "after_ms": 1107.658612,
+      "output_sha256": "87fb278bcbec9c6699968cb07d0ce32284bd4754f0c4fdb7d8f219784af0fa69",
+      "identical_output": true
+    },
+    {
+      "id": "trailing-brackets",
+      "input_utf16": 16020,
+      "before_ms": 3428.414424,
+      "after_ms": 135.003266,
+      "output_sha256": "8ec72d048e56186dc56e17c96e94de878f71abdefc882cc0db94f6acdb5844ed",
+      "identical_output": true
+    },
+    {
+      "id": "balanced-brackets",
+      "input_utf16": 16020,
+      "before_ms": 50.403083,
+      "after_ms": 64.53287,
+      "output_sha256": "b2656ab0be3bcc6a2df91ba8157c737e1b5c930855d2be7b26dcae9d4000fc26",
+      "identical_output": true
+    },
+    {
+      "id": "alternating-kana-literals",
+      "input_utf16": 15000,
+      "before_ms": 840.188605,
+      "after_ms": 377.501784,
+      "output_sha256": "5da2226b51cfb289060d6428a553656cd1c674767c9ec29c19711ff22b571b49",
+      "identical_output": true
+    }
+  ],
+  "prior_270_reading_piece_token_outputs_identical": true,
+  "timing_limits": "First sample includes cold tokenizer initialization. Sequential emulator observations, not controlled benchmark or general speedup.",
+  "source": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/JapaneseReadings.kt",
+      "sha256": "5219d242aef43d9416e91915cddfcf65b3f01a21d98517aa1e8087fcb177a454"
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseReadingLimitsDeviceTest.kt",
+      "sha256": "fa721e01af66571ccf4d68b2ee24a4b8008c147cb9f0cc0e31c00d408c4bfcff"
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/limits-r65.json",
+      "sha256": "9e132e1990307e2a28ab2087b944626ec44c32815e8c66d8cc7e66081bce1f4f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/limits-r66.json",
+      "sha256": "cadbe7ed5c731fa965a1edcbf85ef0ac9b6f70e5edf13a5b3e3ededb2cd1d0a4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/japanese-capture-r66.json",
+      "sha256": "1b6814ccf123ae39a7af3ed88bea70bcecf6ac6c3d943739ab92cc9b70ccf2e8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/full-reading-cache-r01/environment-r66.json",
+      "sha256": "041008018134b4fe56af2b813a093a32f5f84a9ca9a8accb4a8d25f50b2690cb"
+    }
+  ]
+}
