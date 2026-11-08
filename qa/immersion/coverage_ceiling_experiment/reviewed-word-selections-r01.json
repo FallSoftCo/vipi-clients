@@ -1,0 +1,48 @@
+{
+  "schema": "vipi-training-frequency-word-selections-1",
+  "production": false,
+  "review_status": "Author-selected lexical hypotheses from top500 separate TRAIN frequencies, before new evaluation selection. Not native bilingual certification.",
+  "selection_policy": "Prefer ordinary content concepts and independently attested complete target words. Synonyms are not ambiguity by themselves. Exclude obvious common sense/POS splits such as like, right, cool, fan, book and work. Rare metaphorical or verb uses of ordinary nouns remain a measured risk. No full-sentence translation agreement is required.",
+  "function": {
+    "i": "mimi", "and": "na", "but": "lakini", "really": "kweli",
+    "yes": "ndiyo", "we": "sisi", "very": "sana", "or": "au",
+    "now": "sasa", "more": "zaidi", "also": "pia", "always": "daima",
+    "only": "tu", "because": "kwa sababu", "maybe": "labda",
+    "here": "hapa", "thanks": "asante", "every": "kila", "especially": "hasa",
+    "usually": "kwa kawaida", "together": "pamoja", "today": "leo"
+  },
+  "content": {
+    "music": "muziki", "people": "watu", "food": "chakula", "dog": "mbwa",
+    "dogs": "mbwa", "things": "vitu", "thing": "kitu", "years": "miaka",
+    "year": "mwaka", "life": "maisha", "cats": "paka", "cat": "paka",
+    "friends": "marafiki", "friend": "rafiki", "money": "pesa", "movies": "filamu",
+    "movie": "filamu", "parents": "wazazi", "animals": "wanyama", "animal": "mnyama",
+    "pets": "wanyama wa nyumbani", "books": "vitabu", "car": "gari", "cars": "magari",
+    "pizza": "piza", "children": "watoto", "days": "siku", "day": "siku",
+    "mom": "mama", "dad": "baba", "mother": "mama", "husband": "mume",
+    "brother": "kaka", "wife": "mke", "night": "usiku", "hair": "nywele",
+    "weather": "hali ya hewa", "idea": "wazo", "important": "muhimu", "person": "mtu",
+    "week": "wiki", "world": "ulimwengu", "art": "sanaa", "coffee": "kahawa",
+    "easy": "rahisi", "chicken": "kuku", "city": "mji",
+    "teacher": "mwalimu", "chocolate": "chokoleti", "business": "biashara", "online": "mtandaoni",
+    "weekend": "wikendi", "expensive": "ghali", "winter": "kipupwe",
+    "meat": "nyama", "restaurant": "mgahawa", "problem": "tatizo", "cheese": "jibini",
+    "ocean": "bahari", "beach": "ufukwe", "team": "timu", "sports": "michezo",
+    "games": "michezo", "first": "kwanza", "understand": "kuelewa", "listen": "kusikiliza",
+    "write": "kuandika", "buy": "kununua", "remember": "kukumbuka", "sing": "kuimba",
+    "swim": "kuogelea", "eat": "kula", "know": "kujua", "want": "kutaka",
+    "prefer": "kupendelea", "believe": "kuamini", "hate": "kuchukia", "think": "kufikiri"
+  },
+  "known_risks_to_score": [
+    "Idioms can change the meaning of otherwise ordinary content words.",
+    "Rare noun/verb homographs, metaphors, names written lowercase, and unknown context can defeat context-independent lookup.",
+    "Explicit infinitives are complete attested words but native grammar mixed with them can be awkward; distinguish mild hybrid grammar from material tense/meaning loss.",
+    "Function words can have pragmatic or grammatical constraints; function-only success must not be presented as content-vocabulary coverage.",
+    "Some nouns have singular/plural surface identity in Swahili; preserve reviewed actual forms, never Roman class labels from malformed extraction metadata."
+  ],
+  "pre_holdout_review_rejections": {
+    "son": "mwana source explicitly includes son or daughter; do not discard male distinction in a supposedly low-ambiguity mapping.",
+    "never": "kamwe source includes ever and never; polarity depends on surrounding grammar, which this context-independent baseline cannot supply.",
+    "man": "Common conversational interjection and generic-person uses make the proposed literal male-person mapping unsuitable for this small baseline."
+  }
+}

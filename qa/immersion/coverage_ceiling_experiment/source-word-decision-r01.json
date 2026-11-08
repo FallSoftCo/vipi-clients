@@ -1,0 +1,285 @@
+{
+  "schema": "vipi-source-word-research-decision-retained-1",
+  "production": false,
+  "research_gate": "FAILED availability thresholds;100-entry seed does not establish maximum achievable lookup coverage",
+  "input_hashes": {
+    "source-word-valid-80-r01.json": "930f578fe5c8ff2774979d75ec8cebe49aa110610447a18cb22fde5042667a2d",
+    "source-word-valid-author-review-r01.json": "d54e41a50958c3fee0235cbf4a557b337dcb8eb8e383fb2375dc992d00eb9a10",
+    "source-word-valid-root-review-r01.json": "12422e81e4a16e4e28daacafc50efbfef32486e99d74100d118abf58caed2e36",
+    "source-word-valid-decision-r01.json": "7ff771df9347ec770dba0f7cef65eb8c7fb0668d6c79b76c1a67695c8fb2e0cc"
+  },
+  "evidence_root": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01",
+  "summaries": [
+    {
+      "arm": "one_content",
+      "length_bin": "all",
+      "messages": 80,
+      "clean_useful_messages": 30,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.027226131158752793,
+      "content_spans": 30,
+      "function_spans": 0
+    },
+    {
+      "arm": "one_content",
+      "length_bin": "1-5",
+      "messages": 26,
+      "clean_useful_messages": 1,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.009615384615384616,
+      "content_spans": 1,
+      "function_spans": 0
+    },
+    {
+      "arm": "one_content",
+      "length_bin": "6-15",
+      "messages": 27,
+      "clean_useful_messages": 12,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.040075253964142854,
+      "content_spans": 12,
+      "function_spans": 0
+    },
+    {
+      "arm": "one_content",
+      "length_bin": "16-30",
+      "messages": 27,
+      "clean_useful_messages": 17,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.03133550502475431,
+      "content_spans": 17,
+      "function_spans": 0
+    },
+    {
+      "arm": "one_function",
+      "length_bin": "all",
+      "messages": 80,
+      "clean_useful_messages": 52,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.06263364146037854,
+      "content_spans": 0,
+      "function_spans": 52
+    },
+    {
+      "arm": "one_function",
+      "length_bin": "1-5",
+      "messages": 26,
+      "clean_useful_messages": 8,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.07628205128205129,
+      "content_spans": 0,
+      "function_spans": 8
+    },
+    {
+      "arm": "one_function",
+      "length_bin": "6-15",
+      "messages": 27,
+      "clean_useful_messages": 18,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.06296902685791575,
+      "content_spans": 0,
+      "function_spans": 18
+    },
+    {
+      "arm": "one_function",
+      "length_bin": "16-30",
+      "messages": 27,
+      "clean_useful_messages": 26,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.04915534290123053,
+      "content_spans": 0,
+      "function_spans": 26
+    },
+    {
+      "arm": "one_prefer_content",
+      "length_bin": "all",
+      "messages": 80,
+      "clean_useful_messages": 54,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.06471697479371187,
+      "content_spans": 30,
+      "function_spans": 24
+    },
+    {
+      "arm": "one_prefer_content",
+      "length_bin": "1-5",
+      "messages": 26,
+      "clean_useful_messages": 8,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.07628205128205129,
+      "content_spans": 1,
+      "function_spans": 7
+    },
+    {
+      "arm": "one_prefer_content",
+      "length_bin": "6-15",
+      "messages": 27,
+      "clean_useful_messages": 20,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.06914186636408859,
+      "content_spans": 12,
+      "function_spans": 8
+    },
+    {
+      "arm": "one_prefer_content",
+      "length_bin": "16-30",
+      "messages": 27,
+      "clean_useful_messages": 26,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.04915534290123053,
+      "content_spans": 17,
+      "function_spans": 9
+    },
+    {
+      "arm": "content_up_to25",
+      "length_bin": "all",
+      "messages": 80,
+      "clean_useful_messages": 29,
+      "material_error_messages": 1,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.03502148907591378,
+      "content_spans": 43,
+      "function_spans": 0
+    },
+    {
+      "arm": "content_up_to25",
+      "length_bin": "1-5",
+      "messages": 26,
+      "clean_useful_messages": 1,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.009615384615384616,
+      "content_spans": 1,
+      "function_spans": 0
+    },
+    {
+      "arm": "content_up_to25",
+      "length_bin": "6-15",
+      "messages": 27,
+      "clean_useful_messages": 11,
+      "material_error_messages": 1,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.0429242568131457,
+      "content_spans": 14,
+      "function_spans": 0
+    },
+    {
+      "arm": "content_up_to25",
+      "length_bin": "16-30",
+      "messages": 27,
+      "clean_useful_messages": 17,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.05158385896733957,
+      "content_spans": 28,
+      "function_spans": 0
+    },
+    {
+      "arm": "combined_up_to25",
+      "length_bin": "all",
+      "messages": 80,
+      "clean_useful_messages": 53,
+      "material_error_messages": 1,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.12562537505858037,
+      "content_spans": 43,
+      "function_spans": 95
+    },
+    {
+      "arm": "combined_up_to25",
+      "length_bin": "1-5",
+      "messages": 26,
+      "clean_useful_messages": 8,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.07628205128205129,
+      "content_spans": 1,
+      "function_spans": 7
+    },
+    {
+      "arm": "combined_up_to25",
+      "length_bin": "6-15",
+      "messages": 27,
+      "clean_useful_messages": 19,
+      "material_error_messages": 1,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.14440251106917773,
+      "content_spans": 14,
+      "function_spans": 31
+    },
+    {
+      "arm": "combined_up_to25",
+      "length_bin": "16-30",
+      "messages": 27,
+      "clean_useful_messages": 26,
+      "material_error_messages": 0,
+      "uncertain_messages": 0,
+      "mean_correct_changed_depth": 0.15436403231427032,
+      "content_spans": 28,
+      "function_spans": 57
+    }
+  ],
+  "timing": {
+    "environment": "system76 Python existing CPU runtime; not mobile latency",
+    "lexicon_initialization_ms": 2.614245,
+    "median_all_five_arms_ms": 0.04831,
+    "p95_all_five_arms_ms": 0.118125
+  },
+  "independent_review": {
+    "scope_labels": 46,
+    "agreement": 43,
+    "blinding": {
+      "author_full_review_not_opened": true,
+      "labels_reasoned_before_author_summary": true,
+      "author_summary_arrived_before_receipt_write": true,
+      "therefore_fully_blind_frozen_file_claim": false,
+      "author_summary_sports_material_label_does_not_replace_root_uncertain_label": true
+    },
+    "disagreements": [
+      {
+        "id": "bst-valid-word-r01-0351-08",
+        "source": "want",
+        "target": "kutaka",
+        "author": "correct",
+        "root": "minor",
+        "root_note": "Desire is preserved; the Swahili infinitive introduces a morphological mismatch in the English finite-verb slot. No lost or added proposition."
+      },
+      {
+        "id": "bst-valid-word-r01-0008-02",
+        "source": "sports",
+        "target": "michezo",
+        "author": "material",
+        "root": "uncertain",
+        "root_note": "Compound sports car requires separate lexical review. Literal games/sports can mislead here, but I have not independently verified whether the corresponding Swahili compound is conventional; do not assert a material error solely from isolated-word senses."
+      },
+      {
+        "id": "bst-valid-word-r01-0459-06",
+        "source": "swim",
+        "target": "kuogelea",
+        "author": "correct",
+        "root": "minor",
+        "root_note": "Swimming is preserved; English to plus Swahili infinitive ku- duplicates infinitival marking in the hybrid phrase. Minor grammar, not a different activity."
+      }
+    ],
+    "adjudication": "None; original labels retained. Not native bilingual gold."
+  },
+  "limitations": [
+    "New VALID sample differs from prior TEST provider sample; rates are not paired provider comparisons.",
+    "Only78 content and22 function/pronoun/adverb entries; no completeness or all-language claim.",
+    "One-prefer-content hit54/80, of which30content and24function. Short1-5-word messages8/26; content-only1/26.",
+    "At25% sports→michezo inside sports car was material to author and uncertain to root. Ordinary water sports remained correct; no global blacklist."
+  ],
+  "next": "Expand independently reviewed TRAIN-frequency concepts and attested word forms, then freeze a new disjoint evaluation before outputs. No native runtime promotion."
+}

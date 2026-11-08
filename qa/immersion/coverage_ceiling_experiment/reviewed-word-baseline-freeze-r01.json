@@ -1,0 +1,23 @@
+{
+  "schema": "vipi-source-word-baseline-freeze-1",
+  "production": false,
+  "lexicon_sha256": "c979e91b4b959f0ee8b75bc2b1aca5372bd5d63774b396f21fcbee18819abfb7",
+  "hypothesis": "A small reviewed ordinary-concept vocabulary can provide useful beginner mixed immersion without any runtime translation, preserving surrounding native-language grammar.",
+  "development_inputs": "Top500 word frequencies from free-human convai2-context BST TRAIN only; retained licensed Swahili dictionary entries and explicit author semantic review. 78 content entries and22 function/pronoun/adverb entries.",
+  "new_evaluation": "80 previously uninspected free-human convai2-context BST VALID turns;26/27/27 whitespace-word strata1-5/6-15/16-30;one per dialogue; deterministic hash selection; exclude normalized train text and all retained prior evaluation text.",
+  "matching": [
+    "Exact complete case-insensitive source words; contractions remain whole and are not decomposed.",
+    "Protect URL/email/backtick code scopes and mid-sentence capitals; only pronoun I is exempt from uppercase protection.",
+    "Never replace the whole message; no full-translation presence or reference agreement prerequisite.",
+    "Content priority then TRAIN frequency then source order; no selection from evaluation outcomes.",
+    "No learned phrase exceptions or new idiom blacklist. Obvious sense/idiom/grammar contradictions count as errors."
+  ],
+  "arms": ["one_content", "one_function", "one_prefer_content", "content_up_to25", "combined_up_to25"],
+  "primary": "one_prefer_content; also report content-only and function-only separately",
+  "scoring": "Exact mixed outputs/source spans; clean useful messages, material/scope errors, uncertainty, correct changed-word depth and per-length strata. Review selected scopes in source context; not dictionary agreement as truth. Native bilingual review remains separate.",
+  "research_advance_only": {"primary_clean_useful_at_least":72,"primary_material_or_scope_errors_at_most":2,"one_content_clean_useful_at_least":40},
+  "limitations": ["Single en→sw research sample cannot qualify all languages or stores.","Source word boundaries in this Python lookup experiment are explicitly QA approximations, not native proof.","Native grammar mixed with attested infinitives may be mildly awkward; separate that from loss of tense or meaning.","A high combined rate driven only by pronouns/function words is not sufficient content-vocabulary coverage."],
+  "provider_calls": 0,
+  "new_model_downloads": 0,
+  "max_output_cases": 80
+}

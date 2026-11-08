@@ -1,0 +1,4282 @@
+{
+  "schema": "vipi-reviewed-source-word-lexicon-research-1",
+  "production": false,
+  "training_only": true,
+  "evaluation_cases_seen": false,
+  "raw_source_sha256": "f5859f14d739f12b1dd3c373bffead2a47920b746af436511cef4f2b8cea7320",
+  "raw_source_license": "CC-BY-SA-4.0, English Wiktionary through Kaikki; each entry keeps original page URL and sense/line evidence",
+  "train_sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+  "selection_sha256": "f0cdaabe6be51804424c3b87c9e4fe393bc488bc361d16039f3d04d368f8982c",
+  "entries": [
+    {
+      "id": "word-en-sw-i",
+      "source": "i",
+      "target": "mimi",
+      "category": "function",
+      "pos": "pron",
+      "train_rank": 1,
+      "train_occurrences": 6897,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 960,
+          "word": "mimi",
+          "pos": "pron",
+          "senses": [
+            {
+              "id": "en-mimi-sw-pron-SiuSKY5J",
+              "glosses": [
+                "I (first-person singular pronoun)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mimi"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mimi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-and",
+      "source": "and",
+      "target": "na",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 8,
+      "train_occurrences": 1778,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 157,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "id": "en-na-sw-conj-YgERG4Og",
+              "glosses": [
+                "and"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "na"
+          ],
+          "url": "https://en.wiktionary.org/wiki/na#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-but",
+      "source": "but",
+      "target": "lakini",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 18,
+      "train_occurrences": 1023,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4773,
+          "word": "lakini",
+          "pos": "conj",
+          "senses": [
+            {
+              "id": "en-lakini-sw-conj-zcKZN4hx",
+              "glosses": [
+                "but"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "lakini"
+          ],
+          "url": "https://en.wiktionary.org/wiki/lakini#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-really",
+      "source": "really",
+      "target": "kweli",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 33,
+      "train_occurrences": 557,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2054,
+          "word": "kweli",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-kweli-sw-adv-QuwuzJsd",
+              "glosses": [
+                "really; truly"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kweli"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kweli#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-yes",
+      "source": "yes",
+      "target": "ndiyo",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 34,
+      "train_occurrences": 549,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2153,
+          "word": "ndiyo",
+          "pos": "intj",
+          "senses": [
+            {
+              "id": "en-ndiyo-sw-intj-XwbiEfLk",
+              "glosses": [
+                "yes, that's it"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "ndiyo"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ndiyo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-we",
+      "source": "we",
+      "target": "sisi",
+      "category": "function",
+      "pos": "pron",
+      "train_rank": 55,
+      "train_occurrences": 383,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1838,
+          "word": "sisi",
+          "pos": "pron",
+          "senses": [
+            {
+              "id": "en-sisi-sw-pron-YPEB7iuq",
+              "glosses": [
+                "we (first-person plural pronoun)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "sisi"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sisi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-very",
+      "source": "very",
+      "target": "sana",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 58,
+      "train_occurrences": 357,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 110,
+          "word": "sana",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-sana-sw-adv-KMnXHRmI",
+              "glosses": [
+                "a lot, (very) much"
+              ]
+            },
+            {
+              "id": "en-sana-sw-adv-lMBfHEWh",
+              "glosses": [
+                "too"
+              ]
+            },
+            {
+              "id": "en-sana-sw-adv-phYrS6Em",
+              "glosses": [
+                "very, extremely"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "sana"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sana#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-or",
+      "source": "or",
+      "target": "au",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 69,
+      "train_occurrences": 318,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 154,
+          "word": "au",
+          "pos": "conj",
+          "senses": [
+            {
+              "id": "en-au-sw-conj-cXVRejcL",
+              "glosses": [
+                "or"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "au"
+          ],
+          "url": "https://en.wiktionary.org/wiki/au#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-think",
+      "source": "think",
+      "target": "kufikiri",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 70,
+      "train_occurrences": 313,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 8265,
+          "word": "kufikiri",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kufikiri-sw-verb-c0dP89u0",
+              "glosses": [
+                "infinitive of fikiri"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "fikiri"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kufikiri (verbal noun of the ku class)",
+            "kufikiri (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kufikiri#Swahili"
+        },
+        {
+          "raw_line": 7674,
+          "word": "fikiri",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-fikiri-sw-verb-OWTdLtIg",
+              "glosses": [
+                "to think, ponder"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-fikiri (infinitive kufikiri)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/fikiri#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-now",
+      "source": "now",
+      "target": "sasa",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 78,
+      "train_occurrences": 281,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3327,
+          "word": "sasa",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-sasa-sw-adv-7V65o34t",
+              "glosses": [
+                "now"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "sasa"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sasa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-know",
+      "source": "know",
+      "target": "kujua",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 79,
+      "train_occurrences": 275,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 6402,
+          "word": "kujua",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kujua-sw-verb-DiIPNP8Y",
+              "glosses": [
+                "infinitive of -jua"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-jua"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kujua (verbal noun of the ku class)",
+            "kujua (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kujua#Swahili"
+        },
+        {
+          "raw_line": 722,
+          "word": "jua",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-jua-sw-verb-Vk7G5aRj",
+              "glosses": [
+                "to know"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-jua (infinitive kujua)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/jua#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-more",
+      "source": "more",
+      "target": "zaidi",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 82,
+      "train_occurrences": 255,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3538,
+          "word": "zaidi",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-zaidi-sw-adv-gMgkTa0c",
+              "glosses": [
+                "more, most"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "zaidi"
+          ],
+          "url": "https://en.wiktionary.org/wiki/zaidi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-also",
+      "source": "also",
+      "target": "pia",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 85,
+      "train_occurrences": 232,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 846,
+          "word": "pia",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-pia-sw-adv-u4yGBcVd",
+              "glosses": [
+                "also"
+              ]
+            },
+            {
+              "id": "en-pia-sw-adv-Hn72CXB1",
+              "glosses": [
+                "all (used with -ote for emphasis)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "pia"
+          ],
+          "url": "https://en.wiktionary.org/wiki/pia#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-music",
+      "source": "music",
+      "target": "muziki",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 90,
+      "train_occurrences": 215,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3499,
+          "word": "muziki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-muziki-sw-noun-gPGJmE5c",
+              "glosses": [
+                "music"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "muziki class III or IX (plural miziki class IV or muziki class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/muziki#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-always",
+      "source": "always",
+      "target": "daima",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 96,
+      "train_occurrences": 204,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 8132,
+          "word": "daima",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-daima-sw-adv-3qKPypGf",
+              "glosses": [
+                "always, permanently, continually"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "daima"
+          ],
+          "url": "https://en.wiktionary.org/wiki/daima#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-people",
+      "source": "people",
+      "target": "watu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 102,
+      "train_occurrences": 185,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3942,
+          "word": "watu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-watu-sw-noun-Rz6I1H-n",
+              "glosses": [
+                "plural of mtu"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mtu"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "watu"
+          ],
+          "url": "https://en.wiktionary.org/wiki/watu#Swahili"
+        },
+        {
+          "raw_line": 2185,
+          "word": "mtu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mtu-sw-noun-aV4qRh19",
+              "glosses": [
+                "person (human being)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mtu-sw-noun-KlnVnjgJ",
+              "glosses": [
+                "someone"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mtu class I (plural watu class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mtu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-food",
+      "source": "food",
+      "target": "chakula",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 105,
+      "train_occurrences": 180,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 684,
+          "word": "chakula",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-chakula-sw-noun-wfAmWC~m",
+              "glosses": [
+                "food"
+              ],
+              "tags": [
+                "class-vii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "chakula class VII (plural vyakula class VIII)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/chakula#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-want",
+      "source": "want",
+      "target": "kutaka",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 106,
+      "train_occurrences": 177,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3651,
+          "word": "kutaka",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kutaka-sw-verb-6JCBJQum",
+              "glosses": [
+                "infinitive of -taka"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-taka"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kutaka (verbal noun of the ku class)",
+            "kutaka (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kutaka#Swahili"
+        },
+        {
+          "raw_line": 648,
+          "word": "taka",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-taka-sw-verb-lNUNkoH8",
+              "glosses": [
+                "to want"
+              ]
+            },
+            {
+              "id": "en-taka-sw-verb-YUffhYoa",
+              "glosses": [
+                "to be about to (followed by an imperative or bare verb stem)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-taka (infinitive kutaka)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/taka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-day",
+      "source": "day",
+      "target": "siku",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 107,
+      "train_occurrences": 176,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 887,
+          "word": "siku",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-siku-sw-noun-OU3dTENQ",
+              "glosses": [
+                "day, nycthemeron, a twenty-four-hour period beginning and ending at sunrise (6.00AM)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "siku class IX (plural siku class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/siku#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-only",
+      "source": "only",
+      "target": "tu",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 126,
+      "train_occurrences": 143,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 168,
+          "word": "tu",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-tu-sw-adv--QWxlULt",
+              "glosses": [
+                "only"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "tu"
+          ],
+          "url": "https://en.wiktionary.org/wiki/tu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-things",
+      "source": "things",
+      "target": "vitu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 128,
+      "train_occurrences": 141,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 940,
+          "word": "vitu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-vitu-sw-noun-BJPaBKCG",
+              "glosses": [
+                "plural of kitu"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "kitu"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "vitu"
+          ],
+          "url": "https://en.wiktionary.org/wiki/vitu#Swahili"
+        },
+        {
+          "raw_line": 1860,
+          "word": "kitu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kitu-sw-noun-IJW0t6Bi",
+              "glosses": [
+                "thing (a separate entity)"
+              ],
+              "tags": [
+                "class-vii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kitu class VII (plural vitu class VIII)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kitu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-because",
+      "source": "because",
+      "target": "kwa sababu",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 130,
+      "train_occurrences": 139,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 7178,
+          "word": "kwa sababu",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-kwa_sababu-sw-adv-pRGu7rih",
+              "glosses": [
+                "because"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kwa sababu"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kwa%20sababu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-maybe",
+      "source": "maybe",
+      "target": "labda",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 131,
+      "train_occurrences": 139,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 257,
+          "word": "labda",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-labda-sw-adv-G6LrsnXo",
+              "glosses": [
+                "perhaps"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "labda"
+          ],
+          "url": "https://en.wiktionary.org/wiki/labda#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-dog",
+      "source": "dog",
+      "target": "mbwa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 137,
+      "train_occurrences": 127,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1612,
+          "word": "mbwa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mbwa-sw-noun-zWNX792W",
+              "glosses": [
+                "dog"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mbwa class I/IX (plural mbwa class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mbwa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-eat",
+      "source": "eat",
+      "target": "kula",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 138,
+      "train_occurrences": 127,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 309,
+          "word": "kula",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kula-sw-verb-zrINVAm0",
+              "glosses": [
+                "infinitive of -la."
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-la"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kula (verbal noun of the ku class)",
+            "kula (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kula#Swahili"
+        },
+        {
+          "raw_line": 162,
+          "word": "la",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-la-sw-verb-Unr3wQmn",
+              "glosses": [
+                "to eat"
+              ]
+            },
+            {
+              "id": "en-la-sw-verb-Ibp27Bgq",
+              "glosses": [
+                "to consume, to eradicate"
+              ],
+              "tags": [
+                "broadly"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-la (infinitive kula)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/la#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-dogs",
+      "source": "dogs",
+      "target": "mbwa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 146,
+      "train_occurrences": 120,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1612,
+          "word": "mbwa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mbwa-sw-noun-zWNX792W",
+              "glosses": [
+                "dog"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mbwa class I/IX (plural mbwa class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mbwa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-here",
+      "source": "here",
+      "target": "hapa",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 147,
+      "train_occurrences": 119,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 797,
+          "word": "hapa",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-hapa-sw-adv-~OyRUJdZ",
+              "glosses": [
+                "here"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "hapa"
+          ],
+          "url": "https://en.wiktionary.org/wiki/hapa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-years",
+      "source": "years",
+      "target": "miaka",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 150,
+      "train_occurrences": 118,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4165,
+          "word": "miaka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-miaka-sw-noun-m3Kq0m8v",
+              "glosses": [
+                "plural of mwaka"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mwaka"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "miaka"
+          ],
+          "url": "https://en.wiktionary.org/wiki/miaka#Swahili"
+        },
+        {
+          "raw_line": 740,
+          "word": "mwaka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mwaka-sw-noun-TLTqJVg8",
+              "glosses": [
+                "year"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mwaka class III (plural miaka class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mwaka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-life",
+      "source": "life",
+      "target": "maisha",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 156,
+      "train_occurrences": 111,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5091,
+          "word": "maisha",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-maisha-sw-noun-Y71wZe8e",
+              "glosses": [
+                "life"
+              ],
+              "tags": [
+                "class-vi",
+                "plural",
+                "plural-only"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "maisha class VI (plural only)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/maisha#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-thing",
+      "source": "thing",
+      "target": "kitu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 180,
+      "train_occurrences": 99,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1860,
+          "word": "kitu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kitu-sw-noun-IJW0t6Bi",
+              "glosses": [
+                "thing (a separate entity)"
+              ],
+              "tags": [
+                "class-vii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kitu class VII (plural vitu class VIII)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kitu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-year",
+      "source": "year",
+      "target": "mwaka",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 182,
+      "train_occurrences": 98,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 740,
+          "word": "mwaka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mwaka-sw-noun-TLTqJVg8",
+              "glosses": [
+                "year"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mwaka class III (plural miaka class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mwaka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-cats",
+      "source": "cats",
+      "target": "paka",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 192,
+      "train_occurrences": 91,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1613,
+          "word": "paka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-paka-sw-noun-d693i1Gr",
+              "glosses": [
+                "cat"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "paka class IX (plural paka class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/paka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-friends",
+      "source": "friends",
+      "target": "marafiki",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 195,
+      "train_occurrences": 89,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4082,
+          "word": "marafiki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-marafiki-sw-noun-Pa1HGTFB",
+              "glosses": [
+                "plural of rafiki"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "rafiki"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "marafiki"
+          ],
+          "url": "https://en.wiktionary.org/wiki/marafiki#Swahili"
+        },
+        {
+          "raw_line": 738,
+          "word": "rafiki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-rafiki-sw-noun-zeSFN8os",
+              "glosses": [
+                "friend"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-rafiki-sw-noun-PerI4qoh",
+              "glosses": [
+                "comrade"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "rafiki class I/IX (plural rafiki class II/X or marafiki class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/rafiki#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-money",
+      "source": "money",
+      "target": "pesa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 196,
+      "train_occurrences": 89,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 875,
+          "word": "pesa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-pesa-sw-noun-jSrItY6t",
+              "glosses": [
+                "money"
+              ]
+            },
+            {
+              "id": "en-pesa-sw-noun-GTENnYkR",
+              "glosses": [
+                "paisa (unit of Indian currency)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "pesa class V or IX (plural mapesa class VI or pesa class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/pesa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-movies",
+      "source": "movies",
+      "target": "filamu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 199,
+      "train_occurrences": 86,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2577,
+          "word": "filamu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-filamu-sw-noun-r-pl10mi",
+              "glosses": [
+                "film or video (television show, movie)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "filamu class IX (plural filamu class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/filamu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-thanks",
+      "source": "thanks",
+      "target": "asante",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 213,
+      "train_occurrences": 82,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3331,
+          "word": "asante",
+          "pos": "intj",
+          "senses": [
+            {
+              "id": "en-asante-sw-intj-Ov3aLAmP",
+              "glosses": [
+                "Thank you!"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "asante! (plural asanteni)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/asante#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-every",
+      "source": "every",
+      "target": "kila",
+      "category": "function",
+      "pos": "det",
+      "train_rank": 215,
+      "train_occurrences": 80,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 532,
+          "word": "kila",
+          "pos": "det",
+          "senses": [
+            {
+              "id": "en-kila-sw-det-UWqGsbo-",
+              "glosses": [
+                "each, every"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kila"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kila#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-games",
+      "source": "games",
+      "target": "michezo",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 218,
+      "train_occurrences": 79,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5470,
+          "word": "michezo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-michezo-sw-noun-CxUNHE79",
+              "glosses": [
+                "plural of mchezo"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mchezo"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "michezo"
+          ],
+          "url": "https://en.wiktionary.org/wiki/michezo#Swahili"
+        },
+        {
+          "raw_line": 2469,
+          "word": "mchezo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mchezo-sw-noun-BqgDK772",
+              "glosses": [
+                "game (pursuit or activity for entertainment)"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            },
+            {
+              "id": "en-mchezo-sw-noun-7EUHhuJq",
+              "glosses": [
+                "sport"
+              ],
+              "tags": [
+                "class-iii",
+                "plural-normally"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mchezo class III (plural michezo class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mchezo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-parents",
+      "source": "parents",
+      "target": "wazazi",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 228,
+      "train_occurrences": 75,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4909,
+          "word": "wazazi",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wazazi-sw-noun-2UKWcHO4",
+              "glosses": [
+                "plural of mzazi"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mzazi"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wazazi"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wazazi#Swahili"
+        },
+        {
+          "raw_line": 3257,
+          "word": "mzazi",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mzazi-sw-noun-rcukstwT",
+              "glosses": [
+                "parent (person from whom one is descended)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mzazi class I (plural wazazi class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mzazi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-animals",
+      "source": "animals",
+      "target": "wanyama",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 233,
+      "train_occurrences": 72,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4208,
+          "word": "wanyama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wanyama-sw-noun-Cbj3-~9b",
+              "glosses": [
+                "plural of mnyama"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mnyama"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wanyama"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wanyama#Swahili"
+        },
+        {
+          "raw_line": 1512,
+          "word": "mnyama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mnyama-sw-noun-NUhH266O",
+              "glosses": [
+                "animal (organism)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mnyama class I (plural wanyama class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mnyama#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-especially",
+      "source": "especially",
+      "target": "hasa",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 234,
+      "train_occurrences": 72,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1863,
+          "word": "hasa",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-hasa-sw-adv-JAZSMd8b",
+              "glosses": [
+                "exactly"
+              ]
+            },
+            {
+              "id": "en-hasa-sw-adv-sQmlMoi6",
+              "glosses": [
+                "especially"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "hasa"
+          ],
+          "url": "https://en.wiktionary.org/wiki/hasa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-usually",
+      "source": "usually",
+      "target": "kwa kawaida",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 235,
+      "train_occurrences": 72,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5232,
+          "word": "kwa kawaida",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-kwa_kawaida-sw-adv-uCi2j3iW",
+              "glosses": [
+                "usually, generally"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kwa kawaida"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kwa%20kawaida#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-pets",
+      "source": "pets",
+      "target": "wanyama wa nyumbani",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 237,
+      "train_occurrences": 71,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 12595,
+          "word": "wanyama wa nyumbani",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wanyama_wa_nyumbani-sw-noun-G5gNfQBv",
+              "glosses": [
+                "plural of mnyama wa nyumbani"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mnyama wa nyumbani"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wanyama wa nyumbani"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wanyama%20wa%20nyumbani#Swahili"
+        },
+        {
+          "raw_line": 12594,
+          "word": "mnyama wa nyumbani",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mnyama_wa_nyumbani-sw-noun-rU-77MFL",
+              "glosses": [
+                "domesticated animal"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mnyama_wa_nyumbani-sw-noun-u7pXMY9x",
+              "glosses": [
+                "pet"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mnyama wa nyumbani class I (plural wanyama wa nyumbani class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mnyama%20wa%20nyumbani#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-prefer",
+      "source": "prefer",
+      "target": "kupendelea",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 238,
+      "train_occurrences": 71,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 9981,
+          "word": "kupendelea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kupendelea-sw-verb-yHEBsbs7",
+              "glosses": [
+                "infinitive of -pendelea"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-pendelea"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kupendelea (verbal noun of the ku class)",
+            "kupendelea (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kupendelea#Swahili"
+        },
+        {
+          "raw_line": 9980,
+          "word": "pendelea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-pendelea-sw-verb-B3bzVJYr",
+              "glosses": [
+                "to prefer, favor (to be in favor of)"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-pendelea (infinitive kupendelea)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/pendelea#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-books",
+      "source": "books",
+      "target": "vitabu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 239,
+      "train_occurrences": 70,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1070,
+          "word": "vitabu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-vitabu-sw-noun-1NJ21Ij4",
+              "glosses": [
+                "plural of kitabu"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "kitabu"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "vitabu"
+          ],
+          "url": "https://en.wiktionary.org/wiki/vitabu#Swahili"
+        },
+        {
+          "raw_line": 1069,
+          "word": "kitabu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kitabu-sw-noun-knGf4M-M",
+              "glosses": [
+                "book"
+              ],
+              "tags": [
+                "class-vii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kitabu class VII (plural vitabu class VIII)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kitabu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-car",
+      "source": "car",
+      "target": "gari",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 242,
+      "train_occurrences": 68,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1746,
+          "word": "gari",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-gari-sw-noun-N4y4JwLN",
+              "glosses": [
+                "car (automobile)"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            },
+            {
+              "id": "en-gari-sw-noun-8euHWO~M",
+              "glosses": [
+                "vehicle (any vehicle, including wagons and trains)"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "gari class V (plural magari class VI)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/gari#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-sports",
+      "source": "sports",
+      "target": "michezo",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 249,
+      "train_occurrences": 66,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5470,
+          "word": "michezo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-michezo-sw-noun-CxUNHE79",
+              "glosses": [
+                "plural of mchezo"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mchezo"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "michezo"
+          ],
+          "url": "https://en.wiktionary.org/wiki/michezo#Swahili"
+        },
+        {
+          "raw_line": 2469,
+          "word": "mchezo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mchezo-sw-noun-BqgDK772",
+              "glosses": [
+                "game (pursuit or activity for entertainment)"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            },
+            {
+              "id": "en-mchezo-sw-noun-7EUHhuJq",
+              "glosses": [
+                "sport"
+              ],
+              "tags": [
+                "class-iii",
+                "plural-normally"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mchezo class III (plural michezo class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mchezo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-cat",
+      "source": "cat",
+      "target": "paka",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 250,
+      "train_occurrences": 65,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1613,
+          "word": "paka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-paka-sw-noun-d693i1Gr",
+              "glosses": [
+                "cat"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "paka class IX (plural paka class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/paka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-pizza",
+      "source": "pizza",
+      "target": "piza",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 261,
+      "train_occurrences": 64,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4590,
+          "word": "piza",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-piza-sw-noun-ntFRWBne",
+              "glosses": [
+                "pizza"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "piza class IX (plural piza class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/piza#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-children",
+      "source": "children",
+      "target": "watoto",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 267,
+      "train_occurrences": 63,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1074,
+          "word": "watoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-watoto-sw-noun-7ck8I9Ke",
+              "glosses": [
+                "plural of mtoto"
+              ],
+              "tags": [
+                "class-2",
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "mtoto"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "watoto class 2"
+          ],
+          "url": "https://en.wiktionary.org/wiki/watoto#Swahili"
+        },
+        {
+          "raw_line": 1073,
+          "word": "mtoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mtoto-sw-noun-Lj-ETJHM",
+              "glosses": [
+                "child (very young person)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mtoto class I (plural watoto class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mtoto#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-movie",
+      "source": "movie",
+      "target": "filamu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 268,
+      "train_occurrences": 63,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2577,
+          "word": "filamu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-filamu-sw-noun-r-pl10mi",
+              "glosses": [
+                "film or video (television show, movie)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "filamu class IX (plural filamu class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/filamu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-beach",
+      "source": "beach",
+      "target": "ufukwe",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 272,
+      "train_occurrences": 61,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 11031,
+          "word": "ufukwe",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-ufukwe-sw-noun-NwVPpXZj",
+              "glosses": [
+                "alternative form of ufuko (“beach”)"
+              ],
+              "tags": [
+                "alt-of",
+                "alternative",
+                "class-xi"
+              ],
+              "alt_of": [
+                {
+                  "word": "ufuko",
+                  "extra": "beach"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "ufukwe class XI (plural fukwe class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ufukwe#Swahili"
+        },
+        {
+          "raw_line": 9727,
+          "word": "ufuko",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-ufuko-sw-noun-~R9Bjjui",
+              "glosses": [
+                "beach (in particular, the sandy berm)"
+              ],
+              "tags": [
+                "class-xi"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "ufuko class XI (plural fuko class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ufuko#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-first",
+      "source": "first",
+      "target": "kwanza",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 276,
+      "train_occurrences": 59,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 882,
+          "word": "kwanza",
+          "pos": "adj",
+          "senses": [
+            {
+              "id": "en-kwanza-sw-adj-p5N7ZLjK",
+              "glosses": [
+                "first"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-a kwanza (invariable)",
+            "-a kwanza (invariable)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kwanza#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-days",
+      "source": "days",
+      "target": "siku",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 280,
+      "train_occurrences": 58,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 887,
+          "word": "siku",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-siku-sw-noun-OU3dTENQ",
+              "glosses": [
+                "day, nycthemeron, a twenty-four-hour period beginning and ending at sunrise (6.00AM)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "siku class IX (plural siku class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/siku#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-mom",
+      "source": "mom",
+      "target": "mama",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 290,
+      "train_occurrences": 56,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 121,
+          "word": "mama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mama-sw-noun-Dq9~yJhx",
+              "glosses": [
+                "mother (female parent)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mama-sw-noun-ogVJuRsQ",
+              "glosses": [
+                "Respectful term of address for an older woman."
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mama class I/IX (plural mama class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mama#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-listen",
+      "source": "listen",
+      "target": "kusikiliza",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 294,
+      "train_occurrences": 55,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 6871,
+          "word": "kusikiliza",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kusikiliza-sw-verb-lfv1KBZ6",
+              "glosses": [
+                "infinitive of -sikiliza"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-sikiliza"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kusikiliza (verbal noun of the ku class)",
+            "kusikiliza (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kusikiliza#Swahili"
+        },
+        {
+          "raw_line": 6867,
+          "word": "sikiliza",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-sikiliza-sw-verb-qeyHV-pN",
+              "glosses": [
+                "Causative form of -sikia: to listen"
+              ],
+              "tags": [
+                "causative",
+                "form-of"
+              ],
+              "form_of": [
+                {
+                  "word": "-sikia",
+                  "extra": "to listen"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-sikiliza (infinitive kusikiliza)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sikiliza#Swahili"
+        },
+        {
+          "raw_line": 6883,
+          "word": "sikia",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-sikia-sw-verb-jqEb34OJ",
+              "glosses": [
+                "to hear"
+              ]
+            },
+            {
+              "id": "en-sikia-sw-verb-GGxJKl0i",
+              "glosses": [
+                "to heed, to obey"
+              ]
+            },
+            {
+              "id": "en-sikia-sw-verb-zO~vQwrM",
+              "glosses": [
+                "to feel, to sense"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-sikia (infinitive kusikia)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sikia#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-night",
+      "source": "night",
+      "target": "usiku",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 301,
+      "train_occurrences": 54,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1554,
+          "word": "usiku",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-usiku-sw-noun-F9618yRS",
+              "glosses": [
+                "night, nighttime (period between sunset and sunrise)"
+              ],
+              "tags": [
+                "class-xi",
+                "no-plural"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "usiku class XI (no plural)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/usiku#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-hair",
+      "source": "hair",
+      "target": "nywele",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 305,
+      "train_occurrences": 53,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2264,
+          "word": "nywele",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-nywele-sw-noun-fLA8qziZ",
+              "glosses": [
+                "plural of unywele: many pieces of hair, a head of hair"
+              ],
+              "tags": [
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "unywele",
+                  "extra": "many pieces of hair, a head of hair"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "nywele"
+          ],
+          "url": "https://en.wiktionary.org/wiki/nywele#Swahili"
+        },
+        {
+          "raw_line": 5943,
+          "word": "unywele",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-unywele-sw-noun-jB5C4FUn",
+              "glosses": [
+                "a piece of hair (a pigmented filament of keratin which grows from a follicle on the human head)"
+              ],
+              "tags": [
+                "class-xi"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "unywele class XI (plural nywele class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/unywele#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-weather",
+      "source": "weather",
+      "target": "hali ya hewa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 313,
+      "train_occurrences": 51,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 10818,
+          "word": "hali ya hewa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-hali_ya_hewa-sw-noun-5ecr6048",
+              "glosses": [
+                "weather"
+              ],
+              "tags": [
+                "class-ix",
+                "no-plural"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "hali ya hewa class IX (no plural)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/hali%20ya%20hewa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-idea",
+      "source": "idea",
+      "target": "wazo",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 322,
+      "train_occurrences": 49,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4304,
+          "word": "wazo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wazo-sw-noun-JhZn~C8J",
+              "glosses": [
+                "thought, idea"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wazo class V (plural mawazo class VI)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wazo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-important",
+      "source": "important",
+      "target": "muhimu",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 323,
+      "train_occurrences": 49,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5166,
+          "word": "muhimu",
+          "pos": "adj",
+          "senses": [
+            {
+              "id": "en-muhimu-sw-adj-NKmJ6z4i",
+              "glosses": [
+                "important"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "muhimu (invariable)",
+            "muhimu (invariable)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/muhimu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-person",
+      "source": "person",
+      "target": "mtu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 325,
+      "train_occurrences": 49,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2185,
+          "word": "mtu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mtu-sw-noun-aV4qRh19",
+              "glosses": [
+                "person (human being)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mtu-sw-noun-KlnVnjgJ",
+              "glosses": [
+                "someone"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mtu class I (plural watu class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mtu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-week",
+      "source": "week",
+      "target": "wiki",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 327,
+      "train_occurrences": 49,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 79,
+          "word": "wiki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wiki-sw-noun-9v4Ca~la",
+              "glosses": [
+                "a week"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wiki class IX (plural wiki class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wiki#Swahili"
+        },
+        {
+          "raw_line": 80,
+          "word": "wiki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wiki-sw-noun-EqQ17IRU",
+              "glosses": [
+                "wiki"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wiki class IX (plural wiki class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wiki#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-dad",
+      "source": "dad",
+      "target": "baba",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 329,
+      "train_occurrences": 48,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 172,
+          "word": "baba",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-baba-sw-noun-F3VG3s32",
+              "glosses": [
+                "father (male parent)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "baba class I/IX (plural baba class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/baba#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-wife",
+      "source": "wife",
+      "target": "mke",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 335,
+      "train_occurrences": 47,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2282,
+          "word": "mke",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mke-sw-noun-nVKjyOTW",
+              "glosses": [
+                "wife"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mke-sw-noun-pRAs6GeT",
+              "glosses": [
+                "contraction of mwanamke (“woman”)"
+              ],
+              "tags": [
+                "abbreviation",
+                "alt-of",
+                "class-i",
+                "contraction"
+              ],
+              "alt_of": [
+                {
+                  "word": "mwanamke",
+                  "extra": "woman"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mke class I (plural wake class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mke#Swahili"
+        },
+        {
+          "raw_line": 2179,
+          "word": "mwanamke",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mwanamke-sw-noun-zy5b~x7w",
+              "glosses": [
+                "woman"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mwanamke class I (plural wanawake class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mwanamke#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-world",
+      "source": "world",
+      "target": "ulimwengu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 339,
+      "train_occurrences": 46,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4360,
+          "word": "ulimwengu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-ulimwengu-sw-noun-1DGFV-6t",
+              "glosses": [
+                "world; universe"
+              ],
+              "tags": [
+                "class-xi"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "ulimwengu class XI (plural malimwengu class VI)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ulimwengu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-cars",
+      "source": "cars",
+      "target": "magari",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 340,
+      "train_occurrences": 45,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1231,
+          "word": "magari",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-magari-sw-noun-TIVAWWa5",
+              "glosses": [
+                "plural of gari"
+              ],
+              "tags": [
+                "class-6",
+                "form-of",
+                "plural"
+              ],
+              "form_of": [
+                {
+                  "word": "gari"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "magari class 6"
+          ],
+          "url": "https://en.wiktionary.org/wiki/magari#Swahili"
+        },
+        {
+          "raw_line": 1746,
+          "word": "gari",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-gari-sw-noun-N4y4JwLN",
+              "glosses": [
+                "car (automobile)"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            },
+            {
+              "id": "en-gari-sw-noun-8euHWO~M",
+              "glosses": [
+                "vehicle (any vehicle, including wagons and trains)"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "gari class V (plural magari class VI)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/gari#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-understand",
+      "source": "understand",
+      "target": "kuelewa",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 345,
+      "train_occurrences": 44,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 8805,
+          "word": "kuelewa",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuelewa-sw-verb-ooEIdC1-",
+              "glosses": [
+                "infinitive of -elewa"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-elewa"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuelewa (verbal noun of the ku class)",
+            "kuelewa (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuelewa#Swahili"
+        },
+        {
+          "raw_line": 2374,
+          "word": "elewa",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-elewa-sw-verb-psKbcas8",
+              "glosses": [
+                "Passive form of -elea: to understand, comprehend (to be aware of the meaning of)"
+              ],
+              "tags": [
+                "form-of",
+                "passive"
+              ],
+              "form_of": [
+                {
+                  "word": "-elea",
+                  "extra": "to understand, comprehend (to be aware of the meaning of)"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-elewa (infinitive kuelewa)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/elewa#Swahili"
+        },
+        {
+          "raw_line": 7778,
+          "word": "elea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-elea-sw-verb-6T0Wx7u4",
+              "glosses": [
+                "to be clear, to be comprehensible"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-elea (infinitive kuelea)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/elea#Swahili"
+        },
+        {
+          "raw_line": 7779,
+          "word": "elea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-elea-sw-verb-79GMauPA",
+              "glosses": [
+                "to float"
+              ]
+            },
+            {
+              "id": "en-elea-sw-verb-AhFpu7ha",
+              "glosses": [
+                "to levitate"
+              ]
+            },
+            {
+              "id": "en-elea-sw-verb-3f1wJm1w",
+              "glosses": [
+                "to feel nauseous"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-elea (infinitive kuelea)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/elea#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-art",
+      "source": "art",
+      "target": "sanaa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 346,
+      "train_occurrences": 43,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1370,
+          "word": "sanaa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-sanaa-sw-noun-~N5YsJhd",
+              "glosses": [
+                "artwork, art"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "sanaa class IX (plural sanaa class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/sanaa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-together",
+      "source": "together",
+      "target": "pamoja",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 361,
+      "train_occurrences": 42,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4155,
+          "word": "pamoja",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-pamoja-sw-adv-DCRzTXv1",
+              "glosses": [
+                "together"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "pamoja"
+          ],
+          "url": "https://en.wiktionary.org/wiki/pamoja#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-team",
+      "source": "team",
+      "target": "timu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 368,
+      "train_occurrences": 41,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2851,
+          "word": "timu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-timu-sw-noun-TXJDIPp3",
+              "glosses": [
+                "team (group of people, especially in a sport)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "timu class IX (plural timu class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/timu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-coffee",
+      "source": "coffee",
+      "target": "kahawa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 370,
+      "train_occurrences": 40,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1187,
+          "word": "kahawa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kahawa-sw-noun-CgZ8YHjv",
+              "glosses": [
+                "coffee (drink)"
+              ],
+              "tags": [
+                "class-ix",
+                "no-plural"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kahawa class IX (no plural)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kahawa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-hate",
+      "source": "hate",
+      "target": "kuchukia",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 380,
+      "train_occurrences": 39,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3652,
+          "word": "kuchukia",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuchukia-sw-verb-U5abXKiP",
+              "glosses": [
+                "infinitive of -chukia"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-chukia"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuchukia (verbal noun of the ku class)",
+            "kuchukia (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuchukia#Swahili"
+        },
+        {
+          "raw_line": 9904,
+          "word": "chukia",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-chukia-sw-verb-OPLmDOOK",
+              "glosses": [
+                "to hate"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-chukia (infinitive kuchukia)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/chukia#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-easy",
+      "source": "easy",
+      "target": "rahisi",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 390,
+      "train_occurrences": 38,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2849,
+          "word": "rahisi",
+          "pos": "adj",
+          "senses": [
+            {
+              "id": "en-rahisi-sw-adj-XVASZZRl",
+              "glosses": [
+                "easy (requiring little skill or effort)"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            },
+            {
+              "id": "en-rahisi-sw-adj-SOp1G0va",
+              "glosses": [
+                "cheap, inexpensive"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            },
+            {
+              "id": "en-rahisi-sw-adj-p6ObcvKX",
+              "glosses": [
+                "simple"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "rahisi (invariable)",
+            "rahisi (invariable)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/rahisi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-chicken",
+      "source": "chicken",
+      "target": "kuku",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 394,
+      "train_occurrences": 37,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 968,
+          "word": "kuku",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kuku-sw-noun-AuzQ8yHr",
+              "glosses": [
+                "chicken, fowl"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuku class IX (plural kuku class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuku#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-friend",
+      "source": "friend",
+      "target": "rafiki",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 398,
+      "train_occurrences": 37,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 738,
+          "word": "rafiki",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-rafiki-sw-noun-zeSFN8os",
+              "glosses": [
+                "friend"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-rafiki-sw-noun-PerI4qoh",
+              "glosses": [
+                "comrade"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "rafiki class I/IX (plural rafiki class II/X or marafiki class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/rafiki#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-city",
+      "source": "city",
+      "target": "mji",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 405,
+      "train_occurrences": 36,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3337,
+          "word": "mji",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mji-sw-noun-b82paXxk",
+              "glosses": [
+                "town, village (settlement)"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            },
+            {
+              "id": "en-mji-sw-noun-SpcAaph~",
+              "glosses": [
+                "the central part of a kanga"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mji class III (plural miji class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mji#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-teacher",
+      "source": "teacher",
+      "target": "mwalimu",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 412,
+      "train_occurrences": 36,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1583,
+          "word": "mwalimu",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mwalimu-sw-noun-EFepYE4E",
+              "glosses": [
+                "teacher"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mwalimu class I (plural walimu class II or waalimu class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mwalimu#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-business",
+      "source": "business",
+      "target": "biashara",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 415,
+      "train_occurrences": 35,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2024,
+          "word": "biashara",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-biashara-sw-noun-Jx5UC9-4",
+              "glosses": [
+                "business, trade, commerce"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "biashara class IX (plural biashara class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/biashara#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-chocolate",
+      "source": "chocolate",
+      "target": "chokoleti",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 416,
+      "train_occurrences": 35,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 5634,
+          "word": "chokoleti",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-chokoleti-sw-noun-dJms7UOG",
+              "glosses": [
+                "chocolate"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "chokoleti class IX (plural chokoleti class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/chokoleti#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-online",
+      "source": "online",
+      "target": "mtandaoni",
+      "category": "content",
+      "pos": "adv",
+      "train_rank": 422,
+      "train_occurrences": 34,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 18466,
+          "word": "mtandaoni",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-mtandaoni-sw-adv-9vyEyfIc",
+              "glosses": [
+                "online"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mtandaoni"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mtandaoni#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-believe",
+      "source": "believe",
+      "target": "kuamini",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 425,
+      "train_occurrences": 33,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 9938,
+          "word": "kuamini",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuamini-sw-verb-3a99Iq6J",
+              "glosses": [
+                "infinitive of -amini"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-amini"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuamini (verbal noun of the ku class)",
+            "kuamini (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuamini#Swahili"
+        },
+        {
+          "raw_line": 5228,
+          "word": "amini",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-amini-sw-verb-QsoajHrq",
+              "glosses": [
+                "to trust, to believe"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-amini (infinitive kuamini)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/amini#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-write",
+      "source": "write",
+      "target": "kuandika",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 434,
+      "train_occurrences": 32,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1557,
+          "word": "kuandika",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuandika-sw-verb-FftYskWK",
+              "glosses": [
+                "infinitive of -andika"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-andika"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuandika (verbal noun of the ku class)",
+            "kuandika (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuandika#Swahili"
+        },
+        {
+          "raw_line": 3746,
+          "word": "andika",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-andika-sw-verb-GyIdbR6y",
+              "glosses": [
+                "to write"
+              ]
+            },
+            {
+              "id": "en-andika-sw-verb-uuHmijj1",
+              "glosses": [
+                "to draw"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-andika (infinitive kuandika)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/andika#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-buy",
+      "source": "buy",
+      "target": "kununua",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 435,
+      "train_occurrences": 31,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3707,
+          "word": "kununua",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kununua-sw-verb-0-0LX3se",
+              "glosses": [
+                "infinitive of -nunua"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-nunua"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kununua (verbal noun of the ku class)",
+            "kununua (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kununua#Swahili"
+        },
+        {
+          "raw_line": 2156,
+          "word": "nunua",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-nunua-sw-verb-fi7Tk9Ul",
+              "glosses": [
+                "to buy"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-nunua (infinitive kununua)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/nunua#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-weekend",
+      "source": "weekend",
+      "target": "wikendi",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 443,
+      "train_occurrences": 31,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2182,
+          "word": "wikendi",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-wikendi-sw-noun-n8ETpGM5",
+              "glosses": [
+                "weekend (break in the working week)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "wikendi class IX (plural wikendi class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/wikendi#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-expensive",
+      "source": "expensive",
+      "target": "ghali",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 449,
+      "train_occurrences": 30,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3620,
+          "word": "ghali",
+          "pos": "adj",
+          "senses": [
+            {
+              "id": "en-ghali-sw-adj-88yldf9-",
+              "glosses": [
+                "expensive"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "ghali (invariable)",
+            "ghali (invariable)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ghali#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-winter",
+      "source": "winter",
+      "target": "kipupwe",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 467,
+      "train_occurrences": 29,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 7566,
+          "word": "kipupwe",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kipupwe-sw-noun-MMVGH8J7",
+              "glosses": [
+                "winter"
+              ],
+              "tags": [
+                "class-vii",
+                "no-plural"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kipupwe class VII (no plural)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kipupwe#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-brother",
+      "source": "brother",
+      "target": "kaka",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 471,
+      "train_occurrences": 28,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1103,
+          "word": "kaka",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-kaka-sw-noun-C0vXfOxw",
+              "glosses": [
+                "brother"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kaka class IX (plural kaka class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kaka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-meat",
+      "source": "meat",
+      "target": "nyama",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 476,
+      "train_occurrences": 28,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1605,
+          "word": "nyama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-nyama-sw-noun-WdbWFDH8",
+              "glosses": [
+                "meat"
+              ],
+              "tags": [
+                "class-ix",
+                "no-plural"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "nyama class IX (no plural)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/nyama#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-mother",
+      "source": "mother",
+      "target": "mama",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 477,
+      "train_occurrences": 28,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 121,
+          "word": "mama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mama-sw-noun-Dq9~yJhx",
+              "glosses": [
+                "mother (female parent)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mama-sw-noun-ogVJuRsQ",
+              "glosses": [
+                "Respectful term of address for an older woman."
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mama class I/IX (plural mama class II/X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mama#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-restaurant",
+      "source": "restaurant",
+      "target": "mgahawa",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 478,
+      "train_occurrences": 28,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 10627,
+          "word": "mgahawa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mgahawa-sw-noun-GPaUo-pm",
+              "glosses": [
+                "alternative form of mkahawa"
+              ],
+              "tags": [
+                "alt-of",
+                "alternative",
+                "class-iii"
+              ],
+              "alt_of": [
+                {
+                  "word": "mkahawa"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mgahawa class III (plural migahawa class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mgahawa#Swahili"
+        },
+        {
+          "raw_line": 4704,
+          "word": "mkahawa",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mkahawa-sw-noun-Vtjps~5E",
+              "glosses": [
+                "coffee plant"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            },
+            {
+              "id": "en-mkahawa-sw-noun-hQ99xDkQ",
+              "glosses": [
+                "café"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            },
+            {
+              "id": "en-mkahawa-sw-noun-7iddZNr8",
+              "glosses": [
+                "restaurant"
+              ],
+              "tags": [
+                "class-iii"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mkahawa class III (plural mikahawa class IV)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mkahawa#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-husband",
+      "source": "husband",
+      "target": "mume",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 486,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1548,
+          "word": "mume",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mume-sw-noun-n-6PiLk6",
+              "glosses": [
+                "husband"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "id": "en-mume-sw-noun-cef1cJZQ",
+              "glosses": [
+                "contraction of mwanamume (“man”)"
+              ],
+              "tags": [
+                "abbreviation",
+                "alt-of",
+                "class-i",
+                "contraction"
+              ],
+              "alt_of": [
+                {
+                  "word": "mwanamume",
+                  "extra": "man"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mume class I (plural waume class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mume#Swahili"
+        },
+        {
+          "raw_line": 4104,
+          "word": "mwanamume",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mwanamume-sw-noun-hSnqBDJw",
+              "glosses": [
+                "man (male human being)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mwanamume class I (plural wanaume class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mwanamume#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-ocean",
+      "source": "ocean",
+      "target": "bahari",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 489,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 3772,
+          "word": "bahari",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-bahari-sw-noun-9~iFvwXM",
+              "glosses": [
+                "sea, ocean"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "bahari class IX (plural bahari class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/bahari#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-problem",
+      "source": "problem",
+      "target": "tatizo",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 492,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 2514,
+          "word": "tatizo",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-tatizo-sw-noun-Tkk8n1py",
+              "glosses": [
+                "problem, difficulty"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "tatizo class V (plural matatizo class VI)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/tatizo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-remember",
+      "source": "remember",
+      "target": "kukumbuka",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 493,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 9416,
+          "word": "kukumbuka",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kukumbuka-sw-verb-LbzY7DjN",
+              "glosses": [
+                "infinitive of -kumbuka"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-kumbuka"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kukumbuka (verbal noun of the ku class)",
+            "kukumbuka (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kukumbuka#Swahili"
+        },
+        {
+          "raw_line": 8222,
+          "word": "kumbuka",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kumbuka-sw-verb-SH8~vnSB",
+              "glosses": [
+                "to remember, recall"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-kumbuka (infinitive kukumbuka)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kumbuka#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-sing",
+      "source": "sing",
+      "target": "kuimba",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 494,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 4975,
+          "word": "kuimba",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuimba-sw-verb-GjYPCV6Z",
+              "glosses": [
+                "infinitive of -imba"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-imba"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuimba (verbal noun of the ku class)",
+            "kuimba (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuimba#Swahili"
+        },
+        {
+          "raw_line": 3861,
+          "word": "imba",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-imba-sw-verb-e1aXhU~s",
+              "glosses": [
+                "to sing"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-imba (infinitive kuimba)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/imba#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-swim",
+      "source": "swim",
+      "target": "kuogelea",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 495,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 6694,
+          "word": "kuogelea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-kuogelea-sw-verb-1TihCi00",
+              "glosses": [
+                "infinitive of -ogelea"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ],
+              "form_of": [
+                {
+                  "word": "-ogelea"
+                }
+              ]
+            }
+          ],
+          "head_expansions": [
+            "kuogelea (verbal noun of the ku class)",
+            "kuogelea (verbal noun of the ku class)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/kuogelea#Swahili"
+        },
+        {
+          "raw_line": 6700,
+          "word": "ogelea",
+          "pos": "verb",
+          "senses": [
+            {
+              "id": "en-ogelea-sw-verb-cne7kYg8",
+              "glosses": [
+                "to swim"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "-ogelea (infinitive kuogelea)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/ogelea#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-today",
+      "source": "today",
+      "target": "leo",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 497,
+      "train_occurrences": 27,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 218,
+          "word": "leo",
+          "pos": "adv",
+          "senses": [
+            {
+              "id": "en-leo-sw-adv-4PT3Z6yI",
+              "glosses": [
+                "today"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "leo"
+          ],
+          "url": "https://en.wiktionary.org/wiki/leo#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-animal",
+      "source": "animal",
+      "target": "mnyama",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 499,
+      "train_occurrences": 26,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1512,
+          "word": "mnyama",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-mnyama-sw-noun-NUhH266O",
+              "glosses": [
+                "animal (organism)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "mnyama class I (plural wanyama class II)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/mnyama#Swahili"
+        }
+      ]
+    },
+    {
+      "id": "word-en-sw-cheese",
+      "source": "cheese",
+      "target": "jibini",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 500,
+      "train_occurrences": 26,
+      "review": "Complete target headword/form explicitly attested and ordinary concept reviewed; context-independent suitability remains an evaluation hypothesis.",
+      "evidence": [
+        {
+          "raw_line": 1971,
+          "word": "jibini",
+          "pos": "noun",
+          "senses": [
+            {
+              "id": "en-jibini-sw-noun-hzrJ~-pN",
+              "glosses": [
+                "cheese"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ],
+          "head_expansions": [
+            "jibini class IX (plural jibini class X)"
+          ],
+          "url": "https://en.wiktionary.org/wiki/jibini#Swahili"
+        }
+      ]
+    }
+  ]
+}

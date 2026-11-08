@@ -1,0 +1,3065 @@
+{
+  "schema": "vipi-source-word-new-holdout-1",
+  "production": false,
+  "training_use": false,
+  "pack_building_use": false,
+  "frozen_unix": 1794102931.0304136,
+  "lexicon_sha256": "c979e91b4b959f0ee8b75bc2b1aca5372bd5d63774b396f21fcbee18819abfb7",
+  "input_hashes": {
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/train.json": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/valid.json": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa",
+    "qa/immersion/coverage_ceiling_experiment/reviewed-word-baseline-freeze-r01.json": "b1961bad6fa5ace0a402253404b6a841c26b0b92d5b13fe4bc16fe831f779cfe",
+    "qa/immersion/coverage_ceiling_experiment/conversational-holdout-source-r01.json": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586",
+    "qa/immersion/coverage_ceiling_experiment/native-protocol.json": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471",
+    "qa/immersion/coverage_ceiling_experiment/taskmaster-native-protocol-r01.json": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0",
+    "qa/immersion/coverage_ceiling_experiment/directional-native-protocol-r01.json": "aec5ced94bc82c071f16f568b078703a4460841201c079bf78eb0edaab9c9e73",
+    "qa/immersion/coverage_ceiling_experiment/direct-extension-native-protocol-r01.json": "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e",
+    "qa/immersion/coverage_ceiling_experiment/source-only-fresh-protocol.json": "dda29150ff5a9ebe3a83c07084d14fc96151a7e18c10a0d109ea2ff0fb400662",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-probe/live-peer-sw-protocol-r01.json": "4ccee4cd1b9e79a60e018902af278e85bc34377c75162eef066960b6aa4d0e6e"
+  },
+  "script_sha256": "159bf63f2ac2399bb398507c6fd73c9f79da762d217370ddedfb917ad3d271cd",
+  "source_license": "BlendedSkillTalk dataset CC-BY-4.0; source attribution retained in evaluation-data-licenses/attribution.json",
+  "context_policy": "Only selected exact text enters lookup; preceding context is review-only.",
+  "cases": [
+    {
+      "id": "bst-valid-word-r01-0666-04",
+      "text": "I wouldn't go full blonde.  I think highlights would be nice. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 666,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "we were without power for one day , and lost one tree . we lucked out ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "good to hear , i'm thinking of dying my blonde hair , any suggestions ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Have you ever been blonde before?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No. I am 53 and from and live in Alabama"
+        },
+        {
+          "role": "free_human",
+          "text": "What color is your natural hair color?  I wouldn't go too drastic."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am brown. No maybe some highlights."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0266-02",
+      "text": "wow that's awesome.  i like to ride horses and go bowling with friends",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 266,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's great , i cant bowl to save my life ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "got to go . nice to meet ya"
+        },
+        {
+          "role": "free_human",
+          "text": "what do you like to do in your spare time?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like to watch crime documentaries, my father used to be a police officer, what about yourself?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0940-04",
+      "text": "do you drive a tesla?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 940,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what is your favorite car ? mine is a toyota ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "what vegetables do you dislike ? i definitely do not eat carrots !"
+        },
+        {
+          "role": "free_human",
+          "text": "i do not like brussel sprouts. which do you enjoy?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Looks like we asked questions at the same time about different things! My favorite car is a Tesla. As for Vegatables, I really like Potatoes."
+        },
+        {
+          "role": "free_human",
+          "text": "i love potatoes so much. especially fried"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Same.. though I eat them in moderation so I can stay in shape."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0254-00",
+      "text": "i will try to help people as much i can",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 254,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i also volunteer at a humane center when i can"
+        },
+        {
+          "role": "guided_seed",
+          "text": "wow , you are busy . what do you do at the humane center ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0980-02",
+      "text": "Tennis is fun! I was never any good but liked to pretend I was ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 980,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my parents sort of forced me into college . i would have been a drummer ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "too bad . the world could use more drummers ."
+        },
+        {
+          "role": "free_human",
+          "text": "It was fun! Do you play any instruments?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nah!, I don't have a 0% knowledge in it? , I'm a good tennis player"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0065-02",
+      "text": "different strokes right?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 65,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "gotcha . my sister wants me to find someone , have a family . but i'm only 22 !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeathats young . live a little first . you like the outdoors ?"
+        },
+        {
+          "role": "free_human",
+          "text": "its ok..if there is a beach i LOVE it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ah, I have nothing against the beach I just feel almost at home in forests."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-1003-06",
+      "text": "actually no he's a lab ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 1003,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'll check it out next time i am in town"
+        },
+        {
+          "role": "guided_seed",
+          "text": "you'll be glad that you did ."
+        },
+        {
+          "role": "free_human",
+          "text": "i think i may like it due to the fact that i work from home and coach cheer leading in my spare time"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work from home too. I operate my own dog walking business. "
+        },
+        {
+          "role": "free_human",
+          "text": "That sounds great i also hae a dog "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh, nice! What is your dog's name?"
+        },
+        {
+          "role": "free_human",
+          "text": "His name is spots he is so adorable "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh, that is a cute name. Is he a dalmation? "
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0020-08",
+      "text": "You'd be amazed at the fact that people still do.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 20,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like to experience all kinds of cuisine , when the kids are with a sitter !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "like some oysters ? i really like pasta , especially with seafood in it ."
+        },
+        {
+          "role": "free_human",
+          "text": "I really like food from my home area."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Fresh seafood is the best. I'm kind of like a flamingo I'm always eating shrimp."
+        },
+        {
+          "role": "free_human",
+          "text": "There's nothing like Seafood off the coast of Florida."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I agree with you there. Florida is a great state, a lot to do there outdoors which i love."
+        },
+        {
+          "role": "free_human",
+          "text": "I would say the only not so fun area would be The Glades. I love the outdoors also."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The glades is beautiful to look at but I wouldn't like to hang around there because of the gators."
+        },
+        {
+          "role": "free_human",
+          "text": "I certainly would not want to try to introduce myself to the gators."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They are scary animals that shouldn't be messed with."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0094-06",
+      "text": "Awesome! I was surprised that they have a convention in Alaska. Are you planning on going?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 94,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "thanks i don't think i have had sushi before"
+        },
+        {
+          "role": "guided_seed",
+          "text": "try it some time you may like it ."
+        },
+        {
+          "role": "free_human",
+          "text": "What type should I start with? There are so many to choose from!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well first you have to decide if you like brown or white rice or even just seaweed."
+        },
+        {
+          "role": "free_human",
+          "text": "Hm, I've had seaweed salad before and enjoyed that! And I like white rice better than brown. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The California roll is a great one for sushi! Classic!"
+        },
+        {
+          "role": "free_human",
+          "text": "I'll try that next tim! What other dinners would you suggest? I'll be at a sci-fi convention in the city and doing more dining out than normal."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Can't go wrong the sushi and steak special. A classic in Alaska."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0075-04",
+      "text": "Psychological thrillers are my favorite!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 75,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that sounds like a fun place to live !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it is , but i'd rather stay in and read a good book"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you not like the cold weather there?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do, I just don't want to be out in it. "
+        },
+        {
+          "role": "free_human",
+          "text": "I would love to spend the day indoors reading. Whats your favorite genre?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Any genre fiction really, mainly sci-fi, horror and magical realism. How about you?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0919-06",
+      "text": "Where is your family from?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 919,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "just a little love and you can do that"
+        },
+        {
+          "role": "guided_seed",
+          "text": "true did you go to college ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes, I took some college classes but never finished my degree."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "why is that? I have not gone to college yet. too busy traveling with my brother and his metal band."
+        },
+        {
+          "role": "free_human",
+          "text": "Life just happened and I never had the time to finish."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand how that goes. where are you originally from?"
+        },
+        {
+          "role": "free_human",
+          "text": "I was born on the island of Bermuda"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "whoa! My family moved us to america when i was five."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0752-10",
+      "text": "I've never used that. Do you have it on roku?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 752,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "just don't ask me to clean . but i love watercolors and painting any type of nature ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i could hang out with you , n i don't feel that way about everyone"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you like hanging out more at home or going out?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "lol. I'm alone. I don't like large crowds, so I stay at home more"
+        },
+        {
+          "role": "free_human",
+          "text": "I definitely stay at home more as I've gotten older"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You seem like an awesome person that I could hang out with, I can tell that when chatting with someone "
+        },
+        {
+          "role": "free_human",
+          "text": "Do you prefer books or movies?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like the Vampire Diaries by L. J. Smith, the tv series doesn't do it justice, and I also love netflix  movies."
+        },
+        {
+          "role": "free_human",
+          "text": "I'm excited for a snow day and netflix"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Netflix is always nice, I love winning when I find a great movie to watch"
+        },
+        {
+          "role": "free_human",
+          "text": "I need a new tv show to swatch too"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I also like to catch movies on Tubi, they have some awesome ones that are classics"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0736-04",
+      "text": "We have 3 now. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 736,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what books do you like ? i read a great book on lizards ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do like fantasy books , like harry potter and the lord of the rings ."
+        },
+        {
+          "role": "free_human",
+          "text": "I used to read a Lot of Sci Fi, but haven't much lately. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah Ive been reading a lot less too. I work long shifts, not much free time."
+        },
+        {
+          "role": "free_human",
+          "text": "Understand that.  I am retired but still keep unusual hours.  My wife still works and we have cats that wake me very early."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "How many cats do you have? I love cats!"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0376-02",
+      "text": "I prefer Yiddish myself.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 376,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "please tell me just 3 words i really want to learn any german word ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "sorry its just used in my job"
+        },
+        {
+          "role": "free_human",
+          "text": "Guten Tag (formal): Good day (formal) Danke: Thanks. Bitteschön: You're welcome."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am tall but not in love the German language."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0361-08",
+      "text": "I mainly write true crime mysteries.  Keeps my mind going.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 361,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i bet . that sounds like a very full life !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it certainly is . i'd rather be writing lol"
+        },
+        {
+          "role": "free_human",
+          "text": "I spend most of my days at the computer writing. Sometimes a little boring."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have 4 kids too so I have very little time too. With my 2 jobs and my husband they take up most of my time"
+        },
+        {
+          "role": "free_human",
+          "text": "Where do you work?  I imagine the kids keep you busy."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work for the state doing Interior Design work.  How about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "Basically just writing a novel at the present but have worked as a med tech in the past."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thats cool.  I love reading novels."
+        },
+        {
+          "role": "free_human",
+          "text": "What kind of novels do you prefer, mystery, romance??"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love romance novels.  What kind do you write?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0552-08",
+      "text": "Oh man. I'm sure that was fun. I'm not a fan of the beach, personally.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 552,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am a big vegan , my favorite meal are tofu burgers though ! you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i thought about going vegan . i do not eat red meat , so i might give up all meat ."
+        },
+        {
+          "role": "free_human",
+          "text": "You totally should. It's well worth the sacrifice. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I agree. I don't think I could do that. I may be vegetarian for other adopted reasons."
+        },
+        {
+          "role": "free_human",
+          "text": "What reasons? I just love animals. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It really limits your dietary choices.  I don't recommend it.   Have you considered vegetarian?"
+        },
+        {
+          "role": "free_human",
+          "text": "I started out vegetarian. There are so many options these days, I don't think it limits me. There's an amazing vegan diner next door to my apartment."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I see! Did you ever attend any vegetarian festival? I went to Vegfest 2016 near the ocean where I live"
+        },
+        {
+          "role": "free_human",
+          "text": "I haven't. That sounds fun! I wonder if they have one here in NYC."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am unaware of when it is. It's an annual conference though. I learned to surf when I went and I love it now"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0631-08",
+      "text": "They really are!! What is your favorite thing to do with your dogs?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 631,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi ! ! i love animals . my eyes are blue , my dad died when i was 2 ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh no , my father is alive and used to work for ge ."
+        },
+        {
+          "role": "free_human",
+          "text": "That’s nice. I was too young to remember anything, but my mom tells me stories about him all the time."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's great that you're able to at least hear stories! I noticed you mentioning your love for animals.. What's your favorite?"
+        },
+        {
+          "role": "free_human",
+          "text": "Hmmm... I’d have to say giraffes. What’s yours?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's a hard one. I'd say large cats like Lynx but any dogs come close second."
+        },
+        {
+          "role": "free_human",
+          "text": "Lynx’s are neat animals. You said that dogs come close... do you own a dog?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do yes! I have an Akita and Husky. Do you have any pets?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes. I have a dog as well. She’s a mix between a pug and beagle. She’s super sweet and rarely barks. Do you have any other pets besides Akita?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love pugs. They are so loving. Aside from the Akita just the Husky I mentioned. She talks all the time and doesn't really know when to shut up haha."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0574-02",
+      "text": "I love it, but going home is always nice. How is the grocery store life treating you?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 574,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like apples , they keep you healthy"
+        },
+        {
+          "role": "guided_seed",
+          "text": "so what do you do for a living ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I work at a hospital. I am a doctor!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "wow! do you enjoy your work? i am a grocery store manager."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0616-02",
+      "text": "Awesome! I always loved Degas when I was younger since I took ballet.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 616,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i listen to a ton of music , honestly . it is my main pasttime"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is cool . i like art"
+        },
+        {
+          "role": "free_human",
+          "text": "You do? Who is your favorite artist?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I dont really play favorites. I like variety, since im actually a middle school art teacher"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0420-06",
+      "text": "basketball is a fun game to watch.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 420,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i have a wife but she does not like me very much"
+        },
+        {
+          "role": "guided_seed",
+          "text": "my wife do not like me either she loves our 2 cats and the dog more"
+        },
+        {
+          "role": "free_human",
+          "text": "i'm sure she likes you more than you think"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, I agree with you on that but and she loves me regardless."
+        },
+        {
+          "role": "free_human",
+          "text": "that's really nice to hear. i have 2 cats and a dog as well."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow do you. Do you have to chase after them at all? I can't do pets I hate running lol."
+        },
+        {
+          "role": "free_human",
+          "text": "my cats are pretty lazy but my dog is high energy and i take him on at least 2 walks a day for 30 minutes each"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Lol that sounds like a cat to me, lazy. Yes, high energy well I hate doing too much. I'd rather watch basketball."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0913-04",
+      "text": "Acadia",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 913,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "ok other than my debts ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "my life is great , i'm so happy i'm gonna be a father"
+        },
+        {
+          "role": "free_human",
+          "text": "Congratulations! But, do you think this country is the best to have a kid?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I don't know if its the best, but I think it is better then most."
+        },
+        {
+          "role": "free_human",
+          "text": "Good point! At least we have an awesome national park system."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "We certainly do! Do you have a favorite?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0122-10",
+      "text": "Oh how fun, everyday is beautiful I'm sure!  I love vegetarian meals!!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 122,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i already have 3 kids as well !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "wow ! i cannot even imagine . its just me and my dog here"
+        },
+        {
+          "role": "free_human",
+          "text": "Dogs are awesome!  We have a dog too."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Dogs are a lot of work for sure. Do you have hobbies?"
+        },
+        {
+          "role": "free_human",
+          "text": "I love making crafts.  I have had to set those aside since I've been on bed rest."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh. What are you on bed rest for? Surely some crafts can be done in bed!"
+        },
+        {
+          "role": "free_human",
+          "text": "I have another child on the way.  This one a bit more difficult, with a lot of morning sickness."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow. Congratulations. how far along? I hope you dont have Hyperemesis! Sorry you have been ill."
+        },
+        {
+          "role": "free_human",
+          "text": "In my 2nd trimester.  My children are a big help.  My husband is going to buy some crafting supplies to keep us occupied."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Children are life's biggest blessing without a doubt. I am glad your family is big help! Family is everything"
+        },
+        {
+          "role": "free_human",
+          "text": "Thank you.  What kind of hobbies do you enjoy?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I enjoy surfing! I live right by the beach. And cooking, I'm vegetarian and make most of my meals from scratch."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0351-08",
+      "text": "It's hard when you can't give someone the attention you want to, I have dealt with that myself, just not with children.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 351,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "salad , yum . nutrition would be fun to study ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "what else are you into ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do a lot of volunteer work with rescue dogs!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You sound like a very generous person. You got kids?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do not yet, thankfully! I am a little young for that right now."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's smart. I'm in school, work, and have a daughter."
+        },
+        {
+          "role": "free_human",
+          "text": "I am in between classes in school right now and working to pay for them is stressful enough, I can't imagine doing this all with a daughter in tow!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, totally. She's three. Can't get enough attention."
+        },
+        {
+          "role": "free_human",
+          "text": "I couldn't either at that age!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It's hard. I wish I could give her my whole day."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0529-04",
+      "text": "I go around the southeast part of the country repairing various health machines in hospitals. You?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 529,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well that is pretty impressive . more than i have ever done ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "ll , came up with it while singing in the shower"
+        },
+        {
+          "role": "free_human",
+          "text": "That's always a good place for ideas! I still live with my parents but not much longer. It's just easier while I'm traveling so much."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I also love to travel, specially in the summer time"
+        },
+        {
+          "role": "free_human",
+          "text": "I travel for work mostly these days but can't wait to travel more for leisure. I most want to see the Northern Lights one day!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What type of work you do?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0302-06",
+      "text": "That is always a great reason to that kind of work. Make up can make you feel beautiful inside and outside. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 302,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "will you do mine ? i would like that"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i just started my own channel to share tutorials on makeup , 50k subscribers !"
+        },
+        {
+          "role": "free_human",
+          "text": "That is impressive! You must have all kinds of different tutorials. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well its really interesting, I just have been naturally good with makeup. Thank goodness for all those Barbies and Mom old makeup!"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you do hair up-do tutorials as well I know they are pretty popular as well. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well, I do also style hair, and Im actually starting to take professional classes for that and get a license!"
+        },
+        {
+          "role": "free_human",
+          "text": "That is amazing! No wonder why you have so many followers. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well, I consider myself a stylist and the followers just started piling up! It's super fun and it makes people smile!"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0981-08",
+      "text": "Football, I like the Saints",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 981,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "good . just selling some things before i move ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh what are you selling off ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Just a bunch of clutter I have collected over the years, I like thrift stores. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "If you see any instruments let me know, I'm the singer of a punk band."
+        },
+        {
+          "role": "free_human",
+          "text": "Will do! How long have you been in a band?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "A few weeks now. I met them while skating. "
+        },
+        {
+          "role": "free_human",
+          "text": "Thats cool! What kind of skating do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Hockey. I'm a center!"
+        },
+        {
+          "role": "free_human",
+          "text": "Sweet! Ill admit i dont watch much hockey "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What do you like?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0378-00",
+      "text": "That's awesome, I am a size 13 shoe.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 378,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hey there , i want to go shopping ! youre lucky"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i am a size 12 and there's always a sale on ."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0061-02",
+      "text": "it's good she has you.  ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 61,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes . i cook various items . what do you cook ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i already finished school , my mom live with me now ."
+        },
+        {
+          "role": "free_human",
+          "text": "That's nice, do you take of her? I'm still in school and love it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, I cook for her and take her places. She is getting older so it is harder for her to do things alone."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0433-04",
+      "text": "I guess something is better than nothing so I will have to look into it.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 433,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah i got fired from work now i am looking for something new"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i know the feeling i got fired in june . i'm looking for a job as well"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah it's tough, I really don't know what to do with myself right now."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What about working online?"
+        },
+        {
+          "role": "free_human",
+          "text": "Hmmm, I guess that could be something to do until another opportunity comes up."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, it is a way to make a little money."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0938-06",
+      "text": "Tennis",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 938,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am . i live in colorado . how about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool ! i live in chicago . i hate it . my dad is an advertiser ."
+        },
+        {
+          "role": "free_human",
+          "text": "Advertiser great!, Okay Why you hate?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "ive always lived here. just need a change of scenery "
+        },
+        {
+          "role": "free_human",
+          "text": "Native place is great thing once u moved to some-other!, then u come to know"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i am considering colorado when i move"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah!, whats your hobby"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i love playing basketball. you?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0924-08",
+      "text": "I think the ticket's only like a buck, you should come see it!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 924,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what is your favorite food ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love school pizza . i am in high school and in band , so cafeteria pizza is delicious ."
+        },
+        {
+          "role": "free_human",
+          "text": "Man, cafeteria pizza is like, the worst kind of pizza. I mean, I'll still eat it, but there's way better. Now cafeteria spaghetti and ematballs, yum"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh no!  Cafeteria spaghetti and meatballs are so gross!  My Grandma's are so much better!  What is your Grandma's best meal?"
+        },
+        {
+          "role": "free_human",
+          "text": "She makes a mean lasagna. Does your grandma cook well?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The best!  And her lasagna is sooo good!  And her chicken parm, oh my!  Are you also in the band?"
+        },
+        {
+          "role": "free_human",
+          "text": "Not me, I wanted to try it out but I'd rather do drama more and couldn't fit both in my schedule"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh you do drama, that is so cool!  Do you have a play coming up?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, we're going to do a Midsummer Night's Dream"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Fun!  I'm sure it's going to be a great show!"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0934-02",
+      "text": "How old is your son?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 934,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "wow ! it gets better . hang in there . i love my sons . they are my world ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah , my son gives me run for my money . some days i feel lazy ."
+        },
+        {
+          "role": "free_human",
+          "text": "Hang in there!  Just keep the upper hand, no matter how hard it gets."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thanks for the encouragement! I will do my best."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0757-06",
+      "text": "Whos your favorite actor?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 757,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "we could have a jam session . i love playing my guitar . do you play ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no . i just watch tv . the godfather , mostly ."
+        },
+        {
+          "role": "free_human",
+          "text": "What shows are you watching right now?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The Godfather, I have it on dvd "
+        },
+        {
+          "role": "free_human",
+          "text": "DO you like other mob movies?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "the rise and fall of the mob is always an interesting story to watch"
+        },
+        {
+          "role": "free_human",
+          "text": "I've never seen that one"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Although I do like other mob stories as well"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0177-04",
+      "text": "Really? Where did you shop at?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 177,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "finally someone with some sense around here ! sorry if i'm talking too fast for you ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "you are talking too slow for me , do you have any pets ? i have a dog"
+        },
+        {
+          "role": "free_human",
+          "text": "Wow! Too slow huh? I am typing almost 140 wpm"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well it is slow to my 170 wmp, it makes me feel like I am talking to a snail."
+        },
+        {
+          "role": "free_human",
+          "text": "Sorry about that"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Aplogy accepted, I went shopping the other day which I greatly enjoy."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0714-04",
+      "text": "jumbo trailer truck",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 714,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "being almost 6 feet tall i had to buy a new truck ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "you'd need a high ceiling on that"
+        },
+        {
+          "role": "free_human",
+          "text": "i like to drive truck"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love Chevrolet trucks almost as much as i love youtube!"
+        },
+        {
+          "role": "free_human",
+          "text": "i love all types of truck"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "If you had to pick one truck what type would you choose?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0377-10",
+      "text": "Us too.  WE have begun training, but I'm not sure we are going about it correctly.  What all are you doing to train?  ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 377,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am not good i just shot a lion today . i shot him in the toe"
+        },
+        {
+          "role": "guided_seed",
+          "text": "wait , what ? that's . . . that's exciting and terrible lol . i cannot say i usually see that much excitement ."
+        },
+        {
+          "role": "free_human",
+          "text": "Really a lion?  That is some cool stuff.  "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Reminds me of my dog. I accidentally shot him once."
+        },
+        {
+          "role": "free_human",
+          "text": "What?  How did that happen?  "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I was cleaning my rife and it went off. Poor guy was sleeping by the window."
+        },
+        {
+          "role": "free_human",
+          "text": "I bet that scared him and you.  Do you like to shot for sport or for hunting?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I go hunting and take my dog. He loves it. I'm a bad shot, though."
+        },
+        {
+          "role": "free_human",
+          "text": "We hunt also.  Our family loves the outdoors.  He hunt, fish, and hike often.  Our goal is to climb Mt Everest.  "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Me, too. I'm planning a trip there next year."
+        },
+        {
+          "role": "free_human",
+          "text": "That is excellent.  It will be several years before we are ready for a trip that big."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, it's a lot to take on. I have to get in shape and prepare mentally."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0539-04",
+      "text": "okay nice.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 539,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that is nice . is it very long ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i hope you have the time of your life"
+        },
+        {
+          "role": "free_human",
+          "text": "yes i have lot of time "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "lol, what do you like doing in your spare time? I reside on a ranch, so naturally a love of the outdoors comes natural."
+        },
+        {
+          "role": "free_human",
+          "text": "i like to play with my pet then go to zoo my favorite animal is zebra"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love animals too! I have a dog and if I were to pick a favorite animal it would be polar bear or penguin."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0950-00",
+      "text": "no, but i have cats and they go outside ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 950,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i hear you . i ran grom aliens once . great exercise"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i like to take my dogs out with me sometimes . do you have any dogs ?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0806-00",
+      "text": "Indeed it is a good relationship. I am very lucky to have such a great family.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 806,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "very cool . my mom does custodial work at a hospital . i live with her ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm sure you have a good relationship . hope my kids continue to with me ."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0958-04",
+      "text": "My daughter graduated in the 80's, if you want some clue as to how old I am haha",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 958,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "they sure do , i'm retired computer programmer so i go all out ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is fun do you like music"
+        },
+        {
+          "role": "free_human",
+          "text": "I love the old tunes, back from when I was young"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nice, I play the violin and love music as well."
+        },
+        {
+          "role": "free_human",
+          "text": "My granddaughter plays the violin!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Cool, well my grandmother raised me so that's neat. I like 80s music a lot."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0235-04",
+      "text": "yes i eating dinner",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 235,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm thinking about having mexican or italian ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "either sounds great do you like the outdoors"
+        },
+        {
+          "role": "free_human",
+          "text": "haiii"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Have you ever had the Mexican street food?"
+        },
+        {
+          "role": "free_human",
+          "text": "yes i will eating in braek fast"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "what do you think you will have for dinner?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0273-00",
+      "text": "I like to hang out with friends mainly",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 273,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do not have any pets . might sheds some pounds if i got a dog . ha !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it works great . any hobbies ? besides tv ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0633-08",
+      "text": "as a great business idea you should model your cats with the toys to make more money",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 633,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i wish i did i have kids though"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i used to have 6 kats but don't hav them no mor"
+        },
+        {
+          "role": "free_human",
+          "text": "I started selling clothes on facebook to make money on the side"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Wow, thats a great side buisness. I used to make toys for the 6 cats i used to own and I sold extras online!"
+        },
+        {
+          "role": "free_human",
+          "text": "that's fantastic to hear, my husband the pastor loves to shop online."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Your husband is a pastor? I would appreciate it if he could pray for me...I had a headache so bad that I had to call 911"
+        },
+        {
+          "role": "free_human",
+          "text": "we will but in the mean time browser my store on facebook so we can be both saved."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Definitely! we can help eachother."
+        },
+        {
+          "role": "free_human",
+          "text": "praise Jesus and pass the ammunition!!!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Rightly said! ammunition always comes in handy!"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0077-04",
+      "text": "I understand. I get lectures from my wife all the time. Honestly I'm not afraid of what she thinks. Sometimes fun is worth an angry wife.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 77,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "how did you end up in a wheel chair"
+        },
+        {
+          "role": "guided_seed",
+          "text": "a four wheeler accident ."
+        },
+        {
+          "role": "free_human",
+          "text": "Sorry to hear that. I have heard four wheelers can be dangerous."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes you have to be careful I learned the hard way ,on a slip on a hill"
+        },
+        {
+          "role": "free_human",
+          "text": "If that happened to me, my wife would take away my vehicle. Are you married?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No I am not , glad I am not it would be a burden on the marriage "
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0706-10",
+      "text": "oh geez. that's not fair! ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 706,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i wish i'd have become a nurse . your jobs are in demand ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do love to read on my free time . what do you like ?"
+        },
+        {
+          "role": "free_human",
+          "text": "i don't have any free time to read, i wish i could! I'm working on my wedding for starters!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Congrats on getting merried! wish i could go, i have to work all week though. "
+        },
+        {
+          "role": "free_human",
+          "text": "what's your job like? do you ever get to rest? i can't imagine the stress."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i worked 10 hours a day, i had to make breakfist before going, but i get so tired alot having to help alot of people. "
+        },
+        {
+          "role": "free_human",
+          "text": "I hear that. it's a tough but rewarding profession. i'm lucky i got off for our honeymoon to niagra falls. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "very rewarding indeed. helping people is the best and i make $20 every hour to buy whatever i need for my house. :) and Niagra sounds great!"
+        },
+        {
+          "role": "free_human",
+          "text": "$20 an hour? You deserve a raise! I hope it is. I hear it's cold this time of year."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yup. very cold. wish it was warmer here. :("
+        },
+        {
+          "role": "free_human",
+          "text": "I hate the cold! But out of season trips are cheap! When are you going to take your vacation? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "about a week from November 6. but i would had to gaet back on athe 7th to help with the Doctor on heart surgery. "
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0055-00",
+      "text": "That is amazing. Great organization. I am trying to find a place to volunteer. I was thinking a local animal shelter. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 55,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "where do you go volunteer ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "at the red cross ."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0327-00",
+      "text": "what kind do you make?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 327,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like chicken and beef and meat"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yum . i like to make lasagna and it s so good"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0244-08",
+      "text": "Sometimes I do yes",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 244,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "everything really , plants , animals , ecosystems . i'm a savage ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that's so interesting ! do you like to read ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes I love to"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love the book 1984"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes its good. I'm a big fan of anything dystopian"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yeah i love that genre very well"
+        },
+        {
+          "role": "free_human",
+          "text": "I do not have much else to do other than read really"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Are you done with college?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah I work for the discovery channel now "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "So you go on adventures into the wild jungles"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0861-04",
+      "text": "I love all music, I flip flog a lot currently I am listening to country top hits. You?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 861,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love chocolate . malted milk powder is my secret ! i add it to cookies too ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "dang that's good ! mind if i steal your secret ? lol"
+        },
+        {
+          "role": "free_human",
+          "text": "Not at all, you dont have to steal it, it's yours!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I adore malted milk.  I hate that Brach's Malted milk balls are gone.  "
+        },
+        {
+          "role": "free_human",
+          "text": "Me too, I always got them in my Easter basket as a kid."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nothing quite like them on the market.  So what music are you into?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0031-02",
+      "text": "They are hoarders. They hang on to everything. Going from the kitchen to the living room is like going through a junk yard!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 31,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i hate my parents alot"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i really have a good time they think young"
+        },
+        {
+          "role": "free_human",
+          "text": "I've been thinking about them a lot, especially on my long drive to and from work. They make me crazy."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "how so?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0514-02",
+      "text": "Exactly. But I work in tv, it takes alot of hard work, talent, experience and connections to be where I am and I'm proud of that. What about you?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 514,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "how do you feel about lesbians ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "they're ok some are my friends"
+        },
+        {
+          "role": "free_human",
+          "text": "I think they are better than ok, no different to everyone else."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's what I meant, they are just people, same as everyone else.  What do you do for a living?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0263-06",
+      "text": "what do you like to do for fun in your town?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 263,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm doing well just got done with my nightly run . two miles ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "good for you ! i usually ride my bike to class for exercise"
+        },
+        {
+          "role": "free_human",
+          "text": "that's great!  i have to run to keep in shape from all the candy i eat at my job haha"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "im sure you diserved it though! I cant run else my glasses will break even more than they already are!"
+        },
+        {
+          "role": "free_human",
+          "text": "i'm sorry to hear about your glasses.  they make sports glasses you can wear"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "they sound expensive .... i just taped them together for now"
+        },
+        {
+          "role": "free_human",
+          "text": "that's what my husband does too.  make sure to use clear tape, not medical white tape like him"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh wow, it's good to hear im not the only one! I haven't used clear tape similar to your husband lol"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0858-02",
+      "text": "Do you play Fantasy football?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 858,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i attended a congregation a lot when i was younger . not so much now ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i believe if you are a kind person , that is all that matters !"
+        },
+        {
+          "role": "free_human",
+          "text": "That is very true. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "When I was younger, I too attended a congregation. As I got older I stopped going"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0189-08",
+      "text": "I have only driven through Mississippi. Texas is typical bipolar weather Texas. It's in the 40's and raining. I was wearing shorts 3 days ago though",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 189,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "cool , i've a moped , its chill to drive"
+        },
+        {
+          "role": "guided_seed",
+          "text": "where are you from now ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I'm from Texas. How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i'm from mississippi . just moved back here from austin texas"
+        },
+        {
+          "role": "free_human",
+          "text": "Ahh! You must of seen moped's around Austin. I would imagine it would be an easy way to get around for college kids."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I remember seeing some on the street that just looked like motorized bikes."
+        },
+        {
+          "role": "free_human",
+          "text": "My oldest son is in College and he wants an electric scooter to get to classes on the other side of campus. What made you leave Austin?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "the shed . we had some leaks , and broken trees . half the town got torn apart ."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh wow! I am sorry to hear that. How is Mississippi treating you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Pretty good so far. How about you?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0589-08",
+      "text": "haha yeah, you will get there tho! and i'm stay at home dad! love every second of it! How about you?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 589,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what happened with your mom ? i use to write for the paper ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "she left us when we were young"
+        },
+        {
+          "role": "free_human",
+          "text": "sorry to hear that. well if you ever need to talk about it, you know where my condo is bud."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thanks, I really appreciate that.  I can't wait until I'm old enough to have my own place.  Did writing pay you well?"
+        },
+        {
+          "role": "free_human",
+          "text": "no problem! yeah its really great. Met my gf here she lives next door. It does when when the price is right haha."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh, sweet! That worked out lol Good to know, I'm taking a journalism class now and am interested in writing. Need to make enough to move out, though :p"
+        },
+        {
+          "role": "free_human",
+          "text": "It's good when you hit the right job! and i used to be in the same boat, so i get it haha."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Cool, maybe I should start looking now lol  I've got a couple more years in school and have been saving money, but a job would help a lot."
+        },
+        {
+          "role": "free_human",
+          "text": "helps to always have a plan and a side hustle no matter what."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Truth!  Looks like you did all right ;)  Beyond work, what do you like doing?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0789-02",
+      "text": "What kind of engineering do you do?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 789,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "really ? can you get me a job . i am abd ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "what is your course of study ? i can find out ."
+        },
+        {
+          "role": "free_human",
+          "text": "Computer Science. I'd really like to be a programmer."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work in the Engineering Department at Westmount community College, they are always looking for IT. Send me your resume"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0186-00",
+      "text": "I'm still working on it and my boy is 12. lol But I have found something that works for me now.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 186,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "it is crazy . somehow i'm still overweight even though i run after them all day"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it took me 2 years to lose any baby weight"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0686-04",
+      "text": "I never been to a rock show sounds interesting. My wife works as a mechanic so we don't go out much.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 686,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes , that is a good one ! do you like old comedies ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "some , i like old movies more . and art film . i want to be a curator ."
+        },
+        {
+          "role": "free_human",
+          "text": "That is a great career I would love to be a yoga instructor someday. Do you do yoga."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I've never tried it but considered it. It seems a little intimidating "
+        },
+        {
+          "role": "free_human",
+          "text": "No not really it is so relaxing and gives you a piece of mind you should try it. What hobbies do you like?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like going to rock shows, meditation, spending time with my children, drawing"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0216-06",
+      "text": "I like finding old cars and restoring them and then selling them. Although sometimes I fall in love with the old junky ones and end up keeping them myself",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 216,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yep , i love to work on cars , airplanes , love to keep busy ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "very nice , how much do you make a year ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I freelance, so it varies quite a bit. On a good year I'm on the six figure fringe."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Wow, that's awesome. For my job, I help build cars. I love my job, but it only makes 30k per year."
+        },
+        {
+          "role": "free_human",
+          "text": "Nothing wrong with that, the most important thing is whether or not it's something you're passionate about and enjoy doing."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's true, for sure. I have met many people who made a lot that did not seem happy or who did not enjoy their jobs."
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, freelancing suits me pretty well. I have a hard time sitting still so being able to bounce around and do whatever feels right is nice. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I rather like having a predictable schedule but it is certainly not for everyone. What is your side gig?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0398-00",
+      "text": "I have two older half brothers, one younger half brother, and a younger half sister. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 398,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "ok , i shall call you luke"
+        },
+        {
+          "role": "guided_seed",
+          "text": "do you have any siblings ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0395-10",
+      "text": "How big is your family? Do you have lot of kids?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 395,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "we will , there is no stopping that . i try to convey that in my work ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "what do you do for work ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't work. I am a full time buddhist. So I meditate 10 hours every day"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you feel like that helps or hinders your personal life?"
+        },
+        {
+          "role": "free_human",
+          "text": "It help. Consumerism is detrimental to human life. You don't need a lot to live a worthful life."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "how do you pay bills? I couldn't survive without my job"
+        },
+        {
+          "role": "free_human",
+          "text": "On donation. Its not a lot, but I don't need a lot. I only eat rice with vegetables and drink only water to purify my body."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "wow thats interesting. I don't think i could do that, I have a big family"
+        },
+        {
+          "role": "free_human",
+          "text": "I understand its not for everyone. If you are interested, you can start by being vegan. Its a good step in the right direction"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Can't do that lol I love meat too much. I am an avid hunter, and fisherman. I live off what I harvest. "
+        },
+        {
+          "role": "free_human",
+          "text": "Its another way of living life. We believe in reincarnation so for me, all animals are sacred."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand and I respect that"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0802-00",
+      "text": "I grew up in Mississippi so I am used to it being hot",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 802,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i usually do not go anywhere . i do like cold weather , howver"
+        },
+        {
+          "role": "guided_seed",
+          "text": "however what is wrong with cold weather and you ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0008-02",
+      "text": "I had a near death experience after crashing my sports car.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 8,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi ! doing well , how about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "great how are you doing ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I am doing ok. I have had some crazy experiences recently."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Honestly I have too, what sort of crazy experiences?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0475-02",
+      "text": "What are some of your favorite outdoor activities? I love visiting national parks, any water sports, camping, and hiking.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 475,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hello alex , my name is molly !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "nice to meet you ! what do you do for fun ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Still figuring it out a little since I'm just eighteen and fresh out of high school with honors! Anything outdoors I love though. You?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I enjoy outdoors a lot!"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0288-08",
+      "text": "not really but average",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 288,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do in my spare time it rules"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool , i want to retire soon , how about you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "not yet"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "This is my passion to retire in Hawaii after 10 years. I don't know why?"
+        },
+        {
+          "role": "free_human",
+          "text": "its looking good"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I heard a lot about Hawaii but never visited the place."
+        },
+        {
+          "role": "free_human",
+          "text": "i like hawaii and you"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Never visited before but read a lot about it and heard about it from my friends."
+        },
+        {
+          "role": "free_human",
+          "text": "yes, it is a beautiful place"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Is living there expensive?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0201-10",
+      "text": "So whats your dream job?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 201,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that happens , but being content with what love they had left for you is good ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i suppose . its why i am in therapy . depression is real ."
+        },
+        {
+          "role": "free_human",
+          "text": "It's difficult to cope with."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, it is some days are good but not all. sigh"
+        },
+        {
+          "role": "free_human",
+          "text": "It really helps to have a job you love, my mother was a teacher and even when she felt down she was happy to always teach."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That true. school just ways down on the mind to get the dream job."
+        },
+        {
+          "role": "free_human",
+          "text": "My dream job has always been to be a nascar driver. The first car I drove was a stickshift, my parents were able to teach me."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That seem nice but I don't know to drove a stick-shift."
+        },
+        {
+          "role": "free_human",
+          "text": "It is not too difficult! you can always learn!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah but I don't know anyone with a stick-shift."
+        },
+        {
+          "role": "free_human",
+          "text": "That is a problem, haha. Maybe your future car could be one!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "lol. I can only dream."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0252-08",
+      "text": "you are always welcome",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 252,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what is wrong ? are the teachers bullying you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no but the kids at my school are . i am in high school and worry about money"
+        },
+        {
+          "role": "free_human",
+          "text": "Why dont you do some partime job?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do work part time for a little money"
+        },
+        {
+          "role": "free_human",
+          "text": "where do you work?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work at the grocery store"
+        },
+        {
+          "role": "free_human",
+          "text": "how are your studies going on"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "pretty good, as long as I do my assigned work I do well"
+        },
+        {
+          "role": "free_human",
+          "text": "good to hear you should do good in studies so next you settle in good job"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "thanks, yep that would be good"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0488-10",
+      "text": "Yeah, living downtown gets pretty expensive! I usually take taxis if I need to go around. I hate public transit. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 488,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love country music and it was such a shock , he was only 50"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love country music too . but hey this stuff happens"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah, at-least his music will still be around for us to listen! "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "true, true. the great legends never really die! do you like old country mostly or the newer stuff?"
+        },
+        {
+          "role": "free_human",
+          "text": "I like the older stuff, Charlie Daniels is one of my favourite artists. What about yourself ?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love the old, sad country music, Merle Haggard, Waylon Jennings. I'm not up on current music though. I usually listen to podcasts or audiobooks in the car "
+        },
+        {
+          "role": "free_human",
+          "text": "What audio books are you listening to at the moment? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I just finished Education: A Memoir and trying to decide what to listen to next. Do you like audiobooks?"
+        },
+        {
+          "role": "free_human",
+          "text": "I haven't really tried listening to any. Call me old school but I like having the physical book in hand. Maybe look up something to do with country music? "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Lots of people do prefer hardcopy bound books, nothing wrong with that. I dislike driving, so it's a good safe distraction for me to have something to listen to"
+        },
+        {
+          "role": "free_human",
+          "text": "t is a safe distraction alright! I'm 23 and still haven't got my license yet. It gets pretty hard getting around in Tennessee. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh I bet. How do you get around? You must live in a downtown area with lots to do within walking distance?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0080-12",
+      "text": "That is can be an issue. I try not to read only about homicides. it helps",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 80,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "nice . i'm into true crime book . not much time to do anything else ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "few years , play for baltimore orioles ."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh thats nice. how long have you been doing that?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Since i can remember . I really enjoy it and I've learned a lot. "
+        },
+        {
+          "role": "free_human",
+          "text": "thats very nice. do you like caramel cappuccino's? they are my favorite drink. Maybe we could get some sometime."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Those are really good.  Have you had the Creme Brule' ones with the crunchy caramel pieces on top from Starbucks?"
+        },
+        {
+          "role": "free_human",
+          "text": "I haven't. Are they any good? it sounds good."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It's probably my favorite one.  I like the crunch of the sugar.  I'm a texture person.  They should start having them around the holidays again."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh i like that. I'll have to try one when they are available. I doubt it will dethrone my favorite drink but I do like to try new things."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I totally get it.  I would never want to dethrone someone's favorite.  Haha!  So what do you for a living?"
+        },
+        {
+          "role": "free_human",
+          "text": "I work retail. Wish i could be reading for money instead, but it pays the bills."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand.  I bet you have some good stories to tell from your job. "
+        },
+        {
+          "role": "free_human",
+          "text": "Oh yes. plenty. I read true crime because I can enjoy a satisfying true story but it doesn't remind me of work."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "True crime is cool.  Sometimes it gets into my head a little too much.  I try not to let it scare me."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0557-04",
+      "text": "What do you dream about?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 557,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am single as well . i am trying to get better at piano to impress them ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i can't concentrate too . . . always daydreaming at work"
+        },
+        {
+          "role": "free_human",
+          "text": "What do you do for work?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i work to . but i daydream so much that i forget sometimes that i've a job"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't daydream so much,"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I don't believe we are supposed to remember our dreams so don't feel too bad. Scientists don't even fully understand the purpose of why we have dreams."
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0459-06",
+      "text": "lol now that's fun.  I like to swim and was a swimmer back in my college years.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 459,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes ! ! getting ready to check on the lovely roses in the garden"
+        },
+        {
+          "role": "guided_seed",
+          "text": "roses are pretty i may knit something by my window"
+        },
+        {
+          "role": "free_human",
+          "text": "you knit? That's awesome.  How long have you done that?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "it's been about 2 years now or more. when i got my cat speckles i would sit by the window with him for hours on end sometimes. Hows your garden?"
+        },
+        {
+          "role": "free_human",
+          "text": "My garden is just lovely but this rain has been a real damper on it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": " I understand. I don't like bad weather either. It looks like rain here today too I hope not alot, I want to visit a roftop patio for drinks later!"
+        },
+        {
+          "role": "free_human",
+          "text": "Sounds like fun.  What do you like to do in your spare time?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Listening to music and playing board gameswith my cat. Like cavemen. Lol"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0451-10",
+      "text": "Who's your favorite band?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 451,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do as well . i also like fashion a lot ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i currently have alot of kids"
+        },
+        {
+          "role": "free_human",
+          "text": "How many kids do you have?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "2- but that is a lot, trust me."
+        },
+        {
+          "role": "free_human",
+          "text": "I wouldn't know, I don't have any kids.  Do you have time for yourself with 2 kids?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not really. I used to follow my favorite band's tour, but not anymore. :("
+        },
+        {
+          "role": "free_human",
+          "text": "That's too bad.  I would love to be a band's fashion coordinator.  It would be right up my alley."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds like fun! I always assumed bands just put on whatever clothes they felt like."
+        },
+        {
+          "role": "free_human",
+          "text": "That's what they want you to think, but the biggest bands have their outfit coordination down to a science."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Hmm ,never really thought about it that way. Why do you think that is?"
+        },
+        {
+          "role": "free_human",
+          "text": "I think it's just all about image and what they try to portray.  Are you influenced by the way band's look, or just their music?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Their look doesn't matter much to me- I'm all about the music!"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0879-10",
+      "text": "Silly me, never thought about the lakes. ",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 879,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do it when on the phone with my mom"
+        },
+        {
+          "role": "guided_seed",
+          "text": "interesting . do you have a family of your own ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do I have 3 kids, and an awesome husband."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "So you've got an American Dad? Haha - I love that show"
+        },
+        {
+          "role": "free_human",
+          "text": "I have an American dad yes. Are you American?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes i live in Missouri. I have a daughter and an amazing husband as well!! "
+        },
+        {
+          "role": "free_human",
+          "text": "That is great. I just took a trip to Auora Mo. two weeks ago. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Small world, I live at the Lake of the Ozarks."
+        },
+        {
+          "role": "free_human",
+          "text": "About 150 miles from where I recently was. We should've met up."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Huh, yeah you could of come to my farm and let your kiddo's feed my baby cows!"
+        },
+        {
+          "role": "free_human",
+          "text": "That'd been awesome. Do you have a pond I could fish in?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No sorry no pond but the Lake is close to fish at, we just have land and cattle. "
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0167-10",
+      "text": "Like it wouldnt be so miserable if the humidity wasnt so high, but what can you do right.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 167,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes . lol . where are you from ? i was born in georgia ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i was born in florida , so not far ! love the warm weather"
+        },
+        {
+          "role": "free_human",
+          "text": "Personally I am not a big fan of all the humidity"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes, neither are my cats! Their hair is so thick it can get unruly"
+        },
+        {
+          "role": "free_human",
+          "text": "Oh you have cats! Adorable! I love cats. My little black cat loves to sit outside and hunt lizards on the porch"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's adorable! I love my cats like they are my children."
+        },
+        {
+          "role": "free_human",
+          "text": "I am the same way."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They enjoy it much better than where I grew up, in North Dakota."
+        },
+        {
+          "role": "free_human",
+          "text": "North Dakota huh? I grew up in Canada actually, my dad is canadian."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That is cool! Everyone that comes from there is so tough when it comes to the cold."
+        },
+        {
+          "role": "free_human",
+          "text": "I love the cold, its why i hate the heat so much"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That is totally understandable"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0318-04",
+      "text": "It's true what they say, it's a city that never sleeps. The art, culture and of course 24/7 FOOD! Such great Italian near by!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 318,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "thank you for your kindness"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i jut adore kind people"
+        },
+        {
+          "role": "free_human",
+          "text": "Its so rare here in NYC for people to hold doors! Ive been here a month I'm a freshman at NYU"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Do you like it there how has it been for you so far?"
+        },
+        {
+          "role": "free_human",
+          "text": "Its great, just adjusting to city life. My three older sisters went here too, Im the youngest...they set the tradition! lol"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That is awesome I have never been what is your favorite thing about it?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0023-06",
+      "text": "Interesting, I went to a lot of schools as a kid because my mom was a Navy lifer.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 23,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i m nervous and knaw at my nails ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "where do you work at"
+        },
+        {
+          "role": "free_human",
+          "text": "I work for a large baby clothes manufacturer, How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh wow!  I have actually worked there too"
+        },
+        {
+          "role": "free_human",
+          "text": "That is crazy! What did you do there?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I was a buyer for retail stores. "
+        },
+        {
+          "role": "free_human",
+          "text": "Very cool! What kind of education does that take?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Just a bachelor's degree in fashion.  I chose a school near the coast since I love the beach. "
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0678-10",
+      "text": "My favorite would probably have to be Nightmare on Elm Street, its a classic!",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 678,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "dogs are awesome . i think a sausage and egg burrito sounds good today lol"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i like burritos , and love to go to taco bell"
+        },
+        {
+          "role": "free_human",
+          "text": "What is your favorite type of burrito?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My favorite is a beef burrito with a lot of guacamole, and cheese."
+        },
+        {
+          "role": "free_human",
+          "text": "Same here! I love Taco bell, I used to go often when I travel with my band"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I used to go to Taco Bell a lot but now I prefer the local shops. What kind of music did your band played ?"
+        },
+        {
+          "role": "free_human",
+          "text": "We played pop punk and indie mostly. Sometimes it was a little heavier. What is your favorite band?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My favorites are Rolling Stones and Police. "
+        },
+        {
+          "role": "free_human",
+          "text": "My favorite band is The Story So Far, but I really like the Rolling Stones too. Rush is my other favorite band."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The Story So Far ! I need to check that out. Rush is very good too ! Do you like any other kind of entert"
+        },
+        {
+          "role": "free_human",
+          "text": "I like going to movies when I have the time, especially horror."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Horror movies are appropriate for this week. What is your favorite horror movie ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0646-04",
+      "text": "i have been a home body this week due to the weather. Is it cold where you are?",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 646,
+      "sampling_length_bin": "16-30",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "school can be fun , the kids make fun of my donna karen clothes !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "too bad ! they should have better taste in clothes . ha ha !"
+        },
+        {
+          "role": "free_human",
+          "text": "Donna Karen is my favorite brand, I dont care what the other kids think. what brand do you like to wear?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I wear whatever I can afford and try to make it look nice."
+        },
+        {
+          "role": "free_human",
+          "text": "thats a good motto. I only dress nice when I go to the symphony orchestra. Where do you like to go for fun?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am a bit of a home body. Don't enjoy getting out."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-valid-word-r01-0168-02",
+      "text": "tell me more about it",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 168,
+      "sampling_length_bin": "1-5",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "listen to my favorite band , fine frenzy , you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love that band ! ! they are awesome"
+        },
+        {
+          "role": "free_human",
+          "text": "yes they are"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i cannot waitto start my new life"
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-word-r01-0471-00",
+      "text": "That is amazing I like painting with my two sons.",
+      "source": "en",
+      "target": "sw",
+      "conversation_index": 471,
+      "sampling_length_bin": "6-15",
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "so what do you like to do ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love going to the ocean"
+        }
+      ]
+    }
+  ]
+}
