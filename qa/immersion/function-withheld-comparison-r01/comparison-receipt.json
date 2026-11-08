@@ -1,0 +1,1607 @@
+{
+  "schema": 1,
+  "production": false,
+  "input_bindings": {
+    "packet": {
+      "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/review-packet.json",
+      "sha256": "99d01928a043e31c37731819592f66837e2c4b804929238c5e66a905f6d6311c"
+    },
+    "author": {
+      "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/author-review-r01.json",
+      "sha256": "1944b1700bb3f56efa512e9322d89807a7d65651b83f6df2f6f86a2e0ec72821"
+    },
+    "root": {
+      "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/root-review-r01.json",
+      "sha256": "88f3d4b9920d4c42ed4bf38cd579c35ac07a159efeca656948b03c3cff43835a"
+    }
+  },
+  "normalizer_sha256": "9200284e5525ab0c638d2ef91560cb204cd3f5e66dbc0179f4ff6dae5c7b0d70",
+  "join_script": {
+    "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/join_reviews.py",
+    "sha256": "6db6d0e951eb161eaff0c060712a2045a362fcaf7b284e439e140ac080b306a6"
+  },
+  "private_join": {
+    "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/joined-reviews-r01.json",
+    "sha256": "51ebb6a6d60c5bcaeb193f496e472c2c413da636c325732e4769c24594345551"
+  },
+  "original_labels_exactly_preserved": true,
+  "denominators": {
+    "cases": 16,
+    "union_units": 48,
+    "arms": 6
+  },
+  "summary": {
+    "author": {
+      "original": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 5,
+          "minor_tolerant_pass": 9,
+          "empty": 0,
+          "defect": 6,
+          "unresolved": 1,
+          "selected_units": 39,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "after": {
+          "strict_pass": 5,
+          "minor_tolerant_pass": 9,
+          "empty": 1,
+          "defect": 6,
+          "unresolved": 0,
+          "selected_units": 31,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013"
+        ],
+        "lost_valid_content": [],
+        "removed": 8,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 0,
+        "removed_valid_function": 4
+      },
+      "eligible_links": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 6,
+          "minor_tolerant_pass": 10,
+          "empty": 0,
+          "defect": 6,
+          "unresolved": 0,
+          "selected_units": 38,
+          "accepted_content_units": 23,
+          "accepted_content_words": 23,
+          "source_words": 205,
+          "accepted_content_depth": 0.11219512195121951
+        },
+        "after": {
+          "strict_pass": 6,
+          "minor_tolerant_pass": 9,
+          "empty": 2,
+          "defect": 5,
+          "unresolved": 0,
+          "selected_units": 27,
+          "accepted_content_units": 21,
+          "accepted_content_words": 21,
+          "source_words": 205,
+          "accepted_content_depth": 0.1024390243902439
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 2,
+        "removed_valid_function": 5
+      },
+      "apple_disagreement_veto": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 12,
+          "empty": 0,
+          "defect": 4,
+          "unresolved": 0,
+          "selected_units": 34,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "after": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 2,
+        "removed_valid_function": 5
+      },
+      "apple_role_required": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 14,
+          "empty": 0,
+          "defect": 1,
+          "unresolved": 1,
+          "selected_units": 30,
+          "accepted_content_units": 24,
+          "accepted_content_words": 24,
+          "source_words": 205,
+          "accepted_content_depth": 0.11707317073170732
+        },
+        "after": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 13,
+          "empty": 2,
+          "defect": 1,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 21,
+          "accepted_content_words": 21,
+          "source_words": 205,
+          "accepted_content_depth": 0.1024390243902439
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-009",
+            "union_indices": [
+              3
+            ]
+          },
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 7,
+        "added": 0,
+        "removed_defect": 1,
+        "removed_unresolved": 1,
+        "removed_valid_content": 3,
+        "removed_valid_function": 2
+      },
+      "opennlp_disagreement_veto": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 12,
+          "empty": 0,
+          "defect": 4,
+          "unresolved": 0,
+          "selected_units": 34,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "after": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 2,
+        "removed_valid_function": 5
+      },
+      "opennlp_role_required": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 6,
+          "minor_tolerant_pass": 10,
+          "empty": 1,
+          "defect": 5,
+          "unresolved": 0,
+          "selected_units": 30,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "after": {
+          "strict_pass": 7,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-009",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 7,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 2,
+        "removed_valid_function": 1
+      }
+    },
+    "root": {
+      "original": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 8,
+          "minor_tolerant_pass": 9,
+          "empty": 0,
+          "defect": 6,
+          "unresolved": 1,
+          "selected_units": 39,
+          "accepted_content_units": 22,
+          "accepted_content_words": 22,
+          "source_words": 205,
+          "accepted_content_depth": 0.1073170731707317
+        },
+        "after": {
+          "strict_pass": 8,
+          "minor_tolerant_pass": 9,
+          "empty": 1,
+          "defect": 6,
+          "unresolved": 0,
+          "selected_units": 31,
+          "accepted_content_units": 21,
+          "accepted_content_words": 21,
+          "source_words": 205,
+          "accepted_content_depth": 0.1024390243902439
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              4
+            ]
+          }
+        ],
+        "removed": 8,
+        "added": 0,
+        "removed_defect": 2,
+        "removed_unresolved": 1,
+        "removed_valid_content": 1,
+        "removed_valid_function": 4
+      },
+      "eligible_links": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 10,
+          "minor_tolerant_pass": 10,
+          "empty": 0,
+          "defect": 6,
+          "unresolved": 0,
+          "selected_units": 38,
+          "accepted_content_units": 24,
+          "accepted_content_words": 24,
+          "source_words": 205,
+          "accepted_content_depth": 0.11707317073170732
+        },
+        "after": {
+          "strict_pass": 9,
+          "minor_tolerant_pass": 9,
+          "empty": 2,
+          "defect": 5,
+          "unresolved": 0,
+          "selected_units": 27,
+          "accepted_content_units": 21,
+          "accepted_content_words": 21,
+          "source_words": 205,
+          "accepted_content_depth": 0.1024390243902439
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              4,
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 2,
+        "removed_unresolved": 1,
+        "removed_valid_content": 3,
+        "removed_valid_function": 5
+      },
+      "apple_disagreement_veto": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 12,
+          "minor_tolerant_pass": 12,
+          "empty": 0,
+          "defect": 4,
+          "unresolved": 0,
+          "selected_units": 34,
+          "accepted_content_units": 23,
+          "accepted_content_words": 23,
+          "source_words": 205,
+          "accepted_content_depth": 0.11219512195121951
+        },
+        "after": {
+          "strict_pass": 12,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              4,
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 2,
+        "removed_unresolved": 1,
+        "removed_valid_content": 3,
+        "removed_valid_function": 5
+      },
+      "apple_role_required": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 14,
+          "minor_tolerant_pass": 14,
+          "empty": 0,
+          "defect": 1,
+          "unresolved": 1,
+          "selected_units": 30,
+          "accepted_content_units": 25,
+          "accepted_content_words": 25,
+          "source_words": 205,
+          "accepted_content_depth": 0.12195121951219512
+        },
+        "after": {
+          "strict_pass": 13,
+          "minor_tolerant_pass": 13,
+          "empty": 2,
+          "defect": 1,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 21,
+          "accepted_content_words": 21,
+          "source_words": 205,
+          "accepted_content_depth": 0.1024390243902439
+        },
+        "gained_nonempty_pass": [
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-013",
+            "union_indices": [
+              1
+            ]
+          },
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              4,
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 7,
+        "added": 0,
+        "removed_defect": 0,
+        "removed_unresolved": 1,
+        "removed_valid_content": 4,
+        "removed_valid_function": 2
+      },
+      "opennlp_disagreement_veto": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 12,
+          "minor_tolerant_pass": 12,
+          "empty": 0,
+          "defect": 4,
+          "unresolved": 0,
+          "selected_units": 34,
+          "accepted_content_units": 23,
+          "accepted_content_words": 23,
+          "source_words": 205,
+          "accepted_content_depth": 0.11219512195121951
+        },
+        "after": {
+          "strict_pass": 12,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013",
+          "role-veto-021"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              4,
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 11,
+        "added": 0,
+        "removed_defect": 2,
+        "removed_unresolved": 1,
+        "removed_valid_content": 3,
+        "removed_valid_function": 5
+      },
+      "opennlp_role_required": {
+        "denominator": 16,
+        "before": {
+          "strict_pass": 10,
+          "minor_tolerant_pass": 10,
+          "empty": 1,
+          "defect": 5,
+          "unresolved": 0,
+          "selected_units": 30,
+          "accepted_content_units": 23,
+          "accepted_content_words": 23,
+          "source_words": 205,
+          "accepted_content_depth": 0.11219512195121951
+        },
+        "after": {
+          "strict_pass": 12,
+          "minor_tolerant_pass": 12,
+          "empty": 2,
+          "defect": 2,
+          "unresolved": 0,
+          "selected_units": 23,
+          "accepted_content_units": 20,
+          "accepted_content_words": 20,
+          "source_words": 205,
+          "accepted_content_depth": 0.0975609756097561
+        },
+        "gained_nonempty_pass": [
+          "role-veto-002",
+          "role-veto-009",
+          "role-veto-018"
+        ],
+        "lost_nonempty_pass": [
+          "role-veto-013"
+        ],
+        "lost_valid_content": [
+          {
+            "review_id": "role-veto-013",
+            "union_indices": [
+              1
+            ]
+          },
+          {
+            "review_id": "role-veto-014",
+            "union_indices": [
+              5
+            ]
+          },
+          {
+            "review_id": "role-veto-017",
+            "union_indices": [
+              2
+            ]
+          }
+        ],
+        "removed": 7,
+        "added": 0,
+        "removed_defect": 3,
+        "removed_unresolved": 1,
+        "removed_valid_content": 3,
+        "removed_valid_function": 0
+      }
+    }
+  },
+  "inherited_disagreements": [
+    {
+      "review_id": "role-veto-001",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-001",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-002",
+      "union_index": 4,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-006",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-006",
+      "union_index": 1,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": null,
+          "completeness": "uncertain",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "uncertain",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 3,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "utility",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-009",
+      "union_index": 4,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-010",
+      "union_index": 0,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-013",
+      "union_index": 1,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 0,
+      "axes": [
+        "form_or_role",
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 2,
+      "axes": [
+        "completeness",
+        "entity_or_idiom_flag",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "changed_unverified",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 3,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-014",
+      "union_index": 4,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "completeness",
+        "utility",
+        "defect",
+        "strict_pass",
+        "minor_tolerant_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-017",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "completeness",
+        "utility",
+        "uncertain"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "wrong",
+          "separate_role": "uncertain",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": true,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-017",
+      "union_index": 2,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-018",
+      "union_index": 3,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": null,
+          "completeness": "uncertain",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "uncertain",
+          "form_or_role": "uncertain",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": true,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-018",
+      "union_index": 4,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-021",
+      "union_index": 0,
+      "axes": [
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 0,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 1,
+      "axes": [
+        "completeness",
+        "utility"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": null,
+          "completeness": "incomplete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "none_or_unresolved",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        },
+        "root": {
+          "meaning": "material_error",
+          "form_or_role": "wrong",
+          "separate_role": "wrong",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "function",
+          "defect": true,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": false
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-022",
+      "union_index": 3,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    },
+    {
+      "review_id": "role-veto-026",
+      "union_index": 1,
+      "axes": [
+        "meaning",
+        "form_or_role",
+        "strict_pass"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor",
+          "form_or_role": "minor",
+          "separate_role": null,
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": false,
+          "minor_tolerant_pass": true
+        },
+        "root": {
+          "meaning": "correct",
+          "form_or_role": "compatible",
+          "separate_role": "compatible",
+          "completeness": "complete",
+          "entity_or_idiom_flag": "not_flagged",
+          "utility": "content",
+          "defect": false,
+          "uncertain": false,
+          "strict_pass": true,
+          "minor_tolerant_pass": true
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Earlier joined reviews were seen; this is not fresh blinded independence.",
+    "Prior stratified reused-TRAIN diagnostic cases, no population estimate.",
+    "Catalog-function withholding is not a user-knowledge claim and catalog categories are incomplete.",
+    "No new units, target selection, model, corpus run or activation."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "complete": true,
+  "production": false,
+  "semantic_labels_present": false,
+  "protocol": {
+    "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/protocol.json",
+    "sha256": "a5d59d124b8aa7e43325c5730ef444effac1fa467e3830133ba6ba33eb25dcdb"
+  },
+  "code_sha256": "9b7a2a68300925efd6ca10a52a8cbf507e067119be7f7e3aef35ec70137b31d6",
+  "inputs": {
+    "review-packet.json": "daef98710599c6465a2b82938191d20c069ab6a1183c55582b320f17bf56032f",
+    "decisions.jsonl.gz": "e03d01351134f3b4843eb99caed2b55cbc094434ce7c784de72159c41be4e409",
+    "complete-baseline-cache.jsonl.gz": "3e466387446c88a9d9067b3b413b95e7df48597e922cb0c53379e589b19a6328"
+  },
+  "totals": {
+    "cases": 16,
+    "before_outputs_verified": 96,
+    "prior_union_units": 48,
+    "added_union_units": 0,
+    "union_units": 48,
+    "after_only_units": 0
+  },
+  "seconds": 2.278541427105665,
+  "measurement": {
+    "VmPeak": 51912704,
+    "VmHWM": 29552640,
+    "VmRSS": 29552640
+  },
+  "free_bytes_before": 9452945408,
+  "free_bytes_after": 9452142592,
+  "bounds": {
+    "threads": 1,
+    "max_seconds": 60,
+    "max_process_address_space_bytes": 268435456,
+    "max_added_output_bytes": 16777216,
+    "minimum_free_bytes": 8589934592
+  },
+  "outputs": {
+    "review-packet.json": {
+      "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/review-packet.json",
+      "sha256": "99d01928a043e31c37731819592f66837e2c4b804929238c5e66a905f6d6311c",
+      "bytes": 790065
+    },
+    "execution-freeze.json": {
+      "path": "/home/ai/Development/investigations/vipi-function-withheld-comparison-20261108-r01/assembly-r01/execution-freeze.json",
+      "sha256": "dd40e5aba4ccc95299e523c13109dbf38f980065117471ab6b4dcee342400749",
+      "bytes": 739
+    }
+  }
+}
