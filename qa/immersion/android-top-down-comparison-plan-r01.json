@@ -1,0 +1,148 @@
+{
+  "schema": "vipi-android-top-down-comparison-plan-1",
+  "state": "native_contract_proposal_waiting_frozen_data_and_arm_agreement",
+  "production_activation": false,
+  "new_grammar_framework": false,
+  "ownership": {
+    "data_inputs_semantic_assessments": "immersion_engine with root independent review",
+    "kotlin_probe_native_measurement": "android_delivery",
+    "promotion_release_baseline": "root"
+  },
+  "source": {
+    "android/app/src/main/java/co/fallsoft/vipi/ReviewedFrameLookup.kt": {
+      "working_sha256": "17509677f93a9ba185f7db3566df50676974d145324cf3a1426a6194e9059d0d",
+      "committed_sha256": "17509677f93a9ba185f7db3566df50676974d145324cf3a1426a6194e9059d0d"
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/ReviewedContextLookup.kt": {
+      "working_sha256": "ad18cf20ccfe8aa29887fc4af4c19b0a3d2ea267490debf2dacb8eda8d91fade",
+      "committed_sha256": "ad18cf20ccfe8aa29887fc4af4c19b0a3d2ea267490debf2dacb8eda8d91fade"
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/ReviewedContextRecord.kt": {
+      "working_sha256": "c108866f6b2008ada61d7b2a4d875fb43a4d0370c34b710b4fddaed99d8a184a",
+      "committed_sha256": "c108866f6b2008ada61d7b2a4d875fb43a4d0370c34b710b4fddaed99d8a184a"
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/LocalImmersion.kt": {
+      "working_sha256": "4805b5f9abd6dacda9ec8e0c1b8b37852c28a04b7be8232cf986a50bf274c02b",
+      "committed_sha256": "4805b5f9abd6dacda9ec8e0c1b8b37852c28a04b7be8232cf986a50bf274c02b"
+    },
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/ContextMapping.kt": {
+      "working_sha256": "897d93b560774132672add2fb686af0a84243feaf5b41f652d4f2166e7e08148",
+      "committed_sha256": "897d93b560774132672add2fb686af0a84243feaf5b41f652d4f2166e7e08148"
+    },
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/ContextFrame.kt": {
+      "working_sha256": "7afbba74be541f430b72c8d8b02d0a8eae90bd8e04232006b5a42383008c32d1",
+      "committed_sha256": "7afbba74be541f430b72c8d8b02d0a8eae90bd8e04232006b5a42383008c32d1"
+    },
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceReferencePresentation.kt": {
+      "working_sha256": "2d39a553a0064e77d09061d251529d859a4c563c92483fd795e44d9363b30297",
+      "committed_sha256": "2d39a553a0064e77d09061d251529d859a4c563c92483fd795e44d9363b30297"
+    },
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/LookupFirst.kt": {
+      "working_sha256": "aa4b5bfcc175d53a50fefe0b6263f2337d226749c143a5d3e7fd891e1fc30ee3",
+      "committed_sha256": "aa4b5bfcc175d53a50fefe0b6263f2337d226749c143a5d3e7fd891e1fc30ee3"
+    }
+  },
+  "existing_reusable_mechanisms": [
+    {
+      "component": "ReviewedFrameLookup.windows",
+      "actual": "Native sentence/word ranges; contiguous 1–8-word windows; exact original UTF16 geometry; French enumerated elision start; no cross-sentence windows.",
+      "bounds": {
+        "input_UTF16": 32768,
+        "window_UTF16": 256,
+        "windows": 4096
+      },
+      "limitation": "Current consumer needs full translation and target-side evidence. Returning these windows does not authorize source-only use of existing mappings."
+    },
+    {
+      "component": "ContextMappingMatcher.focus",
+      "actual": "Finite literal/focus/enumerated-slot matching against the entire supplied fragment. Exactly one focus; all input must be consumed.",
+      "bounds": {
+        "parts": 12,
+        "slot_alternatives": 32,
+        "active_states": 128,
+        "focus_UTF16": 128
+      },
+      "limitation": "Slots admit source context, not open text copying, target generation, target agreement or recursive grammar. Pure Focus needs existing ContextFrame lexical-unit path."
+    },
+    {
+      "component": "ReviewedContextLookup",
+      "actual": "Exact whole message, then exact complete sentences; ambiguity in matched whole is not erased by smaller-context fallback.",
+      "limitation": "No general decreasing-window traversal."
+    },
+    {
+      "component": "LocalImmersion",
+      "actual": "ICU sentence/word segmentation; existing Kuromoji for Japanese word units and read-only morphological tokens.",
+      "limitation": "No general multilingual morphological transducer; only existing explicit dictionary evidence can supply finite forms."
+    },
+    {
+      "component": "SourceReferencePresentation",
+      "actual": "Source-only phrase/unit slots, provenance, native token costs, mandatory non-Roman reading, original speech/copy and optional complete reference.",
+      "bounds": {
+        "original_UTF16": 16384,
+        "unit_UTF16": 128,
+        "units": 128
+      },
+      "limitation": "Structural anchoring is not semantic authorization. Does not create translations."
+    }
+  ],
+  "proposed_shared_comparison_arms": [
+    {
+      "id": "control",
+      "description": "Exact clean committed existing routing and separately frozen reviewed word-only candidate if its allowlist is approved; report independently rather than silently merging."
+    },
+    {
+      "id": "source_phrase",
+      "description": "Whole approved source reference first, then complete sentence/longest indexed native windows down to shorter windows; fixed approved target phrase only. No generated translation prerequisite."
+    },
+    {
+      "id": "finite_template",
+      "description": "Same phrase traversal plus finite enumerated source-context slots, with replacement limited to the explicitly reviewed focus. Slots remain original text unless a separate fully enumerated bilingual template is explicitly assessed."
+    },
+    {
+      "id": "attested_source_forms",
+      "description": "Same finite templates with independently supplied complete attested source forms/feature constraints. No stem fragment replacements, inferred target inflection, or arbitrary grammar rewriting."
+    }
+  ],
+  "selection_contract_to_freeze_before_output": {
+    "budget": "Retain native whole-word density budget; an over-budget phrase is not truncated to fit. Compare availability and achieved content-token depth separately.",
+    "context_vs_focus": "Report matched-context UTF16 span and emitted focus UTF16 span independently; a long context with one replaced noun is not a long phrase translation.",
+    "top_down": "Compare exact candidate longest-first ordering, deterministic ties, source-disjoint ranges and explicit ambiguity-veto semantics. Do not hide an incompatible longer-source claim by dropping to a shorter matching word.",
+    "scope": "Literal/URL/email/handle/code/name and contraction guards apply before every path; record rejections. Unknown/unmatched slots abstain.",
+    "known": "Use immutable known-concept snapshot before selection; legacy entries lacking IDs remain explicitly outside that claim. No exposure-as-mastery persistence.",
+    "origin": "No existing target-conditioned record becomes source-authorized merely because its source pattern matches. Data handoff must bind assessed record/hash/scope."
+  },
+  "qualification": {
+    "first": "Owner freezes schema, data hashes, arm rules, exact positive/negative authored controls and reused corpus input IDs before native outputs. No candidate training on evaluation outcomes.",
+    "native_probe": "Reuse existing emulator/API35 and native tokenizer; optional supplied rows are test-only. No new model downloads. Pure lookup arms make zero translation calls.",
+    "capture": [
+      "all inputs and exact original UTF16/native ranges",
+      "every matched context/focus and mapping/concept/record hash",
+      "selected/skipped IDs, budget and explicit rejection reasons",
+      "provider readiness/translation/alignment counters",
+      "first and warm elapsed time, process memory observations and packaged bytes",
+      "paired outputs at agreed densities, original/source-script audio unchanged"
+    ],
+    "negative_controls": [
+      "partial word/inflected-root rejection",
+      "same spelling with competing senses and a missing target",
+      "pronoun/name/possessive slot allowed versus unknown or code/URL text",
+      "negation, tense, agreement and sentence boundaries outside approved scope",
+      "literal ID preservation including non-BMP/combining marks",
+      "repeated occurrences, overlap, over-budget phrase and known-concept filtering"
+    ],
+    "UI_after_component_evidence": "One actual ChatScreens representative phrase/template path with stable continuous flip, Copy original, original-script audio and explicit full-reference extension. Curated demo is not coverage evidence.",
+    "release_baseline": "Root-owned separate clean committed snapshot excludes inherited unqualified infinitive deltas. Canonical dirty files remain preserved."
+  },
+  "open_dependencies": [
+    "Immersion owner final compact schema and per-record source-only authority",
+    "Frozen top-down comparison inputs/arms and ordering/ambiguity rules",
+    "Root clean baseline commit/snapshot before final app/provider qualification"
+  ],
+  "not_claimed": [
+    "General phrase/template architecture already shipped",
+    "90 percent coverage",
+    "Correct full grammar generation",
+    "Cross-language universal concept mastery",
+    "New-corpus generalization from reused diagnostics"
+  ]
+}
