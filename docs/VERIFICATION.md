@@ -1,5 +1,69 @@
 # Verification ledger
 
+## Native interaction and lookup checkpoint — November 8, 2026, 02:55 UTC
+
+Android's eight curated current-renderer cases pass English↔Arabic, Japanese,
+Korean and Chinese. Forward cases use light appearance at normal system text
+size; reverse cases use dark appearance at actual system font scale 1.8. Each
+observes four continuous phase changes with identical geometry, script/reading
+selection, two real player starts with unchanged cached audio on repeat, draft
+pause/resume and history-scroll return. Source originals remain unchanged.
+Root separately inspected the reading frames, including Korean particles and
+Chinese punctuation. These use existing accepted catalog examples and synthetic
+transport; they are not new semantic-coverage or network-delivery evidence.
+Audio timing is an observation bound from UI action to sampled AudioTrack state,
+not measured acoustic latency. The reproducible QA source is `011d729`.
+
+Actual OS text-size changes exposed separate live-app defects: Android returned
+an open conversation to Home after Activity recreation, while Apple could leave
+its timeline blank after reflow. Android's scoped fix `9a39686` now preserves
+the same-account route. An actual 1.0→1.8→1.0 OS setting change retained the
+existing real conversation, with six observed automatic face changes at each
+size and no messages sent. Root inspected both repeating faces at both sizes.
+Apple's candidate remains under qualification. The prior largest-font-at-launch
+checks did not cover these transitions.
+
+The next source-only experiment uses 219 forms, representing 158 concept groups
+after correcting four singular/plural aliases in reporting. The frozen matching
+data and outcomes are unchanged. On its disjoint 80-message sample, the expanded
+vocabulary/question policy reaches 69 clean useful messages versus 62 for the
+100-entry control, and 35 through content words versus 28. Root's label-blind
+24-message review agrees on 50/53 selected scopes; three infinitive grammar
+differences remain explicit. Removing already-known `I/and/but` reduces reach
+to 57/80, and content-only plus 25 learned frequent concepts reduces it to 18/80.
+This is useful beginner exposure, not sustained intermediate-level coverage.
+
+A further frozen fifteen-clause experiment on another disjoint 80 dialogues
+adds useful finite clauses to 11 already-reached messages. Correct changed-word
+depth rises 8.53%→9.43%, and content-bearing messages 42→44, but clean availability
+stays 62/80. Only six clause rules are exercised. Root's blind subset agrees on
+51/55 scopes; four older infinitive labels differ by minor grammar severity.
+Two inherited pragmatic `same here` cases remain uncertain. The frozen coverage
+gate fails and these packs remain research-only (`af6df80`, `76e1b23`). Japanese
+meaning/reading transfer is the next check. The existing native partial-result
+contract can represent reviewed source units, but partial hits currently still
+trigger full local translation; simply shipping a larger pack does not remove
+those calls. Deferring translation needs a separate measured routing decision.
+
+Mac capacity remains a constraint. Native duplicate libsignal static libraries
+were removed only after exact archive-member hashes matched the retained pinned
+archive, reclaiming 445,734,912 bytes. Two closed lexical databases totaling
+599,760,896 unique bytes were fully SHA-256 verified on the existing Storage Box
+before their 22 native hardlinks were retired, reclaiming 600,559,616 bytes.
+Protected native apps and the VM remained running. The guest separately retired
+five superseded raw test results after retaining unique attachments, summaries
+and hashes, reclaiming 306,077,696 bytes. Model preparation remains held below
+the measured platform capacity requirement. No apparent hardlink size is counted
+as additional reclaimed space.
+
+The new operational-backup disclosure is staged in source and must accompany
+the next service deployment. It describes three verified generations without
+promising a fixed day count, excludes relayed messages/key records/push/report
+text, and requires deletions to be honored before any recovered service reopens.
+The current live service remains `52d1f90`; this text change is not yet live.
+Company authentication, actual store purchases/push/bot calls, physical runtime,
+broad language acceptance and store submission remain open.
+
 ## Latest delivery checkpoint — November 8, 2026, 02:15 UTC
 
 The current restricted staging service is `52d1f90`, deployed in 8.77 seconds

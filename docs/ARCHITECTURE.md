@@ -4,21 +4,21 @@
 
 | Concern | Choice | Qualification still required |
 |---|---|---|
-| iOS | Swift, SwiftUI, native concurrency and platform storage | Swift/Xcode build and simulator coverage |
-| Android | Kotlin, Compose, coroutines, Room/SQLite, WorkManager | Build, emulator coverage, background behavior |
-| Messaging relay | Native HTTPS clients, FastAPI and PostgreSQL ciphertext inbox | Fresh cross-platform delivery, background wakeups, retention and load tests |
-| E2EE | Official libsignal Swift/Java bindings, 0.105.0 qualification candidate | Native interoperability, durable transactional key stores, identity verification and release license review |
-| Identity | WorkOS AuthKit, native PKCE | Separate Vipi app, callback association and device binding |
-| Account/control API | Small stateless API backed by PostgreSQL | Implementation and provider credentials |
+| iOS | Swift, SwiftUI, native concurrency and platform storage | Current OS text-size changes, physical runtime and release build |
+| Android | Kotlin, Compose, coroutines, Room/SQLite, WorkManager | Current OS text-size changes, physical ARM64/16-KiB runtime and background behavior |
+| Messaging relay | Native HTTPS/WebSocket clients, FastAPI and PostgreSQL ciphertext inbox | Background wakeups and public workload capacity; live foreground exchange passed |
+| E2EE | Official libsignal Swift/Java bindings, pinned 0.105.0 | Physical lifecycle, corresponding-source release and distribution review; native interoperability passed |
+| Identity | WorkOS AuthKit, native PKCE | Production client cutover and final callback/session lifecycle; current live staging authentication passed |
+| Account/control API | Stateless API backed by PostgreSQL | Actual billing, push and bot providers; current restricted service deployed |
 | Local translation | Apple Translation / Google ML Kit | Actual device/model/direction availability; no alignment API assumed |
 | Vocabulary | Versioned downloadable SQLite packs | Source licensing, provenance, contextual alignment quality |
-| Speech | Native offline speech engines | Installed voice checks and mixed-language playback |
+| Speech | Native device voices with bundled eSpeak fallback and joined audio | Physical listening/pronunciation; eleven-language synthesis passed on both runtimes, Android offline |
 | Push | APNs and FCM, wake hints without message body | Delivery and force-quit limitations tested/disclosed |
 | Purchases | StoreKit 2 / Google Play Billing; Apple official server SDK and Google subscriptions v2 | Store products and actual sandbox lifecycle receipts |
 | vBot | Separate response-only DeepSeek gateway with atomic personal/global budgets | Real provider quality, latency and spend qualification |
-| Domains | mambovipi.app registered through AWS Route 53 Domains | DNS, TLS and association files |
+| Domains | mambovipi.app registered through AWS Route 53 Domains; api.mambovipi.app live | Apex DNS and final store association files; AWS session renewal pending |
 | Pack files | Bundled starter SQLite catalogs; versioned HTTPS updates | Release download-size measurement, signed updates and hosting qualification |
-| Initial hosting | Consolidated `fallsoft-production-20261106`; existing Storage Box for retained source/data | Vipi migration, rollback and shared-host capacity receipts |
+| Initial hosting | Consolidated `fallsoft-production-20261106`; existing Storage Box for retained source/data | Full disaster recovery and public capacity; migration and scoped rollback receipts retained |
 
 ## Native boundaries
 
@@ -57,7 +57,7 @@ Android stores files under noBackupFilesDir with app backups disabled. iOS exclu
 
 `MessageJournal` saves the outgoing text to an encrypted draft before encryption/session work, retaining it across failures and restarts. Drafts have the same immutable deadline. It atomically commits ratchet mutations with the outgoing ciphertext or received plaintext/deduplication record. A retry reads identical saved ciphertext without advancing the ratchet again. The encrypted payload binds message ID, sender, recipient and creation time, which are checked against relay metadata after decryption. Receiver acknowledgement belongs after the commit returns. Incoming duplicate IDs with changed content are rejected. Original creation time fixes the 72-hour delivery deadline. A late authenticated delivered status may resolve a local expiry, but stale statuses cannot regress delivered history. Public transport still must authenticate status responses and enforce its own deadline.
 
-These components are connected to native conversation and delivery workers. Fresh authenticated cross-platform exchange, background recovery, storage migration and encrypted export/restore remain release gates; passing authored conversation fixtures does not establish live delivery.
+These components are connected to native conversation and delivery workers. Actual authenticated native exchange, foreground arrival/reconnect, persisted delivery receipts and cross-platform encrypted history export/import have passed against the public restricted relay. Physical background recovery, final release storage migration and complete disaster recovery remain open; authored fixtures alone do not establish those outcomes.
 
 ## Public key directory and native HTTP integration
 
@@ -67,7 +67,7 @@ Both native clients commit private prekeys and the pending upload before network
 
 `MessagingCore` binds the persisted message to its original recipient device, validates incoming device routing inside the receive transaction, and uses the native journal for cryptographic operations. `ServiceClient` has no redirect following or response cache; its production path requires HTTPS. A debug-only loopback HTTP exception supports isolated QA. No credentials or plaintext message logs are added. WorkOS refresh is serialized and bound to the original account/session generation; stale responses after sign-out/account changes cannot restore the prior account. Actual refresh and API authentication passed on both platforms. Provider session revocation, logout and browser callback completion still need end-to-end release tests.
 
-The first real native network qualification used this HTTP data path with a real WorkOS verifier and isolated PostgreSQL, reached through private SSH/ADB forwards. It proves neither production TLS nor ejabberd/push/background behavior. The temporary service, forwards and database were removed after all four messages were delivered and their server ciphertexts cleared. Real conversation UI and production relay/event integration remain required.
+The first native qualification used private SSH/ADB forwards and was followed by real conversation UI exchange through public TLS on the consolidated host. The current foreground event path uses authenticated WebSocket headers and a content-free coalesced inbox hint after the database transaction commits. Bounded per-device/per-worker connections and reconnect backoff prevent an unbounded event queue. Both native clients received messages hands-off with notification permission denied; actual APNs/FCM background delivery remains open. No ejabberd/XMPP service is part of this implementation.
 
 ## Local immersion pipeline
 
@@ -123,6 +123,8 @@ APNs and FCM registrations bind to the current active device. The push outbox co
 
 User-initiated encrypted archive export to their chosen storage. No unbounded server history or backup bucket is implied by the subscription. The archive uses a maintained cryptographic primitive/library, authenticated versioned metadata, and a recovery secret unavailable to the relay. Restore validates integrity, limits resources, and commits atomically. Document lost recovery-key behavior. Keys and plaintext must not leak into generic OS automatic backups, analytics, logs, push payloads or previews.
 
+Operational metadata backups use the existing consolidated daily controller and retain up to three verified encrypted generations. They exclude relay rows, public bundles/prekeys/claims, push data and report bodies. The current database's authenticated decryption, tamper rejection and twenty-table isolated restore have passed; this is separate from customer history export. A restored candidate stays disconnected from API and workers until fresh deletion/restriction state is reconciled, restored device credentials are invalidated, subscriptions and uncertain bot spend are reverified, and native re-enrollment is qualified. Missing post-snapshot evidence blocks reopening. Three generations do not imply a fixed retention duration or a qualified recovery-time objective.
+
 ## Deployment and growth
 
 The former OZZZ CPU/GPU hosts are retired. Vipi's restricted staging API and dedicated database now run on the consolidated production host, with a separate runtime user, database privileges and private API listener behind HTTPS ingress. New Apple builds and QA use the existing Mac development VM. Preserve other workloads and the same persistent guests. Deploy Vipi changes with explicit source/dependency manifests, database migration/backup receipts and scoped service restart.
@@ -131,8 +133,8 @@ Measure message throughput, p50/p95/p99 latency, CPU/RAM, reconnect storms, fore
 
 Observability is content-free: request/error counters, delivery latency, active connections, queue expiry, database health, pack downloads and spend. Redact credentials and contact text. Alert on budget/retention failures, create restorable operational backups and exercise rollback before public release.
 
-Initial staging target selected after read-only checks: existing `ozzz-app` (`ssh ozzz-root`, hostname `ubuntu-16gb-ash-1`). At inspection it had about 12.7 GiB available memory, 51 GiB disk free and low CPU load. It already runs PostgreSQL 16 and nginx. Vipi gets its own Unix account, database/roles, immutable release directory, service and expiry timer. All dependency preparation occurs on OZZZ-OS; both hosts use Ubuntu 24.04, CPython 3.12.3 and x86_64. No existing app/database/service is replaced.
+The former staging host and OZZZ development hosts are retired and must not be reconnected or recreated. The consolidated service has its own runtime user, database/roles, immutable release directories and expiry/billing timers. New changes preserve shared PostgreSQL/nginx processes and other applications. Build and QA authority is the reconciled delivery checkout plus the existing Apple VM; copied historical directories are not independently authoritative.
 
 `ops/` contains scoped service and nginx configurations; `scripts/package-service.py` builds an immutable dependency/source manifest and archive. Alembic 1.20.1 owns schema migrations; initial revision `20261025_01` was checked against the ORM and repeated without losing data. Readiness checks the migration head. Staging requires an explicit allowlist of already verified WorkOS subjects, so deploying a QA endpoint does not open public registration. The minute expiry task clears expired ciphertext and aged delivery/key-claim/rate metadata. An nginx reload for a new vhost must be syntax-checked and followed by existing-site checks; no shared service restart, firewall change or database restart is planned.
 
-The restricted staging service is deployed at `https://api.mambovipi.app`, with real native public-HTTPS delivery, TLS renewal rehearsal and 72-hour expiry cleanup qualified. It has not been load-qualified. Production registration, public policy pages, session revocation, ejabberd/push and backup/restore operations remain release gates.
+The restricted staging service at `https://api.mambovipi.app` currently runs `52d1f90`, migration `20261107_05`. It serves product policies and account deletion, and has qualified live foreground native delivery and 72-hour expiry cleanup. A separate two-worker loopback experiment handled 192 sockets and 480 exchanges; it does not prove public or million-user capacity. Production registration, actual store billing/push/bot providers, full disaster recovery, final policy publication and release artifacts remain gates. No store submission or public customer release is implied by staging deployment.

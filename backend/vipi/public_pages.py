@@ -3,7 +3,7 @@ from html import escape
 
 from starlette.responses import HTMLResponse
 
-VERSION = "2026-11-07"
+VERSION = "2026-11-08"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
@@ -16,7 +16,7 @@ PAGES = {
     """),
     "/privacy": ("Vipi privacy", """
         <p class="lead">Your conversations belong to you.</p>
-        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 7, 2026.</p>
+        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 8, 2026.</p>
         <h2>Conversations with friends</h2>
         <p>Human messages are encrypted on the sender's device and decrypted on the recipient's device using the Signal protocol. Vipi's relay does not have the keys to read their content. Account identifiers, device identifiers, message identifiers, routing, timing, delivery state, and public encryption keys are visible to the service. End-to-end encryption does not hide that metadata.</p>
         <p>Undelivered ciphertext has a 72-hour delivery window measured from the message's creation time. Ciphertext is cleared after a delivery receipt, cancellation, or expiry cleanup. Delivery metadata is removed seven days after that delivery window ends. Cleanup normally runs each minute; an outage can delay cleanup. Your device and your friend's device keep their own history until it is removed there.</p>
@@ -35,8 +35,10 @@ PAGES = {
         <p>Submitted text is encrypted in server storage and can be read by authorized operators for review. Reports expire after 30 days, and account deletion removes reports associated with that account. Account restriction and review records support service safety. Reporting does not itself suspend another account or establish who authored the submitted text.</p>
         <h2>History backups</h2>
         <p>History backup is an explicit export to a location you choose. The app encrypts the file using your backup password before handing it to your selected storage provider. Vipi does not automatically host that file and cannot recover a forgotten backup password. The first backup format includes completed human-message history, not live encryption keys, sign-in credentials, unsent messages, or vBot history.</p>
+        <p>Separately, encrypted service backups retain account, device-registration, subscription, usage, and safety records for disaster recovery. They exclude relayed messages, public messaging-key records, push tokens, and submitted report text. We retain up to three verified backup generations, replacing older copies as new backups succeed. This is a count of copies, not a guaranteed number of days.</p>
         <h2>Deletion and retention</h2>
         <p>You can delete your account in the app or through the <a href="/delete-account">account deletion page</a>. Deletion removes the Vipi profile, device and key records, pending messages, subscription access records, usage records, and reports, and schedules removal of the WorkOS identity. A minimal deletion receipt remains for seven days after provider cleanup finishes so you can verify completion.</p>
+        <p>Earlier encrypted service backups can retain those service records until the copies are replaced or deleted. Recovery must honor account deletions before a restored service is reopened; a backup is not permission to reactivate a deleted account.</p>
         <p>Deleting an account does not cancel an Apple or Google subscription, erase another person's local message history, or delete backup files you saved elsewhere. Cancel subscriptions in the store and manage your own stored copies. Operational providers may retain records they independently need for payment, security, or legal obligations. Contact us about privacy or deletion questions.</p>
         <h2>Who operates Vipi</h2>
         <p>Vipi is operated by Fallible Software, Co. Service hosting is provided by Hetzner; identity by WorkOS; optional push and purchases by Apple and Google; and optional vBot responses by DeepSeek. Processing may occur in countries different from yours. Vipi is not directed to children under 13.</p>
