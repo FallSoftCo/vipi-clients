@@ -79,6 +79,13 @@ import kotlinx.coroutines.delay
     }
     val active = speech?.activeMessage == messageID
     val eligible = visible && resumed && !paused && !selecting && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
+    // Opt-in local QA diagnostics contain no message text or account identifiers.
+    if (BuildConfig.DEBUG && android.util.Log.isLoggable("VipiFlip", android.util.Log.DEBUG)) {
+        val reasons = "visible=$visible resumed=$resumed paused=$paused selecting=$selecting word=$choosingWord pace=$choosingPace menu=$menu language=$chooseLanguage interaction=$interactionPaused speaking=${speech?.activeMessage != null} reader=$screenReader mode=$effectiveMode spans=${result.spans.size}"
+        LaunchedEffect(messageID, eligible, reasons) {
+            android.util.Log.d("VipiFlip", "row=${messageID.hashCode()} eligible=$eligible $reasons")
+        }
+    }
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
     LaunchedEffect(eligible, result, revision, pace) {
         if (!eligible) return@LaunchedEffect
