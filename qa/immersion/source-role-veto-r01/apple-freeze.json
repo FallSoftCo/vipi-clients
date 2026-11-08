@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-08T22:37:05.855379+00:00",
+  "before_outputs": true,
+  "input_sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54",
+  "source_sha256": "0258ed5345d4289868579517778e0c1b515b4348c3adc250d04cb0a6128ba3fb",
+  "repo_head": "26f9531ae9ed2acb157f81b96a3e382df33e6b0a",
+  "runtime": "Existing VM macOS26.6.2 build25G83, AppleSwift6.3.3 arm64; existing SDK/ModuleCache",
+  "limits": {
+    "output_bytes": 16777216,
+    "additional_bytes": 67108864,
+    "execution_seconds": 180,
+    "compiler_processes": 1
+  },
+  "schemes": [
+    "LexicalClass"
+  ],
+  "input_count": 9535,
+  "cold_warm": "Same first20 cases; cold=in-process first pass, no OS cache flushing."
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "vipi.apple-source-role-veto-execution.1",
+  "private_outputs": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/source-role-veto-r01/outputs.jsonl",
+  "private_metadata": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/source-role-veto-r01/metadata.json",
+  "hashes": {
+    "outputs.jsonl": "4dbcfbd81b0a5aadd9fec3374207b5ab85015aed9a41bcb3221b2a5b47e5eef7",
+    "metadata.json": "c3f8129ff7de33af363152b259491fb609dc750898122b8cfd1123bcabb7899e",
+    "inputs.json": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54",
+    "apple-probe.swift": "0258ed5345d4289868579517778e0c1b515b4348c3adc250d04cb0a6128ba3fb",
+    "apple-probe": "b8fd48a5386ec4002a8bd42b3474489b1c22f5190408943ecfbcc1be18c0cf73"
+  },
+  "cases_verified": 9535,
+  "token_count": 143975,
+  "missing_tags": 0,
+  "missing_scores": 0,
+  "unavailable_scheme_cases": 0,
+  "validation": "Exact ordered IDs/source UTF8 SHA256, UTF16 lengths, nonoverlap and valid UTF16 decoded slices; all nonwhitespace text covered, no whitespace-only tokens. Native selection geometry remains independent authority.",
+  "execution": {
+    "before_free": 923664384,
+    "stages": [
+      {
+        "index": 0,
+        "exit": 0,
+        "seconds": 2.708782,
+        "stderr": ""
+      },
+      {
+        "index": 1,
+        "exit": 0,
+        "seconds": 5.086891832999999,
+        "stderr": ""
+      }
+    ],
+    "seconds": 7.797293042,
+    "minimum_free": 915230720,
+    "after_free": 915181568,
+    "max_observed_shared_volume_drop": 8433664,
+    "artifact_allocated_bytes": 8937472
+  },
+  "capacity_admission": {
+    "at": "2026-11-08T22:36:09.742587+00:00",
+    "guest": {
+      "free_bytes": 929964032
+    },
+    "native": {
+      "free_bytes": 2847494144
+    },
+    "guest_required_bytes": 603979776,
+    "native_required_bytes": 1140850688,
+    "pass": true
+  },
+  "output_bytes": 7404342,
+  "metadata_bytes": 28381,
+  "os": "Version 26.6.2 (Build 25G83)",
+  "process_lifetime_peak_rss_bytes": 64864256,
+  "total_annotation_ms": 4651.499958,
+  "median_case_us": 384.541,
+  "cold_first20_ms": 23.084374,
+  "warm_same20_ms": 7.784166,
+  "cold_warm_exact_token_tag_score_stable": true,
+  "limits": [
+    "Source-only reusedTRAIN diagnostics, no meaning or target acceptance.",
+    "Cold is process-initial, not cache-flushed; scores raw and not semantic certainty.",
+    "RSS is whole process; volume-drop sampling includes unrelated shared activity, not precise isolated allocation.",
+    "No NameType, assets request, model download, API or app change.",
+    "16MiB output and64MiB additional space bound observed; elapsed execution7.8seconds."
+  ]
+}
