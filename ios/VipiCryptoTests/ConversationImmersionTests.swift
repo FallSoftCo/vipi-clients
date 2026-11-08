@@ -702,7 +702,7 @@ private actor DelayedFullReadingQA {
                     translations += 1
                     XCTFail("Unsupported simulator must never enqueue native inference")
                     throw CancellationError()
-                }, align: { original, translation, _ in
+                }, align: { original, translation in
                     alignments += 1
                     let supplemental = try await BundledLexicalCatalog.shared.entries(original: original, translation: translation, pair: pair)
                     return try await catalog.result(original: original, translation: translation, pair: pair, density: 0.25, supplementalEntries: supplemental)
