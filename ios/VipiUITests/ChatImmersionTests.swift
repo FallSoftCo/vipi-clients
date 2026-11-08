@@ -3,6 +3,34 @@ import UIKit
 
 final class ChatImmersionTests: XCTestCase {
 
+    @MainActor func testKoreanDefaultReadingUsesOriginalScriptAndAuthoredPriority() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-full-reading-qa", "-vipi-korean-reading-fixture", "-vipi-appearance-dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch(); defer { app.terminate() }
+        let latin = app.staticTexts["gat-i haggyoe gabnida."]
+        XCTAssertTrue(latin.waitForExistence(timeout: 15))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
+        capture("ios-korean-local-full-reading")
+        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        XCTAssertTrue(app.staticTexts["같이 학교에 갑니다."].waitForExistence(timeout: 5))
+        capture("ios-korean-local-original-script")
+        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        XCTAssertTrue(latin.waitForExistence(timeout: 5))
+        app.buttons["Authored"].tap()
+        XCTAssertTrue(app.staticTexts["Muri piryohaeyo."].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "authored")
+        app.buttons["Unknown"].tap()
+        XCTAssertTrue(app.staticTexts["𠮷에게 메시지를 보내요."].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
+        capture("ios-korean-unknown-reading-abstains")
+        app.buttons["Reading options"].tap()
+        XCTAssertFalse(app.buttons["Show original script"].exists)
+        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+    }
+
     @MainActor func testDelayedFullReadingPreservesProductionHistoryAnchor() throws {
         continueAfterFailure = false
         let layoutTrait = UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)

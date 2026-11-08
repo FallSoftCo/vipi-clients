@@ -1,6 +1,8 @@
 import XCTest
 import VipiCore
 import CryptoKit
+import NaturalLanguage
+import Darwin
 @testable import Vipi
 
 private actor FullReadingInvocationQA {
@@ -132,6 +134,87 @@ private actor DelayedFullReadingQA {
 }
 
 @MainActor final class ConversationImmersionTests: XCTestCase {
+
+    func testFrozenKoreanNativeGuardCapture() throws {
+        struct Input: Decodable {
+            struct Row: Decodable { let id: String, text: String, group: String, expected_guard: String }
+            let schema: String, cases: [Row]
+        }
+        struct Observation: Encodable { let result: KoreanFullReading.Result, milliseconds: Double }
+        struct Row: Encodable { let id: String, source: String, group: String; let first: Observation, warm: Observation }
+        struct Report: Encodable {
+            let schema = "vipi-apple-korean-reading-native-1"
+            let platform = "iOS Simulator native CF tokenizer; no translation provider or acoustic claim"
+            let inputSHA256: String, os: String, policy: String, lexicalSchemes: [String]
+            let requestedAssets = false, generatedAudio = false
+            let peakRSSBytes: Int64, cases: [Row]
+        }
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let bytes = try Data(contentsOf: documents.appendingPathComponent("korean-reading-qa-inputs.json"))
+        let hash = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+        XCTAssertEqual(hash, "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155")
+        let input = try JSONDecoder().decode(Input.self, from: bytes)
+        XCTAssertEqual(input.schema, "vipi-korean-guard-input-1"); XCTAssertEqual(input.cases.count, 32)
+        let output = documents.appendingPathComponent("apple-korean-reading-native-r01.json")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: output.path), "Inspect the original capture before any rerun")
+        guard !FileManager.default.fileExists(atPath: output.path) else { return }
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
+        func observe(_ text: String) -> Observation {
+            let start = ProcessInfo.processInfo.systemUptime
+            let result = KoreanFullReading.resolve(text)
+            return .init(result: result, milliseconds: (ProcessInfo.processInfo.systemUptime - start) * 1000)
+        }
+        var rows: [Row] = []
+        for item in input.cases {
+            let first = observe(item.text), warm = observe(item.text)
+            XCTAssertEqual(try encoder.encode(first.result), try encoder.encode(warm.result), item.id)
+            XCTAssertEqual(first.result.reading != nil, item.expected_guard == "reading", item.id)
+            let text = item.text as NSString
+            if text.length <= 16_384 {
+                var end = 0
+                for piece in first.result.pieces {
+                    XCTAssertEqual(piece.startUTF16, end, item.id)
+                    XCTAssertEqual(Array(text.substring(with: NSRange(location: piece.startUTF16, length: piece.endUTF16-piece.startUTF16)).utf16), Array(piece.source.utf16), item.id)
+                    end = piece.endUTF16
+                }
+                XCTAssertEqual(end, text.length, item.id)
+            }
+            rows.append(.init(id: item.id, source: item.text, group: item.group, first: first, warm: warm))
+        }
+        var usage = rusage(); _ = getrusage(RUSAGE_SELF, &usage)
+        let report = Report(inputSHA256: hash, os: ProcessInfo.processInfo.operatingSystemVersionString,
+            policy: KoreanFullReading.policy,
+            lexicalSchemes: NLTagger.availableTagSchemes(for: .word, language: .korean).map(\.rawValue).sorted(),
+            peakRSSBytes: Int64(usage.ru_maxrss), cases: rows)
+        try encoder.encode(report).write(to: output, options: .atomic)
+    }
+
+    func testKoreanDefaultReadingCachesMetadataAndKeepsOriginalSpeech() async throws {
+        XCTAssertEqual(FullSentenceReadings.resolve("물이 필요해요.", language: "ko"),
+            .init(text: "Muri piryohaeyo.", provenance: .authored))
+        XCTAssertNil(FullSentenceReadings.resolve("𠮷에게 메시지를 보내요.", language: "ko"))
+        XCTAssertEqual(FullSentenceReadings.resolve("José와 Zoë에게 보내요.", language: "ko")?.text, "José wa Zoë ege bonaeyo.")
+        let calls = FullReadingInvocationQA()
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, fullTranslationTimeout: .seconds(2),
+            fullReadingProducer: { text, language in await calls.record(); return FullSentenceReadings.resolve(text, language: language) })
+        defer { owner.close() }
+        await owner.configure(pair: .init(source: "en", target: "ko"), density: 0.25)
+        let source = "We go to school together.", target = "같이 학교에 갑니다."
+        owner.selectInputLanguage("en", for: "korean-reading-cache")
+        let identity = owner.identity(messageID: "korean-reading-cache", text: source)
+        let task = Task { await owner.fullTranslation(for: identity) }
+        let request = try await pending(owner)
+        // Supplied target qualifies metadata/cache/speech routing, not inference.
+        await owner.finish(request, translation: target)
+        let completion = await task.value; let result = try XCTUnwrap(completion?.result)
+        let reading = try await awaitReading(owner, result: result, identity: identity)
+        XCTAssertEqual(reading, .init(text: "gat-i haggyoe gabnida.", provenance: .localTransliteration))
+        for _ in 0..<100 { XCTAssertEqual(owner.fullReading(for: result, identity: identity), reading) }
+        _ = await owner.fullTranslation(for: identity)
+        let count = await calls.count; XCTAssertEqual(count, 1)
+        XCTAssertEqual(result.speech(mode: .fullTarget, source: "en", target: "ko"), [.init(text: target, language: "ko")])
+        XCTAssertEqual(result.speech(mode: .original, source: "en", target: "ko"), [.init(text: source, language: "en")])
+    }
 
     private func awaitReading(_ owner: ConversationImmersion, result: ImmersionPresentation,
                               identity: ImmersionRequestIdentity) async throws -> FullReading {

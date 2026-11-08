@@ -39,3 +39,14 @@ Native coordinator, display and delayed-reading timeline receipts are under
 or authored references; they do not prove fresh Apple translation or physical
 device inference. The full-reading metadata path and the translation provider
 are separate qualifications.
+
+For an unauthored Korean target, `KoreanFullReading` uses the operating system's
+Core Foundation Hangul transcription. Its spelling-based convention retains
+hyphens and invariant consonants; this is the reversible convention described
+in [NIKL section 3(8)](https://www.korean.go.kr/front_eng/roman/roman_01.do),
+not a promise of pronunciation-oriented Revised Romanization. Reviewed authored
+readings still win. No additional dictionary, model or download is required.
+Modern precomposed Hangul is supported; unknown unprotected Hanja, compatibility
+or conjoining Jamo, and other untranscribed scripts abstain. Protected literals
+and exact source ranges remain intact. The frozen native qualification and its
+limits are recorded in `qa/immersion/apple-korean-reading-qualification-r01.json`.

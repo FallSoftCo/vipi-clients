@@ -49,11 +49,16 @@ struct FullSentenceReadings: Sendable {
         if let authored = SentenceReadings.reading(text, language: language) {
             return .init(text: authored, provenance: .authored)
         }
+        if language == "ko" { return Self.korean(text) }
         guard language == "zh", let chinese,
               let result = try? chinese.resolve(text), let reading = result.reading else { return nil }
         return .init(text: reading, provenance: .localTransliteration)
     }
-    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256
+    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy
+    private static func korean(_ text: String) -> FullReading? {
+        guard let reading = KoreanFullReading.resolve(text).reading else { return nil }
+        return .init(text: reading, provenance: .localTransliteration)
+    }
     private static let current: Self = {
         // Static initialization runs once inside the off-render cache producer.
         // Missing or changed data leaves authored readings usable.
@@ -68,6 +73,7 @@ struct FullSentenceReadings: Sendable {
         if let authored = SentenceReadings.reading(text, language: language) {
             return .init(text: authored, provenance: .authored)
         }
+        if language == "ko" { return korean(text) }
         guard language == "zh" else { return nil }
         return current.reading(text, language: language)
     }

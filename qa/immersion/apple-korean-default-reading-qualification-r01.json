@@ -1,0 +1,107 @@
+{
+  "schema": "vipi-apple-korean-default-reading-qualification-1",
+  "state": "default_authored_first_native_reading_checks_passed",
+  "source": {
+    "ios/project.yml": "119ff850a8e1cc4c0ed2b00a81e4328dd57a6f4d59b47445392f3262b970521a",
+    "ios/Vipi/KoreanFullReading.swift": "99cbf7ba4dc36f336d393b7f303e7c0986a35ef0af7531ef987afc0e7327b192",
+    "ios/Vipi/SentenceReadings.swift": "c62500826edc9bc1c6698d41c45697f5c94f6f16244d025a1ed0304fb3885b0b",
+    "ios/Vipi/FullReadingQualification.swift": "1067a704c5e2d8754faf95e9609c8406d7175c4fd2762fa7a0831efcea27d6e3",
+    "ios/VipiCryptoTests/ConversationImmersionTests.swift": "5bd47905776e6801c9748f71c461d488e46988f1098c711f19edc9e31d3a80ad",
+    "ios/VipiUITests/ChatImmersionTests.swift": "0fe7b201d0d894e42856cc57c4015d6373d513f6987e3f47a400516d3e88199c",
+    "qa/immersion/korean-reading-r01/inputs.json": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155"
+  },
+  "algorithm_normalization": "Exact frozen KoreanReadingCandidate bytes after only enum rename, Sendable conformances and initial file comment normalization; no phonetic rules added.",
+  "build": {
+    "exit": 0,
+    "seconds": 34.541157245635986,
+    "guest_before_bytes": 831799296,
+    "guest_after_bytes": 828510208,
+    "guest_minimum_bytes": 768262144,
+    "declared_peak_additional_bytes": 268435456,
+    "guest_margin_bytes": 536870912,
+    "no_models_or_dependency_updates": true,
+    "current_dd_reused": true
+  },
+  "tests": {
+    "groups": [
+      {
+        "group": "coordinator",
+        "exit": 0,
+        "seconds": 14.094627857208252,
+        "selectors": [
+          "VipiCryptoTests/ConversationImmersionTests/testFrozenKoreanNativeGuardCapture",
+          "VipiCryptoTests/ConversationImmersionTests/testKoreanDefaultReadingCachesMetadataAndKeepsOriginalSpeech",
+          "VipiCryptoTests/ConversationImmersionTests/testBundledFullReadingKeepsAuthoredPrecedenceAndOriginalSpeech"
+        ]
+      },
+      {
+        "group": "display",
+        "exit": 0,
+        "seconds": 32.38428092002869,
+        "selectors": [
+          "VipiUITests/ChatImmersionTests/testKoreanDefaultReadingUsesOriginalScriptAndAuthoredPriority"
+        ]
+      }
+    ],
+    "seconds": 51.94014096260071,
+    "guest_before": 828043264,
+    "guest_after": 714563584,
+    "guest_minimum": 677031936,
+    "binaries": {
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib": "f023c7e827e99f8e4e262a77ec16590807a307745e8f205bc1ab999333c8d3f0",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "b17a3edd0d19f04104ba92a79c3c578da237a4fb10d8281921b7d9fc97cb23bb",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "611492d948c0141401a555d284aa433305441e449e034565be8f7a3143b0eaa4"
+    },
+    "local_only": true,
+    "supplied_target_or_injected_translation": true,
+    "live_provider_claim": false,
+    "frozen_QA_input_sha256": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155",
+    "QA_enable_flag": false,
+    "actual_CF_tokenizer": true,
+    "no_download": true
+  },
+  "passed_methods": 4,
+  "native32": {
+    "report_sha256": "59d292b0f080196c775c5a51121c89e1814dfa83ef64f49bc18d8b2b50e55d0e",
+    "mac_report_sha256": "d6f9b7fefc043fa43027c2e353cd6bb37f3fb66c8c8b09411da1f2fe7442e3b1",
+    "cases": 32,
+    "full_result_differences": [],
+    "warm_differences": 0,
+    "source_partition_checks": 31,
+    "over_limit_skip": true,
+    "median_first_ms": 0.18695835024118423,
+    "max_first_ms": 289.76049995981157,
+    "median_warm_ms": 0.151375075802207,
+    "peak_rss_bytes": 314376192,
+    "memory_scope": "whole instrumented app process highwater, not incremental reader allocation",
+    "lexical_schemes": [
+      "Language",
+      "Script",
+      "TokenType"
+    ],
+    "readings": 22
+  },
+  "frames": {
+    "41B5C686-C101-45A5-927A-3F53521DAE3C.png": "41ba9759be11ad1599ab8e85d5de7134955755bd259a0b77d1a19e7623049724",
+    "5A08F7D3-087E-44E3-843B-B864E2093A83.png": "f458ff85cfaf2945fed33be61cfe4360c3180dd41c60cad6f72dbd85403bc884",
+    "9F236BAD-DE20-4D5D-B7A1-18F1EBD99035.png": "9a908725ba33e5a454cbe1dc2cfc93fc200d5bf86d0db85ea3ffd5a4c7a7fbdd"
+  },
+  "capture_reconciliation": "Xcode testing replaced the pre-test data-container location. The exact unique public QA report filename was located in the current simulator app container and copied without rerunning. Actual xcresult summaries verify3coordinator methods+1UI method passed, none skipped.",
+  "capacity": {
+    "native_minimum_bytes": 1864376320,
+    "guest_minimum_bytes": 677031936,
+    "normal_native_reserve": 1073741824,
+    "overall_test_peak_reservation": 268435456,
+    "guest_margin": 536870912,
+    "per_next_group_bound": 134217728,
+    "no_models_or_dependency_downloads": true
+  },
+  "policy": "Native spelling-based Hangul convention; not pronunciation-oriented RR or acoustic proof. Reviewed authored readings win; original script remains audio/copy authority.",
+  "visual_review": "All3actual dark AX-XXXL frames inspected: Latin guide, original Hangul and guarded unknown preserve readable content and Listen. QA-only large title truncation remains distinct from shipping UI.",
+  "limits": [
+    "Simulator CF reading/cache/display, not physical device or translation provider inference.",
+    "Supplied full target used for cache/UI integration; actual CF output used for32frozen controls.",
+    "Precomposed modern Hangul only. Unprotected Hanja, Jamo and unknown scripts abstain.",
+    "32diagnostic/structural cases, not population coverage or acoustic acceptance."
+  ]
+}
