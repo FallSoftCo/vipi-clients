@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 09:24 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 10:04 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -41,7 +41,9 @@ cases agree across implementations on recognition and 19,602 selected decision
 sets; this is implementation parity, not semantic accuracy. Apple's complete
 9,535-message TRAIN run recognizes contexts in only 54 messages across all three
 arms. At 25% density, 53 messages per target have context-backed output. Typed
-possessors add 14 authored cases but no TRAIN reach over the exact-phrase arm.
+possessors add 18 authored messages with pattern-derived output, or 14 new
+messages when diagnostic fallback also counts, but no TRAIN reach over the
+exact-phrase arm.
 The ten-family catalog is a mechanism experiment, not broad immersion coverage.
 Apple's median first/warm lookup is 1.99/1.96 ms with zero translation-provider
 calls. Desktop/VM timing is not a phone performance guarantee. The original
@@ -61,11 +63,43 @@ not demonstrated noun-phrase parsing. No complete candidate is promoted.
 
 Matched context and flipped focus are different fields: a long recognized
 construction may authorize one noun without changing surrounding grammar.
-Atomic compound/idiom protection must survive density and known-concept filters.
-Both native reviews identified that a nullable partial result alone cannot carry
-those masks into later translation/alignment fallback. The experiment keeps
-source-only protection separate from full-pipeline acceptance; no new candidate
-is enabled by default.
+Atomic compound/idiom protection now has a nonnullable evidence path in both
+native clients. A supplied provider's masks survive absent target faces and
+known/density filtering, apply to forward whole references, and constrain both
+primary and supplemental fallback selection before the density budget is spent.
+Every overlapping mask must approve an exact source output ID and range; legacy
+alignment cannot manufacture that approval from matching text. Strict atomic,
+head and ambiguous scope checks, reverse direction, stale requests and cache
+identity were qualified in both native coordinators and cores. The provider is
+still absent by default: this supplies the integration mechanism, not an accepted
+broad catalog or corrected full-sentence translation.
+
+Root's full retained-capture comparison accounts for all 9,535 TRAIN inputs on
+both platforms, including aggregated zero-output cases. Recognitions and selected
+outputs agree; 54 decision-budget differences from native tokenization remain
+visible without changing those outputs. This is mechanical evidence only.
+
+A separate corpus phrase-extraction protocol is frozen before new training
+outputs: up to 40,000 direct English–Spanish and 20,000 English–Swahili development
+pairs, all consistent target boundary variants, per-row provenance and separate
+contextual review. The source-frequency inventory has 5,000 multiword keys and
+3,000 unigram keys from reused TRAIN. Global Voices is news data, not ordinary
+friend-chat gold. Existing Tatoeba and dictionary examples are complementary
+sources; their membership alone cannot approve a translation. Historical work
+already included a dictionary-bounded complete-unit alignment experiment; the
+new work builds a reusable source-first phrase inventory. Japanese tokenization
+is being qualified separately. No new coverage result or pack activation is
+credited before actual outputs and review.
+
+The existing bounded conversation cache now retains only deterministic rejected
+local-provider outcomes for automatic reentry. Explicit retries and observed
+model-readiness changes permit another attempt; useful partials, transient
+failures, source errors and stale responses retain their separate behavior.
+Android's unchanged installed Japanese URL/email failures reproduced three
+provider calls for three automatic requests before the fix and one afterward.
+Apple's actual coordinator qualified the same contract with injected retained
+responses; this does not establish fresh Apple translation behavior. Identifier
+integrity checks remain unchanged. Both native lifecycle checks passed.
 
 HFST 3.16.0 and lexd 1.3.1 have now actually compiled and queried the retained
 Swahili source in an isolated desktop probe. Its analyzer is 1.28 MB and generator

@@ -156,13 +156,18 @@ all training input identities and parameters are retained in
 artifacts/statistical-alignment-corpus-001 and statistical-alignment-models-001.
 This is a statistical word-alignment experiment, not an app dependency.
 
-The unfiltered mutual alignments produce wrong and incomplete proposals.
-A diagnostic probability cutoff plus published dictionary links still gives
-laptop → portátil and email → correo where the complete target expressions
-are computadora portátil and correo electrónico. It also lacks the native
-scope, grammatical-lemma and proper-name safeguards. These proposals are
-withheld from runtime integration; they do not establish useful immersion
-coverage. Full phrase alignment needs separate investigation. Reports:
+The unfiltered mutual alignments produce proposals that still require contextual
+review. The historical review flagged laptop → portátil and email → correo as
+incomplete compared with computadora portátil and correo electrónico. That
+length-based interpretation needs correction: [portátil has a laptop noun
+sense](https://dle.rae.es/port%C3%A1til), and [correo has an email
+sense](https://dle.rae.es/correo). Neither shorter form is inherently an error.
+Exact historical contexts need reassessment; prior captures and judgments are
+retained, and their counts have not been silently revised. The experiment also
+lacked the native scope, grammatical-lemma and proper-name safeguards. It remains
+withheld from runtime integration. A later dictionary-bounded complete-unit
+follow-up is documented below; unrestricted corpus phrase extraction is a
+separate experiment. Original reports:
 artifacts/statistical-alignment-review-001 and -002.
 
 ## Noun-gloss correction and complete development directions — 2026-10-28
@@ -779,7 +784,7 @@ before this data replaces the current bundle.
 
 The bounded `evaluate_statistical_units.py` experiment reuses the pinned English–Spanish and English–Swahili forward/reverse alignments. It requires a complete supplied noun/adjective/adverb unit, a shared dictionary sense and POS/number, a mutual alignment anchor, and no alignment edge crossing the unit. Recognized larger dictionary units protect their interior. This follows the [documented alignment-consistency approach](https://www2.statmt.org/moses/manual/html/training3.html) without treating alignment scores as calibrated meaning accuracy.
 
-`artifacts/statistical-unit-review-001/` retains all proposals and the author review. Of its 240 existing diagnostic cases, only 94 are SMS or spontaneous Swahili conversation cases; the others are dictionary units, formal references or authored cases. It proposes 19 spans in those 94 conversational cases. The previously incomplete laptop/portátil and email/correo proposals, and the grammatical was/fue proposal, are withheld. Complete laptop/email mappings remain absent. Security guard/guardia de seguridad is a plausible complete phrase. However, “ll present nxt mon” still proposes present/presente as a noun/adjective, and the greeting “Halo” is interpreted as the noun halo. The experiment is therefore **not integrated or accepted**. Phrase geometry does not solve contextual POS or word sense selection.
+`artifacts/statistical-unit-review-001/` retains all proposals and the author review. Of its 240 existing diagnostic cases, only 94 are SMS or spontaneous Swahili conversation cases; the others are dictionary units, formal references or authored cases. It proposes 19 spans in those 94 conversational cases. The previously flagged laptop/portátil and email/correo proposals, and the grammatical was/fue proposal, are withheld by that historical experiment. The two Spanish noun judgments require the contextual reassessment described above; target length alone does not establish incompleteness. Security guard/guardia de seguridad is a plausible complete phrase. However, “ll present nxt mon” still proposes present/presente as a noun/adjective, and the greeting “Halo” is interpreted as the noun halo. The experiment is therefore **not integrated or accepted**. Phrase geometry does not solve contextual POS or word sense selection.
 
 `replace_lexical_shards.py` prepares bounded language replacements while keeping the other language records unchanged and recording their exact source hashes. Every copied shard gets one shared release identity; each original compiler policy remains explicit. Changed languages require complete context recomputation from the same corpora, including negative observations, before native use. The corrected Swahili candidate is still under review.
 
