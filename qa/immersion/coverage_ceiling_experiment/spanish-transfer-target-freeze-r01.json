@@ -1,0 +1,25 @@
+{
+  "production": false,
+  "new_target_holdout_seen": false,
+  "paired_japanese_source_packet_opened": false,
+  "scope": "Spanish target choices, primary senses and exclusions frozen before seeing new paired source sample; source policy unchanged.",
+  "files": [
+    {
+      "path": "reviewed-word-lexicon-en-es-transfer-r01.json",
+      "sha256": "d8d47bf4668a0e8f5fcd14589251c980ef7e71719d9de33cabf6b36c882e947e"
+    },
+    {
+      "path": "source-question-rules-en-es-transfer-r01.json",
+      "sha256": "615f7a674198f9c1631d66ea513d701673bd5c908e172afe1a69245454e37b63"
+    }
+  ],
+  "source_policy_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "primary_input_bytes": 1809637,
+  "primary_input_records": 210,
+  "attestation_review": "Root read all196 compact lexical attestations before freezing; selected exact primary noun senses and linked forms. Not an independent human semantic audit.",
+  "summary": {
+    "attested_source_forms": 196,
+    "unavailable_source_forms": 23,
+    "identical_faces": 5
+  }
+}

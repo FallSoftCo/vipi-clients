@@ -1,0 +1,353 @@
+{
+  "production": false,
+  "input_hashes": {
+    "/home/ai/Development/investigations/vipi-production-delivery-20261107/spanish-transfer-r01/author-review-r01.json": "b7a2ef982fb4e1cf64e283f35ec2dcce32c1e34d86194853f33656a86515ac59",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/spanish-transfer-independent-review-r01.json": "1bdb61188435b506499c58f7209ac2a6b268fabdcbd32a58c444522c1fc4a966",
+    "/home/ai/Development/investigations/vipi-production-delivery-20261107/spanish-transfer-r01/evaluation-80.json": "a295586053125432cf57549fd9b3102ec5202d718b8f78b4cc023c3f350cb809",
+    "/home/ai/Development/investigations/vipi-production-delivery-20261107/spanish-transfer-r01/all80-review-r02.json": "1478bc043a3e89605d0d7a8d352b9076b57be4fa1665a2451f08a27d6090434b",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/spanish-transfer-independent-context-amendment-r01.json": "317508a45124cb3a909777cabe298b83bf9523dbcce3bc4b472570ced64271fb",
+    "/home/ai/Development/investigations/vipi-production-delivery-20261107/spanish-transfer-r01/independent24-review-r02.json": "1de605dfa3846d764752c2ea7065bbe5e1eefee38d8953dd86046751957cb6ec"
+  },
+  "author_counts": {
+    "correct": 129,
+    "minor": 6
+  },
+  "independent_counts": {
+    "correct": 38,
+    "minor": 1
+  },
+  "independent_scopes": 39,
+  "exact_agreement": 39,
+  "disagreements": [],
+  "strict_definition": "Only correct labels counted as clean; minor is excluded.",
+  "lenient_definition": "Correct and minor labels counted; material, scope errors and uncertainty excluded.",
+  "summary": {
+    "control_mixed": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 50,
+        "lenient_clean_useful": 53,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 16,
+        "function_messages": 37,
+        "strict_macro_depth": 0.07167593405112334,
+        "lenient_macro_depth": 0.07425690571104238
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 25,
+        "lenient_clean_useful": 26,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 9,
+        "function_messages": 17,
+        "strict_macro_depth": 0.045637507304734835,
+        "lenient_macro_depth": 0.04758682504352626
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 15,
+        "lenient_clean_useful": 17,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 5,
+        "function_messages": 12,
+        "strict_macro_depth": 0.06179735901958124,
+        "lenient_macro_depth": 0.06749536471758694
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 10,
+        "lenient_clean_useful": 10,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 2,
+        "function_messages": 8,
+        "strict_macro_depth": 0.10897435897435898,
+        "lenient_macro_depth": 0.10897435897435898
+      }
+    },
+    "content_mixed": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 20,
+        "lenient_clean_useful": 23,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 23,
+        "function_messages": 0,
+        "strict_macro_depth": 0.02271638739507901,
+        "lenient_macro_depth": 0.025297359054998036
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 12,
+        "lenient_clean_useful": 13,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 13,
+        "function_messages": 0,
+        "strict_macro_depth": 0.021337118533241835,
+        "lenient_macro_depth": 0.023286436272033258
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 5,
+        "lenient_clean_useful": 7,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 7,
+        "function_messages": 0,
+        "strict_macro_depth": 0.020044770044770045,
+        "lenient_macro_depth": 0.025742775742775743
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 3,
+        "lenient_clean_useful": 3,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 3,
+        "function_messages": 0,
+        "strict_macro_depth": 0.026923076923076925,
+        "lenient_macro_depth": 0.026923076923076925
+      }
+    },
+    "function_mixed": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 53,
+        "lenient_clean_useful": 54,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 54,
+        "strict_macro_depth": 0.07762076407490073,
+        "lenient_macro_depth": 0.0786624307415674
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 25,
+        "lenient_clean_useful": 25,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 25,
+        "strict_macro_depth": 0.045734973191674404,
+        "lenient_macro_depth": 0.045734973191674404
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 18,
+        "lenient_clean_useful": 19,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 19,
+        "strict_macro_depth": 0.07375864875864875,
+        "lenient_macro_depth": 0.07684506851173517
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 10,
+        "lenient_clean_useful": 10,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 10,
+        "strict_macro_depth": 0.11474358974358975,
+        "lenient_macro_depth": 0.11474358974358975
+      }
+    },
+    "primary_mixed": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 55,
+        "lenient_clean_useful": 59,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 23,
+        "function_messages": 36,
+        "strict_macro_depth": 0.08466204516223445,
+        "lenient_macro_depth": 0.08828468348882015
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 25,
+        "lenient_clean_useful": 26,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 13,
+        "function_messages": 13,
+        "strict_macro_depth": 0.045637507304734835,
+        "lenient_macro_depth": 0.04758682504352626
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 18,
+        "lenient_clean_useful": 21,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 7,
+        "function_messages": 14,
+        "strict_macro_depth": 0.0762006512006512,
+        "lenient_macro_depth": 0.08498507665174332
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 12,
+        "lenient_clean_useful": 12,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 3,
+        "function_messages": 9,
+        "strict_macro_depth": 0.13397435897435897,
+        "lenient_macro_depth": 0.13397435897435897
+      }
+    },
+    "combined25_mixed": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 53,
+        "lenient_clean_useful": 59,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 23,
+        "function_messages": 54,
+        "strict_macro_depth": 0.14209691284340464,
+        "lenient_macro_depth": 0.1470008011699903
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 23,
+        "lenient_clean_useful": 26,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 13,
+        "function_messages": 25,
+        "strict_macro_depth": 0.14328063715913134,
+        "lenient_macro_depth": 0.14902625119421906
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 18,
+        "lenient_clean_useful": 21,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 7,
+        "function_messages": 19,
+        "strict_macro_depth": 0.11910527743861077,
+        "lenient_macro_depth": 0.1278897028897029
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 12,
+        "lenient_clean_useful": 12,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 3,
+        "function_messages": 10,
+        "strict_macro_depth": 0.16474358974358974,
+        "lenient_macro_depth": 0.16474358974358974
+      }
+    },
+    "whole_lexical": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 0,
+        "lenient_clean_useful": 0,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 0,
+        "strict_macro_depth": 0.0,
+        "lenient_macro_depth": 0.0
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 0,
+        "lenient_clean_useful": 0,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 0,
+        "strict_macro_depth": 0.0,
+        "lenient_macro_depth": 0.0
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 0,
+        "lenient_clean_useful": 0,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 0,
+        "strict_macro_depth": 0.0,
+        "lenient_macro_depth": 0.0
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 0,
+        "lenient_clean_useful": 0,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 0,
+        "function_messages": 0,
+        "strict_macro_depth": 0.0,
+        "lenient_macro_depth": 0.0
+      }
+    },
+    "primary_union": {
+      "all": {
+        "messages": 80,
+        "strict_clean_useful": 55,
+        "lenient_clean_useful": 59,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 23,
+        "function_messages": 36,
+        "strict_macro_depth": 0.08466204516223445,
+        "lenient_macro_depth": 0.08828468348882015
+      },
+      "16-30": {
+        "messages": 27,
+        "strict_clean_useful": 25,
+        "lenient_clean_useful": 26,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 13,
+        "function_messages": 13,
+        "strict_macro_depth": 0.045637507304734835,
+        "lenient_macro_depth": 0.04758682504352626
+      },
+      "6-15": {
+        "messages": 27,
+        "strict_clean_useful": 18,
+        "lenient_clean_useful": 21,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 7,
+        "function_messages": 14,
+        "strict_macro_depth": 0.0762006512006512,
+        "lenient_macro_depth": 0.08498507665174332
+      },
+      "1-5": {
+        "messages": 26,
+        "strict_clean_useful": 12,
+        "lenient_clean_useful": 12,
+        "material_messages": 0,
+        "uncertain_messages": 0,
+        "content_messages": 3,
+        "function_messages": 9,
+        "strict_macro_depth": 0.13397435897435897,
+        "lenient_macro_depth": 0.13397435897435897
+      }
+    }
+  },
+  "limitations": [
+    "Independent subset39scopes only; full80author review is not an independent population or bilingual certification.",
+    "Frozen policy failed broad coverage threshold; no native integration or runtime cost claim.",
+    "Compact vocabulary control is a research subset, not the unchanged production runtime."
+  ]
+}

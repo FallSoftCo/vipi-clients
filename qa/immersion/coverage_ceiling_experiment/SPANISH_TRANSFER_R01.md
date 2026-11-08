@@ -1,0 +1,13 @@
+# Spanish source-unit transfer, research revision 1
+
+The frozen English source policy was transferred to Spanish before the paired Japanese/Spanish 80-message sample was opened. Of 219 source forms, 196 received attested target forms and 23 remained unavailable because of unresolved gender, sense, case or agreement. Five unchanged Latin faces earn no immersion credit. Twelve source question rules retain their original guards; this transfer adds no new source matcher rules.
+
+The retained Kaikki/Wiktionary records, authored draft, source sense hashes and portable `prepare_spanish_transfer_r01.py` reproduce the exact original lexicon, question rules, compact control and target freeze. Run the builder with `--output` pointing to a new disk-backed directory. Attribution and original URLs are in `primary-spanish-selection-r01/`. Reproduction does not create a new unseen-data freeze.
+
+On the exact frozen paired source sample, the primary 10% requested view provided a correct selected unit in 55/80 messages under strict labels, or 59/80 when six minor form/construction outcomes are allowed. Mean correct changed-word depth was 8.47% or 8.83%. The compact vocabulary control reached 50/80 or 53/80. Content-only reach was 20/80 or 23/80. At 25% requested density, correct depth was 14.21% or 14.70%; whole-sentence lexical coverage was zero.
+
+The root agent reviewed all 135 selected scopes across 80 messages. A second agent froze a 24-message/39-scope review before seeing the author labels, with 39/39 exact label agreement. The original review packet omitted preceding context because its builder used the wrong key. Corrected packets preserved all scope IDs/texts/order; the independent reviewer inspected the restored context and retained every label. This amendment and both reviews are retained in `spanish-transfer-review-r01/`.
+
+No material meaning error was labelled in this sample; that is not a population accuracy guarantee. These are agent reviews, not bilingual human certification. The transfer fails the 90% availability objective, has shallow content exposure, and has not been promoted into either native runtime. The control is a compact research vocabulary, not the currently deployed app. Python lookup timings must not be presented as native latency or memory measurements.
+
+Evaluation is reproducible with `evaluate_spanish_transfer.py` using the retained Japanese paired protocol and the Spanish freeze. An existing output is never overwritten. Keep the original English grammar intentionally; minor finite/infinitive and because-of construction differences remain explicitly recorded instead of being erased from the results.

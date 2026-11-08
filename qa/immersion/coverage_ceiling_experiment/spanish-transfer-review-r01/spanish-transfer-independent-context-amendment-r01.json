@@ -1,0 +1,11 @@
+{
+  "production": false,
+  "original_review_sha256": "1bdb61188435b506499c58f7209ac2a6b268fabdcbd32a58c444522c1fc4a966",
+  "original_packet_sha256": "25dffd7f689b284a6161bedae8cbb489192c02e3c9ee34a99b3a94176f27098e",
+  "context_complete_packet_sha256": "1de605dfa3846d764752c2ea7065bbe5e1eefee38d8953dd86046751957cb6ec",
+  "reason": "Original Spanish packet builder omitted review context because of a source-key mismatch. Original selected sources and scopes are byte-equivalent as JSON values.",
+  "review": "Reviewed restored preceding context for all24cases before seeing root author labels. No prior scope judgment changes.",
+  "labels_changed": 0,
+  "original_labels_preserved": true,
+  "independence": "Root author semantic labels/summary remained unopened during amendment."
+}

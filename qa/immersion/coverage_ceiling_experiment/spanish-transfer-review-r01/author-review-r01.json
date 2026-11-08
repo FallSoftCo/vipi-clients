@@ -1,0 +1,1149 @@
+{
+  "production": false,
+  "reviewer": "root",
+  "time": 1794107908.7406394,
+  "packet_sha256": "1478bc043a3e89605d0d7a8d352b9076b57be4fa1665a2451f08a27d6090434b",
+  "author_review": true,
+  "independent_reviewer_labels_seen": false,
+  "method": "Read all80messages/135unique selected scopes; consulted retained primary exact lexical senses before evaluation and original preceding context for potentially ambiguous judgments. English grammar intentionally remains. No bilingual-human or population accuracy claim. Missing context field in initial packet corrected before this review was frozen.",
+  "rows": [
+    {
+      "id": "bst-test-word-r04-0155-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "3d4405033d194036",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "7e2704b9c7d13e6b",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "71e59aa61495cc8d",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "55921325d26c781d",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "b4ddc9ffa3dde3f2",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0407-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "a012de8afd82f7a7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "eba06167d278fa34",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4fe43b712f7904b0",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "9aa5a4ad62f1d843",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0968-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "8e193beaa7a3c129",
+          "judgment": "minor",
+          "note": "Want meaning retained; Spanish infinitive querer is a citation form inside a finite you-want clause."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0257-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "7629763ebe93b6c4",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "2bc376fe2ae4cb98",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "f86599a717eb1fe7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0199-02",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "4c5c3dec63b6a128",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "a71fd9cd810b6f23",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4b3f62b80d407eda",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0419-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "60e3a6b380a76fc7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0204-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "30a13cbafca8fe23",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "d24996ac0ec8e837",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0537-00",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0636-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "ef460304010f3622",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "8f3824fac46579a7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "177250bdfc293491",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "5eb1be51776224a2",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0546-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "9a5b66d721a72bc7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "6892a113e945bc2a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "6260268268ed69c9",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0842-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "1d1eb0c46a91efc4",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0641-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "54f2c81c1208fb2a",
+          "judgment": "minor",
+          "note": "Want meaning retained; explicit do-you question still uses an isolated Spanish infinitive rather than a finite Spanish construction."
+        },
+        {
+          "scope_id": "7f32301e1913f3b7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "0fe870422c28b2db",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "2e1689a874e337a8",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "7439031729482e55",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0584-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "e6138365ae3b475f",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "fa8af6accbe3f071",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0142-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0918-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0937-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "bc3ed1b8e715f1be",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "2aca5aac1122a51a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "024eb55cef04805a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "d973314e09059a4b",
+          "judgment": "minor",
+          "note": "Acceptance meaning retained in context; vale is a regional acknowledgment interjection placed in an English predicative okay slot."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0146-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "f3a145f2b2c81519",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "197bbe2737456e02",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0116-06",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0812-02",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0157-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "763e53a78f267003",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0806-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "dcbc7c25a0312515",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0069-02",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0656-00",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0525-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "bfc300df9871a022",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0568-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "e2d34ead13d93e0f",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "7dacfe9b49ec527e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0361-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "0420e1985f966e28",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4be0db8272e8ed70",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "5341fdb6823b121b",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0080-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "4b3afa22826d81c6",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "c6f4edee5310da86",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "d7b781971dbfebfe",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0504-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0298-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "338c071646386518",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "6738d297eb8ff0bc",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "5e4c045b1a50dbfc",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0109-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "3146a58901540584",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "88ec9c7e9da2990c",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "1e4a5f3e646e829a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "58bfa3ce8bc077aa",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0530-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "4abaf815deffe55d",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "fa7bdee0f050c991",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4b46016ce0ca5c03",
+          "judgment": "minor",
+          "note": "Causality remains, but because-of is a source phrase and porque normally introduces a clause; retained of makes the target phrase grammatically awkward."
+        },
+        {
+          "scope_id": "e491f6ff62c16ff6",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0643-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "331688e9fb6bb8fe",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0780-08",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0197-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "01f571a64c143f73",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "d41f7d02f7b39b5e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "9c8f822c4b4f0225",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "a89a66068154593d",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0118-06",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0465-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "ff7e194a9ba5613e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "57740c662243c467",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "e328445cd52a763d",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0457-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "8212acd8b21d78f1",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0351-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "e8390929c7960cd1",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0852-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "d89e6b9f34d03e22",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "1a27ba4ac3496755",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0714-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0009-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "4d69239c88900f3e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "ff1177dcd68ed683",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "7f166dab462089c9",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "57e3b1a0f65bf24a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "57c43c36b06f50bf",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "bacb97887a09f091",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0770-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "9eceb24f81e7c31d",
+          "judgment": "minor",
+          "note": "Think/opinion meaning retained; pensar is an infinitive in the finite I-think slot."
+        },
+        {
+          "scope_id": "6e627a2cc8ce0dd4",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "390ebe1803e6a80e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0490-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "d8962d737e25a8e3",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "c829cc0cee5ae038",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0500-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "cb1ae7dfac4861bc",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0505-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "5927cfef48a969aa",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "1aee8a6bf868ad87",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0029-02",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "16b0cad45c4771ea",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0473-02",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "835c112afa10fcf6",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0309-08",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0229-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "a09553c3abfae4da",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0543-00",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0494-02",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0897-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "bbf6a3bc943416f2",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "098d916cdcf220e4",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4bb9060e84c265df",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "bb9b889145600c81",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "133bb3057e071c8a",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0604-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0151-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "386c695b2c0bacce",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0686-02",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "c53f2be05e5c8d13",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0551-10",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0674-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "25098485a65d0829",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0728-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "2e7f60024b660315",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "5a28f78be1e4545b",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0576-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "c227341b4989bd0e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "5596422b4a7d4378",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "31863a2b32f940d3",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0563-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "759933e9eb6afd85",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "136a8174ba9cf011",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0126-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "e992cb401f56559e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "3631bbdb2c4b01d6",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "4f68c701391d8f1f",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "9b506ab75828a9d5",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "dbc5a2a33eac9119",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "f6ff0c0b63ad6a4e",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0833-06",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0561-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "954689fa290ddada",
+          "judgment": "minor",
+          "note": "Reassuring acceptance remains; Spanish vale is an acknowledgment rather than the adjective normally following a Spanish copula."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0180-00",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0365-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "61624aa744217781",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0336-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "c562d3ff808381b1",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0337-04",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "7da33e96e4833f27",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0212-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "215e90bf28d0ad4b",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "409841fd8490c78f",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "598bada02aae1951",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0513-02",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0749-04",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0098-04",
+      "no_selected_scopes": true,
+      "scopes": []
+    },
+    {
+      "id": "bst-test-word-r04-0598-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "deadcdb913033ec8",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "247b6db19f18f1f9",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "89bdd6beb10fd119",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0694-06",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "0a9d86dba38d0ce7",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0191-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "87527e212da3ca71",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "1ab93acfdab13352",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "05b89caeac7964b3",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0784-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "0944db87db5ba1db",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0291-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "a314028af3669229",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "874a14ccbc1179cf",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "527bbe7959f6c155",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0669-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "3f62440a57119cd4",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0617-08",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "76ab9e4adc522244",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0070-00",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "65961c6a30712dd6",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        },
+        {
+          "scope_id": "41e4c129c22c5c17",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-word-r04-0711-10",
+      "no_selected_scopes": false,
+      "scopes": [
+        {
+          "scope_id": "16a012b825609658",
+          "judgment": "correct",
+          "note": "Selected ordinary lexical meaning, referent and source scope are preserved; surrounding English grammar is intentionally retained."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "correct": 129,
+    "minor": 6
+  }
+}

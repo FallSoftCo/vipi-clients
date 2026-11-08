@@ -1,0 +1,19 @@
+{
+  "schema": "vipi-spanish-transfer-evaluation-freeze-1",
+  "production": false,
+  "created_at": "2026-11-08T03:14:45.225478+00:00",
+  "source_sample_seen": false,
+  "paired_japanese_review_packet_seen": false,
+  "paired_protocol_sha256": "8e6c6bd217df719c403c2d68f1a1605273c0c1e1857ea718a4003f6bf6caf160",
+  "lexicon_sha256": "d8d47bf4668a0e8f5fcd14589251c980ef7e71719d9de33cabf6b36c882e947e",
+  "rules_sha256": "615f7a674198f9c1631d66ea513d701673bd5c908e172afe1a69245454e37b63",
+  "control_sha256": "b39fbd55a7d9decaa6acdb455610b3e2e6c4e6eb31f3a69999bc9f1c6e036efc",
+  "evaluator_sha256": "4264ac2f76badd60b605618015f891ab4d0ff00df3c888800d44ec7463537f28",
+  "source_evaluator_sha256": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+  "word_source_sha256": "9e17aec210d282a8dd75596ee681e02e9f772f120f1ca8ed9c502791636668df",
+  "target_freeze_sha256": "3a878665318b4e8a7c46be36e1876235ac042b326a5a6dc32b2dcca6e6764177",
+  "review_plan": "Root reviews all80 Spanish messages/scopes. Independent agent reviews same24caseIDs as the frozen Japanese independent subset before author semantics are shared. Assistant reviews do not establish bilingual gold labels.",
+  "primary_measurement": "Clean useful primary mixed-or-whole availability, content-only availability, changed-word depth, material/context/reading failures; compare paired100-form control. Keep mixed and whole credit separate. No population90percent inference.",
+  "native_promotion": false,
+  "identical_face_exclusion": "NFKC+casefold unchanged targets earn no credit; shared source evaluator retained byte-identical."
+}

@@ -1,0 +1,3858 @@
+{
+  "schema": "vipi-reviewed-source-target-transfer-research-1",
+  "production": false,
+  "training_only": true,
+  "new_target_holdout_seen": false,
+  "source_policy_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "source_guards_unchanged": true,
+  "target_language": "es",
+  "provenance": "English Wiktionary via Kaikki, per-word JSONL fetched November8,2026; exact record/sense content hashes retained. Record IDs here are content-addressed local IDs, not claimed publisher IDs.",
+  "entries": [
+    {
+      "source": "i",
+      "category": "function",
+      "pos": "pron",
+      "train_rank": 1,
+      "train_occurrences": 6897,
+      "concept_id": "i",
+      "id": "word-en-es-i",
+      "target": "yo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "yo",
+          "part_of_speech": "pron",
+          "source_record_id": "79ef2570f7bbcbd165ed6a83362902a2a8d0583df8bda68514a8cbcd7bdfd409:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:08b038a48b234bf2be9823693bac2d2c52f5cbac36800c72c4b3076a8e10de43"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "first-person singular pronoun in the nominative case; I"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "79ef2570f7bbcbd165ed6a83362902a2a8d0583df8bda68514a8cbcd7bdfd409",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/yo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/y/yo/yo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "and",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 8,
+      "train_occurrences": 1778,
+      "concept_id": "and",
+      "id": "word-en-es-and",
+      "target": "y",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "y",
+          "part_of_speech": "conj",
+          "source_record_id": "932ae1d1ad88142a5031394e6cafc4d74568bc8b2834a2dc71436e537200a4ae:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:50f4743df2413fe482de4a12a8aef42642cd4ccafa32cc9143dc47af29dfc93c"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "and"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "932ae1d1ad88142a5031394e6cafc4d74568bc8b2834a2dc71436e537200a4ae",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/y#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/y/y/y.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "but",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 18,
+      "train_occurrences": 1023,
+      "concept_id": "but",
+      "id": "word-en-es-but",
+      "target": "pero",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "pero",
+          "part_of_speech": "conj",
+          "source_record_id": "fa2c4bbb3c944dfb89667f9e4a07f4071134c1eb82e30407d4878ddc4372c72a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:a505511212945af7034fa78b2a101d860a0b8683cd720963e1e2e03bb8f7557a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "but"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "fa2c4bbb3c944dfb89667f9e4a07f4071134c1eb82e30407d4878ddc4372c72a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pero#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pero.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "really",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 33,
+      "train_occurrences": 557,
+      "concept_id": "really",
+      "id": "word-en-es-really",
+      "target": "realmente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "realmente",
+          "part_of_speech": "adv",
+          "source_record_id": "71fa521397d014e26c33c6379a36d6c8b7508fefd2aea9a83c8dd49664c16da4:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:fc55be0be6882897a8366c1a2246818032c41a9573be29ab086b27ab735cd77e"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "really, actually, genuinely"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "71fa521397d014e26c33c6379a36d6c8b7508fefd2aea9a83c8dd49664c16da4",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/realmente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/r/re/realmente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "yes",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 34,
+      "train_occurrences": 549,
+      "concept_id": "yes",
+      "id": "word-en-es-yes",
+      "target": "sí",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "sí",
+          "part_of_speech": "particle",
+          "source_record_id": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:4f2c3693660639e2ce50d482cebe002e7ba6f1a936d4f7a9c41d9cfc0c73ac99"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/s%C3%AD#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "very",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 58,
+      "train_occurrences": 357,
+      "concept_id": "very",
+      "id": "word-en-es-very",
+      "target": "muy",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "muy",
+          "part_of_speech": "adv",
+          "source_record_id": "5cb6eb5f2f5315b60e0af2bcd8d49b03a528fdc4a1c43f8c848ef0e813809b5f:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:343ec4b04eb4341e90ce015664a8aac6996637332489297327fc3aa3d5f85eab"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "apocopic form of mucho; very"
+          ],
+          "tags": [
+            "abbreviation",
+            "alt-of",
+            "apocopic"
+          ],
+          "form_of": [],
+          "alt_of": [
+            {
+              "word": "mucho",
+              "extra": "very"
+            }
+          ],
+          "source_sha256": "5cb6eb5f2f5315b60e0af2bcd8d49b03a528fdc4a1c43f8c848ef0e813809b5f",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/muy#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/mu/muy.jsonl"
+        },
+        {
+          "exact_spelling": "mucho",
+          "part_of_speech": "adv",
+          "source_record_id": "fd99a1ae5537a4def3cc5d12b5304a40b9749608cb48ca71556bdbf3a7eb023a:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:15cc0e058861b37944fc6119f0342278a301ae31b7a223d39e84185b5ab65d8a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "much, a lot, far, way, many times"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "fd99a1ae5537a4def3cc5d12b5304a40b9749608cb48ca71556bdbf3a7eb023a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/mucho#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/mu/mucho.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "or",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 69,
+      "train_occurrences": 318,
+      "concept_id": "or",
+      "id": "word-en-es-or",
+      "target": "o",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "o",
+          "part_of_speech": "conj",
+          "source_record_id": "8634cfec112f5296d0da04298fb68dce2169ddbdb3d0b5e8e32d571d0af24393:record:2",
+          "sense_ids": [
+            "record:2:sense:0:sha256:635dc385df524069933dd3ca596ea974a4bafd0947c7c497fbc4f044a84d2708"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "or"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "8634cfec112f5296d0da04298fb68dce2169ddbdb3d0b5e8e32d571d0af24393",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/o#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/o/o/o.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "think",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 70,
+      "train_occurrences": 313,
+      "concept_id": "think",
+      "id": "word-en-es-think",
+      "target": "pensar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "pensar",
+          "part_of_speech": "verb",
+          "source_record_id": "e3cfc3d63c2b4480609c3e6c9101e06e1edc194912ab23b1fe58b0a06ecf9806:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b0250805a7858921f6ad105af8ce4504895b735ee28147ea7cc67014fa2bcac3"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to think, ponder"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "e3cfc3d63c2b4480609c3e6c9101e06e1edc194912ab23b1fe58b0a06ecf9806",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pensar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pensar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "now",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 78,
+      "train_occurrences": 281,
+      "concept_id": "now",
+      "id": "word-en-es-now",
+      "target": "ahora",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "ahora",
+          "part_of_speech": "adv",
+          "source_record_id": "c02469aa42ff8d9fbc0a637966dfda7e9c6217bce16412c4dc6097b5f69e30fe:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:df3fbb37ea695841a80facb024ce6d45eb3ecebcc183dabf406c273ed2d7a6cd"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "now (at the present time)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "c02469aa42ff8d9fbc0a637966dfda7e9c6217bce16412c4dc6097b5f69e30fe",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/ahora#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/ah/ahora.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "more",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 82,
+      "train_occurrences": 255,
+      "concept_id": "more",
+      "id": "word-en-es-more",
+      "target": "más",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "más",
+          "part_of_speech": "adv",
+          "source_record_id": "f8520fe338d47bca250a8600390658d93ae0dfe7570c68a6465beb3e36ff0ecc:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:733925e70b05029d1ab5e2d9f8ed32af45e85af1f353d3504c92b423b1071b83"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "more; -er (used to make comparisons)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f8520fe338d47bca250a8600390658d93ae0dfe7570c68a6465beb3e36ff0ecc",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/m%C3%A1s#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/m%C3%A1/m%C3%A1s.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "also",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 85,
+      "train_occurrences": 232,
+      "concept_id": "also",
+      "id": "word-en-es-also",
+      "target": "también",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "también",
+          "part_of_speech": "adv",
+          "source_record_id": "052cbe99956b48d00bb0ef81e99b0db99bf6a999460a646599233deb6983ed46:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:50895f7283965d39186af5d786c5df7d25e9a8b74e930d2392aaecc5ca13a702"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "also, too, as well"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "052cbe99956b48d00bb0ef81e99b0db99bf6a999460a646599233deb6983ed46",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tambi%C3%A9n#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ta/tambi%C3%A9n.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "music",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 90,
+      "train_occurrences": 215,
+      "concept_id": "music",
+      "id": "word-en-es-music",
+      "target": "música",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "música",
+          "part_of_speech": "noun",
+          "source_record_id": "b1138fff06517de075c2249efba2669373ecbcee053008efdc0c1c8149fae854:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:f2ff5cc31611bfa1c96e3972f3a23bb2445b491bf47c7928e77e24eac0c648de"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "music"
+          ],
+          "tags": [
+            "feminine",
+            "uncountable"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "b1138fff06517de075c2249efba2669373ecbcee053008efdc0c1c8149fae854",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/m%C3%BAsica#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/m%C3%BA/m%C3%BAsica.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "always",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 96,
+      "train_occurrences": 204,
+      "concept_id": "always",
+      "id": "word-en-es-always",
+      "target": "siempre",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "siempre",
+          "part_of_speech": "adv",
+          "source_record_id": "f8083894a4b18feddd5f4dbf3ab1163b3fbe5fc0dc274fb5e70cb0fe9f08c8ac:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b6a23504113e5015f1fa30cca641123c14dd94249c0f791b4795be49031d7439"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "always"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f8083894a4b18feddd5f4dbf3ab1163b3fbe5fc0dc274fb5e70cb0fe9f08c8ac",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/siempre#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/s/si/siempre.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "people",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 102,
+      "train_occurrences": 185,
+      "concept_id": "people",
+      "id": "word-en-es-people",
+      "target": "gente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "gente",
+          "part_of_speech": "noun",
+          "source_record_id": "3c06bc8468a5b065f69355113d66feebbe1120556e26ee55f0d1b1017dace564:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:3f123e37a420c816766a789b7dbfea95c6d303d13589fc2f60d8511e4ff40209"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "people"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "3c06bc8468a5b065f69355113d66feebbe1120556e26ee55f0d1b1017dace564",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/gente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/g/ge/gente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "food",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 105,
+      "train_occurrences": 180,
+      "concept_id": "food",
+      "id": "word-en-es-food",
+      "target": "comida",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "comida",
+          "part_of_speech": "noun",
+          "source_record_id": "d722b80bf0f1eec72b4b9f3e565663ae3548471ff99cb0c84d46391a8b8a963f:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b28a4c02a991850895da13657c5c4da5ad91ce2bce186788fc365e86a2677ccb"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "food"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d722b80bf0f1eec72b4b9f3e565663ae3548471ff99cb0c84d46391a8b8a963f",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/comida#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/comida.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "want",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 106,
+      "train_occurrences": 177,
+      "concept_id": "want",
+      "id": "word-en-es-want",
+      "target": "querer",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "querer",
+          "part_of_speech": "verb",
+          "source_record_id": "40430b152df4320ad19cf580b84827e3b634cbbe0bf3ab9c8ef98a9060900d76:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:56f10e7777adc91ae07fa655241f168cd963f9d4c853a99c71c0b3323966602a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to desire, to want, to want to"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "40430b152df4320ad19cf580b84827e3b634cbbe0bf3ab9c8ef98a9060900d76",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/querer#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/querer.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "day",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 107,
+      "train_occurrences": 176,
+      "concept_id": "day",
+      "id": "word-en-es-day",
+      "target": "día",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "día",
+          "part_of_speech": "noun",
+          "source_record_id": "5f0e6001bdda3883ae20bbb1a876f64f1deb89dc707bf2437bc47d81ab403bda:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb926cf39b95053320992304e7ab28898cc6025535d9c67c3c9d60f2bf22459e"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "day (any period of 24 hours)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "5f0e6001bdda3883ae20bbb1a876f64f1deb89dc707bf2437bc47d81ab403bda",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/d%C3%ADa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%AD/d%C3%ADa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "only",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 126,
+      "train_occurrences": 143,
+      "concept_id": "only",
+      "id": "word-en-es-only",
+      "target": "solamente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "solamente",
+          "part_of_speech": "adv",
+          "source_record_id": "be443c092dbfe53ce47e72d6e947b8a264a9f3a4a3f36029753573bcdf8d3278:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:169ade903a107380f56785a547de6192dad1e6538042fb69f0554a708eee8b4f"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "only, alone, merely"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "be443c092dbfe53ce47e72d6e947b8a264a9f3a4a3f36029753573bcdf8d3278",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/solamente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/s/so/solamente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "things",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 128,
+      "train_occurrences": 141,
+      "concept_id": "thing",
+      "id": "word-en-es-things",
+      "target": "cosas",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cosas",
+          "part_of_speech": "noun",
+          "source_record_id": "8ed4519d556e66cf3f97530cdf8ce3b59a0f60e6c2be42e65ed4212730d20da1:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:034fb0e9bd7e50f6ecddf631002f08013f55c7b290510d39b6c01cc7852b9516"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of cosa"
+          ],
+          "tags": [
+            "feminine",
+            "form-of",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "cosa"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "8ed4519d556e66cf3f97530cdf8ce3b59a0f60e6c2be42e65ed4212730d20da1",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cosas#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/cosas.jsonl"
+        },
+        {
+          "exact_spelling": "cosa",
+          "part_of_speech": "noun",
+          "source_record_id": "1f979fab2c70e9b6486620ceb30c62e1a371a311d3042f2771256ef91561b157:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:779b6639a4ac7e855415951aa494ef8221efc565df749069ad4ee3bc8c01343a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "thing (object, concept)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "1f979fab2c70e9b6486620ceb30c62e1a371a311d3042f2771256ef91561b157",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cosa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/cosa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "because",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 130,
+      "train_occurrences": 139,
+      "concept_id": "because",
+      "id": "word-en-es-because",
+      "target": "porque",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "porque",
+          "part_of_speech": "conj",
+          "source_record_id": "d8a19b6e96758a887a4a4b2bd58f200e3a03beb17a3c99cba354a56e06882e40:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:963d0e3373be7184ef06502bafee45bb9bdfa73cc6db5605e15a07ac84c62ebc"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "because"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d8a19b6e96758a887a4a4b2bd58f200e3a03beb17a3c99cba354a56e06882e40",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/porque#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/po/porque.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "maybe",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 131,
+      "train_occurrences": 139,
+      "concept_id": "maybe",
+      "id": "word-en-es-maybe",
+      "target": "quizás",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "quizás",
+          "part_of_speech": "adv",
+          "source_record_id": "7eb8aa0b6c6ce94bdcba43a4a3927fb9913cd09ea5ed102681bf4899cb3afd91:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:822061ab8aad272884bc399bdd48303fcbb965795f8a2528932b0ee77a64b1e4"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "alternative form of quizá"
+          ],
+          "tags": [
+            "alt-of",
+            "alternative"
+          ],
+          "form_of": [],
+          "alt_of": [
+            {
+              "word": "quizá"
+            }
+          ],
+          "source_sha256": "7eb8aa0b6c6ce94bdcba43a4a3927fb9913cd09ea5ed102681bf4899cb3afd91",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/quiz%C3%A1s#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/quiz%C3%A1s.jsonl"
+        },
+        {
+          "exact_spelling": "quizá",
+          "part_of_speech": "adv",
+          "source_record_id": "ea4d3488eff1e637e1dd87088d0d040e29ebc8c20bbfd1c5a882749fa1e0a8ac:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:5c6ba4fa27c443a5c2b1e67c2726b38e4f5cf6c58de8d62988178f4ff1970078"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "perhaps, maybe"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "ea4d3488eff1e637e1dd87088d0d040e29ebc8c20bbfd1c5a882749fa1e0a8ac",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/quiz%C3%A1#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/quiz%C3%A1.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "dog",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 137,
+      "train_occurrences": 127,
+      "concept_id": "dog",
+      "id": "word-en-es-dog",
+      "target": "perro",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "perro",
+          "part_of_speech": "noun",
+          "source_record_id": "aad8fea740ec6dddcea0025c11100ec1488acee4f20940021aece4dda3010bcb:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:c238efaa5f367c77202df117455a82b8be9a5c95f1e7d7c0769f9dfc7057d0a5"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "dog (the species Canis familiaris (sometimes designated Canis lupus familiaris), domesticated for thousands of years and of highly variable appearance because of human breeding)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "aad8fea740ec6dddcea0025c11100ec1488acee4f20940021aece4dda3010bcb",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/perro#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/perro.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "eat",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 138,
+      "train_occurrences": 127,
+      "concept_id": "eat",
+      "id": "word-en-es-eat",
+      "target": "comer",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "comer",
+          "part_of_speech": "verb",
+          "source_record_id": "ee9a8cc48c18749a91bdea77e155ed791bf91b69e4d4c2a76f4e2a94571296cb:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:37618d53dae1468243c972425d783fbfbdb2aed484f607087719f2d9a94d0f6a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to eat"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "ee9a8cc48c18749a91bdea77e155ed791bf91b69e4d4c2a76f4e2a94571296cb",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/comer#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/comer.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "dogs",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 146,
+      "train_occurrences": 120,
+      "concept_id": "dog",
+      "id": "word-en-es-dogs",
+      "target": "perros",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "perros",
+          "part_of_speech": "noun",
+          "source_record_id": "db53986b9eb970e42f6efae7100f9bc12019d0c0f0081a81311bd3fa0b6975c7:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:1ac3bd4368dcc2d45e098bbbd9bb068b04bc79b7a87513c83dd9d43064169a73"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of perro"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "perro"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "db53986b9eb970e42f6efae7100f9bc12019d0c0f0081a81311bd3fa0b6975c7",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/perros#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/perros.jsonl"
+        },
+        {
+          "exact_spelling": "perro",
+          "part_of_speech": "noun",
+          "source_record_id": "aad8fea740ec6dddcea0025c11100ec1488acee4f20940021aece4dda3010bcb:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:c238efaa5f367c77202df117455a82b8be9a5c95f1e7d7c0769f9dfc7057d0a5"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "dog (the species Canis familiaris (sometimes designated Canis lupus familiaris), domesticated for thousands of years and of highly variable appearance because of human breeding)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "aad8fea740ec6dddcea0025c11100ec1488acee4f20940021aece4dda3010bcb",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/perro#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/perro.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "here",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 147,
+      "train_occurrences": 119,
+      "concept_id": "here",
+      "id": "word-en-es-here",
+      "target": "aquí",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "aquí",
+          "part_of_speech": "adv",
+          "source_record_id": "f742b2e554b076f07ad1bed23f49d23773273b81dcc7ff7c122193cdeed6cffc:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:97e7b8f5a88ec5dff88c58bdb5358ca4d4f8d5abf522590ffb68e58bf9c10455"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "here (in the speaker's location)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f742b2e554b076f07ad1bed23f49d23773273b81dcc7ff7c122193cdeed6cffc",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/aqu%C3%AD#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/aq/aqu%C3%AD.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "years",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 150,
+      "train_occurrences": 118,
+      "concept_id": "year",
+      "id": "word-en-es-years",
+      "target": "años",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "años",
+          "part_of_speech": "noun",
+          "source_record_id": "53f578b804e6e857463d3c61c5d80772dc6c369d7a53ed554d5e9c24617864a3:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:77815b6ea4c41c6fc1a88a866268a538cf7fb162f857b08b17cdc3dce1f1fecd"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of año"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "año"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "53f578b804e6e857463d3c61c5d80772dc6c369d7a53ed554d5e9c24617864a3",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/a%C3%B1os#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/a%C3%B1/a%C3%B1os.jsonl"
+        },
+        {
+          "exact_spelling": "año",
+          "part_of_speech": "noun",
+          "source_record_id": "fd36c1587cd6246388268f113c3330d707a848f8d957bad6781788697f663d35:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:7a25db701969e1aab4b793d0d0a7ce4d676f983c49c0a36bfe484112969fe0bc"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "year"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "fd36c1587cd6246388268f113c3330d707a848f8d957bad6781788697f663d35",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/a%C3%B1o#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/a%C3%B1/a%C3%B1o.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "life",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 156,
+      "train_occurrences": 111,
+      "concept_id": "life",
+      "id": "word-en-es-life",
+      "target": "vida",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "vida",
+          "part_of_speech": "noun",
+          "source_record_id": "a3e6f27a6a1f9374fda19588f9e01ed45407e4e485dbe628740eb31afde3d7cb:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b049a72cadea2e55f683d4fd9a086ad92ac75f76c15473652ecf0248af753503"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "life"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "a3e6f27a6a1f9374fda19588f9e01ed45407e4e485dbe628740eb31afde3d7cb",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/vida#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/v/vi/vida.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "thing",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 180,
+      "train_occurrences": 99,
+      "concept_id": "thing",
+      "id": "word-en-es-thing",
+      "target": "cosa",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cosa",
+          "part_of_speech": "noun",
+          "source_record_id": "1f979fab2c70e9b6486620ceb30c62e1a371a311d3042f2771256ef91561b157:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:779b6639a4ac7e855415951aa494ef8221efc565df749069ad4ee3bc8c01343a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "thing (object, concept)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "1f979fab2c70e9b6486620ceb30c62e1a371a311d3042f2771256ef91561b157",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cosa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/cosa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "year",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 182,
+      "train_occurrences": 98,
+      "concept_id": "year",
+      "id": "word-en-es-year",
+      "target": "año",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "año",
+          "part_of_speech": "noun",
+          "source_record_id": "fd36c1587cd6246388268f113c3330d707a848f8d957bad6781788697f663d35:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:7a25db701969e1aab4b793d0d0a7ce4d676f983c49c0a36bfe484112969fe0bc"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "year"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "fd36c1587cd6246388268f113c3330d707a848f8d957bad6781788697f663d35",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/a%C3%B1o#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/a%C3%B1/a%C3%B1o.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "cats",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 192,
+      "train_occurrences": 91,
+      "concept_id": "cat",
+      "id": "word-en-es-cats",
+      "target": "gatos",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "gatos",
+          "part_of_speech": "noun",
+          "source_record_id": "8794028515865fa46633f9e261ce224782c5b0be0e075cc930455d2d4b9bf53c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:3f030eef12a6c9c0821c6220b22251f374df547a4b93d929f980692261b30f71"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of gato"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "gato"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "8794028515865fa46633f9e261ce224782c5b0be0e075cc930455d2d4b9bf53c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/gatos#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/g/ga/gatos.jsonl"
+        },
+        {
+          "exact_spelling": "gato",
+          "part_of_speech": "noun",
+          "source_record_id": "537fb7dc1c9e77d63c4243c9c4b41733e56a78fae4b903915294ad84da01ae3b:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:d5eab7899eea3613814a2641a2889909838be8232b75da77d23127d99e6d61f2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "cat (unspecified gender)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "537fb7dc1c9e77d63c4243c9c4b41733e56a78fae4b903915294ad84da01ae3b",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/gato#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/g/ga/gato.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "money",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 196,
+      "train_occurrences": 89,
+      "concept_id": "money",
+      "id": "word-en-es-money",
+      "target": "dinero",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "dinero",
+          "part_of_speech": "noun",
+          "source_record_id": "6236a75d01ac1b210da5832984e10f75c9a088a76e46b2698428f0168e29a290:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:712d2ca2f705a196413be009afafd06839c93c00bffd4d5568bc557b33e84a7f"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "money"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "6236a75d01ac1b210da5832984e10f75c9a088a76e46b2698428f0168e29a290",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/dinero#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/di/dinero.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "movies",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 199,
+      "train_occurrences": 86,
+      "concept_id": "movie",
+      "id": "word-en-es-movies",
+      "target": "películas",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "películas",
+          "part_of_speech": "noun",
+          "source_record_id": "f32be95dd6bbe36864a7e51d0af785ac2d8f1498b3b6cd70d65821fb10cae233:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:5c501abba81ed3be614397e957a15952e326205c39e8b78b4fae03310168ccfd"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of película"
+          ],
+          "tags": [
+            "feminine",
+            "form-of",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "película"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "f32be95dd6bbe36864a7e51d0af785ac2d8f1498b3b6cd70d65821fb10cae233",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pel%C3%ADculas#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pel%C3%ADculas.jsonl"
+        },
+        {
+          "exact_spelling": "película",
+          "part_of_speech": "noun",
+          "source_record_id": "2050a45a708d57bac32b3c3e6ceb8946a0ca7bcb9e5fa035a835dba7f6b7178a:record:0",
+          "sense_ids": [
+            "record:0:sense:1:sha256:285ef1af7c5d2327505edfa39d1458bd77fee60ec5f72a54cc9e44aaddccc6bd"
+          ],
+          "sense_index": 1,
+          "glosses": [
+            "movie (US, Canada), film"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "2050a45a708d57bac32b3c3e6ceb8946a0ca7bcb9e5fa035a835dba7f6b7178a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pel%C3%ADcula#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pel%C3%ADcula.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "thanks",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 213,
+      "train_occurrences": 82,
+      "concept_id": "thanks",
+      "id": "word-en-es-thanks",
+      "target": "gracias",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "gracias",
+          "part_of_speech": "intj",
+          "source_record_id": "18efee91ed140bf04ebe3a04a1b92a10a9d33cef69fff85b4dfa401f2089508c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:6e3bdc1ffb5d7cef35e4dafc9cc7976ce4062eb2322a298bc7cf550955b59cf9"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "thank you, thanks"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "18efee91ed140bf04ebe3a04a1b92a10a9d33cef69fff85b4dfa401f2089508c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/gracias#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/g/gr/gracias.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "every",
+      "category": "function",
+      "pos": "det",
+      "train_rank": 215,
+      "train_occurrences": 80,
+      "concept_id": "every",
+      "id": "word-en-es-every",
+      "target": "cada",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cada",
+          "part_of_speech": "det",
+          "source_record_id": "4791358e040221b6bf8f2b86b00b15c8432eb8fa175ad357eefaf4f5164443bc:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:27e7703f218cbbddc2b29f9f3b594291884fb68305c756b71be10ca75263ba46"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "each; every"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "4791358e040221b6bf8f2b86b00b15c8432eb8fa175ad357eefaf4f5164443bc",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cada#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ca/cada.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "games",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 218,
+      "train_occurrences": 79,
+      "concept_id": "games",
+      "id": "word-en-es-games",
+      "target": "juegos",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "juegos",
+          "part_of_speech": "noun",
+          "source_record_id": "c3a35bff5fbd93f92a26f844c73615d311f49b3b10d6bddfa528df55ae01942a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b7e63e341609ec0c4e1bef066de40e3cf91897323436ed9fb9d2bfe57810f55a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of juego"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "juego"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "c3a35bff5fbd93f92a26f844c73615d311f49b3b10d6bddfa528df55ae01942a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/juegos#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/j/ju/juegos.jsonl"
+        },
+        {
+          "exact_spelling": "juego",
+          "part_of_speech": "noun",
+          "source_record_id": "909ca59b1876d80b6ce4baff3c0772ce56f6e68e148448980ba80c8058ced02c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:f8a1763710a2ffa4d7aa126bd122411d222afbda09dfd7fdc718ee0e92dc5d9d"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "play"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "909ca59b1876d80b6ce4baff3c0772ce56f6e68e148448980ba80c8058ced02c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/juego#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/j/ju/juego.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "parents",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 228,
+      "train_occurrences": 75,
+      "concept_id": "parents",
+      "id": "word-en-es-parents",
+      "target": "padres",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "padres",
+          "part_of_speech": "noun",
+          "source_record_id": "5306bdd45514aca04d3dfd8cb6f16cfd200e1556a69123648649936e6c67ef1d:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:60f6a1019257962bb542bc96e6725a9db93ef55b465bcfc6b48e50b9825bb3c0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of padre (“parents”)"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "padre",
+              "extra": "parents"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "5306bdd45514aca04d3dfd8cb6f16cfd200e1556a69123648649936e6c67ef1d",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/padres#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pa/padres.jsonl"
+        },
+        {
+          "exact_spelling": "padre",
+          "part_of_speech": "noun",
+          "source_record_id": "8e96de6654b88c77c90b443656a35fef8f19a07eb944cfdc1dd64e2b0667f880:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:75bcd0efa36db890b428a73dab60f3a7147ecbd5eea0e74ab9d93edab2281fa1"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "father, parent"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "8e96de6654b88c77c90b443656a35fef8f19a07eb944cfdc1dd64e2b0667f880",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/padre#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pa/padre.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "animals",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 233,
+      "train_occurrences": 72,
+      "concept_id": "animal",
+      "id": "word-en-es-animals",
+      "target": "animales",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "animales",
+          "part_of_speech": "noun",
+          "source_record_id": "6946939b3ad8c028d3baca087f31be0ee49ad4f17be5cda4829736b0eed9e7e3:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:824ebd53e61392103bf448440eccbfe4f47dbe8693d33d8ea22deff3a2e05831"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of animal"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "animal"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "6946939b3ad8c028d3baca087f31be0ee49ad4f17be5cda4829736b0eed9e7e3",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/animales#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/an/animales.jsonl"
+        },
+        {
+          "exact_spelling": "animal",
+          "part_of_speech": "noun",
+          "source_record_id": "4128db29422089a602e775c57f6743fa4f8c0e8321d119528f953b9e222a8946:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:7acb2b609a3157cb32ef482a8ca0b85e0ed23ea5ebd1e4ffd58f027da96f8597"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "animal"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "4128db29422089a602e775c57f6743fa4f8c0e8321d119528f953b9e222a8946",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/animal#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/an/animal.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "especially",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 234,
+      "train_occurrences": 72,
+      "concept_id": "especially",
+      "id": "word-en-es-especially",
+      "target": "especialmente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "especialmente",
+          "part_of_speech": "adv",
+          "source_record_id": "f4e8d1753d4147e0d2e1aba8502517dd92881196d915b9803db2d1d17aff32a8:record:0",
+          "sense_ids": [
+            "record:0:sense:1:sha256:f9ab3461dde229e9386da41c0d1b3bdfdd9c708f2bfcc3593e617558606157cc"
+          ],
+          "sense_index": 1,
+          "glosses": [
+            "especially"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f4e8d1753d4147e0d2e1aba8502517dd92881196d915b9803db2d1d17aff32a8",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/especialmente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/especialmente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "usually",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 235,
+      "train_occurrences": 72,
+      "concept_id": "usually",
+      "id": "word-en-es-usually",
+      "target": "normalmente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "normalmente",
+          "part_of_speech": "adv",
+          "source_record_id": "29f06a6165c291dd81aef1efc50250ac92e456d2f6bb231c71464a0b19ae17c2:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:8dc9a9501a174a41171b3a6f47009ca9fdfc9a388205fe43d9b30af817f5322f"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "normally; usually; most of the time; customarily"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "29f06a6165c291dd81aef1efc50250ac92e456d2f6bb231c71464a0b19ae17c2",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/normalmente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/n/no/normalmente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "pets",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 237,
+      "train_occurrences": 71,
+      "concept_id": "pet",
+      "id": "word-en-es-pets",
+      "target": "mascotas",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "mascotas",
+          "part_of_speech": "noun",
+          "source_record_id": "6ce431913c85bf9ad7e625f5f646b743c44f2c533ac13bf78918457f1058f311:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:3ca5a961fac2eca56f58809c869fbc1fddd3b7a63b11232649f6bdbd115e5029"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of mascota"
+          ],
+          "tags": [
+            "feminine",
+            "form-of",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "mascota"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "6ce431913c85bf9ad7e625f5f646b743c44f2c533ac13bf78918457f1058f311",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/mascotas#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/mascotas.jsonl"
+        },
+        {
+          "exact_spelling": "mascota",
+          "part_of_speech": "noun",
+          "source_record_id": "f5cc0c4a596619f1ffa2a7b1dff923f1028e1b6b1ff57eee199fb45ed92324b4:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:feeac4c33440c0bad382a7ce23d7dc589ba0af0bc9e086b5f787b82f2c3b99e7"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "pet"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f5cc0c4a596619f1ffa2a7b1dff923f1028e1b6b1ff57eee199fb45ed92324b4",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/mascota#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/mascota.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "prefer",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 238,
+      "train_occurrences": 71,
+      "concept_id": "prefer",
+      "id": "word-en-es-prefer",
+      "target": "preferir",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "preferir",
+          "part_of_speech": "verb",
+          "source_record_id": "8aa1301bf510083503a3445c3d50307b40137132a3aaccd6d18007ac0519d0c6:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:bbc4175976edc8535dceeaced6c338f59f9a96b0e136130be3d45e77e040f4ce"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to prefer"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "8aa1301bf510083503a3445c3d50307b40137132a3aaccd6d18007ac0519d0c6",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/preferir#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pr/preferir.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "books",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 239,
+      "train_occurrences": 70,
+      "concept_id": "books",
+      "id": "word-en-es-books",
+      "target": "libros",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "libros",
+          "part_of_speech": "noun",
+          "source_record_id": "c6818ee91f1e9e23fabc81d78934c6eddc46a7474fd816066bbd974d29038c0e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:3bae0a99dc777e77d126e1b180508cf147e6e181c9a3c1a9dee2656d411dfc9d"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of libro"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "libro"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "c6818ee91f1e9e23fabc81d78934c6eddc46a7474fd816066bbd974d29038c0e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/libros#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/l/li/libros.jsonl"
+        },
+        {
+          "exact_spelling": "libro",
+          "part_of_speech": "noun",
+          "source_record_id": "19c32aab99073935a107a5de39e72efb45b7b94df317b36e9d3c7f23fab7c000:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:330779d7ea6ff673591f4baa3e9473c8f74ee5fae30d7e453f2714c0300c7a53"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "book"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "19c32aab99073935a107a5de39e72efb45b7b94df317b36e9d3c7f23fab7c000",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/libro#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/l/li/libro.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "car",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 242,
+      "train_occurrences": 68,
+      "concept_id": "car",
+      "id": "word-en-es-car",
+      "target": "coche",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "coche",
+          "part_of_speech": "noun",
+          "source_record_id": "62162f4cde7462dcd228032321cb6e70868435cc7c0a592a07e1cd3e7ec9ccea:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:426f42d639db3947903cb488fff0d714b49858656f6c78bdabdb8f0f1db699b2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "car, automobile"
+          ],
+          "tags": [
+            "Mexico",
+            "Philippines",
+            "Spain",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "62162f4cde7462dcd228032321cb6e70868435cc7c0a592a07e1cd3e7ec9ccea",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/coche#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/coche.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "sports",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 249,
+      "train_occurrences": 66,
+      "concept_id": "sports",
+      "id": "word-en-es-sports",
+      "target": "deportes",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "deportes",
+          "part_of_speech": "noun",
+          "source_record_id": "8ac00434f0dac8666b09af0ed301c4443c35330070e451b4e5275995de629087:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:675ac8ef1593cd5b622d0b2cd37091d93d360ef6e40f5cff661716263d41b1d4"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of deporte"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "deporte"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "8ac00434f0dac8666b09af0ed301c4443c35330070e451b4e5275995de629087",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/deportes#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/de/deportes.jsonl"
+        },
+        {
+          "exact_spelling": "deporte",
+          "part_of_speech": "noun",
+          "source_record_id": "525d6e3341c4cab4110af5150ba351152c55ebc45a5fc6f44b28acae99fbcf47:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:65e482012ab599230b0c04803d1644dc3b0e4fb4e8672158cd042321fbc5504a"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "sport (activity)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "525d6e3341c4cab4110af5150ba351152c55ebc45a5fc6f44b28acae99fbcf47",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/deporte#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/de/deporte.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "cat",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 250,
+      "train_occurrences": 65,
+      "concept_id": "cat",
+      "id": "word-en-es-cat",
+      "target": "gato",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "gato",
+          "part_of_speech": "noun",
+          "source_record_id": "537fb7dc1c9e77d63c4243c9c4b41733e56a78fae4b903915294ad84da01ae3b:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:d5eab7899eea3613814a2641a2889909838be8232b75da77d23127d99e6d61f2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "cat (unspecified gender)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "537fb7dc1c9e77d63c4243c9c4b41733e56a78fae4b903915294ad84da01ae3b",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/gato#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/g/ga/gato.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "pizza",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 261,
+      "train_occurrences": 64,
+      "concept_id": "pizza",
+      "id": "word-en-es-pizza",
+      "target": "pizza",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "pizza",
+          "part_of_speech": "noun",
+          "source_record_id": "aad349956717d035760aa551fe55734d88192aa8f3d64f2030e16d3f38323eb6:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:102142b1b0d974eddef5fdadd7c598e82069a7ac18206e17cd3e7d0f7dba9875"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "pizza (Italian dish)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "aad349956717d035760aa551fe55734d88192aa8f3d64f2030e16d3f38323eb6",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pizza#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pi/pizza.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": true
+    },
+    {
+      "source": "movie",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 268,
+      "train_occurrences": 63,
+      "concept_id": "movie",
+      "id": "word-en-es-movie",
+      "target": "película",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "película",
+          "part_of_speech": "noun",
+          "source_record_id": "2050a45a708d57bac32b3c3e6ceb8946a0ca7bcb9e5fa035a835dba7f6b7178a:record:0",
+          "sense_ids": [
+            "record:0:sense:1:sha256:285ef1af7c5d2327505edfa39d1458bd77fee60ec5f72a54cc9e44aaddccc6bd"
+          ],
+          "sense_index": 1,
+          "glosses": [
+            "movie (US, Canada), film"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "2050a45a708d57bac32b3c3e6ceb8946a0ca7bcb9e5fa035a835dba7f6b7178a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pel%C3%ADcula#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pel%C3%ADcula.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "beach",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 272,
+      "train_occurrences": 61,
+      "concept_id": "beach",
+      "id": "word-en-es-beach",
+      "target": "playa",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "playa",
+          "part_of_speech": "noun",
+          "source_record_id": "ba3558b61ff5e347fdb42e063e3224537d17983f97b9c601fc1461472dc709f2:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:dcaa1a975737dbc6a5911ca793932d9a5aacfa47cbdd379c7da7b28e18a57a28"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "beach"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "ba3558b61ff5e347fdb42e063e3224537d17983f97b9c601fc1461472dc709f2",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/playa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pl/playa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "days",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 280,
+      "train_occurrences": 58,
+      "concept_id": "day",
+      "id": "word-en-es-days",
+      "target": "días",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "días",
+          "part_of_speech": "noun",
+          "source_record_id": "d5a446b30f6a7c2b62f17fe5f3007b3ac37948793cff9cf15e6837df2326471a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:d94a230e82030d83a5a860dacdb54386854e8f72b77bedc0b0ecac2da8b34060"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of día"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "día"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "d5a446b30f6a7c2b62f17fe5f3007b3ac37948793cff9cf15e6837df2326471a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/d%C3%ADas#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%AD/d%C3%ADas.jsonl"
+        },
+        {
+          "exact_spelling": "día",
+          "part_of_speech": "noun",
+          "source_record_id": "5f0e6001bdda3883ae20bbb1a876f64f1deb89dc707bf2437bc47d81ab403bda:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb926cf39b95053320992304e7ab28898cc6025535d9c67c3c9d60f2bf22459e"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "day (any period of 24 hours)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "5f0e6001bdda3883ae20bbb1a876f64f1deb89dc707bf2437bc47d81ab403bda",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/d%C3%ADa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%AD/d%C3%ADa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "mom",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 290,
+      "train_occurrences": 56,
+      "concept_id": "mother",
+      "id": "word-en-es-mom",
+      "target": "mamá",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "mamá",
+          "part_of_speech": "noun",
+          "source_record_id": "a3c0e4fca4d1537480e304d567967bbb6863e4f56b4b678182112ccbc1f9108f:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:a33512869645340928d3c07a59e9a4e73ec9b2bdb31c5a0b0bfbf2d0485480da"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "mum, mom"
+          ],
+          "tags": [
+            "endearing",
+            "familiar",
+            "feminine",
+            "informal"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "a3c0e4fca4d1537480e304d567967bbb6863e4f56b4b678182112ccbc1f9108f",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/mam%C3%A1#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/mam%C3%A1.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "listen",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 294,
+      "train_occurrences": 55,
+      "concept_id": "listen",
+      "id": "word-en-es-listen",
+      "target": "escuchar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "escuchar",
+          "part_of_speech": "verb",
+          "source_record_id": "2fb1e524aee485db5c3e2f398c7c72866163a0c5ab7a98499ad383e3f9a4dfed:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:683ac3bc948c8e240e16bb06c88149d804db1186f3c583acdd609c70e93ca5dd"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to listen to, to hear out"
+          ],
+          "tags": [
+            "ambitransitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "2fb1e524aee485db5c3e2f398c7c72866163a0c5ab7a98499ad383e3f9a4dfed",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/escuchar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/escuchar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "night",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 301,
+      "train_occurrences": 54,
+      "concept_id": "night",
+      "id": "word-en-es-night",
+      "target": "noche",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "noche",
+          "part_of_speech": "noun",
+          "source_record_id": "d0e046ec37fe2afa7033249a59ab44fa6899d7b76b8d00064138ecf337f6d001:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:ac5db921da2a0ecd6343f95ffacc6b58737a2ba9bacb1df240a84302407cf0b2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "night (the period between sunset and sunrise)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d0e046ec37fe2afa7033249a59ab44fa6899d7b76b8d00064138ecf337f6d001",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/noche#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/n/no/noche.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "hair",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 305,
+      "train_occurrences": 53,
+      "concept_id": "hair",
+      "id": "word-en-es-hair",
+      "target": "pelo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "pelo",
+          "part_of_speech": "noun",
+          "source_record_id": "5eb817b59c68b0828a9b891252a39faafec3db2070fc4d113a2b1b5bd60008b3:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:a89d43d5cb595d046303c90c8c12cc235c037092de65a48a34b4401ccf99d926"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "hair (a single hair)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "5eb817b59c68b0828a9b891252a39faafec3db2070fc4d113a2b1b5bd60008b3",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pelo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/pelo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "weather",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 313,
+      "train_occurrences": 51,
+      "concept_id": "weather",
+      "id": "word-en-es-weather",
+      "target": "tiempo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "tiempo",
+          "part_of_speech": "noun",
+          "source_record_id": "0117ca34828788a963258039365d6ca082bef0b73b17152d25519ce6f910d19e:record:0",
+          "sense_ids": [
+            "record:0:sense:3:sha256:6444af9998bc0c7b8045b33b8be70e883e2fee14bcee0d95110c03b23cf44d58"
+          ],
+          "sense_index": 3,
+          "glosses": [
+            "weather (the short-term state of the atmosphere at a specific time and place, including the temperature, relative humidity, cloud cover, precipitation, wind, etc)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "0117ca34828788a963258039365d6ca082bef0b73b17152d25519ce6f910d19e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tiempo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tiempo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "idea",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 322,
+      "train_occurrences": 49,
+      "concept_id": "idea",
+      "id": "word-en-es-idea",
+      "target": "idea",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "idea",
+          "part_of_speech": "noun",
+          "source_record_id": "7e69ec453e2c0e67fb7e88c0f0be02f6f6a292d61d7ce582225813c3b8b17f82:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:720c1e159aa930ad6d8fa8ba36a8409b3fd9295e31a71482a87bddd5e8e9b3f2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "idea"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "7e69ec453e2c0e67fb7e88c0f0be02f6f6a292d61d7ce582225813c3b8b17f82",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/idea#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/i/id/idea.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": true
+    },
+    {
+      "source": "important",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 323,
+      "train_occurrences": 49,
+      "concept_id": "important",
+      "id": "word-en-es-important",
+      "target": "importante",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "importante",
+          "part_of_speech": "adj",
+          "source_record_id": "dbb77c55a4f71df0732a60598486286ea33ded2be5049af32d99dc8ec2ac00f3:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:7511f9d0d62a1ef76285d0f48360b320feac6d66142c7af99d7f5319ca82cdb2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "important, that cares, that matters."
+          ],
+          "tags": [
+            "feminine",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "dbb77c55a4f71df0732a60598486286ea33ded2be5049af32d99dc8ec2ac00f3",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/importante#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/i/im/importante.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "person",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 325,
+      "train_occurrences": 49,
+      "concept_id": "person",
+      "id": "word-en-es-person",
+      "target": "persona",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "persona",
+          "part_of_speech": "noun",
+          "source_record_id": "d6661c698eec445d53c330b294ec270e3d8e9627bee99e675d7a5896c157f9e7:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:c1c9dfeb5e5b2fed9f5fcfdd21fba0e6e022df589fd61ebeb26b3da2de864032"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "person (an individual; usually a human being)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d6661c698eec445d53c330b294ec270e3d8e9627bee99e675d7a5896c157f9e7",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/persona#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pe/persona.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "week",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 327,
+      "train_occurrences": 49,
+      "concept_id": "week",
+      "id": "word-en-es-week",
+      "target": "semana",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "semana",
+          "part_of_speech": "noun",
+          "source_record_id": "4a91d66e5b869626bc86e4417a37e4202e32a29fa5c77f8fa7811c33fdb7e4ea:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:5cd835f5357e7af5e3e434f91968614fcbdf9c0f3c3c7e0c7a97508a1094cf20"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "week (7 days)"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "4a91d66e5b869626bc86e4417a37e4202e32a29fa5c77f8fa7811c33fdb7e4ea",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/semana#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/s/se/semana.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "dad",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 329,
+      "train_occurrences": 48,
+      "concept_id": "father",
+      "id": "word-en-es-dad",
+      "target": "papá",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "papá",
+          "part_of_speech": "noun",
+          "source_record_id": "5aa209e2f1f4efde3de3cd0c49e65c29c4fc16dc62d20bf1d67da4a95f689711:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b556a73c5b795c7bf16742d11adeef0fc63864741d79db0dff4e915ce207425b"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "dad"
+          ],
+          "tags": [
+            "colloquial",
+            "endearing",
+            "familiar",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "5aa209e2f1f4efde3de3cd0c49e65c29c4fc16dc62d20bf1d67da4a95f689711",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pap%C3%A1#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pa/pap%C3%A1.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "wife",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 335,
+      "train_occurrences": 47,
+      "concept_id": "wife",
+      "id": "word-en-es-wife",
+      "target": "esposa",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "esposa",
+          "part_of_speech": "noun",
+          "source_record_id": "241e3915b993753a219408646666e1d70c8e60616dd3d656999af1a34217768a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:8a8698942eeb3ca5adc94d96c96e7ae6d898b46e363d9704d1a27883bb315700"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "wife"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "241e3915b993753a219408646666e1d70c8e60616dd3d656999af1a34217768a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/esposa#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/esposa.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "world",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 339,
+      "train_occurrences": 46,
+      "concept_id": "world",
+      "id": "word-en-es-world",
+      "target": "mundo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "mundo",
+          "part_of_speech": "noun",
+          "source_record_id": "03f297de5be9c2563e0eb6f106c2801338c0c704b55be8974a8c839984a8c382:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:7b67830febde9823b30772a9d70cf5bc7e836c2678638a025e4c95bdfcff8188"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "world, earth (human collective existence)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "03f297de5be9c2563e0eb6f106c2801338c0c704b55be8974a8c839984a8c382",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/mundo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/mu/mundo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "cars",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 340,
+      "train_occurrences": 45,
+      "concept_id": "car",
+      "id": "word-en-es-cars",
+      "target": "coches",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "coches",
+          "part_of_speech": "noun",
+          "source_record_id": "fe456f169bff6619135f68261cd24276efcce61d7061b8643d3b3c94ae879a03:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:7b4db19740aad0ff6a945e91e8e76dd1931a7838537604110d4184c646fdab07"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of coche"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "coche"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "fe456f169bff6619135f68261cd24276efcce61d7061b8643d3b3c94ae879a03",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/coches#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/coches.jsonl"
+        },
+        {
+          "exact_spelling": "coche",
+          "part_of_speech": "noun",
+          "source_record_id": "62162f4cde7462dcd228032321cb6e70868435cc7c0a592a07e1cd3e7ec9ccea:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:426f42d639db3947903cb488fff0d714b49858656f6c78bdabdb8f0f1db699b2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "car, automobile"
+          ],
+          "tags": [
+            "Mexico",
+            "Philippines",
+            "Spain",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "62162f4cde7462dcd228032321cb6e70868435cc7c0a592a07e1cd3e7ec9ccea",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/coche#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/coche.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "understand",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 345,
+      "train_occurrences": 44,
+      "concept_id": "understand",
+      "id": "word-en-es-understand",
+      "target": "entender",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "entender",
+          "part_of_speech": "verb",
+          "source_record_id": "e45754835baa9d022aa1eff631d14a106aca9c58dced00deda84bab29cd9258a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:c026b9a8450ec2dde37543b014aa5f4f07ffcb70fceb4c6287b75c3effd6c512"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to understand, to fathom"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "e45754835baa9d022aa1eff631d14a106aca9c58dced00deda84bab29cd9258a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/entender#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/en/entender.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "art",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 346,
+      "train_occurrences": 43,
+      "concept_id": "art",
+      "id": "word-en-es-art",
+      "target": "arte",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "arte",
+          "part_of_speech": "noun",
+          "source_record_id": "0a9c0727005c5a8f9ee548f1c6cfaaf25437ae34cfa563674953e98f50419728:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b9a68b20ac9cd68e93f55bf736a0f2213ff525c2bcf3801c1c9184265f0cb91f"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "art"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "0a9c0727005c5a8f9ee548f1c6cfaaf25437ae34cfa563674953e98f50419728",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/arte#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/ar/arte.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "together",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 361,
+      "train_occurrences": 42,
+      "concept_id": "together",
+      "id": "word-en-es-together",
+      "target": "juntamente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "juntamente",
+          "part_of_speech": "adv",
+          "source_record_id": "283e71d765f7a2e055cdccc04d216e0540f317f2b0171a9010f62f46db9da8c5:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:67217136a5b2fa8c21b34fe46c023efbca61f636ee993236331d8e14d7503695"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "together; jointly"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "283e71d765f7a2e055cdccc04d216e0540f317f2b0171a9010f62f46db9da8c5",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/juntamente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/j/ju/juntamente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "team",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 368,
+      "train_occurrences": 41,
+      "concept_id": "team",
+      "id": "word-en-es-team",
+      "target": "equipo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "equipo",
+          "part_of_speech": "noun",
+          "source_record_id": "abad1d7ad3e5bf81e54b5816b13caeb4970869d1f687eaa08757409ac5d1e0d2:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:67cdaac21ee674cd706d1d11dd475b3a07f671cfd3419ee6c0546fa905a67f80"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "team"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "abad1d7ad3e5bf81e54b5816b13caeb4970869d1f687eaa08757409ac5d1e0d2",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/equipo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/eq/equipo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "coffee",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 370,
+      "train_occurrences": 40,
+      "concept_id": "coffee",
+      "id": "word-en-es-coffee",
+      "target": "café",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "café",
+          "part_of_speech": "noun",
+          "source_record_id": "6d9892c0f699d431e9be83f1e8efa1691477c5328d531db4c944d5197460bd12:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:6ab0d83742a2d162d3080a124142da4b58c938140ae10304ef8daf8b97cf53df"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "coffee"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "6d9892c0f699d431e9be83f1e8efa1691477c5328d531db4c944d5197460bd12",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/caf%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ca/caf%C3%A9.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "hate",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 380,
+      "train_occurrences": 39,
+      "concept_id": "hate",
+      "id": "word-en-es-hate",
+      "target": "odiar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "odiar",
+          "part_of_speech": "verb",
+          "source_record_id": "5d8c152597685a28ae923a8dadb8888198293bb49f712f3c7f3f06519371f568:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:3112d77bc4fa55a2dd534b8c4f7c119efb57356e2f36fcbe51d3df503912a215"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to hate, to loathe"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "5d8c152597685a28ae923a8dadb8888198293bb49f712f3c7f3f06519371f568",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/odiar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/o/od/odiar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "easy",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 390,
+      "train_occurrences": 38,
+      "concept_id": "easy",
+      "id": "word-en-es-easy",
+      "target": "fácil",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "fácil",
+          "part_of_speech": "adj",
+          "source_record_id": "121e97609e72beeda9d698cf784d776d40490084685701efed1b24fbf8cc43c6:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:dca86a1701e389fe11d70100f67deaf98546915adf5ad5e64ce6bb12d4702cc7"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "easy, facile, simple (requiring little effort)"
+          ],
+          "tags": [
+            "feminine",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "121e97609e72beeda9d698cf784d776d40490084685701efed1b24fbf8cc43c6",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/f%C3%A1cil#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/f/f%C3%A1/f%C3%A1cil.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "chicken",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 394,
+      "train_occurrences": 37,
+      "concept_id": "chicken",
+      "id": "word-en-es-chicken",
+      "target": "pollo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "pollo",
+          "part_of_speech": "noun",
+          "source_record_id": "12cce018a8dbbd0dd0afacb643f49309bc6246665d00728bc21e850eb716fb87:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:c6581787d5ce6f3aed6e664d8945c3902a28fcfb81de3694c49bfdb10994bc56"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "chicken (meat)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "12cce018a8dbbd0dd0afacb643f49309bc6246665d00728bc21e850eb716fb87",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/pollo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/po/pollo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "city",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 405,
+      "train_occurrences": 36,
+      "concept_id": "city",
+      "id": "word-en-es-city",
+      "target": "ciudad",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "ciudad",
+          "part_of_speech": "noun",
+          "source_record_id": "930c780520e67bb289541825bd6589c2069529da6d560bc703011b4bcd84b08c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:92a743be2b84850ebee8297b22aa41e1150f650d2b0e341e2c0c016e692c34c5"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "city"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "930c780520e67bb289541825bd6589c2069529da6d560bc703011b4bcd84b08c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/ciudad#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ci/ciudad.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "teacher",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 412,
+      "train_occurrences": 36,
+      "concept_id": "teacher",
+      "id": "word-en-es-teacher",
+      "target": "docente",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "docente",
+          "part_of_speech": "noun",
+          "source_record_id": "696afcd63a6d48fe7564697442e3b270d436124c748a6fbc05093a343d35580f:record:1",
+          "sense_ids": [
+            "record:1:sense:1:sha256:2aa2d9b64f02e20113f63b9d27dade3af4d95aac0723ce00d636cd763e7d75d2"
+          ],
+          "sense_index": 1,
+          "glosses": [
+            "A member of teachers and professors set. Anyone who teaches."
+          ],
+          "tags": [
+            "by-personal-gender",
+            "feminine",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "696afcd63a6d48fe7564697442e3b270d436124c748a6fbc05093a343d35580f",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/docente#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/do/docente.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "business",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 415,
+      "train_occurrences": 35,
+      "concept_id": "business",
+      "id": "word-en-es-business",
+      "target": "negocio",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "negocio",
+          "part_of_speech": "noun",
+          "source_record_id": "8a50dc68463b1cf73d36b44f693bec586a3e3dca782dd3de7a7a8e2a56f6aced:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:4fb8ab50387f63547003145c0b84b621e2133867e70d0f008063fa915da3e275"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "business, enterprise (commercial enterprise or establishment)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "8a50dc68463b1cf73d36b44f693bec586a3e3dca782dd3de7a7a8e2a56f6aced",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/negocio#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/n/ne/negocio.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "chocolate",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 416,
+      "train_occurrences": 35,
+      "concept_id": "chocolate",
+      "id": "word-en-es-chocolate",
+      "target": "chocolate",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "chocolate",
+          "part_of_speech": "noun",
+          "source_record_id": "c68d40be1356a47e381006444634edde8dfbff9c668ad585fd7dc6a645fdee17:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:f4df2fbc7ed8c3fdf844237057557d84083b38eb07769e768d5cf37678b6e0bf"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "chocolate (food made from cocoa beans)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "c68d40be1356a47e381006444634edde8dfbff9c668ad585fd7dc6a645fdee17",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/chocolate#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ch/chocolate.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": true
+    },
+    {
+      "source": "online",
+      "category": "content",
+      "pos": "adv",
+      "train_rank": 422,
+      "train_occurrences": 34,
+      "concept_id": "online",
+      "id": "word-en-es-online",
+      "target": "en línea",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "en línea",
+          "part_of_speech": "adj",
+          "source_record_id": "a27af6a6dc194e5dcf359c101b991d442c8cefffc09e1bf90248f80218b182b2:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:15a7efa5b5b3331a6ccc4966d74b047fedbfc1771aac4bd991c2c25494f63d27"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "online"
+          ],
+          "tags": [
+            "invariable"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "a27af6a6dc194e5dcf359c101b991d442c8cefffc09e1bf90248f80218b182b2",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/en%20l%C3%ADnea#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/en/en%20l%C3%ADnea.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "believe",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 425,
+      "train_occurrences": 33,
+      "concept_id": "believe",
+      "id": "word-en-es-believe",
+      "target": "creer",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "creer",
+          "part_of_speech": "verb",
+          "source_record_id": "d2807570e18adb57cd74afc7df9a09d3e7cc2c0bba22985ed51da32646e7c22d:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:ff7608ee1e5f0335a74e87cd522d30859b25f5064cd9e7e5bed2774ba1c47792"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to believe"
+          ],
+          "tags": [
+            "transitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d2807570e18adb57cd74afc7df9a09d3e7cc2c0bba22985ed51da32646e7c22d",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/creer#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/cr/creer.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "write",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 434,
+      "train_occurrences": 32,
+      "concept_id": "write",
+      "id": "word-en-es-write",
+      "target": "escribir",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "escribir",
+          "part_of_speech": "verb",
+          "source_record_id": "fab360dd7a06b2366aa1cace3821aa897313dd8e0eb2c4c668be12c820e8e7b1:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:df17f2703d0ac4e965b26f8391fc85470bfc48bd94bc8efe222d2eb9ebce05c4"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to write (to form letters, words or symbols on a surface in order to communicate)"
+          ],
+          "tags": [
+            "intransitive",
+            "transitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "fab360dd7a06b2366aa1cace3821aa897313dd8e0eb2c4c668be12c820e8e7b1",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/escribir#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/escribir.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "buy",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 435,
+      "train_occurrences": 31,
+      "concept_id": "buy",
+      "id": "word-en-es-buy",
+      "target": "comprar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "comprar",
+          "part_of_speech": "verb",
+          "source_record_id": "683cd37db64f17c950cc06934d7c2cb914595dd0c504569160e0a9e54a1e18d5:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:49039278dc296e3ee2d8b910aa030ec4bf3a7b75521e39b070d35190189aec80"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to buy (to obtain in exchange of money or goods)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "683cd37db64f17c950cc06934d7c2cb914595dd0c504569160e0a9e54a1e18d5",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/comprar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/co/comprar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "weekend",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 443,
+      "train_occurrences": 31,
+      "concept_id": "weekend",
+      "id": "word-en-es-weekend",
+      "target": "fin de semana",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "fin de semana",
+          "part_of_speech": "noun",
+          "source_record_id": "561eba27576a01623fd2d2e4567b34205e4870a01f32d0392c12c9e6f8cedf19:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:fd1de85d04853e925598935979cadad7269cb1ae4daee513c40a1018cbeb0242"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "weekend (break in the working week)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "561eba27576a01623fd2d2e4567b34205e4870a01f32d0392c12c9e6f8cedf19",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/fin%20de%20semana#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/f/fi/fin%20de%20semana.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "winter",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 467,
+      "train_occurrences": 29,
+      "concept_id": "winter",
+      "id": "word-en-es-winter",
+      "target": "invierno",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "invierno",
+          "part_of_speech": "noun",
+          "source_record_id": "9bd3a24e0b175090b01308dfaadb6b2b3e32c92be8d808b3e5f8c2e2beb4b9f4:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:930b1bfd51cb22ab74f9ecfee6c0d43a0e2cc17ebe1cffe7683ef5c5e84ccb24"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "winter"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "9bd3a24e0b175090b01308dfaadb6b2b3e32c92be8d808b3e5f8c2e2beb4b9f4",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/invierno#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/i/in/invierno.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "brother",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 471,
+      "train_occurrences": 28,
+      "concept_id": "brother",
+      "id": "word-en-es-brother",
+      "target": "hermano",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "hermano",
+          "part_of_speech": "noun",
+          "source_record_id": "d7481f3e9b2e9b55019758ec457180fbef429c02e3b86a998182a3e27f93a9d9:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:78b0e51154a42b63d5ac486552fe479b80ad1a37a15f6eadeee88323589e07e0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "brother"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "d7481f3e9b2e9b55019758ec457180fbef429c02e3b86a998182a3e27f93a9d9",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/hermano#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/h/he/hermano.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "meat",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 476,
+      "train_occurrences": 28,
+      "concept_id": "meat",
+      "id": "word-en-es-meat",
+      "target": "carne",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "carne",
+          "part_of_speech": "noun",
+          "source_record_id": "10c0cb617b381c58bae8303ff90489a11507d2afa48b13e5f93ec3f928fa162b:record:0",
+          "sense_ids": [
+            "record:0:sense:1:sha256:efbc0978ac2ab88580c985e37a3d1e473273d973d30ec2e4cf22e4b6b05762bf"
+          ],
+          "sense_index": 1,
+          "glosses": [
+            "an animal’s meat, or by extension the edible “fleshy” or soft part of a fruit or vegetable"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "10c0cb617b381c58bae8303ff90489a11507d2afa48b13e5f93ec3f928fa162b",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/carne#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ca/carne.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "mother",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 477,
+      "train_occurrences": 28,
+      "concept_id": "mother",
+      "id": "word-en-es-mother",
+      "target": "madre",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "madre",
+          "part_of_speech": "noun",
+          "source_record_id": "3caa405ad70d88edaaf7bbd81c260848c568f64e9a09d512e47f4f2de66a972c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:401fb74144a64cad60b433d4b5d579896c2cf964669a297c6782fa922803bda1"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "mother"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "3caa405ad70d88edaaf7bbd81c260848c568f64e9a09d512e47f4f2de66a972c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/madre#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/madre.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "restaurant",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 478,
+      "train_occurrences": 28,
+      "concept_id": "restaurant",
+      "id": "word-en-es-restaurant",
+      "target": "restaurante",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "restaurante",
+          "part_of_speech": "noun",
+          "source_record_id": "6427635a939c71acb05f461274ea7ecc39389fd135e96072d63effe0c5daa15a:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b7bca2cfc56f0b11924da342a1d99991341a0968780126ca0bf9a34dbd281b7b"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "restaurant"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "6427635a939c71acb05f461274ea7ecc39389fd135e96072d63effe0c5daa15a",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/restaurante#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/r/re/restaurante.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "husband",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 486,
+      "train_occurrences": 27,
+      "concept_id": "husband",
+      "id": "word-en-es-husband",
+      "target": "esposo",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "esposo",
+          "part_of_speech": "noun",
+          "source_record_id": "4b3e1cf8b7f8449846e6100340a4187347d7b662778ee4c47b2d95eeb63666d9:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:e436a29ed65bf5f25d3ecfeffd398f482f1503dec21da2c803fd3c8bc3bd6ea3"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "husband"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "4b3e1cf8b7f8449846e6100340a4187347d7b662778ee4c47b2d95eeb63666d9",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/esposo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/esposo.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "ocean",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 489,
+      "train_occurrences": 27,
+      "concept_id": "ocean",
+      "id": "word-en-es-ocean",
+      "target": "océano",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "océano",
+          "part_of_speech": "noun",
+          "source_record_id": "2be09b29d9748238cff372a8a722052fe6e4bd14d5de25a2bf342cad979fec56:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:2de9106ae0a380d40838489ca84309edb9fbacff3eb074ec29f82587c6c0f1b3"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "ocean"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "2be09b29d9748238cff372a8a722052fe6e4bd14d5de25a2bf342cad979fec56",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/oc%C3%A9ano#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/o/oc/oc%C3%A9ano.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "problem",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 492,
+      "train_occurrences": 27,
+      "concept_id": "problem",
+      "id": "word-en-es-problem",
+      "target": "problema",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "problema",
+          "part_of_speech": "noun",
+          "source_record_id": "0b7e7e0d379b32600c5890f48a849f0094a134c944ea4af37a9845440714a0bf:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:563c6e4c72a0a3a6b731f924484d3d25373a6c728da107060811ffb07463d0f9"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "problem, issue, challenge (a difficulty or obstacle that has to be dealt with)"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "0b7e7e0d379b32600c5890f48a849f0094a134c944ea4af37a9845440714a0bf",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/problema#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/pr/problema.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "remember",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 493,
+      "train_occurrences": 27,
+      "concept_id": "remember",
+      "id": "word-en-es-remember",
+      "target": "recordar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "recordar",
+          "part_of_speech": "verb",
+          "source_record_id": "93b018fbec2fd14d648277c66e61694e9dca36b1d459b7a8a4ecfee402a8053d:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:78583f42ee2205328a9fb89b30bb3ed200bb8ccd8f33ebf8ecfd6dd9b96822b8"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to remember, to recollect"
+          ],
+          "tags": [
+            "transitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "93b018fbec2fd14d648277c66e61694e9dca36b1d459b7a8a4ecfee402a8053d",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/recordar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/r/re/recordar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "sing",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 494,
+      "train_occurrences": 27,
+      "concept_id": "sing",
+      "id": "word-en-es-sing",
+      "target": "cantar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cantar",
+          "part_of_speech": "verb",
+          "source_record_id": "2612fa134e9f7d9a68e5698e70533d7958f1166d0fd5e3abbaaa04a78bfc68ab:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:6cf51347df3a6077cf068c396a9fa644e63262aadc6d91a88eaf58498be3fc1d"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to sing"
+          ],
+          "tags": [
+            "intransitive",
+            "transitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "2612fa134e9f7d9a68e5698e70533d7958f1166d0fd5e3abbaaa04a78bfc68ab",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cantar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/ca/cantar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "swim",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 495,
+      "train_occurrences": 27,
+      "concept_id": "swim",
+      "id": "word-en-es-swim",
+      "target": "nadar",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "nadar",
+          "part_of_speech": "verb",
+          "source_record_id": "0566b7d3c8d133a084ab0092af56507e5b3a587842e797ade6c0fb996a2d3599:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:a06c27bbe5a589d9cd2be66f947742e0bd3bc0f06191b547d7cd86da2e5503b4"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "to swim (move through water)"
+          ],
+          "tags": [
+            "intransitive"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "0566b7d3c8d133a084ab0092af56507e5b3a587842e797ade6c0fb996a2d3599",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/nadar#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/n/na/nadar.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "today",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 497,
+      "train_occurrences": 27,
+      "concept_id": "today",
+      "id": "word-en-es-today",
+      "target": "hoy",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "hoy",
+          "part_of_speech": "adv",
+          "source_record_id": "cd448598112775868e273c712b44befebd2514827fcea44bcfe8d3efb09ca527:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:fdc047f6d4f751357ed20868e981fd01b9285cfbb6e29f1487f8a099fcd98f3d"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "today, tonight (on the current day)"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "cd448598112775868e273c712b44befebd2514827fcea44bcfe8d3efb09ca527",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/hoy#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/h/ho/hoy.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    },
+    {
+      "source": "animal",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 499,
+      "train_occurrences": 26,
+      "concept_id": "animal",
+      "id": "word-en-es-animal",
+      "target": "animal",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "animal",
+          "part_of_speech": "noun",
+          "source_record_id": "4128db29422089a602e775c57f6743fa4f8c0e8321d119528f953b9e222a8946:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:7acb2b609a3157cb32ef482a8ca0b85e0ed23ea5ebd1e4ffd58f027da96f8597"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "animal"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "4128db29422089a602e775c57f6743fa4f8c0e8321d119528f953b9e222a8946",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/animal#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/a/an/animal.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": true
+    },
+    {
+      "source": "cheese",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 500,
+      "train_occurrences": 26,
+      "concept_id": "cheese",
+      "id": "word-en-es-cheese",
+      "target": "queso",
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "queso",
+          "part_of_speech": "noun",
+          "source_record_id": "a1022ce13522534577d96c45db52083fbb521beebb4fce5dea63f38037946317:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:05a56125a9edcc1f4718c66f86867cb3302a39727106d6fd090245b3815a95a4"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "cheese"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "a1022ce13522534577d96c45db52083fbb521beebb4fce5dea63f38037946317",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/queso#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/queso.jsonl"
+        }
+      ],
+      "review": "Root selected the ordinary source concept and the exact Spanish written form/sense from retained primary records before seeing the new target holdout. This attests the lexical unit, not correctness in every sentence; original English grammar remains and contextual/infinitive/register errors remain evaluation outcomes.",
+      "unchanged_latin_face": false
+    }
+  ],
+  "unavailable": [
+    {
+      "source": "we",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "function"
+    },
+    {
+      "source": "know",
+      "reason": "Spanish saber/conocer distinguishes factual or skill knowledge from familiarity with people/places; the frozen source policy has no valency guard.",
+      "category": "content"
+    },
+    {
+      "source": "friends",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "children",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "first",
+      "reason": "Ordinary Spanish adjective requires gender/agreement information not supplied by this frozen isolated-word policy.",
+      "category": "content"
+    },
+    {
+      "source": "friend",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "expensive",
+      "reason": "Ordinary Spanish adjective requires gender/agreement information not supplied by this frozen isolated-word policy.",
+      "category": "content"
+    },
+    {
+      "source": "college",
+      "reason": "The target depends on source educational system and institutional level; universidad would add a distinction absent from the isolated source.",
+      "category": "content"
+    },
+    {
+      "source": "room",
+      "reason": "English room can name a chamber or available space; habitación/espacio split is not resolved by the frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "rooms",
+      "reason": "English room can name a chamber or available space; habitación/espacio split is not resolved by the frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "doctor",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "doctors",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "nurse",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "nurses",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "law",
+      "reason": "English law can mean one statute or the field/legal system; ley/derecho split is unresolved by the frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "child",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "kids",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "siblings",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "content"
+    },
+    {
+      "source": "holiday",
+      "reason": "English holiday covers a public/festive day and a vacation; festivo/vacaciones split is unresolved by the frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "holidays",
+      "reason": "English holiday covers a public/festive day and a vacation; festivo/vacaciones split is unresolved by the frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "me",
+      "reason": "Spanish isolated pronoun form changes with syntactic case/preposition; the frozen source policy has no sufficient guard.",
+      "category": "function"
+    },
+    {
+      "source": "us",
+      "reason": "The isolated English source does not supply the gender/context needed by the ordinary Spanish person or group form; no new source guard is introduced in this transfer.",
+      "category": "function"
+    },
+    {
+      "source": "him",
+      "reason": "Spanish isolated pronoun form changes with syntactic case/preposition; the frozen source policy has no sufficient guard.",
+      "category": "function"
+    }
+  ],
+  "limitations": [
+    "Dictionary attestation is not context disambiguation or bilingual human validation.",
+    "Infinitive verbs preserve lexical meaning but can give a mixed finite English clause a minor target grammar mismatch.",
+    "No new English source guards or fifteen-clause rules are introduced.",
+    "Identical normalized Latin faces must remain unchanged and earn no immersion coverage credit.",
+    "Exclusions are target-transfer limits, not a claim that those English words can never be immersed."
+  ],
+  "summary": {
+    "attested_source_forms": 196,
+    "unavailable_source_forms": 23,
+    "identical_faces": 5
+  },
+  "control_source_sha256": "c979e91b4b959f0ee8b75bc2b1aca5372bd5d63774b396f21fcbee18819abfb7",
+  "control_description": "First100 English source forms, using this frozen Spanish target/exclusion policy. Not the deployed runtime."
+}

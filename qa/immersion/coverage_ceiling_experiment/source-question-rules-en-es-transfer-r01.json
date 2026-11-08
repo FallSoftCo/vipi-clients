@@ -1,0 +1,653 @@
+{
+  "schema": "vipi-source-question-target-transfer-research-1",
+  "production": false,
+  "origin": "TRAIN frequency of sentence openings and independently checked interrogative meanings; not harvested evaluation translations.",
+  "sentence_boundaries": ".!? followed by optional whitespace or start of message; source tokenization and quoted/code protections remain explicit",
+  "single_words": {
+    "what": {
+      "target": "qué",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "pron",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:2",
+          "sense_ids": [
+            "record:2:sense:0:sha256:25b421e30c48ce9f244afae246b00ca1833d0fdae248df9e868109fb42e01287"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        }
+      ]
+    },
+    "where": {
+      "target": "dónde",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "dónde",
+          "part_of_speech": "adv",
+          "source_record_id": "370ffd2d5c0efc8945406c8df7afd7b864806ca27e68d57ddcc61b7b96c6c22c:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:088026b503815e7fdf2189796384f99f815a48671bc0fdf6186158f39747430c"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "where?; in what place?"
+          ],
+          "tags": [
+            "interrogative"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "370ffd2d5c0efc8945406c8df7afd7b864806ca27e68d57ddcc61b7b96c6c22c",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/d%C3%B3nde#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%B3/d%C3%B3nde.jsonl"
+        }
+      ]
+    },
+    "when": {
+      "target": "cuándo",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cuándo",
+          "part_of_speech": "adv",
+          "source_record_id": "70f408078b1180bb136bd087ade4bdf5c1286bdd996c16bcc16d50f07dff3425:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:b9a61210bd29ca11beb52371ecc18799b4793072fc8466ef10e87f6c6989e871"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "when"
+          ],
+          "tags": [
+            "interrogative"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "70f408078b1180bb136bd087ade4bdf5c1286bdd996c16bcc16d50f07dff3425",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cu%C3%A1ndo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/cu/cu%C3%A1ndo.jsonl"
+        }
+      ]
+    },
+    "why": {
+      "target": "por qué",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had",
+        "don't",
+        "doesn't",
+        "didn't",
+        "isn't",
+        "aren't",
+        "not"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "por qué",
+          "part_of_speech": "adv",
+          "source_record_id": "f0cf39431f658924508997e335d637978cd078d013b27982483d1d9594e34e82:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:852725157bf66791b0afd7fde13276aafb753fb4e7cb611460229ba2be48c33f"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "why, for what reason"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "f0cf39431f658924508997e335d637978cd078d013b27982483d1d9594e34e82",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/por%20qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/p/po/por%20qu%C3%A9.jsonl"
+        }
+      ]
+    },
+    "who": {
+      "target": "quién",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "quién",
+          "part_of_speech": "pron",
+          "source_record_id": "e76d9ac3289f6404f6cea635930da3e080818db4078276c7bdca1095c5680cd6:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:bcf8dcb10dda43b30112cbe333267d9a6f9ea51063205e0ca82987e3f879b170"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "who?, whom?; (with “de”) whose?"
+          ],
+          "tags": [
+            "interrogative"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "e76d9ac3289f6404f6cea635930da3e080818db4078276c7bdca1095c5680cd6",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qui%C3%A9n#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qui%C3%A9n.jsonl"
+        }
+      ]
+    },
+    "how": {
+      "target": "cómo",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cómo",
+          "part_of_speech": "adv",
+          "source_record_id": "c774ef0757861864c3798b609a91a9945d806d7a1393ba5f95dcbbbe3cb090ea:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:ffb076df51cd2952f42ee55b3743e24a6a10a9874e95bd8485d2db7c4d0d1f68"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "how?"
+          ],
+          "tags": [
+            "interrogative"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "c774ef0757861864c3798b609a91a9945d806d7a1393ba5f95dcbbbe3cb090ea",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/c%C3%B3mo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/c%C3%B3/c%C3%B3mo.jsonl"
+        }
+      ]
+    }
+  },
+  "units": {
+    "what kind": {
+      "target": "qué tipo",
+      "following": [
+        "of"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "det",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:445268a96db1862f33655488eea30321debbfcb87910be5e2196130d3412be26"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what; which"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        },
+        {
+          "exact_spelling": "tipo",
+          "part_of_speech": "noun",
+          "source_record_id": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb9bc3e98ed471e22ec47129256a7f0e145d9534993315a04631df456ee7edd0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "kind, type, sort, manner"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipo.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    },
+    "what kinds": {
+      "target": "qué tipos",
+      "following": [
+        "of"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "det",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:445268a96db1862f33655488eea30321debbfcb87910be5e2196130d3412be26"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what; which"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        },
+        {
+          "exact_spelling": "tipo",
+          "part_of_speech": "noun",
+          "source_record_id": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb9bc3e98ed471e22ec47129256a7f0e145d9534993315a04631df456ee7edd0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "kind, type, sort, manner"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipo.jsonl"
+        },
+        {
+          "exact_spelling": "tipos",
+          "part_of_speech": "noun",
+          "source_record_id": "6479ace601e852cfc0d579c5c713a9d34772e104f3a7d6f9a239efad5c23ec5b:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:002cfbc8f14c6d5fae2a93a4a3887fc9ee56466f87f34b6870db5e8fc036d7e2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of tipo"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "tipo"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "6479ace601e852cfc0d579c5c713a9d34772e104f3a7d6f9a239efad5c23ec5b",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipos#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipos.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    },
+    "what type": {
+      "target": "qué tipo",
+      "following": [
+        "of"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "det",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:445268a96db1862f33655488eea30321debbfcb87910be5e2196130d3412be26"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what; which"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        },
+        {
+          "exact_spelling": "tipo",
+          "part_of_speech": "noun",
+          "source_record_id": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb9bc3e98ed471e22ec47129256a7f0e145d9534993315a04631df456ee7edd0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "kind, type, sort, manner"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipo.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    },
+    "what types": {
+      "target": "qué tipos",
+      "following": [
+        "of"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "det",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:445268a96db1862f33655488eea30321debbfcb87910be5e2196130d3412be26"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what; which"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        },
+        {
+          "exact_spelling": "tipo",
+          "part_of_speech": "noun",
+          "source_record_id": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:eb9bc3e98ed471e22ec47129256a7f0e145d9534993315a04631df456ee7edd0"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "kind, type, sort, manner"
+          ],
+          "tags": [
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "21af4a3a1b87d9c0c3724afab1f395c1d8e5a2252dd7b3ee72d200e1e9504a3e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipo.jsonl"
+        },
+        {
+          "exact_spelling": "tipos",
+          "part_of_speech": "noun",
+          "source_record_id": "6479ace601e852cfc0d579c5c713a9d34772e104f3a7d6f9a239efad5c23ec5b:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:002cfbc8f14c6d5fae2a93a4a3887fc9ee56466f87f34b6870db5e8fc036d7e2"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "plural of tipo"
+          ],
+          "tags": [
+            "form-of",
+            "masculine",
+            "plural"
+          ],
+          "form_of": [
+            {
+              "word": "tipo"
+            }
+          ],
+          "alt_of": [],
+          "source_sha256": "6479ace601e852cfc0d579c5c713a9d34772e104f3a7d6f9a239efad5c23ec5b",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tipos#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tipos.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    },
+    "what sort": {
+      "target": "qué clase",
+      "following": [
+        "of"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "qué",
+          "part_of_speech": "det",
+          "source_record_id": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:445268a96db1862f33655488eea30321debbfcb87910be5e2196130d3412be26"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "what; which"
+          ],
+          "tags": [],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "28bd9e3610f4e3d559606ef816d50220c1442d1b240cc350314c30eb67acce2e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/qu%C3%A9#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/q/qu/qu%C3%A9.jsonl"
+        },
+        {
+          "exact_spelling": "clase",
+          "part_of_speech": "noun",
+          "source_record_id": "65cf70f1ae33136d3f6d0881e9a31f3571b9afb42c0a894299dcb2d3dd0b09b1:record:0",
+          "sense_ids": [
+            "record:0:sense:4:sha256:54076fbdff0366f3d9d37300fe5314e768e4329c4560a697777dcaa1fa85c8f4"
+          ],
+          "sense_index": 4,
+          "glosses": [
+            "kind, sort, type"
+          ],
+          "tags": [
+            "feminine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "65cf70f1ae33136d3f6d0881e9a31f3571b9afb42c0a894299dcb2d3dd0b09b1",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/clase#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/cl/clase.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    },
+    "how long": {
+      "target": "cuánto tiempo",
+      "following": [
+        "have",
+        "has",
+        "had"
+      ],
+      "reading": null,
+      "evidence": [
+        {
+          "exact_spelling": "cuánto",
+          "part_of_speech": "det",
+          "source_record_id": "440a321d77bb82cfa3d58babc0a5e5db0926af9060164e41f51d5a0dc99ae4d5:record:1",
+          "sense_ids": [
+            "record:1:sense:0:sha256:99490ab6aa4edfc86b139a7ad3bb607a35515cb31718a7780cf0582956f1cc1b"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "how much; how many"
+          ],
+          "tags": [
+            "masculine",
+            "singular"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "440a321d77bb82cfa3d58babc0a5e5db0926af9060164e41f51d5a0dc99ae4d5",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/cu%C3%A1nto#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/c/cu/cu%C3%A1nto.jsonl"
+        },
+        {
+          "exact_spelling": "tiempo",
+          "part_of_speech": "noun",
+          "source_record_id": "0117ca34828788a963258039365d6ca082bef0b73b17152d25519ce6f910d19e:record:0",
+          "sense_ids": [
+            "record:0:sense:0:sha256:da665a60a8cd5caf779edc16bbded7533977a5e209ff4c71db879eacdd25b764"
+          ],
+          "sense_index": 0,
+          "glosses": [
+            "time"
+          ],
+          "tags": [
+            "also",
+            "masculine"
+          ],
+          "form_of": [],
+          "alt_of": [],
+          "source_sha256": "0117ca34828788a963258039365d6ca082bef0b73b17152d25519ce6f910d19e",
+          "license": "CC-BY-SA-4.0",
+          "url": "https://en.wiktionary.org/wiki/tiempo#Spanish",
+          "machine_url": "https://kaikki.org/dictionary/Spanish/meaning/t/ti/tiempo.jsonl"
+        }
+      ],
+      "construction": "Finite authored interrogative noun phrase; source following-auxiliary/of constraint is unchanged. Spanish nominal agreement is internal to the target unit; the rest of the message remains original."
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://cvc.cervantes.es/Ensenanza/biblioteca_ele/plan_curricular/niveles/02_gramatica_inventario_a1-a2.htm",
+      "scope": "Search-indexed primary curriculum corroborates interrogative roles. Current direct page redirects to maintenance; do not claim a complete page inspection or depend solely on it."
+    },
+    {
+      "url": "https://www.rae.es/gtg/docs/GTG_tablas_web.pdf",
+      "scope": "Interrogative cuánto, including temporal cuánto tiempo; verification only."
+    }
+  ],
+  "limitations": [
+    "Initial position and a right auxiliary are local evidence, not universal proof of interrogative scope.",
+    "Quoted text and malformed source remain potential ambiguity; code and identifier exclusions are mandatory.",
+    "Native grammar is retained; these mixed units do not claim a grammatical complete Swahili sentence.",
+    "English question selection is unchanged; qué/cual and quién/quiénes context/number distinctions remain possible minor or material outcomes.",
+    "Unit plural tipo(s) is authored regular agreement; preserve number and do not reuse singular target for plural source."
+  ],
+  "target_language": "es",
+  "source_question_sha256": "eb8511d784486abb378ac35536205b176ad31ced1f38c4526ddfddaa496191c5",
+  "new_target_holdout_seen": false
+}
