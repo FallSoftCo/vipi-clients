@@ -1,0 +1,45 @@
+{
+  "schema": "vipi-content-expansion-evaluation-freeze-1",
+  "production": false,
+  "frozen_at_utc": "2026-11-08T04:50:08.438028+00:00",
+  "new_holdout_seen": false,
+  "diagnostic_existing_contexts_already_seen": true,
+  "files": {
+    "prepare_content_expansion_r01.py": "94ef2b276a120824fb139a6ab6c4270606e952c90acfe4d3e4984905031a7d28",
+    "evaluate_content_expansion_r01.py": "7d631d9b6653f94bc3ae4cb503b86aea12971d6944fca4718fb26adbeb9e2136",
+    "content-expansion-candidate-r01.json": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+    "reviewed-source-unit-native-candidate-r03.json": "52199a35fb4d18d5b1f1ee9ebd4c3ddf3d081ce2c44a01bac3daecc46ee08c4d",
+    "evaluate_short_conversation_units.py": "1212eee44cfc2499bdcc1f3c8309c6f8d92a16ab2f6bb887e47856aa417b1fe2",
+    "evaluate_source_concepts.py": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+    "evaluate_reviewed_words.py": "9e17aec210d282a8dd75596ee681e02e9f772f120f1ca8ed9c502791636668df",
+    "source-starter-inventory-audit-r01.json": "a2017a8a258727210f5ce5643342ecc199b2ba8204dfeb148236b457701903a5",
+    "evaluate_content_expansion_r02.py": "671a0399cfcb52eab3a926ed6cb1f669856457e4a1219d14b93778f4b404870c"
+  },
+  "training_sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+  "diagnostic_protocol_sha256": "3932b1d52b54497a633d150b75b7bb026d860b118125bd2f15376da18c8b3dbd",
+  "densities": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "arms": [
+    "starter_one",
+    "expanded_one",
+    "expanded_disjoint"
+  ],
+  "known": [
+    "none",
+    "all_function",
+    "all_function_top25_content",
+    "all_function_top50_content"
+  ],
+  "unit_admission": "Existing TRAIN primary-attested content inventory; no prior-selected condition. No new held-out sources/targets. Keep original sense/form/unchanged exclusions and general month-family withholding. All source guards unchanged.",
+  "packing": "Budget-fitting, source-disjoint, at most one occurrence per concept; rank content first, then TRAIN rank, longer unit, source offset. Complete units never truncated.",
+  "diagnostic_then_fresh": "Run TRAIN aggregate and same diagnostic80 for tooling/semantic audit. Any policy revision must be versioned before ONE subsequent disjoint80-context sample; no new sample for trivial debugging.",
+  "semantic_gate": "Report every introduced material/scope/reading error and uncertain meaning; strict and minor-tolerant clean messages/depth, content anchors and distinct concepts per length and known state. Raw coverage alone never passes.",
+  "advance_criteria": "Prefer material increase in clean content exposure/depth at actual25% without systematic semantic/reading errors. Preserve previous72/80 clean and40/80 content research targets as unmet unless actually measured; report both rather than optimize function flips. Native production promotion remains separate.",
+  "fresh_sampling": "Same pinned BST TEST human convai2 source; one message per unseen conversation, exclude all previous TEST conversations including diagnostic80; allow repeated/TRAIN surfaces, document overlaps; fixed26/27/27 length strata. Freeze sampler and target policy before selection.",
+  "revision": 2,
+  "prior_freeze_sha256": "f0d7d66a7e581b23e1c896f0eda3338700e9d90a5e80c41c06000cbb8ba7a360",
+  "tooling_correction": "First diagnostic run stopped before producing output: Python re.Match objects compared by identity. Compare their exact start/end/text values instead. No target/guard/selector or semantic policy changed; original failed runner and freeze retained. No new holdout consumed."
+}

@@ -1,0 +1,24 @@
+{
+  "production": false,
+  "amended_before_new_sample": true,
+  "frozen_at_utc": "2026-11-08T04:53:21.365694+00:00",
+  "policy_freeze_sha256": "5c956634c927a1d6415c404347990b68cd8ed783bc0a4575b80237da05f4b28a",
+  "sampler_sha256": "13279f62aadb43d9b62de322364a9e2104bc0775c2fa4c58f20294ceb1fd06b5",
+  "allow_training_surface_overlap": true,
+  "allow_prior_evaluated_surface_overlap": true,
+  "allow_repeated_surface_across_distinct_conversations": true,
+  "exclude_entire_previously_evaluated_test_conversations": true,
+  "selection": "One message per context-disjoint TEST convai2 human free-worker conversation; old diagnostic80 conversations added to existing exclusions. No formula oversampling.",
+  "deterministic_seeds": [
+    "content-expansion-context-r01:",
+    "content-expansion-order-r01:",
+    "content-expansion-review-r01:"
+  ],
+  "length_quotas": {
+    "1-5": 26,
+    "6-15": 27,
+    "16-30": 27
+  },
+  "semantic_policy_changed_after_diagnostic": false,
+  "sampling_limit": "Existing primary-attested concepts were authored before this selection, but known earlier family/scope caveats are reflected in the frozen research policy. Repeated surfaces are not called novel."
+}

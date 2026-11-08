@@ -1,0 +1,119 @@
+{
+  "production": false,
+  "source": "Public licensed BST research text and authored target units; no app-user messages.",
+  "license": "Existing ../evaluation-data-licenses/attribution.json and BST-CC-BY-4.0.txt; primary dictionaries retain their own bundled proof/licensing.",
+  "files": [
+    {
+      "path": "short-conversation-density-secondary-r01.json.gz",
+      "compressed_bytes": 59995,
+      "compressed_sha256": "72c420015aa2bc2444fce65adc560746cbcee47b0c99b6552a9f88489e363af6",
+      "original_name": "short-conversation-density-secondary-r01.json",
+      "original_bytes": 3098641,
+      "original_sha256": "f5a3e3b428bad22b7c99e14efb0d11620c7f131162c9671b500ff073f3b98792"
+    },
+    {
+      "path": "content-expansion-train-r01.json.gz",
+      "compressed_bytes": 42741,
+      "compressed_sha256": "e4850ee0b62a6abcf9cd51ba6af162bda3641ec4fbd51e7b544c55956309166b",
+      "original_name": "content-expansion-train-r01.json",
+      "original_bytes": 1702142,
+      "original_sha256": "3f88c9a3b80e09777ca6508adbf8c77dd4250839fb186216f965f271bd9f77e1"
+    },
+    {
+      "path": "content-expansion-diagnostic-r01.json.gz",
+      "compressed_bytes": 134928,
+      "compressed_sha256": "a5fc19c9aa321711eacd373347b16a2df6f6df853a9485af38394c251525cfbf",
+      "original_name": "content-expansion-diagnostic-r01.json",
+      "original_bytes": 5928289,
+      "original_sha256": "64648900ec4d84ba2adfdafa9e0e0d26e7bfd72c217344fb25a7cedd988e6e24"
+    },
+    {
+      "path": "content-expansion-diagnostic-review-r01.json.gz",
+      "compressed_bytes": 43901,
+      "compressed_sha256": "c2416774a764d0167ce1a245c2ab1ed7fd64ad7847e3667d7a13115750fdcabb",
+      "original_name": "content-expansion-diagnostic-review-r01.json",
+      "original_bytes": 700763,
+      "original_sha256": "c99342cc24fa13249bcaaebe0ab6ba4c77e8ff10ab3fe478a16f89b58da9a17d"
+    },
+    {
+      "path": "content-expansion-diagnostic-author-review-r01.json.gz",
+      "compressed_bytes": 8911,
+      "compressed_sha256": "cf7778b703046ea55c1430297aa605e6bc248ec864379771f436069d5aaf9f60",
+      "original_name": "content-expansion-diagnostic-author-review-r01.json",
+      "original_bytes": 142650,
+      "original_sha256": "1fc391688d6de1b5a0b489d4257f04a49dd9ab35985f4575e4a09112bdbd30ce"
+    },
+    {
+      "path": "content-expansion-diagnostic-decision-r01.json.gz",
+      "compressed_bytes": 12527,
+      "compressed_sha256": "de1c635aff12640a3b31eed7a8f18ef21aaf6c6d161ea14545ca9aa89d45e61d",
+      "original_name": "content-expansion-diagnostic-decision-r01.json",
+      "original_bytes": 428923,
+      "original_sha256": "2f2c7c4067b45fe8854a8d75036751794e25c6c63cc7aa8ac0a94576ad6fc9e5"
+    },
+    {
+      "path": "content-expansion-fresh-r01.json.gz",
+      "compressed_bytes": 138151,
+      "compressed_sha256": "e908210c64924e61c9f2dfc5823f2612374deda1f3c14532503626bf44d69289",
+      "original_name": "content-expansion-fresh-r01.json",
+      "original_bytes": 6266154,
+      "original_sha256": "93c90cb06e255ee48f9d886c0e83c47ee22d9ce03c30502b9630916c0f00ef8a"
+    },
+    {
+      "path": "content-expansion-fresh-all237-review-r01.json.gz",
+      "compressed_bytes": 57550,
+      "compressed_sha256": "cdb26144492cbfa7a7f2f34263d2122b1a58c1b14a1c49186aaadad8e3380917",
+      "original_name": "content-expansion-fresh-all237-review-r01.json",
+      "original_bytes": 1078289,
+      "original_sha256": "e33db3a4b747143a0bac68f4d785a2171ad6d2b4263cd7c0f84885e9a1ee1233"
+    },
+    {
+      "path": "content-expansion-fresh-independent24x3-review-r01.json.gz",
+      "compressed_bytes": 17332,
+      "compressed_sha256": "b5132ce3b81fa4c61c4e49d0bcca25d3df0f7dd14c4bc7b12222dc0a1f6a02a9",
+      "original_name": "content-expansion-fresh-independent24x3-review-r01.json",
+      "original_bytes": 312523,
+      "original_sha256": "b2531f8828ebf2e84cf1bb5e24ff2261dda83d7bd465c491205d4322cc9622bb"
+    },
+    {
+      "path": "content-expansion-fresh-author-review-r01.json.gz",
+      "compressed_bytes": 11066,
+      "compressed_sha256": "fb9c6f87d84091acd5832354990743d7f2f08ad2afdcafc33b3ecf8c8b02d65b",
+      "original_name": "content-expansion-fresh-author-review-r01.json",
+      "original_bytes": 179179,
+      "original_sha256": "4466ed6f266e6fe61be9b98aa79a1d7221e4563aa4700ebf5a74f3c37d9d9154"
+    },
+    {
+      "path": "content-expansion-fresh-independent-root-review-r01.json.gz",
+      "compressed_bytes": 9501,
+      "compressed_sha256": "ed0de7c6acc9e8bfcb7351c0481f28ef6d143e180ad26c0fc4dfb8ba05c2b278",
+      "original_name": "content-expansion-fresh-independent-root-review-r01.json",
+      "original_bytes": 153144,
+      "original_sha256": "a1f27f4bf7576ec820a189b04698c777822d25f0ee8dfabd7672d3e0122a8c81"
+    },
+    {
+      "path": "content-expansion-fresh-joined-labels-r01.json.gz",
+      "compressed_bytes": 11718,
+      "compressed_sha256": "446bc7368a7b58d02c88edc1ead75136eae3d569d452a01685ffbe7c3b08fce6",
+      "original_name": "content-expansion-fresh-joined-labels-r01.json",
+      "original_bytes": 180851,
+      "original_sha256": "6b9b87ac95479845ed5b92cb6b596663958fef56796b8b5bb860e1da67830c33"
+    },
+    {
+      "path": "content-expansion-fresh-decision-r01.json.gz",
+      "compressed_bytes": 13715,
+      "compressed_sha256": "bba348f3cc08d3472572e97b12942e467450a0409cb42d9d0a415fd5b56f82fe",
+      "original_name": "content-expansion-fresh-decision-r01.json",
+      "original_bytes": 483859,
+      "original_sha256": "0173714f0cb4fcb06c33de48d55e0cb1e3d0a33a918051b8743ab9dc2bc40e55"
+    },
+    {
+      "path": "content-expansion-fresh-novel78-decision-r01.json.gz",
+      "compressed_bytes": 13672,
+      "compressed_sha256": "65b43f2859225d3d56c29919ce26e36c20fcd11eae3238632071dc50cc9d0515",
+      "original_name": "content-expansion-fresh-novel78-decision-r01.json",
+      "original_bytes": 483893,
+      "original_sha256": "23910c3b2d83d6fafa95c80b8bbca830a3f13c432f32436ac54f85f77a6cd48f"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "production": false,
+  "candidate_compiler_byte_exact": true,
+  "all_frozen_policy_input_hashes_match": true,
+  "fresh_contexts": 79,
+  "unique_contexts": 79,
+  "new_holdout_evaluation_runs": 1,
+  "frozen_80_attempt_failed_before_protocol_or_output": true,
+  "remaining_unseen_convai2_test_contexts": 0,
+  "secondary_density_10percent_parity_verified": true,
+  "native_changes": false,
+  "provider_calls": 0,
+  "evidence_manifest_sha256": "d9a9338db73cf306d1a253bfa9d9445665c5fefa3e4e30606a8a82ffbb4ca13c"
+}

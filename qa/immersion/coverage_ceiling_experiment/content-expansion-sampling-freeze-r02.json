@@ -1,0 +1,44 @@
+{
+  "production": false,
+  "amended_before_new_sample": true,
+  "frozen_at_utc": "2026-11-08T04:55:26.151042+00:00",
+  "policy_freeze_sha256": "5c956634c927a1d6415c404347990b68cd8ed783bc0a4575b80237da05f4b28a",
+  "sampler_sha256": "dc6c931bc0eba516830b08e83ddc9653216b9cc5c19f1947f89845b578c1ef9e",
+  "allow_training_surface_overlap": true,
+  "allow_prior_evaluated_surface_overlap": true,
+  "allow_repeated_surface_across_distinct_conversations": true,
+  "exclude_entire_previously_evaluated_test_conversations": true,
+  "selection": "One message per context-disjoint TEST convai2 human free-worker conversation; old diagnostic80 conversations added to existing exclusions. No formula oversampling.",
+  "deterministic_seeds": [
+    "content-expansion-context-r01:",
+    "content-expansion-order-r01:",
+    "content-expansion-review-r01:",
+    "content-expansion-assignment-r01:"
+  ],
+  "length_quotas": {
+    "1-5": 26,
+    "6-15": 27,
+    "16-30": 26
+  },
+  "semantic_policy_changed_after_diagnostic": false,
+  "sampling_limit": "Existing primary-attested concepts were authored before this selection, but known earlier family/scope caveats are reflected in the frozen research policy. Repeated surfaces are not called novel.",
+  "revision": 2,
+  "prior_sampling_freeze_sha256": "ae9e9343d70a6435800da1224f8409839622e8c96915237bd244cc5dd5a1ec95",
+  "requested_messages": 79,
+  "parent_acceptance": "Root approved pre-output amendment to79 distinct unseen conversations,26/27/26 bins, deterministic feasible assignment and unchanged candidate/matcher. This is the one planned fresh comparison; do not reuse contexts to manufacture80.",
+  "failed_80_admission": {
+    "protocol_written": false,
+    "evaluation_created": false,
+    "texts_or_target_outputs_inspected": false,
+    "excluded_conversations": 240,
+    "remaining_eligible_conversations": 79,
+    "available_conversations_by_bin": {
+      "1-5": 26,
+      "6-15": 77,
+      "16-30": 59
+    },
+    "original_greedy_long_quota_obtained": 22
+  },
+  "assignment": "Deterministic bipartite matching of length-bin slots to disjoint conversations, using fixed hash ordering; minimum-hash message per conversation/bin. No semantic/target-output choice. All79 remaining eligible conversations used once.",
+  "corpus_exhaustion": "After this sample no unseen convai2 TEST conversations remain under these criteria. Treat all subsequent reuse as diagnostic."
+}
