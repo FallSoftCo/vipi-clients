@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "production": false,
+  "output": "/home/ai/Development/investigations/vipi-conditional-agreement-inventory-20261108-r01/source-audit.json",
+  "sha256": "0a432854e29180bdd80f5bc4e3140c979590a52338f8111b396fc444a7591d81",
+  "bytes": 3353349,
+  "counts": {
+    "all_keys": 618,
+    "keys_without_retained_units": 134,
+    "keys_with_unresolved_extra_links": 407,
+    "keys_with_native_sense_count": 484,
+    "unique_source_lexemes_per_key_sum": 1916,
+    "eligible_explicit:distinct_key_pos_senses": 2877,
+    "eligible_explicit:keys": 464,
+    "eligible_nonexplicit:distinct_key_pos_senses": 4582,
+    "eligible_nonexplicit:keys": 407
+  },
+  "formal_common_link_audit": {
+    "en-es": {
+      "allpos_common": 46,
+      "allpos_common_with_unresolved_extra_links": 41,
+      "pos_common_groups": 109,
+      "pos_common_groups_with_unresolved_extra_links": 96
+    },
+    "en-sw": {
+      "allpos_common": 14,
+      "allpos_common_with_unresolved_extra_links": 12,
+      "pos_common_groups": 33,
+      "pos_common_groups_with_unresolved_extra_links": 25
+    }
+  },
+  "measurement": {
+    "VmPeak": 73363456,
+    "VmHWM": 51859456,
+    "VmRSS": 41201664
+  },
+  "seconds": 0.4237303810659796,
+  "code_sha256": "296e4a899286b09f4f7ba03fab29fe98620bffa8bd6c47ac3accfed52fc7ee54"
+}

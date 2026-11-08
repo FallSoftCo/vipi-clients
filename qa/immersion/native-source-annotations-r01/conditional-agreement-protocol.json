@@ -1,0 +1,16 @@
+{
+  "schema":"vipi.conditional-agreement-inventory.r01",
+  "production":false,
+  "frozen_before_metrics":true,
+  "scope":"Read-only cached inventory and exact keyed retained units/variants; no new annotations/training/extraction",
+  "denominator":"All distinct NFC-casefold-whitespace-normalized alphabetic-bearing token surfaces in frozen116 Apple LexicalClass observations and OpenNLP pass0 tokens. Preserve all occurrences and missing source evidence. Both EN-ES and EN-SW; grow-diag-final-and only.",
+  "source_senses":"Every eligible explicit term on every retained complete source unit, identity POS+sense_id; retain senses without target links. No source_safe single-sense requirement. Cached unit absence is not proof dictionary/language lacks the word.",
+  "proof":"Retained aligned variant plus complete source/target units; exact same explicit eligible sense ID, matching POS and number. Preserve source/target lexeme, surface, number, features, source URLs, target reading, source label, pair and variant ID. No target inference from spelling alone.",
+  "emission_identity":"Exact NFC target dictionary surface plus target POS, number, features and reading. Different target lexemes/senses may realize the same identity only through their separately retained sense proofs. Form mode retained in proof, not emission identity.",
+  "math":"For each source POS+sense create set of proven emission identities, including empty sets and identical faces. allPOS = intersection over all source senses; conditionedPOS = intersection over all source senses in that POS. Empty domain abstains. Strict union singleton also requires no empty sets, reported only as overrestrictive control. Multiple synonymous choices do not invalidate intersection.",
+  "choice":"Among common emissions choose highest-ranked supporting variant by distinct_components desc, mean_lexical_score desc, variant ID; then stable serialized emission identity. Frequency control uses same rank among any supported emissions within POS without universal sense support. Chosen identical face is zero immersion, never skip it to rescue another choice.",
+  "mapping":{"apple":{"Noun":"noun","Verb":"verb","Adjective":"adj","Adverb":"adv"},"android":{"NOUN":"noun","VERB":"verb","ADJ":"adj","ADV":"adv"}},
+  "mapping_limits":"All other tags unmapped, including PROPN/AUX/composites. Apple Noun may include names. No confidence threshold, inferred names guard, lemma fallback or semantic approval.",
+  "limits":{"cpu":1,"address_space_bytes":268435456,"elapsed_seconds":120,"additional_output_bytes":16777216,"local_reserve_bytes":8589934592},
+  "interpretation":"Potential before top-down masks, known-word/density budgets, context correctness, native replay and target inflection qualification. Dictionary primary IDs not exhaustive real meanings. Candidate forms are retained dictionary forms, not generated or semantically adjudicated outputs."
+}

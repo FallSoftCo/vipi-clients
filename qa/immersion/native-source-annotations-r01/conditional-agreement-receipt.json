@@ -1,0 +1,124 @@
+{
+  "complete": true,
+  "production": false,
+  "result": "/home/ai/Development/investigations/vipi-conditional-agreement-inventory-20261108-r01/result.json",
+  "result_sha256": "e95e74ca64d0b3cda91c502e415cac8ed6850705a9590b8a1ce4a5000721c6cb",
+  "protocol_sha256": "b724fdbe2f5f499d0703742aa7adfed5e90ef9c0227deaf6b73df33fdbcaf9a3",
+  "summary": {
+    "en-es": {
+      "all_keys": 618,
+      "no_retained_units": 134,
+      "no_explicit_source_senses": 154,
+      "no_grow_variants": 101,
+      "source_senses": 2877,
+      "missing_target_senses": 1975,
+      "any_missing_target_sense": 411,
+      "allpos_common": 46,
+      "allpos_nonidentical_choice": 41,
+      "allpos_strict_union_singleton": 29,
+      "any_pos_common": 102,
+      "any_pos_nonidentical_choice": 96,
+      "any_pos_new_common_vs_allpos": 56,
+      "cached_complete_pool_keys": 363
+    },
+    "en-sw": {
+      "all_keys": 618,
+      "no_retained_units": 134,
+      "no_explicit_source_senses": 154,
+      "no_grow_variants": 127,
+      "source_senses": 2877,
+      "missing_target_senses": 2619,
+      "any_missing_target_sense": 446,
+      "allpos_common": 14,
+      "allpos_nonidentical_choice": 14,
+      "allpos_strict_union_singleton": 9,
+      "any_pos_common": 30,
+      "any_pos_nonidentical_choice": 30,
+      "any_pos_new_common_vs_allpos": 16,
+      "cached_complete_pool_keys": 173
+    }
+  },
+  "occurrence_summary": [
+    {
+      "engine": "apple",
+      "pair": "en-es",
+      "all_token_occurrences": 1668,
+      "mapped_role_occurrences": 982,
+      "role_without_source_senses": 255,
+      "role_with_source_senses": 727,
+      "missing_target_sense_occurrences": 571,
+      "conditional_common": 153,
+      "conditional_nonidentical_choice": 144,
+      "new_common_vs_allpos": 79,
+      "conditional_strict_union_singleton": 106,
+      "frequency_available": 585,
+      "frequency_nonidentical_choice": 561,
+      "frequency_winner_outside_common": 434
+    },
+    {
+      "engine": "apple",
+      "pair": "en-sw",
+      "all_token_occurrences": 1668,
+      "mapped_role_occurrences": 982,
+      "role_without_source_senses": 255,
+      "role_with_source_senses": 727,
+      "missing_target_sense_occurrences": 687,
+      "conditional_common": 39,
+      "conditional_nonidentical_choice": 39,
+      "new_common_vs_allpos": 14,
+      "conditional_strict_union_singleton": 31,
+      "frequency_available": 242,
+      "frequency_nonidentical_choice": 242,
+      "frequency_winner_outside_common": 203
+    },
+    {
+      "engine": "android",
+      "pair": "en-es",
+      "all_token_occurrences": 1617,
+      "mapped_role_occurrences": 769,
+      "role_without_source_senses": 124,
+      "role_with_source_senses": 645,
+      "missing_target_sense_occurrences": 513,
+      "conditional_common": 129,
+      "conditional_nonidentical_choice": 123,
+      "new_common_vs_allpos": 64,
+      "conditional_strict_union_singleton": 84,
+      "frequency_available": 526,
+      "frequency_nonidentical_choice": 509,
+      "frequency_winner_outside_common": 398
+    },
+    {
+      "engine": "android",
+      "pair": "en-sw",
+      "all_token_occurrences": 1617,
+      "mapped_role_occurrences": 769,
+      "role_without_source_senses": 124,
+      "role_with_source_senses": 645,
+      "missing_target_sense_occurrences": 606,
+      "conditional_common": 38,
+      "conditional_nonidentical_choice": 38,
+      "new_common_vs_allpos": 14,
+      "conditional_strict_union_singleton": 31,
+      "frequency_available": 220,
+      "frequency_nonidentical_choice": 220,
+      "frequency_winner_outside_common": 182
+    }
+  ],
+  "key_count": 618,
+  "proof_count": 3096,
+  "output_bytes": 3850355,
+  "measurement": {
+    "VmPeak": 102535168,
+    "VmHWM": 80859136,
+    "VmRSS": 50769920
+  },
+  "address_space_limit": [
+    268435456,
+    268435456
+  ],
+  "cpu_affinity": [
+    0
+  ],
+  "seconds": 2.382536672987044,
+  "code_sha256": "1102be67440a0720642a6ceeaf6e746900c81fce3f8e842bc42b32f027ff80fb"
+}
