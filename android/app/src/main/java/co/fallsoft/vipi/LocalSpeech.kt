@@ -12,6 +12,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.ensureActive
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -27,6 +28,7 @@ data class RenderedSpeech(val file: File, val milliseconds: Double, val sampleRa
 
 /** One prepared native generator for one language. No network voice fallback. */
 class LocalVoice(context: Context, val language: String) : AutoCloseable {
+    private val application = context.applicationContext
     private val ready = CompletableDeferred<Unit>()
     private val completions = ConcurrentHashMap<String, CompletableDeferred<Unit>>()
     private val markers = ConcurrentHashMap<String, MutableList<SpeechMark>>()
@@ -36,6 +38,9 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         else ready.completeExceptionally(OfflineVoiceUnavailable(language))
     }
     private var selected: Voice? = null
+    private var bundledFallback = false
+    @Volatile private var fallbackJob: SwahiliSpeech.Job? = null
+    @Volatile private var closed = false
     init {
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(id: String) = Unit
@@ -50,23 +55,43 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
     }
 
     suspend fun select(): String = withContext(Dispatchers.Main.immediate) {
-        withTimeout(15_000) { ready.await() }
+        if (closed) throw kotlinx.coroutines.CancellationException("Voice closed")
+        if (bundledFallback) return@withContext SwahiliSpeech.identifier(language)
+        try { withTimeout(15_000) { ready.await() } }
+        catch (error: Exception) {
+            kotlinx.coroutines.currentCoroutineContext().ensureActive()
+            if (language in setOf("en", "sw")) return@withContext selectBundledFallback()
+            throw error
+        }
         selected?.let { return@withContext it.name }
         val desired = Locale.forLanguageTag(language)
         val voice = tts.voices.orEmpty().filter {
             it.locale.language == desired.language && !it.isNetworkConnectionRequired &&
                 TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED !in it.features.orEmpty()
         }.sortedWith(compareByDescending<Voice> { it.locale.toLanguageTag() == desired.toLanguageTag() }
-            .thenByDescending { it.quality }.thenBy { it.name }).firstOrNull() ?: throw OfflineVoiceUnavailable(language)
-        if (tts.setVoice(voice) == TextToSpeech.ERROR) throw OfflineVoiceUnavailable(language)
+            .thenByDescending { it.quality }.thenBy { it.name }).firstOrNull() ?: return@withContext selectBundledFallback()
+        if (tts.setVoice(voice) == TextToSpeech.ERROR) return@withContext selectBundledFallback()
         tts.setSpeechRate(1.0f)
         selected = voice
         voice.name
+    }
+    private suspend fun selectBundledFallback(): String {
+        if (language !in setOf("en", "sw")) throw OfflineVoiceUnavailable(language)
+        val identifier = SwahiliSpeech.prepare(application, language)
+        if (closed) throw kotlinx.coroutines.CancellationException("Voice closed")
+        bundledFallback = true
+        return identifier
+    }
+    private suspend fun renderBundled(text: String, destination: File): RenderedSpeech {
+        val job = SwahiliSpeech.Job(); fallbackJob = job
+        try { return withTimeout(30_000) { SwahiliSpeech.render(application, text, destination, job, language) } }
+        finally { if (fallbackJob === job) fallbackJob = null }
     }
 
     suspend fun render(text: String, destination: File): RenderedSpeech = mutex.withLock {
         require(text.isNotBlank() && text.length < TextToSpeech.getMaxSpeechInputLength())
         select()
+        if (bundledFallback) return@withLock renderBundled(text, destination)
         val id = UUID.randomUUID().toString()
         val done = CompletableDeferred<Unit>()
         completions[id] = done
@@ -87,11 +112,17 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         } catch (error: Exception) {
             withContext(kotlinx.coroutines.NonCancellable + Dispatchers.Main.immediate) { tts.stop() }
             destination.delete()
+            kotlinx.coroutines.currentCoroutineContext().ensureActive()
+            if (language in setOf("en", "sw") && (error is OfflineVoiceUnavailable || error is kotlinx.coroutines.TimeoutCancellationException)) {
+                withContext(Dispatchers.Main.immediate) { selectBundledFallback() }
+                return@withLock renderBundled(text, destination)
+            }
             throw error
         } finally { completions.remove(id); markers.remove(id) }
     }
 
     override fun close() {
+        closed = true; fallbackJob?.cancel()
         tts.stop(); tts.shutdown()
         ready.cancel(); completions.values.forEach { it.cancel() }; completions.clear(); markers.clear()
     }
@@ -99,27 +130,27 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
 
 /** A pair owns two generators; warm-up renders are silent, never played. */
 class LocalSpeechPair(context: Context, val source: String, val target: String) : AutoCloseable {
-    private val root = File(context.cacheDir, "vipi-speech").apply { mkdirs() }
     private val voices = mapOf(source to LocalVoice(context, source), target to LocalVoice(context, target))
     private val mutex = Mutex()
     private var prepared = false
     private var voiceIDs = emptyMap<String, String>()
+    private val cache = PrivateSpeechCache.register(context, files = true) { voices.values.forEach { it.close() } }
 
-    suspend fun prepare(warmups: Map<String, String>) = mutex.withLock {
+    suspend fun prepare(warmups: Map<String, String>) = cache.track { mutex.withLock {
         if (prepared) return@withLock
         require(source != target)
         voiceIDs = voices.mapValues { it.value.select() }
         for ((language, voice) in voices) {
-            val temp = File.createTempFile("warm-", ".wav", root)
+            val temp = cache.access { File.createTempFile("warm-", ".wav", it) }
             try { voice.render(requireNotNull(warmups[language]), temp) } finally { temp.delete() }
         }
         prepared = true
-    }
+    } }
 
     /** Fully renders one PCM file before playback; latency is measured by QA.
      * Different PCM formats fail explicitly until a qualified resampler exists.
      */
-    suspend fun render(spans: List<SpeechSpan>): RenderedSpeech = mutex.withLock {
+    suspend fun render(spans: List<SpeechSpan>): RenderedSpeech = cache.track { mutex.withLock {
         check(prepared)
         require(spans.isNotEmpty() && spans.sumOf { it.text.length } <= 16_384)
         val normalized = mutableListOf<SpeechSpan>()
@@ -133,7 +164,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
         }
         val identity = normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
         val hash = MessageDigest.getInstance("SHA-256").digest(identity.toByteArray()).joinToString("") { "%02x".format(it) }
-        val result = File(root, "$hash.wav")
+        val result = cache.access { File(it, "$hash.wav") }
         if (result.exists()) {
             val wave = withContext(Dispatchers.IO) { PcmWave.read(result) }
             return@withLock RenderedSpeech(result, wave.durationMs, wave.sampleRate, wave.channels)
@@ -141,7 +172,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
         val pieces = mutableListOf<File>()
         try {
             for (span in normalized) {
-                val temp = File.createTempFile("span-", ".wav", root)
+                val temp = cache.access { File.createTempFile("span-", ".wav", it) }
                 pieces += temp
                 voices.getValue(span.language).render(span.text, temp)
             }
@@ -155,19 +186,21 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 val boundaries = mutableListOf<Int>()
                 for (wave in waves) { if (offset > 0) boundaries += offset / (wave.channels * 2); wave.samples.copyInto(bytes, offset); offset += wave.samples.size }
                 val joined = PcmWave(waves.first().sampleRate, waves.first().channels, bytes)
-                val temporary = File.createTempFile("joined-", ".wav", root)
-                try { joined.write(temporary); check(temporary.renameTo(result)) } finally { temporary.delete() }
+                val temporary = cache.access { File.createTempFile("joined-", ".wav", it) }
+                try { joined.write(temporary); cache.access { check(temporary.renameTo(result)) } } finally { temporary.delete() }
                 // Only disposable synthesized audio, never original messages.
-                var size = root.listFiles().orEmpty().sumOf { it.length() }
-                for (old in root.listFiles().orEmpty().filter { it != result && it.name.matches(Regex("[a-f0-9]{64}\\.wav")) }.sortedBy { it.lastModified() }) {
+                cache.access { root ->
+                  var size = root.listFiles().orEmpty().sumOf { it.length() }
+                  for (old in root.listFiles().orEmpty().filter { it != result && it.name.matches(Regex("[a-f0-9]{64}\\.wav")) }.sortedBy { it.lastModified() }) {
                     if (size <= 64 * 1024 * 1024) break
                     val length = old.length(); if (old.delete()) size -= length
+                  }
                 }
                 RenderedSpeech(result, joined.durationMs, joined.sampleRate, joined.channels, boundaryFrames = boundaries)
             }
         } finally { pieces.forEach { it.delete() } }
-    }
-    override fun close() { voices.values.forEach { it.close() } }
+    } }
+    override fun close() { cache.close() }
 }
 
 internal data class PcmWave(val sampleRate: Int, val channels: Int, val samples: ByteArray) {

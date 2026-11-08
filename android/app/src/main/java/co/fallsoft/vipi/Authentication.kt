@@ -72,6 +72,7 @@ internal class PrivateRecords(context: Context) {
 }
 
 class Authentication(context: Context) {
+    private val application = context.applicationContext
     class SignInRequired : Exception("Sign-in required")
     private val records = PrivateRecords(context)
     private val callback = "co.fallsoft.vipi://auth/callback"
@@ -131,9 +132,10 @@ class Authentication(context: Context) {
             stage = "account-binding"
             if (started != generation) throw SignInRequired()
             if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
-                error = "Sign in to the same account to continue deleting it."; return
+                error = "Sign in to the same account to continue."; return
             }
             stage = "private-session-save"
+            if (userID != resultUser) PrivateSpeechCache.erase(application)
             records.write("session", sessionRecord(result, resultUser))
             generation = UUID.randomUUID()
             userID = resultUser
@@ -180,5 +182,5 @@ class Authentication(context: Context) {
         val refresh = result.getString("refresh_token").also { require(it.isNotBlank() && it.length <= 16_384) }
         return JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh)
     }
-    fun signOutLocally() { generation = UUID.randomUUID(); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
+    fun signOutLocally() { generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
 }

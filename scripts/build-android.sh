@@ -5,6 +5,8 @@ set -euo pipefail
 : "${ANDROID_HOME:?Set ANDROID_HOME to the existing Android SDK}"
 : "${JAVA_HOME:?Set JAVA_HOME to the existing JDK (17 or newer)}"
 test -d "$ANDROID_HOME/platforms/android-36"
+test -d "$ANDROID_HOME/ndk/29.0.14206865"
+test -x "$ANDROID_HOME/cmake/3.22.1/bin/cmake"
 test -x "$JAVA_HOME/bin/java"
 if [[ -n "${ANDROID_SDK_ROOT:-}" && "$ANDROID_SDK_ROOT" != "$ANDROID_HOME" ]]; then
   echo "ANDROID_HOME and ANDROID_SDK_ROOT must name the same SDK" >&2

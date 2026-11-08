@@ -53,6 +53,7 @@ class SpeechPlayback(context: Context, private val source: String, private val t
         private set
     var activeMessage by mutableStateOf<String?>(null)
         private set
+    private val audioLifetime = PrivateSpeechCache.register(context, files = false) { close() }
     init { androidx.core.content.ContextCompat.registerReceiver(this.context, noisy, IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY), androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED) }
 
     fun prepare(warmups: Map<String, String>) {
@@ -130,5 +131,6 @@ class SpeechPlayback(context: Context, private val source: String, private val t
         closed = true; stop(); preparation?.cancel(); preparation = null
         context.unregisterReceiver(noisy)
         pair.close()
+        audioLifetime.close()
     }
 }

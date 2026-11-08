@@ -14,6 +14,41 @@
       "asset": "legal/upstream/libsignal-0.105.0-LICENSE.txt",
       "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
       "bytes": 34523
+    },
+    {
+      "coordinate": "espeak-ng:699e7969:COPYING",
+      "url": "https://github.com/espeak-ng/espeak-ng/blob/699e79690f23e2558d990a3a78b0050745b96932/COPYING",
+      "asset": "legal/upstream/espeak-ng-699e7969-COPYING.txt",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "bytes": 35147
+    },
+    {
+      "coordinate": "espeak-ng:699e7969:COPYING.APACHE",
+      "url": "https://github.com/espeak-ng/espeak-ng/blob/699e79690f23e2558d990a3a78b0050745b96932/COPYING.APACHE",
+      "asset": "legal/upstream/espeak-ng-699e7969-COPYING.APACHE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "coordinate": "espeak-ng:699e7969:COPYING.BSD2",
+      "url": "https://github.com/espeak-ng/espeak-ng/blob/699e79690f23e2558d990a3a78b0050745b96932/COPYING.BSD2",
+      "asset": "legal/upstream/espeak-ng-699e7969-COPYING.BSD2.txt",
+      "sha256": "a8b0c1c7d7af6c0415c068be8cf373799d1a42b0707b79dc4ccfcaf593cd902d",
+      "bytes": 1244
+    },
+    {
+      "coordinate": "espeak-ng:699e7969:COPYING.UCD",
+      "url": "https://github.com/espeak-ng/espeak-ng/blob/699e79690f23e2558d990a3a78b0050745b96932/COPYING.UCD",
+      "asset": "legal/upstream/espeak-ng-699e7969-COPYING.UCD.txt",
+      "sha256": "be029c50df83105a810e391778b6edcb522d6cb4b4e142332aca54437a499bf7",
+      "bytes": 2788
+    },
+    {
+      "coordinate": "sonic:9a8d05dc:LICENSE",
+      "url": "https://github.com/waywardgeek/sonic/blob/9a8d05dc0baa9159fc322dd9905a04e23b161337/LICENSE",
+      "asset": "legal/upstream/sonic-9a8d05dc-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
     }
   ]
 }
