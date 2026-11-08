@@ -56,10 +56,14 @@ def process_hwm():
 
 
 def main():
+    global OUT
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('stage', choices=['metadata', 'fetch', 'export'])
     parser.add_argument('--seconds', type=int, default=1800)
+    parser.add_argument('--output', type=Path, default=OUT)
+    parser.add_argument('--source', type=Path, help='Same pinned SQLite via an explicitly recorded alternate read-only mount.')
     args = parser.parse_args()
+    OUT = args.output
     start = time.monotonic()
     protocol = json.loads((HERE / 'protocol.json').read_text())
     frozen = json.loads((OUT / 'input-freeze.json').read_text())
@@ -76,13 +80,13 @@ def main():
       CREATE TABLE IF NOT EXISTS status(key TEXT PRIMARY KEY,value TEXT) WITHOUT ROWID;''')
     source = None
     if args.stage != 'export':
-        p = Path(protocol['sources']['pgv']['path'])
+        p = args.source or Path(protocol['sources']['pgv']['path'])
         assert p.stat().st_size == protocol['sources']['pgv']['bytes']
         source = sqlite3.connect(p.as_uri() + '?mode=ro&immutable=1', uri=True)
         source.execute('PRAGMA cache_size=-65536')
         source.execute('PRAGMA temp_store=FILE')
         source.set_progress_handler(lambda: int(time.monotonic() - start > args.seconds), 10000)
-    receipt = dict(stage=args.stage, complete=False, production=False,
+    receipt = dict(stage=args.stage, complete=False, production=False, execution_source_path=str(args.source or protocol['sources']['pgv']['path']),
                    protocol_sha256=frozen['protocol_sha256'], builder_sha256=sha(Path(__file__)))
     try:
         if args.stage == 'metadata':

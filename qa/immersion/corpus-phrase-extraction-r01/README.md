@@ -28,3 +28,16 @@ dictionary corroboration uses separate CC-BY-SA-4.0 provenance. Publication revi
 and semantic acceptance are separate from this extraction experiment.
 
 No production pack or native matcher is changed or enabled here.
+
+After the complete training receipt exists, `train_alignments.py` freezes exact
+commands, then runs forward/reverse five-iteration fast_align and both intersection
+and grow-diag-final-and symmetrization. `extract_phrases.py` emits every consistent
+boundary variant for the already frozen source keys. Original observations retain
+pair IDs and exact source/target offsets; aggregate counts use distinct corpus
+components. The diagnostic lexical tie score and missing-parameter floor are
+explicit in each execution freeze. All competing target variants survive.
+
+`python3 -m unittest discover -s qa/immersion/corpus-phrase-extraction-r01`
+checks extraction geometry and score orientation with authored structural cases.
+It does not certify bilingual meanings. In particular, recovering a multiword
+target next to a shorter one is only a proposal for later contextual review.

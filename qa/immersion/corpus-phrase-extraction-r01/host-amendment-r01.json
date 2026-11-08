@@ -1,0 +1,35 @@
+{
+  "schema": "vipi.pgv.execution-host-amendment.r01",
+  "approved_by": "parent/root after read-only route inspection",
+  "selection_protocol_sha256": "57e5ece9c986a3058e04be6b3873ac391d009fac614985f3fcfe391839ae6efa",
+  "selection_changed": false,
+  "original_local_process": {
+    "pid": 2504030,
+    "exit_code": 130,
+    "retained_cancel_receipt": "local-metadata-cancel-request.json",
+    "no_target_text_read": true
+  },
+  "execution_host": "fallsoft-production-20261106",
+  "source_path": "/srv/fallsoft/candidates/live-r01/archive-dev-workspaces/vipi/20261027-pgv-corpus-001/parallel-global-voices-001/corpus.sqlite",
+  "source_bytes": 2141052928,
+  "embedded_receipt_sha256": "f55cb7a59df53251337fd2b8bda0e9689b1c8b30dbff66dc9884140065994cc7",
+  "staging_path": "/srv/fallsoft/staging/vipi-phrase-extraction-20261108-r01",
+  "limits": {
+    "cpu_affinity_count": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "wall_seconds": 1800,
+    "maximum_staging_bytes": 536870912,
+    "no_services_dependencies_or_network_changes": true
+  },
+  "files": {
+    "outputs/evaluation-exclusion-hashes.json": "f0aab9c30e5764504241aa0ed0ce7ee593c8f78eb0c1b78ad007ce0776915a9d",
+    "outputs/input-freeze.json": "00eab5bf4cea0e8d6bae1061c60d2beaa6f5b3247f33eaf014615768da145efe",
+    "outputs/source-frequency-keys.json": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762",
+    "qa/immersion/prepare_statistical_alignment_pilot.py": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f",
+    "qa/immersion/conversation_corpus.py": "9e7f8f2424122ace65ba0d0cdbd0191c2e7a1d2c496e443428b2a6e56c24bcd7",
+    "qa/immersion/build_corpus_exclusions.py": "3f79e5f5119a03ac1325a378633b430b8fb9ca3919259a171681bbfbb321253a",
+    "qa/immersion/corpus-phrase-extraction-r01/extract_pgv.py": "89bb140d0216075eac84914142c1f9a560901597c5a3397eaa8161f8da3f5ea6",
+    "qa/immersion/corpus-phrase-extraction-r01/protocol.json": "57e5ece9c986a3058e04be6b3873ac391d009fac614985f3fcfe391839ae6efa"
+  }
+}
