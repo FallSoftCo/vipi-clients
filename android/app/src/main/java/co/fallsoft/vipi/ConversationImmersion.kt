@@ -182,12 +182,26 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         try { return gate.mutex.withLock { block(key.generation) } }
         finally { synchronized(stateLock) { if (--gate.users == 0) requestGates.remove(key) } }
     }
-    private fun cachedOutcome(key: String) = synchronized(stateLock) { cache[key] }
-    private fun cacheOutcome(key: String, value: LookupFirstOutcome) = synchronized(stateLock) { cache[key] = value }
-    private val cache = BoundedImmersionCache<LookupFirstOutcome>(128)
+    private data class CachedOutcome(val outcome: LookupFirstOutcome, val generation: Long, val modelRevision: Long)
+    private fun LookupFirstOutcome.deterministicRejection() = result == null && status == ImmersionStatus.INVALID_RESULT &&
+        origin == ImmersionOrigin.LOCAL_FULL_CONTEXT && localTranslationCalls > 0
+    private fun reusable(value: LookupFirstOutcome, intent: ImmersionIntent) =
+        if (value.result != null) intent == ImmersionIntent.AUTOMATIC_IMMERSION || value.result.translation != null
+        else intent == ImmersionIntent.AUTOMATIC_IMMERSION && value.deterministicRejection()
+    private fun cachedOutcome(key: String) = synchronized(stateLock) {
+        cache[key]?.takeUnless { it.outcome.deterministicRejection() &&
+            (it.generation != generation || it.modelRevision != modelRevision) }?.outcome
+    }
+    private fun cacheOutcome(key: String, value: LookupFirstOutcome, requestGeneration: Long? = null,
+        readinessRevision: Long? = null) = synchronized(stateLock) {
+        if (!value.deterministicRejection() || cache[key]?.outcome?.result == null)
+            cache[key] = CachedOutcome(value, requestGeneration ?: generation, readinessRevision ?: modelRevision)
+    }
+    private val cache = BoundedImmersionCache<CachedOutcome>(128)
     private val inputLanguages = mutableStateMapOf<String, String>()
     @Volatile private var closed = false
     @Volatile private var generation = 0L
+    private var modelRevision = 0L
     private data class FullAttempt(val generation: Long, val messageID: String?, val inputLanguage: String?,
                                    val text: String, val epoch: Long)
     private val fullAttempts = linkedMapOf<FullAttempt, LookupFirstOutcome>()
@@ -208,6 +222,9 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         private set
     var ready by mutableStateOf<Boolean?>(null)
         private set
+    private fun updateReadiness(value: Boolean) = synchronized(stateLock) {
+        if (!closed && ready != value) { modelRevision++; ready = value }
+    }
     fun inputLanguage(id: String): String? = inputLanguages[id]
     fun selectInputLanguage(id: String, language: String?) {
         if (closed || (language != null && language !in listOf(source, target))) return
@@ -221,7 +238,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     suspend fun reading(text: String): FullReading? = fullReadings.resolve(text, target)
 
     suspend fun checkDownloads() {
-        qaModelsReady?.let { if (!closed) ready = it; return }
+        qaModelsReady?.let { updateReadiness(it); return }
         try {
             // Status checking must not eagerly expand lexical databases before lookup.
             // Lexical preparation/failure is recorded independently at actual alignment.
@@ -229,9 +246,9 @@ internal class ConversationImmersion(context: Context, val source: String, val t
             val installed = listOf(source, target).all { code ->
                 code == "en" || manager.isModelDownloaded(TranslateRemoteModel.Builder(code).build()).await()
             }
-            if (!closed) ready = installed
+            updateReadiness(installed)
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { if (!closed) ready = false }
+        catch (_: Exception) { updateReadiness(false) }
     }
     // Compatibility for existing complete-result consumers; the live UI uses presentation().
     suspend fun result(text: String, inputLanguage: String? = null): ImmersionResult? =
@@ -255,14 +272,14 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         // even while the same message's explicit reference request is pending.
         val cached = synchronized(stateLock) {
             if (!closed && (messageID == null || inputLanguages[messageID] == inputLanguage))
-                cache[cacheKey(text, inputLanguage)] else null
+                cachedOutcome(cacheKey(text, inputLanguage)) else null
         }
-        if (coroutineContext.isActive && sourceLookupIsCurrent() && submittedRevision == generation && cached?.result != null &&
-            (intent == ImmersionIntent.AUTOMATIC_IMMERSION || cached.result?.translation != null))
+        if (coroutineContext.isActive && sourceLookupIsCurrent() && submittedRevision == generation && cached != null && reusable(cached, intent))
             return cached.cachedInvocation().also { lastOutcome = it; lastInvocation = ImmersionInvocationCounters() }
         return withRequestGate(RequestKey(submittedRevision, inputLanguage, text)) { revision ->
         lastOutcome = null
         var readinessCalls = 0; var alignmentCalls = 0; var partialCalls = 0; var qaCalls = 0; var recognitionCalls = 0
+        val readinessRevision = synchronized(stateLock) { modelRevision }
         val requestContext = coroutineContext
         fun valid() = !closed && sourceLookupIsCurrent() && revision == generation && requestContext.isActive &&
             (messageID == null || inputLanguages[messageID] == inputLanguage)
@@ -274,8 +291,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         fun stale() = LookupFirstOutcome(null, null, ImmersionStatus.STALE, 0)
         if (!valid()) return@withRequestGate finish(stale())
         val key = cacheKey(text, inputLanguage)
-        cachedOutcome(key)?.takeIf { it.result != null &&
-            (intent == ImmersionIntent.AUTOMATIC_IMMERSION || it.result?.translation != null) }?.let {
+        cachedOutcome(key)?.takeIf { reusable(it, intent) }?.let {
             return@withRequestGate finish(it.cachedInvocation())
         }
         val attempt = requestEpoch?.let { FullAttempt(revision, messageID, inputLanguage, text, it) }
@@ -321,7 +337,9 @@ internal class ConversationImmersion(context: Context, val source: String, val t
             throw cancelled
         }
         if (!valid()) return@withRequestGate finish(stale())
-        if (outcome.result != null) cacheOutcome(key, outcome)
+        // Deterministic rejected translations may be reused only automatically.
+        // Explicit full requests bypass them; transient errors/cancellation do not enter this cache.
+        if (outcome.result != null || outcome.deterministicRejection()) cacheOutcome(key, outcome, revision, readinessRevision)
         rememberAttempt(attempt, outcome)
         finish(outcome)
         }
