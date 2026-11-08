@@ -1,0 +1,74 @@
+{
+  "schema": "vipi-native-chinese-pinyin-qualification-1",
+  "state": "dormant_native_component_not_fallback_activation",
+  "implementation": {
+    "path": "ios/Vipi/ChineseFullReading.swift",
+    "sha256": "68fc186ecb1c01306f5dd3af28522d148c2f1352f575f3f6ce80b7a3071cf131",
+    "data_path": "qa/immersion/chinese-reading-upstream-r01/ordinary-data.json",
+    "data_sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+    "policy": "pinyin-pro-3.29.5-ordinary-native-1",
+    "source": "Pinned MIT pinyin-pro3.29.5, native Swift trie and same probability/tie/decimal behavior; no JavaScript runtime, no phrase-specific overrides"
+  },
+  "parity": {
+    "cases": 332,
+    "inputs_sha256": "f39d04c3fb9af34d19f1d44eff51a6798d6108a111fce867da63a906ef1308d7",
+    "raw_upstream_scalar_differences": 0,
+    "optimized_vs_original_piece_differences": 0,
+    "warm_output_differences": 0,
+    "source_partition_checks": 996,
+    "unknown_whole_readings": 4,
+    "native_report_sha256": "e219575e9ffab2f18111d7c05d180fad252d424f71a070918d17996802af8c9b",
+    "native_binary_sha256": "cad45957ed1bfa420b35e1c1a7df3b9fd882a7a27cdce4ae8663ce77c61c394f",
+    "table_load_ms": 55.80650002229959,
+    "median_first_ms": 0.4468333791010082,
+    "max_first_ms": 1.9709583139047027,
+    "peak_rss_bytes": 24772608,
+    "sampling": "104 authored readings plus all200 retained NUS diagnostic messages plus4structural and24freshly frozen controls; reused diagnostic evidence, not untouched population"
+  },
+  "resource": {
+    "input_sha256": "70eafa6fe19180ae286843bc8a393c5b7757314b2235879c7e21b2df22de8a83",
+    "cases": 5,
+    "passes": 2,
+    "valid_max_utf16": 16384,
+    "invalid": [
+      "empty",
+      "16385 UTF16"
+    ],
+    "optimized_output_hash_differences": 0,
+    "upstream_max_input_raw_hash_differences": 0,
+    "worst_original_ms": 4912.494333344512,
+    "worst_optimized_ms": 93.48220832180232,
+    "peak_rss_bytes": 21528576,
+    "report_sha256": "82d8f78d6ed98ed24aced7077d6af27a57d28eda5ffd533bc12e09197f58aad2",
+    "fixture_generation": [
+      "long_han: '银行还款。' repeated3276times plus '银行还款'",
+      "long_mixed: 银a1, repeated4096times",
+      "long_url: https://example.com/ plus 银 to16384UTF16",
+      "too_long: 银 repeated16385times",
+      "empty string"
+    ]
+  },
+  "review": {
+    "scope": "Root fixed80 subset, not equivalent to full332 review",
+    "corrected_counts": {
+      "ordinary_readable": 72,
+      "guarded_abstain": 4,
+      "syllable_errors": 2,
+      "source_context_insufficient": 2
+    },
+    "known_errors": [
+      "Absent return-context pattern: 我把书还给你 uses hai instead of huan",
+      "Absent traditional phrase data: 銀行行長 defaults xing/xing/chang instead of hang/hang/zhang"
+    ],
+    "root_erratum": "Original 睡觉 -> shui jiao error label was incorrect; ordinary sleep is shuìjiào. r01 retained and corrected in root r02. No data change.",
+    "author_review": "New332 author labels were not frozen before root findings arrived; no independent-author agreement claim.",
+    "limits": "Ordinary tone-free Latin display; source-script audio remains pronunciation authority. Raw parity is not semantic correctness. No production fallback enabled."
+  },
+  "execution": {
+    "platform": "macOS26.6.2 existing VM; not iOS device",
+    "models_downloaded": false,
+    "cache_reused": true,
+    "admission": "Explicit narrowly bounded two-file CLI exception512MiB reserve +64MiB declared incremental writes; normal1GiB native build reserve not satisfied and no app/Core package build admitted. Both guest/native capacity sampled.",
+    "receipt_note": "One reused parity-r02 receipt basis says prior comparableCLI<2MiB; prior pinyin-r01 guest allocation was34.7MB. Both are within declared64MiB bound. Retained receipts are unchanged; this clarification prevents misreading the baseline."
+  }
+}
