@@ -45,9 +45,9 @@ its password held separately in private local/production paths. No secret value
 belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
 open; no app-store submission receipt exists.
 
-Committed private source through `a3445da7a69d164722ee89b9a3d30dd33c0dd40a` is
+Committed private source through `01614ec19f53721a5a04d1ef34cdaf2d5c9a8a77` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261108-r16`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261108-r17`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
@@ -62,11 +62,18 @@ while retaining the previously committed source-verb correction `a27eff2`.
 Do not revert or silently discard the canonical experiments.
 
 The private client-source candidate built by `prepare-client-source.py` includes
-4,741 exact files, 66 catalog-hash-bound lexical assets and 575 pinned upstream
-archives. Its 557,371,002-byte archive passed a complete independent hash and
+4,744 exact files, 66 catalog-hash-bound lexical assets and 575 pinned upstream
+archives. Its 557,375,923-byte archive passed a complete independent hash and
 membership reread. Backend, infrastructure and Git history are excluded. This is
-a packaging candidate at `a3445da`, not final native binary correspondence,
+a packaging candidate at `df21fe9`, not final native binary correspondence,
 public publication or completed license/privacy review.
+The portable `CLIENT_SOURCE.md` accompanies the export; internal host build
+notes are excluded. The superseded r02 archive was retired only after r03's
+complete hash/membership reread and source retention checks. Its manifest and
+retirement receipt remain private; do not assume the older tar still exists.
+The inherited 25-file experiment closure is separately preserved in private Git
+at `research/preserved-inherited-nlp-20261108-r01` (`a1a1b2f`); preservation is not
+production acceptance and does not alter the canonical dirty files.
 
 The separately retained pinned upstream source inputs have a full SHA-256
 verified private copy at Storage Box path

@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 08:38 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 09:24 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -35,6 +35,29 @@ are not production capabilities. The team has frozen a distinct comparison of
 exact top-down windows, existing finite slots, typed slots with attested forms,
 and optional finite-state morphology. See
 `qa/immersion/nlp-template-comparison-r01/contract.json`.
+
+The frozen comparison now runs in actual Swift and Kotlin. All 121 authored
+cases agree across implementations on recognition and 19,602 selected decision
+sets; this is implementation parity, not semantic accuracy. Apple's complete
+9,535-message TRAIN run recognizes contexts in only 54 messages across all three
+arms. At 25% density, 53 messages per target have context-backed output. Typed
+possessors add 14 authored cases but no TRAIN reach over the exact-phrase arm.
+The ten-family catalog is a mechanism experiment, not broad immersion coverage.
+Apple's median first/warm lookup is 1.99/1.96 ms with zero translation-provider
+calls. Desktop/VM timing is not a phone performance guarantee. The original
+20 MiB output cap stopped the first run at 9,029 rows; a recorded lossless-storage
+amendment and exact 506-row suffix complete the same inputs and executable.
+
+Root independently reviewed 62 selected scopes before reading author labels:
+57 preserve meaning, four contain material errors and one is uncertain. Ten
+additional empty scopes are abstentions, not correct translations. Both reviews
+agree on the selected scopes. Errors include the diagnostic fallback treating
+country in “country musician” as a nation and the phrase matcher selecting
+Japanese 学校 in “school of thought.” Spanish escuela retains that figurative
+sense; Swahili shule remains uncertain. Two Swahili celebration words also have
+minor capitalization defects. These reused examples are agent judgments, not
+fresh population validation. Overbroad possessor captures are shape constraints,
+not demonstrated noun-phrase parsing. No complete candidate is promoted.
 
 Matched context and flipped focus are different fields: a long recognized
 construction may authorize one noun without changing surrounding grammar.
