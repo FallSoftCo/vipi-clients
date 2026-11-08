@@ -1,0 +1,58 @@
+{
+  "schema": "vipi-apple-korean-reading-qualification-1",
+  "status": "dormant_qa_component_no_app_activation",
+  "input_sha256": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155",
+  "source_sha256": "3da3ebe41db7f75041c2e6ac606afb6b1ee8259404a3da9c22da084c754e2a77",
+  "probe_sha256": "cc5867814020bd0042ec58703596dffa2a33fbab7e8b9e2cf7153d110d0ad41c",
+  "report_sha256": "d6f9b7fefc043fa43027c2e353cd6bb37f3fb66c8c8b09411da1f2fe7442e3b1",
+  "native": {
+    "complete": true,
+    "elapsedSeconds": 0.9433629167033359,
+    "generatedAudio": false,
+    "inputSHA256": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155",
+    "lexicalSchemes": [
+      "Language",
+      "Script",
+      "TokenType"
+    ],
+    "networkDisabled": false,
+    "os": "Version 26.6.2 (Build 25G83)",
+    "peakRSSBytes": 70483968,
+    "platform": "macOS VM native APIs; not physical iOS or acoustic validation",
+    "policy": "cf-hangul-orthographic-guard-1",
+    "requestedAssets": false,
+    "schema": "vipi-korean-native-guard-report-1",
+    "partition_and_first_warm_checks": true,
+    "over_limit_no_analysis": true,
+    "case_count": 32,
+    "median_first_ms": 0.3353749052621424,
+    "max_first_ms": 288.3795417146757,
+    "readings": 22
+  },
+  "policy": {
+    "convention": "CoreFoundation spelling-based Hangul transcription; invariant consonants and hyphens align with NIKL section3(8) reversible convention, not pronunciation-oriented Revised Romanization",
+    "primary_source": "https://www.korean.go.kr/front_eng/roman/roman_01.do",
+    "audio": "Original script remains pronunciation authority; no acoustic validation claimed",
+    "guards": "Only precomposed modern Hangul converted. Unknown unprotected Hanja/Jamo/nonLatin letters reject whole reading. Exact opaque identifiers, URLs, numbers, names, code and UTF16 partition preserved. No generic toLatin fallback."
+  },
+  "comparison": {
+    "counterpart": "root pinned CLDR native Kotlin algorithm, host JVM only",
+    "exact_reading_agreement": 31,
+    "total": 32,
+    "difference": "16K가: CF segments into4tokens and inserts3display spaces; Kotlin keeps one run. No difference in ordinary32inputs excluding that resource-only case. Same shorthand guard with different issue multiplicity.",
+    "root_receipt_sha256": "b797c1e365440e3cecf666bd3083f2c0791d0f9a9c8ff3f2eddead5f6fc01d4d",
+    "nfd_literal": "José exact source bytes preserved and separate wa; no Swift fix necessary."
+  },
+  "capacity": {
+    "mode": "normal native1GiB plus64MiB operation reserve; existing-cache two-file CLI only",
+    "native_minimum_bytes": 1878298624,
+    "guest_minimum_bytes": 907063296,
+    "allocated_output_bytes": 335872,
+    "no_model_or_package_download": true
+  },
+  "limits": [
+    "Not physical iOS, simulator app integration, actual translation, acoustic accuracy, or population coverage.",
+    "12retained diagnostics plus20frozen guards/resources; inputs known/reused.",
+    "Compatibility/conjoining Jamo and shorthand abstain, no normalization or sound-change model."
+  ]
+}

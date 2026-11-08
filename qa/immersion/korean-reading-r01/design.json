@@ -1,0 +1,40 @@
+{
+  "schema": "vipi-korean-guard-design-1",
+  "state": "source_prepared_not_compiled_or_activated",
+  "policy": "cf-hangul-orthographic-guard-1",
+  "source": {
+    "path": "qa/immersion/KoreanReadingCandidate.swift",
+    "sha256": "3da3ebe41db7f75041c2e6ac606afb6b1ee8259404a3da9c22da084c754e2a77"
+  },
+  "input": {
+    "path": "qa/immersion/korean-reading-r01/inputs.json",
+    "sha256": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155",
+    "count": 32
+  },
+  "primary_rules_url": "https://www.korean.go.kr/front_eng/roman/roman_01.do",
+  "convention": "spelling-based Latin transcription; preserve CF hyphenation; not pronunciation-oriented RR",
+  "algorithm": [
+    "Authored sentence readings would take precedence at the existing full-result metadata cache; candidate is currently QA-only with no app membership.",
+    "Protect code, URLs, email, Latin names, identifiers and numbers byte-exactly; never normalize the source.",
+    "Partition original scalars into protected, modern precomposed Hangul, unresolved non-Latin letters, and literal pieces with exact contiguous UTF16 source ranges.",
+    "Apply CF tokenizer LatinTranscription with locale ko to each Hangul-only run. Preserve raw token readings; accept ASCII Latin words and native hyphens only.",
+    "Retain every token gap; unresolved Hangul, Han, jamo or other unprotected script produces nil whole reading and explicit diagnostic pieces.",
+    "Insert a display space at adjacent alphanumeric converted/literal boundaries; preserve explicit punctuation, whitespace and every opaque literal internally.",
+    "Require at least one converted Hangul token; Latin-only input has no redundant transliteration action.",
+    "No generic toLatin, phonological rewrites, phrase overrides, audio alteration or model requests."
+  ],
+  "bound": {
+    "maximum_utf16": 16384,
+    "regex_passes": 5,
+    "protection_mask": "bounded UTF16 occupancy; no pairwise range scans",
+    "unknown_native_latency": "must measure before acceptance",
+    "new_native_execution": false
+  },
+  "integration_if_qualified": "FullSentenceReadings authored-first producer, ko-only immutable policy key; once per full translated result outside SwiftUI. No production activation in this proposal.",
+  "future_capture": [
+    "first/warm equality, exact UTF16 piece partition and protected literal reconstruction",
+    "raw CF readings and unresolved ranges, input/probe hashes, actual OS and lexical-scheme availability",
+    "per-case wall time and process peak RSS; max mixed and max Hangul controls",
+    "capacity admission distinct from full app qualification; no model/package downloads"
+  ]
+}

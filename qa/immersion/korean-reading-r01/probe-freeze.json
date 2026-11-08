@@ -1,0 +1,15 @@
+{
+  "schema": "vipi-korean-native-probe-freeze-1",
+  "frozen_at": 1794120955.8336096,
+  "files": {
+    "qa/immersion/KoreanReadingCandidate.swift": "3da3ebe41db7f75041c2e6ac606afb6b1ee8259404a3da9c22da084c754e2a77",
+    "qa/immersion/MacKoreanReadingProbe.swift": "cc5867814020bd0042ec58703596dffa2a33fbab7e8b9e2cf7153d110d0ad41c",
+    "qa/immersion/korean-reading-r01/inputs.json": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155"
+  },
+  "new_native_outputs_exist": false,
+  "no_app_activation": true,
+  "reading_convention": "CF spelling-based Hangul transcription; no RR acoustic/phonetic assertion",
+  "maximum_seconds": 90,
+  "new_disk_budget_bytes": 67108864,
+  "normal_native_reserve_bytes": 1073741824
+}
