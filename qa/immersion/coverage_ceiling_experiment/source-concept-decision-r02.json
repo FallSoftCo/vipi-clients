@@ -1,0 +1,1033 @@
+{
+  "schema": "vipi-source-concept-final-receipt-2",
+  "production": false,
+  "freeze_sha256": "f45f5b58d44b5969a1de632342ed597eeb9ae9365bec2c38d5ce4addb2bef231",
+  "protocol_sha256": "1231e05d1e3b19545ebdb3b8898ca192354302494df06055126d2f4ec739834b",
+  "source_counts": {
+    "entries": 219,
+    "distinct_concepts": 162,
+    "content_forms": 187,
+    "function_forms": 32,
+    "guarded_noun_forms": 24
+  },
+  "question_rules": 12,
+  "author_review_sha256": "510865c6095e9126b63fd2c7b8c79dd37e2c06f7ac4812453779d320b67793e4",
+  "independent_review_sha256": "ef8524630d59332ddd281f344ef8c82d1cdf028550911faaaf93ad31f717d466",
+  "independent_comparison": {
+    "scopes": 53,
+    "exact_label_agreement": 50,
+    "disagreements": [
+      {
+        "id": "bst-valid-word-r02-0489-10",
+        "scope": {
+          "scope_id": "8f7e7914b55a5cb0",
+          "original": "know",
+          "translated": "kujua",
+          "label": "minor",
+          "reason": "The know concept is recognizable, but kujua is an infinitive inside a discourse-tag you know. Mark a minor form/pragmatic caveat; no material proposition reversal is observed."
+        },
+        "author": "correct",
+        "resolution": "Both original labels retained; no post-hoc adjudication or policy change."
+      },
+      {
+        "id": "bst-valid-word-r02-0495-04",
+        "scope": {
+          "scope_id": "858655ff5836a5aa",
+          "original": "know",
+          "translated": "kujua",
+          "label": "minor",
+          "reason": "Correct know sense, but infinitival kujua follows English dont. Meaning is preserved; grammar/form is not a natural Swahili clause."
+        },
+        "author": "correct",
+        "resolution": "Both original labels retained; no post-hoc adjudication or policy change."
+      },
+      {
+        "id": "bst-valid-word-r02-0852-02",
+        "scope": {
+          "scope_id": "9ccea8af866eefc5",
+          "original": "listen",
+          "translated": "kusikiliza",
+          "label": "minor",
+          "reason": "Correct listening concept, but infinitival kusikiliza is inserted before retained English to. Meaning remains recoverable; form/valency is a minor caveat."
+        },
+        "author": "correct",
+        "resolution": "Both original labels retained; no post-hoc adjudication or policy change."
+      }
+    ]
+  },
+  "decision": {
+    "schema": "vipi-source-concept-decision-2",
+    "production": false,
+    "gate_passed": false,
+    "semantic_review_type": "Author review; independent subset is retained separately; not native bilingual certification.",
+    "input_hashes": {
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/source-concept-valid-80-r02.json": "9112497bccbf70df415b69fdab3cffafa7b9727e0a909e14decfd88b6b0602d2",
+      "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/source-concept-author-review-r02.json": "510865c6095e9126b63fd2c7b8c79dd37e2c06f7ac4812453779d320b67793e4",
+      "qa/immersion/coverage_ceiling_experiment/reviewed-word-baseline-freeze-r02.json": "f45f5b58d44b5969a1de632342ed597eeb9ae9365bec2c38d5ce4addb2bef231"
+    },
+    "results": {
+      "control_mixed": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 62,
+          "with_candidate": 62,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.08714498965862288,
+          "content_messages": 28,
+          "function_messages": 34,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 25,
+            "word-en-sw-sports": 1,
+            "word-en-sw-food": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-and": 3,
+            "word-en-sw-people": 2,
+            "word-en-sw-now": 1,
+            "word-en-sw-know": 3,
+            "word-en-sw-cats": 2,
+            "word-en-sw-brother": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-music": 2,
+            "word-en-sw-winter": 2,
+            "word-en-sw-think": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-yes": 3,
+            "word-en-sw-we": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1,
+            "word-en-sw-business": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 27,
+          "with_candidate": 27,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0490247898059253,
+          "content_messages": 15,
+          "function_messages": 12,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 10,
+            "word-en-sw-food": 1,
+            "word-en-sw-and": 2,
+            "word-en-sw-people": 2,
+            "word-en-sw-know": 1,
+            "word-en-sw-cats": 2,
+            "word-en-sw-brother": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-winter": 2,
+            "word-en-sw-friends": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-business": 1
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 22,
+          "with_candidate": 22,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.08696036473814252,
+          "content_messages": 10,
+          "function_messages": 12,
+          "selected_lexicon_ids": {
+            "word-en-sw-sports": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-i": 8,
+            "word-en-sw-and": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-know": 2,
+            "word-en-sw-think": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-yes": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 13,
+          "with_candidate": 13,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.12692307692307692,
+          "content_messages": 3,
+          "function_messages": 10,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 7,
+            "word-en-sw-now": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-yes": 2,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        }
+      },
+      "content_mixed": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 35,
+          "with_candidate": 35,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.038426532870313154,
+          "content_messages": 35,
+          "function_messages": 0,
+          "selected_lexicon_ids": {
+            "word-en-sw-sports": 1,
+            "word-en-sw-food": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-kids": 1,
+            "word-en-sw-know": 3,
+            "word-en-sw-cats": 2,
+            "word-en-sw-law": 1,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-music": 2,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-think": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-pet": 1,
+            "word-en-sw-job": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 18,
+          "with_candidate": 18,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0318039810818486,
+          "content_messages": 18,
+          "function_messages": 0,
+          "selected_lexicon_ids": {
+            "word-en-sw-food": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-know": 1,
+            "word-en-sw-cats": 2,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-job": 1
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 14,
+          "with_candidate": 14,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.05612648668204224,
+          "content_messages": 14,
+          "function_messages": 0,
+          "selected_lexicon_ids": {
+            "word-en-sw-sports": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-kids": 1,
+            "word-en-sw-law": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-know": 2,
+            "word-en-sw-think": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-pet": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 3,
+          "with_candidate": 3,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.026923076923076925,
+          "content_messages": 3,
+          "function_messages": 0,
+          "selected_lexicon_ids": {
+            "word-en-sw-life": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        }
+      },
+      "function_mixed": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 66,
+          "with_candidate": 66,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.09795254523233979,
+          "content_messages": 0,
+          "function_messages": 66,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 43,
+            "word-en-sw-he": 1,
+            "question-en-sw-what": 3,
+            "word-en-sw-yes": 3,
+            "word-en-sw-really": 2,
+            "word-en-sw-and": 5,
+            "word-en-sw-now": 2,
+            "word-en-sw-us": 1,
+            "word-en-sw-yeah": 2,
+            "question-en-sw-when": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-oh": 1,
+            "question-en-sw-who": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 25,
+          "with_candidate": 25,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.04546516610900183,
+          "content_messages": 0,
+          "function_messages": 25,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 21,
+            "word-en-sw-and": 4
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 25,
+          "with_candidate": 25,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.09846830124607903,
+          "content_messages": 0,
+          "function_messages": 25,
+          "selected_lexicon_ids": {
+            "word-en-sw-he": 1,
+            "word-en-sw-yes": 1,
+            "word-en-sw-really": 2,
+            "word-en-sw-i": 14,
+            "question-en-sw-what": 1,
+            "word-en-sw-and": 1,
+            "word-en-sw-yeah": 2,
+            "question-en-sw-when": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-oh": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 16,
+          "with_candidate": 16,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.15192307692307694,
+          "content_messages": 0,
+          "function_messages": 16,
+          "selected_lexicon_ids": {
+            "question-en-sw-what": 2,
+            "word-en-sw-i": 8,
+            "word-en-sw-now": 2,
+            "word-en-sw-us": 1,
+            "word-en-sw-yes": 2,
+            "question-en-sw-who": 1
+          }
+        }
+      },
+      "primary_mixed": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 69,
+          "with_candidate": 69,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.10123725156338478,
+          "content_messages": 35,
+          "function_messages": 34,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 21,
+            "word-en-sw-he": 1,
+            "question-en-sw-what": 3,
+            "word-en-sw-sports": 1,
+            "word-en-sw-food": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-and": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-kids": 1,
+            "word-en-sw-now": 1,
+            "word-en-sw-know": 3,
+            "word-en-sw-cats": 2,
+            "word-en-sw-law": 1,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-music": 2,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-think": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-we": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-yes": 2,
+            "word-en-sw-oh": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-yeah": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1,
+            "word-en-sw-pet": 1,
+            "question-en-sw-who": 1,
+            "word-en-sw-job": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 27,
+          "with_candidate": 27,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0490247898059253,
+          "content_messages": 18,
+          "function_messages": 9,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 8,
+            "word-en-sw-food": 1,
+            "word-en-sw-and": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-know": 1,
+            "word-en-sw-cats": 2,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-job": 1
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 26,
+          "with_candidate": 26,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.10464114075225187,
+          "content_messages": 14,
+          "function_messages": 12,
+          "selected_lexicon_ids": {
+            "word-en-sw-he": 1,
+            "word-en-sw-sports": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-i": 6,
+            "question-en-sw-what": 1,
+            "word-en-sw-kids": 1,
+            "word-en-sw-law": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-know": 2,
+            "word-en-sw-think": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-oh": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-yeah": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1,
+            "word-en-sw-pet": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 16,
+          "with_candidate": 16,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.15192307692307694,
+          "content_messages": 3,
+          "function_messages": 13,
+          "selected_lexicon_ids": {
+            "question-en-sw-what": 2,
+            "word-en-sw-i": 7,
+            "word-en-sw-now": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-yes": 2,
+            "question-en-sw-who": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        }
+      },
+      "combined25_mixed": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 69,
+          "with_candidate": 69,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.18463361860755942,
+          "content_messages": 35,
+          "function_messages": 64,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 56,
+            "word-en-sw-and": 17,
+            "word-en-sw-he": 3,
+            "question-en-sw-what": 3,
+            "word-en-sw-yes": 6,
+            "word-en-sw-sports": 1,
+            "word-en-sw-food": 1,
+            "word-en-sw-wife": 1,
+            "word-en-sw-really": 2,
+            "word-en-sw-games": 1,
+            "word-en-sw-ok": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-trees": 1,
+            "word-en-sw-kids": 1,
+            "word-en-sw-now": 1,
+            "word-en-sw-oh": 4,
+            "word-en-sw-yeah": 4,
+            "word-en-sw-but": 6,
+            "word-en-sw-know": 3,
+            "word-en-sw-cats": 2,
+            "word-en-sw-especially": 1,
+            "word-en-sw-law": 1,
+            "word-en-sw-bread": 1,
+            "word-en-sw-nurse": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-animals": 2,
+            "word-en-sw-life": 1,
+            "word-en-sw-us": 1,
+            "word-en-sw-more": 1,
+            "word-en-sw-music": 2,
+            "word-en-sw-or": 1,
+            "word-en-sw-maybe": 2,
+            "word-en-sw-winter": 2,
+            "word-en-sw-rain": 1,
+            "word-en-sw-very": 1,
+            "word-en-sw-because": 1,
+            "question-en-sw-where": 1,
+            "word-en-sw-thanks": 1,
+            "word-en-sw-think": 1,
+            "word-en-sw-me": 4,
+            "word-en-sw-friends": 1,
+            "word-en-sw-weekend": 1,
+            "word-en-sw-we": 3,
+            "word-en-sw-also": 1,
+            "word-en-sw-listen": 1,
+            "word-en-sw-vegetables": 1,
+            "question-en-sw-when": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-months": 1,
+            "word-en-sw-child": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-health": 1,
+            "word-en-sw-eat": 2,
+            "word-en-sw-meat": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-children": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-every": 1,
+            "word-en-sw-age": 1,
+            "word-en-sw-always": 2,
+            "word-en-sw-day": 1,
+            "word-en-sw-things": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-pet": 1,
+            "question-en-sw-who": 1,
+            "word-en-sw-business": 1,
+            "word-en-sw-job": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 27,
+          "with_candidate": 27,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.18344820448210317,
+          "content_messages": 18,
+          "function_messages": 25,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 33,
+            "word-en-sw-and": 14,
+            "word-en-sw-food": 1,
+            "word-en-sw-wife": 1,
+            "word-en-sw-ok": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-trees": 1,
+            "word-en-sw-oh": 3,
+            "word-en-sw-yeah": 1,
+            "word-en-sw-but": 6,
+            "word-en-sw-know": 1,
+            "word-en-sw-cats": 2,
+            "word-en-sw-especially": 1,
+            "word-en-sw-bread": 1,
+            "word-en-sw-nurse": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-he": 1,
+            "word-en-sw-more": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-or": 1,
+            "word-en-sw-maybe": 1,
+            "word-en-sw-winter": 2,
+            "word-en-sw-rain": 1,
+            "word-en-sw-very": 1,
+            "word-en-sw-because": 1,
+            "question-en-sw-where": 1,
+            "word-en-sw-me": 2,
+            "word-en-sw-friends": 1,
+            "word-en-sw-weekend": 1,
+            "word-en-sw-we": 2,
+            "word-en-sw-also": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-months": 1,
+            "word-en-sw-child": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-health": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-meat": 1,
+            "word-en-sw-every": 1,
+            "word-en-sw-age": 1,
+            "word-en-sw-always": 2,
+            "word-en-sw-day": 1,
+            "word-en-sw-things": 1,
+            "word-en-sw-business": 1,
+            "word-en-sw-job": 1,
+            "word-en-sw-yes": 1,
+            "word-en-sw-animals": 1
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 26,
+          "with_candidate": 26,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.1950958506514062,
+          "content_messages": 14,
+          "function_messages": 25,
+          "selected_lexicon_ids": {
+            "word-en-sw-he": 2,
+            "word-en-sw-yes": 2,
+            "word-en-sw-sports": 1,
+            "word-en-sw-really": 2,
+            "word-en-sw-games": 1,
+            "word-en-sw-i": 16,
+            "question-en-sw-what": 1,
+            "word-en-sw-kids": 1,
+            "word-en-sw-and": 3,
+            "word-en-sw-law": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-know": 2,
+            "word-en-sw-thanks": 1,
+            "word-en-sw-think": 1,
+            "word-en-sw-yeah": 2,
+            "word-en-sw-music": 1,
+            "word-en-sw-listen": 1,
+            "word-en-sw-vegetables": 1,
+            "question-en-sw-when": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-oh": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-children": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-maybe": 1,
+            "word-en-sw-me": 2,
+            "word-en-sw-eat": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-pet": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 16,
+          "with_candidate": 16,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.175,
+          "content_messages": 3,
+          "function_messages": 14,
+          "selected_lexicon_ids": {
+            "question-en-sw-what": 2,
+            "word-en-sw-i": 7,
+            "word-en-sw-now": 1,
+            "word-en-sw-yes": 3,
+            "word-en-sw-life": 1,
+            "word-en-sw-us": 1,
+            "word-en-sw-yeah": 1,
+            "question-en-sw-who": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        }
+      },
+      "whole_lexical": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 0,
+          "with_candidate": 0,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0,
+          "content_messages": 0,
+          "function_messages": 0,
+          "selected_lexicon_ids": {}
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 0,
+          "with_candidate": 0,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0,
+          "content_messages": 0,
+          "function_messages": 0,
+          "selected_lexicon_ids": {}
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 0,
+          "with_candidate": 0,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0,
+          "content_messages": 0,
+          "function_messages": 0,
+          "selected_lexicon_ids": {}
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 0,
+          "with_candidate": 0,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0,
+          "content_messages": 0,
+          "function_messages": 0,
+          "selected_lexicon_ids": {}
+        }
+      },
+      "primary_union": {
+        "all": {
+          "messages": 80,
+          "clean_useful": 69,
+          "with_candidate": 69,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.10123725156338478,
+          "content_messages": 35,
+          "function_messages": 34,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 21,
+            "word-en-sw-he": 1,
+            "question-en-sw-what": 3,
+            "word-en-sw-sports": 1,
+            "word-en-sw-food": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-and": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-kids": 1,
+            "word-en-sw-now": 1,
+            "word-en-sw-know": 3,
+            "word-en-sw-cats": 2,
+            "word-en-sw-law": 1,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-music": 2,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-think": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-we": 1,
+            "word-en-sw-days": 1,
+            "word-en-sw-yes": 2,
+            "word-en-sw-oh": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-yeah": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1,
+            "word-en-sw-pet": 1,
+            "question-en-sw-who": 1,
+            "word-en-sw-job": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        },
+        "16-30": {
+          "messages": 27,
+          "clean_useful": 27,
+          "with_candidate": 27,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.0490247898059253,
+          "content_messages": 18,
+          "function_messages": 9,
+          "selected_lexicon_ids": {
+            "word-en-sw-i": 8,
+            "word-en-sw-food": 1,
+            "word-en-sw-and": 1,
+            "word-en-sw-people": 2,
+            "word-en-sw-know": 1,
+            "word-en-sw-cats": 2,
+            "word-en-sw-bread": 1,
+            "word-en-sw-brother": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-winter": 1,
+            "word-en-sw-rain": 1,
+            "word-en-sw-friends": 1,
+            "word-en-sw-family": 2,
+            "word-en-sw-days": 1,
+            "word-en-sw-eat": 1,
+            "word-en-sw-day": 1,
+            "word-en-sw-job": 1
+          }
+        },
+        "6-15": {
+          "messages": 27,
+          "clean_useful": 26,
+          "with_candidate": 26,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.10464114075225187,
+          "content_messages": 14,
+          "function_messages": 12,
+          "selected_lexicon_ids": {
+            "word-en-sw-he": 1,
+            "word-en-sw-sports": 1,
+            "word-en-sw-games": 1,
+            "word-en-sw-i": 6,
+            "question-en-sw-what": 1,
+            "word-en-sw-kids": 1,
+            "word-en-sw-law": 1,
+            "word-en-sw-animals": 1,
+            "word-en-sw-know": 2,
+            "word-en-sw-think": 1,
+            "word-en-sw-music": 1,
+            "word-en-sw-vegetables": 1,
+            "word-en-sw-we": 1,
+            "word-en-sw-oh": 1,
+            "word-en-sw-books": 1,
+            "word-en-sw-movies": 1,
+            "word-en-sw-yeah": 1,
+            "word-en-sw-want": 1,
+            "word-en-sw-really": 1,
+            "word-en-sw-pet": 1
+          }
+        },
+        "1-5": {
+          "messages": 26,
+          "clean_useful": 16,
+          "with_candidate": 16,
+          "material_error_messages": 0,
+          "uncertain_messages": 0,
+          "mean_correct_depth": 0.15192307692307694,
+          "content_messages": 3,
+          "function_messages": 13,
+          "selected_lexicon_ids": {
+            "question-en-sw-what": 2,
+            "word-en-sw-i": 7,
+            "word-en-sw-now": 1,
+            "word-en-sw-life": 1,
+            "word-en-sw-yes": 2,
+            "question-en-sw-who": 1,
+            "word-en-sw-years": 1,
+            "word-en-sw-hair": 1
+          }
+        }
+      }
+    },
+    "paired_newly_available": [
+      "bst-valid-word-r02-0067-10",
+      "bst-valid-word-r02-0114-00",
+      "bst-valid-word-r02-0161-00",
+      "bst-valid-word-r02-0265-08",
+      "bst-valid-word-r02-0353-08",
+      "bst-valid-word-r02-0521-08",
+      "bst-valid-word-r02-0886-04"
+    ],
+    "paired_lost": [],
+    "whole_credit": "Whole lexical scopes are scored separately and union is deduplicated. No unreviewed whole MT is credited.",
+    "limitations": [
+      "80 sampled crowdsourced persona-conversation messages, not a population or real-user outcome estimate.",
+      "Mean depth is macro-averaged per message including zeros. Length strata reported explicitly.",
+      "No inference and no native integration. Python timing is not mobile timing."
+    ]
+  },
+  "repeated_vocabulary": {
+    "primary_I": 21,
+    "primary_total_spans": 69,
+    "primary_content": 35,
+    "primary_function": 34,
+    "distinct_primary_units": 41,
+    "distinct_selected_units_all_arms": 69
+  },
+  "known_word_diagnostic": {
+    "kind": "Post-evaluation descriptive exhaustion analysis, not a fresh intervention or learning outcome. Uses only already semantically reviewed selected scopes, without reselecting new candidates.",
+    "results": {
+      "I learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 61
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 27
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 23
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 11
+        }
+      },
+      "I/and/but learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 57
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 23
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 23
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 11
+        }
+      },
+      "all function units learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 35
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 18
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 14
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 3
+        }
+      },
+      "all function + top10 TRAIN content concepts learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 28
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 15
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 10
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 3
+        }
+      },
+      "all function + top25 TRAIN content concepts learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 18
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 11
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 6
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 1
+        }
+      },
+      "all function + top50 TRAIN content concepts learned": {
+        "all": {
+          "messages": 80,
+          "messages_with_remaining_reviewed_scope": 12
+        },
+        "16-30": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 10
+        },
+        "6-15": {
+          "messages": 27,
+          "messages_with_remaining_reviewed_scope": 2
+        },
+        "1-5": {
+          "messages": 26,
+          "messages_with_remaining_reviewed_scope": 0
+        }
+      }
+    }
+  },
+  "production_decision": "No promotion: frozen advance gate requires72 clean messages and40 content messages; observed69 and35. Accuracy encouraging within this limited assisted review, availability/depth/progression remain incomplete."
+}

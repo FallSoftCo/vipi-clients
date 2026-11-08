@@ -1,0 +1,62 @@
+{
+  "schema": "vipi-train-frequency-concept-expansion-draft-2",
+  "production": false,
+  "frozen": false,
+  "review_status": "Training-selected hypotheses; exact target attestation and sense review still required before new holdout selection.",
+  "selection": "Expand ordinary TRAIN-frequency concepts and separately identified complete singular/plural forms. No complete evaluated message is imported as a reference.",
+  "content": {
+    "family": "familia", "families": "familia", "school": "shule", "schools": "shule",
+    "job": "kazi", "jobs": "kazi", "college": "chuo", "name": "jina", "names": "majina",
+    "house": "nyumba", "houses": "nyumba", "room": "chumba", "rooms": "vyumba",
+    "place": "mahali", "places": "mahali", "town": "mji", "cities": "miji",
+    "store": "duka", "stores": "maduka", "shop": "duka", "shops": "maduka",
+    "farm": "shamba", "farms": "mashamba", "garden": "bustani", "gardens": "bustani",
+    "flower": "ua", "flowers": "maua", "tree": "mti", "trees": "miti",
+    "mountain": "mlima", "mountains": "milima", "lake": "ziwa", "lakes": "maziwa",
+    "river": "mto", "rivers": "mito", "snow": "theluji", "rain": "mvua", "wind": "upepo",
+    "water": "maji", "sun": "jua", "moon": "mwezi", "bed": "kitanda", "beds": "vitanda",
+    "bedroom": "chumba cha kulala", "hospital": "hospitali", "doctor": "daktari", "doctors": "madaktari",
+    "nurse": "muuguzi", "nurses": "wauguzi", "health": "afya", "medicine": "dawa",
+    "science": "sayansi", "history": "historia", "law": "sheria", "laws": "sheria",
+    "math": "hisabati", "maths": "hisabati", "language": "lugha", "languages": "lugha",
+    "story": "hadithi", "stories": "hadithi", "crime": "uhalifu", "police": "polisi",
+    "guitar": "gitaa", "song": "wimbo", "songs": "nyimbo", "concert": "tamasha", "concerts": "matamasha",
+    "basketball": "mpira wa kikapu", "baseball": "besiboli", "tennis": "tenisi", "soccer": "mpira wa miguu",
+    "hockey": "hokei", "cricket": "kriketi", "horse": "farasi", "horses": "farasi",
+    "bird": "ndege", "birds": "ndege", "rabbit": "sungura", "rabbits": "sungura",
+    "pet": "mnyama wa nyumbani", "baby": "mtoto mchanga", "babies": "watoto wachanga",
+    "boy": "mvulana", "boys": "wavulana", "girl": "msichana", "girls": "wasichana",
+    "child": "mtoto", "kids": "watoto", "siblings": "ndugu", "brothers": "kaka", "sister": "dada", "sisters": "dada",
+    "father": "baba", "son": "mwana wa kiume", "sons": "wana wa kiume", "daughter": "binti", "daughters": "mabinti",
+    "bread": "mkate", "sugar": "sukari", "salt": "chumvi", "egg": "yai", "eggs": "mayai",
+    "milk": "maziwa", "beer": "bia", "wine": "mvinyo", "tea": "chai", "cake": "keki", "cakes": "keki",
+    "vegetables": "mboga", "potato": "kiazi", "potatoes": "viazi", "tomato": "nyanya", "tomatoes": "nyanya",
+    "onion": "kitunguu", "onions": "vitunguu", "banana": "ndizi", "bananas": "ndizi",
+    "apple": "tufaha", "apples": "matufaha", "salad": "saladi",
+    "breakfast": "kifungua kinywa", "lunch": "chakula cha mchana", "dinner": "chakula cha jioni",
+    "morning": "asubuhi", "afternoon": "alasiri", "evening": "jioni",
+    "minute": "dakika", "minutes": "dakika", "hour": "saa", "hours": "saa", "month": "mwezi", "months": "miezi",
+    "weeks": "wiki", "holiday": "likizo", "holidays": "likizo", "vacation": "likizo",
+    "reason": "sababu", "reasons": "sababu", "age": "umri", "question": "swali", "questions": "maswali",
+    "answer": "jibu", "answers": "majibu", "conversation": "mazungumzo", "conversations": "mazungumzo"
+  },
+  "function": {"me": "mimi", "us": "sisi", "he": "yeye", "she": "yeye", "him": "yeye", "oh": "lo", "yeah": "ndiyo", "ok": "sawa", "okay": "sawa", "each": "kila"},
+  "guarded_interrogatives": {
+    "what": "nini", "where": "wapi", "when": "lini", "why": "kwa nini", "who": "nani", "how": "vipi"
+  },
+  "guarded_question_units": {
+    "what kind": "aina gani", "what kinds": "aina gani", "what type": "aina gani", "what types": "aina gani", "what sort": "aina gani",
+    "how long": "muda gani"
+  },
+  "guard_design": "Interrogative single words require sentence-initial position and an explicitly allowed following auxiliary, excluding relative/conjunction uses. What kind/type/sort are separate complete source units. Temporal how long additionally requires following have/has/had; spatial how long is inapplicable. Exact conditions and contrasts must be frozen and exercised before a new sample.",
+  "research_sources": [
+    "https://kiswahili.ku.edu/sites/kiswahili/files/documents/lessons/Lesson%201-10/all.pdf",
+    "https://elias.fas.harvard.edu/languages/swahili/beginning/10/any-time-tea-time-directions-how-make-tea"
+  ],
+  "known_risks": [
+    "Default ordinary nouns can still participate in noun/verb homographs, idioms or metaphorical uses; measure these as errors rather than claiming global unambiguity.",
+    "Count mass nouns and plural invariants explicitly; class metadata is not a word form.",
+    "Question-word guards are local evidence, not a complete English parser.",
+    "These draft translations are not a shipping pack, and missing raw entries may require separately authored and verified evidence."
+  ]
+}

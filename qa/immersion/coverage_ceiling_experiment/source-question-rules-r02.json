@@ -1,0 +1,27 @@
+{
+  "schema": "vipi-source-interrogative-context-rules-2",
+  "production": false,
+  "origin": "TRAIN frequency of sentence openings and independently checked interrogative meanings; not harvested evaluation translations.",
+  "sentence_boundaries": ".!? followed by optional whitespace or start of message; source tokenization and quoted/code protections remain explicit",
+  "single_words": {
+    "what": {"target": "nini", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should", "has", "have", "had"]},
+    "where": {"target": "wapi", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should", "has", "have", "had"]},
+    "when": {"target": "lini", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should", "has", "have", "had"]},
+    "why": {"target": "kwa nini", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should", "has", "have", "had", "don't", "doesn't", "didn't", "isn't", "aren't", "not"]},
+    "who": {"target": "nani", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should", "has", "have", "had"]},
+    "how": {"target": "vipi", "following": ["do", "does", "did", "is", "are", "was", "were", "would", "will", "can", "could", "should"]}
+  },
+  "units": {
+    "what kind": {"target": "aina gani", "following": ["of"]},
+    "what kinds": {"target": "aina gani", "following": ["of"]},
+    "what type": {"target": "aina gani", "following": ["of"]},
+    "what types": {"target": "aina gani", "following": ["of"]},
+    "what sort": {"target": "aina gani", "following": ["of"]},
+    "how long": {"target": "muda gani", "following": ["have", "has", "had"]}
+  },
+  "primary_sources": [
+    {"url": "https://kiswahili.ku.edu/sites/kiswahili/files/documents/lessons/Lesson%201-10/all.pdf", "scope": "Question-word meanings and distinctions on PDF pages154–157; temporal duration use on PDF page295. Noun-class-sensitive how-many is intentionally omitted.", "use": "Verify authored short linguistic units; no wholesale course text or exercise ingestion."},
+    {"url": "https://elias.fas.harvard.edu/languages/swahili/beginning/10/any-time-tea-time-directions-how-make-tea", "scope": "Conversational type/kind-of question use; corroborates the kind/type concept rather than an arbitrary word-for-word target alignment.", "use": "Verification only; source passages are not new pack rows."}
+  ],
+  "limitations": ["Initial position and a right auxiliary are local evidence, not universal proof of interrogative scope.","Quoted text and malformed source remain potential ambiguity; code and identifier exclusions are mandatory.","Native grammar is retained; these mixed units do not claim a grammatical complete Swahili sentence."]
+}

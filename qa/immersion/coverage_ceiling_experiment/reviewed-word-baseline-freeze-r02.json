@@ -1,0 +1,42 @@
+{
+  "schema": "vipi-source-concept-freeze-2",
+  "production": false,
+  "frozen_unix": 1794104586.6868918,
+  "lexicon_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "rules_sha256": "eb8511d784486abb378ac35536205b176ad31ced1f38c4526ddfddaa496191c5",
+  "evaluator_sha256": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+  "control_sha256": "c979e91b4b959f0ee8b75bc2b1aca5372bd5d63774b396f21fcbee18819abfb7",
+  "entries": {
+    "entries": 219,
+    "distinct_concepts": 162,
+    "content_forms": 187,
+    "function_forms": 32,
+    "guarded_noun_forms": 24
+  },
+  "question_rules": 12,
+  "contrast_receipt_sha256": "dc0e69026d351737cced09ea97046cd7766cb26103c54c5edf3aca34b3a62dfd",
+  "hypothesis": "TRAIN-frequency content expansion plus context-specific question words improves short-message source-only coverage while retaining useful lexical meaning in surrounding native grammar.",
+  "new_holdout": "80 disjoint free-human VALID convai2 turns; 26/27/27 length bins; exclude all prior VALID dialogues, all TRAIN exact normalized messages, and previous evaluation texts. One case per dialogue.",
+  "arms": [
+    "control_mixed",
+    "content_mixed",
+    "function_mixed",
+    "primary_mixed",
+    "combined25_mixed",
+    "whole_lexical",
+    "primary_union"
+  ],
+  "primary": "primary_union, with mixed and verified whole lexical scopes reported separately; content/function coverage separately; unchanged 100-entry control paired on the same inputs.",
+  "research_advance_only": {
+    "primary_clean_useful_at_least": 72,
+    "primary_material_or_scope_errors_at_most": 2,
+    "content_clean_useful_at_least": 40
+  },
+  "scoring": "Review all unique selected scopes across arms in context; material/scope errors, minor hybrid grammar and uncertainties remain separate. No target full-translation prerequisite. Independent24 fixed before outputs. Not native bilingual certification.",
+  "whole_credit": "Only an explicitly reviewed lexical candidate covering all source word tokens; no unreviewed full MT. Review semantic meaning of whole candidates exactly as mixed ones.",
+  "limitations": [
+    "TRAIN-derived local guards are not a parser. Homographs, idioms and metaphorical senses can still fail.",
+    "Old development results known to author; new sample unselected at policy freeze.",
+    "Research Python English boundaries; no production/native change."
+  ]
+}
