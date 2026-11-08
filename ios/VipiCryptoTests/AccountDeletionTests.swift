@@ -92,10 +92,19 @@ import XCTest
         try target.transaction { try target.put("test", "body", Data("secret".utf8)) }
         try preserved.transaction { try preserved.put("test", "body", Data("keep".utf8)) }
         try KeychainStore.save(Data("profile".utf8), account: "profile-" + user)
+        let cacheRoot = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let privateSpeech = cacheRoot.appendingPathComponent("vipi-speech", isDirectory: true)
+        let unrelated = cacheRoot.appendingPathComponent("unrelated-deletion-qa-" + UUID().uuidString)
+        try FileManager.default.createDirectory(at: privateSpeech, withIntermediateDirectories: true)
+        try Data("private spoken message".utf8).write(to: privateSpeech.appendingPathComponent("deletion-fixture.caf"))
+        try Data("keep".utf8).write(to: unrelated)
+        defer { try? FileManager.default.removeItem(at: unrelated) }
         try target.close()
         let record = DeletionRecord(account: account, userID: user, secret: String(repeating: "a", count: 43), createdAt: Date(), phase: .requested)
         try AccountDeletion.eraseLocal(record); try AccountDeletion.eraseLocal(record)
         XCTAssertFalse(FileManager.default.fileExists(atPath: folder.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: privateSpeech.path))
+        XCTAssertEqual(try Data(contentsOf: unrelated), Data("keep".utf8))
         XCTAssertNil(try KeychainStore.read(account: "messages-" + account.uuidString.lowercased()))
         XCTAssertNil(try KeychainStore.read(account: "profile-" + user))
         XCTAssertEqual(try preserved.transaction { try preserved.get("test", "body") }, Data("keep".utf8))

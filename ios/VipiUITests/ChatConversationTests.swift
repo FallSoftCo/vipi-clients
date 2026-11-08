@@ -1,6 +1,55 @@
 import XCTest
 
+@MainActor
 final class ChatConversationTests: XCTestCase {
+    func testForegroundExchangeWithoutRefresh() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01",
+              let sent = ProcessInfo.processInfo.environment["VIPI_QA_FOREGROUND_SEND"],
+              let expected = ProcessInfo.processInfo.environment["VIPI_QA_FOREGROUND_TEXT"],
+              sent.hasPrefix("Foreground iOS to Android "), expected.hasPrefix("Foreground Android to iOS "),
+              sent.count < 160, expected.count < 160 else { throw XCTSkip("Fresh owned-account exchange required") }
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light"]; app.launch()
+        dismissOptionalOffer(app)
+        let friend = app.staticTexts["Vipi Android QA"].firstMatch
+        XCTAssertTrue(friend.waitForExistence(timeout: 30)); friend.tap()
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 15))
+        XCTAssertFalse(app.staticTexts[sent].exists); XCTAssertFalse(app.staticTexts[expected].exists)
+        let metadata = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'message-meta-'"))
+        let previousIDs = metadata.allElementsBoundByIndex.map { $0.identifier }
+        input.tap(); input.typeText(sent); app.buttons["message-send"].tap()
+        print("VIPI_FOREGROUND_SENT " + ISO8601DateFormatter().string(from: Date()))
+        XCTAssertTrue(app.staticTexts[sent].waitForExistence(timeout: 15))
+        capture("foreground-new-outgoing-message")
+        print("VIPI_FOREGROUND_RECEIVER_READY")
+        // No refresh, lifecycle change, navigation or subsequent local send.
+        XCTAssertTrue(app.staticTexts[expected].waitForExistence(timeout: 120))
+        let delivered = metadata.matching(NSPredicate(format: "NOT (identifier IN %@) AND label CONTAINS ' · Delivered'", previousIDs)).firstMatch
+        XCTAssertTrue(delivered.waitForExistence(timeout: 30))
+        capture("foreground-bidirectional-delivered-without-refresh")
+        print("VIPI_FOREGROUND_EXCHANGE_COMPLETE " + ISO8601DateFormatter().string(from: Date()))
+    }
+    func testReceiveForegroundWithoutRefresh() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01",
+              let expected = ProcessInfo.processInfo.environment["VIPI_QA_FOREGROUND_TEXT"],
+              expected.hasPrefix("Foreground Android to iOS "), expected.count < 160 else {
+            throw XCTSkip("A fresh explicit owned-account foreground exchange is required")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light"]; app.launch()
+        dismissOptionalOffer(app)
+        let friend = app.staticTexts["Vipi Android QA"].firstMatch
+        XCTAssertTrue(friend.waitForExistence(timeout: 30)); friend.tap()
+        XCTAssertTrue(app.buttons["message-send"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.staticTexts[expected].exists, "Use a new message for this delivery proof")
+        capture("foreground-chat-awaiting-new-message")
+        // The peer sends only after this ready marker is observed. No pull to
+        // refresh, relaunch, scene activation or local send follows this point.
+        print("VIPI_FOREGROUND_RECEIVER_READY")
+        XCTAssertTrue(app.staticTexts[expected].waitForExistence(timeout: 120))
+        capture("foreground-message-arrived-without-refresh")
+    }
     func testReportSelectedOriginalMessage() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01" else { throw XCTSkip("Owned staging identity required") }
         continueAfterFailure = false
