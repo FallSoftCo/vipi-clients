@@ -14,12 +14,15 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-/** Pinned Swahili fallback plus English source audio. C state has exactly one serialized owner. */
+/** Pinned offline fallback. C state has exactly one serialized owner. */
 @Keep internal object SwahiliSpeech {
     const val IDENTIFIER = "espeak-ng-699e7969-sw"
     private const val ASSETS = "speech/espeak-ng-699e7969"
     private val mutex = Mutex()
     private var ready = false
+    private val voiceNames = mapOf("en" to "en", "es" to "es", "fr" to "fr", "de" to "de",
+        "it" to "it", "pt" to "pt", "ja" to "ja", "ko" to "ko", "zh" to "cmn", "ar" to "ar", "sw" to "sw")
+    fun supports(language: String) = language in voiceNames
     @Keep class Job {
         private val cancelled = AtomicBoolean(false)
         private val frames = AtomicInteger(0)
@@ -34,7 +37,7 @@ import kotlin.coroutines.resumeWithException
     fun identifier(language: String) = "espeak-ng-699e7969-$language"
 
     suspend fun prepare(context: Context, language: String = "sw"): String = mutex.withLock {
-        require(language in setOf("en", "sw"))
+        require(supports(language))
         withContext(Dispatchers.IO) {
             if (!ready) {
                 val manifest = JSONObject(context.assets.open("$ASSETS/manifest.json").bufferedReader().use { it.readText() })
@@ -78,7 +81,9 @@ import kotlin.coroutines.resumeWithException
                 suspendCancellableCoroutine { continuation ->
                     continuation.invokeOnCancellation { job.cancel() }
                     try {
-                        val result = renderNative(text.toByteArray(Charsets.UTF_8), destination.path, job, language)
+                        val spoken = if (language == "ja") JapaneseSpeechReading.convert(text) else text
+                        ensureActive()
+                        val result = renderNative(spoken.toByteArray(Charsets.UTF_8), destination.path, job, voiceNames.getValue(language))
                         if (job.isCancelled()) throw CancellationException("Speech cancelled")
                         val speech = RenderedSpeech(destination, result[1] * 1000.0 / result[0], result[0], 1)
                         if (continuation.isActive) continuation.resume(speech) else destination.delete()

@@ -22,7 +22,9 @@ class OfflineVoiceAvailabilityTest {
         fun shell(command: String) = instrumentation.uiAutomation.executeShellCommand(command).use {
             java.io.FileInputStream(it.fileDescriptor).bufferedReader().use { stream -> stream.readText() }
         }
-        val output = File(context.filesDir, "voice-availability-001"); check(!output.exists()); output.mkdirs()
+        val revision = InstrumentationRegistry.getArguments().getString("vipiVoiceAudit") ?: "001"
+        require(revision.matches(Regex("[0-9]{3}")))
+        val output = File(context.filesDir, "voice-availability-$revision"); check(!output.exists()); output.mkdirs()
         val wifi = shell("settings get global wifi_on").trim(); val mobile = shell("settings get global mobile_data").trim()
         val settings = listOf("tts_default_synth", "tts_default_rate", "tts_default_pitch", "tts_default_locale")
         val before = settings.associateWith { shell("settings get secure $it").trim() }
@@ -72,7 +74,11 @@ class OfflineVoiceAvailabilityTest {
                     finally { withContext(Dispatchers.Main) { voice.close() }; assertNull(network.activeNetwork); rows.put(row); save() }
                 }
             }
-            assertEquals(11, rows.length()); report.put("complete", true)
+            assertEquals(11, rows.length())
+            if (InstrumentationRegistry.getArguments().getString("vipiRequireAllVoices") == "true") {
+                for (index in 0 until rows.length()) assertEquals(rows.getJSONObject(index).getString("language"), "rendered", rows.getJSONObject(index).getString("status"))
+            }
+            report.put("complete", true)
         } finally {
             if (wifi == "1") shell("svc wifi enable"); if (mobile == "1") shell("svc data enable")
             val after = settings.associateWith { shell("settings get secure $it").trim() }

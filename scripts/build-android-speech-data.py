@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build pinned offline English/Swahili data from retained eSpeak sources on disk."""
+"""Build pinned offline voice data from retained eSpeak sources on disk."""
 import argparse
 import hashlib
 import json
@@ -19,7 +19,10 @@ def main():
     parser.add_argument('--build-dir', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--verify-against', type=Path)
+    parser.add_argument('--languages', nargs='+', default=['en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'cmn', 'ar', 'sw'])
     args = parser.parse_args()
+    assert len(set(args.languages)) == len(args.languages)
+    assert set(args.languages) <= {'en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'cmn', 'ar', 'sw'}
     root = Path(__file__).resolve().parents[1]
     source = root / 'android/vendor/espeak-ng'
     args.build_dir.mkdir(parents=True, exist_ok=True)
@@ -43,13 +46,13 @@ def main():
                     assert not destination.exists()
                     shutil.copy2(item, destination)
         subprocess.run([str(args.build_dir / 'vipi-speech-data'), str(data.parent),
-                        str(source / 'phsource'), str(dictionary) + '/', 'en', 'sw'], check=True)
+                        str(source / 'phsource'), str(dictionary) + '/', *args.languages], check=True)
         rows = [{'path': str(path.relative_to(data.parent)), 'bytes': path.stat().st_size, 'sha256': sha(path)}
                 for path in sorted(data.rglob('*')) if path.is_file()]
         manifest = {'schema': 'vipi-native-speech-data-1',
                     'espeak_revision': '699e79690f23e2558d990a3a78b0050745b96932',
-                    'dictionary_languages': ['en', 'sw'], 'phoneme_sample_rate': 22050,
-                    'production_use': 'English/Swahili fallback; working installed offline voices preferred', 'files': rows}
+                    'dictionary_languages': args.languages, 'phoneme_sample_rate': 22050,
+                    'production_use': 'Bundled fallback; working installed offline voices preferred. Japanese engine requires Kana input.', 'files': rows}
         if args.verify_against:
             previous = json.loads((args.verify_against / 'manifest.json').read_text())
             assert rows == previous['files'], 'Regenerated data differs from the retained assets'

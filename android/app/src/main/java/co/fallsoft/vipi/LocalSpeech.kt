@@ -60,7 +60,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         try { withTimeout(15_000) { ready.await() } }
         catch (error: Exception) {
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
-            if (language in setOf("en", "sw")) return@withContext selectBundledFallback()
+            if (SwahiliSpeech.supports(language)) return@withContext selectBundledFallback()
             throw error
         }
         selected?.let { return@withContext it.name }
@@ -76,7 +76,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         voice.name
     }
     private suspend fun selectBundledFallback(): String {
-        if (language !in setOf("en", "sw")) throw OfflineVoiceUnavailable(language)
+        if (!SwahiliSpeech.supports(language)) throw OfflineVoiceUnavailable(language)
         val identifier = SwahiliSpeech.prepare(application, language)
         if (closed) throw kotlinx.coroutines.CancellationException("Voice closed")
         bundledFallback = true
@@ -113,7 +113,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
             withContext(kotlinx.coroutines.NonCancellable + Dispatchers.Main.immediate) { tts.stop() }
             destination.delete()
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
-            if (language in setOf("en", "sw") && (error is OfflineVoiceUnavailable || error is kotlinx.coroutines.TimeoutCancellationException)) {
+            if (SwahiliSpeech.supports(language) && (error is OfflineVoiceUnavailable || error is kotlinx.coroutines.TimeoutCancellationException)) {
                 withContext(Dispatchers.Main.immediate) { selectBundledFallback() }
                 return@withLock renderBundled(text, destination)
             }
@@ -144,6 +144,8 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
             val temp = cache.access { File.createTempFile("warm-", ".wav", it) }
             try { voice.render(requireNotNull(warmups[language]), temp) } finally { temp.delete() }
         }
+        // An advertised offline system voice can fail its first actual synthesis.
+        voiceIDs = voices.mapValues { it.value.select() }
         prepared = true
     } }
 

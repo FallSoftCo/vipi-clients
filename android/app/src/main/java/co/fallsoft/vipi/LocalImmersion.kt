@@ -8,6 +8,8 @@ import com.atilika.kuromoji.ipadic.Tokenizer
 
 internal object LocalImmersion {
     private val japanese by lazy { Tokenizer() }
+    /** Read-only speech access to the same thread-safe tokenizer; matching stays unchanged. */
+    internal fun japaneseTokens(text: String) = japanese.tokenize(text)
     /** Complete native sentences, preserving offsets in the original message. */
     fun sentences(text:String,language:String):List<IntRange> {
         val iterator=BreakIterator.getSentenceInstance(Locale.forLanguageTag(language));iterator.setText(text)

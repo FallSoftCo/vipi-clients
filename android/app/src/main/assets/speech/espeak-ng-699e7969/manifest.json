@@ -3,20 +3,69 @@
   "espeak_revision": "699e79690f23e2558d990a3a78b0050745b96932",
   "dictionary_languages": [
     "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ja",
+    "ko",
+    "cmn",
+    "ar",
     "sw"
   ],
   "phoneme_sample_rate": 22050,
-  "production_use": "English/Swahili fallback; working installed offline voices preferred",
+  "production_use": "Bundled fallback; working installed offline voices preferred. Japanese engine requires Kana input.",
   "files": [
+    {
+      "path": "espeak-ng-data/ar_dict",
+      "bytes": 499513,
+      "sha256": "190b950235713f5971e11bcedce2e1db60f34209765f7b09d68ff8367bb5e1fe"
+    },
+    {
+      "path": "espeak-ng-data/cmn_dict",
+      "bytes": 1578867,
+      "sha256": "c7556c07bfb195dc2bab006af09967785eb344dc6d590ff1a5bb6c932b939fd7"
+    },
+    {
+      "path": "espeak-ng-data/de_dict",
+      "bytes": 85470,
+      "sha256": "fc7253043d02159e10130462a81811c287230f1bc792d2e6a5c70edb52ea3f66"
+    },
     {
       "path": "espeak-ng-data/en_dict",
       "bytes": 182148,
       "sha256": "c2ae7f64548d5b88cf4146b70e12e984ed33257b7866685f9cdf84f7334693a4"
     },
     {
+      "path": "espeak-ng-data/es_dict",
+      "bytes": 66796,
+      "sha256": "4e57e0749833e2d94ebd5d36e2d4fd6487f341fbc8c1f2e3dbddeae79df1fb14"
+    },
+    {
+      "path": "espeak-ng-data/fr_dict",
+      "bytes": 80903,
+      "sha256": "acef96aa5ead56ddd06219ff2fcd0f2ce08875b7371ef1538116e5361356fff3"
+    },
+    {
       "path": "espeak-ng-data/intonations",
       "bytes": 2584,
       "sha256": "c4ff28c76c30cf7d9f07643e08ec39e68769ef648098269b5c0ab7731218e219"
+    },
+    {
+      "path": "espeak-ng-data/it_dict",
+      "bytes": 171194,
+      "sha256": "341c35a46f922bf1515ce0b0e75b1380868be83111479ed4315049c01d932494"
+    },
+    {
+      "path": "espeak-ng-data/ja_dict",
+      "bytes": 62732,
+      "sha256": "76877dca35e8e719cf66a87fd41ec6113f1a2dc50b60c66614ee1892c9e1a6c6"
+    },
+    {
+      "path": "espeak-ng-data/ko_dict",
+      "bytes": 64451,
+      "sha256": "bd409de97bf86c6f91129486f75b17cc7831f0b19d8c32084966163f9902b1eb"
     },
     {
       "path": "espeak-ng-data/lang/aav/vi",
@@ -792,6 +841,11 @@
       "path": "espeak-ng-data/phontab",
       "bytes": 64056,
       "sha256": "7462b1d693c4f46b394308052a3ab9f824ff03e1a6ab2ca434fdde0283f4b444"
+    },
+    {
+      "path": "espeak-ng-data/pt_dict",
+      "bytes": 157439,
+      "sha256": "53d95c81e9b01b82bc8289adfe442846ddca29aae96e5ad3764781ae4a17f679"
     },
     {
       "path": "espeak-ng-data/sw_dict",
