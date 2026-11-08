@@ -1,0 +1,2448 @@
+{
+  "schema": "vipi-source-unit-starter-native-protocol-1",
+  "production": false,
+  "blind_validation": false,
+  "context_policy": "Exact selected text only; no preceding review context enters language matching or translation.",
+  "source_protocol_sha256": "8e6c6bd217df719c403c2d68f1a1605273c0c1e1857ea718a4003f6bf6caf160",
+  "candidate_sha256": "67f041f3024c0e3679d54de9afa2debcebba1ad42e0a79b7bb0e4aacb90f2f60",
+  "candidate_pack_version": "reviewed-source-starter-en-v002",
+  "cases_per_pair": 80,
+  "total_cases": 240,
+  "case_order": "Swahili, Japanese, Spanish; each uses the same frozen80 source order.",
+  "existing_current_baseline": "Root-approved routing behavior and existing accepted pack only; starter producer disabled.",
+  "candidate": "Identical build/provider/assets/requested density with only the hash-pinned starter producer enabled by explicit QA policy.",
+  "required_outputs": [
+    "case_id",
+    "source_case_id",
+    "pair",
+    "exact_source",
+    "native_source_word_ranges_utf16",
+    "actual_native_token_budget",
+    "status",
+    "origin",
+    "model_readiness_calls",
+    "translation_calls",
+    "heavy_alignment_calls",
+    "first_invocation_ms",
+    "immediate_repeat_ms",
+    "repeat_call_counters",
+    "selected_spans_and_provenance",
+    "source_candidate_rejection_reasons",
+    "actual_changed_source_words",
+    "actual_changed_depth",
+    "raw_full_provider_string_if_called",
+    "pair_availability",
+    "offline_network_observation"
+  ],
+  "run_policy": [
+    "Freeze build closure before any invocation. Run baseline on all240cases before enabling candidate.",
+    "Fresh conversation/cache per pair and arm; immediate warm repeat per case. Do not let baseline cached translations satisfy candidate calls.",
+    "No model downloads or remote translation APIs. Installed model preparation is reported separately; missing providers remain explicit.",
+    "Native budget applies at requested0.10. Declined2-word units in short messages remain real misses; never override budget to match Python availability.",
+    "Capture rows incrementally; a timeout retains an explicit incomplete receipt, not a restarted hidden run.",
+    "No need to request full translation for every accepted source hit: six frozen routing fixtures already qualify explicit full action separately.",
+    "Apple unsupported local providers remain honest failures; qualify source-only hits without faking model availability."
+  ],
+  "cases": [
+    {
+      "id": "bst-test-word-r04-0155-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0155-06",
+      "text": "That's awesome! I'm truly jealous. I would love to do more travelling but it's so expensive. Did you travel alone or with friends / family? ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0407-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0407-08",
+      "text": "my husband also tells me to do so,he is health consious afterall",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0968-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0968-00",
+      "text": "They probably do, somewhere! You can find nearly any cuisine there you want.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0257-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0257-08",
+      "text": "Yes, do so! Using good argument and offering to pay for the stuff on your own always works with landlords haha",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0199-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0199-02",
+      "text": "What's the coolest dragon collection item you have?  Dragons are really cool but I feel like it would hard to find collectibles for them.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0419-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0419-00",
+      "text": "I know",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0204-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0204-04",
+      "text": "Exactly! Its heart breaking, and i hope daycares are well aware of that when some kids acta certain way.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0537-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0537-00",
+      "text": "No worries!",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0636-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0636-10",
+      "text": "Only the ones on the west coast. I don't rent any houses, but Ionian.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0546-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0546-04",
+      "text": "Yes. I agree with you there. I like to go for a walk around the block to sometimes by myself. Just to clear my head.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0842-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0842-08",
+      "text": "what are all your other hobbies ?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0641-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0641-08",
+      "text": "Yeah, thats the trouble with a small family business I guess.  Why do you want to dye your hair?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0584-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0584-08",
+      "text": "Yes i would love that",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0142-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0142-10",
+      "text": "Right on brotha man you know whats up",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0918-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0918-10",
+      "text": "Two golden retrievers",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0937-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0937-00",
+      "text": "That's okay! What is your native language? English is mine but I'd love to learn others!",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0146-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0146-08",
+      "text": "I recommend attending their traditional ceremonies. They are so educational and interesting. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0116-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0116-06",
+      "text": "ohh wow so you can help me? with how to deal with my daughter's situation",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0812-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0812-02",
+      "text": "Interesting...what inspired you to start cooking",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0157-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0157-08",
+      "text": "Try listening to an old Australian man from the outback and you'll need a robot translator",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0806-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0806-06",
+      "text": "Yes indeed. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0069-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0069-02",
+      "text": "Me either. What belt do you have?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0656-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0656-00",
+      "text": "oooo you winning? how many ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0525-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0525-06",
+      "text": "Country music is fun! ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0568-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0568-10",
+      "text": "Yes! Please adopt from a shelter. We need to do our part to help pets recover from terrible owners.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0361-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0361-08",
+      "text": "Caregiving is important. I imagine it takes a lot of patience and an attitude of service.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0080-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0080-04",
+      "text": "Cool. I enjoy cocoa and milk as a source of protein. I used to meal prep often before going to class. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0504-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0504-10",
+      "text": "Youtube can be a great resource for learning!  You just have to be careful with young kids on it",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0298-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0298-10",
+      "text": "I wanted to do something, but I'll mostly just take the time to relax and cook. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0109-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0109-04",
+      "text": "I know a lot of people who you might like. Maybe I can set you up with one of my friends",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0530-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0530-06",
+      "text": "yes because of this i have been considered well built but im afraid my passion wont pay the bills so thats why im in labs",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0643-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0643-00",
+      "text": "What kind of flower arrangement?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0780-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0780-08",
+      "text": "Oh cold!",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0197-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0197-04",
+      "text": "Yes it would. I wonder if we could take classes online for it? Maybe watch YouTube videos?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0118-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0118-06",
+      "text": "i'll be there for sure.  ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0465-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0465-04",
+      "text": "she may hate taco bell but still she may like your husband\\",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0457-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0457-08",
+      "text": "Singing is fun, and can be quite cathartic. You should do a study to see how singing affects mood.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0351-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0351-10",
+      "text": "Well I hope it all goes well. You have a creative mind!!",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0852-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0852-06",
+      "text": "Wonderful. I am sure they will appreciate that! I like to photograph nature in my free time.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0714-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0714-10",
+      "text": "what issue do you mean? ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0009-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0009-06",
+      "text": "I have been to many cities around the world, try to avoid cities that have rainy seasons or get too cold in winter",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0770-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0770-10",
+      "text": "That sounds appealing, I've only got 8 gb. I think I'll check into upgrading.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0490-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0490-06",
+      "text": "I use nets and containers.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0500-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0500-10",
+      "text": "He is very gentle.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0505-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0505-00",
+      "text": "I also enjoy South Park.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0029-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0029-02",
+      "text": "I love to visit thrift stores. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0473-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0473-02",
+      "text": "Have you ever just thought about eating a fresh non meat pizza at a flower shop? That would be nice.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0309-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0309-08",
+      "text": "It is! Where in Florida?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0229-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0229-00",
+      "text": "they can see how you really feel",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0543-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0543-00",
+      "text": "Why California",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0494-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0494-02",
+      "text": "Strayer ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0897-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0897-08",
+      "text": "I have a little maltese. His name is Samwise Gamgee but I just call him Sam for short. He is my everything!",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0604-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0604-10",
+      "text": "Cheers! *clinks glasses*",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0151-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0151-08",
+      "text": "What is your favorite genre of book to read?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0686-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0686-02",
+      "text": "In my free time I do a lot of reading",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0551-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0551-10",
+      "text": "me to",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0674-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0674-04",
+      "text": "i sell beauty products  for a company m.a.c like lipsticks andnail",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0728-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0728-04",
+      "text": "That stinks, I know scrubs can get kind of expensive.  What do you do for work?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0576-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0576-08",
+      "text": "We have a total of 6, lol Tucker, Trigger, Abbey, Gypsey, Sophie and Draco. I love them but, they do get expensive.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0563-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0563-08",
+      "text": "I like to write both",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0126-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0126-08",
+      "text": "That is always a good attitude. Trying always something different and positive. About the beard I might have it for a few months and then shave it off. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0833-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0833-06",
+      "text": "Me too! My favorite is zucchini",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0561-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0561-10",
+      "text": "That's okay honestly. It can take some time to learn about them",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0180-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0180-00",
+      "text": "Is your grandmother OK?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0365-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0365-00",
+      "text": "I love Madonna. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0336-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0336-00",
+      "text": "No, I do not.  Do you?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0337-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0337-04",
+      "text": "he is brilliant. i'm a big carrie underwood fan",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0212-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0212-08",
+      "text": "We started off with two because I convinced my husband that kittens go better in pairs. :) The rest are coincidental! How old is your kitty?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0513-02-en-sw",
+      "source_case_id": "bst-test-word-r04-0513-02",
+      "text": "Have you seen any mice indoors? If not then baited traps should do the trick",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0749-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0749-04",
+      "text": "Tell me any  way.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0098-04-en-sw",
+      "source_case_id": "bst-test-word-r04-0098-04",
+      "text": "Lilies are my favorite",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0598-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0598-08",
+      "text": "It's hard work, but I get a stipend for teaching labs for the department. :) So that's cool. I'm an English major both undergrad and MA.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0694-06-en-sw",
+      "source_case_id": "bst-test-word-r04-0694-06",
+      "text": "2 meters level my garden",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0191-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0191-00",
+      "text": "I have to get up early too, I wish I had time to nap.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0784-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0784-08",
+      "text": "I am sorry. It must hurt you deep down.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0291-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0291-08",
+      "text": "It was a great show, wasn't too happy with the ending, so I'm holding out hope for the books. There are still 2 books that he hasn't released yet. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0669-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0669-00",
+      "text": "oh. it must be an American thing?",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0617-08-en-sw",
+      "source_case_id": "bst-test-word-r04-0617-08",
+      "text": "No, I'm good, man. I should hold up.",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0070-00-en-sw",
+      "source_case_id": "bst-test-word-r04-0070-00",
+      "text": "I am 22. I also love science",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0711-10-en-sw",
+      "source_case_id": "bst-test-word-r04-0711-10",
+      "text": "I work out a lot. ",
+      "source": "en",
+      "target": "sw",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0155-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0155-06",
+      "text": "That's awesome! I'm truly jealous. I would love to do more travelling but it's so expensive. Did you travel alone or with friends / family? ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0407-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0407-08",
+      "text": "my husband also tells me to do so,he is health consious afterall",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0968-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0968-00",
+      "text": "They probably do, somewhere! You can find nearly any cuisine there you want.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0257-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0257-08",
+      "text": "Yes, do so! Using good argument and offering to pay for the stuff on your own always works with landlords haha",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0199-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0199-02",
+      "text": "What's the coolest dragon collection item you have?  Dragons are really cool but I feel like it would hard to find collectibles for them.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0419-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0419-00",
+      "text": "I know",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0204-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0204-04",
+      "text": "Exactly! Its heart breaking, and i hope daycares are well aware of that when some kids acta certain way.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0537-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0537-00",
+      "text": "No worries!",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0636-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0636-10",
+      "text": "Only the ones on the west coast. I don't rent any houses, but Ionian.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0546-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0546-04",
+      "text": "Yes. I agree with you there. I like to go for a walk around the block to sometimes by myself. Just to clear my head.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0842-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0842-08",
+      "text": "what are all your other hobbies ?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0641-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0641-08",
+      "text": "Yeah, thats the trouble with a small family business I guess.  Why do you want to dye your hair?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0584-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0584-08",
+      "text": "Yes i would love that",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0142-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0142-10",
+      "text": "Right on brotha man you know whats up",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0918-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0918-10",
+      "text": "Two golden retrievers",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0937-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0937-00",
+      "text": "That's okay! What is your native language? English is mine but I'd love to learn others!",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0146-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0146-08",
+      "text": "I recommend attending their traditional ceremonies. They are so educational and interesting. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0116-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0116-06",
+      "text": "ohh wow so you can help me? with how to deal with my daughter's situation",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0812-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0812-02",
+      "text": "Interesting...what inspired you to start cooking",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0157-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0157-08",
+      "text": "Try listening to an old Australian man from the outback and you'll need a robot translator",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0806-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0806-06",
+      "text": "Yes indeed. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0069-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0069-02",
+      "text": "Me either. What belt do you have?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0656-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0656-00",
+      "text": "oooo you winning? how many ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0525-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0525-06",
+      "text": "Country music is fun! ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0568-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0568-10",
+      "text": "Yes! Please adopt from a shelter. We need to do our part to help pets recover from terrible owners.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0361-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0361-08",
+      "text": "Caregiving is important. I imagine it takes a lot of patience and an attitude of service.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0080-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0080-04",
+      "text": "Cool. I enjoy cocoa and milk as a source of protein. I used to meal prep often before going to class. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0504-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0504-10",
+      "text": "Youtube can be a great resource for learning!  You just have to be careful with young kids on it",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0298-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0298-10",
+      "text": "I wanted to do something, but I'll mostly just take the time to relax and cook. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0109-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0109-04",
+      "text": "I know a lot of people who you might like. Maybe I can set you up with one of my friends",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0530-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0530-06",
+      "text": "yes because of this i have been considered well built but im afraid my passion wont pay the bills so thats why im in labs",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0643-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0643-00",
+      "text": "What kind of flower arrangement?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0780-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0780-08",
+      "text": "Oh cold!",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0197-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0197-04",
+      "text": "Yes it would. I wonder if we could take classes online for it? Maybe watch YouTube videos?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0118-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0118-06",
+      "text": "i'll be there for sure.  ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0465-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0465-04",
+      "text": "she may hate taco bell but still she may like your husband\\",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0457-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0457-08",
+      "text": "Singing is fun, and can be quite cathartic. You should do a study to see how singing affects mood.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0351-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0351-10",
+      "text": "Well I hope it all goes well. You have a creative mind!!",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0852-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0852-06",
+      "text": "Wonderful. I am sure they will appreciate that! I like to photograph nature in my free time.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0714-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0714-10",
+      "text": "what issue do you mean? ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0009-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0009-06",
+      "text": "I have been to many cities around the world, try to avoid cities that have rainy seasons or get too cold in winter",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0770-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0770-10",
+      "text": "That sounds appealing, I've only got 8 gb. I think I'll check into upgrading.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0490-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0490-06",
+      "text": "I use nets and containers.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0500-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0500-10",
+      "text": "He is very gentle.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0505-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0505-00",
+      "text": "I also enjoy South Park.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0029-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0029-02",
+      "text": "I love to visit thrift stores. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0473-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0473-02",
+      "text": "Have you ever just thought about eating a fresh non meat pizza at a flower shop? That would be nice.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0309-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0309-08",
+      "text": "It is! Where in Florida?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0229-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0229-00",
+      "text": "they can see how you really feel",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0543-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0543-00",
+      "text": "Why California",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0494-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0494-02",
+      "text": "Strayer ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0897-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0897-08",
+      "text": "I have a little maltese. His name is Samwise Gamgee but I just call him Sam for short. He is my everything!",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0604-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0604-10",
+      "text": "Cheers! *clinks glasses*",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0151-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0151-08",
+      "text": "What is your favorite genre of book to read?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0686-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0686-02",
+      "text": "In my free time I do a lot of reading",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0551-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0551-10",
+      "text": "me to",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0674-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0674-04",
+      "text": "i sell beauty products  for a company m.a.c like lipsticks andnail",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0728-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0728-04",
+      "text": "That stinks, I know scrubs can get kind of expensive.  What do you do for work?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0576-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0576-08",
+      "text": "We have a total of 6, lol Tucker, Trigger, Abbey, Gypsey, Sophie and Draco. I love them but, they do get expensive.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0563-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0563-08",
+      "text": "I like to write both",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0126-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0126-08",
+      "text": "That is always a good attitude. Trying always something different and positive. About the beard I might have it for a few months and then shave it off. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0833-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0833-06",
+      "text": "Me too! My favorite is zucchini",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0561-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0561-10",
+      "text": "That's okay honestly. It can take some time to learn about them",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0180-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0180-00",
+      "text": "Is your grandmother OK?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0365-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0365-00",
+      "text": "I love Madonna. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0336-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0336-00",
+      "text": "No, I do not.  Do you?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0337-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0337-04",
+      "text": "he is brilliant. i'm a big carrie underwood fan",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0212-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0212-08",
+      "text": "We started off with two because I convinced my husband that kittens go better in pairs. :) The rest are coincidental! How old is your kitty?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0513-02-en-ja",
+      "source_case_id": "bst-test-word-r04-0513-02",
+      "text": "Have you seen any mice indoors? If not then baited traps should do the trick",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0749-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0749-04",
+      "text": "Tell me any  way.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0098-04-en-ja",
+      "source_case_id": "bst-test-word-r04-0098-04",
+      "text": "Lilies are my favorite",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0598-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0598-08",
+      "text": "It's hard work, but I get a stipend for teaching labs for the department. :) So that's cool. I'm an English major both undergrad and MA.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0694-06-en-ja",
+      "source_case_id": "bst-test-word-r04-0694-06",
+      "text": "2 meters level my garden",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0191-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0191-00",
+      "text": "I have to get up early too, I wish I had time to nap.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0784-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0784-08",
+      "text": "I am sorry. It must hurt you deep down.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0291-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0291-08",
+      "text": "It was a great show, wasn't too happy with the ending, so I'm holding out hope for the books. There are still 2 books that he hasn't released yet. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0669-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0669-00",
+      "text": "oh. it must be an American thing?",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0617-08-en-ja",
+      "source_case_id": "bst-test-word-r04-0617-08",
+      "text": "No, I'm good, man. I should hold up.",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0070-00-en-ja",
+      "source_case_id": "bst-test-word-r04-0070-00",
+      "text": "I am 22. I also love science",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0711-10-en-ja",
+      "source_case_id": "bst-test-word-r04-0711-10",
+      "text": "I work out a lot. ",
+      "source": "en",
+      "target": "ja",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0155-06-en-es",
+      "source_case_id": "bst-test-word-r04-0155-06",
+      "text": "That's awesome! I'm truly jealous. I would love to do more travelling but it's so expensive. Did you travel alone or with friends / family? ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0407-08-en-es",
+      "source_case_id": "bst-test-word-r04-0407-08",
+      "text": "my husband also tells me to do so,he is health consious afterall",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0968-00-en-es",
+      "source_case_id": "bst-test-word-r04-0968-00",
+      "text": "They probably do, somewhere! You can find nearly any cuisine there you want.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0257-08-en-es",
+      "source_case_id": "bst-test-word-r04-0257-08",
+      "text": "Yes, do so! Using good argument and offering to pay for the stuff on your own always works with landlords haha",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0199-02-en-es",
+      "source_case_id": "bst-test-word-r04-0199-02",
+      "text": "What's the coolest dragon collection item you have?  Dragons are really cool but I feel like it would hard to find collectibles for them.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0419-00-en-es",
+      "source_case_id": "bst-test-word-r04-0419-00",
+      "text": "I know",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0204-04-en-es",
+      "source_case_id": "bst-test-word-r04-0204-04",
+      "text": "Exactly! Its heart breaking, and i hope daycares are well aware of that when some kids acta certain way.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0537-00-en-es",
+      "source_case_id": "bst-test-word-r04-0537-00",
+      "text": "No worries!",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0636-10-en-es",
+      "source_case_id": "bst-test-word-r04-0636-10",
+      "text": "Only the ones on the west coast. I don't rent any houses, but Ionian.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0546-04-en-es",
+      "source_case_id": "bst-test-word-r04-0546-04",
+      "text": "Yes. I agree with you there. I like to go for a walk around the block to sometimes by myself. Just to clear my head.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0842-08-en-es",
+      "source_case_id": "bst-test-word-r04-0842-08",
+      "text": "what are all your other hobbies ?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0641-08-en-es",
+      "source_case_id": "bst-test-word-r04-0641-08",
+      "text": "Yeah, thats the trouble with a small family business I guess.  Why do you want to dye your hair?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0584-08-en-es",
+      "source_case_id": "bst-test-word-r04-0584-08",
+      "text": "Yes i would love that",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0142-10-en-es",
+      "source_case_id": "bst-test-word-r04-0142-10",
+      "text": "Right on brotha man you know whats up",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0918-10-en-es",
+      "source_case_id": "bst-test-word-r04-0918-10",
+      "text": "Two golden retrievers",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0937-00-en-es",
+      "source_case_id": "bst-test-word-r04-0937-00",
+      "text": "That's okay! What is your native language? English is mine but I'd love to learn others!",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0146-08-en-es",
+      "source_case_id": "bst-test-word-r04-0146-08",
+      "text": "I recommend attending their traditional ceremonies. They are so educational and interesting. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0116-06-en-es",
+      "source_case_id": "bst-test-word-r04-0116-06",
+      "text": "ohh wow so you can help me? with how to deal with my daughter's situation",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0812-02-en-es",
+      "source_case_id": "bst-test-word-r04-0812-02",
+      "text": "Interesting...what inspired you to start cooking",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0157-08-en-es",
+      "source_case_id": "bst-test-word-r04-0157-08",
+      "text": "Try listening to an old Australian man from the outback and you'll need a robot translator",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0806-06-en-es",
+      "source_case_id": "bst-test-word-r04-0806-06",
+      "text": "Yes indeed. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0069-02-en-es",
+      "source_case_id": "bst-test-word-r04-0069-02",
+      "text": "Me either. What belt do you have?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0656-00-en-es",
+      "source_case_id": "bst-test-word-r04-0656-00",
+      "text": "oooo you winning? how many ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0525-06-en-es",
+      "source_case_id": "bst-test-word-r04-0525-06",
+      "text": "Country music is fun! ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0568-10-en-es",
+      "source_case_id": "bst-test-word-r04-0568-10",
+      "text": "Yes! Please adopt from a shelter. We need to do our part to help pets recover from terrible owners.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0361-08-en-es",
+      "source_case_id": "bst-test-word-r04-0361-08",
+      "text": "Caregiving is important. I imagine it takes a lot of patience and an attitude of service.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0080-04-en-es",
+      "source_case_id": "bst-test-word-r04-0080-04",
+      "text": "Cool. I enjoy cocoa and milk as a source of protein. I used to meal prep often before going to class. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0504-10-en-es",
+      "source_case_id": "bst-test-word-r04-0504-10",
+      "text": "Youtube can be a great resource for learning!  You just have to be careful with young kids on it",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0298-10-en-es",
+      "source_case_id": "bst-test-word-r04-0298-10",
+      "text": "I wanted to do something, but I'll mostly just take the time to relax and cook. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0109-04-en-es",
+      "source_case_id": "bst-test-word-r04-0109-04",
+      "text": "I know a lot of people who you might like. Maybe I can set you up with one of my friends",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0530-06-en-es",
+      "source_case_id": "bst-test-word-r04-0530-06",
+      "text": "yes because of this i have been considered well built but im afraid my passion wont pay the bills so thats why im in labs",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0643-00-en-es",
+      "source_case_id": "bst-test-word-r04-0643-00",
+      "text": "What kind of flower arrangement?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0780-08-en-es",
+      "source_case_id": "bst-test-word-r04-0780-08",
+      "text": "Oh cold!",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0197-04-en-es",
+      "source_case_id": "bst-test-word-r04-0197-04",
+      "text": "Yes it would. I wonder if we could take classes online for it? Maybe watch YouTube videos?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0118-06-en-es",
+      "source_case_id": "bst-test-word-r04-0118-06",
+      "text": "i'll be there for sure.  ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0465-04-en-es",
+      "source_case_id": "bst-test-word-r04-0465-04",
+      "text": "she may hate taco bell but still she may like your husband\\",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0457-08-en-es",
+      "source_case_id": "bst-test-word-r04-0457-08",
+      "text": "Singing is fun, and can be quite cathartic. You should do a study to see how singing affects mood.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0351-10-en-es",
+      "source_case_id": "bst-test-word-r04-0351-10",
+      "text": "Well I hope it all goes well. You have a creative mind!!",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0852-06-en-es",
+      "source_case_id": "bst-test-word-r04-0852-06",
+      "text": "Wonderful. I am sure they will appreciate that! I like to photograph nature in my free time.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0714-10-en-es",
+      "source_case_id": "bst-test-word-r04-0714-10",
+      "text": "what issue do you mean? ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0009-06-en-es",
+      "source_case_id": "bst-test-word-r04-0009-06",
+      "text": "I have been to many cities around the world, try to avoid cities that have rainy seasons or get too cold in winter",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0770-10-en-es",
+      "source_case_id": "bst-test-word-r04-0770-10",
+      "text": "That sounds appealing, I've only got 8 gb. I think I'll check into upgrading.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0490-06-en-es",
+      "source_case_id": "bst-test-word-r04-0490-06",
+      "text": "I use nets and containers.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0500-10-en-es",
+      "source_case_id": "bst-test-word-r04-0500-10",
+      "text": "He is very gentle.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0505-00-en-es",
+      "source_case_id": "bst-test-word-r04-0505-00",
+      "text": "I also enjoy South Park.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0029-02-en-es",
+      "source_case_id": "bst-test-word-r04-0029-02",
+      "text": "I love to visit thrift stores. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0473-02-en-es",
+      "source_case_id": "bst-test-word-r04-0473-02",
+      "text": "Have you ever just thought about eating a fresh non meat pizza at a flower shop? That would be nice.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0309-08-en-es",
+      "source_case_id": "bst-test-word-r04-0309-08",
+      "text": "It is! Where in Florida?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0229-00-en-es",
+      "source_case_id": "bst-test-word-r04-0229-00",
+      "text": "they can see how you really feel",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0543-00-en-es",
+      "source_case_id": "bst-test-word-r04-0543-00",
+      "text": "Why California",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0494-02-en-es",
+      "source_case_id": "bst-test-word-r04-0494-02",
+      "text": "Strayer ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0897-08-en-es",
+      "source_case_id": "bst-test-word-r04-0897-08",
+      "text": "I have a little maltese. His name is Samwise Gamgee but I just call him Sam for short. He is my everything!",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0604-10-en-es",
+      "source_case_id": "bst-test-word-r04-0604-10",
+      "text": "Cheers! *clinks glasses*",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0151-08-en-es",
+      "source_case_id": "bst-test-word-r04-0151-08",
+      "text": "What is your favorite genre of book to read?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0686-02-en-es",
+      "source_case_id": "bst-test-word-r04-0686-02",
+      "text": "In my free time I do a lot of reading",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0551-10-en-es",
+      "source_case_id": "bst-test-word-r04-0551-10",
+      "text": "me to",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0674-04-en-es",
+      "source_case_id": "bst-test-word-r04-0674-04",
+      "text": "i sell beauty products  for a company m.a.c like lipsticks andnail",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0728-04-en-es",
+      "source_case_id": "bst-test-word-r04-0728-04",
+      "text": "That stinks, I know scrubs can get kind of expensive.  What do you do for work?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0576-08-en-es",
+      "source_case_id": "bst-test-word-r04-0576-08",
+      "text": "We have a total of 6, lol Tucker, Trigger, Abbey, Gypsey, Sophie and Draco. I love them but, they do get expensive.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0563-08-en-es",
+      "source_case_id": "bst-test-word-r04-0563-08",
+      "text": "I like to write both",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0126-08-en-es",
+      "source_case_id": "bst-test-word-r04-0126-08",
+      "text": "That is always a good attitude. Trying always something different and positive. About the beard I might have it for a few months and then shave it off. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0833-06-en-es",
+      "source_case_id": "bst-test-word-r04-0833-06",
+      "text": "Me too! My favorite is zucchini",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0561-10-en-es",
+      "source_case_id": "bst-test-word-r04-0561-10",
+      "text": "That's okay honestly. It can take some time to learn about them",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0180-00-en-es",
+      "source_case_id": "bst-test-word-r04-0180-00",
+      "text": "Is your grandmother OK?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0365-00-en-es",
+      "source_case_id": "bst-test-word-r04-0365-00",
+      "text": "I love Madonna. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0336-00-en-es",
+      "source_case_id": "bst-test-word-r04-0336-00",
+      "text": "No, I do not.  Do you?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0337-04-en-es",
+      "source_case_id": "bst-test-word-r04-0337-04",
+      "text": "he is brilliant. i'm a big carrie underwood fan",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0212-08-en-es",
+      "source_case_id": "bst-test-word-r04-0212-08",
+      "text": "We started off with two because I convinced my husband that kittens go better in pairs. :) The rest are coincidental! How old is your kitty?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0513-02-en-es",
+      "source_case_id": "bst-test-word-r04-0513-02",
+      "text": "Have you seen any mice indoors? If not then baited traps should do the trick",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0749-04-en-es",
+      "source_case_id": "bst-test-word-r04-0749-04",
+      "text": "Tell me any  way.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0098-04-en-es",
+      "source_case_id": "bst-test-word-r04-0098-04",
+      "text": "Lilies are my favorite",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0598-08-en-es",
+      "source_case_id": "bst-test-word-r04-0598-08",
+      "text": "It's hard work, but I get a stipend for teaching labs for the department. :) So that's cool. I'm an English major both undergrad and MA.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0694-06-en-es",
+      "source_case_id": "bst-test-word-r04-0694-06",
+      "text": "2 meters level my garden",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    },
+    {
+      "id": "bst-test-word-r04-0191-00-en-es",
+      "source_case_id": "bst-test-word-r04-0191-00",
+      "text": "I have to get up early too, I wish I had time to nap.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0784-08-en-es",
+      "source_case_id": "bst-test-word-r04-0784-08",
+      "text": "I am sorry. It must hurt you deep down.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0291-08-en-es",
+      "source_case_id": "bst-test-word-r04-0291-08",
+      "text": "It was a great show, wasn't too happy with the ending, so I'm holding out hope for the books. There are still 2 books that he hasn't released yet. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "16-30"
+    },
+    {
+      "id": "bst-test-word-r04-0669-00-en-es",
+      "source_case_id": "bst-test-word-r04-0669-00",
+      "text": "oh. it must be an American thing?",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0617-08-en-es",
+      "source_case_id": "bst-test-word-r04-0617-08",
+      "text": "No, I'm good, man. I should hold up.",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0070-00-en-es",
+      "source_case_id": "bst-test-word-r04-0070-00",
+      "text": "I am 22. I also love science",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "6-15"
+    },
+    {
+      "id": "bst-test-word-r04-0711-10-en-es",
+      "source_case_id": "bst-test-word-r04-0711-10",
+      "text": "I work out a lot. ",
+      "source": "en",
+      "target": "es",
+      "input_language": "en",
+      "requested_density": 0.1,
+      "sampling_length_bin": "1-5"
+    }
+  ]
+}

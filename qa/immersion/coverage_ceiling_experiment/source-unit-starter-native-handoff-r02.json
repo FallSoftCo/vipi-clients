@@ -1,0 +1,113 @@
+{
+  "schema": "vipi-source-unit-native-handoff-2",
+  "production": false,
+  "authorization": "Parent authorized bounded qualification after both routing acceptance gates; production promotion remains separate.",
+  "pack": {
+    "path": "qa/immersion/coverage_ceiling_experiment/reviewed-source-unit-native-candidate-r02.json",
+    "version": "reviewed-source-starter-en-v002",
+    "sha256": "67f041f3024c0e3679d54de9afa2debcebba1ad42e0a79b7bb0e4aacb90f2f60",
+    "schema": "vipi-reviewed-source-unit-native-candidate-2",
+    "counts": {
+      "en-sw": 109,
+      "en-ja": 46,
+      "en-es": 43
+    }
+  },
+  "protocol": {
+    "path": "qa/immersion/coverage_ceiling_experiment/source-unit-starter-native-protocol-r01.json",
+    "sha256": "fd89fd2bf9988b657fe3f8d689f23d5554364c9c5b73675ac80ebf6a6f2e3ec6",
+    "same_sources": 80,
+    "pairs": 3,
+    "cases": 240,
+    "requested_density": 0.1
+  },
+  "owners": {
+    "android": "android_delivery owns Kotlin native producer, app/core integration behind explicit QA policy and actual capture.",
+    "apple": "apple_delivery owns Swift counterpart, explicit QA policy and actual capture.",
+    "immersion": "immersion_engine owns data/compiler/proof and semantic review of captured spans; no concurrent platform edits.",
+    "root": "Root inspects manifest, confirms routing gates, controls production promotion."
+  },
+  "schema_notes": [
+    "Read pairs[en-target].entries only as candidate mappings; noneligible/provenance sections are audit data.",
+    "Every entry has id,source,target,category,pos,train_rank,source_tokens; optional guard/following, mandatory JA reading/reading_kana.",
+    "Do not infer dictionary proof from a missing primary_evidence_sha256. Authored Sw question units have explicit provenance with exact rule/review bindings.",
+    "Compute/verify exact asset SHA before use. Use that SHA and stable entry ID in SourceReferenceUnit; include pack version in caches.",
+    "Japanese or has original targetまたは, reading matawa, orthographic reading_kanaまたは and pronunciation_kanaまたわ; speech continues to use original target-script text."
+  ],
+  "matcher_parity": [
+    "Existing accepted whole and sentence-reference paths retain precedence; starter is source-only and receives no full target translation.",
+    "Scan source using the frozen English Unicode-word/contraction convention, then require matching complete native word boundaries and exact UTF16 source text. In particular, do not match I inside I'm just because native tokenization splits it.",
+    "Preserve protected URL/email/code spans, uppercase identifiers exceptI, mid-sentence capitals, exact noun guards and initial interrogative+following-token conditions from frozen evaluator.",
+    "source_context_sets supplies exact noun guard sets. Question following lists are per-entry; no implicit morphology or guessed inflections.",
+    "Reject NFKC+casefold-identical source/target faces. Keep source offsets from original text; never normalize the displayed source.",
+    "Obtain nativeSourceTokenCount from actual platform tokenizer and nativeSourceTokens per unit. Reject partial native words; no verb-root slicing.",
+    "Apply existing native density budget at requested0.10 BEFORE choosing a unit; select at most1 budget-fitting unit by content-first,TRAINrank,longer-unit,sourceoffset. Do not override native budget to reproduce Python hit counts.",
+    "Feed the selected unit through existing SourceReferencePresentation validation and return only nonempty anchored partials; target offsets remain reference-local.",
+    "Default production remains the accepted existing pack unless root separately promotes; QA enablement must be explicit and captured."
+  ],
+  "capture_sequence": [
+    "Freeze immutable app/test source and build closure.",
+    "Prepare only already-installed models; no model-download API, no remote translation calls.",
+    "Baseline: all240cases with starter disabled, fresh pair/conversation engines, immediate warm repeat percase. Preserve every raw provider string actually produced.",
+    "Candidate: same240cases/order/provider/assets with starterenabled and fresh isolated pair/conversation engines, immediate warm repeat percase. Preserve unavailable-provider failures and actual rejection reasons.",
+    "Retain counters for heavy lexical/frame alignment separately from cheap source-reference presentation validation.",
+    "Keep per-row output incrementally and exact source/build/input hashes. No hidden restart if run incomplete.",
+    "Compare source-only reach, actual calls, prepared-first/warm latency, native token/range integrity and changed depth; semantic review follows actual spans."
+  ],
+  "capture_selectors_to_implement": {
+    "android": [
+      "co.fallsoft.vipi.SourceUnitStarterDeviceTest#captureBaseline",
+      "co.fallsoft.vipi.SourceUnitStarterDeviceTest#captureCandidate"
+    ],
+    "apple": [
+      "VipiTests/ConversationImmersionTests/testSourceUnitStarterBaseline",
+      "VipiTests/ConversationImmersionTests/testSourceUnitStarterCandidate"
+    ]
+  },
+  "command_status": "These new selectors are requested harness interfaces, not a claim that they already exist. Platform owners use their existing frozen build/VM wrappers and retain exact executed commands after adding them.",
+  "android_instrumentation_argv_templates": [
+    [
+      "adb",
+      "-s",
+      "<existing-emulator-serial>",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-e",
+      "class",
+      "co.fallsoft.vipi.SourceUnitStarterDeviceTest#captureBaseline",
+      "co.fallsoft.vipi.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    [
+      "adb",
+      "-s",
+      "<existing-emulator-serial>",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-e",
+      "class",
+      "co.fallsoft.vipi.SourceUnitStarterDeviceTest#captureCandidate",
+      "co.fallsoft.vipi.test/androidx.test.runner.AndroidJUnitRunner"
+    ]
+  ],
+  "apple_test_selection_flags": [
+    "-only-testing:VipiTests/ConversationImmersionTests/testSourceUnitStarterBaseline",
+    "-only-testing:VipiTests/ConversationImmersionTests/testSourceUnitStarterCandidate"
+  ],
+  "expected_invariants": [
+    "Approved starter hit automatic:0 readiness/MT/heavyalignment; immediate cached repeat:0.",
+    "Misses retain unchanged current fallback and truthful provider/model limitations.",
+    "Explicit full action remains governed by already-qualified six-fixture routing contract; no need to repeat an MT call for everyhit in this coverage capture.",
+    "All selected JA spans carry exact supported readings; no missing-reading success.",
+    "No partial source words, identifier changes, fabricated whole translation, or stale-result publication."
+  ],
+  "limitations": [
+    "Python one-unit results were not a hard10%cap; extra native-budget abstentions are expected evidence, not failures to tune away.",
+    "No25%/50% satisfaction or intermediate-learning promise.",
+    "Known/already-learned word filtering and ongoing vocabulary progression remain unresolved.",
+    "These sources have been reviewed in prior target experiments; this is native qualification and paired runtime measurement, not a fresh blind language-coverage estimate."
+  ]
+}

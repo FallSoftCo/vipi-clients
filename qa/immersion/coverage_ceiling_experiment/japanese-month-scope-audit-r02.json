@@ -1,0 +1,70 @@
+{
+  "production": false,
+  "packet_sha256": "681cb24e0e6094591571ac9c872d398feaec358936fe9fd2841e520703c2a9fc",
+  "author_review_sha256": "d37224a29b4e0b348c315714c9e3e66015edb56aba83878842befe7187ae772a",
+  "observations": [
+    {
+      "id": "bst-test-word-r04-0126-08",
+      "source": "That is always a good attitude. Trying always something different and positive. About the beard I might have it for a few months and then shave it off. ",
+      "source_start_utf16": 122,
+      "source_end_utf16": 128,
+      "original": "months",
+      "target": "月",
+      "kana": "つき",
+      "romanization": "tsuki",
+      "reading_evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1255430",
+        "selected_spelling": "月",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "月"
+        ],
+        "selected_reading": {
+          "kana": "つき",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 2,
+            "glosses": [
+              "month"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "observed_context": "Duration: keeping a beard for a few months; not naming a calendar month.",
+      "frozen_author_label": "minor"
+    }
+  ],
+  "primary_verification": [
+    {
+      "url": "https://mmsrv.ninjal.ac.jp/kamus/data/item3662.html",
+      "finding": "NINJAL distinguishes 月/つき as a calendar-month noun and a restricted counter series such as hitotsuki/futatsuki; general counted month durations normally use kagetsu."
+    },
+    {
+      "url": "https://a2.marugotoweb.jp/ja/grammar/description/014.html",
+      "finding": "Japan Foundation teaches elapsed duration with ～か月; its three-month example is san-kagetsu."
+    },
+    {
+      "url": "https://words.marugotoweb.jp/static_contents/pdf/collection/time_en.pdf",
+      "finding": "Japan Foundation distinguishes one-month duration ikka-getsu and number-of-months nan-ka-getsu."
+    }
+  ],
+  "native_diagnostic_limit": "Isolated 月→ツキ confirms a reading of that written noun only; it does not qualify the appropriate duration-counter form in this source context.",
+  "decision": "Withhold months from the initial native candidate. Retain the frozen minor-form judgment and original scores; the lexeme itself is not rejected. A future duration unit requires its own correctly scoped target form and evidence.",
+  "copyright_note": "Primary educational sources verified linguistic facts only; no lesson text, exercises or diagrams incorporated into runtime data."
+}
