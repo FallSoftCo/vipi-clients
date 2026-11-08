@@ -1,0 +1,21 @@
+{
+  "schema": "vipi.phrase-extraction-scope-addendum.r01",
+  "frozen_inputs_unchanged": true,
+  "exclusions": {
+    "actual_hash_count": 1113,
+    "scope": "Exact full source messages explicitly present in the12 retained protocols. No generated full target translations or isolated query fragments were added. The original protocol source/target wording is broader than the implemented and frozen source-message set.",
+    "input_freeze_sha256": "00eab5bf4cea0e8d6bae1061c60d2beaa6f5b3247f33eaf014615768da145efe"
+  },
+  "support": "Distinct connected corpus components, not independently documented articles. Repeated occurrences within one pair/component still contribute to lexical-score means; no confidence calibration.",
+  "dictionary": "Complete-unit records deliberately retain ineligible, unsafe, POS/number and alternative-sense analyses. Shared sense IDs are corroboration only, never automatic native eligibility or contextual correctness.",
+  "tokenization": "Historical training tokenizer can omit underscore gaps and split combining marks or literals. Original full text and exact offsets remain. Statistical token geometry is not native-safe selection; later selection must apply native complete-token and protected-literal rules.",
+  "independent_structural_review": "Android agent independently enumerated23136 many-to-many consistency/cap/stop-punctuation cases; all matched reference expectations. This is geometry evidence, not translation accuracy.",
+  "original_text_identity": {
+    "text": "Exact retained SQLite representative, not necessarily verbatim text of each linked TMX unit.",
+    "upstream_import": "PGV importer NFC/whitespace-normalizes and casefold-deduplicates endpoints, keeping first representative text; later archive/unit evidence can reference normalized-equivalent spelling.",
+    "offsets": "Exact for the retained source/target representative strings; raw TMX casing/spelling is not reconstructed.",
+    "source_compiler": "qa/immersion/import_parallel_global_voices.py",
+    "source_compiler_sha256": "15949c75d47e6ab0157ea0f81ee912678131797b574860469533b63b775a6145",
+    "semantic_limit": "Case/proper-name review must account for this normalization; archive/unit provenance remains retained."
+  }
+}

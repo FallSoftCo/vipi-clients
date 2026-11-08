@@ -37,6 +37,21 @@ class PhraseExtractionTests(unittest.TestCase):
         self.assertAlmostEqual(score,(math.log(.8)+math.log(.5))/2)
         self.assertEqual(missing,0)
 
+    def test_dictionary_complete_form_uses_utf16_not_codepoints(self):
+        import sqlite3
+        from corroborate_units import complete_units
+        db=sqlite3.connect(':memory:')
+        db.executescript('''CREATE TABLE surfaces(normalized,lexeme,surface,start,end,number,mode,features);
+          CREATE TABLE lexemes(id,headword,pos,source_safe,target_safe,source_url);
+          CREATE TABLE terms(lexeme,sense,reading,eligible,qualifiers);
+          CREATE TABLE senses(id,label,explicit,source_url);''')
+        for lid,end in [(1,4),(2,3)]:
+            db.execute('INSERT INTO surfaces VALUES(?,?,?,?,?,?,?,?)',('a😀b',lid,'a😀b',0,end,0,1,'[]'))
+            db.execute('INSERT INTO lexemes VALUES(?,?,?,?,?,?)',(lid,'a😀b','noun',1,1,'structural-test'))
+        result=complete_units(db,'a😀b')
+        self.assertEqual([row['lexeme_id'] for row in result],[1])
+        db.close()
+
 
 if __name__ == '__main__':
     unittest.main()

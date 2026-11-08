@@ -91,11 +91,24 @@ def main():
     assert sha(OUT/'source-frequency-keys.json') == freeze['source_frequency_sha256']
     aligned = json.loads((OUT/'alignments/receipt.json').read_text())
     assert aligned['complete']
+    assert sha(OUT/'alignments/execution-freeze.json') == aligned['freeze_sha256']
+    training_freeze=json.loads((OUT/'alignments/execution-freeze.json').read_text())
+    assert sha(OUT/'training-receipt.json') == training_freeze['training_receipt_sha256']
+    checked_inputs={}
+    for name,identity in aligned['outputs'].items():
+        path=OUT/'alignments'/name
+        assert path.stat().st_size == identity['bytes'] and sha(path) == identity['sha256']
+        checked_inputs[str(path)] = identity['sha256']
+    for pair in json.loads((OUT/'training-receipt.json').read_text())['pairs']:
+        for identity in pair['artifacts']:
+            path=OUT/Path(identity['path']).name
+            assert path.stat().st_size == identity['bytes'] and sha(path) == identity['sha256']
+            checked_inputs[str(path)] = identity['sha256']
     frequency = json.loads((OUT/'source-frequency-keys.json').read_text())
     keys = {r['source_key']:r for r in frequency['unigram_keys']+frequency['multiword_keys']}
     destination = OUT/'phrases'
     destination.mkdir(exist_ok=False)
-    execution = dict(production=False, extractor_sha256=sha(Path(__file__)), protocol_sha256=freeze['protocol_sha256'], source_frequency_sha256=freeze['source_frequency_sha256'], alignment_receipt_sha256=sha(OUT/'alignments/receipt.json'), score='Mean across directions of per-word mean log average conditional lexical probability; missing exported values floor1e-12 explicitly counted. Distinct components rank first; all alternatives retained.', target_stop_policy='A terminal sentence stop may be included at the end; no token after a stop is included.', maximum_source_tokens=8, maximum_target_tokens=12)
+    execution = dict(production=False, extractor_sha256=sha(Path(__file__)), protocol_sha256=freeze['protocol_sha256'], source_frequency_sha256=freeze['source_frequency_sha256'], alignment_receipt_sha256=sha(OUT/'alignments/receipt.json'), freshly_verified_inputs=checked_inputs, score='Mean across directions of per-word mean log average conditional lexical probability; missing exported values floor1e-12 explicitly counted. Distinct components rank first; all alternatives retained.', target_stop_policy='A terminal sentence stop may be included at the end; no token after a stop is included.', maximum_source_tokens=8, maximum_target_tokens=12)
     (destination/'execution-freeze.json').write_text(json.dumps(execution,indent=2)+'\n')
     db = sqlite3.connect(destination/'candidates.sqlite')
     db.executescript('''PRAGMA temp_store=FILE; PRAGMA cache_size=-32768;

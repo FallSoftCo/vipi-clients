@@ -1,0 +1,26 @@
+{
+  "schema": "vipi.phrase-history-addendum.r01",
+  "frozen_protocol_unchanged": true,
+  "historical_sources": {
+    "qa/immersion/evaluate_statistical_alignment_pilot.py": "ab3e9c161889d6c4f6e1e7e97a12907967b786ce1e6939291b8906f54b2cee25",
+    "qa/immersion/evaluate_statistical_units.py": "ffcb08f362955f91862cc2e1ef64658110ab163bd1145573b11a8ea029de42c1",
+    "docs/BULK_LANGUAGE_EXPANSION.md": "64a043fbed7996ece8d87b4e75466de7ead20a20c874ce0a4f534bd69f22f78e"
+  },
+  "original_word_pilot": "Mutual one-to-one word links, no full phrase extraction.",
+  "later_complete_unit_followup": "Dictionary-supplied 1–5 token noun/adj/adv units on existing evaluation pairs; shared sense/POS/number, closed union alignment with mutual anchor, larger dictionary-unit masks; contextual-role/sense errors retained; not integrated.",
+  "new_experiment": "Corpus-derived source-frequency-ranked phrase inventory with every consistent target boundary variant, then separately attached complete dictionary-unit evidence. No assumption that longer or shorter target is semantically right.",
+  "portable_correction": "The retained Spanish dictionary attests portátil as both portable adjective and laptop noun; exact context/sense must adjudicate any historical or new candidate. Longer computadora portátil is not automatically superior.",
+  "primary_dictionary_correction": {
+    "portátil": {
+      "url": "https://dle.rae.es/port%C3%A1til",
+      "sense": "2: noun ordenador portátil",
+      "implication": "Short noun may be complete; adjective sense also exists."
+    },
+    "correo": {
+      "url": "https://dle.rae.es/correo",
+      "sense": "5: correo electrónico",
+      "implication": "Short noun may be complete; ordinary postal senses also exist."
+    },
+    "old_case_labels": "Retained unchanged; final per-case reassessment requires exact original contexts. Neither length alone nor lexical membership resolves source sense."
+  }
+}

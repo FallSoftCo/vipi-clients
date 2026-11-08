@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import time
 from pathlib import Path
-from extract_pgv import OUT, HERE, sha, write
+from extract_pgv import OUT, HERE, sha, write, process_hwm, work_bytes
 
 
 def main():
@@ -23,7 +23,9 @@ def main():
     for row in training['pairs']:
         pair = row['pair']
         for artifact in row['artifacts']:
-            assert sha(Path(artifact['path'])) == artifact['sha256']
+            # Transport changes the staging path, never the immutable bytes.
+            local = OUT / Path(artifact['path']).name
+            assert sha(local) == artifact['sha256']
         for direction in ['forward', 'reverse']:
             stem = f'{pair}-{direction}'
             cmd = [str(tool/'fast_align'), '-i', str(OUT/(pair+'.txt')), '-d', '-o', '-v', '-I', '5', '-p', str(target/(stem+'.params'))]
@@ -50,7 +52,7 @@ def main():
                             values = stat.read_text().splitlines()
                             rss = [int(s.split()[1])*1024 for s in values if s.startswith('VmRSS:')]
                             peak = max([peak]+rss)
-                        if peak > 2*1024**3 or shutil.disk_usage(OUT).free < 8*1024**3 or time.monotonic()-started > 1800:
+                        if peak + process_hwm() > 2*1024**3 or work_bytes() > 1610612736 or shutil.disk_usage(OUT).free < 8*1024**3 or time.monotonic()-started > 1800:
                             raise RuntimeError('alignment resource or wall deadline exceeded')
                         time.sleep(.2)
                     if proc.returncode:

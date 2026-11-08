@@ -1,9 +1,14 @@
 # Complete bilingual phrase extraction experiment
 
-This frozen research protocol tests a missing comparison: full alignment-consistent
-phrases, retaining unaligned target-boundary variants, against mutual single-word
-links. The historical pilot only generated one-to-one words. Neither alignment
-consistency nor corpus frequency approves a translation for runtime use.
+This frozen research protocol tests a missing comparison: a corpus-derived phrase
+inventory retaining unaligned target-boundary variants, against mutual single-word
+links. The original historical pilot generated one-to-one words. A later
+`evaluate_statistical_units.py` follow-up did compare complete supplied dictionary
+units: shared sense/POS/number, a mutual anchor, closed union edges and larger-unit
+masking. It proposed 19 spans in 94 conversational diagnostics and was withheld
+after contextual-role/sense errors. The new experiment expands beyond those
+dictionary-supplied units; it is not the first multiword experiment. Neither
+alignment consistency nor corpus frequency approves a translation for runtime use.
 
 `protocol.json` fixes source selection, caps, provenance, tokenization, review and
 resource limits before outputs. `prepare_inputs.py` freezes source-frequency keys

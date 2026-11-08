@@ -47,12 +47,18 @@ def guards(start, seconds):
         raise RuntimeError('8GiB free reserve')
     if process_hwm() > 2 * 1024 ** 3:
         raise RuntimeError('2GiB RSS cap')
+    if work_bytes() > 1610612736:
+        raise RuntimeError('1.5GiB local workstream footprint cap')
 
 
 def process_hwm():
     # This exec transport inherits a larger pre-exec ru_maxrss. Linux VmHWM
     # describes this Python process image and does not misattribute the launcher.
     return int(next(line.split()[1] for line in Path('/proc/self/status').read_text().splitlines() if line.startswith('VmHWM:'))) * 1024
+
+
+def work_bytes():
+    return sum(path.stat().st_size for path in OUT.rglob('*') if path.is_file())
 
 
 def main():
