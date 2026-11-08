@@ -40,7 +40,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
             guard let self else { return }
             defer { if self.preparationID == preparationID { self.preparation = nil } }
             do {
-                let root = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("vipi-speech")
+                let root = MessageSpeechCache.directory
                 let next = try LocalSpeechPair(source: source, target: target, root: root)
                 self.pair = next
                 try await next.prepare(warmups: warmups)

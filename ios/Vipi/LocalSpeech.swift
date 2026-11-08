@@ -2,6 +2,23 @@ import AVFoundation
 import CryptoKit
 import Foundation
 
+/// An erased generation is never recreated by a new account or voice pair.
+/// Late synthesis/join callbacks retain their old directory and cannot publish
+/// private audio into the new generation after account deletion.
+@MainActor enum MessageSpeechCache {
+    private static let key = "vipi-private-speech-generation"
+    private static var generation: UUID = {
+        if let value = UserDefaults.standard.string(forKey: key), let id = UUID(uuidString: value) { return id }
+        let id = UUID(); UserDefaults.standard.set(id.uuidString, forKey: key); return id
+    }()
+    private static var parent: URL { FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("vipi-speech", isDirectory: true) }
+    static var directory: URL { parent.appendingPathComponent(generation.uuidString.lowercased(), isDirectory: true) }
+    static func erase() throws {
+        generation = UUID(); UserDefaults.standard.set(generation.uuidString, forKey: key)
+        if FileManager.default.fileExists(atPath: parent.path) { try FileManager.default.removeItem(at: parent) }
+    }
+}
+
 enum LocalSpeechError: Error { case missingVoice(String), invalidAudio, unavailable, formatMismatch, notPrepared }
 
 struct RenderedSpeech: Sendable {

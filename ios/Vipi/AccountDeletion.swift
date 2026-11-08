@@ -92,9 +92,7 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
         if FileManager.default.fileExists(atPath: temporaryHistory.path) { try FileManager.default.removeItem(at: temporaryHistory) }
         // Rendered message audio contains the same private conversation content
         // as the vault. Public downloaded voices and language packs are separate.
-        let speech = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("vipi-speech", isDirectory: true)
-        if FileManager.default.fileExists(atPath: speech.path) { try FileManager.default.removeItem(at: speech) }
+        try MessageSpeechCache.erase()
         try KeychainStore.deleteChecked(account: "profile-" + record.userID)
     }
     func begin(account: UUID, userID: String, closeChat: () throws -> Void) throws {

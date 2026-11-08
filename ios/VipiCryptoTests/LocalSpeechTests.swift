@@ -39,6 +39,22 @@ import XCTest
         XCTAssertEqual(chunks.last?.last?.language, "ja")
     }
 
+    func testErasedAudioGenerationCannotBeRepopulatedByInFlightSynthesis() async throws {
+        let oldRoot = MessageSpeechCache.directory
+        let pair = try LocalSpeechPair(source: "en", target: "sw", root: oldRoot)
+        try await pair.prepare(warmups: ["en": "Hello", "sw": "Habari"])
+        let render = Task { try await pair.render([(text: String(repeating: "Habari rafiki yangu. ", count: 150), language: "sw"), (text: "This is private speech.", language: "en")]) }
+        await Task.yield()
+        render.cancel(); pair.stop()
+        try MessageSpeechCache.erase()
+        let newRoot = MessageSpeechCache.directory
+        try FileManager.default.createDirectory(at: newRoot, withIntermediateDirectories: true)
+        _ = await render.result
+        XCTAssertNotEqual(oldRoot, newRoot)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: oldRoot.path))
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: newRoot.path).isEmpty)
+    }
+
     func testActualPlayerCompletionAndCancellation() async throws {
         let controller = SpeechPlayback()
         defer { controller.close() }

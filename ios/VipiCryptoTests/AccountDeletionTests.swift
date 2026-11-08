@@ -93,7 +93,7 @@ import XCTest
         try preserved.transaction { try preserved.put("test", "body", Data("keep".utf8)) }
         try KeychainStore.save(Data("profile".utf8), account: "profile-" + user)
         let cacheRoot = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        let privateSpeech = cacheRoot.appendingPathComponent("vipi-speech", isDirectory: true)
+        let privateSpeech = MessageSpeechCache.directory
         let unrelated = cacheRoot.appendingPathComponent("unrelated-deletion-qa-" + UUID().uuidString)
         try FileManager.default.createDirectory(at: privateSpeech, withIntermediateDirectories: true)
         try Data("private spoken message".utf8).write(to: privateSpeech.appendingPathComponent("deletion-fixture.caf"))
@@ -104,6 +104,11 @@ import XCTest
         try AccountDeletion.eraseLocal(record); try AccountDeletion.eraseLocal(record)
         XCTAssertFalse(FileManager.default.fileExists(atPath: folder.path))
         XCTAssertFalse(FileManager.default.fileExists(atPath: privateSpeech.path))
+        let newSpeech = MessageSpeechCache.directory
+        XCTAssertNotEqual(privateSpeech, newSpeech)
+        try FileManager.default.createDirectory(at: newSpeech, withIntermediateDirectories: true)
+        XCTAssertThrowsError(try Data("late old private audio".utf8).write(to: privateSpeech.appendingPathComponent("late.caf")))
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: newSpeech.path).isEmpty)
         XCTAssertEqual(try Data(contentsOf: unrelated), Data("keep".utf8))
         XCTAssertNil(try KeychainStore.read(account: "messages-" + account.uuidString.lowercased()))
         XCTAssertNil(try KeychainStore.read(account: "profile-" + user))
