@@ -1,6 +1,6 @@
 # Verification ledger
 
-## Latest delivery checkpoint — November 8, 2026, 01:50 UTC
+## Latest delivery checkpoint — November 8, 2026, 02:15 UTC
 
 The current restricted staging service is `52d1f90`, deployed in 8.77 seconds
 with the existing database, schema, authentication configuration and shared
@@ -18,19 +18,21 @@ that both clients did alternate during the original exchange. Sequential XML
 and sparse screenshot sampling missed phases and incorrectly suggested a stall;
 those failed measurements remain retained. A later Apple replay separately
 exposed a real keyboard-triggered visibility feedback loop and event-loop stall.
-That specific defect is under repair. It does not justify an Android timer change.
-The complete continuous live immersion gate remains open.
+That specific defect is fixed in `9b3948a`. It did not justify an Android timer
+change. Broader language and physical-device acceptance remain open.
 
 Later direct video review counts eight Android phase transitions with identical
-bounds in eleven geometry samples. Apple's narrow viewport-height correction
-passes the 126.9-second live regression: transitions continue before the
-keyboard, with an empty focused composer, after clearing a draft, and after
-Listen; a nonempty draft pauses them. Text dimensions remain 298×28 throughout.
-History/scroll-anchor qualification is still pending before that change is
-accepted: a later replay exposes a real blank initial long-history viewport.
-The agent is correcting the resize/scroll sequencing and includes the keyboard
-bottom inset in the near-bottom calculation. The initial blanket stall
-diagnosis must not be repeated.
+bounds in eleven geometry samples. Apple's accepted correction defers viewport
+restoration until layout settles, accounts for the keyboard bottom inset, and
+preserves following-latest intent across programmatic scrolling. All three
+focused UI checks pass: retained real conversation keyboard/draft/Listen,
+variable-height older-page anchoring, and reading position through incoming
+messages, keyboard resizing, own send and explicit jump. Test execution was
+207.5 seconds. Real-chat phases make 4/6/0/6/6 transitions before keyboard,
+empty focus, nonempty draft, cleared draft and after Listen; text remains
+298×28. Root separately inspected the live and history screenshots. Current
+accessibility auditing still has unresolved findings; largest-text layout alone
+does not close them. The initial blanket stall diagnosis must not be repeated.
 
 Native device recovery now preserves remote trust across own-device replacement,
 binds confirmation to the reviewed new peer keys, handles uncertain responses
@@ -69,9 +71,19 @@ The secondary 25%/50% review was performed after provider unmasking. The
 AfriSLM-reference arm gives 61/57 clean useful messages and 6/15 material or
 scope-error messages; the ML Kit arm gives 50/53 and 17/18. A development-only
 shortening check removes two beginner errors but creates different scope errors
-at higher density. Neither result changes the failed primary gate. A separate
-frequency-selected source-only vocabulary baseline is being prepared to test
-meaning ambiguity without rejecting harmless target synonyms.
+at higher density. Neither result changes the failed primary gate.
+
+A separate source-only baseline now uses 100 reviewed vocabulary entries chosen
+from training frequencies, without rejecting harmless target synonyms. On a
+new disjoint 80-message validation sample it needs zero translation calls and
+produces 54 clean useful primary messages with 6.47% changed-word depth under
+author review. Content vocabulary alone reaches 30/80. Short messages reach
+8/26, versus 26/27 long messages. This fails the frozen 72/80 combined and 40/80
+content gates. Independent review agrees on 43/46 selected scopes; two grammar
+labels and a sports-car compound remain explicit disagreements. That review is
+not claimed fully blind because the author's summary arrived before the review
+file was written. Training-only expansion is ongoing; no runtime pack or policy
+has been promoted.
 
 The local AfriSLM 0.8B Q4 development run took median 3.41 seconds, p95 10.18
 seconds and about 1.82 GiB peak RSS over 80 inputs. Disabling the server's prompt
@@ -80,7 +92,7 @@ observed peak RSS to about 1.04 GiB. These are desktop CPU measurements, not
 native mobile latency or memory qualification. Assistant semantic reviews
 disagree on some cases and are not bilingual gold labels or population accuracy.
 
-The current optimized Android qualification bundle measures 405.34–405.37 MB
+The current optimized Android qualification bundle measures 406.55–406.59 MB
 compressed for ARM64 delivery. All six ARM64 native libraries and delivered
 splits pass 16-KiB alignment checks, but physical execution is unqualified. It
 is a separate qualification package with debug signing and blank production
@@ -89,8 +101,8 @@ After adding 2,767,365 bytes of dictionaries to the same pinned fallback, actual
 offline synthesis now passes eleven original-script samples and ten joined
 English/language pairs. Japanese fallback audio reuses the bundled tokenizer
 for kana readings and rejects unresolved Han; displayed text and matching are
-unchanged. Network and TTS settings were restored. The bundle size above
-predates those additional dictionaries; its replacement is being measured.
+unchanged. Network and TTS settings were restored. The bundle size above includes
+these additional dictionaries; all four measured ABI deliveries are below 408 MB.
 These results establish synthesis and pair preparation, not pronunciation
 quality or physical-device acceptance.
 
@@ -108,10 +120,33 @@ low-disk threshold. Closed historical diagnostic logs are being losslessly
 compressed with full readback checks; accepted source, audio and release
 evidence remain preserved. Five logs shrank from 9.35 GB to 111.5 MB, but
 available space did not increase, consistent with shared extents. That apparent
-size reduction must not be reported as reclaimed capacity. Exact obsolete Vipi
-installation bundles are being assessed separately. A fresh controller check
+size reduction must not be reported as reclaimed capacity. Separately, 69 exact
+obsolete Vipi app-only installation bundles were retired after per-file hashes,
+replacement and no-reader checks, reclaiming 3,601,657,856 bytes. Guest free
+space reached 4,880,039,936 bytes; native physical space remained about 2.7 GiB.
+This is still insufficient for model preparation. A fresh controller check
 finds the iPad offline and no attached USB mobile device; no physical install
 was attempted.
+
+Pinned upstream crypto/Swift sources and all 567 Cargo registry archives now
+have a private Storage Box copy, with all 597 retained files (139,888,340 bytes
+including the manifest) independently SHA-256 verified at the destination.
+This protects build inputs; it does not establish a reproducible source build
+or complete public corresponding-source release.
+
+The existing consolidated backup schedule covered only older Vipi databases.
+The current database is now enrolled with an encrypted metadata-only scope:
+relay messages, public bundles/prekeys/claims, push data and report bodies are
+excluded. Actual authenticated decryption, tamper rejection and isolated
+PostgreSQL 16.15 restore passed all twenty same-snapshot table counts; excluded
+tables remained empty despite nonzero source rows. Four restored device
+credentials were deactivated only in the isolated candidate. That candidate
+was dropped and its owned local cluster stopped. The existing daily schedule
+now includes this scope, with three verified generations; the other 21 scopes
+and all live app/database processes remain unchanged. This is not a live
+recovery qualification: fresh deletion/restriction reconciliation, native
+re-enrollment, entitlement/spend reconciliation and retention disclosures
+remain required before opening a restored service.
 
 Company store authentication, actual billing and push providers, broader
 language quality, physical-runtime evidence and final corresponding-source

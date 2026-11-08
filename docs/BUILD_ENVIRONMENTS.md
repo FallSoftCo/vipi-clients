@@ -45,11 +45,25 @@ its password held separately in private local/production paths. No secret value
 belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
 open; no app-store submission receipt exists.
 
-Committed private source through `8619306` is retained on the consolidated host
-under `refs/heads/checkpoints/production-20261108-r04`. This separate reference
+Committed private source through `1aa48fb` is retained on the consolidated host
+under `refs/heads/checkpoints/production-20261108-r05`. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
 corresponding-source publication.
+
+The separately retained pinned upstream source inputs have a full SHA-256
+verified private copy at Storage Box path
+`dev-workspaces/vipi/private-release/upstream-source-20261108-r01/`:
+597 files, 139,888,340 bytes including the manifest. No local inputs were deleted.
+Rebuilding the native library and completing the public source closure remain
+separate requirements.
+
+Apple model preparation is held: the guest's observed low-disk purge threshold
+is 10 GiB and the pending model requires roughly 1.85 GiB peak additional space.
+Removing 69 proven obsolete Vipi app-only simulator bundles reclaimed 3.60 GB,
+but guest free space is still below the threshold. Native physical free space
+is independently low. Do not retry preparation, override the purge service or
+resize/restart the shared VM on the strength of apparent file-size savings.
 
 ## Historical October setup — do not replay host commands
 
