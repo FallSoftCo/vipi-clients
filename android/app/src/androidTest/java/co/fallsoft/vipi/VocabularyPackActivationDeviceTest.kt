@@ -150,7 +150,9 @@ class VocabularyPackActivationDeviceTest {
             val before = pointer.readBytes()
             assertEquals(VocabularyPackState.REINSTALL_REQUIRED, f.store().status("en-es").state)
             assertTrue(runCatching { f.target(f.store()) }.exceptionOrNull() is VocabularyPackReinstallRequired)
+            assertTrue(runCatching { f.store().remove("en-es") }.exceptionOrNull() is VocabularyPackReinstallRequired)
             assertArrayEquals(before, pointer.readBytes())
+            assertArrayEquals(two.database, destination.readBytes())
             assertEquals(2, f.records.read("pack-en-es")!!.getInt("revision"))
             assertTrue(runCatching { f.install(f.store(), one) }.isFailure)
             f.install(f.store(), two)
@@ -229,4 +231,105 @@ class VocabularyPackActivationDeviceTest {
                 .put("older_install_cannot_win", true).put("old_removal_cannot_delete_reinstalled_file", true))
         } finally { executor.shutdownNow(); f.close() }
     }
+
+    @Test fun failedFinishRenameCannotTriggerOldDatabaseCleanup() {
+        val f = Fixture()
+        try {
+            val one = f.pack(1, "agua"); val two = f.pack(2, "aguas")
+            f.install(f.store(), one)
+            val before = f.records.read("pack-en-es")!!
+            val oldFile = File(f.directory, before.getJSONObject("active").getString("file"))
+            val store = f.store()
+            val base = File(f.context.noBackupFilesDir, "private-records/pack-en-es")
+            val detached = File(f.root, "detached-encrypted-new")
+            store.qualificationRecordWrite = { stage, _ ->
+                if (stage == PrivateRecordWriteCheckpoint.BEFORE_FINISH) check(File(base.path + ".new").renameTo(detached))
+            }
+            val error = runCatching { f.install(store, two) }.exceptionOrNull() as? PrivateRecordWriteFailure
+            assertNotNull(error); assertEquals(PrivateRecordCommitState.NOT_COMMITTED, error!!.commitState)
+            assertTrue(oldFile.exists())
+            assertEquals(before.toString(), f.records.read("pack-en-es")!!.toString())
+            assertEquals("agua", f.target(f.store()))
+            assertTrue(f.store().status("en-es").cleanupPending)
+            f.install(f.store(), two)
+            assertEquals("aguas", f.target(f.store()))
+            assertFalse(oldFile.exists())
+            f.retain("finish-rename", listOf(one, two), JSONObject().put("passed", true)
+                .put("commit_state", error.commitState.name).put("old_database_preserved_on_failure", true)
+                .put("failure", "new pathname moved after explicit file sync, before actual framework finishWrite"))
+        } finally { f.close() }
+    }
+
+    @Test fun explicitFileAndDirectorySyncErrorsRemainObservable() {
+        val f = Fixture()
+        try {
+            val one = f.pack(1, "agua"); val two = f.pack(2, "aguas")
+            f.install(f.store(), one)
+            val oldFile = File(f.directory, f.records.read("pack-en-es")!!.getJSONObject("active").getString("file"))
+            val before = f.store()
+            before.qualificationRecordWrite = { stage, fd ->
+                if (stage == PrivateRecordWriteCheckpoint.BEFORE_FILE_SYNC) android.system.Os.close(checkNotNull(fd))
+            }
+            val first = runCatching { f.install(before, two) }.exceptionOrNull() as? PrivateRecordWriteFailure
+            assertNotNull(first); assertEquals(PrivateRecordCommitState.NOT_COMMITTED, first!!.commitState)
+            assertEquals("agua", f.target(f.store())); assertTrue(oldFile.exists())
+            val after = f.store()
+            after.qualificationRecordWrite = { stage, fd ->
+                if (stage == PrivateRecordWriteCheckpoint.BEFORE_DIRECTORY_SYNC) android.system.Os.close(checkNotNull(fd))
+            }
+            val second = runCatching { f.install(after, two) }.exceptionOrNull() as? PrivateRecordWriteFailure
+            assertNotNull(second); assertEquals(PrivateRecordCommitState.COMMITTED_DURABILITY_UNCERTAIN, second!!.commitState)
+            assertEquals("aguas", f.target(f.store())); assertTrue(oldFile.exists())
+            assertTrue(f.store().status("en-es").cleanupPending)
+            f.install(f.store(), two)
+            assertFalse(oldFile.exists())
+            f.retain("explicit-sync", listOf(one, two), JSONObject().put("passed", true)
+                .put("file_sync_failure", first.commitState.name).put("directory_sync_failure", second.commitState.name)
+                .put("actual_closed_descriptors", true).put("power_loss_durability_proven", false))
+        } finally { f.close() }
+    }
+
+    @Test fun unreadablePostcommitStateIsUnknownAndNeverCleansPreviousFiles() {
+        val f = Fixture()
+        val base = File(f.context.noBackupFilesDir, "private-records/pack-en-es")
+        try {
+            val one = f.pack(1, "agua"); val two = f.pack(2, "aguas")
+            f.install(f.store(), one)
+            val oldFile = File(f.directory, f.records.read("pack-en-es")!!.getJSONObject("active").getString("file"))
+            val store = f.store()
+            store.qualificationRecordWrite = { stage, _ ->
+                if (stage == PrivateRecordWriteCheckpoint.AFTER_FINISH) check(base.setReadable(false, false))
+            }
+            val error = runCatching { f.install(store, two) }.exceptionOrNull() as? PrivateRecordWriteFailure
+            assertNotNull(error); assertEquals(PrivateRecordCommitState.UNKNOWN, error!!.commitState)
+            assertTrue(oldFile.exists())
+            assertTrue(base.setReadable(true, true))
+            assertEquals("aguas", f.target(f.store()))
+            assertTrue(f.store().status("en-es").cleanupPending)
+            f.retain("unknown-commit", listOf(one, two), JSONObject().put("passed", true)
+                .put("commit_state", error.commitState.name).put("old_database_preserved", true)
+                .put("failure", "owned encrypted record made unreadable after finishWrite; read permission restored after assertion"))
+        } finally { base.setReadable(true, true); f.close() }
+    }
+
+    @Test fun versionedRecordMustExplicitlyDeclareItsActiveState() {
+        val f = Fixture()
+        try {
+            val one = f.pack(1, "agua"); val two = f.pack(2, "aguas")
+            f.install(f.store(), one)
+            val original = f.records.read("pack-en-es")!!
+            val malformed = JSONObject(original.toString()).apply { remove("active") }
+            f.records.write("pack-en-es", malformed)
+            assertTrue(runCatching { f.store().status("en-es") }.isFailure)
+            assertTrue(runCatching { f.target(f.store()) }.isFailure)
+            assertTrue(runCatching { f.store().remove("en-es") }.isFailure)
+            assertTrue(runCatching { f.install(f.store(), two) }.isFailure)
+            assertEquals(malformed.toString(), f.records.read("pack-en-es")!!.toString())
+            f.records.write("pack-en-es", original)
+            assertEquals("agua", f.target(f.store()))
+            f.retain("missing-active", listOf(one), JSONObject().put("passed", true)
+                .put("missing_active_fails_closed", true).put("no_silent_inactive_transition", true))
+        } finally { f.close() }
+    }
+
 }

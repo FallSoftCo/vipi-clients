@@ -9,7 +9,18 @@ The encrypted `PrivateRecords` item is the sole authority for both high-water
 revision/hash and the active file. It retains the exact original manifest bytes,
 their digest, and the detached signature. A legacy receipt does not acquire
 trusted metadata from its unsigned JSON pointer: lookup requires a verified
-reinstall. Removal retains the high-water mark with an explicit inactive state.
+reinstall. Legacy removal is also rejected until that verification; its files
+and high-water mark remain intact. Removal of a verified activation retains the
+high-water mark with an explicit inactive state.
+
+`PrivateRecords.write` does not assume `AtomicFile.finishWrite` reports failures:
+the installed Android 15 runtime logs failed sync/rename operations and returns.
+The wrapper explicitly syncs the ciphertext before finish, syncs its directory,
+and requires exact ciphertext readback before success. Handles share a directory
+lock. A failure distinguishes an unchanged old record, a visible new record whose
+durability could not be confirmed, and an unknown state. All three prevent pack
+cleanup; reopening determines the currently visible activation without falling
+back to an older database. Versioned records must explicitly contain `active`.
 
 `status()` distinguishes active, inactive, absent and reinstall-required states,
 and exposes remaining obsolete files. Installation returns its pack ID after
@@ -32,6 +43,11 @@ while preserving the previous pointer. Candidate cases cover precommit
 cancellation and a real trusted-record write failure, postcommit cleanup
 failure, removal and reinstall, legacy metadata rejection, missing/corrupt files,
 rollback/conflicting revision/untrusted input, and concurrent store handles.
+Additional actual-framework controls reproduce silent finish-time rename and
+sync failures. Wrapper tests cover failed finish-time rename, real closed file
+and directory descriptors, unreadable postcommit state, retained old/new files,
+and a missing `active` field. These remain separate from the old start-write
+failure control.
 Each run retains its public synthetic key, exact manifests/signatures/databases,
 and receipts. The test-only checkpoint setter rejects non-debug builds.
 

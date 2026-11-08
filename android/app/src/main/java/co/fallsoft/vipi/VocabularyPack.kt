@@ -51,6 +51,9 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
     private val lock = locks.getOrPut(root.canonicalPath) { Any() }
     internal var qualificationCheckpoint: ((PackActivationCheckpoint) -> Unit)? = null
         set(value) { check(BuildConfig.DEBUG); field = value }
+    internal var qualificationRecordWrite: ((PrivateRecordWriteCheckpoint, java.io.FileDescriptor?) -> Unit)?
+        get() = records.qualificationWriteCheckpoint
+        set(value) { records.qualificationWriteCheckpoint = value }
     private fun checkpoint(value: PackActivationCheckpoint) { qualificationCheckpoint?.invoke(value) }
     companion object { private val locks = ConcurrentHashMap<String, Any>() }
     private fun fileHash(file: File): String {
@@ -68,7 +71,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
     }
     private fun record(id: String): JSONObject? = records.read(receiptPrefix + id)?.also {
         require(it.getInt("revision") > 0 && it.getString("hash").matches(Regex("[0-9a-f]{64}")))
-        if (it.has("activation_version")) require(it.getInt("activation_version") == 1)
+        if (it.has("activation_version")) require(it.getInt("activation_version") == 1 && it.has("active"))
     }
     private data class Active(val file: File, val manifest: JSONObject)
     private fun active(id: String, record: JSONObject): Active? {
@@ -274,6 +277,7 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require(validID(id)); checkCancellation()
         val accepted = record(id)
         if (accepted != null) {
+            if (!accepted.has("activation_version")) throw VocabularyPackReinstallRequired()
             val inactive = JSONObject().put("activation_version", 1).put("revision", accepted.getInt("revision"))
                 .put("hash", accepted.getString("hash")).put("active", JSONObject.NULL)
             checkpoint(PackActivationCheckpoint.BEFORE_COMMIT); checkCancellation()
