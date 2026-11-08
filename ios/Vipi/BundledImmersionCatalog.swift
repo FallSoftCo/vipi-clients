@@ -67,13 +67,13 @@ actor BundledImmersionCatalog {
             density: density, nativeSourceTokenCount: nativeBasis.count)
     }
     func result(original: String, translation: String, pair: TranslationPair, density: Double,
-                supplementalEntries: [VocabularyEntry] = []) throws -> ImmersionResult {
+                supplementalEntries: [VocabularyEntry] = [], sourceConstraints: SourceLookupConstraints? = nil) throws -> ImmersionResult {
         try autoreleasepool {
-            try lookup(original:original,translation:translation,pair:pair,density:density,supplementalEntries:supplementalEntries)
+            try lookup(original:original,translation:translation,pair:pair,density:density,supplementalEntries:supplementalEntries,sourceConstraints:sourceConstraints)
         }
     }
     private func lookup(original: String, translation: String, pair: TranslationPair, density: Double,
-                        supplementalEntries: [VocabularyEntry]) throws -> ImmersionResult {
+                        supplementalEntries: [VocabularyEntry], sourceConstraints: SourceLookupConstraints?) throws -> ImmersionResult {
         guard let root, pair.valid else { throw VocabularyPackError.invalid }
         let id = pair.source + "-" + pair.target
         let index = try loadIndex()
@@ -88,7 +88,7 @@ actor BundledImmersionCatalog {
             }
         }
         return LocalImmersion.align(original: original, translation: translation, entries: entries,
-            density: density, source: pair.source, target: pair.target, supplementalEntries: supplementalEntries)
+            density: density, source: pair.source, target: pair.target, supplementalEntries: supplementalEntries, sourceConstraints: sourceConstraints)
     }
     private func withDatabase<T>(root: URL, pack: Index.Pack, suffix: String, body: (OpaquePointer) throws -> T) throws -> T {
         let id = pack.id + suffix

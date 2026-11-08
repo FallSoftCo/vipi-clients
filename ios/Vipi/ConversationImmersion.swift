@@ -193,17 +193,12 @@ import VipiCore
                     try await self.enqueue(original, pair: .init(source: source, target: target), epoch: activeEpoch,
                                            timeout: intent == .fullTranslation ? self.fullTranslationTimeout : nil)
                 },
-                align: { original, translated in
-                    try await self.aligned(original: original, translation: translated, pair: activePair, density: activeDensity)
+                align: { original, translated, constraints in
+                    try await self.aligned(original: original, translation: translated, pair: activePair, density: activeDensity, sourceConstraints: constraints)
                 },
                 partialReference: { original, source, target in
                     let pair = TranslationPair(source: source, target: target)
                     if let accepted = try await self.catalog.partial(original: original, pair: pair, density: activeDensity) {
-                        return accepted
-                    }
-                    if let sourceUnits = self.sourceUnits,
-                       let accepted = try await sourceUnits.resolve(.init(original: original, pair: pair,
-                           density: activeDensity, knownConceptIDs: activeKnownConceptIDs)) {
                         return accepted
                     }
                     #if DEBUG
@@ -211,6 +206,14 @@ import VipiCore
                     #else
                     return nil
                     #endif
+                },
+                sourceEvidenceIdentity: sourceUnits?.identity,
+                sourceEvidence: sourceUnits.map { provider in
+                    { original, source, target in
+                        try await provider.resolve(.init(original: original,
+                            pair: .init(source: source, target: target), density: activeDensity,
+                            knownConceptIDs: activeKnownConceptIDs))
+                    }
                 },
                 onPartial: { partial in
                     guard valid() else { return }
@@ -224,7 +227,8 @@ import VipiCore
         } catch is CancellationError { return nil }
         catch { return valid() ? cache.cachedInvocation(key: key) : nil }
     }
-    private func aligned(original: String, translation: String, pair: TranslationPair, density: Double) async throws -> ImmersionResult {
+    private func aligned(original: String, translation: String, pair: TranslationPair, density: Double,
+                         sourceConstraints: SourceLookupConstraints?) async throws -> ImmersionResult {
         let supplemental: [VocabularyEntry]
         do {
             supplemental = try await lexical.entries(original: original, translation: translation, pair: pair)
@@ -233,7 +237,7 @@ import VipiCore
         catch { lexicalPreparation = "failed"; supplemental = [] }
         try Task.checkCancellation()
         return try await catalog.result(original: original, translation: translation, pair: pair,
-            density: density, supplementalEntries: supplemental)
+            density: density, supplementalEntries: supplemental, sourceConstraints: sourceConstraints)
     }
     private func enqueue(_ text: String, pair: TranslationPair, epoch active: UUID, timeout: Duration? = nil) async throws -> String {
         guard !closed, active == epoch, pair.valid, pending.count < 128 else { throw ProviderError.unavailable }

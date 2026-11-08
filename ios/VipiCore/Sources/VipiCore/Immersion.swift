@@ -98,16 +98,19 @@ public struct ImmersionEngine: Sendable {
 
     public func align(original: String, translation: String, entries: [VocabularyEntry], density: Double, targetLanguage: String? = nil,
                       sourceBoundaries: Set<Int>? = nil, targetBoundaries: Set<Int>? = nil, sourceTokenCount: Int? = nil,
-                      sourceUnitTokenCounts: [NSRange: Int]? = nil, supplementalEntries: [VocabularyEntry] = []) -> ImmersionResult {
+                      sourceUnitTokenCounts: [NSRange: Int]? = nil, supplementalEntries: [VocabularyEntry] = [],
+                      sourceConstraints: SourceLookupConstraints? = nil) -> ImmersionResult {
         let empty = ImmersionResult(original: original, translation: translation, spans: [])
         guard !original.isEmpty, !translation.isEmpty, density.isFinite, density > 0,
-              original.utf16.count <= 16_384, translation.utf16.count <= 32_768 else { return empty }
+              original.utf16.count <= 16_384, translation.utf16.count <= 32_768,
+              sourceConstraints?.matches(original: original, target: targetLanguage) != false else { return empty }
         if !supplementalEntries.isEmpty {
             // Retain all primary claims/guards. Supplemental evidence may fill
             // gaps but cannot take an accepted source or target focus away.
             let primary = align(original: original, translation: translation, entries: entries, density: 1,
                 targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
-                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts)
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts,
+                sourceConstraints: sourceConstraints)
             let additions = supplementalEntries.filter { entry in
                 guard let source = entry.sourceScope, let target = entry.targetScope,
                       source.original == original, target.translation == translation,
@@ -134,7 +137,8 @@ public struct ImmersionEngine: Sendable {
             // Density is applied once to the combined candidates.
             return align(original: original, translation: translation, entries: entries + additions, density: density,
                 targetLanguage: targetLanguage, sourceBoundaries: sourceBoundaries,
-                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts)
+                targetBoundaries: targetBoundaries, sourceTokenCount: sourceTokenCount, sourceUnitTokenCounts: sourceUnitTokenCounts,
+                sourceConstraints: sourceConstraints)
         }
         // Use the installed Swift platform Character boundaries. Valid UTF16
         // endpoints alone need not bound a complete user-perceived character.
@@ -233,6 +237,11 @@ public struct ImmersionEngine: Sendable {
                 Self.lookupKey(entries[index].source) == Self.lookupKey(entries[candidate.entry].source) &&
                 !claims[index].target.contains(candidate.targetRange)
             }
+        }.filter { candidate in
+            // Source recognition constrains every target-alignment path. These
+            // legacy candidates carry no approved output IDs. Keep all claims
+            // above so withholding a face cannot create false target ownership.
+            sourceConstraints?.permits(range: candidate.span.range) != false
         }.sorted { a, b in
             a.span.range.length == b.span.range.length ? a.span.range.location < b.span.range.location : a.span.range.length > b.span.range.length
         }

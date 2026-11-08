@@ -14,7 +14,9 @@ import VipiCore
     /// requires a new conversation owner; changing its knowledge snapshot uses
     /// configure(), which invalidates pending work and all cached presentations.
     let identity: String
-    typealias Resolver = @MainActor (Context) async throws -> PartialImmersionResult?
+    typealias Resolver = @MainActor (Context) async throws -> SourceLookupEvidence
+    /// Always return recognition, even when known/budget/target admission
+    /// yields no partial. Empty recognition is an explicit no-match result.
     let resolve: Resolver
     init(identity: String, resolve: @escaping Resolver) {
         precondition(!identity.isEmpty)

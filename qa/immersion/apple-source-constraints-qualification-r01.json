@@ -1,0 +1,243 @@
+{
+  "schema": "vipi.apple-source-constraints-freeze.v1",
+  "base_commit": "4bcad8b713690791938ee5a2e6d9cbdd592cd1be",
+  "files": [
+    {
+      "path": "ios/VipiCore/Package.swift",
+      "sha256": "0cf72250747c02b4b4cd5822e8c6b28d06e7c8cd4d5ad52ce6e8c0cd1f6d6c14",
+      "bytes": 317,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ContextFrame.swift",
+      "sha256": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+      "bytes": 7753,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ContextMapping.swift",
+      "sha256": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+      "bytes": 4944,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/Delivery.swift",
+      "sha256": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad",
+      "bytes": 750,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/FullReadingCache.swift",
+      "sha256": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+      "bytes": 3618,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/Immersion.swift",
+      "sha256": "8c1913ed2caeaa41e12c8d4c30df45da7636bb202d1615a44f60739f90424a46",
+      "bytes": 25188,
+      "origin": "owned candidate overlay"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ImmersionCopyText.swift",
+      "sha256": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2",
+      "bytes": 5863,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ImmersionPresentationState.swift",
+      "sha256": "081e118ec4b4c77d60e6b7c8dcfa1c613435d68226a635050c839d5c3155535f",
+      "bytes": 4168,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/LookupFirst.swift",
+      "sha256": "0e3502249d213f9ac7ec1e0fe2af52850d5cf4fe7a6cadf9c9a5dc10bb7650b0",
+      "bytes": 10963,
+      "origin": "owned candidate overlay"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ReferenceComposition.swift",
+      "sha256": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319",
+      "bytes": 1995,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceReferencePresentation.swift",
+      "sha256": "bfc240dad4d2d9a07897bcc6e25652d2b611f954b1b6685d6e1531a3d7ff9ff4",
+      "bytes": 11703,
+      "origin": "owned candidate overlay"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift",
+      "sha256": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+      "bytes": 5059,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/TranslationIntegrity.swift",
+      "sha256": "4f4f4b64a019a3603e47e3b0e41cf816c8aa8ce10622af4d001bcd54fc7c6d0b",
+      "bytes": 2342,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ContextEvidenceTests.swift",
+      "sha256": "471f207ec47871960d6ec06396fc9e2811112abe517abbe9c71d38dfe26a21cc",
+      "bytes": 3257,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ContextFrameTests.swift",
+      "sha256": "16f3293828d1f41b9c76edeb3fda5c475ce4710940883a35008274284ff9b92b",
+      "bytes": 14596,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ContextMappingTests.swift",
+      "sha256": "b119c3d92e68c13da19eddd1284f837f15371640fb6052073b137e33506c5a4f",
+      "bytes": 7503,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/FullReadingCacheTests.swift",
+      "sha256": "f140961ce8912af5b4bac8d6417e1bbf33058227cbeb50c5b30fd74e6d48ae09",
+      "bytes": 4456,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionCopyTextTests.swift",
+      "sha256": "37ac499a48b6be72a5e44f30ae7117b1c5fb653c2110bffad5f7cd3cdbb255da",
+      "bytes": 6545,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionPartialSentenceBoundaryTests.swift",
+      "sha256": "b00940973890f7932c1776c36ce147f58d4aafc9287305563080893349309dc2",
+      "bytes": 7969,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionPresentationStateTests.swift",
+      "sha256": "991ba641e2b866b2e3591227a2b2bd2e23d5cca30c251f847569231231809b0e",
+      "bytes": 4647,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionRawCacheIdentityTests.swift",
+      "sha256": "06a2c3f0beb1130fe738651d43f2d36726186b615615847dc2b306da58f5a7d7",
+      "bytes": 5868,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionSpeechEligibilityTests.swift",
+      "sha256": "4a29e39e01dfd44e601a7cebb2ed63422ce41dbe799369740d80a6e583635822",
+      "bytes": 1945,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/ImmersionTests.swift",
+      "sha256": "9535f020e9ee228aec75a289fb3a24afe0f9cc27be82b56a861024c664819e1c",
+      "bytes": 13196,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/LookupFirstTests.swift",
+      "sha256": "df4d1a8f44a95248e2994ff253d8fb5be8709e9353a483e9a0bf30ca8e4a6a3b",
+      "bytes": 10257,
+      "origin": "owned candidate overlay"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/SourceReferencePresentationTests.swift",
+      "sha256": "d86da8d0db659d0ed2ea3909a394ef3b4cd5aa8752203b7690f30a3065def019",
+      "bytes": 8499,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/SourceUnitSelectionTests.swift",
+      "sha256": "4c0beb5479ea1be767e26a27f1faac030eecefcadea9acdb4bdd36ee1a8c786e",
+      "bytes": 5234,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/SupplementalVocabularyTests.swift",
+      "sha256": "4de403c3227fa06715ceda76ea608b241d13af2ea211edc518696027d3588fa7",
+      "bytes": 4881,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/TargetScopeTests.swift",
+      "sha256": "faf9e41d08f9c5bd6ab0b4326be768bbdf4a0935556c34ecb2b9e3456e90510b",
+      "bytes": 2996,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/TranslationIntegrityEncodedLiteralTests.swift",
+      "sha256": "69e6f51aaa5689451f14cd80a6cb1fb6ebc864e646d1954c214ae65f5e488164",
+      "bytes": 1740,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/TranslationIntegrityTests.swift",
+      "sha256": "bccad1c4bf3ad2b01b43662c44fe0b10dea571e0c1ca426f838c7e139a0675c7",
+      "bytes": 2350,
+      "origin": "committed clean base"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceLookupEvidence.swift",
+      "sha256": "60eef0eca844126c8a0bbbc0f6e497443618d6edc983f23ec6440a8d53da637a",
+      "bytes": 7303,
+      "origin": "owned candidate overlay"
+    },
+    {
+      "path": "ios/VipiCore/Tests/VipiCoreTests/SourceLookupEvidenceTests.swift",
+      "sha256": "1517ef93e052e01fbdf5a5249c93d4759b82af92f56f62c993f56aa4a1fd1967",
+      "bytes": 13980,
+      "origin": "owned candidate overlay"
+    }
+  ],
+  "default_provider": "nil",
+  "research_catalog_activated": false,
+  "inherited_dirty_files_included": false,
+  "native_reserve_bytes": 1073741824,
+  "guest_margin_bytes": 536870912,
+  "declared_peak_bytes": 67108864,
+  "scope": "native core XCTest; app source separately pending compile",
+  "native_execution": {
+    "exit": 0,
+    "guard_stopped": false,
+    "seconds": 8.949453115463257,
+    "before_bytes": 646983680,
+    "after_bytes": 643461120,
+    "minimum_bytes": 643461120,
+    "declared_peak_bytes": 67108864,
+    "guest_margin_bytes": 536870912,
+    "command": [
+      "xcrun",
+      "swift",
+      "test",
+      "--package-path",
+      "/Users/lume/Development/vipi-delivery-20261107-r01/source/ios/VipiCore",
+      "--scratch-path",
+      "/Users/lume/Development/vipi-delivery-20261107-r01/core-build",
+      "--jobs",
+      "2",
+      "--filter",
+      "SourceLookupEvidenceTests|LookupFirstTests|SourceUnitSelectionTests|SourceReferencePresentationTests|ImmersionTests"
+    ],
+    "models_or_dependencies_added": false
+  },
+  "native_controller_capacity": {
+    "before": 3913490432,
+    "after": 3909984256,
+    "minimum": 3909984256,
+    "exit": 0
+  },
+  "core_tests": {
+    "passed": 39,
+    "new_focused_cases": 9,
+    "test_method_seconds": 0.166,
+    "scope": "synthetic structural and routing checks, not coverage or actual translation"
+  },
+  "app_status": "source prepared, clean committed full app build and native coordinator checks pending",
+  "log_sha256": "a98878f05e33d9c5dfc278eae779eb0c38437ce5c0d4e6678dde2bbe0cb34880"
+}

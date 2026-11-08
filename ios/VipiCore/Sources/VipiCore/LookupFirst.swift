@@ -24,16 +24,19 @@ public struct LookupFirstOutcome: Sendable {
     public let cacheHit: Bool
     public let modelReadinessCalls: Int
     public let alignmentCalls: Int
+    public let sourceConstraints: SourceLookupConstraints?
     public init(result: ImmersionPresentation?, origin: ImmersionOrigin?, status: ImmersionStatus,
                 localTranslationCalls: Int, fallbackStatus: ImmersionStatus?, cacheHit: Bool = false,
-                modelReadinessCalls: Int = 0, alignmentCalls: Int = 0) {
+                modelReadinessCalls: Int = 0, alignmentCalls: Int = 0,
+                sourceConstraints: SourceLookupConstraints? = nil) {
         self.result = result; self.origin = origin; self.status = status
         self.localTranslationCalls = localTranslationCalls; self.fallbackStatus = fallbackStatus; self.cacheHit = cacheHit
         self.modelReadinessCalls = modelReadinessCalls; self.alignmentCalls = alignmentCalls
+        self.sourceConstraints = sourceConstraints
     }
     public func cachedInvocation() -> Self {
         .init(result: result, origin: origin, status: status, localTranslationCalls: 0,
-              fallbackStatus: fallbackStatus, cacheHit: true)
+              fallbackStatus: fallbackStatus, cacheHit: true, sourceConstraints: sourceConstraints)
     }
 }
 
@@ -46,22 +49,25 @@ public enum LookupFirst {
         identify: (String) async throws -> String?,
         modelsReady: (String, String) async throws -> Bool,
         translate: (String, String, String) async throws -> String,
-        align: (String, String) async throws -> ImmersionResult,
+        align: (String, String, SourceLookupConstraints?) async throws -> ImmersionResult,
         partialReference: (String, String, String) async throws -> PartialImmersionResult? = { _, _, _ in nil },
+        sourceEvidenceIdentity: String? = nil,
+        sourceEvidence: ((String, String, String) async throws -> SourceLookupEvidence)? = nil,
         onPartial: (PartialImmersionResult) -> Void = { _ in }
     ) async throws -> LookupFirstOutcome {
         var calls = 0
         var readinessCalls = 0, alignmentCalls = 0
         var origin: ImmersionOrigin?
         var partial: PartialImmersionResult?
+        var constraints: SourceLookupConstraints?
         func stop(_ status: ImmersionStatus) -> LookupFirstOutcome {
             if let partial, valid(), status != .stale {
                 return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
                              localTranslationCalls: calls, fallbackStatus: status,
-                             modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
+                             modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: status == .stale ? nil : constraints)
             }
             return .init(result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil,
-                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
+                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: status == .stale ? nil : constraints)
         }
         guard valid() else { return stop(.stale) }
         let text = request.text, source = request.source, target = request.target, input = request.inputLanguage
@@ -82,15 +88,36 @@ public enum LookupFirst {
             else { detected = try await identify(text) }
             guard valid() else { return stop(.stale) }
             guard detected == source || detected == target else { return stop(.invalidLanguage) }
-            if detected == source, let sourcePartial {
-                guard sourcePartial.original == text,
-                      SourceReferencePresentation.validPartial(sourcePartial, target: target) else { return stop(.invalidResult) }
-                partial = sourcePartial; onPartial(sourcePartial)
+            if detected == source {
+                // Recognition is independent of display selection and also runs
+                // on a forward whole-reference hit. Never run/apply it in reverse.
+                var catalogPartial: PartialImmersionResult?
+                if let sourceEvidence {
+                    let evidence = try await sourceEvidence(text, source, target)
+                    guard valid() else { return stop(.stale) }
+                    guard let identity = sourceEvidenceIdentity,
+                          let checked = evidence.validated(text: text, sourceLanguage: source,
+                              targetLanguage: target, identity: identity) else { return stop(.invalidResult) }
+                    constraints = checked
+                    if forward == nil { catalogPartial = evidence.partial }
+                }
+                if let candidate = sourcePartial {
+                    guard candidate.original.utf8.elementsEqual(text.utf8),
+                          SourceReferencePresentation.validPartial(candidate, target: target) else { return stop(.invalidResult) }
+                    if let constraints { partial = constraints.filterPartial(candidate) }
+                    else { partial = candidate }
+                }
+                // A legacy face blocked by recognition must not hide an
+                // independently approved source head or force unnecessary MT.
+                if partial == nil, forward == nil, let catalogPartial {
+                    if let constraints { partial = constraints.filterPartial(catalogPartial) }
+                }
+                if let partial { onPartial(partial) }
             }
             guard valid() else { return stop(.stale) }
             if let partial, !partial.spans.isEmpty, request.intent == .automaticImmersion {
                 return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
-                             localTranslationCalls: 0, fallbackStatus: nil)
+                             localTranslationCalls: 0, fallbackStatus: nil, sourceConstraints: constraints)
             }
             let reversed = detected == target
             let known = forward ?? reverse
@@ -115,15 +142,17 @@ public enum LookupFirst {
             if let partial {
                 return .init(result: .partial(partial.withCompleteTranslation(targetText)), origin: .sourceReferencePartial,
                              status: .partial, localTranslationCalls: calls, fallbackStatus: .ready,
-                             modelReadinessCalls: readinessCalls, alignmentCalls: 0)
+                             modelReadinessCalls: readinessCalls, alignmentCalls: 0, sourceConstraints: constraints)
             }
             alignmentCalls += 1
-            let result = try await align(original, targetText)
+            let aligned = try await align(original, targetText, constraints)
             guard valid() else { return stop(.stale) }
-            guard result.original == original, result.translation == targetText, anchored(result) else { return stop(.invalidResult) }
+            guard aligned.original.utf8.elementsEqual(original.utf8), aligned.translation.utf8.elementsEqual(targetText.utf8),
+                  anchored(aligned) else { return stop(.invalidResult) }
+            let result = constraints?.filterLegacy(aligned) ?? aligned
             return .init(result: .complete(result), origin: origin, status: .ready,
                          localTranslationCalls: calls, fallbackStatus: nil,
-                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls)
+                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: constraints)
         } catch is CancellationError { throw CancellationError() }
         catch { return stop(valid() ? .error : .stale) }
     }

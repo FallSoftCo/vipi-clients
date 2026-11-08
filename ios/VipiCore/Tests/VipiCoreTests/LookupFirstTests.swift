@@ -30,7 +30,7 @@ import XCTest
                 if self.staleDuringTranslation { self.current = false }
                 return self.translated
             },
-            align: { source, target in
+            align: { source, target, _ in
                 self.alignCalls += 1
                 return .init(original: self.badAlignment ? "wrong source" : source, translation: target, spans: [])
             },

@@ -154,13 +154,17 @@ private actor DelayedFullReadingQA {
     func testSourceUnitSeamPreservesAuthoredPriorityAndInvalidatesKnownSnapshot() async throws {
         var observed: [Set<String>] = [], readiness = 0
         let provider = SourceUnitLookup(identity: "synthetic-admission-v1") { context in
-            observed.append(context.knownConceptIDs); return self.sourceUnitFixture(context)
+            observed.append(context.knownConceptIDs)
+            return SourceLookupEvidence(original: context.original, source: context.pair.source,
+                target: context.pair.target, catalogIdentity: "synthetic-admission-v1",
+                partial: self.sourceUnitFixture(context), recognitions: [])
         }
         let owner = ConversationImmersion(modelStatus: { _ in readiness += 1; return .unsupported }, sourceUnits: provider)
         defer { owner.close() }
         await owner.configure(pair: .init(source: "en", target: "es"), density: 0.5, knownConceptIDs: ["water"])
         let authored = await owner.result(for: "I need water. This ending has no authored reference.", inputLanguage: "en")
-        XCTAssertNotNil(authored); XCTAssertTrue(observed.isEmpty)
+        XCTAssertNotNil(authored); XCTAssertEqual(observed, [["water"]])
+        observed.removeAll() // Recognition runs even when authored display wins.
         let text = "water and music"
         let firstValue = await owner.result(for: text, inputLanguage: "en")
         let first = try XCTUnwrap(firstValue)
@@ -178,11 +182,42 @@ private actor DelayedFullReadingQA {
         XCTAssertEqual(next.speech(mode: .original, source: "en", target: "es"), [.init(text: text, language: "en")])
     }
 
+    func testSourceConstraintsApplyToActualAuthoredWholeReferenceAndCache() async throws {
+        let text = "I need water."
+        var observations = 0, readiness = 0
+        let provider = SourceUnitLookup(identity: "synthetic-water-mask-v1") { context in
+            observations += 1
+            return SourceLookupEvidence(original: context.original, source: context.pair.source,
+                target: context.pair.target, catalogIdentity: "synthetic-water-mask-v1", partial: nil,
+                recognitions: [.init(ruleID: "synthetic-ambiguous-water", recordSHA256: String(repeating: "b", count: 64),
+                    context: .init(location: 0, length: text.utf16.count), mask: .init(location: 7, length: 5),
+                    mode: .ambiguous, approvedOutputs: [])])
+        }
+        let owner = ConversationImmersion(modelStatus: { _ in readiness += 1; return .unsupported }, sourceUnits: provider)
+        defer { owner.close() }
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 1)
+        let first = await owner.result(for: text, inputLanguage: "en")
+        XCTAssertNotNil(first?.translation)
+        XCTAssertTrue(first?.spans.allSatisfy { NSIntersectionRange($0.range, .init(location: 7, length: 5)).length == 0 } == true)
+        XCTAssertEqual(owner.lastOutcome?.origin, .lookupReference)
+        XCTAssertEqual(owner.lastOutcome?.sourceConstraints?.recognitions.count, 1)
+        XCTAssertEqual(observations, 1); XCTAssertEqual(readiness, 0)
+        _ = await owner.result(for: text, inputLanguage: "en")
+        XCTAssertEqual(observations, 1); XCTAssertTrue(owner.lastOutcome?.cacheHit == true)
+        XCTAssertEqual(owner.lastOutcome?.sourceConstraints?.recognitions.count, 1)
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.25, knownConceptIDs: ["water"])
+        _ = await owner.result(for: text, inputLanguage: "en")
+        XCTAssertEqual(observations, 2); XCTAssertEqual(readiness, 0)
+    }
+
     func testSourceUnitSnapshotRejectsLateOldGeneration() async throws {
         let gate = DelayedFullReadingQA()
         var observed: [Set<String>] = []
         let provider = SourceUnitLookup(identity: "synthetic-admission-v1") { context in
-            observed.append(context.knownConceptIDs); await gate.hold(); return self.sourceUnitFixture(context)
+            observed.append(context.knownConceptIDs); await gate.hold()
+            return SourceLookupEvidence(original: context.original, source: context.pair.source,
+                target: context.pair.target, catalogIdentity: "synthetic-admission-v1",
+                partial: self.sourceUnitFixture(context), recognitions: [])
         }
         let owner = ConversationImmersion(modelStatus: { _ in .unsupported }, sourceUnits: provider)
         defer { owner.close(); Task { await gate.release() } }
@@ -667,7 +702,7 @@ private actor DelayedFullReadingQA {
                     translations += 1
                     XCTFail("Unsupported simulator must never enqueue native inference")
                     throw CancellationError()
-                }, align: { original, translation in
+                }, align: { original, translation, _ in
                     alignments += 1
                     let supplemental = try await BundledLexicalCatalog.shared.entries(original: original, translation: translation, pair: pair)
                     return try await catalog.result(original: original, translation: translation, pair: pair, density: 0.25, supplementalEntries: supplemental)

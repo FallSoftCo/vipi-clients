@@ -57,14 +57,16 @@ public struct SourceReferenceUnit: Sendable, Equatable {
     /// Present only when the supplying catalog has a qualified stable concept
     /// identity. Sentence references and legacy aligned spans do not infer one.
     public let conceptID: String?
+    /// Explicit catalog proof only; legacy/aligned text never infers an ID.
+    public let outputID: String?
 
     public init(range: NSRange, original: String, translated: String, reading: String?,
                 referenceID: String, catalogSHA256: String, nativeSourceTokens: Int,
-                conceptID: String? = nil) {
+                conceptID: String? = nil, outputID: String? = nil) {
         self.range = range; self.original = original; self.translated = translated
         self.reading = reading; self.referenceID = referenceID; self.catalogSHA256 = catalogSHA256
         self.nativeSourceTokens = nativeSourceTokens
-        self.conceptID = conceptID
+        self.conceptID = conceptID; self.outputID = outputID
     }
 }
 
