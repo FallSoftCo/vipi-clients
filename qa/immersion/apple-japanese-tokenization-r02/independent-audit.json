@@ -1,0 +1,353 @@
+{
+  "schema": "vipi.japanese-tokenization-independent-audit.1",
+  "inputs_sha256": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+  "capture_sha256": "3387adc48fafb9c062704bb62ccbb9b12e7312ddbb74beba06b1481279ed1e87",
+  "baseline_capture_sha256": "354fffe3f367d1d0c0d8caa74d13259c7f054e018f8165f26feaa0f1ea2b42ba",
+  "rows": 37,
+  "statuses": {
+    "tokenized": 36,
+    "input_length_rejected": 1
+  },
+  "warm_equal_rows": 37,
+  "raw_native_and_literal_ranges_unchanged": true,
+  "first_median_ms": 1.0495416354387999,
+  "warm_median_ms": 0.9396250825375319,
+  "first_max_ms": 46.85612500179559,
+  "peak_rss_bytes": 49070080,
+  "cases": [
+    {
+      "id": "ja-authored_control-1",
+      "status": "tokenized",
+      "tokens": 11,
+      "raw_native_words": 10,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-authored_control-2",
+      "status": "tokenized",
+      "tokens": 6,
+      "raw_native_words": 5,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-authored_control-3",
+      "status": "tokenized",
+      "tokens": 6,
+      "raw_native_words": 5,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-authored_control-4",
+      "status": "tokenized",
+      "tokens": 8,
+      "raw_native_words": 7,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-contrast-1",
+      "status": "tokenized",
+      "tokens": 7,
+      "raw_native_words": 6,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-contrast-2",
+      "status": "tokenized",
+      "tokens": 10,
+      "raw_native_words": 8,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-contrast-3",
+      "status": "tokenized",
+      "tokens": 6,
+      "raw_native_words": 4,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-contrast-4",
+      "status": "tokenized",
+      "tokens": 7,
+      "raw_native_words": 6,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-mixed_unknown-1",
+      "status": "tokenized",
+      "tokens": 9,
+      "raw_native_words": 9,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-mixed_unknown-2",
+      "status": "tokenized",
+      "tokens": 9,
+      "raw_native_words": 8,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-mixed_unknown-3",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 9,
+      "protected_ranges": 1,
+      "diagnostics": [
+        "uri_non_ascii_boundary_ambiguous"
+      ],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-mixed_unknown-4",
+      "status": "tokenized",
+      "tokens": 10,
+      "raw_native_words": 9,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-wait",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-sure",
+      "status": "tokenized",
+      "tokens": 3,
+      "raw_native_words": 2,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-together",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-stamps",
+      "status": "tokenized",
+      "tokens": 5,
+      "raw_native_words": 4,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-loans",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-final_geminate",
+      "status": "tokenized",
+      "tokens": 2,
+      "raw_native_words": 1,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-decomposed_kana",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-halfwidth_kana",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-long_vowels",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-particles",
+      "status": "tokenized",
+      "tokens": 11,
+      "raw_native_words": 9,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-combining_latin",
+      "status": "tokenized",
+      "tokens": 7,
+      "raw_native_words": 7,
+      "protected_ranges": 0,
+      "diagnostics": [
+        "native_grapheme_boundary_coalesced"
+      ],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-email_numbers",
+      "status": "tokenized",
+      "tokens": 9,
+      "raw_native_words": 13,
+      "protected_ranges": 3,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-code",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 5,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-unknown_han",
+      "status": "tokenized",
+      "tokens": 5,
+      "raw_native_words": 4,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-mixed_arabic",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 3,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-emoji",
+      "status": "tokenized",
+      "tokens": 3,
+      "raw_native_words": 2,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-latin_only",
+      "status": "tokenized",
+      "tokens": 3,
+      "raw_native_words": 8,
+      "protected_ranges": 2,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-max_japanese",
+      "status": "tokenized",
+      "tokens": 8192,
+      "raw_native_words": 8192,
+      "protected_ranges": 0,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-max_identifier",
+      "status": "tokenized",
+      "tokens": 2,
+      "raw_native_words": 8192,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "ja-guard-over_limit",
+      "status": "input_length_rejected"
+    },
+    {
+      "id": "new-control-url-delimited",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 8,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "new-control-opaque-code",
+      "status": "tokenized",
+      "tokens": 5,
+      "raw_native_words": 5,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "new-control-handle",
+      "status": "tokenized",
+      "tokens": 4,
+      "raw_native_words": 4,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "android-provider-ja-literal-1",
+      "status": "tokenized",
+      "tokens": 8,
+      "raw_native_words": 9,
+      "protected_ranges": 1,
+      "diagnostics": [],
+      "exact_partition": true
+    },
+    {
+      "id": "android-provider-ja-literal-2",
+      "status": "tokenized",
+      "tokens": 2,
+      "raw_native_words": 12,
+      "protected_ranges": 1,
+      "diagnostics": [
+        "uri_non_ascii_boundary_ambiguous"
+      ],
+      "exact_partition": true
+    }
+  ]
+}

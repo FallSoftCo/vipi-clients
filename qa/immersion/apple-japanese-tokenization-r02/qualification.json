@@ -1,0 +1,77 @@
+{
+  "schema": "vipi.apple-japanese-tokenization-qualification.1",
+  "qualified_utc": "2026-11-08T10:17:50.575627+00:00",
+  "scope": "Native macOS Japanese token geometry prerequisite only; separate from frozen English-Swahili/Spanish alignment arm. No app/runtime activation or translation calls.",
+  "freeze": {
+    "schema": "vipi.japanese-tokenization-freeze.1",
+    "files": {
+      "TokenizeJapanese.swift": "66a14a2029a06c011f96061fc617bc6ad241a9a90753a6cb688cf281d21268ef",
+      "inputs.json": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+      "contract.json": "c6b1ed942c5254c3f8c0f70ef23735745d1e9addbd991df87326f460b41a9265"
+    },
+    "outputs_not_yet_created": true
+  },
+  "artifact_hashes": {
+    "executable": "9b6eec0a0ffc8f7c4ed5e26038796765c918d99f73bb2573f7b6b0cad6fa776b",
+    "capture": "3387adc48fafb9c062704bb62ccbb9b12e7312ddbb74beba06b1481279ed1e87",
+    "summary": "8b8a299cdbfd2f35c42a97831683cd8ea082ec3427d9d3f414fa1569ed0963c0",
+    "independent_audit": "afb9430a68cd32567ccca387e480fb220c974ebb50d9d7bf168d9d8788824ca4",
+    "auditor": "8801546ddf7ca9265edd009888a619fd42dcdd940aa3b46ff1d2247f773017cd",
+    "guest_execution": "c6bc31c74206ed72da1e8543d7bcea1ff12e6a12477aebf42cb4cf4bff67f95a",
+    "native_capacity": "5aab109fcdad55627b495ba19a9b15ae17251986aef311f20670804c4b24ce0a"
+  },
+  "native": {
+    "os": "Version 26.6.2 (Build 25G83)",
+    "sdk": "macOS26.5",
+    "deployment_target": "arm64-apple-macosx26.4",
+    "swift_language_mode": "6",
+    "compiler_optimization": "-O",
+    "existing_module_cache_reused": true,
+    "compile_seconds": 3.7041101455688477,
+    "runner_wall_seconds": 0.8785967826843262,
+    "capture_seconds": 0.4918690832564607,
+    "provider_calls": 0,
+    "asset_requests": 0
+  },
+  "results": {
+    "rows": 37,
+    "statuses": {
+      "tokenized": 36,
+      "input_length_rejected": 1
+    },
+    "warm_equal_rows": 37,
+    "raw_native_and_literal_ranges_unchanged": true,
+    "first_median_ms": 1.0495416354387999,
+    "warm_median_ms": 0.9396250825375319,
+    "first_max_ms": 46.85612500179559,
+    "peak_rss_bytes": 49070080
+  },
+  "resource_admission": {
+    "additional_budget_bytes": 67108864,
+    "guest_margin_bytes": 536870912,
+    "guest_before_bytes": 709677056,
+    "guest_minimum_bytes": 706416640,
+    "guest_after_bytes": 706416640,
+    "native_physical_reserve_bytes": 1073741824,
+    "native_before_bytes": 3208421376,
+    "native_minimum_bytes": 3208138752,
+    "native_after_bytes": 3208138752,
+    "basis": "Small standalone Swift CLI with measured existing cache reuse; not a full app build/model-preparation admission."
+  },
+  "retained_initial_failure": {
+    "source_sha256": "39158c99fa7ef401ecd2a63c7462a50344b059a19ae76d3f4f46fa34cd2497d3",
+    "capture_sha256": "354fffe3f367d1d0c0d8caa74d13259c7f054e018f8165f26feaa0f1ea2b42ba",
+    "effect": "All accepted originals reconstructed, but projected emoji/currency/combining-mark callback surfaces were mislabeled word. NFD José split across one grapheme.",
+    "correction": "Generic Unicode surface kind and adjacent-boundary coalescing only inside original grapheme. Raw native ranges and all protected intervals exactly unchanged.",
+    "raw_capture_retained": true
+  },
+  "limitations": [
+    "37 retained authored/provider diagnostic cases, not corpus or population coverage.",
+    "Native first means first call in this process, not cold OS boot or model cache.",
+    "Two URI-with-Japanese boundary cases remain conservative opaque ranges with explicit ambiguity diagnostics. Not a general URI/Markdown parser.",
+    "Projected native calls operate on exact nonliteral regions and may segment differently from whole text; raw whole-text ranges are retained.",
+    "No readings, lemmas, senses, translation meanings or alignment quality inferred from tokens.",
+    "One over-limit input is explicitly rejected; it is not counted as an exact partition.",
+    "8MiB output guard can stop a batch; callers must inspect completion and retain any prefix rather than claiming full coverage."
+  ]
+}

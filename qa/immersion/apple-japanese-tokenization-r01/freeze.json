@@ -1,0 +1,9 @@
+{
+  "schema": "vipi.japanese-tokenization-freeze.1",
+  "files": {
+    "TokenizeJapanese.swift": "39158c99fa7ef401ecd2a63c7462a50344b059a19ae76d3f4f46fa34cd2497d3",
+    "inputs.json": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+    "contract.json": "c89b01c79f71dc1372ba7e2247284c3678a24a111506c437f7f0b7b595eb2db4"
+  },
+  "outputs_not_yet_created": true
+}

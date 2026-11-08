@@ -1,0 +1,36 @@
+{
+  "schema": "vipi.japanese-tokenization-contract.1",
+  "policy": "native-ja-regions-and-literals-2",
+  "scope": "Separate Japanese geometry prerequisite; unchanged EN-SW/ES corpus arm. No translation/reading/lemma/sense/POS/model acquisition.",
+  "native_api": "https://developer.apple.com/documentation/naturallanguage/nltokenizer",
+  "language": "ja",
+  "raw": "Whole unchanged text NLTokenizer.word with explicit Japanese locale, including attributes and original ranges.",
+  "projection": "Protected intervals copied whole; each unchanged nonliteral region separately NLTokenizer.word tokenized and original offsets restored. Exact gaps become punctuation/symbol/other or separators. Native region geometry may differ from whole-text geometry; both retained. Projected native surfaces are classified by Unicode letters/digits, whitespace, punctuation and symbols; the NL word callback does not by itself make emoji or currency a word. Adjacent native ranges are coalesced only when their shared boundary cuts a single original grapheme; raw whole-text native ranges remain unchanged.",
+  "offsets": "Half-open original Unicode scalar/codepoint and UTF16 offsets. No normalization. Grapheme alignment separately recorded.",
+  "kinds": [
+    "word",
+    "punctuation",
+    "literal",
+    "symbol",
+    "other"
+  ],
+  "reconstruction": "Sorted tokens+separators cover original exactly once; whitespace internal to code remains in its literal. No partial protected overlap.",
+  "literal_policy": "Code/Latin email/handle/number/Latin separator or alphanumeric identifier; supported ASCII URI. Broad non-ASCII URI bodies conservatively protected and diagnosed as boundary ambiguous, including undelimited Japanese suffixes. Not a general URI/Markdown parser.",
+  "limits": {
+    "maximum_utf16": 16384,
+    "maximum_rows": 512,
+    "output_bytes": 8388608
+  },
+  "initial_cases": 37,
+  "evidence_limits": [
+    "Retained authored/provider diagnostics, not new human conversational or population coverage.",
+    "Native geometry and exact reconstruction do not prove linguistic alignment or meanings.",
+    "Oversize input retained as an explicit rejected row, not a successful partition."
+  ],
+  "frozen_utc": "2026-11-08T10:15:00.007444+00:00",
+  "revision": {
+    "parent_source_sha256": "39158c99fa7ef401ecd2a63c7462a50344b059a19ae76d3f4f46fa34cd2497d3",
+    "same_input_sha256": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+    "reason": "R01 reconstructed all accepted inputs but classified emoji/currency/isolated combining marks as words and split the NFD name José. Generic Unicode classification and grapheme-boundary-only coalescing; no phrase-specific overrides."
+  }
+}
