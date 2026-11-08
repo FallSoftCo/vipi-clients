@@ -148,6 +148,7 @@ struct FriendConversationView: View {
     @State private var reporting: HumanReportSelection?
     @State private var followingLatest = true
     @State private var scrolling = false
+    @State private var userScrolling = false
     @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
     @State private var jumpRevision = 0
     @State private var firstMessageFrame = CGRect.zero
@@ -156,6 +157,7 @@ struct FriendConversationView: View {
     @State private var pageAnchorID: UUID?
     @State private var pageAnchorFrame = CGRect.zero
     @State private var pageRestore: Task<Void, Never>?
+    @State private var viewportRestore: Task<Void, Never>?
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
     private var messageNotice: String? { error ?? chat.notice }
     private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
@@ -296,21 +298,41 @@ struct FriendConversationView: View {
                 .defaultScrollAnchor(followingLatest ? .bottom : nil, for: .sizeChanges)
                 .onScrollPhaseChange { _, phase in
                     scrolling = phase.isScrolling
+                    userScrolling = phase == .interacting || phase == .decelerating
                     if phase == .tracking || phase == .interacting {
                         cancelPageRestoration()
+                        viewportRestore?.cancel(); viewportRestore = nil
                     }
                 }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
                     ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
                                          content: geometry.contentSize.height,
-                                         insets: geometry.contentInsets.top + geometry.contentInsets.bottom)
+                                         bottomInset: geometry.contentInsets.bottom)
                 } action: { old, new in
+                    #if DEBUG
+                    LiveImmersionQualification.record(["event": "viewport", "offset": Double(new.offset),
+                        "height": Double(new.height), "content": Double(new.content), "bottom_inset": Double(new.bottomInset),
+                        "following_latest": followingLatest, "scrolling": scrolling, "user_scrolling": userScrolling,
+                        "composing": composing, "draft_empty": text.isEmpty])
+                    #endif
                     viewportHeight = new.height
                     scrollOffset = new.offset
-                    if new.nearBottom || scrolling { followingLatest = new.nearBottom }
-                    // Composer/row remeasurement can adjust the offset without a user scroll.
-                    if followingLatest && (old.height != new.height || old.content != new.content || old.insets != new.insets) {
-                        position.scrollTo(edge: .bottom)
+                    // Only a user's scroll changes reading intent. Lazy row
+                    // estimates can briefly look like the bottom during a
+                    // keyboard resize, even while reading much older messages.
+                    if userScrolling { followingLatest = new.nearBottom }
+                    // Wait until a real viewport resize settles before moving
+                    // the scroll position. Mutating it during lazy layout can
+                    // invalidate the visible rows or feed another measurement.
+                    if followingLatest && !scrolling && abs(old.height - new.height) > 0.5 {
+                        viewportRestore?.cancel()
+                        viewportRestore = Task { @MainActor in
+                            do { try await Task.sleep(for: .milliseconds(80)) }
+                            catch { return }
+                            guard followingLatest && !scrolling else { return }
+                            position.scrollTo(edge: .bottom)
+                            viewportRestore = nil
+                        }
                     }
                 }
                 .refreshable { await chat.synchronize(); refresh() }
@@ -378,7 +400,7 @@ struct FriendConversationView: View {
             await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
             prepareVoices()
         }
-        .onDisappear { cancelPageRestoration(); immersion.close(); speech.close() }
+        .onDisappear { cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; immersion.close(); speech.close() }
         .onChange(of: scenePhase) { _, phase in
             if phase != .active { cancelPageRestoration(); speech.stop() }
             else { Task { await immersion.refreshAvailability(); prepareVoices() } }
@@ -473,8 +495,10 @@ private struct ConversationViewport: Equatable {
     let offset: CGFloat
     let height: CGFloat
     let content: CGFloat
-    let insets: CGFloat
-    var nearBottom: Bool { content - offset - height <= 44 }
+    let bottomInset: CGFloat
+    // visibleRect includes the area underneath the composer and keyboard.
+    // A message hidden there must not count as being at the visible bottom.
+    var nearBottom: Bool { content + bottomInset - offset - height <= 44 }
 }
 
 struct OwnDeviceReplacementView: View {

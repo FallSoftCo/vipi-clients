@@ -49,6 +49,17 @@ struct ImmersionBubble: View {
     private var active: Bool { speech?.activeMessage == messageID }
     private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && effectiveMode == .immersed && !result.spans.isEmpty }
     private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
+    #if DEBUG
+    private var qualificationKey: String { "\(visible)|\(scenePhase)|\(paused)|\(selecting)|\(choosingPace)|\(interactionPaused)|\(speech?.activeMessage ?? "")|\(String(describing: speech?.state))|\(voiceOver)|\(effectiveMode)|\(result.spans.count)|\(originalPhase)|\(revision)" }
+    private func recordLiveState() {
+        LiveImmersionQualification.record(["message_id": messageID, "visible": visible, "scene_active": scenePhase == .active,
+            "explicit_pause": paused, "selecting": selecting, "choosing_pace": choosingPace,
+            "interaction_paused": interactionPaused, "speech_active": speech?.activeMessage != nil,
+            "speech_state": String(describing: speech?.state), "speech_underruns": speech?.outputUnderruns ?? 0,
+            "voiceover": voiceOver, "mode": effectiveMode.rawValue, "spans": result.spans.count,
+            "original_phase": originalPhase, "eligible": eligible, "pace": pace])
+    }
+    #endif
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
         #if DEBUG
@@ -134,6 +145,7 @@ struct ImmersionBubble: View {
             } message: { Text("Currently \(pace.capitalized)") }
             .onAppear { visible = true }
             #if DEBUG
+            .onChange(of: qualificationKey, initial: true) { recordLiveState() }
             .onAppear { VoiceOverQualification.record("appeared", enabled: voiceOver, original: originalPhase) }
             .onChange(of: voiceOver) { VoiceOverQualification.record("voiceover_changed", enabled: voiceOver, original: originalPhase) }
             .onChange(of: originalPhase) { VoiceOverQualification.record("phase_changed", enabled: voiceOver, original: originalPhase) }

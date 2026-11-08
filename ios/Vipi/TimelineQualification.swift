@@ -2,6 +2,25 @@
 import SwiftUI
 import Security
 
+/// Explicit debug-only observation of owned live QA sessions. Contains no
+/// message text, keys, tokens or audio; it never changes presentation state.
+@MainActor enum LiveImmersionQualification {
+    static func record(_ fields: [String: Any]) {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard let index = arguments.firstIndex(of: "-vipi-live-immersion-state"), index + 1 < arguments.count else { return }
+        let revision = arguments[index + 1]
+        guard revision.count == 3, revision.allSatisfy(\.isNumber) else { return }
+        let file = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("live-immersion-state-\(revision).jsonl")
+        if let size = try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize, size > 524_288 { return }
+        var row = fields; row["at"] = Date().timeIntervalSince1970
+        guard var data = try? JSONSerialization.data(withJSONObject: row, options: [.sortedKeys]) else { return }
+        data.append(10)
+        if !FileManager.default.fileExists(atPath: file.path) { FileManager.default.createFile(atPath: file.path, contents: nil) }
+        guard let handle = try? FileHandle(forWritingTo: file) else { return }
+        defer { try? handle.close() }; try? handle.seekToEnd(); try? handle.write(contentsOf: data)
+    }
+}
+
 /// Records real platform state only in the explicitly selected synthetic QA
 /// conversation. Absent from Release, and never enabled for a signed-in chat.
 @MainActor enum VoiceOverQualification {

@@ -25,7 +25,7 @@ final class ChatTimelineTests: XCTestCase {
     }
     @MainActor func testReadingPositionIncomingAppendKeyboardAndOwnSend() throws {
         continueAfterFailure = true
-        let app = XCUIApplication(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-appearance-light"]; app.launch()
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-appearance-light", "-vipi-live-immersion-state", "011"]; app.launch()
         defer {
             let finish = app.buttons["timeline-qa-finish"]
             if finish.exists { finish.tap() }
@@ -54,7 +54,14 @@ final class ChatTimelineTests: XCTestCase {
         let sent = app.staticTexts["A draft while reading"]
         XCTAssertTrue(sent.waitForExistence(timeout: 5)); XCTAssertTrue(sent.isHittable)
         XCTAssertFalse(jump.exists)
-        timeline.swipeDown()
+        // The scroll view's accessibility frame extends behind the keyboard.
+        // Keep this real drag within the visible messages, above the composer.
+        let visibleTop = max(timeline.frame.minY, app.navigationBars.firstMatch.frame.maxY)
+        let visibleBottom = min(timeline.frame.maxY, input.frame.minY - 20)
+        XCTAssertGreaterThan(visibleBottom - visibleTop, 140)
+        let origin = app.coordinate(withNormalizedOffset: .zero)
+        origin.withOffset(CGVector(dx: timeline.frame.midX, dy: visibleTop + 40))
+            .press(forDuration: 0.1, thenDragTo: origin.withOffset(CGVector(dx: timeline.frame.midX, dy: visibleBottom - 20)))
         XCTAssertTrue(jump.waitForExistence(timeout: 5)); jump.tap()
         XCTAssertTrue(sent.isHittable); XCTAssertFalse(jump.exists)
         app.buttons["timeline-qa-append"].tap()

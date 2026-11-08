@@ -2,6 +2,125 @@ import XCTest
 
 @MainActor
 final class ChatConversationTests: XCTestCase {
+    func testObserveExistingImmersionThroughComposerAndSpeech() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01" else { throw XCTSkip("Owned native session required") }
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light", "-vipi-live-immersion-state", "010"]; app.launch()
+        dismissOptionalOffer(app)
+        let friend = app.staticTexts["Vipi Android QA"].firstMatch
+        XCTAssertTrue(friend.waitForExistence(timeout: 30)); friend.tap()
+        let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I need ' AND label CONTAINS 'I like '")).firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        var observations: [[String: Any]] = []
+        defer {
+            if let data = try? JSONSerialization.data(withJSONObject: observations, options: [.sortedKeys]) {
+                let attachment = XCTAttachment(data: data, uniformTypeIdentifier: "public.json")
+                attachment.name = "live-state-visible-phases"; attachment.lifetime = .keepAlways; add(attachment)
+            }
+        }
+        func observe(_ stage: String, seconds: Double) {
+            print("VIPI_LIVE_STATE_STAGE " + stage)
+            let deadline = Date().addingTimeInterval(seconds); var previous = ""
+            while Date() < deadline {
+                let text = paragraph.label, frame = paragraph.frame
+                observations.append(["stage": stage, "at": Date().timeIntervalSince1970, "text": text,
+                    "x": Double(frame.minX), "y": Double(frame.minY), "width": Double(frame.width), "height": Double(frame.height)])
+                if text != previous { capture("live-state-" + stage + "-" + String(observations.count)); previous = text }
+                Thread.sleep(forTimeInterval: 0.7)
+            }
+        }
+        observe("before-composer", seconds: 20)
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.exists); input.tap()
+        observe("empty-composer-focused", seconds: 25)
+        input.typeText("x")
+        observe("draft-nonempty", seconds: 5)
+        input.typeText(XCUIKeyboardKey.delete.rawValue)
+        observe("draft-cleared-still-focused", seconds: 25)
+        let frame = paragraph.frame
+        let menu = app.buttons.matching(identifier: "Reading options").allElementsBoundByIndex
+            .filter { $0.frame.minY >= frame.maxY - 1 && $0.frame.minY < frame.maxY + 85 }
+            .min { $0.frame.minY < $1.frame.minY }
+        let control = try XCTUnwrap(menu); control.tap()
+        XCTAssertTrue(app.buttons["Listen"].waitForExistence(timeout: 10)); app.buttons["Listen"].tap()
+        observe("after-listen", seconds: 25)
+        for stage in ["before-composer", "empty-composer-focused", "draft-cleared-still-focused", "after-listen"] {
+            let labels = observations.filter { $0["stage"] as? String == stage }.compactMap { $0["text"] as? String }
+            let transitions = zip(labels, labels.dropFirst()).filter { $0 != $1 }.count
+            XCTAssertGreaterThanOrEqual(transitions, 3, "Continuous switching must resume in " + stage)
+        }
+        let drafting = observations.filter { $0["stage"] as? String == "draft-nonempty" }.compactMap { $0["text"] as? String }
+        XCTAssertLessThanOrEqual(Set(drafting).count, 1, "Active composition keeps words still")
+    }
+    func testLiveSwahiliImmersionConversation() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01",
+              ProcessInfo.processInfo.environment["VIPI_QA_LIVE_SW"] == "4ccee4cd1b9e79a60e018902af278e85bc34377c75162eef066960b6aa4d0e6e" else {
+            throw XCTSkip("Frozen eight-turn protocol and owned peer required")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light"]; app.launch()
+        dismissOptionalOffer(app)
+        XCTAssertTrue(app.buttons["Your profile and settings"].waitForExistence(timeout: 30)); app.buttons["Your profile and settings"].tap()
+        app.buttons["language-settings-link"].tap()
+        app.buttons["language-source-picker"].tap()
+        XCTAssertTrue(app.buttons["English"].waitForExistence(timeout: 10)); app.buttons["English"].tap()
+        app.buttons["language-target-picker"].tap()
+        let swahili = app.buttons["Swahili · Kiswahili"]
+        for _ in 0..<4 { if swahili.exists && swahili.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(swahili.exists); swahili.tap()
+        capture("live-sw-selected-language-availability")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        let friend = app.staticTexts["Vipi Android QA"].firstMatch
+        XCTAssertTrue(friend.waitForExistence(timeout: 15)); friend.tap()
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 15))
+        let incoming = ["I need water.", "Can you meet me after work?", "Do you want to listen to some music?", "Let's have lunch tomorrow."]
+        let outgoing = ["I am drinking coffee now.", "I will be home in twenty minutes.", "I like music.", "That sounds good. See you soon."]
+        print("VIPI_LIVE_SW_RECEIVER_READY " + ISO8601DateFormatter().string(from: Date()))
+        for index in 0..<incoming.count {
+            let original = app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", incoming[index])).firstMatch
+            XCTAssertTrue(original.waitForExistence(timeout: 150), "Original source face must remain recoverable without a tap")
+            print("VIPI_LIVE_SW_RECEIVED_\(index * 2 + 1) " + ISO8601DateFormatter().string(from: Date()))
+            capture("live-sw-received-\(index * 2 + 1)")
+            if index == 0 {
+                let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I need '")).firstMatch
+                XCTAssertTrue(paragraph.waitForExistence(timeout: 15))
+                var samples: [[String: Any]] = [], previous = "", transitions = 0
+                let deadline = Date().addingTimeInterval(29)
+                while Date() < deadline {
+                    let label = paragraph.label, frame = paragraph.frame
+                    if label != previous {
+                        if !previous.isEmpty { transitions += 1 }
+                        capture("live-sw-water-phase-\(transitions)"); previous = label
+                    }
+                    samples.append(["at": Date().timeIntervalSince1970, "label": label,
+                                    "x": Double(frame.minX), "y": Double(frame.minY), "width": Double(frame.width), "height": Double(frame.height)])
+                    Thread.sleep(forTimeInterval: 0.65)
+                }
+                let evidence = XCTAttachment(data: try JSONSerialization.data(withJSONObject: samples, options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+                evidence.name = "live-sw-three-cycle-geometry"; evidence.lifetime = .keepAlways; add(evidence)
+                XCTAssertGreaterThanOrEqual(transitions, 6)
+                XCTAssertTrue(samples.contains { ($0["label"] as? String)?.contains("maji") == true })
+                XCTAssertTrue(samples.contains { $0["label"] as? String == incoming[0] })
+                let widths = samples.compactMap { $0["width"] as? Double }, heights = samples.compactMap { $0["height"] as? Double }
+                XCTAssertLessThan((widths.max() ?? 0) - (widths.min() ?? 0), 0.5)
+                XCTAssertLessThan((heights.max() ?? 0) - (heights.min() ?? 0), 0.5)
+                // The latest incoming bubble owns the last reading menu. No word
+                // taps occur; the action plays the faces currently on screen.
+                let menus = app.buttons.matching(identifier: "Reading options")
+                menus.element(boundBy: menus.count - 1).tap()
+                XCTAssertTrue(app.buttons["Listen"].waitForExistence(timeout: 15)); app.buttons["Listen"].tap()
+                capture("live-sw-water-native-listen")
+                Thread.sleep(forTimeInterval: 5)
+            }
+            input.tap(); input.typeText(outgoing[index]); app.buttons["message-send"].tap()
+            print("VIPI_LIVE_SW_SENT_\(index * 2 + 2) " + ISO8601DateFormatter().string(from: Date()))
+            capture("live-sw-sent-\(index * 2 + 2)")
+        }
+        print("VIPI_LIVE_SW_EXCHANGE_COMPLETE " + ISO8601DateFormatter().string(from: Date()))
+        let tree = XCTAttachment(string: app.debugDescription); tree.name = "live-sw-final-accessibility"; tree.lifetime = .keepAlways; add(tree)
+    }
     func testForegroundExchangeWithoutRefresh() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01",
               let sent = ProcessInfo.processInfo.environment["VIPI_QA_FOREGROUND_SEND"],
