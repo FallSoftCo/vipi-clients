@@ -1,0 +1,51 @@
+{
+  "schema": "vipi-contextual-action-bounded-attempt-1",
+  "state": "stopped_harness_limit",
+  "default_enabled": false,
+  "regular_message_action_button_retained": true,
+  "runtime_fix": "Remove custom relabeling of standard long-click; reserve distinct named custom Message actions action. Native touch listener remains.",
+  "r85": {
+    "failure": "Named action was aliased to standard ACTION_LONG_CLICK by AndroidX same-label reuse.",
+    "log_sha256": "29c92b8b5a8f4703dbf5a0e2c8f734e56343ea272075a3f73cd508c076cbcd2e",
+    "run_receipt_sha256": "b0a3fdc8a423c766bd13e475261cda9e95ee6bdbe859572d165573236412fa5e"
+  },
+  "r86": {
+    "failure": "New test-only assertion that an unattached capacity view must advertise standard ACTION_LONG_CLICK failed at line33.",
+    "verified_before_failure": [
+      "30 separate word actions",
+      "overflow chooser callback",
+      "exactly one named Message actions action",
+      "named Message actions uses a distinct custom ID"
+    ],
+    "unexecuted_after_failure": [
+      "named Message actions callback",
+      "actual ChatScreens Japanese continuation",
+      "actual ChatScreens Arabic/large-text continuation",
+      "TalkBack and keyboard completion"
+    ],
+    "log_sha256": "d8f272246d7d76cfd1b11b008dd0ba295b62bc96817d0ce5d1b0cf7fc90a5738",
+    "run_receipt_sha256": "6d62a11c62e22e6cc70ba66c7fb049e8f506e7a159ce487558265c56b739ed80"
+  },
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": "01dc97e660d4655ac1325e6a5b44081cbfc3c6bd2992ebe8ab4c7afc12d5ee42",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/MessageActionCapacityDeviceTest.kt": "2e7eb78e236b85042336716c7991d647f2d63474ad7d3653b82c487f341e2b12"
+  },
+  "frozen_manifest_sha256": "b73f80439d6932330f3b8b9e2f8c8a61f2513d46e7843ec1a111eda13ee49aec",
+  "androidx_inspection_sha256": "01562fe2d843a4bbd5f18d2c52687596a3b4cbb70816f05f80dc355f2ce1c979",
+  "scope": [
+    "No promotion or store readiness claim",
+    "No actual peer traffic",
+    "No additional gesture retry after this harness failure",
+    "Same inherited matcher source as r83, not final clean committed release baseline"
+  ],
+  "exact_settings_restored_both_runs": true,
+  "private_closure_sha256": "38ca69c02ad6cdf79e381a428fe3fb0db247326b7d8b23a82e59d0d6ff65d542",
+  "private_closure_path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/contextual-actions-r01/bounded-completion-r86.json",
+  "checkpoint_source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": "01dc97e660d4655ac1325e6a5b44081cbfc3c6bd2992ebe8ab4c7afc12d5ee42",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/MessageActionCapacityDeviceTest.kt": "a27ca93ab36f582ac8286b0f0c9495e51e16e3507477de733f9ddbaa23b4743a"
+  },
+  "test_only_postrun_correction": "Removed unsupported standard ACTION_LONG_CLICK assertion from detached custom-action capacity fixture. Corrected test not rerun; callback and attached UI gates remain unqualified.",
+  "final_decision": "Preserve regular visible message-action button; contextual gesture candidate remains DEBUG-only/default false. Stop detached-view test work and prioritize phrase/template comparison.",
+  "previous_qualification": "qa/immersion/android-contextual-message-actions-qualification-r01.json"
+}

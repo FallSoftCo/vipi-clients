@@ -80,9 +80,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         setTextIsSelectable(action == null || selectText)
         setOnLongClickListener(if (action != null && !selectText) OnLongClickListener { messageActions?.invoke(); true } else null)
         if (action != null) { isFocusable = true; isFocusableInTouchMode = true; isLongClickable = true }
-        if (action != null && !selectText) ViewCompat.replaceAccessibilityAction(this,
-            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK, "Message actions") { _, _ -> messageActions?.invoke(); true }
-        else ViewCompat.removeAccessibilityAction(this, AccessibilityNodeInfoCompat.ACTION_LONG_CLICK)
+        // Keep the native long-click action provided by the listener. AndroidX
+        // reuses actions by label, so labelling that standard action "Message
+        // actions" would alias the distinct custom action below to its ID.
+        ViewCompat.removeAccessibilityAction(this, AccessibilityNodeInfoCompat.ACTION_LONG_CLICK)
         result?.let(::updateAccessibilityActions)
         if (enteringSelection) { pendingSelection = true; beginPendingSelection() }
     }

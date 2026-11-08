@@ -27,7 +27,12 @@ class MessageActionCapacityDeviceTest {
             assertTrue(view.performAccessibilityAction(switches.last().id, null)); assertEquals(result.spans[29].id, switched)
             val chooser = node.actionList.single { it.label?.toString() == "Choose a word to switch" }
             assertTrue(view.performAccessibilityAction(chooser.id, null)); assertEquals(1, chooserCalls)
-            val message = node.actionList.first { it.label?.toString() == "Message actions" && it.id != android.view.accessibility.AccessibilityNodeInfo.ACTION_LONG_CLICK }
+            val named = node.actionList.filter { it.label?.toString() == "Message actions" }
+            assertEquals("One named action, distinct from native long-click: ${node.actionList}", 1, named.size)
+            assertNotEquals(android.view.accessibility.AccessibilityNodeInfo.ACTION_LONG_CLICK, named.single().id)
+            // This detached fixture covers custom action allocation/callbacks;
+            // native long-click advertisement belongs to the attached UI test.
+            val message = named.single()
             assertTrue(view.performAccessibilityAction(message.id, null)); assertEquals(1, messageCalls)
         }
     }
