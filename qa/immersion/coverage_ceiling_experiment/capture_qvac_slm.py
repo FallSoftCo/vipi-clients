@@ -72,6 +72,7 @@ def main():
     result = {"schema": "vipi-qvac-slm-local-provider-1", "production": False,
               "mobile_runtime_qualified": False, "independent_semantic_acceptance": False,
               "plan_sha256": sha(args.plan), "input_sha256": sha(args.protocol),
+              "source_selection_sha256": protocol.get("source_protocol_sha256"),
               "runner_sha256": sha(__file__), "server_sha256": sha(args.server),
               "model_sha256": sha(args.model), "chat_template_sha256": sha(args.chat_template),
               "command": command, "limits": limits, "complete": False,
