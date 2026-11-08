@@ -76,7 +76,7 @@ class InvalidTranslationCacheLifecycleDeviceTest {
                         try { engine.presentation(text, "en"); assertNotEquals("cancellation must propagate", "cancellation", kind) }
                         catch (_: CancellationException) { assertEquals("cancellation", kind) }
                     }
-                    assertEquals(2, transient.calls); passed("transient_$kind_not_negative_cached", transient.calls)
+                    assertEquals(2, transient.calls); passed("transient_${kind}_not_negative_cached", transient.calls)
                 }
             }
             val bounded = Counting()
