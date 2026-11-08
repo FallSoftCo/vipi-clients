@@ -1,0 +1,24 @@
+{
+  "schema": "vipi-source-clause-freeze-3",
+  "production": false,
+  "frozen_unix": 1794105275.5223014,
+  "lexicon_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "rules_sha256": "eb8511d784486abb378ac35536205b176ad31ced1f38c4526ddfddaa496191c5",
+  "clauses_sha256": "9a00ab449b1d63d0e8ce38841e2d5efba9634978258e3f01397b8224329429fc",
+  "evaluator_sha256": "c77bbd2f98244158b145fe6deb8077b34d877c5682106bb2435e6cd059374031",
+  "base_evaluator_sha256": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+  "development_contrast_sha256": "2b6a47d2cc4c5db32022a84fb466b9ba1db439f440ae7bf4406c8189669b31e6",
+  "clause_units": 15,
+  "clause_predicate_concepts": 10,
+  "expected_benefit": "Correct content depth and finite forms, not just one-word availability already credited to I. Frequency-first source units selected on TRAIN; no new reference sentences from held-out data.",
+  "selection": "Complete content clauses before individual content words, then existing source unit priority. Primary is one unit;25% arm applies strict source-word budget. Whole exact clause credit separately recorded and preferred over a fragment for a full-match message.",
+  "new_holdout": "80 new VALID free-human convai2 messages, 26/27/27 length strata, excluding all prior160 VALID dialogues and prior protocol text.",
+  "research_advance_only": {
+    "primary_clean_useful_at_least": 72,
+    "primary_material_or_scope_errors_at_most": 2,
+    "content_clean_useful_at_least": 40
+  },
+  "additional_effect_measure": "Paired correct content depth and content-bearing messages versus frozen219-word/12-question-rule control; report availability failure even if depth improves.",
+  "scoring": "Exact source scopes and outputs, selected-unit semantic review, independent24 fixed before outputs. Material sense/scope errors separate from minor grammar/uncertainty. New whole clauses reviewed, never automatic full-MT credit.",
+  "production_promotion": false
+}

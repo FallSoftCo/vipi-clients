@@ -1,0 +1,10 @@
+{
+  "production": false,
+  "scope": "Descriptive source-concept grouping correction; no source candidate, target, rank, guard or output changes.",
+  "frozen_lexicon_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "source_forms": 219,
+  "declared_concept_ids": 162,
+  "missing_number_alias_merges": [["job","jobs"],["place","places"],["mountain","mountains"],["cake","cakes"]],
+  "corrected_source_concept_groups": 158,
+  "limitation": "These are explicit source grouping conventions, not unique semantic senses or a measured vocabulary acquisition outcome. Frozen policy and historical counts remain preserved."
+}

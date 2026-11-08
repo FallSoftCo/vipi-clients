@@ -1,0 +1,1745 @@
+{
+  "schema": "vipi-reviewed-source-clause-research-3",
+  "production": false,
+  "training_only": true,
+  "entries": [
+    {
+      "id": "clause-en-sw-i-like",
+      "source": "i like",
+      "target": "ninapenda",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 447,
+      "evidence_id": "penda",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-love",
+      "source": "i love",
+      "target": "ninapenda",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 570,
+      "evidence_id": "penda",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-want",
+      "source": "i want",
+      "target": "ninataka",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 58,
+      "evidence_id": "taka",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "reject_right": [
+        "for"
+      ]
+    },
+    {
+      "id": "clause-en-sw-i-need",
+      "source": "i need",
+      "target": "ninahitaji",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 41,
+      "evidence_id": "hitaji",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-know",
+      "source": "i know",
+      "target": "ninajua",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 91,
+      "evidence_id": "jua",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-think",
+      "source": "i think",
+      "target": "ninafikiri",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 184,
+      "evidence_id": "fikiri",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-enjoy",
+      "source": "i enjoy",
+      "target": "ninafurahia",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 79,
+      "evidence_id": "furahia",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "reject_right": [
+        "myself"
+      ]
+    },
+    {
+      "id": "clause-en-sw-i-live",
+      "source": "i live",
+      "target": "ninaishi",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 68,
+      "evidence_id": "ishi",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "allow_right": [
+        "in",
+        "near",
+        "with",
+        "at"
+      ],
+      "guard": "live_residence_context"
+    },
+    {
+      "id": "clause-en-sw-i-work",
+      "source": "i work",
+      "target": "ninafanya kazi",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 95,
+      "evidence_id": "fanya+kazi",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "allow_right": [
+        "at",
+        "in",
+        "from",
+        "for",
+        "as",
+        "during",
+        "part",
+        "full"
+      ],
+      "guard": "work_employment_or_task_context"
+    },
+    {
+      "id": "clause-en-sw-i-teach",
+      "source": "i teach",
+      "target": "ninafundisha",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 19,
+      "evidence_id": "fundisha",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-i-have",
+      "source": "i have",
+      "target": "nina",
+      "person": "first_singular",
+      "question": false,
+      "train_occurrences": 540,
+      "evidence_id": "na",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "possession": true
+    },
+    {
+      "id": "clause-en-sw-do-you-have",
+      "source": "do you have",
+      "target": "Je, una",
+      "person": "second_singular_recipient",
+      "question": true,
+      "train_occurrences": 261,
+      "evidence_id": "na",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition.",
+      "possession": true
+    },
+    {
+      "id": "clause-en-sw-do-you-like",
+      "source": "do you like",
+      "target": "Je, unapenda",
+      "person": "second_singular_recipient",
+      "question": true,
+      "train_occurrences": 283,
+      "evidence_id": "penda",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-do-you-want",
+      "source": "do you want",
+      "target": "Je, unataka",
+      "person": "second_singular_recipient",
+      "question": true,
+      "train_occurrences": 10,
+      "evidence_id": "taka",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    },
+    {
+      "id": "clause-en-sw-do-you-know",
+      "source": "do you know",
+      "target": "Je, unajua",
+      "person": "second_singular_recipient",
+      "question": true,
+      "train_occurrences": 19,
+      "evidence_id": "jua",
+      "meaning_review": "Complete present-person predicate, with remaining source complement kept in English. No isolated-root slicing. Targets explicitly attested finite forms except separately documented possession/phrase composition."
+    }
+  ],
+  "attestation": {
+    "raw_sha256": "f5859f14d739f12b1dd3c373bffead2a47920b746af436511cef4f2b8cea7320",
+    "license": "CC-BY-SA-4.0; exact headword URLs retained",
+    "rows": [
+      {
+        "raw_line": 157,
+        "word": "na",
+        "pos": "conj",
+        "senses": [
+          {
+            "links": [
+              [
+                "and",
+                "and"
+              ]
+            ],
+            "glosses": [
+              "and"
+            ],
+            "id": "en-na-sw-conj-YgERG4Og"
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/na#Swahili"
+      },
+      {
+        "raw_line": 158,
+        "word": "na",
+        "pos": "prep",
+        "senses": [
+          {
+            "examples": [
+              {
+                "text": "كِطَّمْسِكِزَ گَوُجُهَّالِ ، نُرُ نَمِيَاغَ اِتَظَلَالِ",
+                "ref": "18th century, Abdallah bin Ali bin Nasir, Al-Inkishafi, stanza 9:",
+                "english": "Brightness and lights will overcome the shadow and darkness of ignorance",
+                "roman": "Kiṭamsi-kiza cha-ujuhali, nuru na-mianga itaẓalali",
+                "type": "quotation",
+                "bold_text_offsets": [
+                  [
+                    34,
+                    36
+                  ]
+                ],
+                "translation": "Brightness and lights will overcome the shadow and darkness of ignorance",
+                "bold_translation_offsets": [
+                  [
+                    11,
+                    14
+                  ],
+                  [
+                    47,
+                    50
+                  ]
+                ]
+              }
+            ],
+            "links": [
+              [
+                "with",
+                "with"
+              ]
+            ],
+            "glosses": [
+              "with"
+            ],
+            "id": "en-na-sw-prep-BpW1Y6ze",
+            "categories": [
+              {
+                "name": "Swahili prepositions",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 36 36 27"
+              }
+            ]
+          },
+          {
+            "links": [
+              [
+                "by",
+                "by"
+              ]
+            ],
+            "glosses": [
+              "by"
+            ],
+            "id": "en-na-sw-prep-p-LSbo0V",
+            "categories": [
+              {
+                "name": "Swahili prepositions",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 36 36 27"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/na#Swahili"
+      },
+      {
+        "raw_line": 159,
+        "word": "na",
+        "pos": "verb",
+        "senses": [
+          {
+            "examples": [
+              {
+                "text": "sinacho",
+                "bold_text_offsets": [
+                  [
+                    2,
+                    4
+                  ]
+                ],
+                "translation": "I do not have it",
+                "english": "I do not have it",
+                "bold_translation_offsets": [
+                  [
+                    9,
+                    13
+                  ]
+                ],
+                "type": "example"
+              }
+            ],
+            "links": [
+              [
+                "-wa na",
+                "wa na#Swahili"
+              ]
+            ],
+            "glosses": [
+              "present stem of -wa na (“to have”)"
+            ],
+            "tags": [
+              "form-of",
+              "present",
+              "stem"
+            ],
+            "form_of": [
+              {
+                "word": "-wa na",
+                "extra": "to have"
+              }
+            ],
+            "id": "en-na-sw-verb-wT21IlqB",
+            "categories": [
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 0 0 100"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 0 0 100"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 0 0 100"
+              },
+              {
+                "name": "Swahili prepositions",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 36 36 27"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/na#Swahili"
+      },
+      {
+        "raw_line": 648,
+        "word": "taka",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "want",
+                "want"
+              ]
+            ],
+            "glosses": [
+              "to want"
+            ],
+            "id": "en-taka-sw-verb-lNUNkoH8"
+          },
+          {
+            "links": [
+              [
+                "about to",
+                "about to"
+              ]
+            ],
+            "glosses": [
+              "to be about to (followed by an imperative or bare verb stem)"
+            ],
+            "id": "en-taka-sw-verb-YUffhYoa",
+            "derived": [
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Reciprocal",
+                "word": "-takana",
+                "_dis1": "0 100"
+              }
+            ],
+            "categories": [
+              {
+                "name": "Pages with 27 entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "2 7 2 0 0 1 2 1 1 4 1 1 0 1 1 0 1 0 0 3 3 0 0 1 1 0 0 1 1 1 3 4 1 1 1 1 2 0 0 1 1 1 1 1 1 1 1 1 2 1 1 0 8 3 3 2 3 5 6 3"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "3 9 1 0 0 1 1 1 1 5 1 1 0 1 1 0 1 0 0 4 4 0 0 0 0 0 0 1 1 1 2 6 1 1 1 1 2 0 0 1 1 1 1 1 1 1 1 0 1 1 1 0 11 4 4 1 4 4 4 4"
+              },
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "15 85"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "16 11 4 69"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "16 12 4 68"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "7 0 6 87"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "14 7 2 77"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninataka",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          },
+          {
+            "form": "unataka",
+            "tags": [
+              "present",
+              "second-person",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/taka#Swahili"
+      },
+      {
+        "raw_line": 649,
+        "word": "taka",
+        "pos": "noun",
+        "senses": [
+          {
+            "links": [
+              [
+                "dirt",
+                "dirt"
+              ],
+              [
+                "filth",
+                "filth"
+              ]
+            ],
+            "glosses": [
+              "dirt, filth"
+            ],
+            "tags": [
+              "class-ix"
+            ],
+            "id": "en-taka-sw-noun-EmEs0ibT"
+          },
+          {
+            "examples": [
+              {
+                "tags": [
+                  "collocation"
+                ],
+                "text": "taka hatarishi",
+                "bold_text_offsets": [
+                  [
+                    0,
+                    4
+                  ]
+                ],
+                "translation": "hazardous waste",
+                "english": "hazardous waste",
+                "bold_translation_offsets": [
+                  [
+                    10,
+                    15
+                  ]
+                ],
+                "type": "example"
+              },
+              {
+                "tags": [
+                  "collocation"
+                ],
+                "text": "taka ngumu",
+                "bold_text_offsets": [
+                  [
+                    0,
+                    4
+                  ]
+                ],
+                "translation": "solid waste",
+                "english": "solid waste",
+                "bold_translation_offsets": [
+                  [
+                    6,
+                    11
+                  ]
+                ],
+                "type": "example"
+              }
+            ],
+            "links": [
+              [
+                "rubbish",
+                "rubbish"
+              ],
+              [
+                "waste",
+                "waste"
+              ]
+            ],
+            "synonyms": [
+              {
+                "word": "takataka"
+              }
+            ],
+            "glosses": [
+              "rubbish, waste"
+            ],
+            "tags": [
+              "class-ix"
+            ],
+            "id": "en-taka-sw-noun-Bx8vO484",
+            "categories": [
+              {
+                "name": "Swahili terms with collocations",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/taka#Swahili"
+      },
+      {
+        "raw_line": 695,
+        "word": "ishi",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "live",
+                "live"
+              ]
+            ],
+            "glosses": [
+              "to live"
+            ],
+            "id": "en-ishi-sw-verb-ipZlC7B7"
+          },
+          {
+            "links": [
+              [
+                "exist",
+                "exist"
+              ],
+              [
+                "dwell",
+                "dwell"
+              ]
+            ],
+            "glosses": [
+              "to exist; to dwell"
+            ],
+            "id": "en-ishi-sw-verb-0jkM6hp5",
+            "categories": [
+              {
+                "name": "Pages with 5 entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "44 56"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "43 57"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "26 74"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "28 72"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "0 100"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "19 81"
+              },
+              {
+                "name": "Swahili verbs in the Arabic conjugation",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "35 65"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninaishi",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/ishi#Swahili"
+      },
+      {
+        "raw_line": 721,
+        "word": "jua",
+        "pos": "noun",
+        "senses": [
+          {
+            "links": [
+              [
+                "sun",
+                "sun"
+              ]
+            ],
+            "glosses": [
+              "sun"
+            ],
+            "id": "en-jua-sw-noun-J3VvBQ4U",
+            "related": [
+              {
+                "word": "mwezi"
+              },
+              {
+                "word": "nyota"
+              }
+            ],
+            "categories": [
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "100 0"
+              },
+              {
+                "name": "Astronomy",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Astronomy",
+                "langcode": "sw",
+                "_dis": "100 0"
+              },
+              {
+                "name": "Light sources",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Light sources",
+                "langcode": "sw",
+                "_dis": "50 50"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/jua#Swahili"
+      },
+      {
+        "raw_line": 722,
+        "word": "jua",
+        "pos": "verb",
+        "senses": [
+          {
+            "examples": [
+              {
+                "text": "اَوُرَكِيْبُوُ جُوَ نِمَاسِ ، كَكُلَ خَسَرَ اُخَسِرِيِ",
+                "ref": "18th century, Abdallah bin Ali bin Nasir, Al-Inkishafi, stanza 13:",
+                "english": "The one who rides it, know you are a rebel; you harm yourself.",
+                "roman": "Aurakibuo jua ni-mwasi, kwa-kula khasara ukhasiriye.",
+                "type": "quotation",
+                "bold_text_offsets": [
+                  [
+                    15,
+                    19
+                  ]
+                ],
+                "translation": "The one who rides it, know you are a rebel; you harm yourself.",
+                "bold_translation_offsets": [
+                  [
+                    22,
+                    26
+                  ]
+                ]
+              }
+            ],
+            "links": [
+              [
+                "know",
+                "know"
+              ]
+            ],
+            "glosses": [
+              "to know"
+            ],
+            "id": "en-jua-sw-verb-Vk7G5aRj",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "25 75"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "25 75"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "25 75"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "25 75"
+              },
+              {
+                "name": "Light sources",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Light sources",
+                "langcode": "sw",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Thinking",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Thinking",
+                "langcode": "sw",
+                "_dis": "21 79"
+              }
+            ],
+            "derived": [
+              {
+                "tags": [
+                  "applicative",
+                  "verb"
+                ],
+                "word": "-julia"
+              },
+              {
+                "tags": [
+                  "causative",
+                  "verb"
+                ],
+                "word": "-julisha"
+              },
+              {
+                "tags": [
+                  "causative",
+                  "verb"
+                ],
+                "word": "-juvya"
+              },
+              {
+                "tags": [
+                  "causative",
+                  "verb"
+                ],
+                "word": "-yuza"
+              },
+              {
+                "tags": [
+                  "passive",
+                  "verb"
+                ],
+                "word": "-juliwa"
+              },
+              {
+                "tags": [
+                  "stative",
+                  "verb"
+                ],
+                "word": "-julika"
+              },
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Reciprocal",
+                "word": "-juana"
+              },
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Other formations",
+                "english": "to be famous",
+                "translation": "to be famous",
+                "word": "-julikana"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "knowledgeable person, experienced person",
+                "translation": "knowledgeable person, experienced person",
+                "word": "mjuzi"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "knowledge, experience",
+                "translation": "knowledge, experience",
+                "word": "ujuzi"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninajua",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          },
+          {
+            "form": "unajua",
+            "tags": [
+              "present",
+              "second-person",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/jua#Swahili"
+      },
+      {
+        "raw_line": 1137,
+        "word": "penda",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "love",
+                "love"
+              ],
+              [
+                "like",
+                "like"
+              ]
+            ],
+            "glosses": [
+              "to love, like"
+            ],
+            "id": "en-penda-sw-verb-uYwf8asK",
+            "categories": [
+              {
+                "name": "Pages with 7 entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ],
+            "derived": [
+              {
+                "tags": [
+                  "applicative",
+                  "verb"
+                ],
+                "word": "-pendea"
+              },
+              {
+                "tags": [
+                  "causative",
+                  "verb"
+                ],
+                "english": "be pleasing, be attractive",
+                "translation": "be pleasing, be attractive",
+                "word": "-pendeza"
+              },
+              {
+                "tags": [
+                  "passive",
+                  "verb"
+                ],
+                "word": "-pendwa"
+              },
+              {
+                "tags": [
+                  "stative",
+                  "verb"
+                ],
+                "english": "be popular",
+                "translation": "be popular",
+                "word": "-pendeka"
+              },
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Reciprocal",
+                "word": "-pendana"
+              },
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Reciprocal",
+                "word": "-pendanisha"
+              },
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Other formations",
+                "word": "-pendelea"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "love, affection",
+                "translation": "love, affection",
+                "word": "mapenzi"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "mpendaji"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "lover",
+                "translation": "lover",
+                "word": "mpenzi"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "upendaji"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "love",
+                "translation": "love",
+                "word": "upendo"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "love",
+                "translation": "love",
+                "word": "upenzi"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninapenda",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          },
+          {
+            "form": "unapenda",
+            "tags": [
+              "present",
+              "second-person",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/penda#Swahili"
+      },
+      {
+        "raw_line": 2056,
+        "word": "kazi",
+        "pos": "noun",
+        "senses": [
+          {
+            "links": [
+              [
+                "work",
+                "work"
+              ],
+              [
+                "business",
+                "business"
+              ]
+            ],
+            "glosses": [
+              "work, business"
+            ],
+            "tags": [
+              "class-ix"
+            ],
+            "id": "en-kazi-sw-noun-zzNtFkYA",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "81 19"
+              }
+            ]
+          },
+          {
+            "links": [
+              [
+                "job",
+                "job"
+              ],
+              [
+                "occupation",
+                "occupation"
+              ]
+            ],
+            "glosses": [
+              "job, occupation"
+            ],
+            "tags": [
+              "class-ix"
+            ],
+            "id": "en-kazi-sw-noun-fOeWM~xi",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "50 50"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [],
+        "url": "https://en.wiktionary.org/wiki/kazi#Swahili"
+      },
+      {
+        "raw_line": 5225,
+        "word": "fanya",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "do",
+                "do"
+              ]
+            ],
+            "synonyms": [
+              {
+                "word": "tenda"
+              }
+            ],
+            "glosses": [
+              "to do"
+            ],
+            "id": "en-fanya-sw-verb-IXZV9I3e"
+          },
+          {
+            "links": [
+              [
+                "pretend",
+                "pretend"
+              ]
+            ],
+            "raw_glosses": [
+              "(in reflexive forms) to pretend"
+            ],
+            "glosses": [
+              "to pretend"
+            ],
+            "raw_tags": [
+              "in reflexive forms"
+            ],
+            "id": "en-fanya-sw-verb-VRTZ8XNb",
+            "derived": [
+              {
+                "tags": [
+                  "verb"
+                ],
+                "sense": "Reciprocal",
+                "word": "-fanyana",
+                "_dis1": "0 100"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "mfanya",
+                "_dis1": "0 100"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "mfanyaji",
+                "_dis1": "0 100"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "mfanyi",
+                "_dis1": "0 100"
+              }
+            ],
+            "categories": [
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "39 61"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninafanya",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/fanya#Swahili"
+      },
+      {
+        "raw_line": 6219,
+        "word": "fundisha",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "-funda",
+                "funda#Swahili"
+              ],
+              [
+                "teach",
+                "teach"
+              ]
+            ],
+            "glosses": [
+              "Causative form of -funda: to teach"
+            ],
+            "tags": [
+              "causative",
+              "form-of"
+            ],
+            "form_of": [
+              {
+                "word": "-funda",
+                "extra": "to teach"
+              }
+            ],
+            "id": "en-fundisha-sw-verb-zUeI225Z",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili terms suffixed with -isha",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Education",
+                "kind": "other",
+                "parents": [],
+                "source": "w",
+                "orig": "sw:Education",
+                "langcode": "sw"
+              }
+            ],
+            "derived": [
+              {
+                "tags": [
+                  "applicative",
+                  "verb"
+                ],
+                "word": "-fundishia"
+              },
+              {
+                "tags": [
+                  "passive",
+                  "verb"
+                ],
+                "english": "be taught",
+                "translation": "be taught",
+                "word": "-fundishwa"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "teachings",
+                "translation": "teachings",
+                "word": "mafundisho"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "teaching",
+                "translation": "teaching",
+                "word": "ufundishaji"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninafundisha",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/fundisha#Swahili"
+      },
+      {
+        "raw_line": 6516,
+        "word": "hitaji",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "need",
+                "need"
+              ]
+            ],
+            "glosses": [
+              "to need"
+            ],
+            "id": "en-hitaji-sw-verb-fCXPH8yL",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili verbs in the Arabic conjugation",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ],
+            "derived": [
+              {
+                "tags": [
+                  "stative",
+                  "verb"
+                ],
+                "word": "-hitajika"
+              },
+              {
+                "sense": "Nominal derivations",
+                "word": "mhitaji"
+              },
+              {
+                "sense": "Nominal derivations",
+                "english": "need, requirement",
+                "translation": "need, requirement",
+                "word": "uhitaji"
+              }
+            ],
+            "related": [
+              {
+                "word": "haja"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninahitaji",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/hitaji#Swahili"
+      },
+      {
+        "raw_line": 7674,
+        "word": "fikiri",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "think",
+                "think"
+              ],
+              [
+                "ponder",
+                "ponder"
+              ]
+            ],
+            "synonyms": [
+              {
+                "word": "dhani"
+              }
+            ],
+            "glosses": [
+              "to think, ponder"
+            ],
+            "id": "en-fikiri-sw-verb-OWTdLtIg",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with 3 entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili verbs in the Arabic conjugation",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ],
+            "derived": [
+              {
+                "tags": [
+                  "applicative",
+                  "verb"
+                ],
+                "word": "-fikiria"
+              },
+              {
+                "tags": [
+                  "causative",
+                  "verb"
+                ],
+                "word": "-fikirisha"
+              },
+              {
+                "tags": [
+                  "stative",
+                  "verb"
+                ],
+                "word": "-fikirika"
+              }
+            ],
+            "related": [
+              {
+                "english": "thought",
+                "translation": "thought",
+                "word": "fikira"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninafikiri",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/fikiri#Swahili"
+      },
+      {
+        "raw_line": 9176,
+        "word": "furahia",
+        "pos": "verb",
+        "senses": [
+          {
+            "links": [
+              [
+                "-furahi",
+                "furahi#Swahili"
+              ],
+              [
+                "enjoy",
+                "enjoy"
+              ]
+            ],
+            "glosses": [
+              "Applicative form of -furahi: to enjoy"
+            ],
+            "tags": [
+              "applicative",
+              "form-of"
+            ],
+            "form_of": [
+              {
+                "word": "-furahi",
+                "extra": "to enjoy"
+              }
+            ],
+            "id": "en-furahia-sw-verb-VG7sqiQi",
+            "categories": [
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ]
+          }
+        ],
+        "exact_target_forms": [
+          {
+            "form": "ninafurahia",
+            "tags": [
+              "first-person",
+              "present",
+              "singular"
+            ],
+            "source": "conjugation"
+          }
+        ],
+        "url": "https://en.wiktionary.org/wiki/furahia#Swahili"
+      }
+    ]
+  },
+  "primary_grammar_sources": [
+    {
+      "url": "https://kiswahili.ku.edu/sites/kiswahili/files/documents/lessons/Lesson%201-10/all.pdf",
+      "scope": "University teaching examples corroborate first-person present liking, work expression, and sentence-initial Je question framing. Facts verify authored units; no full course passages imported."
+    },
+    {
+      "url": "https://openbooks.library.baylor.edu/elementaryswahili1/chapter/lesson-3-una-umri-gani/",
+      "scope": "Present possession contrasts nina and una; these are possession forms, not perfect auxiliaries."
+    },
+    {
+      "url": "https://openbooks.library.baylor.edu/elementaryswahili1/chapter/lesson-4-kutoka-na-kukaa-wapi/",
+      "scope": "Primary course indexed text describes subject-prefix/present/stem formation; direct page fetch403 retained as access limitation."
+    }
+  ],
+  "scope": "Exact words contiguous, no external modal/do auxiliary; positive present I predicates. Question units only sentence-initial and one-to-one singular recipient assumed. Have requires bounded explicit nominal complement and qualified following boundary; perfect, obligation and causative forms are inapplicable.",
+  "limitations": [
+    "Local guards are not a complete grammar or word-sense parser.",
+    "Finite predicates with English complements intentionally remain mixed language; target object agreement is not solved.",
+    "Question units do not claim plural recipient support.",
+    "Source absence and ambiguity are evaluated, not filled with model calls."
+  ]
+}
