@@ -1,0 +1,36 @@
+{
+  "schema": "vipi-japanese-full-reading-freeze-1",
+  "original_input_sha256": "98e26a9fa030796ea138bb92a5dd62d445c405259e90127b6a572b296d042a38",
+  "selected_input_sha256": "c643239f03a21c01cc16e78a302b4cdf285e76317498da171a8598dd7258c9d1",
+  "selection": "Exactly original twelve Japanese cases; original order; no outputs used for selection",
+  "probe_source": {
+    "path": "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseFullReadingProbeDeviceTest.kt",
+    "sha256": "0f97711039b609fade06e1d5292847253a7637fc8430ec55c771a680297f6e6e"
+  },
+  "production_source": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/LocalImmersion.kt",
+      "sha256": "4805b5f9abd6dacda9ec8e0c1b8b37852c28a04b7be8232cf986a50bf274c02b"
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/JapaneseSpeechReading.kt",
+      "sha256": "2f9cc0bdf84c11d21032469fbca42fac1dfe31019753d26b45fd7d9ace919930"
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/SentenceReadings.kt",
+      "sha256": "cd6601e7f74c8da221c4410f3c063bbc4dea678ceec466b5fbcd727f21d44d77"
+    }
+  ],
+  "protocol": [
+    "Exact native tokenizer surfaces/UTF16 ranges/POS/base/conjugation/readings/pronunciations/known flags; preserve raw UTF16 code units.",
+    "One first and one immediate warm tokenizer call per row; first probe call may include lazy tokenizer setup.",
+    "Observe existing JapaneseSpeechReading.convert result/error separately.",
+    "QA candidate selects native kana pronunciation, then kana reading fallback; Latin/digit/non-Japanese tokens preserved. Unresolved original text retained, and any remaining Japanese script makes full candidate unavailable.",
+    "Use public Android ICU29+ Hiragana-Katakana; Katakana-Latin only on selected kana; no whole-input generic transform or phrase overrides.",
+    "Retain gap-preserving output and separate spacing heuristic adding spaces only between adjacent transformed morphological tokens. Neither is semantically accepted.",
+    "Process PSS/RSS before, after ICU init, first tokenizer, midpoint and completion; timings are emulator observations, not acoustic/performance guarantees.",
+    "All12 cases retained; no semantic labels. Existing radio state unchanged; these local functions request no network/model download."
+  ],
+  "private_freeze_sha256": "88bfd445c39d6de22f0cade59f81f0530fc29b3a57e701cdac2d1266146f2be0",
+  "production_changed": false
+}
