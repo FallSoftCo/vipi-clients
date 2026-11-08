@@ -1,6 +1,54 @@
 # Verification ledger
 
-## Latest delivery checkpoint — November 8, 2026, 00:30 UTC
+## Latest delivery checkpoint — November 8, 2026, 01:01 UTC
+
+The current restricted staging service is `52d1f90`, deployed in 8.77 seconds
+with the existing database, schema, authentication configuration and shared
+nginx/PostgreSQL processes preserved. Three public WebSocket checks rejected
+unauthenticated access with close 4401; public health returned 200. The following
+observation found the service active, zero service restarts and no connection
+IP log entries. This is deployment evidence, not a production release.
+
+The frozen eight-message English→Swahili exchange completed between the two
+real native clients. Received and sent messages used real encryption and the
+live relay. Apple observed at least three automatic cycles with fixed geometry;
+Android rendered one mixed 24-kHz mono file and observed its actual player.
+The same run exposed intermittent stalled alternation on both platforms after
+composition. Those failures are retained and under diagnosis. The continuous
+live immersion gate remains open; earlier preview tests do not close it.
+
+Native device recovery now preserves remote trust across own-device replacement,
+binds confirmation to the reviewed new peer keys, handles uncertain responses
+without generating another candidate, and never marks accepted keys verified
+without a separate comparison. Apple executed 20 checks (two other existing
+credential-gated cases skipped); Android executed 13 recovery/audio checks and
+inspected the recovery actions at actual system font scale 1.8. Android also
+completed real hosted reauthentication: `auth_time` advanced and the live server
+accepted the same device and keys through its ten-minute freshness gate. Its
+test's later Activity teardown failure is retained separately.
+
+On the frozen 80-message development sample, cached local word/window
+translations matched against AfriSLM's full reference produced 56 clean useful
+messages and one material error at requested 10% density, compared with 34 and
+one for the current policy. Correct word depth was 11.69% versus 5.48%.
+At requested 50%, the experimental arm still produced material errors in 12/80.
+The current native route invoked full translation in 69/80 cases: the current
+packs do not avoid inference for most of these conversations. A disjoint
+80-dialogue BlendedSkillTalk sample and scoring rules were frozen before output.
+None of these experimental policies or models is promoted to runtime.
+
+The local AfriSLM 0.8B Q4 development run took median 3.41 seconds, p95 10.18
+seconds and about 1.82 GiB peak RSS over 80 inputs. Disabling the server's prompt
+cache in a separate eight-input check preserved all eight outputs and reduced
+observed peak RSS to about 1.04 GiB. These are desktop CPU measurements, not
+native mobile latency or memory qualification. Assistant semantic reviews
+disagree on some cases and are not bilingual gold labels or population accuracy.
+
+Company store authentication, actual billing and push providers, broader
+language quality, physical-runtime evidence and final corresponding-source
+publication remain open. No store upload or customer release has occurred.
+
+## Automatic delivery checkpoint — November 8, 2026, 00:30 UTC
 
 Both native apps now receive live encrypted messages in an open conversation
 without refresh, relaunch or receiver interaction, with notification permission
