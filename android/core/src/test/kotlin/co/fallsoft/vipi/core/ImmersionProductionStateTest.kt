@@ -47,7 +47,7 @@ class ImmersionProductionStateTest {
         val cache=BoundedImmersionCache<LookupFirstOutcome>(128);val partial=partial();var cancellations=0
         repeat(129) { i ->
             try {
-                immediate { LookupFirst.resolve(LookupFirstRequest(partial.original,"en","es","en"),{true},
+                immediate { LookupFirst.resolve(LookupFirstRequest(partial.original,"en","es","en",ImmersionIntent.FULL_TRANSLATION),{true},
                     reference={_,_,_->null},identify={"en"},modelsReady={true},
                     translate={_,_,_->throw CancellationException("synthetic cancellation")},
                     align={_,_,_->error("must not align after cancellation")},partialReference={_,_,_->partial},
