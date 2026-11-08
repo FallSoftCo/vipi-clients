@@ -21,14 +21,15 @@ final class BilingualPackTests: XCTestCase {
         let purpose: String; let public_key: Data; let cases: [Sample]
     }
     func testSignedBilingualSenseAndReadingRoundTrip() async throws {
-        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "bilingual-lookup", withExtension: "json"))
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "bilingual-lookup", withExtension: "json", subdirectory: "signed-pack-fixtures"))
         let fixture = try JSONDecoder().decode(Fixture.self, from: Data(contentsOf: url))
         XCTAssertEqual(fixture.purpose, "SYNTHETIC BILINGUAL QA ONLY")
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("bilingual-qa-\(UUID())")
         defer { try? FileManager.default.removeItem(at: root) }
-        let store = try VocabularyPackStore(root: root, trustedKeys: ["synthetic-bilingual-qa": fixture.public_key])
+        let prefix = "signed-fixture-" + UUID().uuidString.lowercased() + "-"
+        let store = try VocabularyPackStore(root: root, trustedKeys: ["synthetic-bilingual-qa": fixture.public_key], receiptPrefix: prefix)
         for sample in fixture.cases {
-            let key = "pack-" + sample.id
+            let key = prefix + sample.id
             guard try KeychainStore.read(account: key) == nil else { throw XCTSkip("Preserve installed pack receipt") }
             do {
                 let id = try await store.install(manifestBytes: sample.manifest, signature: sample.signature, database: sample.database)

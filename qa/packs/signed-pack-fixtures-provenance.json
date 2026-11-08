@@ -1,0 +1,20 @@
+{
+  "purpose": "Public synthetic signed installer QA only; no production trust or coverage claim",
+  "source_commit": "5c4dd9e60db5548c51196c287f236e62741300a0",
+  "generator_sha256": {
+    "language-packs/make_lookup_fixture.py": "e6638dca505d524d594275d94fea20c9759eca39981c9ca200de13d7a9a5b782",
+    "language-packs/make_bilingual_fixture.py": "2f2cb9f84c245f375f64c32f09965b7c4c77589a7fc10d816ad56ae773ab3e33",
+    "language-packs/test_bilingual.py": "b22249a123622e80eddb36053b6cd0d31578be282831f8102007e412f638cb65",
+    "language-packs/build_wiktextract.py": "afc43ad03bb93e079900a8f4cfcb7107a0da1a9b140aa6d87b3a8d503291699d",
+    "language-packs/export_bilingual.py": "6d1ecabeb3c0fbcb5895b9269814197a27b658524a5cdfc7339d0cef0ed6d8d3",
+    "language-packs/context_hints.py": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+  },
+  "fixture_sha256": {
+    "bilingual-lookup.json": "bf59d4e233904f4cc7fd0f551d68d7edba0cf1143ef8492f9afba9a2a0186043",
+    "signed-lookup.json": "09a2b98762fca57d9012bea22f2aed2746c9cdb28bb0b1bca828cec95c5e1ff4"
+  },
+  "python": "3.12.6",
+  "sqlite": "3.45.1",
+  "cryptography": "41.0.7",
+  "signing": "Ephemeral P256 private keys generated in memory and never written; only public key, signed payload, and signature retained."
+}

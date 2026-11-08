@@ -1,4 +1,5 @@
 import CryptoKit
+import Darwin
 import Foundation
 import SQLite3
 import VipiCore
@@ -20,7 +21,29 @@ struct VocabularyManifest: Codable, Sendable {
     let native_source_guard_sha256: String?
 }
 
-enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage }
+enum VocabularyPackError: Error { case invalid, untrustedKey, signature, rollback, storage, reinstallRequired, cleanupPending }
+struct VocabularyPackStatus: Sendable {
+    let acceptedRevision: Int?
+    let acceptedHash: String?
+    let active: Bool
+    let reinstallRequired: Bool
+    let cleanupPendingFiles: [String]
+}
+enum VocabularyPackCheckpoint: Sendable, Equatable { case waitingForNamespace, staged, beforeDirectorySync, beforeActivation, cleanup, beforeRemoval }
+
+/// One Keychain namespace may have more than one actor handle. Its short-lived
+/// native lock covers synchronous disk/Keychain work without any await inside.
+private final class VocabularyPackNamespaces: @unchecked Sendable {
+    static let shared = VocabularyPackNamespaces()
+    private let guardLock = NSLock()
+    private var locks: [String: NSRecursiveLock] = [:]
+    func lock(_ namespace: String) -> NSRecursiveLock {
+        guardLock.withLock {
+            if let existing = locks[namespace] { return existing }
+            let value = NSRecursiveLock(); locks[namespace] = value; return value
+        }
+    }
+}
 enum VocabularyPackKind: Sendable {
     case vocabulary, reviewedContext, reviewedFrame
     var reviewed: Bool { self != .vocabulary }
@@ -51,22 +74,123 @@ actor VocabularyPackStore {
     private let trustedKeys: [String: Data]
     private let receiptPrefix: String
     private let kind: VocabularyPackKind
+    private let namespaceLock: NSRecursiveLock
     private struct Accepted: Codable { let revision: Int; let hash: String }
-    private struct Pointer: Codable { let file: String; let manifest: VocabularyManifest }
+    private struct Activation: Codable { let file: String; let manifestBytes: Data; let signature: Data }
+    private struct Record: Codable {
+        let schema: String
+        let accepted: Accepted
+        let active: Activation?
+        enum CodingKeys: String, CodingKey { case schema, accepted, active }
+        init(schema: String, accepted: Accepted, active: Activation?) {
+            self.schema = schema; self.accepted = accepted; self.active = active
+        }
+        init(from decoder: Decoder) throws {
+            let fields = try decoder.container(keyedBy: CodingKeys.self)
+            guard fields.contains(.active) else { throw VocabularyPackError.invalid }
+            schema = try fields.decode(String.self, forKey: .schema)
+            accepted = try fields.decode(Accepted.self, forKey: .accepted)
+            active = try fields.decodeIfPresent(Activation.self, forKey: .active)
+        }
+        func encode(to encoder: Encoder) throws {
+            var fields = encoder.container(keyedBy: CodingKeys.self)
+            try fields.encode(schema, forKey: .schema); try fields.encode(accepted, forKey: .accepted)
+            if let active { try fields.encode(active, forKey: .active) }
+            else { try fields.encodeNil(forKey: .active) }
+        }
+    }
+    private enum Saved { case absent, legacy(Accepted), current(Record)
+        var accepted: Accepted? {
+            switch self { case .absent: nil; case .legacy(let value): value; case .current(let value): value.accepted }
+        }
+    }
+    #if DEBUG
+    private var qualificationFailure: (@Sendable (VocabularyPackCheckpoint) throws -> Void)?
+    func qualifyFailure(_ hook: @escaping @Sendable (VocabularyPackCheckpoint) throws -> Void) { qualificationFailure = hook }
+    #endif
 
     init(root: URL, trustedKeys: [String: Data], receiptPrefix: String = "pack-", kind: VocabularyPackKind = .vocabulary) throws {
         guard receiptPrefix.range(of: "^[a-z0-9-]{1,64}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
         self.kind = kind
         self.root = kind.reviewed ? root.appendingPathComponent(kind == .reviewedFrame ? "reviewed-frames" : "reviewed-contexts") : root
         self.trustedKeys = trustedKeys; self.receiptPrefix = (kind.reviewed ? (kind == .reviewedFrame ? "frame-" : "context-") : "") + receiptPrefix
+        namespaceLock = VocabularyPackNamespaces.shared.lock(self.receiptPrefix)
         try FileManager.default.createDirectory(at: self.root, withIntermediateDirectories: true)
     }
     private func validID(_ id: String) -> Bool { id.range(of: #"^[a-z]{2,3}-[a-z]{2,3}$"#, options: .regularExpression) != nil }
-    private func accepted(_ id: String) throws -> Accepted? {
-        guard let data = try KeychainStore.read(account: receiptPrefix + id) else { return nil }
-        return try JSONDecoder().decode(Accepted.self, from: data)
+    private func saved(_ id: String) throws -> Saved {
+        guard let data = try KeychainStore.read(account: receiptPrefix + id) else { return .absent }
+        guard data.count <= 32_768, let fields = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw VocabularyPackError.invalid }
+        let value: Saved
+        if Set(fields.keys) == ["revision", "hash"] { value = .legacy(try JSONDecoder().decode(Accepted.self, from: data)) }
+        else {
+            let record = try JSONDecoder().decode(Record.self, from: data)
+            guard record.schema == "vipi-pack-activation-1" else { throw VocabularyPackError.invalid }
+            value = .current(record)
+        }
+        guard let accepted = value.accepted, accepted.revision > 0,
+              accepted.hash.range(of: #"^[a-f0-9]{64}$"#, options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
+        return value
+    }
+    private func commit(_ record: Record, id: String) throws {
+        let data = try JSONEncoder().encode(record)
+        guard data.count <= 32_768 else { throw VocabularyPackError.invalid }
+        try KeychainStore.save(data, account: receiptPrefix + id)
+    }
+    private func checkpoint(_ point: VocabularyPackCheckpoint) throws {
+        #if DEBUG
+        try qualificationFailure?(point)
+        #endif
+    }
+    private func active(_ value: Saved, id: String) throws -> (Activation, VocabularyManifest)? {
+        if case .legacy = value { throw VocabularyPackError.reinstallRequired }
+        guard case .current(let record) = value, let active = record.active else { return nil }
+        guard (1...16_384).contains(active.manifestBytes.count), (64...80).contains(active.signature.count) else { throw VocabularyPackError.invalid }
+        let manifest = try JSONDecoder().decode(VocabularyManifest.self, from: active.manifestBytes)
+        guard let keyData = trustedKeys[manifest.key_id] else { throw VocabularyPackError.untrustedKey }
+        let key = try P256.Signing.PublicKey(derRepresentation: keyData)
+        guard manifest.signature_algorithm == "ECDSA-P256-SHA256",
+              key.isValidSignature(try P256.Signing.ECDSASignature(derRepresentation: active.signature), for: active.manifestBytes) else { throw VocabularyPackError.signature }
+        guard manifest.pack_id == id, id == manifest.source_language + "-" + manifest.target_language,
+              manifest.revision == record.accepted.revision, manifest.sha256 == record.accepted.hash,
+              active.file == "\(id)-\(record.accepted.revision)-\(record.accepted.hash).sqlite" else { throw VocabularyPackError.rollback }
+        return (active, manifest)
+    }
+    private func cleanupFiles(id: String, keeping: String?) throws -> [URL] {
+        try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil).filter {
+            $0.lastPathComponent != keeping && ($0.lastPathComponent == id + ".json" ||
+                $0.lastPathComponent.range(of: "^" + id + #"-[1-9][0-9]*-[a-f0-9]{64}\.sqlite$"#, options: .regularExpression) != nil)
+        }
+    }
+    private func cleanup(id: String, keeping: String?) throws {
+        try checkpoint(.cleanup)
+        var failed = false
+        for file in try cleanupFiles(id: id, keeping: keeping) {
+            do { try FileManager.default.removeItem(at: file) } catch { failed = true }
+        }
+        if failed { throw VocabularyPackError.cleanupPending }
+    }
+    func status(id: String) throws -> VocabularyPackStatus {
+        try namespaceLock.withLock {
+            guard validID(id) else { throw VocabularyPackError.invalid }
+            let value = try saved(id)
+            if case .legacy(let accepted) = value {
+                return .init(acceptedRevision: accepted.revision, acceptedHash: accepted.hash,
+                    active: false, reinstallRequired: true, cleanupPendingFiles: [])
+            }
+            let current = try active(value, id: id)
+            if let current { try verifyActiveFile(current.0.file, manifest: current.1) }
+            return .init(acceptedRevision: value.accepted?.revision, acceptedHash: value.accepted?.hash,
+                active: current != nil, reinstallRequired: false,
+                cleanupPendingFiles: try cleanupFiles(id: id, keeping: current?.0.file).map(\.lastPathComponent).sorted())
+        }
     }
     func install(manifestBytes: Data, signature: Data, database: Data) throws -> String {
+        try checkpoint(.waitingForNamespace)
+        return try namespaceLock.withLock { try installLocked(manifestBytes: manifestBytes, signature: signature, database: database) }
+    }
+    private func installLocked(manifestBytes: Data, signature: Data, database: Data) throws -> String {
+        try Task.checkCancellation()
         guard (1...16_384).contains(manifestBytes.count), (64...80).contains(signature.count), (512...67_108_864).contains(database.count) else { throw VocabularyPackError.invalid }
         let manifest = try JSONDecoder().decode(VocabularyManifest.self, from: manifestBytes)
         guard let keyData = trustedKeys[manifest.key_id] else { throw VocabularyPackError.untrustedKey }
@@ -84,14 +208,18 @@ actor VocabularyPackStore {
               manifest.file == (kind.reviewed ? kind.databaseFile : "vocabulary.sqlite"),
               manifest.bytes == database.count, manifest.sha256 == hash,
               database.prefix(16) == Data("SQLite format 3\0".utf8) else { throw VocabularyPackError.invalid }
-        if let previous = try accepted(id) {
-            guard manifest.revision > previous.revision || (manifest.revision == previous.revision && hash == previous.hash) else { throw VocabularyPackError.rollback }
+        let previous = try saved(id)
+        if let accepted = previous.accepted {
+            guard manifest.revision > accepted.revision || (manifest.revision == accepted.revision && hash == accepted.hash) else { throw VocabularyPackError.rollback }
         }
         let filename = "\(id)-\(manifest.revision)-\(hash).sqlite"
         let destination = root.appendingPathComponent(filename)
         let temporary = root.appendingPathComponent("install-\(UUID()).sqlite")
         defer { try? FileManager.default.removeItem(at: temporary) }
         try database.write(to: temporary, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+        let stagedFile = try FileHandle(forWritingTo: temporary)
+        do { try stagedFile.synchronize(); try stagedFile.close() }
+        catch { try? stagedFile.close(); throw error }
         try withDatabase(temporary) { db in
             guard try scalar(db, "PRAGMA application_id") == "1447645257", try scalar(db, "PRAGMA user_version") == String(manifest.schema_version),
                   try scalar(db, "PRAGMA quick_check") == "ok", try scalar(db, "SELECT value FROM metadata WHERE key='pack_id'") == id else { throw VocabularyPackError.invalid }
@@ -132,25 +260,43 @@ actor VocabularyPackStore {
                 }
             }
         }
-        if FileManager.default.fileExists(atPath: destination.path) {
+        try checkpoint(.staged); try Task.checkCancellation()
+        let existed = FileManager.default.fileExists(atPath: destination.path)
+        var committed = false
+        defer {
+            // A newly finalized upgrade is disposable before activation. Never
+            // remove a pre-existing immutable file or a repaired active file.
+            if !committed && !existed {
+                if case .current(let value) = previous, value.active?.file == filename {} else { try? FileManager.default.removeItem(at: destination) }
+            }
+        }
+        if existed {
             _ = try FileManager.default.replaceItemAt(destination, withItemAt: temporary)
         } else { try FileManager.default.moveItem(at: temporary, to: destination) }
-        try KeychainStore.save(JSONEncoder().encode(Accepted(revision: manifest.revision, hash: hash)), account: receiptPrefix + id)
-        try JSONEncoder().encode(Pointer(file: filename, manifest: manifest)).write(to: root.appendingPathComponent(id + ".json"), options: .atomic)
-        // Directory enumeration may return a differently based URL for this
-        // same path. Compare the filename within this one directory so cleanup
-        // cannot remove the revision that was just installed.
-        for old in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where old.lastPathComponent.hasPrefix(id + "-") && old.pathExtension == "sqlite" && old.lastPathComponent != filename { try? FileManager.default.removeItem(at: old) }
+        try checkpoint(.beforeDirectorySync)
+        let directory = open(root.path, O_RDONLY | O_DIRECTORY)
+        guard directory >= 0 else { throw VocabularyPackError.storage }
+        let synchronized = fsync(directory)
+        let closed = close(directory)
+        guard synchronized == 0, closed == 0 else { throw VocabularyPackError.storage }
+        try checkpoint(.beforeActivation); try Task.checkCancellation()
+        try commit(.init(schema: "vipi-pack-activation-1", accepted: .init(revision: manifest.revision, hash: hash),
+            active: .init(file: filename, manifestBytes: manifestBytes, signature: signature)), id: id)
+        committed = true
+        // Activation has happened. Cleanup or late cancellation cannot turn
+        // this into an apparent failed install. status() exposes leftovers.
+        try? cleanup(id: id, keeping: filename)
         return id
     }
 
     func entries(id: String, text: String, translation: String? = nil) throws -> [VocabularyEntry] {
+        try namespaceLock.withLock { try entriesLocked(id: id, text: text, translation: translation) }
+    }
+    private func entriesLocked(id: String, text: String, translation: String?) throws -> [VocabularyEntry] {
         guard validID(id), text.utf16.count <= 16_384 else { throw VocabularyPackError.invalid }
-        let pointerURL = root.appendingPathComponent(id + ".json")
-        guard FileManager.default.fileExists(atPath: pointerURL.path) else { return [] }
-        let pointer = try JSONDecoder().decode(Pointer.self, from: Data(contentsOf: pointerURL))
-        guard let approved = try accepted(id), pointer.manifest.revision == approved.revision, pointer.manifest.sha256 == approved.hash,
-              pointer.file == "\(id)-\(approved.revision)-\(approved.hash).sqlite" else { throw VocabularyPackError.rollback }
+        guard let (activation, manifest) = try active(saved(id), id: id) else { return [] }
+        let pointer = (file: activation.file, manifest: manifest)
+        try verifyActiveFile(activation.file, manifest: manifest)
         if kind == .reviewedFrame {
             guard kind.schemas.contains(pointer.manifest.schema_version),pointer.manifest.context_policy==kind.policy(pointer.manifest.schema_version) else {throw VocabularyPackError.invalid}
             guard let translation, !translation.isEmpty, translation.utf16.count<=32768 else {return []}
@@ -232,9 +378,29 @@ actor VocabularyPackStore {
     }
 
     func remove(id: String) throws {
-        guard validID(id) else { throw VocabularyPackError.invalid }
-        for file in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where file.lastPathComponent == id + ".json" || (file.lastPathComponent.hasPrefix(id + "-") && file.pathExtension == "sqlite") { try FileManager.default.removeItem(at: file) }
-        // Keep accepted revision in Keychain to prevent rollback after deletion.
+        try namespaceLock.withLock {
+            guard validID(id) else { throw VocabularyPackError.invalid }
+            let current = try saved(id)
+            // Legacy unsigned metadata cannot be promoted by removal either.
+            if case .legacy = current { throw VocabularyPackError.reinstallRequired }
+            guard let accepted = current.accepted else { return }
+            try checkpoint(.beforeRemoval); try Task.checkCancellation()
+            try commit(.init(schema: "vipi-pack-activation-1", accepted: accepted, active: nil), id: id)
+            do { try cleanup(id: id, keeping: nil) }
+            catch { throw VocabularyPackError.cleanupPending }
+        }
+    }
+
+    private func verifyActiveFile(_ filename: String, manifest: VocabularyManifest) throws {
+        let file = root.appendingPathComponent(filename)
+        let values = try file.resourceValues(forKeys: [.fileSizeKey])
+        guard values.fileSize == manifest.bytes else { throw VocabularyPackError.invalid }
+        let stream = try FileHandle(forReadingFrom: file); defer { try? stream.close() }
+        var hash = SHA256()
+        while let data = try stream.read(upToCount: 65_536), !data.isEmpty {
+            try Task.checkCancellation(); hash.update(data: data)
+        }
+        guard hash.finalize().map({ String(format: "%02x", $0) }).joined() == manifest.sha256 else { throw VocabularyPackError.invalid }
     }
 
     private func withDatabase<T>(_ url: URL, _ body: (OpaquePointer) throws -> T) throws -> T {

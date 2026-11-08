@@ -20,13 +20,14 @@ final class SignedLanguageLookupTests: XCTestCase {
         }
     }
     func testSignedDictionaryLookupUsesNativeBoundaries() async throws {
-        let fixture = try JSONDecoder().decode(Fixture.self, from: Data(contentsOf: XCTUnwrap(Bundle(for: Self.self).url(forResource: "signed-lookup", withExtension: "json"))))
+        let fixture = try JSONDecoder().decode(Fixture.self, from: Data(contentsOf: XCTUnwrap(Bundle(for: Self.self).url(forResource: "signed-lookup", withExtension: "json", subdirectory: "signed-pack-fixtures"))))
         XCTAssertEqual(fixture.purpose, "SYNTHETIC NATIVE WORD LOOKUP QA ONLY")
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("lookup-qa-\(UUID())")
         defer { try? FileManager.default.removeItem(at: root) }
-        let store = try VocabularyPackStore(root: root, trustedKeys: ["synthetic-lookup-qa":fixture.public_key])
+        let prefix = "signed-fixture-" + UUID().uuidString.lowercased() + "-"
+        let store = try VocabularyPackStore(root: root, trustedKeys: ["synthetic-lookup-qa":fixture.public_key], receiptPrefix: prefix)
         for sample in fixture.cases {
-            let key = "pack-" + sample.id
+            let key = prefix + sample.id
             // A fixture never replaces a real pack's anti-rollback receipt.
             guard try KeychainStore.read(account: key) == nil else { throw XCTSkip("Existing language pack receipt must be preserved") }
             do {
