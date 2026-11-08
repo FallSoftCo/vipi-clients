@@ -34,6 +34,12 @@ public struct LookupFirstOutcome: Sendable {
         self.modelReadinessCalls = modelReadinessCalls; self.alignmentCalls = alignmentCalls
         self.sourceConstraints = sourceConstraints
     }
+    /// A deterministic rejection of an actual local provider response can be
+    /// reused for automatic presentation. Source/metadata failures and transient
+    /// provider errors are deliberately excluded.
+    public var isRejectedLocalTranslation: Bool {
+        result == nil && status == .invalidResult && origin == .localFullContext && localTranslationCalls > 0
+    }
     public func cachedInvocation() -> Self {
         .init(result: result, origin: origin, status: status, localTranslationCalls: 0,
               fallbackStatus: fallbackStatus, cacheHit: true, sourceConstraints: sourceConstraints)

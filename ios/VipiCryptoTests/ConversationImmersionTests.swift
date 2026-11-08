@@ -746,6 +746,63 @@ private actor DelayedFullReadingQA {
 
     /// Injected readiness and completion for coordinator races only. These are
     /// not Translation/ML Kit model or language-quality qualifications.
+    /// Replays two retained Android provider outputs through the real Apple
+    /// coordinator. Injected response evidence, not fresh Apple translation.
+    func testRejectedProviderResponseStopsAutomaticRetryButKeepsExplicitAndReadinessRetry() async throws {
+        let cases = [
+            ("There is a phone number at alice@example.com.", "alice@example.comに電話番号があります。"),
+            ("Check the phone number at https://example.com/contact.", "https://example.com/contactで電話番号を確認してください。")]
+        for (text, response) in cases {
+            var availability = LocalLanguageAvailability.installed, checks = 0
+            let owner = ConversationImmersion(modelStatus: { _ in checks += 1; return availability }, fullTranslationTimeout: .seconds(2))
+            defer { owner.close() }
+            await owner.configure(pair: .init(source: "en", target: "ja"), density: 0.25)
+            let id = "rejected-provider"; owner.selectInputLanguage("en", for: id)
+            let first = Task { await owner.result(for: text, inputLanguage: "en", messageID: id) }
+            let request = try await pending(owner); await owner.finish(request, translation: response)
+            let firstValue = await first.value; XCTAssertNil(firstValue)
+            XCTAssertEqual(owner.lastOutcome?.status, .invalidResult); XCTAssertEqual(checks, 1)
+            for _ in 0..<4 {
+                let repeated = await owner.result(for: text, inputLanguage: "en", messageID: id)
+                XCTAssertNil(repeated); XCTAssertNil(owner.request)
+                XCTAssertTrue(owner.lastOutcome?.cacheHit == true); XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 0)
+            }
+            XCTAssertEqual(checks, 1)
+            let explicit = Task { await owner.fullTranslation(for: owner.identity(messageID: id, text: text)) }
+            let retry = try await pending(owner); XCTAssertNotEqual(retry.id, request.id)
+            await owner.finish(retry, translation: response)
+            let retried = await explicit.value; XCTAssertEqual(retried?.localTranslationCalls, 1)
+            XCTAssertEqual(retried?.status, .invalidResult); XCTAssertEqual(checks, 2)
+            availability = .unsupported; await owner.refreshAvailability()
+            let unavailable = await owner.result(for: text, inputLanguage: "en", messageID: id)
+            XCTAssertNil(unavailable); XCTAssertEqual(owner.lastOutcome?.status, .modelNotReady)
+            XCTAssertFalse(owner.lastOutcome?.cacheHit ?? true)
+            availability = .installed; await owner.refreshAvailability()
+            let refreshed = Task { await owner.result(for: text, inputLanguage: "en", messageID: id) }
+            let changed = try await pending(owner); await owner.finish(changed, translation: response)
+            _ = await refreshed.value
+            XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 1)
+        }
+    }
+    func testLateRejectedResponseCannotRepopulateChangedReadinessCache() async throws {
+        var availability = LocalLanguageAvailability.installed
+        let owner = ConversationImmersion(modelStatus: { _ in availability }, fullTranslationTimeout: .seconds(2))
+        defer { owner.close() }
+        await owner.configure(pair: .init(source: "en", target: "ja"), density: 0.25)
+        let text = "There is a phone number at alice@example.com.", response = "alice@example.comに電話番号があります。"
+        let first = Task { await owner.result(for: text, inputLanguage: "en") }
+        let request = try await pending(owner)
+        availability = .unsupported; await owner.refreshAvailability()
+        availability = .installed; await owner.refreshAvailability()
+        await owner.finish(request, translation: response); _ = await first.value
+        let second = Task { await owner.result(for: text, inputLanguage: "en") }
+        let fresh = try await pending(owner); XCTAssertNotEqual(fresh.id, request.id)
+        await owner.finish(fresh, translation: response); _ = await second.value
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 1)
+        let saved = await owner.result(for: text, inputLanguage: "en")
+        XCTAssertNil(saved); XCTAssertTrue(owner.lastOutcome?.cacheHit == true)
+    }
+
     func testSyntheticFullExtensionCoalescesAndPreservesApprovedSpans() async throws {
         var statusChecks = 0
         let owner = ConversationImmersion(modelStatus: { _ in statusChecks += 1; return .installed }, fullTranslationTimeout: .seconds(2))

@@ -71,4 +71,34 @@ final class ImmersionPresentationStateTests: XCTestCase {
         XCTAssertEqual(cache["same"]?.translation, "Hola. Otro mensaje.")
         XCTAssertEqual(cache["same"]?.spans, partial.spans)
     }
+    func testOnlyActualLocalResponseRejectionsAreCachedAndRemainBounded() {
+        var cache = ImmersionPresentationCache()
+        func rejected(origin: ImmersionOrigin? = .localFullContext, calls: Int = 1,
+                      status: ImmersionStatus = .invalidResult) -> LookupFirstOutcome {
+            .init(result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil)
+        }
+        for value in [rejected(origin: nil), rejected(origin: .lookupReference), rejected(calls: 0),
+                      rejected(status: .error), rejected(status: .stale), rejected(status: .modelNotReady)] {
+            cache.remember(value, key: "transient"); XCTAssertNil(cache.cachedInvocation(key: "transient"))
+        }
+        for i in 0..<150 { cache.remember(rejected(), key: "rejected-\(i)") }
+        XCTAssertEqual(cache.count, 128); XCTAssertNil(cache.cachedInvocation(key: "rejected-0"))
+        let saved = cache.cachedInvocation(key: "rejected-149")
+        XCTAssertEqual(saved?.status, .invalidResult); XCTAssertEqual(saved?.localTranslationCalls, 0)
+        XCTAssertTrue(saved?.cacheHit == true); XCTAssertNil(saved?.result)
+        cache.remember(value, key: "positive")
+        cache.removeRejectedTranslations()
+        XCTAssertEqual(cache.count, 1); XCTAssertEqual(cache["positive"], value)
+    }
+    func testRejectedResponseCannotEraseAcceptedPartialOrFullReference() {
+        let partial = ImmersionPresentation.partial(.init(original: "Hello unknown", spans: [], references: [],
+            nativeSourceTokenCount: 2, targetLanguage: "es"))
+        let rejection = LookupFirstOutcome(result: nil, origin: .localFullContext, status: .invalidResult,
+            localTranslationCalls: 1, fallbackStatus: nil)
+        for accepted in [partial, value] {
+            var cache = ImmersionPresentationCache(); cache.remember(accepted, key: "same")
+            cache.remember(rejection, key: "same"); XCTAssertEqual(cache["same"], accepted)
+        }
+    }
+
 }

@@ -65,13 +65,22 @@ public struct ImmersionPresentationCache {
             status: partial ? .partial : .ready, localTranslationCalls: 0, fallbackStatus: nil), key: key)
     }
     public mutating func remember(_ value: LookupFirstOutcome, key: String) {
-        guard value.result != nil else { return }
+        guard value.result != nil || value.isRejectedLocalTranslation else { return }
         let encodedKey = Data(key.utf8)
+        // A rejected late response cannot erase usable visible immersion.
+        if value.isRejectedLocalTranslation, values[encodedKey]?.result != nil { return }
         // Concurrent rows may request the same text. A late partial callback or
         // failed extension must not erase an already validated whole reference.
         if values[encodedKey]?.result?.translation != nil, value.result?.translation == nil { return }
         values[encodedKey] = value; order.removeAll { $0 == encodedKey }; order.append(encodedKey)
         while order.count > 128 { values.removeValue(forKey: order.removeFirst()) }
+    }
+    /// Availability changes invalidate only deterministic provider rejections;
+    /// approved partials/full references retain their existing cache behavior.
+    public mutating func removeRejectedTranslations() {
+        let rejected = Set(values.filter { $0.value.isRejectedLocalTranslation }.map(\.key))
+        for key in rejected { values.removeValue(forKey: key) }
+        order.removeAll { rejected.contains($0) }
     }
     public mutating func removeAll() { values.removeAll(); order.removeAll() }
 }

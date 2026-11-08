@@ -25,6 +25,7 @@ import VipiCore
     private var deadlines: [UUID: Task<Void, Never>] = [:]
     private var fullRequests: [ImmersionRequestIdentity: (UUID, Task<LookupFirstOutcome?, Never>)] = [:]
     private var cache = ImmersionPresentationCache()
+    private var availabilityRevision: UInt64 = 0
     private let readings: FullReadingCache
     private var readingRevision = 0
     private struct ReadingRequest: Hashable { let utf8: Data, language: String }
@@ -113,7 +114,13 @@ import VipiCore
         let observed = await modelStatus(pair)
         guard !closed, active == epoch, !Task.isCancelled else { return }
         // Status only: lexical expansion belongs to actual target-dependent alignment.
-        if availability != observed { availability = observed; revision += 1 }
+        if observeAvailability(observed) { revision += 1 }
+    }
+    @discardableResult private func observeAvailability(_ observed: LocalLanguageAvailability) -> Bool {
+        guard availability != observed else { return false }
+        availability = observed; availabilityRevision &+= 1
+        cache.removeRejectedTranslations()
+        return true
     }
     /// Knowledge is an immutable request snapshot, empty by default. Only the
     /// optional source-unit provider consumes these catalog-scoped IDs; legacy
@@ -173,6 +180,7 @@ import VipiCore
             prepareReading(saved.result, language: activePair.target)
             lastOutcome = saved; return saved
         }
+        var providerAvailabilityRevision: UInt64?
         do {
             let outcome = try await LookupFirst.resolve(
                 .init(text: text, source: activePair.source, target: activePair.target,
@@ -185,7 +193,8 @@ import VipiCore
                 modelsReady: { source, target in
                     let observed = await self.modelStatus(.init(source: source, target: target))
                     guard valid() else { return false }
-                    self.availability = observed
+                    self.observeAvailability(observed)
+                    providerAvailabilityRevision = self.availabilityRevision
                     // Do NOT bump task revision here and cancel our own request.
                     return observed == .installed
                 },
@@ -222,7 +231,11 @@ import VipiCore
             guard valid() else { return nil }
             prepareReading(outcome.result, language: activePair.target)
             lastOutcome = outcome
-            cache.remember(outcome, key: key)
+            // A response that began under an older readiness state must not
+            // repopulate a rejection cleared by a later model transition.
+            if !outcome.isRejectedLocalTranslation || providerAvailabilityRevision == availabilityRevision {
+                cache.remember(outcome, key: key)
+            }
             return outcome
         } catch is CancellationError { return nil }
         catch { return valid() ? cache.cachedInvocation(key: key) : nil }
