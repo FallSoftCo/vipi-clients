@@ -1,0 +1,201 @@
+{
+  "schema": "vipi.corpus-phrase-extraction-protocol.r01",
+  "production": false,
+  "frozen_before_new_parallel_sentence_or_alignment_outputs": true,
+  "objective": "Measure whether corpus-derived complete bilingual phrase spans and context-conditioned complete lexical heads increase useful local source-first immersion beyond word-only matching without serially authoring a small vocabulary batch.",
+  "directionality": {
+    "record_schema": "Explicit source_language,target_language,source/target complete token+character spans, direct pair origin, both forward/reverse word alignments. No pivot-created bilingual relation.",
+    "initial_pairs": [
+      "en-sw",
+      "en-es"
+    ],
+    "reverse_reusable": true,
+    "japanese": "Deferred until an existing native tokenizer capture is bound to the selected direct Japanese records. Do not use the Latin regex to treat unsegmented Japanese as one token.",
+    "requirement_remaining": "At least ten major languages and their pairs including Swahili remains unmet by this bounded pilot."
+  },
+  "sources": {
+    "pgv": {
+      "path": "/home/ai/RemoteStorage/dev-workspaces/vipi/20261027-pgv-corpus-001/parallel-global-voices-001/corpus.sqlite",
+      "bytes": 2141052928,
+      "historical_sha256": "3334e3dd75483f52c6359c838ddf174ff1889340b4ac39db7efd03c174d54a7e",
+      "fresh_whole_file_hash": false,
+      "metadata_read_sha256": "6c1ba2ad96ffff7f6b5164fecad1a8739925b341dc514f56f07fbde16e1daccd",
+      "upstream_receipt_sha256": "daa5cf9726b8f83c4450864c5eea72fd3bfdf43f88502b642b398dcf6a0eb621",
+      "archives": [
+        {
+          "pair": "eng-spa",
+          "sha256": "845ffbc5a9421a5905116fe7cdda07b09ee84effff0a51afedcba694136d4a5e",
+          "url": "https://nlp.ilsp.gr/pgv/archives/eng-spa.zip"
+        },
+        {
+          "pair": "eng-swa",
+          "sha256": "bd2106b2a093a87375e87e3e01561a5cbac6d40331ea036462f1053f75727094",
+          "url": "https://nlp.ilsp.gr/pgv/archives/eng-swa.zip"
+        }
+      ],
+      "license": "CC-BY-4.0: PGV alignment distribution; Global Voices attribution license retained",
+      "citation": "Prokopis Prokopidis, Vassilis Papavassiliou and Stelios Piperidis. 2016. Parallel Global Voices: a collection of multilingual corpora with citizen media stories. LREC 2016.",
+      "domain": "Global Voices published articles, automatically aligned translation units; not ordinary friend chat.",
+      "selection": "Only both endpoints partition=development. Preserve original component IDs and archive+unit+score. Reserved and excluded-existing-source never enter training. No inference of document independence because TMX lacks article IDs.",
+      "row_hashing": "Every selected original text/ID/provenance record receives SHA256; subset files receive fresh complete hashes. No claim the whole2GB file was freshly hashed or restored."
+    },
+    "explicit_dictionary_spans": {
+      "path": "/home/ai/RemoteStorage/dev-workspaces/vipi/mac-artifacts/20261108-r06/context-index-003/contexts.sqlite",
+      "bytes": 76587008,
+      "sha256": "7baba36c8d9e0c8b1a01a60acea577960b994809f6eb0889e721b888f8378bdd",
+      "license": "CC-BY-SA-4.0",
+      "source": "https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+      "qualification": "112304 explicit usage-example source/target focus spans in18directions, not complete phrase alignment or semantic gold. EN–ES3733; noSwahili. Optional76MB exact restore for corroboration, never replace PGV provenance/license.",
+      "source_scope": "Exact native headword/sense/example IDs and marked source/target spans only; reading must remain attached to same target example identity."
+    },
+    "dictionary_assets": {
+      "input_manifest_sha256": "a7fbfb4a32b074ea65a26661526bce915cada688086cd0afe4110daefee07bda",
+      "expanded_db_hashes": {
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-en.sqlite": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-sw.sqlite": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+        "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-es.sqlite": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+      },
+      "use": "Corroborate complete lexical units and preserve all target alternatives; native dictionary membership alone is not sense correctness."
+    }
+  },
+  "training_selection": {
+    "seed": "vipi-corpus-phrase-r01",
+    "metadata_candidates": {
+      "en-es": 60000,
+      "en-sw": 32754
+    },
+    "accepted_pair_caps": {
+      "en-es": 40000,
+      "en-sw": 20000
+    },
+    "selection_recipe": [
+      "Scan only indexed link_evidence rows for the exact pinned archive URL; choose SHA256(seed|archive|unit) minimum metadata candidates without reading target text for ranking.",
+      "Fetch selected sentence endpoints through bounded primary-key batches, verify exact language pair and both development partitions, retain original text/component/source archive unit.",
+      "Normalize only for duplicate detection: existing fingerprint(NFC, whitespace, case) with explicit source/target language. Deduplicate exact direct pair/component evidence; repeated units remain provenance, not independent support.",
+      "Drop empty/delimiter-invalid or out-of-bound tokenizations;2–60tokens per side. Retain reason counts and rejected identity hashes.",
+      "Use frozen hash order to fill accepted caps; do not replace inputs based on alignment output or translation quality. Preserve explicit incomplete results if source I/O/resource deadline prevents completion."
+    ],
+    "evaluation_exclusions": "Before pair extraction freeze hashes of all explicit source/target texts from retained coverage_ceiling experiment protocols and NLP authored cases. Exclude exact evaluated text as a training sentence, report overlap counts. Phrase overlap is allowed: common phrase reuse is the hypothesis, and prior reused TRAIN is diagnostic, not fresh acceptance.",
+    "not_reproduction": "Historical100000EN–ES/20955EN–SW fast_align artifacts not located via bounded metadata checks; this is a new hash-frozen run from retained PGV, not a claimed reproduction."
+  },
+  "tokenization": {
+    "implementation": "qa/immersion/prepare_statistical_alignment_pilot.py:tokenize",
+    "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f",
+    "pattern": "[^\\W_]+(?:['’][^\\W_]+)*|[^\\w\\s]",
+    "preserve": "Original complete token text, codepoint start/end and derived UTF16 start/end; training casefold view stored separately. No stemming, target shortening or implicit transliteration.",
+    "runtime": "Retain later native complete-token and literal guards; Latin training tokens are not silently substituted for platform native geometry."
+  },
+  "source_frequency_selection": {
+    "input": "qa/immersion/nlp-template-comparison-r01/train-source-protocol.json",
+    "sha256": "4f0102f6a74dd79c60a770e24ed502bcc8c53158f070fdbe9545bdc0214507b3",
+    "native_geometry": "Retained exact Android r87b9535word/window capture",
+    "native_geometry_sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780",
+    "candidate_windows": "All complete1–8word native windows; rank distinct source-message frequency, occurrence frequency, then normalized lexical key. Frequency is source-only, independent of target scores.",
+    "caps": {
+      "multiword_source_keys": 5000,
+      "unigram_source_keys": 3000
+    },
+    "minimum_train_messages": 2,
+    "normalization": "NFC casefold for lookup/ranking only; raw spelling/ranges and case/protected-text risks remain in trace. No change to frozen NLP-r01 case-sensitive policy.",
+    "limits": "Retained BST TRAIN role-play frequency is not worldwide chat frequency. No unseen holdout consumed for tooling."
+  },
+  "alignment": {
+    "tool": "fast_align",
+    "upstream": "https://github.com/clab/fast_align",
+    "revision": "cab1e9aac8d3bb02ff5ae58218d8d225a039fa11",
+    "license": "Apache-2.0",
+    "build": "Reuse pinned source if available; otherwise acquire exact small pinned source archive and retain LICENSE/hash. No new neural model, GPU or app dependency.",
+    "training": "Forward and reverse IBM2 fast_align,5iterations, diagonal preference/tension optimization as pinned historical training script; exact commands/parameters recorded before execution.",
+    "control": "Historical one-to-one mutual links recreated from this new run, labelled word-only proposals, never accepted runtime rows.",
+    "symmetrization_arms": [
+      "intersection",
+      "grow-diag-final-and"
+    ],
+    "retain": "All original directional links and exact symmetrization results. No probability cutoff is called semantic confidence."
+  },
+  "phrase_extraction": {
+    "references": [
+      "https://aclanthology.org/N03-1017/",
+      "https://www2.statmt.org/moses/?n=FactoredTraining.TrainingParameters"
+    ],
+    "source_max_tokens": 8,
+    "target_max_tokens": 12,
+    "method": "Enumerate selected source spans; derive the minimal connected target interval. Require no alignment from that target interval to source words outside the source span. Enumerate permitted unaligned left/right target boundary expansions within caps. Retain every variant, including minimal/truncated candidates, with original text/offsets/link evidence.",
+    "boundary_policy": "Do not cross sentence-ending punctuation in source or target. Preserve exact native-checkable character ranges. Report phrases withheld by scope limits.",
+    "important_limit": "Alignment consistency and unaligned boundary expansion do not establish completeness or correct sense. Do not choose the shortest target, silently collapse variants, or call frequency semantic evidence.",
+    "dictionary_comparison": "Mark full target variants matching complete sense-linked lexical units and explicit dictionary usage spans; preserve incompatible/ambiguous/unsupported variants instead of deleting them.",
+    "output_kinds": [
+      "whole contiguous phrase output",
+      "context-conditioned complete lexical head only when its complete source+target scope has explicit independent dictionary/example evidence",
+      "recognition-only atomic scope when smaller substitutions would be unsupported"
+    ],
+    "no_grammar_generation": "No target string interpolation, dependency parser, embeddings or arbitrary morphology generation."
+  },
+  "comparison": {
+    "controls": [
+      "new-run mutual-word-only proposals",
+      "complete phrase variants",
+      "complete attested head within matched phrase context",
+      "union with frozen editorial-runtime-r03 source-only control, clearly unpromoted"
+    ],
+    "raw_candidate_selection": "Frequency-ranked source inventory first. For a diagnostic top-corpus target arm, choose distinct-component joint count descending, then bidirectional lexical score descending, then stable target ID solely to make ties reproducible. Preserve all alternatives/ties. A separate dictionary-complete-unit arm is reported; neither is automatically promoted.",
+    "densities": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "known_snapshots": [
+      "none",
+      "all_function",
+      "all_function_global50",
+      "all_function_global100",
+      "all_function_global300"
+    ],
+    "metrics": [
+      "raw phrase/context reach",
+      "correct selected source-word depth and clean-message reach after review",
+      "whole-reference availability separate from automatic mixed-budget output",
+      "content-bearing vs function-only output",
+      "distinct content concepts and learned-content depletion",
+      "introduced meaning/scope errors vs bilingual source/alignment errors",
+      "per-length message reach",
+      "all target variants and complete-unit recovery including laptop/email diagnostics",
+      "build/runtime lookup latency,memory,disk,zero-runtime-MT source hits"
+    ],
+    "semantic_sample": "Freeze deterministic96 scoped proposals by source frequency quartile, pair, source length1vs2–3vs4–8, target expansion vs minimal/head class, and ambiguity state. Retain original source+target sentence and alternate variants. Root independently reviews before author labels are joined. Separately retain complete uncensored ranked outputs and known historical laptop/email diagnostics.",
+    "acceptance": "No population90% claim or publication from raw reach/test counts. A useful reviewed increment can progress to native QA; distribution/license and runtime activation remain separate."
+  },
+  "resources": {
+    "host": "system76-pc bounded local research under parent authorization",
+    "max_cpu_threads": 2,
+    "max_observed_aggregate_rss_bytes": 2147483648,
+    "max_added_disk_bytes": 1610612736,
+    "minimum_free_disk_bytes": 8589934592,
+    "current_observed_free": "14GiB before starting this run",
+    "source_extraction_wall_seconds": 1800,
+    "alignment_and_extraction_wall_seconds": 1800,
+    "failure_policy": "Stop with partial receipts on resource/time violation; no new host, VM, GPU, model service, tmpfs build or full2GB source restore."
+  },
+  "provenance_schema": [
+    "source_namespace",
+    "source_license",
+    "distribution_status",
+    "archive_url",
+    "archive_sha256",
+    "unit_id",
+    "source_sentence_id",
+    "target_sentence_id",
+    "source_component_id",
+    "target_component_id",
+    "source_record_sha256",
+    "target_record_sha256",
+    "alignment_recipe_sha256",
+    "phrase_variant_id",
+    "source_span_codepoints",
+    "target_span_codepoints",
+    "source_span_utf16",
+    "target_span_utf16",
+    "independent_evidence_refs"
+  ],
+  "publication": "Retain per-row license/source attribution so an accepted catalog can exclude restricted sources without repeating alignment training. Experimental extraction is not app-pack publication."
+}

@@ -1,0 +1,16 @@
+{
+  "production": false,
+  "frozen_before_parallel_pair_text_and_alignment": true,
+  "protocol_sha256": "57e5ece9c986a3058e04be6b3873ac391d009fac614985f3fcfe391839ae6efa",
+  "builder_sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f",
+  "exclusions_sha256": "f0aab9c30e5764504241aa0ed0ce7ee593c8f78eb0c1b78ad007ce0776915a9d",
+  "source_frequency_sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762",
+  "evaluated_message_hashes": 1113,
+  "exclusion_protocols": 12,
+  "unigram_keys": 3000,
+  "multiword_keys": 5000,
+  "source_messages": 9535,
+  "source_key_eligibility": "Research candidate reach only, not safe contextual meanings or publication.",
+  "private_artifacts": "Private research evidence retained separately; no sentence-pair corpus is part of this checkpoint.",
+  "input_freeze_sha256": "00eab5bf4cea0e8d6bae1061c60d2beaa6f5b3247f33eaf014615768da145efe"
+}

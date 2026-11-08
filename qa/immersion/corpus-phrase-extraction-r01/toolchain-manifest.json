@@ -1,0 +1,70 @@
+{
+  "upstream": {
+    "url": "https://codeload.github.com/clab/fast_align/tar.gz/cab1e9aac8d3bb02ff5ae58218d8d225a039fa11",
+    "revision": "cab1e9aac8d3bb02ff5ae58218d8d225a039fa11",
+    "archive_sha256": "8c65628713c0b2bd2d754ff5af5dc06a3ea23410077016c742abd1129285104f",
+    "archive_bytes": 19016,
+    "files": {
+      ".gitignore": "7168aa4b14e7bdbac81620520a76da506a48b4eaeccf9480c88ffb11d5f1cbf1",
+      "CMakeLists.txt": "0af633bbca212fff7d6cd316f280a33245e9cd92d45293aff068fa8d87404552",
+      "README.md": "fd5269b8a21aeb654b8148e2e0c60c002ec079bb328c5c754ce5f4334f6e41ec",
+      "LICENSE.txt": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+      "cmake/FindSparseHash.cmake": "d60390008e431d9008dacbe0f72f998e2f727f67ebb2cb3f47274e95bea0cfae",
+      "src/atools.cc": "d63c61512f4dde6af14c23e8f60c12f3911824a184d5c42de1114cf5caf9cf84",
+      "src/force_align.py": "a30a74f20d63f8791aba69dcaf9e215bcae5cdab30e0ee68d3f2dd415738e307",
+      "src/alignment_io.cc": "cbfb75f2f1fcf54901f5c060da692f65309ea83f45c9338c90ca2e1c6449b031",
+      "src/corpus.h": "3e810a5ed99c878d77d9617a5470427229aa8b41cb4b01c33b62544b69739865",
+      "src/hashtables.h": "43bc8df554a61e9fb22040a781d9228c61e8ba48e7a9213734a55a4ff15cc08a",
+      "src/alignment_io.h": "bf5ccc775f7160c59dd78b2e850f15e8cee7a72da6e6f6ef494f8c25193020c1",
+      "src/fast_align.cc": "42edac282fd9a8919add95b0838b767673e3ce02750f7e60d2ba9c8047a84bd3",
+      "src/port.h": "0c25db3bc520a7322d3b9f158a488915d1465d6a0f0f7ed693263d3c37e8d91d",
+      "src/da.h": "5debdb66f05d9f4ba0050984e04256cd2d063e62d405976f3bd4aec49ae18690",
+      "src/array2d.h": "e52d7528638fac336e7bff961cb4758b0e32aa4e4c763666606703f8f437731a",
+      "src/ttables.h": "4c1f0d7a810e69fbd96785da3349c9f947732101ca42e49acaeb3658bda313dd",
+      "src/ttables.cc": "e1f60b2b314c67a3be15fd60fdb28c9a039331adabde072b6028bb88c8857d6a"
+    },
+    "free_bytes": 11750105088
+  },
+  "build": {
+    "results": [
+      {
+        "command": [
+          "c++",
+          "-std=c++11",
+          "-O3",
+          "-Wall",
+          "-I",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11/src/fast_align.cc",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11/src/ttables.cc",
+          "-o",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align"
+        ],
+        "exit": 0,
+        "seconds": 1.7681608379352838
+      },
+      {
+        "command": [
+          "c++",
+          "-std=c++11",
+          "-O3",
+          "-Wall",
+          "-I",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11/src/alignment_io.cc",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/fast_align-cab1e9aac8d3bb02ff5ae58218d8d225a039fa11/src/atools.cc",
+          "-o",
+          "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/toolchain/atools"
+        ],
+        "exit": 0,
+        "seconds": 1.2167191130574793
+      }
+    ],
+    "binary_sha256": {
+      "fast_align": "453d6fbb338cddb9d4d119026abac98f9106363302f3d1fe944cb3547fb87197",
+      "atools": "66eb827bfabdb0bcf1c420b0c94ab904bc2e53642fa8db6eebc0bd0e9ea9b47f"
+    }
+  },
+  "license": "Apache-2.0; exact pinned LICENSE.txt included in source archive hash manifest",
+  "qualification": "Build-time research tool only; no app dependency."
+}
