@@ -1,0 +1,30 @@
+{
+  "schema": "vipi.android-opennlp-closure.r01",
+  "qualification_source_commit": "a0538df",
+  "evidence": {
+    "retained-qualification-artifacts.json": {
+      "path": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01/retained-qualification-artifacts.json",
+      "sha256": "689aa3667719ef07dbc3cea58cd51eb65593891448e0a78727ea2dd0bc9cf75f"
+    },
+    "isolated-build-retirement.json": {
+      "path": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01/isolated-build-retirement.json",
+      "sha256": "3e5f3a11fe4f5a68a0f130806dd31a4b057978e1dd61f49a7f6f7ceeb96b6e75"
+    },
+    "cleanup-own-runtime.json": {
+      "path": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01/cleanup-own-runtime.json",
+      "sha256": "bf9f6ffb63e87e1fce2885a54f64ee11436e5e06ea009cc484665b0d67ae65c1"
+    },
+    "generated-lexical-retirement-receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01/generated-lexical-retirement-receipt.json",
+      "sha256": "25af23c7c3cab1356ab662ffae4aa60076379b3218d6aa41287be9b9f43ad242"
+    }
+  },
+  "accepted_artifacts_location": "/home/ai/Development/investigations/vipi-android-opennlp-runtime-20261108-r01/qualified",
+  "owned_qa_package_removed": true,
+  "owned_emulator897249_exit_confirmed": true,
+  "retained_artifact_hashes_verified_after_build_retirement": true,
+  "shared_gradle_caches_and_original_apps_preserved": true,
+  "source_snapshots_and_inherited_edits_preserved": true,
+  "last_free_bytes_after_own_cleanup": 7716065280,
+  "remaining_limit": "Shared filesystem remains below8GiB floor after unrelated/unattributed growth. No further build/device work is running or authorized by this receipt."
+}
