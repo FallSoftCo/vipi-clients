@@ -15,6 +15,7 @@ import XCTest
             self.valid = valid; self.poison = poison
         }
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+            if path.hasPrefix("/v1/people/by-id/") { throw ServiceFailure(status: 404, code: "recipient_unavailable") }
             if path.hasPrefix("/v1/blocks/") {
                 if failBlock { throw ServiceFailure(status: 0, code: "offline") }
                 if method == "PUT" {
@@ -121,5 +122,98 @@ import XCTest
             try chat.send("A new message after unblocking", peer: accounts[2])
             XCTAssertEqual(try cores[0].journal.pendingDrafts(now: now).count, 1)
         }
+    }
+}
+
+@MainActor final class DeviceRecoveryTests: XCTestCase {
+    private final class Transport: ChatTransport {
+        let profile: ChatProfile
+        var active = UUID()
+        var loseNextRegistrationResponse = false
+        var recentAuthentication = true
+        var registrations: [(UUID, Bool)] = []
+        init(_ profile: ChatProfile) { self.profile = profile }
+        func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+            var reply: [String: Any]
+            switch path {
+            case "/v1/me": return try JSONDecoder().decode(type, from: JSONEncoder().encode(profile))
+            case "/v1/devices":
+                let data = try XCTUnwrap(body), input = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+                let id = try XCTUnwrap(UUID(uuidString: try XCTUnwrap(input["device_id"] as? String))), replacing = input["replace_active"] as? Bool ?? false
+                registrations.append((id, replacing))
+                guard id == active || replacing else { throw ServiceFailure(status: 409, code: "device_replacement_confirmation_required") }
+                if replacing && !recentAuthentication { throw ServiceFailure(status: 403, code: "recent_sign_in_required") }
+                active = id
+                if loseNextRegistrationResponse { loseNextRegistrationResponse = false; throw URLError(.networkConnectionLost) }
+                reply = ["id": id.uuidString.lowercased(), "active": true]
+            case "/v1/keys":
+                guard device?.id == active else { throw ServiceFailure(status: 401, code: "device_revoked") }
+                reply = ["revision": 1, "remaining": 20]
+            case "/v1/messages/pending": reply = ["messages": [], "next_cursor": NSNull()]
+            default: throw ServiceFailure(status: 500, code: "unexpected")
+            }
+            return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: reply))
+        }
+    }
+    func testLostReplacementResponseReusesConsentButDisplacementRequiresNewConfirmation() async throws {
+        let account = UUID(), user = "device-recovery-qa-" + UUID().uuidString
+        let profile = ChatProfile(id: account, username: "device_recovery_qa", display_name: "Device recovery QA")
+        let api = Transport(profile), chat = try ChatSession(api: api, userID: user)
+        defer {
+            try? chat.close(); KeychainStore.delete(account: "profile-" + user)
+            KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
+            let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages/" + account.uuidString.lowercased())
+            try? FileManager.default.removeItem(at: folder)
+        }
+        await chat.start()
+        XCTAssertFalse(chat.ready); XCTAssertTrue(chat.needsDeviceReplacement)
+        XCTAssertEqual(api.registrations.count, 1); XCTAssertFalse(api.registrations[0].1)
+        let candidate = try chat.deviceReplacementCandidate(); api.loseNextRegistrationResponse = true
+        do { try await chat.confirmDeviceReplacement(candidate); XCTFail("Lost response must remain uncertain") } catch {}
+        XCTAssertFalse(chat.ready); XCTAssertEqual(api.active, candidate.device.id)
+        await chat.start()
+        XCTAssertTrue(chat.ready); XCTAssertFalse(chat.needsDeviceReplacement)
+        XCTAssertEqual(Array(api.registrations.map { $0.0 }.suffix(2)), [candidate.device.id, candidate.device.id])
+        XCTAssertTrue(api.registrations.suffix(2).allSatisfy { $0.1 })
+        api.active = UUID()
+        await chat.start()
+        XCTAssertFalse(chat.ready); XCTAssertTrue(chat.needsDeviceReplacement)
+        let count = api.registrations.count
+        await chat.start()
+        XCTAssertEqual(api.registrations.count, count, "A displaced device cannot retry takeover without a new confirmation")
+        let next = try chat.deviceReplacementCandidate()
+        XCTAssertNotEqual(next.device.id, candidate.device.id)
+        try await chat.confirmDeviceReplacement(next)
+        XCTAssertTrue(chat.ready); XCTAssertEqual(api.active, next.device.id)
+    }
+    func testExpiredAuthenticationKeepsConfirmedCandidateAcrossReopenAndFreshSignIn() async throws {
+        let account = UUID(), user = "device-reauth-qa-" + UUID().uuidString
+        let profile = ChatProfile(id: account, username: "device_reauth_qa", display_name: "Device reauth QA")
+        let api = Transport(profile), chat = try ChatSession(api: api, userID: user)
+        defer {
+            try? chat.close(); KeychainStore.delete(account: "profile-" + user)
+            KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
+            let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages/" + account.uuidString.lowercased())
+            try? FileManager.default.removeItem(at: folder)
+        }
+        await chat.start()
+        let candidate = try chat.deviceReplacementCandidate(), oldActive = api.active
+        api.recentAuthentication = false
+        do { try await chat.confirmDeviceReplacement(candidate); XCTFail("Old authentication must not replace the active device") }
+        catch let error as ServiceFailure { XCTAssertEqual(error.code, "recent_sign_in_required") }
+        XCTAssertEqual(api.active, oldActive)
+        XCTAssertTrue(chat.needsRecentSignIn); XCTAssertTrue(chat.hasPendingDeviceReplacement)
+        XCTAssertFalse(chat.needsDeviceReplacement); XCTAssertFalse(chat.ready)
+        try chat.close()
+        let reopened = try ChatSession(api: api, userID: user)
+        defer { try? reopened.close() }
+        XCTAssertTrue(reopened.hasPendingDeviceReplacement)
+        await reopened.start()
+        XCTAssertTrue(reopened.needsRecentSignIn); XCTAssertEqual(api.active, oldActive)
+        api.recentAuthentication = true // Models a new provider-authenticated session, not a token refresh.
+        try await reopened.resumeDeviceReplacement()
+        XCTAssertTrue(reopened.ready); XCTAssertFalse(reopened.needsRecentSignIn)
+        XCTAssertFalse(reopened.hasPendingDeviceReplacement); XCTAssertEqual(api.active, candidate.device.id)
+        XCTAssertTrue(api.registrations.suffix(3).allSatisfy { $0.0 == candidate.device.id && $0.1 })
     }
 }

@@ -23,6 +23,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var busy = false
     private(set) var syncing = false
     private(set) var ready = false
+    private(set) var needsDeviceReplacement = false
+    private(set) var needsRecentSignIn = false
+    private(set) var hasPendingDeviceReplacement = false
+    private(set) var changedIdentities = Set<UUID>()
     private(set) var threads: [ChatThread] = []
     private(set) var contacts: [UUID: ChatProfile] = [:]
     private(set) var importedPeers: [UUID: HistoryBackupPeer] = [:]
@@ -55,6 +59,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
+            hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
                 var result: [UUID: ChatProfile] = [:]
                 for key in try store.ids("contact") {
@@ -71,6 +76,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 }
                 return result
             }
+            changedIdentities = try store.transaction { Set(try store.ids("identity-change").compactMap(UUID.init(uuidString:))) }
             blockedPeers = try store.transaction { Set(try store.ids("blocked").compactMap(UUID.init(uuidString:))) }
         }
         profile = value; needsProfile = false
@@ -105,12 +111,75 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private func provision() async throws {
         guard let core, let vault else { return }
         if !ready {
-            let value: DeviceResult = try await request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret]))
+            let replacement = try vault.transaction { try vault.get("local", "replacement-consent") == Data(core.device.id.uuidString.lowercased().utf8) }
+            if needsDeviceReplacement && !replacement { throw ServiceFailure(status: 409, code: "device_replacement_confirmation_required") }
+            let value: DeviceResult = try await request("POST", "/v1/devices", body: body(["device_id": core.device.id.uuidString.lowercased(), "secret": core.device.secret, "replace_active": replacement]))
             guard value.active, value.id == core.device.id else { throw MessageJournal.Failure.invalidMessage }
-            try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)) }
-            ready = true
+            try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)); try vault.remove("local", "replacement-consent") }
+            ready = true; needsDeviceReplacement = false; needsRecentSignIn = false; hasPendingDeviceReplacement = false
         }
         try await replenish()
+    }
+    func deviceReplacementCandidate() throws -> OwnDeviceReplacement {
+        guard needsDeviceReplacement, !busy, !syncing, !historyBusy, let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        return try core.replacementCandidate()
+    }
+    func confirmDeviceReplacement(_ candidate: OwnDeviceReplacement) async throws {
+        guard needsDeviceReplacement, !busy, !syncing, !historyBusy, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        busy = true; defer { busy = false }
+        events?.stop(); events = nil
+        try core.confirmDeviceReplacement(candidate)
+        self.core = try MessagingCore(vault: vault)
+        ready = false; needsDeviceReplacement = false; hasPendingDeviceReplacement = true
+        try reload()
+        do { try await provision(); notice = nil }
+        catch { notice = Self.explanation(error); throw error }
+    }
+    /// A lost response or reauthentication resumes the exact persisted candidate;
+    /// it must never create another identity or silently retry a displaced device.
+    func resumeDeviceReplacement() async throws {
+        guard hasPendingDeviceReplacement, !needsDeviceReplacement, !busy, !syncing, !historyBusy else {
+            throw ServiceFailure(status: 0, code: "device_not_ready")
+        }
+        busy = true; defer { busy = false }
+        do { try await provision(); notice = nil }
+        catch { notice = Self.explanation(error); throw error }
+    }
+    private func recordIdentityChange(_ peer: UUID) throws {
+        guard let vault else { return }
+        try vault.transaction { try vault.put("identity-change", peer.uuidString.lowercased(), Data([1])) }
+        changedIdentities.insert(peer)
+    }
+    func reviewPeerIdentity(_ peer: UUID) async throws -> PeerIdentityChange {
+        guard ready, !historyBusy, let core, let vault, !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let key = peer.uuidString.lowercased()
+        let id: UUID = try vault.transaction {
+            if let bytes = try vault.get("pending-review-claim", key), let id = UUID(uuidString: String(decoding: bytes, as: UTF8.self)) { return id }
+            let id = UUID(); try vault.put("pending-review-claim", key, Data(id.uuidString.lowercased().utf8)); return id
+        }
+        do {
+            let value: ClaimedKeys = try await request("POST", "/v1/people/\(key)/keys", body: body(["request_id": id.uuidString.lowercased()]), device: core.device)
+            return try core.keys.reviewReplacement(peer: peer, requestID: id, response: value)
+        } catch let error as ServiceFailure where error.status == 410 || error.code == "recipient_identity_changed" {
+            try vault.transaction { try vault.remove("pending-review-claim", key) }; throw error
+        }
+    }
+    func acceptPeerIdentity(_ candidate: PeerIdentityChange) async throws {
+        guard ready, !historyBusy, let core, let vault, !blockedPeers.contains(candidate.response.user_id) else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let response = candidate.response, key = response.user_id.uuidString.lowercased()
+        // Server rechecks the currently active recipient before replaying this
+        // exact claim. An expired or displaced preview is never auto-retried.
+        let current: ClaimedKeys
+        do {
+            current = try await request("POST", "/v1/people/\(key)/keys",
+                body: body(["request_id": response.request_id.uuidString.lowercased()]), device: core.device)
+        } catch let error as ServiceFailure where error.status == 410 || error.code == "recipient_identity_changed" {
+            try vault.transaction { try vault.remove("pending-review-claim", key) }; throw error
+        }
+        guard ready, !historyBusy, self.core === core, current == response else { throw DurableSignalStore.Failure.identityChanged }
+        _ = try core.keys.establish(peer: response.user_id, requestID: response.request_id, response: current, replacing: candidate)
+        changedIdentities.remove(response.user_id); try reload()
+        await synchronize()
     }
     private func replenish() async throws {
         guard let core, let vault else { return }
@@ -206,6 +275,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard !historyBusy else { throw ServiceFailure(status: 0, code: "history_busy") }
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
+        guard !changedIdentities.contains(peer) else { throw ServiceFailure(status: 0, code: "peer_identity_review_required") }
         try core.journal.saveDraft(id: UUID(), recipient: peer, text: text, createdAt: now, now: now, consumeCompose: true)
         try reload()
     }
@@ -223,6 +293,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             try vault.transaction { try vault.remove("pending-claim", key) }
         } catch let error as ServiceFailure where error.status == 410 {
             try vault.transaction { try vault.remove("pending-claim", key) }; throw error
+        } catch DurableSignalStore.Failure.identityChanged {
+            try recordIdentityChange(peer)
+            throw ServiceFailure(status: 0, code: "peer_identity_review_required")
         }
     }
     func synchronize() async {
@@ -242,6 +315,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     for item in inbox.messages {
                         if blockedPeers.contains(item.sender_id) { continue }
                         do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
+                        catch DurableSignalStore.Failure.retiredDevice { continue }
+                        catch DurableSignalStore.Failure.identityChanged {
+                            try recordIdentityChange(item.sender_id)
+                            notice = "A friend’s encryption keys changed. Review their encryption details before continuing."
+                        }
                         catch { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
                     }
                     guard let next = inbox.next_cursor else { break }
@@ -260,9 +338,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 }
                 for draft in try core.journal.pendingDrafts(now: now).sorted(by: { $0.createdAt < $1.createdAt }) {
                     do {
-                        if blockedPeers.contains(draft.recipient) { continue }
+                        if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
                         try await establish(draft.recipient)
-                        if blockedPeers.contains(draft.recipient) { continue }
+                        if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
                         _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now)
                     } catch is CancellationError { throw CancellationError() }
                     catch { notice = Self.explanation(error) }
@@ -272,9 +350,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     do {
                         let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
                         let status: Status = try await request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
+                        if status.state == "identity_changed" { try recordIdentityChange(envelope.recipient) }
                         let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
                         try core.journal.applyStatus(envelope.id, state: state)
                     } catch let error as ServiceFailure {
+                        if error.code == "recipient_identity_changed" { try recordIdentityChange(envelope.recipient) }
                         if let state = Self.terminalSendState(error) { try core.journal.applyStatus(envelope.id, state: state) }
                         else if error.code != "recipient_queue_full" { throw error }
                         notice = Self.explanation(error)
@@ -293,7 +373,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if events == nil {
             let device = core.device
             events = ForegroundEvents(connect: { try await api.openEvents(device: device) },
-                                      hint: { [weak self] in await self?.synchronize() })
+                                      hint: { [weak self] in await self?.synchronize() }, authorizationEnded: { [weak self] in
+                Task { @MainActor [weak self] in
+                    guard let self, !self.closed, self.ready, self.core === core else { return }
+                    do { let _: Inventory = try await self.request("GET", "/v1/keys", device: device) }
+                    catch {
+                        if !self.closed { self.ready = false; self.notice = Self.explanation(error) }
+                    }
+                }
+            })
         }
         events?.start()
     }
@@ -363,7 +451,18 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         do {
             let value: T = try await api.request(method, path, body: body, device: device, query: query)
             try ensureOpen(); return value
-        } catch { try ensureOpen(); throw error }
+        } catch {
+            try ensureOpen()
+            if let failure = error as? ServiceFailure,
+               ["device_revoked", "device_registration_conflict", "device_replacement_confirmation_required"].contains(failure.code) {
+                ready = false; needsDeviceReplacement = true; hasPendingDeviceReplacement = false; needsRecentSignIn = false; events?.stop(); events = nil
+                if let vault { try vault.transaction { try vault.remove("local", "replacement-consent") } }
+            }
+            if let failure = error as? ServiceFailure, failure.code == "recent_sign_in_required" {
+                needsRecentSignIn = true
+            }
+            throw error
+        }
     }
     static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {
@@ -376,6 +475,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             case "device_replacement_confirmation_required": return "This account is already active on another device. Moving your account needs a separate confirmation."
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
             case "recipient_keys_unavailable": return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
+            case "peer_identity_review_required": return "Review this friend’s changed encryption keys before sending another message."
             case "device_not_ready": return "Connect once to finish setting up this device."
             case "contact_blocked": return "Unblock this person to send a new message."
             case "message_expired": return "This message expired before delivery. You can send it again."

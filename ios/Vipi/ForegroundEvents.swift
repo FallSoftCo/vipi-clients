@@ -60,6 +60,7 @@ import Foundation
     typealias Connect = @MainActor () async throws -> any ForegroundEventSocket
     private let connect: Connect
     private let hint: @MainActor () async -> Void
+    private let authorizationEnded: @MainActor () -> Void
     private let sleep: @MainActor (Double) async throws -> Void
     private let jitter: @MainActor () -> Double
     private var work: Task<Void, Never>?
@@ -67,9 +68,10 @@ import Foundation
     private var generation = UUID()
     private(set) var blocked = false
     init(connect: @escaping Connect, hint: @escaping @MainActor () async -> Void,
+         authorizationEnded: @escaping @MainActor () -> Void = {},
          sleep: @escaping @MainActor (Double) async throws -> Void = { try await Task.sleep(for: .seconds($0)) },
          jitter: @escaping @MainActor () -> Double = { Double.random(in: 0...0.2) }) {
-        self.connect = connect; self.hint = hint; self.sleep = sleep; self.jitter = jitter
+        self.connect = connect; self.hint = hint; self.authorizationEnded = authorizationEnded; self.sleep = sleep; self.jitter = jitter
     }
     func start() {
         guard work == nil, !blocked else { return }
@@ -100,12 +102,12 @@ import Foundation
                 guard generation == id, !Task.isCancelled else { return }
                 let code = connection?.failureCode ?? (error as? ServiceFailure)?.status ?? 0
                 connection?.close(); socket = nil
-                if code == 4403 || code == 403 { blocked = true; return }
+                if code == 4403 || code == 403 { blocked = true; authorizationEnded(); return }
                 if code == 4401 || code == 401 {
-                    guard !refreshed, let connection else { blocked = true; return }
+                    guard !refreshed, let connection else { blocked = true; authorizationEnded(); return }
                     do { try await connection.refreshAuthorization(); refreshed = true }
-                    catch { blocked = true; return }
-                } else if error is AuthenticationManager.SessionFailure { blocked = true; return }
+                    catch { blocked = true; authorizationEnded(); return }
+                } else if error is AuthenticationManager.SessionFailure { blocked = true; authorizationEnded(); return }
                 if began.duration(to: .now) >= .seconds(30) { failures = 0 }
                 let delay = min(30, pow(2, Double(min(failures, 5)))) * (1 + min(0.2, max(0, jitter())))
                 failures = min(failures + 1, 5)

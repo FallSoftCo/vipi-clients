@@ -117,7 +117,7 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
             let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
             guard generation == sessionGeneration else { throw SessionFailure.accountChanged }
             if let expected = pending.expectedUser, result.user.id != expected {
-                errorMessage = "Sign in to the same account to continue deleting it."; return
+                errorMessage = "Sign in to the same account to continue."; return
             }
             let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")

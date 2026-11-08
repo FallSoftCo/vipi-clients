@@ -23,6 +23,15 @@ struct RoutedMessage {
     }
 }
 
+struct OwnDeviceReplacement {
+    let previousDevice: UUID
+    let previousIdentity: Data
+    let device: DeviceCredential
+    let identity: Data
+    let registration: UInt32
+
+}
+
 final class MessagingCore {
     private let vault: MessageVault
     let store: DurableSignalStore
@@ -35,6 +44,45 @@ final class MessagingCore {
         self.vault = vault; store = try DurableSignalStore(vault: vault)
         keys = SignalKeys(store: store); journal = MessageJournal(vault: vault); device = try DeviceCredential.load(vault: vault)
         local = try ProtocolAddress(name: vault.account.uuidString.lowercased(), deviceId: 1)
+    }
+    func replacementCandidate() throws -> OwnDeviceReplacement {
+        let prior = try vault.transaction { try store.identityKeyPair(context: context).serialize() }
+        return OwnDeviceReplacement(previousDevice: device.id, previousIdentity: prior,
+            device: try DeviceCredential.generate(), identity: IdentityKeyPair.generate().serialize(),
+            registration: UInt32.random(in: 1...16380))
+    }
+    func confirmDeviceReplacement(_ candidate: OwnDeviceReplacement) throws {
+        try vault.transaction {
+            guard candidate.previousDevice == device.id, candidate.device.id != device.id, candidate.identity != candidate.previousIdentity,
+                  try store.identityKeyPair(context: context).serialize() == candidate.previousIdentity,
+                  (1...16380).contains(candidate.registration) else { throw DurableSignalStore.Failure.identityChanged }
+            _ = try IdentityKeyPair(bytes: candidate.identity)
+            let encoder = JSONEncoder(), decoder = JSONDecoder()
+            for id in try vault.ids("pending") {
+                if let bytes = try vault.get("outgoing", id) {
+                    var saved = try decoder.decode(StoredChat.self, from: bytes)
+                    if ["queued", "accepted"].contains(saved.state) {
+                        saved.state = "failed"; try vault.put("outgoing", id, encoder.encode(saved))
+                    }
+                }
+                try vault.remove("pending", id)
+            }
+            for id in try vault.ids("draft") {
+                guard let bytes = try vault.get("draft", id) else { continue }
+                var draft = try decoder.decode(DraftChat.self, from: bytes)
+                if draft.state == "queued" { draft.state = "cancelled"; try vault.put("draft", id, encoder.encode(draft)) }
+            }
+            // Preserve peer identities/routes, global claim replay receipts and
+            // history. Only local protocol state belongs to the replaced device.
+            for kind in ["session", "prekey", "signed-prekey", "kyber-prekey", "kyber-last-resort", "kyber-used", "sender-key", "key-directory", "pending-claim", "pending-review-claim", "identity-verification", "receipt"] {
+                for id in try vault.ids(kind) { try vault.remove(kind, id) }
+            }
+            try vault.put("local", "identity", candidate.identity)
+            try vault.put("local", "registration", Data(String(candidate.registration).utf8))
+            try vault.put("local", "service-device", encoder.encode(candidate.device))
+            try vault.remove("local", "registered-device")
+            try vault.put("local", "replacement-consent", Data(candidate.device.id.uuidString.lowercased().utf8))
+        }
     }
     func hasSession(peer: UUID) throws -> Bool { try vault.transaction { try store.loadSession(for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), context: context) != nil } }
     func securityNumber(peer: UUID) throws -> SecurityNumber? {
@@ -71,8 +119,14 @@ final class MessagingCore {
         guard value.recipientDevice == device.id else { throw MessageJournal.Failure.invalidMessage }
         let peer = value.envelope.sender.uuidString.lowercased(), sender = Data(value.senderDevice.uuidString.lowercased().utf8)
         return try journal.receive(value.envelope, now: now, validateRoute: {
-            if let stored = try vault.get("peer-device", peer), stored != sender { throw DurableSignalStore.Failure.identityChanged }
-            if let stored = try vault.get("incoming-route", value.envelope.id.uuidString.lowercased()), stored != sender { throw MessageJournal.Failure.conflict }
+            if let stored = try vault.get("incoming-route", value.envelope.id.uuidString.lowercased()) {
+                guard stored == sender, try vault.get("incoming", value.envelope.id.uuidString.lowercased()) != nil else { throw MessageJournal.Failure.conflict }
+                return // Journal still checks the exact committed envelope hash.
+            }
+            if let stored = try vault.get("peer-device", peer), stored != sender {
+                if try vault.get("retired-peer-device", peer + "/" + value.senderDevice.uuidString.lowercased()) != nil { throw DurableSignalStore.Failure.retiredDevice }
+                throw DurableSignalStore.Failure.identityChanged
+            }
         }) { type, bytes in
             let address = try ProtocolAddress(name: peer, deviceId: 1), clear: Data
             if type == 3 { clear = try signalDecryptPreKey(message: PreKeySignalMessage(bytes: bytes), from: address, localAddress: local, sessionStore: store, identityStore: store, preKeyStore: store, signedPreKeyStore: store, kyberPreKeyStore: store, context: context) }

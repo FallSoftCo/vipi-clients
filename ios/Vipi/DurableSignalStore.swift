@@ -5,7 +5,7 @@ import LibSignalClient
 /// Caller must enclose protocol operations and message persistence in one vault
 /// transaction. Deserialize on every read so rollback cannot leave a mutated cache.
 final class DurableSignalStore: IdentityKeyStore, PreKeyStore, SignedPreKeyStore, KyberPreKeyStore, SessionStore, SenderKeyStore {
-    enum Failure: Error { case identityChanged, invalidAddress }
+    enum Failure: Error { case identityChanged, retiredDevice, invalidAddress }
     let vault: MessageVault
     init(vault: MessageVault) throws {
         self.vault = vault

@@ -6,10 +6,32 @@ struct ConnectedChatRoot: View {
     @State private var chat: ChatSession?
     @State private var subscriptions: SubscriptionStore?
     @State private var error: String?
+    @State private var replacement: OwnDeviceReplacement?
+    @State private var showReplacement = false
     var body: some View {
         Group {
             if let chat {
-                if chat.profile != nil && chat.ready { HomeView(chat: chat, subscriptions: subscriptions) }
+                if chat.profile != nil {
+                    HomeView(chat: chat, subscriptions: subscriptions)
+                        .safeAreaInset(edge: .top) {
+                            if !chat.ready {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Chatting is paused").font(.headline)
+                                    Text(chat.notice ?? "Your saved conversations are available while this device reconnects.").font(.footnote)
+                                    if let error = authentication.errorMessage { Text(error).font(.footnote) }
+                                    HStack {
+                                        if chat.needsDeviceReplacement {
+                                            Button("Review this device") {
+                                                do { replacement = try chat.deviceReplacementCandidate(); showReplacement = true }
+                                                catch { self.error = ChatSession.explanation(error) }
+                                            }.accessibilityIdentifier("device-replacement-review")
+                                        } else { Button("Try again") { Task { await chat.start() } } }
+                                        Button("Sign in again") { authentication.signIn(expectedUser: chat.userID) }
+                                    }.disabled(chat.busy || authentication.busy)
+                                }.padding(16).frame(maxWidth: .infinity, alignment: .leading).background(VipiDesign.surface)
+                            }
+                        }
+                }
                 else if chat.needsProfile { ProfileSetupView(chat: chat) }
                 else {
                     ContentUnavailableView {
@@ -28,6 +50,12 @@ struct ConnectedChatRoot: View {
             } else { ProgressView("Getting your Vipi ready") }
         }
         .background(VipiDesign.canvas)
+        .sheet(isPresented: $showReplacement) {
+            if let chat, let replacement { OwnDeviceReplacementView(chat: chat, candidate: replacement) }
+        }
+        .onChange(of: authentication.session?.accessToken) { _, _ in
+            if let chat, !chat.ready { Task { await chat.start() } }
+        }
         .task(id: authentication.session?.userID) {
             subscriptions?.close(); subscriptions = nil
             PushNotifications.shared.detach()
@@ -205,6 +233,10 @@ struct FriendConversationView: View {
                     }.accessibilityIdentifier("conversation-language-download")
                 }
                 Spacer(minLength: 0)
+                if chat.changedIdentities.contains(peer) {
+                    Button("Review changed keys", systemImage: "lock.trianglebadge.exclamationmark") { showSecurityNumber = true }
+                        .accessibilityIdentifier("peer-identity-review")
+                }
                 if let notice = messageNotice {
                     Button { showMessageStatus = true } label: {
                         statusLabel("Message status", symbol: "exclamationmark.circle")
@@ -443,4 +475,66 @@ private struct ConversationViewport: Equatable {
     let content: CGFloat
     let insets: CGFloat
     var nearBottom: Bool { content - offset - height <= 44 }
+}
+
+struct OwnDeviceReplacementView: View {
+    let chat: ChatSession
+    let candidate: OwnDeviceReplacement
+    @Environment(AuthenticationManager.self) private var authentication
+    @Environment(\.dismiss) private var dismiss
+    @State private var confirming = false
+    @State private var working = false
+    @State private var error: String?
+    @State private var attempted = false
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Text("Use Vipi on this device") .font(.title2.weight(.semibold))
+                    Text("This device will replace whichever other device is currently active and sign it out. A recent sign-in is required.")
+                    Text("Your saved history stays here. Pending messages from the previous device won’t be resent. Friends will see changed encryption keys.")
+                }
+                Section {
+                    if chat.needsRecentSignIn {
+                        Text("Sign in again to finish moving your account. The device change you confirmed is saved.").font(.footnote)
+                        Button("Sign in again") { authentication.signIn(expectedUser: chat.userID) }
+                            .accessibilityIdentifier("device-replacement-sign-in")
+                            .disabled(working || authentication.busy || chat.busy)
+                    } else if chat.hasPendingDeviceReplacement {
+                        Button("Try again") {
+                            working = true
+                            Task {
+                                defer { working = false }
+                                do { try await chat.resumeDeviceReplacement(); dismiss() }
+                                catch { self.error = ChatSession.explanation(error) }
+                            }
+                        }.disabled(working || chat.busy).accessibilityIdentifier("device-replacement-retry")
+                    } else if attempted && chat.needsDeviceReplacement {
+                        Text("The active device changed again. Review this device once more before replacing it.").font(.footnote)
+                        Button("Review again") { dismiss() }.accessibilityIdentifier("device-replacement-review-again")
+                    } else {
+                        Button("Use this device") { confirming = true }.disabled(working || !chat.needsDeviceReplacement)
+                            .accessibilityIdentifier("device-replacement-confirm")
+                    }
+                    if working { ProgressView("Registering this device") }
+                    if let error { Text(error).font(.footnote) }
+                    if let error = authentication.errorMessage { Text(error).font(.footnote) }
+                }
+            }.scrollContentBackground(.hidden).background(VipiDesign.canvas)
+                .navigationTitle("Move your account").navigationBarTitleDisplayMode(.inline)
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(working) } }
+                .alert("Replace the active device?", isPresented: $confirming) {
+                    Button("Cancel", role: .cancel) {}
+                    Button("Use this device") {
+                        working = true; attempted = true
+                        Task {
+                            defer { working = false }
+                            do { try await chat.confirmDeviceReplacement(candidate); dismiss() }
+                            catch { self.error = ChatSession.explanation(error) }
+                        }
+                    }
+                } message: { Text("The currently active device will be signed out. Saved history remains, but pending old messages won’t be resent.") }
+        }.tint(VipiDesign.highlight).interactiveDismissDisabled(working)
+            .onChange(of: chat.ready) { _, ready in if ready { dismiss() } }
+    }
 }

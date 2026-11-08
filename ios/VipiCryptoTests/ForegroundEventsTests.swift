@@ -41,16 +41,16 @@ import XCTest
         second.emit(); try await until { hints == 2 }
     }
     func testNetworkReconnectBackoffAndRestrictedDeviceStop() async throws {
-        var opens = 0, delays: [Double] = []
+        var opens = 0, ended = 0, delays: [Double] = []
         let events = ForegroundEvents(connect: {
             opens += 1
             let value = Socket(); value.failImmediately = true
             value.failureCode = opens == 4 ? 4403 : 0
             return value
-        }, hint: { XCTFail("No hint expected") }, sleep: { delays.append($0) }, jitter: { 0 })
+        }, hint: { XCTFail("No hint expected") }, authorizationEnded: { ended += 1 }, sleep: { delays.append($0) }, jitter: { 0 })
         defer { events.stop() }
         events.start(); try await until { events.blocked }
-        XCTAssertEqual(opens, 4); XCTAssertEqual(delays, [1, 2, 4])
+        XCTAssertEqual(opens, 4); XCTAssertEqual(delays, [1, 2, 4]); XCTAssertEqual(ended, 1)
         events.start(); await Task.yield(); XCTAssertEqual(opens, 4)
     }
     func testExpiredBearerRefreshIsBoundedWithoutAcceptedConnection() async throws {
