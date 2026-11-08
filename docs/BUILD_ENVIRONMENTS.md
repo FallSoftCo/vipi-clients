@@ -31,7 +31,8 @@ restart their services, or create replacement VMs.
   No active VM backing, original source, accepted pack, or unrelated project was
   removed for space.
 - Backend qualification uses the isolated socket-only PostgreSQL 16.15 instance
-  under the November 7 investigation directory. It is stopped after tests.
+  under the November 7 investigation directory. Its owning delivery workstream
+  retains it during related qualification and stops it when that work finishes.
   Do not run old container/host scripts against retired environments.
 
 Current provider preparation: a dedicated production WorkOS environment/client
@@ -42,6 +43,12 @@ Android upload key has an encrypted PKCS#12 recovery copy on Storage Box, with
 its password held separately in private local/production paths. No secret value
 belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
 open; no app-store submission receipt exists.
+
+Committed private source through `52d1f90` is retained on the consolidated host
+under `refs/heads/checkpoints/production-20261108-r01`. This separate reference
+does not replace the recovery repository's checked-out branch. Later native
+changes and uncommitted work require their own checkpoint; this is not public
+corresponding-source publication.
 
 ## Historical October setup — do not replay host commands
 

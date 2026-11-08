@@ -47,5 +47,18 @@ handshake/ping/oversized-frame check. The live TLS proxy passed qualification on
 November 7 at service revision `9337972`. Deployment waits for public handshake
 convergence after nginx's asynchronous graceful reload; a successful reload
 command alone does not mean every accepting worker has applied the new headers.
-Native foreground arrival requires its own integration receipts. Background delivery still uses
-APNs/FCM and remains a separate actual-provider qualification gate.
+Both native apps subsequently passed hands-off foreground arrival through this
+public endpoint with notification permission denied. The Android network-loss
+run caught up after reconnect without navigation, refresh or app restart; both
+directions have server delivery receipts and cleared ciphertext. Android's first
+observed catch-up was 18.85 seconds after network restoration, including backoff.
+This is a measured observation bound, not exact wire latency. Background delivery
+still uses APNs/FCM and remains a separate actual-provider qualification gate.
+
+`qa/backend/qualify_foreground_load.py` exercises two separate local workers and
+real PostgreSQL with an isolated schema. The November 8 run completed 480
+message/receipt exchanges over 192 open sockets in 7.47 seconds, with p95 accept
+latency of 254.9 ms and roughly 107 MB peak RSS per worker. It uses synthetic
+opaque envelopes, fixture authentication and loopback networking. Production
+JWT/provider overhead, internet behavior, native encryption, background delivery
+and sustained production capacity require separate evidence.

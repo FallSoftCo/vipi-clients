@@ -1,6 +1,43 @@
 # Verification ledger
 
-## Latest delivery checkpoint — November 7, 2026, 23:52 UTC
+## Latest delivery checkpoint — November 8, 2026, 00:30 UTC
+
+Both native apps now receive live encrypted messages in an open conversation
+without refresh, relaunch or receiver interaction, with notification permission
+denied. The reconnect run also delivered messages after Android's network was
+restored. The first observed catch-up was 18.85 seconds after restoration,
+including reconnect backoff; this is an observation bound, not exact transport
+latency. Server receipts confirm both messages delivered and ciphertext cleared.
+Physical background push remains unqualified.
+
+Android's pinned, bundled English/Swahili speech fallback prepared both languages
+offline and rendered one mixed PCM stream. Native tests cover cancellation during
+synthesis, incoming messages during playback, and account sign-out stopping
+playback and removing private audio without deleting public voice data. Apple's
+five native account-deletion tests likewise include private speech-cache removal.
+These runtime results are not a listening-quality assessment.
+
+The backend load qualification used two separate local API processes, 192 open
+connections and 480 complete message/receipt exchanges in 7.47 seconds. Accept
+latency was 254.9 ms at p95; each worker peaked near 107 MB RSS, with no ciphertext
+left queued. It used fixture identities and loopback networking, so it establishes
+neither public production capacity nor million-user scale. The portable service
+package at `52d1f90` passed full file-manifest checks and real PostgreSQL/listener
+startup. Live service revision remains `9337972`; this package is not deployed.
+
+The precommitted reverse-translation filter experiment completed 858 actual
+offline queries. At requested 50% immersion density it reduced correct depth
+from 30.57% to 13.57% for English→Spanish and from 30.25% to 8.98% for
+English→Swahili, while material errors remained in 7/80 and 9/80 messages.
+Agreement in both directions is insufficient evidence of correct meaning.
+No experimental replacement policy or language pack was promoted.
+
+Device/key recovery is being qualified separately. Company store authentication,
+actual billing and push providers, broader language quality, physical-runtime
+evidence and final corresponding-source publication remain open. No store upload
+or customer release has occurred.
+
+## Foreground deployment checkpoint — November 7, 2026, 23:52 UTC
 
 The consolidated API runs revision `9337972`, schema `20261107_05`, with the
 existing live staging database preserved. Foreground delivery signals are live
