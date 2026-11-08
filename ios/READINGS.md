@@ -50,3 +50,19 @@ Modern precomposed Hangul is supported; unknown unprotected Hanja, compatibility
 or conjoining Jamo, and other untranscribed scripts abstain. Protected literals
 and exact source ranges remain intact. The frozen native qualification and its
 limits are recorded in `qa/immersion/apple-korean-reading-qualification-r01.json`.
+
+For an unauthored Japanese target, `JapaneseFullReading` uses Core Foundation's
+lexical Latin readings, preserving the original UTF-16 source partition and raw
+token evidence. A terminal native small-tsu marker can join only an immediately
+adjacent token with a valid consonant onset; this is a structural rule, not a
+sentence override. Reviewed authored readings still take precedence. The native
+ha/he/wo particle conventions, valid reading variants and morpheme spaces remain
+ordinary spelling guides rather than promises of spoken pronunciation.
+
+Unknown unprotected characters, missing readings, final small-tsu without an
+onset and some decomposed kana withhold a guide while keeping original script
+and audio available. Opaque code and URLs remain exact; without an explicit
+separator, a trailing Japanese URL suffix can remain opaque too. No additional
+model, dictionary or download is required. The bounded 32-input native review is
+retained in `qa/immersion/apple-japanese-reading-qualification-r01.json`; its reused
+controls do not establish population accuracy.

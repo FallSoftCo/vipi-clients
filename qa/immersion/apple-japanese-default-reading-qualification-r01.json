@@ -1,0 +1,115 @@
+{
+  "schema": "vipi-apple-japanese-default-reading-qualification-1",
+  "status": "default_authored_first_reader_qualified_on_native_iOS_Simulator",
+  "runtime_source_hashes": {
+    "ios/project.yml": "119ff850a8e1cc4c0ed2b00a81e4328dd57a6f4d59b47445392f3262b970521a",
+    "ios/Vipi/JapaneseFullReading.swift": "34b3190135e8531e8a9ed96100ec61f94f09788fa85511987c92de9031fa52c0",
+    "ios/Vipi/SentenceReadings.swift": "afeeb895d9cf69ccb87f249d75d1ffd7d608f3beb82e365b7f628cfca51fed63",
+    "ios/Vipi/FullReadingQualification.swift": "53af87273972a975005bd9da38ad10eba1abd42091049beb3747250402ab80a7",
+    "ios/VipiCryptoTests/ConversationImmersionTests.swift": "96b1d68aec24cbda1536007ed72de425284df59a1064cadae8a7970e3ac59e3b",
+    "ios/VipiUITests/ChatImmersionTests.swift": "fd6e5734ec800b51fe2734f77197ed1cbccda1acd8774ac3c46512cb4e053383",
+    "qa/immersion/japanese-reading-r01/inputs.json": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80"
+  },
+  "runtime_algorithm": "Byte-identical to reviewed QA candidate after enum name, Sendable declarations and file comment normalization; no phrase overrides",
+  "source_generation_policy": "Existing project.yml directory membership; deterministic generated PBX source entry, no dependency tools or downloads",
+  "build": {
+    "exit": 0,
+    "seconds": 38.06946301460266,
+    "guest_before_bytes": 823681024,
+    "guest_after_bytes": 820482048,
+    "guest_minimum_bytes": 760487936,
+    "declared_peak_additional_bytes": 268435456,
+    "guest_margin_bytes": 536870912,
+    "no_models_or_dependency_updates": true,
+    "current_dd_reused": true
+  },
+  "native_runs": {
+    "initial_r01": {
+      "frozen32_capture": "passed",
+      "Japanese_cache_speech": "passed",
+      "Chinese_regression": "failed_old_unsupported_Japanese_expectation",
+      "failure_receipt_sha256": "8030b194426254ca2f9218e6bf020c1951b3344587e788387ea41158b06fec44"
+    },
+    "corrected_r02": {
+      "groups": [
+        {
+          "group": "coordinator",
+          "exit": 0,
+          "seconds": 10.617460012435913,
+          "selectors": [
+            "VipiCryptoTests/ConversationImmersionTests/testJapaneseDefaultReadingCachesMetadataAndKeepsOriginalSpeech",
+            "VipiCryptoTests/ConversationImmersionTests/testBundledFullReadingKeepsAuthoredPrecedenceAndOriginalSpeech"
+          ]
+        },
+        {
+          "group": "display",
+          "exit": 0,
+          "seconds": 32.86353898048401,
+          "selectors": [
+            "VipiUITests/ChatImmersionTests/testJapaneseDefaultReadingUsesOriginalScriptAndAuthoredPriority"
+          ]
+        }
+      ],
+      "wall_seconds": 48.63421678543091,
+      "tests_passed": 3,
+      "tests_failed": 0,
+      "tests_skipped": 0,
+      "change": "Unsupported-language control changed to unauthored Arabic; production runtime unchanged. Capture was not rerun."
+    }
+  },
+  "actual_native32": {
+    "schema": "vipi-japanese-native-platform-comparison-1",
+    "mac_capture_sha256": "f85bff1d66b00abcc21b05e6113bead2a0b43333e0b32222116f73642cb9975e",
+    "sim_capture_sha256": "a00cb5a133bfa3c12bcbebbf24f37fa9f216d85f70e01684486077ff1202170a",
+    "cases": 32,
+    "exact_complete_result_agreement": 32,
+    "differences": [],
+    "first_warm_equal": true,
+    "median_first_ms": 3.6343958927318454,
+    "max_first_ms": 87.86674996372312,
+    "median_warm_ms": 0.4711458459496498,
+    "app_peak_rss_bytes": 322600960,
+    "rss_is_whole_test_app_not_component_increment": true
+  },
+  "frames": {
+    "japanese-app-r02/attachments-r01/0962F8C1-DC31-4FF9-989E-7A5876F82B41.png": "e8454236b61c963088500b05f547ee4dc658a3280ed60f038ef8b470be298ef0",
+    "japanese-app-r02/attachments-r01/2E33C72E-E574-4AB3-9C3E-580C25FD919E.png": "8b4f80c4a3013033c890831cbffc3e1ce5e55dd90fde61b611f0a473d27ff9a5",
+    "japanese-app-r02/attachments-r01/E8FC929B-A6EA-490C-91ED-60D3FD545154.png": "4ff54e5f9d06604a06047c9e3fe9cf0ed911a1ac1e5100c1aa0fda0f8ea96e09"
+  },
+  "visual_review": "All3 actual captured dark largest-dynamic-text frames inspected: guide/script/unknown-original legible with existing Listen/Reading options; oversized truncated QA heading is not shipping UI",
+  "evidence": {
+    "capture": "japanese-app-r01/native-japanese-32-r01.json",
+    "comparison": "japanese-app-r01/native-comparison-r01.json",
+    "source_freeze": "japanese-app-r02/source.json",
+    "test_result": "japanese-app-r02/japanese-default-native-r02-result.json"
+  },
+  "checks": [
+    "Reviewed authored Japanese reading wins over native fallback.",
+    "Default reader produces guide without QA enable flag or injected reader.",
+    "32 first/warm result objects and exact UTF16 pieces match macOS capture.",
+    "100 render-facing reads and repeat full request retain one producer call.",
+    "Original sender text and original Japanese target are speech inputs; generated Latin guide is never passed as target speech.",
+    "Script/transliteration toggles and unknown-script fallback retain copy action."
+  ],
+  "binary_sha256": {
+    "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib": "1c25cdc21feccd17e15baf99eb5c04a636e74c972f25ad2c33d7f3027a565491",
+    "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "94046c32eec180b9ad1f782e7a776e2bb7f4a0c9a3ce5607f1ad5cf387d623e1",
+    "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "beb61990747b8d14053255d691b071797ac6b9e6587cbe10b920c2f1cadeed72"
+  },
+  "capacity": {
+    "normal_native_reserve_bytes": 1073741824,
+    "declared_operation_peak_bytes": 268435456,
+    "guest_margin_bytes": 536870912,
+    "native_minimum_bytes": 3531620352,
+    "guest_minimum_bytes": 683786240,
+    "guest_after_bytes": 729780224,
+    "no_model_download": true
+  },
+  "limits": [
+    "Simulator native CF reader/display/cache proof uses supplied full target strings; not fresh translation/provider or physical-device acceptance.",
+    "Original-audio routing checked; this run does not claim synthesis/acoustic listening. Existing speech qualification remains separate.",
+    "ha/he/wo, morpheme spacing, contextual dictionary ambiguity and valid variants remain ordinary guide limits.",
+    "URL trailing Japanese may remain opaque; unknown/untranscribed script, final small-tsu and decomposed kana can abstain.",
+    "32 reused/controlled inputs are not population coverage. Minimum supported iOS18 device/runtime remains separately unqualified."
+  ]
+}

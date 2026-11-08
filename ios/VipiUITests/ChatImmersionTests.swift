@@ -3,6 +3,34 @@ import UIKit
 
 final class ChatImmersionTests: XCTestCase {
 
+    @MainActor func testJapaneseDefaultReadingUsesOriginalScriptAndAuthoredPriority() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-full-reading-qa", "-vipi-japanese-reading-fixture", "-vipi-appearance-dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch(); defer { app.terminate() }
+        let latin = app.staticTexts["Zoë to José ni messēji wo okutta。"]
+        XCTAssertTrue(latin.waitForExistence(timeout: 15))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
+        capture("ios-japanese-local-full-reading")
+        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        XCTAssertTrue(app.staticTexts["ZoëとJoséにメッセージを送った。"].waitForExistence(timeout: 5))
+        capture("ios-japanese-local-original-script")
+        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        XCTAssertTrue(latin.waitForExistence(timeout: 5))
+        app.buttons["Authored"].tap()
+        XCTAssertTrue(app.staticTexts["Mizu ga hitsuyō desu."].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "authored")
+        app.buttons["Unknown"].tap()
+        XCTAssertTrue(app.staticTexts["𠮷先生に会う。"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
+        capture("ios-japanese-unknown-reading-abstains")
+        app.buttons["Reading options"].tap()
+        XCTAssertFalse(app.buttons["Show original script"].exists)
+        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+    }
+
     @MainActor func testKoreanDefaultReadingUsesOriginalScriptAndAuthoredPriority() throws {
         continueAfterFailure = false
         let app = XCUIApplication()

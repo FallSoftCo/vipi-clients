@@ -50,13 +50,18 @@ struct FullSentenceReadings: Sendable {
             return .init(text: authored, provenance: .authored)
         }
         if language == "ko" { return Self.korean(text) }
+        if language == "ja" { return Self.japanese(text) }
         guard language == "zh", let chinese,
               let result = try? chinese.resolve(text), let reading = result.reading else { return nil }
         return .init(text: reading, provenance: .localTransliteration)
     }
-    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy
+    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy
     private static func korean(_ text: String) -> FullReading? {
         guard let reading = KoreanFullReading.resolve(text).reading else { return nil }
+        return .init(text: reading, provenance: .localTransliteration)
+    }
+    private static func japanese(_ text: String) -> FullReading? {
+        guard let reading = JapaneseFullReading.resolve(text).reading else { return nil }
         return .init(text: reading, provenance: .localTransliteration)
     }
     private static let current: Self = {
@@ -74,6 +79,7 @@ struct FullSentenceReadings: Sendable {
             return .init(text: authored, provenance: .authored)
         }
         if language == "ko" { return korean(text) }
+        if language == "ja" { return japanese(text) }
         guard language == "zh" else { return nil }
         return current.reading(text, language: language)
     }

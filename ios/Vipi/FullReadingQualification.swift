@@ -9,16 +9,16 @@ struct FullReadingQualificationView: View {
         case local = "Local", authored = "Authored", unknown = "Unknown"
         func source(_ language: String) -> String {
             switch self {
-            case .local: language == "ko" ? "We go to school together." : "The bank manager is walking."
+            case .local: ["ko": "We go to school together.", "ja": "I sent a message to Zoë and José."][language] ?? "The bank manager is walking."
             case .authored: "I need water."
             case .unknown: "How do you read these characters?"
             }
         }
         func target(_ language: String) -> String {
             switch self {
-            case .local: language == "ko" ? "같이 학교에 갑니다." : "银行行长正在走路。"
-            case .authored: language == "ko" ? "물이 필요해요." : "我需要水。"
-            case .unknown: language == "ko" ? "𠮷에게 메시지를 보내요." : "𠮷先生与𰻞字怎么读？"
+            case .local: ["ko": "같이 학교에 갑니다.", "ja": "ZoëとJoséにメッセージを送った。"][language] ?? "银行行长正在走路。"
+            case .authored: ["ko": "물이 필요해요.", "ja": "水が必要です。"][language] ?? "我需要水。"
+            case .unknown: ["ko": "𠮷에게 메시지를 보내요.", "ja": "𠮷先生に会う。"][language] ?? "𠮷先生与𰻞字怎么读？"
             }
         }
     }
@@ -30,7 +30,12 @@ struct FullReadingQualificationView: View {
     @State private var cache = FullReadingCache(policy: FullSentenceReadings.policy) {
         FullSentenceReadings.resolve($0, language: $1)
     }
-    private let language = ProcessInfo.processInfo.arguments.contains("-vipi-korean-reading-fixture") ? "ko" : "zh"
+    private let language: String = {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("-vipi-korean-reading-fixture") { return "ko" }
+        if args.contains("-vipi-japanese-reading-fixture") { return "ja" }
+        return "zh"
+    }()
     private var result: ImmersionPresentation {
         .complete(ImmersionEngine().align(original: fixture.source(language), translation: fixture.target(language), entries: [], density: 0))
     }
@@ -49,9 +54,9 @@ struct FullReadingQualificationView: View {
                     Text(ready ? (reading?.provenance.rawValue ?? "unavailable") : "pending metadata").font(.footnote)
                         .accessibilityIdentifier("reading-qa-provenance")
                 }.padding()
-            }.background(VipiDesign.canvas).navigationTitle(language == "ko" ? "Korean reading" : "Chinese reading")
+            }.background(VipiDesign.canvas).navigationTitle(["ko": "Korean reading", "ja": "Japanese reading"][language] ?? "Chinese reading")
         }
-        .task { speech.prepare(source: "en", target: language, warmups: ["en": "Hello.", language: language == "ko" ? "안녕하세요." : "你好。"]) }
+        .task { speech.prepare(source: "en", target: language, warmups: ["en": "Hello.", language: ["ko": "안녕하세요.", "ja": "こんにちは。"][language] ?? "你好。"]) }
         .task(id: fixture) {
             ready = false; reading = nil; mode = .translation
             let active = fixture
