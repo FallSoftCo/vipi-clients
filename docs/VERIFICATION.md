@@ -1,5 +1,7 @@
 # Verification ledger
 
+Current consolidated status: [DELIVERY_STATUS.md](DELIVERY_STATUS.md). Older dated checkpoints below are historical evidence, not current deployment instructions.
+
 ## Native interaction and lookup checkpoint — November 8, 2026, 02:55 UTC
 
 Android's eight curated current-renderer cases pass English↔Arabic, Japanese,
