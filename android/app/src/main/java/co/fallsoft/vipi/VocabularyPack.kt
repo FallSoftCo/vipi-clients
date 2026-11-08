@@ -2,7 +2,9 @@ package co.fallsoft.vipi
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.util.AtomicFile
+import android.util.Base64
+import android.system.Os
+import android.system.OsConstants
 import co.fallsoft.vipi.core.VocabularyEntry
 import co.fallsoft.vipi.core.ImmersionEngine
 import co.fallsoft.vipi.core.ContextMappingMatcher
@@ -15,9 +17,15 @@ import java.security.Signature
 import java.security.spec.X509EncodedKeySpec
 import java.text.Normalizer
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 
 /** Public vocabulary only. Trust keys are supplied by the app, never by the download. */
 enum class VocabularyPackKind { VOCABULARY, REVIEWED_CONTEXT, REVIEWED_FRAME }
+enum class VocabularyPackState { ABSENT, ACTIVE, INACTIVE, REINSTALL_REQUIRED }
+data class VocabularyPackStatus(val state: VocabularyPackState, val revision: Int? = null,
+                                val hash: String? = null, val cleanupPending: Boolean = false)
+class VocabularyPackReinstallRequired : IllegalStateException("Verified pack reinstall required")
+internal enum class PackActivationCheckpoint { STAGED, BEFORE_COMMIT, AFTER_COMMIT, BEFORE_DELETE }
 class VocabularyPackStore(context: Context, private val trustedKeys: Map<String, ByteArray>,
                           private val kind: VocabularyPackKind = VocabularyPackKind.VOCABULARY) {
     private val isContext = kind == VocabularyPackKind.REVIEWED_CONTEXT
@@ -39,22 +47,91 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
     private val root = File(context.filesDir, when {isFrame -> "language-packs/reviewed-frames"; isContext -> "language-packs/reviewed-contexts"; else -> "language-packs"}).apply { mkdirs() }
     private val receiptPrefix = when {isFrame -> "frame-pack-"; isContext -> "context-pack-"; else -> "pack-"}
     private val records = PrivateRecords(context)
+    // Every handle for this namespace shares one commit/reader boundary.
+    private val lock = locks.getOrPut(root.canonicalPath) { Any() }
+    internal var qualificationCheckpoint: ((PackActivationCheckpoint) -> Unit)? = null
+        set(value) { check(BuildConfig.DEBUG); field = value }
+    private fun checkpoint(value: PackActivationCheckpoint) { qualificationCheckpoint?.invoke(value) }
+    companion object { private val locks = ConcurrentHashMap<String, Any>() }
+    private fun fileHash(file: File): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { input ->
+            val buffer = ByteArray(65_536)
+            while (true) { val count = input.read(buffer); if (count < 0) break; digest.update(buffer, 0, count) }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+    private fun syncDirectory() {
+        check(root.isDirectory)
+        val descriptor = Os.open(root.path, OsConstants.O_RDONLY, 0)
+        try { Os.fsync(descriptor) } finally { Os.close(descriptor) }
+    }
+    private fun record(id: String): JSONObject? = records.read(receiptPrefix + id)?.also {
+        require(it.getInt("revision") > 0 && it.getString("hash").matches(Regex("[0-9a-f]{64}")))
+        if (it.has("activation_version")) require(it.getInt("activation_version") == 1)
+    }
+    private data class Active(val file: File, val manifest: JSONObject)
+    private fun active(id: String, record: JSONObject): Active? {
+        if (!record.has("activation_version")) throw VocabularyPackReinstallRequired()
+        if (record.isNull("active")) return null
+        val value = record.getJSONObject("active")
+        val original = Base64.decode(value.getString("manifest_bytes"), Base64.NO_WRAP)
+        val signature = Base64.decode(value.getString("signature"), Base64.NO_WRAP)
+        require(original.size in 1..16_384 && signature.size in 64..80)
+        require(sha256(original) == value.getString("manifest_sha256"))
+        val manifest = JSONObject(original.toString(Charsets.UTF_8))
+        val key = trustedKeys[manifest.getString("key_id")] ?: throw VocabularyPackReinstallRequired()
+        require(manifest.getString("signature_algorithm") == "ECDSA-P256-SHA256")
+        require(Signature.getInstance("SHA256withECDSA").run {
+            initVerify(KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(key))); update(original); verify(signature)
+        })
+        require(manifest.getString("pack_id") == id && manifest.getInt("revision") == record.getInt("revision") &&
+            manifest.getString("sha256") == record.getString("hash"))
+        require(value.getString("file") == "$id-${record.getInt("revision")}-${record.getString("hash")}.sqlite")
+        val file = File(root, value.getString("file"))
+        if (!file.isFile || file.length() != manifest.getLong("bytes") || file.length() !in 512L..67_108_864L ||
+            fileHash(file) != record.getString("hash")) throw VocabularyPackReinstallRequired()
+        return Active(file, manifest)
+    }
+    private fun obsolete(id: String, keep: File?): List<File> = root.listFiles()?.filter {
+        (it.name.matches(Regex("$id-[1-9][0-9]*-[0-9a-f]{64}\\.sqlite")) && it != keep) ||
+            it.name in setOf("$id.json", "$id.json.new", "$id.json.bak")
+    }.orEmpty()
+    private fun cleanup(id: String, keep: File?) {
+        for (file in obsolete(id, keep)) { checkpoint(PackActivationCheckpoint.BEFORE_DELETE); check(file.delete() || !file.exists()) }
+    }
+    /** State is authoritative even if obsolete-file deletion could not reclaim space. */
+    fun status(id: String): VocabularyPackStatus = synchronized(lock) {
+        require(validID(id))
+        val accepted = record(id) ?: return@synchronized VocabularyPackStatus(VocabularyPackState.ABSENT,
+            cleanupPending = obsolete(id, null).isNotEmpty())
+        val selected = try { active(id, accepted) } catch (_: VocabularyPackReinstallRequired) {
+            return@synchronized VocabularyPackStatus(VocabularyPackState.REINSTALL_REQUIRED,
+                accepted.getInt("revision"), accepted.getString("hash"), obsolete(id, null).isNotEmpty())
+        }
+        VocabularyPackStatus(if (selected == null) VocabularyPackState.INACTIVE else VocabularyPackState.ACTIVE,
+            accepted.getInt("revision"), accepted.getString("hash"), obsolete(id, selected?.file).isNotEmpty())
+    }
     private fun validID(id: String) = id.matches(Regex("[a-z]{2,3}-[a-z]{2,3}"))
     private fun sha256(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
 
-    @Synchronized fun install(manifestBytes: ByteArray, signature: ByteArray, database: ByteArray): String {
+    fun install(manifestBytes: ByteArray, signature: ByteArray, database: ByteArray,
+                checkCancellation: () -> Unit = {}): String = synchronized(lock) {
+        checkCancellation()
         require(manifestBytes.size in 1..16_384 && signature.size in 64..80 && database.size in 512..67_108_864)
-        val manifest = JSONObject(manifestBytes.toString(Charsets.UTF_8))
+        val originalManifest = manifestBytes.copyOf()
+        val originalSignature = signature.copyOf()
+        val manifest = JSONObject(originalManifest.toString(Charsets.UTF_8))
         val key = requireNotNull(trustedKeys[manifest.getString("key_id")]) { "Unknown signing key" }
         require(manifest.getString("signature_algorithm") == "ECDSA-P256-SHA256")
         require(Signature.getInstance("SHA256withECDSA").run {
-            initVerify(KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(key))); update(manifestBytes); verify(signature)
+            initVerify(KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(key))); update(originalManifest); verify(originalSignature)
         }) { "Invalid pack signature" }
         val id = manifest.getString("pack_id")
         val revision = manifest.getInt("revision")
         val hash = manifest.getString("sha256")
         val schema = manifest.getInt("schema_version")
-        require(validID(id) && revision > 0 && if (isReviewed) schema in reviewedSchemas else schema in setOf(1, 3, 4))
+        require(validID(id) && revision > 0 && hash.matches(Regex("[0-9a-f]{64}")) && if (isReviewed) schema in reviewedSchemas else schema in setOf(1, 3, 4))
         require(id == manifest.getString("source_language") + "-" + manifest.getString("target_language"))
         val normalization = manifest.getString("normalization")
         require(if (isReviewed) normalization == "exact-utf16" && manifest.getString("file") == reviewedFile
@@ -64,12 +141,14 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
         require((manifest.optString("context_policy")=="all-source-senses-native-guards-veto-4")==manifest.has("native_source_guard_policy"))
         require(manifest.getLong("bytes") == database.size.toLong() && sha256(database) == hash)
         require(database.copyOfRange(0, 16).contentEquals("SQLite format 3\u0000".toByteArray()))
-        val previous = records.read(receiptPrefix + id)
+        val previous = record(id)
         if (previous != null) require(revision > previous.getInt("revision") || (revision == previous.getInt("revision") && hash == previous.getString("hash"))) { "Pack rollback or revision conflict" }
         val destination = File(root, "$id-$revision-$hash.sqlite")
         val temp = File.createTempFile("install-", ".sqlite", root)
         try {
             temp.outputStream().use { it.write(database); it.fd.sync() }
+            require(fileHash(temp) == hash)
+            checkpoint(PackActivationCheckpoint.STAGED); checkCancellation()
             SQLiteDatabase.openDatabase(temp.path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
                 db.rawQuery("PRAGMA application_id", null).use { require(it.moveToFirst() && it.getInt(0) == 1447645257) }
                 db.rawQuery("PRAGMA user_version", null).use { require(it.moveToFirst() && it.getInt(0) == schema) }
@@ -112,31 +191,32 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
             }
             // POSIX rename replaces atomically, including a damaged previous copy.
             require(temp.renameTo(destination))
-            records.write(receiptPrefix + id, JSONObject().put("revision", revision).put("hash", hash))
-            val pointer = AtomicFile(File(root, "$id.json"))
-            val stream = pointer.startWrite()
-            try { stream.write(JSONObject().put("file", destination.name).put("manifest", manifest).toString().toByteArray()); pointer.finishWrite(stream) }
-            catch (error: Exception) { pointer.failWrite(stream); throw error }
+            syncDirectory()
+            val selected = JSONObject().put("file", destination.name)
+                .put("manifest_bytes", Base64.encodeToString(originalManifest, Base64.NO_WRAP))
+                .put("manifest_sha256", sha256(originalManifest))
+                .put("signature", Base64.encodeToString(originalSignature, Base64.NO_WRAP))
+            val next = JSONObject().put("activation_version", 1).put("revision", revision).put("hash", hash).put("active", selected)
+            require(next.toString().toByteArray(Charsets.UTF_8).size <= 65_507) // PrivateRecords envelope adds 29 bytes.
+            checkpoint(PackActivationCheckpoint.BEFORE_COMMIT); checkCancellation()
+            records.write(receiptPrefix + id, next)
         } finally { temp.delete() }
-        // Previous installed revisions have no live readers: all access uses this monitor.
-        root.listFiles()?.filter { it.name.startsWith("$id-") && it.extension == "sqlite" && it != destination }?.forEach { it.delete() }
-        return id
+        // Activation is committed. Cleanup failure/cancellation cannot undo it or
+        // imply failure to the caller; status() exposes remaining owned files.
+        runCatching { checkpoint(PackActivationCheckpoint.AFTER_COMMIT); cleanup(id, destination) }
+        id
     }
 
-    @Synchronized fun entries(id: String, text: String, translation: String? = null): List<VocabularyEntry> {
+    fun entries(id: String, text: String, translation: String? = null): List<VocabularyEntry> = synchronized(lock) {
         require(validID(id) && text.length <= 16_384)
-        val pointer = File(root, "$id.json")
-        if (!pointer.exists()) return emptyList()
-        val value = JSONObject(pointer.readText())
-        val manifest = value.getJSONObject("manifest")
-        val accepted = records.read(receiptPrefix + id) ?: return emptyList()
-        require(accepted.getInt("revision") == manifest.getInt("revision") && accepted.getString("hash") == manifest.getString("sha256"))
-        val filename = value.getString("file")
-        require(filename == "$id-${accepted.getInt("revision")}-${accepted.getString("hash")}.sqlite")
+        val accepted = record(id) ?: return@synchronized emptyList()
+        val selected = active(id, accepted) ?: return@synchronized emptyList()
+        val manifest = selected.manifest
+        val filename = selected.file.name
         if (isFrame) {
             require(manifest.getInt("schema_version") in reviewedSchemas && manifest.getString("context_policy")==reviewedPolicy(manifest.getInt("schema_version")))
-            if(translation.isNullOrEmpty() || translation.length>32768)return emptyList()
-            return SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use {db ->
+            if(translation.isNullOrEmpty() || translation.length>32768)return@synchronized emptyList()
+            return@synchronized SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use {db ->
                 ReviewedFrameLookup.entries(db,text,translation,manifest.getString("source_language"),manifest.getString("target_language"))
             }
         }
@@ -144,12 +224,12 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
             require(manifest.getInt("schema_version")==5)
             val source=manifest.getString("source_language");val target=manifest.getString("target_language")
             SQLiteDatabase.openDatabase(File(root,filename).path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS).use { db ->
-                return ReviewedContextLookup.entries(db, text, source, target)
+                return@synchronized ReviewedContextLookup.entries(db, text, source, target)
             }
         }
         val rawTerms = candidateTerms(text, manifest.getString("source_language"))
         val terms = if (manifest.getString("normalization") == "unicode-nfc-lower-arabic-harakat-v1") rawTerms.map(ImmersionEngine::lookupKey).distinct() else rawTerms
-        if (terms.isEmpty()) return emptyList()
+        if (terms.isEmpty()) return@synchronized emptyList()
         data class LookupKey(val source: String, val sense: String)
         data class Group(val targets: MutableSet<String> = linkedSetOf(), val readings: MutableMap<String, MutableSet<String>> = linkedMapOf(), val hints: MutableSet<String> = linkedSetOf())
         val grouped = linkedMapOf<LookupKey, Group>()
@@ -185,16 +265,22 @@ class VocabularyPackStore(context: Context, private val trustedKeys: Map<String,
                 }
             }
         }
-        return grouped.entries.sortedWith(compareBy({ it.key.source }, { it.key.sense })).map {
+        grouped.entries.sortedWith(compareBy({ it.key.source }, { it.key.sense })).map {
             VocabularyEntry(it.key.source, it.value.targets.sorted(), it.value.readings.mapValues { row -> row.value.sorted() }, it.value.hints.sorted(), (meanings[it.key.source]?.size ?: 0) > 1)
         }+nativeGuards
     }
 
-    @Synchronized fun remove(id: String) {
-        require(validID(id))
-        File(root, "$id.json").delete()
-        root.listFiles()?.filter { it.name.startsWith("$id-") && it.extension == "sqlite" }?.forEach { it.delete() }
-        // Retain the accepted revision so deleting data cannot enable a rollback.
+    fun remove(id: String, checkCancellation: () -> Unit = {}): VocabularyPackStatus = synchronized(lock) {
+        require(validID(id)); checkCancellation()
+        val accepted = record(id)
+        if (accepted != null) {
+            val inactive = JSONObject().put("activation_version", 1).put("revision", accepted.getInt("revision"))
+                .put("hash", accepted.getString("hash")).put("active", JSONObject.NULL)
+            checkpoint(PackActivationCheckpoint.BEFORE_COMMIT); checkCancellation()
+            records.write(receiptPrefix + id, inactive)
+        }
+        runCatching { checkpoint(PackActivationCheckpoint.AFTER_COMMIT); cleanup(id, null) }
+        status(id)
     }
 
     private fun candidateTerms(text: String, language: String): List<String> {
