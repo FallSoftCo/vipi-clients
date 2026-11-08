@@ -50,7 +50,7 @@ class ImmersionProductionStateTest {
                 immediate { LookupFirst.resolve(LookupFirstRequest(partial.original,"en","es","en"),{true},
                     reference={_,_,_->null},identify={"en"},modelsReady={true},
                     translate={_,_,_->throw CancellationException("synthetic cancellation")},
-                    align={_,_->error("must not align after cancellation")},partialReference={_,_,_->partial},
+                    align={_,_,_->error("must not align after cancellation")},partialReference={_,_,_->partial},
                     onPartial={cache["$i"]=LookupFirstOutcome(it,ImmersionOrigin.SOURCE_REFERENCE_PARTIAL,ImmersionStatus.PARTIAL,0)
                         assertTrue(cache.size<=128)}) }
                 fail("cancellation must propagate")
@@ -81,7 +81,7 @@ class ImmersionProductionStateTest {
         assertFalse(SourceReferencePresentation.isAnchored(malformed,"es"))
         val outcome=immediate { LookupFirst.resolve(LookupFirstRequest(partial.original,"en","es","en"),{true},
             reference={_,_,_->null},identify={"en"},modelsReady={error("invalid partial must stop first")},
-            translate={_,_,_->error("no calls")},align={_,_->error("no align")},partialReference={_,_,_->malformed}) }
+            translate={_,_,_->error("no calls")},align={_,_,_->error("no align")},partialReference={_,_,_->malformed}) }
         assertEquals(ImmersionStatus.INVALID_RESULT,outcome.status);assertNull(outcome.result)
     }
 }

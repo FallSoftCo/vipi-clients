@@ -97,7 +97,7 @@ class SourceUnitRoutingDeviceTest {
                                 identify = { error("Explicit input should not call classifier") },
                                 modelsReady = { readyCalls++; event("models_ready"); installed },
                                 translate = { original, source, target -> direct.translate(original, source, target) },
-                                align = { original, translated -> aligns++; event("heavy_align"); withContext(Dispatchers.IO) {
+                                align = { original, translated, _ -> aligns++; event("heavy_align"); withContext(Dispatchers.IO) {
                                     catalog.result(original, translated, "en", "sw", density, lexical.entries(original, translated, "en", "sw"))
                                 } },
                                 partialReference = { original, source, target -> withContext(Dispatchers.Default) { catalog.partial(original, source, target, density, readings) } },

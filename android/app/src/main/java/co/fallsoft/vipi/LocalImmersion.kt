@@ -43,10 +43,12 @@ internal object LocalImmersion {
         }
     }
     fun align(original: String, translation: String, entries: List<VocabularyEntry>, density: Double, source: String, target: String,
-        supplementalEntries: List<VocabularyEntry> = emptyList()): co.fallsoft.vipi.core.ImmersionResult {
+        supplementalEntries: List<VocabularyEntry> = emptyList(),
+        sourceEvidence: co.fallsoft.vipi.core.SourceLookupEvidence? = null): co.fallsoft.vipi.core.ImmersionResult {
         val sourceWords = words(original, source); val targetWords = words(translation, target)
         return ImmersionEngine().align(original, translation, entries, density, target,
             sourceWords.flatMap { listOf(it.first, it.last + 1) }.toSet(),
-            targetWords.flatMap { listOf(it.first, it.last + 1) }.toSet(), sourceWords.size, supplementalEntries)
+            targetWords.flatMap { listOf(it.first, it.last + 1) }.toSet(), sourceWords.size, supplementalEntries,
+            sourceEvidence = sourceEvidence)
     }
 }

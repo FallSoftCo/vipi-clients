@@ -25,15 +25,19 @@ class ImmersionEngine {
               targetLanguage: String? = null, sourceBoundaries: Set<Int>? = null,
               targetBoundaries: Set<Int>? = null, sourceTokenCount: Int? = null,
               supplementalEntries: List<VocabularyEntry> = emptyList(),
-              sourceUnitTokenCounts: Map<Pair<Int, Int>, Int>? = null): ImmersionResult {
+              sourceUnitTokenCounts: Map<Pair<Int, Int>, Int>? = null,
+              sourceEvidence: SourceLookupEvidence? = null): ImmersionResult {
         val empty = ImmersionResult(original, translation, emptyList())
         if (original.isEmpty() || translation.isEmpty() || !density.isFinite() || density <= 0 || original.length > 16_384 || translation.length > 32_768) return empty
+        if (sourceEvidence != null && !sourceEvidence.isValid(original, sourceEvidence.source,
+                targetLanguage ?: sourceEvidence.target, sourceEvidence.catalogIdentity)) return empty
         if (supplementalEntries.isNotEmpty()) {
             // Existing accepted source/target ownership takes precedence. Keep
             // ALL primary entries, including rejected claims and native guards,
             // so a supplemental match cannot erase their negative evidence.
             val primary = align(original, translation, entries, 1.0, targetLanguage,
-                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts)
+                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts,
+                sourceEvidence = sourceEvidence)
             val additions = supplementalEntries.filter { entry ->
                 val source = entry.sourceScope ?: return@filter false
                 val target = entry.targetScope ?: return@filter false
@@ -57,7 +61,8 @@ class ImmersionEngine {
             // The requested density is applied to the combined candidate set
             // once, not independently to each catalog.
             return align(original, translation, entries + additions, density, targetLanguage,
-                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts)
+                sourceBoundaries, targetBoundaries, sourceTokenCount, sourceUnitTokenCounts = sourceUnitTokenCounts,
+                sourceEvidence = sourceEvidence)
         }
         // Platform regex extended-grapheme clusters; no custom Unicode segmenter.
         val sourceGraphemes = graphemes(original)
@@ -126,6 +131,9 @@ class ImmersionEngine {
             .filter { candidate -> supported.none {
                 lookupKey(it.source) == lookupKey(candidate.entry.source) && candidate.target !in claims.getValue(it).second
             } }
+            // Keep all lexical claims above. A source mask filters eligibility
+            // before density so blocked candidates cannot consume another word's budget.
+            .filter { candidate -> sourceEvidence?.allowsLegacy(candidate.span.start, candidate.span.end) != false }
             .sortedWith(compareByDescending<Candidate> { it.span.end - it.span.start }.thenBy { it.span.start })
         // A qualified whole compound owns its nested nouns on both sides.
         // A small density budget must not turn "train ticket" into "treni ticket".

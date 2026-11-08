@@ -25,7 +25,7 @@ class LookupFirstTest {
                 reference={_,a,_-> event("reference:$a"); if(a=="en")known else reverse},
                 identify={ event("identify"); detected }, modelsReady={ event("models");ready },
                 translate={_,a,b->event("translate:$a-$b"); translationFailure?.let { throw it }; translated},
-                align={a,b->event("align");ImmersionResult(if(invalidAlignment)"wrong" else a,b,emptyList())},
+                align={a,b,_->event("align");ImmersionResult(if(invalidAlignment)"wrong" else a,b,emptyList())},
                 partialReference={_,_,_->event("partial");partial}, onPartial={event("show_partial")})
         }
     }
