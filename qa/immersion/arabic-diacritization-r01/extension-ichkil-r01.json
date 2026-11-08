@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-08T07:26:53.475542+00:00",
+  "same_inputs_sha256": "be5104c2183b4a52b18b61b79e51b290926bf852b6b34a7f1cc895d9e2b7ecd3",
+  "reason": "Two small models restore many vowels but retain lexical errors in common contextual words; compare one22.3MB model with documented modern Arabic training before choosing or rejecting local approach. Same40diagnostics, not fresh validation.",
+  "candidate": "ichkil0.3.0",
+  "candidate_revision": "ff8783fff6f6986929d8986983279d2f307d7bed",
+  "normalization": "Retain unmodified upstream raw behavior first, separately record changes to opaque material/existing marks. No native activation.",
+  "bounded": "oneCPUthread,180s timeout,within existing300MiB disk budget; no training/GPU"
+}

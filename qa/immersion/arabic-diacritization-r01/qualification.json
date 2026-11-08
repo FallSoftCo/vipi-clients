@@ -1,0 +1,129 @@
+{
+  "schema": "vipi-arabic-diacritization-feasibility-1",
+  "at": "2026-11-08T07:40:06.780867+00:00",
+  "decision": "Small offline diacritization is technically feasible; no model or native reader promoted from this diagnostic. Separate original text, ordinary Latin metadata and pronunciation.",
+  "inputs": "40fixed cases:16retainedCF/vocalization diagnostics plus24root-authored everyday/contrast/literal cases. Extension addsone22.3MB model to unchanged inputs after firsttwooutputs; not blind model selection.",
+  "models": [
+    {
+      "model": "rawi-v2-int8",
+      "relative_evaluation_path": "text2tashkeel/text2tashkeel/models/rawi_v2.int8.onnx",
+      "bytes": 2469528,
+      "sha256": "60eb6e63d061bcafb63af2ed92fb66a8097c347bada300194f1edb45993f74d1",
+      "declared_license": "Apache-2.0",
+      "primary_source": "https://huggingface.co/TigreGotico/rawi-v2"
+    },
+    {
+      "model": "libtashkeel",
+      "relative_evaluation_path": "text2tashkeel/text2tashkeel/models/libtashkeel.onnx",
+      "bytes": 4788213,
+      "sha256": "52c40d42ca094ff9ff07a091d0a1eafd7baa5cf2388e60a9cc89bacd8e5e955f",
+      "declared_license": "MIT",
+      "primary_source": "https://github.com/mush42/libtashkeel"
+    },
+    {
+      "model": "ichkil",
+      "relative_evaluation_path": "ichkil-model/model.onnx",
+      "bytes": 22284311,
+      "sha256": "9779e1aca89cebc77a9b92037b7d700c422cdf6c3774d4883f4652f641f3f705",
+      "declared_license": "MIT",
+      "primary_source": "https://huggingface.co/ichkil/ichkil"
+    }
+  ],
+  "results": [
+    {
+      "model": "rawi-v2-int8",
+      "cases": 40,
+      "load_ms": 11.133992113173008,
+      "median_first_ms": 2.157778013497591,
+      "max_first_ms": 4.516386892646551,
+      "max_warm_ms": 3.9713550359010696,
+      "peak_rss_kib": 63760,
+      "warm_identical": 40,
+      "source_nfc_skeleton_preserved": 39,
+      "review_notes": [
+        "Ordinary vowel restoration is computationally cheap, but examples include فُنْدَق instead of فُنْدُق, تُفَضُّل instead of تُفَضِّل, مُحَطَّة instead of مَحَطَّة and defective آسْف.",
+        "An emoji is removed by upstream normalization. Arabic URL path letters receive marks. Existing supported vowel marks are constrained, but full literal preservation is not an application contract."
+      ]
+    },
+    {
+      "model": "libtashkeel",
+      "cases": 40,
+      "load_ms": 63.19863814860582,
+      "median_first_ms": 2.0956044318154454,
+      "max_first_ms": 4.3822049628943205,
+      "max_warm_ms": 3.178833983838558,
+      "peak_rss_kib": 68472,
+      "warm_identical": 40,
+      "source_nfc_skeleton_preserved": 40,
+      "review_notes": [
+        "Many ordinary vowels are recovered, but arrival سأصل is given an extra shadda, نسيت is malformed, and flag علم is read as science.",
+        "The inspected mirror deliberately strips existing marks before inference; بُنًّا becomes بِنا. The original library has hint features; this capture does not evaluate those. Arabic URL text receives marks."
+      ]
+    },
+    {
+      "model": "ichkil",
+      "cases": 40,
+      "load_ms": 56.35353201068938,
+      "median_first_ms": 4.333082470111549,
+      "max_first_ms": 7.170779863372445,
+      "max_warm_ms": 7.032608846202493,
+      "peak_rss_kib": 99284,
+      "warm_identical": 40,
+      "source_nfc_skeleton_preserved": 40,
+      "review_notes": [
+        "This fixed diagnostic improves several common words relative to both small alternatives: hotel, arrival, prefer, feeling, enjoyable and imperative write. This is an informed observation, not a neutral aggregate accuracy ranking.",
+        "Remaining examples include مُقْهَى for مَقْهَى, علم as science in an explicit flag-raising context, and inappropriate phone-adjective/gemination in بطارية هاتفي. Bare short forms and source person ambiguity remain.",
+        "Upstream strips supplied vowels (بُنًّا becomes بِنا), changes marks in Arabic URL paths and normalizes spacing/variants. Skeleton parity on these40 inputs is not byte-exact literal or source-mark preservation."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "capture-rawi-v2-int8-r01.json.gz",
+      "compressed_sha256": "1b97f4a225c9ce970daac3147e3b2450d6d5217d1a922dc96cdfcf5f9a7b5737",
+      "decoded_sha256": "caa062e25e9b465c7e471f6126d935a0f789e5303d4c5d95225b4b6a7a572edd"
+    },
+    {
+      "path": "capture-libtashkeel-r01.json.gz",
+      "compressed_sha256": "fdb1cb4e74fef94c251db2e4846ebfd671210da1b9bc57d3ae8b260794fc7398",
+      "decoded_sha256": "83ba71ce6b3f2debc65dfc716851e2b8f674193716fbebdd466099118580082c"
+    },
+    {
+      "path": "capture-ichkil-r01.json.gz",
+      "compressed_sha256": "cd48d9ababd27c1becede6fd148c3a038a3c8ac400cae47b7cdd665d66c118ce",
+      "decoded_sha256": "7ad4172266f3cd73374b1a9eb24cb97351a596ea24c591bc448109093fea79e3"
+    },
+    {
+      "path": "plan-r01.json",
+      "sha256": "be5104c2183b4a52b18b61b79e51b290926bf852b6b34a7f1cc895d9e2b7ecd3"
+    },
+    {
+      "path": "execution-freeze-r01.json",
+      "sha256": "a21a9a299253f640e8de26e6ac9be4b08c8cf974b76b10dc8df097b0cd8928eb"
+    },
+    {
+      "path": "extension-ichkil-r01.json",
+      "sha256": "80f93901b2ae9296be8b97766ffbba4a87dd3656c4174054daed0e24265ec042"
+    },
+    {
+      "path": "probe.py",
+      "sha256": "242fbd240a6cc27b9c60f446dd694148c92d519f552b69caa1a6db4526a1a5bd"
+    },
+    {
+      "path": "probe_ichkil.py",
+      "sha256": "946be92b3ce5002c0691e005df99b24bfd36bd6e988266a585eff7188012cf1a"
+    }
+  ],
+  "next_gates": [
+    "Application overlay must retain exact original text, protected URLs/code/names/numbers/emoji and supplied Arabic marks; unmodified upstream output cannot be displayed or spoken as original.",
+    "Choose and qualify ordinary Latin conversion rather than exposing IPA; actual model vowels still require contextual review.",
+    "Source-aware authored lexical readings should take precedence. Common lexical ambiguity remains even with full Arabic sentence context.",
+    "Measure exact native runtime/package/latency and actual offline audio before any release. Host metrics do not measure native devices."
+  ],
+  "speech_caveat": "Pinned eSpeak documentation restricts Arabic to fully diacritized text. Installed offline system voices are preferred by Android LocalVoice; bundled fallback existence/audio bytes alone do not establish unvocalized-Arabic pronunciation. Host1.51speech diagnostic is not the shipped appbinary.",
+  "limits": [
+    "No population correctness number, human bilingual gold, physical pronunciation, mobile performance, release readiness or network-disabled test claimed.",
+    "No app/backend configuration or source message was changed by these probes.",
+    "Original model licenses and corresponding source remain a separate distribution closure; no new model shipped."
+  ]
+}

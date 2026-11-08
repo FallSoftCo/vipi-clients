@@ -1,0 +1,326 @@
+[
+  {
+    "url": "https://api.github.com/repos/TigreGotico/text2tashkeel/commits/dev",
+    "bytes": 4689,
+    "sha256": "5ed933ef60abba2ef1797eba9043b77a5a746d20df6f1d79b953a67ce5ea9bcb",
+    "path": "text2tashkeel/commit.json"
+  },
+  {
+    "url": "https://api.github.com/repos/TigreGotico/text2tashkeel/git/trees/31eb5743d50047ec4ecaf8749f9ef2249ce33846?recursive=1",
+    "bytes": 27620,
+    "sha256": "763de3c1055db4542273c9bc478ca48e65f59dc4d28f9bc8e6043e38ea6494cb",
+    "path": "text2tashkeel/tree.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/README.md",
+    "bytes": 4630,
+    "sha256": "363f23b010f2f1f40024131175f9e6be19abd42de32dda7a8cc04de178cd14c0",
+    "path": "text2tashkeel/README.md"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/LICENSE",
+    "bytes": 11666,
+    "sha256": "77e814f64be28f46acd9979bb32e6ef82ef240671b7e216260b467fd405225bf",
+    "path": "text2tashkeel/LICENSE"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/pyproject.toml",
+    "bytes": 2184,
+    "sha256": "463a134e3466ae5f0e7dbb96c38f47c916d89a149630823a040d48feed4d2729",
+    "path": "text2tashkeel/pyproject.toml"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/docs/07-credits-and-license.md",
+    "bytes": 4594,
+    "sha256": "b16ee217233f432031af2cf8e44293307d5c1ffbe589702cad58b3a5301c6220",
+    "path": "text2tashkeel/docs/07-credits-and-license.md"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/docs/08-models-and-benchmarks.md",
+    "bytes": 9456,
+    "sha256": "010cd12bdea82ac5e63c4447df3946ed91a8b8b58f442a2c7a2585e04c2d477e",
+    "path": "text2tashkeel/docs/08-models-and-benchmarks.md"
+  },
+  {
+    "url": "https://api.github.com/repos/mush42/libtashkeel/commits/main",
+    "bytes": 5895,
+    "sha256": "e32b20596e5b9b21d5d11077b42ae548449fc1fa4fa50dd4d3dd8725f42afc8a",
+    "path": "libtashkeel/commit.json"
+  },
+  {
+    "url": "https://api.github.com/repos/mush42/libtashkeel/git/trees/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c?recursive=1",
+    "bytes": 9190,
+    "sha256": "f9164abb779e54dc41dba740e04bc6d293d0b76aa067b7f03b1bed31751cc5ee",
+    "path": "libtashkeel/tree.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/README.md",
+    "bytes": 2964,
+    "sha256": "839577107a71213b193dbca0071cd752fc426dd1fc46092edc1042ab47e213c0",
+    "path": "libtashkeel/README.md"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/LICENSE",
+    "bytes": 1066,
+    "sha256": "98dbc9a6a01badb391f2b64161742cb9cd8fcdc5cfc97486be0d49c47e98d1a8",
+    "path": "libtashkeel/LICENSE"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/Cargo.toml",
+    "bytes": 891,
+    "sha256": "4feba4846acd8dd66f5c283c99caee4a3299b9ed23c67654a70a6fe41110e59d",
+    "path": "libtashkeel/Cargo.toml"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/__init__.py",
+    "bytes": 13767,
+    "sha256": "859a7213b4ffb65d9f57da7be766a860880feacbfb3fdd2d55baf54f1476fd9f",
+    "path": "text2tashkeel/text2tashkeel/__init__.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/_models.py",
+    "bytes": 34415,
+    "sha256": "b224f0af5aeb0a4496934a85288be3b6b4193cb6ee8d11e6cc421af8db033979",
+    "path": "text2tashkeel/text2tashkeel/_models.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/orthography.py",
+    "bytes": 8177,
+    "sha256": "f9e0d33a303b7ddccf8574d85d23130a0b2eaa65501ead9fbbfe916b2b86068d",
+    "path": "text2tashkeel/text2tashkeel/orthography.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/waqf.py",
+    "bytes": 7773,
+    "sha256": "36d7e645346208d896c4aab557dd5e33e765e729afe29e94131ae3a7c758e493",
+    "path": "text2tashkeel/text2tashkeel/waqf.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/version.py",
+    "bytes": 229,
+    "sha256": "48f842745a38a806e4b8b17ceb87d86d72ab8b766c1f373a49527c428bb542f2",
+    "path": "text2tashkeel/text2tashkeel/version.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/examples/04_transliteration.py",
+    "bytes": 2026,
+    "sha256": "f8b1263121e31dab90bc8a9fce70435632786d0791fbed5b202a0c77ec74fe8d",
+    "path": "text2tashkeel/examples/04_transliteration.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/examples/06_raw_onnx.py",
+    "bytes": 1183,
+    "sha256": "910bfa01889264a6ba1493e2a663f3888ccb5b161f51f35957eb4e0648490876",
+    "path": "text2tashkeel/examples/06_raw_onnx.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/src/lib.rs",
+    "bytes": 11561,
+    "sha256": "abd45a6358adc716ad3453ae2d46baf12d7356fc70ea23f26a0ebc76f348a633",
+    "path": "libtashkeel/crates/core/src/lib.rs"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/Cargo.toml",
+    "bytes": 866,
+    "sha256": "baf792b504dbb445783baa80c8e978e62385c5db715b902142c47bae47821126",
+    "path": "libtashkeel/crates/core/Cargo.toml"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/data/input_id_map.json",
+    "bytes": 628,
+    "sha256": "727a49aa3c7e939dc06f32b27c2e06c4c4bbef596dce4bf51276261ca736c3c3",
+    "path": "libtashkeel/crates/core/data/input_id_map.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/data/hint_id_map.json",
+    "bytes": 193,
+    "sha256": "80931db53b1f1031609a66f23b64a1c37d79ae4a8a4c785023728636a7fa93e5",
+    "path": "libtashkeel/crates/core/data/hint_id_map.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/data/target_id_map.json",
+    "bytes": 181,
+    "sha256": "6da34024bfd4c0ff54f7598bb74d5a00405144d746afe72c141fceeaba21ed30",
+    "path": "libtashkeel/crates/core/data/target_id_map.json"
+  },
+  {
+    "url": "https://huggingface.co/api/models/TigreGotico/rawi-v2",
+    "bytes": 984,
+    "sha256": "384368b8fb345a3f111009d2263202647f165becddd40da4abe1c3e4c7cf2075",
+    "path": "rawi-v2-hf-metadata.json"
+  },
+  {
+    "url": "https://huggingface.co/api/models/TigreGotico/rawi-v3",
+    "bytes": 1000,
+    "sha256": "c07a31b1e7cebc9aa32df3902daeb3505f326d6fee96ef6ee9fe3168f16541f3",
+    "path": "rawi-v3-hf-metadata.json"
+  },
+  {
+    "url": "https://huggingface.co/api/models/TigreGotico/rawi-ensemble",
+    "bytes": 874,
+    "sha256": "b4fa720998ce845a7c832b95e2fe78c4abbc46730afc90b0eb3d97fb9600ef57",
+    "path": "rawi-ensemble-hf-metadata.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/models/rawi_v2.int8.onnx",
+    "bytes": 2469528,
+    "sha256": "60eb6e63d061bcafb63af2ed92fb66a8097c347bada300194f1edb45993f74d1",
+    "path": "text2tashkeel/text2tashkeel/models/rawi_v2.int8.onnx"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/models/rawi_v2.vocab.json",
+    "bytes": 3334,
+    "sha256": "5a8972bc1c5985092973d543d8b04f4c9317b2d11625c242420baf69bb4bf037",
+    "path": "text2tashkeel/text2tashkeel/models/rawi_v2.vocab.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/TigreGotico/text2tashkeel/31eb5743d50047ec4ecaf8749f9ef2249ce33846/text2tashkeel/models/libtashkeel.maps.json",
+    "bytes": 867,
+    "sha256": "e7bdde4717cbbedd4b287a6dc13727c51f305dc89da49dcf49163bf113f62b44",
+    "path": "text2tashkeel/text2tashkeel/models/libtashkeel.maps.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/mush42/libtashkeel/9b91c2dbc3dc4085dc4f77a9e250e5dd095d7d0c/crates/core/data/ort/model.onnx",
+    "bytes": 4788213,
+    "sha256": "52c40d42ca094ff9ff07a091d0a1eafd7baa5cf2388e60a9cc89bacd8e5e955f",
+    "path": "text2tashkeel/text2tashkeel/models/libtashkeel.onnx"
+  },
+  {
+    "url": "https://huggingface.co/TigreGotico/rawi-v2/raw/758f8f0d129ae7f38227406afa6152032879edf0/README.md",
+    "bytes": 2293,
+    "sha256": "f6e487589c6a4cd88a029e363fff8260036f8d2130f550a348744ad37e39b0ad",
+    "path": "rawi-v2-model-card.md"
+  },
+  {
+    "url": "https://huggingface.co/TigreGotico/rawi-ensemble/raw/de3fca3a2f24cf7315a955ba09f73def025209d8/README.md",
+    "bytes": 3129,
+    "sha256": "d5fd7d4ffb78842e91ead848c6856a4695e5c459309abbf8f70655f58f9c18c0",
+    "path": "rawi-ensemble-model-card.md"
+  },
+  {
+    "url": "https://pypi.org/pypi/onnxruntime/1.23.2/json",
+    "bytes": 24900,
+    "sha256": "08b99b4d50b9638e04bb662cac2636b1db1459cb170a3f263698a1a72310df30",
+    "path": "onnxruntime-pypi.json"
+  },
+  {
+    "url": "https://files.pythonhosted.org/packages/ef/88/9cc25d2bafe6bc0d4d3c1db3ade98196d5b355c0b273e6a5dc09c5d5d0d5/onnxruntime-1.23.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "bytes": 17382649,
+    "sha256": "0f9b4ae77f8e3c9bee50c27bc1beede83f786fe1d52e99ac85aa8d65a01e9b77",
+    "path": "wheels/onnxruntime-1.23.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+  },
+  {
+    "url": "https://huggingface.co/api/models/ichkil/ichkil",
+    "bytes": 1953,
+    "sha256": "f689eb8f8def7fd7b485b13010271446a665407bf4e7c0bad4fe8aa6a0f26645",
+    "path": "ichkil-model-metadata.json"
+  },
+  {
+    "url": "https://api.github.com/repos/Ichkil/ichkil-python/commits/main",
+    "bytes": 70473,
+    "sha256": "99039fb20fb2299529717b9a87f718ad253e67aea69bcef86dccd7df3c6982e1",
+    "path": "ichkil-python-commit.json"
+  },
+  {
+    "url": "https://api.github.com/repos/Ichkil/ichkil-python/git/trees/380cf89465fafa6341ab007532101e299d20bb53?recursive=1",
+    "bytes": 5815,
+    "sha256": "f02629b84897a18c3ee0b381e95e27d284e8c8a092768f7a196d03d98d4dd8d3",
+    "path": "ichkil-python-tree.json"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/LICENSE",
+    "bytes": 1107,
+    "sha256": "fb11861d5f487c3630478d3707248bac5ef96968709261f8d123b65a09ce8ccb",
+    "path": "ichkil-python/LICENSE"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/README.md",
+    "bytes": 6235,
+    "sha256": "d699ee1bb77638b49d4945f14fc8511716f066b76deaa0b9ea756c0a0e1b412a",
+    "path": "ichkil-python/README.md"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/pyproject.toml",
+    "bytes": 1967,
+    "sha256": "306d20176480a71ef45b425cf5440fea1a21458ef7c8c43279ed039719710098",
+    "path": "ichkil-python/pyproject.toml"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/__init__.py",
+    "bytes": 2746,
+    "sha256": "ddbc6804263781eb35996abb1602eb9a6a614f1818e2b7db9c1c2779bdd2ab4a",
+    "path": "ichkil-python/src/ichkil/__init__.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/cli.py",
+    "bytes": 2256,
+    "sha256": "b556419517b290de5822977d402356ea0ae3a05daeaf462095161523200be3ff",
+    "path": "ichkil-python/src/ichkil/cli.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/diacritizer.py",
+    "bytes": 5458,
+    "sha256": "86841d261acaad1f0a81ab54515f6a46bdb3ca8c7b0d2193ac0c3205fab8bb8a",
+    "path": "ichkil-python/src/ichkil/diacritizer.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/download.py",
+    "bytes": 5044,
+    "sha256": "8c9f192005bae70b007105f4492d10d8209ad9dfa54c8a77dff94ee298c23614",
+    "path": "ichkil-python/src/ichkil/download.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/errors.py",
+    "bytes": 561,
+    "sha256": "c6eff5fa5f6ae5c20406a9b4814ef1a6cb776a99f5edb49e2baefcdac8f32f0a",
+    "path": "ichkil-python/src/ichkil/errors.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/pipeline.py",
+    "bytes": 5599,
+    "sha256": "5cfeb6326c2486e7d61ccac62753d40aa057d8aae299a02c0f0310efc3195fe6",
+    "path": "ichkil-python/src/ichkil/pipeline.py"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/py.typed",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "path": "ichkil-python/src/ichkil/py.typed"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Ichkil/ichkil-python/380cf89465fafa6341ab007532101e299d20bb53/src/ichkil/version.py",
+    "bytes": 58,
+    "sha256": "22ad16a62a22b366ed11747a6c70b150e3c32425124a4b1565eb1cbe0167d96e",
+    "path": "ichkil-python/src/ichkil/version.py"
+  },
+  {
+    "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/README.md",
+    "bytes": 10850,
+    "sha256": "b043fd8ef3b97a06d062bb860a6b40dac046f5eacb72a2c86bde3af31663b457",
+    "path": "ichkil-model/README.md"
+  },
+  {
+    "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/config.json",
+    "bytes": 3060,
+    "sha256": "3d2621240e612d86cc483edeb84340f681b626b52eb992435e61b43e2b26731d",
+    "path": "ichkil-model/config.json"
+  },
+  {
+    "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/manifest.json",
+    "bytes": 1259,
+    "sha256": "e8be7a091c60c3f560c6c9aa45907b07bebe1be851e90a536768d7b290205a02",
+    "path": "ichkil-model/manifest.json"
+  },
+  {
+    "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/SHA256SUMS",
+    "bytes": 153,
+    "sha256": "c631d41d432fe78ec8250c2011b2bdece742455f13fa91b3bfea0e3827994ddb",
+    "path": "ichkil-model/SHA256SUMS"
+  },
+  {
+    "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/model.onnx",
+    "bytes": 22284311,
+    "sha256": "9779e1aca89cebc77a9b92037b7d700c422cdf6c3774d4883f4652f641f3f705",
+    "path": "ichkil-model/model.onnx"
+  }
+]

@@ -1,0 +1,225 @@
+{
+  "schema": "vipi-arabic-diacritizer-feasibility-1",
+  "at": "2026-11-08T07:23:27.285551+00:00",
+  "candidates": [
+    "rawi-v2-int8",
+    "libtashkeel-fp32"
+  ],
+  "purpose": "Assess small offline vowel restoration before ordinary Latin reading integration. No audio playback, app changes, training, network generation or population accuracy claims.",
+  "bounds": {
+    "threads": 1,
+    "cpu_only": true,
+    "cases": 40,
+    "disk_peak_budget_bytes": 314572800,
+    "wall_seconds": 180,
+    "private_only": true
+  },
+  "criteria": [
+    "Retain every output including errors. Compare contextual lexical readability, not case-ending perfection.",
+    "Track script/opaque changes separately; upstream output cannot replace original text.",
+    "Review supplied marks, names, unknown characters and dialect limits explicitly.",
+    "Native deployment, whole-text literal preservation, latency and licensing closure remain separate gates."
+  ],
+  "cases": [
+    {
+      "id": "ar-authored_control-1",
+      "source": "أبحث عن فندق.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-authored_control-2",
+      "source": "لا.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-authored_control-3",
+      "source": "تبدأ الحصة قريبًا.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-authored_control-4",
+      "source": "أعمل اليوم.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-contrast-1",
+      "source": "علم",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-contrast-2",
+      "source": "هذا علم جديد.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-contrast-3",
+      "source": "سأذهب إلى البنك غدا.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-contrast-4",
+      "source": "قهوة في 18:30 مع Vipi.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-mixed_unknown-1",
+      "source": "موعدنا مع Vipi في 18:30 😊.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-mixed_unknown-2",
+      "source": "أرسلت رسالة إلى Zoë وJosé.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-mixed_unknown-3",
+      "source": "الرابط هو https://example.com/a?x=1.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "ar-mixed_unknown-4",
+      "source": "طلب 𠮷 هو A-104 بسعر 1,250.",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "vocalized-greeting",
+      "source": "مَرْحَبًا بِكَ",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "unvocalized-greeting",
+      "source": "مرحبا بك",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "vocalized-coffee",
+      "source": "قَهْوَة",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "unvocalized-coffee",
+      "source": "قهوة",
+      "origin": "retained_CF_or_prior_vocalization_control"
+    },
+    {
+      "id": "chat-coffee",
+      "source": "أنا أحب القهوة، لكن أختي تفضل الشاي.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-arrival",
+      "source": "سأصل بعد عشر دقائق.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-birthday",
+      "source": "هل ستأتي إلى عيد ميلاد أخي؟",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-key",
+      "source": "نسيت المفتاح في البيت.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-charge",
+      "source": "بطارية هاتفي فارغة. هل عندك شاحن؟",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-late",
+      "source": "آسف، تأخرت بسبب الزحام.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-dinner",
+      "source": "ماذا تريد أن تأكل الليلة؟",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-notnow",
+      "source": "لا أستطيع التحدث الآن. سأتصل بك لاحقا.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-directions",
+      "source": "المقهى على يمين المكتبة.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-time",
+      "source": "نلتقي الساعة السادسة والنصف أمام المحطة.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-photo",
+      "source": "أرسلت لك الصورة أمس.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-health",
+      "source": "أشعر بتحسن اليوم، شكرا لسؤالك.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-work",
+      "source": "عندي اجتماع في العمل صباح الغد.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-children",
+      "source": "الأطفال يلعبون في الحديقة.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "chat-movie",
+      "source": "شاهدنا فيلما ممتعا في نهاية الأسبوع.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "sense-science",
+      "source": "أحب دراسة علم الأحياء.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "sense-flag",
+      "source": "رفعت المدرسة علم البلاد.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "sense-wrote",
+      "source": "كتب أحمد رسالة إلى صديقه.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "sense-books",
+      "source": "هذه كتب جديدة للأطفال.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "literal-email",
+      "source": "راسلني على zoe@example.com بعد الظهر.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "literal-code",
+      "source": "اكتب `git status` ثم أخبرني بالنتيجة.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "literal-url",
+      "source": "هذا رابط اللقاء: https://example.com/غرفة?q=1",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "partial-vowels",
+      "source": "هذا كِتاب جديد. شربت بُنًّا في المقهى.",
+      "origin": "root_authored_fixed_before_candidate_output"
+    },
+    {
+      "id": "dialect-scope",
+      "source": "إزيك؟ عامل إيه النهارده؟",
+      "origin": "root_authored_fixed_before_candidate_output"
+    }
+  ]
+}

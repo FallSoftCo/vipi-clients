@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-08T07:24:55.264784+00:00",
+  "probe_sha256": "242fbd240a6cc27b9c60f446dd694148c92d519f552b69caa1a6db4526a1a5bd",
+  "options": "Rawi preserve written orthography and existing vowels, no hamza restoration; libtashkeel mirror retains original pure-prediction behavior, which strips prior vowels. Both unmodified upstream outputs retained for diagnosis.",
+  "runtime_wheel": "onnxruntime1.23.2 sha256:0f9b4ae77f8e3c9bee50c27bc1beede83f786fe1d52e99ac85aa8d65a01e9b77",
+  "no_native_or_live_change": true
+}

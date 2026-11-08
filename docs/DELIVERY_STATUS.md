@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 07:03 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 07:40 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -18,7 +18,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
 | Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
-| Full readings | Chinese 332-case mechanical parity, gated native Apple coordinator/display; Japanese 270-case repeatability and gated actual Android chat. Authored readings run asynchronously; Android actual older-history position is preserved. | Production fallback policy/packaging, Apple actual history growth, broader correctness, API 28 runtime, Korean orthographic qualification and Arabic reading coverage. |
+| Full readings | Apple default Chinese guide is bundled and qualified in `a740091`, including actual larger-reading arrival without moving the selected older message. Korean Swift32 and Kotlin38 component cases passed; default native integrations are closing. Japanese Android default integration follows retained actual chat evidence. | Remaining default orchestration/packaging, Apple Japanese, Arabic coverage, broader contextual correctness, API28 and physical execution. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
@@ -88,10 +88,23 @@ An editorial first-500 noun/adjective candidate is being prepared with exact
 primary sense/form IDs and shared eligibility across old and new paths.
 No broad semantic-coverage result or native promotion is credited.
 
+That fixed first-500 batch now has primary-backed draft faces for 278 Swahili,
+441 Japanese and 421 Spanish entries. Root independently reviewed 96 selected
+TRAIN contexts before seeing author labels: 86 selected senses were compatible,
+four had minor contextual differences and six had material errors. Form and
+reading judgments remain separate. The sample deliberately includes common
+alternative senses and later-progression cases; it is not all-message accuracy.
+Failures include creative versus original/earlier, physical high versus high
+school, kinship great, effort hard, human-height short and well-being good.
+Other existing paths also changed a drink brand and a metaphorical driver.
+Author review/join and subsequent general fixes remain pending; frozen outputs
+have not been changed to hide those cases. No revised pack is activated.
+
 ## Native full-reading work
 
-Existing production complete readings cover authored references; arbitrary
-non-Roman full-text readings remain incomplete. Audio remains the pronunciation
+Complete readings prefer authored references; the normal Apple source now also
+bundles the qualified Chinese guide. Other non-Roman full-text readings remain
+incomplete. Audio remains the pronunciation
 authority. A valid orthographic convention must not be mistaken for an acoustic
 error or described as a verified ordinary pronunciation guide.
 
@@ -119,7 +132,10 @@ in `10bc065`, including authored precedence, cache reentry, exact original copy
 and actual original-script speech. It retains the known `一人→ichinin` reading
 error, and separately records real local-translation errors in names and a
 snake sentence. Candidate availability does not establish translation quality.
-The default reader remains authored-only pending the release-policy decision.
+The practical authored-first guide policy is now accepted for Japanese and
+Korean as well as Chinese, conditional on actual default packaging/cache checks.
+Android is qualifying that integration. Known contextual reading errors remain
+visible in the evidence; a perfect-phonetics requirement is not a rollout gate.
 
 Android `4df1d63` moves authored readings off the rendering path into a bounded,
 coalescing cache. Seven cache/Compose cases plus an actual ChatScreens history
@@ -130,16 +146,37 @@ Apple `4c4457b` passed a normal app build, three native coordinator cases and on
 gated large-text display case after verified storage recovery. Metadata does not
 block completed script/audio or another row; closed identities reject late
 completion. These use supplied/injected translation results. Actual production
-history growth is being checked separately; no passing result is credited yet. The shared receipt-name collision
-was corrected in `759764a`, preserving Apple's exact original receipt bytes.
+history growth subsequently passed: an authored reading expanded from 130.33 to
+197.33 points while its top stayed at 205.611 points and the older-history
+viewport remained unchanged. `a740091` then passed the normal bundled Chinese
+reader with its exact 773,812-byte data and MIT notice, three coordinator tests
+and two UI tests. No QA enable flag or copied QA data was required. Root verified
+14 source hashes and five frames. These supplied-target simulator checks remain
+separate from actual Apple translation. The shared receipt-name collision was
+corrected in `759764a`, preserving Apple's original receipt bytes.
 
 Korean retained output follows a documented spelling-based convention permitted
 by NIKL, so differences from pronunciation-based romanization are not inherently
 errors. The Swift guard and a standalone Kotlin port of pinned Unicode CLDR
-letter rules are under qualification; no new pronunciation model is required.
-The Kotlin host check is separate from native Android execution. Unknown-script handling and
-Arabic vowel/readability gaps remain open. Full-reader metadata must not delay
-the original script, chat interaction or original-language audio.
+letter rules are qualified on frozen inputs; no new pronunciation model is
+required. Thirty-one of 32 strings agree across platforms; the maximum-length
+case differs only in spaces between native tokenizer runs. Android subsequently
+passed the 32 inputs plus six boundary/resource controls on its actual runtime.
+Apple's actual simulator capture also matched all32 macOS results. Default
+app/cache and visual artifacts are being reconciled separately.
+
+Arabic research compared three small offline diacritizers on forty fixed
+authored/reused inputs. Sizes range from 2.47 to 22.28 MB, with observed desktop
+per-sentence times below 8 ms after loading. Common lexical errors, ambiguity,
+supplied-vowel overwrites and literal-preservation problems remain. No model is
+promoted; see `qa/immersion/arabic-diacritization-r01`. Native packaging,
+ordinary Latin conversion and pronunciation are separate gates. Full-reader
+metadata must not delay original script, chat interaction or original audio.
+
+The proposed Android contextual message menu remains disabled in `bd94f99`.
+Scoped native selection and copy checks passed, but its remaining interaction,
+TalkBack and RTL checks are incomplete. The existing accessible action button
+remains available; menu redesign does not block reading integration.
 
 ## Resource and external gates
 
