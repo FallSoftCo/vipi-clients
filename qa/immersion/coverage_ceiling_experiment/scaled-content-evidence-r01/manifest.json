@@ -1,0 +1,80 @@
+{
+  "production": false,
+  "semantic_acceptance": false,
+  "scope": "Exact raw TRAIN primary inventory and consensus evidence. No source/target candidate promoted.",
+  "files": [
+    {
+      "file": "inventory-summary.json.gz",
+      "bytes": 251094,
+      "sha256": "6883ce3a825f62d1ac63bb91d6f53bd3bc6e56df67f8b9e999f061427197dff8",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/inventory-summary.json",
+      "source_bytes": 4997574,
+      "source_sha256": "c02b5c712a2c3ad2ade7952ddd0d290012266469096daf752293c68c58fd5163",
+      "already_compressed": false
+    },
+    {
+      "file": "source-inventory.json.gz",
+      "bytes": 187123,
+      "sha256": "e1c2b92b751bab524414d983a8208c8b769b74b0e52d80502d78a5c8bbfce660",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/source-inventory.json",
+      "source_bytes": 4065322,
+      "source_sha256": "809eaf1e5fd97bafff792fcbe7b0f89536c389b6f70a67c64d29d0d45a5e9e63",
+      "already_compressed": false
+    },
+    {
+      "file": "selected-native-senses.json.gz",
+      "bytes": 1040450,
+      "sha256": "327f1fd02f2623ddadf6071ea93f81d28dd61a7968e8f3dcf1d1740cca9fd4ac",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/raw-source-r02/selected-native-senses.json.gz",
+      "source_bytes": 1040450,
+      "source_sha256": "327f1fd02f2623ddadf6071ea93f81d28dd61a7968e8f3dcf1d1740cca9fd4ac",
+      "already_compressed": true
+    },
+    {
+      "file": "selected-native-senses-partial-r01.json.gz",
+      "bytes": 1036205,
+      "sha256": "e417fa65941de8e39cafdc0bed4df94ec3fea4d315b2e97152a985ac535750b1",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/raw-source-r02/selected-native-senses-partial-r01.json.gz",
+      "source_bytes": 1036205,
+      "source_sha256": "e417fa65941de8e39cafdc0bed4df94ec3fea4d315b2e97152a985ac535750b1",
+      "already_compressed": true
+    },
+    {
+      "file": "target-native-metadata-r01.json.gz",
+      "bytes": 980013,
+      "sha256": "b38a3989156ea697a5c239fa0f35833688919e4f68d95a6bb1fc8df1daed1dd5",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/target-native-metadata-r01.json.gz",
+      "source_bytes": 980013,
+      "source_sha256": "b38a3989156ea697a5c239fa0f35833688919e4f68d95a6bb1fc8df1daed1dd5",
+      "already_compressed": true
+    },
+    {
+      "file": "source-read-r01-interrupted.json.gz",
+      "bytes": 342,
+      "sha256": "8406ff95b7f6a9686f15a63871eea7d5342b4fbdcdf73dd5a755d90d3a44af89",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/source-read-r01-interrupted.json",
+      "source_bytes": 522,
+      "source_sha256": "a1a9efc01ea4cc883e5547891f11489b780c05c23b43e2dd6f9bfedab95cd9ce",
+      "already_compressed": false
+    },
+    {
+      "file": "consensus-audit.json.gz",
+      "bytes": 2690486,
+      "sha256": "f9eb87cb58985ad549a0126017ecd16a5636cc40e5cd57a29e6d46e331d2e710",
+      "source_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-consensus-r01/consensus-audit.json",
+      "source_bytes": 33933587,
+      "source_sha256": "90f1967f467f43c3789e9535f56088a2d89575eb6e26d5c1d643113af256f160",
+      "already_compressed": false
+    }
+  ],
+  "candidate_index": {
+    "retained_path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/primary-candidates.sqlite",
+    "bytes": 48627712,
+    "sha256": "daa68e8bf5785937eb2a0d5d682b235ccd52f67a8fe9324f221e92293b973bb1",
+    "reproduction": "inventory_scaled_primary_candidates_r01.py with exact retained lexical009 compressed dictionary files and source3000freeze; physical SQLite byte layout is an artifact identity, not a promise of deterministic insertion layout across Python hash seeds."
+  },
+  "licenses": [
+    "Wiktionary contributors; Tatu Ylonen/wiktextract through Kaikki.org, CC BY-SA 4.0. Per-entry URLs retained.",
+    "BST/ParlAI CC BY 4.0; exact notices in ../evaluation-data-licenses/."
+  ]
+}

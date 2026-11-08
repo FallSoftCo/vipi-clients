@@ -1,0 +1,252 @@
+{
+  "production": false,
+  "semantic_accuracy_claim": false,
+  "training_only": true,
+  "source_frequency_sha256": "766eab10248a4213ebf0654661552f5770597c4360502bdbfe244b0bc038be36",
+  "catalog_sha256": "6b8040ae0eacb82dded24d9cf948649551195165d3d1c12a085e17e02e847300",
+  "compiler_sha256": "3f3fb8d9910d538b4ca612c0a6559233718feb289a66a6b2a2c8c57e6c20389c",
+  "source_partition": {
+    "content_sense_candidates": 2646,
+    "no_surface": 255,
+    "content_without_sense_link": 74,
+    "partial_surface_only": 15,
+    "no_content_pos": 10
+  },
+  "targets": {
+    "ar": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2099,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 527,
+        "reading_missing": 10,
+        "no_matching_content_pos": 5,
+        "complete_head_surface_unproven_or_bound": 5
+      },
+      "candidate_source_forms": 2099,
+      "with_multiple_linked_senses": 1550,
+      "with_multiple_target_head_reading_candidates": 1592,
+      "with_source_pos_mix": 854,
+      "primary_candidate_rows": 11506
+    },
+    "de": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2479,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 163,
+        "complete_head_surface_unproven_or_bound": 4
+      },
+      "candidate_source_forms": 2479,
+      "with_multiple_linked_senses": 1991,
+      "with_multiple_target_head_reading_candidates": 2066,
+      "with_source_pos_mix": 998,
+      "primary_candidate_rows": 16721
+    },
+    "es": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2498,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 124,
+        "no_matching_content_pos": 8,
+        "complete_head_surface_unproven_or_bound": 16
+      },
+      "candidate_source_forms": 2498,
+      "with_multiple_linked_senses": 2139,
+      "with_multiple_target_head_reading_candidates": 2057,
+      "with_source_pos_mix": 989,
+      "primary_candidate_rows": 19047
+    },
+    "fr": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2467,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 145,
+        "no_matching_content_pos": 12,
+        "complete_head_surface_unproven_or_bound": 22
+      },
+      "candidate_source_forms": 2467,
+      "with_multiple_linked_senses": 2072,
+      "with_multiple_target_head_reading_candidates": 1907,
+      "with_source_pos_mix": 986,
+      "primary_candidate_rows": 14157
+    },
+    "it": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2424,
+        "source_unavailable_or_noncontent": 354,
+        "complete_head_surface_unproven_or_bound": 11,
+        "no_target_sense_link": 206,
+        "no_matching_content_pos": 5
+      },
+      "candidate_source_forms": 2424,
+      "with_multiple_linked_senses": 2022,
+      "with_multiple_target_head_reading_candidates": 1901,
+      "with_source_pos_mix": 960,
+      "primary_candidate_rows": 15029
+    },
+    "ja": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2269,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 339,
+        "no_matching_content_pos": 10,
+        "reading_missing": 28
+      },
+      "candidate_source_forms": 2269,
+      "with_multiple_linked_senses": 1670,
+      "with_multiple_target_head_reading_candidates": 1859,
+      "with_source_pos_mix": 927,
+      "primary_candidate_rows": 14326
+    },
+    "ko": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2166,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 468,
+        "no_matching_content_pos": 11,
+        "reading_missing": 1
+      },
+      "candidate_source_forms": 2166,
+      "with_multiple_linked_senses": 1710,
+      "with_multiple_target_head_reading_candidates": 1688,
+      "with_source_pos_mix": 879,
+      "primary_candidate_rows": 12546
+    },
+    "pt": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2437,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 197,
+        "complete_head_surface_unproven_or_bound": 12
+      },
+      "candidate_source_forms": 2437,
+      "with_multiple_linked_senses": 1978,
+      "with_multiple_target_head_reading_candidates": 1860,
+      "with_source_pos_mix": 980,
+      "primary_candidate_rows": 14933
+    },
+    "sw": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 1377,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 1246,
+        "complete_head_surface_unproven_or_bound": 17,
+        "no_matching_content_pos": 6
+      },
+      "candidate_source_forms": 1377,
+      "with_multiple_linked_senses": 661,
+      "with_multiple_target_head_reading_candidates": 515,
+      "with_source_pos_mix": 613,
+      "primary_candidate_rows": 3569
+    },
+    "zh": {
+      "source_forms": 3000,
+      "partition": {
+        "requires_sense_context_review": 2088,
+        "source_unavailable_or_noncontent": 354,
+        "no_target_sense_link": 338,
+        "no_matching_content_pos": 43,
+        "reading_missing": 177
+      },
+      "candidate_source_forms": 2088,
+      "with_multiple_linked_senses": 1760,
+      "with_multiple_target_head_reading_candidates": 1888,
+      "with_source_pos_mix": 839,
+      "primary_candidate_rows": 13710
+    }
+  },
+  "source_payload_receipts": [
+    {
+      "language": "ar",
+      "expanded_sha256": "d4b1c08bbbaf7ca9f186387af0d4853099a3673a097738917772fa1ad086866f",
+      "expanded_bytes": 184160256,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "de",
+      "expanded_sha256": "35529352882d2ca9b78534233bf3c1d8dfd85c46a1df0a1ca5b862580a853f6a",
+      "expanded_bytes": 339628032,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "es",
+      "expanded_sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "expanded_bytes": 364613632,
+      "source_shard_retained": true,
+      "temporary_retired_after_read": false
+    },
+    {
+      "language": "fr",
+      "expanded_sha256": "5d884557d3a265a88aadde8dfeba2bbbdcd930a20b0ae16ab4f36f4bb196cecc",
+      "expanded_bytes": 127201280,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "it",
+      "expanded_sha256": "22ef21aae71fcd403c952b2b3bccfb99421b19ce91d895884dc64670ee8cce19",
+      "expanded_bytes": 118775808,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "ja",
+      "expanded_sha256": "101115ac82b01b2467644a439c1480b913ab5196f3edb125aadf574b5608159d",
+      "expanded_bytes": 48148480,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "ko",
+      "expanded_sha256": "114daec103422c6ef8536454f997ba104b25ff6d39523546784b5fa6b8b350db",
+      "expanded_bytes": 132706304,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "pt",
+      "expanded_sha256": "930eea59275c254dda3a66d8b68e9fae27eec96958a44599123655dcac812109",
+      "expanded_bytes": 139739136,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "sw",
+      "expanded_sha256": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+      "expanded_bytes": 14819328,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    },
+    {
+      "language": "zh",
+      "expanded_sha256": "649b6074ea674bfb53fe8fb8a5d0083d3bfb141cc7a7ff1d9b9e1f34133271a8",
+      "expanded_bytes": 46440448,
+      "source_shard_retained": false,
+      "temporary_retired_after_read": true
+    }
+  ],
+  "candidate_index_sha256": "daa68e8bf5785937eb2a0d5d682b235ccd52f67a8fe9324f221e92293b973bb1",
+  "candidate_index_bytes": 48627712,
+  "elapsed_seconds": 13.974831145023927,
+  "limits": [
+    "Candidates are inherited primary dictionary/sense links, not accepted mappings or useful conversation coverage.",
+    "Legacy safety/eligibility booleans retained as evidence, not blanket uniqueness-based admission.",
+    "Nonempty reading is availability only; pronunciation/context still needs review.",
+    "Target head-surface proof is narrower than all valid inflected forms; failures are explicit and not language impossibility.",
+    "No data/matcher/provider/app change, no held-out source used to rank inventory.",
+    "One target scratch at a time, verified exact source hashes, no downloads/new models/new services."
+  ],
+  "full_summary_sha256": "c02b5c712a2c3ad2ade7952ddd0d290012266469096daf752293c68c58fd5163",
+  "full_summary_relative_evidence": "scaled-content-inventory-r01/inventory-summary.json",
+  "source_error_partition_notice": "Source lexical/POS membership alone admits obscure content homographs of ordinary function words. Candidate counts are not qualified mappings; the separate native-sense/consensus audit applies usage and completeness checks."
+}

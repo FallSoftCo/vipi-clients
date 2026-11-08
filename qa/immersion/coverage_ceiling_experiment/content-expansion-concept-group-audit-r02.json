@@ -1,0 +1,320 @@
+{
+  "production": false,
+  "fresh_validation": false,
+  "scope": "Post-checkpoint correction audit. Frozen candidates, raw captures and scores remain intact. This is a diagnostic replay of concept grouping, not new evidence or a new held-out comparison.",
+  "prior_candidate_sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4",
+  "existing_group_audit_sha256": "f0112b84ec232acbbc25cc31d52d17d1a16dd3d901543c4d5f6d6e4478f80151",
+  "alias_groups": [
+    [
+      "job",
+      "jobs"
+    ],
+    [
+      "place",
+      "places"
+    ],
+    [
+      "mountain",
+      "mountains"
+    ],
+    [
+      "cake",
+      "cakes"
+    ]
+  ],
+  "inventory": {
+    "en-sw": {
+      "declared_content_ids": 135,
+      "merged_content_groups": 131
+    },
+    "en-ja": {
+      "declared_content_ids": 130,
+      "merged_content_groups": 126
+    },
+    "en-es": {
+      "declared_content_ids": 124,
+      "merged_content_groups": 120
+    }
+  },
+  "global_declared_content_ids": 137,
+  "global_merged_content_groups": 133,
+  "learned_top50_added_after_dedup": [
+    "team"
+  ],
+  "effects": {
+    "diagnostic": {
+      "capture_sha256": "64648900ec4d84ba2adfdafa9e0e0d26e7bfd72c217344fb25a7cedd988e6e24",
+      "changed_selected_outputs": [
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_one|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_disjoint|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_one|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_disjoint|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_one|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "sw",
+          "arm": "expanded_disjoint|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "timu",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_one|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_disjoint|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_one|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_disjoint|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_one|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "ja",
+          "arm": "expanded_disjoint|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "チーム",
+              "chīmu"
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_one|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_disjoint|0.10|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_one|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_disjoint|0.25|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_one|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        },
+        {
+          "id": "bst-test-short-r01-0064-06",
+          "target": "es",
+          "arm": "expanded_disjoint|0.50|all_function_top50_content",
+          "prior": [
+            [
+              45,
+              49,
+              "equipo",
+              null
+            ]
+          ],
+          "corrected": []
+        }
+      ],
+      "changed_output_count": 18,
+      "default25_distinct_content_groups": {
+        "sw": 30,
+        "ja": 28,
+        "es": 27
+      }
+    },
+    "fresh": {
+      "capture_sha256": "93c90cb06e255ee48f9d886c0e83c47ee22d9ce03c30502b9630916c0f00ef8a",
+      "changed_selected_outputs": [],
+      "changed_output_count": 0,
+      "default25_distinct_content_groups": {
+        "sw": 34,
+        "ja": 35,
+        "es": 32
+      }
+    }
+  },
+  "required_future_policy": "Use canonical number/alias groups for both per-message uniqueness and learned-concept exclusion. Do not call declared IDs unique semantic senses."
+}

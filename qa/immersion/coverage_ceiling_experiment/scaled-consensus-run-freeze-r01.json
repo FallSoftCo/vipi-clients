@@ -1,0 +1,18 @@
+{
+  "production": false,
+  "training_only": true,
+  "frozen_before_execution": true,
+  "frozen_at_utc": "2026-11-08T05:43:25.863609+00:00",
+  "input_sha256": {
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/evaluate_scaled_consensus_r01.py": "1e88f4336b8a786e4619ae1402fe49f5b15b8fb0313ae0c37eac690f86d04db0",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/scaled-consensus-policy-r02.json": "07817b38f31cf029efe16da505eb7bf4f1de9f70c91dc18ca1763561dd2222df",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/raw-source-r02/selected-native-senses.json.gz": "327f1fd02f2623ddadf6071ea93f81d28dd61a7968e8f3dcf1d1740cca9fd4ac",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/target-native-metadata-r01.json.gz": "b38a3989156ea697a5c239fa0f35833688919e4f68d95a6bb1fc8df1daed1dd5",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/source-inventory.json": "809eaf1e5fd97bafff792fcbe7b0f89536c389b6f70a67c64d29d0d45a5e9e63",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-content-inventory-r01/primary-candidates.sqlite": "daa68e8bf5785937eb2a0d5d682b235ccd52f67a8fe9324f221e92293b973bb1"
+  },
+  "native_source_entries": 6464,
+  "native_source_senses": 30678,
+  "prior_incomplete_capture_sha256": "e417fa65941de8e39cafdc0bed4df94ec3fea4d315b2e97152a985ac535750b1",
+  "capture_note": "Initial900s bound retained6400IDs; resumed only final64 IDs in39.69s. Completed batch hashes verified; prior6400 loaded locally without remote reread. Whole archive hash expected from historical identity, not newly read."
+}
