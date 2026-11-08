@@ -1,0 +1,107 @@
+{
+  "schema": "vipi.source-role-veto-comparison-protocol.r01",
+  "frozen_at_utc": "2026-11-08T22:38:22.777624+00:00",
+  "production": false,
+  "before_projection_outputs": true,
+  "new_mapping_generation": false,
+  "input_bindings": {
+    "baseline_trace": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/projection-r02/contextual/rows.jsonl.gz",
+      "sha256": "6731d10bc28d08a0856b55c40f0ecc0189faef35888c150e658f7f15eced77c8"
+    },
+    "catalog": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/projection-r02/catalog.jsonl.gz",
+      "sha256": "da0956be694cc4f925944a82800e9838621c7c3eae2aec953b72a2274dbe5dda"
+    },
+    "units": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/phrases/dictionary-units.sqlite",
+      "sha256": "8a382e08cab53e7a26095d849192508df1cff3b4ab0a55dd494fef459d414f57"
+    },
+    "selector": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+    },
+    "prior_contract": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-source-annotations-r01/android-ablation-contract.json",
+      "sha256": "995e6a5e205d6706cdb06c1266deafe71a059033f226dbaeec15df69a90915e0"
+    },
+    "input_freeze": {
+      "path": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/input-freeze.json",
+      "sha256": "f5c4aa2f44697e47f6645a128fa6151a51435e3b77abb22431493d705fad8366"
+    }
+  },
+  "input_sources": 9535,
+  "source_input_sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54",
+  "pairs": [
+    "en-sw",
+    "en-es"
+  ],
+  "densities": [
+    0.25
+  ],
+  "known_states": [
+    "none",
+    "all_function",
+    "all_function_global50",
+    "all_function_global100",
+    "all_function_global300"
+  ],
+  "arms": {
+    "original": "Unchanged complete_grow original candidate membership and selection; must reproduce retained baseline.",
+    "eligible_links": "Subset with at least one shared sense link whose source and target terms both have eligible=true and whose complete target form has target_safe=true. Retain nonexplicit direct-English links. Do not require source_safe, shared POS, or arbitrary one-sense status. No new target or reranking.",
+    "apple_disagreement_veto": "eligible_links minus candidates with an exact single-token mapped Apple lexical role incompatible with every linked source POS; unknown/unassessed evidence remains baseline, explicitly not approved.",
+    "apple_role_required": "eligible_links restricted to exact single-token mapped Apple lexical role compatible with a linked source POS; unknown/composite/multitoken evidence abstains.",
+    "opennlp_disagreement_veto": "Same disagreement-only policy with frozen OpenNLP annotations.",
+    "opennlp_role_required": "Same role-required policy with frozen OpenNLP annotations."
+  },
+  "POS_map": {
+    "apple": {
+      "Noun": "noun",
+      "Verb": "verb",
+      "Adjective": "adj",
+      "Adverb": "adv"
+    },
+    "opennlp": {
+      "NOUN": "noun",
+      "VERB": "verb",
+      "AUX": "verb",
+      "ADJ": "adj",
+      "ADV": "adv"
+    }
+  },
+  "annotation_policy": [
+    "Original current message only; no prior dialogue, targets or labels.",
+    "Exact candidate focus equals one original annotation token; no guessed head for multiple tokens.",
+    "Other tags including PROPN and composites are unassessed. No fuzzy named-entity veto.",
+    "Raw confidence retained for diagnostics; no confidence threshold or semantic authorization.",
+    "No target-POS equality imposed: complete cross-category translations may be valid. Only source role is compared to eligible source term POS.",
+    "Unknown left unchanged in disagreement-only arm is not safety approval. All arms remain research."
+  ],
+  "selection_invariants": [
+    "Candidate identities/faces/order, native geometry, density, known states, original source and historical masks remain fixed.",
+    "Use exact existing selector before budget; masks survive filtered candidates.",
+    "Never backfill a new target variant when same-face or a role conflict removes a candidate. Other already-existing disjoint candidates may be selected by unchanged budget policy; retain those deltas.",
+    "Original corpus strict-containing masks remain weaker than native exact-overlap permission admission.",
+    "Do not label linked dictionary senses as exhaustive source meanings.",
+    "Source-only role features cannot resolve titles, idioms, same-POS senses or target inflection."
+  ],
+  "outputs": [
+    "Counts by pair/arm/known state: candidate rejection/unknown, raw displayed content/function coverage, changed/content depth, baseline deltas.",
+    "Retained exact selected IDs/ranges and added/removed outputs, plus link evidence for role decisions.",
+    "A separately frozen deterministic diagnostic review selection will cover changed whole outputs and controls before meaning labels. No correct-coverage result until reviewed."
+  ],
+  "resource_limits": {
+    "cpu_threads": 1,
+    "max_address_space_bytes": 536870912,
+    "max_seconds": 450,
+    "maximum_added_output_bytes": 134217728,
+    "minimum_free_bytes": 8589934592,
+    "output_directory": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/projection-r01"
+  },
+  "execution_binding_required": [
+    "Verify actual Apple/OpenNLP annotation outputs and matching original source digests for all9535 IDs before projection.",
+    "Freeze projector code hash and actual annotation hashes before executing.",
+    "Projection source/metadata failures retain original failure; no silent widened guard or new target."
+  ],
+  "relation_to_prior_contract": "Additive fixed-pool diagnostic refinement: explicit metadata-only control, separate unknown-preserving and unknown-abstaining POS arms. Proposed entity/idiom arm C is not included and no invented guard is substituted."
+}

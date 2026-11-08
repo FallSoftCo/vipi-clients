@@ -1,0 +1,65 @@
+{
+  "schema": "vipi.source-role-veto-review-selection.r01",
+  "frozen_at_utc": "2026-11-08T22:40:21.041243+00:00",
+  "before_projection_outputs": true,
+  "semantic_labels_present": false,
+  "seed": "vipi-source-role-veto-whole-outputs-r01",
+  "unit": "Entire selected output union across all six arms for one source,pair,known-state. Every unique selected focus+target is reviewed, not one nominated word.",
+  "count_max": 32,
+  "ordered_strata": [
+    "role_veto_delta",
+    "role_required_only_delta",
+    "eligibility_delta",
+    "unchanged_control"
+  ],
+  "pairs": [
+    "en-sw",
+    "en-es"
+  ],
+  "known": [
+    "none",
+    "all_function_global300"
+  ],
+  "quota_per_stratum_pair_known": 2,
+  "stratum_predicates": {
+    "role_veto_delta": "Either mapped-POS disagreement-veto arm selects different IDs from eligible_links.",
+    "role_required_only_delta": "Both disagreement-veto selections equal eligible_links, but at least one role_required arm differs.",
+    "eligibility_delta": "Original selection differs from eligible_links; neither POS disagreement-veto differs from eligible_links.",
+    "unchanged_control": "All six selections equal and contain at least one content-labelled candidate."
+  },
+  "selection": "For each stratum in listedorder, then pair listedorder, then known listedorder, sort eligible records by SHA256(seed|stratum|pair|known|source_id) UTF8 and take first2 notalreadychosen globally. A source_id may appear onlyonce. Do not backfill emptystrata with differentcriteria. Freeze IDs before assembling target-bearing reviewpacket.",
+  "exclusions": "Exclude prior96case_ids and fingerprint(en,source) in retained evaluation-exclusion-hashes. This only excludes inspected receipt membership, not guaranteed all previous source exposure. TRAIN remains reuseddevelopment.",
+  "input_bindings": {
+    "prior_evaluated_source_hashes": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/evaluation-exclusion-hashes.json",
+      "sha256": "f0aab9c30e5764504241aa0ed0ce7ee593c8f78eb0c1b78ad007ce0776915a9d"
+    },
+    "prior96_packet": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/projection-r02/contextual/review/packet.json",
+      "sha256": "490a7ec8bb45cb21b9cd5c14f7c78c19f85f935ee35266feccaff56972cc0b1d"
+    },
+    "source_context": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/train.json",
+      "sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c"
+    },
+    "fingerprint_source": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/build_corpus_exclusions.py",
+      "sha256": "3f79e5f5119a03ac1325a378633b430b8fb9ca3919259a171681bbfbb321253a"
+    }
+  },
+  "review_packet": [
+    "Original current source and full prior supplied dialogue, available to reviewer only.",
+    "Unchanged original candidate IDs/focus/context/targetfaces and exact link/POS evidence per eachscope.",
+    "Selected scopes and mixedoutput for all6arms, plus chosenunion with memberships.",
+    "Rejected/unknown reasons and metadataeligibility in separate columns; no correctnesslabels."
+  ],
+  "review_rules": [
+    "Root and independent reviewer freeze their own judgments before authorlabels disclosure.",
+    "Meaning,form,completelexicalunit,usefulcontent,entity/idiom/identifier errors separate.",
+    "Keep labelsanddisagreements; no majority semanticapproval.",
+    "CorrectPOS alone cannotapprove targetmeaning/form.",
+    "Whole-messageerror flag covers every displayed substitution perarm inselectedcases.",
+    "This change-stratifieddiagnostic is not populationaccuracy or an unbiased comparison of all9535messages.",
+    "No newcatalogactivation follows automatically from zero observederrors."
+  ]
+}
