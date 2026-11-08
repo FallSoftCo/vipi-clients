@@ -44,10 +44,6 @@ object LookupFirst {
             if (!valid()) return stop(ImmersionStatus.STALE)
             val reverse = if (forward == null && input != source) reference(text, target, source) else null
             if (!valid()) return stop(ImmersionStatus.STALE)
-            // Recognition is independent of faces, including whole-reference hits.
-            // It is not applied until language direction has been confirmed below.
-            val evidence = if (input != target && reverse == null) sourceEvidence?.invoke(text, source, target) else null
-            if (!valid()) return stop(ImmersionStatus.STALE)
             // Only exact catalog sentence units may become source-only partial output.
             // Frame/lexical target-dependent candidates are NOT passed to this callback.
             val sourcePartial = if (forward == null && reverse == null && input != target)
@@ -56,6 +52,10 @@ object LookupFirst {
             val detected = when { forward != null -> source; reverse != null -> target; input != null -> input; else -> identify(text) }
             if (!valid()) return stop(ImmersionStatus.STALE)
             if (detected !in listOf(source, target)) return stop(ImmersionStatus.INVALID_LANGUAGE)
+            // Recognition is independent of faces, including whole-reference hits,
+            // but a forward-only producer must never run on target-language input.
+            val evidence = if (detected == source) sourceEvidence?.invoke(text, source, target) else null
+            if (!valid()) return stop(ImmersionStatus.STALE)
             if (detected == source && evidence != null) {
                 if (!evidence.isValid(text, source, target, requireNotNull(sourceEvidenceIdentity))) return stop(ImmersionStatus.INVALID_RESULT)
                 constraints = evidence

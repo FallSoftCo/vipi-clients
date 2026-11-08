@@ -22,7 +22,7 @@ class SourceLookupEvidence(val original: String, val source: String, val target:
     val recognitions = recognitions.map { it.copy(approvedOutputs = it.approvedOutputs.toList()) }
 
     fun isValid(text: String, sourceLanguage: String, targetLanguage: String, identity: String): Boolean {
-        if (original != text || source != sourceLanguage || target != targetLanguage || source == target ||
+        if (original != text || source != sourceLanguage || target != targetLanguage || source.isBlank() || target.isBlank() || source == target ||
             catalogIdentity != identity || !catalogIdentity.matches(Regex("[A-Za-z0-9._:-]{1,160}")) ||
             original.isEmpty() || original.length > 16_384 || recognitions.size > 4096 ||
             recognitions.sumOf { it.approvedOutputs.size.toLong() } > 4096) return false
@@ -36,6 +36,12 @@ class SourceLookupEvidence(val original: String, val source: String, val target:
             recognition.mask?.let { if (!validRange(it) || !recognition.context.contains(it)) return false }
             if (recognition.approvedOutputs.any { it.outputID.isBlank() || it.outputID.length > 160 ||
                     !validRange(it.range) || !recognition.context.contains(it.range) }) return false
+            when (recognition.mode) {
+                SourceAtomicMode.ATOMIC -> if (recognition.approvedOutputs.any { it.range != recognition.mask }) return false
+                SourceAtomicMode.HEAD_BACKOFF -> if (recognition.approvedOutputs.any { recognition.mask?.contains(it.range) != true }) return false
+                SourceAtomicMode.AMBIGUOUS -> if (recognition.approvedOutputs.isNotEmpty()) return false
+                SourceAtomicMode.NONE -> Unit
+            }
         }
         return partial == null || (partial.original == text && partial.translation == null &&
             SourceReferencePresentation.isAnchored(partial, targetLanguage))

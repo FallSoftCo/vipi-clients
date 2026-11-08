@@ -96,8 +96,12 @@ class SourceLookupEvidenceTest {
     @Test fun reverseInputNeverInheritsOriginalForwardMasks() {
         val explicit = mutableListOf<String>(); val result = resolve(input = "sw", events = explicit)
         assertFalse("evidence" in explicit); assertNull(result.sourceEvidence)
-        val automatic = resolve(input = null, detected = "sw")
-        assertNull(automatic.sourceEvidence)
+        val autoEvents = mutableListOf<String>()
+        val automatic = resolve(input = null, detected = "sw", events = autoEvents,
+            evidenceHook = { error("Forward producer must not run on automatically detected target text") })
+        assertEquals(ImmersionStatus.READY, automatic.status)
+        assertNull(automatic.sourceEvidence); assertFalse("evidence" in autoEvents)
+        assertFalse(SourceLookupEvidence(text, "", "sw", identity, null, emptyList()).isValid(text, "", "sw", identity))
     }
     @Test fun staleProviderCompletionCannotPublishRecognitionOrPartial() {
         var valid = true; val events = mutableListOf<String>()
@@ -110,6 +114,16 @@ class SourceLookupEvidenceTest {
         val rules = mutableListOf(mask.copy(approvedOutputs = approvals)); val value = evidence(rules = rules)
         approvals.clear(); rules.clear()
         assertNotNull(value.filterPartial(partial())); assertEquals(1, value.recognitions.size)
+    }
+    @Test fun declaredAtomicPoliciesCannotAuthorizeContradictoryScopes() {
+        val partialCompound = mask.copy(mode = SourceAtomicMode.ATOMIC)
+        val outsideHead = mask.copy(context = SourceLookupRange(0, text.length),
+            approvedOutputs = listOf(SourceApprovedOutput("book", SourceLookupRange(14, 18))))
+        val ambiguousApproval = mask.copy(mode = SourceAtomicMode.AMBIGUOUS)
+        for (rule in listOf(partialCompound, outsideHead, ambiguousApproval))
+            assertFalse(evidence(rules = listOf(rule)).isValid(text, "en", "sw", identity))
+        val whole = mask.copy(mode = SourceAtomicMode.ATOMIC, approvedOutputs = listOf(SourceApprovedOutput("whole", mask.mask!!)))
+        assertTrue(evidence(rules = listOf(whole)).isValid(text, "en", "sw", identity))
     }
     @Test fun sourceMasksFilterBeforeBudgetAndKeepSupplementalClaims() {
         val original = "country water"; val translated = "nchi maji"
