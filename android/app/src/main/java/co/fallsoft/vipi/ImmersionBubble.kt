@@ -26,8 +26,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import co.fallsoft.vipi.core.ImmersionPresentation
+import co.fallsoft.vipi.core.ImmersionSpan
+import co.fallsoft.vipi.core.ImmersionStatus
 import co.fallsoft.vipi.core.SpeechSpan
 import kotlinx.coroutines.delay
+
+private data class InlineReadingIdentity(val original: String, val spans: List<ImmersionSpan>, val source: String, val target: String)
+private data class WholeReadingIdentity(val mode: ReadingMode, val text: String, val language: String)
 
 /** Continuous, lifecycle-owned alternation. No per-word timer or network work. */
 @Composable internal fun ImmersionBubble(
@@ -37,17 +42,28 @@ import kotlinx.coroutines.delay
     embedded: Boolean = false, onModeChange: ((ReadingMode) -> Unit)? = null, metadata: (@Composable () -> Unit)? = null,
     onVoiceHelp: (() -> Unit)? = null,
     originalMessage: String? = null, inputLanguage: String? = null, onInputLanguage: ((String?) -> Unit)? = null,
-    onInteractionChange: ((Boolean) -> Unit)? = null, onReport: (() -> Unit)? = null
+    onInteractionChange: ((Boolean) -> Unit)? = null, onReport: (() -> Unit)? = null,
+    onFullTranslation: (() -> Unit)? = null, fullTranslationLoading: Boolean = false,
+    fullTranslationError: ImmersionStatus? = null, onCancelFullTranslation: (() -> Unit)? = null,
+    onTranslationSetup: (() -> Unit)? = null
 ) {
     // A partial result has no full-target text. Do not expose empty/mixed text as translation.
     val completeTranslation = result.translation
     val effectiveMode = if (mode == ReadingMode.TRANSLATION && completeTranslation == null) ReadingMode.IMMERSED else mode
-    var originalPhase by remember(result) { mutableStateOf(false) }
-    var overrides by remember(result) { mutableStateOf(mapOf<Int, Boolean>()) }
-    var paused by remember(result) { mutableStateOf(false) }
-    var choosingWord by remember(result) { mutableStateOf(false) }
-    var choosingPace by remember(result) { mutableStateOf(false) }
-    var script by remember(result) { mutableStateOf(false) }
+    // Attaching a hidden complete reference must not restart the visible slots,
+    // erase a chosen face, or interrupt mixed-language speech.
+    val inlineIdentity = InlineReadingIdentity(result.original, result.spans, source, target)
+    val visibleIdentity: Any = when (effectiveMode) {
+        ReadingMode.IMMERSED -> inlineIdentity
+        ReadingMode.ORIGINAL -> WholeReadingIdentity(effectiveMode, result.original, source)
+        ReadingMode.TRANSLATION -> WholeReadingIdentity(effectiveMode, requireNotNull(completeTranslation), target)
+    }
+    var originalPhase by remember(inlineIdentity) { mutableStateOf(false) }
+    var overrides by remember(inlineIdentity) { mutableStateOf(mapOf<Int, Boolean>()) }
+    var paused by remember(inlineIdentity) { mutableStateOf(false) }
+    var choosingWord by remember(inlineIdentity) { mutableStateOf(false) }
+    var choosingPace by remember(inlineIdentity) { mutableStateOf(false) }
+    var script by remember(inlineIdentity) { mutableStateOf(false) }
     var selecting by remember { mutableStateOf(false) }
     var visible by remember { mutableStateOf(false) }
     var resumed by remember { mutableStateOf(false) }
@@ -87,7 +103,7 @@ import kotlinx.coroutines.delay
         }
     }
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
-    LaunchedEffect(eligible, result, revision, pace) {
+    LaunchedEffect(eligible, inlineIdentity, revision, pace) {
         if (!eligible) return@LaunchedEffect
         if (embedded) delay((messageID.hashCode().toLong() and 0xffffffffL) % 1200)
         while (true) {
@@ -96,7 +112,7 @@ import kotlinx.coroutines.delay
             originalPhase = !originalPhase; overrides = emptyMap()
         }
     }
-    LaunchedEffect(result, effectiveMode) { if (speech?.activeMessage == messageID) speech.stop(); overrides = emptyMap(); revision++ }
+    LaunchedEffect(visibleIdentity) { if (speech?.activeMessage == messageID) speech.stop(); overrides = emptyMap(); revision++ }
     val accent = MaterialTheme.colorScheme.primary.toArgb()
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
     val canShowScript = (effectiveMode == ReadingMode.TRANSLATION && fullReading != null) ||
@@ -145,7 +161,12 @@ import kotlinx.coroutines.delay
             }
             if (result.spans.isNotEmpty() || fullReading != null || onModeChange != null) {
                 Box {
-                    IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp)) { Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp)) }
+                    IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp).semantics {
+                        if (fullTranslationLoading) stateDescription = "Translating full message"
+                    }) {
+                        if (fullTranslationLoading) CircularProgressIndicator(Modifier.size(18.dp).semantics { contentDescription = "Reading options" }, strokeWidth = 2.dp)
+                        else Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp))
+                    }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         if (embedded) {
                             if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
@@ -154,12 +175,35 @@ import kotlinx.coroutines.delay
                             if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
                                 onClick = { paused = !paused; revision++; menu = false })
                         }
-                        if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null }.forEach { value ->
-                            val title = if (!embedded || value == ReadingMode.IMMERSED) value.label else languageName(if (value == ReadingMode.ORIGINAL) source else target)
+                        if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null || onFullTranslation != null }.forEach { value ->
+                            val missingFull = value == ReadingMode.TRANSLATION && completeTranslation == null
+                            val title = when {
+                                missingFull && fullTranslationLoading -> "Translating to ${languageName(target)}…"
+                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> "Prepare ${languageName(target)} translation"
+                                missingFull && fullTranslationError != null -> "Try ${languageName(target)} again"
+                                !embedded || value == ReadingMode.IMMERSED -> value.label
+                                else -> languageName(if (value == ReadingMode.ORIGINAL) source else target)
+                            }
                             DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
-                                onClick = { onModeChange(value); menu = false })
+                                enabled = !missingFull || !fullTranslationLoading,
+                                onClick = {
+                                    if (missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY && onTranslationSetup != null) onTranslationSetup()
+                                    else if (missingFull) onFullTranslation?.invoke()
+                                    else onModeChange(value)
+                                    menu = false
+                                })
                         }
-                        if (completeTranslation == null) DropdownMenuItem(text = { Text("Full translation isn’t ready") }, enabled = false, onClick = {})
+                        if (fullTranslationLoading && onCancelFullTranslation != null)
+                            DropdownMenuItem(text = { Text("Cancel full translation") }, onClick = { onCancelFullTranslation(); menu = false })
+                        if (completeTranslation == null && fullTranslationError != null) Text(when (fullTranslationError) {
+                            ImmersionStatus.MODEL_NOT_READY -> "Translation needs a download for this language pair."
+                            ImmersionStatus.TIMEOUT -> "That took too long. Your immersion is still here."
+                            ImmersionStatus.INVALID_LANGUAGE -> "Choose this message’s language, then try again."
+                            else -> "The full translation couldn’t be prepared. Your immersion is still here."
+                        }, modifier = Modifier.widthIn(max = 280.dp).padding(horizontal = 16.dp, vertical = 12.dp),
+                            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        else if (completeTranslation == null && onFullTranslation == null)
+                            DropdownMenuItem(text = { Text("Full translation isn’t ready") }, enabled = false, onClick = {})
                         if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
                         if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })

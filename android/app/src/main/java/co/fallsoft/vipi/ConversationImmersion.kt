@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import co.fallsoft.vipi.core.ImmersionResult
 import co.fallsoft.vipi.core.ImmersionPresentation
 import co.fallsoft.vipi.core.PartialImmersionResult
@@ -17,6 +20,8 @@ import co.fallsoft.vipi.core.ReferenceComposition
 import co.fallsoft.vipi.core.LookupFirst
 import co.fallsoft.vipi.core.LookupFirstRequest
 import co.fallsoft.vipi.core.LookupFirstOutcome
+import co.fallsoft.vipi.core.ImmersionIntent
+import co.fallsoft.vipi.core.ImmersionTranslationTimeout
 import co.fallsoft.vipi.core.ImmersionOrigin
 import co.fallsoft.vipi.core.ImmersionStatus
 import co.fallsoft.vipi.core.ImmersionPresentationState
@@ -27,6 +32,10 @@ import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateRemoteModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.tasks.await
@@ -116,18 +125,43 @@ internal class BundledImmersionCatalog(private val context: Context) {
     }
 }
 
-/** Per conversation, serial work and bounded memory. ChatItem is immutable. */
+/** Per conversation, keyed request work and bounded memory. ChatItem is immutable. */
 internal class ConversationImmersion(context: Context, val source: String, val target: String, private val density: Double,
     private val translator: LanguageTranslation = LocalTranslation()) : AutoCloseable {
     private val language = MessageLanguage()
     private val catalog = BundledImmersionCatalog(context.applicationContext)
     private val lexical = BundledLexicalCatalog(context.applicationContext)
     private val readings = SentenceReadings(context.applicationContext)
-    private val mutex = Mutex()
+    // Waiting for inference must not stall a different row's local source lookup.
+    private val stateLock = Any()
+    private val catalogMutex = Mutex()
+    private val providerMutex = Mutex()
+    private data class RequestKey(val generation: Long, val inputLanguage: String?, val text: String)
+    private class RequestGate(val mutex: Mutex = Mutex(), var users: Int = 0)
+    private val requestGates = mutableMapOf<RequestKey, RequestGate>()
+    private suspend fun <T> withRequestGate(key: RequestKey, block: suspend (Long) -> T): T {
+        val gate = synchronized(stateLock) { requestGates.getOrPut(key) { RequestGate() }.also { it.users++ } }
+        try { return gate.mutex.withLock { block(key.generation) } }
+        finally { synchronized(stateLock) { if (--gate.users == 0) requestGates.remove(key) } }
+    }
+    private fun cachedOutcome(key: String) = synchronized(stateLock) { cache[key] }
+    private fun cacheOutcome(key: String, value: LookupFirstOutcome) = synchronized(stateLock) { cache[key] = value }
     private val cache = BoundedImmersionCache<LookupFirstOutcome>(128)
     private val inputLanguages = mutableStateMapOf<String, String>()
-    private var closed = false
-    private var generation = 0L
+    @Volatile private var closed = false
+    @Volatile private var generation = 0L
+    private data class FullAttempt(val generation: Long, val messageID: String?, val inputLanguage: String?,
+                                   val text: String, val epoch: Long)
+    private val fullAttempts = linkedMapOf<FullAttempt, LookupFirstOutcome>()
+    private val fullEpoch = java.util.concurrent.atomic.AtomicLong()
+    fun newFullTranslationEpoch(): Long = fullEpoch.incrementAndGet().also { check(it > 0) }
+    private fun rememberAttempt(key: FullAttempt?, outcome: LookupFirstOutcome) {
+        synchronized(stateLock) {
+            if (key == null || closed || key.generation != generation) return
+            fullAttempts[key] = outcome
+            while (fullAttempts.size > 32) fullAttempts.remove(fullAttempts.keys.first())
+        }
+    }
     internal var lastOutcome: LookupFirstOutcome? = null
         private set
     internal var lexicalPreparation: String = "unmeasured"
@@ -137,11 +171,11 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     fun inputLanguage(id: String): String? = inputLanguages[id]
     fun selectInputLanguage(id: String, language: String?) {
         if (closed || (language != null && language !in listOf(source, target))) return
-        if (inputLanguages[id] != language) generation++
+        if (inputLanguages[id] != language) synchronized(stateLock) { generation++; fullAttempts.clear() }
         if (language == null) inputLanguages.remove(id) else inputLanguages[id] = language
     }
     fun cachedPresentation(text: String, messageID: String? = null): ImmersionPresentation? =
-        if (closed) null else cache["${messageID?.let { inputLanguages[it] } ?: "auto"}:$text"]?.result
+        if (closed) null else cachedOutcome("${messageID?.let { inputLanguages[it] } ?: "auto"}:$text")?.result
     fun cached(text: String, messageID: String? = null): ImmersionResult? = cachedPresentation(text, messageID) as? ImmersionResult
     fun reading(text: String): String? = readings.reading(text, target)
 
@@ -162,41 +196,84 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         presentation(text, inputLanguage) as? ImmersionResult
 
     suspend fun presentation(text: String, inputLanguage: String? = null, messageID: String? = null,
-                             onPartial: (PartialImmersionResult) -> Unit = {}): ImmersionPresentation? = mutex.withLock {
-        lastOutcome = null // cancellation/early rejection must not expose prior-invocation telemetry
-        val revision = generation
+                             onPartial: (PartialImmersionResult) -> Unit = {}): ImmersionPresentation? =
+        resolve(text, inputLanguage, messageID, ImmersionIntent.AUTOMATIC_IMMERSION, null, onPartial).result
+
+    /** One explicit attempt; simultaneous callers with the same epoch share its outcome, including failure. */
+    suspend fun fullTranslation(text: String, inputLanguage: String?, messageID: String?,
+                                requestEpoch: Long): LookupFirstOutcome {
+        require(requestEpoch > 0)
+        return resolve(text, inputLanguage, messageID, ImmersionIntent.FULL_TRANSLATION, requestEpoch) {}
+    }
+
+    private suspend fun resolve(text: String, inputLanguage: String?, messageID: String?, intent: ImmersionIntent,
+                                requestEpoch: Long?, onPartial: (PartialImmersionResult) -> Unit): LookupFirstOutcome {
+        val submittedRevision = generation
+        // A row re-entering the viewport can use its already approved partial
+        // even while the same message's explicit reference request is pending.
+        val cached = synchronized(stateLock) {
+            if (!closed && (messageID == null || inputLanguages[messageID] == inputLanguage))
+                cache[(inputLanguage ?: "auto") + ":" + text] else null
+        }
+        if (coroutineContext.isActive && submittedRevision == generation && cached?.result != null &&
+            (intent == ImmersionIntent.AUTOMATIC_IMMERSION || cached.result?.translation != null))
+            return cached.cachedInvocation().also { lastOutcome = it }
+        return withRequestGate(RequestKey(submittedRevision, inputLanguage, text)) { revision ->
+        lastOutcome = null
         val requestContext = coroutineContext
         fun valid() = !closed && revision == generation && requestContext.isActive &&
             (messageID == null || inputLanguages[messageID] == inputLanguage)
-        if (!valid()) return@withLock null
+        fun finish(value: LookupFirstOutcome): LookupFirstOutcome { lastOutcome = value; return value }
+        fun stale() = LookupFirstOutcome(null, null, ImmersionStatus.STALE, 0)
+        if (!valid()) return@withRequestGate finish(stale())
         val key = (inputLanguage ?: "auto") + ":" + text
-        cache[key]?.takeIf { it.result?.translation != null }?.let {
-            lastOutcome = it.cachedInvocation()
-            return@withLock it.result
+        cachedOutcome(key)?.takeIf { it.result != null &&
+            (intent == ImmersionIntent.AUTOMATIC_IMMERSION || it.result?.translation != null) }?.let {
+            return@withRequestGate finish(it.cachedInvocation())
         }
-        val outcome = LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage), ::valid,
-            reference = { original, from, to -> withContext(Dispatchers.Default) { catalog.reference(original, from, to) } },
-            identify = { language.identify(it) }, modelsReady = { ready == true },
-            translate = { original, from, to -> translator.translate(original, from, to) },
-            align = { original, targetText -> withContext(Dispatchers.IO) {
-                val supplemental = try {
-                    lexical.entries(original, targetText, source, target).also { lexicalPreparation = "ready" }
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { lexicalPreparation = "failed"; emptyList() }
-                coroutineContext.ensureActive()
-                catalog.result(original, targetText, source, target, density, supplementalEntries = supplemental)
-            } },
-            partialReference = { original, from, to -> withContext(Dispatchers.Default) {
-                catalog.partial(original, from, to, density, readings)
-            } },
-            onPartial = { partial -> if (valid()) { cache[key] = LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0)
-                    onPartial(partial) } })
-        lastOutcome = outcome
-        if (!valid()) return@withLock null
-        if (outcome.result != null) cache[key] = outcome
-        outcome.result
+        val attempt = requestEpoch?.let { FullAttempt(revision, messageID, inputLanguage, text, it) }
+        attempt?.let { synchronized(stateLock) { fullAttempts[it] } }?.let { return@withRequestGate finish(it.cachedInvocation()) }
+        val outcome = try {
+            LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage, intent), ::valid,
+                reference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(original, from, to) } } },
+                identify = { language.identify(it) }, modelsReady = { ready == true },
+                translate = { original, from, to ->
+                    if (intent == ImmersionIntent.FULL_TRANSLATION) {
+                        try { withTimeout(30_000) { providerMutex.withLock { translator.translate(original, from, to) } } }
+                        catch (_: TimeoutCancellationException) { requestContext.ensureActive(); throw ImmersionTranslationTimeout() }
+                    } else providerMutex.withLock { translator.translate(original, from, to) }
+                },
+                align = { original, targetText -> catalogMutex.withLock { withContext(Dispatchers.IO) {
+                    val supplemental = try {
+                        lexical.entries(original, targetText, source, target).also { lexicalPreparation = "ready" }
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { lexicalPreparation = "failed"; emptyList() }
+                    coroutineContext.ensureActive()
+                    catalog.result(original, targetText, source, target, density, supplementalEntries = supplemental)
+                } } },
+                partialReference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) {
+                    catalog.partial(original, from, to, density, readings)
+                } } },
+                onPartial = { partial -> if (valid()) {
+                    cacheOutcome(key, LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0))
+                    onPartial(partial)
+                } })
+        } catch (cancelled: CancellationException) {
+            // A queued duplicate of this canceled attempt must not start another
+            // inference. A deliberate retry receives a new row-owned epoch.
+            rememberAttempt(attempt, stale())
+            throw cancelled
+        }
+        if (!valid()) return@withRequestGate finish(stale())
+        if (outcome.result != null) cacheOutcome(key, outcome)
+        rememberAttempt(attempt, outcome)
+        finish(outcome)
+        }
     }
-    override fun close() { generation++; closed = true; cache.clear(); inputLanguages.clear(); translator.close(); language.close() }
+    override fun close() {
+        synchronized(stateLock) { generation++; closed = true; cache.clear(); fullAttempts.clear() }
+        inputLanguages.clear(); translator.close(); language.close()
+    }
 }
 
 private data class OriginalOnlyPresentation(override val original: String) : ImmersionPresentation {
@@ -205,7 +282,8 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
 }
 
 @Composable internal fun ConversationImmersionText(text: String, id: String, immersion: ConversationImmersion,
-    speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, onReport: (() -> Unit)? = null, metadata: @Composable () -> Unit) {
+    speech: SpeechPlayback, paused: Boolean, onVoiceHelp: () -> Unit, onReport: (() -> Unit)? = null,
+    onTranslationSetup: (() -> Unit)? = null, metadata: @Composable () -> Unit) {
     val inputLanguage = immersion.inputLanguage(id)
     val request = remember(id, text, immersion, inputLanguage) {
         ImmersionPresentationRequest(id, text, immersion.source, immersion.target, inputLanguage, immersion)
@@ -217,6 +295,40 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
     var interacting by remember(request) { mutableStateOf(false) }
     val currentlyPaused by rememberUpdatedState(paused || interacting)
     var mode by remember(request) { mutableStateOf(ReadingMode.IMMERSED) }
+    var fullLoading by remember(request) { mutableStateOf(false) }
+    var modeBeforeFullRequest by remember(request) { mutableStateOf(ReadingMode.IMMERSED) }
+    var fullError by remember(request) { mutableStateOf<ImmersionStatus?>(null) }
+    var fullEpoch by remember(request) { mutableLongStateOf(0) }
+    var fullJob by remember(request) { mutableStateOf<Job?>(null) }
+    val scope = rememberCoroutineScope()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    fun cancelFull(restoreMode: Boolean = false) {
+        fullEpoch = immersion.newFullTranslationEpoch()
+        fullJob?.cancel(); fullJob = null; fullLoading = false; fullError = null
+        if (restoreMode) mode = modeBeforeFullRequest
+    }
+    fun requestFull() {
+        if (fullLoading) return
+        val epoch = immersion.newFullTranslationEpoch(); fullEpoch = epoch
+        modeBeforeFullRequest = mode; fullLoading = true; fullError = null
+        fullJob = scope.launch {
+            try {
+                val outcome = immersion.fullTranslation(text, inputLanguage, id, epoch)
+                coroutineContext.ensureActive()
+                if (latestRequest == request && fullEpoch == epoch) {
+                    outcome.result?.let { state = state.accept(request, it, currentlyPaused) }
+                    if (outcome.result?.translation != null) { fullError = null; mode = ReadingMode.TRANSLATION }
+                    else fullError = outcome.fallbackStatus ?: outcome.status
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            finally { if (latestRequest == request && fullEpoch == epoch) { fullLoading = false; fullJob = null } }
+        }
+    }
+    DisposableEffect(request, lifecycle) {
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) cancelFull() }
+        lifecycle.addObserver(observer)
+        onDispose { lifecycle.removeObserver(observer); fullJob?.cancel() }
+    }
     LaunchedEffect(request, immersion.ready) {
         fun accept(value: ImmersionPresentation?) {
             if (latestRequest == request) state = state.accept(request, value, currentlyPaused)
@@ -227,13 +339,12 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
     LaunchedEffect(paused, interacting, request) {
         if (!paused && !interacting && latestRequest == request) state = state.resume(request)
     }
-    // Re-keying immediately clears stale visible/waiting values and full-target actions.
     val current = state.takeIf { it.request == request }?.visible
-    // Keep the same native reading controls mounted while lookup progresses.
-    // Original-only text is not a complete translation or useful-immersion result.
     ImmersionBubble(current ?: remember(text) { OriginalOnlyPresentation(text) }, mode, speech, immersion.source, immersion.target, id, paused,
         fullReading = remember(current, immersion) { current?.translation?.let { immersion.reading(it) } },
-        embedded = true, onModeChange = { mode = it }, metadata = metadata, onVoiceHelp = onVoiceHelp,
-        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { immersion.selectInputLanguage(id, it) },
-        onInteractionChange = { interacting = it }, onReport = onReport)
+        embedded = true, onModeChange = { value -> cancelFull(); mode = value }, metadata = metadata, onVoiceHelp = onVoiceHelp,
+        originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { cancelFull(); immersion.selectInputLanguage(id, it) },
+        onInteractionChange = { interacting = it }, onReport = onReport,
+        onFullTranslation = ::requestFull, fullTranslationLoading = fullLoading, fullTranslationError = fullError,
+        onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup)
 }

@@ -100,6 +100,7 @@ import java.time.format.FormatStyle
                 Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp)).padding(14.dp)) {
                     ConversationImmersionText(message.text, message.id, immersion, speech, composing || list.isScrollInProgress || reportedMessage != null,
                         onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = "Speech settings couldn’t open." } },
+                        onTranslationSetup = { model.navigate(Screen.LANGUAGE_DOWNLOAD) },
                         onReport = if (message.role == "assistant" && message.requestID != null) ({
                             speech.stop(); reportedMessage = message; reportReason = ""
                             reportText = message.text

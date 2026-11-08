@@ -268,6 +268,7 @@ import java.util.UUID
                             ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
                                 list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,
                                 onVoiceHelp = { showVoiceHelp = true },
+                                onTranslationSetup = onLanguages,
                                 onReport = if (!item.outgoing && item.state != "imported") ({
                                     speech.stop(); reportedMessage = item; reportReason = chat.reportReason(item) ?: ""
                                 }) else null) {

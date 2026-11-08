@@ -115,7 +115,7 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
 
     fun navigate(value: Screen) {
         if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
-            languageReturnScreen = if (screen == Screen.CONVERSATION) Screen.CONVERSATION else Screen.SETTINGS
+            languageReturnScreen = if (screen in setOf(Screen.CONVERSATION, Screen.BOT)) screen else Screen.SETTINGS
         }
         if (value != screen && (value == Screen.LANGUAGE_DOWNLOAD || screen == Screen.LANGUAGE_DOWNLOAD)) sentenceChanged()
         screen = value

@@ -2,10 +2,13 @@ package co.fallsoft.vipi.core
 
 import java.util.concurrent.CancellationException
 
-/** Routing, not a matcher or linguistic-confidence model. No partial translation type. */
-data class LookupFirstRequest(val text: String, val source: String, val target: String, val inputLanguage: String? = null)
+/** Routing intent never changes the source producer's linguistic authorization. */
+enum class ImmersionIntent { AUTOMATIC_IMMERSION, FULL_TRANSLATION }
+class ImmersionTranslationTimeout : Exception()
+data class LookupFirstRequest(val text: String, val source: String, val target: String, val inputLanguage: String? = null,
+                              val intent: ImmersionIntent = ImmersionIntent.AUTOMATIC_IMMERSION)
 enum class ImmersionOrigin { LOOKUP_REFERENCE, SOURCE_REFERENCE_PARTIAL, LOCAL_FULL_CONTEXT }
-enum class ImmersionStatus { READY, PARTIAL, INVALID_INPUT, INVALID_LANGUAGE, MODEL_NOT_READY, INVALID_RESULT, STALE, ERROR }
+enum class ImmersionStatus { READY, PARTIAL, INVALID_INPUT, INVALID_LANGUAGE, MODEL_NOT_READY, INVALID_RESULT, STALE, ERROR, TIMEOUT }
 data class LookupFirstOutcome(val result: ImmersionPresentation?, val origin: ImmersionOrigin?,
                               val status: ImmersionStatus, val localTranslationCalls: Int,
                               val fallbackStatus: ImmersionStatus? = null, val cacheHit: Boolean = false) {
@@ -49,6 +52,9 @@ object LookupFirst {
                     !SourceReferencePresentation.isAnchored(sourcePartial, target)) return stop(ImmersionStatus.INVALID_RESULT)
                 partial = sourcePartial
                 onPartial(sourcePartial)
+                if (!valid()) return stop(ImmersionStatus.STALE)
+                if (request.intent == ImmersionIntent.AUTOMATIC_IMMERSION)
+                    return LookupFirstOutcome(sourcePartial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0)
             }
             val reversed = detected == target
             val known = forward ?: reverse
@@ -64,19 +70,20 @@ object LookupFirst {
                 return stop(ImmersionStatus.INVALID_RESULT)
             val original = if (reversed) translated else text
             val targetText = if (reversed) text else translated
-            val result = align(original, targetText)
-            if (!valid()) return stop(ImmersionStatus.STALE)
-            if (result.original != original || result.translation != targetText || !anchored(result))
-                return stop(ImmersionStatus.INVALID_RESULT)
-            // Known exact source units keep their source-authorized faces even if a
-            // valid full-context translation uses different wording. Do not silently
-            // replace them with target-dependent guesses or a zero-span result.
+            // The user requested a complete reference, not new guessed slots.
+            // Existing source authorization and whole-string integrity suffice;
+            // target-dependent alignment would be computed only to discard it.
             partial?.let {
                 return LookupFirstOutcome(it.copy(completeTranslation = targetText),
                     ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, calls, ImmersionStatus.READY)
             }
+            val result = align(original, targetText)
+            if (!valid()) return stop(ImmersionStatus.STALE)
+            if (result.original != original || result.translation != targetText || !anchored(result))
+                return stop(ImmersionStatus.INVALID_RESULT)
             return LookupFirstOutcome(result, origin, ImmersionStatus.READY, calls)
         } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: ImmersionTranslationTimeout) { return stop(if (valid()) ImmersionStatus.TIMEOUT else ImmersionStatus.STALE) }
         catch (_: Exception) { return stop(if (valid()) ImmersionStatus.ERROR else ImmersionStatus.STALE) }
     }
 
