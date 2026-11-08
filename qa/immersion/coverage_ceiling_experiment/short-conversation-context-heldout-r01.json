@@ -1,0 +1,3490 @@
+{
+  "schema": "vipi-short-conversation-context-holdout-1",
+  "production": false,
+  "training_use": false,
+  "pack_building_use": false,
+  "frozen_unix": 1794112312.6327753,
+  "freeze_sha256": "b9b2e6657e8897a51cd4c1e0201a387b00ae73d27c9b44f86f6ac8c2ac61492e",
+  "sampling_amendment_sha256": "5e1b703b87f2a1118cacb4466a4d2106f3409717e61133051fc361723a002c93",
+  "input_hashes": {
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/train.json": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/test.json": "14ee0431113d28ca5e9424212170196c7e45706e96e7b46d34d52b96cbd0b380",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/short-conversation-evaluation-freeze-r01.json": "b9b2e6657e8897a51cd4c1e0201a387b00ae73d27c9b44f86f6ac8c2ac61492e",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/short-conversation-sampling-amendment-r01.json": "5e1b703b87f2a1118cacb4466a4d2106f3409717e61133051fc361723a002c93",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/japanese-transfer-heldout-r01.json": "8e6c6bd217df719c403c2d68f1a1605273c0c1e1857ea718a4003f6bf6caf160",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-word-heldout-valid-r01.json": "88b779961d3c1d2e93d8df69e7f807fa5822c9c0f2fa7826dc0e1efff0c52553",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-word-heldout-valid-r02.json": "1231e05d1e3b19545ebdb3b8898ca192354302494df06055126d2f4ec739834b",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-clause-heldout-valid-r03.json": "c3f3b4cc71ffe85b695e4c6fa3ac7bf4b8199ce840cf51aebf4bf2b4c3a8609e",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/conversational-holdout-source-r01.json": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/native-protocol.json": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/taskmaster-native-protocol-r01.json": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/directional-native-protocol-r01.json": "aec5ced94bc82c071f16f568b078703a4460841201c079bf78eb0edaab9c9e73",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/direct-extension-native-protocol-r01.json": "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-only-fresh-protocol.json": "dda29150ff5a9ebe3a83c07084d14fc96151a7e18c10a0d109ea2ff0fb400662",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-probe/live-peer-sw-protocol-r01.json": "4ccee4cd1b9e79a60e018902af278e85bc34377c75162eef066960b6aa4d0e6e"
+  },
+  "sampler_sha256": "65bcede44104b55e3507e04aa6de14bcfa07bf1f0c43302c97bbf30d790e1df9",
+  "excluded_test_conversations": [
+    9,
+    20,
+    29,
+    33,
+    40,
+    47,
+    59,
+    69,
+    70,
+    72,
+    80,
+    86,
+    98,
+    109,
+    116,
+    118,
+    124,
+    125,
+    126,
+    127,
+    135,
+    141,
+    142,
+    146,
+    151,
+    155,
+    157,
+    171,
+    175,
+    179,
+    180,
+    191,
+    193,
+    196,
+    197,
+    198,
+    199,
+    202,
+    204,
+    208,
+    212,
+    214,
+    228,
+    229,
+    236,
+    245,
+    251,
+    253,
+    257,
+    271,
+    279,
+    291,
+    298,
+    303,
+    309,
+    319,
+    324,
+    329,
+    336,
+    337,
+    351,
+    361,
+    363,
+    365,
+    372,
+    382,
+    407,
+    417,
+    419,
+    437,
+    440,
+    449,
+    451,
+    454,
+    457,
+    461,
+    465,
+    471,
+    473,
+    479,
+    490,
+    494,
+    500,
+    504,
+    505,
+    507,
+    513,
+    519,
+    525,
+    530,
+    537,
+    542,
+    543,
+    546,
+    550,
+    551,
+    558,
+    561,
+    563,
+    568,
+    576,
+    579,
+    580,
+    584,
+    598,
+    604,
+    617,
+    629,
+    630,
+    636,
+    641,
+    642,
+    643,
+    656,
+    657,
+    666,
+    669,
+    674,
+    685,
+    686,
+    691,
+    693,
+    694,
+    711,
+    714,
+    721,
+    725,
+    728,
+    749,
+    769,
+    770,
+    780,
+    784,
+    797,
+    806,
+    812,
+    833,
+    836,
+    842,
+    848,
+    852,
+    873,
+    883,
+    889,
+    895,
+    897,
+    902,
+    904,
+    905,
+    915,
+    918,
+    922,
+    932,
+    934,
+    937,
+    938,
+    947,
+    954,
+    968,
+    972
+  ],
+  "source_license": "BlendedSkillTalk CC-BY-4.0, existing evaluation-data-licenses attribution",
+  "context_policy": "Only selected message enters matcher. Prior turns are review-only; selected inputs are human free-worker, guided context may contain suggestions.",
+  "sampling_limit": "Length-balanced persona-chat diagnostic, not a frequency-weighted worldwide-chat estimate. TRAIN surface overlaps and duplicate utterance surfaces retained and reported separately.",
+  "summary": {
+    "cases": 80,
+    "distinct_conversations": 80,
+    "unique_source_texts": 80,
+    "train_surface_overlaps": 3,
+    "previously_evaluated_or_seen_surface_overlaps": 1,
+    "novel_surface_rows": 77
+  },
+  "cases": [
+    {
+      "id": "bst-test-short-r01-0765-08",
+      "text": "i meant the british version of the office , the original!",
+      "source": "en",
+      "conversation_index": 765,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "oh . do you eat vegetables and meat ? are you an omnivore ? i am ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "sure just trying to get this money"
+        },
+        {
+          "role": "free_human",
+          "text": "whats your favorite type of meat?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love steak and chicken! What about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "same haha they are my favourites too! you watch any shows/movies?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do, I love watching TV. Right now I’m watching The Office. What’s your favorite Tv show?"
+        },
+        {
+          "role": "free_human",
+          "text": "oh my the office is also one of my top shows , i currently enjoy watching star trek"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nice. The Office is one of my favorite shows. I do enjoy Steve Carrell's character."
+        },
+        {
+          "role": "free_human",
+          "text": "oh i thought you meant the uk version sorry , i hate the us version of the show"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The British version of the U.S. version?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0847-06",
+      "text": "Have you tried the survival mode? Im not into pvp as much since I'm horrible at shooters.",
+      "source": "en",
+      "conversation_index": 847,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "do you have any hobbies ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no . i just clean my house all day . you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I love playing video games and eating pizza."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "video games range from computers to small hand held devices. which do you prefer?"
+        },
+        {
+          "role": "free_human",
+          "text": "Generally computers. How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I own a ps4 and gaming PC but almost never touch the ps4. Been playing a ton of Modern warfare on pc though."
+        },
+        {
+          "role": "free_human",
+          "text": "It that game any good? My brother and I have been debating on getting that or not."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "The campaign is the best campaign in call of duty history. The multiplayer does have some issues that need to be worked out though."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0420-04",
+      "text": "She does not like my boyfriend. How do you like teaching? ",
+      "source": "en",
+      "conversation_index": 420,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah maybe . could your puppy make my boyfriend get a job ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "could be . i teach kinder after studying early childhood ed ."
+        },
+        {
+          "role": "free_human",
+          "text": "My daughter made my boyfriend lose his job"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh no, how did that happen?"
+        },
+        {
+          "role": "free_human",
+          "text": "She called his work and said he does not like his boss."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Why did she say that?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0552-10",
+      "text": "HAHA! Who doesnt? What is your favorite food?",
+      "source": "en",
+      "conversation_index": 552,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i listen to bruno mars , but i'm a high school student ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "ok , do you love going to the beach"
+        },
+        {
+          "role": "free_human",
+          "text": "I love the beach! Its one of my favorite places. How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do enjoy the beach, but I prefer the spring over the summer."
+        },
+        {
+          "role": "free_human",
+          "text": "I agree. Its very hot in the summer. Spring is beautiful with all of the fresh blossoms. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes the changing leaves inspires me when painting."
+        },
+        {
+          "role": "free_human",
+          "text": "Wow! What types of things do you like to paint?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Mostly landscape. Do you enjoy art?"
+        },
+        {
+          "role": "free_human",
+          "text": "I dont paint but I enjoy baking cakes and decorating them. Its my form of art. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds yummy! Is baking a hobby of yours?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes, it is! Do you like to cook or bake?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I mainly enjoy the eating part."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0896-00",
+      "text": "I live in Toronto ",
+      "source": "en",
+      "conversation_index": 896,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that is an awesome family you got there . where are you from ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i live in colorado , what about you ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0328-04",
+      "text": "oh. do you even lift, bro?",
+      "source": "en",
+      "conversation_index": 328,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm a good person like working with the senior"
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh . you sound like a friendly guy . old people get on my nerves though"
+        },
+        {
+          "role": "free_human",
+          "text": "i know. they're always curling in the squat rack"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well you have to make allowances for age.  You'll be there someday.  My roommate is getting up there."
+        },
+        {
+          "role": "free_human",
+          "text": "do you like to watch mma? i do"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I can watch it.  I'm not really into it though."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0930-02",
+      "text": "Yes. what city do you live in? I'm in Harlem.",
+      "source": "en",
+      "conversation_index": 930,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "ya want someone to come chop em down ? i can do that for ya"
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh really ? ! i would like a consultation ! i live in new york ."
+        },
+        {
+          "role": "free_human",
+          "text": "Wow, I also live in New York. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love it although it can be crowded."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0752-02",
+      "text": "So cute! My pug's name is Pepper - he is so funny and has a great personality",
+      "source": "en",
+      "conversation_index": 752,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "we should hangout sometime , i can bring the dogs they're friendly"
+        },
+        {
+          "role": "guided_seed",
+          "text": "sure . do you have any siblings ?"
+        },
+        {
+          "role": "free_human",
+          "text": "One brother, he's a pug! I've been working odd hours trying to pick up commercials and work at the community theater as well"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have never in my life heard of that breed before.  I'll look it up.  That is really cool I have 3 crazy untrained minpin"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0830-00",
+      "text": "what was that like?",
+      "source": "en",
+      "conversation_index": 830,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": true,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i've to travel to ritzy parts of town , where i work in a dental office ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "really ? cool , i use to ki in college"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0792-04",
+      "text": "The instrument itself can sound very good and put you in the mood like jazz and at the same time it can be funny.",
+      "source": "en",
+      "conversation_index": 792,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's enjoyable . i'm a red cross volunteer when i've time on the weekend ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is nice , i do like the drums also"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you happen to play any other instruments?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes, I'm a guitar player"
+        },
+        {
+          "role": "free_human",
+          "text": "I've always wanted to play the guitar. I'm a highschool band teacher and I play the sax."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "How do you feel towards the saxophone?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0766-04",
+      "text": "What are pro's and con's for being single?",
+      "source": "en",
+      "conversation_index": 766,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "no , i don't currently have a job"
+        },
+        {
+          "role": "guided_seed",
+          "text": "are you married ? i'm single bc i could never just love one person ."
+        },
+        {
+          "role": "free_human",
+          "text": "I'm married and truly believe in being monogamous."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ahyou're married.    Pro's and con's?"
+        },
+        {
+          "role": "free_human",
+          "text": "Can always rely on having support... emotional, physical, intimate, financial, spiritual..."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Good! I think it's great when people get married for the right reasons. Happy stories out there"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0484-04",
+      "text": "precious and princess",
+      "source": "en",
+      "conversation_index": 484,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "he's off with the dept fighting fires , on our kids birthday night !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "org ! sorry to hear that ! i work for dreamworks tell the kids !"
+        },
+        {
+          "role": "free_human",
+          "text": "wow thats awesome. How is it like theer?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It's not bad, its a fun job"
+        },
+        {
+          "role": "free_human",
+          "text": "I have twin girls. so its their birthday today, they turn 5"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Happy birthday to them, what are their names?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0704-06",
+      "text": "You have a favorite pair?",
+      "source": "en",
+      "conversation_index": 704,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi jennifer , i am tony . how long have you skied for ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "since i was about 5 . my father taught me . what are your hobbies ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I enjoy cooking and travelling, sometimes golf"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh i love travelling too, whenever i go somewhere i have to buy a pair of shoes."
+        },
+        {
+          "role": "free_human",
+          "text": "I typically drive my Prius on road trips across the country.  I love tofu too, weird I know.  Whats your favorite food?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love anything that is Mexican, that has to be the best food out there."
+        },
+        {
+          "role": "free_human",
+          "text": "I enjoy mexican as well.  So you are a shoe person?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "always ! i went shopping today for new shoes, i can't resist buying them!"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0024-04",
+      "text": "what pets do you have?",
+      "source": "en",
+      "conversation_index": 24,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i mostly not think about it . yes , i've a pet . what about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool . my pets visit me in bed"
+        },
+        {
+          "role": "free_human",
+          "text": "i have to kick my cats out of bed, they never let me get any sleep"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "ok good. cats can see in near darkness. I scared about dark so my pet is useful for me"
+        },
+        {
+          "role": "free_human",
+          "text": "that is good then. do they sleep with you all night?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes i do . depending on them"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0758-02",
+      "text": "Sounds like you're pretty fit",
+      "source": "en",
+      "conversation_index": 758,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well that sounds awesome ! ! ! i am a horse trainer"
+        },
+        {
+          "role": "guided_seed",
+          "text": "need a horse , i really want to explore the world"
+        },
+        {
+          "role": "free_human",
+          "text": "What else do you do with your free time? I am a novice writer."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah I work in sales, but I really don't like it. Think I might like to be a personal trainer"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0814-00",
+      "text": "I have a few blue tang, which is fun. My niece loves Finding Nemo",
+      "source": "en",
+      "conversation_index": 814,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "not much , i blog about my aquarium . do you do anything fun ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i just play on the computer . do you have interesting fish ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0066-00",
+      "text": "It definitely is. What do you like to do?",
+      "source": "en",
+      "conversation_index": 66,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "cool . i usually go rock climbing . i should put on youtube"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that sounds like an exciting hobby ."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0774-06",
+      "text": "HA, do they have big poop decks?",
+      "source": "en",
+      "conversation_index": 774,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i have traveled all over the world ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "the island where i live gets a lot of tourist . some of them alone"
+        },
+        {
+          "role": "free_human",
+          "text": "What island do you live on?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I live on south padre island. I like to make boats in my free time "
+        },
+        {
+          "role": "free_human",
+          "text": "South Padre Island is beautiful. How many boats have you made?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "about 6 i believe , i lost track after my 3rd"
+        },
+        {
+          "role": "free_human",
+          "text": "Haha. Are they big boats or small boats?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not too big but you should see the size of the poop."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0957-00",
+      "text": "I would love to go to Jamaica. I don't travel alot",
+      "source": "en",
+      "conversation_index": 957,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "oh how fun . i'd love to help people travel ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "its a blast . i get to travel a lot myself . my favorite place to go is jamaica"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0067-00",
+      "text": "i speak english only",
+      "source": "en",
+      "conversation_index": 67,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well that sucks . doesn't seem logical with how good you are a typing in english"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i speak both english and italian ."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0614-02",
+      "text": "Maybe you can start doing some work on the side. Do you have any special skills?",
+      "source": "en",
+      "conversation_index": 614,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i work as an accountant , freelance ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is cool , do you like it ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Honestly, I do. I get to make my own schedule and name my price."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's always nice! I wish I could do that! I work at a movie theater so I have set hours.  "
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0891-06",
+      "text": "My Fitness Pal has been a favorite of mines for years. Easy to use and very helpful",
+      "source": "en",
+      "conversation_index": 891,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "good and you ? i'm 29 and live in the suburb of boston ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i am well ! excited for my track meet later tonight ."
+        },
+        {
+          "role": "free_human",
+          "text": "That is great, I am sure you will do wonderful at the track meet"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thank you. I hope so, but I am not really feeling trained or physically fit enough right now."
+        },
+        {
+          "role": "free_human",
+          "text": "I know the feeling. But a little bit every day goes a long way!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Definitely . Maybe if I ate better i'd have more motivation. That is something I am working on."
+        },
+        {
+          "role": "free_human",
+          "text": "I've heard there are websites and apps that help with that, should make it a little easier to get through."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Any apps you recommend?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0719-10",
+      "text": "Lots of chunks of venison,celery,carrots,onions,potatoes,and my special blend of spices.",
+      "source": "en",
+      "conversation_index": 719,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "its okay work , repetitive . interesting"
+        },
+        {
+          "role": "guided_seed",
+          "text": "where are you from or live ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I live in Tennessee,its freezing today!What about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Its not too bad here, cool but cold.  Does it ever snow in Tennessee?"
+        },
+        {
+          "role": "free_human",
+          "text": "Every once in a while.I usually get a big pot of venison stew going."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Isn't venison deer?  What does it taste like?"
+        },
+        {
+          "role": "free_human",
+          "text": "Correct.Kinda like beef,a little more chewy...whats your favorite band?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I don't really have a favorite band, just whatever I'm in the mood for in the moment.  What is yours?"
+        },
+        {
+          "role": "free_human",
+          "text": "Mine is The story so far.What do you do for work?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work hard everyday.  Do you work?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah,its okay work,a little repetitive,but interesting none the less."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What do you put in your venison stew?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0861-04",
+      "text": "You're right. I'll try to find someone to help me with transportation costs on road trips.",
+      "source": "en",
+      "conversation_index": 861,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "nope not at all . just a small city . live a simple life ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i think you are downplaying it a lot"
+        },
+        {
+          "role": "free_human",
+          "text": "Well not much has happened to me in the past year."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Have you made the effort to travel at all?  You know, get out and see something new?"
+        },
+        {
+          "role": "free_human",
+          "text": "I would but my landlord increased the rent so I don't have any money to save up."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's too bad!  But it doesn't have to cost alot.  I love just to drive old country roads and tent camp."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0676-02",
+      "text": "mostly punk music.  you?",
+      "source": "en",
+      "conversation_index": 676,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that must be hard . can you have sugar at all ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "nope , it will put me right in a coma . do you like music ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I love music"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "So do I.  What do you listen too?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0322-02",
+      "text": "Me too! I have been to every state except Alaska and that is still on my bucket list.",
+      "source": "en",
+      "conversation_index": 322,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that is very cool were you in the facebook movie ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yes i was the popular actress"
+        },
+        {
+          "role": "free_human",
+          "text": "I bet that was amazing, especially with how it was filmed in so many places. I love to travel!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i do love traveling ! i have been over most of america , and also mexico"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0243-04",
+      "text": "I sometimes get scared in games where it's really dark and mysterious",
+      "source": "en",
+      "conversation_index": 243,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i like playing games . how about you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "some times i love the color green though"
+        },
+        {
+          "role": "free_human",
+          "text": "I really enjoy eating junk food while playing games"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i likr to travel with my cat"
+        },
+        {
+          "role": "free_human",
+          "text": "I like traveling in games, heard there's a new game about cats."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "ok good. cats can see in near darkness. I scared about dark so my pet is useful for me"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0108-08",
+      "text": "Sweet, I'll check it out",
+      "source": "en",
+      "conversation_index": 108,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's pretty cool have you seen anyone famous"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah they are big movies so a lot of famous people . i also sing in competitions ."
+        },
+        {
+          "role": "free_human",
+          "text": "I'm more of an audience person than a performer myself"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "nothing wrong with that, sometimes I like being in the audience too!"
+        },
+        {
+          "role": "free_human",
+          "text": "I'm actually looking for a job right now, do you know anyone (possibly famous?) looking for an assistant?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I believe wiz khalifa is looking for an assistant, I could set you up with him."
+        },
+        {
+          "role": "free_human",
+          "text": "That would be fantastic! Thank you so much!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "no problem, are you familiar with his music?"
+        },
+        {
+          "role": "free_human",
+          "text": "Not really, but I can spend the next few days doing some research"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "He's a great guy and makes awesome music if it fits your taste. I recommend \"on my level\"."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0732-00",
+      "text": "thats intersesting.  I love pizza",
+      "source": "en",
+      "conversation_index": 732,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "congratulations ! what is your favorite thing when you aren't reading ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "robotics is my favorite subject"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0460-06",
+      "text": "I like rock and rap mainly, though I enjoy a bit of synth pop music as well. Prefer films though. What about you?",
+      "source": "en",
+      "conversation_index": 460,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i really like 16 candles and pretty woman are a couple of my favorites"
+        },
+        {
+          "role": "guided_seed",
+          "text": "do your kids have favorites ? are you tired of hearing them sing disney tunes ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't have kids, unfortunately - boating accident."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "So sorry to hear. They are laying in green pastures sure..."
+        },
+        {
+          "role": "free_human",
+          "text": "That's sad. So have you seen 16 candles?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have seen every single one! All sad. All green! I think green is my favorite color. What is yours?"
+        },
+        {
+          "role": "free_human",
+          "text": "Grey is probably my favourite colour, but I like blue. What's you're favourite one?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Blue is nice. What kind of music do you like?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0362-04",
+      "text": "May as well tell me your too old for life haha. When was the last time you danced?",
+      "source": "en",
+      "conversation_index": 362,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love school , dancing with friends , and running . what are your friends like ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "my friends are mellow but fun . where are you from ?"
+        },
+        {
+          "role": "free_human",
+          "text": "From Canada, yourself? Mellow as in down to earth im guessing."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "USA"
+        },
+        {
+          "role": "free_human",
+          "text": "What are your hobbies? I really like being an employee."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I'm 71, too old for hobbies. "
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0256-00",
+      "text": "I like to read, and shop at sears.",
+      "source": "en",
+      "conversation_index": 256,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hi ! i don't have a favorite band but my favorite reading is twilight"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love to write ! want to be journalist but have settle for selling washers at sears ."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0713-06",
+      "text": "Ha!  Kids are harder to train sometimes!",
+      "source": "en",
+      "conversation_index": 713,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i compete playing violin on competitions , a few of them i've placed high in ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i like dogs but my real passion lies in politics ."
+        },
+        {
+          "role": "free_human",
+          "text": "What type of dogs do you like?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like golden retrievers, poodles, and Yorkies."
+        },
+        {
+          "role": "free_human",
+          "text": "Cool!  Do you own one?  I've a pomeranian. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have a Yorkie."
+        },
+        {
+          "role": "free_human",
+          "text": "That's nice!  How do yorkies handle kids?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Pretty good, as long as the kid and the dog are both well trained!"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0809-10",
+      "text": "Haha yeah, don't want to get injured on my first run!",
+      "source": "en",
+      "conversation_index": 809,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i've never been there but would love to go too"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i know what other places would you like to visit ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I have heard they have a big swimming pool there."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Really? How big is it?"
+        },
+        {
+          "role": "free_human",
+          "text": "I think they used it in the Olympics so it must be pretty big!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Wow! I love to run but have never been very good at swimming, I would like to get better."
+        },
+        {
+          "role": "free_human",
+          "text": "It takes a lot of practice, I love swimming. How often do you run?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Every day, its an important part ofmy routine. Do you run?"
+        },
+        {
+          "role": "free_human",
+          "text": "I have done in the past but have fallen out of the habit. I should really start again."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You should, it feels great and is amazing for your health"
+        },
+        {
+          "role": "free_human",
+          "text": "We moved when my parents split up and I haven't looked for routes around my new house. Maybe I'll go for a run tomorrow morning!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I think that's a great idea!Make sure you stretch first!"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0591-02",
+      "text": "I really wish I could get a dog to listen to me. I want to get one",
+      "source": "en",
+      "conversation_index": 591,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i think i talk way too fast to ever command a dog of anything . do you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i've two . lucille and dixon ."
+        },
+        {
+          "role": "free_human",
+          "text": "Do you think it's important to talk slowly to get a dog to listen to you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah definitely, at least most of the time."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0285-02",
+      "text": "Do you have any pets?",
+      "source": "en",
+      "conversation_index": 285,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": true,
+      "previously_evaluated_or_seen_surface_overlap": true,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "dogs are incredibly smart . i bet they could even learn to read"
+        },
+        {
+          "role": "guided_seed",
+          "text": "probably , i talk to them just like they're people"
+        },
+        {
+          "role": "free_human",
+          "text": "I do too, they're able to sense emotion so well!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "indeed. especially dogs. it feels like that they read my mind even when I dont speak"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0970-06",
+      "text": "favourites tracks?",
+      "source": "en",
+      "conversation_index": 970,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hello i am good ? do you work"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'm still in school . what do you do for a living"
+        },
+        {
+          "role": "free_human",
+          "text": "i work for a beer distributor, long hors but good fun. what are you studying?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am studying accounting. Beer distribution does sound like so much fun"
+        },
+        {
+          "role": "free_human",
+          "text": "so you can count the beers i sell, lol. it is good fun. what do you get up to outside of school?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes I could lol. I attend bars for fun when I'm not studying"
+        },
+        {
+          "role": "free_human",
+          "text": "ah, the perfect customer, ahaha. i try to get out when i can too, im a closet taylor swift fan, so try to get to see her when i can"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love her too. She is awesome!!!"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0248-04",
+      "text": "I think he might be the oldest cat in the UK! He's already 35... he's older than my brother! ",
+      "source": "en",
+      "conversation_index": 248,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "great ! are you a fan ? me and mr . pickles are fine here ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah , wish i could have met him . . . is that a cat or dog ?"
+        },
+        {
+          "role": "free_human",
+          "text": "It's a cat! I named him pickles because once he ate a whole jar of pickles when I was away! Haha"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What!! The cat ate the entire jar of pickles! I can't even get my cat to eat notmal cat food"
+        },
+        {
+          "role": "free_human",
+          "text": "Haha, Mr.Pickles is not a typical cat, I was given him by a gypsy fortune teller! It's a crazy story"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "How old is he? It sounds like he's possessed.  Do you have a car? maybe take him for a drive."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0429-06",
+      "text": "I hope so too! Have you put together a portfolio to see if scholarships were available? ",
+      "source": "en",
+      "conversation_index": 429,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yeah it can believe that ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "when i am a museum curator i'll have my paintings in a museum ."
+        },
+        {
+          "role": "free_human",
+          "text": "That would be awesome. I love reading books on the beach!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love to read, I use books as inspiration for my paintings."
+        },
+        {
+          "role": "free_human",
+          "text": "Have you ever painted a picture of a panda? Panda bears are my favorite animal."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love panda bears as well, but I prefer to paint pictures of landscapes, or places such as cities or forests."
+        },
+        {
+          "role": "free_human",
+          "text": "How long have you been painting?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Just around five years, I hope to be able to get into an art college soon."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0330-08",
+      "text": "The scariest things we have over here are hedgehogs",
+      "source": "en",
+      "conversation_index": 330,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm . were your family able to evacuate florida when hurricane irma came ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "we are staying with grandma . she lets me watch cartoons ."
+        },
+        {
+          "role": "free_human",
+          "text": "I'm settling in nicely to my new place"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Where did you move to after the hurricane?"
+        },
+        {
+          "role": "free_human",
+          "text": "I moved over to the uk actually"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Wow. I want to visit there one day in the future"
+        },
+        {
+          "role": "free_human",
+          "text": "its okay its just very rainy"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I was told it was much colder and more rainy than Florida"
+        },
+        {
+          "role": "free_human",
+          "text": "at least I don't have to worry about crocodiles in my garden here"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have never actually seen one yet. They scare me anyway"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0185-02",
+      "text": "I listen to all kinds of music, my girlfriend and I used to go out quite a bit to live shows, just not so much anymore",
+      "source": "en",
+      "conversation_index": 185,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love his movies , but not so much his books ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i feel you . i'm bilingual . . . english and spanish . what about you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I only speak english"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "what kind of music do you like? I listen to a lot of blues...and I love live music"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0222-04",
+      "text": "Haha that's true, what are you thinking of buying?",
+      "source": "en",
+      "conversation_index": 222,
+      "turn_index": 4,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "as long as youre having fun , it does not matter"
+        },
+        {
+          "role": "guided_seed",
+          "text": "true , very true , so what are you doing ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I've got football practise in an hour, I'm just getting ready. What about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Just looking to buy something on AZ to help my mom who takes care of mygrandmother these days good luck at the game"
+        },
+        {
+          "role": "free_human",
+          "text": "That's so nice of you. Do you work?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work online so I Have plenty of time to find the right gift as I'm already on the computer all day lol"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0103-08",
+      "text": "What model of car do you have? I got a Yamaha motorcycle. It's not Harley, but it works",
+      "source": "en",
+      "conversation_index": 103,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "really ? i just got a new job"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no kidding . i wait tables . what is it that you do ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do repairs at the local bike shop"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "sounds like a sweet gig. is the pay well?"
+        },
+        {
+          "role": "free_human",
+          "text": "it's decent, but honestly our bikes are overpriced"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "so there are better places to buy bikes in the area?"
+        },
+        {
+          "role": "free_human",
+          "text": "nah we've got the best quality around here, and I can probably get you a discount"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "that would be awesome. i'm glad I know a great biker mechanic!"
+        },
+        {
+          "role": "free_human",
+          "text": "It's just that it would be cheaper to fix a bike yourself than to pay us to do it"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I understand, I do repairs on my own car to save money sometimes."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0357-06",
+      "text": "well all baby mammals are cute. hippos,rhinos,elephants,leopards.you don't want to meet them when they are all grown up but as babies they're adorable",
+      "source": "en",
+      "conversation_index": 357,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i did that soon after i graduated from high school . you must like animals ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do . i'm in a band . maybe you can rap for me ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Oh no.Not rap.I'm a country music man"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I'll drum, you sing. And I love koala's. What about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "i'm trying to remember what koalas eat?eucalyptus leaves?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "mainly yes. They look so cute when eating. Have you seen a hippo before?"
+        },
+        {
+          "role": "free_human",
+          "text": "Don't tell me you thin hippos are cute?They're killers.I think they kill more people each year in africa than crocodiles"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They are cute in their own way I guess. Saw one at a zoo last year after doing a show."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0097-12",
+      "text": "The pterodactyl is my favorite!",
+      "source": "en",
+      "conversation_index": 97,
+      "turn_index": 12,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm studying to be a chartered financial analyst . i do editing on the side . do you work ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i do , i work with an animal rescue . i enjoy working with animals ."
+        },
+        {
+          "role": "free_human",
+          "text": "That's awesome! I used to do volunteer work at an animal rescue too while I studied at Princeton! I loved helping those furry faces!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "right. I've just started. I was doing IT. And I like working on my feet."
+        },
+        {
+          "role": "free_human",
+          "text": "I just saw and interesting exhibit about how we domesticated dogs from wolves at the local museum! You should check it out! I bet you'd enjoy it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "that sounds very interesting . i'll have to see that ."
+        },
+        {
+          "role": "free_human",
+          "text": "I have memberships to all the museums in town. I'd love to take you as my plus one sometime! I go to a museum every weekend."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I really enjoy going to museums to look at historic artifacts.  But I have never been to one in Chicago.  Which museum is your favorite?"
+        },
+        {
+          "role": "free_human",
+          "text": "To be honest, the children's museum. I take my son there and together we play and it makes me feel like a little kid again too! "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "wow, awesome. Yes, I'd love to go sometime."
+        },
+        {
+          "role": "free_human",
+          "text": "The museum of natural history has a mummy exhibit next month. You might like that since you mentioned you like historic artifacts."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love fossils! thanks."
+        },
+        {
+          "role": "free_human",
+          "text": "I think the dinosaur exhibit is a permanent exhibit..."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "its on my to do list for sure . i want to see the dinosaurs ."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0122-08",
+      "text": "I would say a bear!",
+      "source": "en",
+      "conversation_index": 122,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i am afraid to go to yellowstone , i love hershey ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "wow ! ups has sent packages to yellowstone . you like sweet tarts ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I Love sweet tarts"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Me too! They are so good!"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes they are! Do you love to hike?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Not really but I love driving in the mountains.  "
+        },
+        {
+          "role": "free_human",
+          "text": "That sounds like fun. Have you every saw a mountain lion?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "No I haven't! Have you?"
+        },
+        {
+          "role": "free_human",
+          "text": "No, I think that would be very exciting!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "me too! what animal are you most afraid of?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0675-06",
+      "text": "Me too. My classes are difficult though. Not easy when I grew up in the city!",
+      "source": "en",
+      "conversation_index": 675,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "have you ever had a full english breakfast ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "no i've not , what is that ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't know but I have heard it is wonderful. Maybe I can find a B&B in the country and try it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh you should do that. That would be really fun"
+        },
+        {
+          "role": "free_human",
+          "text": "I wish I could but my grades are falling and I have to study for exams."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh well don't rush just focus on you . . . what are you studying"
+        },
+        {
+          "role": "free_human",
+          "text": "Agriculture. I hope to someday be able to live in the country and still make ends meet."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "that sounds wonderful . i hope you can get there"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0326-06",
+      "text": "tanks, so are you!",
+      "source": "en",
+      "conversation_index": 326,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "hip hop tonite . punk on saturday !"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i have to hurry and clean up this mess if we are going to go out ."
+        },
+        {
+          "role": "free_human",
+          "text": "ok, i'm going to help you by going outside and running so i won't be in the way"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Thank you for having me clean it up by myself.  "
+        },
+        {
+          "role": "free_human",
+          "text": "anytime! are you done yet? let's dance!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Only if we dance to Sunshine Lollipops and Rainbows.  "
+        },
+        {
+          "role": "free_human",
+          "text": "works for me! I love shaking mine and my frieds' booty"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Shake your money maker ant get down!  You so funny!"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0370-02",
+      "text": "To Thailand",
+      "source": "en",
+      "conversation_index": 370,
+      "turn_index": 2,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "what type of article , news , blog ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "it should be topical . my acting class how to didn't fly with the boss ."
+        },
+        {
+          "role": "free_human",
+          "text": "I just finished the best book about a guy who took an epic kayaking trip."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Really? Where did he go?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0532-06",
+      "text": "That would be a dream! I have small children, so it will have to stay a dream. Do you have children?",
+      "source": "en",
+      "conversation_index": 532,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'd travel the world and see the sites if i could . other countries have amazing views"
+        },
+        {
+          "role": "guided_seed",
+          "text": "traveling and seeing our wonderful mother earth is why i got into teaching ."
+        },
+        {
+          "role": "free_human",
+          "text": "What a great profession! I've always wanted to teach. I love to read, so English would probably be my preferred study"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I enjoy teaching others, you would be surprised at how much there is to know about nature and the environment. "
+        },
+        {
+          "role": "free_human",
+          "text": "I can only imagine! What do you teach?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "In my latest travels I have been teaching about aviculture being necessary due to the effects on various bird species. You should read my blog!"
+        },
+        {
+          "role": "free_human",
+          "text": "SOunds interesting!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You could travel and teach English ESL! I hear it is a fun and lucrative job."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0589-12",
+      "text": "It's been fun. Take care.",
+      "source": "en",
+      "conversation_index": 589,
+      "turn_index": 12,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "a few years ago . do you do anything for fun ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love caring for animals , i've many pets . my weirdest is probably a pet skunk !"
+        },
+        {
+          "role": "free_human",
+          "text": "A pet skunk? You're not afraid of being sprayed?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "nope haha . my pet skunk is currently running around ."
+        },
+        {
+          "role": "free_human",
+          "text": "So what kind of name do you give to a skunk? You call it Flower like in Bambi or something?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "LOL! I love it! What a cute name. I might use that in the future."
+        },
+        {
+          "role": "free_human",
+          "text": "*rolls eyes* Of course you'd like it. Weirdo...lol So what's another weird pet you have?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Maybe a cat. They are really sassy."
+        },
+        {
+          "role": "free_human",
+          "text": "And temperamental as anything. I have scratches all over my arms from cats...*makes hissing noises*"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "lol the things we do for a cat"
+        },
+        {
+          "role": "free_human",
+          "text": "A pet I'd like to have is a snake...I find them fascinating. However they also terrify me so not sure how well that would work."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh snakes terrify me, I don't think I could ever keep one as a pet."
+        },
+        {
+          "role": "free_human",
+          "text": "I'll most likely go with a dog. Boring but loveable as all hell and a lot less crazy than a cat."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i am more of a dog person , love their playful personalities ! cats are sweet though"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0786-10",
+      "text": "Oh, interesting. Which one is your favorite?",
+      "source": "en",
+      "conversation_index": 786,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "haha yeah same here lol"
+        },
+        {
+          "role": "guided_seed",
+          "text": "thanks for chatting with me you seem very interesting . ."
+        },
+        {
+          "role": "free_human",
+          "text": "You too. Do you like sweets? I'm a fan of chocolate myself."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Chocolate lover, hu/ What's your favorite?"
+        },
+        {
+          "role": "free_human",
+          "text": "I really like twix. Do you have a favorite?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I love twix.  They are the first recorded candy bar dating back all the way to 1847."
+        },
+        {
+          "role": "free_human",
+          "text": "Wow, that's interesting. I had no idea. Do you have any hobbies?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i love playing video games.  "
+        },
+        {
+          "role": "free_human",
+          "text": "I love video games as well. Do you have any favorites?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I don't have a personal favorite, I like a lot.  What about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "I have a few. The main one would be Fallout 4, though."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like fallout 4, but it is not my favorite fallout game."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0819-06",
+      "text": "6 more years to go",
+      "source": "en",
+      "conversation_index": 819,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "well , i know how to count the cards , and i'm a dealer on the blackjack table"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool ! i'm thinking about investing into a company"
+        },
+        {
+          "role": "free_human",
+          "text": "what company?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It is with the Disney Corporation."
+        },
+        {
+          "role": "free_human",
+          "text": "that sounds like a wise investment"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "True, I'm not one to take many risks."
+        },
+        {
+          "role": "free_human",
+          "text": "maybe i should invest too, it might help me get through casino manager school"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds interesting, how much longer do you have to go?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0045-10",
+      "text": "Sounds good! I've heard the new Korean Thriller, Parasite, is quite good",
+      "source": "en",
+      "conversation_index": 45,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "maybe you can audition for ours ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "maybe . i ales most of the day because my job is quite demanding ."
+        },
+        {
+          "role": "free_human",
+          "text": "What do you do for work?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work with children!"
+        },
+        {
+          "role": "free_human",
+          "text": "Really? Me too! "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yeah. .i like kids but they never run out of energy. that's where it gets challenging "
+        },
+        {
+          "role": "free_human",
+          "text": "That's definitely true! They can be a handful but they're pretty hilarious"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "oh boy. they are. some of that could really make one's day "
+        },
+        {
+          "role": "free_human",
+          "text": "Any big plans for your weekend?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I haven't planned anything yet. What about you? "
+        },
+        {
+          "role": "free_human",
+          "text": "It's my partner's birthday so I think we'll end up going to dinner! Should be fun!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "sounds like fun ! where are you going out to ?  might catch a new movie that's out"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0681-00",
+      "text": "im a gloomy type of girl ;)",
+      "source": "en",
+      "conversation_index": 681,
+      "turn_index": 0,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "every day is a good day to wear black . i just love dark stuff"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that's sounds kinda gloomy lol"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0707-08",
+      "text": "i practice yoga",
+      "source": "en",
+      "conversation_index": 707,
+      "turn_index": 8,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "its a big city maybe , my best friend lives there"
+        },
+        {
+          "role": "guided_seed",
+          "text": "cool . cities are great , i prefer the beach ."
+        },
+        {
+          "role": "free_human",
+          "text": "I love the beach too.  what do you do at the beach"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "same"
+        },
+        {
+          "role": "free_human",
+          "text": "do you live near the beach"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i do. i love the sand"
+        },
+        {
+          "role": "free_human",
+          "text": "where do you work"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "at the beach . do you have a job ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do have a full time job"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Cool. What do you do for fun? I like to play tennis. "
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0877-06",
+      "text": "It's a really good ballet.",
+      "source": "en",
+      "conversation_index": 877,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "that's so cool ! are you sponsored by anyone ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "not yet , but hopefully soon . do you watch the olympics ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Yes, I watch the figure skating and rhythmic gymnastics sections"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Those can be entertaining.  Do you play any sports?"
+        },
+        {
+          "role": "free_human",
+          "text": "I play soccer and I dance."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What kind of dance do you do?"
+        },
+        {
+          "role": "free_human",
+          "text": "Ballet, Contemporary, Hip Hop, Jazz, and Musical Theatre. I hate tap, though. That's the only one I don't do"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds like fun.  My sister loves ballet.  Swan Lake is a favorite of hers, obviously."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0215-02",
+      "text": "One of my main hobbies is reading manga. I'm starting to run out of space to keep it all though. What are your hobbies?",
+      "source": "en",
+      "conversation_index": 215,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "in the 10th grade . i hated math and was never good at it . i would read instead ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i ve started to take beauty classes ."
+        },
+        {
+          "role": "free_human",
+          "text": " Thats pretty cool, I wish I had done something similar before I left high school. Do you enjoy the classes?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I do. I like the artistic expression you can get from it. Do you have any hobbies?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0960-10",
+      "text": "ah ok, anyone i'd have heard of?",
+      "source": "en",
+      "conversation_index": 960,
+      "turn_index": 10,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i love dance ! i like to hike on the weekends to the hollywood sign . ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh that is probably a big hike ! must be difficult ."
+        },
+        {
+          "role": "free_human",
+          "text": "it can be, what do you like doing?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "dance takes over most of my life but in my spare time i like to watch movies"
+        },
+        {
+          "role": "free_human",
+          "text": "oh ok, whats the most recent movie youve seen?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "action movies . . it all depended on my mood . you ?"
+        },
+        {
+          "role": "free_human",
+          "text": "i prefer movies with a moral as i can use that when im teaching."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Action movies often have morals as a high schooler I have learnt a lot from action movies"
+        },
+        {
+          "role": "free_human",
+          "text": "true, i enjoy those action movies! so what kind of dance do you do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I like more recent break dance type dances"
+        },
+        {
+          "role": "free_human",
+          "text": "thats cool, do you perform professionally?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "yes. you can see me dancing in some hip hop videos"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0111-04",
+      "text": "I tell jokes.",
+      "source": "en",
+      "conversation_index": 111,
+      "turn_index": 4,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i always get to work early as i do everything ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i've earned a brown belt and also like to sing in the choir"
+        },
+        {
+          "role": "free_human",
+          "text": "You sound very talented. Do you sing while you do karate?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I sing in my head while I am breaking boards, but I have never done it out loud before."
+        },
+        {
+          "role": "free_human",
+          "text": "You should try it. I'm sure people would be entertained. I love entertaining"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What kind of entertaining do you like to do?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0252-06",
+      "text": "I can't have books, the mice eat the pages.",
+      "source": "en",
+      "conversation_index": 252,
+      "turn_index": 6,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes , i have a zoo . dog , cat , mice , chickens , and quail ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "that's cool . i have two dogs . i don't like mice though"
+        },
+        {
+          "role": "free_human",
+          "text": "Mice aren't as bad as everyone thinks they are."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I've got a fear of rodents, I don't like them in general. But why do you think that mice aren't as bad?"
+        },
+        {
+          "role": "free_human",
+          "text": "They help keep other pests like insects away"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Okay, I agree here. To keep the biodiversity, mice are necessary. But keeping them as pets isn't the necessary"
+        },
+        {
+          "role": "free_human",
+          "text": "That's true its not, mine are kids to me. We watch Dr.Who together."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You watch Dr.Who with mice? Haha, interesting. And have you read Dr.Who books?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0134-04",
+      "text": "I have worked the same place for 6 years. What do you like to do when you aren't working? I like to watch movies",
+      "source": "en",
+      "conversation_index": 134,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "as good as a 300 pound man can be . how are you ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "good . now , that i fixed the bugs on my computer ."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh I hate when there are things messing with my computer.  Do you have any plans for the day?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i've no plans . today is a rest day for me ."
+        },
+        {
+          "role": "free_human",
+          "text": "That's always nice.  What do you do on other days?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I work and I have had been working in the same place for 8 years,  what about you?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0943-10",
+      "text": "So what do you do?",
+      "source": "en",
+      "conversation_index": 943,
+      "turn_index": 10,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": true,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "not much . just work , hang out with my boyfriend , singing lessons . . ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i'd love to take singing lessons !"
+        },
+        {
+          "role": "free_human",
+          "text": "I need to improve my voice for auditions."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What are you auditioning for?"
+        },
+        {
+          "role": "free_human",
+          "text": "Anything in New York I can get. I'm a terrible dancer though."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "My mothers both work in the music industry. Maybe you could talk and they can give you advice or maybe some connections."
+        },
+        {
+          "role": "free_human",
+          "text": "Anything that helps is good. I'm doing the cliche waiting tables for now."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I hear you. Yout gotta do what you gotta do. I am proud of you for working towards your dreams."
+        },
+        {
+          "role": "free_human",
+          "text": "I feel like I need to go sit at a soda fountain counter and maybe I'll get discovered like some Hollywood actress of yore."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Good idea. It will happen. You are charismatic and likable and very dedicated."
+        },
+        {
+          "role": "free_human",
+          "text": "I wish that was all it took. Some luck would help."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah for sure. Luck only gets you so far, the rest is up to you, and I know you have been working hard."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0578-00",
+      "text": "olive",
+      "source": "en",
+      "conversation_index": 578,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "makes sense i am sorry you can't have a puppy they're really cute"
+        },
+        {
+          "role": "guided_seed",
+          "text": "well , my cat is adorable . what is your puppy named ?"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0389-08",
+      "text": "So fun, I hope my parents get a pool table",
+      "source": "en",
+      "conversation_index": 389,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i just moved here from australia . i am having trouble making friends ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "its ok i can be your friend for now"
+        },
+        {
+          "role": "free_human",
+          "text": "I can be your friend - do you play any sports?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I am an avid cyclist. And its  good thing because I eat a lot of pizza!"
+        },
+        {
+          "role": "free_human",
+          "text": "My favorite food is macaroni and cheese.  I just got a new bike do you want to go for a bike ride?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I would love to go for a bike ride! Maybe we can stop to eat afterward."
+        },
+        {
+          "role": "free_human",
+          "text": "Sounds fun there is a candy store on the way to the park."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well that sounds fabulous. I love chocolate covered potato chips!"
+        },
+        {
+          "role": "free_human",
+          "text": "Gummy worms are my favorite and they have an air hockey machine."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I haven't played air hockey in years! We had one in our basement when I was a kid."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0321-08",
+      "text": "I am a janitor at an elementary school... Different kind of monkeys there!",
+      "source": "en",
+      "conversation_index": 321,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "my favorite is the money"
+        },
+        {
+          "role": "guided_seed",
+          "text": "nice . well , next party we will have to invite you since you like them ."
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah! That sounds great! I love talking to strangers and getting to know new stories."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Me too! I meet a lot of cool strangers ta my part time job at the zoo"
+        },
+        {
+          "role": "free_human",
+          "text": "Oh, I had no idea you worked for the Zoo! Do you have monkeys? Those are my favorite!!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i love monkeys! the koalas are my fave"
+        },
+        {
+          "role": "free_human",
+          "text": "Their noses are so cute! Koalas are adorable!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "They are! I like to sneak them treats "
+        },
+        {
+          "role": "free_human",
+          "text": "I bet you are their favorite! You job is so much more fun than mine!!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "what do you do?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0094-04",
+      "text": "You know I like gardening, the reason I bought my house was to have a backyard for my greenhouse",
+      "source": "en",
+      "conversation_index": 94,
+      "turn_index": 4,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "it is a simple process . i learned through youtube ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "youtube is so useful . i'm thinking of starting a channel"
+        },
+        {
+          "role": "free_human",
+          "text": "what would your channel be on?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i think i would either make tutorials or maybe music reviews, but i haven't thought it through yet"
+        },
+        {
+          "role": "free_human",
+          "text": "If you ever want to use my greenhouse as a backdrop let me know"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Haha, that would be great. why do you have a greenhouse?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0569-00",
+      "text": "i can't stand the humidity",
+      "source": "en",
+      "conversation_index": 569,
+      "turn_index": 0,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "yes in argentina , its very hot here today , how about there ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "its pretty humid ."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0761-02",
+      "text": "For sure,especially with the crazy hours i work in the ER",
+      "source": "en",
+      "conversation_index": 761,
+      "turn_index": 2,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm a nurse i work in the er"
+        },
+        {
+          "role": "guided_seed",
+          "text": "sound rough , but somebody has to do it . not me !"
+        },
+        {
+          "role": "free_human",
+          "text": "Very rough,being a divorced single mom makes it hard."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I bet single parenting is exhausting."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0502-12",
+      "text": "My wife is so great. She stays home as well.",
+      "source": "en",
+      "conversation_index": 502,
+      "turn_index": 12,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i wonder how miami u is holding up i am an alumni there"
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh ? its nice except i wish the m was blue instead of red . love blue !"
+        },
+        {
+          "role": "free_human",
+          "text": "Well I guess we have to take the colors the way they are given us."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's true we have to take the colors that are given to us lol"
+        },
+        {
+          "role": "free_human",
+          "text": "Miami is so expensive now.  I make close to a million dollars a year but I don't kow if I'll be able to send my 3 kids there."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah it's ridiculous how much it is to live in Miami. Do you ever wonder if you have any royalty in your family?"
+        },
+        {
+          "role": "free_human",
+          "text": "It is insane how expensive.  Not really. I already know I am a royal pain.  :-)"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Lol my mom always joked with me and said that I am related to the Queen of England and I am next in line for the throne. "
+        },
+        {
+          "role": "free_human",
+          "text": "Must have been waiting for the facilities.  Many people in your family?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have a lot of family so we have to be thrifty on spending.  "
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah that can be tough when things are tight.  I am so lucky I have a great job."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Well right now I am more of stay at home mom but, my husband is the head of Taco bell so we survive"
+        },
+        {
+          "role": "free_human",
+          "text": "It is great you can be with your kids all the time.  I wish I could spend more time with my 3."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah i used to work all the time so I never saw my son but, now my husband provides"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0359-06",
+      "text": "i feel amazing now ",
+      "source": "en",
+      "conversation_index": 359,
+      "turn_index": 6,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "halloween is mine . always has been ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "do you speak any other languages other than english ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I speak greek, slovak, polish, czech, russian, italian "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's really impressive you know so many, did you ever study languages scientifically, also known as linguistics?"
+        },
+        {
+          "role": "free_human",
+          "text": "i had to overcame cancer when i was 18"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "OH WOW! THat's insanse. It must have been hard having cancer at such a young age."
+        },
+        {
+          "role": "free_human",
+          "text": "it was horrible, i am on low carb diet now"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Does a low carb diet help? Do you feel healthier?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0064-06",
+      "text": "I agree. Currently at my workplace we have a team working on reducing emissions. Are you currently working anywhere?",
+      "source": "en",
+      "conversation_index": 64,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i'm a scientist . i wish i had more time for hiking ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "oh , environmental engineer by any chance , like me ."
+        },
+        {
+          "role": "free_human",
+          "text": "No, I work with chemicals. Did you always want to be an engineer?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes I have wanted to be an engineer for many years."
+        },
+        {
+          "role": "free_human",
+          "text": "Likewise. My parents were scientist and it inspired me to follow in that field. Why are you in this field?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I want to innovate for future generations."
+        },
+        {
+          "role": "free_human",
+          "text": "Very nice. Any ideas so far?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah, we need to reduce emissions right now."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0206-08",
+      "text": "I don't blame you one bit. Do you have any other hobbies to take its place?",
+      "source": "en",
+      "conversation_index": 206,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "he was in a car crash . i only broke my arm . which i've done cycling too"
+        },
+        {
+          "role": "guided_seed",
+          "text": "that is terrible ! i am sorry to hear that . do you go cycling too ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do, but not much anymore. Do you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I used to have a dirt bike, but don't anymore either. Some of my family ride in groups and events."
+        },
+        {
+          "role": "free_human",
+          "text": "Why did you stop cycling?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Mountain biking accident. Couldn't afford to replace my bike afterwards."
+        },
+        {
+          "role": "free_human",
+          "text": "Oh no! That's awful. Did you get hurt in the accident?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": " Only my pride was hurt. I have a friend who does some tests to show riding skills and I tried to copy her. It didn't work out so well."
+        },
+        {
+          "role": "free_human",
+          "text": "Oof! What a bummer. Hopefully your pride has recovered since then. :)"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Mostly recovered. I don't think I'll be trying to show off like that again, though!"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0178-14",
+      "text": "Oh, nice. I'm from BC. I come to Manitoba for the annual Ukrainian festival in Dauphin during the summers.",
+      "source": "en",
+      "conversation_index": 178,
+      "turn_index": 14,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i work for a market research firm , but i'm off today . i'm dusting off my cd collection ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "what do you listen ? i am taking a break every other month to watch movies ."
+        },
+        {
+          "role": "free_human",
+          "text": "I listen to blues, mostly. I've been collecting blues years."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's cool! Do you have any band reccomendations? I'm always looking for things to add to my spotify playlist. "
+        },
+        {
+          "role": "free_human",
+          "text": "I definitely recommend checking out the work of B.B. King. Ever listened to him?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Nope. I've honestly never heard of him. I'm looking him up right now. What else do you like to do for fun?"
+        },
+        {
+          "role": "free_human",
+          "text": "I like playing instruments. My friends and I recently started a garage band, that's been a lot of fun. What about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's so cool! What kind of music do you play? I like hanging out with my dog and playing video games. "
+        },
+        {
+          "role": "free_human",
+          "text": "Nice, what kinds of video games? I like video games too. My band and I mostly play classic rock. I'm on the bass guitar."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "All of them! Right now I'm playing through Borderlands 3. It's a lot of fun! That's super cool. Do you perform ever or just play for fun?"
+        },
+        {
+          "role": "free_human",
+          "text": "Borderlands 3, very cool.I was thinking of trying it. What character are you playing? And yeah, we mostly play weddings, honestly!"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I'm playing as FL4K! It's really buggy right now but its still awesome. That's super cool. Maybe I'll hire you to play mine one day!"
+        },
+        {
+          "role": "free_human",
+          "text": "Nice, I was of playing FL4K too. I'm mostly absorbed by the new Modern Warfare lately though, haha. And that would be cool! Do you have a partner?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What system do you play on? Yeah I have a boyfriend of almost 3 years. Do you have a partner? What country are you in?"
+        },
+        {
+          "role": "free_human",
+          "text": "I play on ps4. And cool! I got out a relationship about a month ago. I'm from Canada. And you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh no sorry to hear that! We have a ps4, xbox one, and switch between the two of us! I'm also in Canada - Manitoba."
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0849-02",
+      "text": "Ever since I realized I was a lesbian. So, around 12. What do you like to do?",
+      "source": "en",
+      "conversation_index": 849,
+      "turn_index": 2,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "you mean like magic tricks ?"
+        },
+        {
+          "role": "guided_seed",
+          "text": "yes . you should watch penn and teller"
+        },
+        {
+          "role": "free_human",
+          "text": "I love Penn and Teller. I love decorating cakes too."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That's awesome! You can watch them while you make some cakes, lol. How long have you been decorating cakes?"
+        }
+      ],
+      "independent24": true
+    },
+    {
+      "id": "bst-test-short-r01-0595-06",
+      "text": "I love karaoke. And sometimes in the shower I imagine I sound great but secretly I know that I don't. It would be amazing though.",
+      "source": "en",
+      "conversation_index": 595,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i agree with you , i need to live and pursue my dreams ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "yeah what is your dreams"
+        },
+        {
+          "role": "free_human",
+          "text": "I write poetry. It would be nice to make a living off it."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "That sounds amazing! I have always loved jobs using creativity. "
+        },
+        {
+          "role": "free_human",
+          "text": "Yeah done a bit of everything. Theatre, Spoken Word. I took an Art Class, but turns out I can't draw or paint a lick."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I can't paint or draw either! My mom was the artist in the family. "
+        },
+        {
+          "role": "free_human",
+          "text": "The one time you actually wish you were like your parents lol. What kind of creative job would you like to do?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I wish I could be like my mother, but never my father. I would be a singer for sure!"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0886-08",
+      "text": "You should try listening to H.E.R.",
+      "source": "en",
+      "conversation_index": 886,
+      "turn_index": 8,
+      "sampling_length_bin": "6-15",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i do not know what that's ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i love spongebob because i'm a huge fan"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you have any kids?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I have 3. What about you? they are the ones that introduced me to bikini bottom"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't have any kids, but I also love spongebob. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "It is the best show ever made ever in life ever lol, cant get enough of patrick. who is your favorite charachter ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Patrick, for sure. He's hilarious."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "spongebob is so funny , he is kind of wield sometime . what kind of music do you listen to ?"
+        },
+        {
+          "role": "free_human",
+          "text": "Typically rap and R&B, I listen to it almost every day. How about you?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "i like alot more melodious music , more singing.i hardly do rap & r&b"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0195-08",
+      "text": "I know, I wish that it would because everyone would be living the good life then. Haha!",
+      "source": "en",
+      "conversation_index": 195,
+      "turn_index": 8,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "two , that's better that one encyclopedia , that's for sure ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "i know . i think i love them"
+        },
+        {
+          "role": "free_human",
+          "text": "Do you like to read the encyclopedia?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yes! I also enjoy visiting museums with my two sons. What about you?"
+        },
+        {
+          "role": "free_human",
+          "text": "I don't really live close to any museums but I would love to go to one some day."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Ah, I hope you're able to visit some soon. What do you do to pass the time?"
+        },
+        {
+          "role": "free_human",
+          "text": "I tend to work a lot but in my spare time I do like to read."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I also read occasionally, usually to my children. What genre do you like to read?"
+        },
+        {
+          "role": "free_human",
+          "text": "I like to read romance books. I also like to read to my son as well."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Romance novels are nice, it's a shame real life doesn't usually pan out like a romance novel."
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0668-06",
+      "text": "Yeah! you got it right. That music can boost your productivity, unless you're like me. I can't find any other work interesting.",
+      "source": "en",
+      "conversation_index": 668,
+      "turn_index": 6,
+      "sampling_length_bin": "16-30",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "i sometimes wish i could be that way ."
+        },
+        {
+          "role": "guided_seed",
+          "text": "sometimes i wish i weren't that way . i get taken advantage of ."
+        },
+        {
+          "role": "free_human",
+          "text": "People take advantage of you when you don't have social skills like me. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Yeah it's like some people unfairly take advantage of another person because of social skills ."
+        },
+        {
+          "role": "free_human",
+          "text": "That's why I find my work as a distraction from all these involvements. I like creating music, that's what I'm best at. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "What kind of music do you like?i work in a factory so my music is machine niose "
+        },
+        {
+          "role": "free_human",
+          "text": "Haha! I like to make slow pace music with some random movie dialogues that makes it sound cool for some reason."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "sounds very cool id love to go listen someday sounds a bit like lofi i heard about it when i traveled to NY i enjoy traveling alot"
+        }
+      ]
+    },
+    {
+      "id": "bst-test-short-r01-0452-12",
+      "text": "I like her too. ",
+      "source": "en",
+      "conversation_index": 452,
+      "turn_index": 12,
+      "sampling_length_bin": "1-5",
+      "train_surface_overlap": false,
+      "previously_evaluated_or_seen_surface_overlap": false,
+      "review_only_preceding_context": [
+        {
+          "role": "free_seed",
+          "text": "reading is my only real hobby"
+        },
+        {
+          "role": "guided_seed",
+          "text": "are you male or female ?"
+        },
+        {
+          "role": "free_human",
+          "text": "I am male. You?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I'm a female, but when I talk about my hobby people just assume I'm not haha!"
+        },
+        {
+          "role": "free_human",
+          "text": "What is your hobby?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Playing chess and making music. "
+        },
+        {
+          "role": "free_human",
+          "text": "There are plenty of females that do that. I would probably enjoy them too if I could ever put down my Harry Potter books."
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Oh my god, I love Harry Potter too! Who is your favorite character?"
+        },
+        {
+          "role": "free_human",
+          "text": "My favorite is Hagrid. I can relate to his connection to nature and animals. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "You must love Fantastic Beasts as well then?"
+        },
+        {
+          "role": "free_human",
+          "text": "I do, however, I like the setting of Hogwarts better. "
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "I can understand that, there's just this ambiance in Hogwarts that is impossible to replicate. "
+        },
+        {
+          "role": "free_human",
+          "text": "Absolutely. Who is your favorite character?"
+        },
+        {
+          "role": "guided_human_may_use_suggestions",
+          "text": "Hermione for sure, so witty and passionate!"
+        }
+      ]
+    }
+  ]
+}

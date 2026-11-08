@@ -1,0 +1,30 @@
+{
+  "production": false,
+  "prior_freeze_sha256": "b9b2e6657e8897a51cd4c1e0201a387b00ae73d27c9b44f86f6ac8c2ac61492e",
+  "amended_before_new_sample": true,
+  "amended_at_utc": "2026-11-08T04:31:52.083453+00:00",
+  "parent_acceptance": "Root approved before new sampling: one message per unseen held-out conversation; allow TRAIN and previously evaluated surface overlap and repeated texts across distinct conversations; exclude prior conversations/contexts; report overlap and unique/novel/content/known-function views.",
+  "allow_training_surface_overlap": true,
+  "allow_prior_evaluated_surface_overlap": true,
+  "allow_repeated_surface_across_distinct_conversations": true,
+  "exclude_entire_previously_evaluated_test_conversations": true,
+  "target_and_matcher_changed": false,
+  "reason": "A lookup system must be evaluated on reuse of learned phrases in unseen contexts. Global surface exclusion systematically removes its intended common-formula opportunities.",
+  "sampler_sha256": "65bcede44104b55e3507e04aa6de14bcfa07bf1f0c43302c97bbf30d790e1df9",
+  "deterministic_seeds": [
+    "short-units-context-r01:",
+    "short-units-order-r01:",
+    "short-units-review-r01:"
+  ],
+  "length_quotas": {
+    "1-5": 26,
+    "6-15": 27,
+    "16-30": 27
+  },
+  "formula_oversampling": false,
+  "limits": [
+    "Repeated surfaces are not described as novel or blind strings.",
+    "Context-disjoint does not imply globally unseen wording or worldwide-chat representativeness.",
+    "Message-weighted/unique-text/novel-surface/content-anchor/all-function-known views must all be retained."
+  ]
+}

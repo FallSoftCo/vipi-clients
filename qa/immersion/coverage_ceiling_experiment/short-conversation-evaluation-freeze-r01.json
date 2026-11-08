@@ -1,0 +1,45 @@
+{
+  "schema": "vipi-short-conversation-experiment-freeze-1",
+  "production": false,
+  "frozen_at_utc": "2026-11-08T04:26:44.059352+00:00",
+  "new_holdout_seen": false,
+  "files": {
+    "short-conversation-targets-en-sw-r02.json": "29c7ad8ccda62cda133f8d7e22618a601373cd95fd65c2928222f8c904270053",
+    "short-conversation-targets-en-ja-r02.json": "c747e18100a6d8ac140a6714fb4d875f26741b76709a6824838b94527ace4b78",
+    "short-conversation-targets-en-es-r02.json": "bc166ffa3cc27c14de868675a7964c81b2be23ccf2f6596bffbfa1ec757b073b",
+    "reviewed-source-unit-native-candidate-r03.json": "52199a35fb4d18d5b1f1ee9ebd4c3ddf3d081ce2c44a01bac3daecc46ee08c4d",
+    "evaluate_short_conversation_units.py": "1212eee44cfc2499bdcc1f3c8309c6f8d92a16ab2f6bb887e47856aa417b1fe2",
+    "evaluate_source_concepts.py": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+    "evaluate_reviewed_words.py": "9e17aec210d282a8dd75596ee681e02e9f772f120f1ca8ed9c502791636668df",
+    "short-conversation-source-freeze-r01.json": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+    "short-conversation-authored-contrasts-r01.json": "dbdf6c2d5771351fb31d6ebc42d8ce3d0bba4b695b58c36974d75cda3e443544"
+  },
+  "requested_density": 0.1,
+  "semantic_gate": "Report every observed material/scope/reading error and uncertainty, strict and minor-tolerant correct reach/depth by length. No release promotion from raw lookup rate. Compare content-anchor depth and repeated-known function scenarios separately.",
+  "sampling_plan": {
+    "source": "Pinned BlendedSkillTalk TEST convai2 free-human turns",
+    "rows": 80,
+    "length_quotas": {
+      "1-5": 26,
+      "6-15": 27,
+      "16-30": 27
+    },
+    "exclude": "Entire conversations used in prior TEST protocols, all normalized TRAIN/prior protocol texts; one message per new conversation.",
+    "independent_rows": 24,
+    "prior_context": "Review-only; source matcher does not receive it."
+  },
+  "outputs": [
+    "whole-message reference availability",
+    "embedded sentence reference availability",
+    "strict-budget automatic starter vs starter+units",
+    "content-anchor depth",
+    "simulated known I/and/but",
+    "simulated all function units known"
+  ],
+  "limits": [
+    "Python boundaries are a research approximation; native routing/cost has not been requalified for this new short-unit candidate.",
+    "Existing production/full-MT pipeline is not simulated by a source-word control.",
+    "Authored contrasts stay separate from fresh conversational metrics.",
+    "No automatic whole-formula policy beyond the unchanged10% budget is introduced."
+  ]
+}

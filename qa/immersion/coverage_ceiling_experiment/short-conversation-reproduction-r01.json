@@ -1,0 +1,10 @@
+{
+  "production": false,
+  "targets_reproduced_byte_exact": true,
+  "sample_cases_and_contexts_reproduced_exact": true,
+  "sample_timestamp_not_compared": true,
+  "evaluation_reproduced_except_elapsed_ms": true,
+  "sampler_deterministic_case_count": 80,
+  "unchanged_policy_hashes_verified_by_evaluator": true,
+  "labels_are_frozen_assistant_reviews_not_executable_or_gold_tests": true
+}

@@ -1,0 +1,1892 @@
+{
+  "schema": "vipi-complete-short-unit-targets-2",
+  "production": false,
+  "target_language": "sw",
+  "version": "short-conversation-research-en-sw-v002",
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "heldout_opened": false,
+  "rows": [
+    {
+      "id": "short-train-r01-01-en-sw",
+      "source": "yes",
+      "sense_group": "affirmation",
+      "target": "Ndiyo.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "yes"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 1,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "yes"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "yes",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-02-en-sw",
+      "source": "how about you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "how",
+        "about",
+        "you"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 2,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "how about you"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "how about you",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-03-en-sw",
+      "source": "what about you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "what",
+        "about",
+        "you"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 3,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "what about you"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "what about you",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-04-en-sw",
+      "source": "wow",
+      "sense_group": "amazement",
+      "target": "Lo!",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "wow"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 4,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "wow"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "wow",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-05-en-sw",
+      "source": "that's cool",
+      "sense_group": "approval_cool",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that's",
+        "cool"
+      ],
+      "content_anchors": [
+        "cool"
+      ],
+      "category": "content",
+      "train_rank": 5,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that's cool"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that's cool",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Approval versus literal temperature is unresolved."
+      ]
+    },
+    {
+      "id": "short-train-r01-06-en-sw",
+      "source": "me too",
+      "sense_group": "shared_experience",
+      "target": "Mimi pia.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "me",
+        "too"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 6,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "me too"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "me too",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-07-en-sw",
+      "source": "yeah",
+      "sense_group": "affirmation",
+      "target": "Naam.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "yeah"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 7,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "yeah"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "yeah",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Naam conveys assent but is more formal/respectful than informal yeah. Preserve register caveat in contextual scoring; no material polarity change established here."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-08-en-sw",
+      "source": "really",
+      "sense_group": "verification_or_surprise",
+      "target": "Kweli?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "really"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 8,
+      "speech_act": "question",
+      "require_question_mark": true,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "really"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "really",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Requires complete source ending in ?. A bare declarative/adverb really is not this unit."
+      ]
+    },
+    {
+      "id": "short-train-r01-09-en-sw",
+      "source": "i agree",
+      "sense_group": "explicit_agreement",
+      "target": "Ninakubaliana.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "i",
+        "agree"
+      ],
+      "content_anchors": [
+        "agree"
+      ],
+      "category": "content",
+      "train_rank": 9,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i agree"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i agree",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-10-en-sw",
+      "source": "that's awesome",
+      "sense_group": "positive_evaluation",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that's",
+        "awesome"
+      ],
+      "content_anchors": [
+        "awesome"
+      ],
+      "category": "content",
+      "train_rank": 10,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that's awesome"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that's awesome",
+        "decision": "revise_or_withhold_before_freeze",
+        "reason": "Explicit hiyo/nzuri/ya agree with class9; a source-only that may refer to another noun class. Use an independently supportable self-contained evaluative exclamation or withhold. Ajabu additionally does not by itself guarantee the positive approval intended by awesome. Do not guess new inflections from an unknown antecedent."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-11-en-sw",
+      "source": "thanks",
+      "sense_group": "gratitude",
+      "target": "Asante.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "thanks"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 11,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "thanks"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "thanks",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-12-en-sw",
+      "source": "do you have any pets",
+      "sense_group": "pet_ownership_question",
+      "target": "Una wanyama wa nyumbani?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "do",
+        "you",
+        "have",
+        "any",
+        "pets"
+      ],
+      "content_anchors": [
+        "pets"
+      ],
+      "category": "content",
+      "train_rank": 12,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "do you have any pets"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "do you have any pets",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Possession question is appropriate; retained pet sense supports wanyama wa nyumbani, while the broader domestic-animal interpretation remains a contextual review risk."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "The selected noun is attested for pet and domesticated animal. A broad farm-animal interpretation is a possible sense concern for the complete question."
+      ]
+    },
+    {
+      "id": "short-train-r01-13-en-sw",
+      "source": "no",
+      "sense_group": "negative_response",
+      "target": "Hapana.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "no"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 13,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "no"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "no",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-14-en-sw",
+      "source": "thank you",
+      "sense_group": "gratitude",
+      "target": "Asante.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "thank",
+        "you"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 14,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "thank you"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "thank you",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-15-en-sw",
+      "source": "oh yeah",
+      "sense_group": "affirmation_with_reaction",
+      "target": "Naam!",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "oh",
+        "yeah"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 15,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "oh yeah"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "oh yeah",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Naam conveys assent but is more formal/respectful than informal yeah. Preserve register caveat in contextual scoring; no material polarity change established here."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-16-en-sw",
+      "source": "not really",
+      "sense_group": "qualified_negative",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "not",
+        "really"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 16,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "not really"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "not really",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Degree versus denial depends on omitted predicate."
+      ]
+    },
+    {
+      "id": "short-train-r01-17-en-sw",
+      "source": "that sounds fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that",
+        "sounds",
+        "fun"
+      ],
+      "content_anchors": [
+        "fun"
+      ],
+      "category": "content",
+      "train_rank": 17,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that sounds fun"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that sounds fun",
+        "decision": "withhold_pending_construction_review",
+        "reason": "Draft changes sounds to appearance/seeming, and vizuri may describe how something is seen rather than predicate quality. The complete construction/compliment is not established by isolated onekana/furahisha/vizuri records. Resolve grammar and auditory-versus-assessment scope before freezing a general matcher; this is uncertainty, not a demonstrated material error."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-18-en-sw",
+      "source": "that's great",
+      "sense_group": "positive_evaluation",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that's",
+        "great"
+      ],
+      "content_anchors": [
+        "great"
+      ],
+      "category": "content",
+      "train_rank": 18,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that's great"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that's great",
+        "decision": "revise_or_withhold_before_freeze",
+        "reason": "Explicit hiyo/nzuri/ya agree with class9; a source-only that may refer to another noun class. Use an independently supportable self-contained evaluative exclamation or withhold. Ajabu additionally does not by itself guarantee the positive approval intended by awesome. Do not guess new inflections from an unknown antecedent."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-19-en-sw",
+      "source": "oh wow",
+      "sense_group": "amazement",
+      "target": "Lo!",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "oh",
+        "wow"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 19,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "oh wow"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "oh wow",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence."
+      ]
+    },
+    {
+      "id": "short-train-r01-20-en-sw",
+      "source": "for sure",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "for",
+        "sure"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 20,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "for sure"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "for sure",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-21-en-sw",
+      "source": "that's true",
+      "sense_group": "assert_truth",
+      "target": "Ni kweli.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "that's",
+        "true"
+      ],
+      "content_anchors": [
+        "true"
+      ],
+      "category": "content",
+      "train_rank": 21,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that's true"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that's true",
+        "decision": "revise_target_before_freeze",
+        "reason": "Use the complete proposition-level affirmation without an explicit hiyo that assumes an antecedent noun class."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-22-en-sw",
+      "source": "where do you live",
+      "sense_group": "current_residence_question",
+      "target": "Unaishi wapi?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "where",
+        "do",
+        "you",
+        "live"
+      ],
+      "content_anchors": [
+        "live"
+      ],
+      "category": "content",
+      "train_rank": 22,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "where do you live"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "where do you live",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-23-en-sw",
+      "source": "interesting",
+      "sense_group": "interest_reaction",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "interesting"
+      ],
+      "content_anchors": [
+        "interesting"
+      ],
+      "category": "content",
+      "train_rank": 23,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "interesting"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "interesting",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Independent natural Swahili evaluative form needs further verification."
+      ]
+    },
+    {
+      "id": "short-train-r01-24-en-sw",
+      "source": "oh no",
+      "sense_group": "concern_reaction",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "oh",
+        "no"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 24,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "oh no"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "oh no",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Surprise/disappointment/denial force varies; no universal target selected."
+      ]
+    },
+    {
+      "id": "short-train-r01-25-en-sw",
+      "source": "where are you from",
+      "sense_group": "origin_question",
+      "target": "Unatoka wapi?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "where",
+        "are",
+        "you",
+        "from"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 25,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "where are you from"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "where are you from",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-26-en-sw",
+      "source": "i see",
+      "sense_group": "acknowledge_understanding",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "i",
+        "see"
+      ],
+      "content_anchors": [
+        "see"
+      ],
+      "category": "content",
+      "train_rank": 26,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i see"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i see",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Vision versus acknowledgment unresolved."
+      ]
+    },
+    {
+      "id": "short-train-r01-27-en-sw",
+      "source": "i know",
+      "sense_group": "acknowledge_knowledge",
+      "target": "Ninajua.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "i",
+        "know"
+      ],
+      "content_anchors": [
+        "know"
+      ],
+      "category": "content",
+      "train_rank": 27,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i know"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i know",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-28-en-sw",
+      "source": "i love it",
+      "sense_group": "strong_liking",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "i",
+        "love",
+        "it"
+      ],
+      "content_anchors": [
+        "love"
+      ],
+      "category": "content",
+      "train_rank": 28,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i love it"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i love it",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Swahili object class/reference is not resolved by this isolated source."
+      ]
+    },
+    {
+      "id": "short-train-r01-29-en-sw",
+      "source": "definitely",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "definitely"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 29,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "definitely"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "definitely",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-30-en-sw",
+      "source": "do you have any hobbies",
+      "sense_group": "hobby_existence_question",
+      "target": "Una hobi zozote?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "do",
+        "you",
+        "have",
+        "any",
+        "hobbies"
+      ],
+      "content_anchors": [
+        "hobbies"
+      ],
+      "category": "content",
+      "train_rank": 30,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "do you have any hobbies"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "do you have any hobbies",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Una hobi zozote has plausible class10 any-agreement and preserves the question. Hobi has a publisher vocabulary attestation in addition to the retained uncommon/neologism dictionary label; accept for bounded evaluation, not a claim of common regional usage."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hobi is attested but tagged uncommon/neologism; ordinary modern-use suitability remains a review question."
+      ]
+    },
+    {
+      "id": "short-train-r01-31-en-sw",
+      "source": "oh nice",
+      "sense_group": "positive_reaction",
+      "target": "Vizuri!",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "oh",
+        "nice"
+      ],
+      "content_anchors": [
+        "nice"
+      ],
+      "category": "content",
+      "train_rank": 31,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "oh nice"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "oh nice",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence."
+      ]
+    },
+    {
+      "id": "short-train-r01-32-en-sw",
+      "source": "and you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "and",
+        "you"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 32,
+      "speech_act": "question",
+      "require_question_mark": true,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "and you"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "and you",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Requires complete source ending in ?. It is not a conjunction prefix before a following predicate."
+      ]
+    },
+    {
+      "id": "short-train-r01-33-en-sw",
+      "source": "ok",
+      "sense_group": "acceptance",
+      "target": "Sawa.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "ok"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 33,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "ok"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "ok",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-34-en-sw",
+      "source": "do you have any kids",
+      "sense_group": "children_existence_question",
+      "target": "Una watoto?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "do",
+        "you",
+        "have",
+        "any",
+        "kids"
+      ],
+      "content_anchors": [
+        "kids"
+      ],
+      "category": "content",
+      "train_rank": 34,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "do you have any kids"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "do you have any kids",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-35-en-sw",
+      "source": "what are your hobbies",
+      "sense_group": "hobby_identity_question",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "what",
+        "are",
+        "your",
+        "hobbies"
+      ],
+      "content_anchors": [
+        "hobbies"
+      ],
+      "category": "content",
+      "train_rank": 35,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "what are your hobbies"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "what are your hobbies",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "A natural plural-hobby question is not yet qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-36-en-sw",
+      "source": "do you work",
+      "sense_group": "work_status_question",
+      "target": "Unafanya kazi?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "do",
+        "you",
+        "work"
+      ],
+      "content_anchors": [
+        "work"
+      ],
+      "category": "content",
+      "train_rank": 36,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "do you work"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "do you work",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-37-en-sw",
+      "source": "yep",
+      "sense_group": "affirmation",
+      "target": "Ndiyo.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "yep"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 37,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "yep"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "yep",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ]
+    },
+    {
+      "id": "short-train-r01-38-en-sw",
+      "source": "are you married",
+      "sense_group": "marital_status_question",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "are",
+        "you",
+        "married"
+      ],
+      "content_anchors": [
+        "married"
+      ],
+      "category": "content",
+      "train_rank": 38,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "are you married"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "are you married",
+        "decision": "retain_unavailable",
+        "reason": "Retain declared unavailability; do not invent a target just to improve reach."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Swahili gender-neutral conventional formulation has not been qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-39-en-sw",
+      "source": "that sounds like fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that",
+        "sounds",
+        "like",
+        "fun"
+      ],
+      "content_anchors": [
+        "fun"
+      ],
+      "category": "content",
+      "train_rank": 39,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that sounds like fun"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that sounds like fun",
+        "decision": "withhold_pending_construction_review",
+        "reason": "Draft changes sounds to appearance/seeming, and vizuri may describe how something is seen rather than predicate quality. The complete construction/compliment is not established by isolated onekana/furahisha/vizuri records. Resolve grammar and auditory-versus-assessment scope before freezing a general matcher; this is uncertainty, not a demonstrated material error."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-40-en-sw",
+      "source": "congratulations",
+      "sense_group": "congratulate",
+      "target": "Hongera!",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "congratulations"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 40,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "congratulations"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "congratulations",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-41-en-sw",
+      "source": "absolutely",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "absolutely"
+      ],
+      "content_anchors": [],
+      "category": "function",
+      "train_rank": 41,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "absolutely"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "absolutely",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-42-en-sw",
+      "source": "that is true",
+      "sense_group": "assert_truth",
+      "target": "Ni kweli.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "that",
+        "is",
+        "true"
+      ],
+      "content_anchors": [
+        "true"
+      ],
+      "category": "content",
+      "train_rank": 42,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that is true"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that is true",
+        "decision": "revise_target_before_freeze",
+        "reason": "Use the complete proposition-level affirmation without an explicit hiyo that assumes an antecedent noun class."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-43-en-sw",
+      "source": "that sounds great",
+      "sense_group": "anticipated_positive_evaluation",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that",
+        "sounds",
+        "great"
+      ],
+      "content_anchors": [
+        "great"
+      ],
+      "category": "content",
+      "train_rank": 43,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that sounds great"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that sounds great",
+        "decision": "withhold_pending_construction_review",
+        "reason": "Draft changes sounds to appearance/seeming, and vizuri may describe how something is seen rather than predicate quality. The complete construction/compliment is not established by isolated onekana/furahisha/vizuri records. Resolve grammar and auditory-versus-assessment scope before freezing a general matcher; this is uncertainty, not a demonstrated material error."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-44-en-sw",
+      "source": "that's amazing",
+      "sense_group": "positive_evaluation",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "that's",
+        "amazing"
+      ],
+      "content_anchors": [
+        "amazing"
+      ],
+      "category": "content",
+      "train_rank": 44,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "that's amazing"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "that's amazing",
+        "decision": "revise_or_withhold_before_freeze",
+        "reason": "Explicit hiyo/nzuri/ya agree with class9; a source-only that may refer to another noun class. Use an independently supportable self-contained evaluative exclamation or withhold. Ajabu additionally does not by itself guarantee the positive approval intended by awesome. Do not guess new inflections from an unknown antecedent."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-45-en-sw",
+      "source": "thats great",
+      "sense_group": "positive_evaluation",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "thats",
+        "great"
+      ],
+      "content_anchors": [
+        "great"
+      ],
+      "category": "content",
+      "train_rank": 45,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "thats great"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "thats great",
+        "decision": "revise_or_withhold_before_freeze",
+        "reason": "Explicit hiyo/nzuri/ya agree with class9; a source-only that may refer to another noun class. Use an independently supportable self-contained evaluative exclamation or withhold. Ajabu additionally does not by itself guarantee the positive approval intended by awesome. Do not guess new inflections from an unknown antecedent."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ]
+    },
+    {
+      "id": "short-train-r01-46-en-sw",
+      "source": "what are you studying",
+      "sense_group": "study_object_question",
+      "target": "Unasoma nini?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "what",
+        "are",
+        "you",
+        "studying"
+      ],
+      "content_anchors": [
+        "studying"
+      ],
+      "category": "content",
+      "train_rank": 46,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "what are you studying"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "what are you studying",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-47-en-sw",
+      "source": "i'm sorry to hear that",
+      "sense_group": "empathy_negative_news",
+      "target": "Ninasikitika kusikia hivyo.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "i'm",
+        "sorry",
+        "to",
+        "hear",
+        "that"
+      ],
+      "content_anchors": [
+        "sorry",
+        "hear"
+      ],
+      "category": "content",
+      "train_rank": 47,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i'm sorry to hear that"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i'm sorry to hear that",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-48-en-sw",
+      "source": "do you have kids",
+      "sense_group": "children_existence_question",
+      "target": "Una watoto?",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "do",
+        "you",
+        "have",
+        "kids"
+      ],
+      "content_anchors": [
+        "kids"
+      ],
+      "category": "content",
+      "train_rank": 48,
+      "speech_act": "question",
+      "require_question_mark": false,
+      "reject_question_mark": false,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "do you have kids"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "do you have kids",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Meaning and supplied form are plausible for the complete conversational unit. This is authoring review, not contextual acceptance."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    },
+    {
+      "id": "short-train-r01-49-en-sw",
+      "source": "sounds good",
+      "sense_group": "acceptance",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "source_tokens": [
+        "sounds",
+        "good"
+      ],
+      "content_anchors": [
+        "good"
+      ],
+      "category": "content",
+      "train_rank": 49,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "sounds good"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "sounds good",
+        "decision": "withhold_pending_construction_review",
+        "reason": "Draft changes sounds to appearance/seeming, and vizuri may describe how something is seen rather than predicate quality. The complete construction/compliment is not established by isolated onekana/furahisha/vizuri records. Resolve grammar and auditory-versus-assessment scope before freezing a general matcher; this is uncertainty, not a demonstrated material error."
+      },
+      "changed_from_draft": true,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ]
+    },
+    {
+      "id": "short-train-r01-50-en-sw",
+      "source": "i hope so",
+      "sense_group": "hope_for_prior_proposition",
+      "target": "Ninatumaini hivyo.",
+      "reading": null,
+      "status": "available_for_frozen_experiment",
+      "source_tokens": [
+        "i",
+        "hope",
+        "so"
+      ],
+      "content_anchors": [
+        "hope"
+      ],
+      "category": "content",
+      "train_rank": 50,
+      "speech_act": "statement_or_reaction",
+      "require_question_mark": false,
+      "reject_question_mark": true,
+      "authored_register": "Ordinary singular addressee, authored complete unit",
+      "draft_evidence_reference": {
+        "file": "short-conversation-target-draft-en-sw-r01.json",
+        "sha256": "4de6d9a5a8c78f4a16ab3ec0efba01dd16134593b10b9b4dd5665cc1c59942a3",
+        "source_row": "i hope so"
+      },
+      "authoring_review_reference": {
+        "file": "short-conversation-target-review-root-en-sw-r01.json",
+        "sha256": "6b4bffc9177aa941358884dd2d4463d2eb76b593404f7b5f789fc648af618be9",
+        "source_row": "i hope so",
+        "decision": "accept_authored_target_for_bounded_experiment",
+        "reason": "Ninatumaini hivyo preserves first-person hope and reference to the preceding proposition; appropriate complete construction."
+      },
+      "changed_from_draft": false,
+      "limits": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ]
+    }
+  ],
+  "interpretation": "Authoring-stage accepted inputs for a frozen experiment, not context-validated production mappings. Unavailable targets remain explicit.",
+  "primary_sources": [
+    {
+      "url": "https://africa.uga.edu/Kiswahili/doe/unit_01/unit1grammar.html",
+      "scope": "Pronouns, present subject/tense morphology and noun-class agreement; verification only."
+    },
+    {
+      "url": "https://olrc.ku.edu/swahili-glossary",
+      "scope": "Exact ordinary residence/origin questions and related study/possession constructions; verification only."
+    }
+  ],
+  "summary": {
+    "source_variants": 50,
+    "available": 34,
+    "distinct_available_targets": 25,
+    "available_content_units": 14
+  },
+  "revision_primary_note": {
+    "source": "https://products.innovativelanguage.com/books/findaway_PDFs/Swahili/swahili_lwm_audiobook.pdf",
+    "pdf_page_zero_index": 7,
+    "finding": "Publisher includes hobi for hobby; corroborates existence, not common frequency or the complete authored question.",
+    "use": "Factual verification only. Four deictic evaluations and four sounds constructions are withheld; no replacement invented for coverage."
+  }
+}

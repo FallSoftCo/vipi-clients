@@ -1,0 +1,39 @@
+{
+  "schema": "vipi-complete-short-unit-policy-draft-1",
+  "production": false,
+  "frozen": false,
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "target_policy": "Only final target-reviewed entries; unavailable/withheld/unchanged faces stay excluded. Target drafts do not grant matching eligibility.",
+  "matching": {
+    "scope": "Exact complete message or strong punctuation-delimited sentence unit,1–5words; never arbitrary prefix or substring.",
+    "normalization": "NFKC/casefold, curly apostrophe to straight and whitespace collapse; retain original UTF16 offsets. Punctuation is not discarded before speech-act checks.",
+    "boundaries": "Whole message, or . ! ? sentence terminator followed by whitespace. No comma/semicolon/colon split. Reject candidate adjacent to ellipsis, abbreviation/decimal uncertainty, quoted text, code, URL/email/handle.",
+    "questions": "Explicit question templates may map to questions. Really and and you require terminal ?. Declarative entries reject any terminal ?; do not rewrite OK?/Yes?/I agree? as statements.",
+    "quotes": "Do not count quoted/reported candidate text as the sender utterance in this first bounded arm.",
+    "range": "Entire complete unit including terminator where present; all source words must fit native complete token bounds. No inflection root slicing or partial trimming to fit density.",
+    "unchanged": "Ignore case/punctuation/spacing differences for usefulness. Latin same spelling earns zero useful depth."
+  },
+  "outputs": {
+    "reference_availability": "Report whole-message reference separately from an embedded sentence-unit reference. Having a reference is not automatic immersion.",
+    "automatic_mixed": "Requested0.10, max1complete native-budget-fitting selected unit, existing content-first/TRAIN-frequency policy, no whole-unit budget fallback.",
+    "full_reference_only": "Any2–5word reference failing budget remains available as a reference; no automatic flip is credited.",
+    "content_depth": "Count source content-anchor tokens, not every token in a function/formula unit. Also report total replaced-source depth separately.",
+    "known_faces": "Research-only simulations of known I/and/but, and all reviewed function units known. Remove already-known atomic source units before selection; do not claim native progression exists.",
+    "union": "Deduplicate by message and source range when combining starter words, complete units and existing accepted references."
+  },
+  "evaluation": {
+    "controls": [
+      "unchanged current production routing",
+      "reviewed starter r03 research projection",
+      "reviewed starter plus complete short units research projection"
+    ],
+    "meaning": "Correct/minor/material/scope/uncertain and mandatory-reading judgments; no credit from target occurrence alone.",
+    "sampling": "Freeze targets and exact matcher before choosing a new disjoint conversational sample; preserve prior context for review but never silently feed it into matching.",
+    "reported_limits": [
+      "TRAIN persona dialogue is not worldwide private-chat frequency.",
+      "Minimum1token quantizes actual depth above10% in short messages.",
+      "Whole-reference availability cannot be counted as an automatic face.",
+      "Known-function filtering is a proposed diagnostic, not current native functionality."
+    ]
+  }
+}

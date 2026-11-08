@@ -1,0 +1,186 @@
+{
+  "production": false,
+  "not_population_sample": true,
+  "cases": [
+    {
+      "id": "short-authored-contrast-r01-positive_yes",
+      "text": "Yes.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Do you drink coffee?"
+        }
+      ],
+      "authored_intent": "Affirm coffee drinking.",
+      "scoring_note": "Lexical affirmative in positive-question context.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-negative_yes",
+      "text": "Yes.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Do you not drink coffee?"
+        }
+      ],
+      "authored_intent": "Speaker intends yes I do drink coffee.",
+      "scoring_note": "Japanese hai can confirm the negative proposition when answering a Japanese negative question; mixed English syntax complicates interpretation. Score pragmatic polarity, do not assume unconditional equivalence.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-positive_no",
+      "text": "No.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Do you drink coffee?"
+        }
+      ],
+      "authored_intent": "Deny coffee drinking.",
+      "scoring_note": "Negative answer in positive-question context.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-negative_no",
+      "text": "No.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Do you not drink coffee?"
+        }
+      ],
+      "authored_intent": "Speaker intends no I do not drink coffee.",
+      "scoring_note": "English/Japanese negative-question response convention may diverge; no hidden context disambiguator exists.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-know_fact",
+      "text": "I know.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "The meeting starts at three."
+        }
+      ],
+      "authored_intent": "Already aware of the fact.",
+      "scoring_note": "Japanese knowledge-state expression should preserve known fact.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-know_empathy",
+      "text": "I know.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Missing your dog is so painful."
+        }
+      ],
+      "authored_intent": "Express shared understanding and empathy.",
+      "scoring_note": "Knowing a fact versus empathic wakaru/understanding may differ; evaluate the complete knowledge-state target.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-question_yes",
+      "text": "Yes?",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "I did not hear your answer."
+        }
+      ],
+      "authored_intent": "Ask for confirmation or invite continuation.",
+      "scoring_note": "A declarative unit must reject the question variant.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-question_ok",
+      "text": "OK?",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "I will send it tonight."
+        }
+      ],
+      "authored_intent": "Request agreement.",
+      "scoring_note": "A declarative okay unit must reject the question variant.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-really_question",
+      "text": "Really?",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "I met your favorite musician."
+        }
+      ],
+      "authored_intent": "Express surprise/request confirmation.",
+      "scoring_note": "Complete question is admitted.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-really_adverb",
+      "text": "Really.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "Are you certain?"
+        }
+      ],
+      "authored_intent": "Emphasize certainty.",
+      "scoring_note": "Question-only really unit must abstain.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-no_prefix",
+      "text": "I agree that we should wait.",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "I disagree with that proposal."
+        }
+      ],
+      "authored_intent": "Agree only with the explicit complement.",
+      "scoring_note": "No I-agree prefix truncation.",
+      "authored": true,
+      "training_use_only": true
+    },
+    {
+      "id": "short-authored-contrast-r01-quoted_yes",
+      "text": "She said \"Yes.\"",
+      "source": "en",
+      "review_only_preceding_context": [
+        {
+          "role": "authored_prior_turn",
+          "text": "What was the exact reply?"
+        }
+      ],
+      "authored_intent": "Quote another speaker.",
+      "scoring_note": "Quoted unit should abstain in this bounded arm.",
+      "authored": true,
+      "training_use_only": true
+    }
+  ]
+}
