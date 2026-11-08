@@ -135,6 +135,71 @@ private actor DelayedFullReadingQA {
 
 @MainActor final class ConversationImmersionTests: XCTestCase {
 
+    /// Synthetic admitted entries exercise orchestration only. They are never
+    /// shipped as data and do not approve the pending expanded word catalog.
+    private func sourceUnitFixture(_ context: SourceUnitLookup.Context) -> PartialImmersionResult? {
+        guard context.original == "water and music", context.pair == .init(source: "en", target: "es") else { return nil }
+        let candidates: [SourceUnitSelection.Candidate] = [
+            .init(unit: .init(range: .init(location: 0, length: 5), original: "water", translated: "agua",
+                reading: nil, referenceID: "fixture:water", catalogSHA256: String(repeating: "a", count: 64),
+                nativeSourceTokens: 1, conceptID: "water"), lexiconID: "water", category: .content, rank: 1),
+            .init(unit: .init(range: .init(location: 10, length: 5), original: "music", translated: "música",
+                reading: nil, referenceID: "fixture:music", catalogSHA256: String(repeating: "a", count: 64),
+                nativeSourceTokens: 1, conceptID: "music"), lexiconID: "music", category: .content, rank: 2)]
+        return SourceUnitSelection.select(original: context.original, target: context.pair.target,
+            candidates: candidates, nativeWordRanges: LocalImmersion.words(context.original, language: "en"),
+            protectedRanges: [], density: context.density, knownConceptIDs: context.knownConceptIDs)?.partial
+    }
+
+    func testSourceUnitSeamPreservesAuthoredPriorityAndInvalidatesKnownSnapshot() async throws {
+        var observed: [Set<String>] = [], readiness = 0
+        let provider = SourceUnitLookup(identity: "synthetic-admission-v1") { context in
+            observed.append(context.knownConceptIDs); return self.sourceUnitFixture(context)
+        }
+        let owner = ConversationImmersion(modelStatus: { _ in readiness += 1; return .unsupported }, sourceUnits: provider)
+        defer { owner.close() }
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.5, knownConceptIDs: ["water"])
+        let authored = await owner.result(for: "I need water. This ending has no authored reference.", inputLanguage: "en")
+        XCTAssertNotNil(authored); XCTAssertTrue(observed.isEmpty)
+        let text = "water and music"
+        let firstValue = await owner.result(for: text, inputLanguage: "en")
+        let first = try XCTUnwrap(firstValue)
+        XCTAssertEqual(first.spans.map(\.original), ["music"])
+        XCTAssertEqual(owner.lastOutcome?.modelReadinessCalls, 0)
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 0)
+        XCTAssertEqual(owner.lastOutcome?.alignmentCalls, 0)
+        _ = await owner.result(for: text, inputLanguage: "en")
+        XCTAssertEqual(observed, [["water"]]); XCTAssertEqual(readiness, 0)
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.5, knownConceptIDs: ["music"])
+        let nextValue = await owner.result(for: text, inputLanguage: "en")
+        let next = try XCTUnwrap(nextValue)
+        XCTAssertEqual(next.spans.map(\.original), ["water"])
+        XCTAssertEqual(observed, [["water"], ["music"]]); XCTAssertEqual(readiness, 0)
+        XCTAssertEqual(next.speech(mode: .original, source: "en", target: "es"), [.init(text: text, language: "en")])
+    }
+
+    func testSourceUnitSnapshotRejectsLateOldGeneration() async throws {
+        let gate = DelayedFullReadingQA()
+        var observed: [Set<String>] = []
+        let provider = SourceUnitLookup(identity: "synthetic-admission-v1") { context in
+            observed.append(context.knownConceptIDs); await gate.hold(); return self.sourceUnitFixture(context)
+        }
+        let owner = ConversationImmersion(modelStatus: { _ in .unsupported }, sourceUnits: provider)
+        defer { owner.close(); Task { await gate.release() } }
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.5)
+        let old = Task { await owner.result(for: "water and music", inputLanguage: "en") }
+        let deadline = ContinuousClock.now + .seconds(2)
+        while !(await gate.started) && ContinuousClock.now < deadline { try await Task.sleep(for: .milliseconds(5)) }
+        let started = await gate.started; XCTAssertTrue(started)
+        await owner.configure(pair: .init(source: "en", target: "es"), density: 0.5, knownConceptIDs: ["water"])
+        await gate.release()
+        let oldValue = await old.value; XCTAssertNil(oldValue)
+        let freshValue = await owner.result(for: "water and music", inputLanguage: "en")
+        let fresh = try XCTUnwrap(freshValue)
+        XCTAssertEqual(fresh.spans.map(\.original), ["music"])
+        XCTAssertEqual(observed, [[], ["water"]])
+    }
+
     func testFrozenJapaneseNativeGuardCapture() throws {
         struct Input: Decodable {
             struct Row: Decodable { let id: String, text: String, group: String }

@@ -16,6 +16,8 @@ import VipiCore
     private(set) var lastOutcome: LookupFirstOutcome?
     private(set) var lexicalPreparation = "unmeasured"
     private var density = 0.25
+    private var knownConceptIDs = Set<String>()
+    private let sourceUnits: SourceUnitLookup?
     private var epoch = UUID()
     private var closed = false
     private var pending: [Request] = []
@@ -47,7 +49,7 @@ import VipiCore
     #endif
 
     private func cacheKey(text: String, inputLanguage: String?) -> String {
-        let key = (inputLanguage ?? "auto") + ":" + text
+        let key = (sourceUnits.map { $0.identity + "\0" } ?? "") + (inputLanguage ?? "auto") + ":" + text
         #if DEBUG
         return (qaSourceUnitVersion.map { $0 + "\0" } ?? "") + key
         #else
@@ -57,9 +59,11 @@ import VipiCore
 
     init(modelStatus: @escaping (TranslationPair) async -> LocalLanguageAvailability = { await LanguagePreparation.nativeStatus($0) },
          fullTranslationTimeout: Duration = .seconds(30),
+         sourceUnits: SourceUnitLookup? = nil,
          fullReadingProducer: @escaping FullReadingCache.Producer = { FullSentenceReadings.resolve($0, language: $1) }) {
         precondition(fullTranslationTimeout > .zero && fullTranslationTimeout <= .seconds(30))
         self.modelStatus = modelStatus; self.fullTranslationTimeout = fullTranslationTimeout
+        self.sourceUnits = sourceUnits
         self.readings = FullReadingCache(policy: FullSentenceReadings.policy, producer: fullReadingProducer)
     }
 
@@ -111,8 +115,12 @@ import VipiCore
         // Status only: lexical expansion belongs to actual target-dependent alignment.
         if availability != observed { availability = observed; revision += 1 }
     }
-    func configure(pair: TranslationPair, density: Double) async {
+    /// Knowledge is an immutable request snapshot, empty by default. Only the
+    /// optional source-unit provider consumes these catalog-scoped IDs; legacy
+    /// aligned entries and authored sentence references do not infer mastery.
+    func configure(pair: TranslationPair, density: Double, knownConceptIDs: Set<String> = []) async {
         close(); closed = false; self.pair = pair; self.density = density
+        self.knownConceptIDs = knownConceptIDs
         availability = .checking; lexicalPreparation = "unmeasured"
         // No readiness gate, TranslationSession, translator factory or lexical
         // materialization before exact/source-only lookup has had its turn.
@@ -151,6 +159,7 @@ import VipiCore
         lastOutcome = nil // Cancellation/early exit must not reuse prior telemetry.
         guard !closed, !Task.isCancelled, pair.valid else { return nil }
         let activeEpoch = epoch, activePair = pair, activeDensity = density
+        let activeKnownConceptIDs = knownConceptIDs
         func valid() -> Bool {
             !closed && activeEpoch == epoch && pair == activePair && !Task.isCancelled &&
                 (messageID == nil || inputLanguages[messageID!] == inputLanguage)
@@ -190,6 +199,11 @@ import VipiCore
                 partialReference: { original, source, target in
                     let pair = TranslationPair(source: source, target: target)
                     if let accepted = try await self.catalog.partial(original: original, pair: pair, density: activeDensity) {
+                        return accepted
+                    }
+                    if let sourceUnits = self.sourceUnits,
+                       let accepted = try await sourceUnits.resolve(.init(original: original, pair: pair,
+                           density: activeDensity, knownConceptIDs: activeKnownConceptIDs)) {
                         return accepted
                     }
                     #if DEBUG
@@ -276,7 +290,7 @@ import VipiCore
     }
     func close() {
         closed = true; invalidateOutstanding(); cache.removeAll()
-        swahili.removeAll(); inputLanguages.removeAll(); lastOutcome = nil; revision += 1
+        swahili.removeAll(); inputLanguages.removeAll(); knownConceptIDs.removeAll(); lastOutcome = nil; revision += 1
     }
 }
 

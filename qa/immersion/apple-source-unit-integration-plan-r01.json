@@ -1,0 +1,43 @@
+{
+  "schema": "vipi-apple-source-unit-integration-plan-1",
+  "state": "seam_prepared_no_new_catalog_loaded",
+  "hierarchy": [
+    "authored exact/composed whole reference",
+    "accepted catalog sentence partial",
+    "optional reviewed source-unit provider, defaultnil",
+    "existing native full translation/alignment on miss or explicit full intent"
+  ],
+  "candidate_authority": "Immersionowner pending final compactschema and target/context allowlist. Research1139 SHA38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1 is NOT activated.",
+  "selection_contract": {
+    "budget": "max(1,floor(native source word count * min(density,1))), density0disabled",
+    "known": "Immutable knownConceptIDs excluded before ranking; defaultempty; configure closes oldgeneration/cache",
+    "ordering": [
+      "content before function",
+      "frozen TRAINrank",
+      "descending complete native source token cost",
+      "sourceUTF16start",
+      "lexiconID"
+    ],
+    "distinct": "One occurrence per concept per message, disjoint ranges, maximum128units",
+    "union": "Data producer must retain old reviewed face for same occurrence/concept before this selector",
+    "guards": "Shared protected scopes/source-role admission across old/new candidatepaths; selector receives alreadyadmittedcandidates and still checks ranges/protection/nativecost; established presentation factory checks identifiers/readings/graphemes",
+    "concept_scope": "SharedEN→SW/JA/ES source families only; not global110direction mastery"
+  },
+  "reuse": [
+    "SourceReferencePresentation partial target ranges stay reference-local",
+    "Existing stable inline slots/continuous phases/readings",
+    "Original script and visible-language speech paths",
+    "Explicit full extension preserves partial and never substitutes generated Latin speech"
+  ],
+  "no_new_learning_subsystem": true,
+  "legacy_limit": "Legacy authored/full-target-alignment entries lack conceptIDs; no global known-concept filtering claim. No automatic exposure-based mastery or usercontrols.",
+  "qualification_plan": [
+    "Pure nativecore selection checks: contentpriority,knownfilter,dedup,overlap/strictbudget,sourceUTF16,protectedold/newscopes,requiredreading",
+    "Native coordinator closure: authored precedence; sourcepartial0readiness/MT/alignment; knowledge snapshot change rejects stalecompletion/cache; explicitfull retains selectedproofs; actualunsupportedprovider recorded",
+    "Frozen real-conversation inputs from immersionowner, samebaseline/candidate andknownsnapshots; log every selectedID/range/reading/rejection/rawnativecount, no sentence data tailoring",
+    "Actual nativechat rendering of preselected reviewed cases:3cyclesfixedslots,originalcopy/script/visiblelanguageaudio; explicit full state when nativeprovider unavailable; use suppliedreference only when distinctly labeled",
+    "Finalfullapp qualification must use parentcleancommittedsourcesnapshot excluding inherited unqualifiedinfinitive deltas"
+  ],
+  "no_model_download": true,
+  "no_production_data_enablement": true
+}

@@ -25,6 +25,25 @@ public struct NativeSourceTokenBasis: Sendable {
         guard !touched.isEmpty, touched.allSatisfy({ NSIntersectionRange($0, unit) == $0 }) else { return nil }
         return touched.count
     }
+    /// Word/phrase candidates must cover exact native word edges. Sentence
+    /// references use `cost(for:)` because they also include punctuation.
+    public func exactWordCost(for unit: NSRange) -> Int? {
+        guard unit.location >= 0, unit.location <= original.utf16.count,
+              unit.length > 0, unit.length <= original.utf16.count-unit.location,
+              Range(unit, in: original) != nil else { return nil }
+        func lowerBound(_ offset: Int) -> Int {
+            var low = 0, high = words.count
+            while low < high {
+                let middle = low + (high-low)/2
+                if words[middle].location < offset { low = middle+1 } else { high = middle }
+            }
+            return low
+        }
+        let first = lowerBound(unit.location), after = lowerBound(NSMaxRange(unit))
+        guard first < after, first < words.count, words[first].location == unit.location,
+              NSMaxRange(words[after-1]) == NSMaxRange(unit) else { return nil }
+        return after-first
+    }
 }
 
 public struct SourceReferenceUnit: Sendable, Equatable {
@@ -35,12 +54,17 @@ public struct SourceReferenceUnit: Sendable, Equatable {
     public let referenceID: String
     public let catalogSHA256: String
     public let nativeSourceTokens: Int
+    /// Present only when the supplying catalog has a qualified stable concept
+    /// identity. Sentence references and legacy aligned spans do not infer one.
+    public let conceptID: String?
 
     public init(range: NSRange, original: String, translated: String, reading: String?,
-                referenceID: String, catalogSHA256: String, nativeSourceTokens: Int) {
+                referenceID: String, catalogSHA256: String, nativeSourceTokens: Int,
+                conceptID: String? = nil) {
         self.range = range; self.original = original; self.translated = translated
         self.reading = reading; self.referenceID = referenceID; self.catalogSHA256 = catalogSHA256
         self.nativeSourceTokens = nativeSourceTokens
+        self.conceptID = conceptID
     }
 }
 
@@ -123,8 +147,9 @@ public enum ImmersionPresentation: Sendable, Equatable {
     }
 }
 
-/// ONLY exact catalog reference sentence units enter this factory. Context,
-/// frame and dictionary candidates still require their existing target witness.
+/// Independently qualified exact source units enter this factory. Structural
+/// validation does not approve new meanings. Legacy context/frame/dictionary
+/// candidates still require their existing target witness.
 public enum SourceReferencePresentation {
     /// Revalidate callback shape, including the reference-local target basis.
     /// This structural proof is NOT independent meaning/catalog attestation.
