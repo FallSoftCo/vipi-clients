@@ -1366,9 +1366,9 @@
   },
   {
     "id": "195",
-    "title": "pinyin-pro 3.29.5 — native reading adapter source",
+    "title": "pinyin-pro 3.29.5 — ordinary Chinese reading data and native adapter",
     "file": "license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt",
     "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
-    "origin": "Pinned MIT upstream source retained in qa/immersion/chinese-reading-upstream-r01; native port in ChineseFullReading.swift. Data remains QA-only."
+    "origin": "Pinned MIT upstream source/exporter retained in qa/immersion/chinese-reading-upstream-r01; exact data/readings/chinese-ordinary.json is bundled, with native port in ChineseFullReading.swift."
   }
 ]

@@ -1,0 +1,77 @@
+{
+  "schema": "vipi-apple-delayed-reading-timeline-qualification-1",
+  "state": "actual_production_view_test_passed_no_anchor_change",
+  "source": {
+    "ios/Vipi/ConnectedChatView.swift": "b6742485c82e56a08663f4c7b40e582d27332234b31edbabcf675a8b8b4e3ec5",
+    "ios/Vipi/TimelineQualification.swift": "2475f92c8cb1793422deb9adc2b431d2ea953298db356dc6f210d7864a9249ff",
+    "ios/VipiUITests/ChatImmersionTests.swift": "a893a7510010ac874a7dc9575fc90873b3b335a8b95e06301b6d5a2dc886505b"
+  },
+  "geometry": {
+    "fresh_translation_provider": false,
+    "history_mode_retained": true,
+    "latin": {
+      "height": 197.33333333333306,
+      "width": 267.3333333333333,
+      "x": 71,
+      "y": 205.6111111111119
+    },
+    "script": {
+      "height": 130.333333333333,
+      "width": 250,
+      "x": 71,
+      "y": 205.6111111111119
+    },
+    "supplied_authored_reference": true,
+    "timeline_after": {
+      "height": 702.333333333333,
+      "width": 402,
+      "x": 0,
+      "y": 171.66666666666697
+    },
+    "timeline_before": {
+      "height": 702.333333333333,
+      "width": 402,
+      "x": 0,
+      "y": 171.66666666666697
+    }
+  },
+  "native": {
+    "groups": [
+      {
+        "group": "history",
+        "exit": 0,
+        "seconds": 40.241796016693115,
+        "selectors": [
+          "VipiUITests/ChatImmersionTests/testDelayedFullReadingPreservesProductionHistoryAnchor"
+        ]
+      }
+    ],
+    "seconds": 44.89093208312988,
+    "guest_before": 842035200,
+    "guest_after": 814440448,
+    "guest_minimum": 792412160,
+    "binaries": {
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib": "644a4b85a2b37a24b11dc1becce4d54797f091d4068d36482b5a517dbd0d6442",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "94ff065d5d8326a6fcd94b395e23c438b2f1f13ea0f708419e2bb84a08dbe021",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "a8d3d8eb48d608f2d1a82f8d8affaf122d62ea5b67aa13e711c24a3199252fb4"
+    },
+    "local_only": true,
+    "supplied_target_or_injected_translation": true,
+    "live_provider_claim": false
+  },
+  "frames": {
+    "06C5D565-F6D6-4EE3-B0DF-F4184537628B.png": "fe92353c685825f088df63e8e984161875c77c8425c5f082eb93d33355a95728",
+    "00AC6659-7EF9-461A-A896-07D1B5A146D4.png": "9159997143ebf28c10863dbb672f3c4a85d131a4588cc023f6340fc1978ff41f"
+  },
+  "preflight_erratum": "Native UIFont was correct53pt; UI-test host UIScreen width320pt was not actual app402pt. The preflight estimated216pt available instead of298pt. Actual measured row130.33\u2192197.33pt, unchangedtop205.611pt and402\u00d7702.33viewport are independent passing evidence. Next packaged test uses actual SpringBoard XCUI width and asserts app agreement.",
+  "fixture_history": [
+    "Phone-charger at AX Medium and XXXL had equal native script/Latin heights; growth precondition correctly failed, not a scrolling defect.",
+    "First music run passed native growth preflight but default XCTest drag flung text out of its measurement position; no reading release occurred.",
+    "Accepted run uses supported slow drag with1s hold, positions actual source text, then releases delayed authored metadata."
+  ],
+  "limits": [
+    "Synthetic transport and supplied authored reference through actual FriendConversationView/ChatSession; no live relay/auth/account/provider inference.",
+    "Current scrolling algorithm unchanged.",
+    "Largest dynamic text, dark appearance, older-history mode; not blanket accessibility certification."
+  ]
+}

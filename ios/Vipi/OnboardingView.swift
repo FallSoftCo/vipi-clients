@@ -99,6 +99,10 @@ struct OnboardingView: View {
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
             ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
+            if ["ar", "zh", "ja", "ko"].contains(state.targetLanguage) {
+                Text("Latin letters help you follow along. Use Listen to hear pronunciation.")
+                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+            }
             Label("Language downloads stay on your phone. You choose when to download them.", systemImage: "arrow.down.circle")
                 .font(.footnote).foregroundStyle(VipiDesign.secondary)
         }

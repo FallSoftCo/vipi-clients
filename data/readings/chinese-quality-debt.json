@@ -1,0 +1,78 @@
+{
+  "schema": "vipi-chinese-reading-quality-debt-1",
+  "policy": "pinyin-pro-3.29.5-ordinary-native-1",
+  "scope": "332 reused diagnostics, not population estimate; 104 authored references,200retainedNUS,28structural/contrast controls. Authored readings have runtime precedence.",
+  "informed_review_sha256": "7f9cce98ab126e104ae826e9d65cd5374f071691328944f38d4fc1075162b18a",
+  "counts": {
+    "ordinary_readable": 308,
+    "known_syllable_error_messages": 10,
+    "guarded_abstain": 4,
+    "context_insufficient": 4,
+    "variety_limits": 3,
+    "orthography_caveat": 2,
+    "latin_only": 1
+  },
+  "known_error_classes": [
+    {
+      "example": "咯",
+      "chosen": "ge",
+      "contextual_alternative": "lo",
+      "messages": 1
+    },
+    {
+      "example": "嗨",
+      "chosen": "hei",
+      "contextual_alternative": "hai",
+      "messages": 1
+    },
+    {
+      "example": "了 in mixed Latin context",
+      "chosen": "liao",
+      "contextual_alternative": "le",
+      "messages": 1
+    },
+    {
+      "example": "得 modal context",
+      "chosen": "de",
+      "contextual_alternative": "dei",
+      "messages": 2
+    },
+    {
+      "example": "重 meaning repeat",
+      "chosen": "zhong",
+      "contextual_alternative": "chong",
+      "messages": 2
+    },
+    {
+      "example": "呗",
+      "chosen": "bai",
+      "contextual_alternative": "bei",
+      "messages": 1
+    },
+    {
+      "example": "还给 return context",
+      "chosen": "hai",
+      "contextual_alternative": "huan",
+      "messages": 1
+    },
+    {
+      "example": "銀行行長 traditional characters",
+      "chosen": "yin xing xing chang",
+      "contextual_alternative": "yin hang hang zhang",
+      "messages": 1
+    }
+  ],
+  "decision": "Useful ordinary guide with known contextual syllable limits. No blanket multi-reading suppression: on this diagnostic it would hide170readable unauthored messages to suppress10knownerrors. No phrase patches mined from evaluation cases.",
+  "invariants": [
+    "Original target script is unchanged.",
+    "Audio speaks original script, never this Latin guide.",
+    "Copy returns original sender message.",
+    "Unknown unprotected script, invalid ranges and excessive input are rejected.",
+    "Reading completion is optional metadata and cannot block translation/audio."
+  ],
+  "not_claimed": [
+    "Perfect phonetics or tones",
+    "Untouched conversational population accuracy",
+    "Fresh Apple translation provider or physical iOS inference"
+  ]
+}

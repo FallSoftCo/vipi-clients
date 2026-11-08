@@ -1,0 +1,14 @@
+{
+  "schema": "vipi-reading-data-provenance-1",
+  "language": "zh",
+  "policy": "pinyin-pro-3.29.5-ordinary-native-1",
+  "runtime_data": "chinese-ordinary.json",
+  "bytes": 773812,
+  "sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+  "source_export": "qa/immersion/chinese-reading-upstream-r01/ordinary-data.json",
+  "source_package": "qa/immersion/chinese-reading-upstream-r01/pinyin-pro-3.29.5.tgz",
+  "reproduce": "Extract retained pinned tarball to an owned disk-backed directory; node qa/immersion/chinese-reading-upstream-r01/export-data.mjs /absolute/path/package /absolute/path/new-ordinary-data.json; compare exact SHA256 before copy.",
+  "license": "MIT",
+  "license_path": "qa/immersion/chinese-reading-upstream-r01/LICENSE.upstream",
+  "semantics": "Ordinary tone-free pinyin, reviewed authored readings first. Original script remains speech/copy authority. Context-sensitive reading errors are retained in qualification, not hidden by phrase patches."
+}

@@ -56,6 +56,8 @@ targets:
         buildPhase: resources
       - path: ../data/examples/sentence-readings.json
         buildPhase: resources
+      - path: ../data/readings/chinese-ordinary.json
+        buildPhase: resources
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
     dependencies:

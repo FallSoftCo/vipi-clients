@@ -1,0 +1,139 @@
+{
+  "schema": "vipi-apple-chinese-bundled-reading-qualification-1",
+  "state": "default_authored_first_chinese_reader_native_checks_passed",
+  "files": {
+    "ios/project.yml": "119ff850a8e1cc4c0ed2b00a81e4328dd57a6f4d59b47445392f3262b970521a",
+    "ios/Vipi/ConnectedChatView.swift": "b6742485c82e56a08663f4c7b40e582d27332234b31edbabcf675a8b8b4e3ec5",
+    "ios/Vipi/TimelineQualification.swift": "2475f92c8cb1793422deb9adc2b431d2ea953298db356dc6f210d7864a9249ff",
+    "ios/Vipi/SentenceReadings.swift": "0e4b45ab805bfc40e129f64e3dc4c307c29cc34e8c199210faac6b4f1ffa4a21",
+    "ios/Vipi/ChineseFullReading.swift": "68fc186ecb1c01306f5dd3af28522d148c2f1352f575f3f6ce80b7a3071cf131",
+    "ios/Vipi/ConversationImmersion.swift": "27a91664b539182a6459fd5ecab71e1f4d852b03cf4d58f2d41235baf889380c",
+    "ios/Vipi/OnboardingView.swift": "16a62cfd3917291654dae22683b1a7134c71c8a915e03de8c90e1b059b829dbf",
+    "ios/Vipi/ThirdPartyNotices/index.json": "bc9855492428f3ed087e1a46969f210bcb615ff43adf81336d5adaec81261e02",
+    "ios/Vipi/ThirdPartyNotices/license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
+    "ios/VipiCryptoTests/ConversationImmersionTests.swift": "69610dc8a04a17894549d268e64b95772301cb894d0be3f4b66514454e65242e",
+    "ios/VipiUITests/ChatImmersionTests.swift": "e431951cc8abbfba3e26b63496057ea7e883ef2e1167dded87ce43f21273c26e",
+    "data/readings/chinese-ordinary.json": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+    "data/readings/chinese-ordinary.provenance.json": "c0d3d089e591e0a4fd08d587242eeab6b6d26d191e23f41da77f3446edc6a6ef",
+    "data/readings/chinese-quality-debt.json": "20ae33aeed9790157e98c151eb4919ca2f7dfe4d8953cd71d8d7cd692be9d054"
+  },
+  "bundle": {
+    "files": {
+      "chinese-ordinary.json": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+      "ThirdPartyNotices/index.json": "bc9855492428f3ed087e1a46969f210bcb615ff43adf81336d5adaec81261e02",
+      "ThirdPartyNotices/license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2"
+    },
+    "data_bytes": 773812,
+    "model_download": false,
+    "QA_documents_not_used": true
+  },
+  "build": {
+    "exit": 0,
+    "seconds": 57.65600299835205,
+    "guest_before_bytes": 852701184,
+    "guest_after_bytes": 847470592,
+    "guest_minimum_bytes": 820269056,
+    "declared_peak_additional_bytes": 268435456,
+    "guest_margin_bytes": 536870912,
+    "no_models_or_dependency_updates": true,
+    "current_dd_reused": true
+  },
+  "tests": {
+    "groups": [
+      {
+        "group": "coordinator",
+        "exit": 0,
+        "seconds": 13.215696096420288,
+        "selectors": [
+          "VipiCryptoTests/ConversationImmersionTests/testFullAuthoredReadingIsResolvedOnceOutsideRenderingAndClearedWithIdentity",
+          "VipiCryptoTests/ConversationImmersionTests/testBundledFullReadingKeepsAuthoredPrecedenceAndOriginalSpeech",
+          "VipiCryptoTests/ConversationImmersionTests/testSlowReadingDoesNotDelayTranslationAudioOrAnotherRowAndCannotPublishAfterClose"
+        ]
+      },
+      {
+        "group": "display",
+        "exit": 0,
+        "seconds": 61.37820625305176,
+        "selectors": [
+          "VipiUITests/ChatImmersionTests/testChineseFullReadingUsesBundledReaderAndOriginalScript",
+          "VipiUITests/ChatImmersionTests/testDelayedFullReadingPreservesProductionHistoryAnchor"
+        ]
+      }
+    ],
+    "seconds": 80.59351015090942,
+    "guest_before": 844677120,
+    "guest_after": 764817408,
+    "guest_minimum": 717651968,
+    "binaries": {
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib": "f6713cb9b405dda58933c3c90eab4887e3276b96114a69308bd900374c54fcf9",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "ad78f17460a191a92781a597a15cd8d19a832744f16432631825261f71bc1559",
+      "/Users/lume/Development/apple-build-qualification-20261029/VipiDerivedData/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "f12ee1bd4d970c56001be646d28d08201c4663b3ed03ed508a65e5a1fc8b763c"
+    },
+    "local_only": true,
+    "supplied_target_or_injected_translation": true,
+    "live_provider_claim": false,
+    "bundled_data_sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
+    "QA_enable_flag": false,
+    "QA_documents_copied": false
+  },
+  "passed_methods": 5,
+  "ui_geometry": {
+    "fresh_translation_provider": false,
+    "history_mode_retained": true,
+    "latin": {
+      "height": 197.33333333333306,
+      "width": 267.3333333333333,
+      "x": 71,
+      "y": 205.6111111111119
+    },
+    "script": {
+      "height": 130.333333333333,
+      "width": 250,
+      "x": 71,
+      "y": 205.6111111111119
+    },
+    "supplied_authored_reference": true,
+    "timeline_after": {
+      "height": 702.333333333333,
+      "width": 402,
+      "x": 0,
+      "y": 171.66666666666697
+    },
+    "timeline_before": {
+      "height": 702.333333333333,
+      "width": 402,
+      "x": 0,
+      "y": 171.66666666666697
+    }
+  },
+  "native_layout_preflight": {
+    "available_width": 298,
+    "font": ".SFUI-Regular",
+    "latin_height": 197.248046875,
+    "point_size": 53,
+    "script_height": 130.248046875
+  },
+  "frames": {
+    "3A7DF3E0-44C7-44DA-BF61-0107E50C90EE.png": "b2305159a0267bfdb0c118814cd485e2be4d7a37ee2eaf59391e2630c476354a",
+    "6A40C6BB-4259-4B85-A32A-425D35317CAA.png": "a41e825e8bec79821e82fb8a88d5afbbd38b29d30f03e2161ed6bfc312e4a123",
+    "7B3A99BF-F5A4-4C23-AF8D-99EF6A032E60.png": "119d1c4eae852d849fc9ed917f9683cbc9bfe14b0fd2d00c914f683b274b630d",
+    "9E340F1D-EDFD-4492-A3D1-2D07BF0996D9.png": "428a475970366575afc8c2ff6e8cbc3e0f4fac766ce04791e79e09f8c622fd5e",
+    "DADF9440-E3BE-4A2F-9C8F-B057440AC354.png": "e16fbde270ea7c0958ee53965f2bc3e4a6ed54f23609d01c8bd09e6caccd3a2a"
+  },
+  "capacity": {
+    "native_minimum_bytes": 1874640896,
+    "guest_minimum_bytes": 717651968,
+    "normal_native_reserve": 1073741824,
+    "overall_test_peak_reservation": 268435456,
+    "guest_margin": 536870912,
+    "per_next_group_bound": 134217728,
+    "basis": "Recent single-group actual50MiBpeak; two groups share overall256MiB reservation. No model/dependency downloads."
+  },
+  "visual_review": "Five native dark largest-font frames inspected. Chinese guide/script/unknown state are readable; actual authored Japanese timeline grows130.33\u2192197.33pt with unchanged205.611pttop and402\u00d7702.33viewport. QA-only large navigation title truncation is retained, not shipping UI.",
+  "quality_debt": "data/readings/chinese-quality-debt.json;10known contextual syllable-error messages in reused332diagnostic. No blanket phonetic/population claim or sentence patches.",
+  "limits": [
+    "Simulator app/resource/display/cache proof; not physical Apple translation or store acceptance.",
+    "Full targets supplied for component QA; delayed timeline uses existing authored reference and synthetic transport.",
+    "Other store/provider/privacy/device gates remain open."
+  ]
+}

@@ -148,6 +148,19 @@ struct ReauthenticationQualificationView: View {
 
 /// Isolated synthetic history for native UI automation. No service requests or
 /// changes to the signed-in account. Entire harness is absent from Release.
+private actor TimelineReadingGate {
+    private var opened = false
+    private var waiting: [CheckedContinuation<Void, Never>] = []
+    func hold() async {
+        guard !opened else { return }
+        await withCheckedContinuation { waiting.append($0) }
+    }
+    func release() {
+        opened = true; let pending = waiting; waiting.removeAll()
+        for value in pending { value.resume() }
+    }
+}
+
 struct TimelineQualificationView: View {
     @State private var chat: ChatSession?
     @State private var owner = UUID()
@@ -155,12 +168,23 @@ struct TimelineQualificationView: View {
     @State private var user = "timeline-ui-" + UUID().uuidString
     @State private var status = "Preparing synthetic conversation"
     @State private var finished = false
+    @State private var readingGate = TimelineReadingGate()
+    @State private var readingOwner: ConversationImmersion?
+    @State private var readingReleased = false
+    private var delayedReading: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-delayed-reading-qa") }
     var body: some View {
         NavigationStack {
             Group {
-                if let chat { FriendConversationView(chat: chat, peer: peer) }
+                if let chat { FriendConversationView(chat: chat, peer: peer, immersion: readingOwner) }
                 else { Text(status).accessibilityIdentifier("timeline-qa-status") }
             }.toolbar {
+                if delayedReading && !readingReleased {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Release reading") {
+                            readingReleased = true; Task { await readingGate.release() }
+                        }.accessibilityIdentifier("timeline-qa-release-reading")
+                    }
+                }
                 if !ProcessInfo.processInfo.arguments.contains("-vipi-timeline-audit") {
                     ToolbarItem(placement: .topBarLeading) {
                         if let chat { Button("Append QA") { try? chat.send("Appended while reading earlier messages.", peer: peer) }.accessibilityIdentifier("timeline-qa-append") }
@@ -181,6 +205,13 @@ struct TimelineQualificationView: View {
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
+                if delayedReading {
+                    let gate = readingGate
+                    readingOwner = ConversationImmersion(modelStatus: { _ in .unsupported }, fullReadingProducer: { text, language in
+                        await gate.hold()
+                        return FullSentenceReadings.resolve(text, language: language)
+                    })
+                }
                 let immersionQA = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-chat-qa")
                 let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-source-unit-routing-qa")
                     ? ["I need water. Did you finish the report?"]
@@ -203,7 +234,7 @@ struct TimelineQualificationView: View {
                 }
                 chat = value
             } catch { status = "Fixture failed: \(error.localizedDescription)" }
-        }
+        }.onDisappear { Task { await readingGate.release() } }
     }
     private func finish() {
         do {

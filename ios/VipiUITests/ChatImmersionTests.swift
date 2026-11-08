@@ -1,11 +1,105 @@
 import XCTest
+import UIKit
 
 final class ChatImmersionTests: XCTestCase {
 
-    @MainActor func testGatedChineseFullReadingUsesNativeDisplayAndOriginalScript() throws {
+    @MainActor func testDelayedFullReadingPreservesProductionHistoryAnchor() throws {
+        continueAfterFailure = false
+        let layoutTrait = UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)
+        let layoutFont = UIFont.preferredFont(forTextStyle: .body, compatibleWith: layoutTrait)
+        // The production outgoing row deducts 18pt outer padding twice,
+        // 38pt leading space, and 15pt inner padding twice.
+        // The UI-test host's UIScreen can report its compatibility width.
+        // Read the actual simulator display through the accessibility host.
+        let displayWidth = XCUIApplication(bundleIdentifier: "com.apple.springboard").frame.width
+        XCTAssertGreaterThan(displayWidth, 104)
+        let layoutWidth = min(displayWidth, 680) - 104
+        let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5
+        func measuredHeight(_ text: String) -> CGFloat {
+            (text as NSString).boundingRect(with: CGSize(width: layoutWidth, height: .greatestFiniteMagnitude),
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                attributes: [.font: layoutFont, .paragraphStyle: paragraph], context: nil).height
+        }
+        let scriptHeight = measuredHeight("私は音楽が好きです。")
+        let readingHeight = measuredHeight("Watashi wa ongaku ga suki desu.")
+        let layoutReceipt = XCTAttachment(data: try JSONSerialization.data(withJSONObject: [
+            "font": layoutFont.fontName, "point_size": layoutFont.pointSize,
+            "available_width": layoutWidth, "script_height": scriptHeight, "latin_height": readingHeight
+        ], options: [.prettyPrinted, .sortedKeys]), uniformTypeIdentifier: "public.json")
+        layoutReceipt.name = "delayed-reading-native-layout-preflight"; layoutReceipt.lifetime = .keepAlways; add(layoutReceipt)
+        XCTAssertGreaterThan(readingHeight, scriptHeight + 5, "Do not launch the UI with a fixture that has no native text growth")
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-history-qa",
+            "-vipi-immersion-single-qa", "-vipi-delayed-reading-qa", "-vipi-timeline-audit",
+            "-vipi-source", "en", "-vipi-target", "ja", "-vipi-appearance-dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        defer {
+            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
+            XCTAssertTrue(app.staticTexts["Synthetic conversation removed"].waitForExistence(timeout: 10))
+            app.terminate()
+        }
+        let timeline = app.scrollViews["conversation-timeline"]
+        let readingOptions = app.buttons.matching(identifier: "Reading options")
+        XCTAssertTrue(readingOptions.firstMatch.waitForExistence(timeout: 30))
+        timeline.swipeDown(); timeline.swipeDown()
+        let jump = app.buttons["conversation-latest"]
+        XCTAssertTrue(jump.waitForExistence(timeout: 5))
+        let bounds = timeline.frame
+        var chosen: XCUIElement?
+        var closest = CGFloat.greatestFiniteMagnitude
+        for button in readingOptions.allElementsBoundByIndex {
+            let frame = button.frame
+            guard button.isHittable, frame.minY > bounds.minY + 40, frame.maxY < bounds.maxY - 40 else { continue }
+            let distance = abs(frame.midY - bounds.midY)
+            if distance < closest { closest = distance; chosen = button }
+        }
+        let options = try XCTUnwrap(chosen)
+        options.tap(); app.buttons["Japanese"].tap()
+        let script = app.staticTexts["私は音楽が好きです。"]
+        XCTAssertTrue(script.waitForExistence(timeout: 5))
+        XCTAssertTrue(script.isHittable)
+        // At the largest text size the selected row's menu can be visible
+        // while its text starts above the viewport. Put the actual text into
+        // a reading position before measuring the later metadata update.
+        for _ in 0..<3 {
+            let frame = script.frame, viewport = timeline.frame
+            let target = viewport.minY + 24
+            if abs(frame.minY - target) < 24 { break }
+            let shift = min(viewport.height * 0.45, max(-viewport.height * 0.45, target - frame.minY))
+            let start = timeline.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: shift > 0 ? 0.3 : 0.7))
+            start.press(forDuration: 0.1, thenDragTo: start.withOffset(CGVector(dx: 0, dy: shift)),
+                withVelocity: .slow, thenHoldForDuration: 1)
+        }
+        let before = script.frame, viewport = timeline.frame
+        XCTAssertEqual(viewport.width, displayWidth, accuracy: 1)
+        XCTAssertGreaterThanOrEqual(before.minY, viewport.minY)
+        XCTAssertLessThan(before.minY, viewport.midY)
+        XCTAssertTrue(jump.exists)
+        capture("ios-delayed-reading-history-script")
+        app.buttons["timeline-qa-release-reading"].tap()
+        let latin = app.staticTexts["Watashi wa ongaku ga suki desu."]
+        XCTAssertTrue(latin.waitForExistence(timeout: 10))
+        let after = latin.frame
+        capture("ios-delayed-reading-history-latin")
+        func box(_ rect: CGRect) -> [String: Double] { ["x": rect.minX, "y": rect.minY, "width": rect.width, "height": rect.height] }
+        let data = try JSONSerialization.data(withJSONObject: ["script": box(before), "latin": box(after),
+            "timeline_before": box(viewport), "timeline_after": box(timeline.frame),
+            "history_mode_retained": jump.exists, "supplied_authored_reference": true, "fresh_translation_provider": false], options: [.prettyPrinted, .sortedKeys])
+        let receipt = XCTAttachment(data: data, uniformTypeIdentifier: "public.json")
+        receipt.name = "delayed-reading-history-geometry"; receipt.lifetime = .keepAlways; add(receipt)
+        XCTAssertGreaterThan(after.intersection(timeline.frame).height, 0)
+        XCTAssertGreaterThan(after.height, before.height + 5, "The fixture must exercise actual row growth")
+        XCTAssertEqual(after.minY, before.minY, accuracy: 3)
+        XCTAssertEqual(timeline.frame.minY, viewport.minY, accuracy: 1)
+        XCTAssertEqual(timeline.frame.height, viewport.height, accuracy: 1)
+        XCTAssertTrue(jump.exists, "Metadata must not change older-reading intent")
+    }
+
+    @MainActor func testChineseFullReadingUsesBundledReaderAndOriginalScript() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-full-reading-qa", "-vipi-chinese-reading-qa", "-vipi-appearance-dark",
+        app.launchArguments = ["-vipi-full-reading-qa", "-vipi-appearance-dark",
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch(); defer { app.terminate() }
         let latin = app.staticTexts["yin hang hang zhang zheng zai zou lu。"]

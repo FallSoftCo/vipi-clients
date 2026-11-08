@@ -41,8 +41,8 @@ enum SentenceReadings {
 }
 
 /// Full-text display metadata, resolved outside SwiftUI rendering. Reviewed
-/// authored readings always take precedence. The new local adapter is opt-in
-/// Debug QA only; its data is not a shipping resource or model download.
+/// authored readings always take precedence. The ordinary Chinese guide uses
+/// pinned bundled data; original-script audio remains pronunciation authority.
 struct FullSentenceReadings: Sendable {
     let chinese: ChineseFullReading?
     func reading(_ text: String, language: String) -> FullReading? {
@@ -53,33 +53,22 @@ struct FullSentenceReadings: Sendable {
               let result = try? chinese.resolve(text), let reading = result.reading else { return nil }
         return .init(text: reading, provenance: .localTransliteration)
     }
-    #if DEBUG
-    private static let candidateEnabled = ProcessInfo.processInfo.arguments.contains("-vipi-chinese-reading-qa")
-    #endif
-    static let policy: String = {
-        #if DEBUG
-        if candidateEnabled { return "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 }
-        #endif
-        return "authored-sentence-readings-1"
-    }()
+    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256
     private static let current: Self = {
-        #if DEBUG
-        if candidateEnabled {
-            let file = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("chinese-reading-qa/ordinary-data.json")
-            // The parser verifies the exact pinned size, hash and schema.
-            if (try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) == 773_812,
-               let bytes = try? Data(contentsOf: file), let reader = try? ChineseFullReading(data: bytes) {
-                return .init(chinese: reader)
-            }
+        // Static initialization runs once inside the off-render cache producer.
+        // Missing or changed data leaves authored readings usable.
+        if let file = Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"),
+           (try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) == 773_812,
+           let bytes = try? Data(contentsOf: file), let reader = try? ChineseFullReading(data: bytes) {
+            return .init(chinese: reader)
         }
-        #endif
         return .init(chinese: nil)
     }()
     static func resolve(_ text: String, language: String) -> FullReading? {
         if let authored = SentenceReadings.reading(text, language: language) {
             return .init(text: authored, provenance: .authored)
         }
+        guard language == "zh" else { return nil }
         return current.reading(text, language: language)
     }
 }

@@ -130,7 +130,7 @@ struct FriendConversationView: View {
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var typeSize
-    @State private var immersion = ConversationImmersion()
+    @State private var immersion: ConversationImmersion
     @State private var speech = SpeechPlayback()
     @ScaledMetric(relativeTo: .body) private var metadataSize = 12
     let chat: ChatSession
@@ -166,6 +166,10 @@ struct FriendConversationView: View {
     private var messageNotice: String? { error ?? chat.notice }
     private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @FocusState private var composing: Bool
+    init(chat: ChatSession, peer: UUID, immersion: ConversationImmersion? = nil) {
+        self.chat = chat; self.peer = peer
+        _immersion = State(initialValue: immersion ?? ConversationImmersion())
+    }
     private func cancelPageRestoration() {
         pageRestore?.cancel(); pageRestore = nil; pageAnchorID = nil
     }
