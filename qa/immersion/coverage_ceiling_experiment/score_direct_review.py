@@ -16,7 +16,7 @@ def summaries(comparison, review):
     labels = {(r["id"], r["target"], scope(s)): s["label"] for r in review["rows"] for s in r["spans"]}
     result = []
     for target in sorted({r["target"] for r in comparison["rows"]}):
-        for corpus in ("all", "SMS", "Taskmaster"):
+        for corpus in ["all", *sorted({r["corpus"] for r in comparison["rows"]})]:
             for length in ("all", "1-5", "6-15", "16-30", "31+"):
                 rows = [r for r in comparison["rows"] if r["target"] == target
                         and (corpus == "all" or r["corpus"] == corpus)

@@ -189,7 +189,7 @@ def main():
                      "candidate_rejections": rejection_counts, "aligned_candidates": candidates, "arms": arms})
     summary = []
     for target in sorted({r["target"] for r in rows}):
-        for corpus in ("all", "SMS", "Taskmaster"):
+        for corpus in ["all", *sorted({r["corpus"] for r in rows})]:
             for length in ("all", "1-5", "6-15", "16-30", "31+"):
                 group = [r for r in rows if r["target"] == target and (corpus == "all" or r["corpus"] == corpus)
                          and (length == "all" or r["length_bin"] == length)]

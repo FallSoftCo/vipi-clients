@@ -1,0 +1,5111 @@
+{
+  "schema": "vipi-qvac-nano-provider-author-review-1",
+  "production": false,
+  "capture_sha256": "bfeb194e68798332982f396d946b99b9d2b0e61806f7884b88891de7374cd55f",
+  "reviewer": "Current Codex immersion agent; not independent bilingual gold. Labels fixed before joining ML Kit labels.",
+  "scope": "Exact AfriNano Base INTGEMM plus Bergamot0.4.5 configuration. Numerical parity with current official runtime unproven; do not attribute all errors conclusively to model weights.",
+  "compatibility_audit": "qvac-source-audit-r01/compatibility-audit-r01.json",
+  "rows": [
+    {
+      "id": "uci-sms-line-4088",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Lemme know when you're here",
+      "translation": "Lema anakujuwa kama upo hapa",
+      "provider_source": "##SW Lemme know when you're here",
+      "elapsed_ms": 290.07049300707877,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          23,
+          27
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Let me know becomes Lema knows."
+    },
+    {
+      "id": "uci-sms-line-4768",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Whens your radio show?",
+      "translation": "Ni wakati gani wa kipindi chako cha redio?",
+      "provider_source": "##SW Whens your radio show?",
+      "elapsed_ms": 50.092194927856326,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          11,
+          16
+        ],
+        [
+          17,
+          21
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Question about radio programme appears preserved."
+    },
+    {
+      "id": "uci-sms-line-2868",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Smith waste da.i wanna gayle.",
+      "translation": "Smith taka da.i wanna gayle.",
+      "provider_source": "##SW Smith waste da.i wanna gayle.",
+      "elapsed_ms": 58.505091117694974,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          17,
+          22
+        ],
+        [
+          23,
+          28
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Slang and names largely copied; cannot approve."
+    },
+    {
+      "id": "uci-sms-line-3935",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Playin space poker, u?",
+      "translation": "Kucheza nafasi poker, wewe?",
+      "provider_source": "##SW Playin space poker, u?",
+      "elapsed_ms": 45.453296042978764,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          20,
+          21
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Space-poker phrase uncertain."
+    },
+    {
+      "id": "uci-sms-line-5537",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Ok which your another number",
+      "translation": "Sawa ambayo idadi yako nyingine",
+      "provider_source": "##SW Ok which your another number",
+      "elapsed_ms": 33.98102498613298,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          14,
+          21
+        ],
+        [
+          22,
+          28
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Number request fragment awkward; uncertain."
+    },
+    {
+      "id": "uci-sms-line-4707",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Hey anyway i have to :-)",
+      "translation": "Hey anyway, na na na na na na :-)",
+      "provider_source": "##SW Hey anyway i have to :-)",
+      "elapsed_ms": 83.03326996974647,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          18,
+          20
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Repetitive na sequence replaces content."
+    },
+    {
+      "id": "uci-sms-line-277",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Thanx...",
+      "translation": "Thanx...",
+      "provider_source": "##SW Thanx...",
+      "elapsed_ms": 19.960591103881598,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ]
+      ],
+      "label": "unchanged",
+      "finding": "Untranslated Thanx."
+    },
+    {
+      "id": "uci-sms-line-2084",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "I'm done oredi...",
+      "translation": "I'm gonna make ya or...",
+      "provider_source": "##SW I'm done oredi...",
+      "elapsed_ms": 55.011610966175795,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          14
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Done becomes gonna make; meaning changed."
+    },
+    {
+      "id": "uci-sms-line-860",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Spoons it is then okay?",
+      "translation": "Je, baada ya hapo ni sawa?",
+      "provider_source": "##SW Spoons it is then okay?",
+      "elapsed_ms": 57.31292301788926,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          18,
+          22
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Spoon contents omitted."
+    },
+    {
+      "id": "uci-sms-line-4999",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Esplanade lor. Where else...",
+      "translation": "Esplanade lor. U wapi mwingine ... .... . . U wapi mwingine .... . . . U wapi mwingine .... U",
+      "provider_source": "##SW Esplanade lor. Where else...",
+      "elapsed_ms": 207.9245939385146,
+      "native_source_word_ranges": [
+        [
+          0,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          15,
+          20
+        ],
+        [
+          21,
+          25
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Repeated where-else fragment."
+    },
+    {
+      "id": "uci-sms-line-4895",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Send me the new number",
+      "translation": "Nitumie namba mpya",
+      "provider_source": "##SW Send me the new number",
+      "elapsed_ms": 32.680891919881105,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          22
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Send new number preserved."
+    },
+    {
+      "id": "uci-sms-line-3657",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "1-5",
+      "original": "Senthil group company Apnt 5pm.",
+      "translation": "Kampuni ya Senthil ya Apnt 5pm.",
+      "provider_source": "##SW Senthil group company Apnt 5pm.",
+      "elapsed_ms": 71.36955508030951,
+      "native_source_word_ranges": [
+        [
+          0,
+          7
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          14,
+          21
+        ],
+        [
+          22,
+          26
+        ],
+        [
+          27,
+          30
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Group/appointment scope unclear."
+    },
+    {
+      "id": "uci-sms-line-2330",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "That day you asked about anand number. Why:-)",
+      "translation": "Siku hiyo uliuliza kuhusu idadi ya Anand. Kwa sababu); sababu;); sababu;); sababu;); sababu;); sababu;); sababu;); sababu ya:):)) na:;-) na:;-)",
+      "provider_source": "##SW That day you asked about anand number. Why:-)",
+      "elapsed_ms": 263.1146409548819,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          19,
+          24
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          31,
+          37
+        ],
+        [
+          39,
+          42
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Why changes to because/repetition."
+    },
+    {
+      "id": "uci-sms-line-2434",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Really dun bluff me leh... U sleep early too. Nite...",
+      "translation": "Kwa kweli dun bluff me... Ulale mapema pia u mapema. ulala mapema pia. mapema. ulala mapema. ......ni ......ni ......ni .........ni .........ni...? Ni......? Ni......? Ni ......? Ni...? Ni...",
+      "provider_source": "##SW Really dun bluff me leh... U sleep early too. Nite...",
+      "elapsed_ms": 344.80664506554604,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          11,
+          16
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          20,
+          23
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          29,
+          34
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          41,
+          44
+        ],
+        [
+          46,
+          50
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Long repetition; original proposition not recoverable."
+    },
+    {
+      "id": "uci-sms-line-2826",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "No need to buy lunch for me.. I eat maggi mee..",
+      "translation": "Hakuna haja ya kununua chakula cha mchana kwa ajili yangu. . . I eat maggi kame.....",
+      "provider_source": "##SW No need to buy lunch for me.. I eat maggi mee..",
+      "elapsed_ms": 157.67358802258968,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          11,
+          14
+        ],
+        [
+          15,
+          20
+        ],
+        [
+          21,
+          24
+        ],
+        [
+          25,
+          27
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          32,
+          35
+        ],
+        [
+          36,
+          41
+        ],
+        [
+          42,
+          45
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Main no-lunch request preserved but Maggi clause uncertain."
+    },
+    {
+      "id": "uci-sms-line-4179",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Ok lor then we go tog lor...",
+      "translation": "Ok lor then we go tog lor...",
+      "provider_source": "##SW Ok lor then we go tog lor...",
+      "elapsed_ms": 68.2651768438518,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          17
+        ],
+        [
+          18,
+          21
+        ],
+        [
+          22,
+          25
+        ]
+      ],
+      "label": "unchanged",
+      "finding": "Copied original slang."
+    },
+    {
+      "id": "uci-sms-line-496",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Are you free now?can i call now?",
+      "translation": "Je, wewe ni huru sasa? - Je, unaweza kupiga simu?",
+      "provider_source": "##SW Are you free now?can i call now?",
+      "elapsed_ms": 81.60547399893403,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          28,
+          31
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Can I call becomes can you call."
+    },
+    {
+      "id": "uci-sms-line-1440",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Arms fine, how's Cardiff and uni? ",
+      "translation": "Naibu Spika wa Muda, kuna nini ndani na nje ya Muungano? ",
+      "provider_source": "##SW Arms fine, how's Cardiff and uni? ",
+      "elapsed_ms": 82.18949404545128,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          11,
+          16
+        ],
+        [
+          17,
+          24
+        ],
+        [
+          25,
+          28
+        ],
+        [
+          29,
+          32
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Political Deputy Speaker/unity content hallucinated."
+    },
+    {
+      "id": "uci-sms-line-2242",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "K I'll call you when I'm close",
+      "translation": "I'll call you nipo karibu",
+      "provider_source": "##SW K I'll call you when I'm close",
+      "elapsed_ms": 51.08180781826377,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          21,
+          24
+        ],
+        [
+          25,
+          30
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Conditional when-close relation lost in mixed untranslated sentence."
+    },
+    {
+      "id": "uci-sms-line-4023",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "We have to pick rayan macleran there.",
+      "translation": "Lazima tuchukue rayan macleran hapo.",
+      "provider_source": "##SW We have to pick rayan macleran there.",
+      "elapsed_ms": 66.01657997816801,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          21
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          31,
+          36
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Pick up Rayan at place appears preserved."
+    },
+    {
+      "id": "uci-sms-line-443",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "You were supposed to wake ME up &gt;:(",
+      "translation": "Wake Me Up & Gt;)",
+      "provider_source": "##SW You were supposed to wake ME up &gt;:(",
+      "elapsed_ms": 54.67788293026388,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          26,
+          28
+        ],
+        [
+          29,
+          31
+        ],
+        [
+          33,
+          35
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Wake-up obligation omitted; English fragment."
+    },
+    {
+      "id": "uci-sms-line-2915",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Kindly send some one to our flat before  &lt;DECIMAL&gt;  today.",
+      "translation": "Kwa upole kutuma moja kwa moja kwenye gorofa yetu kabla ya &lt;&lt;;&gt; leo.",
+      "provider_source": "##SW Kindly send some one to our flat before  &lt;DECIMAL&gt;  today.",
+      "elapsed_ms": 163.15344697795808,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          28,
+          32
+        ],
+        [
+          33,
+          39
+        ],
+        [
+          42,
+          44
+        ],
+        [
+          45,
+          52
+        ],
+        [
+          53,
+          55
+        ],
+        [
+          58,
+          63
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Placeholder and instruction corrupted."
+    },
+    {
+      "id": "uci-sms-line-3968",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "I was just callin to say hi. Take care bruv!",
+      "translation": "Nilikuwa naongea tu kusema eeh. Kuwa na utunzaji wa bruv! Kuwa na uangalifu wa bruv!!",
+      "provider_source": "##SW I was just callin to say hi. Take care bruv!",
+      "elapsed_ms": 146.75077912397683,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          11,
+          17
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          21,
+          24
+        ],
+        [
+          25,
+          27
+        ],
+        [
+          29,
+          33
+        ],
+        [
+          34,
+          38
+        ],
+        [
+          39,
+          43
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Call/check-in ending unclear."
+    },
+    {
+      "id": "uci-sms-line-3828",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "6-15",
+      "original": "Goodmorning,my grandfather expired..so am on leave today.",
+      "translation": "Mheshimiwa Mwenyekiti, kwa hiyo, leo ni siku ya mapumziko.",
+      "provider_source": "##SW Goodmorning,my grandfather expired..so am on leave today.",
+      "elapsed_ms": 91.13751095719635,
+      "native_source_word_ranges": [
+        [
+          0,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          26
+        ],
+        [
+          27,
+          34
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          39,
+          41
+        ],
+        [
+          42,
+          44
+        ],
+        [
+          45,
+          50
+        ],
+        [
+          51,
+          56
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Grandfather death omitted and Chairman/day-off content introduced."
+    },
+    {
+      "id": "uci-sms-line-1232",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "I want to send something that can sell fast.  &lt;#&gt; k is not easy money.",
+      "translation": "Ninataka kutuma kitu ambacho kinaweza kuuza haraka. &#&gt; k si pesa rahisi.",
+      "provider_source": "##SW I want to send something that can sell fast.  &lt;#&gt; k is not easy money.",
+      "elapsed_ms": 127.44735600426793,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          15,
+          24
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          30,
+          33
+        ],
+        [
+          34,
+          38
+        ],
+        [
+          39,
+          43
+        ],
+        [
+          47,
+          49
+        ],
+        [
+          52,
+          54
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          60
+        ],
+        [
+          61,
+          64
+        ],
+        [
+          65,
+          69
+        ],
+        [
+          70,
+          75
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Send fast/money partially retained; corrupted placeholder."
+    },
+    {
+      "id": "uci-sms-line-719",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "translation": "Somo gani? wewe msg me... Baada ya kazi, nita nita nikiita baada ya kazi au sth ...... I'll get the specs. I'll get the specs. I'll kupata.. I'll kupata.. I'll kupata.. I'll kupata.. I' washiriki wangu ni PX3748 washiriki wangu ni PX3748 washiriki wangu ni PX3748",
+      "provider_source": "##SW Book which lesson? then you msg me... I will call up after work or sth... I'm going to get specs. My membership is PX3748",
+      "elapsed_ms": 452.4964632000774,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          11,
+          17
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          32,
+          34
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          45,
+          49
+        ],
+        [
+          50,
+          52
+        ],
+        [
+          53,
+          58
+        ],
+        [
+          59,
+          63
+        ],
+        [
+          64,
+          66
+        ],
+        [
+          67,
+          70
+        ],
+        [
+          74,
+          77
+        ],
+        [
+          78,
+          83
+        ],
+        [
+          84,
+          86
+        ],
+        [
+          87,
+          90
+        ],
+        [
+          91,
+          96
+        ],
+        [
+          98,
+          100
+        ],
+        [
+          101,
+          111
+        ],
+        [
+          112,
+          114
+        ],
+        [
+          115,
+          121
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Booking lesson becomes repeated unrelated membership text."
+    },
+    {
+      "id": "uci-sms-line-2542",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "translation": "Walisema ikiwa theluji yake itaanza majira ya saa 8 au 9 jioni tonite! Wao ni utabiri wa moja inch ya accumulation. wao ni ku utabiri wa accumulation.",
+      "provider_source": "##SW They said if its gonna snow, it will start around 8 or 9 pm tonite! They are predicting an inch of accumulation.",
+      "elapsed_ms": 266.1898119840771,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          16
+        ],
+        [
+          17,
+          22
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          29,
+          31
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          37,
+          42
+        ],
+        [
+          43,
+          49
+        ],
+        [
+          52,
+          54
+        ],
+        [
+          57,
+          59
+        ],
+        [
+          60,
+          66
+        ],
+        [
+          68,
+          72
+        ],
+        [
+          73,
+          76
+        ],
+        [
+          77,
+          87
+        ],
+        [
+          88,
+          90
+        ],
+        [
+          91,
+          95
+        ],
+        [
+          96,
+          98
+        ],
+        [
+          99,
+          111
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Snow/accumulation clauses corrupted/repeated."
+    },
+    {
+      "id": "uci-sms-line-2172",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "\"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "translation": "\"Naomba tafadhali ingia sasa juu ya IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2doCD.PSE DONLEASE DONLEASE DONTIGRE MYCALLS,U NO THECD ISV.IMPORTNT T 4 2MORO\"",
+      "provider_source": "##SW \"CAN I PLEASE COME UP NOW IMIN TOWN.DONTMATTER IF URGOIN OUTL8R,JUST REALLYNEED 2DOCD.PLEASE DONTPLEASE DONTIGNORE MYCALLS,U NO THECD ISV.IMPORTANT TOME 4 2MORO\"",
+      "elapsed_ms": 542.8696661256254,
+      "native_source_word_ranges": [
+        [
+          1,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          19,
+          21
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          31,
+          46
+        ],
+        [
+          47,
+          49
+        ],
+        [
+          50,
+          56
+        ],
+        [
+          57,
+          63
+        ],
+        [
+          64,
+          68
+        ],
+        [
+          69,
+          79
+        ],
+        [
+          80,
+          92
+        ],
+        [
+          93,
+          103
+        ],
+        [
+          104,
+          114
+        ],
+        [
+          115,
+          122
+        ],
+        [
+          123,
+          124
+        ],
+        [
+          125,
+          127
+        ],
+        [
+          128,
+          133
+        ],
+        [
+          134,
+          147
+        ],
+        [
+          148,
+          152
+        ],
+        [
+          155,
+          160
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Uppercase SMS largely copied with identifier changes."
+    },
+    {
+      "id": "uci-sms-line-1698",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Sorry man, my stash ran dry last night and I can't pick up more until sunday",
+      "translation": "I'm sorry but I can't take it zaidi ya mwaka mmoja uliopita",
+      "provider_source": "##SW Sorry man, my stash ran dry last night and I can't pick up more until sunday",
+      "elapsed_ms": 133.96359398029745,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          14,
+          19
+        ],
+        [
+          20,
+          23
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          28,
+          32
+        ],
+        [
+          33,
+          38
+        ],
+        [
+          39,
+          42
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          45,
+          50
+        ],
+        [
+          51,
+          55
+        ],
+        [
+          56,
+          58
+        ],
+        [
+          59,
+          63
+        ],
+        [
+          64,
+          69
+        ],
+        [
+          70,
+          76
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Stash ran dry becomes unrelated year/time statement."
+    },
+    {
+      "id": "uci-sms-line-395",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down",
+      "translation": "Ndiyo, nafikiri hivyo. Niko katika ofisi lakini lap yangu iko ndani ya chumba nadhani ni hivyo katika siku za mwisho wa siku chache zilizopita. I dont shut that down kwamba mimi si chini ya down kwamba mimi kuweka down kwamba mimi",
+      "provider_source": "##SW Yes i think so. I am in office but my lap is in room i think thats on for the last few days. I didnt shut that down",
+      "elapsed_ms": 321.95704989135265,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          35,
+          37
+        ],
+        [
+          38,
+          41
+        ],
+        [
+          42,
+          44
+        ],
+        [
+          45,
+          47
+        ],
+        [
+          48,
+          52
+        ],
+        [
+          53,
+          54
+        ],
+        [
+          55,
+          60
+        ],
+        [
+          61,
+          66
+        ],
+        [
+          67,
+          69
+        ],
+        [
+          70,
+          73
+        ],
+        [
+          74,
+          77
+        ],
+        [
+          78,
+          82
+        ],
+        [
+          83,
+          86
+        ],
+        [
+          87,
+          91
+        ],
+        [
+          93,
+          94
+        ],
+        [
+          95,
+          100
+        ],
+        [
+          101,
+          105
+        ],
+        [
+          106,
+          110
+        ],
+        [
+          111,
+          115
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Laptop situation corrupted with repetition."
+    },
+    {
+      "id": "uci-sms-line-4272",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Great. Hope you are using your connections from mode men also cos you can never know why old friends can lead you to today",
+      "translation": "Kubwa. I matumaini kuwa una kutumia uhusiano wako kutoka kwa wanaume wa hali pia cos huwezi kujua kamwe kwa nini marafiki wa zamani wa zamani wanaweza kuku kuongoza wewe hadi leo",
+      "provider_source": "##SW Great. Hope you are using your connections from mode men also cos you can never know why old friends can lead you to today",
+      "elapsed_ms": 240.4530430212617,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          19
+        ],
+        [
+          20,
+          25
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          31,
+          42
+        ],
+        [
+          43,
+          47
+        ],
+        [
+          48,
+          52
+        ],
+        [
+          53,
+          56
+        ],
+        [
+          57,
+          61
+        ],
+        [
+          62,
+          65
+        ],
+        [
+          66,
+          69
+        ],
+        [
+          70,
+          73
+        ],
+        [
+          74,
+          79
+        ],
+        [
+          80,
+          84
+        ],
+        [
+          85,
+          88
+        ],
+        [
+          89,
+          92
+        ],
+        [
+          93,
+          100
+        ],
+        [
+          101,
+          104
+        ],
+        [
+          105,
+          109
+        ],
+        [
+          110,
+          113
+        ],
+        [
+          114,
+          116
+        ],
+        [
+          117,
+          122
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Modes/people phrase uncertain and awkward."
+    },
+    {
+      "id": "uci-sms-line-3532",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?",
+      "translation": "HATUA: Mheshimiwa Naibu Spika, baada ya saa moja, je, mnaweza kufika hapa kwa muda wa saa moja?",
+      "provider_source": "##SW Tyler (getting an 8th) has to leave not long after 9, can you get here in like an hour?",
+      "elapsed_ms": 169.5142281241715,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          14
+        ],
+        [
+          15,
+          17
+        ],
+        [
+          18,
+          21
+        ],
+        [
+          23,
+          26
+        ],
+        [
+          27,
+          29
+        ],
+        [
+          30,
+          35
+        ],
+        [
+          36,
+          39
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          45,
+          50
+        ],
+        [
+          54,
+          57
+        ],
+        [
+          58,
+          61
+        ],
+        [
+          62,
+          65
+        ],
+        [
+          66,
+          70
+        ],
+        [
+          71,
+          73
+        ],
+        [
+          74,
+          78
+        ],
+        [
+          79,
+          81
+        ],
+        [
+          82,
+          86
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Deputy Speaker hallucination replaces Tyler details."
+    },
+    {
+      "id": "uci-sms-line-36",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "translation": "Yup... I go home i go home on the times then i msg , then i msg TM tena......... Kui huenda kujifunza tarehe 2 Mei pia, lakini somo lake ni saa 8am aa.",
+      "provider_source": "##SW Yup... Ok i go home look at the timings then i msg ü again... Xuhui going to learn on 2nd may too but her lesson is at 8am",
+      "elapsed_ms": 311.54847610741854,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          24
+        ],
+        [
+          25,
+          27
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          32,
+          39
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          47,
+          50
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          53,
+          58
+        ],
+        [
+          62,
+          67
+        ],
+        [
+          68,
+          73
+        ],
+        [
+          74,
+          76
+        ],
+        [
+          77,
+          82
+        ],
+        [
+          83,
+          85
+        ],
+        [
+          86,
+          89
+        ],
+        [
+          90,
+          93
+        ],
+        [
+          94,
+          97
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          102,
+          105
+        ],
+        [
+          106,
+          112
+        ],
+        [
+          113,
+          115
+        ],
+        [
+          116,
+          118
+        ],
+        [
+          119,
+          122
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Home/schedules text repeats and alters names."
+    },
+    {
+      "id": "uci-sms-line-3674",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": " came to look at the flat, seems ok, in his 50s? * Is away alot wiv work. Got woman coming at 6.30 too.",
+      "translation": "Je, katika miaka yake ya 50 alionekana kuwa na msongo wa mawazo? * U mbali wiv ni kazi mbali na wiv. ni kazi mbali na Wiv. Mwanamke huyo mwenye umri wa miaka kumi na sita.30.30.",
+      "provider_source": "##SW  came to look at the flat, seems ok, in his 50s? * Is away alot wiv work. Got woman coming at 6.30 too.",
+      "elapsed_ms": 310.43082498945296,
+      "native_source_word_ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          27,
+          32
+        ],
+        [
+          33,
+          35
+        ],
+        [
+          37,
+          39
+        ],
+        [
+          40,
+          43
+        ],
+        [
+          44,
+          47
+        ],
+        [
+          51,
+          53
+        ],
+        [
+          54,
+          58
+        ],
+        [
+          59,
+          63
+        ],
+        [
+          64,
+          67
+        ],
+        [
+          68,
+          72
+        ],
+        [
+          74,
+          77
+        ],
+        [
+          78,
+          83
+        ],
+        [
+          84,
+          90
+        ],
+        [
+          91,
+          93
+        ],
+        [
+          99,
+          102
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Age/time information changed."
+    },
+    {
+      "id": "uci-sms-line-4489",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "Miss call miss call khelate kintu opponenter miss call dhorte lage. Thats d rule. One with great phone receiving quality wins.",
+      "translation": "Miss wito Miss miss wito khelate kintu mpinzani miss wito dhorte lage. ya sheria hiyo ya d.s. ya sheria hiyo.s. ya sheria hiyo.s. ya sheria hiyo.s. Moja ya simu nzuri ya kupokea ushindi wa mafanikio ya kushinda. moja ya mafanikio ya kushinda ya kushinda. moja ya simu nzuri ya kupokea. mafanikio ya kushinda.",
+      "provider_source": "##SW Miss call miss call khelate kintu opponenter miss call dhorte lage. Thats d rule. One with great phone receiving quality wins.",
+      "elapsed_ms": 437.13171198032796,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          27
+        ],
+        [
+          28,
+          33
+        ],
+        [
+          34,
+          44
+        ],
+        [
+          45,
+          49
+        ],
+        [
+          50,
+          54
+        ],
+        [
+          55,
+          61
+        ],
+        [
+          62,
+          66
+        ],
+        [
+          68,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          80
+        ],
+        [
+          82,
+          85
+        ],
+        [
+          86,
+          90
+        ],
+        [
+          91,
+          96
+        ],
+        [
+          97,
+          102
+        ],
+        [
+          103,
+          112
+        ],
+        [
+          113,
+          120
+        ],
+        [
+          121,
+          125
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Missed-call/game content repeated/corrupted."
+    },
+    {
+      "id": "uci-sms-line-2433",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "16-30",
+      "original": "That's good. Lets thank God. Please complete the drug. Have lots of water. And have a beautiful day.",
+      "translation": "Hiyo ni nzuri. Tumshukuru Mungu .Acha tumshukuru. Dawa ya dawa hii tafadhali maliza. tafadhali maliza dawa. Majini mengi ya kuwa. majini. . kuna mengi ya maji. Kuwa na siku nzuri na nzuri, kuwa na siku nzuri, na kuwa na siku nzuri.",
+      "provider_source": "##SW That's good. Lets thank God. Please complete the drug. Have lots of water. And have a beautiful day.",
+      "elapsed_ms": 359.16234413161874,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          29,
+          35
+        ],
+        [
+          36,
+          44
+        ],
+        [
+          45,
+          48
+        ],
+        [
+          49,
+          53
+        ],
+        [
+          55,
+          59
+        ],
+        [
+          60,
+          64
+        ],
+        [
+          65,
+          67
+        ],
+        [
+          68,
+          73
+        ],
+        [
+          75,
+          78
+        ],
+        [
+          79,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          95
+        ],
+        [
+          96,
+          99
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Core illness advice partly retained with repetitions; uncertain."
+    },
+    {
+      "id": "uci-sms-line-561",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "original": "Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "translation": "Aiyo... Tuna wetu wa zamani wa zamani wa ...... Daima wewe ni ...... Idunno abt mei, yeye haja, yeye haja ya kujibu .... Wakati wa kwanza u mara ya kwanza u jibu haraka sana......... jibu haraka sana............ jibu haraka sana............ first time u u u mara ya kwanza u jibu............ fast...............! kwanza u wakati u mara ya kwanza u jibu............... fast...............! Mara ya Ur ur sugardad Ah...gee ...gee ...... kwa kuwa ya got bao, bao by ur sugardad ah...gee...gee ...... ",
+      "provider_source": "##SW Aiyo... U always c our ex one... I dunno abt mei, she haven reply... First time u reply so fast... Y so lucky not workin huh, got bao by ur sugardad ah...gee.. ",
+      "elapsed_ms": 1055.1948840729892,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          26,
+          29
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          41,
+          44
+        ],
+        [
+          45,
+          48
+        ],
+        [
+          50,
+          53
+        ],
+        [
+          54,
+          59
+        ],
+        [
+          60,
+          65
+        ],
+        [
+          69,
+          74
+        ],
+        [
+          75,
+          79
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          87
+        ],
+        [
+          88,
+          90
+        ],
+        [
+          91,
+          95
+        ],
+        [
+          99,
+          100
+        ],
+        [
+          101,
+          103
+        ],
+        [
+          104,
+          109
+        ],
+        [
+          110,
+          113
+        ],
+        [
+          114,
+          120
+        ],
+        [
+          121,
+          124
+        ],
+        [
+          126,
+          129
+        ],
+        [
+          130,
+          133
+        ],
+        [
+          134,
+          136
+        ],
+        [
+          137,
+          139
+        ],
+        [
+          140,
+          148
+        ],
+        [
+          149,
+          151
+        ],
+        [
+          154,
+          157
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Long code-switched message becomes repetition."
+    },
+    {
+      "id": "uci-sms-line-3684",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "original": "Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "translation": "Hello, hello, hi lou sorry ilichukua muda mrefu 2 jibu- Mimi kushoto mkononi katika marafiki katika Lancaster, tu got ni bak Neway im sorry I couldnt kufanya ur b'day 2 hun!",
+      "provider_source": "##SW Hello, hello, hi lou sorry it took so long 2 reply- I left mobile at friends in Lancaster, just got it bak Neway im sorry I couldnt make ur bday 2 hun!",
+      "elapsed_ms": 359.613471198827,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          26
+        ],
+        [
+          27,
+          29
+        ],
+        [
+          30,
+          34
+        ],
+        [
+          35,
+          37
+        ],
+        [
+          38,
+          42
+        ],
+        [
+          45,
+          50
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          58
+        ],
+        [
+          59,
+          65
+        ],
+        [
+          66,
+          68
+        ],
+        [
+          69,
+          76
+        ],
+        [
+          77,
+          79
+        ],
+        [
+          80,
+          89
+        ],
+        [
+          91,
+          95
+        ],
+        [
+          96,
+          99
+        ],
+        [
+          100,
+          102
+        ],
+        [
+          103,
+          106
+        ],
+        [
+          107,
+          112
+        ],
+        [
+          113,
+          115
+        ],
+        [
+          116,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          130
+        ],
+        [
+          131,
+          132
+        ],
+        [
+          133,
+          137
+        ],
+        [
+          138,
+          140
+        ],
+        [
+          141,
+          142
+        ],
+        [
+          143,
+          146
+        ],
+        [
+          149,
+          152
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Left mobile treated literally/partly copied."
+    },
+    {
+      "id": "uci-sms-line-4552",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "original": "\"Hey! do u fancy meetin me at 4 at cha  hav a lil beverage on me. if not txt or ring me and we can meet up l8r. quite tired got in at 3 v.pist ;) love Pete x x x\"",
+      "translation": "\"Hey! do u fancy meetin me at 4 at cha 'hav lil kinywaji juu yangu. kama si txt au pete yangu na tunaweza kukutana juu ya l8r. kabisa aliona katika 3 v.pist;) upendo Pete x x\"",
+      "provider_source": "##SW \"Hey! do u fancy meetin me at 4 at cha  hav a lil beverage on me. if not txt or ring me and we can meet up l8r. quite tired got in at 3 v.pist ;) love Pete x x x\"",
+      "elapsed_ms": 486.4131750073284,
+      "native_source_word_ranges": [
+        [
+          1,
+          4
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          11,
+          16
+        ],
+        [
+          17,
+          23
+        ],
+        [
+          24,
+          26
+        ],
+        [
+          27,
+          29
+        ],
+        [
+          32,
+          34
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          41,
+          44
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          47,
+          50
+        ],
+        [
+          51,
+          59
+        ],
+        [
+          60,
+          62
+        ],
+        [
+          63,
+          65
+        ],
+        [
+          67,
+          69
+        ],
+        [
+          70,
+          73
+        ],
+        [
+          74,
+          77
+        ],
+        [
+          78,
+          80
+        ],
+        [
+          81,
+          85
+        ],
+        [
+          86,
+          88
+        ],
+        [
+          89,
+          92
+        ],
+        [
+          93,
+          95
+        ],
+        [
+          96,
+          99
+        ],
+        [
+          100,
+          104
+        ],
+        [
+          105,
+          107
+        ],
+        [
+          108,
+          111
+        ],
+        [
+          113,
+          118
+        ],
+        [
+          119,
+          124
+        ],
+        [
+          125,
+          128
+        ],
+        [
+          129,
+          131
+        ],
+        [
+          132,
+          134
+        ],
+        [
+          137,
+          143
+        ],
+        [
+          147,
+          151
+        ],
+        [
+          152,
+          156
+        ],
+        [
+          157,
+          158
+        ],
+        [
+          159,
+          160
+        ],
+        [
+          161,
+          162
+        ]
+      ],
+      "label": "material_error",
+      "finding": "On-me/ring/tired senses wrong."
+    },
+    {
+      "id": "uci-sms-line-5311",
+      "source": "en",
+      "target": "sw",
+      "corpus": "SMS",
+      "length_bin": "31+",
+      "original": "I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now",
+      "translation": "Nitarudi siku ya Alhamisi. Yawjijijijijijijijijijijijijijijijijijijijijijijijijijijijijijiji Je, inafaa kuwa itakuwa nzuri sana kupata pesa kupata hiyo fedha? “Ajijijijijijijijijijijijijijijijijijijijijijijijijijijijijijiji Je, ni kwa jinsi gani wewe. Ndiyo, jinsi gani wewe. Ndiyo, na jinsi. jinsi wewe ni. Oh, na jinsi. All ok. ok. all ok. ok. all ok. ok. all ok. ok. ok. all ok. ok. ok. all. ok. Shuleni ni jinsi gani shule. Au una wito wa kufanya kazi kwa sasa unafanya kazi",
+      "provider_source": "##SW I'm coming back on Thursday. Yay. Is it gonna be ok to get the money. Cheers. Oh yeah and how are you. Everything alright. Hows school. Or do you call it work now",
+      "elapsed_ms": 1036.6990640759468,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          18
+        ],
+        [
+          19,
+          27
+        ],
+        [
+          29,
+          32
+        ],
+        [
+          34,
+          36
+        ],
+        [
+          37,
+          39
+        ],
+        [
+          40,
+          45
+        ],
+        [
+          46,
+          48
+        ],
+        [
+          49,
+          51
+        ],
+        [
+          52,
+          54
+        ],
+        [
+          55,
+          58
+        ],
+        [
+          59,
+          62
+        ],
+        [
+          63,
+          68
+        ],
+        [
+          70,
+          76
+        ],
+        [
+          78,
+          80
+        ],
+        [
+          81,
+          85
+        ],
+        [
+          86,
+          89
+        ],
+        [
+          90,
+          93
+        ],
+        [
+          94,
+          97
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          103,
+          113
+        ],
+        [
+          114,
+          121
+        ],
+        [
+          123,
+          127
+        ],
+        [
+          128,
+          134
+        ],
+        [
+          136,
+          138
+        ],
+        [
+          139,
+          141
+        ],
+        [
+          142,
+          145
+        ],
+        [
+          146,
+          150
+        ],
+        [
+          151,
+          153
+        ],
+        [
+          154,
+          158
+        ],
+        [
+          159,
+          162
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Large repeated nonsense sequence."
+    },
+    {
+      "id": "tm2-dlg-06800509-feaf-4411-a260-9a358abe5f32-12",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "That's all I need.",
+      "translation": "Hiyo ndiyo yote ninayohitaji.",
+      "provider_source": "##SW That's all I need.",
+      "elapsed_ms": 74.3827351834625,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          13,
+          17
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "All I need preserved."
+    },
+    {
+      "id": "tm2-dlg-81822d7f-4644-423d-8d6a-e54dd7003ffe-10",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Seems good.",
+      "translation": "Inaonekana nzuri.",
+      "provider_source": "##SW Seems good.",
+      "elapsed_ms": 58.4468690212816,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Seems good preserved."
+    },
+    {
+      "id": "tm2-dlg-5cbda3db-c67c-4f73-809c-7589d6baf744-6",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "$150 a night.",
+      "translation": "$50 kwa usiku mmoja.",
+      "provider_source": "##SW $150 a night.",
+      "elapsed_ms": 62.13403888978064,
+      "native_source_word_ranges": [
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          12
+        ]
+      ],
+      "label": "material_error",
+      "finding": "$150 changed to $50."
+    },
+    {
+      "id": "tm2-dlg-deb9c513-4f44-4c10-9774-d9382689f93b-10",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Okay.",
+      "translation": "Sawa.",
+      "provider_source": "##SW Okay.",
+      "elapsed_ms": 19.654938019812107,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Okay preserved."
+    },
+    {
+      "id": "tm2-dlg-28c84645-6109-485c-866b-29aebd28ae4c-11",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Thank you so much.",
+      "translation": "Asanteni sana.",
+      "provider_source": "##SW Thank you so much.",
+      "elapsed_ms": 52.37784702330828,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          13,
+          17
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Thanks preserved, plural address acceptable."
+    },
+    {
+      "id": "tm2-dlg-ba3d5676-281d-4c66-a3c9-fb5eb5f7279f-7",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Okay, bye.",
+      "translation": "Sawa, bye.",
+      "provider_source": "##SW Okay, bye.",
+      "elapsed_ms": 31.9564591627568,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Bye loan retained; okay translated."
+    },
+    {
+      "id": "tm2-dlg-300b8cd6-d683-4493-8a9d-96b4b4ccdbaa-22",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Thanks. You, too.",
+      "translation": "Asante. Na wewe pia.",
+      "provider_source": "##SW Thanks. You, too.",
+      "elapsed_ms": 45.15400109812617,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          13,
+          16
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Thanks/you too preserved."
+    },
+    {
+      "id": "tm2-dlg-71509a66-1c66-45b1-b5a6-298443f1aabc-9",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "No, Don't you freaking",
+      "translation": "No, don't wake up",
+      "provider_source": "##SW No, Don't you freaking",
+      "elapsed_ms": 45.44959496706724,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          14,
+          22
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Do not freaking becomes do not wake up."
+    },
+    {
+      "id": "tm2-dlg-f2d9c878-02f9-4f9c-8275-472e39cb062b-12",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "That's Fettuccine Alfredo.",
+      "translation": "Hiyo ni Fettuccine Alfredo.",
+      "provider_source": "##SW That's Fettuccine Alfredo.",
+      "elapsed_ms": 56.83455802500248,
+      "native_source_word_ranges": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          18,
+          25
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Named dish preserved."
+    },
+    {
+      "id": "tm2-dlg-2e28d88a-fcf9-4996-a71c-e366c5dca768-17",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Yes.",
+      "translation": "Ndiyo.",
+      "provider_source": "##SW Yes.",
+      "elapsed_ms": 31.781641067937016,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Yes preserved."
+    },
+    {
+      "id": "tm2-dlg-a698b440-1222-47e8-90be-892925c0f02b-7",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Yes.",
+      "translation": "Ndiyo.",
+      "provider_source": "##SW Yes.",
+      "elapsed_ms": 25.88691795244813,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Yes preserved."
+    },
+    {
+      "id": "tm2-dlg-18f98bf1-c6a4-4012-90c6-66c1350bec09-7",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "No.",
+      "translation": "Hapana.",
+      "provider_source": "##SW No.",
+      "elapsed_ms": 17.44313002564013,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "No preserved."
+    },
+    {
+      "id": "tm2-dlg-49d22f7b-0aff-4df8-9e00-449d4e3063f4-4",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "I'm looking for a comedy.",
+      "translation": "Natafuta kicheko.",
+      "provider_source": "##SW I'm looking for a comedy.",
+      "elapsed_ms": 52.208221051841974,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          24
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Comedy film becomes laughter."
+    },
+    {
+      "id": "tm2-dlg-1ba47a2a-ee14-4be0-9a1f-f6f012a00301-27",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "1-5",
+      "original": "Thank you very much.",
+      "translation": "Asante sana.",
+      "provider_source": "##SW Thank you very much.",
+      "elapsed_ms": 30.129249207675457,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          15,
+          19
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Thanks preserved."
+    },
+    {
+      "id": "tm2-dlg-a2492812-3636-43cd-b0d7-4e2b8018d778-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "I would like to order takeout for two people.",
+      "translation": "Ningependa kupendekeza kwa watu wawili.",
+      "provider_source": "##SW I would like to order takeout for two people.",
+      "elapsed_ms": 71.37761916965246,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          16,
+          21
+        ],
+        [
+          22,
+          29
+        ],
+        [
+          30,
+          33
+        ],
+        [
+          34,
+          37
+        ],
+        [
+          38,
+          44
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Order takeout becomes recommend; food omitted."
+    },
+    {
+      "id": "tm2-dlg-5136f25d-dddb-49a1-874d-b5cbbcf9169b-5",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Cheapest flight, Wi-Fi a must.",
+      "translation": "Kwa bei nafuu zaidi, Wi-Fi ni lazima.",
+      "provider_source": "##SW Cheapest flight, Wi-Fi a must.",
+      "elapsed_ms": 72.2392019815743,
+      "native_source_word_ranges": [
+        [
+          0,
+          8
+        ],
+        [
+          9,
+          15
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          20,
+          22
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          25,
+          29
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Flight omitted."
+    },
+    {
+      "id": "tm2-dlg-ae253531-eb06-4c4b-a329-268daf80734e-6",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Do you have anything with the director John Woo? Something similar to Jason Bourne?",
+      "translation": "Je, una kitu chochote na Rais John Pombe Magufuli? Je, kuna kitu ni sawa na Jason Bourne? kitu kama Jason Bourne?? kitu kama? kitu kama Jason Bourne??",
+      "provider_source": "##SW Do you have anything with the director John Woo? Something similar to Jason Bourne?",
+      "elapsed_ms": 286.56381205655634,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          20
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          26,
+          29
+        ],
+        [
+          30,
+          38
+        ],
+        [
+          39,
+          43
+        ],
+        [
+          44,
+          47
+        ],
+        [
+          49,
+          58
+        ],
+        [
+          59,
+          66
+        ],
+        [
+          67,
+          69
+        ],
+        [
+          70,
+          75
+        ],
+        [
+          76,
+          82
+        ]
+      ],
+      "label": "material_error",
+      "finding": "John Woo replaced by President John Pombe Magufuli."
+    },
+    {
+      "id": "tm2-dlg-5a45324e-8321-421e-aa91-419424f0b053-7",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Who starts at small forward for the Dallas Mavericks?",
+      "translation": "Je, ni nani anayeanza kwa muda mfupi kwa ajili ya Dallas Mavericks?",
+      "provider_source": "##SW Who starts at small forward for the Dallas Mavericks?",
+      "elapsed_ms": 99.72209297120571,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          14,
+          19
+        ],
+        [
+          20,
+          27
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          32,
+          35
+        ],
+        [
+          36,
+          42
+        ],
+        [
+          43,
+          52
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Basketball small forward becomes short time."
+    },
+    {
+      "id": "tm2-dlg-76fe8d70-dd8d-49dc-9a8e-c8ef28480dbe-11",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Awesome, thank you. That's all I needed.",
+      "translation": "Ajabu, asante. Hiyo ndiyo yote ambayo nilitaka ni kwamba nilikuwa.",
+      "provider_source": "##SW Awesome, thank you. That's all I needed.",
+      "elapsed_ms": 140.25445701554418,
+      "native_source_word_ranges": [
+        [
+          0,
+          7
+        ],
+        [
+          9,
+          14
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          20,
+          26
+        ],
+        [
+          27,
+          30
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          33,
+          39
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Final all-needed clause incomplete/changed."
+    },
+    {
+      "id": "tm2-dlg-25580a6e-a44e-4d35-b892-c29861c80c76-4",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Okay. Could you play me a different artist?",
+      "translation": "Sawa. Je, unaweza kucheza mimi kama mmoja wa wasanii wengine? unaweza kucheza kama mmoja wa wasanii wengine?",
+      "provider_source": "##SW Okay. Could you play me a different artist?",
+      "elapsed_ms": 144.4183220155537,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          35
+        ],
+        [
+          36,
+          42
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Play music request becomes playing as an artist."
+    },
+    {
+      "id": "tm2-dlg-57fc0d2e-0c45-4e38-ba71-145bc1080fd7-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "What should I do for dinner tonight?",
+      "translation": "Nini cha kufanya kwa ajili ya chakula cha jioni usiku?",
+      "provider_source": "##SW What should I do for dinner tonight?",
+      "elapsed_ms": 74.78955597616732,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          27
+        ],
+        [
+          28,
+          35
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Dinner question broadly preserved."
+    },
+    {
+      "id": "tm2-dlg-0ea3ee67-2202-46bb-8dc3-80a102ccf38a-10",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Okay. And who is Stoke City's manager?",
+      "translation": "Sawa. Na ni nani mmiliki wa Stoke City Manager wa Stoke City? nani? na ni nani? onye njikwa wa jiji la Stoke City? na ni nani?",
+      "provider_source": "##SW Okay. And who is Stoke City's manager?",
+      "elapsed_ms": 176.60623416304588,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          22
+        ],
+        [
+          23,
+          29
+        ],
+        [
+          30,
+          37
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Manager becomes owner plus mixed-language repetition."
+    },
+    {
+      "id": "tm2-dlg-550e888a-e647-4090-8a6b-d7f7401f63e3-4",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Is Swansea City playing right now?",
+      "translation": "Je, Swansea City inacheza hivi sasa?",
+      "provider_source": "##SW Is Swansea City playing right now?",
+      "elapsed_ms": 76.50905009359121,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          23
+        ],
+        [
+          24,
+          29
+        ],
+        [
+          30,
+          33
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Swansea playing-now preserved."
+    },
+    {
+      "id": "tm2-dlg-6aeeafa0-60f4-4362-b5c7-b4c415d52fc0-14",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "No, I haven't heard of Guster. Can you play Guster, please?",
+      "translation": "Hapana, sijasikia juu ya guster. Je, unaweza kucheza Guster, tafadhali?",
+      "provider_source": "##SW No, I haven't heard of Guster. Can you play Guster, please?",
+      "elapsed_ms": 164.79721385985613,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          14,
+          19
+        ],
+        [
+          20,
+          22
+        ],
+        [
+          23,
+          29
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          39,
+          43
+        ],
+        [
+          44,
+          50
+        ],
+        [
+          52,
+          58
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Playing an artist could be acceptable playback shorthand; not confidently approved."
+    },
+    {
+      "id": "tm2-dlg-e9de0923-c83e-44ac-a10a-ba70a9b49382-3",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Do you know if they are playing right now?",
+      "translation": "Je, unajua wanacheza sasa hivi?",
+      "provider_source": "##SW Do you know if they are playing right now?",
+      "elapsed_ms": 64.69984306022525,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          23
+        ],
+        [
+          24,
+          31
+        ],
+        [
+          32,
+          37
+        ],
+        [
+          38,
+          41
+        ]
+      ],
+      "label": "broadly_preserved",
+      "finding": "Playing-now question preserved."
+    },
+    {
+      "id": "tm2-dlg-3eb971a4-fe44-4429-8c39-92c9dba9bc91-8",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "I need the room to be $300 and night or even less.",
+      "translation": "\"Nataka nyumba yangu iwe chini ya dola 300 na hata usiku.",
+      "provider_source": "##SW I need the room to be $300 and night or even less.",
+      "elapsed_ms": 103.25498878955841,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          16,
+          18
+        ],
+        [
+          19,
+          21
+        ],
+        [
+          27,
+          30
+        ],
+        [
+          31,
+          36
+        ],
+        [
+          37,
+          39
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          45,
+          49
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Room nightly budget becomes my-house budget."
+    },
+    {
+      "id": "tm2-dlg-d04d450a-696b-4b9c-99c2-97787cfd0f42-12",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Oh, okay, cool. That's all I need to know.",
+      "translation": "Ah, sawa, baridi. Hiyo ni yote nahitaji kufahamu. Hiyo ndiyo pekee ninayohitaji kujua.",
+      "provider_source": "##SW Oh, okay, cool. That's all I need to know.",
+      "elapsed_ms": 104.6128028538078,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          23,
+          26
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          29,
+          33
+        ],
+        [
+          34,
+          36
+        ],
+        [
+          37,
+          41
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Conversational cool becomes cold."
+    },
+    {
+      "id": "tm2-dlg-45294aa8-d826-494b-aeb8-d36c74d39f65-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "6-15",
+      "original": "Hi. Could you help me in finding a hotel?",
+      "translation": "Habari. Unaweza kusaidia kupata hoteli? unaweza kusaidia mimi kupata hoteli?",
+      "provider_source": "##SW Hi. Could you help me in finding a hotel?",
+      "elapsed_ms": 112.87609091959894,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          19,
+          21
+        ],
+        [
+          22,
+          24
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          35,
+          40
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Hotel-help request repeats; meaning appears retained but awkward."
+    },
+    {
+      "id": "tm2-dlg-076f89a2-295b-440c-ac28-a5fb59671be7-4",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "I'm looking to depart and return both in the evening and I'm looking for nonstop flights.",
+      "translation": "Mimi ni kwenda na kurudi jioni, natafuta ndege bila kuacha.",
+      "provider_source": "##SW I'm looking to depart and return both in the evening and I'm looking for nonstop flights.",
+      "elapsed_ms": 124.65884489938617,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          21
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          33,
+          37
+        ],
+        [
+          38,
+          40
+        ],
+        [
+          41,
+          44
+        ],
+        [
+          45,
+          52
+        ],
+        [
+          53,
+          56
+        ],
+        [
+          57,
+          60
+        ],
+        [
+          61,
+          68
+        ],
+        [
+          69,
+          72
+        ],
+        [
+          73,
+          80
+        ],
+        [
+          81,
+          88
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Nonstop departure/return evening mostly retained but grammatical/semantic confidence limited."
+    },
+    {
+      "id": "tm2-dlg-bdcaa7a9-bf26-450f-af66-5deda465ac0a-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "I'm looking to stay from March 25th to the 27th. The price range is to be under $200.",
+      "translation": "Ngoja niishie kuanzia tarehe 25 hadi tarehe 27. Kiwango cha bei ni kuwa chini ya $ 200.",
+      "provider_source": "##SW I'm looking to stay from March 25th to the 27th. The price range is to be under $200.",
+      "elapsed_ms": 177.09188791923225,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          24
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          31,
+          35
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          39,
+          42
+        ],
+        [
+          43,
+          47
+        ],
+        [
+          49,
+          52
+        ],
+        [
+          53,
+          58
+        ],
+        [
+          59,
+          64
+        ],
+        [
+          65,
+          67
+        ],
+        [
+          68,
+          70
+        ],
+        [
+          71,
+          73
+        ],
+        [
+          74,
+          79
+        ]
+      ],
+      "label": "material_error",
+      "finding": "March omitted and stay becomes stop."
+    },
+    {
+      "id": "tm2-dlg-4ba452c7-7c70-4964-a93e-d0fee18acf7b-8",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "translation": "Je, unaweza kuniambia ni aina gani ya vichekesho vya juu zaidi kwenye Rotten Tomatoes ambayo inaonyeshwa kwa sasa, tafadhali?",
+      "provider_source": "##SW Can you tell me what is the highest-rated comedy on Rotten Tomatoes that is currently showing is, please?",
+      "elapsed_ms": 177.9665700159967,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          28,
+          35
+        ],
+        [
+          36,
+          41
+        ],
+        [
+          42,
+          48
+        ],
+        [
+          49,
+          51
+        ],
+        [
+          52,
+          58
+        ],
+        [
+          59,
+          67
+        ],
+        [
+          68,
+          72
+        ],
+        [
+          73,
+          75
+        ],
+        [
+          76,
+          85
+        ],
+        [
+          86,
+          93
+        ],
+        [
+          94,
+          96
+        ],
+        [
+          98,
+          104
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Highest-rated comedy paraphrase not confidently approved."
+    },
+    {
+      "id": "tm2-dlg-185d8d14-5e9b-47a6-8cfe-1ce38b468c45-1",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "Hi, I'm going to Four Hills, California this Saturday afternoon, and I'm looking for somewhere to eat there.",
+      "translation": "\"Haya, nitaenda California, Jumamosi hii jioni, na ninatafuta mahali pa kula huko.",
+      "provider_source": "##SW Hi, I'm going to Four Hills, California this Saturday afternoon, and I'm looking for somewhere to eat there.",
+      "elapsed_ms": 145.49683406949043,
+      "native_source_word_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          17,
+          21
+        ],
+        [
+          22,
+          27
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          45,
+          53
+        ],
+        [
+          54,
+          63
+        ],
+        [
+          65,
+          68
+        ],
+        [
+          69,
+          72
+        ],
+        [
+          73,
+          80
+        ],
+        [
+          81,
+          84
+        ],
+        [
+          85,
+          94
+        ],
+        [
+          95,
+          97
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          102,
+          107
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Four Hills omitted and afternoon becomes evening."
+    },
+    {
+      "id": "tm2-dlg-7c6887b6-224f-4ef1-858a-f57336366fde-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "translation": "Natafuta safari ya kwenda Los Angeles, California. I'll kuruka juu ya 3rd ya Machi 3rd ya Machi.",
+      "provider_source": "##SW I'm looking to get a flight out to Los Angeles, California. I'll be flying out on the 3rd of March.",
+      "elapsed_ms": 262.0042278431356,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          21,
+          27
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          32,
+          34
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          39,
+          46
+        ],
+        [
+          48,
+          58
+        ],
+        [
+          60,
+          64
+        ],
+        [
+          65,
+          67
+        ],
+        [
+          68,
+          74
+        ],
+        [
+          75,
+          78
+        ],
+        [
+          79,
+          81
+        ],
+        [
+          82,
+          85
+        ],
+        [
+          86,
+          89
+        ],
+        [
+          90,
+          92
+        ],
+        [
+          93,
+          98
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Flying-date phrase partly English/repeated; uncertain."
+    },
+    {
+      "id": "tm2-dlg-85ef0572-36a7-4a56-9ec6-e38d9ee23f8c-8",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "Yeah, could you literary find a version of this, maybe by a modern band or something like a cover?",
+      "translation": "Ndio, unaweza kupata toleo la fasihi ya hii, labda kwa bendi ya kisasa au kitu kama kifuniko?",
+      "provider_source": "##SW Yeah, could you literary find a version of this, maybe by a modern band or something like a cover?",
+      "elapsed_ms": 158.1450030207634,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          24
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          32,
+          39
+        ],
+        [
+          40,
+          42
+        ],
+        [
+          43,
+          47
+        ],
+        [
+          49,
+          54
+        ],
+        [
+          55,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          66
+        ],
+        [
+          67,
+          71
+        ],
+        [
+          72,
+          74
+        ],
+        [
+          75,
+          84
+        ],
+        [
+          85,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          97
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Musical cover becomes lid and literary instruction literal."
+    },
+    {
+      "id": "tm2-dlg-3f56abbc-f98f-4df2-a11e-6d97c6a8aa39-6",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "Who did the LA Rams play last? With whom they are going to play next week?",
+      "translation": "Je, ni nani aliyewahi kucheza kwa mara ya mwisho? Wataka kucheza na nani wiki ijayo watakuwa na kucheza pamoja na nani kwa wiki ijayo? wataka kucheza pamoja na nani?",
+      "provider_source": "##SW Who did the LA Rams play last? With whom they are going to play next week?",
+      "elapsed_ms": 333.6489759385586,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          24
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          31,
+          35
+        ],
+        [
+          36,
+          40
+        ],
+        [
+          41,
+          45
+        ],
+        [
+          46,
+          49
+        ],
+        [
+          50,
+          55
+        ],
+        [
+          56,
+          58
+        ],
+        [
+          59,
+          63
+        ],
+        [
+          64,
+          68
+        ],
+        [
+          69,
+          73
+        ]
+      ],
+      "label": "material_error",
+      "finding": "LA Rams team omitted."
+    },
+    {
+      "id": "tm2-dlg-2845ff4e-a607-4208-bb68-1446d841401f-9",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "Thank you. Can you tell me how long the drive is from Fairfield, California to the restaurant?",
+      "translation": "Asante. Je, unaweza kuniambia ni muda gani gari hilo lina kutoka Fairfield, California hadi kwenye hoteli?",
+      "provider_source": "##SW Thank you. Can you tell me how long the drive is from Fairfield, California to the restaurant?",
+      "elapsed_ms": 277.90536894463,
+      "native_source_word_ranges": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          11,
+          14
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          24,
+          26
+        ],
+        [
+          27,
+          30
+        ],
+        [
+          31,
+          35
+        ],
+        [
+          36,
+          39
+        ],
+        [
+          40,
+          45
+        ],
+        [
+          46,
+          48
+        ],
+        [
+          49,
+          53
+        ],
+        [
+          54,
+          63
+        ],
+        [
+          65,
+          75
+        ],
+        [
+          76,
+          78
+        ],
+        [
+          79,
+          82
+        ],
+        [
+          83,
+          93
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Drive duration becomes car-duration; restaurant/hoteli use ambiguous."
+    },
+    {
+      "id": "tm2-dlg-29083eda-dcf8-45aa-a35f-bf2b135ef467-14",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "I definitely learned something new there. Okay. How about something that's like a modern jazz? Do you have something like that?",
+      "translation": "Nimejifunza kitu kipya hapo. .ahah.ahah.ahah.ahah.ahah.hhhhh.hh.hhh.hhhhh.hhh. Vipi kuhusu kitu hicho ni kama jazz ya kisasa? vipi kuhusu kitu hicho ni kama jazz ya kisasa? vipi kuhusu kitu hicho cha jazz? Je, una kitu kama hicho? Je, una kitu kama hicho? Una kitu kama hicho? Una kitu kama hicho?",
+      "provider_source": "##SW I definitely learned something new there. Okay. How about something that's like a modern jazz? Do you have something like that?",
+      "elapsed_ms": 833.3640480414033,
+      "native_source_word_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          13,
+          20
+        ],
+        [
+          21,
+          30
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          48,
+          51
+        ],
+        [
+          52,
+          57
+        ],
+        [
+          58,
+          67
+        ],
+        [
+          68,
+          74
+        ],
+        [
+          75,
+          79
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          88
+        ],
+        [
+          89,
+          93
+        ],
+        [
+          95,
+          97
+        ],
+        [
+          98,
+          101
+        ],
+        [
+          102,
+          106
+        ],
+        [
+          107,
+          116
+        ],
+        [
+          117,
+          121
+        ],
+        [
+          122,
+          126
+        ]
+      ],
+      "label": "uncertain",
+      "finding": "Core jazz request retained amidst huge repetition; not approved as clean translation."
+    },
+    {
+      "id": "tm2-dlg-d9088287-1f6a-4abc-9380-6389ff19ee3e-2",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "16-30",
+      "original": "I'm looking for some suggestions to rent a movie to watch at home in the animation category.",
+      "translation": "Naomba kujuzwa na baadhi ya picha ili niweze kuangalia filamu za nyumbani katika jamii ya Uhuishaji.",
+      "provider_source": "##SW I'm looking for some suggestions to rent a movie to watch at home in the animation category.",
+      "elapsed_ms": 126.21235800907016,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          21,
+          32
+        ],
+        [
+          33,
+          35
+        ],
+        [
+          36,
+          40
+        ],
+        [
+          41,
+          42
+        ],
+        [
+          43,
+          48
+        ],
+        [
+          49,
+          51
+        ],
+        [
+          52,
+          57
+        ],
+        [
+          58,
+          60
+        ],
+        [
+          61,
+          65
+        ],
+        [
+          66,
+          68
+        ],
+        [
+          69,
+          72
+        ],
+        [
+          73,
+          82
+        ],
+        [
+          83,
+          91
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Rent/home-viewing request becomes asking for pictures/home movies."
+    },
+    {
+      "id": "tm2-dlg-61d651cb-8406-4197-82d7-59f5ca4a0d47-11",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "31+",
+      "original": "I'd like like a certain special like three-course dinner or four-course dinner. Something like that is a special and I want the atmosphere to be really quiet, romantic, candle-light kind.",
+      "translation": "Ningependa kama chakula cha jioni cha saa tatu au chakula cha usiku wa manane. Hiyo ni ya kipekee na ninataka mazingira ya kuwa ya kweli utulivu, romantic, romantic, candle-light-light-light.",
+      "provider_source": "##SW I'd like like a certain special like three-course dinner or four-course dinner. Something like that is a special and I want the atmosphere to be really quiet, romantic, candle-light kind.",
+      "elapsed_ms": 307.7760830055922,
+      "native_source_word_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          16,
+          23
+        ],
+        [
+          24,
+          31
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          37,
+          42
+        ],
+        [
+          43,
+          49
+        ],
+        [
+          50,
+          56
+        ],
+        [
+          57,
+          59
+        ],
+        [
+          60,
+          64
+        ],
+        [
+          65,
+          71
+        ],
+        [
+          72,
+          78
+        ],
+        [
+          80,
+          89
+        ],
+        [
+          90,
+          94
+        ],
+        [
+          95,
+          99
+        ],
+        [
+          100,
+          102
+        ],
+        [
+          103,
+          104
+        ],
+        [
+          105,
+          112
+        ],
+        [
+          113,
+          116
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          119,
+          123
+        ],
+        [
+          124,
+          127
+        ],
+        [
+          128,
+          138
+        ],
+        [
+          139,
+          141
+        ],
+        [
+          142,
+          144
+        ],
+        [
+          145,
+          151
+        ],
+        [
+          152,
+          157
+        ],
+        [
+          159,
+          167
+        ],
+        [
+          169,
+          175
+        ],
+        [
+          176,
+          181
+        ],
+        [
+          182,
+          186
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Three/four courses become times of night."
+    },
+    {
+      "id": "tm2-dlg-691d5aaa-72fb-4dea-90e3-327f585dc1ed-7",
+      "source": "en",
+      "target": "sw",
+      "corpus": "Taskmaster2",
+      "length_bin": "31+",
+      "original": "This one's got a really good melody to it. It's pretty emotional with how he wrote the acoustics. Listening to this when I was going through some stuff with a breakup that I had, so pretty good song, so awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy.",
+      "translation": "Hii ni moja ya melody nzuri kwa ajili yake. Ni pretty kihisia na jinsi alivyo aliandika acoustics. Na nikisikiliza huu wakati nilipokuwa nikipitia baadhi ya vitu kwa kumbu ya kumbu nili nilikuwa na, hivyo hivyo pretty pretty pretty nzuri, nzuri sana, nzuri sana. awesome sana.. Ningependa sasa kusikia wimbo mmoja zaidi kutoka Bonobo Bonobo. Hiyo inaitwa Gypsy.. inaitwa Gypsy.",
+      "provider_source": "##SW This one's got a really good melody to it. It's pretty emotional with how he wrote the acoustics. Listening to this when I was going through some stuff with a breakup that I had, so pretty good song, so awesome. Now I'd like to hear one more song by Bonobo. It's called Gypsy.",
+      "elapsed_ms": 942.0657560694963,
+      "native_source_word_ranges": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          11,
+          14
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          17,
+          23
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          29,
+          35
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          39,
+          41
+        ],
+        [
+          43,
+          47
+        ],
+        [
+          48,
+          54
+        ],
+        [
+          55,
+          64
+        ],
+        [
+          65,
+          69
+        ],
+        [
+          70,
+          73
+        ],
+        [
+          74,
+          76
+        ],
+        [
+          77,
+          82
+        ],
+        [
+          83,
+          86
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          107
+        ],
+        [
+          108,
+          110
+        ],
+        [
+          111,
+          115
+        ],
+        [
+          116,
+          120
+        ],
+        [
+          121,
+          122
+        ],
+        [
+          123,
+          126
+        ],
+        [
+          127,
+          132
+        ],
+        [
+          133,
+          140
+        ],
+        [
+          141,
+          145
+        ],
+        [
+          146,
+          151
+        ],
+        [
+          152,
+          156
+        ],
+        [
+          157,
+          158
+        ],
+        [
+          159,
+          166
+        ],
+        [
+          167,
+          171
+        ],
+        [
+          172,
+          173
+        ],
+        [
+          174,
+          177
+        ],
+        [
+          179,
+          181
+        ],
+        [
+          182,
+          188
+        ],
+        [
+          189,
+          193
+        ],
+        [
+          194,
+          198
+        ],
+        [
+          200,
+          202
+        ],
+        [
+          203,
+          210
+        ],
+        [
+          212,
+          215
+        ],
+        [
+          216,
+          219
+        ],
+        [
+          220,
+          224
+        ],
+        [
+          225,
+          227
+        ],
+        [
+          228,
+          232
+        ],
+        [
+          233,
+          236
+        ],
+        [
+          237,
+          241
+        ],
+        [
+          242,
+          246
+        ],
+        [
+          247,
+          249
+        ],
+        [
+          250,
+          256
+        ],
+        [
+          258,
+          262
+        ],
+        [
+          263,
+          269
+        ],
+        [
+          270,
+          275
+        ]
+      ],
+      "label": "material_error",
+      "finding": "Breakup/acoustics passage corrupted with repetition."
+    }
+  ],
+  "summary": {
+    "SMS": {
+      "material_error": 26,
+      "broadly_preserved": 3,
+      "uncertain": 9,
+      "unchanged": 2
+    },
+    "Taskmaster2": {
+      "broadly_preserved": 14,
+      "material_error": 19,
+      "uncertain": 7
+    }
+  }
+}
