@@ -1,0 +1,121 @@
+{
+  "created_utc": "2026-11-08T07:11:32.883961+00:00",
+  "state": "host_algorithm_guard_and_native_mac_comparison_passed",
+  "production_activation": false,
+  "android_runtime_verified": false,
+  "source_sha256": {
+    "KoreanLetterRules.kt": "1f84f21be7604dc88f5f2f2e4a3ff9d24ace28c1f26b8ab454de0f972e2c6583",
+    "KoreanReadingCandidate.kt": "ce45d14cc5fd65d9d1da2b9b844051122c5214fe6188e7fec99d10a651b68f2f",
+    "probe.kt": "f1d61308fcdf4051f4cfe4d11870e35e0be4fc7038e17e9eef1a1f44c2b8cb9e",
+    "upstream_probe.cpp": "76ee9ed541e48ff497e8691119f8ab05c896a5a18ce39c90449f12eb9be07156"
+  },
+  "upstream_rule_execution": "ICU74.2 with exact pinned CLDR rule text, not system default Hangul-Latin transform.",
+  "guard_capture_sha256": "e0816575c0bb02d7d263414b66b3bf8a5da75b6eb5d2e045541357df998fa7c4",
+  "stress_capture_sha256": "289b065c316121476b9f913229dd4f8a7390eb7a598bd534d060892683f6face",
+  "swift_native_capture_sha256": "d6f9b7fefc043fa43027c2e353cd6bb37f3fb66c8c8b09411da1f2fe7442e3b1",
+  "swift_comparison_sha256": "b797c1e365440e3cecf666bd3083f2c0791d0f9a9c8ff3f2eddead5f6fc01d4d",
+  "letter_replay_mismatches": 0,
+  "fixed_guard_cases": 32,
+  "additional_resource_cases": 6,
+  "prior_failures_retained": [
+    "Eight CLDR start-context mismatches.",
+    "JavaRegex StackOverflowError on repeated long identifier."
+  ],
+  "nonclaims": [
+    "No corpus meaning accuracy or acoustic quality.",
+    "No new runtime language model/data download.",
+    "No Android app/device execution or activation."
+  ],
+  "evidence": [
+    {
+      "path": "letter-comparison-r01.freeze.json.gz",
+      "sha256": "d06399c570e39af81efd025902bfc64ebefecdb04105eb83c3fbe907f4baa176",
+      "decoded_sha256": "c5c8f6dead8eb61c5909096bd148b9918175a33d0aba063abd428b251ab1f160",
+      "decoded_bytes": 783
+    },
+    {
+      "path": "letter-comparison-r01.json.gz",
+      "sha256": "5ef3419148198e8d37620ab95845d09569a3bba12d55451ff05f3ab6774f7945",
+      "decoded_sha256": "32d678e6984c4eb230048c89f6b6878dc00bd2d347944231b3aae7c2537443bb",
+      "decoded_bytes": 1835
+    },
+    {
+      "path": "letter-comparison-r02.freeze.json.gz",
+      "sha256": "60cea2d6476a8493b083e78a4aae35909dbb1d7646f26475c7b4d1dbfeb8ef28",
+      "decoded_sha256": "ce94d6e4c27edd208f66d31298e96000996b6f0674f1db2766998c84853eea1b",
+      "decoded_bytes": 783
+    },
+    {
+      "path": "letter-comparison-r02.json.gz",
+      "sha256": "a8bc2c1577c616410ee5cf8e34e0e1cb0e31d66494a79308f77c075de0effddd",
+      "decoded_sha256": "40678fa31763bf3944f07e0cbda490c73b2e7c97fce88455177113450fddd763",
+      "decoded_bytes": 1146
+    },
+    {
+      "path": "guard-capture-r01.json.gz",
+      "sha256": "b87595ccb4f65d81a2797017b7a455d2e70b75f77401fb8e65cc6f6f702a49c1",
+      "decoded_sha256": "59ee91bba1200527cc833786386c3962ce43fb7a24bc250ab94c028aadd4947d",
+      "decoded_bytes": 2860762
+    },
+    {
+      "path": "guard-capture-r03.json.gz",
+      "sha256": "f4bff76c13f4443f0ed9714edae259842f03195fd3c1f6e8f6e05c697cdcc4f4",
+      "decoded_sha256": "e0816575c0bb02d7d263414b66b3bf8a5da75b6eb5d2e045541357df998fa7c4",
+      "decoded_bytes": 2860747
+    },
+    {
+      "path": "stress-capture-r02.json.gz",
+      "sha256": "24ac56fbb8df4a06fe2263e1d9c2c22777c41dcf720cc6b81f628f5b46ad10f1",
+      "decoded_sha256": "da569373c92856268d87ed7de70a756aa2320577e1c876d80b96cb28144ee41d",
+      "decoded_bytes": 750
+    },
+    {
+      "path": "stress-capture-r03.json.gz",
+      "sha256": "39e2c7b2449ed9c18c6b0833878f577152bbfe70fc06fa0bb5ba51b1ce0bc44b",
+      "decoded_sha256": "289b065c316121476b9f913229dd4f8a7390eb7a598bd534d060892683f6face",
+      "decoded_bytes": 938909
+    },
+    {
+      "path": "swift-kotlin-comparison-r01.json.gz",
+      "sha256": "941172b022bfbffdf87fcbdbf9af7d5c10abc656e4548de882963485bc11c4c9",
+      "decoded_sha256": "b797c1e365440e3cecf666bd3083f2c0791d0f9a9c8ff3f2eddead5f6fc01d4d",
+      "decoded_bytes": 132219
+    },
+    {
+      "path": "build-r01-KoreanLetterRules.kt.gz",
+      "sha256": "d6c06baa747fd1eef401191a565561653834b245e53ecd126ae2b22413ec2c8b",
+      "decoded_sha256": "aa11c51b59fc075ce5db833f17ecfebb3d20f095a1b37ec19829da65c802d450",
+      "decoded_bytes": 6202
+    },
+    {
+      "path": "build-r01-KoreanReadingCandidate.kt.gz",
+      "sha256": "384c4e597be7ca199208e86a5e173c0eaa0877b9c04976b2267aa6901e768239",
+      "decoded_sha256": "04107552dc9499ac9d67d9781bd07c9da46b7141a0d5ff8a413d5e91adb878a8",
+      "decoded_bytes": 3459
+    },
+    {
+      "path": "build-r01-export_rules.py.gz",
+      "sha256": "20d8a9ab13d67ba68ba1644cb25b4e0738730e32655309ce8cd84c1620f8ed65",
+      "decoded_sha256": "cbded4d6466b89be3e427041e073cfe882b6209a4daa0e416109a11d85deb5bd",
+      "decoded_bytes": 4382
+    },
+    {
+      "path": "build-r02-KoreanLetterRules.kt.gz",
+      "sha256": "9dd42a839bdc31b7cf3d77b0541b0be20648ed97c303d08b55c609d2d8d23c2d",
+      "decoded_sha256": "1f84f21be7604dc88f5f2f2e4a3ff9d24ace28c1f26b8ab454de0f972e2c6583",
+      "decoded_bytes": 6324
+    },
+    {
+      "path": "build-r02-KoreanReadingCandidate.kt.gz",
+      "sha256": "604340a318d962073f8dc51037437c2c0a43c43c8a000f19d853979f858a0de8",
+      "decoded_sha256": "ffb26d67d77504b5daeddabf87ff0026da1f5833e4cbe32d5f22c00a55b18d34",
+      "decoded_bytes": 3952
+    },
+    {
+      "path": "build-r02-export_rules.py.gz",
+      "sha256": "1e0411d71d3b44d5c508726700eb4f3b8555a6bc799d7d550d0ca9fd032bb624",
+      "decoded_sha256": "b37ba4fbc7d969acb22943bcabca4dea58379d5311acf8b58cfde06b5d6caae8",
+      "decoded_bytes": 4512
+    }
+  ]
+}

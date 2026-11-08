@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/unicode-org/cldr",
+  "revision": "f69257926c43f1cb22cf3fcd93e709a2ca994bb7",
+  "files": {
+    "Latin-ConjoiningJamo.xml": {
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/f69257926c43f1cb22cf3fcd93e709a2ca994bb7/common/transforms/Latin-ConjoiningJamo.xml",
+      "sha256": "82f2fc6ae1fca9c71fba7851c0b3ecc7e6e3cbd5aeb74ce80dd6c8c423cddfba",
+      "bytes": 19410
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/f69257926c43f1cb22cf3fcd93e709a2ca994bb7/LICENSE",
+      "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "bytes": 3193
+    }
+  },
+  "scope": "Exact upstream rule/license inputs for bounded native orthographic candidate. Prior attempt fetched rules at last-file-change commit but LICENSE absent there; no runtime/source modification from that attempt."
+}

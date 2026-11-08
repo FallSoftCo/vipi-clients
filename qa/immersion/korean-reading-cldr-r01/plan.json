@@ -1,0 +1,21 @@
+{
+  "frozen_at_utc": "2026-11-08T06:55:17.288814+00:00",
+  "production": false,
+  "runtime": "Dormant standalone Kotlin, no Android ICU29 dependency; modern precomposed Hangul only.",
+  "approach": "Native letter mapping and separator rules ported from pinned Unicode CLDR ConjoiningJamo-Latin reverse direction. Source partitions and protected literals remain exact; no pronunciation/sound-change claim. No source normalization.",
+  "evaluation": [
+    "Same32 frozen Apple structural/retained cases, no max-string output printed.",
+    "All modern syllables and bounded complete adjacent ending/onset classes against upstream rule execution if existing local ICU tool available.",
+    "Exact source partitions/opaque literals, unknown-script abstention, warm equality and maximum input cost.",
+    "Differences from Apple tokenizer are reviewed as spelling conventions rather than automatically errors.",
+    "No production activation, MT coverage, acoustic or physical-device claim."
+  ],
+  "bounds": {
+    "input_utf16": 16384,
+    "output_utf16": 65536,
+    "build_heap_mib": 512,
+    "compiler_jobs": 1,
+    "new_dependencies": false,
+    "temporary_disk_budget_mib": 16
+  }
+}
