@@ -1,0 +1,157 @@
+{
+  "schema": "vipi.apertium-transfer-feasibility-result.r01",
+  "completed_at_utc": "2026-11-08T11:07:09.070124+00:00",
+  "production": false,
+  "execution_complete": true,
+  "cases": 20,
+  "source_protocol_sha256": "d78433f97063477619a4de7413d9293cfb05153f4f747001e8e968c2e7ad520d",
+  "runner_sha256": "4f541a8964459821ac225bf13af3ac6cf7ff2904acb557d7fad7d4d4fc9fd5a4",
+  "execution_freeze_sha256": "1ea5ea61fdd59177f88140dcaaec4dc0323efb907678d11ff52b1e69896ccba0",
+  "stage_capture_sha256": "4a29a50d0402d33ebd6d7b10ea05f7447975d21a375e1a3e2b3f05af52bd4a58",
+  "original_receipt_sha256": "4eb72424c8f38b05f00aa8372178e707ec823e9b5346ba84c7edb494429f50ec",
+  "total_seconds": 8.520406296942383,
+  "median_per_case_ms": 417.70805104169995,
+  "maximum_child_process_rss_bytes": 38629376,
+  "private_package_and_output_bytes": 17118778,
+  "parent_rss_claim": null,
+  "memory_measurement_correction": {
+    "original_receipt_preserved": true,
+    "reason": "RUSAGE_SELF maxrss from this launcher route is not current interpreter memory: a separate tiny Python diagnostic reports 2790797312B rusage versus11868KiB current-process VmHWM and31104KiB VmPeak. The original probe did not capture /proc VmHWM, so its actual parent peak is unknown. Do not present the inherited high-water value as measured probe memory.",
+    "diagnostic_sha256": "abe926ebc25e56aa5fbd7717b9227d7d7270a79f999b9b71671b58b4fffb0e10",
+    "address_space_limit_bytes": 268435456
+  },
+  "observations": [
+    {
+      "id": "apertium-01",
+      "source": "I am going to Alice's birthday.",
+      "translation": "Estoy yendo al cumpleaños de Alice.",
+      "note": "Possessive person preserved; birthday construction has an intelligible full target."
+    },
+    {
+      "id": "apertium-02",
+      "source": "We are going to my friend's birthday.",
+      "translation": "Estamos yendo al cumpleaños de mi amigo.",
+      "note": "Possessive friend construction preserved; Spanish masculine default is not source evidence of friend gender."
+    },
+    {
+      "id": "apertium-03",
+      "source": "I lost my book.",
+      "translation": "Perdí mi libro.",
+      "note": "book is tagged noun and transferred to libro."
+    },
+    {
+      "id": "apertium-04",
+      "source": "Please book a table for two.",
+      "translation": "Complacer reservar una mesa para dos.",
+      "note": "book is tagged verb and transferred to reservar, but polite Please is wrongly tagged as a lexical verb and becomes Complacer."
+    },
+    {
+      "id": "apertium-05",
+      "source": "The country musician is famous.",
+      "translation": "El músico de país es famoso.",
+      "note": "country music sense fails: country transfers to the nation noun país."
+    },
+    {
+      "id": "apertium-06",
+      "source": "I live in a small country.",
+      "translation": "Vivo en un país pequeño.",
+      "note": "Output retained; no aggregate semantic acceptance claim."
+    },
+    {
+      "id": "apertium-07",
+      "source": "The high school is near my house.",
+      "translation": "El instituto es cerca mi casa.",
+      "note": "Output retained; no aggregate semantic acceptance claim."
+    },
+    {
+      "id": "apertium-08",
+      "source": "We discuss a high school of thought.",
+      "translation": "Hablamos un instituto de pensó.",
+      "note": "school of thought sense and thought POS fail; output contains instituto and pensó."
+    },
+    {
+      "id": "apertium-09",
+      "source": "I bought a hot dog for lunch.",
+      "translation": "Compré un perro caliente para comida.",
+      "note": "perro caliente is an attested regional food expression; do not reject it solely because its component words also mean dog/hot."
+    },
+    {
+      "id": "apertium-10",
+      "source": "The hot dog is sleeping.",
+      "translation": "El perro caliente está durmiendo.",
+      "note": "Literal hot dog versus food expression remains ambiguous; no confident correctness judgment from spelling alone."
+    },
+    {
+      "id": "apertium-11",
+      "source": "I am not happy.",
+      "translation": "No soy feliz.",
+      "note": "Negation remains present in full target."
+    },
+    {
+      "id": "apertium-12",
+      "source": "I have a new laptop.",
+      "translation": "Tengo un portátil nuevo.",
+      "note": "portátil is a complete Spanish laptop noun, not an automatically truncated adjective."
+    },
+    {
+      "id": "apertium-13",
+      "source": "Please send me an email.",
+      "translation": "Complacer enviarme un email.",
+      "note": "Same polite Please→Complacer error."
+    },
+    {
+      "id": "apertium-14",
+      "source": "Can you water the plants?",
+      "translation": "Puede  abrevas las plantas?",
+      "note": "water is recognized as a verb, but selected abrevar is inappropriate for ordinary watering of plants; modal/person grammar is also broken."
+    },
+    {
+      "id": "apertium-15",
+      "source": "I need a glass of water.",
+      "translation": "Necesito un vaso de agua.",
+      "note": "Output retained; no aggregate semantic acceptance claim."
+    },
+    {
+      "id": "apertium-16",
+      "source": "I'll see you tomorrow.",
+      "translation": "Te veré mañana.",
+      "note": "Output retained; no aggregate semantic acceptance claim."
+    },
+    {
+      "id": "apertium-17",
+      "source": "Visit https://example.com/order/17 and email alice@example.com.",
+      "translation": "Visita https://example.com/order/17 y email alice@example.com.",
+      "note": "Exact URL and email strings survive; English verb email remains untranslated, so literal preservation does not make the whole sentence correct."
+    },
+    {
+      "id": "apertium-18",
+      "source": "We bought three books yesterday.",
+      "translation": "Compramos tres libros ayer.",
+      "note": "Past purchase, number and plural noun are represented in full target."
+    },
+    {
+      "id": "apertium-19",
+      "source": "I'm on my way.",
+      "translation": "Soy en mi manera.",
+      "note": "on my way is mistranslated as en mi manera, losing the intended travel-state meaning."
+    },
+    {
+      "id": "apertium-20",
+      "source": "Are you feeling well?",
+      "translation": "Eres sintiendo bien?",
+      "note": "Well-being sense remains understandable, with incorrect copular/progressive grammar."
+    }
+  ],
+  "decision": "Potential offline morphology/tagging/transfer evidence. Do not adopt as a complete meaning authority, broad translator or native runtime dependency. Existing corpus projection remains unchanged.",
+  "limits": [
+    "Authored/reused diagnostic cases; neither independent bilingual gold nor a population accuracy estimate.",
+    "Times include thirteen sequential process launches and complete stage capture per case; no phone/warm-runtime performance claim.",
+    "Small bundled statistical tagger model included; no neural-model download, hosted translation call or system package installation.",
+    "Distribution licenses retained in private extracted packages; no publication/redistribution qualification."
+  ],
+  "primary_sources": [
+    "https://github.com/apertium/apertium-eng-spa",
+    "https://wiki.apertium.org/wiki/Contributing_to_an_existing_pair",
+    "https://wiki.apertium.org/wiki/Modes"
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "schema": "vipi.apertium-transfer-feasibility.r01",
+  "frozen_at_utc": "2026-11-08T11:01:40.800871+00:00",
+  "production": false,
+  "before_translation_outputs": true,
+  "source": "Twenty authored/reused diagnostic situations; not unseen chat data or population evidence. No target references supplied.",
+  "cases": [
+    {
+      "id": "apertium-01",
+      "text": "I am going to Alice's birthday."
+    },
+    {
+      "id": "apertium-02",
+      "text": "We are going to my friend's birthday."
+    },
+    {
+      "id": "apertium-03",
+      "text": "I lost my book."
+    },
+    {
+      "id": "apertium-04",
+      "text": "Please book a table for two."
+    },
+    {
+      "id": "apertium-05",
+      "text": "The country musician is famous."
+    },
+    {
+      "id": "apertium-06",
+      "text": "I live in a small country."
+    },
+    {
+      "id": "apertium-07",
+      "text": "The high school is near my house."
+    },
+    {
+      "id": "apertium-08",
+      "text": "We discuss a high school of thought."
+    },
+    {
+      "id": "apertium-09",
+      "text": "I bought a hot dog for lunch."
+    },
+    {
+      "id": "apertium-10",
+      "text": "The hot dog is sleeping."
+    },
+    {
+      "id": "apertium-11",
+      "text": "I am not happy."
+    },
+    {
+      "id": "apertium-12",
+      "text": "I have a new laptop."
+    },
+    {
+      "id": "apertium-13",
+      "text": "Please send me an email."
+    },
+    {
+      "id": "apertium-14",
+      "text": "Can you water the plants?"
+    },
+    {
+      "id": "apertium-15",
+      "text": "I need a glass of water."
+    },
+    {
+      "id": "apertium-16",
+      "text": "I'll see you tomorrow."
+    },
+    {
+      "id": "apertium-17",
+      "text": "Visit https://example.com/order/17 and email alice@example.com."
+    },
+    {
+      "id": "apertium-18",
+      "text": "We bought three books yesterday."
+    },
+    {
+      "id": "apertium-19",
+      "text": "I'm on my way."
+    },
+    {
+      "id": "apertium-20",
+      "text": "Are you feeling well?"
+    }
+  ],
+  "pair": "eng-spa",
+  "goal": "Inspect existing finite-state morphology, statistical tagging, rule-based lexical selection and structural transfer as an offline mapping source; compare actual constituent outputs with complete translation. No new app runtime adoption.",
+  "resources": {
+    "max_added_bytes": 67108864,
+    "minimum_free_bytes": 8589934592,
+    "cpu_threads": 1,
+    "max_probe_rss_bytes": 268435456,
+    "max_wall_seconds": 180
+  },
+  "acquisition": "Pinned Ubuntu packages privately extracted, no system installation; small bundled tagger data included, no neural model or remote translation provider.",
+  "packages": [
+    {
+      "Package": "apertium",
+      "Version": "3.9.4-1build1",
+      "Architecture": "amd64",
+      "Installed-Size": "2964",
+      "Filename": "pool/universe/a/apertium/apertium_3.9.4-1build1_amd64.deb",
+      "Size": "378416",
+      "SHA256": "3e97de117a983b28cb20ed2961bd38360228f54df1c0dfd4f6a7ce6367bb7e68",
+      "Depends": "gawk, libapertium3 (= 3.9.4-1build1), libxml2-utils, lttoolbox (>= 3.7.6), xsltproc, libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), liblttoolbox3 (>= 3.7.6), libstdc++6 (>= 13.1), libxml2 (>= 2.7.4)"
+    },
+    {
+      "Package": "apertium-eng-spa",
+      "Version": "0.8.1-2",
+      "Architecture": "all",
+      "Installed-Size": "5466",
+      "Filename": "pool/universe/a/apertium-eng-spa/apertium-eng-spa_0.8.1-2_all.deb",
+      "Size": "2457244",
+      "SHA256": "c04b26b8fb71a31436e13ad28e47393866d8df72a1ae171460166d10b33a3750",
+      "Depends": "apertium (>= 3.8.1), apertium-lex-tools (>= 0.3.1)"
+    },
+    {
+      "Package": "apertium-lex-tools",
+      "Version": "0.4.2-2build3",
+      "Architecture": "amd64",
+      "Installed-Size": "186",
+      "Filename": "pool/universe/a/apertium-lex-tools/apertium-lex-tools_0.4.2-2build3_amd64.deb",
+      "Size": "51464",
+      "SHA256": "1085042a8d27c7addacbb9353e2caf13b746ff9d9d3273dd138486784f078b5c",
+      "Depends": "libapertium-lex-tools1 (= 0.4.2-2build3), libc6 (>= 2.39), libgcc-s1 (>= 3.0), libicu74 (>= 74.1-1~), libirstlm1t64 (>= 6.00.05), liblttoolbox3 (>= 3.7.6), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "libapertium3",
+      "Version": "3.9.4-1build1",
+      "Architecture": "amd64",
+      "Installed-Size": "1024",
+      "Filename": "pool/universe/a/apertium/libapertium3_3.9.4-1build1_amd64.deb",
+      "Size": "387010",
+      "SHA256": "7f2dc4c9eb976584924008a2545e17ccf23a7de90dc03265c556d16c98ba0267",
+      "Depends": "libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), liblttoolbox3 (>= 3.7.6), libstdc++6 (>= 13.1), libxml2 (>= 2.7.4)"
+    },
+    {
+      "Package": "lttoolbox",
+      "Version": "3.7.6-1build1",
+      "Architecture": "amd64",
+      "Installed-Size": "105",
+      "Filename": "pool/universe/l/lttoolbox/lttoolbox_3.7.6-1build1_amd64.deb",
+      "Size": "24482",
+      "SHA256": "70ab1dff0bcf8cd67bc99198a2fe650fba44185e1caeea93196da435c9230d1f",
+      "Depends": "liblttoolbox3 (= 3.7.6-1build1), libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "liblttoolbox3",
+      "Version": "3.7.6-1build1",
+      "Architecture": "amd64",
+      "Installed-Size": "524",
+      "Filename": "pool/universe/l/lttoolbox/liblttoolbox3_3.7.6-1build1_amd64.deb",
+      "Size": "207868",
+      "SHA256": "591c7a19116fa34c61624339ca73378a508827ce4dcb751747a001deeee0fe5d",
+      "Depends": "libc6 (>= 2.22), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), libstdc++6 (>= 13.1), libxml2 (>= 2.7.4)"
+    },
+    {
+      "Package": "libapertium-lex-tools1",
+      "Version": "0.4.2-2build3",
+      "Architecture": "amd64",
+      "Installed-Size": "228",
+      "Filename": "pool/universe/a/apertium-lex-tools/libapertium-lex-tools1_0.4.2-2build3_amd64.deb",
+      "Size": "79252",
+      "SHA256": "e8b593aef1b5dbd42850a4a2625e3a61f619c46a259cbca51d58d0037214288b",
+      "Depends": "libc6 (>= 2.14), libgcc-s1 (>= 3.0), libicu74 (>= 74.1-1~), liblttoolbox3 (>= 3.7.6), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "libirstlm1t64",
+      "Version": "6.00.05-4.1build1",
+      "Architecture": "amd64",
+      "Installed-Size": "471",
+      "Filename": "pool/universe/i/irstlm/libirstlm1t64_6.00.05-4.1build1_amd64.deb",
+      "Size": "187174",
+      "SHA256": "cb2ff17497bf7003f894daad48a447c0cb162dcf6d7e1ce6276825bc68e078b8",
+      "Depends": "libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libstdc++6 (>= 13.1), zlib1g (>= 1:1.2.3.3)"
+    }
+  ],
+  "primary_sources": [
+    "https://github.com/apertium/apertium-eng-spa",
+    "https://wiki.apertium.org/wiki/Contributing_to_an_existing_pair",
+    "https://wiki.apertium.org/wiki/Modes"
+  ],
+  "limits": [
+    "No native performance or semantic accuracy guarantee.",
+    "Source strings and every stage output must be retained without target rewriting.",
+    "Underlying package licenses retained; no app redistribution from this probe."
+  ]
+}

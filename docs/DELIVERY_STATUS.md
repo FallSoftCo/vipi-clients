@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 10:04 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 11:35 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -26,168 +26,76 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 ## Current language decision
 
-The user asked whether the discussed NLP approach was incorporated. It is only
-partly incorporated. Native source-only references, finite literal/slot patterns,
-attested morphology and indexed phrase windows exist, but broad phrase lookup
-still commonly requires target-translation evidence. General source-first
-longest-context matching, reusable typed possessors and target grammar generation
-are not production capabilities. The team has frozen a distinct comparison of
-exact top-down windows, existing finite slots, typed slots with attested forms,
-and optional finite-state morphology. See
-`qa/immersion/nlp-template-comparison-r01/contract.json`.
+The discussed NLP approach is partly incorporated. Both native clients have
+local lookup, finite context patterns, exact source ranges, morphology/form
+records and restrictions that prevent an unsafe phrase from leaking through a
+later word fallback. The new broad source-first catalogs are experimental.
+General typed phrase composition, arbitrary grammar transfer and dependable
+conversation-wide sense selection are not accepted production capabilities.
+Local translation still supplies evidence for many existing vocabulary flips.
 
-The frozen comparison now runs in actual Swift and Kotlin. All 121 authored
-cases agree across implementations on recognition and 19,602 selected decision
-sets; this is implementation parity, not semantic accuracy. Apple's complete
-9,535-message TRAIN run recognizes contexts in only 54 messages across all three
-arms. At 25% density, 53 messages per target have context-backed output. Typed
-possessors add 18 authored messages with pattern-derived output, or 14 new
-messages when diagnostic fallback also counts, but no TRAIN reach over the
-exact-phrase arm.
-The ten-family catalog is a mechanism experiment, not broad immersion coverage.
-Apple's median first/warm lookup is 1.99/1.96 ms with zero translation-provider
-calls. Desktop/VM timing is not a phone performance guarantee. The original
-20 MiB output cap stopped the first run at 9,029 rows; a recorded lossless-storage
-amendment and exact 506-row suffix complete the same inputs and executable.
+The central distinction is **recognized context versus displayed focus**. A
+longer phrase can establish the meaning of one word while surrounding grammar
+stays in the user's language. Masks survive missing target faces, familiar-word
+filtering and a small immersion budget. Both native coordinators enforce exact
+output identity/range permissions before selection and again afterward. The
+new source-evidence provider is absent by default, so mechanism qualification
+has not silently enabled a research catalog or corrected a bad full translation.
 
-Root independently reviewed 62 selected scopes before reading author labels:
-57 preserve meaning, four contain material errors and one is uncertain. Ten
-additional empty scopes are abstentions, not correct translations. Both reviews
-agree on the selected scopes. Errors include the diagnostic fallback treating
-country in “country musician” as a nation and the phrase matcher selecting
-Japanese 学校 in “school of thought.” Spanish escuela retains that figurative
-sense; Swahili shule remains uncertain. Two Swahili celebration words also have
-minor capitalization defects. These reused examples are agent judgments, not
-fresh population validation. Overbroad possessor captures are shape constraints,
-not demonstrated noun-phrase parsing. No complete candidate is promoted.
+The latest comparisons establish these limits:
 
-Matched context and flipped focus are different fields: a long recognized
-construction may authorize one noun without changing surrounding grammar.
-Atomic compound/idiom protection now has a nonnullable evidence path in both
-native clients. A supplied provider's masks survive absent target faces and
-known/density filtering, apply to forward whole references, and constrain both
-primary and supplemental fallback selection before the density budget is spent.
-Every overlapping mask must approve an exact source output ID and range; legacy
-alignment cannot manufacture that approval from matching text. Strict atomic,
-head and ambiguous scope checks, reverse direction, stale requests and cache
-identity were qualified in both native coordinators and cores. The provider is
-still absent by default: this supplies the integration mechanism, not an accepted
-broad catalog or corrected full-sentence translation.
+| Approach | Observed result | Decision |
+|---|---|---|
+| Exact phrase windows, finite slots and typed possessors | Actual Swift/Kotlin agree on the frozen authored examples. The ten-family catalog recognizes only 54 of 9,535 reused TRAIN messages; typed slots add no TRAIN reach. | Keep the mechanism; small template catalogs do not solve broad coverage. |
+| Automatically aligned corpus phrases | A frozen 60,000-pair English–Spanish/Swahili build produces thousands of phrase proposals, but independent contextual reviews find wrong senses, omitted predicates and imported words/persons. | Corpus frequency and alignment are candidate evidence, not semantic approval. |
+| Dictionary-corroborated complete units | At 25% density, raw content appears in 6,872 Swahili and 8,865 Spanish messages out of 9,535. All three reviewers accept 14 of 16 nominated scopes; title handling and musical play still fail. | Promising breadth; needs actual source-context selection. These counts are not correct-immersion coverage. |
+| Dictionary-backed heads within corpus contexts | All three reviewers accept 16 of 16 nominated scopes, but a different selected word in one reviewed message uses a noun for verbal visit. Raw content reach is only 1,719/4,630 messages. | Bilingual dictionary POS agreement does not prove the word's role in the current sentence. Most proposals match only a single-word context. |
+| Heads combined with the earlier editorial candidate | All three reviewers accept 15 of 16 nominated scopes; degree too is still confused with also. | No complete candidate accepted. Whole-path errors and later-learning depth remain gates. |
+| HFST/lexd Swahili morphology | Actual isolated compilation/query succeeds with small analyzer/generator files, but common words and some negative/person forms fail. | Possible build-time evidence; no general generator or native dependency adopted. |
+| Apertium English–Spanish transfer | Actual stage capture handles possessive birthdays and noun/verb book, but fails country musician, on my way and other ordinary contexts. | Useful morphology/tagging/transfer components, not a complete meaning authority. |
 
-Root's full retained-capture comparison accounts for all 9,535 TRAIN inputs on
-both platforms, including aggregated zero-output cases. Recognitions and selected
-outputs agree; 54 decision-budget differences from native tokenization remain
-visible without changing those outputs. This is mechanical evidence only.
+The corpus comparison uses retained native token geometry and 9,535 reused
+TRAIN messages at three immersion densities and five simulated vocabulary
+states. It makes no translation-provider calls. Its 96-case review is a
+stratified diagnostic, not population accuracy or certified bilingual gold.
+The three reviews were frozen independently. Original disagreements remain:
+minor form/number/degree differences are not silently promoted to perfect
+translations. The raw phrase arms also use historical containment restrictions,
+which are weaker than the native exact permission contract; their outputs are
+not native-admission qualification.
 
-A separate corpus phrase-extraction protocol is frozen before new training
-outputs: up to 40,000 direct English–Spanish and 20,000 English–Swahili development
-pairs, all consistent target boundary variants, per-row provenance and separate
-contextual review. The source-frequency inventory has 5,000 multiword keys and
-3,000 unigram keys from reused TRAIN. Global Voices is news data, not ordinary
-friend-chat gold. Existing Tatoeba and dictionary examples are complementary
-sources; their membership alone cannot approve a translation. Historical work
-already included a dictionary-bounded complete-unit alignment experiment; the
-new work builds a reusable source-first phrase inventory. Japanese tokenization
-is being qualified separately. No new coverage result or pack activation is
-credited before actual outputs and review.
+Learning depth remains important. After function vocabulary and 300 frequent
+content families are simulated known, dictionary-corroborated content reach
+falls to 3,181 Swahili and 6,235 Spanish messages. This is source-vocabulary
+exhaustion, not a demonstrated user learning model. A large file or a high raw
+match rate cannot establish sustained accurate immersion. The next comparison
+is contextual eligibility over the larger corroborated pool: source roles,
+names, idioms and competing senses, with separate matched-context and display
+ranges. Do not replace this with another small list of hand-picked word fixes.
 
-The existing bounded conversation cache now retains only deterministic rejected
-local-provider outcomes for automatic reentry. Explicit retries and observed
-model-readiness changes permit another attempt; useful partials, transient
-failures, source errors and stale responses retain their separate behavior.
-Android's unchanged installed Japanese URL/email failures reproduced three
-provider calls for three automatic requests before the fix and one afterward.
-Apple's actual coordinator qualified the same contract with injected retained
-responses; this does not establish fresh Apple translation behavior. Identifier
-integrity checks remain unchanged. Both native lifecycle checks passed.
+Japanese native tokenization is now qualified as a research prerequisite:
+36 inputs reconstruct exactly, one oversized input rejects as expected, and
+warm output is stable. It is not a Japanese corpus or translation qualification.
+The completed comparison details are under
+`qa/immersion/nlp-template-comparison-r01`,
+`qa/immersion/corpus-phrase-extraction-r01`,
+`qa/immersion/hfst-morphology-feasibility-r01`, and
+`qa/immersion/apertium-transfer-feasibility-r01`.
 
-HFST 3.16.0 and lexd 1.3.1 have now actually compiled and queried the retained
-Swahili source in an isolated desktop probe. Its analyzer is 1.28 MB and generator
-0.93 MB; a 4,200-word repeated batch took 216 ms including startup. The same data
-also omits common nouns and generates/tags some negative forms incorrectly.
-Finite-state morphology is feasible, but that source cannot be adopted broadly
-without qualification. This is neither translation nor conversational coverage;
-see `qa/immersion/hfst-morphology-feasibility-r01`.
+Earlier word/phrase, source-role and dictionary-expansion results remain in
+`qa/immersion/coverage_ceiling_experiment` and private immutable review receipts.
+They include material compound/idiom mistakes and insufficient depth after
+common vocabulary is learned. The previously untouched BST TEST contexts have
+already been consumed; reuse is diagnostic, not fresh acceptance evidence.
+No new pack, 90% multilingual coverage claim or all-language release is accepted.
 
-The previous native beginner comparison used the same 80 English messages into
-Swahili, Japanese and Spanish. All 187 selected source-only spans/readings matched
-across platforms. Android minor-tolerant clean counts were 65/65/59, with content
-in 22/27/24 messages. Spanish content declined from 28 in its baseline. These are
-reused diagnostics at 10% density, not fresh conversational population accuracy.
-Apple's matching source-only path made zero provider calls; its unavailable full
-translator does not establish offline Apple translation.
-
-The subsequent 50-source short-phrase experiment produced **zero automatic gain
-at 10% density** in a separate 80-conversation comparison. Complete references
-existed in 7/9/9 messages, but only one whole-message reference per target. At the
-actual 25% app setting the improvement was small. Frozen negative results remain
-in `qa/immersion/coverage_ceiling_experiment`.
-
-The starter had also excluded many primary-backed words merely because prior
-small samples had never selected them. Removing that observation requirement
-adds 111/148/138 content forms while preserving genuine unresolved sense/form
-exclusions. The broader catalog has 131/126/120 content concept groups after
-merging four singular/plural alias families. Its independent disjoint-unit
-selection is a Python research candidate, not an activated native language pack.
-
-The final 79 eligible unseen BST conversation contexts were evaluated once; the
-TEST split is now exhausted under this context-exclusion policy. At 25% density,
-minor-tolerant clean counts are 68/63/62 and content-bearing messages 36/39/37,
-compared with 29/10/8 content messages for the starter. Correct mixed-text depth
-is 15.49%/13.46%/13.49%; content depth is only 5.55%/5.73%/5.46%. Once all function
-words and 50 frequent content concepts are simulated known, only 11/79 messages
-per target still provide content. This is insufficient sustained progression.
-The additive corrected concept-group replay changes no selected fresh 79 output;
-original declared IDs, scores and the amended audit remain distinguishable.
-
-All 391 selected scopes were author-reviewed; root independently reviewed 119
-before author-label disclosure. The join retains 362 correct, 28 minor and one
-material error: Spanish `okay→vale` in a health-state sentence at 50% density.
-That failure is preserved. No material error was selected at 25% in this small
-sample, which does not establish a universal guarantee. The next work is a
-larger TRAIN-frequency, primary-sense-backed inventory with general contextual
-guards. Future reuse of these messages is diagnostic, not fresh validation.
-These are agent judgments, not certified bilingual gold or a 90% claim. See
-`qa/immersion/coverage_ceiling_experiment/CONTENT_EXPANSION_R01.md` and its
-additive concept-group audit.
-
-The larger inventory covers 3,000 frequent TRAIN surfaces but does not establish
-safe contextual choices. Requiring agreement across every dictionary sense
-collapses usable content; shortest-target selection introduces meaning/register
-errors. The next bounded candidate uses ordinary source roles, attested forms
-and phrase evidence, measured on all 9,535 TRAIN turns. An Arabic alias audit
-also found a concrete compiler identity defect: vocalized coffee and a different
-son alias collapse to the same stripped key. The general correction in `badc399`
-preserves all 1,671 attested links in its marked/unmarked cohort and removes
-1,334 unsupported links. No revised pack has been built or activated.
-
-The subsequent role-based pilot retains two concrete failures: copular
-questions such as “What is it like…” can be mistaken for preference, and an
-older noun lookup can bypass a newer rejection of verbal “parents.” These are
-whole-pipeline issues, not evidence that every word needs all-sense agreement.
-The broader inventory has 2,209 linked surfaces with a positive reusable source
-role on TRAIN. This is potential reach before choosing correct target senses.
-An editorial first-500 noun/adjective candidate is being prepared with exact
-primary sense/form IDs and shared eligibility across old and new paths.
-No broad semantic-coverage result or native promotion is credited.
-
-That fixed first-500 batch now has primary-backed draft faces for 278 Swahili,
-441 Japanese and 421 Spanish entries. Root independently reviewed 96 selected
-TRAIN contexts before seeing author labels: 86 selected senses were compatible,
-four had minor contextual differences and six had material errors. Form and
-reading judgments remain separate. The sample deliberately includes common
-alternative senses and later-progression cases; it is not all-message accuracy.
-Failures include creative versus original/earlier, physical high versus high
-school, kinship great, effort hard, human-height short and well-being good.
-Other existing paths also changed a drink brand and a metaphorical driver.
-Author/root joins and subsequent general fixes are retained separately; frozen
-outputs have not been changed to hide those cases. The R03 source-unit experiment
-in `7a093f0` repairs source-sense bindings, enforces literals across its paths and
-uses complete source-role evidence. At 25% density its unreviewed TRAIN content
-reach is 53.4%/62.1%/60.2% for Swahili/Japanese/Spanish. An overbroad attributive
-suppression arm was rejected; material idiom/compound errors remain. Raw reach
-is not accurate immersion coverage. Further word-only batches are subordinate
-to the distinct NLP comparison. No revised pack is activated.
+The bounded conversation cache now retains deterministic rejected local-provider
+outcomes for automatic reentry. Explicit retry and observed model-readiness
+changes permit another attempt. Useful partials, transient failures, source
+errors and stale responses remain separate. Android's installed Japanese models
+reproduced three calls for three automatic requests before the fix and one
+afterward. Apple's actual coordinator qualified the same lifecycle with injected
+retained responses, not fresh Apple translation. Identifier checks are unchanged.
 
 ## Native full-reading work
 
