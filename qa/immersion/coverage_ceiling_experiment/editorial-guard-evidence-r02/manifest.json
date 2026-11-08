@@ -1,0 +1,70 @@
+{
+  "schema": "vipi.editorial-guard-evidence.r02",
+  "production": false,
+  "files": [
+    {
+      "file": "editorial-guards-diagnostic-freeze-r02.json.gz",
+      "bytes": 3616,
+      "sha256": "e5495ec980c467b6ce8d4f659cfd0dd787e71ea3b2abd9f5bf2401761d1e028f",
+      "source_bytes": 11191,
+      "source_sha256": "9e6ff0cb10e18041cf603cda35bb3bf2e90cb2b438881df6400610b272794a1b"
+    },
+    {
+      "file": "editorial-guards-diagnostic-output-r02.json.gz",
+      "bytes": 1736649,
+      "sha256": "991ac1b5cf77c6bb10bae74f07452e2f5eefa0e1009755586b5fa96b2eae5fef",
+      "source_bytes": 26150187,
+      "source_sha256": "0837588dc0967c4ca7de11bbbaef00d70f9d43d37b7ef6bccb6054209217cd2d"
+    },
+    {
+      "file": "editorial-guards-independent48-review-r02.json.gz",
+      "bytes": 30568,
+      "sha256": "0efe5186b0f03044e55b7a5ebe9d2363a9cb5edafb4349113e7a6dc6b4903937",
+      "source_bytes": 221410,
+      "source_sha256": "c1e94377a873edffb419f83c141784d2ae5293f9a4bff53790b7a927e8523f31"
+    },
+    {
+      "file": "editorial-guards-author-review-r02.json.gz",
+      "bytes": 3783,
+      "sha256": "38d8d342e36475f4548549f8182c8dbf4961c603675ac95544408e23121ac197",
+      "source_bytes": 20648,
+      "source_sha256": "4dcbdcd904c0a3102b8eb968627a32712ac7f35e976237e5b1f4dadbfb9ef0bd"
+    },
+    {
+      "file": "editorial-guards-independent-root-review-r02.json.gz",
+      "bytes": 3768,
+      "sha256": "ece87c7d4a5f179bd915db5440eb460e6925ffb043dd8bf7f0b0f8413672e733",
+      "source_bytes": 27299,
+      "source_sha256": "42a85276b05d280a30fc5aa7f6389d054febd0b7f23c282212feea45a1091dad"
+    },
+    {
+      "file": "editorial-guards-joined-decision-r02.json.gz",
+      "bytes": 19969,
+      "sha256": "590b87647a45e381cf46c2333d054411782bf2266614cea653acc11bec22e32c",
+      "source_bytes": 324096,
+      "source_sha256": "a695d1479c1043503eb80ae4d44801264b0261c47bc58f0d2f5ed22a25d73878"
+    },
+    {
+      "file": "editorial-source-sense-binding-complete-r02.json.gz",
+      "bytes": 69178,
+      "sha256": "f0e42bd6585263cbe94dbe1c9ccd0d879b92cc94bcbcbd7a48374704c7877ef9",
+      "source_bytes": 819923,
+      "source_sha256": "02a194231c9db76eed625e316d85dca8c81581ed80c355bbeb023922b8cde1f4"
+    }
+  ],
+  "dependencies": [
+    "../editorial-content500-evidence-r01/manifest.json",
+    "../scaled-content-evidence-r01/manifest.json",
+    "../diagnose_editorial_guards_r02.py"
+  ],
+  "reproduction": "Restore exact evidence files to an isolated evidence-dir layout; run diagnose_editorial_guards_r02.py with the retained frozen candidate, source inventory and licensed BST TRAIN. Frozen input hashes are checked. Elapsed time is observational, not byte-reproducible.",
+  "scope": "Four guard ablations on all 9535 previously used TRAIN turns, three targets and 10/25/50 percent requested density. Source-sense choices are separately authored and do not change the frozen output.",
+  "limits": [
+    "No native runtime or production pack changed. No fresh holdout or population accuracy claim.",
+    "Quote protection in the diagnostic reaches content candidates only; function candidates can bypass it. Unclosed quote behavior is explicitly retained.",
+    "Noun-only membership is a complete retained source-role proxy, not proof of universally unique role or sense.",
+    "The selected48 review does not qualify all outputs. Employee benefits, pretty gross, baby spinach and contextual Japanese counter reading issues remain visible.",
+    "All464 source/POS bindings were inspected;163 changed,6 changed lexeme identity,1 ended adjective withheld. This is source evidence repair, not target or runtime semantic approval."
+  ],
+  "licenses": "Existing pinned Wiktionary/Kaikki and JMdict sources CC BY-SA4.0; BST/ParlAI CC BY4.0. Full entry IDs, URLs and exact primary records remain in the dependency capsules."
+}
