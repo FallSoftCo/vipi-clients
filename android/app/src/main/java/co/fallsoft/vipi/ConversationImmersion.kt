@@ -125,9 +125,24 @@ internal class BundledImmersionCatalog(private val context: Context) {
     }
 }
 
+/** An explicitly injected qualification policy. Release builds cannot enable it. */
+internal interface SourceUnitQaPolicy {
+    val cacheIdentity: String
+    fun partial(original: String, source: String, target: String, density: Double): PartialImmersionResult?
+}
+internal data class ImmersionInvocationCounters(val readiness: Int = 0, val heavyAlignment: Int = 0,
+    val partialPresentation: Int = 0, val qaSourceLookup: Int = 0)
+
 /** Per conversation, keyed request work and bounded memory. ChatItem is immutable. */
 internal class ConversationImmersion(context: Context, val source: String, val target: String, private val density: Double,
-    private val translator: LanguageTranslation = LocalTranslation()) : AutoCloseable {
+    private val translator: LanguageTranslation = LocalTranslation(),
+    private val qaSourceUnits: SourceUnitQaPolicy? = null) : AutoCloseable {
+    init {
+        require(qaSourceUnits == null || BuildConfig.DEBUG)
+        require(qaSourceUnits == null || qaSourceUnits.cacheIdentity.matches(Regex("[A-Za-z0-9._:-]{1,160}")))
+    }
+    private fun cacheKey(text: String, inputLanguage: String?) =
+        (qaSourceUnits?.cacheIdentity ?: "accepted") + ":" + (inputLanguage ?: "auto") + ":" + text
     private val language = MessageLanguage()
     private val catalog = BundledImmersionCatalog(context.applicationContext)
     private val lexical = BundledLexicalCatalog(context.applicationContext)
@@ -164,6 +179,8 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     }
     internal var lastOutcome: LookupFirstOutcome? = null
         private set
+    internal var lastInvocation = ImmersionInvocationCounters()
+        private set
     internal var lexicalPreparation: String = "unmeasured"
         private set
     var ready by mutableStateOf<Boolean?>(null)
@@ -175,7 +192,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         if (language == null) inputLanguages.remove(id) else inputLanguages[id] = language
     }
     fun cachedPresentation(text: String, messageID: String? = null): ImmersionPresentation? =
-        if (closed) null else cachedOutcome("${messageID?.let { inputLanguages[it] } ?: "auto"}:$text")?.result
+        if (closed) null else cachedOutcome(cacheKey(text, messageID?.let { inputLanguages[it] }))?.result
     fun cached(text: String, messageID: String? = null): ImmersionResult? = cachedPresentation(text, messageID) as? ImmersionResult
     fun reading(text: String): String? = readings.reading(text, target)
 
@@ -213,20 +230,25 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         // even while the same message's explicit reference request is pending.
         val cached = synchronized(stateLock) {
             if (!closed && (messageID == null || inputLanguages[messageID] == inputLanguage))
-                cache[(inputLanguage ?: "auto") + ":" + text] else null
+                cache[cacheKey(text, inputLanguage)] else null
         }
         if (coroutineContext.isActive && submittedRevision == generation && cached?.result != null &&
             (intent == ImmersionIntent.AUTOMATIC_IMMERSION || cached.result?.translation != null))
-            return cached.cachedInvocation().also { lastOutcome = it }
+            return cached.cachedInvocation().also { lastOutcome = it; lastInvocation = ImmersionInvocationCounters() }
         return withRequestGate(RequestKey(submittedRevision, inputLanguage, text)) { revision ->
         lastOutcome = null
+        var readinessCalls = 0; var alignmentCalls = 0; var partialCalls = 0; var qaCalls = 0
         val requestContext = coroutineContext
         fun valid() = !closed && revision == generation && requestContext.isActive &&
             (messageID == null || inputLanguages[messageID] == inputLanguage)
-        fun finish(value: LookupFirstOutcome): LookupFirstOutcome { lastOutcome = value; return value }
+        fun finish(value: LookupFirstOutcome): LookupFirstOutcome {
+            lastOutcome = value
+            lastInvocation = ImmersionInvocationCounters(readinessCalls, alignmentCalls, partialCalls, qaCalls)
+            return value
+        }
         fun stale() = LookupFirstOutcome(null, null, ImmersionStatus.STALE, 0)
         if (!valid()) return@withRequestGate finish(stale())
-        val key = (inputLanguage ?: "auto") + ":" + text
+        val key = cacheKey(text, inputLanguage)
         cachedOutcome(key)?.takeIf { it.result != null &&
             (intent == ImmersionIntent.AUTOMATIC_IMMERSION || it.result?.translation != null) }?.let {
             return@withRequestGate finish(it.cachedInvocation())
@@ -236,7 +258,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         val outcome = try {
             LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage, intent), ::valid,
                 reference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(original, from, to) } } },
-                identify = { language.identify(it) }, modelsReady = { ready == true },
+                identify = { language.identify(it) }, modelsReady = { readinessCalls++; ready == true },
                 translate = { original, from, to ->
                     if (intent == ImmersionIntent.FULL_TRANSLATION) {
                         try { withTimeout(30_000) { providerMutex.withLock { translator.translate(original, from, to) } } }
@@ -244,6 +266,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                     } else providerMutex.withLock { translator.translate(original, from, to) }
                 },
                 align = { original, targetText -> catalogMutex.withLock { withContext(Dispatchers.IO) {
+                    alignmentCalls++
                     val supplemental = try {
                         lexical.entries(original, targetText, source, target).also { lexicalPreparation = "ready" }
                     } catch (cancelled: CancellationException) { throw cancelled }
@@ -252,7 +275,10 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                     catalog.result(original, targetText, source, target, density, supplementalEntries = supplemental)
                 } } },
                 partialReference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) {
-                    catalog.partial(original, from, to, density, readings)
+                    partialCalls++
+                    catalog.partial(original, from, to, density, readings) ?: qaSourceUnits?.let {
+                        qaCalls++; it.partial(original, from, to, density)
+                    }
                 } } },
                 onPartial = { partial -> if (valid()) {
                     cacheOutcome(key, LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0))
