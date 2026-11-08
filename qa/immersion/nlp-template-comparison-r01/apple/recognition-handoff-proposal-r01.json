@@ -1,0 +1,44 @@
+{
+  "schema": "vipi.apple-source-recognition-handoff.proposal.1",
+  "state": "design_only_no_production_edit",
+  "problem": "A nullable source partial loses recognized atomic scopes when all faces are known, overbudget, missing or rejected; subsequent target-dependent alignment can expose an unsafe inner word.",
+  "minimal_channel": {
+    "source_result": "Validated source evidence with optional partial plus independent recognition metadata; no dummy empty partial.",
+    "binding": [
+      "exact originalUTF8 identity",
+      "source/target direction",
+      "catalogversion/hash",
+      "recordID/proofSHA",
+      "source context/mask ranges",
+      "explicit approved outputID+exactsource range permissions"
+    ],
+    "routing": "Existing whole authored forward/reverse references retain precedence. On their miss collect evidence; do not apply constraints until language is confirmed forward. Keep valid metadata with nilpartial through modelready,translate,alignment.",
+    "reverse": "Never reuse originalinput ranges after reverse translation changes source text. Discard these constraints for reverse route; any future reverse recognition requires a separate actual-source lookup.",
+    "alignment": "Pass validated perrequest constraints explicitly to LocalImmersion/BundledImmersionCatalog/ImmersionEngine and both primary/supplemental recursive paths. Keep existing lexical claims; filter proposed source spans, not entries before ambiguity checking.",
+    "overlap": "Every overlapping mask must permit exact approved outputID and exactsource geometry. Never infer an approved ID from matching text. Existing legacy candidates lack that proof, so conservatively suppress only overlapping masked spans while allowing unmasked fallback. Source-admitted head faces retain their current approved path.",
+    "full_translation": "Source constraints restrict inline substitution only. Actual complete translation, originaltext,copy and original-script audio remain available.",
+    "lifecycle": "Evidence is immutable and request-local under existing original/pair/catalog/known-snapshot identity and epoch. No global mutable latest-mask state, new learning persistence or usercontrol. Invalid evidence failsclosed instead of silently clearing masks."
+  },
+  "smallest_validation": [
+    "Nilpartial+hotdog recognition: known/overbudget/no-target branches preserve mask through one explicitly labelled synthetic local translation; genericdog is rejected while unrelatedwater outside mask remains eligible.",
+    "Alloverlapping masks: allowedhead survives agreeing masks; shorter mask survives longerouter context; crossing ambiguity and samecontext conflicting meanings withhold output independent of priority.",
+    "Both primary and supplemental alignment paths enforce constraints without removing lexical ambiguity claims.",
+    "Forward/reverse and source identity: no original-range reuse on reverse translatedsource; malformed/out-of-bounds/differentoriginal evidence rejected.",
+    "Current authored-whole precedence and absentprovider behavior remain unchanged; no recognition is inferred from arbitrary wordhit.",
+    "Concurrent messages, known-snapshot/catalog change, configure/close and late completion cannot reuse another request mask; existing partial/fullviewphase stays stable.",
+    "Qualify core first, then one clean committed-source app coordinator run with explicit fakeprovider seam; no actual provider or customer claim from those controls."
+  ],
+  "not_authorized_by_this_proposal": [
+    "Enabling38patternscandidate",
+    "Activatingunreviewed word mappings",
+    "Replacing languageID or target witness safety",
+    "Broad targetgrammar generation",
+    "Fullappbuild below normal capacity reserve"
+  ],
+  "source_hashes": {
+    "ios/Vipi/SourceUnitLookup.swift": "93f630f7ee0fed12c793bc33ecf959b28768771deea8e4657223f65dc2726928",
+    "ios/Vipi/ConversationImmersion.swift": "4acbde678c815bcaf7d0c1dd9c8fd868c7f462a392354a58258878655f0477e0",
+    "ios/VipiCore/Sources/VipiCore/LookupFirst.swift": "6b2320a0c6b5fe5f87c5ad36b744558b0dd7efc5fcba3a4098c607f50e80c993",
+    "ios/VipiCore/Sources/VipiCore/Immersion.swift": "c6b446d03c1d00ad9d18c292e82ca14198f999a5e4df02d11fb1043db5c8d463"
+  }
+}

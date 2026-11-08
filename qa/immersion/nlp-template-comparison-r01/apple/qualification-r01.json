@@ -1,0 +1,247 @@
+{
+  "schema": "vipi.apple-nlp-template-qualification.1",
+  "production": false,
+  "state": "native_comparison_completed_no_app_activation",
+  "clean_production_commit": "7a093f0f785f0ff25e0d6673efcb8192a895d132",
+  "source_manifest_sha256": "58496165f32673d22c4b358a8c77f091c3edf60c1fef4b4f4fbbb3580c22e617",
+  "production_sources": {
+    "data/examples/sentence-readings.json": "41dc56026038176348580016725ce1197e58b21586a719d3b40aa5c07d457c24",
+    "data/immersion/catalog.json": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+    "ios/Vipi/AppState.swift": "1e32d191ffc58e85f530c0b612882030de76a8385817356e71189190609fe57f",
+    "ios/Vipi/BundledImmersionCatalog.swift": "3307f0f7044f541ef570d3f17ad5237ae3a7d2c09a1d6e8682cbc61332f64700",
+    "ios/Vipi/LanguageDownloadView.swift": "5c5c30504ceff35a1aa14ca55857a748e4ecadcc3a4f59531d023dd972948113",
+    "ios/Vipi/LocalImmersion.swift": "8e32f721b9435cf43a29be06f01fa39d143f28c26e818b83fa27007258a740f3",
+    "ios/Vipi/ReviewedFrameLookup.swift": "c002d6bbdc99737e171015685bae35a8d8a61a3431ce92b49b52056e35a08949",
+    "ios/Vipi/SentenceReadings.swift": "afeeb895d9cf69ccb87f249d75d1ffd7d608f3beb82e365b7f628cfca51fed63",
+    "ios/Vipi/VocabularyPack.swift": "94c29215f32e2ab2985f7b0a220ce9b0bed9603acad349c7f12e41dffa3c264a",
+    "ios/VipiCore/Sources/VipiCore/ContextFrame.swift": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+    "ios/VipiCore/Sources/VipiCore/ContextMapping.swift": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+    "ios/VipiCore/Sources/VipiCore/Delivery.swift": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad",
+    "ios/VipiCore/Sources/VipiCore/FullReadingCache.swift": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+    "ios/VipiCore/Sources/VipiCore/Immersion.swift": "c6b446d03c1d00ad9d18c292e82ca14198f999a5e4df02d11fb1043db5c8d463",
+    "ios/VipiCore/Sources/VipiCore/ImmersionCopyText.swift": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2",
+    "ios/VipiCore/Sources/VipiCore/ImmersionPresentationState.swift": "081e118ec4b4c77d60e6b7c8dcfa1c613435d68226a635050c839d5c3155535f",
+    "ios/VipiCore/Sources/VipiCore/LookupFirst.swift": "6b2320a0c6b5fe5f87c5ad36b744558b0dd7efc5fcba3a4098c607f50e80c993",
+    "ios/VipiCore/Sources/VipiCore/ReferenceComposition.swift": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319",
+    "ios/VipiCore/Sources/VipiCore/SourceReferencePresentation.swift": "260cac9e49874d149d1ddc735507f126272dc5c7926cfccf6a0a4c140deb09e9",
+    "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+    "ios/VipiCore/Sources/VipiCore/TranslationIntegrity.swift": "4f4f4b64a019a3603e47e3b0e41cf816c8aa8ce10622af4d001bcd54fc7c6d0b"
+  },
+  "qa_sources": {
+    "AppleNLPComparison.swift": "eb368847970220ad0190f6d92fa21ddd4409969ac68d828348a25c5e9ceebc43",
+    "AppleNLPOverlapProbe.swift": "a710e10deb416007a680d31d11fc5f6f05be779ffd98dd1715f11bda1987c53a",
+    "NativeComparisonEngine.swift": "5a147961ce25b9ebaa16ac9f01502100e7fec984066aa91990cfa6b5d3d1707e",
+    "NativeLiteralScopes.swift": "fae487da91885c87e3bd9e9d4415da83288a3ff83ee6b8503b148a9376381fe4",
+    "NativePatternMatcher.swift": "222bddba71a5c39dd795e12835e0bafac0ae4d12d584dc65455be30694e0c193",
+    "build_snapshot.py": "ce8557fec755aa632d0e6f96df07eae0226ef1dc832e0fca3503b423a3ab8a37",
+    "prepare_snapshot.py": "d250beb226a1bb13d51048e08c14be4d54a63a9e27607eb708297414b92a4dc6"
+  },
+  "frozen_shared_inputs": {
+    "contract.json": "3767a5f794023ff1fef85f5120658ce7881be0c143fd2357dcfcfe705272fdf2",
+    "schema.json": "72a1d20d2c60a09ae4ba0c4c1694691343f7d00793eaaab38cb47546b375397f",
+    "semantics.json": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7",
+    "payload.json": "5c6a1c513a68f861ca28fd8c45b99b347e130940a29e6898bcc811fcfb47e5bc",
+    "authored-cases.json": "736be225fc4b6615e04efdfe8566bdf2e65681817377031ba61380c3f45f4f4f",
+    "train-source-protocol.json": "4f0102f6a74dd79c60a770e24ed502bcc8c53158f070fdbe9545bdc0214507b3",
+    "structural-overlap-controls.json": "4f5f9b4e0b6823ed0aaa7807ac962003c09b96f99f728b23df7ae690d8d88c8c"
+  },
+  "native_build": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "sdk": "MacOSX26.5.sdk",
+    "compiler_jobs": 2,
+    "executable_sha256": "c43cb8cce38747f547ad1f3ab0b6ca9d50c0b227580f681a9605fc449134653e",
+    "bundle_resources": {
+      "sentence-readings.json": "41dc56026038176348580016725ce1197e58b21586a719d3b40aa5c07d457c24",
+      "immersion/catalog.json": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a"
+    },
+    "compiler_seconds": 16.994613042,
+    "new_models_or_dependencies": false
+  },
+  "authored": {
+    "cases": 121,
+    "full_capture_sha256": "1cbea64d66d3361b68ac687f5b06de725c5566804a5325dd0802bcd4eb000a89",
+    "compact_capture_sha256": "4d11d8ec5b6254da10ff8ab59d0f94f0682df322bf8222b746260db7fd1c10f9",
+    "compact_decisions_identical": 14904,
+    "independent_reference_parity": true,
+    "counts": {
+      "schema": "vipi.apple-nlp-authored-count-definitions.1",
+      "denominator": 121,
+      "density": 0.25,
+      "known": "none",
+      "metrics": [
+        {
+          "target": "sw",
+          "arm": "exact_top_down",
+          "any_display_messages": 50,
+          "pattern_derived_display_messages": 36,
+          "diagnostic_fallback_display_messages": 14
+        },
+        {
+          "target": "sw",
+          "arm": "existing_finite_slots",
+          "any_display_messages": 50,
+          "pattern_derived_display_messages": 36,
+          "diagnostic_fallback_display_messages": 14
+        },
+        {
+          "target": "sw",
+          "arm": "typed_slots_attested_morphology",
+          "any_display_messages": 64,
+          "pattern_derived_display_messages": 54,
+          "diagnostic_fallback_display_messages": 10
+        },
+        {
+          "target": "ja",
+          "arm": "exact_top_down",
+          "any_display_messages": 52,
+          "pattern_derived_display_messages": 38,
+          "diagnostic_fallback_display_messages": 14
+        },
+        {
+          "target": "ja",
+          "arm": "existing_finite_slots",
+          "any_display_messages": 52,
+          "pattern_derived_display_messages": 38,
+          "diagnostic_fallback_display_messages": 14
+        },
+        {
+          "target": "ja",
+          "arm": "typed_slots_attested_morphology",
+          "any_display_messages": 66,
+          "pattern_derived_display_messages": 56,
+          "diagnostic_fallback_display_messages": 10
+        },
+        {
+          "target": "es",
+          "arm": "exact_top_down",
+          "any_display_messages": 51,
+          "pattern_derived_display_messages": 38,
+          "diagnostic_fallback_display_messages": 13
+        },
+        {
+          "target": "es",
+          "arm": "existing_finite_slots",
+          "any_display_messages": 51,
+          "pattern_derived_display_messages": 38,
+          "diagnostic_fallback_display_messages": 13
+        },
+        {
+          "target": "es",
+          "arm": "typed_slots_attested_morphology",
+          "any_display_messages": 65,
+          "pattern_derived_display_messages": 56,
+          "diagnostic_fallback_display_messages": 9
+        }
+      ],
+      "clarification": "Earlier +14 meant any displayed message including diagnostic fallback; pattern-derived display increases18. Some typed contexts replace an already-displayed fallback face without adding another message with display."
+    },
+    "meaning_acceptance": false
+  },
+  "TRAIN": {
+    "schema": "vipi.apple-nlp-complete-TRAIN.1",
+    "logical_cases": 9535,
+    "original_prefix_run_complete": false,
+    "original_stop_reason": "20_MiB_output_budget",
+    "prefix_rows": 9029,
+    "tail_rows": 506,
+    "same_executable_sha256": "c43cb8cce38747f547ad1f3ab0b6ca9d50c0b227580f681a9605fc449134653e",
+    "missing_or_duplicate_rows": 0,
+    "decoded_bytes": 22141073,
+    "decoded_sha256": "644b7102a9d77b1e96129e16f22c95cb9d96380e0c3e23177ce7a619acbb6768",
+    "compressed_bytes": 2756869,
+    "compressed_sha256": "dce005a0cc5f3f66796cdb936d9212ce6c92962f15e6b03afb8277087c0d370b",
+    "original_cap_amendment_sha256": "15ce13d41d399cc637042ddae597cccbac4d160e27671fdc265e44747c49656f",
+    "native_geometry_and_recognition_warm_equal": 9535,
+    "source_context_reach": {
+      "exact_top_down_recognized_messages": 54,
+      "existing_finite_slots_recognized_messages": 54,
+      "typed_slots_attested_morphology_recognized_messages": 54,
+      "sw_whole_reference_messages": 10,
+      "ja_whole_reference_messages": 10,
+      "es_whole_reference_messages": 10,
+      "any_pattern_recognized_messages": 54
+    },
+    "structural_checks": {
+      "selected_scopes": 55839,
+      "decisions": 107244
+    },
+    "structural_violations": 0,
+    "rejection_counts": {
+      "atomic_context_blocks_inner_output": 801,
+      "protected_literal_scope": 9
+    },
+    "parse_first_ms_median": 1.985708,
+    "parse_warm_ms_median": 1.964458,
+    "parse_first_ms_max": 18.455708,
+    "provider_calls": 0,
+    "meaning_acceptance": false,
+    "limits": [
+      "38patterns/10families over reusedTRAIN; not population/90percent correctness",
+      "Diagnostic generic word fallback counted separately from recognized-context outputs",
+      "Source-only masks are not yet preserved through current app MT fallback",
+      "No actualMT/automaticLID/iOSdevice proof"
+    ]
+  },
+  "native_geometry_comparison": {
+    "schema": "vipi-native-source-geometry-comparison.1",
+    "cases": 9535,
+    "apple_sha256": "295e44287c7b789b532be5e460851d4865a645f7258dba7878202ddadd42c9ce",
+    "android_sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780",
+    "equal": {
+      "native_source_word_ranges_utf16_equal": 9484,
+      "native_sentence_ranges_utf16_equal": 9513,
+      "native_window_ranges_utf16_equal": 9484
+    },
+    "word_count_delta_apple_minus_android": {
+      "0": 9484,
+      "1": 46,
+      "2": 4,
+      "3": 1
+    },
+    "semantic_quality_claim": false,
+    "limits": "Actual platform tokenizer differences retained; no normalization or platform denominator substitution."
+  },
+  "structural_overlays": {
+    "fixture_sha256": "4f5f9b4e0b6823ed0aaa7807ac962003c09b96f99f728b23df7ae690d8d88c8c",
+    "result_sha256": "4688647e1335c118fe74e3cfd96d0f7a7080aba76bf404f506368b949c38f6b3",
+    "checks": 9,
+    "passed": true,
+    "meaning_claim": false,
+    "cost_note": "Supplied8 is synthetic adversarial metadata; actual native context costs were computed separately."
+  },
+  "independent_reference": {
+    "all121_authored_recognitions_and_decisions_match": true,
+    "all9535_TRAIN_recognitions_and_decisions_match": true,
+    "TRAIN_explicit_decision_sets": 107244,
+    "empty_rows_also_checked": true,
+    "owner": "immersion_engine"
+  },
+  "capacity": {
+    "native_physical_reserve_bytes": 1073741824,
+    "guest_margin_bytes": 536870912,
+    "TRAIN_compile_stage_capture_budget_bytes": 67108864,
+    "TRAIN_native_minimum_bytes": 4448677888,
+    "TRAIN_guest_minimum_bytes": 641122304,
+    "continuation_budget_bytes": 33554432,
+    "continuation_guest_minimum_bytes": 647581696,
+    "all_owned_process_guards_passed": true,
+    "storage_amendment": {
+      "sha256": "15ce13d41d399cc637042ddae597cccbac4d160e27671fdc265e44747c49656f",
+      "original20MiB_run_remains_incomplete": true,
+      "cumulative_decoded_bytes": 22141073,
+      "compressed_prefix_sha256": "f9922189c94b16739c0fcb3b97dda84c2d9c704c766f8fa6ecc7b12008179bb8",
+      "verified_compression_before_removing_closed_guest_raw": true
+    }
+  },
+  "meaningful_limits": [
+    "Only38patterns/10families;54TRAINmessages recognized and53pattern-derived display messages at25percent/none-known pertarget. No typed TRAIN reach gain.",
+    "Finite slots equal their complete exact expansion; compact representation, not invented extra coverage.",
+    "Typed produces18additional authored pattern-derived display messages, but only14additional messages with any display because4upgrade diagnostic wordfallback.",
+    "Native word windows omit terminal pure-digit fields, so some phone-number typed contexts fail. Bounds deliberately unchanged.",
+    "Whole authored references and sentence-source partials are executed; target-dependent whole-reference alignment is not executed by this CLI.",
+    "Source language explicit; no automatic language detection, actual translation, iOSUI, physicaldevice, speech or store proof.",
+    "Recognition/atomicmask trace is independent of selected spans, but current app MTfallback still lacks that metadata channel.",
+    "Finite-state/HFST feasibility belongs to separate root research; no such analyzer activated.",
+    "No defaultSourceUnitLookup provider, unreviewedmapping or productiondata activated."
+  ]
+}
