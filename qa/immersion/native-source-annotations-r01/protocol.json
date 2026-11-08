@@ -1,0 +1,57 @@
+{
+  "schema": "vipi.native-source-annotation-protocol.1",
+  "frozen_at_utc": "2026-11-08T22:14:18.382718+00:00",
+  "production": false,
+  "status": "blocked_before_compilation_or_execution",
+  "source_version": "d633c80581edc2acff87a714a719a85333d55e88",
+  "inputs_sha256": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+  "case_count": 116,
+  "duplicates_preserved": true,
+  "sources": {
+    "corpus_packet_sha256": "490a7ec8bb45cb21b9cd5c14f7c78c19f85f935ee35266feccaff56972cc0b1d",
+    "apertium_protocol_sha256": "d78433f97063477619a4de7413d9293cfb05153f4f747001e8e968c2e7ad520d"
+  },
+  "annotation_input": "Each exact text independently; preceding context retained for traceability but not concatenated. No target strings or translation predictions.",
+  "schemes": [
+    "lexicalClass",
+    "nameType",
+    "nameTypeOrLexicalClass",
+    "lemma"
+  ],
+  "required_output": [
+    "Original ID/text and source UTF16 length",
+    "Available schemes/languages and explicit unavailable/missing-result abstentions",
+    "Exact token UTF16 start/length/substrings and raw scheme values",
+    "Confidence only when supplied by the actual API; otherwise null with reason",
+    "Per-case monotonic elapsed time, process RSS measurement and its scope; process peak separately",
+    "OS/runtime/compiler and probe source hashes"
+  ],
+  "execution": {
+    "host": "existing ozzz-development-20261021 VM",
+    "platform": "macOS desktop, not phone",
+    "compiler_processes": 1,
+    "maximum_compiler_jobs": 2,
+    "request_assets": false,
+    "downloads": false,
+    "new_sdk": false,
+    "guest_reserve_bytes": 536870912,
+    "native_reserve_bytes": 1073741824,
+    "planned_peak_additional_bytes": 67108864,
+    "peak_basis": "Parent-provided measured CLI peak; not a measurement from this unexecuted probe."
+  },
+  "assessment_cases": [
+    "corpus-context-088 visit noun/verb",
+    "corpus-context-029 Fruits title",
+    "corpus-context-051 Tech institution",
+    "corpus-context-074 musical play",
+    "corpus-context-089 degree too",
+    "apertium-03/04 book noun/verb",
+    "apertium-14/15 water verb/noun"
+  ],
+  "limits": [
+    "POS/name/lemma evidence is not bilingual sense authority.",
+    "No label changes, runtime guards, containing-mask permissions or source corpus output changes.",
+    "No expansion to9535 messages without bounded probe evidence.",
+    "No unrelated cleanup when capacity fails."
+  ]
+}

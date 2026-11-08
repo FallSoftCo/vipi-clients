@@ -1,0 +1,3521 @@
+{
+  "schema": "vipi.native-source-annotation-inputs.1",
+  "frozen_at_utc": "2026-11-08T22:14:18.382718+00:00",
+  "before_annotation_outputs": true,
+  "source_language": "en",
+  "cases": [
+    {
+      "id": "corpus-context-001",
+      "original_case_id": "bst-train-1342-02",
+      "source_group": "corpus",
+      "text": "Sadness has always been a part of my family.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "It's been this way for some time now."
+        ],
+        [
+          1,
+          "if it's been going on for so long, why do you think that is?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        26,
+        30
+      ]
+    },
+    {
+      "id": "corpus-context-002",
+      "original_case_id": "bst-train-2438-06",
+      "source_group": "corpus",
+      "text": "yes, that sounds like a lot to do.  I'm not sure I could or would do that.   Have you looked for other animal related jobs?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "What do you do?"
+        ],
+        [
+          1,
+          "I work at a pet store.  I love animals.  I'm even vegetarian because I love them so much."
+        ],
+        [
+          0,
+          "oh cool!  I love my animals too, I love to take my dog running with me. "
+        ],
+        [
+          1,
+          "Unfortunately, even though I love animals, I'm allergic to pet dander."
+        ],
+        [
+          0,
+          "oh no, that's horrible.  does it not affect you at work?"
+        ],
+        [
+          1,
+          "Yes.  Very much.  I have to wear a mask and take medicine.  I'm really in the wrong line of work. haha"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        103,
+        109
+      ]
+    },
+    {
+      "id": "corpus-context-003",
+      "original_case_id": "bst-train-0299-14",
+      "source_group": "corpus",
+      "text": "Alright, you as well; take care.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I love pita bread with hummus, it's great. What sort of Italian food do you like?"
+        ],
+        [
+          1,
+          "I am impartial to pasta. I love parmesan cheese!"
+        ],
+        [
+          0,
+          "This might sound silly, but which type do you prefer? My kids all like different sorts."
+        ],
+        [
+          1,
+          "I think I like angel hair pasta the best because it is so fine and tasty."
+        ],
+        [
+          0,
+          "My daughter loves angel hair the best, my two sons prefer spaghetti though. She's just like me, us ladies prefer daintier things."
+        ],
+        [
+          1,
+          "Oh yes! Whenever I have a thicker noodle I feel like I'm about to choke on it."
+        ],
+        [
+          0,
+          "Do you like pizza or anything else? Pasta is your favorite?"
+        ],
+        [
+          1,
+          "I love pizza! Sometimes I make it myself. Somehow everything is tastier when you make it yourself. And you can make it healthy too"
+        ],
+        [
+          0,
+          "I love making my own thin crust white pies, especially with artichoke hearts."
+        ],
+        [
+          1,
+          "That sounds so yummy! Do you enjoy coffee? I am a barista so I am quite the coffee connoisseur."
+        ],
+        [
+          0,
+          "Oh, yes. Being a mother of three practically requires a loyalty membership card at Starbucks."
+        ],
+        [
+          1,
+          "Well you should definitely try the iced caramel macchiato. My absolute favorite! What is your favorite?"
+        ],
+        [
+          0,
+          "I just like plain ice coffee, with cream and sugar - maybe some vanilla."
+        ],
+        [
+          1,
+          "Sometimes simple is best! Thank you for the chat! It was lovely talking with you."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        0,
+        7
+      ]
+    },
+    {
+      "id": "corpus-context-004",
+      "original_case_id": "bst-train-3976-00",
+      "source_group": "corpus",
+      "text": "I love turtles!  They are never in a hurry!  We should be more like them!",
+      "review_only_preceding_context": [],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        7,
+        14
+      ]
+    },
+    {
+      "id": "corpus-context-005",
+      "original_case_id": "bst-train-3669-08",
+      "source_group": "corpus",
+      "text": "On the job nearly never! It's really not as fun as it sounds! But at closing that's a different story!  What's your favorite alcohol?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I'm a bartender, and you?"
+        ],
+        [
+          1,
+          "I am a computer systems engineer"
+        ],
+        [
+          0,
+          "Oh wow! That sounds complicated! Bet your family always ask you for tech support ahha!"
+        ],
+        [
+          1,
+          "not as complicated as it sounds. youtube easily teaches you what I spent 3 years at college learning, lol"
+        ],
+        [
+          0,
+          "Ha! Youtube is such a great resource. You ever think about making videos yourself?"
+        ],
+        [
+          1,
+          "well yh but not about the techy stuff. I would  do vlogging, I like to get out there and experience the finer things in life"
+        ],
+        [
+          0,
+          "That's cool! You should give it a shot! Otherwise you might end up regretting it later on in life if you don't give it a shot now."
+        ],
+        [
+          1,
+          "yh i'll try my best and see where it gets me, so how often do you get drunk on the job lol."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        11,
+        17
+      ]
+    },
+    {
+      "id": "corpus-context-006",
+      "original_case_id": "bst-train-1319-08",
+      "source_group": "corpus",
+      "text": "I have a lot of them, from tiny ones to planes that are taller than me!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Nah I pretty much always do sports by myself, and you?"
+        ],
+        [
+          1,
+          "Yes, I love to kayak with my family at the beach. That is my favorite place."
+        ],
+        [
+          0,
+          "Do you do a lot of sports? I'm a big runner, I do about 6 miles per day!"
+        ],
+        [
+          1,
+          "I'm running 3 times a week. Swimming workouts too. If only there was also money involved like I was on The Biggest Loser. $250,000 sounds nice."
+        ],
+        [
+          0,
+          "Haha no kidding! It would help pay for my expensive hobbies, that's for sure!"
+        ],
+        [
+          1,
+          "Hahaha no kidding. I love to read, but even that adds up buying so many books!"
+        ],
+        [
+          0,
+          "Yes I bet. My big hobby is flying model planes, that also adds up pretty quickly"
+        ],
+        [
+          1,
+          "Wow, that's a pretty cool hobby. Just a small plane?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        40,
+        46
+      ]
+    },
+    {
+      "id": "corpus-context-007",
+      "original_case_id": "bst-train-1801-08",
+      "source_group": "corpus",
+      "text": "Yeah, anytime I try to buy from the healthfood section at the store, I blow through my budget so quickly. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "How expensive is the delivery though. It's great convenience, but I would hate to pay that much. "
+        ],
+        [
+          1,
+          "Well, sometimes their fee is pretty affordable and it is great service. Do you rather go out?"
+        ],
+        [
+          0,
+          "Yeah, I prefer going out and eating and maybe spending time with friends while I eat. Although that's definitely expensive too!"
+        ],
+        [
+          1,
+          "Oh for sure, I would like to go out more but I am pretty overweight and I do not think I can change that soon..."
+        ],
+        [
+          0,
+          "Yeah, that can be tough. Although ordering in from Uber probably can't help too much either :/ "
+        ],
+        [
+          1,
+          " I know, it is mainly my fault. I drink too much soda and eat a lot of junkie food..."
+        ],
+        [
+          0,
+          "Yeah, it can be really hard not to do. I eat out way too much. "
+        ],
+        [
+          1,
+          "It is the cheapest choice, going healthy is way too expensive."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        97,
+        104
+      ]
+    },
+    {
+      "id": "corpus-context-008",
+      "original_case_id": "bst-train-3861-02",
+      "source_group": "corpus",
+      "text": "Sweet! Do you have a favorite superhero?  I like to the Flash!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I agree totally!  Do you have a favorite flower?"
+        ],
+        [
+          1,
+          "Yea, I like daisy's.  always bright and cheerful.  "
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        56,
+        61
+      ]
+    },
+    {
+      "id": "corpus-context-009",
+      "original_case_id": "bst-train-0541-02",
+      "source_group": "corpus",
+      "text": "Yes, They are beautiful to have around.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "lol, they really are."
+        ],
+        [
+          1,
+          "They keep you busy. I love spending time with her and my family"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        32,
+        38
+      ]
+    },
+    {
+      "id": "corpus-context-010",
+      "original_case_id": "bst-train-3139-04",
+      "source_group": "corpus",
+      "text": "It's my big grocery shopping day, so I'm actually looking forward to that. Food is my life.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "It's a bad play on words. Haha."
+        ],
+        [
+          1,
+          "Sounds great. How is your morning?"
+        ],
+        [
+          0,
+          "It's going well. You? Any plans for the day?"
+        ],
+        [
+          1,
+          "Just turkin' for a while. Have anything exciting going on there?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        34,
+        36
+      ]
+    },
+    {
+      "id": "corpus-context-011",
+      "original_case_id": "bst-train-3909-00",
+      "source_group": "corpus",
+      "text": "How long did your dad drive for?",
+      "review_only_preceding_context": [],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        18,
+        21
+      ]
+    },
+    {
+      "id": "corpus-context-012",
+      "original_case_id": "bst-train-0579-04",
+      "source_group": "corpus",
+      "text": "Yeah guess it gets harder on the joints as you get older. That's why my wife and I love scuba. It's not very physically demanding.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Aw I love Florida. Basically anywhere I can scuba dive really."
+        ],
+        [
+          1,
+          "I have never been to Denver, i hear it is beautiful there!"
+        ],
+        [
+          0,
+          "Denver is beautiful. Do you ski?"
+        ],
+        [
+          1,
+          "I used to, a very long time ago!"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        43,
+        50
+      ]
+    },
+    {
+      "id": "corpus-context-013",
+      "original_case_id": "bst-train-4567-10",
+      "source_group": "corpus",
+      "text": "I sure hope so! Well, have a nice day!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yes, but I graduate, soon! I'm super excited about it. What about you?"
+        ],
+        [
+          1,
+          "No, I left school in Grade 10. My boyfriend and I had joabs"
+        ],
+        [
+          0,
+          "Woah, you must be a hard worker! I often go on walks to deal with the stress of school. What do you do to deal with stress?"
+        ],
+        [
+          1,
+          "Totally into sports, rollerblading, baseball, hockey in the winter. What is your major."
+        ],
+        [
+          0,
+          "Physical therapy. Sports, huh? That's really cool. Which is your favorite?"
+        ],
+        [
+          1,
+          "Depends on the season, and also if you consider fishing a sport. So I would say hockey and then fishing. In the summer, baseball and street hockey."
+        ],
+        [
+          0,
+          "Nice! After some of your sessions you might have to come give me a visit, haha! Exercise for me is mostly just walking."
+        ],
+        [
+          1,
+          "Walking is a terrific exercise, good for the joints and cardio."
+        ],
+        [
+          0,
+          "Definitely. And good exercise helps with your emotional state. It's why I'm so happy all the time!"
+        ],
+        [
+          1,
+          "That is terrific. Your future patients will appreciate a happy physical therapist. "
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        7,
+        14
+      ]
+    },
+    {
+      "id": "corpus-context-014",
+      "original_case_id": "bst-train-1513-04",
+      "source_group": "corpus",
+      "text": "When it comes to salads......I'm more of a Caesar salad type of guy.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I like Italian food a lot."
+        ],
+        [
+          1,
+          "I love italian as well"
+        ],
+        [
+          0,
+          "I also love a good steak with some potatoes and asparagus."
+        ],
+        [
+          1,
+          "I love steak too and asparagus is delicious "
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        33,
+        42
+      ]
+    },
+    {
+      "id": "corpus-context-015",
+      "original_case_id": "bst-train-1121-04",
+      "source_group": "corpus",
+      "text": "Do you have a lot in common? If I got married I would like to find someone who shared my likes, such as my favorite color blue.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I am not married but I love to read romance novels about people falling in love."
+        ],
+        [
+          1,
+          "Would you lke to be married?"
+        ],
+        [
+          0,
+          "It would be nice to be married since all the people in my books seem happy. Are you married?"
+        ],
+        [
+          1,
+          "Yes, I am very happily married."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        46,
+        61
+      ]
+    },
+    {
+      "id": "corpus-context-016",
+      "original_case_id": "bst-train-1355-08",
+      "source_group": "corpus",
+      "text": "That is great. Do you have a good relationship with your mom? I talk to mine every day",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I work from home as a freelancer while I take care of my kiddos. "
+        ],
+        [
+          1,
+          "Gotcha same here. It is great since I can do my favorite hobby!"
+        ],
+        [
+          0,
+          "Awesome! What is your favorite hobby?"
+        ],
+        [
+          1,
+          "I love cooking. So, as it is a chore to others I actually enjoy it!"
+        ],
+        [
+          0,
+          "Oh neat. I am learning how to do more cooking. Videos and books have been helpful"
+        ],
+        [
+          1,
+          "Yes. Youtube has been a life send for sure!"
+        ],
+        [
+          0,
+          "My mom was not the biggest fan, so she didn't teach me much but now I am learning that it can be fun"
+        ],
+        [
+          1,
+          "Oh that does make it harder on you for sure. My mom loved cooking too."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        15,
+        28
+      ]
+    },
+    {
+      "id": "corpus-context-017",
+      "original_case_id": "bst-train-4368-08",
+      "source_group": "corpus",
+      "text": "Could be.  Also, we get up at 4:30am, so 10 is a late night.  lol.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I can never stay awake long enough to catch him."
+        ],
+        [
+          1,
+          "If only I could fall asleep!"
+        ],
+        [
+          0,
+          "We get up early, so we fall asleep early."
+        ],
+        [
+          1,
+          "Jimmy Fallon is worth watching for me since I can't sleep, he is so funny!"
+        ],
+        [
+          0,
+          "He is!  I don't even know who is on late night TV anymore."
+        ],
+        [
+          1,
+          "I don't know either to be honest. (except Jimmy Fallon)"
+        ],
+        [
+          0,
+          "Him, maybe Conan.  That's all I know.   I don't even know what's on past 10:00pm"
+        ],
+        [
+          1,
+          "Hmm, you are probably in a time zone behind me then."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        38,
+        40
+      ]
+    },
+    {
+      "id": "corpus-context-018",
+      "original_case_id": "bst-train-3505-08",
+      "source_group": "corpus",
+      "text": "Which subject would you study?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I'm in art school because I want to create comics for a living."
+        ],
+        [
+          1,
+          "That would be a very interesting job! Quite fun too I would imagine."
+        ],
+        [
+          0,
+          "I hope so. I only have one year of school to go. I've started interviewing with some publisher already."
+        ],
+        [
+          1,
+          "That's great! I would love to find a career, I am currently working as a waitress,"
+        ],
+        [
+          0,
+          "How long have you been a waitress? Are you on your feet all day long?"
+        ],
+        [
+          1,
+          "For about 2 years, yes on my feet a lot and I ride my bike to work so I get a lot of exercise."
+        ],
+        [
+          0,
+          "I ride my bike to school every day. It helps keep me fit. Are you going to school or planning ot?"
+        ],
+        [
+          1,
+          "Would love to go to school but need to pay off some bills first."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        24,
+        29
+      ]
+    },
+    {
+      "id": "corpus-context-019",
+      "original_case_id": "bst-train-4541-04",
+      "source_group": "corpus",
+      "text": "Gotcha. Does Louisiana have a beach?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "So, do you like the ocean?"
+        ],
+        [
+          1,
+          "Yes very much. Sometimes we will drive south to Biloxi, very beautiful down there."
+        ],
+        [
+          0,
+          "And, no, it's like a religious cult or something. They're pretty tight lipped about it. Makes for good stand-up material."
+        ],
+        [
+          1,
+          "Things are fairly conservative down here but there are also many weird cults in New Orleans."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        30,
+        35
+      ]
+    },
+    {
+      "id": "corpus-context-020",
+      "original_case_id": "bst-train-3851-04",
+      "source_group": "corpus",
+      "text": "Nice, I play music for a living.  I'm very lucky to have this opportunity, actually had a gig last night.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I'm not a picky eater, but I love cuba libre."
+        ],
+        [
+          1,
+          "What is cuba libre? That sounds like fancy food. Mostly I eat from the taco truck that pulls up to the job site every day."
+        ],
+        [
+          0,
+          "Wow, where do you work?  By the way, it's my favourite drink!"
+        ],
+        [
+          1,
+          "Oh right... the drink... it's... I can't remember. Again - fancy. I work in construction actually. Right now we are building a new wing on a hospital."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        23,
+        31
+      ]
+    },
+    {
+      "id": "corpus-context-021",
+      "original_case_id": "bst-train-4568-02",
+      "source_group": "corpus",
+      "text": "I think everybody like to see stuff for them self.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I normally like to enjoy sun light."
+        ],
+        [
+          1,
+          "i prefer bein able to see stuff myself."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        18,
+        25
+      ]
+    },
+    {
+      "id": "corpus-context-022",
+      "original_case_id": "bst-train-0982-02",
+      "source_group": "corpus",
+      "text": "I love doing things outdoors when it's warm, especially fishing! Do you like being outdoors?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "What do you love about winter?"
+        ],
+        [
+          1,
+          "I love the cold weather and being able to snuggle up! I also love that it's Christmas time!"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        68,
+        76
+      ]
+    },
+    {
+      "id": "corpus-context-023",
+      "original_case_id": "bst-train-2202-10",
+      "source_group": "corpus",
+      "text": "If I could travel to other countries like South Korea, I would like to try new things like Kimchi, or real Japanese sushi. You?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I am in the United States. I would like to travel but don'"
+        ],
+        [
+          1,
+          "Where would you like to travel if you had more time? Within your own country or internationally?"
+        ],
+        [
+          0,
+          "I would like to work for National Geographic and take photos around the world. What about you?"
+        ],
+        [
+          1,
+          "I would like to travel somewhere cold, maybe Alaska. What do you do for fun?"
+        ],
+        [
+          0,
+          "I don't have fun ever since my wife died. I'm all alone. "
+        ],
+        [
+          1,
+          "I'm sorry to hear that. I've lost people in my life too. I hope you find or have found peace. What do you do for work?"
+        ],
+        [
+          0,
+          "I'm unemployed and do Mturk to pay my bills. I miss my wife."
+        ],
+        [
+          1,
+          "I think picking up a hobby would be nice to help you out. When I encountered difficult times I play guitar. I also like to cook too."
+        ],
+        [
+          0,
+          "That sounds productive and beneficial, forgive my negativity. I'm just being facetious. I'm all out of prompt."
+        ],
+        [
+          1,
+          "It's no problem! Do you have any favorite foods?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        55,
+        70
+      ]
+    },
+    {
+      "id": "corpus-context-024",
+      "original_case_id": "bst-train-2383-02",
+      "source_group": "corpus",
+      "text": "That's awesome ive been a mechanic for about six years now, i really enjoy the thrill of working on different typees of cars! do you have a favorite car?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Thats cool! do you like cars?"
+        ],
+        [
+          1,
+          "Yes! I am a car enthoosiast."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        126,
+        139
+      ]
+    },
+    {
+      "id": "corpus-context-025",
+      "original_case_id": "bst-train-4209-10",
+      "source_group": "corpus",
+      "text": "I also love to read! What is your favorite type of genre? ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Wow that sounds very cool. What kind of things do your robots do? "
+        ],
+        [
+          1,
+          "All kind of household chores.  Dust, vaccum, mop etc"
+        ],
+        [
+          0,
+          "Wow that would be very helpful. Do you sell these robot ideas? "
+        ],
+        [
+          1,
+          "Not yet, I hope to get backers after I get the bugs worked out.  I can also have my robot order my favorite Chinese food."
+        ],
+        [
+          0,
+          "You sound very smart! What is your favorite Chinese food? "
+        ],
+        [
+          1,
+          "All kinds of Chinese, Kung Pao is probably my fav.  Do you like Chinese?"
+        ],
+        [
+          0,
+          "I enjoy a few Chinese dishes such as beef and broccoli and orange chicken. Italian is probably my favorite kind of food"
+        ],
+        [
+          1,
+          "Oh yes!  Italian is very good too.  Do you have any special hobbies?"
+        ],
+        [
+          0,
+          "I love to cook and bake. Christmas time is my favorite time of the year because of all the baking opportunities. What about you? What are your special hobbies?"
+        ],
+        [
+          1,
+          "I wish I were a good baker.  I live by myself so I don’t cook too often.  I love to read for a hobby."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        2,
+        6
+      ]
+    },
+    {
+      "id": "corpus-context-026",
+      "original_case_id": "bst-train-4486-10",
+      "source_group": "corpus",
+      "text": "Usually a coffee or chocolate mark.  Do you bring books with you on your truck driving, for pit stops?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That's great.  It must be fun to drive two vehicles."
+        ],
+        [
+          1,
+          "Sometimes it is but you'd be suprised how many times I bring the wrong keys!"
+        ],
+        [
+          0,
+          "I bet it is!  On my end I read a ton, I like literature.  For what it's worth, tacos too."
+        ],
+        [
+          1,
+          "I love to read as well, I have a mini library in my home. Who is your favorite author?"
+        ],
+        [
+          0,
+          "That's great, reading opens up a whole world.  Must be fun to have a mini library.  Right now short stories, Mark Twain."
+        ],
+        [
+          1,
+          "Classic, one of mt favorites is Jean Auel. I am currently reading Kurt Vonnegut though."
+        ],
+        [
+          0,
+          "Heard good things about Vonnegut.  Books and food might not go together, but I hope someone writes good literature with characters that like Mexican food."
+        ],
+        [
+          1,
+          "Who says books and food don't go together? Lol Reading a good book and eating a snack go hand and hand!"
+        ],
+        [
+          0,
+          "That's true.  Sadly I leave food smudges on books!"
+        ],
+        [
+          1,
+          "Well as long as they are your books, no big deal!"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        73,
+        78
+      ]
+    },
+    {
+      "id": "corpus-context-027",
+      "original_case_id": "bst-train-4192-06",
+      "source_group": "corpus",
+      "text": "Hornsby is good, he has the same birthday as my Uncle Jurt",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Variety is good. What kind of restaurants?"
+        ],
+        [
+          1,
+          "It really varies, but most times we get Italian. I love pasta especially."
+        ],
+        [
+          0,
+          "That's cool. I found my first geocache outside an Italian restaurant."
+        ],
+        [
+          1,
+          "Wow, that's interesting. What did you find inside it?"
+        ],
+        [
+          0,
+          "Sheet music. It's what made me take up piano."
+        ],
+        [
+          1,
+          "The piano is cool. Have you heard of pianist Bruce Hornsby?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        33,
+        41
+      ]
+    },
+    {
+      "id": "corpus-context-028",
+      "original_case_id": "bst-train-3348-02",
+      "source_group": "corpus",
+      "text": "I used be very shy.  I didn't have a date in high school.  I was afraid of girls.  But now I will talk to anybody",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I have gotten more sociable as I have gotten older.  I think it is a matter of confidence"
+        ],
+        [
+          1,
+          "Maybe. I think some people are just born with it."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        75,
+        80
+      ]
+    },
+    {
+      "id": "corpus-context-029",
+      "original_case_id": "bst-train-2455-06",
+      "source_group": "corpus",
+      "text": "I enjoyed Fruits Baskets, Tactics, and Jellyfish Princess. I'm sure I'm forgetting names of some of the ones I enjoyed too. lol",
+      "review_only_preceding_context": [
+        [
+          0,
+          "What is your favorite dance to perform? "
+        ],
+        [
+          1,
+          "I like doing the Hare Hare Yukai"
+        ],
+        [
+          0,
+          "I haven't heard of that one. Do you play any sports? I love playing soccer. "
+        ],
+        [
+          1,
+          "It's a dance that goes with an anime opening. I enjoy playing darts. Do you play professionally?"
+        ],
+        [
+          0,
+          "I've only watched a bit of anime. What's your favorite? I only play on the weekends with friends. We have a lot of fun though. "
+        ],
+        [
+          1,
+          "I have quite a soft spot for Bleach, although I My Me Strawberry Eggs is a nice short one."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        10,
+        16
+      ]
+    },
+    {
+      "id": "corpus-context-030",
+      "original_case_id": "bst-train-1262-04",
+      "source_group": "corpus",
+      "text": "Oh yeah, the mosquitoes in Florida in the summer are the size of small birds.  Some people really attract them.  I know I do.  How about you?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yes, great to talk to you too.  I Florida one of my favorite things to do is walk around the parks.  Do you have parks where you live?"
+        ],
+        [
+          1,
+          "yes this summer my family went to fort myers florida . they have nice parks there."
+        ],
+        [
+          0,
+          "One of the parks nearby has a theater.  It's an outdoor space where they have Shakespeare in the Park.  It's a ton of fun."
+        ],
+        [
+          1,
+          "That does sound fun, must need a lot of bug spray though."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        71,
+        76
+      ]
+    },
+    {
+      "id": "corpus-context-031",
+      "original_case_id": "bst-train-0389-06",
+      "source_group": "corpus",
+      "text": "My dad is a football coach while my mum is an occasional actress ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yes they are "
+        ],
+        [
+          1,
+          "I wish my parents were interesting, they are no fun"
+        ],
+        [
+          0,
+          "Why is that? "
+        ],
+        [
+          1,
+          "They are boring, are your parents boring?"
+        ],
+        [
+          0,
+          "No. Mine are really interesting people "
+        ],
+        [
+          1,
+          "Really? What do they do?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        21,
+        26
+      ]
+    },
+    {
+      "id": "corpus-context-032",
+      "original_case_id": "bst-train-2098-08",
+      "source_group": "corpus",
+      "text": "oh okay. I l play in an adult league now",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Do you follow professional sports?"
+        ],
+        [
+          1,
+          "I do in fact I get up at 4am everyday and watch the latest sport news"
+        ],
+        [
+          0,
+          "oh nice! whats your favorite sport?"
+        ],
+        [
+          1,
+          "I'm more into Soccer, basketball and Football those are my favorite major professional sports."
+        ],
+        [
+          0,
+          "cool, i played soccer throughout college. Did you play?"
+        ],
+        [
+          1,
+          "Of course. I played soccer growing up myself."
+        ],
+        [
+          0,
+          "I played center back, flat 4."
+        ],
+        [
+          1,
+          "Nice, I was more of a forward myself "
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        24,
+        29
+      ]
+    },
+    {
+      "id": "corpus-context-033",
+      "original_case_id": "bst-train-0322-00",
+      "source_group": "corpus",
+      "text": "I do. I'm a teacher though soon I will be leaving my job to spend my last days at home.",
+      "review_only_preceding_context": [],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        12,
+        19
+      ]
+    },
+    {
+      "id": "corpus-context-034",
+      "original_case_id": "bst-train-1209-02",
+      "source_group": "corpus",
+      "text": "I have a truck. I'm sorry you live in your car.  ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Dogs are so great for curing loneliness. They always want to love on you and to be loved. "
+        ],
+        [
+          1,
+          "I live in my car right now so I cant have a dog, what kind of car do you have"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        9,
+        14
+      ]
+    },
+    {
+      "id": "corpus-context-035",
+      "original_case_id": "bst-train-1214-02",
+      "source_group": "corpus",
+      "text": "Long distance? I have a friend who runs more than 5 to 10 miles a day with his wife, that seems really crazy to me. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "No, I hate to run! "
+        ],
+        [
+          1,
+          "I started running again about 3 years ago."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        5,
+        13
+      ]
+    },
+    {
+      "id": "corpus-context-036",
+      "original_case_id": "bst-train-0034-02",
+      "source_group": "corpus",
+      "text": "I was a lawyer once. I can't get enough of movies and show like that. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Do you like court movies? I want to work in federal court someday."
+        ],
+        [
+          1,
+          "I sure do! A movie that revolves around a crime and solving it is so suspenseful. I wanted to be a lawyer when I was younger."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        43,
+        49
+      ]
+    },
+    {
+      "id": "corpus-context-037",
+      "original_case_id": "bst-train-2140-02",
+      "source_group": "corpus",
+      "text": "that is so true. it's like the teachers don't understand students these days. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "high school is boring"
+        ],
+        [
+          1,
+          "I know, Not only are the classes useless, but the place is run by Social rejects spending their days grasping for any power they can get"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        57,
+        65
+      ]
+    },
+    {
+      "id": "corpus-context-038",
+      "original_case_id": "bst-train-2976-00",
+      "source_group": "corpus",
+      "text": "What kind of cars?",
+      "review_only_preceding_context": [],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        13,
+        17
+      ]
+    },
+    {
+      "id": "corpus-context-039",
+      "original_case_id": "bst-train-4209-08",
+      "source_group": "corpus",
+      "text": "I love to cook and bake. Christmas time is my favorite time of the year because of all the baking opportunities. What about you? What are your special hobbies?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Wow that sounds very cool. What kind of things do your robots do? "
+        ],
+        [
+          1,
+          "All kind of household chores.  Dust, vaccum, mop etc"
+        ],
+        [
+          0,
+          "Wow that would be very helpful. Do you sell these robot ideas? "
+        ],
+        [
+          1,
+          "Not yet, I hope to get backers after I get the bugs worked out.  I can also have my robot order my favorite Chinese food."
+        ],
+        [
+          0,
+          "You sound very smart! What is your favorite Chinese food? "
+        ],
+        [
+          1,
+          "All kinds of Chinese, Kung Pao is probably my fav.  Do you like Chinese?"
+        ],
+        [
+          0,
+          "I enjoy a few Chinese dishes such as beef and broccoli and orange chicken. Italian is probably my favorite kind of food"
+        ],
+        [
+          1,
+          "Oh yes!  Italian is very good too.  Do you have any special hobbies?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        98,
+        111
+      ]
+    },
+    {
+      "id": "corpus-context-040",
+      "original_case_id": "bst-train-3890-08",
+      "source_group": "corpus",
+      "text": "Cars are cool. Classic cars are very cool.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "no what ghosts?"
+        ],
+        [
+          1,
+          "I dunno... shelters seem a little creepy to me. "
+        ],
+        [
+          0,
+          "Why are they creepy? The animals are so cute and cuddly"
+        ],
+        [
+          1,
+          "Yeah but what about all the animals who are euthanized? Creeps. It's like the holidays... creepy."
+        ],
+        [
+          0,
+          "I can see your point on the shelters. Other then halloween, how are holidays creepy?"
+        ],
+        [
+          1,
+          "Just a lot of sad energy? Ya know?"
+        ],
+        [
+          0,
+          "No. Not really. I love spending holidays with my two children."
+        ],
+        [
+          1,
+          "Oh... you've got two kids eh? Me? None... but my car is kinda like my kid."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "corpus-context-041",
+      "original_case_id": "bst-train-3202-08",
+      "source_group": "corpus",
+      "text": "Yeah of course. I like being around people I know, but do not care too much for strangers",
+      "review_only_preceding_context": [
+        [
+          0,
+          "What is your favorite music to listen to? "
+        ],
+        [
+          1,
+          "My favorite music is country.  What's yours?"
+        ],
+        [
+          0,
+          "I like classic rock, mainly 70's and 80's. I play a lot that in my high school band. Do you like movies?"
+        ],
+        [
+          1,
+          "I do like movies, but I haven't been able to make it to a theater in quite awhile."
+        ],
+        [
+          0,
+          "do you like watching movies at home more than the going to the theater?"
+        ],
+        [
+          1,
+          "I like the theater experience, but all the at home streaming options are so convenient these days.  What about you?"
+        ],
+        [
+          0,
+          "I really do not like crowds so I prefer to watch movies at home."
+        ],
+        [
+          1,
+          "Same.  I prefer having people over to barbecue, etc, at my own house."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        36,
+        42
+      ]
+    },
+    {
+      "id": "corpus-context-042",
+      "original_case_id": "bst-train-3471-10",
+      "source_group": "corpus",
+      "text": "Same. Maybe we can rent a truck and have a little roadtrip!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yeah I do. I drive a big van around because I have 12 kids haha."
+        ],
+        [
+          1,
+          "i live in a van i drive , so no kids"
+        ],
+        [
+          0,
+          "Wow, that must feel so freeing. Are you a nomad?"
+        ],
+        [
+          1,
+          "I guess you could put it that way."
+        ],
+        [
+          0,
+          "Does it get cold in the winter living in your van? Do you go anywhere special during that time of year?"
+        ],
+        [
+          1,
+          "I head down south to texas so it doesnt get too cold. If I didn't live in my vehicle I'd like to get a truck."
+        ],
+        [
+          0,
+          "Ah yes Texas. That must be warm. Much warmer than Canada!"
+        ],
+        [
+          1,
+          "I love Texas."
+        ],
+        [
+          0,
+          "Have you ever been to California? I'd like to go there one day."
+        ],
+        [
+          1,
+          "No but I'd like to someday."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        26,
+        31
+      ]
+    },
+    {
+      "id": "corpus-context-043",
+      "original_case_id": "bst-train-0617-08",
+      "source_group": "corpus",
+      "text": "To explore the water and go on a boat ride.  I sometimes go for yoga classes too",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Italian food is great. Have you been to Italy before?"
+        ],
+        [
+          1,
+          "No, but I would love to go. Have you been?"
+        ],
+        [
+          0,
+          "Yes, this summer i went on vacation to Italy."
+        ],
+        [
+          1,
+          "Wow!  That is awesome.  What are some places you recommend going there?"
+        ],
+        [
+          0,
+          "Number on my list in The Colosseum in Rome, Renaissance art and architecture in Florence"
+        ],
+        [
+          1,
+          "I bet Renaissance Art and Architecture was a beautiful place to visit.  Any other places you have visited?"
+        ],
+        [
+          0,
+          "Grand Canal and Piazza San Marco in Venice"
+        ],
+        [
+          1,
+          "The Grand Canal?  What did you do there?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        21,
+        24
+      ]
+    },
+    {
+      "id": "corpus-context-044",
+      "original_case_id": "bst-train-0248-08",
+      "source_group": "corpus",
+      "text": "I could give it a try but it is difficult. What about you, do you have a good relationship with your family? ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I like to blend into the background personally .. I want to look cultured and sophisticated though. "
+        ],
+        [
+          1,
+          "It's always important to put your best fashion foot forward. That way people will think you're successful."
+        ],
+        [
+          0,
+          "I have a problem with self esteem as I came from a broken home. "
+        ],
+        [
+          1,
+          "I am sorry to hear that. Have you ever seen a therapist to help you with it?"
+        ],
+        [
+          0,
+          "No. I have a problem with my step dad but he ignored me all the time. "
+        ],
+        [
+          1,
+          "So you don't think that therapy helps you at all?"
+        ],
+        [
+          0,
+          "I have not tried therapy - it is expensive. "
+        ],
+        [
+          1,
+          "That's true. But maybe you can talk to a close friend or relative about it. I'm sure that would be better than nothing"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        78,
+        90
+      ]
+    },
+    {
+      "id": "corpus-context-045",
+      "original_case_id": "bst-train-3270-06",
+      "source_group": "corpus",
+      "text": "Yeah, it is really easy to get distracted around here. There is always something going on.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I am in college as well. I like to swim when I can."
+        ],
+        [
+          1,
+          "I love swimming. And what's your major in college?"
+        ],
+        [
+          0,
+          "I am majoring in engineering. It is tough."
+        ],
+        [
+          1,
+          "Oh, I bet it's tough. Have you been to any dorm parties?"
+        ],
+        [
+          0,
+          "Nothing big. The school is pretty tough on big parties. How about you?"
+        ],
+        [
+          1,
+          "I've been to a few but I should try to study more and party less which is so hard."
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        49,
+        53
+      ]
+    },
+    {
+      "id": "corpus-context-046",
+      "original_case_id": "bst-train-0618-06",
+      "source_group": "corpus",
+      "text": "Yes, with this younger generation sales are starting to boom with a renewed interest in vinyl records.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yes. I spend every day at least fixing one thing. I really enjoy it."
+        ],
+        [
+          1,
+          "you will be the change in future. the spirit you have is the key to get the success. keep it go"
+        ],
+        [
+          0,
+          "Thank you! What about you? Do you like fixing things to make things better in the world?"
+        ],
+        [
+          1,
+          "i agree . another thing we can do to fix the world we live in .  i also think to do the same"
+        ],
+        [
+          0,
+          "That is great. Vinyl records are my favorite to another music recording format. I am working to make it were mostly vinyl records are used."
+        ],
+        [
+          1,
+          "really you are awesome man. Call me old fashion but i prefer vinyl records to any other music recording format. "
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        23,
+        33
+      ]
+    },
+    {
+      "id": "corpus-context-047",
+      "original_case_id": "bst-train-4587-02",
+      "source_group": "corpus",
+      "text": "Yes, I enjoy dancing to Jazz and go often. Do you go to any clubs? ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I teach  music and jazz is one of my favorite  to teach. "
+        ],
+        [
+          1,
+          "Jazz is so beautiful and soothing .do you often go to jazz clubs?"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        60,
+        65
+      ]
+    },
+    {
+      "id": "corpus-context-048",
+      "original_case_id": "bst-train-1656-10",
+      "source_group": "corpus",
+      "text": "I am going down more of the artificial intelligence and agent based systems route.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I prefer cookies to birthday cakes!"
+        ],
+        [
+          1,
+          "I can relate. What is your favorite type of cookie?"
+        ],
+        [
+          0,
+          "I love white chocolate chip cookies! The ones that are soft in the middle."
+        ],
+        [
+          1,
+          "I will have to try that!  I love cookies that have chocolate chips in them, too."
+        ],
+        [
+          0,
+          "So what do you do as a job?"
+        ],
+        [
+          1,
+          "I work as an analyst, headquartered in Bentonville."
+        ],
+        [
+          0,
+          "Woah, that's a good job!"
+        ],
+        [
+          1,
+          "Thanks. So what do you do for work?"
+        ],
+        [
+          0,
+          "I am a Computer Science student and I work in a bar."
+        ],
+        [
+          1,
+          "Very cool, I'm currently majoring in computer software engineering. :)"
+        ]
+      ],
+      "original_pair": "en-sw",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        68,
+        75
+      ]
+    },
+    {
+      "id": "corpus-context-049",
+      "original_case_id": "bst-train-2191-04",
+      "source_group": "corpus",
+      "text": "I haven't been to Panama yet but heard it is great. My goal in life is to own a beach house. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I like baseball the most. Nascar isn't too bad either."
+        ],
+        [
+          1,
+          "Baseball is fun to play for sure! We play all the time especial catch at the beach. "
+        ],
+        [
+          0,
+          "I love going to the beach. Do you have a favorite beach?"
+        ],
+        [
+          1,
+          "Oh yes, Panama City is our favorite and I wish I could own a house there someday."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        63,
+        67
+      ]
+    },
+    {
+      "id": "corpus-context-050",
+      "original_case_id": "bst-train-3507-04",
+      "source_group": "corpus",
+      "text": "Nice. I have noticed that biking and craft beer seem to go together lately.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Oh wow I'd love to check it out. What types sell the best?"
+        ],
+        [
+          1,
+          "i've tried 35 kinds of beer fo far easy , since i work at the brewery"
+        ],
+        [
+          0,
+          "Oh I thought you worked at the grocery store! What's your favorite?"
+        ],
+        [
+          1,
+          "I enjoy a fat tire craft beer from time to time"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        68,
+        74
+      ]
+    },
+    {
+      "id": "corpus-context-051",
+      "original_case_id": "bst-train-1593-12",
+      "source_group": "corpus",
+      "text": "Yeah ditto on all of that, except I went to GA Tech.  ATL is OK.  Nice chat.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I do a little of that.  I'm into the news.  I was even on the news once."
+        ],
+        [
+          1,
+          "That's cool! I do a blog with my opinion and book reviews etc. The Wall Street Journal picks it up sometimes."
+        ],
+        [
+          0,
+          "Wow.  That's a major publication.  My brush with news was a local channel and not for a crime. :)"
+        ],
+        [
+          1,
+          "That's always a good thing lol. How have you been?"
+        ],
+        [
+          0,
+          "Good. Thanks.  I'm planning a trip to CA.  Never been there.  How are you?"
+        ],
+        [
+          1,
+          "Oh, I'm great! I love California! Where are you planning on visiting while you're there?"
+        ],
+        [
+          0,
+          "My buddy lives in Huntington Beach, so, LA. Not sure about details.  Would like to see the tar pits."
+        ],
+        [
+          1,
+          "That would be nice. Just to relax on the beach, catch a few waves."
+        ],
+        [
+          0,
+          "Yep.  That sounds like a great way to prepare for winter.  What do you do for fun in NY?"
+        ],
+        [
+          1,
+          "Freeze lol. No, there's a ton to do. We do a lot of driving upstate to go to apple orchards, visiting small towns. "
+        ],
+        [
+          0,
+          "Cool. Sound like what people do in Boston.  Fall is cool there."
+        ],
+        [
+          1,
+          "I love Boston. The Celtics are my team. I went to college at Boston U. I abandoned the Knicks for the Celts"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        47,
+        51
+      ]
+    },
+    {
+      "id": "corpus-context-052",
+      "original_case_id": "bst-train-1266-04",
+      "source_group": "corpus",
+      "text": "Yes, behavioral therapy. Even when i know it is my fault, I blame others",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That is my nature.I blame others for my problems"
+        ],
+        [
+          1,
+          "That's terrible.."
+        ],
+        [
+          0,
+          "I know! Tha is something I need to deal with"
+        ],
+        [
+          1,
+          "Are you seeking any type of therapy?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        16,
+        23
+      ]
+    },
+    {
+      "id": "corpus-context-053",
+      "original_case_id": "bst-train-0248-00",
+      "source_group": "corpus",
+      "text": "I like to blend into the background personally .. I want to look cultured and sophisticated though. ",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        25,
+        35
+      ]
+    },
+    {
+      "id": "corpus-context-054",
+      "original_case_id": "bst-train-3730-04",
+      "source_group": "corpus",
+      "text": "That is a good show but I really like Bob's Burgers.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "She makes the best ham and cheese sandwiches."
+        ],
+        [
+          1,
+          "Does she fry them? I love a fried ham and cheese sandwich. Tell her to make two, I am really hungry."
+        ],
+        [
+          0,
+          "She does and I love eating them when watching television in the evenings."
+        ],
+        [
+          1,
+          "What is your favorite show to watch? I have been watching old seasons of The Office lately."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        44,
+        51
+      ]
+    },
+    {
+      "id": "corpus-context-055",
+      "original_case_id": "bst-train-1521-04",
+      "source_group": "corpus",
+      "text": "I'm a vegan so I stay away from any animal products. It has caused a lot of conflict with my family.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That's a crazy job! I haven't been in the ER in ages."
+        ],
+        [
+          1,
+          "why did you have to go to the ER?"
+        ],
+        [
+          0,
+          "Sorry I said I HAVEN'T been! I accredit it to my love of vegetables."
+        ],
+        [
+          1,
+          "I also love vegetables. My girlfriend is a vegetarian so we eat a lot of veggie meals. What does your diet consist of?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        60,
+        66
+      ]
+    },
+    {
+      "id": "corpus-context-056",
+      "original_case_id": "bst-train-2640-06",
+      "source_group": "corpus",
+      "text": "Yes, I inherited the farm after my Grandma Dorothy passed away.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I know what you mean. Last spring a bad storm took out most of the farm."
+        ],
+        [
+          1,
+          "Wow, that sounds terrible! I think for me, the most storm activity in our area was 2010. There were winter storms, hailstorms, flooding, all sorts of terrible weather events."
+        ],
+        [
+          0,
+          "wow! I never would have guessed that there would be that bad of weather over by you."
+        ],
+        [
+          1,
+          "Yes, according to some people the place I live could be underwater in a few years if things continue like this."
+        ],
+        [
+          0,
+          "The worst kansas has ever had was quite a lot of tornados."
+        ],
+        [
+          1,
+          "I'm glad we've never had tornados.  Have you lived there your whole life?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "mutual_word",
+      "focus_utf16": [
+        35,
+        42
+      ]
+    },
+    {
+      "id": "corpus-context-057",
+      "original_case_id": "bst-train-3604-10",
+      "source_group": "corpus",
+      "text": "I'm from Texas in the USA.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I've never tried it.  It sounds gross."
+        ],
+        [
+          1,
+          "lutefisk is the best dish ever i love it. Try the marduk brand"
+        ],
+        [
+          0,
+          "I think I'll pass.  That's popular up North, isn't it?"
+        ],
+        [
+          1,
+          "Yeah it's quite popular, especially here in Sweden where I just moved."
+        ],
+        [
+          0,
+          "That's pretty neat.  I've never been to Europe.  How is the weather there?"
+        ],
+        [
+          1,
+          "It depends on the season I guess. What's your favorite time of the year?"
+        ],
+        [
+          0,
+          "I like the Spring because the Summer is too hot.  Does everyone in Sweden really have blonde hair?"
+        ],
+        [
+          1,
+          "Haha that's just a stereotype"
+        ],
+        [
+          0,
+          "I was afraid I might stick out if I visited with my brown hair.  "
+        ],
+        [
+          1,
+          "Nah, many people have brown hair here. Plus we have people from all over the world, so you're more than welcome. Where are you from?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        22,
+        25
+      ]
+    },
+    {
+      "id": "corpus-context-058",
+      "original_case_id": "bst-train-4144-10",
+      "source_group": "corpus",
+      "text": "It actually never gets too hot here. The humidity is low too.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I started taking piano lessons when I was a child because I heard that Alexander McQueen did, lol"
+        ],
+        [
+          1,
+          "You have some really nice idols! Did you know his dad was a Scottish taxi driver?"
+        ],
+        [
+          0,
+          "Lol that's cool. I hate taking taxis in NYC. I prefer to take the train or Uber."
+        ],
+        [
+          1,
+          "There isn't an Uber around this area.  "
+        ],
+        [
+          0,
+          "What?! Where do you live?"
+        ],
+        [
+          1,
+          "A very Southern, rural area that's kind of behind on the times.  It makes being a vegetarian very difficult."
+        ],
+        [
+          0,
+          "That's crazy. Almost everyone at my college in NYC is vegetarian it seems like haha."
+        ],
+        [
+          1,
+          "It kind of limits food choices, but it's great when you have the ability to grow your own food."
+        ],
+        [
+          0,
+          "It's all concrete here. That's the one thing I hate about the city."
+        ],
+        [
+          1,
+          "I couldn't imagine not having shade trees and grass, but it gets really hot here.  Concrete tends to absorb heat and make it worse."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        23,
+        26
+      ]
+    },
+    {
+      "id": "corpus-context-059",
+      "original_case_id": "bst-train-1201-10",
+      "source_group": "corpus",
+      "text": "I like to hike and do yoga",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I didn't go to college, I had to work a lot to provide for my family."
+        ],
+        [
+          1,
+          "Yeah it was hard finding a job for a long time. i was unemployed for 2 years. But I took the time to enjoy some hobbies."
+        ],
+        [
+          0,
+          "That is nice. What kind of hobbies are you interested in?"
+        ],
+        [
+          1,
+          "I like to try  new things. There are different skill levels and types of training one can take on some of them also."
+        ],
+        [
+          0,
+          "Do you like to hike?"
+        ],
+        [
+          1,
+          "yes. I love the outdoors."
+        ],
+        [
+          0,
+          "I know, nature is so breath taking! "
+        ],
+        [
+          1,
+          "right ! and all the amazing animals outside ."
+        ],
+        [
+          0,
+          "Definitely! I love animals. I especially like to bird watch"
+        ],
+        [
+          1,
+          "nice ! i also bird watch on the weekends . do you have any hobbies ?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        10,
+        14
+      ]
+    },
+    {
+      "id": "corpus-context-060",
+      "original_case_id": "bst-train-2284-10",
+      "source_group": "corpus",
+      "text": "It's definitely one of my favorite art forms.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That's pretty cool, have you ever tried to get them to sing or howl before?"
+        ],
+        [
+          1,
+          "I personally have not, You must have though right?"
+        ],
+        [
+          0,
+          "Only when they start whining it's easy to get them to howl, I read that Huskies and Malamutes are some of the most vocal dogs there are."
+        ],
+        [
+          1,
+          "I actually own a huskie! I can vouch that they are definitely pretty vocal."
+        ],
+        [
+          0,
+          "Wow! That's amazing, I'd get one if it wasn't for their habit of eating things up. Hopefully one day though."
+        ],
+        [
+          1,
+          "Mine doesn't really chew anything up. You just have to keep them well trained."
+        ],
+        [
+          0,
+          "I see, and do you watch much Television in your free time?"
+        ],
+        [
+          1,
+          "The only television I watch is vegan cooking shows. Most of my time is spent outdoors running, or swimming."
+        ],
+        [
+          0,
+          "Dang living an active lifestyle I see, I like a few cooking shows, but mainly I love singing competitions."
+        ],
+        [
+          1,
+          "I'm not much of a singer, but I do enjoy listening to others preform!"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        16,
+        22
+      ]
+    },
+    {
+      "id": "corpus-context-061",
+      "original_case_id": "bst-train-1239-10",
+      "source_group": "corpus",
+      "text": "I used to be annoyed, but now I am used to it! People ask if we are dating too.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Many shows. Including The Wizard of Oz and Chicago."
+        ],
+        [
+          1,
+          "Cool, did you have any acting experience before then?"
+        ],
+        [
+          0,
+          "I took acting classes when I was a kid!"
+        ],
+        [
+          1,
+          "cool I took up acting too when I was a kid, Im the youngest in my family with 2 older brothers"
+        ],
+        [
+          0,
+          "Wow, how much older are they? I have one younger brother."
+        ],
+        [
+          1,
+          "by 4 and 5 years and thats cool how old is he"
+        ],
+        [
+          0,
+          "He is 2 years younger than me, people think we are twins"
+        ],
+        [
+          1,
+          "oh cool so you look alot alike, but not twins, I look nothing like my brothers "
+        ],
+        [
+          0,
+          "Yes, and he is taller than me so nobody believes I am older. Do people ask if you are even related to them?"
+        ],
+        [
+          1,
+          "yes, sometimes it can be annoying, probably for you too when they ask if you are twins "
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        0,
+        9
+      ]
+    },
+    {
+      "id": "corpus-context-062",
+      "original_case_id": "bst-train-3851-06",
+      "source_group": "corpus",
+      "text": "Yeah, I play rock inspired techno at pubs downtown.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I'm not a picky eater, but I love cuba libre."
+        ],
+        [
+          1,
+          "What is cuba libre? That sounds like fancy food. Mostly I eat from the taco truck that pulls up to the job site every day."
+        ],
+        [
+          0,
+          "Wow, where do you work?  By the way, it's my favourite drink!"
+        ],
+        [
+          1,
+          "Oh right... the drink... it's... I can't remember. Again - fancy. I work in construction actually. Right now we are building a new wing on a hospital."
+        ],
+        [
+          0,
+          "Nice, I play music for a living.  I'm very lucky to have this opportunity, actually had a gig last night."
+        ],
+        [
+          1,
+          "Whoa man, that's cool... what kind of music do you play?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        6,
+        12
+      ]
+    },
+    {
+      "id": "corpus-context-063",
+      "original_case_id": "bst-train-4662-02",
+      "source_group": "corpus",
+      "text": "BBQ is pretty delicious as well, and since it often also contains beef I'm a big fan of it as well.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I really enjoy a good beef wellington. Do you have a favorite beef dish?"
+        ],
+        [
+          1,
+          "No, but I am more of a BBQ person myself.  I love the meat that is marinated than basted with sauce"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        75,
+        87
+      ]
+    },
+    {
+      "id": "corpus-context-064",
+      "original_case_id": "bst-train-3065-10",
+      "source_group": "corpus",
+      "text": "Those can be a lot of fun! And you will always get a chance to eat what you make!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Oh really? I'm not really familiar with Saudi cuisine. What is it like?"
+        ],
+        [
+          1,
+          "It is really good. But of course I am not a good cook."
+        ],
+        [
+          0,
+          "Fortunately, there are a lot of resources and instructional videos though that can help. And practice is the best."
+        ],
+        [
+          1,
+          "Yes practicing is good but takes a lot of time and dedication. "
+        ],
+        [
+          0,
+          "Very true. And you have to have a desire to learn that stuff, just like anything. Otherwise it doesn't stick."
+        ],
+        [
+          1,
+          "I guess that is true."
+        ],
+        [
+          0,
+          "That's why a lot of classes throughout school can be boring. Because it is more difficult to learn things just for the sake of learning them."
+        ],
+        [
+          1,
+          "that is true. Do you go to school?"
+        ],
+        [
+          0,
+          "Not for a long time, but I would like to go back and major in something different that I actually like and would use. Do you?"
+        ],
+        [
+          1,
+          "No. But I was thinking about going to a night class for cooking."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_intersect",
+      "focus_utf16": [
+        13,
+        25
+      ]
+    },
+    {
+      "id": "corpus-context-065",
+      "original_case_id": "bst-train-4305-10",
+      "source_group": "corpus",
+      "text": "Yeah, I try not to worry about stuff, and I'm sure it'll turn out OK. Thanks for the support!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I love to read, and used to do a lot of writing, but no time for it now."
+        ],
+        [
+          1,
+          "I love to read and write in my free time."
+        ],
+        [
+          0,
+          "What other books have you read recently?"
+        ],
+        [
+          1,
+          "I read a lot of hello kitty  Sanrio books, does that count?"
+        ],
+        [
+          0,
+          "To me, any reading counts! If you're reading, you're learning!"
+        ],
+        [
+          1,
+          "true , true . Reading is power just wish I could earn money doing it!"
+        ],
+        [
+          0,
+          "No doubt! I just had a run of bad luck and ended up on welfare last month."
+        ],
+        [
+          1,
+          "Oh wow, I'm sorry to hear that! I hope things start looking better for you. Can you file for disability or social security?"
+        ],
+        [
+          0,
+          "No, just had a job change and several big expenses hit unexpectedly. I'm sure it'll turn around, though."
+        ],
+        [
+          1,
+          "oh , sorry to hear that . do not worry i'm sure things will turn around soon ."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        8,
+        11
+      ]
+    },
+    {
+      "id": "corpus-context-066",
+      "original_case_id": "bst-train-4335-00",
+      "source_group": "corpus",
+      "text": "Bigger ones, do you love them?",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        20,
+        24
+      ]
+    },
+    {
+      "id": "corpus-context-067",
+      "original_case_id": "bst-train-2451-10",
+      "source_group": "corpus",
+      "text": "Oh yeah! party on the boat and then relax on the island lol",
+      "review_only_preceding_context": [
+        [
+          0,
+          "How old are you ? do you want kids?"
+        ],
+        [
+          1,
+          "I'm in my 40's, raised my partners kids. I'm done"
+        ],
+        [
+          0,
+          "There's nothing wrong with that, enjoy all the freedom you can. Have you been on any nice vacations lately??"
+        ],
+        [
+          1,
+          "no, and so I can't wait for my next one. how about you?"
+        ],
+        [
+          0,
+          "I'm planning to go on a nice cruise sooner or later, aiming for next year ! ive never been some very excited to start planning."
+        ],
+        [
+          1,
+          "ive always wanted to go on a cruise"
+        ],
+        [
+          0,
+          "Oh yeah! it has so much to do from the ad's ive seen lately. they have different activites"
+        ],
+        [
+          1,
+          "most definitely , along with the beautiful scenery"
+        ],
+        [
+          0,
+          "Oh yes! Just the overall experience would be very nice and relaxing a bit."
+        ],
+        [
+          1,
+          "It would be nice, on a boat too"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        36,
+        41
+      ]
+    },
+    {
+      "id": "corpus-context-068",
+      "original_case_id": "bst-train-2312-06",
+      "source_group": "corpus",
+      "text": "That is amazing! Congratulations. That is something to be proud of! Hopefully I'll be able to buy a book of your poetry one day!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I like to write as well. What else do you enjoy doing? I like high adrenaline activities like skydiving."
+        ],
+        [
+          1,
+          "i write poetry but not most of the time. I love skating! it's fun."
+        ],
+        [
+          0,
+          "Skating is a lot of fun. I'm pretty bad at it though! Why don't you write more poetry?"
+        ],
+        [
+          1,
+          "i like to write poetry. Maybe someday i can be like Emily Elizabeth Dickinson , the american poet"
+        ],
+        [
+          0,
+          "I love her writings. I did an 8 minute speech of one of her poems in a high school speech competition. It was a lot of fun."
+        ],
+        [
+          1,
+          "i was awarded for the best poetry writer in 2018. I was so happy!"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        83,
+        93
+      ]
+    },
+    {
+      "id": "corpus-context-069",
+      "original_case_id": "bst-train-2182-04",
+      "source_group": "corpus",
+      "text": "woo.. i guess RnB will be your thing right?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "rap and pop "
+        ],
+        [
+          1,
+          "I don't like rap music."
+        ],
+        [
+          0,
+          "why dont you like rap"
+        ],
+        [
+          1,
+          "It just gives me a headache and most of the time I cannot understand what is being said."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        6,
+        13
+      ]
+    },
+    {
+      "id": "corpus-context-070",
+      "original_case_id": "bst-train-1693-06",
+      "source_group": "corpus",
+      "text": "Oh that is awesome. i would love to go to Australia. My sister wants to become a missionary there. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I am from Kentucky "
+        ],
+        [
+          1,
+          "How long you have been living there?"
+        ],
+        [
+          0,
+          "My whole life, 32 years. Where are you from/ "
+        ],
+        [
+          1,
+          "I am from Adelaide, love this place a lot."
+        ],
+        [
+          0,
+          "Where is Adelaide, never heard of it? "
+        ],
+        [
+          1,
+          "Oh! It's in Australia. One of the state capitals."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        20,
+        32
+      ]
+    },
+    {
+      "id": "corpus-context-071",
+      "original_case_id": "bst-train-3947-02",
+      "source_group": "corpus",
+      "text": "Maybe every three months, I keep it fairly long so I have options. Do you have a fun, crazy habit?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "The crazier the better!"
+        ],
+        [
+          1,
+          "Nice! How often do you get haircuts?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        67,
+        80
+      ]
+    },
+    {
+      "id": "corpus-context-072",
+      "original_case_id": "bst-train-1624-10",
+      "source_group": "corpus",
+      "text": "Their parents don't allow them to have a lot of chocolate.  But when we go visit, we always take them sweets!!",
+      "review_only_preceding_context": [
+        [
+          0,
+          "They are all different breeds.  They were rescued from shelters."
+        ],
+        [
+          1,
+          "I actually adopted mine! I was surprised to find one in a shelter, and I got to save a tiny life!"
+        ],
+        [
+          0,
+          "I believe the dogs in shelters turn out to be the best animals.  Do you have any other pets?"
+        ],
+        [
+          1,
+          "No, just one. His name is Allie and he is truly my best friend.  "
+        ],
+        [
+          0,
+          "What are your hobbies?"
+        ],
+        [
+          1,
+          "Love to cook and travel. How about you?"
+        ],
+        [
+          0,
+          "That's basically my hobbies too.  I like to watch hockey and I like to watch my grandchildren play soccer."
+        ],
+        [
+          1,
+          "You have grandchildren? How many?"
+        ],
+        [
+          0,
+          "3 grandsons and we will have another one in March.  Not sure yet if it is a boy or a girl.  They are our world!"
+        ],
+        [
+          1,
+          "Oh my! That is a big family. I bet they are crazy for chocolate milk shakes.  I am."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "raw_grow",
+      "focus_utf16": [
+        34,
+        47
+      ]
+    },
+    {
+      "id": "corpus-context-073",
+      "original_case_id": "bst-train-3146-06",
+      "source_group": "corpus",
+      "text": "A weekend off, nothing to complain about. I'm looking forward to my trip, but it's exhausting.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I'm going to Charleston this weekend. I'm trying to get started as a singer, and hopefully I have a job lined up."
+        ],
+        [
+          1,
+          "That sounds exciting! What type of music do you sing?"
+        ],
+        [
+          0,
+          "Oh, anything. I'm not in a position to be picky right now. I got started with my church choir, though."
+        ],
+        [
+          1,
+          "That's nice that you have an open genre. I tend to read more in my spare time."
+        ],
+        [
+          0,
+          "So what about you? Any plans for this weekend?"
+        ],
+        [
+          1,
+          "Not really anything planned. Probably just play it by ear."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        2,
+        9
+      ]
+    },
+    {
+      "id": "corpus-context-074",
+      "original_case_id": "bst-train-4100-06",
+      "source_group": "corpus",
+      "text": "yeah I bet it is. I need to learn  how to play kit ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "nice! i USE TO play tenor drums in marching band when I was in HS and Did Drum Corps"
+        ],
+        [
+          1,
+          "Thats cool I was in band for a little while in school but then I eventually transfered to another subject"
+        ],
+        [
+          0,
+          "nice! I just liked performing in front of a ton of people. It was a rush"
+        ],
+        [
+          1,
+          "Thats cool that you have that type of talent, I for one don't have the strength to get up in front of that many people"
+        ],
+        [
+          0,
+          "how do you handle performing in front of a local crowd? does it make you nervous"
+        ],
+        [
+          1,
+          "Well it makes me pretty nervous I just have to do alot to calm my nerves, but other than the anxiety the being in a band was pretty cool"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        42,
+        46
+      ]
+    },
+    {
+      "id": "corpus-context-075",
+      "original_case_id": "bst-train-1092-06",
+      "source_group": "corpus",
+      "text": "It made my mom happy since she raised me and my siblings alone. It also got me a scholarship for a bit.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That is fair, I suppose. Were you valedictorian ever?"
+        ],
+        [
+          1,
+          "No, someone just beat me on the final exam. It was totally unfair!"
+        ],
+        [
+          0,
+          "Ugh, I am sorry. That has to be the worst feeling!"
+        ],
+        [
+          1,
+          "Thanks, I'm glad you understand. My school was really tough too, what about you?"
+        ],
+        [
+          0,
+          "I had a pretty cutthroat school too; I had to do honors and study a lot to make it. It was worth it though!"
+        ],
+        [
+          1,
+          "Worth it? Did being a valedictorian help you?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        48,
+        56
+      ]
+    },
+    {
+      "id": "corpus-context-076",
+      "original_case_id": "bst-train-2207-10",
+      "source_group": "corpus",
+      "text": "thank you! yes I love music I used to play clarinet. how about you?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "how many grandchhildren do you have?"
+        ],
+        [
+          1,
+          "I have 3. What about you?"
+        ],
+        [
+          0,
+          "I have 1 son"
+        ],
+        [
+          1,
+          "That's one less than me!"
+        ],
+        [
+          0,
+          "How old are your grandchildren?"
+        ],
+        [
+          1,
+          "4, 5, and 12... How old is your son?"
+        ],
+        [
+          0,
+          "16 months!"
+        ],
+        [
+          1,
+          "wow , that's pretty young !"
+        ],
+        [
+          0,
+          "yes and he's such a handful! hahah"
+        ],
+        [
+          1,
+          "I am sure you're a great parent! So, you enjoy music?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        0,
+        9
+      ]
+    },
+    {
+      "id": "corpus-context-077",
+      "original_case_id": "bst-train-2510-04",
+      "source_group": "corpus",
+      "text": "That's a very rewarding career have you always been interested in computer science and engineering?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That's sound intresting you enjoy math? Math has always been a tough subject for me."
+        ],
+        [
+          1,
+          "Not as it seems. You only need to adhere to the rules and stick with the principles."
+        ],
+        [
+          0,
+          "What career path are you interested in pursing?"
+        ],
+        [
+          1,
+          "Systems Engineering and Computer Science."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        52,
+        62
+      ]
+    },
+    {
+      "id": "corpus-context-078",
+      "original_case_id": "bst-train-2506-04",
+      "source_group": "corpus",
+      "text": "documentaries are very educational... but i prefer horror movies",
+      "review_only_preceding_context": [
+        [
+          0,
+          "wow that is awesome"
+        ],
+        [
+          1,
+          "I love movies. I'd love to be a director when I grow up."
+        ],
+        [
+          0,
+          "i love movies too.. what kind of movies are you more into"
+        ],
+        [
+          1,
+          "I enjoy action, but there are some amazing nature documentaries."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        0,
+        13
+      ]
+    },
+    {
+      "id": "corpus-context-079",
+      "original_case_id": "bst-train-3558-00",
+      "source_group": "corpus",
+      "text": "Typical skydiving accident. Wasn't the first time. Have you ever gone skydiving?",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        39,
+        49
+      ]
+    },
+    {
+      "id": "corpus-context-080",
+      "original_case_id": "bst-train-3004-00",
+      "source_group": "corpus",
+      "text": "The debt I am under is soul crushing. I think that a clean break and fresh start is the best option. Where should I go?",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "complete_grow",
+      "focus_utf16": [
+        23,
+        27
+      ]
+    },
+    {
+      "id": "corpus-context-081",
+      "original_case_id": "bst-train-3011-02",
+      "source_group": "corpus",
+      "text": "What do you want to do in space? Be an astronaut or just a tourist?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Nothing yet - just a pipe dream"
+        ],
+        [
+          1,
+          "Oh that's a great dream to have! "
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        52,
+        56
+      ]
+    },
+    {
+      "id": "corpus-context-082",
+      "original_case_id": "bst-train-3152-02",
+      "source_group": "corpus",
+      "text": "Yeah it's pretty chill. My sister and I are killin it on the underground scene. I'm thinking we could be the next Alanis Morissette",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Ear protection doesn't let me get in the right state of mind. Some 90's grunge. A mix between The Cranberries and Nirvana "
+        ],
+        [
+          1,
+          "I love the Seattle scene! Those are my kind of people!"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        27,
+        33
+      ]
+    },
+    {
+      "id": "corpus-context-083",
+      "original_case_id": "bst-train-4333-08",
+      "source_group": "corpus",
+      "text": "Do you have a lot of free time? Its usually very flexible and many need help all the time. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Yes I love taking my dogs on hikes too. What kind do you have?"
+        ],
+        [
+          1,
+          "I have a mix between a corgi and chihuahua, I named him Elton. What kind of dogs do you have? "
+        ],
+        [
+          0,
+          "I have mostly pit bulls as I rescue them from the shelters I volunteer at. "
+        ],
+        [
+          1,
+          "Oh wow! That must be a very rewarding volunteer opportunity! What do you do while you're at the shelter?"
+        ],
+        [
+          0,
+          "Mostly play with them. Do you volunteer? If not you should its very rewarding!"
+        ],
+        [
+          1,
+          "I've been intending to. I haven't found anything fitting for me around my community. How did you sign up to volunteer?"
+        ],
+        [
+          0,
+          "Have you tried local rescues too? Just call around to your local shelters and ask about it, is what I did. "
+        ],
+        [
+          1,
+          "I never considered those! Is volunteering more like a job or do you have more freedoms?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        21,
+        30
+      ]
+    },
+    {
+      "id": "corpus-context-084",
+      "original_case_id": "bst-train-4082-08",
+      "source_group": "corpus",
+      "text": "I'm not sure about other countries, but Nigerians don't really eat desserts.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Do you prefer a whipped filling or a more dense one?"
+        ],
+        [
+          1,
+          "Any creamy ones with sweet flavors mostly."
+        ],
+        [
+          0,
+          "Really? Well have you tried Key Lime pie and cheesecake?"
+        ],
+        [
+          1,
+          "I love cheesecake"
+        ],
+        [
+          0,
+          "Do you prefer a thicker crust or would you rather have a thin one?"
+        ],
+        [
+          1,
+          "i don't have a preference . what do you like to eat ?"
+        ],
+        [
+          0,
+          "My favorite cake is carrot cake, but when it's not desserts I often eat western African foods or American foods"
+        ],
+        [
+          1,
+          "What kind of african desserts are there?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        25,
+        34
+      ]
+    },
+    {
+      "id": "corpus-context-085",
+      "original_case_id": "bst-train-1209-00",
+      "source_group": "corpus",
+      "text": "Dogs are so great for curing loneliness. They always want to love on you and to be loved. ",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "corpus-context-086",
+      "original_case_id": "bst-train-0418-06",
+      "source_group": "corpus",
+      "text": "In my free time, I like to read history books. Do you like to read?",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Just having some breakfast right now. I love Mexican food."
+        ],
+        [
+          1,
+          "I love Mexican food as well. They really know how to use beans, corn, chili pepper. My favorites are enchilda, burrito, tamale. What about you?"
+        ],
+        [
+          0,
+          "My favorite is fajitas. Chicken and steak."
+        ],
+        [
+          1,
+          "oh , that sounds good . what do you usually prepare ? any favorite breakfast ?"
+        ],
+        [
+          0,
+          "For breakfast I usually just eat cereal. Quick and inexpensive."
+        ],
+        [
+          1,
+          "For me cereal is the best option for breakfast."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        6,
+        15
+      ]
+    },
+    {
+      "id": "corpus-context-087",
+      "original_case_id": "bst-train-3011-06",
+      "source_group": "corpus",
+      "text": "Pizza! I love pizza made all different ways.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Nothing yet - just a pipe dream"
+        ],
+        [
+          1,
+          "Oh that's a great dream to have! "
+        ],
+        [
+          0,
+          "What do you want to do in space? Be an astronaut or just a tourist?"
+        ],
+        [
+          1,
+          "Actually, the thought of leaving planet earth terrifies me. lol While space is a boundless three-dimensional extent I prefer to keep my flip flops on my home planet."
+        ],
+        [
+          0,
+          "Not a bad idea. Do you have any kids?"
+        ],
+        [
+          1,
+          "No I don't, but maybe one day. What is your favorite food?"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        39,
+        43
+      ]
+    },
+    {
+      "id": "corpus-context-088",
+      "original_case_id": "bst-train-2223-04",
+      "source_group": "corpus",
+      "text": "That is crazy, but that means it must be a great place to visit",
+      "review_only_preceding_context": [
+        [
+          0,
+          "I have never traveled overseas but would love to sometime. Rome would be nice."
+        ],
+        [
+          1,
+          "I would love to visit some of Rome's churches, palaces, fountains and the Catacombs! I think I'd need at least a month to explore the city!"
+        ],
+        [
+          0,
+          "At least! That would be a fun trip."
+        ],
+        [
+          1,
+          "It's really busy too! Rome recieves about 710 million tourists a year. I think that's crazy."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_grow",
+      "focus_utf16": [
+        43,
+        48
+      ]
+    },
+    {
+      "id": "corpus-context-089",
+      "original_case_id": "bst-train-1950-04",
+      "source_group": "corpus",
+      "text": "that's not too fair, you could have taken a little bit of sleep since they stopped",
+      "review_only_preceding_context": [
+        [
+          0,
+          "what! what happened so sorry"
+        ],
+        [
+          1,
+          "My neighbors were yelling all night.  They were really loud"
+        ],
+        [
+          0,
+          "I know right! I feel your pain. I would knock their door lol"
+        ],
+        [
+          1,
+          "I would, but I do not live in the best neighborhood and I am worried about what they would do."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        11,
+        14
+      ]
+    },
+    {
+      "id": "corpus-context-090",
+      "original_case_id": "bst-train-4591-06",
+      "source_group": "corpus",
+      "text": "They really are! One of the yorkies and the pug at getting up there in age. But still so much fun. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "It's Business Management, all most finished! "
+        ],
+        [
+          1,
+          "Congratulations! Any big plans for after you're done?"
+        ],
+        [
+          0,
+          "Not really. Where I am currently working at I should be able to get a good raise. So I am excited about that!"
+        ],
+        [
+          1,
+          "That's great? So, do you have any pets? I've got this adorable beagle whom I really love."
+        ],
+        [
+          0,
+          "Aw I love beagles! I have 3 small dogs. A pug, and 2 yorkies. "
+        ],
+        [
+          1,
+          "Aren't they just the greatest? Not to big, but not too small either. Pugs are really cute, too!"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        94,
+        97
+      ]
+    },
+    {
+      "id": "corpus-context-091",
+      "original_case_id": "bst-train-3851-00",
+      "source_group": "corpus",
+      "text": "I'm not a picky eater, but I love cuba libre.",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        27,
+        28
+      ]
+    },
+    {
+      "id": "corpus-context-092",
+      "original_case_id": "bst-train-1136-02",
+      "source_group": "corpus",
+      "text": "That does sound fun. If I had loads of free time and money I would take classes in drawing.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "That's cute! I wish I was better at drawing caricatures."
+        ],
+        [
+          1,
+          "i like to draw people as pony characters, its a fun hobby "
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        39,
+        48
+      ]
+    },
+    {
+      "id": "corpus-context-093",
+      "original_case_id": "bst-train-0289-08",
+      "source_group": "corpus",
+      "text": "That's true. I try to go to major zoos when I'm in a new city but I don't always have time.",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Actually I have! In the last few months I got a new job as a flight attendant and I have been to some seriously cool place!"
+        ],
+        [
+          1,
+          "That is pretty sweet! What is your favorite country you've been to so far?"
+        ],
+        [
+          0,
+          "I really love Ireland. It's sooo green (my favorite color) and the people there are wonderful. Plus the architecture is unparalleled."
+        ],
+        [
+          1,
+          "I would love to go to Ireland. Sounds like a great opportunity! Is it difficult to become a flight attendant?"
+        ],
+        [
+          0,
+          "It's not terribly hard. I had to go through some schooling for it and then on the job training, but it was worth it. What do you do?"
+        ],
+        [
+          1,
+          "Well I am 15 so I don't have a job just yet. But I try to do dog sitting for people in my spare time. I absolutely love animals."
+        ],
+        [
+          0,
+          "You have a lot of time to figure it out. Animals are always drawn to me. I'd love a dog but I'm gone all the time."
+        ],
+        [
+          1,
+          "Animals have to have a lot of love and attention so it's probably good you don't have one. But you can always visit a petting zoo!"
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        74,
+        80
+      ]
+    },
+    {
+      "id": "corpus-context-094",
+      "original_case_id": "bst-train-1514-00",
+      "source_group": "corpus",
+      "text": "I am at work also for an internet provider. I'll be going to the gym after.",
+      "review_only_preceding_context": [],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        65,
+        68
+      ]
+    },
+    {
+      "id": "corpus-context-095",
+      "original_case_id": "bst-train-3714-10",
+      "source_group": "corpus",
+      "text": "That sounds really nice. I really like to cook and try out new recipes in my free time. ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "Oh wow. That's great. I'm so terrified of heights. "
+        ],
+        [
+          1,
+          "We have plenty of trees to climb near the farm."
+        ],
+        [
+          0,
+          "Do you live on a farm?"
+        ],
+        [
+          1,
+          "Yes I do, and it's great place to live if you enjoy small town life."
+        ],
+        [
+          0,
+          "Does it get gold there? I prefer to live where the weather gets cold. "
+        ],
+        [
+          1,
+          "It does in the winter with frequent snowfall."
+        ],
+        [
+          0,
+          "That must be so pretty. Do you make snow angels or snowmen? "
+        ],
+        [
+          1,
+          "Sometimes I do but I really do love the hikes in the snow."
+        ],
+        [
+          0,
+          "What else do you like to do with your free time?"
+        ],
+        [
+          1,
+          "I pretty much spend my free time outdoors whether it's camping, backpacking, or just exploring nature."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        77,
+        86
+      ]
+    },
+    {
+      "id": "corpus-context-096",
+      "original_case_id": "bst-train-3751-06",
+      "source_group": "corpus",
+      "text": "that sounds pretty cool almost makes me want to go back to school ",
+      "review_only_preceding_context": [
+        [
+          0,
+          "oh what did you study in college?"
+        ],
+        [
+          1,
+          "Video games design. I want to either be a game tester or make my own games."
+        ],
+        [
+          0,
+          "that sounds awesome do you have a job now that is related to what you studied?"
+        ],
+        [
+          1,
+          "Well sort of, I'm a streamer on Twitch. I just hit 200,000 subscribers."
+        ],
+        [
+          0,
+          "that's amazing sounds way better than being apart of the 9-5 rat race"
+        ],
+        [
+          1,
+          "It's so much fun. I'm getting paid to play video games I love and chat with people."
+        ]
+      ],
+      "original_pair": "en-es",
+      "original_arm": "heads_r03_union",
+      "focus_utf16": [
+        59,
+        65
+      ]
+    },
+    {
+      "id": "apertium-01",
+      "source_group": "apertium",
+      "text": "I am going to Alice's birthday."
+    },
+    {
+      "id": "apertium-02",
+      "source_group": "apertium",
+      "text": "We are going to my friend's birthday."
+    },
+    {
+      "id": "apertium-03",
+      "source_group": "apertium",
+      "text": "I lost my book."
+    },
+    {
+      "id": "apertium-04",
+      "source_group": "apertium",
+      "text": "Please book a table for two."
+    },
+    {
+      "id": "apertium-05",
+      "source_group": "apertium",
+      "text": "The country musician is famous."
+    },
+    {
+      "id": "apertium-06",
+      "source_group": "apertium",
+      "text": "I live in a small country."
+    },
+    {
+      "id": "apertium-07",
+      "source_group": "apertium",
+      "text": "The high school is near my house."
+    },
+    {
+      "id": "apertium-08",
+      "source_group": "apertium",
+      "text": "We discuss a high school of thought."
+    },
+    {
+      "id": "apertium-09",
+      "source_group": "apertium",
+      "text": "I bought a hot dog for lunch."
+    },
+    {
+      "id": "apertium-10",
+      "source_group": "apertium",
+      "text": "The hot dog is sleeping."
+    },
+    {
+      "id": "apertium-11",
+      "source_group": "apertium",
+      "text": "I am not happy."
+    },
+    {
+      "id": "apertium-12",
+      "source_group": "apertium",
+      "text": "I have a new laptop."
+    },
+    {
+      "id": "apertium-13",
+      "source_group": "apertium",
+      "text": "Please send me an email."
+    },
+    {
+      "id": "apertium-14",
+      "source_group": "apertium",
+      "text": "Can you water the plants?"
+    },
+    {
+      "id": "apertium-15",
+      "source_group": "apertium",
+      "text": "I need a glass of water."
+    },
+    {
+      "id": "apertium-16",
+      "source_group": "apertium",
+      "text": "I'll see you tomorrow."
+    },
+    {
+      "id": "apertium-17",
+      "source_group": "apertium",
+      "text": "Visit https://example.com/order/17 and email alice@example.com."
+    },
+    {
+      "id": "apertium-18",
+      "source_group": "apertium",
+      "text": "We bought three books yesterday."
+    },
+    {
+      "id": "apertium-19",
+      "source_group": "apertium",
+      "text": "I'm on my way."
+    },
+    {
+      "id": "apertium-20",
+      "source_group": "apertium",
+      "text": "Are you feeling well?"
+    }
+  ]
+}
