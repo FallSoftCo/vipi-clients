@@ -1,0 +1,655 @@
+{
+  "schema": "vipi.hfst-morphology-diagnostic-capture.r01",
+  "production": false,
+  "analyses": [
+    {
+      "surface": "mtu",
+      "outputs": [
+        "mtu<n><cl1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "watu",
+      "outputs": [
+        "mtu<n><cl1><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "mtoto",
+      "outputs": [
+        "mtoto<n><cl1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "watoto",
+      "outputs": [
+        "mtoto<n><cl1><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "mti",
+      "outputs": [
+        "mti<n><cl3><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "miti",
+      "outputs": [
+        "mti<n><cl3><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "gari",
+      "outputs": [
+        "gari<n><cl5><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "magari",
+      "outputs": [
+        "gari<n><cl5><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "kiti",
+      "outputs": [
+        "kiti<n><cl7><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "viti",
+      "outputs": [
+        "kiti<n><cl7><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "kisu",
+      "outputs": [
+        "kisu<n><cl7><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "visu",
+      "outputs": [
+        "kisu<n><cl7><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "nyumba",
+      "outputs": [
+        "kunyumba<vblex><imp><sg>",
+        "nyumba<n><cl9><sp>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "rafiki",
+      "outputs": [
+        "rafiki<n><cl1><sp>",
+        "rafiki<n><cl5><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "marafiki",
+      "outputs": [
+        "rafiki<n><cl5><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "kitabu",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "vitabu",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "chakula",
+      "outputs": [
+        "kuchakula<vblex><imp><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "vyakula",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "ninasoma",
+      "outputs": [
+        "kusoma<vblex><prs><p1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "nilisoma",
+      "outputs": [
+        "kusoma<vblex><past><p1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "nitasoma",
+      "outputs": [
+        "kusoma<vblex><fut><p1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "nimesoma",
+      "outputs": [
+        "kusoma<vblex><perf><p1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "wanasoma",
+      "outputs": [
+        "kusoma<vblex><prs><p3><pl>",
+        "kusoma<vblex><prs><cl1><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "tulisoma",
+      "outputs": [
+        "kusoma<vblex><past><p1><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "unasoma",
+      "outputs": [
+        "kusoma<vblex><prs><p2><sg>",
+        "kusoma<vblex><prs><cl3><sg>",
+        "kusoma<vblex><prs><cl11><sg>",
+        "kusoma<vblex><prs><cl14><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "mnasoma",
+      "outputs": [
+        "kusoma<vblex><prs><p2><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "sisomi",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "sikusoma",
+      "outputs": [
+        "kusoma<vblex><past><neg><p1><sg><neg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "sitasoma",
+      "outputs": [
+        "kusoma<vblex><fut><neg><p1><sg><neg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "hamsomi",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "hamtasoma",
+      "outputs": [
+        "kusoma<vblex><fut><neg><p3><pl><neg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "ninakula",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "nimekuja",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": false
+    },
+    {
+      "surface": "ninaenda",
+      "outputs": [
+        "kuenda<vblex><prs><p1><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "soma",
+      "outputs": [
+        "kusoma<vblex><imp><sg>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "someni",
+      "outputs": [
+        "kusoma<vblex><imp><pl>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "kusoma",
+      "outputs": [
+        "kusoma<vblex><inf><cl15>"
+      ],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "ninasomaa",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "kitabuzzz",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "Maya",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": true
+    },
+    {
+      "surface": "https://example.test/kitabu",
+      "outputs": [],
+      "expected_analysis_present_or_unknown_rejected": true
+    }
+  ],
+  "generations": [
+    {
+      "analysis": "mtu<n><cl1><sg>",
+      "expected_surface": "mtu",
+      "outputs": [
+        {
+          "output": "mtu",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "mtu<n><cl1><pl>",
+      "expected_surface": "watu",
+      "outputs": [
+        {
+          "output": "watu",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kiti<n><cl7><sg>",
+      "expected_surface": "kiti",
+      "outputs": [
+        {
+          "output": "kiti",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kiti<n><cl7><pl>",
+      "expected_surface": "viti",
+      "outputs": [
+        {
+          "output": "viti",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kusoma<vblex><prs><p1><sg>",
+      "expected_surface": "ninasoma",
+      "outputs": [
+        {
+          "output": "ninasoma",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kusoma<vblex><past><p1><sg>",
+      "expected_surface": "nilisoma",
+      "outputs": [
+        {
+          "output": "nilisoma",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kusoma<vblex><fut><p1><sg>",
+      "expected_surface": "nitasoma",
+      "outputs": [
+        {
+          "output": "nitasoma",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kusoma<vblex><perf><p1><sg>",
+      "expected_surface": "nimesoma",
+      "outputs": [
+        {
+          "output": "nimesoma",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": true
+    },
+    {
+      "analysis": "kusoma<vblex><prs><neg><p1><sg><neg>",
+      "expected_surface": "sisomi",
+      "outputs": [
+        {
+          "output": "sisoma",
+          "weight": "0.000000"
+        }
+      ],
+      "expected_surface_present": false
+    },
+    {
+      "analysis": "kusoma<vblex><fut><neg><p2><pl><neg>",
+      "expected_surface": "hamtasoma",
+      "outputs": [
+        {
+          "output": "kusoma<vblex><fut><neg><p2><pl><neg>+?",
+          "weight": "inf"
+        }
+      ],
+      "expected_surface_present": false
+    },
+    {
+      "analysis": "kitabu<n><cl7><sg>",
+      "expected_surface": "kitabu",
+      "outputs": [
+        {
+          "output": "kitabu<n><cl7><sg>+?",
+          "weight": "inf"
+        }
+      ],
+      "expected_surface_present": false
+    },
+    {
+      "analysis": "kitabu<n><cl7><pl>",
+      "expected_surface": "vitabu",
+      "outputs": [
+        {
+          "output": "kitabu<n><cl7><pl>+?",
+          "weight": "inf"
+        }
+      ],
+      "expected_surface_present": false
+    }
+  ],
+  "steps": [
+    {
+      "tool": "lexd",
+      "args": [
+        "-f",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/source.lexd"
+      ],
+      "key": "lexd",
+      "returncode": 0,
+      "seconds": 1.6762845609337091,
+      "maxrss_kib": "43480"
+    },
+    {
+      "tool": "hfst-txt2fst",
+      "args": [
+        "-i",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/relation.att",
+        "-o",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/generator.hfst"
+      ],
+      "key": "hfst-txt2fst",
+      "returncode": 0,
+      "seconds": 0.0677298738155514,
+      "maxrss_kib": "17508"
+    },
+    {
+      "tool": "hfst-fst2fst",
+      "args": [
+        "-O",
+        "-i",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/generator.hfst",
+        "-o",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/generator.hfstol"
+      ],
+      "key": "generator-optimize",
+      "returncode": 0,
+      "seconds": 0.08039922290481627,
+      "maxrss_kib": "37184"
+    },
+    {
+      "tool": "hfst-invert",
+      "args": [
+        "-i",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/generator.hfst",
+        "-o",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/analyzer.hfst"
+      ],
+      "key": "hfst-invert",
+      "returncode": 0,
+      "seconds": 0.027677317848429084,
+      "maxrss_kib": "19216"
+    },
+    {
+      "tool": "hfst-fst2fst",
+      "args": [
+        "-O",
+        "-i",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/analyzer.hfst",
+        "-o",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/analyzer.hfstol"
+      ],
+      "key": "analyzer-optimize",
+      "returncode": 0,
+      "seconds": 0.09828145895153284,
+      "maxrss_kib": "34480"
+    },
+    {
+      "tool": "hfst-lookup",
+      "args": [
+        "-q",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/analyzer.hfstol"
+      ],
+      "key": "analysis",
+      "returncode": 0,
+      "seconds": 0.01769229583442211,
+      "maxrss_kib": "17652"
+    },
+    {
+      "tool": "hfst-lookup",
+      "args": [
+        "-q",
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology-flags/generator.hfstol"
+      ],
+      "key": "generation",
+      "returncode": 0,
+      "seconds": 0.048799697076901793,
+      "maxrss_kib": "15352"
+    }
+  ],
+  "files": [
+    {
+      "path": "morphology-flags/analysis.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "7777a9a82f1ed02221ad59c987332f342307fb8044d2d2b1678a0b3b7c73ee3f"
+    },
+    {
+      "path": "morphology-flags/analysis.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/analysis.stdout.txt",
+      "bytes": 1796,
+      "sha256": "57cba763ddf5eba74d00daa2a4c465f7a4dd0efc6e627f94174925df3be9bac1"
+    },
+    {
+      "path": "morphology-flags/analyzer-optimize.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "a7a1edd3a4dc7e68ae8231cfe551d7da1f3411fd8b629988b8c1ed2d397b31d7"
+    },
+    {
+      "path": "morphology-flags/analyzer-optimize.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/analyzer-optimize.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/analyzer.hfst",
+      "bytes": 1665125,
+      "sha256": "9a87a943d6c4727911ec29afd2ec73cf23ab6a8abcd1b666d1820398afc11894"
+    },
+    {
+      "path": "morphology-flags/analyzer.hfstol",
+      "bytes": 1276945,
+      "sha256": "21753231019cc41828a1a01d3a11104c4c29eca7b261e25cab7ba8866f0b58ce"
+    },
+    {
+      "path": "morphology-flags/freeze.json",
+      "bytes": 6230,
+      "sha256": "7ce1bec2306be91f190b3363b79beabbde8ed7f2f2411aa54cab71676203e6db"
+    },
+    {
+      "path": "morphology-flags/generation.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "4faf125267ad4027a335094191101ca46dc9d4bde7723423ffad7fc6564a23c8"
+    },
+    {
+      "path": "morphology-flags/generation.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/generation.stdout.txt",
+      "bytes": 536,
+      "sha256": "1ab155ab88c6457a2d95ad3acb8bed6d3827dddfa095dd74ec98062d9af13fec"
+    },
+    {
+      "path": "morphology-flags/generator-optimize.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "1fa27eb9486b04f61fcac007fc14881c4dbf99cfc5171eca4e533f2272539a27"
+    },
+    {
+      "path": "morphology-flags/generator-optimize.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/generator-optimize.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/generator.hfst",
+      "bytes": 1661768,
+      "sha256": "464c1985d7da5a6239a3340f2fc93ad28163db371fb53f3ec331e00ab42b1388"
+    },
+    {
+      "path": "morphology-flags/generator.hfstol",
+      "bytes": 933641,
+      "sha256": "c6d538bdefa35464ea389dbdb3c1ce31e15ae5a406dfbafd8d844c96b0b59e7a"
+    },
+    {
+      "path": "morphology-flags/hfst-invert.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "0b288c626706e8ae5762e8922cc699693f48483d2fbe97c048b2fe62996e92bf"
+    },
+    {
+      "path": "morphology-flags/hfst-invert.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/hfst-invert.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/hfst-txt2fst.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "4cade229b364626178002a17a3e56cdcad42f79fbf822be275dba3f561f59050"
+    },
+    {
+      "path": "morphology-flags/hfst-txt2fst.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/hfst-txt2fst.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/lexd.rss-kib.txt",
+      "bytes": 6,
+      "sha256": "bf7d6020ce331405382ede4dfd82d0ebaf4e90bffdd842a198aaefecfd65e6d6"
+    },
+    {
+      "path": "morphology-flags/lexd.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "morphology-flags/relation.att",
+      "bytes": 1817337,
+      "sha256": "cb3fb01103f3614822c9b080f79519f5fa16dd033762141ab625d04811402e48"
+    },
+    {
+      "path": "morphology-flags/source.lexd",
+      "bytes": 182072,
+      "sha256": "4cc671ebd29623613e1ccf5677828c78772d215c481ef5704eeb8343ef1abab8"
+    },
+    {
+      "path": "morphology-flags/steps.json",
+      "bytes": 2764,
+      "sha256": "6843e23773075ec9fa1ecf7073499d32e32e6c2a2426734b1fa7f42349b75bb9"
+    }
+  ],
+  "summary": {
+    "analysis_expected_pass": 33,
+    "analysis_total": 42,
+    "generation_expected_pass": 8,
+    "generation_total": 12
+  }
+}

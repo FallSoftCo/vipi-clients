@@ -45,12 +45,28 @@ its password held separately in private local/production paths. No secret value
 belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
 open; no app-store submission receipt exists.
 
-Committed private source through `10bc065092bfebbe43f17429df96f932695352f6` is
+Committed private source through `a3445da7a69d164722ee89b9a3d30dd33c0dd40a` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261108-r14`. This separate reference
+`refs/heads/checkpoints/production-20261108-r16`. Push and exact remote reference
+were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
 corresponding-source publication.
+
+Seven inherited infinitive-experiment files remain dirty in the canonical
+workspace. Their exact source and additional untracked experiments are preserved
+privately. Some changed matching behavior can execute without optional data;
+these are not entirely dormant changes. Final native qualification must use a
+separate clean committed-source snapshot, excluding those unqualified deltas
+while retaining the previously committed source-verb correction `a27eff2`.
+Do not revert or silently discard the canonical experiments.
+
+The private client-source candidate built by `prepare-client-source.py` includes
+4,741 exact files, 66 catalog-hash-bound lexical assets and 575 pinned upstream
+archives. Its 557,371,002-byte archive passed a complete independent hash and
+membership reread. Backend, infrastructure and Git history are excluded. This is
+a packaging candidate at `a3445da`, not final native binary correspondence,
+public publication or completed license/privacy review.
 
 The separately retained pinned upstream source inputs have a full SHA-256
 verified private copy at Storage Box path

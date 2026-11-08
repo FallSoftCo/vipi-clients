@@ -1,0 +1,58 @@
+{
+  "schema": "vipi.hfst-feasibility-root-review.r01",
+  "production": false,
+  "at": "2026-11-08T08:37:58.762603+00:00",
+  "result": "Actual finite-state morphology compilation/lookup demonstrated; native runtime adoption and broad data qualification remain open.",
+  "engine_value": [
+    "A compact compiled relation analyzes and generates noun-class/number and verb tense/person forms from one source.",
+    "lexd flag-diacritic compilation avoids expansion: retained source43,480KiB compiler RSS instead of unflagged1GiB address-space exhaustion.",
+    "The same relation is inverted for analysis; morphology can feed reviewed phrase slot constraints or build-time attested-form export."
+  ],
+  "retained_language_gaps": [
+    "kitabu/vitabu absent despite everyday relevance",
+    "chakula has only a verbal analysis, not the expected food noun",
+    "sisomi/hamsomi absent; generator emits sisoma for first-person present negative",
+    "hamtasoma returns p3 plural rather than p2 plural",
+    "ninakula/nimekuja absent",
+    "unasoma retains multiple person/noun-class analyses; raw morphology cannot determine sentence meaning"
+  ],
+  "diagnostic_counts": {
+    "analysis_expected_feature_present_or_authored_unknown_rejected": 33,
+    "analysis_total": 42,
+    "expected_generation_present": 8,
+    "generation_total": 12
+  },
+  "count_limits": "Feature-presence counts permit additional conflicting analyses and authored unknown controls. They are not precision, independent human acceptance, or conversation coverage.",
+  "cost": {
+    "analyzer_bytes": 1276945,
+    "generator_bytes": 933641,
+    "compile_lexd_flagged_seconds": 1.6762845609337091,
+    "lookup_42_seconds_including_process": 0.01769229583442211,
+    "lookup_4200_seconds_including_process": 0.21614679018966854,
+    "lookup_4200_maxrss_kib": 17560,
+    "native_phone_latency_measured": false
+  },
+  "decision": "Keep optional evidence-backed morphology arm in comparison. Do not replace source phrase matcher, activate Swahili FST globally, infer safe sense selection from POS alone, or introduce shared C++ runtime before comparative value is demonstrated.",
+  "sources": [
+    {
+      "url": "https://github.com/apertium/apertium-swa/tree/4d2e6b6714e8fa2eaa3f3d74686ec683b8ee9890",
+      "role": "Exact retained language rules/lexicon"
+    },
+    {
+      "url": "https://hfst.github.io/downloads/index.html",
+      "role": "Official tools and runtime format"
+    },
+    {
+      "url": "https://github.com/apertium/lexd",
+      "role": "Compiler and documented flag-diacritic option"
+    },
+    {
+      "url": "https://wiki.apertium.org/wiki/Morphological_dictionary",
+      "role": "Analysis/generation role and limits"
+    },
+    {
+      "url": "https://github.com/hfst/hfst/wiki/HfstPmatch",
+      "role": "Pattern-matching capability documented; not exercised in this morphology probe"
+    }
+  ]
+}

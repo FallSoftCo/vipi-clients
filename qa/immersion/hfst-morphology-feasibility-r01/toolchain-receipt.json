@@ -1,0 +1,56 @@
+{
+  "schema": "vipi.hfst-isolated-tools.r01",
+  "checks": [
+    {
+      "tool": "hfst-lookup",
+      "returncode": 0,
+      "stdout": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/prefix/usr/bin/hfst-lookup 0.6 (hfst 3.16.0)\nCopyright (C) 2017 University of Helsinki,\nLicense GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "executable_sha256": "3ce514050f35f478af5ccf0128cb51c4acfabb871d337e52c6d08abb6ef50791"
+    },
+    {
+      "tool": "hfst-optimized-lookup",
+      "returncode": 0,
+      "stdout": "\nhfst-optimized-lookup 1.2\ncopyright (C) 2009 University of Helsinki\n",
+      "stderr": "",
+      "executable_sha256": "d4981f07e2ba86fe82e268c74bab567c7f1010e1e903a7117014b2b8272174c7"
+    },
+    {
+      "tool": "hfst-txt2fst",
+      "returncode": 0,
+      "stdout": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/prefix/usr/bin/hfst-txt2fst 0.1 (hfst 3.16.0)\nCopyright (C) 2017 University of Helsinki,\nLicense GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "executable_sha256": "a3e207fdd6a79ca3d2d281be4de854fd58b667678b463b79b2f6eb57669caa9f"
+    },
+    {
+      "tool": "hfst-invert",
+      "returncode": 0,
+      "stdout": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/prefix/usr/bin/hfst-invert 0.1 (hfst 3.16.0)\nCopyright (C) 2017 University of Helsinki,\nLicense GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "executable_sha256": "8bea5eb582e73afb6016540feffc6de9c3a889ee0f5a605ffed5ffef68d5a0c2"
+    },
+    {
+      "tool": "hfst-fst2fst",
+      "returncode": 0,
+      "stdout": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/prefix/usr/bin/hfst-fst2fst 0.1 (hfst 3.16.0)\nCopyright (C) 2017 University of Helsinki,\nLicense GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "executable_sha256": "351027c62a2e7259817c9dbcf1b1ef1096bfd8c643c8e10b29e7cf46c85d7e22"
+    },
+    {
+      "tool": "hfst-minimise",
+      "returncode": 0,
+      "stdout": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/prefix/usr/bin/hfst-minimise 0.1 (hfst 3.16.0)\nCopyright (C) 2017 University of Helsinki,\nLicense GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "executable_sha256": "d12e85600ec73e7ae6f3a08e15cae19306ae765899e644733a8d08897c32ff14"
+    },
+    {
+      "tool": "lexd",
+      "returncode": 0,
+      "stdout": "lexd 1.3.1\n",
+      "stderr": "",
+      "executable_sha256": "0b4b5605ce4b0303ec839f350fbeae85c43f9b4225a8880d3e29ed06ef164133"
+    }
+  ],
+  "regular_file_bytes": 27812077,
+  "system_packages_installed": false
+}

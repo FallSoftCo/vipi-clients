@@ -1,0 +1,20 @@
+{
+  "schema": "vipi.hfst-morphology-throughput.r01",
+  "production": false,
+  "inputs": 4200,
+  "distinct_authored_inputs": 42,
+  "repetitions": 100,
+  "seconds_including_process_start": 0.21614679018966854,
+  "queries_per_second_batch": 19431.239281020575,
+  "maxrss_kib": "17560",
+  "exitcode": 0,
+  "exact_repetition_parity": true,
+  "input_sha256": "55499b11c46e3af79251ea63fdc6a0e3b42d425fc33b888caa4a24fa5672c46f",
+  "output_sha256": "b98775511f94f1926edcadb7e9436cc7bad9a8099a201a330a37ef1c3b92a370",
+  "output_bytes": 179600,
+  "limitations": [
+    "Desktop x86 process, not native phone latency or incremental app RAM",
+    "Repeated authored morphology cases, not conversation or semantic coverage",
+    "No source-only phrase interpretation or target transfer performed"
+  ]
+}

@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 07:40 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-08 08:38 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -12,19 +12,45 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `c07e656`, same database/schema/environment. The privacy-only activation took 7.89 seconds; policy returns 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
+| Service | Restricted staging runs `5ca447b`, same database/schema/environment. Activation took 7.95 seconds; help/privacy return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
 | Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
 | Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
-| Full readings | Apple default Chinese guide is bundled and qualified in `a740091`, including actual larger-reading arrival without moving the selected older message. Korean Swift32 and Kotlin38 component cases passed; default native integrations are closing. Japanese Android default integration follows retained actual chat evidence. | Remaining default orchestration/packaging, Apple Japanese, Arabic coverage, broader contextual correctness, API28 and physical execution. |
+| Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, physical/acoustic execution and final clean-source release qualification. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
 | Store delivery | Company identity selected; Apple distribution certificate accessible; Android upload key encrypted and retained. | Account reauthentication, app records/profiles/products, real purchases/refunds/push/bot, release qualification and upload/review receipts. |
 
 ## Current language decision
+
+The user asked whether the discussed NLP approach was incorporated. It is only
+partly incorporated. Native source-only references, finite literal/slot patterns,
+attested morphology and indexed phrase windows exist, but broad phrase lookup
+still commonly requires target-translation evidence. General source-first
+longest-context matching, reusable typed possessors and target grammar generation
+are not production capabilities. The team has frozen a distinct comparison of
+exact top-down windows, existing finite slots, typed slots with attested forms,
+and optional finite-state morphology. See
+`qa/immersion/nlp-template-comparison-r01/contract.json`.
+
+Matched context and flipped focus are different fields: a long recognized
+construction may authorize one noun without changing surrounding grammar.
+Atomic compound/idiom protection must survive density and known-concept filters.
+Both native reviews identified that a nullable partial result alone cannot carry
+those masks into later translation/alignment fallback. The experiment keeps
+source-only protection separate from full-pipeline acceptance; no new candidate
+is enabled by default.
+
+HFST 3.16.0 and lexd 1.3.1 have now actually compiled and queried the retained
+Swahili source in an isolated desktop probe. Its analyzer is 1.28 MB and generator
+0.93 MB; a 4,200-word repeated batch took 216 ms including startup. The same data
+also omits common nouns and generates/tags some negative forms incorrectly.
+Finite-state morphology is feasible, but that source cannot be adopted broadly
+without qualification. This is neither translation nor conversational coverage;
+see `qa/immersion/hfst-morphology-feasibility-r01`.
 
 The previous native beginner comparison used the same 80 English messages into
 Swahili, Japanese and Spanish. All 187 selected source-only spans/readings matched
@@ -97,14 +123,20 @@ alternative senses and later-progression cases; it is not all-message accuracy.
 Failures include creative versus original/earlier, physical high versus high
 school, kinship great, effort hard, human-height short and well-being good.
 Other existing paths also changed a drink brand and a metaphorical driver.
-Author review/join and subsequent general fixes remain pending; frozen outputs
-have not been changed to hide those cases. No revised pack is activated.
+Author/root joins and subsequent general fixes are retained separately; frozen
+outputs have not been changed to hide those cases. The R03 source-unit experiment
+in `7a093f0` repairs source-sense bindings, enforces literals across its paths and
+uses complete source-role evidence. At 25% density its unreviewed TRAIN content
+reach is 53.4%/62.1%/60.2% for Swahili/Japanese/Spanish. An overbroad attributive
+suppression arm was rejected; material idiom/compound errors remain. Raw reach
+is not accurate immersion coverage. Further word-only batches are subordinate
+to the distinct NLP comparison. No revised pack is activated.
 
 ## Native full-reading work
 
-Complete readings prefer authored references; the normal Apple source now also
-bundles the qualified Chinese guide. Other non-Roman full-text readings remain
-incomplete. Audio remains the pronunciation
+Complete readings prefer authored references; the normal Apple and Android
+sources now include scoped qualified Chinese, Japanese and Korean guides.
+Arabic full-text reading remains incomplete. Audio remains the pronunciation
 authority. A valid orthographic convention must not be mistaken for an acoustic
 error or described as a verified ordinary pronunciation guide.
 
@@ -163,7 +195,12 @@ required. Thirty-one of 32 strings agree across platforms; the maximum-length
 case differs only in spaces between native tokenizer runs. Android subsequently
 passed the 32 inputs plus six boundary/resource controls on its actual runtime.
 Apple's actual simulator capture also matched all32 macOS results. Default
-app/cache and visual artifacts are being reconciled separately.
+integration is accepted in Apple `7d90c4f` and Android `f73bde5`, including scoped
+actual chat/cache cases. Android default Chinese `05e52f0` then matched all332
+Swift cases and passed its actual chat controls. Apple Japanese `5422153`
+matched all32 frozen macOS outputs and passed default-cache and large-text chat
+checks. Supplied/injected target text and missing translation models remain
+explicit; no acoustic or physical acceptance is inferred.
 
 Arabic research compared three small offline diacritizers on forty fixed
 authored/reused inputs. Sizes range from 2.47 to 22.28 MB, with observed desktop
@@ -173,17 +210,22 @@ promoted; see `qa/immersion/arabic-diacritization-r01`. Native packaging,
 ordinary Latin conversion and pronunciation are separate gates. Full-reader
 metadata must not delay original script, chat interaction or original audio.
 
-The proposed Android contextual message menu remains disabled in `bd94f99`.
-Scoped native selection and copy checks passed, but its remaining interaction,
-TalkBack and RTL checks are incomplete. The existing accessible action button
-remains available; menu redesign does not block reading integration.
+The proposed Android contextual message menu remains disabled. `a46718a` fixes
+an accessibility action label collision and retains a final failed harness
+assertion before real chat/callback qualification; its test-only assertion
+correction has not been rerun. TalkBack and RTL checks remain incomplete. The
+existing accessible action button remains available; menu redesign is not the
+current priority.
 
 ## Resource and external gates
 
 Apple model preparation remains held: the guest needs the measured 10 GiB
 low-space threshold plus roughly 1.85 GiB model peak, and the native backing volume
-also needs room. The normal app build reserve is 1 GiB plus measured operation
-peak. Two tiny existing-cache CLI probes used an explicit narrower exception
+also needs room. Normal native physical capacity requires 1 GiB reserve plus
+measured operation peak; guest logical capacity separately requires 512 MiB
+margin plus peak. Recent existing-cache app jobs declared 256 MiB peak, whereas
+bounded core jobs declared 128 MiB. Neither check substitutes for the other.
+Two earlier tiny existing-cache CLI probes used an explicit narrower exception
 with measured peaks and watchdogs; that exception does not authorize a full app
 build, model download, VM resize or unrelated cleanup. A later exact offload of
 28 closed files verified 1.12 GB before retirement and restored normal physical

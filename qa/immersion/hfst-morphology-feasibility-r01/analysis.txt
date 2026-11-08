@@ -1,0 +1,90 @@
+mtu	mtu<n><cl1><sg>	0.000000
+
+watu	mtu<n><cl1><pl>	0.000000
+
+mtoto	mtoto<n><cl1><sg>	0.000000
+
+watoto	mtoto<n><cl1><pl>	0.000000
+
+mti	mti<n><cl3><sg>	0.000000
+
+miti	mti<n><cl3><pl>	0.000000
+
+gari	gari<n><cl5><sg>	0.000000
+
+magari	gari<n><cl5><pl>	0.000000
+
+kiti	kiti<n><cl7><sg>	0.000000
+
+viti	kiti<n><cl7><pl>	0.000000
+
+kisu	kisu<n><cl7><sg>	0.000000
+
+visu	kisu<n><cl7><pl>	0.000000
+
+nyumba	kunyumba<vblex><imp><sg>	0.000000
+nyumba	nyumba<n><cl9><sp>	0.000000
+
+rafiki	rafiki<n><cl1><sp>	0.000000
+rafiki	rafiki<n><cl5><sg>	0.000000
+
+marafiki	rafiki<n><cl5><pl>	0.000000
+
+kitabu	kitabu+?	inf
+
+vitabu	vitabu+?	inf
+
+chakula	kuchakula<vblex><imp><sg>	0.000000
+
+vyakula	vyakula+?	inf
+
+ninasoma	kusoma<vblex><prs><p1><sg>	0.000000
+
+nilisoma	kusoma<vblex><past><p1><sg>	0.000000
+
+nitasoma	kusoma<vblex><fut><p1><sg>	0.000000
+
+nimesoma	kusoma<vblex><perf><p1><sg>	0.000000
+
+wanasoma	kusoma<vblex><prs><p3><pl>	0.000000
+wanasoma	kusoma<vblex><prs><cl1><pl>	0.000000
+
+tulisoma	kusoma<vblex><past><p1><pl>	0.000000
+
+unasoma	kusoma<vblex><prs><p2><sg>	0.000000
+unasoma	kusoma<vblex><prs><cl3><sg>	0.000000
+unasoma	kusoma<vblex><prs><cl11><sg>	0.000000
+unasoma	kusoma<vblex><prs><cl14><sg>	0.000000
+
+mnasoma	kusoma<vblex><prs><p2><pl>	0.000000
+
+sisomi	sisomi+?	inf
+
+sikusoma	kusoma<vblex><past><neg><p1><sg><neg>	0.000000
+
+sitasoma	kusoma<vblex><fut><neg><p1><sg><neg>	0.000000
+
+hamsomi	hamsomi+?	inf
+
+hamtasoma	kusoma<vblex><fut><neg><p3><pl><neg>	0.000000
+
+ninakula	ninakula+?	inf
+
+nimekuja	nimekuja+?	inf
+
+ninaenda	kuenda<vblex><prs><p1><sg>	0.000000
+
+soma	kusoma<vblex><imp><sg>	0.000000
+
+someni	kusoma<vblex><imp><pl>	0.000000
+
+kusoma	kusoma<vblex><inf><cl15>	0.000000
+
+ninasomaa	ninasomaa+?	inf
+
+kitabuzzz	kitabuzzz+?	inf
+
+Maya	Maya+?	inf
+
+https://example.test/kitabu	https://example.test/kitabu+?	inf
+

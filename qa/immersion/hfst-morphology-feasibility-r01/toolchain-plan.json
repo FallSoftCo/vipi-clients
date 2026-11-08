@@ -1,0 +1,68 @@
+{
+  "schema": "vipi.hfst-feasibility-plan.r01",
+  "production": false,
+  "created_utc": "2026-11-08T08:33:17.411792+00:00",
+  "free_before": 18841022464,
+  "additional_disk_cap_bytes": 268435456,
+  "per_process_address_space_cap_bytes": 1073741824,
+  "per_process_cpu_seconds": 120,
+  "per_process_wall_seconds": 180,
+  "purpose": "Qualify isolated HFST/lexd morphology on pinned retained Swahili source. No native integration or translation-coverage inference.",
+  "package_mutation": "Extract .deb files into this owned directory only; no apt install, system PATH or service change.",
+  "packages": [
+    {
+      "Package": "hfst",
+      "Version": "3.16.0-5build4",
+      "Filename": "pool/universe/h/hfst/hfst_3.16.0-5build4_amd64.deb",
+      "SHA256": "6d32eaef2355c81f5a226a73b79bc168c47ebb5f50a4e4e8f554f4ee60b04cd7",
+      "Size": "549092",
+      "Installed-Size": "2769",
+      "Depends": "libhfst55 (= 3.16.0-5build4), libc6 (>= 2.38), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), libreadline8t64 (>= 6.0), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "libhfst55",
+      "Version": "3.16.0-5build4",
+      "Filename": "pool/universe/h/hfst/libhfst55_3.16.0-5build4_amd64.deb",
+      "SHA256": "b037a2d9c98295705635659ffb9711e19101662d1c2397f32d51593fcde8c050",
+      "Size": "1695820",
+      "Installed-Size": "6245",
+      "Depends": "libc6 (>= 2.38), libfoma0t64 (>= 1:0.10.0+s311), libfst22 (>= 1.7.9), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), libreadline8t64 (>= 6.0), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "libfoma0t64",
+      "Version": "1:0.10.0+s311-1.2build2",
+      "Filename": "pool/universe/f/foma/libfoma0t64_0.10.0+s311-1.2build2_amd64.deb",
+      "SHA256": "99e3be6c2292d3b495e20d136c2f8b9658235b016dd0b239a26d01fe2a1db1d7",
+      "Size": "112052",
+      "Installed-Size": "260",
+      "Depends": "libc6 (>= 2.38), zlib1g (>= 1:1.2.2.3)"
+    },
+    {
+      "Package": "libfst22",
+      "Version": "1.7.9-5build1",
+      "Filename": "pool/universe/o/openfst/libfst22_1.7.9-5build1_amd64.deb",
+      "SHA256": "7316d432472a5405767e131742f2165832a14ce5fded50f4fb21d0f6c97b10a3",
+      "Size": "2196570",
+      "Installed-Size": "12573",
+      "Depends": "libc6 (>= 2.38), libgcc-s1 (>= 3.4), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "lexd",
+      "Version": "1.3.1-1build2",
+      "Filename": "pool/universe/l/lexd/lexd_1.3.1-1build2_amd64.deb",
+      "SHA256": "6342b280ff2178063aec8d0c83fb3d8c2ec4a9e5e37310530b55baf1da9a0ee4",
+      "Size": "91334",
+      "Installed-Size": "236",
+      "Depends": "libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), liblttoolbox3 (>= 3.7.1), libstdc++6 (>= 13.1)"
+    },
+    {
+      "Package": "liblttoolbox3",
+      "Version": "3.7.6-1build1",
+      "Filename": "pool/universe/l/lttoolbox/liblttoolbox3_3.7.6-1build1_amd64.deb",
+      "SHA256": "591c7a19116fa34c61624339ca73378a508827ce4dcb751747a001deeee0fe5d",
+      "Size": "207868",
+      "Installed-Size": "524",
+      "Depends": "libc6 (>= 2.22), libgcc-s1 (>= 3.3.1), libicu74 (>= 74.1-1~), libstdc++6 (>= 13.1), libxml2 (>= 2.7.4)"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema": "vipi.hfst-feasibility-capsule.r01",
+  "production": false,
+  "private_runtime_root": "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2716,
+      "sha256": "50afa6059b0a12d74360c7e1c085c1d7a99e870d9947f94fb28c8d363dbe4dc8"
+    },
+    {
+      "path": "analysis.txt",
+      "bytes": 1796,
+      "sha256": "57cba763ddf5eba74d00daa2a4c465f7a4dd0efc6e627f94174925df3be9bac1"
+    },
+    {
+      "path": "capture.json",
+      "bytes": 17565,
+      "sha256": "3bd7dfeca643813ff7f111833b4fc6342c5c598c0d95cbfd302153e829ae9c37"
+    },
+    {
+      "path": "generation.txt",
+      "bytes": 536,
+      "sha256": "1ab155ab88c6457a2d95ad3acb8bed6d3827dddfa095dd74ec98062d9af13fec"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 3393,
+      "sha256": "540e1457210c39b13181719dfa868b8eeb5c1d2f4134eed9bf66ecdb0d6dc665"
+    },
+    {
+      "path": "probe-freeze.json",
+      "bytes": 6230,
+      "sha256": "7ce1bec2306be91f190b3363b79beabbde8ed7f2f2411aa54cab71676203e6db"
+    },
+    {
+      "path": "probe.py",
+      "bytes": 7197,
+      "sha256": "7e46a05db83eab5b7976862db803e92c695996e083f8d496d6242b922246d00f"
+    },
+    {
+      "path": "review.json",
+      "bytes": 2883,
+      "sha256": "720b224749642c547590ebfa48c17a9b9f7c7673ec8abb5293b28f7d6c11fe58"
+    },
+    {
+      "path": "throughput.json",
+      "bytes": 788,
+      "sha256": "2d565b14ce25439e4359c9649d52ff4aca1caa136ef248805776b8fa4b876a20"
+    },
+    {
+      "path": "toolchain-licenses/hfst.copyright",
+      "bytes": 4865,
+      "sha256": "bd202c1df3f542fa297bbb3b89703b67a550fd5662ec8ba985cb21dc4acb4873"
+    },
+    {
+      "path": "toolchain-licenses/lexd.copyright",
+      "bytes": 1196,
+      "sha256": "9a78db6139bdb6c1ac96ca9420d7b63c8d3ed57a48a0e1096d264c3aa60c4690"
+    },
+    {
+      "path": "toolchain-licenses/libfoma0t64.copyright",
+      "bytes": 325,
+      "sha256": "e86a52426cce6c558f36a0ef52c8bbbb493556992074c30e3572d029ef66f53f"
+    },
+    {
+      "path": "toolchain-licenses/libfst22.copyright",
+      "bytes": 1312,
+      "sha256": "8cc023496bdc4d29054838f830fc096770e237f75613f972d072a0792254b1ce"
+    },
+    {
+      "path": "toolchain-licenses/liblttoolbox3.copyright",
+      "bytes": 2029,
+      "sha256": "309ad6a95e88dc65c9669372a4fedd6a0747b16113f97420f20f992afaacf6c9"
+    },
+    {
+      "path": "toolchain-plan.json",
+      "bytes": 3109,
+      "sha256": "0534120569f8ce1252da763f884b60c74a527142b801cca6a29085f1e21e2e2b"
+    },
+    {
+      "path": "toolchain-receipt.json",
+      "bytes": 3490,
+      "sha256": "ec693b41572cd7a0588d3d430b537dc906349ce24ace23ceb815f26a6a61a2ca"
+    },
+    {
+      "path": "unflagged-compile-failure.json",
+      "bytes": 310,
+      "sha256": "93413155dc17e3af2db4937ac3eca636ba4162f6fe62c277272bdd12d3c3e07c"
+    },
+    {
+      "path": "unflagged-compile-stderr.txt",
+      "bytes": 90,
+      "sha256": "462cb69c28e2e39e36da60e7d96ed04ca7dc3bbd6af16c71d66ba6c2f44079fa"
+    },
+    {
+      "path": "upstream/COPYING",
+      "bytes": 35148,
+      "sha256": "0ae0485a5bd37a63e63603596417e4eb0e653334fa6c7f932ca3a0e85d4af227"
+    },
+    {
+      "path": "upstream/source.lexd",
+      "bytes": 182072,
+      "sha256": "4cc671ebd29623613e1ccf5677828c78772d215c481ef5704eeb8343ef1abab8"
+    }
+  ]
+}

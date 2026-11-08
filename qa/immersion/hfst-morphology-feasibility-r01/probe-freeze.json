@@ -1,0 +1,272 @@
+{
+  "schema": "vipi.hfst-morphology-diagnostic-freeze.r01",
+  "production": false,
+  "created_utc": "2026-11-08T08:35:29.018748+00:00",
+  "source_sha256": "4cc671ebd29623613e1ccf5677828c78772d215c481ef5704eeb8343ef1abab8",
+  "source_revision": "4d2e6b6714e8fa2eaa3f3d74686ec683b8ee9890",
+  "pipeline": "Exact orthography subset from retained lexd, without upstream spellrelax or disambiguation. Same compiled relation used for generation and inverted analysis.",
+  "lexd_flags": true,
+  "analysis_cases": [
+    {
+      "surface": "mtu",
+      "expected_lemma": "mtu",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "watu",
+      "expected_lemma": "mtu",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "mtoto",
+      "expected_lemma": "mtoto",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "watoto",
+      "expected_lemma": "mtoto",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "mti",
+      "expected_lemma": "mti",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "miti",
+      "expected_lemma": "mti",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "gari",
+      "expected_lemma": "gari",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "magari",
+      "expected_lemma": "gari",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "kiti",
+      "expected_lemma": "kiti",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "viti",
+      "expected_lemma": "kiti",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "kisu",
+      "expected_lemma": "kisu",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "visu",
+      "expected_lemma": "kisu",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "nyumba",
+      "expected_lemma": "nyumba",
+      "expected_feature": "sp"
+    },
+    {
+      "surface": "rafiki",
+      "expected_lemma": "rafiki",
+      "expected_feature": null
+    },
+    {
+      "surface": "marafiki",
+      "expected_lemma": "rafiki",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "kitabu",
+      "expected_lemma": "kitabu",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "vitabu",
+      "expected_lemma": "kitabu",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "chakula",
+      "expected_lemma": "chakula",
+      "expected_feature": "sg"
+    },
+    {
+      "surface": "vyakula",
+      "expected_lemma": "chakula",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "ninasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "prs"
+    },
+    {
+      "surface": "nilisoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "past"
+    },
+    {
+      "surface": "nitasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "fut"
+    },
+    {
+      "surface": "nimesoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "perf"
+    },
+    {
+      "surface": "wanasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "tulisoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "past"
+    },
+    {
+      "surface": "unasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "p2"
+    },
+    {
+      "surface": "mnasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "p2"
+    },
+    {
+      "surface": "sisomi",
+      "expected_lemma": "kusoma",
+      "expected_feature": "neg"
+    },
+    {
+      "surface": "sikusoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "neg"
+    },
+    {
+      "surface": "sitasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "neg"
+    },
+    {
+      "surface": "hamsomi",
+      "expected_lemma": "kusoma",
+      "expected_feature": "p2"
+    },
+    {
+      "surface": "hamtasoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "p2"
+    },
+    {
+      "surface": "ninakula",
+      "expected_lemma": "kula",
+      "expected_feature": "prs"
+    },
+    {
+      "surface": "nimekuja",
+      "expected_lemma": "kuja",
+      "expected_feature": "perf"
+    },
+    {
+      "surface": "ninaenda",
+      "expected_lemma": "kuenda",
+      "expected_feature": "prs"
+    },
+    {
+      "surface": "soma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "imp"
+    },
+    {
+      "surface": "someni",
+      "expected_lemma": "kusoma",
+      "expected_feature": "pl"
+    },
+    {
+      "surface": "kusoma",
+      "expected_lemma": "kusoma",
+      "expected_feature": "inf"
+    },
+    {
+      "surface": "ninasomaa",
+      "expected_lemma": null,
+      "expected_feature": null
+    },
+    {
+      "surface": "kitabuzzz",
+      "expected_lemma": null,
+      "expected_feature": null
+    },
+    {
+      "surface": "Maya",
+      "expected_lemma": null,
+      "expected_feature": null
+    },
+    {
+      "surface": "https://example.test/kitabu",
+      "expected_lemma": null,
+      "expected_feature": null
+    }
+  ],
+  "generation_cases": [
+    {
+      "analysis": "mtu<n><cl1><sg>",
+      "expected_surface": "mtu"
+    },
+    {
+      "analysis": "mtu<n><cl1><pl>",
+      "expected_surface": "watu"
+    },
+    {
+      "analysis": "kiti<n><cl7><sg>",
+      "expected_surface": "kiti"
+    },
+    {
+      "analysis": "kiti<n><cl7><pl>",
+      "expected_surface": "viti"
+    },
+    {
+      "analysis": "kusoma<vblex><prs><p1><sg>",
+      "expected_surface": "ninasoma"
+    },
+    {
+      "analysis": "kusoma<vblex><past><p1><sg>",
+      "expected_surface": "nilisoma"
+    },
+    {
+      "analysis": "kusoma<vblex><fut><p1><sg>",
+      "expected_surface": "nitasoma"
+    },
+    {
+      "analysis": "kusoma<vblex><perf><p1><sg>",
+      "expected_surface": "nimesoma"
+    },
+    {
+      "analysis": "kusoma<vblex><prs><neg><p1><sg><neg>",
+      "expected_surface": "sisomi"
+    },
+    {
+      "analysis": "kusoma<vblex><fut><neg><p2><pl><neg>",
+      "expected_surface": "hamtasoma"
+    },
+    {
+      "analysis": "kitabu<n><cl7><sg>",
+      "expected_surface": "kitabu"
+    },
+    {
+      "analysis": "kitabu<n><cl7><pl>",
+      "expected_surface": "vitabu"
+    }
+  ],
+  "qualification_limit": "Authored morphological diagnostics, not independent language accuracy or conversation coverage; tag ABI expectations explicit."
+}

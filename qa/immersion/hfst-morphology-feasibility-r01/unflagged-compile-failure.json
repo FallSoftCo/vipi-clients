@@ -1,0 +1,12 @@
+[
+  {
+    "tool": "lexd",
+    "args": [
+      "/home/ai/Development/investigations/vipi-production-delivery-20261107/hfst-feasibility-r01/morphology/source.lexd"
+    ],
+    "key": "lexd",
+    "returncode": 134,
+    "seconds": 5.325473370030522,
+    "maxrss_kib": "Command terminated by signal 6\n998788"
+  }
+]

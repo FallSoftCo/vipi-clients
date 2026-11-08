@@ -1,0 +1,24 @@
+mtu<n><cl1><sg>	mtu	0.000000
+
+mtu<n><cl1><pl>	watu	0.000000
+
+kiti<n><cl7><sg>	kiti	0.000000
+
+kiti<n><cl7><pl>	viti	0.000000
+
+kusoma<vblex><prs><p1><sg>	ninasoma	0.000000
+
+kusoma<vblex><past><p1><sg>	nilisoma	0.000000
+
+kusoma<vblex><fut><p1><sg>	nitasoma	0.000000
+
+kusoma<vblex><perf><p1><sg>	nimesoma	0.000000
+
+kusoma<vblex><prs><neg><p1><sg><neg>	sisoma	0.000000
+
+kusoma<vblex><fut><neg><p2><pl><neg>	kusoma<vblex><fut><neg><p2><pl><neg>+?	inf
+
+kitabu<n><cl7><sg>	kitabu<n><cl7><sg>+?	inf
+
+kitabu<n><cl7><pl>	kitabu<n><cl7><pl>+?	inf
+
