@@ -1,7 +1,6 @@
 package co.fallsoft.vipi
 
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.atilika.kuromoji.ipadic.Token
 
 /** Dormant native reading candidate. No chat, authored-reading or speech caller uses this yet. */
@@ -13,12 +12,12 @@ internal object JapaneseReadings {
                      val bases: Set<Basis> = emptySet())
     data class Result(val reading: String?, val pieces: List<Piece>, val issues: Set<Issue>)
 
-    fun supported(api: Int) = api >= 29
+    fun supported(api: Int) = api >= 28
 
     fun read(original: String): Result {
         if (!supported(Build.VERSION.SDK_INT)) return Result(null, emptyList(), setOf(Issue.UNSUPPORTED_API))
         if (original.isBlank() || original.length > 16_384) return Result(null, emptyList(), setOf(Issue.INPUT_LIMIT))
-        return Api29.read(original)
+        return Reader.read(original)
     }
 
     private fun japanese(text: String) = text.codePoints().anyMatch {
@@ -29,9 +28,7 @@ internal object JapaneseReadings {
         it == 0x30fc || Character.UnicodeScript.of(it) in setOf(Character.UnicodeScript.HIRAGANA, Character.UnicodeScript.KATAKANA)
     }
 
-    @RequiresApi(29)
-    private object Api29 {
-        private val converter by lazy { android.icu.text.Transliterator.getInstance("Hiragana-Katakana; Katakana-Latin") }
+    private object Reader {
         // URI/IRI ends cannot be inferred from a grammatical-looking Japanese suffix.
         // Preserve that complete ambiguous token and decline its full reading.
         private val opaque = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\\\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+")
@@ -73,19 +70,22 @@ internal object JapaneseReadings {
         private fun plain(original: String, start: Int, end: Int, pieces: MutableList<Piece>, issues: MutableSet<Issue>) {
             if (start >= end) return
             val text = original.substring(start, end)
+            val analysis = KanaRomanizer.normalizeKana(text)
             val atoms = mutableListOf<Atom>()
             var cursor = 0
-            for (token in LocalImmersion.japaneseTokens(text)) {
-                val a = token.position; val b = a + token.surface.length
-                check(a >= cursor && b <= text.length && text.substring(a, b) == token.surface)
+            for (token in LocalImmersion.japaneseTokens(analysis.text)) {
+                val range = checkNotNull(analysis.sourceRange(token.position, token.position + token.surface.length))
+                val a = range.first; val b = range.last + 1
+                check(a >= cursor && b <= text.length && analysis.text.substring(token.position, token.position + token.surface.length) == token.surface)
+                val source = text.substring(a, b)
                 if (a > cursor) atoms += Atom(start + cursor, start + a, text.substring(cursor, a), null, null)
-                val reading = if (!japanese(token.surface)) null else when {
+                val reading = if (!japanese(source)) null else when {
                     kana(token.pronunciation) -> token.pronunciation to Basis.NATIVE_PRONUNCIATION
                     kana(token.reading) -> token.reading to Basis.NATIVE_READING
-                    else -> java.text.Normalizer.normalize(token.surface, java.text.Normalizer.Form.NFKC)
+                    else -> java.text.Normalizer.normalize(source, java.text.Normalizer.Form.NFKC)
                         .takeIf(::kana)?.let { it to Basis.KANA_SURFACE }
                 }
-                atoms += Atom(start + a, start + b, token.surface, reading?.first, token, reading?.second)
+                atoms += Atom(start + a, start + b, source, reading?.first, token, reading?.second)
                 cursor = b
             }
             if (cursor < text.length) atoms += Atom(start + cursor, end, text.substring(cursor), null, null)
@@ -104,8 +104,8 @@ internal object JapaneseReadings {
                 if (group.isEmpty()) return
                 val source = group.joinToString("") { it.original }
                 val native = group.joinToString("") { it.kana!! }
-                val roman = try { converter.transliterate(native) } catch (_: Exception) { null }
-                // ICU emits ~tsu for a terminal small tsu. Latin-only is insufficient.
+                val roman = try { KanaRomanizer.romanize(native) } catch (_: Exception) { null }
+                // The converter explicitly rejects unsupported/terminal geminates.
                 val valid = !roman.isNullOrEmpty() && roman.codePoints().allMatch {
                     Character.UnicodeScript.of(it) == Character.UnicodeScript.LATIN ||
                         Character.getType(it) in setOf(Character.NON_SPACING_MARK.toInt(), Character.COMBINING_SPACING_MARK.toInt()) || it == '\''.code

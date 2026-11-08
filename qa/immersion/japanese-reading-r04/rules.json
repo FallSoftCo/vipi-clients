@@ -1,0 +1,40 @@
+{
+  "schema": "vipi-japanese-chart-reading-r04",
+  "status": "dormant candidate; parent review required before any production caller",
+  "sources": [
+    {
+      "url": "https://loc.gov/catdir/cpso/romanization/japanese.pdf",
+      "sha256": "0a28f06ddbdd8353d691e6c650ebd986c1ae874119ca08c6ecc6a2d1502b5cd8",
+      "pages_zero_based": [
+        34,
+        35
+      ],
+      "sections": "Charts A/B, including consonant doubling and longest chart prefix then small-kana expansion."
+    },
+    {
+      "url": "https://chamame.ninjal.ac.jp/about_romanise-en.html",
+      "sha256": "77640df429979d9ea79f15e75ea3173b736c366f14300a46a35f0fa232ea7dd6",
+      "use": "Reading/token morphology and romanization remain separate; not copying an unlicensed implementation."
+    }
+  ],
+  "normalization": "Only kana base plus adjacent combining/halfwidth dakuten clusters in analysis copy; NFKC. Each transformed UTF16 boundary maps to original or -1 for indivisible cluster. Opaque original identifiers unchanged. No global source normalization.",
+  "display_policy": [
+    "Basic/combined kana chart mappings, preserve legacy wo/wi/we spelling (not full ALA-LC catalog convention).",
+    "Explicit prolonged mark becomes macron on immediately preceding plain vowel. Repeated/isolated mark rejected. No arbitrary adjacent-vowel contraction.",
+    "Syllabic n apostrophe only before vowel/y; not automatic before n.",
+    "Sokuon requires a following chart consonant (ch uses t); terminal/vowel/y/n/r/m unsupported, no silent deletion.",
+    "Unlisted ordinary small vowel/y/wa consumes its own chart value; unknown Han/marks and small ka/ke rejected.",
+    "Punctuation/literals are outside kana converter, exact original pieces retained."
+  ],
+  "unchanged": [
+    "Kuromoji0.9.0 ipadic dependency and tokenizer",
+    "Morphological grouping and narrow copular nan rule",
+    "Opaque identifier guard, literal/source reconstruction",
+    "Authored sentence readings, speech, matcher and all production call sites"
+  ],
+  "limits": [
+    "No new dictionary or semantic improvements promised for contextual Han mistakes.",
+    "No actual API28 device available; code uses no API29 ICU; host JVM8 compilation and actual API35 capture only.",
+    "Old r60/r61/r62 and upstream-negative captures retained unchanged."
+  ]
+}
