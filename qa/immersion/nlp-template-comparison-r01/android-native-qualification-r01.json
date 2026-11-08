@@ -1,0 +1,333 @@
+{
+  "schema": "vipi.android.nlp-template-native-qualification.r01",
+  "production": false,
+  "candidate_installed_in_app": false,
+  "closure": {
+    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/closure-r01.json",
+    "sha256": "09ba380f3541ddd0e34786f2eaf53346bec0021935a080473892860a856a14a2",
+    "bytes": 10556
+  },
+  "runtime": "Existing emulator-5620 Android15/API35 x86_64. No new emulator, model download, real-peer traffic or credentials changed.",
+  "clean_source": "Main source frozen from committed01614ec. Inherited seven infinitive experiment files remain untouched in canonical tree and are excluded from this build. QA classes added only to androidTest external source overlay.",
+  "authored": {
+    "cases": 121,
+    "complete": true,
+    "decisions": 19602,
+    "elapsed_ms": 13779,
+    "provider_calls": 0,
+    "output_bytes": 3096463,
+    "reference_comparison": "Immersion owner independently reports all recognitions and all19602 face+range decisions identical to reference and Apple. Three native URL/email word geometries differ without changing selections."
+  },
+  "train": {
+    "cases": 9535,
+    "complete": true,
+    "elapsed_ms": 193049,
+    "provider_calls": 0,
+    "output_bytes": 12825100,
+    "trace_rows": 1104,
+    "wholly_unmatched_ids": 8431,
+    "pss_sample_kib_min": 130588,
+    "pss_sample_kib_max": 304926,
+    "performance_limit": "Total time includes three arms, three targets, three densities, six known snapshots, immediate warm recognition repeats, existing catalog controls, native presentation, assertions and serialization. PSS is whole instrumentation process, not isolated matcher peak. Compiler idle through capture.",
+    "measured_reach": "All three arms recognize54 messages and display pattern-derived faces in53 per target at0.25 knownnone. Typed corpus gain0. Generic diagnostic fallback is separate and remains unapproved."
+  },
+  "reach_breakdown": {
+    "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/pattern-vs-diagnostic-summary-r01.json",
+    "sha256": "127b0078152e7667b366bde78089a7bbb7a976c7f4a3d5708bea3c03ed6c0be6",
+    "bytes": 196788
+  },
+  "structural": {
+    "cases": 9,
+    "complete": true,
+    "findings": [
+      "Longer outer context cannot erase shorter country-music mask; music stays eligible, nation-country is refused.",
+      "Crossing ambiguous mask refuses conflicting focus and inner diagnostic words.",
+      "Same-span conflicting meanings refuse account despite higher synthetic priority."
+    ],
+    "scope": "Three synthetic eligibility overlays \u00d7 three targets, excluded from language coverage. Supplied rank cost8 retained only metadata; actual native context costs drive selection."
+  },
+  "provider_spot": {
+    "source_cases_per_direction": 12,
+    "modes": [
+      "explicit_en",
+      "automatic_language"
+    ],
+    "rows": 72,
+    "complete": true,
+    "offline": true,
+    "model_downloads": 0,
+    "candidate_provider": "absent",
+    "metrics": [
+      {
+        "source": "en",
+        "target": "sw",
+        "mode": "explicit_en",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 52.539901,
+            "elapsed_ms_max": 1343.251548
+          },
+          "automatic_warm": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.052409,
+            "elapsed_ms_max": 0.084694
+          },
+          "explicit_full": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.032821,
+            "elapsed_ms_max": 0.08195
+          }
+        }
+      },
+      {
+        "source": "en",
+        "target": "sw",
+        "mode": "automatic_language",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 53.033589,
+            "elapsed_ms_max": 207.514039
+          },
+          "automatic_warm": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.047736,
+            "elapsed_ms_max": 0.172237
+          },
+          "explicit_full": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.032528,
+            "elapsed_ms_max": 0.097842
+          }
+        }
+      },
+      {
+        "source": "en",
+        "target": "ja",
+        "mode": "explicit_en",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 165.87106749999998,
+            "elapsed_ms_max": 1189.245184
+          },
+          "automatic_warm": {
+            "provider_calls": 2,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 0.1691385,
+            "elapsed_ms_max": 97.213781
+          },
+          "explicit_full": {
+            "provider_calls": 2,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 0.1327975,
+            "elapsed_ms_max": 94.866626
+          }
+        }
+      },
+      {
+        "source": "en",
+        "target": "ja",
+        "mode": "automatic_language",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 66.2374905,
+            "elapsed_ms_max": 235.236496
+          },
+          "automatic_warm": {
+            "provider_calls": 2,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 0.05258,
+            "elapsed_ms_max": 82.743652
+          },
+          "explicit_full": {
+            "provider_calls": 2,
+            "messages_with_spans": 8,
+            "statuses": {
+              "READY": 10,
+              "INVALID_RESULT": 2
+            },
+            "elapsed_ms_median": 0.038376,
+            "elapsed_ms_max": 81.105113
+          }
+        }
+      },
+      {
+        "source": "en",
+        "target": "es",
+        "mode": "explicit_en",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 53.7903055,
+            "elapsed_ms_max": 4637.391934
+          },
+          "automatic_warm": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.047172,
+            "elapsed_ms_max": 0.075347
+          },
+          "explicit_full": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.0275125,
+            "elapsed_ms_max": 0.04407
+          }
+        }
+      },
+      {
+        "source": "en",
+        "target": "es",
+        "mode": "automatic_language",
+        "installed_models_ready": true,
+        "phases": {
+          "automatic_first": {
+            "provider_calls": 12,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 52.323711,
+            "elapsed_ms_max": 211.967923
+          },
+          "automatic_warm": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.044653,
+            "elapsed_ms_max": 0.056891
+          },
+          "explicit_full": {
+            "provider_calls": 0,
+            "messages_with_spans": 10,
+            "statuses": {
+              "READY": 12
+            },
+            "elapsed_ms_median": 0.026693500000000002,
+            "elapsed_ms_max": 0.032282
+          }
+        }
+      }
+    ],
+    "material_observations": [
+      "SW country music becomes country\u2192nchi in displayed mixed text; existing alignment lacks source atomic mask.",
+      "Quoted high school receives SW/JA substitution; the QA quote guard does not exist in this current provider path.",
+      "SW and JA hot dog full references are literal hot/dog; current mixed text selects yesterday, so correct mixed scope does not validate the full reference.",
+      "JA country music full reference is unchanged English while outcome says READY and displays zero spans.",
+      "JA URL/email translations fail identifier checks and are withheld; current warm automatic request re-invokes provider for those invalid results.",
+      "Explicit and automatically identified source modes retain equivalent displayed outcomes for these twelve English sources."
+    ],
+    "limits": "Authored diagnostic spot only, not unseen conversation evaluation. No correction or mask injection was made to the app."
+  },
+  "illustrative_scope_controls": [
+    {
+      "id": "nlp-r01-book_object-005",
+      "text": "Please bring Alice Smith's book today.",
+      "typed_context_utf16": [
+        7,
+        31
+      ],
+      "flipped_focus_utf16": [
+        27,
+        31
+      ],
+      "preserved": "Alice Smith's",
+      "limit": "Possessor grammar recognizes shape, not named-entity truth."
+    },
+    {
+      "id": "nlp-r01-hot_dog-001",
+      "text": "We ate a hot dog yesterday.",
+      "retained_atomic_mask_utf16": [
+        9,
+        16
+      ],
+      "at_density_0_10": "Two-word compound exceeds one-word budget; no dog fallback.",
+      "when_known": "Compound filtered, atomic mask persists, no dog fallback.",
+      "at_density_0_50": "Whole hot dog may emit supplied target face; no target interpolation."
+    },
+    {
+      "id": "nlp-r01-phone_number-004",
+      "text": "Check the phone number at https://example.com/contact.",
+      "limit": "Frozen word-window endpoints do not encompass URL punctuation; typed recognition absent. No independent window expansion performed."
+    }
+  ],
+  "failed_attempts_retained": [
+    "r87 initial stdin transport produced zero-byte input and no native run; corrected push/copy/hash path retained.",
+    "r89 external test overlay incremental compilation could not resolve prior overlay classes; same source built with incremental=false.",
+    "r89 native startup rejected unsupported Android inline(?U) flag before cases; removed only flag, preserving Unicode regex policy.",
+    "r90 wrapper existing-output-directory preflight stopped before device effects; corrected output path only."
+  ],
+  "remaining_product_gaps": [
+    "Atomic recognition/masks must propagate through nullable source-result and provider/alignment APIs before any future candidate integration.",
+    "Generic diagnostic fallback has independently reviewed meaning errors and is not approved for activation.",
+    "Ten authored families are too sparse for broad coverage; current typed rules add no measured TRAIN reach.",
+    "No native HFST runtime qualified or included.",
+    "API28, physical ARM64 and final clean full-app/store release qualification remain outside this comparison."
+  ]
+}
