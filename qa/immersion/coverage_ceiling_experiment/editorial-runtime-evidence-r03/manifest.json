@@ -1,0 +1,90 @@
+{
+  "schema": "vipi.editorial-runtime-evidence.r03",
+  "production": false,
+  "files": [
+    {
+      "file": "editorial-source-role-proof-r03.json.gz",
+      "bytes": 288238,
+      "sha256": "894b1277b98d37d9fc65330cbb941ac99bb96ee248b7fe6d5b2f7babf3dafb05",
+      "source_bytes": 4860476,
+      "source_sha256": "c546f5cc8b9839dd5e283df318f35e39770705713bbe91c7fd607bcf925887bf"
+    },
+    {
+      "file": "editorial-runtime-candidate-r03.json.gz",
+      "bytes": 527427,
+      "sha256": "271af9d2d8fde2e6cc0317d7cf2725153b93bcb57320d1931727f6c93fc9792f",
+      "source_bytes": 8297238,
+      "source_sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    {
+      "file": "editorial-runtime-freeze-r03.json.gz",
+      "bytes": 1751,
+      "sha256": "0293587eb332daea6e1918cf2870bad36b8a667b8a731343e6caeac6e0e8cb29",
+      "source_bytes": 4372,
+      "source_sha256": "b4c789c7fbc3e4a4f10927e4ce2b5af58c6c6feb95cc7fa6eb57cb9b982f1dfe"
+    },
+    {
+      "file": "editorial-runtime-TRAIN-output-r03.json.gz",
+      "bytes": 3279381,
+      "sha256": "080c054e03c661124900d33cc9204b9c84325982716ba5b3c29c49dc0281f259",
+      "source_bytes": 69728151,
+      "source_sha256": "13533d0640d1e7eebbf5b2803e767f2caace5b7474e94fa78d5a43bd13852832"
+    },
+    {
+      "file": "editorial-runtime-independent48-review-r03.json.gz",
+      "bytes": 35545,
+      "sha256": "d81682f508626b8bf28e07ca0eb494de3332c4ecb1bdc9e069bbbff3e7b53efa",
+      "source_bytes": 603407,
+      "source_sha256": "f0b9394cf4c4907cee5d0d2813980a346a140122a6a422f5e5610827f7492492"
+    },
+    {
+      "file": "editorial-runtime-author-review-r03.json.gz",
+      "bytes": 4720,
+      "sha256": "a419618c4749fab8b002f362cbe5ae16ea9e8a0c149c011cc72d56c865676c41",
+      "source_bytes": 29164,
+      "source_sha256": "b9b4ef582f4b4e42b479d2d64f2a3c4bd3a159741cdedd8d2d7d63414cd6637e"
+    },
+    {
+      "file": "editorial-runtime-independent-root-review-r03.json.gz",
+      "bytes": 4351,
+      "sha256": "52d41c43ebd49e6eac36ab23820b6e0c6d54073134fd827a397004427f657b13",
+      "source_bytes": 31462,
+      "source_sha256": "aa9ecc8740a6882d7a6b90714be2528fee6bd4e2fcc8623d27ca6fb04f0552a5"
+    },
+    {
+      "file": "editorial-runtime-literal-controls-r03.json.gz",
+      "bytes": 1492,
+      "sha256": "55bb36397c32e09b5c3856bad9a33cd3c2ab5787456755099d2391bdc9e161a6",
+      "source_bytes": 37416,
+      "source_sha256": "8f8a0d18fea80f15bdc86fda76ea958683cac8640727b32d7d9b49f54ac9ea81"
+    },
+    {
+      "file": "editorial-runtime-joined-decision-r03.json.gz",
+      "bytes": 13769,
+      "sha256": "f170d5cfa8fc455c1c9136ed056882180b6b0dc5cb6b3df105d078a53e9ecdd9",
+      "source_bytes": 138204,
+      "source_sha256": "50d8a2ae1b34d7e11b03ba3e49d9d4e629382cc9418f309ff0a85494b8b23060"
+    }
+  ],
+  "dependencies": [
+    "../editorial-content500-evidence-r01/manifest.json",
+    "../editorial-guard-evidence-r02/manifest.json",
+    "../scaled-content-evidence-r01/manifest.json"
+  ],
+  "reproduction": [
+    "Prepare candidate from the retainedr01 target faces, explicit464 source bindings and existing bundled d-en source shard. Exact source-role rows are retained, so no remote archive read is required to inspect them.",
+    "evaluate_editorial_runtime_r03.py replays exact9535 licensed TRAIN turns and verifies the frozen input/source hashes. Elapsed time is observational.",
+    "editorial_runtime_lookup_r03.py is the indexed research producer. No app activation is performed."
+  ],
+  "licenses": [
+    "Wiktionary/Kaikki exact source-role and target records CC BY-SA4.0 with retained entry IDs/URLs.",
+    "JMdict/EDRDG selected Japanese readings/senses CC BY-SA4.0.",
+    "BST/ParlAI source conversations CC BY4.0; notices in ../evaluation-data-licenses."
+  ],
+  "decision": [
+    "Core selected24 jointly meaning-compatible; no blanket1139-entry semantic approval.",
+    "Broad competing-attributive guard is rejected for excessive false abstention.",
+    "Known compound/idiom and source-reading context errors remain; no production data enablement.",
+    "Native selection seam can be qualified independently using SOURCE_UNIT_RUNTIME_R03.md."
+  ]
+}
