@@ -1,0 +1,59 @@
+{
+  "schema": "vipi.opennlp9535-source-freeze.r01",
+  "frozen_at_utc": "2026-11-08T22:40:19.689802+00:00",
+  "input_sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54",
+  "model_input_sha256": "5883a42aa23262bae93304f6c1a5c3b2c7e6b4fa6552c55ef3e72ed852671a2f",
+  "fields": [
+    "id",
+    "text"
+  ],
+  "source_sha256": "995c5cda33b2195491c58b6f3c8a5b84ef7de7e4d7ff0c5ebc11e1399578921a",
+  "launcher_sha256": "a4c2b2559873e45a2352f1fa83fe307759ef90fdba9c0470dad57bb0312f91ef",
+  "protocol_sha256": "f4f22f184a7f05bc7fea15d17fd028951e38b7795d6afdd7818ffa36d98d145b",
+  "verified_assets": {
+    "opennlp-tools-2.5.10.jar": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "slf4j-api-2.0.18.jar": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+    "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce",
+    "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a",
+    "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8"
+  },
+  "compile_cmd": [
+    "taskset",
+    "-c",
+    "0",
+    "javac",
+    "-J-Xmx256m",
+    "-J-XX:ActiveProcessorCount=1",
+    "--release",
+    "17",
+    "-cp",
+    "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/opennlp-tools-2.5.10.jar:/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/slf4j-api-2.0.18.jar",
+    "-d",
+    "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/android/classes",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/source-role-veto-r01/android-SourceRoleProbe.java"
+  ],
+  "run_cmd": [
+    "taskset",
+    "-c",
+    "0",
+    "java",
+    "-Xms16m",
+    "-Xmx256m",
+    "-XX:ActiveProcessorCount=1",
+    "-cp",
+    "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/android/classes:/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/opennlp-tools-2.5.10.jar:/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01/slf4j-api-2.0.18.jar",
+    "SourceRoleProbe",
+    "/home/ai/Development/investigations/vipi-android-source-annotations-20261108-r01",
+    "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/android"
+  ],
+  "before_output": true,
+  "limits": {
+    "CPU": 1,
+    "JVM_heap_MiB": 256,
+    "total_compute_seconds": 180,
+    "output_bytes": 16777216,
+    "additional_bytes": 33554432,
+    "disk_free_floor_bytes": 8589934592
+  },
+  "scope": "Linux JVM source-only annotations; no target labels or Android runtime claim"
+}

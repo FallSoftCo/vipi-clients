@@ -1,0 +1,45 @@
+{
+  "compile_returncode": 0,
+  "run_returncode": 0,
+  "full_count": 9535,
+  "repeat_count": 20,
+  "first20_repeat_identical": true,
+  "tokens_checked": 140603,
+  "original_source_sha_and_UTF16_boundaries_verified": true,
+  "substring_check": "Java verified every emitted tokenizer word against exact original substring; Python independently verified sourceSHA and all UTF16 boundaries.",
+  "output_sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe",
+  "output_bytes": 5976874,
+  "frozen_at_utc": "2026-11-08T22:40:28.237893+00:00",
+  "elapsed_compute_seconds": 8.54658189904876,
+  "additional_file_bytes": 7068812,
+  "free_bytes_after": 9867915264,
+  "private_output": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/android/annotations.jsonl",
+  "input_sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54",
+  "freeze_sha256": "2d9e0564ee7cd19bc1ae99471679de586aeead0639617cb07d2fd79238f9e513",
+  "platform": "Linux OpenJDK21; Android native R8/runtime untested",
+  "process_metrics": {
+    "model_load_ns": 386195185,
+    "passes": [
+      {
+        "pass": 0,
+        "sources": 9535,
+        "wall_ns": 6771038945,
+        "VmHWM_kib": 134876
+      },
+      {
+        "pass": 1,
+        "sources": 20,
+        "wall_ns": 8520437,
+        "VmHWM_kib": 134876
+      }
+    ],
+    "VmHWM_scope": "Measured from running JVM /proc/self/status; whole process high-water resident memory, not heap or launcher historical rusage",
+    "timing_scope": "Includes annotation, hashing, JSON serialization and output writes; desktop JVM timing, not Android performance"
+  },
+  "limits_verified": {
+    "additional_bytes_under_32MiB": true,
+    "output_under_16MiB": true,
+    "free_over_8GiB": true,
+    "compute_under_180s": true
+  }
+}
