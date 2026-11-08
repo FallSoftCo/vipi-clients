@@ -1,0 +1,1520 @@
+[
+  {
+    "ent_seq": "1000050",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "仝"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "\"as above\" mark"
+        ],
+        "pos": [
+          "unclassified"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1008910",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "如何",
+        "ke_inf": "rarely used kanji form"
+      },
+      {
+        "keb": "何う",
+        "ke_inf": "search-only kanji form"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [
+          "gikun (meaning as reading) or jukujikun (special kanji reading)"
+        ],
+        "priority": [
+          "ichi1"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "how",
+          "in what way",
+          "how about"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1009250",
+    "matched_targets": [
+      "どのくらい"
+    ],
+    "kanji": [
+      {
+        "keb": "どの位",
+        "ke_pri": "spec1"
+      },
+      {
+        "keb": "何の位",
+        "ke_inf": "search-only kanji form"
+      },
+      {
+        "keb": "何のくらい",
+        "ke_inf": "search-only kanji form"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どのくらい",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1"
+        ]
+      },
+      {
+        "kana": "どのぐらい",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "spec1"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "how long",
+          "how far",
+          "how much"
+        ],
+        "pos": [
+          "expressions (phrases, clauses, etc.)",
+          "noun (common) (futsuumeishi)",
+          "adverb (fukushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1009330",
+    "matched_targets": [
+      "どんな"
+    ],
+    "kanji": [],
+    "readings": [
+      {
+        "kana": "どんな",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "what kind of",
+          "what sort of",
+          "what"
+        ],
+        "pos": [
+          "pre-noun adjectival (rentaishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "no matter what (kind of)",
+          "whatever",
+          "any",
+          "all"
+        ],
+        "pos": [
+          "pre-noun adjectival (rentaishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1188760",
+    "matched_targets": [
+      "いつ"
+    ],
+    "kanji": [
+      {
+        "keb": "何時",
+        "ke_inf": "rarely used kanji form"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "いつ",
+        "restrictions": [],
+        "info": [
+          "gikun (meaning as reading) or jukujikun (special kanji reading)"
+        ],
+        "priority": [
+          "ichi1",
+          "news2",
+          "nf29"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "when",
+          "at what time",
+          "how soon"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "normal times",
+          "ordinary days"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone",
+          "dated term"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1268060",
+    "matched_targets": [
+      "いつ"
+    ],
+    "kanji": [
+      {
+        "keb": "五",
+        "ke_pri": "nf01"
+      },
+      {
+        "keb": "５"
+      },
+      {
+        "keb": "伍"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "ご",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news1",
+          "nf01"
+        ]
+      },
+      {
+        "kana": "いつ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "い",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "five",
+          "5"
+        ],
+        "pos": [
+          "numeric"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1416830",
+    "matched_targets": [
+      "誰"
+    ],
+    "kanji": [
+      {
+        "keb": "誰",
+        "ke_pri": "nf13"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "だれ",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news1",
+          "nf13"
+        ]
+      },
+      {
+        "kana": "だあれ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "だーれ",
+        "restrictions": [],
+        "info": [
+          "search-only kana form"
+        ],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "who"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1451160",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "動",
+        "ke_pri": "nf05"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "news1",
+          "nf05"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "motion"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1451730",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "同",
+        "ke_pri": "nf32"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news2",
+          "nf32"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "the same",
+          "the said"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "likewise"
+        ],
+        "pos": [
+          "unclassified"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1453640",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "堂",
+        "ke_pri": "nf18"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "news1",
+          "nf18"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "temple",
+          "shrine",
+          "chapel"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun, used as a suffix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "hall"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun, used as a suffix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "company"
+        ],
+        "pos": [
+          "suffix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "front room"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun, used as a suffix",
+          "noun, used as a prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "archaic"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1454010",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "胴",
+        "ke_pri": "nf19"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news1",
+          "nf19"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "trunk",
+          "torso",
+          "body",
+          "abdomen",
+          "waist"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "plastron (in kendo)",
+          "touching the plastron (kimari-te in kendo)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "frame (of a drum, etc.)",
+          "sound box (of a shamisen, etc.)",
+          "hull (of a ship)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "dealer"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "rare term"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1577100",
+    "matched_targets": [
+      "何"
+    ],
+    "kanji": [
+      {
+        "keb": "何",
+        "ke_pri": "nf02"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "なに",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news1",
+          "nf02"
+        ]
+      },
+      {
+        "kana": "ナニ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "what"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "you-know-what",
+          "that thing"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "whatsit",
+          "whachamacallit",
+          "what's-his-name",
+          "what's-her-name"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "penis",
+          "(one's) thing",
+          "dick"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "colloquial",
+          "word usually written using kana alone"
+        ]
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "(not) at all",
+          "(not) in the slightest"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "what?",
+          "huh?"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 7,
+        "glosses": [
+          "hey!",
+          "come on!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 8,
+        "glosses": [
+          "oh, no (it's fine)",
+          "why (it's nothing)",
+          "oh (certainly not)"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1577120",
+    "matched_targets": [
+      "なぜ"
+    ],
+    "kanji": [
+      {
+        "keb": "何故",
+        "ke_pri": "ichi1"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "なぜ",
+        "restrictions": [],
+        "info": [
+          "gikun (meaning as reading) or jukujikun (special kanji reading)"
+        ],
+        "priority": [
+          "ichi1"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "why",
+          "how",
+          "for what reason"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1577140",
+    "matched_targets": [
+      "どこ"
+    ],
+    "kanji": [
+      {
+        "keb": "何処",
+        "ke_pri": "nf47"
+      },
+      {
+        "keb": "何所"
+      },
+      {
+        "keb": "何處",
+        "ke_inf": "word containing out-dated kanji or kanji usage"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どこ",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news2",
+          "nf47"
+        ]
+      },
+      {
+        "kana": "いずこ",
+        "restrictions": [
+          "何処"
+        ],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "いずく",
+        "restrictions": [
+          "何処"
+        ],
+        "info": [
+          "out-dated or obsolete kana usage"
+        ],
+        "priority": []
+      },
+      {
+        "kana": "いづこ",
+        "restrictions": [
+          "何処"
+        ],
+        "info": [
+          "out-dated or obsolete kana usage"
+        ],
+        "priority": []
+      },
+      {
+        "kana": "いどこ",
+        "restrictions": [],
+        "info": [
+          "out-dated or obsolete kana usage"
+        ],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "where",
+          "what place"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "how much (long, far)",
+          "what extent"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "word usually written using kana alone"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1582390",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "銅",
+        "ke_pri": "nf06"
+      },
+      {
+        "keb": "赤金"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [
+          "銅"
+        ],
+        "info": [],
+        "priority": [
+          "ichi1",
+          "news1",
+          "nf06"
+        ]
+      },
+      {
+        "kana": "あか",
+        "restrictions": [
+          "銅"
+        ],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "あかがね",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "copper (Cu)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "bronze (medal)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [
+          "どう"
+        ],
+        "misc": [
+          "abbreviation"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1585390",
+    "matched_targets": [
+      "いつ"
+    ],
+    "kanji": [
+      {
+        "keb": "佚"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "いつ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "being comfortable",
+          "relaxing"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2158900",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "道"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "road",
+          "path",
+          "street",
+          "route"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "abbreviation"
+        ]
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "way",
+          "set of practices",
+          "rules for conducting oneself"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "moral education"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "abbreviation"
+        ]
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "Buddhist teachings"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "Taoism"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "administrative region of Japan (Hokkaido)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 7,
+        "glosses": [
+          "administrative region of Japan (Tokaido, Tosando, etc.)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "historical term"
+        ]
+      },
+      {
+        "index": 8,
+        "glosses": [
+          "province (administrative region of Korea)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 9,
+        "glosses": [
+          "circuit (administrative region of China)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 10,
+        "glosses": [
+          "province (Tang-era administrative region of China)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "historical term"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "2252690",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "度",
+        "ke_inf": "search-only kanji form"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "ど",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "ド",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [
+          "out-dated or obsolete kana usage"
+        ],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "extreme",
+          "ultra",
+          "mega",
+          "totally",
+          "very much",
+          "precisely",
+          "exactly"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "damn",
+          "stupid",
+          "cursed"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2255350",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "whoa (command used to stop a horse, etc.)"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2271820",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "幢"
+      },
+      {
+        "keb": "幡幢"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "はたほこ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "はたぼこ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      },
+      {
+        "kana": "どう",
+        "restrictions": [
+          "幢"
+        ],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "long-handled Chinese spear bearing a small flag"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "banner",
+          "hanging"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [
+          "どう"
+        ],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2837668",
+    "matched_targets": [
+      "いつ"
+    ],
+    "kanji": [
+      {
+        "keb": "凍つ"
+      },
+      {
+        "keb": "冱つ"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "いつ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to freeze"
+        ],
+        "pos": [
+          "Nidan verb (lower class) with 'tsu' ending (archaic)",
+          "intransitive verb"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": [
+          "archaic"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "2843147",
+    "matched_targets": [
+      "いつ"
+    ],
+    "kanji": [
+      {
+        "keb": "一"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "いつ",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "one"
+        ],
+        "pos": [
+          "numeric"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "same (mind, path, etc.)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2844351",
+    "matched_targets": [
+      "どう"
+    ],
+    "kanji": [
+      {
+        "keb": "洞"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "どう",
+        "restrictions": [],
+        "info": [],
+        "priority": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "sinus",
+          "cavity",
+          "antrum"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "neighborhood (administrative division in North Korea)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2846738",
+    "matched_targets": [
+      "何"
+    ],
+    "kanji": [
+      {
+        "keb": "何",
+        "ke_pri": "ichi1"
+      }
+    ],
+    "readings": [
+      {
+        "kana": "なん",
+        "restrictions": [],
+        "info": [],
+        "priority": [
+          "ichi1"
+        ]
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "what"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "how many"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "many",
+          "a lot of"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "several",
+          "a few",
+          "some"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "kanji_restrictions": [],
+        "reading_restrictions": [],
+        "misc": []
+      }
+    ]
+  }
+]

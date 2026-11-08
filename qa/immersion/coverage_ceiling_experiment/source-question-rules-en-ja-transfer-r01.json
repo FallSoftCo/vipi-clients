@@ -1,0 +1,654 @@
+{
+  "schema": "vipi-source-interrogative-context-japanese-transfer-1",
+  "production": false,
+  "origin": "Exact source guards from frozen r02, Japanese target meanings/readings separately selected",
+  "sentence_boundaries": ".!? followed by optional whitespace or start of message; source tokenization and quoted/code protections remain explicit",
+  "single_words": {
+    "what": {
+      "target": "何",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": "nani",
+      "reading_kana": "なに",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1577100",
+        "selected_spelling": "何",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "何"
+        ],
+        "selected_reading": {
+          "kana": "なに",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "where": {
+      "target": "どこ",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": "doko",
+      "reading_kana": "どこ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1577140",
+        "selected_spelling": "どこ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "何処",
+          "何所",
+          "何處"
+        ],
+        "selected_reading": {
+          "kana": "どこ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf47"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "where",
+              "what place"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "when": {
+      "target": "いつ",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": "itsu",
+      "reading_kana": "いつ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1188760",
+        "selected_spelling": "いつ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "何時"
+        ],
+        "selected_reading": {
+          "kana": "いつ",
+          "restrictions": [],
+          "info": [
+            "gikun (meaning as reading) or jukujikun (special kanji reading)"
+          ],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf29"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "when",
+              "at what time",
+              "how soon"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "why": {
+      "target": "なぜ",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had",
+        "don't",
+        "doesn't",
+        "didn't",
+        "isn't",
+        "aren't",
+        "not"
+      ],
+      "reading": "naze",
+      "reading_kana": "なぜ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1577120",
+        "selected_spelling": "なぜ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "何故"
+        ],
+        "selected_reading": {
+          "kana": "なぜ",
+          "restrictions": [],
+          "info": [
+            "gikun (meaning as reading) or jukujikun (special kanji reading)"
+          ],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "why",
+              "how",
+              "for what reason"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "who": {
+      "target": "誰",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should",
+        "has",
+        "have",
+        "had"
+      ],
+      "reading": "dare",
+      "reading_kana": "だれ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1416830",
+        "selected_spelling": "誰",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "誰"
+        ],
+        "selected_reading": {
+          "kana": "だれ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf13"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "who"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "how": {
+      "target": "どう",
+      "following": [
+        "do",
+        "does",
+        "did",
+        "is",
+        "are",
+        "was",
+        "were",
+        "would",
+        "will",
+        "can",
+        "could",
+        "should"
+      ],
+      "reading": "dou",
+      "reading_kana": "どう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1008910",
+        "selected_spelling": "どう",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "如何",
+          "何う"
+        ],
+        "selected_reading": {
+          "kana": "どう",
+          "restrictions": [],
+          "info": [
+            "gikun (meaning as reading) or jukujikun (special kanji reading)"
+          ],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "how",
+              "in what way",
+              "how about"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    }
+  },
+  "units": {
+    "what kind": {
+      "target": "どんな",
+      "following": [
+        "of"
+      ],
+      "reading": "don'na",
+      "reading_kana": "どんな",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009330",
+        "selected_spelling": "どんな",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "どんな",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what kind of",
+              "what sort of",
+              "what"
+            ],
+            "pos": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "what kinds": {
+      "target": "どんな",
+      "following": [
+        "of"
+      ],
+      "reading": "don'na",
+      "reading_kana": "どんな",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009330",
+        "selected_spelling": "どんな",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "どんな",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what kind of",
+              "what sort of",
+              "what"
+            ],
+            "pos": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "what type": {
+      "target": "どんな",
+      "following": [
+        "of"
+      ],
+      "reading": "don'na",
+      "reading_kana": "どんな",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009330",
+        "selected_spelling": "どんな",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "どんな",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what kind of",
+              "what sort of",
+              "what"
+            ],
+            "pos": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "what types": {
+      "target": "どんな",
+      "following": [
+        "of"
+      ],
+      "reading": "don'na",
+      "reading_kana": "どんな",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009330",
+        "selected_spelling": "どんな",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "どんな",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what kind of",
+              "what sort of",
+              "what"
+            ],
+            "pos": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "what sort": {
+      "target": "どんな",
+      "following": [
+        "of"
+      ],
+      "reading": "don'na",
+      "reading_kana": "どんな",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009330",
+        "selected_spelling": "どんな",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "どんな",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "what kind of",
+              "what sort of",
+              "what"
+            ],
+            "pos": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    },
+    "how long": {
+      "target": "どのくらい",
+      "following": [
+        "have",
+        "has",
+        "had"
+      ],
+      "reading": "donokurai",
+      "reading_kana": "どのくらい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009250",
+        "selected_spelling": "どのくらい",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "どの位",
+          "何の位",
+          "何のくらい"
+        ],
+        "selected_reading": {
+          "kana": "どのくらい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "how long",
+              "how far",
+              "how much"
+            ],
+            "pos": [
+              "expressions (phrases, clauses, etc.)",
+              "noun (common) (futsuumeishi)",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      }
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+      "scope": "Exact Japanese spelling-reading-sense links retained per rule; unchanged English source conditions."
+    }
+  ],
+  "limitations": [
+    "Initial position and a right auxiliary are local evidence, not universal proof of interrogative scope.",
+    "Quoted text and malformed source remain potential ambiguity; code and identifier exclusions are mandatory.",
+    "Native grammar is retained; these mixed units do not claim a grammatical complete Swahili sentence."
+  ]
+}

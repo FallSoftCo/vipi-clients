@@ -1,0 +1,30 @@
+{
+  "schema": "vipi-japanese-source-transfer-freeze-1",
+  "production": false,
+  "frozen_unix": 1794107166.5845723,
+  "lexicon_sha256": "5578951f9ee18ad2c194deab1e4ba6e2e02076ab04a3f9b5f4a47fcb77bb071e",
+  "control_sha256": "6473f33e14fd285af9ea51d474f27d6f34510361ce5ac4a844d00b5fb0ebef42",
+  "rules_sha256": "5fa33782478aabd37f0a44c26764cc18e954d573988721e98beb117fbb810d01",
+  "evaluator_sha256": "21ac3098af215ca7fdf60f0e6925e430caf80a5abbcad1fc08208d33baa989c1",
+  "source_evaluator_sha256": "70c1243fc9e8cbebfb00d20b769d917ca2d52ebad09caa8ea13fbd1a3621e18f",
+  "source_policy_sha256": "f45f5b58d44b5969a1de632342ed597eeb9ae9365bec2c38d5ce4addb2bef231",
+  "available_target_forms": 207,
+  "unavailable_target_forms": 12,
+  "question_units": 12,
+  "finite_clause_transfer": false,
+  "reading_policy": "Every selected target has exact native spelling, kana and Latin reading with retained sense evidence. ICU kana-only romanization. Inflected know form separately verified against NINJAL; it is not falsely labelled a JMdict headword. Native speech binding remains unqualified.",
+  "source_policy": "Exact frozen English219-word source guards/ranking plus12 interrogative contexts. Only explicit target omissions differ; no Japanese-specific source micro-rules.",
+  "new_holdout": "80 new VALID free-human convai2 turns,26/27/27 length strata, excluding all240 previous VALID dialogues and retained prior protocol texts. Preceding context is review-only.",
+  "research_advance_only": {
+    "primary_clean_useful_at_least": 72,
+    "primary_material_or_scope_errors_at_most": 2,
+    "content_clean_useful_at_least": 40
+  },
+  "threshold_scope": "Retain broad coverage failure; this diagnostic gate does not prohibit a separately proven incremental native subset.",
+  "scoring": "All selected scopes: intended lexical meaning, written target/reading agreement, propername/idiom/register/word-scope issues and per-length content/function coverage. Independent24 selection fixed before outputs. Author does not read independent labels before freezing own.",
+  "limitations": [
+    "Assistant semantic reviews do not constitute native bilingual certification.",
+    "Current production comparison requires separately captured native routing; compact100-source control is only research vocabulary-size comparison.",
+    "Only English-source Japanese target is tested; no all-pairs or reverse-direction claim."
+  ]
+}

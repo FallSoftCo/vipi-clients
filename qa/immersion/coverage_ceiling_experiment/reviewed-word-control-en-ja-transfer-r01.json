@@ -1,0 +1,4650 @@
+{
+  "schema": "vipi-source-word-japanese-transfer-1",
+  "production": false,
+  "training_only": true,
+  "source_policy_sha256": "6c11382e82f6aca128af565dbfc2b3933f383bbe7f2c9c5132bdd6456d23d0ee",
+  "target_selection_sha256": "7ab7df99b60b99ed0ebaece8259a56193271b86de5a50e201bce18464ad3e958",
+  "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+  "dictionary_license": "CC-BY-SA-4.0; EDRDG attribution/license/update requirements retained separately",
+  "attribution": "These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group’s licence.",
+  "romanization": "Pinned installed ICU uconv Hiragana-Katakana; Katakana-Latin on exact selected kana only, never automatic Any-Latin on Kanji. Source kana is also retained. Native speech binding remains separately unqualified.",
+  "entries": [
+    {
+      "source": "i",
+      "category": "function",
+      "pos": "pron",
+      "train_rank": 1,
+      "train_occurrences": 6897,
+      "concept_id": "i",
+      "id": "word-en-ja-i",
+      "target": "私",
+      "reading": "watashi",
+      "reading_kana": "わたし",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1311110",
+        "selected_spelling": "私",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "私"
+        ],
+        "selected_reading": {
+          "kana": "わたし",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "I",
+              "me"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "but",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 18,
+      "train_occurrences": 1023,
+      "concept_id": "but",
+      "id": "word-en-ja-but",
+      "target": "しかし",
+      "reading": "shikashi",
+      "reading_kana": "しかし",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1505990",
+        "selected_spelling": "しかし",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "然し",
+          "併し"
+        ],
+        "selected_reading": {
+          "kana": "しかし",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "however",
+              "but"
+            ],
+            "pos": [
+              "conjunction"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "really",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 33,
+      "train_occurrences": 557,
+      "concept_id": "really",
+      "id": "word-en-ja-really",
+      "target": "本当に",
+      "reading": "hontouni",
+      "reading_kana": "ほんとうに",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1611580",
+        "selected_spelling": "本当に",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "本当に",
+          "本當に"
+        ],
+        "selected_reading": {
+          "kana": "ほんとうに",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "really",
+              "truly"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "yes",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 34,
+      "train_occurrences": 549,
+      "concept_id": "yes",
+      "id": "word-en-ja-yes",
+      "target": "はい",
+      "reading": "hai",
+      "reading_kana": "はい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1010080",
+        "selected_spelling": "はい",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "はい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "yes",
+              "that is correct"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "polite (teineigo) language"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "we",
+      "category": "function",
+      "pos": "pron",
+      "train_rank": 55,
+      "train_occurrences": 383,
+      "concept_id": "we",
+      "id": "word-en-ja-we",
+      "target": "私たち",
+      "reading": "watashitachi",
+      "reading_kana": "わたしたち",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1311300",
+        "selected_spelling": "私たち",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "私たち",
+          "私達",
+          "わたし達",
+          "ワタシ達",
+          "わたくし達"
+        ],
+        "selected_reading": {
+          "kana": "わたしたち",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf39",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "we",
+              "us"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "very",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 58,
+      "train_occurrences": 357,
+      "concept_id": "very",
+      "id": "word-en-ja-very",
+      "target": "とても",
+      "reading": "totemo",
+      "reading_kana": "とても",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1008630",
+        "selected_spelling": "とても",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "迚も"
+        ],
+        "selected_reading": {
+          "kana": "とても",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "very",
+              "awfully",
+              "exceedingly"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "or",
+      "category": "function",
+      "pos": "conj",
+      "train_rank": 69,
+      "train_occurrences": 318,
+      "concept_id": "or",
+      "id": "word-en-ja-or",
+      "target": "または",
+      "reading": "mataha",
+      "reading_kana": "または",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1524990",
+        "selected_spelling": "または",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "又は"
+        ],
+        "selected_reading": {
+          "kana": "または",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf15"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "or",
+              "either ... or ..."
+            ],
+            "pos": [
+              "conjunction"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "think",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 70,
+      "train_occurrences": 313,
+      "concept_id": "think",
+      "id": "word-en-ja-think",
+      "target": "考える",
+      "reading": "kangaeru",
+      "reading_kana": "かんがえる",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1281020",
+        "selected_spelling": "考える",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "考える",
+          "勘える",
+          "稽える"
+        ],
+        "selected_reading": {
+          "kana": "かんがえる",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf10"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to think (about, of)",
+              "to think over",
+              "to ponder",
+              "to contemplate",
+              "to reflect (on)",
+              "to meditate (on)"
+            ],
+            "pos": [
+              "Ichidan verb",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "now",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 78,
+      "train_occurrences": 281,
+      "concept_id": "now",
+      "id": "word-en-ja-now",
+      "target": "今",
+      "reading": "ima",
+      "reading_kana": "いま",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1288850",
+        "selected_spelling": "今",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "今"
+        ],
+        "selected_reading": {
+          "kana": "いま",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf07"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "now",
+              "the present time",
+              "just now",
+              "soon",
+              "immediately"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "nouns which may take the genitive case particle 'no'",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "know",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 79,
+      "train_occurrences": 275,
+      "concept_id": "know",
+      "id": "word-en-ja-know",
+      "target": "知っている",
+      "reading": "shitteiru",
+      "reading_kana": "しっている",
+      "evidence": {
+        "kind": "authored_complete_form_verified_primary",
+        "canonical": "知る",
+        "canonical_reading": "しる",
+        "te_form": "しって",
+        "state_form": "知っている",
+        "url": "https://www2.ninjal.ac.jp/verbhandbook/headwords/%E7%9F%A5%E3%82%8B.html",
+        "scope": "NINJAL explicitly distinguishes state-of-knowing shitteiru from coming-to-know shiru. No lesson prose copied."
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "more",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 82,
+      "train_occurrences": 255,
+      "concept_id": "more",
+      "id": "word-en-ja-more",
+      "target": "もっと",
+      "reading": "motto",
+      "reading_kana": "もっと",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1012620",
+        "selected_spelling": "もっと",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "もっと",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "(some) more",
+              "even more",
+              "longer",
+              "further"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "also",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 85,
+      "train_occurrences": 232,
+      "concept_id": "also",
+      "id": "word-en-ja-also",
+      "target": "また",
+      "reading": "mata",
+      "reading_kana": "また",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1524930",
+        "selected_spelling": "また",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "又",
+          "亦",
+          "復"
+        ],
+        "selected_reading": {
+          "kana": "また",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf19"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 2,
+            "glosses": [
+              "also",
+              "too",
+              "as well",
+              "likewise"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          },
+          {
+            "index": 4,
+            "glosses": [
+              "and",
+              "in addition",
+              "besides",
+              "moreover",
+              "furthermore"
+            ],
+            "pos": [
+              "conjunction"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "music",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 90,
+      "train_occurrences": 215,
+      "concept_id": "music",
+      "id": "word-en-ja-music",
+      "target": "音楽",
+      "reading": "ongaku",
+      "reading_kana": "おんがく",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1183720",
+        "selected_spelling": "音楽",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "音楽",
+          "音樂"
+        ],
+        "selected_reading": {
+          "kana": "おんがく",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "music"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "always",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 96,
+      "train_occurrences": 204,
+      "concept_id": "always",
+      "id": "word-en-ja-always",
+      "target": "いつも",
+      "reading": "itsumo",
+      "reading_kana": "いつも",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1188890",
+        "selected_spelling": "いつも",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "何時も"
+        ],
+        "selected_reading": {
+          "kana": "いつも",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "always",
+              "all the time",
+              "at all times"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "people",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 102,
+      "train_occurrences": 185,
+      "concept_id": "people",
+      "id": "word-en-ja-people",
+      "target": "人々",
+      "reading": "hitobito",
+      "reading_kana": "ひとびと",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1580650",
+        "selected_spelling": "人々",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "人々",
+          "人びと",
+          "人人"
+        ],
+        "selected_reading": {
+          "kana": "ひとびと",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "people",
+              "men and women"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "food",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 105,
+      "train_occurrences": 180,
+      "concept_id": "food",
+      "id": "word-en-ja-food",
+      "target": "食べ物",
+      "reading": "tabemono",
+      "reading_kana": "たべもの",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1358340",
+        "selected_spelling": "食べ物",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "食べ物",
+          "食べもの"
+        ],
+        "selected_reading": {
+          "kana": "たべもの",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf08"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "food"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "want",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 106,
+      "train_occurrences": 177,
+      "concept_id": "want",
+      "id": "word-en-ja-want",
+      "target": "望む",
+      "reading": "nozomu",
+      "reading_kana": "のぞむ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1519630",
+        "selected_spelling": "望む",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "望む"
+        ],
+        "selected_reading": {
+          "kana": "のぞむ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf12"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to desire",
+              "to want",
+              "to wish for",
+              "to hope for"
+            ],
+            "pos": [
+              "Godan verb with 'mu' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "day",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 107,
+      "train_occurrences": 176,
+      "concept_id": "day",
+      "id": "word-en-ja-day",
+      "target": "日",
+      "reading": "hi",
+      "reading_kana": "ひ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1463770",
+        "selected_spelling": "日",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "日"
+        ],
+        "selected_reading": {
+          "kana": "ひ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf03"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "day",
+              "days"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "because",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 130,
+      "train_occurrences": 139,
+      "concept_id": "because",
+      "id": "word-en-ja-because",
+      "target": "なぜなら",
+      "reading": "nazenara",
+      "reading_kana": "なぜなら",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1009410",
+        "selected_spelling": "なぜなら",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "何故なら"
+        ],
+        "selected_reading": {
+          "kana": "なぜなら",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "because",
+              "the reason is",
+              "if you want to know why"
+            ],
+            "pos": [
+              "conjunction"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "maybe",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 131,
+      "train_occurrences": 139,
+      "concept_id": "maybe",
+      "id": "word-en-ja-maybe",
+      "target": "たぶん",
+      "reading": "tabun",
+      "reading_kana": "たぶん",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1407980",
+        "selected_spelling": "たぶん",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "多分"
+        ],
+        "selected_reading": {
+          "kana": "たぶん",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf13"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "probably",
+              "likely",
+              "perhaps",
+              "maybe"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "dog",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 137,
+      "train_occurrences": 127,
+      "concept_id": "dog",
+      "id": "word-en-ja-dog",
+      "target": "犬",
+      "reading": "inu",
+      "reading_kana": "いぬ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1258330",
+        "selected_spelling": "犬",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "犬",
+          "狗"
+        ],
+        "selected_reading": {
+          "kana": "いぬ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf03"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "dog (Canis (lupus) familiaris)",
+              "canine"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "eat",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 138,
+      "train_occurrences": 127,
+      "concept_id": "eat",
+      "id": "word-en-ja-eat",
+      "target": "食べる",
+      "reading": "taberu",
+      "reading_kana": "たべる",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1358280",
+        "selected_spelling": "食べる",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "食べる",
+          "喰べる"
+        ],
+        "selected_reading": {
+          "kana": "たべる",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf25"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to eat"
+            ],
+            "pos": [
+              "Ichidan verb",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "dogs",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 146,
+      "train_occurrences": 120,
+      "concept_id": "dog",
+      "id": "word-en-ja-dogs",
+      "target": "犬",
+      "reading": "inu",
+      "reading_kana": "いぬ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1258330",
+        "selected_spelling": "犬",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "犬",
+          "狗"
+        ],
+        "selected_reading": {
+          "kana": "いぬ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf03"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "dog (Canis (lupus) familiaris)",
+              "canine"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "here",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 147,
+      "train_occurrences": 119,
+      "concept_id": "here",
+      "id": "word-en-ja-here",
+      "target": "ここ",
+      "reading": "koko",
+      "reading_kana": "ここ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1288810",
+        "selected_spelling": "ここ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "此処",
+          "此所",
+          "是",
+          "茲",
+          "爰"
+        ],
+        "selected_reading": {
+          "kana": "ここ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "here",
+              "this place"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "years",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 150,
+      "train_occurrences": 118,
+      "concept_id": "year",
+      "id": "word-en-ja-years",
+      "target": "年",
+      "reading": "toshi",
+      "reading_kana": "とし",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1468060",
+        "selected_spelling": "年",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "年",
+          "歳"
+        ],
+        "selected_reading": {
+          "kana": "とし",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "year"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "year",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 182,
+      "train_occurrences": 98,
+      "concept_id": "year",
+      "id": "word-en-ja-year",
+      "target": "年",
+      "reading": "toshi",
+      "reading_kana": "とし",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1468060",
+        "selected_spelling": "年",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "年",
+          "歳"
+        ],
+        "selected_reading": {
+          "kana": "とし",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "year"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "cats",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 192,
+      "train_occurrences": 91,
+      "concept_id": "cat",
+      "id": "word-en-ja-cats",
+      "target": "猫",
+      "reading": "neko",
+      "reading_kana": "ねこ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1467640",
+        "selected_spelling": "猫",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "猫"
+        ],
+        "selected_reading": {
+          "kana": "ねこ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf07"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "cat (esp. the domestic cat, Felis catus)",
+              "feline"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "friends",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 195,
+      "train_occurrences": 89,
+      "concept_id": "friend",
+      "id": "word-en-ja-friends",
+      "target": "友達",
+      "reading": "tomodachi",
+      "reading_kana": "ともだち",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1540170",
+        "selected_spelling": "友達",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "友達",
+          "友だち"
+        ],
+        "selected_reading": {
+          "kana": "ともだち",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf05",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "friend",
+              "companion"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "money",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 196,
+      "train_occurrences": 89,
+      "concept_id": "money",
+      "id": "word-en-ja-money",
+      "target": "お金",
+      "reading": "okane",
+      "reading_kana": "おかね",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1001820",
+        "selected_spelling": "お金",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "お金",
+          "御金"
+        ],
+        "selected_reading": {
+          "kana": "おかね",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf04"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "money"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "polite (teineigo) language"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "movies",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 199,
+      "train_occurrences": 86,
+      "concept_id": "movie",
+      "id": "word-en-ja-movies",
+      "target": "映画",
+      "reading": "eiga",
+      "reading_kana": "えいが",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1173720",
+        "selected_spelling": "映画",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "映画",
+          "映畫",
+          "映畵"
+        ],
+        "selected_reading": {
+          "kana": "えいが",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "movie",
+              "film",
+              "motion picture"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "thanks",
+      "category": "function",
+      "pos": "intj",
+      "train_rank": 213,
+      "train_occurrences": 82,
+      "concept_id": "thanks",
+      "id": "word-en-ja-thanks",
+      "target": "ありがとう",
+      "reading": "arigatou",
+      "reading_kana": "ありがとう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1586820",
+        "selected_spelling": "ありがとう",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "有難う",
+          "有り難う",
+          "有りがとう"
+        ],
+        "selected_reading": {
+          "kana": "ありがとう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "thank you",
+              "thanks"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "games",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 218,
+      "train_occurrences": 79,
+      "concept_id": "games",
+      "id": "word-en-ja-games",
+      "target": "ゲーム",
+      "reading": "gēmu",
+      "reading_kana": "ゲーム",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1048400",
+        "selected_spelling": "ゲーム",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "ゲーム",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "game"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "parents",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 228,
+      "train_occurrences": 75,
+      "concept_id": "parents",
+      "id": "word-en-ja-parents",
+      "target": "親",
+      "reading": "oya",
+      "reading_kana": "おや",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1365040",
+        "selected_spelling": "親",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "親",
+          "祖"
+        ],
+        "selected_reading": {
+          "kana": "おや",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "parent",
+              "parents",
+              "mother and father"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [
+              "親"
+            ],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "animals",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 233,
+      "train_occurrences": 72,
+      "concept_id": "animal",
+      "id": "word-en-ja-animals",
+      "target": "動物",
+      "reading": "doubutsu",
+      "reading_kana": "どうぶつ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1451470",
+        "selected_spelling": "動物",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "動物"
+        ],
+        "selected_reading": {
+          "kana": "どうぶつ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "animal"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "especially",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 234,
+      "train_occurrences": 72,
+      "concept_id": "especially",
+      "id": "word-en-ja-especially",
+      "target": "特に",
+      "reading": "tokuni",
+      "reading_kana": "とくに",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1454670",
+        "selected_spelling": "特に",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "特に"
+        ],
+        "selected_reading": {
+          "kana": "とくに",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "particularly",
+              "especially",
+              "in particular",
+              "expressly"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "usually",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 235,
+      "train_occurrences": 72,
+      "concept_id": "usually",
+      "id": "word-en-ja-usually",
+      "target": "たいてい",
+      "reading": "taitei",
+      "reading_kana": "たいてい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1414580",
+        "selected_spelling": "たいてい",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "大抵",
+          "大てい"
+        ],
+        "selected_reading": {
+          "kana": "たいてい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf24"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "mostly",
+              "ordinarily",
+              "usually",
+              "generally"
+            ],
+            "pos": [
+              "adjectival nouns or quasi-adjectives (keiyodoshi)",
+              "adverb (fukushi)",
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "pets",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 237,
+      "train_occurrences": 71,
+      "concept_id": "pet",
+      "id": "word-en-ja-pets",
+      "target": "ペット",
+      "reading": "petto",
+      "reading_kana": "ペット",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1120990",
+        "selected_spelling": "ペット",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "ペット",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "pet"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "prefer",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 238,
+      "train_occurrences": 71,
+      "concept_id": "prefer",
+      "id": "word-en-ja-prefer",
+      "target": "好む",
+      "reading": "konomu",
+      "reading_kana": "このむ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1277520",
+        "selected_spelling": "好む",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "好む"
+        ],
+        "selected_reading": {
+          "kana": "このむ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf17"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to like",
+              "to prefer"
+            ],
+            "pos": [
+              "Godan verb with 'mu' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "books",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 239,
+      "train_occurrences": 70,
+      "concept_id": "books",
+      "id": "word-en-ja-books",
+      "target": "本",
+      "reading": "hon",
+      "reading_kana": "ほん",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1522150",
+        "selected_spelling": "本",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "本"
+        ],
+        "selected_reading": {
+          "kana": "ほん",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "book",
+              "volume",
+              "script"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "car",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 242,
+      "train_occurrences": 68,
+      "concept_id": "car",
+      "id": "word-en-ja-car",
+      "target": "車",
+      "reading": "kuruma",
+      "reading_kana": "くるま",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1323080",
+        "selected_spelling": "車",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "車"
+        ],
+        "selected_reading": {
+          "kana": "くるま",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "car",
+              "automobile",
+              "vehicle"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "sports",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 249,
+      "train_occurrences": 66,
+      "concept_id": "sports",
+      "id": "word-en-ja-sports",
+      "target": "スポーツ",
+      "reading": "supōtsu",
+      "reading_kana": "スポーツ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1073210",
+        "selected_spelling": "スポーツ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "スポーツ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "sport",
+              "sports"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "cat",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 250,
+      "train_occurrences": 65,
+      "concept_id": "cat",
+      "id": "word-en-ja-cat",
+      "target": "猫",
+      "reading": "neko",
+      "reading_kana": "ねこ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1467640",
+        "selected_spelling": "猫",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "猫"
+        ],
+        "selected_reading": {
+          "kana": "ねこ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf07"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "cat (esp. the domestic cat, Felis catus)",
+              "feline"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "pizza",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 261,
+      "train_occurrences": 64,
+      "concept_id": "pizza",
+      "id": "word-en-ja-pizza",
+      "target": "ピザ",
+      "reading": "piza",
+      "reading_kana": "ピザ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1106620",
+        "selected_spelling": "ピザ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "ピザ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "pizza"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "children",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 267,
+      "train_occurrences": 63,
+      "concept_id": "child",
+      "id": "word-en-ja-children",
+      "target": "子供",
+      "reading": "kodomo",
+      "reading_kana": "こども",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1307850",
+        "selected_spelling": "子供",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "子供",
+          "子ども",
+          "小供",
+          "子共"
+        ],
+        "selected_reading": {
+          "kana": "こども",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "child",
+              "children"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "movie",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 268,
+      "train_occurrences": 63,
+      "concept_id": "movie",
+      "id": "word-en-ja-movie",
+      "target": "映画",
+      "reading": "eiga",
+      "reading_kana": "えいが",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1173720",
+        "selected_spelling": "映画",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "映画",
+          "映畫",
+          "映畵"
+        ],
+        "selected_reading": {
+          "kana": "えいが",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "movie",
+              "film",
+              "motion picture"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "beach",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 272,
+      "train_occurrences": 61,
+      "concept_id": "beach",
+      "id": "word-en-ja-beach",
+      "target": "浜辺",
+      "reading": "hamabe",
+      "reading_kana": "はまべ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1490720",
+        "selected_spelling": "浜辺",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "浜辺",
+          "浜べ"
+        ],
+        "selected_reading": {
+          "kana": "はまべ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf21"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "beach",
+              "foreshore"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "first",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 276,
+      "train_occurrences": 59,
+      "concept_id": "first",
+      "id": "word-en-ja-first",
+      "target": "最初",
+      "reading": "saisho",
+      "reading_kana": "さいしょ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1293990",
+        "selected_spelling": "最初",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "最初"
+        ],
+        "selected_reading": {
+          "kana": "さいしょ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "beginning",
+              "outset",
+              "first",
+              "onset"
+            ],
+            "pos": [
+              "nouns which may take the genitive case particle 'no'",
+              "noun (common) (futsuumeishi)",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "days",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 280,
+      "train_occurrences": 58,
+      "concept_id": "day",
+      "id": "word-en-ja-days",
+      "target": "日",
+      "reading": "hi",
+      "reading_kana": "ひ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1463770",
+        "selected_spelling": "日",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "日"
+        ],
+        "selected_reading": {
+          "kana": "ひ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf03"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "day",
+              "days"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "mom",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 290,
+      "train_occurrences": 56,
+      "concept_id": "mother",
+      "id": "word-en-ja-mom",
+      "target": "母",
+      "reading": "haha",
+      "reading_kana": "はは",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1514990",
+        "selected_spelling": "母",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "母"
+        ],
+        "selected_reading": {
+          "kana": "はは",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "mother"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "humble (kenjougo) language"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "listen",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 294,
+      "train_occurrences": 55,
+      "concept_id": "listen",
+      "id": "word-en-ja-listen",
+      "target": "聞く",
+      "reading": "kiku",
+      "reading_kana": "きく",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1591110",
+        "selected_spelling": "聞く",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "聞く",
+          "聴く"
+        ],
+        "selected_reading": {
+          "kana": "きく",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to hear"
+            ],
+            "pos": [
+              "Godan verb with 'ku' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "night",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 301,
+      "train_occurrences": 54,
+      "concept_id": "night",
+      "id": "word-en-ja-night",
+      "target": "夜",
+      "reading": "yoru",
+      "reading_kana": "よる",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1536350",
+        "selected_spelling": "夜",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "夜"
+        ],
+        "selected_reading": {
+          "kana": "よる",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "night",
+              "evening"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "hair",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 305,
+      "train_occurrences": 53,
+      "concept_id": "hair",
+      "id": "word-en-ja-hair",
+      "target": "毛",
+      "reading": "ke",
+      "reading_kana": "け",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1533820",
+        "selected_spelling": "毛",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "毛"
+        ],
+        "selected_reading": {
+          "kana": "け",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf06"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "hair"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "weather",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 313,
+      "train_occurrences": 51,
+      "concept_id": "weather",
+      "id": "word-en-ja-weather",
+      "target": "天気",
+      "reading": "tenki",
+      "reading_kana": "てんき",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1438690",
+        "selected_spelling": "天気",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "天気"
+        ],
+        "selected_reading": {
+          "kana": "てんき",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf06"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "weather"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "important",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 323,
+      "train_occurrences": 49,
+      "concept_id": "important",
+      "id": "word-en-ja-important",
+      "target": "重要",
+      "reading": "juuyou",
+      "reading_kana": "じゅうよう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1336820",
+        "selected_spelling": "重要",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "重要"
+        ],
+        "selected_reading": {
+          "kana": "じゅうよう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "important",
+              "essential",
+              "significant",
+              "major",
+              "key",
+              "principal"
+            ],
+            "pos": [
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "person",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 325,
+      "train_occurrences": 49,
+      "concept_id": "person",
+      "id": "word-en-ja-person",
+      "target": "人",
+      "reading": "hito",
+      "reading_kana": "ひと",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1580640",
+        "selected_spelling": "人",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "人"
+        ],
+        "selected_reading": {
+          "kana": "ひと",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "person",
+              "someone",
+              "somebody"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "week",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 327,
+      "train_occurrences": 49,
+      "concept_id": "week",
+      "id": "word-en-ja-week",
+      "target": "週",
+      "reading": "shuu",
+      "reading_kana": "しゅう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1333450",
+        "selected_spelling": "週",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "週"
+        ],
+        "selected_reading": {
+          "kana": "しゅう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf04"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "week"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "noun, used as a suffix"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "dad",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 329,
+      "train_occurrences": 48,
+      "concept_id": "father",
+      "id": "word-en-ja-dad",
+      "target": "父",
+      "reading": "chichi",
+      "reading_kana": "ちち",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1497610",
+        "selected_spelling": "父",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "父"
+        ],
+        "selected_reading": {
+          "kana": "ちち",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "father"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "humble (kenjougo) language"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "wife",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 335,
+      "train_occurrences": 47,
+      "concept_id": "wife",
+      "id": "word-en-ja-wife",
+      "target": "妻",
+      "reading": "tsuma",
+      "reading_kana": "つま",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1294330",
+        "selected_spelling": "妻",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "妻",
+          "具"
+        ],
+        "selected_reading": {
+          "kana": "つま",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "wife"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [
+              "妻"
+            ],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "world",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 339,
+      "train_occurrences": 46,
+      "concept_id": "world",
+      "id": "word-en-ja-world",
+      "target": "世界",
+      "reading": "sekai",
+      "reading_kana": "せかい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1373860",
+        "selected_spelling": "世界",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "世界"
+        ],
+        "selected_reading": {
+          "kana": "せかい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "the world",
+              "society",
+              "the universe"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "cars",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 340,
+      "train_occurrences": 45,
+      "concept_id": "car",
+      "id": "word-en-ja-cars",
+      "target": "車",
+      "reading": "kuruma",
+      "reading_kana": "くるま",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1323080",
+        "selected_spelling": "車",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "車"
+        ],
+        "selected_reading": {
+          "kana": "くるま",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "car",
+              "automobile",
+              "vehicle"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "understand",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 345,
+      "train_occurrences": 44,
+      "concept_id": "understand",
+      "id": "word-en-ja-understand",
+      "target": "分かる",
+      "reading": "wakaru",
+      "reading_kana": "わかる",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1606560",
+        "selected_spelling": "分かる",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "分かる",
+          "解る",
+          "判る",
+          "分る",
+          "理解る"
+        ],
+        "selected_reading": {
+          "kana": "わかる",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf39",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to understand",
+              "to comprehend",
+              "to grasp",
+              "to see",
+              "to get",
+              "to follow"
+            ],
+            "pos": [
+              "Godan verb with 'ru' ending",
+              "intransitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "art",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 346,
+      "train_occurrences": 43,
+      "concept_id": "art",
+      "id": "word-en-ja-art",
+      "target": "芸術",
+      "reading": "geijutsu",
+      "reading_kana": "げいじゅつ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1253060",
+        "selected_spelling": "芸術",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "芸術",
+          "藝術"
+        ],
+        "selected_reading": {
+          "kana": "げいじゅつ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "art",
+              "the arts"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "together",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 361,
+      "train_occurrences": 42,
+      "concept_id": "together",
+      "id": "word-en-ja-together",
+      "target": "一緒に",
+      "reading": "isshoni",
+      "reading_kana": "いっしょに",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1163420",
+        "selected_spelling": "一緒に",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "一緒に"
+        ],
+        "selected_reading": {
+          "kana": "いっしょに",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "together (with)"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "team",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 368,
+      "train_occurrences": 41,
+      "concept_id": "team",
+      "id": "word-en-ja-team",
+      "target": "チーム",
+      "reading": "chīmu",
+      "reading_kana": "チーム",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1077360",
+        "selected_spelling": "チーム",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "チーム",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "team"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "coffee",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 370,
+      "train_occurrences": 40,
+      "concept_id": "coffee",
+      "id": "word-en-ja-coffee",
+      "target": "コーヒー",
+      "reading": "kōhī",
+      "reading_kana": "コーヒー",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1049180",
+        "selected_spelling": "コーヒー",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [
+          "珈琲"
+        ],
+        "selected_reading": {
+          "kana": "コーヒー",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "coffee"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "word usually written using kana alone"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "hate",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 380,
+      "train_occurrences": 39,
+      "concept_id": "hate",
+      "id": "word-en-ja-hate",
+      "target": "嫌う",
+      "reading": "kirau",
+      "reading_kana": "きらう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1257250",
+        "selected_spelling": "嫌う",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "嫌う"
+        ],
+        "selected_reading": {
+          "kana": "きらう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf16"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to hate",
+              "to dislike",
+              "to loathe",
+              "to abhor"
+            ],
+            "pos": [
+              "Godan verb with 'u' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "easy",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 390,
+      "train_occurrences": 38,
+      "concept_id": "easy",
+      "id": "word-en-ja-easy",
+      "target": "簡単",
+      "reading": "kantan",
+      "reading_kana": "かんたん",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1214330",
+        "selected_spelling": "簡単",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "簡単",
+          "簡短",
+          "簡端"
+        ],
+        "selected_reading": {
+          "kana": "かんたん",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "simple",
+              "easy",
+              "uncomplicated"
+            ],
+            "pos": [
+              "adjectival nouns or quasi-adjectives (keiyodoshi)",
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "friend",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 398,
+      "train_occurrences": 37,
+      "concept_id": "friend",
+      "id": "word-en-ja-friend",
+      "target": "友達",
+      "reading": "tomodachi",
+      "reading_kana": "ともだち",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1540170",
+        "selected_spelling": "友達",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "友達",
+          "友だち"
+        ],
+        "selected_reading": {
+          "kana": "ともだち",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf05",
+            "spec1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "friend",
+              "companion"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "city",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 405,
+      "train_occurrences": 36,
+      "concept_id": "city",
+      "id": "word-en-ja-city",
+      "target": "都市",
+      "reading": "toshi",
+      "reading_kana": "とし",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1444990",
+        "selected_spelling": "都市",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "都市"
+        ],
+        "selected_reading": {
+          "kana": "とし",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "town",
+              "city",
+              "municipal",
+              "urban"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "nouns which may take the genitive case particle 'no'"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "teacher",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 412,
+      "train_occurrences": 36,
+      "concept_id": "teacher",
+      "id": "word-en-ja-teacher",
+      "target": "先生",
+      "reading": "sensei",
+      "reading_kana": "せんせい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1387990",
+        "selected_spelling": "先生",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "先生"
+        ],
+        "selected_reading": {
+          "kana": "せんせい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "teacher",
+              "instructor",
+              "master"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "business",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 415,
+      "train_occurrences": 35,
+      "concept_id": "business",
+      "id": "word-en-ja-business",
+      "target": "ビジネス",
+      "reading": "bijinesu",
+      "reading_kana": "ビジネス",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1104780",
+        "selected_spelling": "ビジネス",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "ビジネス",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "business"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "chocolate",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 416,
+      "train_occurrences": 35,
+      "concept_id": "chocolate",
+      "id": "word-en-ja-chocolate",
+      "target": "チョコレート",
+      "reading": "chokorēto",
+      "reading_kana": "チョコレート",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1078270",
+        "selected_spelling": "チョコレート",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "チョコレート",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "chocolate"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "online",
+      "category": "content",
+      "pos": "adv",
+      "train_rank": 422,
+      "train_occurrences": 34,
+      "concept_id": "online",
+      "id": "word-en-ja-online",
+      "target": "オンライン",
+      "reading": "onrain",
+      "reading_kana": "オンライン",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1036080",
+        "selected_spelling": "オンライン",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "オンライン",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "online"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "believe",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 425,
+      "train_occurrences": 33,
+      "concept_id": "believe",
+      "id": "word-en-ja-believe",
+      "target": "信じる",
+      "reading": "shinjiru",
+      "reading_kana": "しんじる",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1359040",
+        "selected_spelling": "信じる",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "信じる"
+        ],
+        "selected_reading": {
+          "kana": "しんじる",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news2",
+            "nf38"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to believe",
+              "to believe in",
+              "to place trust in",
+              "to confide in",
+              "to have faith in"
+            ],
+            "pos": [
+              "Ichidan verb",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "write",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 434,
+      "train_occurrences": 32,
+      "concept_id": "write",
+      "id": "word-en-ja-write",
+      "target": "書く",
+      "reading": "kaku",
+      "reading_kana": "かく",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1343950",
+        "selected_spelling": "書く",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "書く"
+        ],
+        "selected_reading": {
+          "kana": "かく",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to write",
+              "to compose",
+              "to pen"
+            ],
+            "pos": [
+              "Godan verb with 'ku' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "buy",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 435,
+      "train_occurrences": 31,
+      "concept_id": "buy",
+      "id": "word-en-ja-buy",
+      "target": "買う",
+      "reading": "kau",
+      "reading_kana": "かう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1473740",
+        "selected_spelling": "買う",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "買う"
+        ],
+        "selected_reading": {
+          "kana": "かう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf10"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to buy",
+              "to purchase"
+            ],
+            "pos": [
+              "Godan verb with 'u' ending",
+              "transitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "weekend",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 443,
+      "train_occurrences": 31,
+      "concept_id": "weekend",
+      "id": "word-en-ja-weekend",
+      "target": "週末",
+      "reading": "shuumatsu",
+      "reading_kana": "しゅうまつ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1333520",
+        "selected_spelling": "週末",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "週末"
+        ],
+        "selected_reading": {
+          "kana": "しゅうまつ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf06"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "weekend"
+            ],
+            "pos": [
+              "adverb (fukushi)",
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "expensive",
+      "category": "content",
+      "pos": "adj",
+      "train_rank": 449,
+      "train_occurrences": 30,
+      "concept_id": "expensive",
+      "id": "word-en-ja-expensive",
+      "target": "高価",
+      "reading": "kouka",
+      "reading_kana": "こうか",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1283300",
+        "selected_spelling": "高価",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "高価"
+        ],
+        "selected_reading": {
+          "kana": "こうか",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf11"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "highly priced",
+              "expensive",
+              "valuable",
+              "costly"
+            ],
+            "pos": [
+              "adjectival nouns or quasi-adjectives (keiyodoshi)",
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "winter",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 467,
+      "train_occurrences": 29,
+      "concept_id": "winter",
+      "id": "word-en-ja-winter",
+      "target": "冬",
+      "reading": "fuyu",
+      "reading_kana": "ふゆ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1446070",
+        "selected_spelling": "冬",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "冬"
+        ],
+        "selected_reading": {
+          "kana": "ふゆ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf03"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "winter"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "meat",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 476,
+      "train_occurrences": 28,
+      "concept_id": "meat",
+      "id": "word-en-ja-meat",
+      "target": "肉",
+      "reading": "niku",
+      "reading_kana": "にく",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1463520",
+        "selected_spelling": "肉",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "肉"
+        ],
+        "selected_reading": {
+          "kana": "にく",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf05"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 2,
+            "glosses": [
+              "meat"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "mother",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 477,
+      "train_occurrences": 28,
+      "concept_id": "mother",
+      "id": "word-en-ja-mother",
+      "target": "母",
+      "reading": "haha",
+      "reading_kana": "はは",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1514990",
+        "selected_spelling": "母",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "母"
+        ],
+        "selected_reading": {
+          "kana": "はは",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "mother"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": [
+              "humble (kenjougo) language"
+            ]
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "restaurant",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 478,
+      "train_occurrences": 28,
+      "concept_id": "restaurant",
+      "id": "word-en-ja-restaurant",
+      "target": "レストラン",
+      "reading": "resutoran",
+      "reading_kana": "レストラン",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1145310",
+        "selected_spelling": "レストラン",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "レストラン",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "restaurant (esp. Western-style)"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "husband",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 486,
+      "train_occurrences": 27,
+      "concept_id": "husband",
+      "id": "word-en-ja-husband",
+      "target": "夫",
+      "reading": "otto",
+      "reading_kana": "おっと",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1496480",
+        "selected_spelling": "夫",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "夫",
+          "良人"
+        ],
+        "selected_reading": {
+          "kana": "おっと",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "husband"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "ocean",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 489,
+      "train_occurrences": 27,
+      "concept_id": "ocean",
+      "id": "word-en-ja-ocean",
+      "target": "海",
+      "reading": "umi",
+      "reading_kana": "うみ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1201190",
+        "selected_spelling": "海",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "海"
+        ],
+        "selected_reading": {
+          "kana": "うみ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "sea",
+              "ocean",
+              "waters"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "problem",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 492,
+      "train_occurrences": 27,
+      "concept_id": "problem",
+      "id": "word-en-ja-problem",
+      "target": "問題",
+      "reading": "mondai",
+      "reading_kana": "もんだい",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1536010",
+        "selected_spelling": "問題",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "問題"
+        ],
+        "selected_reading": {
+          "kana": "もんだい",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf01"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "question (e.g. on a test)",
+              "problem"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "sing",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 494,
+      "train_occurrences": 27,
+      "concept_id": "sing",
+      "id": "word-en-ja-sing",
+      "target": "歌う",
+      "reading": "utau",
+      "reading_kana": "うたう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1588120",
+        "selected_spelling": "歌う",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "歌う",
+          "唄う",
+          "詠う",
+          "唱う"
+        ],
+        "selected_reading": {
+          "kana": "うたう",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf15"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to sing"
+            ],
+            "pos": [
+              "Godan verb with 'u' ending",
+              "transitive verb",
+              "intransitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "swim",
+      "category": "content",
+      "pos": "verb",
+      "train_rank": 495,
+      "train_occurrences": 27,
+      "concept_id": "swim",
+      "id": "word-en-ja-swim",
+      "target": "泳ぐ",
+      "reading": "oyogu",
+      "reading_kana": "およぐ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1174340",
+        "selected_spelling": "泳ぐ",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "泳ぐ",
+          "游ぐ"
+        ],
+        "selected_reading": {
+          "kana": "およぐ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf20"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "to swim"
+            ],
+            "pos": [
+              "Godan verb with 'gu' ending",
+              "intransitive verb"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "today",
+      "category": "function",
+      "pos": "adv",
+      "train_rank": 497,
+      "train_occurrences": 27,
+      "concept_id": "today",
+      "id": "word-en-ja-today",
+      "target": "今日",
+      "reading": "kyou",
+      "reading_kana": "きょう",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1579110",
+        "selected_spelling": "今日",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "今日"
+        ],
+        "selected_reading": {
+          "kana": "きょう",
+          "restrictions": [],
+          "info": [
+            "gikun (meaning as reading) or jukujikun (special kanji reading)"
+          ],
+          "priority": [
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "today",
+              "this day"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "adverb (fukushi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "animal",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 499,
+      "train_occurrences": 26,
+      "concept_id": "animal",
+      "id": "word-en-ja-animal",
+      "target": "動物",
+      "reading": "doubutsu",
+      "reading_kana": "どうぶつ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1451470",
+        "selected_spelling": "動物",
+        "spelling_is_kana_entry": false,
+        "all_kanji": [
+          "動物"
+        ],
+        "selected_reading": {
+          "kana": "どうぶつ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "ichi1",
+            "news1",
+            "nf02"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "animal"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    },
+    {
+      "source": "cheese",
+      "category": "content",
+      "pos": "noun",
+      "train_rank": 500,
+      "train_occurrences": 26,
+      "concept_id": "cheese",
+      "id": "word-en-ja-cheese",
+      "target": "チーズ",
+      "reading": "chīzu",
+      "reading_kana": "チーズ",
+      "evidence": {
+        "kind": "jmdict_exact_spelling_reading_sense",
+        "ent_seq": "1077330",
+        "selected_spelling": "チーズ",
+        "spelling_is_kana_entry": true,
+        "all_kanji": [],
+        "selected_reading": {
+          "kana": "チーズ",
+          "restrictions": [],
+          "info": [],
+          "priority": [
+            "gai1",
+            "ichi1"
+          ]
+        },
+        "selected_senses": [
+          {
+            "index": 1,
+            "glosses": [
+              "cheese"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "kanji_restrictions": [],
+            "reading_restrictions": [],
+            "misc": []
+          }
+        ],
+        "dictionary_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+        "source_url": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+        "license": "CC-BY-SA-4.0"
+      },
+      "review": "Ordinary target meaning and exact reading selected before new Japanese holdout. Source English eligibility/ranking remains the frozen219 policy; no finite clauses transferred."
+    }
+  ],
+  "unavailable": [
+    {
+      "source": "and",
+      "reason": "Noun coordination and clause coordination require different Japanese constructions; no new source-context branch in this transfer.",
+      "category": "function"
+    },
+    {
+      "source": "only",
+      "reason": "Japanese particles carry attachment/scope constraints; no globally safe free-word target chosen.",
+      "category": "function"
+    },
+    {
+      "source": "things",
+      "reason": "Concrete object versus abstract event/matter differs between mono and koto; source policy has no such context guard.",
+      "category": "content"
+    },
+    {
+      "source": "life",
+      "reason": "Human lifetime, biological life and daily living require different ordinary Japanese nouns.",
+      "category": "content"
+    },
+    {
+      "source": "thing",
+      "reason": "Concrete object versus abstract event/matter differs between mono and koto; source policy has no such context guard.",
+      "category": "content"
+    },
+    {
+      "source": "every",
+      "reason": "Common equivalent is a bound prefix or complete quantifier construction; no free-word substitution frozen.",
+      "category": "function"
+    },
+    {
+      "source": "idea",
+      "reason": "Creative thought versus knowledge/understanding (including no-idea) requires context not represented by the unchanged source guard.",
+      "category": "content"
+    },
+    {
+      "source": "chicken",
+      "reason": "Animal and meat select different ordinary Japanese nouns; no context added to frozen source policy.",
+      "category": "content"
+    },
+    {
+      "source": "brother",
+      "reason": "Singular sibling relative age is unspecified; no paraphrase or new age/context branch frozen.",
+      "category": "content"
+    },
+    {
+      "source": "remember",
+      "reason": "State memory, memorizing and prospective remember-to scope need additional source evidence; not transferred blindly.",
+      "category": "content"
+    },
+    {
+      "source": "sister",
+      "reason": "Singular sibling relative age is unspecified; no paraphrase or new age/context branch frozen.",
+      "category": "content"
+    },
+    {
+      "source": "each",
+      "reason": "Common equivalent is a bound prefix or complete quantifier construction; no free-word substitution frozen.",
+      "category": "function"
+    }
+  ],
+  "summary": {
+    "source_forms": 219,
+    "available_target_forms": 207,
+    "unavailable_target_forms": 12,
+    "content_forms": 179,
+    "function_forms": 28,
+    "mandatory_reading_present": 207,
+    "distinct_target_strings": 150
+  },
+  "description": "First100-source vocabulary research control transferred to Japanese; not current production runtime."
+}

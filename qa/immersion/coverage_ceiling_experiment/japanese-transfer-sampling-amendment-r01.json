@@ -1,0 +1,16 @@
+{
+  "schema": "vipi-japanese-transfer-sampling-amendment-1",
+  "production": false,
+  "frozen_unix": 1794107292.4914362,
+  "original_freeze_sha256": "51a5535e68e10f6e8119a8b210eb7b14b07239eef6cd9fc8be2dc4cbd94f54e6",
+  "reason": "VALID remaining pool failed fixed balanced quota before any new protocol/output existed.",
+  "split": "BST TEST",
+  "test_sha256": "14ee0431113d28ca5e9424212170196c7e45706e96e7b46d34d52b96cbd0b380",
+  "excluded_entire_test_dialogues": 80,
+  "quota": {
+    "1-5": 26,
+    "6-15": 27,
+    "16-30": 27
+  },
+  "unchanged": "All target entries/readings, source guards, primary arms, thresholds, timing and review policy remain frozen. Only disjoint source pool changes. No output-based selection."
+}

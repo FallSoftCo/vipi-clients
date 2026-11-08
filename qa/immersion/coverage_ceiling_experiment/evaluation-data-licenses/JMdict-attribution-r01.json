@@ -1,0 +1,15 @@
+{
+  "dataset": "JMdict Japanese-English dictionary",
+  "owner": "Electronic Dictionary Research and Development Group",
+  "official_source": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+  "source_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+  "license": "CC-BY-SA-4.0",
+  "license_url": "https://www.edrdg.org/edrdg/licence.html",
+  "license_snapshot": "JMdict-EDRDG-license-20261107.html",
+  "license_snapshot_sha256": "52f60ea9ca68170a2f0663d7dba381ebf1bd57c17a3347dfe21153865c156692",
+  "attribution": "These files are the property of the Electronic Dictionary Research and Development Group, and are used in conformance with the Group’s licence.",
+  "modifications": "Selected ordinary source concepts before held-out evaluation; retained exact entry IDs, spelling/reading restrictions and selected senses; added source-policy guards, research metadata and ICU-derived romanization. Separately authored 知っている is marked separately and verified against NINJAL, not attributed as a JMdict headword.",
+  "share_alike": "Derived dictionary selections in the Japanese transfer research JSON files are distributed under CC-BY-SA-4.0. This does not relicense unrelated software.",
+  "deployment_status": "Research only. A product inclusion would need prominent attribution and license access, the documented source update procedure, corrected pronunciation readings, and native qualification.",
+  "retention": "Original gzip and bounded source extraction records are retained under the private investigation directory. The portable builder verifies the exact gzip hash. The source extraction inputs are separately hash-bound by the reproduction receipt."
+}
