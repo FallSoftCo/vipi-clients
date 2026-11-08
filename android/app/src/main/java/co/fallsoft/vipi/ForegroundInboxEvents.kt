@@ -18,6 +18,7 @@ internal class ForegroundInboxEvents(
     endpoint: String = "https://api.mambovipi.app",
     private val sockets: WebSocket.Factory = http,
     private val retryPause: suspend (Long) -> Unit = { delay(it) },
+    private val onDeviceRevoked: () -> Unit = {},
 ) : AutoCloseable {
     private val base = endpoint.toHttpUrl().also {
         require(it.encodedPath == "/" && it.query == null && it.fragment == null && it.username.isEmpty() && it.password.isEmpty())
@@ -60,7 +61,8 @@ internal class ForegroundInboxEvents(
                             .header("X-Vipi-Device-ID", currentDevice.id.toString())
                             .header("X-Vipi-Device-Secret", currentDevice.secret).build()
                         val ended = connection(request, signals)
-                        if (ended.code in setOf(403, 4403, 1003, 1008)) break
+                        if (ended.code in setOf(403, 4403)) { onDeviceRevoked(); break }
+                        if (ended.code in setOf(1003, 1008)) break
                         if (ended.code in setOf(401, 4401)) rejected = token
                         failures = if (ended.openedForMs >= 30_000) 0 else (failures + 1).coerceAtMost(6)
                         retryPause(backoff(failures))

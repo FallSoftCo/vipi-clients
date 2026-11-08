@@ -26,13 +26,14 @@ class ForegroundInboxEventsDeviceTest {
             val blocked = CompletableDeferred<Unit>(); val received = CompletableDeferred<Unit>()
             val retry = CompletableDeferred<Unit>(); val pause = CompletableDeferred<Unit>()
             var syncs = 0
+            var revoked = false
             val device = DeviceCredential(UUID.randomUUID(), "isolated-qa-device-secret")
             val events = ForegroundInboxEvents(scope, { rejected ->
                 refreshes.add(rejected); if (rejected == null) "isolated-qa-first-token" else "isolated-qa-refreshed-token"
-            }, { device }, {
+            }, { if (revoked) null else device }, {
                 syncs++; if (syncs == 1) { received.complete(Unit); blocked.await() }
             }, sockets = WebSocket.Factory { request, listener -> Socket(request, listener).also { sockets.add(it); it.open() } },
-                retryPause = { wait -> assertTrue(wait >= 1000); pause.complete(Unit); retry.await() })
+                retryPause = { wait -> assertTrue(wait >= 1000); pause.complete(Unit); retry.await() }, onDeviceRevoked = { revoked = true })
             try {
                 events.start(); events.start()
                 withTimeout(3000) { received.await() }
@@ -53,8 +54,10 @@ class ForegroundInboxEventsDeviceTest {
                 assertEquals("Bearer isolated-qa-refreshed-token", second.request().header("Authorization"))
                 second.listener.onClosing(second, 4403, "Device revoked")
                 withTimeout(3000) { while (!second.cancelled) delay(10) }
-                delay(50); assertEquals(2, sockets.size)
+                delay(50); assertEquals(2, sockets.size); assertTrue(revoked)
                 events.stop(); events.start()
+                delay(50); assertEquals(2, sockets.size)
+                revoked = false; events.stop(); events.start() // A separate explicitly completed recovery supplies a live device.
                 withTimeout(3000) { while (sockets.size < 3) delay(10) }
                 val third = sockets.last(); events.stop()
                 withTimeout(3000) { while (!third.cancelled) delay(10) }

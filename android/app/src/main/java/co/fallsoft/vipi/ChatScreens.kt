@@ -209,6 +209,8 @@ import java.util.UUID
                 }
                 (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
                 if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text("View or restore Vipi plan") }
+                if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text("Connect this device") }
+                if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text("Review changed encryption") }
                 if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                     Text("You blocked this person.", fontSize = 14.sp)
                     TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text("Unblock") }
@@ -226,7 +228,7 @@ import java.util.UUID
                             followingLatest = true; jumpRevision++; refresh()
                             scope.launch { chat.synchronize() }
                         } catch (failure: Exception) { error = ChatSession.explanation(failure) }
-                    }, enabled = text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
+                    }, enabled = chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
                         modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, "Send message") }
                 }
                 }

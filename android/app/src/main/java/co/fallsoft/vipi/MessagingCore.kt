@@ -9,6 +9,9 @@ import org.signal.libsignal.protocol.message.SignalMessage
 import java.time.Instant
 import java.util.UUID
 
+internal class PeerIdentityChanged(val peer: UUID) : Exception("Peer encryption identity changed")
+internal class RetiredPeerMessage : Exception("Message belongs to a retired peer device")
+
 internal data class RoutedMessage(val envelope: ChatEnvelope, val senderDevice: UUID, val recipientDevice: UUID) {
     fun sendJSON() = JSONObject().put("id", envelope.id).put("recipient_id", envelope.recipient)
         .put("recipient_device_id", recipientDevice).put("created_at", Instant.ofEpochMilli(envelope.createdAt).toString())
@@ -55,11 +58,16 @@ internal class MessagingCore(private val vault: MessageVault) {
         require(value.recipientDevice == device.id)
         val peer = value.envelope.sender.toString(); val sender = value.senderDevice.toString().toByteArray()
         return journal.receive(value.envelope, now, validateRoute = {
-            vault.get("peer-device", peer)?.let { require(it.contentEquals(sender)) { "Recipient identity changed" } }
             vault.get("incoming-route", value.envelope.id.toString())?.let { require(it.contentEquals(sender)) { "Message route changed" } }
+            // Durable duplicates remain governed by their original route and authenticated envelope fingerprint.
+            if (vault.get("incoming", value.envelope.id.toString()) == null) {
+                if (vault.get("retired-peer-device", "$peer/${value.senderDevice}") != null) throw RetiredPeerMessage()
+                vault.get("peer-device", peer)?.let { if (!it.contentEquals(sender)) throw PeerIdentityChanged(value.envelope.sender) }
+            }
         }) { type, bytes ->
             val cipher = SessionCipher(store, local, SignalProtocolAddress(peer, 1))
-            val clear = if (type == 3) cipher.decrypt(PreKeySignalMessage(bytes)) else cipher.decrypt(SignalMessage(bytes))
+            val clear = try { if (type == 3) cipher.decrypt(PreKeySignalMessage(bytes)) else cipher.decrypt(SignalMessage(bytes)) }
+                catch (_: org.signal.libsignal.protocol.UntrustedIdentityException) { throw PeerIdentityChanged(value.envelope.sender) }
             vault.put("peer-device", peer, sender)
             vault.put("incoming-route", value.envelope.id.toString(), sender)
             clear

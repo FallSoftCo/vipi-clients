@@ -33,9 +33,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var threads by mutableStateOf<List<ChatThread>>(emptyList()); private set
     var contacts by mutableStateOf<Map<UUID, ChatProfile>>(emptyMap()); private set
     var blockedPeers by mutableStateOf<Set<UUID>>(emptySet()); private set
+    var peersNeedingRecovery by mutableStateOf<Set<UUID>>(emptySet()); private set
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
     var needsPlan by mutableStateOf(false); private set
+    var needsDeviceRecovery by mutableStateOf(false); private set
+    var recoveryNeedsSignIn by mutableStateOf(false); private set
     private var syncAgain = false
     var lastSyncComplete = false; private set
     private var syncDone: kotlinx.coroutines.CompletableDeferred<Unit>? = null
@@ -59,6 +62,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 contact.id to contact
             } }
             blockedPeers = store.transaction { store.ids("blocked").map(UUID::fromString).toSet() }
+            peersNeedingRecovery = store.transaction { store.ids("peer-recovery-needed").map(UUID::fromString).toSet() }
         }
         profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload()
     }
@@ -92,7 +96,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun importHistory(file: java.io.File, password: String, confirmed: HistoryBackupCodec.Inspection) = historyOperation { store, check -> store.merge(file, password, confirmed, check) }
     suspend fun start() {
         if (busy || closed) return
-        busy = true; notice = null
+        busy = true; notice = null; recoveryNeedsSignIn = false
         try { open(ChatProfile.parse(request("GET", "/v1/me"))); provision() }
         catch (error: CancellationException) { throw error }
         catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(error) }
@@ -126,6 +130,33 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             val result = request("PUT", "/v1/keys", publication, core.device)
             core.keys.published(result.getInt("revision"))
         }
+    }
+    suspend fun confirmDeviceReplacement() {
+        if (closed || busy || !needsDeviceRecovery) return
+        busy = true; ready = false; notice = null; recoveryNeedsSignIn = false
+        try {
+            syncDone?.await()
+            while (historyBusy) { historyDone?.await(); ensureOpen() }
+            val old = requireNotNull(core); val store = requireNotNull(vault)
+            PrivateSpeechCache.erase(context)
+            val next = DeviceRecovery.candidate(store, old.device)
+            val result = request("POST", "/v1/devices", JSONObject().put("device_id", next.id).put("secret", next.secret).put("replace_active", true))
+            check(result.getBoolean("active") && UUID.fromString(result.getString("id")) == next.id)
+            DeviceRecovery.commit(store, old.device, next)
+            core = MessagingCore(store); ready = true; needsDeviceRecovery = false
+            provision(); reload()
+            notice = "This device is connected. Your saved history remains here. Previous waiting messages stopped; your friends will see new encryption keys."
+        } catch (error: CancellationException) { throw error }
+        catch (error: Exception) {
+            if (error is Authentication.SignInRequired || error is ServiceFailure && error.code in setOf("recent_sign_in_required", "sign_in_required")) recoveryNeedsSignIn = true
+            if (error is ServiceFailure && error.code == "device_revoked") {
+                // The pending candidate was displaced after an uncertain earlier success.
+                // A further takeover needs another explicit user confirmation with a new candidate.
+                vault?.transaction { vault?.remove("local", "replacement-device") }
+            }
+            notice = explanation(error)
+        } finally { busy = false }
+        if (ready) synchronize()
     }
     suspend fun find(input: String): ChatProfile {
         val core = core; val vault = vault
@@ -167,6 +198,35 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     fun setIdentityVerified(verified: Boolean, peer: UUID, compared: SecurityNumber) {
         (core ?: throw ServiceFailure(0, "device_not_ready")).setIdentityVerified(verified, peer, compared); revision++
     }
+    suspend fun previewPeerRecovery(peer: UUID): SignalKeys.RecoveryPreview {
+        val core = core ?: throw ServiceFailure(0, "device_not_ready")
+        val store = requireNotNull(vault); check(ready && peer !in blockedPeers)
+        while (historyBusy) { historyDone?.await(); ensureOpen() }
+        val id = store.transaction {
+            store.get("pending-recovery", peer.toString())?.let { UUID.fromString(it.toString(Charsets.UTF_8)) }
+                ?: UUID.randomUUID().also { store.put("pending-recovery", peer.toString(), it.toString().toByteArray()) }
+        }
+        try {
+            val response = request("POST", "/v1/people/$peer/keys", JSONObject().put("request_id", id), core.device)
+            return core.keys.previewRecovery(peer, id, response)
+        } catch (error: ServiceFailure) {
+            if (error.status == 410 || error.code == "recipient_identity_changed")
+                store.transaction { store.remove("pending-recovery", peer.toString()) }
+            throw error
+        }
+    }
+    suspend fun confirmPeerRecovery(compared: SignalKeys.RecoveryPreview) {
+        val core = core ?: throw ServiceFailure(0, "device_not_ready")
+        check(ready && compared.peer !in blockedPeers)
+        // Same claim replay checks that this is still the active directory device.
+        val response = request("POST", "/v1/people/${compared.peer}/keys", JSONObject().put("request_id", compared.requestID), core.device)
+        while (historyBusy) { historyDone?.await(); ensureOpen() }
+        require(vault!!.transaction { vault!!.get("pending-recovery", compared.peer.toString())?.toString(Charsets.UTF_8) } == compared.requestID.toString())
+        core.keys.confirmRecovery(compared, response)
+        peersNeedingRecovery = peersNeedingRecovery - compared.peer
+        notice = "Encryption updated. Previous waiting messages stopped. Compare the new security number with your friend."
+        reload(); synchronize()
+    }
     fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
     fun compose(peer: UUID) = history?.composeDraft(peer) ?: ""
     fun saveCompose(text: String, peer: UUID) { history?.saveComposeDraft(text, peer) }
@@ -196,6 +256,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
         val now = System.currentTimeMillis()
         if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
+        if (peer in peersNeedingRecovery) throw PeerIdentityChanged(peer)
         core.journal.saveDraft(UUID.randomUUID(), peer, text, now, now, consumeCompose = true); reload()
     }
     private suspend fun establish(peer: UUID) {
@@ -243,7 +304,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                                 if (item.envelope.sender !in contacts && unknownSenders.size < 20) unknownSenders.add(item.envelope.sender)
                             }
                         }
-                        catch (_: Exception) { completed = false; notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                        catch (error: Exception) {
+                            if (error is CancellationException) throw error
+                            if (error is RetiredPeerMessage) return@repeat // Never acknowledge unread ciphertext from an explicitly retired device.
+                            if (error is PeerIdentityChanged) markPeerRecovery(error.peer)
+                            completed = false; notice = if (error is PeerIdentityChanged) explanation(error) else "A message couldn’t be opened securely. Your existing conversations are saved."
+                        }
                     }
                     if (!result.has("next_cursor") || result.isNull("next_cursor")) break
                     val next = result.getString("next_cursor")
@@ -272,20 +338,22 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 }
                 for (draft in core.journal.pendingDrafts(System.currentTimeMillis()).sortedBy { it.createdAt }) {
                     try {
-                        if (draft.recipient in blockedPeers) continue
+                        if (draft.recipient in blockedPeers || draft.recipient in peersNeedingRecovery) continue
                         establish(draft.recipient)
                         if (draft.recipient in blockedPeers) continue
                         core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis())
                     } catch (error: CancellationException) { throw error }
-                    catch (error: Exception) { completed = false; notice = explanation(error) }
+                    catch (error: Exception) { if (error is PeerIdentityChanged) markPeerRecovery(error.peer); completed = false; notice = explanation(error) }
                 }
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
                     if (envelope.recipient in blockedPeers) continue
                     try {
                         val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
                         val state = request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
+                        if (state == "identity_changed") markPeerRecovery(envelope.recipient)
                         core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
                     } catch (error: ServiceFailure) {
+                        if (error.code == "recipient_identity_changed") markPeerRecovery(envelope.recipient)
                         val state = terminalSendState(error)
                         if (state != null) core.journal.applyStatus(envelope.id, state)
                         else if (error.code != "recipient_queue_full") throw error
@@ -310,12 +378,21 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         request("PUT", "/v1/devices/push", JSONObject().put("provider", "fcm").put("token", token).put("environment", "production"), core.device)
     }
     internal fun eventDevice(): DeviceCredential? = if (ready && !closed) core?.device else null
+    private fun markPeerRecovery(peer: UUID) {
+        vault?.transaction { vault?.put("peer-recovery-needed", peer.toString(), byteArrayOf(1)) }
+        peersNeedingRecovery = peersNeedingRecovery + peer
+    }
+    internal fun noteDeviceRevoked() {
+        if (closed) return
+        ready = false; needsDeviceRecovery = true
+        notice = "Your account moved to another device. Your saved conversations are still available here."
+    }
     override fun close() {
         closed = true; ready = false; needsProfile = false; syncAgain = false
         syncDone?.cancel(); syncDone = null
         historyDone?.cancel(); historyDone = null
         vault?.close(); vault = null; core = null; history = null
-        profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet()
+        profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet(); peersNeedingRecovery = emptySet()
     }
     private fun ensureOpen() { if (closed) throw CancellationException("Chat session closed") }
     private suspend fun request(method: String, path: String, body: JSONObject? = null,
@@ -327,6 +404,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             ensureOpen(); currentCoroutineContext().ensureActive(); result
         } catch (error: Exception) {
             if (error is ServiceFailure && error.code == "base_subscription_required") needsPlan = true
+            if (error is ServiceFailure && error.code in setOf("device_revoked", "device_replacement_confirmation_required")) {
+                needsDeviceRecovery = true; ready = false
+            }
             ensureOpen(); throw error
         }
     }
@@ -339,6 +419,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             else -> null
         }
         fun explanation(error: Exception): String {
+            if (error is PeerIdentityChanged) return "Your friend’s encryption identity changed. Review the new keys before sending another message. Your saved history stays here."
             if (error is ServiceFailure) {
                 when (error.code) {
                     "username_unavailable" -> return "That username isn’t available. Try another."

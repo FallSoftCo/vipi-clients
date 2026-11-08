@@ -23,6 +23,8 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.core.view.WindowCompat
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun SecurityNumberSheet(chat: ChatSession, peer: java.util.UUID, dismiss: () -> Unit) {
@@ -30,6 +32,10 @@ import androidx.core.view.WindowCompat
     var loading by remember(peer) { mutableStateOf(true) }
     var failed by remember(peer) { mutableStateOf(false) }
     var changeFailed by remember(peer) { mutableStateOf(false) }
+    var recovery by remember(peer) { mutableStateOf<SignalKeys.RecoveryPreview?>(null) }
+    var recoveryBusy by remember(peer) { mutableStateOf(false) }
+    var recoveryError by remember(peer) { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
     fun load() {
         try { number = chat.securityNumber(peer); failed = false }
         catch (_: Exception) { number = null; failed = true }
@@ -90,9 +96,37 @@ import androidx.core.view.WindowCompat
                     }
                     Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (changeFailed) Text("The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.", style = MaterialTheme.typography.bodySmall)
+                    TextButton(enabled = !recoveryBusy, onClick = {
+                        recoveryBusy = true; recoveryError = null
+                        scope.launch {
+                            try { recovery = chat.previewPeerRecovery(peer) }
+                            catch (error: CancellationException) { throw error }
+                            catch (_: Exception) { recoveryError = "A changed encryption identity couldn’t be confirmed. Your current keys are unchanged. Ask your friend to open Vipi, then try again." }
+                            finally { recoveryBusy = false }
+                        }
+                    }) { Text(if (recoveryBusy) "Checking encryption…" else "Friend changed their phone?") }
+                    recoveryError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                 }
             }
         }
         }
     }
+    recovery?.let { candidate -> AlertDialog(onDismissRequest = { if (!recoveryBusy) recovery = null },
+        title = { Text("Update encryption?") },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Text("Your friend’s device or encryption identity changed. Your saved history stays here. Previous waiting messages will stop and will not be resent.")
+            Text(candidate.number.groups.joinToString("  "), fontFamily = FontFamily.Monospace)
+            Text("Continuing uses these keys but does not mark them verified. Compare all 12 groups with your friend in person or over a trusted call before marking them verified.")
+            recoveryError?.let { Text(it) }
+        } },
+        confirmButton = { TextButton(enabled = !recoveryBusy, onClick = {
+            recoveryBusy = true; recoveryError = null
+            scope.launch {
+                try { chat.confirmPeerRecovery(candidate); recovery = null; load() }
+                catch (error: CancellationException) { throw error }
+                catch (_: Exception) { recoveryError = "The keys changed again or the confirmation expired. Close this dialog and check again. Your previous keys remain unchanged." }
+                finally { recoveryBusy = false }
+            }
+        }) { Text(if (recoveryBusy) "Updating…" else "Use these keys") } },
+        dismissButton = { TextButton(enabled = !recoveryBusy, onClick = { recovery = null }) { Text("Cancel") } }) }
 }

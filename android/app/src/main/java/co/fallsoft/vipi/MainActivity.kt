@@ -142,7 +142,7 @@ private val Green = Color(0xFF33644F)
                 it::eventDevice, {
                     it.synchronize()
                     if (!it.lastSyncComplete) throw java.io.IOException("Inbox synchronization incomplete")
-                })
+                }, onDeviceRevoked = it::noteDeviceRevoked)
         }
         val observer = LifecycleEventObserver { _, event -> when (event) {
             Lifecycle.Event.ON_START -> events?.start()
@@ -317,7 +317,9 @@ private val Green = Color(0xFF33644F)
 @Composable private fun HomeView(model: VipiModel) {
     val chat = model.chat
     val scope = rememberCoroutineScope()
-    if (model.authentication.userID != null && (chat?.ready != true || model.chatError != null)) {
+    val context = LocalContext.current
+    if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
+    if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && (chat?.ready != true || model.chatError != null)) {
         Text("Getting your Vipi ready", fontFamily = FontFamily.Serif, fontSize = 30.sp)
         Text(model.chatError ?: chat?.notice ?: "Your conversations stay on your device.", color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (chat?.busy == true) CircularProgressIndicator()
@@ -326,7 +328,7 @@ private val Green = Color(0xFF33644F)
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text("Chats", fontFamily = FontFamily.Serif, fontSize = 34.sp, modifier = Modifier.weight(1f))
-        IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }) { Icon(Icons.Outlined.Edit, "New chat") }
+        IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }, enabled = chat?.ready == true) { Icon(Icons.Outlined.Edit, "New chat") }
     }
     if (chat != null && chat.threads.isNotEmpty()) {
         chat.threads.forEach { thread ->
