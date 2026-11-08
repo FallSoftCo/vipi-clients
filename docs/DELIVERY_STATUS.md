@@ -1,56 +1,119 @@
 # Current delivery status
 
-Updated 2026-11-08 04:16 UTC. This is the current summary; dated sections in `VERIFICATION.md` retain earlier observations and failures. Source is private until the corresponding-source release is prepared and checked.
+Updated 2026-11-08 05:12 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, native reading integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
-The canonical workspace is `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. The private consolidated-host checkpoint `checkpoints/production-20261108-r09` is exactly `4f952d79d0f7e5448dcd3bb6defb1ee861791ddd`. OZZZ-OS and OZZZ-GPU are provider-cancelled. Use the existing Apple development VM; preserve other applications and its disk chain.
+## Source and host authority
+
+The canonical workspace is `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Private checkpoints preserve committed source on the consolidated host; the exact verified references are in `BUILD_ENVIRONMENTS.md` and private delivery receipts. Source is private until the client corresponding-source release has been assembled and checked.
+
+OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. Apple work uses the existing `ozzz-development-20261021` VM with two compiler jobs. Preserve native Mac test processes, unrelated applications and the VM disk chain. Android uses the existing QA emulator on system76.
+
+## Demonstrated behavior and remaining work
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `f4cd2d4`; scoped activation in 9.49 seconds, same database/schema/environment/shared services. Privacy disclosure returned 200 with CSP, unauthenticated WebSockets closed with 4401. | Production registration, actual provider credentials, release configuration. |
-| Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, final release builds, complete hosted recovery. |
-| Continuous immersion | Stable inline flips, current curated English↔Arabic/Japanese/Korean/Chinese interactions, mixed playback and script/reading controls. | Broad conversational meaning/depth, physical pronunciation and accessibility. |
-| Live text size | Android `9a39686` keeps the real conversation across Activity recreation. Apple `70c6af4` keeps latest/older reading anchors across actual large→maximum→large changes. | Complete accessibility audit; these scoped fixes are not blanket acceptance. |
-| Lookup routing | Both native gates accepted. Approved partials make zero automatic readiness/translation/alignment calls; Android actual explicit full makes one translation call, repeated full makes zero. Cancellation, independent rows, cached phases and visible recovery qualified. | Apple actual full translation remains unsupported in this simulator; injected coordinator success is separate evidence. |
-| Language data | Paired 240 baseline + 240 candidate native rows on each platform. All 187 source-only selected spans/readings agree across platforms; joined semantic review retained. | Starter remains unpromoted: function-word gains do not establish content breadth or progression; one Swahili sense unresolved. Additional directions remain open. |
-| Signed pack activation | Existing signature/hash/schema checks work; audit found a receipt-before-pointer interruption gap on both platforms. Android reproduced it on the old native code. | One atomic activation record under implementation on each platform. Production trust pins, update transport and shipped storage manager remain open. |
-| Backups | Existing daily controller retains three verified encrypted metadata generations; authenticated 20-table isolated restore and credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit device re-enrollment before reopening any restored service. |
-| Store delivery | Company identity selected; Apple distribution certificate accessible; Android upload key encrypted and retained. | Company account reauthentication, app records/profiles/products, real purchases/refunds/push/bot, signed release qualification, upload/review receipts. |
+| Service | Restricted staging runs `f4cd2d4`, same database/schema/environment. Scoped activation took 9.49 seconds; policies return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
+| Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, complete hosted recovery and final signed release builds. |
+| Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
+| Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
+| Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
+| Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
+| Full readings | Native macOS and Android probes identify usable Chinese pinyin/Japanese contextual kana and specific conversion limits. | Production integration, broader correctness, API 28 behavior, Korean ordinary reading policy and Arabic vowels. |
+| Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
+| Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
+| Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
+| Store delivery | Company identity selected; Apple distribution certificate accessible; Android upload key encrypted and retained. | Account reauthentication, app records/profiles/products, real purchases/refunds/push/bot, release qualification and upload/review receipts. |
 
-The paired 80-message source-only target transfer reaches 55/80 strict or 59/80 allowing minor form differences in Spanish, and 62/80 strict or 64/80 in Japanese. Spanish changed-word depth is 8.47%/8.83%. These are small agent-reviewed samples, not population accuracy, bilingual human certification or a 90% claim. The Japanese higher-density output contains two incorrect `mataha` readings; the proposed starter uses an exact independently supported `matawa` override and withholds unresolved lexical contexts. Frozen failed outputs remain retained.
+## Current language decision
 
-The reviewed source-unit starter only covers English input and three target languages. It is a qualification candidate, not an 11-language coverage claim. It selects at most one beginner unit; higher-density and already-learned-word progression remain separate. Native 10% budget behavior may abstain more often than the Python selection; report that difference.
+The previous native beginner comparison used the same 80 English messages into
+Swahili, Japanese and Spanish. All 187 selected source-only spans/readings matched
+across platforms. Android minor-tolerant clean counts were 65/65/59, with content
+in 22/27/24 messages. Spanish content declined from 28 in its baseline. These are
+reused diagnostics at 10% density, not fresh conversational population accuracy.
+Apple's matching source-only path made zero provider calls; its unavailable full
+translator does not establish offline Apple translation.
 
-The current Android comparison is the same 80 English source messages into each
-of Swahili, Japanese and Spanish, with installed local providers and no network.
-Messages with displayed spans rise from 21/24/35 to 66/65/59. Joined strict clean
-counts are 57/64/54; allowing documented minor form differences gives 65/65/59.
-The corresponding mean correct changed-word depth is 10.42%/10.77%/8.66% under
-the lenient definition. Automatic translation calls fall from 79 per pair to
-15/16/22. These are reused diagnostic cases at requested 10% density, with native
-minimum-one-word rounding, not a fresh population test.
+The subsequent 50-source short-phrase experiment produced **zero automatic gain
+at 10% density** in a separate 80-conversation comparison. Complete references
+existed in 7/9/9 messages, but only one whole-message reference per target. At the
+actual 25% app setting the improvement was small. Frozen negative results remain
+in `qa/immersion/coverage_ceiling_experiment`.
 
-Content-bearing clean messages rise from 11 to 22 in Swahili and 14 to 27 in
-Japanese, but **fall from 28 to 24 in Spanish**. Many gains are pronouns and
-other function words. The next experiment therefore targets complete short
-conversational phrases and separates reference availability from actual inline
-budget selection. Version r03 withholds both `thing→kitu` and `things→vitu` until
-the concrete/abstract distinction has contextual support; r03 has not been run
-natively. Frozen r02 failures and scores remain unchanged.
+The starter had also excluded many primary-backed words merely because prior
+small samples had never selected them. Removing that observation requirement
+adds 111/148/138 content forms while preserving genuine unresolved sense/form
+exclusions. The broader catalog has 131/126/120 content concept groups after
+merging four singular/plural alias families. Its independent disjoint-unit
+selection is a Python research candidate, not an activated native language pack.
 
-Apple produced the same 187 source-only spans, with zero provider translation
-calls and approximately 3 ms median first lookup. Its network was enabled and
-its full translator unavailable: this is source-lookup evidence, not offline
-Apple translation qualification. Root independently reviewed 56 spans before
-opening native author labels, agreeing on 55 and leaving the Swahili abstract
-`thing` uncertain. All 19 Japanese readings in that subset were acceptable.
-The reviewed sources were already familiar; this is not bilingual human gold.
+The final 79 eligible unseen BST conversation contexts were evaluated once; the
+TEST split is now exhausted under this context-exclusion policy. At 25% density,
+minor-tolerant clean counts are 68/63/62 and content-bearing messages 36/39/37,
+compared with 29/10/8 content messages for the starter. Correct mixed-text depth
+is 15.49%/13.46%/13.49%; content depth is only 5.55%/5.73%/5.46%. Once all function
+words and 50 frequent content concepts are simulated known, only 11/79 messages
+per target still provide content. This is insufficient sustained progression.
+The additive corrected concept-group replay changes no selected fresh 79 output;
+original declared IDs, scores and the amended audit remain distinguishable.
 
-Fresh hosted reauthentication on Apple reached a provider one-time-code screen;
-no renewed authentication or same-device registration is credited. Earlier real
-PKCE/refresh results remain valid. The code-step category is still being checked
-from retained UI evidence; no automated retry or provider security change is
-underway.
+All 391 selected scopes were author-reviewed; root independently reviewed 119
+before author-label disclosure. The join retains 362 correct, 28 minor and one
+material error: Spanish `okay→vale` in a health-state sentence at 50% density.
+That failure is preserved. No material error was selected at 25% in this small
+sample, which does not establish a universal guarantee. The next work is a
+larger TRAIN-frequency, primary-sense-backed inventory with general contextual
+guards. Future reuse of these messages is diagnostic, not fresh validation.
+These are agent judgments, not certified bilingual gold or a 90% claim. See
+`qa/immersion/coverage_ceiling_experiment/CONTENT_EXPANSION_R01.md` and its
+additive concept-group audit.
 
-The Apple VM currently lacks the measured 10 GiB free-space floor plus ~1.85 GiB model asset peak. Native physical backing space is also constrained. No replacement VM, disk resize, model download or unrelated cleanup is authorized by that constraint. Existing protected native test processes and other app work remain preserved.
+## Native full-reading work
 
-Owner-facing authentication requests for App Store Connect, Google Cloud, AWS and the existing DeepSeek company credential are pending. Do not repeat them absent changed information; continue independent authorized work. No store upload, submission, approval or public customer launch has occurred.
+Existing production complete readings cover authored references; arbitrary
+non-Roman full-text readings remain incomplete. Audio remains the pronunciation
+authority. A valid orthographic convention must not be mistaken for an acoustic
+error or described as a verified ordinary pronunciation guide.
+
+The native macOS 48-case probe found contextual Chinese readings promising,
+Japanese topic/directional particle gaps, Korean reversible orthographic forms
+that differ from ordinary pronunciation-based romanization, and unresolved
+Arabic vowels. No generic transform was promoted. The follow-up Chinese
+candidate preserves protected literals and exact source ranges; 140 first/warm
+cases completed. Root's fixed 24 subset has 20 readable, three tone-notation
+caveats and one correctly withheld unknown Han case. Complete Latin output is
+not uniformly correct marked pinyin. Full author/join review and integration
+remain separate.
+
+Android's QA-only `bab5635` probe uses the already bundled Kuromoji dictionary.
+All 12 source partitions and repeated token sequences were exact. It correctly
+distinguishes particle `は→wa` from lexical `葉→ha`, but independent token Roman
+conversion breaks cross-token gemination (`送った→oku~tsu ta`) and hides identifier
+boundaries. Unknown supplementary Han correctly withholds a full reading.
+The general conversion fix is under development. The observed tokenizer first
+call was 679 ms and warm median 0.283 ms; these are instrumented emulator observations,
+not production cold-start or physical latency bounds. ICU's public Romanizer
+path requires API 29 while the app supports API 28. No audio/provider/model call
+was made by either reading experiment.
+
+## Resource and external gates
+
+Apple model preparation remains held: the guest needs the measured 10 GiB
+low-space threshold plus roughly 1.85 GiB model peak, and the native backing volume
+also needs room. The normal app build reserve is 1 GiB plus measured operation
+peak. Two tiny existing-cache CLI probes used an explicit narrower exception
+with measured peaks and watchdogs; that exception does not authorize a full app
+build, model download, VM resize or unrelated cleanup.
+
+Fresh hosted Apple reauthentication stopped at a generic confirmation-code
+screen. Bounded WorkOS admin lookup found no matching code event. No renewed
+authentication or same-device registration is credited; earlier real PKCE and
+refresh results remain valid. No retry, code guessing or provider policy change
+is underway.
+
+Owner-facing authentication requests for App Store Connect, Google Cloud, AWS
+and the existing DeepSeek company credential remain pending. Read-only check r04
+still found Google password challenges; the Mac browser connection timed out,
+so its current ASC state was unobserved. Do not repeat pending questions without
+changed information. No store upload, submission, approval or public launch has
+occurred. Independent authorized development continues.

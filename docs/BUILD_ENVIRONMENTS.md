@@ -45,9 +45,9 @@ its password held separately in private local/production paths. No secret value
 belongs in source. Apple, Google Cloud and AWS owner authentication steps remain
 open; no app-store submission receipt exists.
 
-Committed private source through `4f952d79d0f7e5448dcd3bb6defb1ee861791ddd` is
+Committed private source through `bab5635d3d58aa16808b897a8e5240a24d00a01b` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261108-r09`. This separate reference
+`refs/heads/checkpoints/production-20261108-r11`. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
 corresponding-source publication.
