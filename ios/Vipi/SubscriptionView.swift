@@ -18,6 +18,10 @@ struct SubscriptionOfferView: View {
                     detail: plan == .base
                         ? "Private conversations with friends, with language immersion woven into the words you already care about."
                         : "Talk with vBot about your day, an idea, or a plan. Bot mini is an optional addition to Vipi.")
+                if plan == .botMini {
+                    Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
+                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                }
                 if access?.active == true {
                     Label("Your \(plan.title) subscription is active", systemImage: "checkmark.circle.fill")
                         .foregroundStyle(VipiDesign.highlight)
