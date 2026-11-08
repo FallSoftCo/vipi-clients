@@ -186,7 +186,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private fun LookupFirstOutcome.deterministicRejection() = result == null && status == ImmersionStatus.INVALID_RESULT &&
         origin == ImmersionOrigin.LOCAL_FULL_CONTEXT && localTranslationCalls > 0
     private fun reusable(value: LookupFirstOutcome, intent: ImmersionIntent) =
-        if (value.result != null) intent == ImmersionIntent.AUTOMATIC_IMMERSION || value.result.translation != null
+        if (value.result != null) intent == ImmersionIntent.AUTOMATIC_IMMERSION || value.result?.translation != null
         else intent == ImmersionIntent.AUTOMATIC_IMMERSION && value.deterministicRejection()
     private fun cachedOutcome(key: String) = synchronized(stateLock) {
         cache[key]?.takeUnless { it.outcome.deterministicRejection() &&
