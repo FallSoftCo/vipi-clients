@@ -2,7 +2,7 @@ package co.fallsoft.vipi
 
 import java.text.Normalizer
 
-/** Small deterministic kana layer, dormant with JapaneseReadings. No Android ICU API.
+/** Small deterministic kana layer for Japanese display readings. No Android ICU API.
  * Factual correspondences: ALA-LC Japanese 2022 charts A/B, printed pp33-34.
  * https://loc.gov/catdir/cpso/romanization/japanese.pdf
  * Retains Vipi's existing wo/wi/we display spelling; not full ALA-LC catalog style.

@@ -3,7 +3,7 @@ package co.fallsoft.vipi
 import android.os.Build
 import com.atilika.kuromoji.ipadic.Token
 
-/** Dormant native reading candidate. No chat, authored-reading or speech caller uses this yet. */
+/** Ordinary display readings; authored sentences take precedence. Never used as speech input. */
 internal object JapaneseReadings {
     enum class Issue { UNSUPPORTED_API, INPUT_LIMIT, UNRESOLVED_JAPANESE, AMBIGUOUS_IDENTIFIER, CONVERSION, SOURCE_BOUNDS }
     enum class Kind { READING, LITERAL, PUNCTUATION, WHITESPACE, UNRESOLVED }

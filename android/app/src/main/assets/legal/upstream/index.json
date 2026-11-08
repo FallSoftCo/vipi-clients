@@ -49,6 +49,13 @@
       "asset": "legal/upstream/sonic-9a8d05dc-LICENSE.txt",
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
       "bytes": 11358
+    },
+    {
+      "coordinate": "unicode-cldr:f69257926c43f1cb22cf3fcd93e709a2ca994bb7:Korean-reading-rules",
+      "url": "https://github.com/unicode-org/cldr/blob/f69257926c43f1cb22cf3fcd93e709a2ca994bb7/LICENSE",
+      "asset": "legal/upstream/unicode-cldr-f6925792-LICENSE.txt",
+      "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "bytes": 3193
     }
   ]
 }

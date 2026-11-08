@@ -137,10 +137,12 @@ internal data class ImmersionInvocationCounters(val readiness: Int = 0, val heav
 internal class ConversationImmersion(context: Context, val source: String, val target: String, private val density: Double,
     private val translator: LanguageTranslation = LocalTranslation(),
     private val qaSourceUnits: SourceUnitQaPolicy? = null,
-    qaReadingProducer: (suspend (String, String) -> FullReading?)? = null) : AutoCloseable {
+    qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
+    private val qaModelsReady: Boolean? = null) : AutoCloseable {
     init {
         require(qaSourceUnits == null || BuildConfig.DEBUG)
         require(qaReadingProducer == null || BuildConfig.DEBUG)
+        require(qaModelsReady == null || BuildConfig.DEBUG)
         require(qaSourceUnits == null || qaSourceUnits.cacheIdentity.matches(Regex("[A-Za-z0-9._:-]{1,160}")))
     }
     private fun cacheKey(text: String, inputLanguage: String?) =
@@ -150,8 +152,8 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val lexical = BundledLexicalCatalog(context.applicationContext)
     private val applicationContext = context.applicationContext
     private val readings by lazy { SentenceReadings(applicationContext) }
-    private val fullReadings = FullReadingCache("authored-sentence-readings-v1", producer = qaReadingProducer ?: { text, language ->
-        readings.reading(text, language)?.let { FullReading(it, FullReading.Provenance.AUTHORED) }
+    private val fullReadings = FullReadingCache(NativeFullReadings.POLICY, producer = qaReadingProducer ?: { text, language ->
+        NativeFullReadings.resolve(text, language, readings)
     })
     // Waiting for inference must not stall a different row's local source lookup.
     private val stateLock = Any()
@@ -204,6 +206,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     suspend fun reading(text: String): FullReading? = fullReadings.resolve(text, target)
 
     suspend fun checkDownloads() {
+        qaModelsReady?.let { if (!closed) ready = it; return }
         try {
             // Status checking must not eagerly expand lexical databases before lookup.
             // Lexical preparation/failure is recorded independently at actual alignment.

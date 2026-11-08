@@ -1,0 +1,173 @@
+{
+  "schema": "android-default-readings-qualification-1",
+  "state": "native_default_japanese_korean_reading_gate_passed",
+  "production_default_enabled": true,
+  "sources": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt",
+      "sha256": "f879353b2116dcb69eb9c3a62790b5aee8e70314cdb1863e0568d666d685f30a",
+      "bytes": 24367
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt",
+      "sha256": "ffc565bedebcf3c8809a844226b8cec9c94c912c0b090cc0d51e9eea5a782919",
+      "bytes": 24677
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/NativeFullReadings.kt",
+      "sha256": "0c9e0acbd2ef940a29cc8cc452b11853d98c894a91f324add880fbba914f2b84",
+      "bytes": 875
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/KoreanReadings.kt",
+      "sha256": "220f989cf780ed32e10a4b300d2f4295d3ef4b04465409f0e10f6d0331b1d439",
+      "bytes": 5118
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/KoreanLetterRules.kt",
+      "sha256": "1f84f21be7604dc88f5f2f2e4a3ff9d24ace28c1f26b8ab454de0f972e2c6583",
+      "bytes": 6324
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/JapaneseReadings.kt",
+      "sha256": "72de2b187cdc70d7d5bda10a085bba1690f243c7664a57efaa8e4903e9b82762",
+      "bytes": 11305
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/KanaRomanizer.kt",
+      "sha256": "e637030d7b2b28ebf2a385e1649a8de7866d19d2f7f39227d3bcb927e9145f31",
+      "bytes": 6240
+    },
+    {
+      "path": "android/app/src/main/assets/legal/upstream/index.json",
+      "sha256": "f1b76a38a3b674e492319635d370a59d4964ba29b051439dcee89b2df2fdb143",
+      "bytes": 2820
+    },
+    {
+      "path": "android/app/src/main/assets/legal/upstream/unicode-cldr-f6925792-LICENSE.txt",
+      "sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+      "bytes": 3193
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/NativeFullReadingDeviceTest.kt",
+      "sha256": "a538421874e7e8b3909dc9864cfafd159e2c1399703a7da6bb4ebad03d759f44",
+      "bytes": 6474
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/DefaultReadingConversationDeviceTest.kt",
+      "sha256": "f61bcfa0b53981afb31fe024ce583094611e0aa356b689812a60af2215b2f5a0",
+      "bytes": 12064
+    },
+    {
+      "path": "qa/immersion/android-default-reading-chat-plan-r01.json",
+      "sha256": "8fcd49364cd11df8920ee609c4e8ae829c6a04dd34acb6b096d92573fc5ba9d6",
+      "bytes": 1727
+    },
+    {
+      "path": "qa/immersion/prepare_android_reading_replay.py",
+      "sha256": "61a51ebaed04e2152fbefd5fdaa964e84ca5bd5e03c38a6aa8dcd4b35f445999",
+      "bytes": 1856
+    },
+    {
+      "path": "android/READINGS.md",
+      "sha256": "a05da3525efc00250b895c47500004f6c826cf0a2ce1f86d2661641551ba67d5",
+      "bytes": 3152
+    }
+  ],
+  "results": {
+    "korean_exact_native_parity": {
+      "cases": 38,
+      "guard_rows": 32,
+      "resource_rows": 6,
+      "full_output_piece_and_literal_parity": true,
+      "new_semantic_labels": false,
+      "max_first_ms": 219.007521,
+      "max_warm_ms": 201.38674,
+      "memory": "Whole process PSS observations only; not reader peak allocation."
+    },
+    "default_coordinator": {
+      "cases": 5,
+      "authored_precedence": true,
+      "same_cached_instance": true,
+      "closed_owner_rejects": true,
+      "unknown_and_length_guard": true,
+      "ja_model_installed": true,
+      "ko_model_installed": false
+    },
+    "actual_chat": {
+      "cases": 5,
+      "default_producer": true,
+      "synthetic_peer_transport": true,
+      "original_script_toggle": true,
+      "copy_original_exact": true,
+      "guide_reentry": true,
+      "japanese_actual_local_mt": true,
+      "korean_fixed_reference_qa_only": true,
+      "korean_readiness_debug_override": true
+    },
+    "offline_original_script_audio": {
+      "original_script": "Zoë와 José에게 메시지를 보냈어요.",
+      "native_cache_identity_matches": true,
+      "created_by_ui": true,
+      "observed_player_bound_ms": 702,
+      "active_samples": 36,
+      "sha256": "eeb0fe4f2b887f0f098475b760bcf674d7f9f545ea7269deee01530947bc0d60",
+      "milliseconds": 2805.3333333333335,
+      "sample_rate": 24000,
+      "acoustic_acceptance": false
+    },
+    "packaged_unicode_license_sha256": "65eb33419e22a297550a811b5b535f5e532f9a7e0114b516c0ea18afd53c3804",
+    "network_restored": true
+  },
+  "limitations": [
+    "API35/x86_64 emulator only; exactAPI28 and physical/ARM64 store qualification remain open.",
+    "Korean is orthographic spelling, not contextual sound-change pronunciation. NFD/compatibility/archaic jamo, shorthand and unprotected unknown script can abstain.",
+    "Japanese known contextual readings such as 一人→ichinin instead of hitori remain; no phonetic perfection claim.",
+    "Actual Japanese reverse MT still produced zoë/JOSS from Zoë/José. Reading/copy preserve literal names; this does not validate translation meaning.",
+    "Korean model is absent. Fixed QA references prove reader/cache/chat integration only, not Korean provider availability or translation accuracy.",
+    "Audio proves synthesis/player activity and original-script cache identity, not listening/acoustic quality.",
+    "Component timing is observed in this run, not a global speed or peak-memory guarantee.",
+    "No new conversational coverage claim; no changes to language matcher, source-unit candidate promotion or contextual-menu default.",
+    "Parent added Listen guidance to hosted help source; deployed help is a separate backend release."
+  ],
+  "evidence_sha256": {
+    "build-r80.log": "1633a093605fc5811a5a93d1711090035ce77610d9f24b63d492f6ee4546b853",
+    "build-r82.log": "1f793b026437003b5a26f6de8327b5636ef67b31d4902c48a3c6c0494aee7972",
+    "environment-r80.json": "bd4a3b05498086fd22f5d2ab612163421b7b4bf9360b144ae47e538e5656d921",
+    "environment-r81.json": "ddb96f0b55cdc4d8071025e0d1f4023aacc4f9bc68364e7978e5b18896245f27",
+    "environment-r82.json": "124eff1331ff2650ab757c537c6b89159aaf465ac71b0238309ba95cf2845932",
+    "native-r81.log": "954d08141d45e12fb2130b4a9990cc771ed99a9c1b74a595f3d20f78942e7742",
+    "native-r82.log": "d786ebacaacb3404e37220e576dade371a2dd8845cce112754b6cf9feb27ef34",
+    "korean-native-replay-r81.json": "f54b02371acbec65f3d36cb1a5d973103b3814845b7490cffa7514c06e2d7c18",
+    "default-cache-r81.json": "103568bb9e5f34a1ca99d78fab121406acadbbec80de89c0323f7ca5df7c515d",
+    "default-chat-r81.json": "044861873aff6076a76f04d38154d492066a9a1041764de7d31559ed1396cf1e",
+    "default-chat-r82.json": "1581e7422cbc501171f928c8847073be74c55588be9fe29efd7f99127842273a",
+    "test-source-r82-manifest.json": "032553dd5151e2430672321dc3ef4aaf9cb9e134e25dbeabd3e0d3beeb66af36",
+    "source-adaptation-r01.json": "3579931d9b949ea67623c14e36d022a33366c119a9ca7ac2f50c554bf639d734",
+    "android-korean-native-replay-r01.json": "7dace4e9781c3b504387aa5723d692b73a8ec300cc04c5459cc753d0e3a91de4",
+    "ja-authored-reading.png": "cf1ffd8f356ff3676b95cb312691f79c89583de1322a395ea02a405dbb123d5f",
+    "ja-authored-script.png": "913648834f996cc070377788a0d275c9c4f4055efdace40b464db965cf235507",
+    "ja-mixed-reading.png": "315658ced561a1e417b3de8d4479e2ce26aebb3dd34a1401c365f45c5b6a30e8",
+    "ja-mixed-script.png": "306dfb1cc1631640b4a09bd20280b9683c795ba455e30158e49fa5908e815da9",
+    "ko-authored-reading.png": "3551f5dd964d5546429a1286453b19bb9a700b822109c4f9343515aa8c9f2710",
+    "ko-authored-script.png": "0a8d075ff757045bceee19d6c366a8eeb450979056eea08880b0732d1f8f6629",
+    "ko-mixed-reading.png": "66f1da351e752265b10d9e96350b67c8a54c7abf7e79f0da757958061a9f5c29",
+    "ko-mixed-script.png": "d0c023f093bc3a4ca1b67773c40b68863fa158069fa82190cefe8544346bf9b0",
+    "ko-original-script.wav": "eeb0fe4f2b887f0f098475b760bcf674d7f9f545ea7269deee01530947bc0d60",
+    "ko-spelling-reading.png": "27d7279770ea39c207eb0d6bff7ad210896204f5aa6cb40f87d01ec8872e06d3",
+    "ko-spelling-script.png": "9607d853d97c5630f8115f2be36eda7cd1c0c91d064173e1c59712349fcfcead"
+  },
+  "private_closure_sha256": "67def05dab0abe1935aca5d0fc62659af9625aebfe47e6989dc852580b2b29f9",
+  "main_apk_sha256": "ab6bc4e42ed8bbf0f6bf26fb8fd55f0a978d4c1823a32b875c170915ae795eb9",
+  "test_apk_sha256": "fce971c2f4b8fd2e467727c9205a1ee3ad0df81cef47d258b230c84ba1abdb29",
+  "retained_failed_runs": [
+    {
+      "run": "r80",
+      "failure": "Fixture stdin transfer created zero-byte file; no instrumentation began; switched to checked push/copy, same binaries."
+    },
+    {
+      "run": "r81",
+      "failure": "Stale UI selector matched disappearing prior Korean menu item before actual message-language dialog; no click executed. Test-only sentinel correction, unchanged application."
+    }
+  ]
+}

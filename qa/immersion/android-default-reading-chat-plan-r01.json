@@ -1,0 +1,57 @@
+{
+  "schema": "android-default-reading-chat-1",
+  "policy": "authored-first-ja-kana-ko-cldr-v1",
+  "default_producer": true,
+  "synthetic_contact_transport": true,
+  "no_model_downloads": true,
+  "cases": [
+    {
+      "id": "ja-authored",
+      "language": "ja",
+      "text": "私は音楽が好きです。",
+      "reading": "Watashi wa ongaku ga suki desu.",
+      "provenance": "AUTHORED",
+      "provider": "actual-installed-local",
+      "audio": false
+    },
+    {
+      "id": "ja-mixed",
+      "language": "ja",
+      "text": "ZoëとJoséにメッセージを送った。",
+      "reading": "Zoë to José ni messēji wo okutta。",
+      "provenance": "LOCAL_TRANSLITERATION",
+      "provider": "actual-installed-local",
+      "audio": false
+    },
+    {
+      "id": "ko-authored",
+      "language": "ko",
+      "text": "음식이 더 필요해요.",
+      "reading": "Eumsigi deo piryohaeyo.",
+      "provenance": "AUTHORED",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "I need more food.",
+      "audio": false
+    },
+    {
+      "id": "ko-spelling",
+      "language": "ko",
+      "text": "같이 학교에 갑니다.",
+      "reading": "gat-i haggyoe gabnida.",
+      "provenance": "LOCAL_TRANSLITERATION",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "We go to school together.",
+      "audio": false
+    },
+    {
+      "id": "ko-mixed",
+      "language": "ko",
+      "text": "Zoë와 José에게 메시지를 보냈어요.",
+      "reading": "Zoë wa José ege mesijileul bonaess-eoyo.",
+      "provenance": "LOCAL_TRANSLITERATION",
+      "provider": "fixed-reference-qa",
+      "fixed_reference": "I sent a message to Zoë and José.",
+      "audio": true
+    }
+  ]
+}

@@ -72,9 +72,11 @@ import java.util.UUID
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     density: Double = .25, onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
     qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
-    qaTranslator: LanguageTranslation? = null, qaContextualActions: Boolean = false, back: () -> Unit) {
+    qaTranslator: LanguageTranslation? = null, qaContextualActions: Boolean = false,
+    qaModelsReady: Boolean? = null, back: () -> Unit) {
     require(qaTranslator == null || BuildConfig.DEBUG)
     require(!qaContextualActions || BuildConfig.DEBUG)
+    require(qaModelsReady == null || (BuildConfig.DEBUG && qaTranslator != null))
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -95,8 +97,8 @@ import java.util.UUID
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val immersion = remember(chat, peer, source, target, density, qaReadingProducer, qaTranslator) {
-        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer)
+    val immersion = remember(chat, peer, source, target, density, qaReadingProducer, qaTranslator, qaModelsReady) {
+        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer, qaModelsReady = qaModelsReady)
     }
     val speech = remember(chat, peer, source, target) { SpeechPlayback(context, source, target, scope) }
     val warmups = remember(source, target) {
