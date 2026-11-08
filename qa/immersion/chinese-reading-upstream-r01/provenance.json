@@ -1,0 +1,35 @@
+{
+  "schema": "vipi-upstream-reading-provenance-1",
+  "created_at_utc": "2026-11-08T05:26:00.446202+00:00",
+  "upstream_package": "pinyin-pro",
+  "upstream_version": "3.29.5",
+  "registry_metadata": "https://registry.npmjs.org/pinyin-pro/3.29.5",
+  "tarball": "https://registry.npmjs.org/pinyin-pro/-/pinyin-pro-3.29.5.tgz",
+  "verified_registry_integrity": "sha512-Fk5YoRmtdHqJWqAuzYVG/NzvzeCbaG+ZEwbY6Nbps3QAIrvQQEtcm49frcyCM8i2b5najnzPDtYqrHRYTTiuwQ==",
+  "source_commit": "Not supplied in npm metadata; package bytes are pinned, no inferred Git commit.",
+  "license": "MIT, exact upstream license retained",
+  "files": {
+    "ordinary-data.json": {
+      "bytes": 773812,
+      "sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc"
+    },
+    "pinyin-pro-3.29.5.tgz": {
+      "bytes": 322578,
+      "sha256": "00e9d2961bb0ba2d247ba5090c242ecbf3793473c9f66f0c69af7248dd4616b4"
+    },
+    "LICENSE.upstream": {
+      "bytes": 1070,
+      "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2"
+    },
+    "export-data.mjs": {
+      "bytes": 2985,
+      "sha256": "f9576981a30975aafb793f2623368e3ee2193ddba8a5e59cacd7f04610c161e6"
+    }
+  },
+  "native_enabled": false,
+  "characters": 21132,
+  "patterns": 4185,
+  "maximum_phrase_scalars": 5,
+  "runtime_network_or_model_calls": 0,
+  "ordinary_display_policy": "Tone-free pinyin, preserving \u00fc and \u00ea; audio remains pronunciation authority. Not uniformly accurate marked pinyin or unambiguous sense inference."
+}
