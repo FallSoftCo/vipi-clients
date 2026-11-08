@@ -1,5 +1,10 @@
 # Implementation sequence and release gates
 
+For the current milestone, source checkpoint and open gates, read
+[Current delivery status](DELIVERY_STATUS.md). The dated sections and original
+checklist below preserve the implementation history; unchecked historical items
+are not an authoritative description of the current code or qualification.
+
 ## Consolidated delivery work — 2026-11-07
 
 The retained CPU source was recovered at `15339619ccce2d7492f5090906b1498b36d93928`, including all dirty tracked edits and 22 untracked source files. Canonical work continues in the reconciled delivery workspace; the retired CPU/GPU hosts are not development targets. The Apple team uses the existing development VM and Android reuses its existing QA emulator. A parent-owned delivery ledger records source authority, host receipts, platform results and remaining gates.
