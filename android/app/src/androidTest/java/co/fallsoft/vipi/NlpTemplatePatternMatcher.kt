@@ -13,7 +13,7 @@ internal object NlpTemplatePatternMatcher {
         fun json() = JSONArray(listOf(start, end))
     }
     data class Form(val id: String, val surface: String, val lexemeID: String, val pos: String,
-                    val features: List<String>, val faceIDs: Map<String, String>, val primaryRef: String)
+                    val features: List<String>, val faceIDs: Map<String, String>, val primaryRef: String, val analysesJSON: String?)
     data class Part(val kind: String, val name: String, val value: String?, val values: List<String>,
                     val type: String?, val maxWords: Int?, val maxUTF16: Int?, val formSet: String?)
     data class RangeSpec(val kind: String, val part: String?, val from: String?, val through: String?)
@@ -164,7 +164,8 @@ internal object NlpTemplatePatternMatcher {
     private fun nullable(value: JSONObject, key: String) = if (!value.has(key) || value.isNull(key)) null else value.getString(key)
     fun range(value: JSONObject) = RangeSpec(value.getString("kind"), nullable(value, "part"), nullable(value, "from"), nullable(value, "through"))
     fun form(value: JSONObject) = Form(value.getString("id"), value.getString("surface"), value.get("lexeme_id").toString(),
-        value.getString("pos"), strings(value.getJSONArray("features")), stringMap(value.getJSONObject("face_ids")), value.getString("primary_ref"))
+        value.getString("pos"), strings(value.getJSONArray("features")), stringMap(value.getJSONObject("face_ids")),
+        value.getString("primary_ref"), value.optJSONArray("analyses")?.toString())
     fun pattern(value: JSONObject): Pattern {
         val raw = value.getJSONArray("parts")
         val parts = (0 until raw.length()).map { index -> val p = raw.getJSONObject(index)
