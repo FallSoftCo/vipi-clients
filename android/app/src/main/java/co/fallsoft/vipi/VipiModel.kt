@@ -73,8 +73,12 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
                 subscriptions = Subscriptions(getApplication(), ServiceClient(authentication, userID), viewModelScope)
                 subscriptionUser = userID
             }
-            if (chat?.userID != userID) { chat?.let(DeliverySessions::release); chat = DeliverySessions.acquire(getApplication(), authentication, userID) }
-            navigate(Screen.HOME); chat!!.start()
+            val openingAccount = chat?.userID != userID
+            if (openingAccount) { chat?.let(DeliverySessions::release); chat = DeliverySessions.acquire(getApplication(), authentication, userID) }
+            // The retained model is activated again after activity recreation
+            // and reauthentication. Keep this account's current conversation.
+            if (openingAccount) navigate(Screen.HOME)
+            chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
             else if (!prefs.getBoolean("planIntroduced", false)) navigate(Screen.PLANS)
             if (chat?.ready == true) {
