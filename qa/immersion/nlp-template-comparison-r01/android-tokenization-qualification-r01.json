@@ -50,9 +50,10 @@
       "bytes": 509556394
     },
     {
-      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r87/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/retained-r87-tokenizer-test.apk",
       "sha256": "130ac58b6fe440e7436057037f81b52a149ca8a501f677c2d41c6e3bdc61f069",
-      "bytes": 4835380
+      "bytes": 4835380,
+      "original_build_path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r87/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
     }
   ],
   "settings_restored": true,
@@ -62,5 +63,6 @@
     "No target/meaning evaluation or new corpus claim",
     "No physical/API28/ARM64 qualification",
     "Canonical inherited matcher experiments were excluded from this clean source snapshot and remain untouched"
-  ]
+  ],
+  "artifact_retention": "Exact original instrumentation APK retained before installing later test overlays; original Gradle output pathname is reusable, not immutable."
 }

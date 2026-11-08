@@ -42,9 +42,11 @@ internal object NlpTemplatePatternMatcher {
     private val name = Regex("[\\p{L}\\p{M}]+(?:[-'’][\\p{L}\\p{M}]+)*")
     private val number = Regex("\\+?[0-9](?:[0-9 .()/\\-]*[0-9)])?")
     private val possessives = setOf("my", "your", "his", "her", "its", "our", "their")
-    private val literal = Regex("(?U)https?://\\S+|\\b[^\\s@]+@[^\\s@]+\\.[^\\s@]+|```[\\s\\S]*?```|`[^`]*`")
-    private val handle = Regex("(?U)(?<![\\w@])[@#][\\w]+")
-    private val protectedNumber = Regex("(?U)(?<!\\w)\\+?[0-9](?:[0-9.,:/()\\-]*[0-9)])?")
+    // Android uses Unicode character classes by default and rejects JVM's (?U).
+    // https://developer.android.com/reference/java/util/regex/Pattern#UNICODE_CHARACTER_CLASS
+    private val literal = Regex("https?://\\S+|\\b[^\\s@]+@[^\\s@]+\\.[^\\s@]+|```[\\s\\S]*?```|`[^`]*`")
+    private val handle = Regex("(?<![\\w@])[@#][\\w]+")
+    private val protectedNumber = Regex("(?<!\\w)\\+?[0-9](?:[0-9.,:/()\\-]*[0-9)])?")
 
     fun literalScopes(text: String): List<LiteralScope> {
         val scopes = mutableListOf<LiteralScope>()
