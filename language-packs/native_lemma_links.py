@@ -6,6 +6,7 @@ mixed lexical/form entries and unresolved homographs keep their own identity.
 from functools import lru_cache
 import json
 import re
+import unicodedata
 from build_wiktextract import EXCLUDED, PARTS, DIALECTS
 from context_hints import lookup_key
 from swahili_lexical import derived_entry,supplied_infinitive,derivation_definition
@@ -33,6 +34,16 @@ class NativeLinks:
         exact=[r for r in direct if r[1]==word]
         if exact:direct=exact
         result={i for i,h,p in direct if not pos or pos==p}
+        # A search key is not entry identity. Arabic harakat removal is useful
+        # for locating records, but a supplied vocalized translation must not
+        # acquire another entry whose canonical/alternative vowels differ.
+        # NFC handles equivalent combining-mark order; tatweel is only display
+        # elongation. Unvocalized homographs remain competing analyses, not a
+        # guessed unique identity. Reading/style differences are not inferred.
+        identity=lambda value:unicodedata.normalize('NFC',value).lower().replace('\u0640','')
+        written_identity=identity(word)
+        vocalized=self.language=='ar' and lookup_key(word,'ar')!=written_identity
+        exact_identity={i for i,h,p in direct if identity(h)==written_identity and (not pos or pos==p)}
         # A hyphenated root or alternate script is accepted only when the
         # canonical entry explicitly supplies that exact spelling.
         infinitives=set()
@@ -42,9 +53,11 @@ class NativeLinks:
             tags=set(json.loads(tags))
             if (not pos or pos==p) and not tags&EXCLUDED and tags&{'canonical','alternative'}:
                 result.add(identifier)
+                if identity(written)==written_identity:exact_identity.add(identifier)
             if (not pos or pos==p) and written==word and supplied_infinitive(self.language,head,p,written,tags):
                 infinitives.add(identifier)
         if len(infinitives)==1:result.update(infinitives)
+        if vocalized:result.intersection_update(exact_identity)
         return tuple(sorted(result))
 
     def resolve(self, identifier, trail=()):

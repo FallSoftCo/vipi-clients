@@ -1,0 +1,84 @@
+{
+  "production_pack_changed": false,
+  "release_claim": false,
+  "defect": "Lossy Arabic lookup-key normalization merged supplied vocalized translation بُنّ/bunn with son entry ابن through its different-vowel alternative بْن. The wrong link also inherited the translation reading bunn.",
+  "original_bad_rows": [
+    {
+      "source": "coffee",
+      "source_lexeme": 47261,
+      "source_head": "coffee",
+      "source_pos": "noun",
+      "sense": "77c266c9eb20bdbbbccac13bf5df8629cf2ca877c0c60777a9465c9232719341",
+      "sense_label": "beans",
+      "source_url": "https://en.wiktionary.org/wiki/coffee#English",
+      "sense_url": "https://en.wiktionary.org/wiki/coffee#English",
+      "target_language": "ar",
+      "target_lexeme": 1451005,
+      "target": "ابن",
+      "target_pos": "noun",
+      "reading": "bunn",
+      "legacy_source_eligible": 1,
+      "source_qualifiers": "{}",
+      "legacy_target_eligible": 1,
+      "target_qualifiers": "{}",
+      "target_url": "https://en.wiktionary.org/wiki/%D8%A7%D8%A8%D9%86#Arabic",
+      "complete_target_head": 1,
+      "reading_present": 1,
+      "pos_compatible": 1
+    },
+    {
+      "source": "coffee",
+      "source_lexeme": 47261,
+      "source_head": "coffee",
+      "source_pos": "noun",
+      "sense": "c72650bb798d703dac4f10af5207913cc2eace9e941e6be954305103f9238c07",
+      "sense_label": "plant",
+      "source_url": "https://en.wiktionary.org/wiki/coffee#English",
+      "sense_url": "https://en.wiktionary.org/wiki/coffee#English",
+      "target_language": "ar",
+      "target_lexeme": 1451005,
+      "target": "ابن",
+      "target_pos": "noun",
+      "reading": "bunn",
+      "legacy_source_eligible": 1,
+      "source_qualifiers": "{}",
+      "legacy_target_eligible": 1,
+      "target_qualifiers": "{}",
+      "target_url": "https://en.wiktionary.org/wiki/%D8%A7%D8%A8%D9%86#Arabic",
+      "complete_target_head": 1,
+      "reading_present": 1,
+      "pos_compatible": 1
+    }
+  ],
+  "input_identity": {
+    "arabic-coffee-original-terms-r01.json": "7a9d464d7ab5975eb4c46c3950a911236453414ed265598bb6fcb9c469bcc6d9",
+    "phrase-and-arabic-primary.json.gz": "0e6afc0fd34b4ced7a6b218f5eeae70792e65a9fbadf3541f90eca41b49bb7a9",
+    "compiled-alias-cohort-r01.json": "2e919832ade6631d00d2a3be976edec283ffaebe6eb8acf58cd1307e96fb0f12",
+    "native_lemma_links-before-r01.py": "aac2dc45e8d4bf98276d44c21ebc384c0b3a86ff066cc1f73a1c6f902dff3a15",
+    "native_lemma_links.py": "3e8886dbf428dda1a4a8389813ea77f0c2f6b44c069b5ee9e5523f498181ca89"
+  },
+  "scope": "Compile-time candidate identity, not sense disambiguation or runtime grammar. Applies uniformly to Arabic marked translations/references. All unmarked competing identities and non-Arabic behavior remain.",
+  "selection_contract": {
+    "lookup": "Use existing normalized key only to locate candidates.",
+    "written_identity": "For Arabic input carrying vowel/phonological marks, require exact supplied head or canonical/alternative form after NFC, case normalization and removal of nonsemantic tatweel. Never remove the supplied vowels for entry identity.",
+    "ambiguity": "Keep every exact attested entry; no shortest synonym, gloss inference, guessed vowel or selection based on prior test appearance. Unvocalized input remains competing analyses.",
+    "unattested": "A marked input absent from the native supplied forms has no candidate. Partially vocalized/inflected forms are not silently treated as a different canonical form.",
+    "readings": "This patch prevents attaching the bad term/reading to the wrong entry in the observed vocalized path. It does not certify canonical readings for all aliases. A cross-head alias can have a different reading; that requires explicit form-specific reading provenance and a separate schema/runtime plan. Romanization conventions are not equated without evidence."
+  },
+  "native_runtime_trace": {
+    "android_source_sha256": "6bca38722007e908a5d5ba7a34e26ecc9e1321ded4734097871b40db1d95cda5",
+    "mode": "Read-only source trace, not an actual new native provider capture.",
+    "finding": "right.forms is built only from windows occurring in the supplied full translation; final output is sliced from that translation. Therefore ابن cannot appear from this link when only قهوة occurs. A matching بن/ابن elsewhere may expose contaminated sense/reading metadata subject to other context/ambiguity guards. Source-only canonical-head generation would directly expose ابن; it is not approved."
+  },
+  "tests": {
+    "passed": 14,
+    "command": "python3 -m unittest test_native_form_identity test_swahili_lexical test_native_gloss_articles test_native_gloss_labels",
+    "separate_unrun_module": "test_arabic_plural_readings import failed because ahocorasick is absent in the selected system Python; no dependency installed, no plural compiler changes."
+  },
+  "raw_archive_read_r01": {
+    "complete": false,
+    "elapsed_seconds": 322.14755741902627,
+    "completed_batches": 0,
+    "action": "Retained timeout receipt; changed r02 to explicit compiled native IDs via primary-key batches, no broad remote joins or bulk restore."
+  }
+}

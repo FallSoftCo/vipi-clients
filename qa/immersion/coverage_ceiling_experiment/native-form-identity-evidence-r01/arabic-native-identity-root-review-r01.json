@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-08T06:34:10.571311+00:00",
+  "decision": "accepted_compiler_identity_guard_scoped_to_vocalized_Arabic",
+  "review_basis": [
+    "Root read complete13line guard diff, test_native_form_identity.py, cohort summary and four complete original-entry/sense/form examples.",
+    "NFC-equivalent mark ordering and elongation are normalized for identity; unvocalized ambiguity is preserved.",
+    "Coffee, son alias, pour/spill and an attested alternative retain appropriate exact-written memberships.",
+    "Partial-vowel بُن is conservatively withheld. This is a documented coverage cost, not invalid spelling."
+  ],
+  "source": [
+    {
+      "path": "language-packs/native_lemma_links.py",
+      "sha256": "3e8886dbf428dda1a4a8389813ea77f0c2f6b44c069b5ee9e5523f498181ca89"
+    },
+    {
+      "path": "language-packs/test_native_form_identity.py",
+      "sha256": "bfde31de09b47e73409e5782706a453d63d8f44a0c8e91b1d2e2be3adbced409"
+    }
+  ],
+  "evidence": {
+    "arabic-alias-qualification-r01.json": "702b44f08c232fa3be3e72d6fb3c45a694781b24826b06195e4b7bbd995e9d50",
+    "arabic-alias-primary-examples-r01.json": "3b5a9aca8976de5114f5986937a80f0f0d17902ee42a4000449fd13ae0db0caf"
+  },
+  "limitations": [
+    "No fresh root execution of native tests; author native unit/cohort result inspected.",
+    "Exact written membership is not semantic approval; canonical/alias reading association still requires separate correction.",
+    "No new packs built or activated; existing compiled data is not repaired by changing a compiler source file.",
+    "Focus cases were author selected and disclosed, not an independent statistical sample."
+  ]
+}

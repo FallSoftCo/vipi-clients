@@ -1,0 +1,11 @@
+{
+  "binding": {
+    "cohort_sha256": "2e919832ade6631d00d2a3be976edec283ffaebe6eb8acf58cd1307e96fb0f12",
+    "script_sha256": "3a980d89b2fb8edf0c14d1d17f9bbd3e2738e34ca55273e0408d266f5ada119d",
+    "expected_archive_sha256": "8c97e9de2ce8e94ce9754475a85eb27cd956ee0ba69491fe270376e3177ceb17"
+  },
+  "complete": false,
+  "whole_archive_fresh_hash_verified": false,
+  "batches": [],
+  "elapsed_seconds": 322.14755741902627
+}

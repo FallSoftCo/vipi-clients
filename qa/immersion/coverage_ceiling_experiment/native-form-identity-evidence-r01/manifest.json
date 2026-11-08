@@ -1,0 +1,215 @@
+{
+  "production_pack_changed": false,
+  "scope": "Exact primary written-form identity preservation, not translation/sense approval. Arabic partial-vowel forms without exact attestation now abstain; cross-head reading identity remains separate.",
+  "license": "Selected native records derive from English Wiktionary via retained Kaikki/Wiktextract inventory, CC-BY-SA-4.0; original per-entry URLs/IDs retained.",
+  "upstream_source_sha256": "244dcdc56868d81dc60e3820657780c06fac2729a90e2c5ffbfa13e6f9ecad1d",
+  "expected_retained_inventory_sha256": "8c97e9de2ce8e94ce9754475a85eb27cd956ee0ba69491fe270376e3177ceb17",
+  "whole_inventory_fresh_hash_verified": false,
+  "tests": "14 passed: test_native_form_identity/test_swahili_lexical/test_native_gloss_articles/test_native_gloss_labels; no dependency installation or pack rebuild.",
+  "files": [
+    {
+      "file": "compiled-alias-cohort-r01.json.gz",
+      "sha256": "585b43676726c305e8e9fc527a3653a86ef917ea328e46b44fe22d3b53ecf6b9",
+      "original_file": "compiled-alias-cohort-r01.json",
+      "original_sha256": "2e919832ade6631d00d2a3be976edec283ffaebe6eb8acf58cd1307e96fb0f12",
+      "bytes": 57917
+    },
+    {
+      "file": "arabic-coffee-original-terms-r01.json.gz",
+      "sha256": "d96a6213e09e575758697b36c8a2febc1c9e6d7edc711afa0aa59567c2ed5b04",
+      "original_file": "arabic-coffee-original-terms-r01.json",
+      "original_sha256": "7a9d464d7ab5975eb4c46c3950a911236453414ed265598bb6fcb9c469bcc6d9",
+      "bytes": 294
+    },
+    {
+      "file": "phrase-and-arabic-primary.json.gz",
+      "sha256": "0e6afc0fd34b4ced7a6b218f5eeae70792e65a9fbadf3541f90eca41b49bb7a9",
+      "original_file": "phrase-and-arabic-primary.json.gz",
+      "original_sha256": "0e6afc0fd34b4ced7a6b218f5eeae70792e65a9fbadf3541f90eca41b49bb7a9",
+      "bytes": 4339
+    },
+    {
+      "file": "arabic-coffee-identity-replay-r01.json.gz",
+      "sha256": "60adf44bc18d29f6696ac94611ead5ae4cee0e8d2f37a8bf396d3f6e1bd08b99",
+      "original_file": "arabic-coffee-identity-replay-r01.json",
+      "original_sha256": "406ad461bcece41946ca4d91368eb2220f2aacdbc14207ed28f2fc55c2f9cde0",
+      "bytes": 570
+    },
+    {
+      "file": "arabic-alias-qualification-r01.json.gz",
+      "sha256": "56f999753216168a08b8f36a43fe4232808c2bf4b49cd9b112417ef50b8e4177",
+      "original_file": "arabic-alias-qualification-r01.json",
+      "original_sha256": "702b44f08c232fa3be3e72d6fb3c45a694781b24826b06195e4b7bbd995e9d50",
+      "bytes": 22994
+    },
+    {
+      "file": "arabic-alias-primary-examples-r01.json.gz",
+      "sha256": "114d254789a4eed59c2a1f6e4363a93948a98d4306a4807f6969e1f6c354d6dd",
+      "original_file": "arabic-alias-primary-examples-r01.json",
+      "original_sha256": "3b5a9aca8976de5114f5986937a80f0f0d17902ee42a4000449fd13ae0db0caf",
+      "bytes": 2019
+    },
+    {
+      "file": "native_lemma_links-before-r01.py.gz",
+      "sha256": "3d6cb90eb6dfb785d927cf670935b58cb3a88955dbaabb2d5fd6aa5d504f5a97",
+      "original_file": "native_lemma_links-before-r01.py",
+      "original_sha256": "aac2dc45e8d4bf98276d44c21ebc384c0b3a86ff066cc1f73a1c6f902dff3a15",
+      "bytes": 3592
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r01/receipt.json",
+      "sha256": "c8d71542474ab7300d50b46f606f8d70c19e9bd8b6c253a17b33c0ea31fcfac4",
+      "bytes": 424
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0000.json.gz",
+      "sha256": "7dfc89cf76ddf9e22b8fbf08d90773bc87b69a51f5d0a500ede0f44d7e9b58d1",
+      "bytes": 18935
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0032.json.gz",
+      "sha256": "45e7ca2979c8385c9ec99e059f6c6f2c6b14028b2910bf548473214a34ca532f",
+      "bytes": 17917
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0064.json.gz",
+      "sha256": "2a88672021614847124797e1d382800ccd4a87d57dec66a86a83e86fb722eaaf",
+      "bytes": 16036
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0096.json.gz",
+      "sha256": "6dd7cccfa63fb411b7012d70d116b280bcac2273c1d5bcaa115113b697e927b9",
+      "bytes": 15436
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0128.json.gz",
+      "sha256": "cf1447dc8d14d41aed4e70b228a667d1b074a0edbfb659792e6c2639d4c451d7",
+      "bytes": 15729
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0160.json.gz",
+      "sha256": "406fec9f48ee497f4f8edae76d8eada898bbcc9731164f62ecb63e51d7d5700d",
+      "bytes": 18867
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0192.json.gz",
+      "sha256": "c856eada029219707a07645cafc90988aeef79085fbbc7617d8e40f01db5429d",
+      "bytes": 17253
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0224.json.gz",
+      "sha256": "6efffb2b2abd11d01fe76ff343c709689ab47760f50949f83e7e2306d4e1f568",
+      "bytes": 13250
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0256.json.gz",
+      "sha256": "5b9563e30685ffea039628dc2db98ec1b9196bbff4797a2dba79c962d61abfc7",
+      "bytes": 18296
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0288.json.gz",
+      "sha256": "a4879bf556089c21dc58c1b4bd4752ccf956e3f5b63a152a3fa4935d6f2a0ce2",
+      "bytes": 11852
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0320.json.gz",
+      "sha256": "af3ab0cefe15835d56d099f9d6a627e7f3e6489d3eee2bcf34f93e5c0ec842b2",
+      "bytes": 8349
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0352.json.gz",
+      "sha256": "def3cf328a027cd9d99c5c0d032714dbd6461914a8a718ed2293c76e8de0cc1e",
+      "bytes": 7701
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0384.json.gz",
+      "sha256": "e23df6a7c3c4459dc380931f24261ad71b172c4c47df0f4ee717cb47832c2518",
+      "bytes": 3391
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0416.json.gz",
+      "sha256": "83742fbf23c5d02f0e6355c02563f931ccd922db5035223a812058e9d8424ea0",
+      "bytes": 12599
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0448.json.gz",
+      "sha256": "4b747d28ede06a19af22a39ba4681968fc0d8ea82b7cd068973975bd8389cddb",
+      "bytes": 15355
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0480.json.gz",
+      "sha256": "bff4d566e26ee2b8f2caa5e874da941ed0c2aab9df9bc1752d35441f5f57124d",
+      "bytes": 13399
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0512.json.gz",
+      "sha256": "a2ccd4342dd2d3a64be98a567ceda35842de8771370bc97013ab4a65a4c2c8f9",
+      "bytes": 13584
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0544.json.gz",
+      "sha256": "48b89a58195dd3aa01e5d7bbab1f78ea2ee09bc497026ed83d49ffc40a5e958c",
+      "bytes": 18227
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0576.json.gz",
+      "sha256": "4add18116107c87b1e377db5ee7a2d47bd569cb519ea6518655affdd5f28ccff",
+      "bytes": 11758
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0608.json.gz",
+      "sha256": "ff8aa534c3b064ff783c4e6bb10a48972e68266ba40191255ffc1f8d767b78c6",
+      "bytes": 13088
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0640.json.gz",
+      "sha256": "1047af30c479a87e73d2c844356078d4feb826e5a8f8bb978165b0b4d789905c",
+      "bytes": 11247
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0672.json.gz",
+      "sha256": "b010b789f04e86f60f8d86338d4771cd2d6e2235ef1a10a060a4b57e43855330",
+      "bytes": 10608
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0704.json.gz",
+      "sha256": "efa384ff468f93eccb84b2532e1384cb77e9ff48ca334b9115a964ba93f8c8e7",
+      "bytes": 11265
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0736.json.gz",
+      "sha256": "7ed4fddc4a22e03ac1dbfc9b0805dd5777e50be3c307fd0ed906222c99e4486c",
+      "bytes": 12437
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0768.json.gz",
+      "sha256": "ece40e8b029210bdf270abd7ab08fc8cbf34ed3309325660d1b3a6cadacf485e",
+      "bytes": 13672
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0800.json.gz",
+      "sha256": "914d11c97a39a074d4332944d55a24223bb630c8aecd9eed4c0148d7a0d44723",
+      "bytes": 13669
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0832.json.gz",
+      "sha256": "19e3dfb404175aaa5680820c69ba90087c9d51f23b3a4578be9909e983fe361c",
+      "bytes": 4445
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/batch-0864.json.gz",
+      "sha256": "1d53163043f0fa37091e4a43accd42d7c2ec17a57e48ec94986694ed7d1fd53d",
+      "bytes": 3216
+    },
+    {
+      "file": "raw-arabic-alias-cohort-r02/receipt.json",
+      "sha256": "e8e0a8af931ef4b4a9b2b0cf0b9a71784eb4c1da5c7a6f1d36f7e10c6bccf769",
+      "bytes": 4914
+    },
+    {
+      "file": "arabic-native-identity-root-review-r01.json",
+      "sha256": "c48f04f9adb02e973d60ae0bc173515f7b08447f21b4c51ff34b5b9b26662818",
+      "bytes": 1656
+    }
+  ]
+}
