@@ -1,0 +1,2560 @@
+[
+  {
+    "ent_seq": "1001090",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "うん",
+        "restrictions": []
+      },
+      {
+        "kana": "ウン",
+        "restrictions": []
+      },
+      {
+        "kana": "うむ",
+        "restrictions": []
+      },
+      {
+        "kana": "ううむ",
+        "restrictions": []
+      },
+      {
+        "kana": "う～ん",
+        "restrictions": []
+      },
+      {
+        "kana": "うんっ",
+        "restrictions": []
+      },
+      {
+        "kana": "ウ〜ン",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "yes",
+          "yeah",
+          "uh huh"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "hum",
+          "hmmm",
+          "well",
+          "erm",
+          "huh?"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "oof"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": [
+          "うん"
+        ]
+      }
+    ]
+  },
+  {
+    "ent_seq": "1001750",
+    "spellings": [
+      "お気の毒",
+      "御気の毒",
+      "お気のどく"
+    ],
+    "readings": [
+      {
+        "kana": "おきのどく",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "I am sorry (to hear, to say, etc.)",
+          "a pity"
+        ],
+        "pos": [
+          "expressions (phrases, clauses, etc.)",
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [
+          "polite (teineigo) language"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1002000",
+    "spellings": [
+      "お子さん",
+      "御子さん"
+    ],
+    "readings": [
+      {
+        "kana": "おこさん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "child"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [
+          "honorific or respectful (sonkeigo) language"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1006610",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "そう",
+        "restrictions": []
+      },
+      {
+        "kana": "そっ",
+        "restrictions": []
+      },
+      {
+        "kana": "そー",
+        "restrictions": []
+      },
+      {
+        "kana": "そ〜",
+        "restrictions": []
+      },
+      {
+        "kana": "そお",
+        "restrictions": []
+      },
+      {
+        "kana": "そーお",
+        "restrictions": []
+      },
+      {
+        "kana": "そーう",
+        "restrictions": []
+      },
+      {
+        "kana": "そおお",
+        "restrictions": []
+      },
+      {
+        "kana": "そぅ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "appearing that",
+          "seeming that",
+          "looking like",
+          "having the appearance of"
+        ],
+        "pos": [
+          "auxiliary",
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1010080",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "はい",
+        "restrictions": []
+      },
+      {
+        "kana": "へい",
+        "restrictions": []
+      },
+      {
+        "kana": "はーい",
+        "restrictions": []
+      },
+      {
+        "kana": "はーーい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "yes",
+          "that is correct"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [
+          "polite (teineigo) language"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "understood",
+          "I see",
+          "OK",
+          "okay"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "present",
+          "here"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "pardon?",
+          "what's that?",
+          "come again?"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [
+          "colloquial"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "now",
+          "here",
+          "here you go"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "giddy-up",
+          "giddap"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1120990",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "ペット",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "pet"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "trumpet"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [
+          "abbreviation"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1157170",
+    "spellings": [
+      "為る"
+    ],
+    "readings": [
+      {
+        "kana": "する",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to do",
+          "to carry out",
+          "to perform"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "to cause to become",
+          "to make (into)",
+          "to turn (into)"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "to serve as",
+          "to act as",
+          "to work as"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "to wear (clothes, a facial expression, etc.)"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "to judge as being",
+          "to view as being",
+          "to think of as",
+          "to treat as",
+          "to use as"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "to decide on",
+          "to choose"
+        ],
+        "pos": [
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 7,
+        "glosses": [
+          "to be sensed (of a smell, noise, etc.)"
+        ],
+        "pos": [
+          "suru verb - included",
+          "intransitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 8,
+        "glosses": [
+          "to be (in a state, condition, etc.)"
+        ],
+        "pos": [
+          "suru verb - included",
+          "intransitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 9,
+        "glosses": [
+          "to be worth",
+          "to cost"
+        ],
+        "pos": [
+          "suru verb - included",
+          "intransitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 10,
+        "glosses": [
+          "to pass (of time)",
+          "to elapse"
+        ],
+        "pos": [
+          "suru verb - included",
+          "intransitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 11,
+        "glosses": [
+          "to place, or raise, person A to a post or status B"
+        ],
+        "pos": [
+          "suru verb - included",
+          "transitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 12,
+        "glosses": [
+          "to transform A to B",
+          "to make A into B",
+          "to exchange A for B"
+        ],
+        "pos": [
+          "suru verb - included",
+          "transitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 13,
+        "glosses": [
+          "to make use of A for B",
+          "to view A as B",
+          "to handle A as if it were B"
+        ],
+        "pos": [
+          "suru verb - included",
+          "transitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 14,
+        "glosses": [
+          "to feel A about B"
+        ],
+        "pos": [
+          "suru verb - included",
+          "transitive verb"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 15,
+        "glosses": [
+          "verbalizing suffix (applies to nouns noted in this dictionary with the part of speech \"vs\")"
+        ],
+        "pos": [
+          "suffix",
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 16,
+        "glosses": [
+          "creates a humble verb (after a noun prefixed with \"o\" or \"go\")"
+        ],
+        "pos": [
+          "auxiliary verb",
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 17,
+        "glosses": [
+          "to be just about to",
+          "to be just starting to",
+          "to try to",
+          "to attempt to"
+        ],
+        "pos": [
+          "auxiliary verb",
+          "suru verb - included"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1207240",
+    "spellings": [
+      "楽しい",
+      "愉しい",
+      "樂しい",
+      "娯しい"
+    ],
+    "readings": [
+      {
+        "kana": "たのしい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "enjoyable",
+          "fun",
+          "pleasant",
+          "happy",
+          "delightful"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1217950",
+    "spellings": [
+      "願う"
+    ],
+    "readings": [
+      {
+        "kana": "ねがう",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to desire",
+          "to wish",
+          "to hope"
+        ],
+        "pos": [
+          "Godan verb with 'u' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "to beg",
+          "to request",
+          "to implore",
+          "to pray"
+        ],
+        "pos": [
+          "Godan verb with 'u' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "to have something done for oneself"
+        ],
+        "pos": [
+          "Godan verb with 'u' ending",
+          "auxiliary verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1223615",
+    "spellings": [
+      "貴方",
+      "貴女",
+      "貴男"
+    ],
+    "readings": [
+      {
+        "kana": "あなた",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "you"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "dear",
+          "honey"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [
+          "familiar language",
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [
+          "貴方",
+          "貴男"
+        ],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1254790",
+    "spellings": [
+      "結婚"
+    ],
+    "readings": [
+      {
+        "kana": "けっこん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "marriage"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1270700",
+    "spellings": [
+      "御目出度う",
+      "御芽出度う",
+      "お目出度う",
+      "お芽出度う"
+    ],
+    "readings": [
+      {
+        "kana": "おめでとう",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "congratulations!",
+          "well done!",
+          "best wishes!",
+          "all the best!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1304970",
+    "spellings": [
+      "仕事"
+    ],
+    "readings": [
+      {
+        "kana": "しごと",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "work",
+          "job",
+          "labor",
+          "labour",
+          "business",
+          "task",
+          "assignment",
+          "occupation",
+          "employment"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "work"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1311110",
+    "spellings": [
+      "私"
+    ],
+    "readings": [
+      {
+        "kana": "わたし",
+        "restrictions": []
+      },
+      {
+        "kana": "ワタシ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "I",
+          "me"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1312970",
+    "spellings": [
+      "飼う"
+    ],
+    "readings": [
+      {
+        "kana": "かう",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to keep (a pet or other animal)",
+          "to have",
+          "to own",
+          "to raise",
+          "to rear",
+          "to feed"
+        ],
+        "pos": [
+          "Godan verb with 'u' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1329000",
+    "spellings": [
+      "趣味"
+    ],
+    "readings": [
+      {
+        "kana": "しゅみ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "hobby",
+          "pastime"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "tastes",
+          "preference",
+          "liking"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1334040",
+    "spellings": [
+      "住む"
+    ],
+    "readings": [
+      {
+        "kana": "すむ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to live (of humans)",
+          "to reside",
+          "to inhabit",
+          "to dwell",
+          "to abide"
+        ],
+        "pos": [
+          "Godan verb with 'mu' ending",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1339260",
+    "spellings": [
+      "出身"
+    ],
+    "readings": [
+      {
+        "kana": "しゅっしん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "one's origin (e.g. city, country, parentage, school)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1374550",
+    "spellings": [
+      "凄い"
+    ],
+    "readings": [
+      {
+        "kana": "すごい",
+        "restrictions": []
+      },
+      {
+        "kana": "スゴイ",
+        "restrictions": []
+      },
+      {
+        "kana": "すごーい",
+        "restrictions": []
+      },
+      {
+        "kana": "すご〜い",
+        "restrictions": []
+      },
+      {
+        "kana": "すっごーい",
+        "restrictions": []
+      },
+      {
+        "kana": "スゴい",
+        "restrictions": []
+      },
+      {
+        "kana": "スゴーイ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "terrible",
+          "dreadful"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "amazing (e.g. of strength)",
+          "great (e.g. of skills)",
+          "wonderful",
+          "terrific"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "to a great extent",
+          "vast (in numbers)"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "awfully",
+          "very",
+          "immensely"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone",
+          "colloquial"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1397300",
+    "spellings": [
+      "素晴らしい",
+      "素晴しい",
+      "素薔薇しい"
+    ],
+    "readings": [
+      {
+        "kana": "すばらしい",
+        "restrictions": []
+      },
+      {
+        "kana": "すんばらしい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "wonderful",
+          "splendid",
+          "magnificent",
+          "amazing",
+          "superb"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "exceeding",
+          "incredible",
+          "remarkable",
+          "striking",
+          "immense"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1413660",
+    "spellings": [
+      "大好き",
+      "大ちゅき"
+    ],
+    "readings": [
+      {
+        "kana": "だいすき",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "liking very much",
+          "loving (something or someone)",
+          "adoring",
+          "being very fond of"
+        ],
+        "pos": [
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1420470",
+    "spellings": [
+      "知る",
+      "識る"
+    ],
+    "readings": [
+      {
+        "kana": "しる",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "to know",
+          "to be aware (of)",
+          "to be conscious (of)",
+          "to learn (of)",
+          "to find out",
+          "to discover"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "to sense",
+          "to feel",
+          "to notice",
+          "to realize"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "to understand",
+          "to comprehend",
+          "to grasp",
+          "to appreciate"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "to remember",
+          "to be familiar with",
+          "to be acquainted with"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "to experience",
+          "to go through",
+          "to know (e.g. hardship)"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "to get acquainted with (a person)",
+          "to get to know"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 7,
+        "glosses": [
+          "to have to do with",
+          "to be concerned with",
+          "to be one's concern",
+          "to be one's responsibility"
+        ],
+        "pos": [
+          "Godan verb with 'ru' ending",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1452020",
+    "spellings": [
+      "同感"
+    ],
+    "readings": [
+      {
+        "kana": "どうかん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "same feeling",
+          "same sentiment",
+          "same opinion",
+          "sympathy",
+          "agreement",
+          "concurrence"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1512670",
+    "spellings": [
+      "勉強"
+    ],
+    "readings": [
+      {
+        "kana": "べんきょう",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "study"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "diligence",
+          "working hard"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "experience",
+          "knowledge",
+          "lesson (for the future)"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "discount",
+          "price reduction"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "transitive verb",
+          "intransitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1523060",
+    "spellings": [
+      "本当",
+      "本當"
+    ],
+    "readings": [
+      {
+        "kana": "ほんとう",
+        "restrictions": []
+      },
+      {
+        "kana": "ほんと",
+        "restrictions": []
+      },
+      {
+        "kana": "ホントー",
+        "restrictions": []
+      },
+      {
+        "kana": "ホント",
+        "restrictions": []
+      },
+      {
+        "kana": "ホントウ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "truth",
+          "reality",
+          "actuality",
+          "fact"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "nouns which may take the genitive case particle 'no'",
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "proper",
+          "right",
+          "correct",
+          "official"
+        ],
+        "pos": [
+          "nouns which may take the genitive case particle 'no'",
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "genuine",
+          "authentic",
+          "real",
+          "natural",
+          "veritable"
+        ],
+        "pos": [
+          "nouns which may take the genitive case particle 'no'",
+          "adjectival nouns or quasi-adjectives (keiyodoshi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1533580",
+    "spellings": [
+      "面白い"
+    ],
+    "readings": [
+      {
+        "kana": "おもしろい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "interesting",
+          "fascinating",
+          "intriguing",
+          "enthralling"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "amusing",
+          "funny",
+          "comical"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "enjoyable",
+          "fun",
+          "entertaining",
+          "pleasant",
+          "agreeable"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "good",
+          "satisfactory",
+          "favourable",
+          "desirable",
+          "encouraging"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1535780",
+    "spellings": [
+      "勿論"
+    ],
+    "readings": [
+      {
+        "kana": "もちろん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "of course",
+          "certainly",
+          "naturally"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1553310",
+    "spellings": [
+      "了解",
+      "諒解",
+      "領解",
+      "領会"
+    ],
+    "readings": [
+      {
+        "kana": "りょうかい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "comprehension",
+          "consent",
+          "understanding",
+          "agreement"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)",
+          "noun or participle which takes the aux. verb suru",
+          "transitive verb"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "OK",
+          "roger"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1565440",
+    "spellings": [
+      "嗚呼",
+      "噫",
+      "嗟",
+      "於乎",
+      "於戯",
+      "嗟乎",
+      "吁"
+    ],
+    "readings": [
+      {
+        "kana": "ああ",
+        "restrictions": []
+      },
+      {
+        "kana": "あー",
+        "restrictions": []
+      },
+      {
+        "kana": "あぁ",
+        "restrictions": []
+      },
+      {
+        "kana": "ああっ",
+        "restrictions": []
+      },
+      {
+        "kana": "あ〜",
+        "restrictions": []
+      },
+      {
+        "kana": "あーっ",
+        "restrictions": []
+      },
+      {
+        "kana": "ああー",
+        "restrictions": []
+      },
+      {
+        "kana": "あ〜あ",
+        "restrictions": []
+      },
+      {
+        "kana": "あ〜っ",
+        "restrictions": []
+      },
+      {
+        "kana": "ああぁ",
+        "restrictions": []
+      },
+      {
+        "kana": "アー",
+        "restrictions": []
+      },
+      {
+        "kana": "アア",
+        "restrictions": []
+      },
+      {
+        "kana": "アァ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "ah!",
+          "oh!",
+          "alas!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "yes",
+          "indeed",
+          "that is correct"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "aah",
+          "gah",
+          "argh"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "hey!",
+          "yo!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "uh huh",
+          "yeah yeah",
+          "right",
+          "gotcha"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1577100",
+    "spellings": [
+      "何"
+    ],
+    "readings": [
+      {
+        "kana": "なに",
+        "restrictions": []
+      },
+      {
+        "kana": "ナニ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "what"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "you-know-what",
+          "that thing"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "whatsit",
+          "whachamacallit",
+          "what's-his-name",
+          "what's-her-name"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "penis",
+          "(one's) thing",
+          "dick"
+        ],
+        "pos": [
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [
+          "colloquial",
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "(not) at all",
+          "(not) in the slightest"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 6,
+        "glosses": [
+          "what?",
+          "huh?"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 7,
+        "glosses": [
+          "hey!",
+          "come on!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 8,
+        "glosses": [
+          "oh, no (it's fine)",
+          "why (it's nothing)",
+          "oh (certainly not)"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1577140",
+    "spellings": [
+      "何処",
+      "何所",
+      "何處"
+    ],
+    "readings": [
+      {
+        "kana": "どこ",
+        "restrictions": []
+      },
+      {
+        "kana": "いずこ",
+        "restrictions": [
+          "何処"
+        ]
+      },
+      {
+        "kana": "いずく",
+        "restrictions": [
+          "何処"
+        ]
+      },
+      {
+        "kana": "いづこ",
+        "restrictions": [
+          "何処"
+        ]
+      },
+      {
+        "kana": "いどこ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "where",
+          "what place"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "how much (long, far)",
+          "what extent"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1583250",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "いいえ",
+        "restrictions": []
+      },
+      {
+        "kana": "いえ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "no"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "you're welcome",
+          "not at all",
+          "don't mention it"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1586820",
+    "spellings": [
+      "有難う",
+      "有り難う",
+      "有りがとう"
+    ],
+    "readings": [
+      {
+        "kana": "ありがとう",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "thank you",
+          "thanks"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [
+          "word usually written using kana alone"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "1605820",
+    "spellings": [
+      "良い",
+      "好い",
+      "善い",
+      "佳い",
+      "吉い",
+      "宜い"
+    ],
+    "readings": [
+      {
+        "kana": "よい",
+        "restrictions": []
+      },
+      {
+        "kana": "えい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "good",
+          "excellent",
+          "fine",
+          "nice",
+          "pleasant",
+          "agreeable"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "sufficient",
+          "enough",
+          "ready",
+          "prepared"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "profitable (deal, business offer, etc.)",
+          "beneficial"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "OK",
+          "all right",
+          "fine",
+          "no problem"
+        ],
+        "pos": [
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "easy to ..."
+        ],
+        "pos": [
+          "suffix",
+          "adjective (keiyoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2028940",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "も",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "too",
+          "also",
+          "in addition",
+          "as well",
+          "(not) either (in a negative sentence)"
+        ],
+        "pos": [
+          "particle"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "both A and B",
+          "A as well as B",
+          "neither A nor B (in a negative sentence)"
+        ],
+        "pos": [
+          "particle"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "even",
+          "as much as",
+          "as many as",
+          "as far as",
+          "as long as",
+          "no less than",
+          "no fewer than"
+        ],
+        "pos": [
+          "particle"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "even if",
+          "even though",
+          "although",
+          "in spite of"
+        ],
+        "pos": [
+          "particle"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 5,
+        "glosses": [
+          "further",
+          "more",
+          "again",
+          "another",
+          "the other"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "misc": [
+          "colloquial"
+        ],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2057830",
+    "spellings": [
+      "その通り",
+      "其の通り"
+    ],
+    "readings": [
+      {
+        "kana": "そのとおり",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "just like that",
+          "quite so",
+          "I agree"
+        ],
+        "pos": [
+          "expressions (phrases, clauses, etc.)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "that street"
+        ],
+        "pos": [
+          "expressions (phrases, clauses, etc.)",
+          "noun (common) (futsuumeishi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2087950",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "わあ",
+        "restrictions": []
+      },
+      {
+        "kana": "わあっ",
+        "restrictions": []
+      },
+      {
+        "kana": "わっ",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "wow!",
+          "oh!",
+          "eek!",
+          "gee!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "yeah!",
+          "alright!",
+          "hurray!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "waah!",
+          "boohoo!"
+        ],
+        "pos": [
+          "interjection (kandoushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2748410",
+    "spellings": [
+      "間違いなく",
+      "間違い無く"
+    ],
+    "readings": [
+      {
+        "kana": "まちがいなく",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "clearly",
+          "unmistakably",
+          "certainly",
+          "without a doubt"
+        ],
+        "pos": [
+          "adverb (fukushi)"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2820690",
+    "spellings": [],
+    "readings": [
+      {
+        "kana": "いい",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "good",
+          "excellent",
+          "fine",
+          "nice",
+          "pleasant",
+          "agreeable"
+        ],
+        "pos": [
+          "adjective (keiyoushi) - yoi/ii class"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "sufficient",
+          "enough",
+          "ready",
+          "prepared"
+        ],
+        "pos": [
+          "adjective (keiyoushi) - yoi/ii class"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "profitable (deal, business offer, etc.)",
+          "beneficial"
+        ],
+        "pos": [
+          "adjective (keiyoushi) - yoi/ii class"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "OK",
+          "all right",
+          "fine",
+          "no problem"
+        ],
+        "pos": [
+          "adjective (keiyoushi) - yoi/ii class"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  },
+  {
+    "ent_seq": "2846738",
+    "spellings": [
+      "何"
+    ],
+    "readings": [
+      {
+        "kana": "なん",
+        "restrictions": []
+      }
+    ],
+    "senses": [
+      {
+        "index": 1,
+        "glosses": [
+          "what"
+        ],
+        "pos": [
+          "pronoun"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 2,
+        "glosses": [
+          "how many"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 3,
+        "glosses": [
+          "many",
+          "a lot of"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      },
+      {
+        "index": 4,
+        "glosses": [
+          "several",
+          "a few",
+          "some"
+        ],
+        "pos": [
+          "prefix"
+        ],
+        "misc": [],
+        "restricted_spellings": [],
+        "restricted_readings": []
+      }
+    ]
+  }
+]

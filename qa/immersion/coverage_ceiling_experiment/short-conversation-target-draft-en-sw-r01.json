@@ -1,0 +1,2980 @@
+{
+  "schema": "vipi-short-source-target-draft-1",
+  "production": false,
+  "target_language": "sw",
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "new_heldout_seen": false,
+  "target_policy_frozen": false,
+  "authorship": "immersion_engine, independently reviewable exact short constructions",
+  "primary_licenses": [
+    "CC-BY-SA-4.0, exact upstream and selected-record hashes retained"
+  ],
+  "primary_verification_references": [
+    {
+      "url": "https://africa.uga.edu/Kiswahili/doe/unit_01/unit1grammar.html",
+      "scope": "Pronouns, present subject/tense morphology and noun-class agreement; verification only."
+    },
+    {
+      "url": "https://olrc.ku.edu/swahili-glossary",
+      "scope": "Exact ordinary residence/origin questions and related study/possession constructions; verification only."
+    }
+  ],
+  "rows": [
+    {
+      "id": "short-train-r01-01",
+      "source": "yes",
+      "sense_group": "affirmation",
+      "target": "Ndiyo.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 19,
+          "word": "ndiyo",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "yes, that's it"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 20,
+          "word": "ndiyo",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#M-mi class|mi class_((IV))]]/[[Appendix:Swahili_noun_classes#Ji-ma class|ma class_((VI))]]/[[Appendix:Swahili_noun_classes#N class|n class_((IX))]] object of ndi-; that is it, those are it"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-02",
+      "source": "how about you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 7,
+          "word": "wewe",
+          "pos": "pron",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "you (second-person singular pronoun)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-03",
+      "source": "what about you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 7,
+          "word": "wewe",
+          "pos": "pron",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "you (second-person singular pronoun)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-04",
+      "source": "wow",
+      "sense_group": "amazement",
+      "target": "Lo!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 4,
+          "word": "lo",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "oh!"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-05",
+      "source": "that's cool",
+      "sense_group": "approval_cool",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Approval versus literal temperature is unresolved."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-06",
+      "source": "me too",
+      "sense_group": "shared_experience",
+      "target": "Mimi pia.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 9,
+          "word": "mimi",
+          "pos": "pron",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "I (first-person singular pronoun)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 8,
+          "word": "pia",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "also"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "all (used with -ote for emphasis)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-07",
+      "source": "yeah",
+      "sense_group": "affirmation",
+      "target": "Naam.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 0,
+          "word": "naam",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "yes; certainly"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-08",
+      "source": "really",
+      "sense_group": "verification_or_surprise",
+      "target": "Kweli?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Requires complete source ending in ?. A bare declarative/adverb really is not this unit."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 15,
+          "word": "kweli",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "truth; truthfulness"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 16,
+          "word": "kweli",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "true"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "real (not fake)"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 17,
+          "word": "kweli",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "really; truly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 18,
+          "word": "kweli",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Used to express surprise, doubt, or to seek confirmation: really?"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-09",
+      "source": "i agree",
+      "sense_group": "explicit_agreement",
+      "target": "Ninakubaliana.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 37,
+          "word": "kubaliana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Reciprocal form of -kubali: to agree with one another"
+              ],
+              "tags": [
+                "form-of",
+                "reciprocal"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-10",
+      "source": "that's awesome",
+      "sense_group": "positive_evaluation",
+      "target": "Hiyo ni ya ajabu!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 32,
+          "word": "ajabu",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "wonder, amazement"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "something which is wondrous or amazing"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 33,
+          "word": "ajabu",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "wonderful"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 34,
+          "word": "ajabu",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be amazed or surprised"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-11",
+      "source": "thanks",
+      "sense_group": "gratitude",
+      "target": "Asante.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 25,
+          "word": "asante",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Thank you!"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 26,
+          "word": "asante",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "thanks, gratitude"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-12",
+      "source": "do you have any pets",
+      "sense_group": "pet_ownership_question",
+      "target": "Una wanyama wa nyumbani?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "The selected noun is attested for pet and domesticated animal. A broad farm-animal interpretation is a possible sense concern for the complete question."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 38,
+          "word": "mnyama wa nyumbani",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "domesticated animal"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "pet"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-13",
+      "source": "no",
+      "sense_group": "negative_response",
+      "target": "Hapana.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 52,
+          "word": "hapana",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "no; a negative answer (used to show disagreement or negation)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 53,
+          "word": "hapana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "pa locative class subject inflected present negative of -wa na"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-14",
+      "source": "thank you",
+      "sense_group": "gratitude",
+      "target": "Asante.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 25,
+          "word": "asante",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Thank you!"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 26,
+          "word": "asante",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "thanks, gratitude"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-15",
+      "source": "oh yeah",
+      "sense_group": "affirmation_with_reaction",
+      "target": "Naam!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 0,
+          "word": "naam",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "yes; certainly"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-16",
+      "source": "not really",
+      "sense_group": "qualified_negative",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Degree versus denial depends on omitted predicate."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-17",
+      "source": "that sounds fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": "Inaonekana kufurahisha.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 49,
+          "word": "onekana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be visible, to be apparent"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to seem"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 54,
+          "word": "furahisha",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Causative form of -furahi: to make happy"
+              ],
+              "tags": [
+                "causative",
+                "form-of"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-18",
+      "source": "that's great",
+      "sense_group": "positive_evaluation",
+      "target": "Hiyo ni nzuri sana.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 21,
+          "word": "nzuri",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#N class|n class_((IX/X))]] inflected form of -zuri"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 22,
+          "word": "nzuri",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "I'm fine (response to \"how are you?\")"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-19",
+      "source": "oh wow",
+      "sense_group": "amazement",
+      "target": "Lo!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 4,
+          "word": "lo",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "oh!"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-20",
+      "source": "for sure",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 39,
+          "word": "bila shaka",
+          "pos": "prep_phrase",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "without a doubt, certainly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 40,
+          "word": "bila shaka",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "no problem, no worries"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "you're welcome! (response to being thanked)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-21",
+      "source": "that's true",
+      "sense_group": "assert_truth",
+      "target": "Hiyo ni kweli.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 15,
+          "word": "kweli",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "truth; truthfulness"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 16,
+          "word": "kweli",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "true"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "real (not fake)"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 17,
+          "word": "kweli",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "really; truly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 18,
+          "word": "kweli",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Used to express surprise, doubt, or to seek confirmation: really?"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-22",
+      "source": "where do you live",
+      "sense_group": "current_residence_question",
+      "target": "Unaishi wapi?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 6,
+          "word": "ishi",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to live"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to exist; to dwell"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 47,
+          "word": "wapi",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "where"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-23",
+      "source": "interesting",
+      "sense_group": "interest_reaction",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Independent natural Swahili evaluative form needs further verification."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-24",
+      "source": "oh no",
+      "sense_group": "concern_reaction",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Surprise/disappointment/denial force varies; no universal target selected."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-25",
+      "source": "where are you from",
+      "sense_group": "origin_question",
+      "target": "Unatoka wapi?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 35,
+          "word": "unatoka wapi",
+          "pos": "phrase",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "where are you from?"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-26",
+      "source": "i see",
+      "sense_group": "acknowledge_understanding",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Vision versus acknowledgment unresolved."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-27",
+      "source": "i know",
+      "sense_group": "acknowledge_knowledge",
+      "target": "Ninajua.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 43,
+          "word": "jua",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "sun"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 44,
+          "word": "jua",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to know"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-28",
+      "source": "i love it",
+      "sense_group": "strong_liking",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Swahili object class/reference is not resolved by this isolated source."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-29",
+      "source": "definitely",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 39,
+          "word": "bila shaka",
+          "pos": "prep_phrase",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "without a doubt, certainly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 40,
+          "word": "bila shaka",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "no problem, no worries"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "you're welcome! (response to being thanked)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-30",
+      "source": "do you have any hobbies",
+      "sense_group": "hobby_existence_question",
+      "target": "Una hobi zozote?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hobi is attested but tagged uncommon/neologism; ordinary modern-use suitability remains a review question."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 14,
+          "word": "hobi",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "hobby"
+              ],
+              "tags": [
+                "class-ix",
+                "neologism",
+                "uncommon"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 46,
+          "word": "zozote",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#N class|n class_((X))]] inflected form of -o-ote"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-31",
+      "source": "oh nice",
+      "sense_group": "positive_reaction",
+      "target": "Vizuri!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Target reaction can absorb the English oh; this is pragmatic unit translation, not word correspondence."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 48,
+          "word": "vizuri",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#Ki-vi class|vi class_((VIII))]] inflected form and adverbial form of -zuri"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-32",
+      "source": "and you",
+      "sense_group": "reciprocal_question",
+      "target": "Na wewe?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Requires complete source ending in ?. It is not a conjunction prefix before a following predicate."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 7,
+          "word": "wewe",
+          "pos": "pron",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "you (second-person singular pronoun)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-33",
+      "source": "ok",
+      "sense_group": "acceptance",
+      "target": "Sawa.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 12,
+          "word": "sawa",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "equal"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 13,
+          "word": "sawa",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "okay"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-34",
+      "source": "do you have any kids",
+      "sense_group": "children_existence_question",
+      "target": "Una watoto?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 11,
+          "word": "watoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "plural of mtoto"
+              ],
+              "tags": [
+                "class-2",
+                "form-of",
+                "plural"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 10,
+          "word": "mtoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "child (very young person)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-35",
+      "source": "what are your hobbies",
+      "sense_group": "hobby_identity_question",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "A natural plural-hobby question is not yet qualified."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-36",
+      "source": "do you work",
+      "sense_group": "work_status_question",
+      "target": "Unafanya kazi?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 36,
+          "word": "fanya kazi",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to work"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-37",
+      "source": "yep",
+      "sense_group": "affirmation",
+      "target": "Ndiyo.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 19,
+          "word": "ndiyo",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "yes, that's it"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 20,
+          "word": "ndiyo",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#M-mi class|mi class_((IV))]]/[[Appendix:Swahili_noun_classes#Ji-ma class|ma class_((VI))]]/[[Appendix:Swahili_noun_classes#N class|n class_((IX))]] object of ndi-; that is it, those are it"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-38",
+      "source": "are you married",
+      "sense_group": "marital_status_question",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Swahili gender-neutral conventional formulation has not been qualified."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-39",
+      "source": "that sounds like fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": "Inaonekana kufurahisha.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 49,
+          "word": "onekana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be visible, to be apparent"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to seem"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 54,
+          "word": "furahisha",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Causative form of -furahi: to make happy"
+              ],
+              "tags": [
+                "causative",
+                "form-of"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-40",
+      "source": "congratulations",
+      "sense_group": "congratulate",
+      "target": "Hongera!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 27,
+          "word": "hongera",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "congratulation (act of congratulating)"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 28,
+          "word": "hongera",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "congratulations! (expressing approbation)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-41",
+      "source": "absolutely",
+      "sense_group": "certainty",
+      "target": "Bila shaka.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 39,
+          "word": "bila shaka",
+          "pos": "prep_phrase",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "without a doubt, certainly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 40,
+          "word": "bila shaka",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "no problem, no worries"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "you're welcome! (response to being thanked)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-42",
+      "source": "that is true",
+      "sense_group": "assert_truth",
+      "target": "Hiyo ni kweli.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 15,
+          "word": "kweli",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "truth; truthfulness"
+              ],
+              "tags": [
+                "class-ix"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 16,
+          "word": "kweli",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "true"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "real (not fake)"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 17,
+          "word": "kweli",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "really; truly"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 18,
+          "word": "kweli",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "Used to express surprise, doubt, or to seek confirmation: really?"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-43",
+      "source": "that sounds great",
+      "sense_group": "anticipated_positive_evaluation",
+      "target": "Inaonekana vizuri sana.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 49,
+          "word": "onekana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be visible, to be apparent"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to seem"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 48,
+          "word": "vizuri",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#Ki-vi class|vi class_((VIII))]] inflected form and adverbial form of -zuri"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-44",
+      "source": "that's amazing",
+      "sense_group": "positive_evaluation",
+      "target": "Hiyo ni ya ajabu!",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 32,
+          "word": "ajabu",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "wonder, amazement"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "something which is wondrous or amazing"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 33,
+          "word": "ajabu",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "wonderful"
+              ],
+              "tags": [
+                "invariable"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 34,
+          "word": "ajabu",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be amazed or surprised"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-45",
+      "source": "thats great",
+      "sense_group": "positive_evaluation",
+      "target": "Hiyo ni nzuri sana.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "Hiyo uses a generic proposition/situation antecedent. Noun-class agreement with a specific prior object may require a different form; this must be reviewed before policy freeze."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 29,
+          "word": "hiyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "that (which we were just speaking of before)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 41,
+          "word": "ni",
+          "pos": "particle",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "focus marker"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 42,
+          "word": "ni",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "positive degree present and gnomic (all persons, numbers, and classes) of -wa (“to be”)"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 21,
+          "word": "nzuri",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#N class|n class_((IX/X))]] inflected form of -zuri"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 22,
+          "word": "nzuri",
+          "pos": "intj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "I'm fine (response to \"how are you?\")"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-46",
+      "source": "what are you studying",
+      "sense_group": "study_object_question",
+      "target": "Unasoma nini?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 5,
+          "word": "soma",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to read"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to study"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 45,
+          "word": "nini",
+          "pos": "pron",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "what (interrogative pronoun)"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-47",
+      "source": "i'm sorry to hear that",
+      "sense_group": "empathy_negative_news",
+      "target": "Ninasikitika kusikia hivyo.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 51,
+          "word": "sikitika",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be sad"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to be disappointed"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 2,
+              "glosses": [
+                "to grieve"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 3,
+              "glosses": [
+                "to be sorry"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 50,
+          "word": "kusikia",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "infinitive of -sikia"
+              ],
+              "tags": [
+                "form-of",
+                "infinitive",
+                "noun-from-verb"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 30,
+          "word": "hivyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#Ki-vi class|vi class_((VIII))]] inflected form and adverbial form of hiyo"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 31,
+          "word": "hivyo",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "thus, so"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "yes"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-48",
+      "source": "do you have kids",
+      "sense_group": "children_existence_question",
+      "target": "Una watoto?",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 1,
+          "word": "na",
+          "pos": "conj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "and"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 2,
+          "word": "na",
+          "pos": "prep",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "with"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "by"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 3,
+          "word": "na",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "present stem of -wa na (“to have”)"
+              ],
+              "tags": [
+                "form-of",
+                "present",
+                "stem"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 11,
+          "word": "watoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "plural of mtoto"
+              ],
+              "tags": [
+                "class-2",
+                "form-of",
+                "plural"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 10,
+          "word": "mtoto",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "child (very young person)"
+              ],
+              "tags": [
+                "class-i"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-49",
+      "source": "sounds good",
+      "sense_group": "acceptance",
+      "target": "Inaonekana vizuri.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase.",
+        "English sounds is interpreted as an inference from the description, using appears/seems. Literal auditory-sound readings are not qualified."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 49,
+          "word": "onekana",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to be visible, to be apparent"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to seem"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 48,
+          "word": "vizuri",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#Ki-vi class|vi class_((VIII))]] inflected form and adverbial form of -zuri"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-50",
+      "source": "i hope so",
+      "sense_group": "hope_for_prior_proposition",
+      "target": "Ninatumaini hivyo.",
+      "reading": null,
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Whole short construction authored; ordinary first/second-person present morphology is not a generic runtime template. Lemma evidence does not independently certify the whole phrase."
+      ],
+      "evidence": [
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 23,
+          "word": "tumaini",
+          "pos": "verb",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "to hope (to want something to happen)"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "to believe, expect"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 24,
+          "word": "tumaini",
+          "pos": "noun",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "belief, expectation"
+              ],
+              "tags": [
+                "class-v"
+              ]
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "hope"
+              ],
+              "tags": [
+                "class-v",
+                "in-plural",
+                "often"
+              ]
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 30,
+          "word": "hivyo",
+          "pos": "adj",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "[[Appendix:Swahili_noun_classes#Ki-vi class|vi class_((VIII))]] inflected form and adverbial form of hiyo"
+              ],
+              "tags": []
+            }
+          ]
+        },
+        {
+          "source": "swahili-constituents.json",
+          "source_sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+          "record_index": 31,
+          "word": "hivyo",
+          "pos": "adv",
+          "senses": [
+            {
+              "sense_index": 0,
+              "glosses": [
+                "thus, so"
+              ],
+              "tags": []
+            },
+            {
+              "sense_index": 1,
+              "glosses": [
+                "yes"
+              ],
+              "tags": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 50,
+    "status_counts": {
+      "authored_draft_for_review": 42,
+      "unavailable": 8
+    },
+    "readings_supplied": 0
+  }
+}

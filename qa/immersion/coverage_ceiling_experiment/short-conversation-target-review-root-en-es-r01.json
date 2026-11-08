@@ -1,0 +1,426 @@
+{
+  "reviewer": "/root",
+  "reviewed_at_utc": "2026-11-08T04:13:30.988874+00:00",
+  "production": false,
+  "draft_sha256": "e062dada499fba5e0db7f9b362fc44edd16c6dd1320160f38d77d219622f3f80",
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "heldout_opened_for_this_review": false,
+  "kind": "Authoring-stage linguistic review, not independent heldout scoring or bilingual certification",
+  "global_conditions": [
+    "Freeze exact source IDs and sense_group metadata; null draft source_group must be repaired in a new version.",
+    "Use complete utterances or complete punctuation-delimited sentences; never trim a longer syntactic complement merely to obtain a match.",
+    "Preserve communicative force: statement targets must not silently replace question-mark variants. Explicit question templates remain questions; and you/really require terminal question punctuation.",
+    "Neutral informal singular tú is a deliberate authored register for one-to-one chat; no claim that English you identifies number/formality in every context.",
+    "Constituent dictionary records corroborate lexical choices, not independent full-phrase translations.",
+    "Whole-reference availability must remain separate from native beginner-density automatic selection."
+  ],
+  "rows": [
+    {
+      "source": "yes",
+      "draft_target": "Sí.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Sí.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "how about you",
+      "draft_target": "¿Y tú?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Y tú?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "what about you",
+      "draft_target": "¿Y tú?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Y tú?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "wow",
+      "draft_target": "¡Vaya!",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¡Vaya!",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that's cool",
+      "draft_target": "Eso está genial.",
+      "decision": "retain_withheld_ambiguous",
+      "proposed_target": "Eso está genial.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "me too",
+      "draft_target": "Yo también.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Yo también.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Yo también preserves the shared-person response. Fully Spanish preceding clauses can require a mí también with gustar-style predicates; do not claim this standalone mapping solves target-language dialogue agreement."
+    },
+    {
+      "source": "yeah",
+      "draft_target": "Sí.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Sí.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "really",
+      "draft_target": "¿En serio?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿En serio?",
+      "matching_condition": "Require complete question with terminal ?; do not accept bare/statement form.",
+      "reason": "¿En serio? fits a complete surprised/skeptical question. Require terminal question punctuation and exclude adverbial statements."
+    },
+    {
+      "source": "i agree",
+      "draft_target": "Estoy de acuerdo.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Estoy de acuerdo.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that's awesome",
+      "draft_target": "Eso es increíble.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso es increíble.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "thanks",
+      "draft_target": "Gracias.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Gracias.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "do you have any pets",
+      "draft_target": "¿Tienes mascotas?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Tienes mascotas?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "no",
+      "draft_target": "No.",
+      "decision": "retain_unchanged_face_not_useful",
+      "proposed_target": "No.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "thank you",
+      "draft_target": "Gracias.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Gracias.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "oh yeah",
+      "draft_target": "Ah, sí.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Ah, sí.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "not really",
+      "draft_target": null,
+      "decision": "retain_unavailable",
+      "proposed_target": null,
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "that sounds fun",
+      "draft_target": "Suena divertido.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Suena divertido.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that's great",
+      "draft_target": "Eso está genial.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso está genial.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "oh wow",
+      "draft_target": "¡Vaya!",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¡Vaya!",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "for sure",
+      "draft_target": "Por supuesto.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Por supuesto.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Por supuesto is an acceptable complete certainty/assent response; do not match an adverbial substring of a longer sentence."
+    },
+    {
+      "source": "that's true",
+      "draft_target": "Eso es verdad.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso es verdad.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "where do you live",
+      "draft_target": "¿Dónde vives?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Dónde vives?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "interesting",
+      "draft_target": "Interesante.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Interesante.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "oh no",
+      "draft_target": "¡Oh, no!",
+      "decision": "retain_unchanged_face_not_useful",
+      "proposed_target": "¡Oh, no!",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "where are you from",
+      "draft_target": "¿De dónde eres?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿De dónde eres?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "i see",
+      "draft_target": null,
+      "decision": "retain_unavailable",
+      "proposed_target": null,
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "i know",
+      "draft_target": "Lo sé.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Lo sé.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Lo sé is an idiomatic complete acknowledgement of the proposition. Do not match a prefix before a complement or treat it as an attested full construction merely from constituent records."
+    },
+    {
+      "source": "i love it",
+      "draft_target": "Me encanta.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Me encanta.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Me encanta is an idiomatic strong positive reaction to a thing/activity, with no inferred person gender."
+    },
+    {
+      "source": "definitely",
+      "draft_target": "Sin duda.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Sin duda.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "do you have any hobbies",
+      "draft_target": "¿Tienes aficiones?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Tienes aficiones?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "oh nice",
+      "draft_target": "¡Qué bien!",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¡Qué bien!",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "and you",
+      "draft_target": "¿Y tú?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Y tú?",
+      "matching_condition": "Require complete question with terminal ?; do not accept bare/statement form.",
+      "reason": "¿Y tú? is acceptable only for a complete reciprocal question. Require question punctuation for this otherwise ambiguous continuation; do not match bare conjunction+pronoun solely because a message ends."
+    },
+    {
+      "source": "ok",
+      "draft_target": "De acuerdo.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "De acuerdo.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "De acuerdo fits assent. Exclude question-mark form OK? because it may ask about wellbeing or comprehension."
+    },
+    {
+      "source": "do you have any kids",
+      "draft_target": "¿Tienes hijos?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Tienes hijos?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "what are your hobbies",
+      "draft_target": "¿Cuáles son tus aficiones?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Cuáles son tus aficiones?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "do you work",
+      "draft_target": "¿Trabajas?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Trabajas?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "¿Trabajas? fits an employment question to one addressee. Device functioning/current-activity ambiguity belongs in contextual evaluation."
+    },
+    {
+      "source": "yep",
+      "draft_target": "Sí.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Sí.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "are you married",
+      "draft_target": null,
+      "decision": "retain_unavailable",
+      "proposed_target": null,
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Retain the declared ambiguity/unavailability/unchanged-face exclusion; no alternative target invented for coverage."
+    },
+    {
+      "source": "that sounds like fun",
+      "draft_target": "Suena divertido.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Suena divertido.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "congratulations",
+      "draft_target": "¡Felicidades!",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¡Felicidades!",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "¡Felicidades! is a standard congratulations response; surrounding events still determine pragmatics."
+    },
+    {
+      "source": "absolutely",
+      "draft_target": "Por supuesto.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Por supuesto.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that is true",
+      "draft_target": "Eso es verdad.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso es verdad.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that sounds great",
+      "draft_target": "Suena genial.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Suena genial.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "that's amazing",
+      "draft_target": "Eso es asombroso.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso es asombroso.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "thats great",
+      "draft_target": "Eso está genial.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Eso está genial.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "what are you studying",
+      "draft_target": "¿Qué estás estudiando?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Qué estás estudiando?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "i'm sorry to hear that",
+      "draft_target": "Siento oír eso.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Siento oír eso.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "do you have kids",
+      "draft_target": "¿Tienes hijos?",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "¿Tienes hijos?",
+      "matching_condition": "Complete interrogative unit; retain question meaning even if informal source omits punctuation.",
+      "reason": "Meaning and form are suitable for the proposed complete unit; source-context and matching qualification remain separate."
+    },
+    {
+      "source": "sounds good",
+      "draft_target": "Suena bien.",
+      "decision": "accept_authored_target_for_frozen_experiment",
+      "proposed_target": "Suena bien.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Suena bien supports both auditory quality and conversational agreement; complete unit only."
+    },
+    {
+      "source": "i hope so",
+      "draft_target": "Espero que sí.",
+      "decision": "revise_target_before_freeze",
+      "proposed_target": "Eso espero.",
+      "matching_condition": "Complete statement/reaction only; do not strip a question mark and silently reuse a declarative target.",
+      "reason": "Prefer Eso espero: an idiomatic complete response that refers back to the proposition without introducing explicit affirmative sí. Espero que sí is usually appropriate, but antecedent polarity still needs contextual evaluation."
+    }
+  ],
+  "counts": {
+    "accept_authored_target_for_frozen_experiment": 43,
+    "retain_withheld_ambiguous": 1,
+    "retain_unchanged_face_not_useful": 2,
+    "retain_unavailable": 3,
+    "revise_target_before_freeze": 1
+  }
+}

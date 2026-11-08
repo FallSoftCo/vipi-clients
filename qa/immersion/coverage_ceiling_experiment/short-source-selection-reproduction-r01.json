@@ -1,0 +1,21 @@
+{
+  "production": false,
+  "training_only": true,
+  "train_sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+  "frozen_source_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "script_sha256": "3f3e3a4de3013ad2759670cdd03c247049c2402568b62d5fc564bbf0eb52f1fd",
+  "exact50_source_order_and_all_turn_counts_reproduced": true,
+  "training_free_human_turns": 9535,
+  "training_short_whole_turns_with_letters": 1105,
+  "training_short_whole_turns_including_nonlexical": 1110,
+  "distinct_short_units": 5217,
+  "selected_union_turns": 839,
+  "selected_whole_turn_occurrences": 58,
+  "limits": [
+    "Punctuation-delimited clause reach is not whole-turn reach.",
+    "Crowdsourced persona TRAIN frequency is not worldwide private-chat frequency.",
+    "No target or held-out text influences source ranking."
+  ],
+  "denominator_clarification": "The original frozen1110 short-whole denominator includes5 nonlexical/numeric turns;1105 contain letters. Selected50 lexical units, source order and839/9535 union plus58 whole hits are unchanged.",
+  "original_frozen_source_changed": false
+}

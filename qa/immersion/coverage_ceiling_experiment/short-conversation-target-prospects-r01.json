@@ -1,0 +1,2173 @@
+{
+  "schema": "vipi-short-conversation-target-prospects-1",
+  "production": false,
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "source_selection_preceded_target_lookup": true,
+  "targets_authored_or_selected": false,
+  "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+  "dictionary_receipts": {
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/short-unit-primary-gloss-prospects-r01.json": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/short-unit-spanish-gloss-prospects-r01.json": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f"
+  },
+  "summary": {
+    "source_variants": 50,
+    "sense_groups": 35,
+    "training_turns": 9535,
+    "training_short_whole_turns": 1110,
+    "training_turns_with_whole_or_clause": 839,
+    "training_all_turn_reach": 0.08799160985841636,
+    "training_whole_message_hits": 58,
+    "training_short_whole_reach": 0.05225225225225225,
+    "training_all_turn_whole_reach": 0.006082852648138438,
+    "one_word_variants": 12
+  },
+  "target_audit_summary": {
+    "sw": {
+      "source_variants_with_existing_accepted_reference": 5,
+      "source_variants_with_exact_gloss_prospects": 5
+    },
+    "ja": {
+      "source_variants_with_existing_accepted_reference": 5,
+      "source_variants_with_exact_gloss_prospects": 22
+    },
+    "es": {
+      "source_variants_with_existing_accepted_reference": 5,
+      "source_variants_with_exact_gloss_prospects": 2
+    }
+  },
+  "training_marginality_upper_bound": {
+    "existing_normalized_catalog_source_forms": [
+      "no",
+      "ok",
+      "thank you",
+      "thanks",
+      "yes"
+    ],
+    "train_turns_containing_existing_forms": 137,
+    "train_turns_containing_new_forms": 715,
+    "train_turns_with_new_forms_but_no_existing_forms": 702,
+    "warning": "This only subtracts the five existing normalized formula sources. It does not subtract word-starter coverage or prove new runtime/model-call savings. Most selected occurrences are sentence clauses inside longer turns, not whole messages."
+  },
+  "source_provenance": {
+    "training": "BlendedSkillTalk CC-BY-4.0; original source/hash and source-only ranking retained.",
+    "japanese": "JMdict/EDRDG CC-BY-SA-4.0, exact pinned retained snapshot; same English gloss may have many senses/readings.",
+    "swahili": "Kaikki/Wiktionary CC-BY-SA-4.0, exact pinned retained Swahili snapshot.",
+    "spanish": "Only the bounded retained210per-word Kaikki/Wiktionary sources were searched;331actual records, CC-BY-SA-4.0. This is not an exhaustive Spanish dictionary scan."
+  },
+  "next_phase": [
+    "Root reviews source selection and likely marginal value before target authoring.",
+    "For each retained source variant, select an exact attested complete target or author a short unit with explicit primary grammar proof and independent semantic review; do not invent dictionary attestation.",
+    "Retain Japanese spelling/pronunciation/Latin reading as distinct fields; apply lexical pronunciation evidence rather than raw kana conversion.",
+    "Freeze target choices, scope/normalization policy and acceptance thresholds before any new disjoint evaluation outputs.",
+    "Keep complete-unit and in-message clause coverage/depth separate; existing starter/core/native provider controls remain unchanged."
+  ],
+  "limits": [
+    "Training role-play frequency is not ordinary worldwide private-chat frequency.",
+    "Fifty variants are not expected to solve90%coverage; observed training whole-message opportunity is only58turns.",
+    "Previously reviewed/evaluated source strings cannot provide new blind evidence after these units are authored.",
+    "No runtime additions, new translation models or backend calls are authorized by this proposal."
+  ],
+  "rows": [
+    {
+      "id": "short-train-r01-01",
+      "source": "yes",
+      "sense_group": "affirmation",
+      "train_rank": 1,
+      "train_distinct_turns": 67,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [
+            {
+              "source": "YES",
+              "record_sha256": "2190ab44c7154e82d6ea3a1d7096fb53b041418e857901d309445d75be322cad"
+            },
+            {
+              "source": "YES.",
+              "record_sha256": "b10fee3ee40e11ef0db9e2bc3a966d06a0fc9380354bebe9b307cbfd5ae31196"
+            },
+            {
+              "source": "Yes",
+              "record_sha256": "0ff589ef8d839d18d4c015708f4d6f8f1887e2e5b6ad139f6c5b7a122720eb84"
+            },
+            {
+              "source": "Yes.",
+              "record_sha256": "37764beadc9bd4ca2840e92e01d18fa494f5285470d79576975bcbe7bb865298"
+            },
+            {
+              "source": "yes",
+              "record_sha256": "de5150eb70cc2f8cc37fdbe9a15b321f37d8329520bcb70d80b06f54abd30c80"
+            },
+            {
+              "source": "yes.",
+              "record_sha256": "a406ea68a79e8b03627f6ba821daaaf6021bf7d9c8a13cdc56b9db8eebf9c373"
+            }
+          ],
+          "exact_primary_gloss_candidates": 1,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yes",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "ja": {
+          "accepted_catalog_records": [
+            {
+              "source": "YES",
+              "record_sha256": "0f8648b460718eaf712722f24caf73f25ddd9d7758b4ef2501261150cb6a502a"
+            },
+            {
+              "source": "YES.",
+              "record_sha256": "148a2c2f7624b13f31e623997d5a96419a0e982a2bca44a56660c7d7086c8092"
+            },
+            {
+              "source": "Yes",
+              "record_sha256": "15b5a6a68b6cc575d28f8e41a84d3afd01394ff7803108b7ee2be405cf67c0b8"
+            },
+            {
+              "source": "Yes.",
+              "record_sha256": "b7f2f1c0261bc9ea2ef9ec5f24798be4617e66d32cdafa08a2bdfb036fdce798"
+            },
+            {
+              "source": "yes",
+              "record_sha256": "e0915571a748191a6673e0ced912e3a2b4e3b0c7d95981a543442d06dad5dc66"
+            },
+            {
+              "source": "yes.",
+              "record_sha256": "4d4a4cf2c0282207fa160f1f3168ad52e93c224bd3beb7a170959a90c2ace461"
+            }
+          ],
+          "exact_primary_gloss_candidates": 35,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yes",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [
+            {
+              "source": "YES",
+              "record_sha256": "382d7408d485178538c202bb88ef85c13ecac7700ad25e654bc0b9170dcd9a4a"
+            },
+            {
+              "source": "YES.",
+              "record_sha256": "698e6638bcb9b347bcc6c9a6300e7a230e1408e222393aeac196d35b2246c25f"
+            },
+            {
+              "source": "Yes",
+              "record_sha256": "c41a7a5fb801130f04809414dd7afe5e638b7c643a9342cfd9d875779acd4e85"
+            },
+            {
+              "source": "Yes.",
+              "record_sha256": "7aec3c6f5ca2af8ec9e09515671a621945be9ed469ed87ef2dc75d6f8cbe5d78"
+            },
+            {
+              "source": "yes",
+              "record_sha256": "897c1c99578d6bfa02e4740f4790775ed3f353af4e13daa762d947e362affca0"
+            },
+            {
+              "source": "yes.",
+              "record_sha256": "4918bed565aa27b3928c97de040a645653bd6ad19398a805276bec8bb5d9c58a"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "yes",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-02",
+      "source": "how about you",
+      "sense_group": "reciprocal_question",
+      "train_rank": 2,
+      "train_distinct_turns": 59,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "how about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "how about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "how about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Previous proposition is omitted; target must retain a reciprocal question without inventing a subject predicate."
+    },
+    {
+      "id": "short-train-r01-03",
+      "source": "what about you",
+      "sense_group": "reciprocal_question",
+      "train_rank": 3,
+      "train_distinct_turns": 56,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "what about you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Previous proposition is omitted; target must retain a reciprocal question without inventing a subject predicate."
+    },
+    {
+      "id": "short-train-r01-04",
+      "source": "wow",
+      "sense_group": "amazement",
+      "train_rank": 4,
+      "train_distinct_turns": 48,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "wow",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 24,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "wow",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 1,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "wow",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-05",
+      "source": "that's cool",
+      "sense_group": "approval_cool",
+      "train_rank": 5,
+      "train_distinct_turns": 47,
+      "train_whole_turns": 4,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's cool",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's cool",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that's cool",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Cool must express conversational approval, not temperature. Literal/physical-use contrast must remain visible."
+    },
+    {
+      "id": "short-train-r01-06",
+      "source": "me too",
+      "sense_group": "shared_experience",
+      "train_rank": 6,
+      "train_distinct_turns": 41,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "me too",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 3,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "me too",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "me too",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-07",
+      "source": "yeah",
+      "sense_group": "affirmation",
+      "train_rank": 7,
+      "train_distinct_turns": 33,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yeah",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 14,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yeah",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "yeah",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-08",
+      "source": "really",
+      "sense_group": "verification_or_surprise",
+      "train_rank": 8,
+      "train_distinct_turns": 30,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "really",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 55,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "really",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "really",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Really can ask for confirmation or signal surprise; punctuation/pragmatics cannot be blindly discarded."
+    },
+    {
+      "id": "short-train-r01-09",
+      "source": "i agree",
+      "sense_group": "explicit_agreement",
+      "train_rank": 9,
+      "train_distinct_turns": 25,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i agree",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 2,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i agree",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i agree",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-10",
+      "source": "that's awesome",
+      "sense_group": "positive_evaluation",
+      "train_rank": 10,
+      "train_distinct_turns": 22,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's awesome",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's awesome",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that's awesome",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Preserve evaluative sense and intensity; slang/register differs across targets."
+    },
+    {
+      "id": "short-train-r01-11",
+      "source": "thanks",
+      "sense_group": "gratitude",
+      "train_rank": 11,
+      "train_distinct_turns": 21,
+      "train_whole_turns": 4,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thanks",
+              "record_sha256": "dd99491732d2f95057faa1637f71f02cb92768753422d97ea5acc420ee352f3d"
+            },
+            {
+              "source": "Thanks.",
+              "record_sha256": "39660065f302f28133549ec6623582f94402eb14bacec02eb13d31ccc0421be7"
+            },
+            {
+              "source": "thanks",
+              "record_sha256": "e63d735b6835dcb1048c0012093db68e6460a21667b0ef6d8532d4aa42b3a8f0"
+            },
+            {
+              "source": "thanks.",
+              "record_sha256": "10d5e7463e381764d79ab5f0a6233f0595540aa1e1aef6b828c0446a8ee72ecd"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thanks",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thanks",
+              "record_sha256": "8d76b817b4fbf87feeab53679b248a36fb3ced4152ae06f587aebb0bab893602"
+            },
+            {
+              "source": "Thanks.",
+              "record_sha256": "37a54580a4fe98b25f316f26a5a291e7e41dc2a7b7726347b78e905e068e9715"
+            },
+            {
+              "source": "thanks",
+              "record_sha256": "82a929908bf0b857a6b68ebf452ffe99e28317216b13a7a669a7cfc90f95788c"
+            },
+            {
+              "source": "thanks.",
+              "record_sha256": "8fac8359d331847a53cc961c9c73de41b0f384c47383ca3f3acd37cc05246d64"
+            }
+          ],
+          "exact_primary_gloss_candidates": 22,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thanks",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thanks",
+              "record_sha256": "0fe72d6aeee01565647bb545d7918033cb67c7dea9aec3b555022cbacdb6838c"
+            },
+            {
+              "source": "Thanks.",
+              "record_sha256": "6b1934a5c031557c3e5955496f774f449f2da7a540492b2d2bacaa66bd7fb198"
+            },
+            {
+              "source": "thanks",
+              "record_sha256": "5a8c5634bb913fef40d30ff7b31069ca34700a3dcba657f269717c1c64e6855c"
+            },
+            {
+              "source": "thanks.",
+              "record_sha256": "d313789fff13fe637edea1ed48493c2ad45e47e4f6401035429454332bd80b00"
+            }
+          ],
+          "exact_primary_gloss_candidates": 1,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "thanks",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-12",
+      "source": "do you have any pets",
+      "sense_group": "pet_ownership_question",
+      "train_rank": 12,
+      "train_distinct_turns": 21,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any pets",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any pets",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "do you have any pets",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-13",
+      "source": "no",
+      "sense_group": "negative_response",
+      "train_rank": 13,
+      "train_distinct_turns": 21,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [
+            {
+              "source": "NO",
+              "record_sha256": "0260709ae687b2ba732f041a1d0703ce06624afb29e7fe43e87ad78bf3aa4a49"
+            },
+            {
+              "source": "NO.",
+              "record_sha256": "54e33709d12dc3ec59b6759207f2322af2359971fa85d30c4d72e0118bc9a892"
+            },
+            {
+              "source": "No",
+              "record_sha256": "a5c0d512623bfa18137e217745d9829496a726ffd22b905c60e479b0717d7b6e"
+            },
+            {
+              "source": "No.",
+              "record_sha256": "a2d5c3d0ff519ac720ef257597a7b01e60379da02a77a6910a2908bacd02a660"
+            },
+            {
+              "source": "no",
+              "record_sha256": "8f419675de2cf7277635492952587b1cf8d775a241691d3cdc38fcdc54d112b0"
+            },
+            {
+              "source": "no.",
+              "record_sha256": "34841165b82ad29e7cd5de0c45688c6b50a12dfbc3bdb157aeda50450e0b1437"
+            }
+          ],
+          "exact_primary_gloss_candidates": 1,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "no",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "ja": {
+          "accepted_catalog_records": [
+            {
+              "source": "NO",
+              "record_sha256": "5be0bafc912b0410fdf15690cef6d0effdf0063143a524a574c2080ceae917d6"
+            },
+            {
+              "source": "NO.",
+              "record_sha256": "45f8ecf0e88f8a6ffdbe37e38d770a2ae063c9c23f4c0a0cf2fedae872c028b7"
+            },
+            {
+              "source": "No",
+              "record_sha256": "5b4a0fe55489c75ffd4d4f5b2d93d8ea96bd340c812f9a398a7defb7287a5a12"
+            },
+            {
+              "source": "No.",
+              "record_sha256": "438971b0fd54b040c027af278c81b0fee424a528a4d50b506b52d31c7e23010f"
+            },
+            {
+              "source": "no",
+              "record_sha256": "217e7c29ad0512af517bdca57ea80056d70b16109648abe014d2f0a3968c2a53"
+            },
+            {
+              "source": "no.",
+              "record_sha256": "00640f12e14419de3dbaa4d5aa54d96b4bacb913b4b84e8d2d23e0a8f0de692f"
+            }
+          ],
+          "exact_primary_gloss_candidates": 30,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "no",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [
+            {
+              "source": "NO",
+              "record_sha256": "7a5ee8b5c4d96788d0a57e52edf143806c3f91df37462c3b38d4bd2c29fe29dc"
+            },
+            {
+              "source": "NO.",
+              "record_sha256": "b7ee0df6404f3c411361e0ed085990f75ef6ca995fc98fa326d4dbcb023e479d"
+            },
+            {
+              "source": "No",
+              "record_sha256": "19b1293f080fd099b23197b278dea16c7c12b70e93a9412fa37cc02b298fafad"
+            },
+            {
+              "source": "No.",
+              "record_sha256": "2989a1575a072e1d66cd3bff81b2fcb523020a41586342a0a9f73db86b920459"
+            },
+            {
+              "source": "no",
+              "record_sha256": "047ebc0d3ef2f350a8437e3bbc3b3e2610ca0f922673f86bb3ade8edbafeacfc"
+            },
+            {
+              "source": "no.",
+              "record_sha256": "217e93b5fefceeeb685610a2c760697381b22e3b23fc912b92191c65f10f5022"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "no",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-14",
+      "source": "thank you",
+      "sense_group": "gratitude",
+      "train_rank": 14,
+      "train_distinct_turns": 19,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thank you",
+              "record_sha256": "2b5d724a38e6e961222ae4e1a5faf8b3a365f86a163cf0dc7d57db018bbab2d6"
+            },
+            {
+              "source": "Thank you.",
+              "record_sha256": "d7b7fb1b40792fca5558c2dccbc52d96b8ba7eaa9959c7b045664c64ecd30fda"
+            },
+            {
+              "source": "thank you",
+              "record_sha256": "58ad61c458fef6fe92f59145b055359702113e47fee2e27899b4b1d665173be9"
+            },
+            {
+              "source": "thank you.",
+              "record_sha256": "b40b6756a21be01648293fe4d208cd681c8d227471617fdc646f4bae8c8ba2c5"
+            }
+          ],
+          "exact_primary_gloss_candidates": 2,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thank you",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "ja": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thank you",
+              "record_sha256": "48d621b1f26c37c3f2ed7438f72fdeb25d08d3bf1bcf48d97c9a4df8cf99cc32"
+            },
+            {
+              "source": "Thank you.",
+              "record_sha256": "b8b33986ed7a13d732848689c32b5c64c01afd9a5795dfe4121d29e49f24230b"
+            },
+            {
+              "source": "thank you",
+              "record_sha256": "e8ab74866a5b19875080142502b944bd774c53ea310e10aefab3cebc10e99aa9"
+            },
+            {
+              "source": "thank you.",
+              "record_sha256": "916df73df148c0196733c1977c85438730cd08c6e799dda525696a0bb06cdcf6"
+            }
+          ],
+          "exact_primary_gloss_candidates": 30,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thank you",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [
+            {
+              "source": "Thank you",
+              "record_sha256": "a99d0969d55284cacf517560c9b7df52dc3577ad63dd04bdb4f98f9dd21db298"
+            },
+            {
+              "source": "Thank you.",
+              "record_sha256": "e2f40f99973d07c05505e02239c4b8c0439c0264860abdbe743624d66f3689d1"
+            },
+            {
+              "source": "thank you",
+              "record_sha256": "99ebc4d4f000e1ac6cf3a89852d1fcf615a906164f1fe0724a698dcfc86e3fdc"
+            },
+            {
+              "source": "thank you.",
+              "record_sha256": "10d6070447a04c7c6c5897a5770b5c638c5a98472e6398af20cd6bed88db287c"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "thank you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-15",
+      "source": "oh yeah",
+      "sense_group": "affirmation_with_reaction",
+      "train_rank": 15,
+      "train_distinct_turns": 16,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh yeah",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh yeah",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "oh yeah",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-16",
+      "source": "not really",
+      "sense_group": "qualified_negative",
+      "train_rank": 16,
+      "train_distinct_turns": 15,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "not really",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "not really",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "not really",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Not really must not become an absolute no."
+    },
+    {
+      "id": "short-train-r01-17",
+      "source": "that sounds fun",
+      "sense_group": "anticipated_enjoyment",
+      "train_rank": 17,
+      "train_distinct_turns": 14,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that sounds fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-18",
+      "source": "that's great",
+      "sense_group": "positive_evaluation",
+      "train_rank": 18,
+      "train_distinct_turns": 14,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 2,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's great",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that's great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Preserve evaluative sense and intensity; slang/register differs across targets."
+    },
+    {
+      "id": "short-train-r01-19",
+      "source": "oh wow",
+      "sense_group": "amazement",
+      "train_rank": 19,
+      "train_distinct_turns": 14,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh wow",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh wow",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "oh wow",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-20",
+      "source": "for sure",
+      "sense_group": "certainty",
+      "train_rank": 20,
+      "train_distinct_turns": 13,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "for sure",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 5,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "for sure",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "for sure",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-21",
+      "source": "that's true",
+      "sense_group": "assert_truth",
+      "train_rank": 21,
+      "train_distinct_turns": 13,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's true",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 2,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's true",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that's true",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-22",
+      "source": "where do you live",
+      "sense_group": "current_residence_question",
+      "train_rank": 22,
+      "train_distinct_turns": 12,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "where do you live",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "where do you live",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "where do you live",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-23",
+      "source": "interesting",
+      "sense_group": "interest_reaction",
+      "train_rank": 23,
+      "train_distinct_turns": 12,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "interesting",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 10,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "interesting",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "interesting",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-24",
+      "source": "oh no",
+      "sense_group": "concern_reaction",
+      "train_rank": 24,
+      "train_distinct_turns": 12,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh no",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 18,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh no",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "oh no",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-25",
+      "source": "where are you from",
+      "sense_group": "origin_question",
+      "train_rank": 25,
+      "train_distinct_turns": 11,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 1,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "where are you from",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "where are you from",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "where are you from",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-26",
+      "source": "i see",
+      "sense_group": "acknowledge_understanding",
+      "train_rank": 26,
+      "train_distinct_turns": 11,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i see",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 12,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i see",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i see",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "I see has literal-vision and understanding uses; exact source length alone does not prove one sense."
+    },
+    {
+      "id": "short-train-r01-27",
+      "source": "i know",
+      "sense_group": "acknowledge_knowledge",
+      "train_rank": 27,
+      "train_distinct_turns": 11,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i know",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 2,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i know",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i know",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Knowledge statement and discourse acknowledgment can require different target forms."
+    },
+    {
+      "id": "short-train-r01-28",
+      "source": "i love it",
+      "sense_group": "strong_liking",
+      "train_rank": 28,
+      "train_distinct_turns": 11,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i love it",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i love it",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i love it",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "The referent it is implicit; do not invent its gender/class or strengthen liking into a different relation."
+    },
+    {
+      "id": "short-train-r01-29",
+      "source": "definitely",
+      "sense_group": "certainty",
+      "train_rank": 29,
+      "train_distinct_turns": 10,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "definitely",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 16,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "definitely",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "definitely",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-30",
+      "source": "do you have any hobbies",
+      "sense_group": "hobby_existence_question",
+      "train_rank": 30,
+      "train_distinct_turns": 10,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "do you have any hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-31",
+      "source": "oh nice",
+      "sense_group": "positive_reaction",
+      "train_rank": 31,
+      "train_distinct_turns": 10,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh nice",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "oh nice",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "oh nice",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Reaction/approval, not a physical property of an unstated object."
+    },
+    {
+      "id": "short-train-r01-32",
+      "source": "and you",
+      "sense_group": "reciprocal_question",
+      "train_rank": 32,
+      "train_distinct_turns": 10,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "and you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "and you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "and you",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Previous proposition is omitted; target must retain a reciprocal question without inventing a subject predicate."
+    },
+    {
+      "id": "short-train-r01-33",
+      "source": "ok",
+      "sense_group": "acceptance",
+      "train_rank": 33,
+      "train_distinct_turns": 9,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [
+            {
+              "source": "OK",
+              "record_sha256": "c3329a6f7854d23ab66dbd1919a36d61cdb7a3a64096f22b221a26254eb4345a"
+            },
+            {
+              "source": "OK.",
+              "record_sha256": "afb4d8f0e3c9459d7cd637aea1f3ff801ea8552e38c54d03b4cbbcb633731acf"
+            },
+            {
+              "source": "Ok",
+              "record_sha256": "efcb8a92188f5088057f304b947050c4b30fc0e03b776bff459fe73dcc296605"
+            },
+            {
+              "source": "Ok.",
+              "record_sha256": "40419a073551afb073260c023f4b4a4d8147e27f2b5d402be3be1ea93afc62e4"
+            },
+            {
+              "source": "oK",
+              "record_sha256": "85dacfa2b635833a4512a589dd9b3fc28099b6028dbaa011eb0538a450a1bff2"
+            },
+            {
+              "source": "oK.",
+              "record_sha256": "02eedb54f60cf0246a04a6e7757fb1a2090f3c0b5670bd5b1b77f6e4188e15ce"
+            },
+            {
+              "source": "ok",
+              "record_sha256": "34ce30e221b6430fe6f031c2dfedc0edb14c088e0adcca0ddef5d1f44f65fc5b"
+            },
+            {
+              "source": "ok.",
+              "record_sha256": "cff076ede2fc84bc75f29b463a6fd203b79185620d353f47e27e554761eeb98c"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "ok",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [
+            {
+              "source": "OK",
+              "record_sha256": "75311e24ed93c9f26263d7556bb3819db2a468d8be1d1d7ed3e8af2b39487947"
+            },
+            {
+              "source": "OK.",
+              "record_sha256": "c311baa8c84dd03ce7bfa869328ee84a7d4e48cc37fa363beddfc5b511e4fa52"
+            },
+            {
+              "source": "Ok",
+              "record_sha256": "a3b979ae38eb9876ff586563367173a96ef473a496b8ec7062d17decb868228b"
+            },
+            {
+              "source": "Ok.",
+              "record_sha256": "520f91435f70ec2310359f8c04952d9733cffb432b12f2e61fefad8c952e29fa"
+            },
+            {
+              "source": "oK",
+              "record_sha256": "7e1177de2246c5b12f6c129b97e70b8ed345b9e03a543287e9b75e23987b6971"
+            },
+            {
+              "source": "oK.",
+              "record_sha256": "b25cfb73cda2342456c986ff23c457faaeee6c897195fd2de5c1cc83d620e0fa"
+            },
+            {
+              "source": "ok",
+              "record_sha256": "6fc278e6b37e2a281d99a16f6901d050a5a2a6a601f1a6da46e4d4b18f821232"
+            },
+            {
+              "source": "ok.",
+              "record_sha256": "d4ed6caa135e18f70e41f563c18f61a1d8583269e39ee64d59ba876a131ace9e"
+            }
+          ],
+          "exact_primary_gloss_candidates": 35,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "ok",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [
+            {
+              "source": "OK",
+              "record_sha256": "68a5846556db788092c7c9f2c6761a650229fb8a5c113a0c1f59dd36bb7bb799"
+            },
+            {
+              "source": "OK.",
+              "record_sha256": "d2828980b833ecdee4c31d73756bebea427e9274bc55318dec942deeaa3005c3"
+            },
+            {
+              "source": "Ok",
+              "record_sha256": "4c2064d9867a09f6db34a578a22b1c488cf165ebcb131bdfec5b350b25e57d28"
+            },
+            {
+              "source": "Ok.",
+              "record_sha256": "6f1bdf9e1820cfb8559da355deb6a7a8226880ad68b5e802b94dd3147172e43f"
+            },
+            {
+              "source": "oK",
+              "record_sha256": "630ae568711a3ba5cd228f1963677e36dcbd63d3792e336e74e7e74f5d71eefd"
+            },
+            {
+              "source": "oK.",
+              "record_sha256": "441e1f7b56bb9a26cb76fbe8133b72fa3b8f193c90e1a229f5f05e2fe3defa10"
+            },
+            {
+              "source": "ok",
+              "record_sha256": "2575faab28fe95b00dd5d32c16eb7d3f31482f0397ef4826a48d00c982d8ee24"
+            },
+            {
+              "source": "ok.",
+              "record_sha256": "e78849d38a049912d10408b3f104e6b1cbb29eaaa8a0e1042f62874cf8e7ca64"
+            }
+          ],
+          "exact_primary_gloss_candidates": 0,
+          "status": "existing_accepted_reference_reuse_candidate",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "ok",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Acceptance versus auditory-quality senses need complete-utterance pragmatic review."
+    },
+    {
+      "id": "short-train-r01-34",
+      "source": "do you have any kids",
+      "sense_group": "children_existence_question",
+      "train_rank": 34,
+      "train_distinct_turns": 9,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have any kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "do you have any kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-35",
+      "source": "what are your hobbies",
+      "sense_group": "hobby_identity_question",
+      "train_rank": 35,
+      "train_distinct_turns": 9,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what are your hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what are your hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "what are your hobbies",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-36",
+      "source": "do you work",
+      "sense_group": "work_status_question",
+      "train_rank": 36,
+      "train_distinct_turns": 9,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you work",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you work",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "do you work",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Habitual employment versus current-work reading must not be narrowed without context."
+    },
+    {
+      "id": "short-train-r01-37",
+      "source": "yep",
+      "sense_group": "affirmation",
+      "train_rank": 37,
+      "train_distinct_turns": 9,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yep",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 2,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "yep",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "yep",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-38",
+      "source": "are you married",
+      "sense_group": "marital_status_question",
+      "train_rank": 38,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "are you married",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "are you married",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "are you married",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-39",
+      "source": "that sounds like fun",
+      "sense_group": "anticipated_enjoyment",
+      "train_rank": 39,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds like fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds like fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that sounds like fun",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-40",
+      "source": "congratulations",
+      "sense_group": "congratulate",
+      "train_rank": 40,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 1,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "congratulations",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 19,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "congratulations",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "congratulations",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-41",
+      "source": "absolutely",
+      "sense_group": "certainty",
+      "train_rank": 41,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "absolutely",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 29,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "absolutely",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "absolutely",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-42",
+      "source": "that is true",
+      "sense_group": "assert_truth",
+      "train_rank": 42,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that is true",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that is true",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that is true",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-43",
+      "source": "that sounds great",
+      "sense_group": "anticipated_positive_evaluation",
+      "train_rank": 43,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that sounds great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that sounds great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-44",
+      "source": "that's amazing",
+      "sense_group": "positive_evaluation",
+      "train_rank": 44,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's amazing",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "that's amazing",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "that's amazing",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Preserve evaluative sense and intensity; slang/register differs across targets."
+    },
+    {
+      "id": "short-train-r01-45",
+      "source": "thats great",
+      "sense_group": "positive_evaluation",
+      "train_rank": 45,
+      "train_distinct_turns": 8,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thats great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "thats great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "thats great",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Preserve evaluative sense and intensity; slang/register differs across targets."
+    },
+    {
+      "id": "short-train-r01-46",
+      "source": "what are you studying",
+      "sense_group": "study_object_question",
+      "train_rank": 46,
+      "train_distinct_turns": 7,
+      "train_whole_turns": 3,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what are you studying",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "what are you studying",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "what are you studying",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Object/field of study must not be replaced with a yes/no studying question."
+    },
+    {
+      "id": "short-train-r01-47",
+      "source": "i'm sorry to hear that",
+      "sense_group": "empathy_negative_news",
+      "train_rank": 47,
+      "train_distinct_turns": 7,
+      "train_whole_turns": 2,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i'm sorry to hear that",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i'm sorry to hear that",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i'm sorry to hear that",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-48",
+      "source": "do you have kids",
+      "sense_group": "children_existence_question",
+      "train_rank": 48,
+      "train_distinct_turns": 7,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "do you have kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "do you have kids",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Verify complete utterance meaning, register, person/number and target grammar; no word-by-word composition is accepted as whole-unit proof."
+    },
+    {
+      "id": "short-train-r01-49",
+      "source": "sounds good",
+      "sense_group": "acceptance",
+      "train_rank": 49,
+      "train_distinct_turns": 7,
+      "train_whole_turns": 1,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "sounds good",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 1,
+          "status": "primary_dictionary_candidates_need_sense_review",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "sounds good",
+          "limitation": "Exact English-gloss match is candidate evidence only; target sense/register/readings have not been selected or approved."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "sounds good",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Acceptance versus auditory-quality senses need complete-utterance pragmatic review."
+    },
+    {
+      "id": "short-train-r01-50",
+      "source": "i hope so",
+      "sense_group": "hope_for_prior_proposition",
+      "train_rank": 50,
+      "train_distinct_turns": 7,
+      "train_whole_turns": 0,
+      "target_attestation_prospects": {
+        "sw": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i hope so",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "ja": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "ce6fc540d693838f31f9420cda3ade41ff60fa162e5678f87f27d66eed28bf26",
+          "evidence_key": "i hope so",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        },
+        "es": {
+          "accepted_catalog_records": [],
+          "exact_primary_gloss_candidates": 0,
+          "status": "requires_authored_complete_unit_and_primary_grammar_verification",
+          "evidence_receipt_sha256": "6f8ad35a4e86a0f5c192067cec188c3303165c5ba22165144551c53af9add85f",
+          "evidence_key": "i hope so",
+          "limitation": "No exact target attestation established in this bounded source audit; absence is not a language-support verdict."
+        }
+      },
+      "review_risk": "Retain the unresolved prior proposition; do not fabricate a desired outcome."
+    }
+  ]
+}

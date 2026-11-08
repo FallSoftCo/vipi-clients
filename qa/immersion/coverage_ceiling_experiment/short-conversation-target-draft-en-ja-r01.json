@@ -1,0 +1,3024 @@
+{
+  "schema": "vipi-short-source-target-draft-1",
+  "production": false,
+  "target_language": "ja",
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "new_heldout_seen": false,
+  "target_policy_frozen": false,
+  "authorship": "immersion_engine, independently reviewable exact short constructions",
+  "primary_licenses": [
+    "CC-BY-SA-4.0, exact upstream and selected-record hashes retained"
+  ],
+  "primary_verification_references": [
+    {
+      "url": "https://www2.ninjal.ac.jp/verbhandbook/headwords/%E7%9F%A5%E3%82%8B.html",
+      "scope": "Knowledge-state te-iru interpretation; preserved earlier primary verification."
+    },
+    {
+      "url": "https://www.bunka.go.jp/seisaku/kokugo_nihongo/kyoiku/seikatsusha/h24_nihongo_program_a/pdf/a_30.pdf",
+      "scope": "Marriage-state te-iru teaching example, search-index corroboration; no course passage imported."
+    }
+  ],
+  "rows": [
+    {
+      "id": "short-train-r01-01",
+      "source": "yes",
+      "sense_group": "affirmation",
+      "target": "はい。",
+      "reading": "hai",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Japanese response polarity after negative questions can differ from English; preceding context matters. No unconditional dialogue-level correctness claim.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1010080",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "はい",
+              "restrictions": []
+            },
+            {
+              "kana": "へい",
+              "restrictions": []
+            },
+            {
+              "kana": "はーい",
+              "restrictions": []
+            },
+            {
+              "kana": "はーーい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "yes",
+              "that is correct"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [
+              "polite (teineigo) language"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-02",
+      "source": "how about you",
+      "sense_group": "reciprocal_question",
+      "target": "あなたは？",
+      "reading": "anata wa",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "あなた can sound more direct than a name/address term in Japanese. The complete reciprocal question remains a register issue to review."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1223615",
+          "sense_index": 1,
+          "spellings": [
+            "貴方",
+            "貴女",
+            "貴男"
+          ],
+          "readings": [
+            {
+              "kana": "あなた",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "you"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-03",
+      "source": "what about you",
+      "sense_group": "reciprocal_question",
+      "target": "あなたは？",
+      "reading": "anata wa",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "あなた can sound more direct than a name/address term in Japanese. The complete reciprocal question remains a register issue to review."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1223615",
+          "sense_index": 1,
+          "spellings": [
+            "貴方",
+            "貴女",
+            "貴男"
+          ],
+          "readings": [
+            {
+              "kana": "あなた",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "you"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-04",
+      "source": "wow",
+      "sense_group": "amazement",
+      "target": "わあ！",
+      "reading": "waa",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2087950",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "わあ",
+              "restrictions": []
+            },
+            {
+              "kana": "わあっ",
+              "restrictions": []
+            },
+            {
+              "kana": "わっ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "wow!",
+              "oh!",
+              "eek!",
+              "gee!"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-05",
+      "source": "that's cool",
+      "sense_group": "approval_cool",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Approval versus literal temperature is unresolved."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-06",
+      "source": "me too",
+      "sense_group": "shared_experience",
+      "target": "私も。",
+      "reading": "watashi mo",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1311110",
+          "sense_index": 1,
+          "spellings": [
+            "私"
+          ],
+          "readings": [
+            {
+              "kana": "わたし",
+              "restrictions": []
+            },
+            {
+              "kana": "ワタシ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "I",
+              "me"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2028940",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "も",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "too",
+              "also",
+              "in addition",
+              "as well",
+              "(not) either (in a negative sentence)"
+            ],
+            "pos": [
+              "particle"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-07",
+      "source": "yeah",
+      "sense_group": "affirmation",
+      "target": "うん。",
+      "reading": "un",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Japanese response polarity after negative questions can differ from English; preceding context matters. No unconditional dialogue-level correctness claim.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1001090",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "うん",
+              "restrictions": []
+            },
+            {
+              "kana": "ウン",
+              "restrictions": []
+            },
+            {
+              "kana": "うむ",
+              "restrictions": []
+            },
+            {
+              "kana": "ううむ",
+              "restrictions": []
+            },
+            {
+              "kana": "う～ん",
+              "restrictions": []
+            },
+            {
+              "kana": "うんっ",
+              "restrictions": []
+            },
+            {
+              "kana": "ウ〜ン",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "yes",
+              "yeah",
+              "uh huh"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-08",
+      "source": "really",
+      "sense_group": "verification_or_surprise",
+      "target": "本当？",
+      "reading": "hontō",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Requires complete source ending in ?. A bare declarative/adverb really is not this unit."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1523060",
+          "sense_index": 1,
+          "spellings": [
+            "本当",
+            "本當"
+          ],
+          "readings": [
+            {
+              "kana": "ほんとう",
+              "restrictions": []
+            },
+            {
+              "kana": "ほんと",
+              "restrictions": []
+            },
+            {
+              "kana": "ホントー",
+              "restrictions": []
+            },
+            {
+              "kana": "ホント",
+              "restrictions": []
+            },
+            {
+              "kana": "ホントウ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "truth",
+              "reality",
+              "actuality",
+              "fact"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "nouns which may take the genitive case particle 'no'",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-09",
+      "source": "i agree",
+      "sense_group": "explicit_agreement",
+      "target": "同感です。",
+      "reading": "dōkan desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1452020",
+          "sense_index": 1,
+          "spellings": [
+            "同感"
+          ],
+          "readings": [
+            {
+              "kana": "どうかん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "same feeling",
+              "same sentiment",
+              "same opinion",
+              "sympathy",
+              "agreement",
+              "concurrence"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "noun or participle which takes the aux. verb suru",
+              "intransitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-10",
+      "source": "that's awesome",
+      "sense_group": "positive_evaluation",
+      "target": "すごいですね。",
+      "reading": "sugoi desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1374550",
+          "sense_index": 2,
+          "spellings": [
+            "凄い"
+          ],
+          "readings": [
+            {
+              "kana": "すごい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴイ",
+              "restrictions": []
+            },
+            {
+              "kana": "すごーい",
+              "restrictions": []
+            },
+            {
+              "kana": "すご〜い",
+              "restrictions": []
+            },
+            {
+              "kana": "すっごーい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴーイ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 2,
+            "glosses": [
+              "amazing (e.g. of strength)",
+              "great (e.g. of skills)",
+              "wonderful",
+              "terrific"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-11",
+      "source": "thanks",
+      "sense_group": "gratitude",
+      "target": "ありがとう。",
+      "reading": "arigatō",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1586820",
+          "sense_index": 1,
+          "spellings": [
+            "有難う",
+            "有り難う",
+            "有りがとう"
+          ],
+          "readings": [
+            {
+              "kana": "ありがとう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "thank you",
+              "thanks"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-12",
+      "source": "do you have any pets",
+      "sense_group": "pet_ownership_question",
+      "target": "ペットを飼っていますか？",
+      "reading": "petto o katte imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1120990",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "ペット",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "pet"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1312970",
+          "sense_index": 1,
+          "spellings": [
+            "飼う"
+          ],
+          "readings": [
+            {
+              "kana": "かう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to keep (a pet or other animal)",
+              "to have",
+              "to own",
+              "to raise",
+              "to rear",
+              "to feed"
+            ],
+            "pos": [
+              "Godan verb with 'u' ending",
+              "transitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-13",
+      "source": "no",
+      "sense_group": "negative_response",
+      "target": "いいえ。",
+      "reading": "iie",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Japanese response polarity after negative questions can differ from English; preceding context matters. No unconditional dialogue-level correctness claim.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1583250",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "いいえ",
+              "restrictions": []
+            },
+            {
+              "kana": "いえ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "no"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-14",
+      "source": "thank you",
+      "sense_group": "gratitude",
+      "target": "ありがとう。",
+      "reading": "arigatō",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1586820",
+          "sense_index": 1,
+          "spellings": [
+            "有難う",
+            "有り難う",
+            "有りがとう"
+          ],
+          "readings": [
+            {
+              "kana": "ありがとう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "thank you",
+              "thanks"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-15",
+      "source": "oh yeah",
+      "sense_group": "affirmation_with_reaction",
+      "target": "ああ、はい。",
+      "reading": "aa, hai",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Japanese response polarity after negative questions can differ from English; preceding context matters. No unconditional dialogue-level correctness claim.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1565440",
+          "sense_index": 1,
+          "spellings": [
+            "嗚呼",
+            "噫",
+            "嗟",
+            "於乎",
+            "於戯",
+            "嗟乎",
+            "吁"
+          ],
+          "readings": [
+            {
+              "kana": "ああ",
+              "restrictions": []
+            },
+            {
+              "kana": "あー",
+              "restrictions": []
+            },
+            {
+              "kana": "あぁ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああっ",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "あーっ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああー",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜あ",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜っ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああぁ",
+              "restrictions": []
+            },
+            {
+              "kana": "アー",
+              "restrictions": []
+            },
+            {
+              "kana": "アア",
+              "restrictions": []
+            },
+            {
+              "kana": "アァ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "ah!",
+              "oh!",
+              "alas!"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1010080",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "はい",
+              "restrictions": []
+            },
+            {
+              "kana": "へい",
+              "restrictions": []
+            },
+            {
+              "kana": "はーい",
+              "restrictions": []
+            },
+            {
+              "kana": "はーーい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "yes",
+              "that is correct"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [
+              "polite (teineigo) language"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-16",
+      "source": "not really",
+      "sense_group": "qualified_negative",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Degree versus denial depends on omitted predicate."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-17",
+      "source": "that sounds fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": "楽しそうですね。",
+      "reading": "tanoshisō desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1207240",
+          "sense_index": 1,
+          "spellings": [
+            "楽しい",
+            "愉しい",
+            "樂しい",
+            "娯しい"
+          ],
+          "readings": [
+            {
+              "kana": "たのしい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "enjoyable",
+              "fun",
+              "pleasant",
+              "happy",
+              "delightful"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1006610",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "そう",
+              "restrictions": []
+            },
+            {
+              "kana": "そっ",
+              "restrictions": []
+            },
+            {
+              "kana": "そー",
+              "restrictions": []
+            },
+            {
+              "kana": "そ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "そお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーう",
+              "restrictions": []
+            },
+            {
+              "kana": "そおお",
+              "restrictions": []
+            },
+            {
+              "kana": "そぅ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "appearing that",
+              "seeming that",
+              "looking like",
+              "having the appearance of"
+            ],
+            "pos": [
+              "auxiliary",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-18",
+      "source": "that's great",
+      "sense_group": "positive_evaluation",
+      "target": "すばらしいですね。",
+      "reading": "subarashii desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1397300",
+          "sense_index": 1,
+          "spellings": [
+            "素晴らしい",
+            "素晴しい",
+            "素薔薇しい"
+          ],
+          "readings": [
+            {
+              "kana": "すばらしい",
+              "restrictions": []
+            },
+            {
+              "kana": "すんばらしい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "wonderful",
+              "splendid",
+              "magnificent",
+              "amazing",
+              "superb"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-19",
+      "source": "oh wow",
+      "sense_group": "amazement",
+      "target": "わあ！",
+      "reading": "waa",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2087950",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "わあ",
+              "restrictions": []
+            },
+            {
+              "kana": "わあっ",
+              "restrictions": []
+            },
+            {
+              "kana": "わっ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "wow!",
+              "oh!",
+              "eek!",
+              "gee!"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-20",
+      "source": "for sure",
+      "sense_group": "certainty",
+      "target": "もちろん。",
+      "reading": "mochiron",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1535780",
+          "sense_index": 1,
+          "spellings": [
+            "勿論"
+          ],
+          "readings": [
+            {
+              "kana": "もちろん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "of course",
+              "certainly",
+              "naturally"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-21",
+      "source": "that's true",
+      "sense_group": "assert_truth",
+      "target": "その通りです。",
+      "reading": "sono tōri desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2057830",
+          "sense_index": 1,
+          "spellings": [
+            "その通り",
+            "其の通り"
+          ],
+          "readings": [
+            {
+              "kana": "そのとおり",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "just like that",
+              "quite so",
+              "I agree"
+            ],
+            "pos": [
+              "expressions (phrases, clauses, etc.)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-22",
+      "source": "where do you live",
+      "sense_group": "current_residence_question",
+      "target": "どこに住んでいますか？",
+      "reading": "doko ni sunde imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1577140",
+          "sense_index": 1,
+          "spellings": [
+            "何処",
+            "何所",
+            "何處"
+          ],
+          "readings": [
+            {
+              "kana": "どこ",
+              "restrictions": []
+            },
+            {
+              "kana": "いずこ",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いずく",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いづこ",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いどこ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "where",
+              "what place"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1334040",
+          "sense_index": 1,
+          "spellings": [
+            "住む"
+          ],
+          "readings": [
+            {
+              "kana": "すむ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to live (of humans)",
+              "to reside",
+              "to inhabit",
+              "to dwell",
+              "to abide"
+            ],
+            "pos": [
+              "Godan verb with 'mu' ending",
+              "intransitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-23",
+      "source": "interesting",
+      "sense_group": "interest_reaction",
+      "target": "面白いですね。",
+      "reading": "omoshiroi desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1533580",
+          "sense_index": 1,
+          "spellings": [
+            "面白い"
+          ],
+          "readings": [
+            {
+              "kana": "おもしろい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "interesting",
+              "fascinating",
+              "intriguing",
+              "enthralling"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-24",
+      "source": "oh no",
+      "sense_group": "concern_reaction",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Surprise/disappointment/denial force varies; no universal target selected."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-25",
+      "source": "where are you from",
+      "sense_group": "origin_question",
+      "target": "どこの出身ですか？",
+      "reading": "doko no shusshin desu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1577140",
+          "sense_index": 1,
+          "spellings": [
+            "何処",
+            "何所",
+            "何處"
+          ],
+          "readings": [
+            {
+              "kana": "どこ",
+              "restrictions": []
+            },
+            {
+              "kana": "いずこ",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いずく",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いづこ",
+              "restrictions": [
+                "何処"
+              ]
+            },
+            {
+              "kana": "いどこ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "where",
+              "what place"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1339260",
+          "sense_index": 1,
+          "spellings": [
+            "出身"
+          ],
+          "readings": [
+            {
+              "kana": "しゅっしん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "one's origin (e.g. city, country, parentage, school)"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-26",
+      "source": "i see",
+      "sense_group": "acknowledge_understanding",
+      "target": null,
+      "reading": null,
+      "status": "unavailable",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Vision versus acknowledgment unresolved."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "short-train-r01-27",
+      "source": "i know",
+      "sense_group": "acknowledge_knowledge",
+      "target": "知っています。",
+      "reading": "shitte imasu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Knowledge-state 知っています, not punctual 知る. Empathic I know can require another expression; whole-unit context remains reviewable."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1420470",
+          "sense_index": 1,
+          "spellings": [
+            "知る",
+            "識る"
+          ],
+          "readings": [
+            {
+              "kana": "しる",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to know",
+              "to be aware (of)",
+              "to be conscious (of)",
+              "to learn (of)",
+              "to find out",
+              "to discover"
+            ],
+            "pos": [
+              "Godan verb with 'ru' ending",
+              "transitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-28",
+      "source": "i love it",
+      "sense_group": "strong_liking",
+      "target": "大好きです。",
+      "reading": "daisuki desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1413660",
+          "sense_index": 1,
+          "spellings": [
+            "大好き",
+            "大ちゅき"
+          ],
+          "readings": [
+            {
+              "kana": "だいすき",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "liking very much",
+              "loving (something or someone)",
+              "adoring",
+              "being very fond of"
+            ],
+            "pos": [
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-29",
+      "source": "definitely",
+      "sense_group": "certainty",
+      "target": "間違いなく。",
+      "reading": "machigai naku",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2748410",
+          "sense_index": 1,
+          "spellings": [
+            "間違いなく",
+            "間違い無く"
+          ],
+          "readings": [
+            {
+              "kana": "まちがいなく",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "clearly",
+              "unmistakably",
+              "certainly",
+              "without a doubt"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-30",
+      "source": "do you have any hobbies",
+      "sense_group": "hobby_existence_question",
+      "target": "趣味はありますか？",
+      "reading": "shumi wa arimasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1329000",
+          "sense_index": 1,
+          "spellings": [
+            "趣味"
+          ],
+          "readings": [
+            {
+              "kana": "しゅみ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "hobby",
+              "pastime"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-31",
+      "source": "oh nice",
+      "sense_group": "positive_reaction",
+      "target": "ああ、いいですね。",
+      "reading": "aa, ii desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1565440",
+          "sense_index": 1,
+          "spellings": [
+            "嗚呼",
+            "噫",
+            "嗟",
+            "於乎",
+            "於戯",
+            "嗟乎",
+            "吁"
+          ],
+          "readings": [
+            {
+              "kana": "ああ",
+              "restrictions": []
+            },
+            {
+              "kana": "あー",
+              "restrictions": []
+            },
+            {
+              "kana": "あぁ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああっ",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "あーっ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああー",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜あ",
+              "restrictions": []
+            },
+            {
+              "kana": "あ〜っ",
+              "restrictions": []
+            },
+            {
+              "kana": "ああぁ",
+              "restrictions": []
+            },
+            {
+              "kana": "アー",
+              "restrictions": []
+            },
+            {
+              "kana": "アア",
+              "restrictions": []
+            },
+            {
+              "kana": "アァ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "ah!",
+              "oh!",
+              "alas!"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2820690",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "いい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "good",
+              "excellent",
+              "fine",
+              "nice",
+              "pleasant",
+              "agreeable"
+            ],
+            "pos": [
+              "adjective (keiyoushi) - yoi/ii class"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-32",
+      "source": "and you",
+      "sense_group": "reciprocal_question",
+      "target": "あなたは？",
+      "reading": "anata wa",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "あなた can sound more direct than a name/address term in Japanese. The complete reciprocal question remains a register issue to review.",
+        "Requires complete source ending in ?. It is not a conjunction prefix before a following predicate."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1223615",
+          "sense_index": 1,
+          "spellings": [
+            "貴方",
+            "貴女",
+            "貴男"
+          ],
+          "readings": [
+            {
+              "kana": "あなた",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "you"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-33",
+      "source": "ok",
+      "sense_group": "acceptance",
+      "target": "了解です。",
+      "reading": "ryōkai desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "了解です is acknowledgment/agreement, not a wellbeing answer or question.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1553310",
+          "sense_index": 2,
+          "spellings": [
+            "了解",
+            "諒解",
+            "領解",
+            "領会"
+          ],
+          "readings": [
+            {
+              "kana": "りょうかい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 2,
+            "glosses": [
+              "OK",
+              "roger"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-34",
+      "source": "do you have any kids",
+      "sense_group": "children_existence_question",
+      "target": "お子さんはいますか？",
+      "reading": "okosan wa imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1002000",
+          "sense_index": 1,
+          "spellings": [
+            "お子さん",
+            "御子さん"
+          ],
+          "readings": [
+            {
+              "kana": "おこさん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "child"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [
+              "honorific or respectful (sonkeigo) language"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-35",
+      "source": "what are your hobbies",
+      "sense_group": "hobby_identity_question",
+      "target": "ご趣味は何ですか？",
+      "reading": "goshumi wa nan desu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1329000",
+          "sense_index": 1,
+          "spellings": [
+            "趣味"
+          ],
+          "readings": [
+            {
+              "kana": "しゅみ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "hobby",
+              "pastime"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2846738",
+          "sense_index": 1,
+          "spellings": [
+            "何"
+          ],
+          "readings": [
+            {
+              "kana": "なん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "what"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-36",
+      "source": "do you work",
+      "sense_group": "work_status_question",
+      "target": "仕事をしていますか？",
+      "reading": "shigoto o shite imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1304970",
+          "sense_index": 1,
+          "spellings": [
+            "仕事"
+          ],
+          "readings": [
+            {
+              "kana": "しごと",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "work",
+              "job",
+              "labor",
+              "labour",
+              "business",
+              "task",
+              "assignment",
+              "occupation",
+              "employment"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "noun or participle which takes the aux. verb suru",
+              "intransitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1157170",
+          "sense_index": 1,
+          "spellings": [
+            "為る"
+          ],
+          "readings": [
+            {
+              "kana": "する",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to do",
+              "to carry out",
+              "to perform"
+            ],
+            "pos": [
+              "suru verb - included"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-37",
+      "source": "yep",
+      "sense_group": "affirmation",
+      "target": "うん。",
+      "reading": "un",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry.",
+        "Japanese response polarity after negative questions can differ from English; preceding context matters. No unconditional dialogue-level correctness claim.",
+        "Do not strip source ? and turn a confirmation question into declarative agreement."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1001090",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "うん",
+              "restrictions": []
+            },
+            {
+              "kana": "ウン",
+              "restrictions": []
+            },
+            {
+              "kana": "うむ",
+              "restrictions": []
+            },
+            {
+              "kana": "ううむ",
+              "restrictions": []
+            },
+            {
+              "kana": "う～ん",
+              "restrictions": []
+            },
+            {
+              "kana": "うんっ",
+              "restrictions": []
+            },
+            {
+              "kana": "ウ〜ン",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "yes",
+              "yeah",
+              "uh huh"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-38",
+      "source": "are you married",
+      "sense_group": "marital_status_question",
+      "target": "結婚していますか？",
+      "reading": "kekkon shite imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1254790",
+          "sense_index": 1,
+          "spellings": [
+            "結婚"
+          ],
+          "readings": [
+            {
+              "kana": "けっこん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "marriage"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "noun or participle which takes the aux. verb suru",
+              "intransitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1157170",
+          "sense_index": 1,
+          "spellings": [
+            "為る"
+          ],
+          "readings": [
+            {
+              "kana": "する",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to do",
+              "to carry out",
+              "to perform"
+            ],
+            "pos": [
+              "suru verb - included"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-39",
+      "source": "that sounds like fun",
+      "sense_group": "anticipated_enjoyment",
+      "target": "楽しそうですね。",
+      "reading": "tanoshisō desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1207240",
+          "sense_index": 1,
+          "spellings": [
+            "楽しい",
+            "愉しい",
+            "樂しい",
+            "娯しい"
+          ],
+          "readings": [
+            {
+              "kana": "たのしい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "enjoyable",
+              "fun",
+              "pleasant",
+              "happy",
+              "delightful"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1006610",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "そう",
+              "restrictions": []
+            },
+            {
+              "kana": "そっ",
+              "restrictions": []
+            },
+            {
+              "kana": "そー",
+              "restrictions": []
+            },
+            {
+              "kana": "そ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "そお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーう",
+              "restrictions": []
+            },
+            {
+              "kana": "そおお",
+              "restrictions": []
+            },
+            {
+              "kana": "そぅ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "appearing that",
+              "seeming that",
+              "looking like",
+              "having the appearance of"
+            ],
+            "pos": [
+              "auxiliary",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-40",
+      "source": "congratulations",
+      "sense_group": "congratulate",
+      "target": "おめでとう。",
+      "reading": "omedetō",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1270700",
+          "sense_index": 1,
+          "spellings": [
+            "御目出度う",
+            "御芽出度う",
+            "お目出度う",
+            "お芽出度う"
+          ],
+          "readings": [
+            {
+              "kana": "おめでとう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "congratulations!",
+              "well done!",
+              "best wishes!",
+              "all the best!"
+            ],
+            "pos": [
+              "interjection (kandoushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-41",
+      "source": "absolutely",
+      "sense_group": "certainty",
+      "target": "もちろん。",
+      "reading": "mochiron",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1535780",
+          "sense_index": 1,
+          "spellings": [
+            "勿論"
+          ],
+          "readings": [
+            {
+              "kana": "もちろん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "of course",
+              "certainly",
+              "naturally"
+            ],
+            "pos": [
+              "adverb (fukushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-42",
+      "source": "that is true",
+      "sense_group": "assert_truth",
+      "target": "その通りです。",
+      "reading": "sono tōri desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "2057830",
+          "sense_index": 1,
+          "spellings": [
+            "その通り",
+            "其の通り"
+          ],
+          "readings": [
+            {
+              "kana": "そのとおり",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "just like that",
+              "quite so",
+              "I agree"
+            ],
+            "pos": [
+              "expressions (phrases, clauses, etc.)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-43",
+      "source": "that sounds great",
+      "sense_group": "anticipated_positive_evaluation",
+      "target": "良さそうですね。",
+      "reading": "yosasō desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1605820",
+          "sense_index": 1,
+          "spellings": [
+            "良い",
+            "好い",
+            "善い",
+            "佳い",
+            "吉い",
+            "宜い"
+          ],
+          "readings": [
+            {
+              "kana": "よい",
+              "restrictions": []
+            },
+            {
+              "kana": "えい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "good",
+              "excellent",
+              "fine",
+              "nice",
+              "pleasant",
+              "agreeable"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1006610",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "そう",
+              "restrictions": []
+            },
+            {
+              "kana": "そっ",
+              "restrictions": []
+            },
+            {
+              "kana": "そー",
+              "restrictions": []
+            },
+            {
+              "kana": "そ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "そお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーう",
+              "restrictions": []
+            },
+            {
+              "kana": "そおお",
+              "restrictions": []
+            },
+            {
+              "kana": "そぅ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "appearing that",
+              "seeming that",
+              "looking like",
+              "having the appearance of"
+            ],
+            "pos": [
+              "auxiliary",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-44",
+      "source": "that's amazing",
+      "sense_group": "positive_evaluation",
+      "target": "すごいですね。",
+      "reading": "sugoi desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1374550",
+          "sense_index": 2,
+          "spellings": [
+            "凄い"
+          ],
+          "readings": [
+            {
+              "kana": "すごい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴイ",
+              "restrictions": []
+            },
+            {
+              "kana": "すごーい",
+              "restrictions": []
+            },
+            {
+              "kana": "すご〜い",
+              "restrictions": []
+            },
+            {
+              "kana": "すっごーい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴい",
+              "restrictions": []
+            },
+            {
+              "kana": "スゴーイ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 2,
+            "glosses": [
+              "amazing (e.g. of strength)",
+              "great (e.g. of skills)",
+              "wonderful",
+              "terrific"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-45",
+      "source": "thats great",
+      "sense_group": "positive_evaluation",
+      "target": "すばらしいですね。",
+      "reading": "subarashii desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1397300",
+          "sense_index": 1,
+          "spellings": [
+            "素晴らしい",
+            "素晴しい",
+            "素薔薇しい"
+          ],
+          "readings": [
+            {
+              "kana": "すばらしい",
+              "restrictions": []
+            },
+            {
+              "kana": "すんばらしい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "wonderful",
+              "splendid",
+              "magnificent",
+              "amazing",
+              "superb"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-46",
+      "source": "what are you studying",
+      "sense_group": "study_object_question",
+      "target": "何を勉強していますか？",
+      "reading": "nani o benkyō shite imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1577100",
+          "sense_index": 1,
+          "spellings": [
+            "何"
+          ],
+          "readings": [
+            {
+              "kana": "なに",
+              "restrictions": []
+            },
+            {
+              "kana": "ナニ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "what"
+            ],
+            "pos": [
+              "pronoun"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1512670",
+          "sense_index": 1,
+          "spellings": [
+            "勉強"
+          ],
+          "readings": [
+            {
+              "kana": "べんきょう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "study"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)",
+              "noun or participle which takes the aux. verb suru",
+              "transitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1157170",
+          "sense_index": 1,
+          "spellings": [
+            "為る"
+          ],
+          "readings": [
+            {
+              "kana": "する",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to do",
+              "to carry out",
+              "to perform"
+            ],
+            "pos": [
+              "suru verb - included"
+            ],
+            "misc": [
+              "word usually written using kana alone"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-47",
+      "source": "i'm sorry to hear that",
+      "sense_group": "empathy_negative_news",
+      "target": "それはお気の毒です。",
+      "reading": "sore wa oki no doku desu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1001750",
+          "sense_index": 1,
+          "spellings": [
+            "お気の毒",
+            "御気の毒",
+            "お気のどく"
+          ],
+          "readings": [
+            {
+              "kana": "おきのどく",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "I am sorry (to hear, to say, etc.)",
+              "a pity"
+            ],
+            "pos": [
+              "expressions (phrases, clauses, etc.)",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [
+              "polite (teineigo) language"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-48",
+      "source": "do you have kids",
+      "sense_group": "children_existence_question",
+      "target": "お子さんはいますか？",
+      "reading": "okosan wa imasu ka",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1002000",
+          "sense_index": 1,
+          "spellings": [
+            "お子さん",
+            "御子さん"
+          ],
+          "readings": [
+            {
+              "kana": "おこさん",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "child"
+            ],
+            "pos": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "misc": [
+              "honorific or respectful (sonkeigo) language"
+            ],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-49",
+      "source": "sounds good",
+      "sense_group": "acceptance",
+      "target": "良さそうですね。",
+      "reading": "yosasō desu ne",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1605820",
+          "sense_index": 1,
+          "spellings": [
+            "良い",
+            "好い",
+            "善い",
+            "佳い",
+            "吉い",
+            "宜い"
+          ],
+          "readings": [
+            {
+              "kana": "よい",
+              "restrictions": []
+            },
+            {
+              "kana": "えい",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "good",
+              "excellent",
+              "fine",
+              "nice",
+              "pleasant",
+              "agreeable"
+            ],
+            "pos": [
+              "adjective (keiyoushi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        },
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1006610",
+          "sense_index": 1,
+          "spellings": [],
+          "readings": [
+            {
+              "kana": "そう",
+              "restrictions": []
+            },
+            {
+              "kana": "そっ",
+              "restrictions": []
+            },
+            {
+              "kana": "そー",
+              "restrictions": []
+            },
+            {
+              "kana": "そ〜",
+              "restrictions": []
+            },
+            {
+              "kana": "そお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーお",
+              "restrictions": []
+            },
+            {
+              "kana": "そーう",
+              "restrictions": []
+            },
+            {
+              "kana": "そおお",
+              "restrictions": []
+            },
+            {
+              "kana": "そぅ",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "appearing that",
+              "seeming that",
+              "looking like",
+              "having the appearance of"
+            ],
+            "pos": [
+              "auxiliary",
+              "adjectival nouns or quasi-adjectives (keiyodoshi)"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "short-train-r01-50",
+      "source": "i hope so",
+      "sense_group": "hope_for_prior_proposition",
+      "target": "そう願っています。",
+      "reading": "sō negatte imasu",
+      "status": "authored_draft_for_review",
+      "notes": [
+        "Complete target and inflection/particles/romanization authored. Exact JMdict spelling/reading/sense links attest constituents; no claim the full constructed sentence is a dictionary entry."
+      ],
+      "evidence": [
+        {
+          "source": "japanese-constituents.json",
+          "source_sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+          "entry_id": "1217950",
+          "sense_index": 1,
+          "spellings": [
+            "願う"
+          ],
+          "readings": [
+            {
+              "kana": "ねがう",
+              "restrictions": []
+            }
+          ],
+          "selected_sense": {
+            "index": 1,
+            "glosses": [
+              "to desire",
+              "to wish",
+              "to hope"
+            ],
+            "pos": [
+              "Godan verb with 'u' ending",
+              "transitive verb"
+            ],
+            "misc": [],
+            "restricted_spellings": [],
+            "restricted_readings": []
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 50,
+    "status_counts": {
+      "authored_draft_for_review": 46,
+      "unavailable": 4
+    },
+    "readings_supplied": 46
+  }
+}

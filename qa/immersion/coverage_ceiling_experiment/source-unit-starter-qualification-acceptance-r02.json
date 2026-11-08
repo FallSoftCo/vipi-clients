@@ -1,0 +1,12 @@
+{
+  "production": false,
+  "authorization_actor": "/root parent agent",
+  "accepted_scope": "Bounded native QA of starter revision2 after both routing gates; existing production defaults remain. No production promotion.",
+  "candidate_sha256": "67f041f3024c0e3679d54de9afa2debcebba1ad42e0a79b7bb0e4aacb90f2f60",
+  "handoff_sha256": "ab7e2aec4b132e213aec21e9fe861778e4ea96e81802d58b1010cb7fc223bb3f",
+  "protocol_sha256": "fd89fd2bf9988b657fe3f8d689f23d5554364c9c5b73675ac80ebf6a6f2e3ec6",
+  "accepted_message": "Root inspected r02 provenance, month exclusion, native protocol and complete handoff. Approved for bounded native QA after both routing gates; defaults stay existing production data.",
+  "qualification_status": "Platform owners retain and report actual gate/capture receipts; this record is coordination acceptance, not test execution.",
+  "routing_gate_acceptance": "Root subsequently confirmed both native bounded routing gates accepted: Android5828f52; Apple actual frozenr04runtime/r02native receipt. Owners may execute starter baseline/candidate with explicit QA injection only.",
+  "production_defaults_changed": false
+}

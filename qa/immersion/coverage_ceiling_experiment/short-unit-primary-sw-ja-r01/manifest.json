@@ -1,0 +1,23 @@
+{
+  "production": false,
+  "swahili_upstream_sha256": "f5859f14d739f12b1dd3c373bffead2a47920b746af436511cef4f2b8cea7320",
+  "jmdict_upstream_gzip_sha256": "490d2fef9cd8dfcdfcd618863c827fe2efd52992b002fb502679d4e1b7fb039d",
+  "sources": [
+    "https://kaikki.org/dictionary/Swahili/",
+    "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz"
+  ],
+  "license": "CC-BY-SA-4.0",
+  "use": "Selected constituent attestations only; authored whole sentences remain review proposals.",
+  "files": [
+    {
+      "path": "swahili-constituents.json",
+      "sha256": "3ecdc6474fafbda02e8f279c2e40b31d2fff390d332130eef71ff92d916cab00",
+      "bytes": 406793
+    },
+    {
+      "path": "japanese-constituents.json",
+      "sha256": "9441252cbfbb1f3ab67d7f0d025cff010e7b6e594704aabccdc5e5d6d3ce3984",
+      "bytes": 50795
+    }
+  ]
+}

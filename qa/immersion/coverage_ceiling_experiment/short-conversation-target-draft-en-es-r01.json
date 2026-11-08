@@ -1,0 +1,5003 @@
+{
+  "schema": "vipi-short-source-target-draft-1",
+  "production": false,
+  "target_language": "es",
+  "source_selection_sha256": "6b1abaaec2b11b16a320815f8955ecaf7b66373e203e986c28d7425e74f8710e",
+  "new_heldout_seen": false,
+  "target_policy_frozen": false,
+  "matching_policy": "Proposed complete utterance or punctuation-bounded sentence only. No partial unit to force native10% budget. Source matcher/target choices remain reviewable and must freeze before heldout.",
+  "rows": [
+    {
+      "source": "yes",
+      "source_group": null,
+      "target": "Sí.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Response-polarity/pragmatic context must remain in semantic review; lexical affirmation alone is not proof of all dialogue uses."
+      ],
+      "evidence": [
+        {
+          "word": "sí",
+          "file": "../primary-spanish-selection-r01/records/4f87498b67d58967.jsonl",
+          "sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "particle",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "Used to give positive emphasis to a verb, which is often replaced. Functions similarly to English do."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "hello? (used when answering a phone call)"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes; aye, ay; approbation, acceptance"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "prepositional form of se",
+                    "himself, herself, itself, themself, themselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "prepositional form of se",
+                    "yourself, yourselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "how about you",
+      "source_group": null,
+      "target": "¿Y tú?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Reciprocal topic/question only as a complete unit, not arbitrary substring."
+      ],
+      "evidence": [
+        {
+          "word": "y",
+          "file": "../primary-spanish-selection-r01/records/a1fce4363854ff88.jsonl",
+          "sha256": "932ae1d1ad88142a5031394e6cafc4d74568bc8b2834a2dc71436e537200a4ae",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/y/y/y.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "character",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "The twenty-sixth letter of the Spanish alphabet, called ye or i griega and written in the Latin script."
+                  ],
+                  "tags": [
+                    "letter",
+                    "lowercase"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "conj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "plus, and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "well"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "what about, how about, and, where is/are the"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "tú",
+          "file": "records/022f7e9f9b475da9.jsonl",
+          "sha256": "c6826b7aa75c802117d75c6dac40e24ad618724cd38846076a5611352f5a0846",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/t%C3%BA/t%C3%BA.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "you (second-person singular pronoun)"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "expletive"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "what about you",
+      "source_group": null,
+      "target": "¿Y tú?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Reciprocal topic/question only as a complete unit, not arbitrary substring."
+      ],
+      "evidence": [
+        {
+          "word": "y",
+          "file": "../primary-spanish-selection-r01/records/a1fce4363854ff88.jsonl",
+          "sha256": "932ae1d1ad88142a5031394e6cafc4d74568bc8b2834a2dc71436e537200a4ae",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/y/y/y.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "character",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "The twenty-sixth letter of the Spanish alphabet, called ye or i griega and written in the Latin script."
+                  ],
+                  "tags": [
+                    "letter",
+                    "lowercase"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "conj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "plus, and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "well"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "what about, how about, and, where is/are the"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "tú",
+          "file": "records/022f7e9f9b475da9.jsonl",
+          "sha256": "c6826b7aa75c802117d75c6dac40e24ad618724cd38846076a5611352f5a0846",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/t%C3%BA/t%C3%BA.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "you (second-person singular pronoun)"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "expletive"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "wow",
+      "source_group": null,
+      "target": "¡Vaya!",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "vaya",
+          "file": "records/5a2f55a502ffd5b0.jsonl",
+          "sha256": "81869720e72cfd4a47468cb51980399001c664581157fab9aa6ce60a56b55ccb",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/va/vaya.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "expresses surprise: wow!, why, oh!, whoa!, well!, man!, boy!"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "expresses dismay, worry, indignation or frustration: gee!, jeez!, gosh!, why, man!, oh dear!"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "what a ..."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "you know, like, y'know"
+                  ],
+                  "tags": [
+                    "colloquial"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "go!, leave!, go away! (technically an imperative but can function as an interjection in this sense)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "inflection of ir:",
+                    "first/third-person singular present subjunctive"
+                  ],
+                  "tags": [
+                    "first-person",
+                    "form-of",
+                    "present",
+                    "singular",
+                    "subjunctive",
+                    "third-person"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ir"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "inflection of ir:",
+                    "third-person singular imperative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "imperative",
+                    "singular",
+                    "third-person"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ir"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "joke; taunt"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that's cool",
+      "source_group": null,
+      "target": "Eso está genial.",
+      "status": "withheld_ambiguous",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Complete phrase can mean approval or literal temperature. No context discriminator has been qualified."
+      ],
+      "evidence": [
+        {
+          "word": "genial",
+          "file": "records/3d2e93b30786bd06.jsonl",
+          "sha256": "dbe0bd1c2a6fc422bf368bc74ed899eb4aa104113eb26b23d2f0883652be6fb2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/ge/genial.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "great, very good"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "genial, pleasant"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "splendid, gorgeous"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "ingenious, genius"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "very well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "me too",
+      "source_group": null,
+      "target": "Yo también.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "yo",
+          "file": "../primary-spanish-selection-r01/records/e9058ab198f6908f.jsonl",
+          "sha256": "79ef2570f7bbcbd165ed6a83362902a2a8d0583df8bda68514a8cbcd7bdfd409",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/y/yo/yo.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "first-person singular pronoun in the nominative case; I"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "Freud's concept of the ego"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "también",
+          "file": "../primary-spanish-selection-r01/records/20af4511c75c6d7b.jsonl",
+          "sha256": "052cbe99956b48d00bb0ef81e99b0db99bf6a999460a646599233deb6983ed46",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/ta/tambi%C3%A9n.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "also, too, as well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "so"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "yeah",
+      "source_group": null,
+      "target": "Sí.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Response-polarity/pragmatic context must remain in semantic review; lexical affirmation alone is not proof of all dialogue uses."
+      ],
+      "evidence": [
+        {
+          "word": "sí",
+          "file": "../primary-spanish-selection-r01/records/4f87498b67d58967.jsonl",
+          "sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "particle",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "Used to give positive emphasis to a verb, which is often replaced. Functions similarly to English do."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "hello? (used when answering a phone call)"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes; aye, ay; approbation, acceptance"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "prepositional form of se",
+                    "himself, herself, itself, themself, themselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "prepositional form of se",
+                    "yourself, yourselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "really",
+      "source_group": null,
+      "target": "¿En serio?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Only a complete question with terminal ? is proposed; not a bare adverb inside another sentence."
+      ],
+      "evidence": [
+        {
+          "word": "en serio",
+          "file": "records/6ae1c0b592b9a651.jsonl",
+          "sha256": "32fa9207a1c2c813aeff029d07bfe84690a7b17e006ddb7b27c250de35603ede",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/en/en%20serio.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "seriously, really, for real, in earnest, on the level"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "i agree",
+      "source_group": null,
+      "target": "Estoy de acuerdo.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "de acuerdo",
+          "file": "records/a717c0ee118475db.jsonl",
+          "sha256": "c75708fc8c32afc8cb078cce849f6bc427ee88a43997ec152f3596d698c4805d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/de/de%20acuerdo.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreeing, in agreement"
+                  ],
+                  "tags": [
+                    "invariable"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreeing, in agreement"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreed; alright; OK"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "estar de acuerdo",
+          "state": "unavailable",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/estar%20de%20acuerdo.jsonl"
+        }
+      ]
+    },
+    {
+      "source": "that's awesome",
+      "source_group": null,
+      "target": "Eso es increíble.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "increíble",
+          "file": "records/b94f10593671aa13.jsonl",
+          "sha256": "9919a952dd5f5fa7255eec02ec2e686b189419c80d7ba99b814cc76128b702f7",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/i/in/incre%C3%ADble.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "incredible, unbelievable"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "thanks",
+      "source_group": null,
+      "target": "Gracias.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "gracias",
+          "file": "../primary-spanish-selection-r01/records/3f8852329b04047a.jsonl",
+          "sha256": "18efee91ed140bf04ebe3a04a1b92a10a9d33cef69fff85b4dfa401f2089508c",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/gr/gracias.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "thank you, thanks"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "thanks"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "plural",
+                    "plural-only"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of gracia"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "gracia"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "do you have any pets",
+      "source_group": null,
+      "target": "¿Tienes mascotas?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "mascota",
+          "file": "../primary-spanish-selection-r01/records/b651ec4c8dae1769.jsonl",
+          "sha256": "f5cc0c4a596619f1ffa2a7b1dff923f1028e1b6b1ff57eee199fb45ed92324b4",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/mascota.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "pet"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "mascot (the animal that represents a team)"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "mascotas",
+          "file": "../primary-spanish-selection-r01/records/6ed75be84e6f28bb.jsonl",
+          "sha256": "6ce431913c85bf9ad7e625f5f646b743c44f2c533ac13bf78918457f1058f311",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/m/ma/mascotas.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of mascota"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "mascota"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "no",
+      "source_group": null,
+      "target": "No.",
+      "status": "unchanged_face_not_useful",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Only case/punctuation differs from English; no useful immersion coverage credit.",
+        "Response-polarity/pragmatic context must remain in semantic review; lexical affirmation alone is not proof of all dialogue uses."
+      ],
+      "evidence": [
+        {
+          "word": "no",
+          "file": "records/9390298f3fb0c5b1.jsonl",
+          "sha256": "1331b117d6e7d49ea9d9bbf2be198f34beae9f0d93f03b16f335a1538637831d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/n/no/no.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "not"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "no"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "eh?, right?, isn't it? (used as a tag question, to emphasise what precedes, or to request that the listener express an opinion)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "no"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "abbreviation of número; no."
+                  ],
+                  "tags": [
+                    "abbreviation",
+                    "alt-of",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "thank you",
+      "source_group": null,
+      "target": "Gracias.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "gracias",
+          "file": "../primary-spanish-selection-r01/records/3f8852329b04047a.jsonl",
+          "sha256": "18efee91ed140bf04ebe3a04a1b92a10a9d33cef69fff85b4dfa401f2089508c",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/gr/gracias.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "thank you, thanks"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "thanks"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "plural",
+                    "plural-only"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of gracia"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "gracia"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "oh yeah",
+      "source_group": null,
+      "target": "Ah, sí.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Response-polarity/pragmatic context must remain in semantic review; lexical affirmation alone is not proof of all dialogue uses."
+      ],
+      "evidence": [
+        {
+          "word": "ah",
+          "file": "records/70a0d5198ebb88f9.jsonl",
+          "sha256": "d9be05198cc8c512f18dc06d9fcc032d61677df054d2d6c5fd0d6ec979f4e5a1",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/ah/ah.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "ah (expression of relief, realization, awe)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "ah (expression of woe, grief)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "sí",
+          "file": "../primary-spanish-selection-r01/records/4f87498b67d58967.jsonl",
+          "sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "particle",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "Used to give positive emphasis to a verb, which is often replaced. Functions similarly to English do."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "hello? (used when answering a phone call)"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes; aye, ay; approbation, acceptance"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "prepositional form of se",
+                    "himself, herself, itself, themself, themselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "prepositional form of se",
+                    "yourself, yourselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "not really",
+      "source_group": null,
+      "target": null,
+      "status": "unavailable",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Degree versus denial varies by prior proposition; no single frozen target selected."
+      ],
+      "evidence": []
+    },
+    {
+      "source": "that sounds fun",
+      "source_group": null,
+      "target": "Suena divertido.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sonar",
+          "file": "records/48ce1a75f18924f0.jsonl",
+          "sha256": "718cfcacf35cfcced60bbf4723bfb406e409296d8ec67b8c0eda3ade88fefcc0",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/so/sonar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to sound, to ring"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to sound (appear)"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to ring a bell, to be familiar"
+                  ],
+                  "tags": [
+                    "figuratively",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to make sound, to play"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to blow (one's nose)"
+                  ],
+                  "tags": [
+                    "reflexive",
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "sonar (a device that uses hydrophones to locate objects underwater)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "divertido",
+          "file": "records/3e1ab0f835e29fe5.jsonl",
+          "sha256": "2c6298b623fce1cfcd67f9c5674ce413ad7a5d5ae2c8901fd787a8da86416bbe",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/di/divertido.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "entertaining, amusing, funny"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "past participle of divertir"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "participle",
+                    "past"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "divertir"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that's great",
+      "source_group": null,
+      "target": "Eso está genial.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "genial",
+          "file": "records/3d2e93b30786bd06.jsonl",
+          "sha256": "dbe0bd1c2a6fc422bf368bc74ed899eb4aa104113eb26b23d2f0883652be6fb2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/ge/genial.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "great, very good"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "genial, pleasant"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "splendid, gorgeous"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "ingenious, genius"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "very well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "oh wow",
+      "source_group": null,
+      "target": "¡Vaya!",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "vaya",
+          "file": "records/5a2f55a502ffd5b0.jsonl",
+          "sha256": "81869720e72cfd4a47468cb51980399001c664581157fab9aa6ce60a56b55ccb",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/va/vaya.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "expresses surprise: wow!, why, oh!, whoa!, well!, man!, boy!"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "expresses dismay, worry, indignation or frustration: gee!, jeez!, gosh!, why, man!, oh dear!"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "what a ..."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "you know, like, y'know"
+                  ],
+                  "tags": [
+                    "colloquial"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "go!, leave!, go away! (technically an imperative but can function as an interjection in this sense)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "inflection of ir:",
+                    "first/third-person singular present subjunctive"
+                  ],
+                  "tags": [
+                    "first-person",
+                    "form-of",
+                    "present",
+                    "singular",
+                    "subjunctive",
+                    "third-person"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ir"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "inflection of ir:",
+                    "third-person singular imperative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "imperative",
+                    "singular",
+                    "third-person"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ir"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "joke; taunt"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "for sure",
+      "source_group": null,
+      "target": "Por supuesto.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "por supuesto",
+          "file": "records/0cbb220710ad3d14.jsonl",
+          "sha256": "f6a66c6ecd424eb0ed52286407efc934103f3368345e19137e42c13f37d16bce",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/p/po/por%20supuesto.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "of course, for sure, certainly (affirmative answer)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that's true",
+      "source_group": null,
+      "target": "Eso es verdad.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "verdad",
+          "file": "records/bca0912ab7f7583a.jsonl",
+          "sha256": "04b486c689edd61e047eb2e5479cf3bec943af8a3613c6fc2e7e7b93f508d7f4",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/ve/verdad.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "truth"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "fact"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "right"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "where do you live",
+      "source_group": null,
+      "target": "¿Dónde vives?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "dónde",
+          "file": "../primary-spanish-selection-r01/records/cd8781997b308c16.jsonl",
+          "sha256": "370ffd2d5c0efc8945406c8df7afd7b864806ca27e68d57ddcc61b7b96c6c22c",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%B3/d%C3%B3nde.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "where?; in what place?"
+                  ],
+                  "tags": [
+                    "interrogative"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "from where? whence?"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "interrogative",
+                    "obsolete"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "where"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "vivir",
+          "file": "records/50e335c488a212b6.jsonl",
+          "sha256": "3dab3ee2318014b7c00357e67cc57a88a01c3bef7fddabfaa29b31710589bbea",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/vi/vivir.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to live; to be alive"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to make a living, to live on"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to live in, reside, inhabit"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to experience, to live through"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "life; lifestyle"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "vives",
+          "file": "records/bcdddfaff8f37670.jsonl",
+          "sha256": "3b91c51334ebdf2e28852016cac919113cff041a54db082d1ae43d841b0783e2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/vi/vives.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "second-person singular present subjunctive of vivar"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "present",
+                    "second-person",
+                    "singular",
+                    "subjunctive"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "vivar"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "second-person singular present indicative of vivir"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "indicative",
+                    "present",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "vivir"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "interesting",
+      "source_group": null,
+      "target": "Interesante.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "interesante",
+          "file": "records/33e6521013af26ae.jsonl",
+          "sha256": "58d98093e9479ff27ca59bb43601a92a49eabff187fa24e203c81a2942ee47d2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/i/in/interesante.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "interesting"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "oh no",
+      "source_group": null,
+      "target": "¡Oh, no!",
+      "status": "unchanged_face_not_useful",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Only case/punctuation differs from English; no useful immersion coverage credit."
+      ],
+      "evidence": [
+        {
+          "word": "oh",
+          "file": "../primary-spanish-selection-r01/records/cf04119a706e2c45.jsonl",
+          "sha256": "60e357be09904201c6597e2d2c319c64c8f6d44a0dd903724e714cf0428a3b1a",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/o/oh/oh.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "oh (expression of awe, surprise, pain or realization)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "no",
+          "file": "records/9390298f3fb0c5b1.jsonl",
+          "sha256": "1331b117d6e7d49ea9d9bbf2be198f34beae9f0d93f03b16f335a1538637831d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/n/no/no.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "not"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "no"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "eh?, right?, isn't it? (used as a tag question, to emphasise what precedes, or to request that the listener express an opinion)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "no"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "abbreviation of número; no."
+                  ],
+                  "tags": [
+                    "abbreviation",
+                    "alt-of",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "where are you from",
+      "source_group": null,
+      "target": "¿De dónde eres?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "dónde",
+          "file": "../primary-spanish-selection-r01/records/cd8781997b308c16.jsonl",
+          "sha256": "370ffd2d5c0efc8945406c8df7afd7b864806ca27e68d57ddcc61b7b96c6c22c",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/d%C3%B3/d%C3%B3nde.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "where?; in what place?"
+                  ],
+                  "tags": [
+                    "interrogative"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "from where? whence?"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "interrogative",
+                    "obsolete"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "where"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "eres",
+          "file": "records/0710ec7b4616fd35.jsonl",
+          "sha256": "71780555131b77f1a5f6aa56398be04f0dc95a1dc7c4bc5a7679a71094fce381",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/er/eres.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "second-person singular present indicative of ser; you are"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "indicative",
+                    "present",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ser",
+                      "extra": "you are"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of ere"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ere"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "i see",
+      "source_group": null,
+      "target": null,
+      "status": "unavailable",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Perception versus acknowledgment cannot be distinguished from this source unit alone."
+      ],
+      "evidence": []
+    },
+    {
+      "source": "i know",
+      "source_group": null,
+      "target": "Lo sé.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "saber",
+          "file": "records/e4c3c153699b22a9.jsonl",
+          "sha256": "29e71b63d072498739466066323c66391d27472003a54aebede8660e7f88eeab",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/sa/saber.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to know, to understand (a fact)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to know how to do something"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to find out, to learn"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to taste (i.e. have a flavour)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to realize, to know (i.e. recognize)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 5,
+                  "glosses": [
+                    "to tell, to know (i.e. to discern or distinguish if something is the case)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 6,
+                  "glosses": [
+                    "to figure out"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 7,
+                  "glosses": [
+                    "to hear from"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 8,
+                  "glosses": [
+                    "to hear of, to hear about"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 9,
+                  "glosses": [
+                    "to learn, to find out, to know"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 10,
+                  "glosses": [
+                    "to know about, to be good at [with dative] le"
+                  ],
+                  "tags": [
+                    "Internet",
+                    "colloquial"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 11,
+                  "glosses": [
+                    "to be known"
+                  ],
+                  "tags": [
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 12,
+                  "glosses": [
+                    "to know (extremely well)"
+                  ],
+                  "tags": [
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 13,
+                  "glosses": [
+                    "synonym of soler (in several senses: (auxiliary) to be accustomed to; (imperfect) to used to)"
+                  ],
+                  "tags": [
+                    "Argentina",
+                    "Ecuador",
+                    "El-Salvador",
+                    "Honduras",
+                    "Nicaragua",
+                    "Peru",
+                    "colloquial"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "knowledge"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "sé",
+          "file": "records/08c2e548dcbb43ee.jsonl",
+          "sha256": "31737edfee2711d87027acc4d6ea725f59c2363859d2058c5d92556f9bd92bec",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%A9/s%C3%A9.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "first-person singular present indicative of saber"
+                  ],
+                  "tags": [
+                    "first-person",
+                    "form-of",
+                    "indicative",
+                    "present",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "saber"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "inflection of ser"
+                  ],
+                  "tags": [
+                    "form-of"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ser"
+                    },
+                    {
+                      "word": "ser"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "inflection of ser:",
+                    "second-person singular imperative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "imperative",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ser"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "inflection of ser:",
+                    "second-person singular voseo imperative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "imperative",
+                    "second-person",
+                    "singular",
+                    "with-voseo"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "ser"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "second-person singular imperative of saber"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "form-of",
+                    "imperative",
+                    "obsolete",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "saber"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes"
+                  ],
+                  "tags": [
+                    "Chile",
+                    "Mexico",
+                    "colloquial"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "i love it",
+      "source_group": null,
+      "target": "Me encanta.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "encantar",
+          "file": "records/3d5d4e62dfc0bf8b.jsonl",
+          "sha256": "343520aa4f97ae43a5efdec91aec2cfec41211351942d43533535f119e0fe19a",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/en/encantar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to charm, to enchant"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to please, to delight"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to bewitch"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "encanta",
+          "file": "records/33cc7847de295445.jsonl",
+          "sha256": "d310c79d1eac7f4ab564eabbcdec8e9c1970583c9c03449ab128d505be6f7c33",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/en/encanta.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "inflection of encantar:",
+                    "third-person singular present indicative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "indicative",
+                    "present",
+                    "singular",
+                    "third-person"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "encantar"
+                    }
+                  ]
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "inflection of encantar:",
+                    "second-person singular imperative"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "imperative",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "encantar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "definitely",
+      "source_group": null,
+      "target": "Sin duda.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sin duda",
+          "file": "records/ef568495e986d717.jsonl",
+          "sha256": "b381e2da65ab79a5c39a961af29af850aeed3e70d991c46945d5e6bba77f1949",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/si/sin%20duda.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "prep_phrase",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "without a doubt; no question"
+                  ],
+                  "tags": [
+                    "idiomatic"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "do you have any hobbies",
+      "source_group": null,
+      "target": "¿Tienes aficiones?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "afición",
+          "file": "records/03bc892b84392c50.jsonl",
+          "sha256": "fd0f87e8d0d8cf2b739a188b129d38aee9b82dff87f854e967b27ab00ae9d247",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/af/afici%C3%B3n.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "fondness, inclination"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "hobby"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "persistence, determination, zeal"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "aficiones",
+          "file": "records/53222f1f416097e1.jsonl",
+          "sha256": "93858f83ec703a00c372e012f75ae7f433d7147e1918aaf354a7a9207da0488f",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/af/aficiones.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of afición"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "afición"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "second-person singular present subjunctive of aficionar"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "present",
+                    "second-person",
+                    "singular",
+                    "subjunctive"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "aficionar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "oh nice",
+      "source_group": null,
+      "target": "¡Qué bien!",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "bien",
+          "file": "records/48b3f8392fb766ae.jsonl",
+          "sha256": "34c02350ade9758f634a29c27aeb3d9e06cb138540cf2c68990d0cc22040d14e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/b/bi/bien.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "well (adverbial form of bueno)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "well; fine; okay (state of being satisfied with the status quo)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "properly"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "willingly"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "very"
+                  ],
+                  "tags": [
+                    "colloquial"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 5,
+                  "glosses": [
+                    "as well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "well-to-do; affluent; wealthy; upper-class"
+                  ],
+                  "tags": [
+                    "colloquial",
+                    "feminine",
+                    "masculine",
+                    "postpositional"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "exclusive; upscale; high-class"
+                  ],
+                  "tags": [
+                    "colloquial",
+                    "feminine",
+                    "masculine",
+                    "postpositional"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "conj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "either ... or; whether ... or (used to express alternatives, but with the same result)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "good (as opposed to evil)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "goodness"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "good; better (substantive)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "welfare; benefit"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "goods; property; possessions; assets; wealth; estate"
+                  ],
+                  "tags": [
+                    "in-plural",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 5,
+                  "glosses": [
+                    "darling"
+                  ],
+                  "tags": [
+                    "dated",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "and you",
+      "source_group": null,
+      "target": "¿Y tú?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Reciprocal topic/question only as a complete unit, not arbitrary substring."
+      ],
+      "evidence": [
+        {
+          "word": "y",
+          "file": "../primary-spanish-selection-r01/records/a1fce4363854ff88.jsonl",
+          "sha256": "932ae1d1ad88142a5031394e6cafc4d74568bc8b2834a2dc71436e537200a4ae",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/y/y/y.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "character",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "The twenty-sixth letter of the Spanish alphabet, called ye or i griega and written in the Latin script."
+                  ],
+                  "tags": [
+                    "letter",
+                    "lowercase"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "conj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "plus, and"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "well"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "what about, how about, and, where is/are the"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "tú",
+          "file": "records/022f7e9f9b475da9.jsonl",
+          "sha256": "c6826b7aa75c802117d75c6dac40e24ad618724cd38846076a5611352f5a0846",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/t%C3%BA/t%C3%BA.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "you (second-person singular pronoun)"
+                  ],
+                  "tags": [
+                    "informal"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "expletive"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "ok",
+      "source_group": null,
+      "target": "De acuerdo.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "de acuerdo",
+          "file": "records/a717c0ee118475db.jsonl",
+          "sha256": "c75708fc8c32afc8cb078cce849f6bc427ee88a43997ec152f3596d698c4805d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/de/de%20acuerdo.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreeing, in agreement"
+                  ],
+                  "tags": [
+                    "invariable"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreeing, in agreement"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "agreed; alright; OK"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "do you have any kids",
+      "source_group": null,
+      "target": "¿Tienes hijos?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "hijo",
+          "file": "../primary-spanish-selection-r01/records/2634562768e2d344.jsonl",
+          "sha256": "44d96fc96832fa7f28145f93fb7b05577b6168f941f4f43582371e71f28e1b19",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/h/hi/hijo.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "son"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "child (of unknown gender)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "team that is often defeated by another team"
+                  ],
+                  "tags": [
+                    "Internet",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "hijos",
+          "file": "../primary-spanish-selection-r01/records/816a1b99ac43d3af.jsonl",
+          "sha256": "e83859ea190a1d95f37a091f7da599c8ec72761dbd0c16892ebc4ec4db493b50",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/h/hi/hijos.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of hijo (“sons, children”)"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "masculine",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "hijo",
+                      "extra": "sons, children"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "what are your hobbies",
+      "source_group": null,
+      "target": "¿Cuáles son tus aficiones?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "afición",
+          "file": "records/03bc892b84392c50.jsonl",
+          "sha256": "fd0f87e8d0d8cf2b739a188b129d38aee9b82dff87f854e967b27ab00ae9d247",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/af/afici%C3%B3n.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "fondness, inclination"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "hobby"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "persistence, determination, zeal"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "aficiones",
+          "file": "records/53222f1f416097e1.jsonl",
+          "sha256": "93858f83ec703a00c372e012f75ae7f433d7147e1918aaf354a7a9207da0488f",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/af/aficiones.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of afición"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "afición"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "second-person singular present subjunctive of aficionar"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "present",
+                    "second-person",
+                    "singular",
+                    "subjunctive"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "aficionar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "cuáles",
+          "file": "records/9dda4b3e2b4b21f5.jsonl",
+          "sha256": "a6fa560f650f1657dc61df428d919b2d88f6e96065aa912d4ab16a790cda79b4",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/c/cu/cu%C3%A1les.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of cuál"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "masculine",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "cuál"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "do you work",
+      "source_group": null,
+      "target": "¿Trabajas?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Employment question; contextual ability/current activity readings remain evaluation risks."
+      ],
+      "evidence": [
+        {
+          "word": "trabajar",
+          "file": "records/b0a4d86b9ce8fcde.jsonl",
+          "sha256": "f9bf476fffd1953ed47cca74ce7b232b611244e67c46753a00c80fa28931ce06",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/tr/trabajar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to work"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to work in, work on, to workshop (+ en)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to suffer"
+                  ],
+                  "tags": [
+                    "obsolete"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "trabajas",
+          "file": "records/b5593a4818d644e9.jsonl",
+          "sha256": "f0b2d0c308f3c2bf8591559e426311f22865e586afe131831c7d44e63cf2795d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/t/tr/trabajas.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "second-person singular present indicative of trabajar"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "indicative",
+                    "present",
+                    "second-person",
+                    "singular"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "trabajar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "yep",
+      "source_group": null,
+      "target": "Sí.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Response-polarity/pragmatic context must remain in semantic review; lexical affirmation alone is not proof of all dialogue uses."
+      ],
+      "evidence": [
+        {
+          "word": "sí",
+          "file": "../primary-spanish-selection-r01/records/4f87498b67d58967.jsonl",
+          "sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "particle",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "Used to give positive emphasis to a verb, which is often replaced. Functions similarly to English do."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "hello? (used when answering a phone call)"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes; aye, ay; approbation, acceptance"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "prepositional form of se",
+                    "himself, herself, itself, themself, themselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "prepositional form of se",
+                    "yourself, yourselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "are you married",
+      "source_group": null,
+      "target": null,
+      "status": "unavailable",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [
+        "Casado/casada requires gender; a gender-neutral idiomatic equivalent has not been independently verified for this draft."
+      ],
+      "evidence": []
+    },
+    {
+      "source": "that sounds like fun",
+      "source_group": null,
+      "target": "Suena divertido.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sonar",
+          "file": "records/48ce1a75f18924f0.jsonl",
+          "sha256": "718cfcacf35cfcced60bbf4723bfb406e409296d8ec67b8c0eda3ade88fefcc0",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/so/sonar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to sound, to ring"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to sound (appear)"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to ring a bell, to be familiar"
+                  ],
+                  "tags": [
+                    "figuratively",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to make sound, to play"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to blow (one's nose)"
+                  ],
+                  "tags": [
+                    "reflexive",
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "sonar (a device that uses hydrophones to locate objects underwater)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "divertido",
+          "file": "records/3e1ab0f835e29fe5.jsonl",
+          "sha256": "2c6298b623fce1cfcd67f9c5674ce413ad7a5d5ae2c8901fd787a8da86416bbe",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/d/di/divertido.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "entertaining, amusing, funny"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "past participle of divertir"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "participle",
+                    "past"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "divertir"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "congratulations",
+      "source_group": null,
+      "target": "¡Felicidades!",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "felicidades",
+          "file": "records/da3f26b1687500d6.jsonl",
+          "sha256": "ff8c39a9f73f589e29f62ad973378b659d9d4be069798df2810834e33a9749de",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/f/fe/felicidades.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "congratulations"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of felicidad"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "form-of",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "felicidad"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "absolutely",
+      "source_group": null,
+      "target": "Por supuesto.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "por supuesto",
+          "file": "records/0cbb220710ad3d14.jsonl",
+          "sha256": "f6a66c6ecd424eb0ed52286407efc934103f3368345e19137e42c13f37d16bce",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/p/po/por%20supuesto.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "of course, for sure, certainly (affirmative answer)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that is true",
+      "source_group": null,
+      "target": "Eso es verdad.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "verdad",
+          "file": "records/bca0912ab7f7583a.jsonl",
+          "sha256": "04b486c689edd61e047eb2e5479cf3bec943af8a3613c6fc2e7e7b93f508d7f4",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/v/ve/verdad.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "truth"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "fact"
+                  ],
+                  "tags": [
+                    "feminine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "right"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that sounds great",
+      "source_group": null,
+      "target": "Suena genial.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sonar",
+          "file": "records/48ce1a75f18924f0.jsonl",
+          "sha256": "718cfcacf35cfcced60bbf4723bfb406e409296d8ec67b8c0eda3ade88fefcc0",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/so/sonar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to sound, to ring"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to sound (appear)"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to ring a bell, to be familiar"
+                  ],
+                  "tags": [
+                    "figuratively",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to make sound, to play"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to blow (one's nose)"
+                  ],
+                  "tags": [
+                    "reflexive",
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "sonar (a device that uses hydrophones to locate objects underwater)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "genial",
+          "file": "records/3d2e93b30786bd06.jsonl",
+          "sha256": "dbe0bd1c2a6fc422bf368bc74ed899eb4aa104113eb26b23d2f0883652be6fb2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/ge/genial.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "great, very good"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "genial, pleasant"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "splendid, gorgeous"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "ingenious, genius"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "very well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "that's amazing",
+      "source_group": null,
+      "target": "Eso es asombroso.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "asombroso",
+          "file": "records/cae248db6ba63509.jsonl",
+          "sha256": "13442bb3be56a504b9a92985df1b39d1f5df012b7b52038e8d1711db39bb0d02",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/a/as/asombroso.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "amazing, wondrous, breathtaking, awesome (inspiring awe, wonder or admiration)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "amazing, astonishing, staggering, astounding, stunning, surprising, startling, stupefying (bewildering with surprise)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "uncanny (unsettled by experiencing something strange, unusual or otherworldly)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "thats great",
+      "source_group": null,
+      "target": "Eso está genial.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "genial",
+          "file": "records/3d2e93b30786bd06.jsonl",
+          "sha256": "dbe0bd1c2a6fc422bf368bc74ed899eb4aa104113eb26b23d2f0883652be6fb2",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/g/ge/genial.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "great, very good"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "genial, pleasant"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "splendid, gorgeous"
+                  ],
+                  "tags": [
+                    "feminine",
+                    "literary",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "ingenious, genius"
+                  ],
+                  "tags": [
+                    "archaic",
+                    "feminine",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "very well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "what are you studying",
+      "source_group": null,
+      "target": "¿Qué estás estudiando?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "estudiar",
+          "file": "records/efaed1fbd9353a1f.jsonl",
+          "sha256": "ec625ebf1d96d3748560e9686a55b5013060724534c23c570d01ac1332f74d6a",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/estudiar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to study"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to examine, look into"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "estudiando",
+          "file": "records/bc692b1e394f1453.jsonl",
+          "sha256": "7a716717569ea373930c295af62b26c02094a646d266258f7d4457f85c49ca5f",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/estudiando.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "gerund of estudiar"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "gerund"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "estudiar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "i'm sorry to hear that",
+      "source_group": null,
+      "target": "Siento oír eso.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sentir",
+          "file": "records/3619d970f737f21d.jsonl",
+          "sha256": "4711e3791548ddeb5c7531b448ba869fa4452b8379e668c4a4e2afa0c8382929",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/se/sentir.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to feel"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to regret, feel or be sorry"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to hear"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to feel (an emotion/state of being)"
+                  ],
+                  "tags": [
+                    "reflexive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "feeling; mood"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "opinion"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "oír",
+          "file": "records/867a81954c07429f.jsonl",
+          "sha256": "61c75029ba959a5de74bade75b9c0d73ab00386feb89ad4ad33c90cdae28c80d",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/o/o%C3%AD/o%C3%ADr.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to hear"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to hear (passively perceive a sound)"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to listen to (actively pay attention to a sound or a person speaking)"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to sound"
+                  ],
+                  "tags": [
+                    "Latin-America",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to heed; to listen to"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "do you have kids",
+      "source_group": null,
+      "target": "¿Tienes hijos?",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "hijo",
+          "file": "../primary-spanish-selection-r01/records/2634562768e2d344.jsonl",
+          "sha256": "44d96fc96832fa7f28145f93fb7b05577b6168f941f4f43582371e71f28e1b19",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/h/hi/hijo.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "son"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "child (of unknown gender)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "team that is often defeated by another team"
+                  ],
+                  "tags": [
+                    "Internet",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "hijos",
+          "file": "../primary-spanish-selection-r01/records/816a1b99ac43d3af.jsonl",
+          "sha256": "e83859ea190a1d95f37a091f7da599c8ec72761dbd0c16892ebc4ec4db493b50",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/h/hi/hijos.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "plural of hijo (“sons, children”)"
+                  ],
+                  "tags": [
+                    "form-of",
+                    "masculine",
+                    "plural"
+                  ],
+                  "form_of": [
+                    {
+                      "word": "hijo",
+                      "extra": "sons, children"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "sounds good",
+      "source_group": null,
+      "target": "Suena bien.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "sonar",
+          "file": "records/48ce1a75f18924f0.jsonl",
+          "sha256": "718cfcacf35cfcced60bbf4723bfb406e409296d8ec67b8c0eda3ade88fefcc0",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/so/sonar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to sound, to ring"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to sound (appear)"
+                  ],
+                  "tags": [
+                    "intransitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to ring a bell, to be familiar"
+                  ],
+                  "tags": [
+                    "figuratively",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to make sound, to play"
+                  ],
+                  "tags": [
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to blow (one's nose)"
+                  ],
+                  "tags": [
+                    "reflexive",
+                    "transitive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "sonar (a device that uses hydrophones to locate objects underwater)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "bien",
+          "file": "records/48b3f8392fb766ae.jsonl",
+          "sha256": "34c02350ade9758f634a29c27aeb3d9e06cb138540cf2c68990d0cc22040d14e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/b/bi/bien.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "adv",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "well (adverbial form of bueno)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "well; fine; okay (state of being satisfied with the status quo)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "properly"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "willingly"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "very"
+                  ],
+                  "tags": [
+                    "colloquial"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 5,
+                  "glosses": [
+                    "as well"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "adj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "well-to-do; affluent; wealthy; upper-class"
+                  ],
+                  "tags": [
+                    "colloquial",
+                    "feminine",
+                    "masculine",
+                    "postpositional"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "exclusive; upscale; high-class"
+                  ],
+                  "tags": [
+                    "colloquial",
+                    "feminine",
+                    "masculine",
+                    "postpositional"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "conj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "either ... or; whether ... or (used to express alternatives, but with the same result)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "good (as opposed to evil)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "goodness"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "good; better (substantive)"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "welfare; benefit"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "goods; property; possessions; assets; wealth; estate"
+                  ],
+                  "tags": [
+                    "in-plural",
+                    "masculine"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 5,
+                  "glosses": [
+                    "darling"
+                  ],
+                  "tags": [
+                    "dated",
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": "i hope so",
+      "source_group": null,
+      "target": "Espero que sí.",
+      "status": "authored_draft_for_review",
+      "reading": null,
+      "authorship": "New short linguistic construction authored by immersion_engine; primary lexical records corroborate constituents/phrases, not independent whole-unit human review.",
+      "target_register": "Neutral informal singular tú where person is expressed; no user gender is inferred.",
+      "risks": [],
+      "evidence": [
+        {
+          "word": "esperar",
+          "file": "records/94fb6938513e5380.jsonl",
+          "sha256": "d91ded7c4baae85aa7481ab1abf3572352dbc424517dcc955c6a826bb4cf1bb5",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/e/es/esperar.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "verb",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "to hope"
+                  ],
+                  "tags": [
+                    "catenative",
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "to expect"
+                  ],
+                  "tags": [
+                    "catenative",
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 2,
+                  "glosses": [
+                    "to wait, wait (for)"
+                  ],
+                  "tags": [
+                    "intransitive",
+                    "transitive"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 3,
+                  "glosses": [
+                    "to wait, to hold on (reflexive for emphatic use)"
+                  ],
+                  "tags": [
+                    "Latin-America",
+                    "colloquial",
+                    "imperative",
+                    "intransitive",
+                    "reflexive",
+                    "usually"
+                  ],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 4,
+                  "glosses": [
+                    "to be expected"
+                  ],
+                  "tags": [
+                    "impersonal",
+                    "reflexive"
+                  ],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "word": "sí",
+          "file": "../primary-spanish-selection-r01/records/4f87498b67d58967.jsonl",
+          "sha256": "e31566f451bec4840143dbb1ea741dc1c8c4de8898cb8789bc1dd2f030a9389e",
+          "url": "https://kaikki.org/dictionary/Spanish/meaning/s/s%C3%AD/s%C3%AD.jsonl",
+          "records": [
+            {
+              "record_index": 0,
+              "pos": "particle",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes, yeah, (used to respond affirmatively to a question, used both informally and formally)"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "Used to give positive emphasis to a verb, which is often replaced. Functions similarly to English do."
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 1,
+              "pos": "intj",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "hello? (used when answering a phone call)"
+                  ],
+                  "tags": [
+                    "Spain"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 2,
+              "pos": "noun",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "yes; aye, ay; approbation, acceptance"
+                  ],
+                  "tags": [
+                    "masculine"
+                  ],
+                  "form_of": []
+                }
+              ]
+            },
+            {
+              "record_index": 3,
+              "pos": "pron",
+              "senses": [
+                {
+                  "sense_index": 0,
+                  "glosses": [
+                    "prepositional form of se",
+                    "himself, herself, itself, themself, themselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                },
+                {
+                  "sense_index": 1,
+                  "glosses": [
+                    "prepositional form of se",
+                    "yourself, yourselves"
+                  ],
+                  "tags": [],
+                  "form_of": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 50,
+    "status_counts": {
+      "withheld_ambiguous": 1,
+      "unchanged_face_not_useful": 2,
+      "authored_draft_for_review": 44,
+      "unavailable": 3
+    },
+    "primary_files": 46,
+    "new_download_bytes": 501633,
+    "failed_primary_words": [
+      "estar de acuerdo"
+    ]
+  }
+}

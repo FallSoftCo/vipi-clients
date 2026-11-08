@@ -1,0 +1,535 @@
+{
+  "schema": "vipi-native-starter-joined-semantic-decision-1",
+  "production": false,
+  "frozen_at_utc": "2026-11-08T04:06:46.823265+00:00",
+  "inputs": {
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-apple-author-review-r01.json": "fdd8ab5b1653558b163bce8713133eb4f405dfb260ff3a42dd638dafe844dd4e",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-apple-independent-root-review-r01.json": "36c2b22be1690f38a6caae35bb17802b92b3c1cd947492e99ae01db9831ce676",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-android-baseline-author-review-r01.json": "d91f072add8d970445aee1b0f7255866726a85fb8bbf11ff03f48c47c53d3be1",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-android-delta-author-review-r01.json": "0aae6a52f4e09610a3c0bf498d5a570c3ed4ccd69718d0e6147c3332e33e6ba1",
+    "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-android-delta-independent-root-review-r01.json": "c57f739079a4ca8fa5812047410571ea4daae55de4524fc4063d549b6a9dbc92",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-unit-starter-baseline-001.json": "c67826cd9245f3f67f60583924353104843752ec1feabe29332be282cf2b290c",
+    "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-unit-starter-candidate-001.json": "1437cae7c0d31118c3547f0466bfe3495aba44cbdc6b3ef1bbdd2354671ecabb",
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/source-unit-starter-baseline-r01.jsonl": "74f4023cf515836cf7693ba81e3b842b85fc6c23d238909a71cd55c883fe260e",
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/source-unit-starter-candidate-r01.jsonl": "f4db3ce499f6871d8d47056b4fbfeed0e5d953dbb511aebd183282118adb2650"
+  },
+  "independent_source_scope_agreements": 55,
+  "independent_source_scope_total": 56,
+  "disagreements": [
+    {
+      "case_id": "bst-test-word-r04-0669-00-en-sw",
+      "scope_id": "b610d9adb1db0bcc",
+      "author": {
+        "scope_id": "b610d9adb1db0bcc",
+        "original": "thing",
+        "target": "kitu",
+        "meaning_label": "correct",
+        "reading_label": "not_required",
+        "note": "Reviewed lexical meaning/referent and exact source scope are preserved in the supplied context; native English grammar is deliberate.",
+        "reading_note": "Latin target does not require a separate transliteration."
+      },
+      "independent": {
+        "original": "thing",
+        "range_utf16": [
+          27,
+          32
+        ],
+        "reading": null,
+        "target": "kitu",
+        "target_range_utf16": [
+          0,
+          4
+        ],
+        "scope_id": "b610d9adb1db0bcc",
+        "meaning_judgment": "uncertain",
+        "reading_judgment": "not_applicable",
+        "combined_judgment": "uncertain",
+        "reason": "American thing refers to a custom/institution (valedictorian), not necessarily a separate entity. The retained kitu gloss establishes generic thing but does not by itself verify this abstract contextual sense. Withhold confidence pending evidence; this is not a demonstrated material mistranslation.",
+        "reading_reason": "Target uses Latin script; no separate transliteration supplied or required."
+      }
+    }
+  ],
+  "delta": {
+    "source_messages": 1,
+    "directions": 3,
+    "scopes": 3,
+    "author_correct": 3,
+    "independent_correct": 3,
+    "author_freeze_not_blind": true
+  },
+  "interpretation": [
+    "All187source-only scopes are identical across native Apple/Android captures; Apple labels transfer by exact original/target/reading/UTF16 equality.",
+    "Joined strict treats minor caveats as not fully correct; lenient allows documented minor form/register caveats but excludes uncertainty/material errors.",
+    "One root uncertainty (thing→kitu abstract custom) is conservatively unqualified in joined metrics; original author labels are retained, not rewritten.",
+    "Full machine references were not comprehensively semantic-scored. These are inline-face metrics, not full-translation accuracy.",
+    "This sample was reused during reviewed-unit selection; native equivalence and bounded benefit, not fresh worldwide coverage.",
+    "All measured candidate values are requested10% minimum-word quantization, one unit maximum. No learned-word exclusions or intermediate progression qualification.",
+    "Android actual offline installed providers; Apple provider unsupported, network enabled, zero observed provider calls.",
+    "First timings are prepared pair invocations in a fixed sequential native experiment, not first-ever model preparation."
+  ],
+  "android": {
+    "baseline_en-sw": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 21,
+        "strict_clean": 18,
+        "lenient_clean": 19,
+        "content_clean": 11,
+        "function_clean": 8,
+        "meaning_counts": {
+          "correct": 19,
+          "material_error": 1,
+          "minor": 1,
+          "uncertain": 1
+        },
+        "mean_correct_depth_strict": 0.025311725726973405,
+        "mean_correct_depth_lenient": 0.027811725726973404,
+        "mean_raw_depth": 0.03272244001268769,
+        "source_only": 1,
+        "translation_calls": 79,
+        "median_first_ms": 61.0596885
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 5,
+          "strict_clean": 3,
+          "lenient_clean": 4,
+          "content_clean": 2,
+          "function_clean": 2,
+          "meaning_counts": {
+            "correct": 3,
+            "material_error": 1,
+            "minor": 1
+          },
+          "mean_correct_depth_strict": 0.03653846153846154,
+          "mean_correct_depth_lenient": 0.04423076923076923,
+          "mean_raw_depth": 0.05384615384615385,
+          "source_only": 0,
+          "translation_calls": 26,
+          "median_first_ms": 36.2689335
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 11,
+          "strict_clean": 11,
+          "lenient_clean": 11,
+          "content_clean": 7,
+          "function_clean": 4,
+          "meaning_counts": {
+            "correct": 12
+          },
+          "mean_correct_depth_strict": 0.021808405446176342,
+          "mean_correct_depth_lenient": 0.021808405446176342,
+          "mean_raw_depth": 0.021808405446176342,
+          "source_only": 1,
+          "translation_calls": 26,
+          "median_first_ms": 110.076307
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 5,
+          "strict_clean": 4,
+          "lenient_clean": 4,
+          "content_clean": 2,
+          "function_clean": 2,
+          "meaning_counts": {
+            "correct": 4,
+            "uncertain": 1
+          },
+          "mean_correct_depth_strict": 0.018004115226337446,
+          "mean_correct_depth_lenient": 0.018004115226337446,
+          "mean_raw_depth": 0.023295120517342737,
+          "source_only": 0,
+          "translation_calls": 27,
+          "median_first_ms": 61.143779
+        }
+      }
+    },
+    "baseline_en-ja": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 24,
+        "strict_clean": 22,
+        "lenient_clean": 22,
+        "content_clean": 14,
+        "function_clean": 10,
+        "meaning_counts": {
+          "correct": 26,
+          "material_error": 1,
+          "uncertain": 1
+        },
+        "mean_correct_depth_strict": 0.025488413595796823,
+        "mean_correct_depth_lenient": 0.025488413595796823,
+        "mean_raw_depth": 0.03173841359579682,
+        "source_only": 1,
+        "translation_calls": 79,
+        "median_first_ms": 78.19651049999999
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 4,
+          "strict_clean": 2,
+          "lenient_clean": 2,
+          "content_clean": 1,
+          "function_clean": 1,
+          "meaning_counts": {
+            "correct": 2,
+            "material_error": 1,
+            "uncertain": 1
+          },
+          "mean_correct_depth_strict": 0.01730769230769231,
+          "mean_correct_depth_lenient": 0.01730769230769231,
+          "mean_raw_depth": 0.03653846153846154,
+          "source_only": 0,
+          "translation_calls": 26,
+          "median_first_ms": 49.5122825
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 14,
+          "strict_clean": 14,
+          "lenient_clean": 14,
+          "content_clean": 9,
+          "function_clean": 7,
+          "meaning_counts": {
+            "correct": 18
+          },
+          "mean_correct_depth_strict": 0.03467760406985067,
+          "mean_correct_depth_lenient": 0.03467760406985067,
+          "mean_raw_depth": 0.03467760406985067,
+          "source_only": 1,
+          "translation_calls": 26,
+          "median_first_ms": 162.236076
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 6,
+          "strict_clean": 6,
+          "lenient_clean": 6,
+          "content_clean": 4,
+          "function_clean": 2,
+          "meaning_counts": {
+            "correct": 6
+          },
+          "mean_correct_depth_strict": 0.02417695473251029,
+          "mean_correct_depth_lenient": 0.02417695473251029,
+          "mean_raw_depth": 0.02417695473251029,
+          "source_only": 0,
+          "translation_calls": 27,
+          "median_first_ms": 82.16152
+        }
+      }
+    },
+    "baseline_en-es": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 35,
+        "strict_clean": 28,
+        "lenient_clean": 35,
+        "content_clean": 28,
+        "function_clean": 7,
+        "meaning_counts": {
+          "correct": 35,
+          "minor": 7
+        },
+        "mean_correct_depth_strict": 0.03890350544838868,
+        "mean_correct_depth_lenient": 0.04711348351856411,
+        "mean_raw_depth": 0.04711348351856411,
+        "source_only": 1,
+        "translation_calls": 79,
+        "median_first_ms": 68.00753399999999
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 5,
+          "strict_clean": 4,
+          "lenient_clean": 5,
+          "content_clean": 4,
+          "function_clean": 1,
+          "meaning_counts": {
+            "correct": 4,
+            "minor": 1
+          },
+          "mean_correct_depth_strict": 0.04807692307692308,
+          "mean_correct_depth_lenient": 0.05576923076923077,
+          "mean_raw_depth": 0.05576923076923077,
+          "source_only": 0,
+          "translation_calls": 26,
+          "median_first_ms": 39.826345
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 20,
+          "strict_clean": 16,
+          "lenient_clean": 20,
+          "content_clean": 15,
+          "function_clean": 5,
+          "meaning_counts": {
+            "correct": 23,
+            "minor": 4
+          },
+          "mean_correct_depth_strict": 0.039800259192505794,
+          "mean_correct_depth_lenient": 0.04745945347450709,
+          "mean_raw_depth": 0.04745945347450709,
+          "source_only": 1,
+          "translation_calls": 26,
+          "median_first_ms": 135.981407
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 10,
+          "strict_clean": 8,
+          "lenient_clean": 10,
+          "content_clean": 9,
+          "function_clean": 1,
+          "meaning_counts": {
+            "correct": 8,
+            "minor": 2
+          },
+          "mean_correct_depth_strict": 0.029173090284201394,
+          "mean_correct_depth_lenient": 0.038432349543460656,
+          "mean_raw_depth": 0.038432349543460656,
+          "source_only": 0,
+          "translation_calls": 27,
+          "median_first_ms": 67.361583
+        }
+      }
+    },
+    "candidate_en-sw": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 66,
+        "strict_clean": 57,
+        "lenient_clean": 65,
+        "content_clean": 22,
+        "function_clean": 43,
+        "meaning_counts": {
+          "correct": 57,
+          "minor": 8,
+          "uncertain": 1
+        },
+        "mean_correct_depth_strict": 0.08995161031199697,
+        "mean_correct_depth_lenient": 0.1042215700671541,
+        "mean_raw_depth": 0.10600728435286838,
+        "source_only": 65,
+        "translation_calls": 15,
+        "median_first_ms": 8.050228
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 14,
+          "strict_clean": 12,
+          "lenient_clean": 14,
+          "content_clean": 4,
+          "function_clean": 10,
+          "meaning_counts": {
+            "minor": 2,
+            "correct": 12
+          },
+          "mean_correct_depth_strict": 0.13974358974358975,
+          "mean_correct_depth_lenient": 0.16666666666666666,
+          "mean_raw_depth": 0.16666666666666666,
+          "source_only": 13,
+          "translation_calls": 13,
+          "median_first_ms": 8.423859
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 27,
+          "strict_clean": 24,
+          "lenient_clean": 27,
+          "content_clean": 13,
+          "function_clean": 14,
+          "meaning_counts": {
+            "correct": 24,
+            "minor": 3
+          },
+          "mean_correct_depth_strict": 0.04350834179837635,
+          "mean_correct_depth_lenient": 0.04953614278231768,
+          "mean_raw_depth": 0.04953614278231768,
+          "source_only": 27,
+          "translation_calls": 0,
+          "median_first_ms": 9.132063
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 25,
+          "strict_clean": 21,
+          "lenient_clean": 24,
+          "content_clean": 5,
+          "function_clean": 19,
+          "meaning_counts": {
+            "correct": 21,
+            "minor": 3,
+            "uncertain": 1
+          },
+          "mean_correct_depth_strict": 0.08844704678038011,
+          "mean_correct_depth_lenient": 0.09877468210801543,
+          "mean_raw_depth": 0.10406568739902072,
+          "source_only": 25,
+          "translation_calls": 2,
+          "median_first_ms": 6.082246
+        }
+      }
+    },
+    "candidate_en-ja": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 65,
+        "strict_clean": 64,
+        "lenient_clean": 65,
+        "content_clean": 27,
+        "function_clean": 38,
+        "meaning_counts": {
+          "correct": 64,
+          "minor": 1
+        },
+        "mean_correct_depth_strict": 0.10673160115448782,
+        "mean_correct_depth_lenient": 0.10769313961602628,
+        "mean_raw_depth": 0.10769313961602628,
+        "source_only": 64,
+        "translation_calls": 16,
+        "median_first_ms": 7.019913
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 15,
+          "strict_clean": 15,
+          "lenient_clean": 15,
+          "content_clean": 5,
+          "function_clean": 10,
+          "meaning_counts": {
+            "correct": 15
+          },
+          "mean_correct_depth_strict": 0.1762820512820513,
+          "mean_correct_depth_lenient": 0.1762820512820513,
+          "mean_raw_depth": 0.1762820512820513,
+          "source_only": 14,
+          "translation_calls": 12,
+          "median_first_ms": 5.0859915
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 25,
+          "strict_clean": 25,
+          "lenient_clean": 25,
+          "content_clean": 15,
+          "function_clean": 10,
+          "meaning_counts": {
+            "correct": 25
+          },
+          "mean_correct_depth_strict": 0.04527201022871145,
+          "mean_correct_depth_lenient": 0.04527201022871145,
+          "mean_raw_depth": 0.04527201022871145,
+          "source_only": 25,
+          "translation_calls": 2,
+          "median_first_ms": 8.996389
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 25,
+          "strict_clean": 24,
+          "lenient_clean": 25,
+          "content_clean": 7,
+          "function_clean": 18,
+          "meaning_counts": {
+            "correct": 24,
+            "minor": 1
+          },
+          "mean_correct_depth_strict": 0.10121668455001788,
+          "mean_correct_depth_lenient": 0.10406568739902072,
+          "mean_raw_depth": 0.10406568739902072,
+          "source_only": 25,
+          "translation_calls": 2,
+          "median_first_ms": 5.374999
+        }
+      }
+    },
+    "candidate_en-es": {
+      "all": {
+        "rows": 80,
+        "raw_nonempty": 59,
+        "strict_clean": 54,
+        "lenient_clean": 59,
+        "content_clean": 24,
+        "function_clean": 35,
+        "meaning_counts": {
+          "correct": 54,
+          "minor": 5
+        },
+        "mean_correct_depth_strict": 0.08046187033705962,
+        "mean_correct_depth_lenient": 0.08658450866364532,
+        "mean_raw_depth": 0.08658450866364532,
+        "source_only": 58,
+        "translation_calls": 22,
+        "median_first_ms": 7.8632595
+      },
+      "by_length": {
+        "1-5": {
+          "rows": 26,
+          "raw_nonempty": 12,
+          "strict_clean": 11,
+          "lenient_clean": 12,
+          "content_clean": 4,
+          "function_clean": 8,
+          "meaning_counts": {
+            "correct": 11,
+            "minor": 1
+          },
+          "mean_correct_depth_strict": 0.12051282051282051,
+          "mean_correct_depth_lenient": 0.1282051282051282,
+          "mean_raw_depth": 0.1282051282051282,
+          "source_only": 11,
+          "translation_calls": 15,
+          "median_first_ms": 24.1091345
+        },
+        "16-30": {
+          "rows": 27,
+          "raw_nonempty": 26,
+          "strict_clean": 25,
+          "lenient_clean": 26,
+          "content_clean": 13,
+          "function_clean": 13,
+          "meaning_counts": {
+            "correct": 25,
+            "minor": 1
+          },
+          "mean_correct_depth_strict": 0.045637507304734835,
+          "mean_correct_depth_lenient": 0.04758682504352626,
+          "mean_raw_depth": 0.04758682504352626,
+          "source_only": 26,
+          "translation_calls": 1,
+          "median_first_ms": 8.364717
+        },
+        "6-15": {
+          "rows": 27,
+          "raw_nonempty": 21,
+          "strict_clean": 18,
+          "lenient_clean": 21,
+          "content_clean": 7,
+          "function_clean": 14,
+          "meaning_counts": {
+            "correct": 18,
+            "minor": 3
+          },
+          "mean_correct_depth_strict": 0.07671865171865172,
+          "mean_correct_depth_lenient": 0.08550307716974383,
+          "mean_raw_depth": 0.08550307716974383,
+          "source_only": 21,
+          "translation_calls": 6,
+          "median_first_ms": 5.343393
+        }
+      }
+    }
+  },
+  "detail_receipt": {
+    "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/native-starter-joined-semantic-decision-r01.json",
+    "sha256": "83573582c4a1aebcc93b6f603c8dbf814dde35bc71473e7d0b9c20f2ec04891c"
+  },
+  "decision": "Source-first routing and bounded beginner native benefit qualified; no broad-immersion or progression promotion. Spanish content-clean reach declines28→24 despite increased raw availability. Current revision2 is QA-only; withhold unresolved generic thing family in a versioned candidate."
+}

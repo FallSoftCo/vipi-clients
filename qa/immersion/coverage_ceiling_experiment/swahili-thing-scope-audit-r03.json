@@ -1,0 +1,63 @@
+{
+  "production": false,
+  "scope": "Generic English thing/things mapped to kitu/vitu without concrete-vs-abstract context",
+  "observed_case": {
+    "id": "bst-test-word-r04-0669-00-en-sw",
+    "source": "oh. it must be an American thing?",
+    "context": "The preceding exchange explains what a valedictorian is.",
+    "source_utf16": [
+      27,
+      32
+    ],
+    "target": "kitu",
+    "original_author_label": "correct",
+    "independent_label": "uncertain",
+    "joined_disposition": "unqualified; no forced material-error adjudication"
+  },
+  "evidence": [
+    {
+      "kind": "retained_dictionary",
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/swahili-expansion-source/kaikki.org-dictionary-Swahili-20261107.jsonl",
+      "sha256": "f5859f14d739f12b1dd3c373bffead2a47920b746af436511cef4f2b8cea7320",
+      "word": "kitu",
+      "sense_id": "en-kitu-sw-noun-IJW0t6Bi",
+      "gloss": "thing (a separate entity)",
+      "related": "jambo, used for abstract things",
+      "plural": "vitu"
+    },
+    {
+      "kind": "primary_reference_grammar",
+      "url": "https://files.eric.ed.gov/fulltext/ED455681.pdf",
+      "authors": [
+        "Katrina Daly Thompson",
+        "Antonia Folarin Schleicher"
+      ],
+      "publisher": "National African Language Resource Center, University of Wisconsin-Madison",
+      "year": 2001,
+      "pdf_page_zero_index": 107,
+      "location": "footnote6",
+      "finding_paraphrase": "The grammar explicitly distinguishes an object referred to by kitu/vitu from an abstract matter referred to by jambo/mambo.",
+      "use": "Factual verification only; no course passage imported as a pack mapping."
+    },
+    {
+      "kind": "primary_university_teaching",
+      "url": "https://africa.uga.edu/Kiswahili/doe/unit_01/unit1grammar.html",
+      "location": "A. Greetings",
+      "finding_paraphrase": "Jambo covers matter, thing, affair. This supports preserving the sense distinction rather than treating every English thing as an object."
+    }
+  ],
+  "decision": {
+    "withhold_source_units": [
+      "word-en-sw-thing",
+      "word-en-sw-things"
+    ],
+    "not_a_global_claim": "Kitu may have extended uses; these sources do not qualify this particular abstract-custom face. No universal blacklist or replacement with jambo is introduced.",
+    "plural_reason": "Same lexeme and primary plural relation; no independently observed plural failure is claimed.",
+    "fallback": "The existing provider-backed baseline selected kitu in the same case. Revision3 data withholding alone does not alter or certify that fallback."
+  },
+  "reviews": {
+    "native-starter-apple-author-review-r01.json": "fdd8ab5b1653558b163bce8713133eb4f405dfb260ff3a42dd638dafe844dd4e",
+    "native-starter-apple-independent-root-review-r01.json": "36c2b22be1690f38a6caae35bb17802b92b3c1cd947492e99ae01db9831ce676",
+    "native-starter-joined-semantic-decision-r01.json": "83573582c4a1aebcc93b6f603c8dbf814dde35bc71473e7d0b9c20f2ec04891c"
+  }
+}
