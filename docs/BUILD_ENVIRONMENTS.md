@@ -82,13 +82,19 @@ qualification remain separate.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
-Committed private source through `7956f8404c060663d19295da8c00675d2b32926b` is
+Committed private source through `b3b2abcc76ef59c12fbb12bbf818da289be3399e` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261109-r07`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261109-r15`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
 corresponding-source publication.
+
+The native clean mirror now also has the documented `50c5a3e` subscription-error
+copy change in `ChatSession.swift`. Its original baseline manifest remains
+historical. The later Android `7693f9f` Bot allowance error-code/copy correction
+has source-contract verification only. Neither small correction has a fresh
+native build or device qualification receipt.
 
 Seven inherited infinitive-experiment files remain dirty in the canonical
 workspace. Their exact source and additional untracked experiments are preserved

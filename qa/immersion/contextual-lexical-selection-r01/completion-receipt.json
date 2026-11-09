@@ -1,0 +1,188 @@
+{
+  "complete": true,
+  "source_files": {
+    "compare.py": {
+      "bytes": 17897,
+      "sha256": "6bbbe6d01fa0be372bac1fc9641df502a5c2486ac62da5bff04386798e35abe2"
+    },
+    "RESULT.md": {
+      "bytes": 9425,
+      "sha256": "eed232e1848932123b23b549f48850285e2ad316e60bea7628f8a003b3123aa9"
+    },
+    "check_identity.py": {
+      "bytes": 2703,
+      "sha256": "5cd13c34cfd700f25cfe3c685677003f43b8cd96d32be0aec3e31bfa1d43d6da"
+    },
+    "join_reviews.py": {
+      "bytes": 5035,
+      "sha256": "eb414b870b892f5364d2051e2e79c99f345e351a27ac59268cb0047ed6d0efc6"
+    },
+    "protocol.json": {
+      "bytes": 6847,
+      "sha256": "fb10aba675945eb208dc085ad9855ea9d8964b765d62faf5bc09787e859b1dc4"
+    },
+    "README.md": {
+      "bytes": 2131,
+      "sha256": "40cb6d838d09e95621d3ceec3d589fc76b2564d0b1eab2db0004e2cf3e8859f2"
+    }
+  },
+  "private_root": "/home/ai/Development/investigations/vipi-contextual-lexical-selection-20261109-r01",
+  "private_files": {
+    "author-review-r01.sha256": {
+      "bytes": 89,
+      "sha256": "1e4161068e4915b9835f7b3c3f0ad29d6344aa03091164a49bdff5fcd969bb92"
+    },
+    "preparation-freeze.json": {
+      "bytes": 356,
+      "sha256": "96cf146a64ab90a9304dc0446a99d745a8fd3add3f11de71c90bccaa31f855bf"
+    },
+    "exposures.json": {
+      "bytes": 2138530,
+      "sha256": "3a66ffa47adeda6bde378a31a4202b158d75bc3aa912935f749ed1dc70a2770f"
+    },
+    "root-verify.py": {
+      "bytes": 8422,
+      "sha256": "d0429f3bd08a50038333b3b0a109dc30978495c4db292c46044ea1ce1d37a509"
+    },
+    "metadata-bundle.json": {
+      "bytes": 63863,
+      "sha256": "6e007b68deda5e08d9a6e037e03e2e89dd867e16687c25663862d6ddb911b2c5"
+    },
+    "root-review-r01.json": {
+      "bytes": 8582,
+      "sha256": "97d371c743825c0cde8523cd98a7548e9bf4559f6b74422461c20a2b66c3037a"
+    },
+    "author-review-r01.json": {
+      "bytes": 14167,
+      "sha256": "6f9e595fd06d06b6d548cc8c4384d40e7d2891f4dcfb1beaf5a32991bae11935"
+    },
+    "root-independent-verification-r01.json": {
+      "bytes": 888,
+      "sha256": "d8d8febf723754db146245b48e834e5fbdbf53c887d5c75a0c567d5307b2cce8"
+    },
+    "inherited-review-exclusions.json": {
+      "bytes": 175241,
+      "sha256": "0c55574a17bc1c7d17dd96d1f9589160cb8dc01f0d0400aee1d6e43862d351f3"
+    },
+    "compare/blind-review-packet.json": {
+      "bytes": 5571278,
+      "sha256": "2c8352a1582c1e570a978e1befddc6fb37986e7fb31a623bcbc122ba8d573f8c"
+    },
+    "joined-r01/joined.json": {
+      "bytes": 49231,
+      "sha256": "afa28fc8fdf2247e82cd0f3fc8d762e6427bb6b4bf972cf97ade41954e5b382c"
+    },
+    "joined-r01/summary.json": {
+      "bytes": 15469,
+      "sha256": "824f1f7b2d133e5bf5d1692002bfe7f37050291e570cb960f7fb3e31c2a5a7cf"
+    },
+    "joined-r01/receipt.json": {
+      "bytes": 718,
+      "sha256": "33ae7459d971d5e6de135e6c06523da8212cfce8011c1d57c77769a037c4a358"
+    }
+  },
+  "stage_receipts": {
+    "prepare": {
+      "sha256": "c749378f6e07b770a23d331aad4c25c7a81cdfed13cb9fe25db837752a81f29c",
+      "data": {
+        "complete": true,
+        "stage": "prepare",
+        "protocol_sha256": "fb10aba675945eb208dc085ad9855ea9d8964b765d62faf5bc09787e859b1dc4",
+        "error": null,
+        "seconds": 8.235091539972927,
+        "VmHWM_bytes": 700305408,
+        "outputs": {
+          "dataset.json": {
+            "bytes": 58343278,
+            "sha256": "f2dbf75de3f38cb223c012f444fe7b4e6713eaf22ec0f8f41375384362ec0cfa"
+          },
+          "availability.json": {
+            "bytes": 1058,
+            "sha256": "7534944458e82f4056fbebc74eae88c51d62abb6c44d0c83e9d378df7f9a06d6"
+          },
+          "split-freeze.json": {
+            "bytes": 2222863,
+            "sha256": "bf9a8638b9bfbe6892ccef01a002da90a7eb1898da251843f4fbde98a9f21a91"
+          }
+        }
+      }
+    },
+    "compare": {
+      "sha256": "2bd3c209297d357b88a49baf9cbacc16197128d13066d2ff1eaf646cd3876b51",
+      "data": {
+        "complete": true,
+        "stage": "compare",
+        "protocol_sha256": "fb10aba675945eb208dc085ad9855ea9d8964b765d62faf5bc09787e859b1dc4",
+        "mechanism_controls_passed": true,
+        "error": null,
+        "seconds": 1.0908161220140755,
+        "VmHWM_bytes": 270348288,
+        "outputs": {
+          "blind-review-packet.json": {
+            "bytes": 5571278,
+            "sha256": "2c8352a1582c1e570a978e1befddc6fb37986e7fb31a623bcbc122ba8d573f8c"
+          },
+          "predictions.json": {
+            "bytes": 1697812,
+            "sha256": "176681e6422aeb08ebb2e45734ab821f8cef0c722061518a50345d8b4ca6355f"
+          },
+          "review-method-key.json": {
+            "bytes": 4023,
+            "sha256": "1b815f29ddd09be7cf7b956d1c75aac92582dcfc30b182ecac66d2e5a34a21df"
+          },
+          "review-selection-freeze.json": {
+            "bytes": 2712,
+            "sha256": "9a9c2415b62f38f3360a29bc943e560490ec7e79c3de7c4f2ca0171dc8ffb770"
+          },
+          "training-support.json": {
+            "bytes": 66245,
+            "sha256": "860659a8faed82ceb61dfe8a9f2bbaec26b922ed42e5d41457c6a64f9b265bc9"
+          },
+          "metrics.json": {
+            "bytes": 6058,
+            "sha256": "38bdf59b18556c2e748ce7b11b4e2c633cdbeedeb314db14ef99177fb1208fb3"
+          }
+        }
+      }
+    }
+  },
+  "identity_preflight": {
+    "sha256": "3feee47d66ce0410213388346ed25918a5a9c855d41818289a989c4d40a82a48",
+    "data": {
+      "complete": true,
+      "prediction_allowed": true,
+      "all40k_normalized_source_text_overlap": {},
+      "eligible_normalized_source_text_overlap": {},
+      "all40k_unique_normalized_sources": 38682,
+      "eligible_unique_normalized_sources": 4143,
+      "protocol_sha256": "fb10aba675945eb208dc085ad9855ea9d8964b765d62faf5bc09787e859b1dc4",
+      "split_sha256": "bf9a8638b9bfbe6892ccef01a002da90a7eb1898da251843f4fbde98a9f21a91",
+      "code_sha256": "5cd13c34cfd700f25cfe3c685677003f43b8cd96d32be0aec3e31bfa1d43d6da",
+      "seconds": 2.372905488999095,
+      "VmHWM_bytes": 272019456
+    }
+  },
+  "root_split_check_instruction": "Read-only normalized text identity check after frozen preparation, before fitting; zero overlaps, no amendment/relabel.",
+  "initial_capacity": {
+    "host": "fallsoft-production-20261106",
+    "free_disk_bytes": 288179220480,
+    "available_memory_bytes": 25135472640,
+    "load_average": [
+      1.39,
+      1.41,
+      1.51
+    ]
+  },
+  "commands": [
+    "timeout 310s python3 -B compare.py prepare",
+    "timeout 130s python3 -B check_identity.py",
+    "assert identity-preflight prediction_allowed; timeout 310s python3 -B compare.py compare"
+  ],
+  "root_authorized_bounded_execution": true,
+  "new_model_or_annotation_download": false,
+  "native_runtime_or_catalog_activation": false,
+  "further_algorithm_run": false,
+  "independent_reviews_preserved": true,
+  "source_index_or_commits_changed": false,
+  "independent_prediction_verification": "root-independent-verification-r01.json"
+}

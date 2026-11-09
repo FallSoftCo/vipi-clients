@@ -147,9 +147,22 @@ seasonal fall→otoño; a third discusses the quoted word “fall” itself and 
 blocked alignment. The role evidence distinguishes nominal “Here's your order”
 from verbal “I did not order this.” The direct seasonal relation still has no
 resolved English sense identity. No app catalog was activated. The next bounded
-comparison tests default translation frequency against local and whole-sentence
+comparison tested default translation frequency against local and whole-sentence
 context with component-separated evaluation and full-output human review. See
 `qa/immersion/apertium-corpus-evidence-r01/RESULT.md`.
+
+That frozen comparison did not establish a better selector. On 201 held-out
+occurrences with multiple supported training targets, corpus-target agreement
+is 172 for default frequency, 170 for nearby context and 164 for full-sentence
+context. This surrogate penalizes some valid synonyms. Both independent reviews
+instead find 14/16 strictly acceptable full mixed outputs for every method in
+the stratified sample. Sentence context fixes an offspring/young-audience error
+but introduces a technical collection-word defect; reviewers disagree only on
+that defect's severity. Duplicate normalized sentence text does not cross the
+training/evaluation split. No classifier is promoted. The next experiment
+isolates the existing Apertium lexical-selection rules from its bilingual
+default and full grammar transfer. See
+`qa/immersion/contextual-lexical-selection-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "experiment": "contextual-lexical-selection-r01",
+  "code_sha256": "6bbbe6d01fa0be372bac1fc9641df502a5c2486ac62da5bff04386798e35abe2",
+  "inputs": {
+    "evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "pairs": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "exposures": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/exposures.json",
+      "sha256": "3a66ffa47adeda6bde378a31a4202b158d75bc3aa912935f749ed1dc70a2770f"
+    }
+  },
+  "resources": {
+    "host": "fallsoft-production-20261106",
+    "cpu": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "seconds_per_stage": 300,
+    "aggregate_new_bytes": 134217728,
+    "reservation_bytes": 201326592,
+    "free_floor_bytes": 8589934592,
+    "basis": "Prior full313MB SQLite evidence read/join129MB resident; output is deduplicated occurrence dataset and references, not proof copy. All raw corpus/annotation assets reused. Prospective output ceiling checked before each write."
+  },
+  "split": {
+    "salt": "contextual-lexical-selection-r01",
+    "formula": "first16hex SHA256(canonical JSON [salt,component]) modulo5==0 test; remaining train; exposure component override development",
+    "unit": "connected parallel-corpus component",
+    "exposure_inputs": {
+      "/home/ai/Development/investigations/vipi-contextual-lexical-selection-20261109-r01/inherited-review-exclusions.json": "0c55574a17bc1c7d17dd96d1f9589160cb8dc01f0d0400aee1d6e43862d351f3",
+      "/home/ai/Development/investigations/vipi-source-name-scope-20261109-r01/r02-evidence/packet-r02/review-packet.json": "683deace2caefe33addba06053a622f019f44095c742382c150ad8ad97c15c81",
+      "/home/ai/Development/investigations/vipi-lexical-choice-evidence-20261109-r01/occurrences-r02/audit-evidence.json": "e4d7b855aae253f9ea53c00aa635578c63dab469ff739d3e766f223764135512",
+      "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01/packet.json": "fe993c979408d69cdc511072581587e67bc4c8c0b91f56b33ee62f772e60eeec",
+      "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/review-packet.json": "4134b20abfed4ac15ae63aa34111631bc8ccafcd94caed9752eb77639fc5b247",
+      "/home/ai/Development/investigations/vipi-apertium-corpus-evidence-20261109-r01/loss-audit-r02/diagnostic-proofs.json": "bbbe04c8109ab1fd1e52cbc012d85ac5539cb3cbee9a58983e4f8a2e70346799"
+    },
+    "no_labels_used": true
+  },
+  "eligibility": {
+    "source": "single exact native token, lowercase, complete noun form; existing inherited source-name exception only; number agreement",
+    "target": "complete supported noun form; original target guards never lifted",
+    "roles": "both exact complete forms NOUN; existing annotation only",
+    "alignment": "original envelope reasons and exact focus reasons must both be empty; all compound/mask/mutual/crossing reasons retained",
+    "explicit": "original_form_number_term_eligible unchanged; both terms explicit",
+    "direct": "Separate experimental unresolved native-gloss evidence only, source_entry_resolved false/source_sense_id null, all surviving form candidates retained; no shared term fabricated",
+    "nonexplicit_old_links": "Excluded, counted separately as raw evidence"
+  },
+  "estimator": {
+    "key": "normalized actual source spelling + noun + dictionary number",
+    "prediction_class": "exact emitted target face, preserve every distinct form/lexeme/reading/proof as supporting alternatives; no sense identity conflation in records",
+    "dedup": "one pool/source endpoint+exact UTF16 focus/key; merge repeated heads/forms/translations into target set",
+    "weights": "For each key each component total mass1 split equally across its deduplicated source-focus occurrences, then equally across conflicting observed target faces",
+    "methods": [
+      "component_weighted_default_frequency",
+      "multinomial_naive_bayes_local",
+      "multinomial_naive_bayes_sentence"
+    ],
+    "prior": "(target weight+1)/(total weight+number train faces)",
+    "features": "binary normalized alphabetic token and unambiguous existing contextual lemma; exclude source focus; local signed offset +/-2 native tokens, sentence bag covers full source sentence. No target context or test vocabulary",
+    "vocabulary": "per source key, feature occurs in >=2 distinct TRAIN components",
+    "likelihood": "add-one multinomial smoothing, log prior + sum log likelihood of retained feature presence",
+    "fallback": "no training key => null; no retained features => default; ties score then prior then lexicographic exact face",
+    "candidate_set": "TRAIN faces for source spelling/number only, never restrict to held-out reference",
+    "no_tuning": true
+  },
+  "metrics": {
+    "reference": "any retained supported target face of held-out source occurrence, a surrogate not semantic gold",
+    "required": [
+      "all/test/development and separate explicit/direct",
+      "train occurrences/components/keys/classes",
+      ">1 train target subset",
+      "single train target subset",
+      "unseen keys and targets",
+      "conflicting reference set",
+      "component1 size",
+      "paired gains/losses and same-face zero immersion"
+    ],
+    "not_population_accuracy": true
+  },
+  "review": {
+    "max_cases": 16,
+    "quotas": {
+      "changed": 8,
+      "same_ambiguous": 4,
+      "single_target": 4
+    },
+    "pool": "explicit/test only",
+    "ordering": "SHA256 canonical JSON [blind-review-r01,sourcefocus ID]",
+    "one_per_component": true,
+    "no_backfill": true,
+    "option_blinding": "distinct faces sorted SHA256 [blind-option-r01,sourcefocus ID,face], no method names; separate method-key withheld",
+    "full_context": "complete original corpus message and single-focus mixed outputs; all train competing targets, full paired witnesses and proof IDs retained; no prior chat available",
+    "already_exposed": "development only, no fresh-review claims"
+  },
+  "primary_references": [
+    "https://wiki.apertium.org/wiki/Lexical_selection",
+    "https://wiki.apertium.org/wiki/Learning_rules_from_parallel_and_non-parallel_corpora",
+    "https://wiki.apertium.org/wiki/Constraint-based_lexical_selection_module"
+  ],
+  "implementation_limit": "Reproducible Python multinomial estimator inspired by contextual frequency/weighted-feature lexical selection; not claiming to execute Apertium lex-tools ML/ME or learn human-approved semantics. No new annotation, downloads, selector projection or activation."
+}
