@@ -98,7 +98,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
             if (!closed) notice = when {
-                failure is ServiceFailure && failure.code == "bot_allowance_exhausted" -> "You’ve used this month’s Bot mini replies. Check the reset date below."
+                failure is ServiceFailure && failure.code == "monthly_allowance_reached" -> "You’ve used this month’s Bot mini replies. Refresh your allowance to see when it resets."
                 recorded -> "We couldn’t confirm vBot’s reply. This request won’t be sent again automatically. Refresh your allowance before starting a new request."
                 else -> "Your message couldn’t be saved. It hasn’t been sent."
             }
