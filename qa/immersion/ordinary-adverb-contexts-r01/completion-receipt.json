@@ -1,0 +1,52 @@
+{
+  "complete": true,
+  "outcome": "zero novel native candidate identities; stopped before projection",
+  "production_activated": false,
+  "new_inference": false,
+  "committed": false,
+  "private_root": "/home/ai/Development/investigations/vipi-ordinary-adverb-contexts-20261109-r01",
+  "production_root": "/srv/fallsoft/staging/vipi-ordinary-adverb-contexts-20261109-r01",
+  "source": {
+    "contract.py": "c53b348665a8dbb49b3ad30a49f268f20c400873b3203a05a73ec1e04a1976dd",
+    "RESULT.md": "33e7d20482533d6b40361a77b5acdaeb7079113217a1a8f0518f15cff9407407",
+    "protocol.json": "0774338952fee17c8b09828484e321c75d72972200ad32335a3dd602d5c4c408",
+    "prepare.py": "c6cfa9ada746e8766c6277764cd7a94b0a51f918b85260cd9a82ba7579ee0d2b",
+    "CONTRACT.md": "b8f3a9dd856af272af8c8cb3599a1d90065a8962f715626ab4e0e3db337dfb90"
+  },
+  "evidence": {
+    "protocol.json": {
+      "sha256": "0774338952fee17c8b09828484e321c75d72972200ad32335a3dd602d5c4c408",
+      "bytes": 6483
+    },
+    "review-exclusions.json": {
+      "sha256": "96fa813c80f0b60eb451b5c9f9c7cf17dc6cbfc2bf00276c60f85aadfd745645",
+      "bytes": 294300
+    },
+    "launch-preflight.json": {
+      "sha256": "6e4fd59c19ad600bd25611f7c81005fbba9622f1b49a38c4ce17fd8693816820",
+      "bytes": 533
+    },
+    "identity-and-review-note.json": {
+      "sha256": "f039a47398ea23610febea7568ce106e663a0254e9f8f347712a163b304cc955",
+      "bytes": 886
+    },
+    "corpus/receipt.json": {
+      "sha256": "ba03b95b336f8d36f36269b3140ebec144279fc06dda58a647149732b888ca29",
+      "bytes": 439
+    },
+    "corpus/summary.json": {
+      "sha256": "a42de99de870f2df5408e8f5dc0e4320761853df66fe9cd568cc10d20c76466f",
+      "bytes": 1203
+    },
+    "native-overlap/receipt.json": {
+      "sha256": "4a12b53d451fdaa05518f671ed1c64480b1a0dee9fe7b2ac290f5f1173acccdb",
+      "bytes": 450
+    },
+    "native-overlap/summary.json": {
+      "sha256": "9b26b959566ccd5f5dc6531551ee24cdb5eba6743f80f14be550a80078a1b8cb",
+      "bytes": 622
+    }
+  },
+  "preserved_run": "Two preparation stages once each; original code/protocol/results unchanged",
+  "review_sequencing": "Root pre-execution code review was pending when preparation launched; future stages require explicit run approval. No projection or further POS selected."
+}

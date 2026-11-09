@@ -218,6 +218,12 @@ The 28 stratified sampled cases and 24 exposed controls do not establish
 population accuracy. No research catalog is activated. See
 `qa/immersion/context-qualified-nouns-r01/RESULT.md`.
 
+The next compact adverb-support preparation found 17 qualified contexts from
+120 training focuses. They match 177 native focuses, all already represented
+in the candidate baseline: zero novel vocabulary or message coverage. The
+experiment stopped before projection, with no policy relaxation or activation.
+See `qa/immersion/ordinary-adverb-contexts-r01/RESULT.md`.
+
 | Approach | Observed result | Decision |
 |---|---|---|
 | Exact phrase windows, finite slots and typed possessors | Actual Swift/Kotlin agree on the frozen authored examples. The ten-family catalog recognizes only 54 of 9,535 reused TRAIN messages; typed slots add no TRAIN reach. | Keep the mechanism; small template catalogs do not solve broad coverage. |

@@ -1,0 +1,122 @@
+{
+  "experiment": "ordinary-adverb-contexts-r01",
+  "stage_authorization": "Preparation corpus/support then native overlap only after root preparation handoff. No selector/predictions.",
+  "inputs": {
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "dictionary_es": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "pairs": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "forward_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+      "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+    },
+    "reverse_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+      "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+    },
+    "endpoint_inventory": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/cohort/endpoint-inventory.json",
+      "sha256": "26a5f6fe70067d2d090d44393a502c17295de73a39d41691a89e9620daa1162d"
+    },
+    "apertium_protocol": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-occurrence-roles-20261109-r01/protocol.json",
+      "sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82"
+    },
+    "evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "stream_helper": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/stream_tools.py",
+      "sha256": "122d6850fa34a965643cfcf0449c5612fe059e31171f9409ec7c77f6ca46938c"
+    },
+    "tokenizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "old_projector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+      "sha256": "443cd1db89c48760662b12f503299c89848bcb012c4685e4362ec89d591343de"
+    },
+    "content_baseline": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+      "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+    },
+    "family_control": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+      "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "annotation_inputs": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotation-inputs.json",
+      "sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54"
+    },
+    "annotation_loader": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/source-role-veto-r01/project.py",
+      "sha256": "6c080ce26ef9a3efa4fea025155e72949781be2bd680e559fcfacbe61f8888f9"
+    },
+    "annotations": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+      "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+    },
+    "trace": {
+      "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+      "sha256": "02a8fca6cb30a0a9912658ee17d92ae2eed50d5858ce5bc7b10376d90efe9e3b"
+    },
+    "split": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/split-freeze.json",
+      "sha256": "bf9a8638b9bfbe6892ccef01a002da90a7eb1898da251843f4fbde98a9f21a91"
+    },
+    "noun_common": {
+      "path": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/common.py",
+      "sha256": "44189a16bc9ae82d525676ee1e6fa7e59063bebaee4e98cf68bc99f1fbed9412"
+    },
+    "qualified_decisions": {
+      "path": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/project/decisions.jsonl.gz",
+      "sha256": "e30cd4a919fab5a97286cb384bf10c1845cc9d519bdeba1bbda908488c18a1db"
+    },
+    "review_exclusions": {
+      "path": "/srv/fallsoft/staging/vipi-ordinary-adverb-contexts-20261109-r01/review-exclusions.json",
+      "sha256": "96fa813c80f0b60eb451b5c9f9c7cf17dc6cbfc2bf00276c60f85aadfd745645"
+    },
+    "contract": {
+      "path": "/srv/fallsoft/staging/vipi-ordinary-adverb-contexts-20261109-r01/CONTRACT.md",
+      "sha256": "b8f3a9dd856af272af8c8cb3599a1d90065a8962f715626ab4e0e3db337dfb90"
+    }
+  },
+  "code_hashes": {
+    "contract.py": "c53b348665a8dbb49b3ad30a49f268f20c400873b3203a05a73ec1e04a1976dd",
+    "prepare.py": "c6cfa9ada746e8766c6277764cd7a94b0a51f918b85260cd9a82ba7579ee0d2b"
+  },
+  "contract_sha256": "b8f3a9dd856af272af8c8cb3599a1d90065a8962f715626ab4e0e3db337dfb90",
+  "bounds": {
+    "CPU": 1,
+    "AS_bytes": 1073741824,
+    "seconds_per_pass": 120,
+    "aggregate_bytes": 33554432,
+    "additional_reserve_bytes": 50331648,
+    "floor_bytes": 8589934592
+  },
+  "stages": [
+    "python3 -B prepare.py corpus",
+    "python3 -B prepare.py native-overlap"
+  ],
+  "legacy_clear_259_not_new_coverage": true,
+  "source_context_policy": "Frozen qualified-noun token windows, component weights, ratio, exact supported identities; no current baseline mutation",
+  "new_model_or_activation": false
+}
