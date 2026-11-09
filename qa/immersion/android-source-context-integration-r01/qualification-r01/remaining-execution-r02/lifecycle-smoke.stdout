@@ -1,0 +1,21 @@
+
+co.fallsoft.vipi.SourceContextLifecycleSmokeTest:
+Error in bundledModelsAndRetainedPackHaveOneOwnerLifecycle(co.fallsoft.vipi.SourceContextLifecycleSmokeTest):
+java.lang.AssertionError: Missing/read-protected public input: context.sqlite exists=false readable=false
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at co.fallsoft.vipi.SourceContextLifecycleSmokeTest.bundledModelsAndRetainedPackHaveOneOwnerLifecycle(SourceContextLifecycleSmokeTest.kt:26)
+
+
+Time: 0.058
+There was 1 failure:
+1) bundledModelsAndRetainedPackHaveOneOwnerLifecycle(co.fallsoft.vipi.SourceContextLifecycleSmokeTest)
+java.lang.AssertionError: Missing/read-protected public input: context.sqlite exists=false readable=false
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at co.fallsoft.vipi.SourceContextLifecycleSmokeTest.bundledModelsAndRetainedPackHaveOneOwnerLifecycle(SourceContextLifecycleSmokeTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

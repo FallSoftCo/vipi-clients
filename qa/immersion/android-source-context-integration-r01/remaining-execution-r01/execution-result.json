@@ -1,0 +1,157 @@
+{
+  "at_utc": "2026-11-09T14:16:48.481729+00:00",
+  "status": "exact_retirement_and_single_debug_assembly_complete_smoke_not_authorized",
+  "private_root": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01",
+  "retirement": {
+    "at": "2026-11-09T14:12:56.436791+00:00",
+    "success": true,
+    "error": null,
+    "deleted_count": 3567,
+    "deleted_journal_sha256": "0364c43b747386d0b1d81c6ad283b4fdf45ce7acf707dc8fe1f1bde2a8c6fb5b",
+    "deleted_allocated_file_bytes": 1453568000,
+    "free_before": 6930604032,
+    "free_after": 8382615552,
+    "free_delta_not_exclusive_attribution": true,
+    "directories_retained": true,
+    "preserved_hashes_verified_after": true,
+    "plan_sha256": "b3f979eb81635b4e54fd04acb50cc0c730ccb3bbfdfd5f710d29137a728566d1",
+    "current_source_authority_sha256": "3f79704a7c757947504f19ff2dfe605fb4dc053e5542cb6fb8fc11d557ba1579",
+    "compile_receipt_sha256": "345e778c168a3f5fab72f77afc2d2b4632f9d24b912e6cdab0fdd09ece8eded2"
+  },
+  "assembly": {
+    "cmd": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--max-workers=1",
+      "--console=plain",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      "-PvipiQaAbi=x86_64",
+      "-PvipiSourceContextQualification=true",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest"
+    ],
+    "exit": 0,
+    "seconds": 99.57769234897569,
+    "free_after": 6034841600
+  },
+  "artifact_review": {
+    "at_utc": "2026-11-09T14:15:59.062925+00:00",
+    "assembly_success": true,
+    "apks": [
+      {
+        "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/debug/app-debug.apk",
+        "bytes": 512563396,
+        "sha256": "601311802127fc2b4fd880ae8d3c5233fe09faa193b0d1bd2b049b6fa515d5a3",
+        "expected_package": "co.fallsoft.vipi.sourcecontextqa",
+        "dex_bytes": 77981660,
+        "dex_files": [
+          {
+            "name": "classes.dex",
+            "bytes": 41522164
+          },
+          {
+            "name": "classes2.dex",
+            "bytes": 217164
+          },
+          {
+            "name": "classes3.dex",
+            "bytes": 165760
+          },
+          {
+            "name": "classes4.dex",
+            "bytes": 2283680
+          },
+          {
+            "name": "classes5.dex",
+            "bytes": 1572
+          },
+          {
+            "name": "classes6.dex",
+            "bytes": 64836
+          },
+          {
+            "name": "classes7.dex",
+            "bytes": 14803212
+          },
+          {
+            "name": "classes8.dex",
+            "bytes": 10457420
+          },
+          {
+            "name": "classes9.dex",
+            "bytes": 8465852
+          }
+        ],
+        "native_file_count": 6,
+        "native_bytes": 30231432,
+        "extractNativeLibs_evidence": [
+          "A: android:extractNativeLibs(0x010104ea)=(type 0x12)0x0"
+        ],
+        "identity_line": "package: name='co.fallsoft.vipi.sourcecontextqa' versionCode='1' versionName='0.1.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'"
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+        "bytes": 5169956,
+        "sha256": "5614ad0131d970cf0a143f72a0aaa217670e007570458972760b13c0b3aae530",
+        "expected_package": "co.fallsoft.vipi.sourcecontextqa.test",
+        "dex_bytes": 4946688,
+        "dex_files": [
+          {
+            "name": "classes.dex",
+            "bytes": 2283316
+          },
+          {
+            "name": "classes2.dex",
+            "bytes": 17688
+          },
+          {
+            "name": "classes3.dex",
+            "bytes": 1388
+          },
+          {
+            "name": "classes4.dex",
+            "bytes": 2642940
+          },
+          {
+            "name": "classes5.dex",
+            "bytes": 1356
+          }
+        ],
+        "native_file_count": 0,
+        "native_bytes": 0,
+        "extractNativeLibs_evidence": [
+          "A: android:extractNativeLibs(0x010104ea)=(type 0x12)0x0"
+        ],
+        "identity_line": "package: name='co.fallsoft.vipi.sourcecontextqa.test' versionCode='' versionName='' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'"
+      }
+    ],
+    "combined_apk_bytes": 517733352,
+    "combined_uncompressed_dex_bytes": 82928348,
+    "smoke_peak_bytes": 1747517856,
+    "floor_bytes": 4294967296,
+    "required_free_before_smoke": 6042485152,
+    "fresh_free_bytes": 6030196736,
+    "arithmetic_admits_smoke_now": false,
+    "smoke_authorized": false,
+    "no_APK_copies": true,
+    "source_authority_sha256": "3f79704a7c757947504f19ff2dfe605fb4dc053e5542cb6fb8fc11d557ba1579",
+    "retirement_receipt_sha256": "dff200226e4be6284fcc8e7d6fcc2ce8b78a5472419ada3e9a6a3b7ae71f5946",
+    "scope": "APK/static manifest inspection only. No install/boot/inference."
+  },
+  "evidence_sha256": {
+    "remaining-root-authorization-r01.json": "14584dc324cffa47f2ce45f9752796dd688d68d2189660726e34bebb2d8f400e",
+    "remaining-assemble-preflight.json": "4c8bd0aa1345f046a68bd936bd886b08b04b806744fcc49b3124cd498f00ea7c",
+    "retirement-r93-intermediates-r01/retirement-receipt.json": "dff200226e4be6284fcc8e7d6fcc2ce8b78a5472419ada3e9a6a3b7ae71f5946",
+    "remaining-execution-r01/assembly.stdout": "0a7cd2929918c0794698201cd54a24fbef15206908eda556d88395708c74aa91",
+    "remaining-execution-r01/assembly.json": "05c0f7edfd3fb9f03b9796789d322956ea93c3f73e949fc43c9a8c4957c81a40",
+    "remaining-execution-r01/assembly-artifacts.json": "58240c3339e57ab2f3b70d4fed9691860ce7d44cbd408a7f818a206935808e78",
+    "remaining-execution-r01/assembly-review.json": "504799bfec30d6d49760d748dc3ac117a35656fc538e861ba4c6384b8cc27227"
+  },
+  "no_smoke_boot_install_R8": true,
+  "no_app_source_changes": true
+}

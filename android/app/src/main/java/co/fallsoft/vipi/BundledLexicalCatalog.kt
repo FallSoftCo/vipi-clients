@@ -109,6 +109,16 @@ internal class BundledLexicalCatalog(private val context: Context,
         selected(source, target).forEach(::databaseFile)
         true
     }
+    /** Uncalled evidence-only factory. The owner validates these content-addressed
+     * immutable files once in initialize(); no witness pack or customer output.
+     * Keep this catalog's backing files unchanged until the returned owner closes.
+     */
+    fun sourceContextOwner(packFile: File): SourceContextEvidenceOwner = synchronized(monitor) {
+        check(android.os.Looper.myLooper() != android.os.Looper.getMainLooper())
+        check(index != null) { "Missing source dictionary catalog" }
+        SourceContextEvidenceOwner(context.assets, packFile.canonicalFile,
+            databaseFile(descriptor("d-en")).canonicalFile, databaseFile(descriptor("d-es")).canonicalFile)
+    }
     fun entries(original: String, translation: String, source: String, target: String, diagnostic: (String) -> Unit = {}): List<VocabularyEntry> = synchronized(monitor) {
         if (index == null) { diagnostic("missing_catalog"); return@synchronized emptyList() }
         if (!TranslationIntegrity.preservesIdentifiers(original, translation)) { diagnostic("identifier_guard"); return@synchronized emptyList() }

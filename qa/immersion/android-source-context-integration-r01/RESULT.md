@@ -1,0 +1,9 @@
+The native Android source-context components now compile and run inside the main app under a separate debug QA package. Bundled model/library/Unicode/license bytes are pinned and checked before builds. The owner loads and validates dictionaries/context/model data once on a background worker, serializes access, retains supplied protection, and keeps READY after rejected requests. Caller paths are canonicalized before immutable-file checks. No chat caller or display approval is installed.
+
+The actual API35 x86_64 lifecycle test passed: two valid messages, two invalid requests, reused initialization, preserved mode0 forms, context winner, supplied protection and closure behavior. Hash/model initialization took5.720s on this emulator; this is startup work, not per-message latency. The isolated provider’s earlier debug/R8 suite remains separate evidence; the main app was not R8-tested here.
+
+Two earlier smokes failed before model loading because the shell-created external fixture files were not visible to the app. Canonicalizing paths alone did not solve that. The final harness streams the same public data as the isolated app UID into private storage and checks all three SHA256s before instrumentation. Both failures and their exact source changes remain recorded.
+
+The QA packages were removed, the owned emulator stopped, the main package path stayed unchanged, and observed secure/system settings matched before/after. Existing main-app data, r98 artifacts, source and original receipts survive. Exactly listed obsolete intermediate files were retired with accepted-input/APK verification; unrelated disk changes are not credited as reclamation.
+
+See qualification-r01/qualification.json for source and artifact identities. The default app still has INTERNET permission; this is local component execution, not a network-isolation claim. No physical-device, new semantic coverage, complete live producer, or store-readiness claim follows from this smoke.

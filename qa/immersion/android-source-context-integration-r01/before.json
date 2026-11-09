@@ -1,0 +1,12 @@
+{
+  "head": "bc7dc987b7302061af7d7a6ec3155508604d8e41",
+  "dirty": {
+    "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt": "37369f7d8f405b534f732ac7da18b19e1f559c64f695778f3ac6c01c231d6668",
+    "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": "6bca38722007e908a5d5ba7a34e26ecc9e1321ded4734097871b40db1d95cda5",
+    "ios/Vipi/ContextWitnessLookup.swift": "5956264289aaa7cb50b3bc64eba55208b56462e1208d10b7daf5677081e65718",
+    "ios/Vipi/LexicalConcordance.swift": "eb0d328d606a7d08cc9476017bb07f1271ea9142143bf9bdf4bd971524846725",
+    "language-packs/build_context_witnesses.py": "ac69a5539d9d4c8f46fa2325c744985d6b125a81c762b2587764bc14502fe06f",
+    "language-packs/build_noun_context_filter.py": "ac8ac48519e569698361c13978e0e4287592b2d039b387332e96ade0b21c8fab",
+    "language-packs/build_semantic_alternatives.py": "c7c797d801cabf262bcb95cec3d5f65d2e6aefdd98abd6be5393b47267aa45d5"
+  }
+}

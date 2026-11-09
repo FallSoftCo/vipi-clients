@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-09T14:32:31.322033+00:00",
+  "original_second_smoke": "1test1failure: context.sqlite is not visible/readable from the app despite successful ADB push; no model loaded. Isolated QA packages removed/emulator stopped.",
+  "diagnosis_correction": "Canonical-path hypothesis alone was insufficient. Prior isolated probe first initialized its own external directory; new lifecycle harness used shell-created external directory. Exact FUSE cause is not established. Private run-as transfer avoids that harness boundary and mirrors production app-private storage without permission changes.",
+  "source_authority_sha256": "f45c9cdcae7e9ade07989cf2cc84cd2f52b2e59609b70cbe06923a14a1ee40d9",
+  "owner_and_production_code_unchanged_from_r03": true,
+  "changes": {
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SourceContextLifecycleSmokeTest.kt": {
+      "before": "75884f9bd5d7b2b46d5f91c567926e81c60274ae27a91805336a6deb26ad229b",
+      "after": "0044a7d610549e6bab405bb82f9ee337345dcb357b347db746c1881688fbcd7a"
+    }
+  }
+}

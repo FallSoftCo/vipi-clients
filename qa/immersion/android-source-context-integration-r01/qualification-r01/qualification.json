@@ -1,0 +1,74 @@
+{
+  "at_utc": "2026-11-09T14:42:57.574544+00:00",
+  "status": "qualified_disabled_main_app_evidence_owner",
+  "source_authority_sha256": "f45c9cdcae7e9ade07989cf2cc84cd2f52b2e59609b70cbe06923a14a1ee40d9",
+  "private_source_root": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source",
+  "compiled_base": "a924873ff8c94a08b1f92eed43e360e4c0dbc7b6",
+  "root_amendments": [
+    "r02 request failures preserve READY; status nonblocking",
+    "r03 caller canonicalization and per-file diagnostics",
+    "r04 private app-UID fixture transfer instead of shell-created external folder"
+  ],
+  "actual_smoke": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "valid_messages": 2,
+    "invalid_requests_do_not_poison_owner": 2,
+    "hash_and_model_initialization_ns": 5719919860,
+    "initialization_not_per_message_latency": true,
+    "device": "existing API35 x86_64 pocket_verify_api35, emulator5620",
+    "package": "co.fallsoft.vipi.sourcecontextqa",
+    "private_public_input_bytes": 577388544,
+    "all_three_input_hashes_verified_as_app_UID": true,
+    "closed_owner_preserves_supplied_protection": true
+  },
+  "earlier_failed_smokes": 2,
+  "failure_scope": "Both fixture accessibility failed before models loaded; original evidence retained. Canonicalization alone did not repair external file visibility.",
+  "no_current_main_R8_test": true,
+  "prior_isolated_R8": "bc7dc987 exact provider/assets independently qualified",
+  "state_closure": {
+    "packages": {
+      "co.fallsoft.vipi.sourcecontextqa.test": "Success",
+      "co.fallsoft.vipi.sourcecontextqa": "Success",
+      "co.fallsoft.vipi.sourcecontextqa remaining": "",
+      "co.fallsoft.vipi.sourcecontextqa.test remaining": ""
+    },
+    "stop": {
+      "owned_pid": 3840505,
+      "exit": 0
+    },
+    "main_package_changed": false
+  },
+  "settings_observations": {
+    "settings": {
+      "equal": true,
+      "before_sha256": "4ebf378bd853931b69144dc50a1c304953888e9f9847fc312464f6ac8b283523",
+      "after_sha256": "4ebf378bd853931b69144dc50a1c304953888e9f9847fc312464f6ac8b283523"
+    },
+    "system-settings": {
+      "equal": true,
+      "before_sha256": "71e0c0b5de23993dd1312ac546de64a6cf8e64e0e325346ef4795b4547911de9",
+      "after_sha256": "71e0c0b5de23993dd1312ac546de64a6cf8e64e0e325346ef4795b4547911de9"
+    }
+  },
+  "customer_call_site_or_display_approval": false,
+  "physical_device_or_API28_claim": false,
+  "main_app_INTERNET_permission_present": true,
+  "Firebase_disabled_in_QA_mode": true,
+  "artifact_hashes": {
+    "compile-receipt.json": "345e778c168a3f5fab72f77afc2d2b4632f9d24b912e6cdab0fdd09ece8eded2",
+    "retirement-r93-intermediates-r01/retirement-receipt.json": "dff200226e4be6284fcc8e7d6fcc2ce8b78a5472419ada3e9a6a3b7ae71f5946",
+    "retirement-completed-compressed-assets-r01/receipt.json": "f6296f13d83e6516fbc6837e03ef957791db9ec691bd4c55e45f76f1c3ec4b67",
+    "remaining-execution-r01/smoke-receipt.json": "1158708b3cae8ce0b83267e80b63789b2b5243bab173092eb4864d81ac9cd199",
+    "remaining-execution-r01/lifecycle-smoke.stdout": "1d61f3a529d24b6511513f63c2563d1a7a99f73684505e46658109c0ce05ef51",
+    "remaining-execution-r02/smoke-receipt.json": "8e4614b3572c517c7e6aec1598c859d53d217a876e1e512cc2ceb5a23189d89c",
+    "remaining-execution-r02/lifecycle-smoke.stdout": "10fe892d5303e945eca43f0c92f39dcc5fb913cec4d4723355c348dcecc374bc",
+    "remaining-execution-r03/assembly.json": "f2f108c6602a7d14e69402cd6585315a82dfddf7437b7acb9738630ae4f836df",
+    "remaining-execution-r03/assembly-artifacts.json": "20c13bd85c18eb533234e4a04f0df22fbf6d07131ebee7f5e1af0fbed803a94a",
+    "remaining-execution-r03/smoke-receipt.json": "015de47b46bf49c5f71c1d63d7e1a1909e63dfa4adb1141694180872504543e0",
+    "remaining-execution-r03/lifecycle-smoke.stdout": "bdf78b4d1978c8693c59331fb78bf72e4ca7344126b564b299b3e8b4805f502f",
+    "root-r04-smoke-authorization.json": "d5e7728b59482940a9d82044e2bfeb316f084a603bcf6da0adb8d49186f709f0"
+  },
+  "preserved_inherited_source": true
+}

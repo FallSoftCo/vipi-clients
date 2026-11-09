@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-09T14:34:16.050186+00:00",
+  "execution_freeze_sha256": "d860335ec5b1a65699bd201c642b6ad015ed492c463329b18ce63fefabf6b531",
+  "authorized_stages": [
+    "smoke"
+  ],
+  "concurrent_reservations_reviewed": true,
+  "additional_peak_bytes": 1752446435,
+  "review": "Main APK unchanged from r03, only test input path changed. Root verified APK hashes and native-extraction flags. Public retained inputs stream directly into app-private files as QA UID with SHA256 verification; no storage-permission or production app changes. Previous failures/packages/emulator closure reconciled."
+}

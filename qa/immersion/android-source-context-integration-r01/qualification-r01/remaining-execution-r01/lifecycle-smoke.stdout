@@ -1,0 +1,23 @@
+
+co.fallsoft.vipi.SourceContextLifecycleSmokeTest:
+Error in bundledModelsAndRetainedPackHaveOneOwnerLifecycle(co.fallsoft.vipi.SourceContextLifecycleSmokeTest):
+java.lang.AssertionError: Failure(stage=immutable_files, exceptionType=java.lang.IllegalArgumentException, reason=Evidence initialization failed; create a new owner only after explicit repair) expected:<READY> but was:<FAILED>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at co.fallsoft.vipi.SourceContextLifecycleSmokeTest.bundledModelsAndRetainedPackHaveOneOwnerLifecycle(SourceContextLifecycleSmokeTest.kt:25)
+
+
+Time: 0.047
+There was 1 failure:
+1) bundledModelsAndRetainedPackHaveOneOwnerLifecycle(co.fallsoft.vipi.SourceContextLifecycleSmokeTest)
+java.lang.AssertionError: Failure(stage=immutable_files, exceptionType=java.lang.IllegalArgumentException, reason=Evidence initialization failed; create a new owner only after explicit repair) expected:<READY> but was:<FAILED>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at co.fallsoft.vipi.SourceContextLifecycleSmokeTest.bundledModelsAndRetainedPackHaveOneOwnerLifecycle(SourceContextLifecycleSmokeTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

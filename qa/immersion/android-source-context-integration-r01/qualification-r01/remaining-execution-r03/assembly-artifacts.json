@@ -1,0 +1,20 @@
+{
+  "apks": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 514847198,
+      "sha256": "1ac2ae3c8733f9bb66e9564b3a0cba70912018fd3ce3f0d33f48225e5c19295a",
+      "expected_package": "co.fallsoft.vipi.sourcecontextqa"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "bytes": 7813485,
+      "sha256": "52a54f79dad368b70dcb2c995d47d82cd60e541ad84bb274ee7de5a87d17229b",
+      "expected_package": "co.fallsoft.vipi.sourcecontextqa.test"
+    }
+  ],
+  "copied_apks": false,
+  "build_allocated_bytes": 3012640768,
+  "free_after": 9649750016,
+  "min_free": 9649647616
+}

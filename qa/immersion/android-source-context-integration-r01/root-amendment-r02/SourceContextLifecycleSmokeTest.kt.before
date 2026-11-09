@@ -1,0 +1,49 @@
+package co.fallsoft.vipi
+
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.io.File
+import co.fallsoft.vipi.FrozenContextTokenizer.Range
+
+/** One main-app integration smoke, not a repeat of the 1394-case isolated suite. */
+@RunWith(AndroidJUnit4::class)
+class SourceContextLifecycleSmokeTest {
+    @Test fun bundledModelsAndRetainedPackHaveOneOwnerLifecycle() {
+        val instrumentation=InstrumentationRegistry.getInstrumentation()
+        val context=instrumentation.targetContext
+        require(context.packageName=="co.fallsoft.vipi.sourcecontextqa")
+        val root=File(requireNotNull(InstrumentationRegistry.getArguments().getString("sourceContextInputs")))
+        val expected=File(requireNotNull(context.getExternalFilesDir(null)),"source-context-smoke")
+        require(root.canonicalFile==expected.canonicalFile)
+        val owner=SourceContextEvidenceOwner(context.assets,File(root,"context.sqlite"),File(root,"d-en.sqlite"),File(root,"d-es.sqlite"))
+        try {
+            assertEquals(SourceContextEvidenceOwner.Phase.UNINITIALIZED,owner.status().phase)
+            val start=System.nanoTime();val ready=owner.initialize()
+            assertEquals(ready.failure?.toString(),SourceContextEvidenceOwner.Phase.READY,ready.phase)
+            assertSame(ready,owner.initialize()) // No rehash or model reconstruction.
+            val loadNs=System.nanoTime()-start
+            val source="was a good idea";val focus=Range(11,15)
+            val first=owner.inspect(source,mapOf(focus to listOf("[\"idea\",\"noun\",0]")),emptyList())
+            assertTrue(first is SourceContextEvidenceOwner.Inspection.Evidence)
+            first as SourceContextEvidenceOwner.Inspection.Evidence
+            assertEquals("000c1e248e23f37fb2c63919f7cfeab73f1d758a378b438238fef5ddcbb85c86",first.matches.getValue(focus).winner?.rule?.id)
+            assertEquals(EnglishRoleEvidence.NamedProtection.UNAVAILABLE,first.roles.namedProtection)
+            assertTrue(first.nativeWords==LocalImmersion.words(source,"en").map{Range(it.first,it.last+1)})
+            val second=owner.inspect("is are has",emptyMap(),listOf(Range(0,2)))
+            assertTrue(second is SourceContextEvidenceOwner.Inspection.Evidence)
+            second as SourceContextEvidenceOwner.Inspection.Evidence
+            assertEquals(listOf(Range(0,2)),second.recognition.suppliedProtection)
+            for(word in listOf("is","are","has"))assertTrue(second.recognition.units.any{u->u.original==word && u.forms.any{it.mode==0 && it.intrinsicRange==null}})
+            assertTrue(second.roles.observations.first().overlapsSuppliedProtection)
+            assertSame(ready,owner.status())
+            instrumentation.sendStatus(1,android.os.Bundle().apply{putString("stream","SOURCE_CONTEXT_SMOKE model_and_pack_load_ns=$loadNs messages=2 display_approvals=none\n")})
+        } finally { owner.close() }
+        assertEquals(SourceContextEvidenceOwner.Phase.CLOSED,owner.status().phase)
+        val unavailable=owner.inspect("dog",emptyMap(),listOf(Range(0,3)))
+        assertTrue(unavailable is SourceContextEvidenceOwner.Inspection.Unavailable)
+        assertEquals(listOf(Range(0,3)),(unavailable as SourceContextEvidenceOwner.Inspection.Unavailable).suppliedProtection)
+    }
+}

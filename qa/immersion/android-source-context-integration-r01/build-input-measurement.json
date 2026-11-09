@@ -1,0 +1,32 @@
+{
+  "data/lexical": {
+    "files": 69,
+    "regular_logical_bytes": 360989776,
+    "symlinks": [],
+    "unique_allocated_bytes": 361197568
+  },
+  "data/immersion": {
+    "files": 222,
+    "regular_logical_bytes": 279202285,
+    "symlinks": [],
+    "unique_allocated_bytes": 279576576
+  },
+  "data/readings": {
+    "files": 3,
+    "regular_logical_bytes": 777293,
+    "symlinks": [],
+    "unique_allocated_bytes": 786432
+  },
+  "data/examples": {
+    "files": 2,
+    "regular_logical_bytes": 43866,
+    "symlinks": [],
+    "unique_allocated_bytes": 49152
+  },
+  "android/app/vendor/source-context": {
+    "files": 14,
+    "regular_logical_bytes": 3065116,
+    "symlinks": [],
+    "unique_allocated_bytes": 3100672
+  }
+}

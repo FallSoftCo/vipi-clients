@@ -1,0 +1,5 @@
+These are the exact retained OpenNLP 2.5.10, SLF4J API 2.0.18 and English UD-EWT 1.3 sentence/token/POS assets qualified in `qa/immersion/android-opennlp-runtime-r01` and `qa/immersion/android-native-context-pack-r01/qualification-r03`. Model filenames retain their upstream `2.5.4` suffix. `manifest.json` binds every binary, Unicode table and retained license/notice byte; `scripts/check-source-context-assets.py` verifies them before Android builds without network access.
+
+The original publisher signature/checksum verification and primary source provenance remain under `qa/immersion/native-source-annotations-r01` and the private retained acquisition directory `investigations/vipi-android-source-annotations-20261108-r01`. The vendored files were copied only after matching the qualified model-provenance pins. This is an offline source dependency, not an app download service.
+
+The app bundles the publisher licenses/notices under `source-context/licenses/`. Keep these files with the models. OpenNLP POS does not provide generic entity recognition or word-sense certification. No NER model, output permission, or customer activation is supplied here.

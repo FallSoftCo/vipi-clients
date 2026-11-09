@@ -1,0 +1,24 @@
+{
+  "success": false,
+  "boot_seconds": 73.13733383105136,
+  "error": "AssertionError()",
+  "seconds": 131.29072800907306,
+  "free_after": 9694216192,
+  "min_free": 9694560256,
+  "closure": {
+    "packages": {
+      "co.fallsoft.vipi.sourcecontextqa.test": "Success",
+      "co.fallsoft.vipi.sourcecontextqa": "Success",
+      "co.fallsoft.vipi.sourcecontextqa remaining": "",
+      "co.fallsoft.vipi.sourcecontextqa.test remaining": ""
+    },
+    "stop": {
+      "owned_pid": 3814047,
+      "exit": 0
+    },
+    "main_package_changed": false
+  },
+  "settings_mutation_commands_issued": false,
+  "source_identity_unchanged": true,
+  "avd_allocated_after": 6465392640
+}

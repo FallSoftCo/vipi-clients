@@ -1,0 +1,30 @@
+{
+  "schema": "vipi.android-source-context-remaining-execution.r01",
+  "at_utc": "2026-11-09T14:09:58.517690+00:00",
+  "status": "prepared_not_authorized_or_executed",
+  "source_authority_sha256": "3f79704a7c757947504f19ff2dfe605fb4dc053e5542cb6fb8fc11d557ba1579",
+  "compile_receipt_sha256": "345e778c168a3f5fab72f77afc2d2b4632f9d24b912e6cdab0fdd09ece8eded2",
+  "source_hashes": {
+    "PLAN.md": "1ef404b2aa062e2dd90612d7e52dd0b123830ad2dd3dabc2f228abb067f7e3be",
+    "audit_r93.py": "8e856b28b1320354d9fb5f7d6148e0bd5633c05a2296450d981222eacaa1d234",
+    "launch.py": "5e6efdcd9504eda9fa26c17dba7fce08dbc864c09636ab9c692a14f89d2f87d4",
+    "measurement.json": "f4045d7866404ae6deaee20691eacd822279a3fed099da99127fc13cfdb5b26f",
+    "readers_r93.py": "111b88eff5927c6eae9ea02a4d57597d45e7f354d20fb47e66e4dd982e0a955a"
+  },
+  "retirement_proof_hashes": {
+    "candidate-plan.json": "b3f979eb81635b4e54fd04acb50cc0c730ccb3bbfdfd5f710d29137a728566d1",
+    "preserved-data-assets.json": "6210e4b0ccf5f35a371c41c69c384b0003962081fa3c0c795df7d1e5c2c0e398",
+    "privileged-consumer-review-r02.json": "2bb748796a430b2c94f5e729883b33dd90c1b234369dcb799f5817c885c9ee30",
+    "privileged-consumer-review.json": "533087cb87009bda3dc1525eecffd0e4526ccf2a497540e0df4cb9b0a5aacbad"
+  },
+  "retirement_allocated_bytes": 1453568000,
+  "retirement_executed": false,
+  "assembly_executed": false,
+  "boot_install_smoke_executed": false,
+  "task_floor_bytes": 4294967296,
+  "remaining_assembly_peak_bytes": 3221225472,
+  "smoke_peak": "actual APK bytes +577388544+402653184+2*actual uncompressed dex bytes+67108864+16777216",
+  "scope": "Exactly one assembly and one separate new-package two-valid-message lifecycle smoke; no R8",
+  "source_files_mutated_this_turn": false,
+  "static_check": "Python AST only; source snapshot/retained file hashes read; no Gradle/device operations"
+}

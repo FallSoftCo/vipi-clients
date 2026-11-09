@@ -1,0 +1,21 @@
+{
+  "cmd": [
+    "taskset",
+    "-c",
+    "2,3",
+    "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+    "--offline",
+    "--no-daemon",
+    "--max-workers=1",
+    "--console=plain",
+    "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+    "-Pkotlin.compiler.execution.strategy=in-process",
+    "-PvipiQaAbi=x86_64",
+    "-PvipiSourceContextQualification=true",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest"
+  ],
+  "exit": 0,
+  "seconds": 29.52286571310833,
+  "free_after": 9649856512
+}

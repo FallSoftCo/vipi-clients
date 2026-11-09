@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "deleted_count": 749,
+  "allocated_file_bytes": 392216576,
+  "free_before": 9737129984,
+  "free_after": 10129088512,
+  "directories_retained": true,
+  "source_and_apk_hashes_verified_after": true,
+  "seconds": 4.924862178973854,
+  "free_delta_not_exclusive_attribution": true,
+  "plan_sha256": "36c015761aadabff6070456e3681169b03d30fb4de27c4fbdfd38e88102d7bb9"
+}

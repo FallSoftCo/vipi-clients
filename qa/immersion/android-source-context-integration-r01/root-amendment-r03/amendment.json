@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-09T14:24:32.194655+00:00",
+  "changes": {
+    "android/app/src/main/java/co/fallsoft/vipi/BundledLexicalCatalog.kt": {
+      "before": "90a2949988c7c189c4aa380a6d74bd5d564ab88ba8b9276e15685c7abf2d0795",
+      "after": "25358abe2cc8acef94a73939f3bca42737f2325f69a343f399c8d1c16a30adb1"
+    },
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SourceContextLifecycleSmokeTest.kt": {
+      "before": "77fe21ead88309513fa165513f5739e9543d602c326089580ebc4944a69debb8",
+      "after": "75884f9bd5d7b2b46d5f91c567926e81c60274ae27a91805336a6deb26ad229b"
+    }
+  },
+  "original_smoke": "immutable_files failed before load;1test1failure; QA packages removed and owned emulator stopped",
+  "diagnosis": "Strong hypothesis: external path alias rejected by canonical-file precondition. Next run retains explicit per-file exists/readable/canonical assertions; original failure not relabelled.",
+  "source_authority_sha256": "6820238c5e101de25fc67346e84b93f4fb90d3771b0919d649036db252836677",
+  "owner_guard_unchanged": true
+}

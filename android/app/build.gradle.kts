@@ -1,5 +1,6 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
 val qualifyRelease = providers.gradleProperty("vipiReleaseQualification").map { it.toBooleanStrict() }.getOrElse(false)
+val qualifySourceContext = providers.gradleProperty("vipiSourceContextQualification").map { it.toBooleanStrict() }.getOrElse(false)
 // Public auth configuration and private upload-key inputs are supplied by the release environment.
 // Missing production inputs must never produce an apparently distributable blank-auth build.
 fun releaseInput(property: String, environment: String) =
@@ -11,7 +12,7 @@ val releaseUploadKeyAlias = releaseInput("vipiUploadKeyAlias", "VIPI_UPLOAD_KEY_
 val releaseUploadKeyPassword = releaseInput("vipiUploadKeyPassword", "VIPI_UPLOAD_KEY_PASSWORD")
 val productionClientId = if (qualifyRelease) "" else releaseWorkosClientId.orNull.orEmpty()
 val firebaseConfigFile = releaseInput("vipiFirebaseConfigFile", "VIPI_FIREBASE_CONFIG_FILE")
-val firebaseConfig: Map<String, String> = if (qualifyRelease || !firebaseConfigFile.isPresent) emptyMap() else {
+val firebaseConfig: Map<String, String> = if (qualifyRelease || qualifySourceContext || !firebaseConfigFile.isPresent) emptyMap() else {
     val document = groovy.json.JsonSlurper().parse(file(firebaseConfigFile.get())) as Map<*, *>
     val project = document["project_info"] as Map<*, *>
     val client = (document["client"] as List<*>).map { it as Map<*, *> }.single {
@@ -56,6 +57,7 @@ android {
     // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
+            if (qualifySourceContext) applicationIdSuffix = ".sourcecontextqa"
             buildConfigField("String", "WORKOS_CLIENT_ID", "\"client_01M5S2CDSQ8F7FEX26G3CY9VS1\"")
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
@@ -83,7 +85,9 @@ android {
         jniLibs.excludes += "**/libsignal_jni_testing.so"
         resources.excludes += setOf("**/*.dll", "**/*.dylib", "**/*.so")
         resources.merges += setOf("META-INF/LICENSE.md", "META-INF/NOTICE.md", "META-INF/CONTRIBUTORS.md")
+        resources.merges += setOf("META-INF/LICENSE", "META-INF/NOTICE", "META-INF/DEPENDENCIES")
     }
+    sourceSets.getByName("main").assets.srcDir("vendor/source-context/assets")
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 val checkBundledLexical = tasks.register<Exec>("checkBundledLexical") {
@@ -99,10 +103,15 @@ val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
     into(layout.buildDirectory.dir("generated/immersionAssets"))
 }
 tasks.named("preBuild") { dependsOn(stageImmersionAssets) }
+val verifySourceContextAssets = tasks.register<Exec>("verifySourceContextAssets") {
+    commandLine("python3", rootProject.file("../scripts/check-source-context-assets.py").absolutePath)
+}
+tasks.named("preBuild") { dependsOn(verifySourceContextAssets) }
 val verifyProductionRelease = tasks.register("verifyProductionRelease") {
     group = "verification"
     description = "Reject production release builds without explicit auth and upload signing configuration."
     doLast {
+        check(!qualifySourceContext) { "Source-context qualification is a debug-only isolated package." }
         if (qualifyRelease) return@doLast
         check(productionClientId.isNotBlank()) {
             "Set VIPI_WORKOS_CLIENT_ID (or vipiWorkosClientId) to the production public WorkOS client ID."
@@ -128,6 +137,10 @@ val verifyProductionRelease = tasks.register("verifyProductionRelease") {
 }
 tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(verifyProductionRelease) }
 dependencies {
+    // Retained publisher bytes and licenses, verified before every build. No
+    // runtime download or ambient Maven version selection for this provider.
+    implementation(files("vendor/source-context/libs/opennlp-tools-2.5.10.jar",
+        "vendor/source-context/libs/slf4j-api-2.0.18.jar"))
     implementation("com.google.firebase:firebase-messaging:26.0.1")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
     implementation("androidx.lifecycle:lifecycle-process:2.10.0")

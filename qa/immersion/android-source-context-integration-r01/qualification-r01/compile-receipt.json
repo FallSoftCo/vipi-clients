@@ -1,0 +1,44 @@
+{
+  "started_at": "2026-11-09T13:53:05.671587+00:00",
+  "cmd": [
+    "taskset",
+    "-c",
+    "2,3",
+    "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+    "--offline",
+    "--no-daemon",
+    "--max-workers=1",
+    "--console=plain",
+    "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+    "-Pkotlin.compiler.execution.strategy=in-process",
+    "-PvipiQaAbi=x86_64",
+    "-PvipiSourceContextQualification=true",
+    ":app:compileDebugKotlin",
+    ":app:compileDebugAndroidTestKotlin"
+  ],
+  "source_manifest_sha256": "3f79704a7c757947504f19ff2dfe605fb4dc053e5542cb6fb8fc11d557ba1579",
+  "free_before": 7583748096,
+  "deadline_seconds": 900,
+  "scope": "Main app and test source compilation only; no emulator/APK install/inference",
+  "resource_baseline": {
+    "at": "2026-11-09T13:50:58.812210+00:00",
+    "free_before": 7687356416,
+    "floor_bytes": 4294967296,
+    "additional_peak_bytes": 1610612736,
+    "stages": [
+      "source_staging",
+      "compile_main_and_androidtest_kotlin"
+    ],
+    "aggregate_monitor": "conservative filesystem free-space drop, not attribution",
+    "base_commit": "a924873ff8c94a08b1f92eed43e360e4c0dbc7b6"
+  },
+  "success": true,
+  "pid": 3703253,
+  "min_free": 6903058432,
+  "exit": 0,
+  "source_and_assets_unchanged": true,
+  "seconds": 138.55413555982523,
+  "free_after": 6900666368,
+  "log_sha256": "621f97c55f8ece13e5aa7c3be88668237891528a54c75be9f44a65bf6bf77e8e",
+  "filesystem_delta_is_not_job_attribution": true
+}

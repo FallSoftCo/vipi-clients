@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-09T14:12:56.436791+00:00",
+  "success": true,
+  "error": null,
+  "deleted_count": 3567,
+  "deleted_journal_sha256": "0364c43b747386d0b1d81c6ad283b4fdf45ce7acf707dc8fe1f1bde2a8c6fb5b",
+  "deleted_allocated_file_bytes": 1453568000,
+  "free_before": 6930604032,
+  "free_after": 8382615552,
+  "free_delta_not_exclusive_attribution": true,
+  "directories_retained": true,
+  "preserved_hashes_verified_after": true,
+  "plan_sha256": "b3f979eb81635b4e54fd04acb50cc0c730ccb3bbfdfd5f710d29137a728566d1",
+  "current_source_authority_sha256": "3f79704a7c757947504f19ff2dfe605fb4dc053e5542cb6fb8fc11d557ba1579",
+  "compile_receipt_sha256": "345e778c168a3f5fab72f77afc2d2b4632f9d24b912e6cdab0fdd09ece8eded2"
+}
