@@ -1,0 +1,91 @@
+{
+  "at_utc": "2026-11-09T10:35:10.030282+00:00",
+  "native_authoring": true,
+  "project_sha256": "0bafd2bb3cbebd198cca10eb7881e2bdad6d6a7d17ea0a972294e6cc3be38700",
+  "generated_project_sha256": "3b52e87ade4aa98ea37eff5f12b234d6b53cbbe30cf37e1f49fc21d90e99fc52",
+  "actual_generated_phase_sha256": "ae19e0fe1f942ea6bb5e5e415072e0ee5209baed5cc96fde59f5de62eb92c47e",
+  "always_run_first_app_phase": true,
+  "environment_echo_disabled": true,
+  "cases": [
+    {
+      "case": 1,
+      "configuration": "Debug",
+      "client_category": "missing",
+      "push": null,
+      "exit": 0,
+      "expected": 0,
+      "diagnostic": ""
+    },
+    {
+      "case": 2,
+      "configuration": "Simulator",
+      "client_category": "missing",
+      "push": null,
+      "exit": 0,
+      "expected": 0,
+      "diagnostic": ""
+    },
+    {
+      "case": 3,
+      "configuration": "Release",
+      "client_category": "missing",
+      "push": "production",
+      "exit": 1,
+      "expected": 1,
+      "diagnostic": "error: Set WORKOS_CLIENT_ID to the production public WorkOS client identifier for Vipi Release."
+    },
+    {
+      "case": 4,
+      "configuration": "Release",
+      "client_category": "known_staging",
+      "push": "production",
+      "exit": 1,
+      "expected": 1,
+      "diagnostic": "error: Vipi Release cannot use the staging WorkOS client."
+    },
+    {
+      "case": 5,
+      "configuration": "Release",
+      "client_category": "invalid",
+      "push": "production",
+      "exit": 1,
+      "expected": 1,
+      "diagnostic": "error: Supply a valid public WorkOS client identifier for Vipi Release."
+    },
+    {
+      "case": 6,
+      "configuration": "Release",
+      "client_category": "invalid",
+      "push": "production",
+      "exit": 1,
+      "expected": 1,
+      "diagnostic": "error: Supply a valid public WorkOS client identifier for Vipi Release."
+    },
+    {
+      "case": 7,
+      "configuration": "Release",
+      "client_category": "known_production",
+      "push": "development",
+      "exit": 1,
+      "expected": 1,
+      "diagnostic": "error: Vipi Release requires VIPI_PUSH_ENVIRONMENT=production."
+    },
+    {
+      "case": 8,
+      "configuration": "Release",
+      "client_category": "known_production",
+      "push": "production",
+      "exit": 0,
+      "expected": 0,
+      "diagnostic": ""
+    }
+  ],
+  "passed": true,
+  "app_build_or_archive": false,
+  "current_workspace_regenerated": false,
+  "external_provider_calls": 0,
+  "initial_failure": "XcodeGen output parent absent; preserved failure log and receipt. Created exact destination then reran generation only.",
+  "source_path": "ios/project.yml",
+  "primary_specification": "https://github.com/yonaskolb/XcodeGen/blob/master/Docs/ProjectSpec.md#build-script",
+  "private_receipts": "/home/ai/Development/investigations/vipi-production-delivery-20261107/ios-release-config-guard-r01"
+}

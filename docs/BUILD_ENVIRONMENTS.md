@@ -96,6 +96,17 @@ historical. The later Android `7693f9f` Bot allowance error-code/copy correction
 has source-contract verification only. Neither small correction has a fresh
 native build or device qualification receipt.
 
+The native source mirror also includes the production configuration check in
+`ios/project.yml`. Each newly generated Release target rejects a missing,
+malformed or known staging WorkOS client and a non-production push environment.
+The exact XcodeGen-generated first app build-phase script passed eight scoped
+configuration checks on the native Mac, including valid production inputs and
+unchanged Debug/Simulator behavior. The inspection project was separate; the
+current CocoaPods workspace and existing binaries were not rebuilt. Run the
+existing `scripts/prepare-ios-project.sh` before the next build so its project
+includes this check. No signing, store access or production login is established
+by this result; see `qa/release/ios-production-config-r01.json`.
+
 Seven inherited infinitive-experiment files remain dirty in the canonical
 workspace. Their exact source and additional untracked experiments are preserved
 privately. Some changed matching behavior can execute without optional data;

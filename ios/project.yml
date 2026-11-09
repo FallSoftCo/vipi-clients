@@ -69,6 +69,38 @@ targets:
       - package: VipiCore
       - package: WorkOS
       - package: LibSignalClient
+    preBuildScripts:
+      - name: Verify production configuration
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+        script: |
+          # Release auth is deliberately supplied by the release environment.
+          if [ "${CONFIGURATION:-}" != "Release" ]; then
+              exit 0
+          fi
+          case "${WORKOS_CLIENT_ID:-}" in
+              client_01M5S2CDSQ8F7FEX26G3CY9VS1)
+                  echo "error: Vipi Release cannot use the staging WorkOS client." >&2
+                  exit 1
+                  ;;
+              client_*)
+                  client_suffix=${WORKOS_CLIENT_ID#client_}
+                  case "$client_suffix" in
+                      ""|*[!A-Za-z0-9]*)
+                          echo "error: Supply a valid public WorkOS client identifier for Vipi Release." >&2
+                          exit 1
+                          ;;
+                  esac
+                  ;;
+              *)
+                  echo "error: Set WORKOS_CLIENT_ID to the production public WorkOS client identifier for Vipi Release." >&2
+                  exit 1
+                  ;;
+          esac
+          if [ "${VIPI_PUSH_ENVIRONMENT:-}" != "production" ]; then
+              echo "error: Vipi Release requires VIPI_PUSH_ENVIRONMENT=production." >&2
+              exit 1
+          fi
     info:
       path: Vipi/Info.plist
       properties:
