@@ -1,0 +1,26 @@
+{
+  "schema": "vipi.native-source-role-provider.root-closure.r01",
+  "sources_and_receipts_verified": [
+    "EnglishSourceRoleProvider.swift",
+    "EnglishSourceRoleProviderTests.swift",
+    "EnglishSourceRoleFixture.swift",
+    "inputs.json",
+    "outputs.json",
+    "simulator-output.json",
+    "simulator-receipt.json",
+    "simulator-test-summary.json",
+    "simulator-plan-r01.json",
+    "simulator-test.log"
+  ],
+  "fixture_exact_decoded_bytes": true,
+  "all156_desktop_simulator_stable_payloads_independently_equal": true,
+  "native_authoring": true,
+  "customer_caller_installed": false,
+  "production_activation": false,
+  "private_root": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-source-role-provider-20261109-r01",
+  "desktop_receipt_sha256": "321b36c762b6747d4a28211ec5f329e5d16a54ea250727a99404db1dfa928448",
+  "desktop_prior_role_comparison_sha256": "86b06cd79b1b9aad6ba2eef59f476681a0e997259a6373013a481393f34f0c46",
+  "desktop_limits": "52 rows/40 sources, max180UTF16; warm median0.70ms, first123ms; no OS-cold or physical-device claim",
+  "native_simulator_limits": "Actual Swift6 app build and selected XCTest;1pass0fail0skip; warmer median1.31ms,first188.73ms; app/test-host cumulative peak360.68MB is not model-only RAM",
+  "name_and_role_limits": "Names such as LaSportiva/amazon/costco/corvette missed. POS differs from OpenNLP and is not semantic truth. Existing source masks must remain independently enforced."
+}

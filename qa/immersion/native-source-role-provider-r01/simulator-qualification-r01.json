@@ -1,0 +1,189 @@
+{
+  "schema": "vipi.ios-source-role-provider.qualification.r01",
+  "completed_utc": "2026-11-09T12:04:17.166015+00:00",
+  "scope": "Actual app EnglishSourceRoleProvider compiled and invoked in existing iOS Simulator XCTest, customer caller remains absent",
+  "source_authority": "a330fdc native mirror plus ChatSession50c5a3e/projectguardfd9c0a4 and exact root-authored provider; canonical merge root-owned",
+  "hashes": {
+    "EnglishSourceRoleProvider.swift": "e96d502ff83dfd5bd20bc6c7833673d83a88f72ed46e97552e7ec6087b7557a1",
+    "EnglishSourceRoleProviderTests.swift": "ddf9d6b9f2df3b922f89e58042f8ab1a347fc01285f6dc7d2b08908a50a251e9",
+    "EnglishSourceRoleFixture.swift": "8c8afa26ae80454ee363caebad691d2a570ea0487e446f481c13380dd2a323ff",
+    "inputs.json": "59dc06af07ecbbac1786b606728972d68a9adb790edbac2687e0420ac299349d",
+    "outputs.json": "32df1420d22a9237d2f6af059981a19ad3d9c5242d57aba85c8a71994cf2d4b3",
+    "simulator-output.json": "a424571b9f9a50b3448b6ae11fa8f42b2681b1864af409edf4422e68c3646332",
+    "simulator-receipt.json": "12955b8577d6e158870df5bc4d587afcf90d7d2d110669eb41a9e03160bd3df0",
+    "simulator-test-summary.json": "d9d504b9e0f3919888122eb30216660e199e8b07080bdc9a898a1d1ea839974c",
+    "simulator-plan-r01.json": "df9377a044ca4a747cb76770b5702102c0c34ce84751f33bdf047099d04eb58b",
+    "simulator-test.log": "afcda4114e312877b56c88e2383cc704929ad8ed62d02391269b20ca2606c8b4"
+  },
+  "device": {
+    "architecture": "arm64",
+    "deviceId": "46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+    "deviceName": "Vipi iPhone 17 20261024",
+    "modelName": "iPhone 17",
+    "osBuildNumber": "23F77",
+    "osVersion": "26.5",
+    "platform": "iOS Simulator"
+  },
+  "tests": {
+    "executed": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "structural_controls": [
+      {
+        "case": "empty",
+        "passed": true
+      },
+      {
+        "case": "unsupported",
+        "passed": true
+      },
+      {
+        "case": "mid_surrogate",
+        "passed": true
+      },
+      {
+        "case": "overlapping_words",
+        "passed": true
+      },
+      {
+        "case": "astral_punctuation_geometry",
+        "passed": true
+      },
+      {
+        "case": "supplied_mask_survives",
+        "passed": true
+      },
+      {
+        "case": "oversized",
+        "passed": true
+      },
+      {
+        "case": "exact_snapshot_identity",
+        "passed": true
+      }
+    ],
+    "additional_omitted_word_rejection": true
+  },
+  "comparison": {
+    "rows_per_pass": 52,
+    "distinct_sources": 40,
+    "passes": 3,
+    "all156_source_ids_text_hashes_and_observation_utf16_substrings_verified": true,
+    "all_supplied_protection_exact": true,
+    "stable_payload_differences_from_desktop": [],
+    "repeat_stable": true,
+    "unique_source_status_counts": {
+      "ready": 39,
+      "nativeGeometryMismatch": 1
+    },
+    "unique_source_observation_roles": {
+      "nonNoun": 389,
+      "noun": 103,
+      "unknown": 20
+    },
+    "noun_eligible": 102,
+    "protected_observations": 1,
+    "unknown_reasons": {
+      "lexical_geometry_not_single_exact_word": 20
+    },
+    "available_schemes_when_assessed": [
+      "Language",
+      "Lemma",
+      "LexicalClass",
+      "NameType",
+      "NameTypeOrLexicalClass",
+      "Script",
+      "TokenType"
+    ],
+    "meaning_acceptance": false
+  },
+  "name_limitations": {
+    "observed_nondetections": [
+      {
+        "source_id": "bst-train-4551-10",
+        "word": "LaSportiva",
+        "noun_eligible": true
+      },
+      {
+        "source_id": "bst-train-4251-10",
+        "word": "amazon",
+        "noun_eligible": true
+      },
+      {
+        "source_id": "bst-train-4251-10",
+        "word": "costco",
+        "noun_eligible": true
+      },
+      {
+        "source_id": "bst-train-4139-06",
+        "word": "corvette",
+        "noun_eligible": true
+      }
+    ],
+    "only_detected_scope": {
+      "source_id": "bst-train-3672-04",
+      "text": "IVF",
+      "utf16": [
+        45,
+        48
+      ]
+    },
+    "interpretation": "Brand/name-looking occurrences above were not protected by NLTagger; IVF detection is not certified entity correctness. Original source_masks remain separate downstream constraints; nounEligible must not authorize clearing them. Titles/aliases unresolved."
+  },
+  "performance": {
+    "passes": [
+      {
+        "pass": 1,
+        "total_provider_ms": 513.756912,
+        "median_provider_ms": 1.9715829999999999,
+        "max_provider_ms": 188.726042
+      },
+      {
+        "pass": 2,
+        "total_provider_ms": 246.996374,
+        "median_provider_ms": 1.59475,
+        "max_provider_ms": 31.996125
+      },
+      {
+        "pass": 3,
+        "total_provider_ms": 67.792871,
+        "median_provider_ms": 1.311041,
+        "max_provider_ms": 1.739416
+      }
+    ],
+    "max_process_peak_rss_bytes": 360677376,
+    "build_seconds": 33.6103162500076,
+    "test_command_seconds": 10.642405332997441,
+    "peak_owned_additional_bytes": 121327616,
+    "free_after_bytes": 72682872832,
+    "limits": "Provider timing excludes caller tokenizer/JSON; first pass not OS-cold. Peak RSS is cumulative entire app/test host, not model-resident memory. 180UTF16 source maximum;16K worst-case latency and physical-device behavior unmeasured."
+  },
+  "state_closure": {
+    "restored": true,
+    "original_keys_verified": [
+      "readingPace",
+      "density",
+      "knownLanguage",
+      "appearance",
+      "onboardingStep",
+      "targetLanguage",
+      "vipi-private-speech-generation"
+    ],
+    "current_extra_keys_preserved": [],
+    "app_not_running": true,
+    "data_preserved": true,
+    "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/5AD9C8DA-751D-4B3A-941A-2A6FB986DC77",
+    "labs_alive": true
+  },
+  "warnings": [
+    "Simulator host logged VoiceDBClient fallback voices/locales, duplicated UIAccessibilityLoaderWebShared class, audio zero-buffer and plugin factory warnings. No failing assertion or broad audio/UI qualification inferred; full test log retained."
+  ],
+  "native_result_bundle": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-source-role-provider-r01/simulator-r01/test.xcresult",
+  "no_download_catalog_activation_or_full_suite": true,
+  "remaining_gaps": [
+    "Native versioned context-pack matcher and selected-output policy are not implemented by this source-only provider.",
+    "Name detection and lexical role are not meaning authority; masks/known-family constraints must remain independently enforced.",
+    "No physical iOS performance, broad accuracy or customer-path activation."
+  ]
+}

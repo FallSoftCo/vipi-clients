@@ -26,6 +26,18 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 ## Current language decision
 
+A real, currently uncalled Apple source-role provider is now compiled into the
+app source and qualified on native macOS and the existing iOS Simulator. It
+uses the current original text, exact native geometry, explicit unknowns and
+additive name protection. All 156 repeated annotation payloads matched across
+the two runtimes; the focused XCTest passed. One of 40 distinct source messages
+had different retained/current token geometry and was rejected. Warm Simulator
+median was 1.31 ms on these short inputs; this is not physical-device or maximum
+input performance. Brand/name misses and role mistakes remain, so this provider
+cannot authorize substitutions or clear existing masks by itself. A versioned
+context pack and native matcher are still required before activation. See
+`qa/immersion/native-source-role-provider-r01/simulator-qualification-r01.json`.
+
 The discussed NLP approach is partly incorporated. Both native clients have
 local lookup, finite context patterns, exact source ranges, morphology/form
 records and restrictions that prevent an unsafe phrase from leaking through a

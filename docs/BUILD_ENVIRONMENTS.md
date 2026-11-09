@@ -113,6 +113,16 @@ login follows from compilation. Existing UITextItemInteraction deprecation and
 AppIntents metadata warnings remain. See `qa/release/ios-production-config-r01.json`
 and `qa/release/ios-native-incremental-build-r01.json`.
 
+The native mirror additionally contains the three hash-qualified English source
+role provider/test/fixture files. Its actual Swift 6 Simulator app/test build
+passed in 33.61 seconds, followed by one selected provider XCTest in a 10.64-second
+test command. All 156 source annotation payloads match the desktop provider.
+The existing QA startup prevented ordinary authenticated startup; preferences
+were restored, the private-speech generation retained, the app stopped and both
+legacy labs preserved. No customer caller is installed. These receipts are in
+`qa/immersion/native-source-role-provider-r01`; they do not establish physical
+performance or semantic accuracy.
+
 Seven inherited infinitive-experiment files remain dirty in the canonical
 workspace. Their exact source and additional untracked experiments are preserved
 privately. Some changed matching behavior can execute without optional data;
