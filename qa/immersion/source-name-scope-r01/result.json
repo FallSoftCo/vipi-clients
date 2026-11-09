@@ -1,0 +1,406 @@
+{
+  "bindings": {
+    "root-review-r01.json": "d13fdb3fe55a068660fa02c5f1455caeda6aeba779d4d30c9b76eae6c794bbf1",
+    "author-review-r01.json": "f875be1440bc271c38162466c770463a3929327d32095fe237d4a1015a737b5c",
+    "r02-evidence/packet-r02/review-packet.json": "683deace2caefe33addba06053a622f019f44095c742382c150ad8ad97c15c81",
+    "semantic-rubric-r01.json": "f544a478ced5c075ab1e059fdac9cfd14ffabc48cb0d731be30047d44ffd19fa"
+  },
+  "empty_normalization": "Root empty and author correct+nonempty=false normalize to empty only for outcome comparisons; original records retained. No other label normalization.",
+  "metrics": {
+    "sampled|root|all_function|baseline": {
+      "outputs": 12,
+      "nonempty": 6,
+      "strict": 2,
+      "minor_tolerant": 4,
+      "label:empty": 6,
+      "label:minor_issue": 2,
+      "label:correct": 2,
+      "label:material_error": 2
+    },
+    "sampled|author|all_function|baseline": {
+      "outputs": 12,
+      "nonempty": 6,
+      "strict": 2,
+      "minor_tolerant": 3,
+      "label:empty": 6,
+      "label:material_error": 3,
+      "label:correct": 2,
+      "label:minor_issue": 1
+    },
+    "sampled|root|all_function|experimental": {
+      "outputs": 12,
+      "nonempty": 12,
+      "strict": 8,
+      "minor_tolerant": 10,
+      "label:material_error": 2,
+      "label:correct": 8,
+      "label:minor_issue": 2
+    },
+    "sampled|author|all_function|experimental": {
+      "outputs": 12,
+      "nonempty": 12,
+      "strict": 8,
+      "minor_tolerant": 9,
+      "label:material_error": 3,
+      "label:correct": 8,
+      "label:minor_issue": 1
+    },
+    "sampled|root|all_function_global300|baseline": {
+      "outputs": 12,
+      "nonempty": 6,
+      "strict": 4,
+      "minor_tolerant": 5,
+      "label:empty": 6,
+      "label:correct": 4,
+      "label:minor_issue": 1,
+      "label:material_error": 1
+    },
+    "sampled|author|all_function_global300|baseline": {
+      "outputs": 12,
+      "nonempty": 6,
+      "strict": 4,
+      "minor_tolerant": 5,
+      "label:empty": 6,
+      "label:correct": 4,
+      "label:minor_issue": 1,
+      "label:material_error": 1
+    },
+    "sampled|root|all_function_global300|experimental": {
+      "outputs": 12,
+      "nonempty": 12,
+      "strict": 9,
+      "minor_tolerant": 10,
+      "label:correct": 9,
+      "label:material_error": 2,
+      "label:minor_issue": 1
+    },
+    "sampled|author|all_function_global300|experimental": {
+      "outputs": 12,
+      "nonempty": 12,
+      "strict": 9,
+      "minor_tolerant": 10,
+      "label:correct": 9,
+      "label:material_error": 2,
+      "label:minor_issue": 1
+    },
+    "development_controls|root|all_function|baseline": {
+      "outputs": 12,
+      "nonempty": 0,
+      "strict": 0,
+      "minor_tolerant": 0,
+      "label:empty": 12
+    },
+    "development_controls|author|all_function|baseline": {
+      "outputs": 12,
+      "nonempty": 0,
+      "strict": 0,
+      "minor_tolerant": 0,
+      "label:empty": 12
+    },
+    "development_controls|root|all_function|experimental": {
+      "outputs": 12,
+      "nonempty": 5,
+      "strict": 5,
+      "minor_tolerant": 5,
+      "label:empty": 7,
+      "label:correct": 5
+    },
+    "development_controls|author|all_function|experimental": {
+      "outputs": 12,
+      "nonempty": 5,
+      "strict": 5,
+      "minor_tolerant": 5,
+      "label:empty": 7,
+      "label:correct": 5
+    },
+    "development_controls|root|all_function_global300|baseline": {
+      "outputs": 12,
+      "nonempty": 0,
+      "strict": 0,
+      "minor_tolerant": 0,
+      "label:empty": 12
+    },
+    "development_controls|author|all_function_global300|baseline": {
+      "outputs": 12,
+      "nonempty": 0,
+      "strict": 0,
+      "minor_tolerant": 0,
+      "label:empty": 12
+    },
+    "development_controls|root|all_function_global300|experimental": {
+      "outputs": 12,
+      "nonempty": 2,
+      "strict": 2,
+      "minor_tolerant": 2,
+      "label:empty": 10,
+      "label:correct": 2
+    },
+    "development_controls|author|all_function_global300|experimental": {
+      "outputs": 12,
+      "nonempty": 2,
+      "strict": 2,
+      "minor_tolerant": 2,
+      "label:empty": 10,
+      "label:correct": 2
+    }
+  },
+  "paired_changes": {
+    "sampled|root|all_function": {
+      "added:material_error": 1,
+      "added:correct": 15,
+      "strict:both_fail": 4,
+      "minor_tolerant:both_fail": 2,
+      "strict:gain": 6,
+      "minor_tolerant:gain": 6,
+      "retained:minor_issue": 3,
+      "minor_tolerant:both_pass": 4,
+      "retained:correct": 3,
+      "strict:both_pass": 2,
+      "removed:material_error": 1,
+      "retained:material_error": 1
+    },
+    "sampled|author|all_function": {
+      "added:material_error": 1,
+      "added:correct": 15,
+      "strict:both_fail": 4,
+      "minor_tolerant:both_fail": 3,
+      "strict:gain": 6,
+      "minor_tolerant:gain": 6,
+      "retained:material_error": 2,
+      "retained:correct": 3,
+      "strict:both_pass": 2,
+      "minor_tolerant:both_pass": 3,
+      "removed:material_error": 1,
+      "retained:minor_issue": 2
+    },
+    "sampled|root|all_function_global300": {
+      "added:correct": 11,
+      "strict:gain": 5,
+      "minor_tolerant:gain": 5,
+      "added:material_error": 2,
+      "strict:both_fail": 3,
+      "minor_tolerant:both_fail": 2,
+      "retained:correct": 6,
+      "strict:both_pass": 4,
+      "minor_tolerant:both_pass": 5,
+      "retained:minor_issue": 1,
+      "retained:material_error": 1
+    },
+    "sampled|author|all_function_global300": {
+      "added:correct": 11,
+      "strict:gain": 5,
+      "minor_tolerant:gain": 5,
+      "added:material_error": 2,
+      "strict:both_fail": 3,
+      "minor_tolerant:both_fail": 2,
+      "retained:correct": 6,
+      "strict:both_pass": 4,
+      "minor_tolerant:both_pass": 5,
+      "retained:minor_issue": 1,
+      "retained:material_error": 1
+    },
+    "development_controls|root|all_function": {
+      "strict:both_fail": 7,
+      "minor_tolerant:both_fail": 7,
+      "added:correct": 6,
+      "strict:gain": 5,
+      "minor_tolerant:gain": 5
+    },
+    "development_controls|author|all_function": {
+      "strict:both_fail": 7,
+      "minor_tolerant:both_fail": 7,
+      "added:correct": 6,
+      "strict:gain": 5,
+      "minor_tolerant:gain": 5
+    },
+    "development_controls|root|all_function_global300": {
+      "strict:both_fail": 10,
+      "minor_tolerant:both_fail": 10,
+      "added:correct": 3,
+      "strict:gain": 2,
+      "minor_tolerant:gain": 2
+    },
+    "development_controls|author|all_function_global300": {
+      "strict:both_fail": 10,
+      "minor_tolerant:both_fail": 10,
+      "added:correct": 3,
+      "strict:gain": 2,
+      "minor_tolerant:gain": 2
+    }
+  },
+  "counts": {
+    "sampled:union": 45,
+    "development_controls:union": 9
+  },
+  "limits": "No majority gold, label overwrite or population accuracy. Exposed controls separate from stratified sampled changes.",
+  "joined_review_path": "/home/ai/Development/investigations/vipi-source-name-scope-20261109-r01/joined-review-r01.json",
+  "joined_review_sha256": "d3f60f7ea64f902b9dbbf1d7e38d512610e14e2a14568fe5d5955db5ecd1529b",
+  "unit_disagreements": [
+    {
+      "review_id": "name-scope-013",
+      "group": "sampled",
+      "source": "tight",
+      "target": "apretada",
+      "root": "minor_issue",
+      "root_rationale": "Financial constraint is understandable through apretado, but the feminine apretada and financial collocation are poor for money/dinero. The physical-lid witness does not validate this use; mark as an inflection/collocation issue rather than a strict pass.",
+      "author": "material_error",
+      "author_rationale": "Money is tight means scarce/restricted finances. The retained lid-squeezing adjective apretada does not express this financial idiom adequately; its feminine form also mismatches dinero."
+    }
+  ],
+  "whole_output_disagreements": [
+    {
+      "review_id": "name-scope-013",
+      "group": "sampled",
+      "arm": "baseline",
+      "normalized": {
+        "root": {
+          "label": "minor_issue",
+          "strict": false,
+          "minor_tolerant": true
+        },
+        "author": {
+          "label": "material_error",
+          "strict": false,
+          "minor_tolerant": false
+        }
+      }
+    },
+    {
+      "review_id": "name-scope-013",
+      "group": "sampled",
+      "arm": "experimental",
+      "normalized": {
+        "root": {
+          "label": "minor_issue",
+          "strict": false,
+          "minor_tolerant": true
+        },
+        "author": {
+          "label": "material_error",
+          "strict": false,
+          "minor_tolerant": false
+        }
+      }
+    }
+  ],
+  "raw_availability": {
+    "baseline|all_function": {
+      "changed_words": 6362,
+      "messages": 9535,
+      "nonempty": 4557
+    },
+    "baseline|all_function_global300": {
+      "changed_words": 3501,
+      "messages": 9535,
+      "nonempty": 2876
+    },
+    "experimental|all_function": {
+      "changed_words": 9091,
+      "messages": 9535,
+      "nonempty": 5855
+    },
+    "experimental|all_function_global300": {
+      "changed_words": 4415,
+      "messages": 9535,
+      "nonempty": 3468
+    }
+  },
+  "execution_receipts": {
+    "catalog-r02": {
+      "complete": true,
+      "counts": {
+        "all_heads": 21425,
+        "baseline": 2556,
+        "baseline_competition_loss": 0,
+        "contexts": 19960,
+        "experimental": 4036,
+        "new_structural": 1480,
+        "override_link_records": 7028
+      },
+      "error": null,
+      "memory": {
+        "VmHWM": 60227584,
+        "VmPeak": 70381568
+      },
+      "outputs": {
+        "baseline-parity.json": {
+          "bytes": 97,
+          "sha256": "77a0b89bf8377bfafb3e5130f5a468d9a55ffeb7520d3710f9a841333f198af3"
+        },
+        "catalog.sqlite": {
+          "bytes": 25784320,
+          "sha256": "e28189e91b8aa5a4e536ef9d209b44ea8927695cdacc2b414e93ae3e8a886429"
+        },
+        "freeze.json": {
+          "bytes": 5715,
+          "sha256": "71d006ab5fd344effe68b54101e97c7d42dd30dd00097b7b679fa1d0f5239038"
+        }
+      },
+      "production": false,
+      "protocol_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+      "seconds": 17.273023500980344,
+      "stage": "catalog"
+    },
+    "project-r02": {
+      "complete": true,
+      "error": null,
+      "memory": {
+        "VmHWM": 142073856,
+        "VmPeak": 151433216
+      },
+      "outputs": {
+        "baseline-parity.json": {
+          "bytes": 142,
+          "sha256": "7808e699b77cac6636a160298cd108715fe01626c0d91ea67284dad001cd4796"
+        },
+        "decisions.jsonl.gz": {
+          "bytes": 21809866,
+          "sha256": "02a8fca6cb30a0a9912658ee17d92ae2eed50d5858ce5bc7b10376d90efe9e3b"
+        },
+        "freeze.json": {
+          "bytes": 5715,
+          "sha256": "71d006ab5fd344effe68b54101e97c7d42dd30dd00097b7b679fa1d0f5239038"
+        },
+        "metrics.json": {
+          "bytes": 346,
+          "sha256": "b556addf3e903ac892c1c178cbe6ddd73e202372824dff01b952a54907809f42"
+        },
+        "review-selection-freeze.json": {
+          "bytes": 5725,
+          "sha256": "a6b462b41185af1cbd997ea753c01c7ac59280596e29bb8ec762ae64eed41ecc"
+        }
+      },
+      "production": false,
+      "protocol_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+      "rows": 9535,
+      "seconds": 124.71192176200566,
+      "stage": "project"
+    },
+    "packet-r02": {
+      "cases": 24,
+      "complete": true,
+      "development_controls": 24,
+      "error": null,
+      "memory": {
+        "VmHWM": 87605248,
+        "VmPeak": 100085760
+      },
+      "outputs": {
+        "freeze.json": {
+          "bytes": 5715,
+          "sha256": "71d006ab5fd344effe68b54101e97c7d42dd30dd00097b7b679fa1d0f5239038"
+        },
+        "review-packet.json": {
+          "bytes": 1841454,
+          "sha256": "683deace2caefe33addba06053a622f019f44095c742382c150ad8ad97c15c81"
+        }
+      },
+      "production": false,
+      "protocol_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+      "seconds": 1.5677048320067115,
+      "stage": "packet",
+      "witnesses": 49
+    }
+  },
+  "script_sha256": "4cafed7af5aacfe35459641b9857f016eb5385a2a6d3feb2a678c435fdbb963b"
+}

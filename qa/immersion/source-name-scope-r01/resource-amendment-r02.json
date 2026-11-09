@@ -1,0 +1,114 @@
+{
+  "parent_protocol_sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+  "protocol_r02_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+  "compare_r02_sha256": "5af1bfb84ed73e7960cf5da75ef2adf2b38ccc50f164b95ec7e757bd00661364",
+  "identical_function_ASTs": [
+    "enc",
+    "sha",
+    "load",
+    "ro",
+    "project",
+    "packet",
+    "main"
+  ],
+  "catalog_AST_equal_after_only_database_page_cap_replacement": true,
+  "measurement": {
+    "baseline_rows": 2556,
+    "catalog_counts": {
+      "all_heads": 21425,
+      "baseline": 2556,
+      "baseline_competition_loss": 0,
+      "contexts": 19960,
+      "experimental": 4036,
+      "new_structural": 1480,
+      "override_link_records": 7028
+    },
+    "exact_ast_change": "Only sqlite3.connect(r.out / catalog.sqlite) replaced by counting writer; every catalog decision, SQL INSERT tuple and original baseline reconstruction unchanged.",
+    "experimental_rows": 4036,
+    "integer_flag_values": 9828,
+    "parent_catalog_ast_sha256": "d5c2e68a0ee31962798b39adeb957e2d0b391e508e6c53640fe9b08a7fc674c5",
+    "row_utf8_histogram_upper_bound": {
+      "16384": 187,
+      "2048": 651,
+      "32768": 15,
+      "4096": 3569,
+      "8192": 492
+    },
+    "row_utf8_max": 18574,
+    "row_utf8_quantiles": {
+      "0": 1684,
+      "100": 18574,
+      "25": 2146,
+      "50": 2590,
+      "75": 3487,
+      "90": 4785,
+      "95": 6638,
+      "99": 11769
+    },
+    "rows": 4914,
+    "sqlite_serial_headers_cell_pointers_page_slack_and_secondary_index_not_in_utf8_payload": true,
+    "utf8_column_bytes": {
+      "audit": 6334245,
+      "id": 633906,
+      "record": 8408189,
+      "source_key": 52536
+    },
+    "utf8_payload_bytes": 15428876
+  },
+  "partial": {
+    "dbstat": [
+      {
+        "max_payload": 18585,
+        "object": "heads",
+        "page_bytes": 15630336,
+        "pages": 3816,
+        "payload": 9659407,
+        "unused": 5927531
+      },
+      {
+        "max_payload": 173,
+        "object": "lookup",
+        "page_bytes": 544768,
+        "pages": 133,
+        "payload": 444236,
+        "unused": 86576
+      },
+      {
+        "max_payload": 153,
+        "object": "sqlite_schema",
+        "page_bytes": 4096,
+        "pages": 1,
+        "payload": 216,
+        "unused": 3763
+      }
+    ],
+    "distinct_contexts": 2988,
+    "file_bytes": 16179200,
+    "file_minus_utf8_payload_bytes": 6550775,
+    "freelist_count": 0,
+    "max_row_utf8": 18574,
+    "page_count": 3950,
+    "page_size": 4096,
+    "rows": 3091,
+    "utf8_column_bytes": {
+      "audit": 3970208,
+      "id": 398739,
+      "record": 5226345,
+      "source_key": 33133
+    },
+    "utf8_payload_bytes": 9628425
+  },
+  "estimated_sqlite_bytes": 25926033.653396063,
+  "baseline_catalog_parity": {
+    "all_original_record_fields_equal": true,
+    "baseline_heads": 2556,
+    "complete": true,
+    "contexts": 19960
+  },
+  "commands": {
+    "catalog": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare_r02.py catalog'",
+    "project": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 310s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare_r02.py project'",
+    "packet": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare_r02.py packet'"
+  },
+  "execution_authorized": false
+}

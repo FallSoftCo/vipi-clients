@@ -1,0 +1,32 @@
+{
+  "production": false,
+  "status": "completed_research_no_activation",
+  "protocol_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+  "join_script_sha256": "4cafed7af5aacfe35459641b9857f016eb5385a2a6d3feb2a678c435fdbb963b",
+  "result_sha256": "d5791ee1ce05f344d2f7ded9032397a96dc3a526c33cd5d81f7669925aefbf0f",
+  "report_sha256": "499c43aa42b4f494d85e85c2f8495ec9c18663fa81c845ee6e2bd358de76c8bd",
+  "joined_private_sha256": "d3f60f7ea64f902b9dbbf1d7e38d512610e14e2a14568fe5d5955db5ecd1529b",
+  "author_review_sha256": "f875be1440bc271c38162466c770463a3929327d32095fe237d4a1015a737b5c",
+  "root_review_sha256": "d13fdb3fe55a068660fa02c5f1455caeda6aeba779d4d30c9b76eae6c794bbf1",
+  "baseline_parity": {
+    "complete": true,
+    "credited_only_after_full_parity": true,
+    "full_original_fixed_and_expanded_trace_equal": true,
+    "known_states": 2,
+    "messages": 9535
+  },
+  "execution_receipt_sha256": {
+    "catalog-r02": "88f59c3b46da49504cdb3b3ca1c710ef877371d09fdc577e9875892448aa4dea",
+    "project-r02": "e1b3d4eeaf46cffd06754ba92959536b589637ea1e0fc4311e7a17d9d73fd7ad",
+    "packet-r02": "13df7537eb1925312abac8857286c719e004927b69c9ea368dc24c4a5f6dad71"
+  },
+  "sampled_records": 24,
+  "development_records": 24,
+  "union_emissions": 54,
+  "whole_outputs": 96,
+  "unit_label_disagreements": 1,
+  "normalized_whole_output_disagreements": 2,
+  "original_r01_failure_retained": true,
+  "new_diagnosis_executed": false,
+  "no_majority_gold": true
+}

@@ -76,11 +76,20 @@ classifier calls content: eight lack a retained covering context, seven lack a
 shared focus link in the top witnesses, and sixteen have rejected links. All
 have a complete supported source form. Root found that a global source name
 flag blocks ordinary boys/chat/mom/family/parks/dog uses despite otherwise
-eligible noun links. A separate narrow common-noun exception is being prepared
-for comparison, requiring actual lowercase NOUN usage for rescued candidates
-and preserving target guards and all other restrictions. The brand reference
-“amazon and costco” remains a development control. No runtime exception is active;
-these selected failures do not estimate general correctness.
+eligible noun links. The completed narrow common-noun comparison requires actual
+lowercase NOUN usage and preserves target guards and every other restriction.
+Raw nonempty output rises 4,557→5,855, or 2,876→3,468 with 300 content families
+withheld. Both independent reviews find 26 correct added emissions and three
+materially wrong additions in the 24 sampled changes: seasonal “fall” becomes
+“caída,” and “Dragon Ball Z” is split into translated common nouns. Strictly
+correct whole outputs increase 6→17 in this deliberately changed sample, not a
+population accuracy estimate. One retained financial-idiom judgment differs
+between reviewers and remains unresolved. The twelve exposed diagnostic sources
+are separate controls: seven of their 24 state-specific outputs gain correct
+immersion; “amazon and costco” remains unchanged. No runtime exception is active.
+The next read-only diagnosis checks whether retained target alternatives and
+their occurrence contexts can support lexical choice, separately from complete
+name/title protection. See `qa/immersion/source-name-scope-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|
