@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "completed_at_utc": "2026-11-09T12:25:35.065807+00:00",
+  "source_sha256": "271c021e07e2a8243c6c6378a36efdc1e2d617acc0c79aeefb8adc0c22e2ee2d",
+  "files": {
+    "CONTRACT.md": "d18fbde6b978d7f3c2dc8f57902d6312524c02ce6c1ab23f2c4227812c47afdb",
+    "protocol.json": "277ce0df82e64b92e304a3d976a89d0f3251e151fa47fefd747371dc464fe798",
+    "RESULT.md": "21b4d6b72bcace5c797e571ee66021949d17de51215bf5cfd9d1ac8ee204bb92",
+    "measure-receipt.json": "3485b259f405dd1a915ccda4aaf1ab47e14bb4925344192d692ad45f2e1eb2af",
+    "export-receipt.json": "bab2a32e8ab89fa6aa6278c5b1fec998027cda97ea7c3e49c583337ba4b3f47c",
+    "root-export-review.json": "5ff818d49d4349c8846fcebd1bad8cc32c2b23ee8bb0861aa72b5090ff680303"
+  },
+  "private_root": "/home/ai/Development/investigations/vipi-native-context-pack-20261109-r01",
+  "production_root": "/srv/fallsoft/staging/vipi-native-context-pack-20261109-r01",
+  "actual_native_reader_qualified": false,
+  "customer_activation": false,
+  "new_coverage_claim": false
+}

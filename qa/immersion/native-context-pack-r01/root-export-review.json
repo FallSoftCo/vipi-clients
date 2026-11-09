@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "pack_sha256": "cd7a8667ff0df53610ef19aa585398e24470716dd23af6d640b7c77dbc3badb4",
+  "pack_bytes": 4890624,
+  "rules_independently_compared": 1157,
+  "no_output_winners_retained": 23,
+  "original_heads_compared": 453,
+  "link_original_override_bindings": 5328,
+  "dictionary_metadata_equal": true,
+  "audit_edge_bindings": 2091,
+  "native_runtime_parity_claim": false,
+  "activation": false,
+  "seconds": 0.1020166749949567
+}

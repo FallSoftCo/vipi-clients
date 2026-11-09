@@ -1,0 +1,92 @@
+{
+  "experiment": "native-context-pack-r01",
+  "execution_authorized": false,
+  "requires_explicit_root_run_for_each_stage": true,
+  "code_sha256": "271c021e07e2a8243c6c6378a36efdc1e2d617acc0c79aeefb8adc0c22e2ee2d",
+  "contract_sha256": "d18fbde6b978d7f3c2dc8f57902d6312524c02ce6c1ab23f2c4227812c47afdb",
+  "inputs": {
+    "dataset": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/dataset.json",
+      "sha256": "f2dbf75de3f38cb223c012f444fe7b4e6713eaf22ec0f8f41375384362ec0cfa"
+    },
+    "evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "family_control": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+      "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "fixed_keys": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/inputs/source-frequency-keys.json",
+      "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+    },
+    "content_baseline": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+      "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+    },
+    "old_projector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+      "sha256": "443cd1db89c48760662b12f503299c89848bcb012c4685e4362ec89d591343de"
+    },
+    "tokenizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "selector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+    },
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "dictionary_es": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "lookup": {
+      "path": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/prepare/lookup.json",
+      "sha256": "58880fd80deecb136e5bac8486ae8e454942ece39a0811ebce009182da764aa3"
+    }
+  },
+  "committed_native_inspection": {
+    "commit": "704a67aaa31c4591f9f115716209bcb2bac65b2d",
+    "files": {
+      "ios/VipiCore/Sources/VipiCore/SourceLookupEvidence.swift": "60eef0eca844126c8a0bbbc0f6e497443618d6edc983f23ec6440a8d53da637a",
+      "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+      "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceLookupEvidence.kt": "e7f28e12a4c5df99e723941c5697089a1a09660cf1b3cde7246c6214b44c03f0",
+      "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceReferencePresentation.kt": "f1c53d850a27d3b64923b26f95fc9b29a6deb38035ecfc6f1bca7eafaa8194f2",
+      "ios/Vipi/LexicalConcordance.swift": "1d3d34f0d7aa576ffd3b392be834459ef64448b4facb05271944d9a7466588e0",
+      "ios/Vipi/ContextWitnessLookup.swift": "19771d0a63fce1eeae795c0a0b7bd4347630e3e396b21e841b066374ad03f0e4",
+      "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": "65f7b8a1e3a5745e2a9143ecbc3aff3610fe185ceeef4f2a1bf8c78459a81be6",
+      "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt": "0b909365249664afd8a13c3692655dd26db390871e491ab9567e0fb9ec9cf342",
+      "ios/Vipi/EnglishSourceRoleProvider.swift": "e96d502ff83dfd5bd20bc6c7833673d83a88f72ed46e97552e7ec6087b7557a1"
+    }
+  },
+  "preserve_inherited_dirty_files": true,
+  "bounds": {
+    "CPU": 1,
+    "AS_bytes": 1073741824,
+    "seconds_per_stage": 120,
+    "pack_max_bytes": 16777216,
+    "audit_max_bytes": 16777216,
+    "additional_reserve_bytes": 67108864,
+    "floor_bytes": 8589934592
+  },
+  "measured_existing_lookup_bytes": 6707652,
+  "new_pack_exact_size": "Not measured: measure stage requires run approval;16MiB is a cap, not measured output",
+  "commands": [
+    "python3 -B export_frozen_context_pack.py measure",
+    "python3 -B export_frozen_context_pack.py export"
+  ],
+  "rules": 1157,
+  "rules_with_head_support": 1134,
+  "no_head_winners_preserved": 23,
+  "no_activation": true,
+  "no_runtime_reader_implemented": true
+}

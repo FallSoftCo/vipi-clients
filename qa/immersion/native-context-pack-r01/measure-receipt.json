@@ -1,0 +1,23 @@
+{
+  "complete": true,
+  "protocol_sha256": "277ce0df82e64b92e304a3d976a89d0f3251e151fa47fefd747371dc464fe798",
+  "rows": {
+    "rules": 1157,
+    "rule_heads": 2091,
+    "forms": 326,
+    "terms": 651,
+    "links": 5328,
+    "heads": 453,
+    "known_families": 3011,
+    "source_roles": 6384,
+    "function_words": 87,
+    "metadata": 20
+  },
+  "logical_UTF8_row_bytes": 4022842,
+  "logical_rows_sha256": "4fc412b60b4b3c8e1cc3b5f6bf45ebff5233af78ccf7c8e72fd88a9de29e0f3e",
+  "audit_bytes": 2610661,
+  "audit_sha256": "27a6a13aa4243c8de409f7d2bae021a77f2227b7f7828982d548e5954a0589e8",
+  "seconds": 4.586752634990262,
+  "VmHWM_bytes": 286089216,
+  "sqlite_version": "3.45.1"
+}

@@ -26,6 +26,15 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 ## Current language decision
 
+The frozen English→Spanish context evidence is now exported as a 4.9 MB local
+SQLite add-on. All 1,157 rules survive, including 23 no-output winners that must
+block shorter fallback. Original forms, readings, dictionary identities and
+known-family data are preserved; the separate audit metadata is not a runtime
+dependency. Byte determinism and exact input bindings passed. This adds no
+linguistic coverage or display permission by itself. The native reader and
+Unicode matcher are being implemented separately. See
+`qa/immersion/native-context-pack-r01/RESULT.md`.
+
 A real, currently uncalled Apple source-role provider is now compiled into the
 app source and qualified on native macOS and the existing iOS Simulator. It
 uses the current original text, exact native geometry, explicit unknowns and
