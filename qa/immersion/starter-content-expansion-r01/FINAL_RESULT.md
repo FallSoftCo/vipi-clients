@@ -1,0 +1,11 @@
+# Final broader starter delivery
+
+The source-default packs now contain **189 Japanese and 213 Swahili entries**, retaining every previously active 45 / 106 record. This adds 144 / 107 records without changing selection, context conditions or readings. Winter, apple, jobs, school and schools are withheld; singular job remains. The rejected capitalization-only proposal and all original failures are retained.
+
+The corrected fixed comparison has no material-reviewed candidate output from either agent. At .25 with empty exclusions, normal-route nonempty sources increase from 172 to 187 Japanese and 191 to 198 Swahili out of 231 per pair. At .75, the counts increase from 173 to 188 and 192 to 199. Native reference-word counts at .75 rise from 336 to 425 and 448 to 498. These are reused diagnostic inputs, not overall app coverage. Existing exact-reference routing remains separate. Minor precision disagreements and budget-driven displacement remain visible in CORRECTED_RESULT.md.
+
+Final bundled/default-route qualification passed on both native clients. Android: 38.50-second build, 26 correction/ordinary controls, 28 literal controls, then a 78.65-second actual chat-view check. Japanese selects three spans and Swahili four in “The coffee and bread are for lunch.” Both cycle six times with stable paragraph bounds; Japanese script and reading modes use the actual spans. Listen reaches PLAYING with no reported error and correctly segmented source/target languages. This does not certify acoustic quality or playback completion. Apple independently passed the equivalent controls and UI path.
+
+The initial final Android build failed only because the new test used Swift's identity property name. The corrected Kotlin cacheIdentity assertion passed without changes to content, policy or expectations. Both attempts and hashes remain retained. No model/translation calls occurred. Android main state and secure/system settings were unchanged; QA packages were removed and the emulator stopped. No iPad was used.
+
+Accessible native notices now retain dictionary attribution, adaptation descriptions and the full official CC BY-SA 4.0 license text. Exact obsolete bundled JA002/SW001 copies were removed; historical sources and private evidence remain. Store release is not implied by source activation.

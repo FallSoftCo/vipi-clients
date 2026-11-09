@@ -2,7 +2,11 @@ package co.fallsoft.vipi.core
 
 /** Literal preservation only. Passing this check says nothing about meaning. */
 object TranslationIntegrity {
-    private val literals = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+")
+    // Bounded underscore/common-file recognition, not arbitrary paths or names.
+    // Ordinary chat may omit spaces after a period, so dotted words alone do
+    // not establish a literal file.
+    private val technicalTokens = """(?<![\p{L}\p{N}\p{M}_.-])(?=[\p{L}\p{N}\p{M}_.-]*_)[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-](?![\p{L}\p{N}\p{M}_-]|\.[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-])|(?<![\p{L}\p{N}\p{M}_.])[\p{L}\p{N}\p{M}_-]+(?:\.[\p{L}\p{N}\p{M}_-]+)*\.(?i:txt|md|pdf|csv|tsv|json|jsonl|xml|yaml|yml|toml|ini|log|zip|gz|tar|jpg|jpeg|png|svg|webp|gif|heic|mp3|wav|m4a|mp4|mov|html|css|js|ts|py|swift|kt|kts|sql|apk|ipa|vipihistory)(?:\.[\p{L}\p{N}\p{M}_-]+)*(?![\p{L}\p{N}\p{M}_])"""
+    private val literals = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+|" + technicalTokens)
     private val punctuation = ".,!?;:。！？、，；：…"
 
     internal fun identifiers(text: String): Map<String, Int> = literals.findAll(text).map { match ->

@@ -1,0 +1,32 @@
+{
+  "activation": false,
+  "candidate_manifests": {
+    "starter-ja-candidate-manifest.json": {
+      "bytes": 58088,
+      "entries": 190,
+      "file": "starter-en-ja-004.json",
+      "schema": "vipi-source-starter-manifest-1",
+      "sha256": "b36deb4c78a4c4122a7c4e6aa1b8708c3f6e5ba52c3eb660cef0a06c26e3a9a6",
+      "version": "starter-en-ja-004"
+    },
+    "starter-sw-candidate-manifest.json": {
+      "bytes": 55726,
+      "entries": 214,
+      "file": "starter-en-sw-003.json",
+      "schema": "vipi-source-starter-manifest-1",
+      "sha256": "68e2a1b651eee367421ce14ff1293e1d7d67d81fa963c0510a978eb9862cb20d",
+      "version": "starter-en-sw-003"
+    }
+  },
+  "compiler_sha256": "efac75a9531cbb26228cd91cff5044ecbc8abbefca5bbf015be581d310dba5ab",
+  "decision_sha256": "eeae308477b28f3ca54280458e79a891e1338312b68e3edf863655f9ca36a46e",
+  "independent_retained_entry_order_and_equality_check": true,
+  "native_replay": false,
+  "original_completion_sha256": "86e683744afc0db4f8a1029e9b0ee5c8b38a98a6dd02a537bc0f293ae1baed4e",
+  "private_receipt": {
+    "path": "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/candidates-r02/receipt.json",
+    "sha256": "cdd61bcfac6f1883c6ca3f4855486925eaaa332cee73949dbcce4e4893d88287"
+  },
+  "schema": 1,
+  "status": "corrected_candidates_prepared_awaiting_root_literal_fix"
+}

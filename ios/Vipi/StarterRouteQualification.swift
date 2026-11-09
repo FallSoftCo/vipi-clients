@@ -10,8 +10,9 @@ import VipiCore
     @State private var proof = "pending"
     @State private var speechEvents = [String]()
     private var packed: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-starter-packed") }
-    private var original: String { packed ? "My family and my family enjoy pizza." : "Country music is fun!" }
-    private var density: Double { packed ? 0.75 : 0.25 }
+    private var expanded: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-starter-expanded") }
+    private var original: String { expanded ? "The coffee and bread are for lunch." : packed ? "My family and my family enjoy pizza." : "Country music is fun!" }
+    private var density: Double { packed || expanded ? 0.75 : 0.25 }
     private var target: String { ProcessInfo.processInfo.arguments.contains("-vipi-starter-sw") ? "sw" : "ja" }
     var body: some View {
         NavigationStack {

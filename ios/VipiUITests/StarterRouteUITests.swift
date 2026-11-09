@@ -7,19 +7,22 @@ import XCTest
     func testPackedPairMessagesReachContinuousBubble() throws {
         try checkPairMessages(packed:true)
     }
-    private func checkPairMessages(packed:Bool) throws {
+    func testExpandedPairMessagesReachContinuousBubble() throws {
+        try checkPairMessages(packed:true,expanded:true)
+    }
+    private func checkPairMessages(packed:Bool,expanded:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated starter UI qualification only") }
         continueAfterFailure=false
         for target in ["ja","sw"] {
-            let app=XCUIApplication();app.launchArguments=["-vipi-starter-route-qa"]+(target == "sw" ? ["-vipi-starter-sw"] : [])+(packed ? ["-vipi-starter-packed"] : [])
+            let app=XCUIApplication();app.launchArguments=["-vipi-starter-route-qa"]+(target == "sw" ? ["-vipi-starter-sw"] : [])+(packed ? ["-vipi-starter-packed"] : [])+(expanded ? ["-vipi-starter-expanded"] : [])
             app.launch();defer { app.terminate() }
             let proof=app.staticTexts["starter-route-proof"]
             let expectedProof="sourceReferencePartial|"+String(packed ? (target == "sw" ? 4 : 3) : 1)+"|0"
             XCTAssertTrue(proof.waitForExistence(timeout:20));XCTAssertTrue(NSPredicate(format:"label == %@",expectedProof).evaluate(with:proof) || XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",expectedProof),object:proof)],timeout:20) == .completed)
             let paragraph=app.descendants(matching:.any).matching(identifier:"immersionText").firstMatch
             XCTAssertTrue(paragraph.waitForExistence(timeout:20))
-            let original=packed ? "My family and my family enjoy pizza." : "Country music is fun!"
-            let mixed=packed ? (target == "sw" ? "My familia na my familia enjoy piza." : "My kazoku and my kazoku enjoy piza.") : (target == "sw" ? "Country muziki is fun!" : "Country ongaku is fun!")
+            let original=expanded ? "The coffee and bread are for lunch." : packed ? "My family and my family enjoy pizza." : "Country music is fun!"
+            let mixed=expanded ? (target == "sw" ? "The kahawa na mkate are for chakula cha mchana." : "The kōhī and pan are for chuushoku.") : packed ? (target == "sw" ? "My familia na my familia enjoy piza." : "My kazoku and my kazoku enjoy piza.") : (target == "sw" ? "Country muziki is fun!" : "Country ongaku is fun!")
             var observations:[[String:Any]]=[];var previous="";var transitions=0
             let deadline=Date().addingTimeInterval(40)
             while Date()<deadline && transitions<6 {
@@ -37,7 +40,7 @@ import XCTest
             app.buttons["Reading options"].tap()
             if target == "ja" {
                 XCTAssertTrue(app.buttons["Show original script"].waitForExistence(timeout:5));app.buttons["Show original script"].tap()
-                let expected=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",packed ? "My 家族 and my 家族 enjoy ピザ." : "Country 音楽 is fun!"),object:paragraph)
+                let expected=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",expanded ? "The コーヒー and パン are for 昼食." : packed ? "My 家族 and my 家族 enjoy ピザ." : "Country 音楽 is fun!"),object:paragraph)
                 XCTAssertEqual(XCTWaiter.wait(for:[expected],timeout:12),.completed)
                 let script=XCTAttachment(screenshot:app.screenshot());script.name="starter-ui-ja-native-script";script.lifetime = .keepAlways;add(script)
                 app.buttons["Reading options"].tap();XCTAssertTrue(app.buttons["Show transliteration"].exists);app.buttons["Show transliteration"].tap()

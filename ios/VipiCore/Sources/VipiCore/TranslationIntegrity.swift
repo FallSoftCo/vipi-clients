@@ -2,7 +2,11 @@ import Foundation
 
 /// Literal preservation only. Passing this check says nothing about meaning.
 public enum TranslationIntegrity {
-    private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+"#)
+    // Obvious underscore identifiers and common filename suffixes. This is a
+    // bounded lexical rule, not detection of arbitrary paths or proper names.
+    // Do not treat every dotted word as a file: ordinary chat omits spaces.
+    private static let technicalTokens = #"(?<![\p{L}\p{N}\p{M}_.-])(?=[\p{L}\p{N}\p{M}_.-]*_)[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-](?![\p{L}\p{N}\p{M}_-]|\.[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-])|(?<![\p{L}\p{N}\p{M}_.])[\p{L}\p{N}\p{M}_-]+(?:\.[\p{L}\p{N}\p{M}_-]+)*\.(?i:txt|md|pdf|csv|tsv|json|jsonl|xml|yaml|yml|toml|ini|log|zip|gz|tar|jpg|jpeg|png|svg|webp|gif|heic|mp3|wav|m4a|mp4|mov|html|css|js|ts|py|swift|kt|kts|sql|apk|ipa|vipihistory)(?:\.[\p{L}\p{N}\p{M}_-]+)*(?![\p{L}\p{N}\p{M}_])"#
+    private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+|"# + technicalTokens)
     private static let punctuation = Set(".,!?;:。！？、，；：…")
 
     private static func literalOccurrences(_ text: String) -> [String] {

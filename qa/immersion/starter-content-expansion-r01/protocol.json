@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "base_revision": "b49db35688110479b00090e40d96032cba90109b",
+  "native_execution_started": false,
+  "activation": false,
+  "compiler": {
+    "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-content-expansion-r01/compile_candidates.py",
+    "sha256": "c690314ef17981b2a8262b91e98f1a3030644431750f1f32c71fb83b7a16dccb"
+  },
+  "input_preparer_sha256": "a4c7cb8f194a007f710ae254b0ba845dc0d570bad76fb598eec6594f64a86936",
+  "plan_sha256": "cfdb27a825343392f4c331a81f2ddad321c6db26c3af201e65f5db41f9555ad3",
+  "private_bindings": {
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/candidates-r01/receipt.json": "b5defb5fb3f44975e1159d8b6ff31db0a4a96618451ad424341bdb3e1dc1cff3",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/inputs-r02/receipt.json": "049fc5056d4db0fdcee5b431a10dad21a7f23a5fec40060d3cdff7f83c86d679",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/independent-structure-check-r01.json": "d527c1417961b60ea0b47a27a42b697a1d610b05c19ec7dcf6dbe0ff907c441b",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/input-exposure-amendment-r02.json": "c71884eb5f692b6fe53c689cc23b95190c70781de46358a13fd9cd4a50eb3831",
+    "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-capture-r01/status.stdout": "28ececeffc767e2b13040c28b5112a9f5f10a86a09c5a24be1af2ee839b702cc"
+  },
+  "unchanged_native_loaders": {
+    "ios/Vipi/JapaneseStarterLookup.swift": "08c14331e8176b1a7a3803495678ea7c929f4ca32c47bcc949b6b00b4cb8a843",
+    "ios/Vipi/SwahiliStarterLookup.swift": "ab0a77cc36097855a4b7376ed4129bae541e393d47ddf2a5ad5c26f84e06d9f0",
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": "a7796a55d76075f5f60a4c52c9eabf2a8198ce55da8e986cb7d92fc381ec303c",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "8afdc635fc7569ec71c3ad2e82310b14401910ac05e6d4aaeb1e904ea8ef69af"
+  },
+  "candidate_files": {
+    "proofs-ja.json": {
+      "bytes": 224782,
+      "sha256": "8d66f03926c6e9d6747fece6387be1e2b4e70422c0e534a19cd342d762b3ee7d"
+    },
+    "proofs-sw.json": {
+      "bytes": 192999,
+      "sha256": "358ac0358fe37da1c60f287e0304a98bbb701257e5859e8de0b446232d51bb92"
+    },
+    "starter-en-ja-003.json": {
+      "bytes": 58610,
+      "sha256": "ba6f5a31f091f46a4ca0c9050404cb22d22e6579cc7f8a5094faa21da391a625"
+    },
+    "starter-en-sw-002.json": {
+      "bytes": 56101,
+      "sha256": "ffdb67bd1f413b458e0503e5ac865e7c9ef320f120ae1d644280f66d29dd8ccb"
+    },
+    "starter-ja-candidate-manifest.json": {
+      "bytes": 210,
+      "sha256": "3c1f2b32da6d8e328f73cb1ae9cc248d8fa2f88e0e81c72ad9f185a755a4b507"
+    },
+    "starter-sw-candidate-manifest.json": {
+      "bytes": 210,
+      "sha256": "e3046be089eb34d561281e018c5b376da1991c2b7b41085b086634a276321ecd"
+    }
+  },
+  "inputs_directory": "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/inputs-r02",
+  "densities": [
+    0.25,
+    0.75
+  ],
+  "base_cells": 2772,
+  "maximum_arm_evaluations": 6048,
+  "boundary_policy": "Source-only native geometry/order non-monotone ID transitions; only adjacent necessary supported steps, frozen before predictions. No labels/target-output-based sampling.",
+  "native_bounds": {
+    "build_seconds": 900,
+    "test_seconds": 600,
+    "android_total_seconds": 1200,
+    "platform_output_bytes": 33554432,
+    "private_reserve_bytes": 134217728,
+    "floor_bytes": 8589934592,
+    "compiler_jobs": 2,
+    "gradle_workers": 1
+  },
+  "preparation_free_bytes": 17477468160,
+  "review": "Independent agents, full source/output, references physically separate, no semantic gold or familiarity claim",
+  "awaiting_root_review_before_native": true,
+  "maximum_provider_invocations_including_direct_route_prepass": 12132,
+  "call_accounting": "6048 maximum arm outputs; up to two provider invocations per direct+normal-route arm and36 source-only boundary prepass calls. Not independent semantic examples."
+}

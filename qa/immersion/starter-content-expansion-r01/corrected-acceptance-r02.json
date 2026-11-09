@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "bindings": {
+    "joined-r02/joined.json": "b9b5c3df92d173e2cf54c32cd7b0856b9a7c9837b4e9411b46c1960ecbb925e2",
+    "author-delta-review-r02.json": "8a072235b598d219b7e8446e0b886d77f044b540850750eb8bc4a5bdb132945c",
+    "root-delta-review-r02.json": "1401aa5508eefa409c15b503b4d581eec413ed5f3562d28ea2044d6b168ca5c5",
+    "candidates-r03/receipt.json": "cd14a97bae801fc45298ed08f771d3ad900849e708649c85107a24b1b9d4d73e",
+    "schools-recognition-census-r01.json": "587ec0e2027d1491b0cb2dde9d1ec4627851b4191d939c15c4305133a3749c87",
+    "apple-run-r02/root-structure-verification.json": "afacf0262c1a214c1b7de4b0e1787726009dcb2f54b8bb94a0988dc141d00f82",
+    "review-r02/receipt.json": "dded73cdd94209132c0cf823f3532dab2beb775d6f69858e70499f012691e6a7",
+    "joined-r02/platform-parity.json": "9eda0635b053c6a2097e11d958302cee173d02b643af6e8605582384ea5779e5"
+  },
+  "delta_disagreements": 0,
+  "corrected_material_reviewed_outputs": 0,
+  "final_counts": {
+    "ja": 189,
+    "sw": 213
+  },
+  "final_bundle_qualification": "pending",
+  "no_population_or_gold_claim": true,
+  "normalization": "material_meaning_error and material normalized to material_error only for comparison; raw reviews unchanged. Initial join assertion retained privately."
+}

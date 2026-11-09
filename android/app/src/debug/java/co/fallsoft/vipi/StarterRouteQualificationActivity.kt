@@ -24,12 +24,13 @@ class StarterRouteQualificationActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         val target=requireNotNull(intent.getStringExtra("target"));require(target in setOf("ja","sw"))
-        val packed=intent.getBooleanExtra("packed",false)
-        val original=if(packed) "My family and my family enjoy pizza." else "Country music is fun!"
+        val expanded=intent.getBooleanExtra("expanded",false)
+        val packed=intent.getBooleanExtra("packed",false) || expanded
+        val original=if(expanded) "The coffee and bread are for lunch." else if(packed) "My family and my family enjoy pizza." else "Country music is fun!"
         val density=if(packed) .75 else .25
-        val expected=if(packed) { if(target=="ja") listOf("家族","家族","ピザ") else listOf("familia","na","familia","piza") } else listOf(if(target=="ja") "音楽" else "muziki")
+        val expected=if(expanded) { if(target=="ja") listOf("コーヒー","パン","昼食") else listOf("kahawa","na","mkate","chakula cha mchana") } else if(packed) { if(target=="ja") listOf("家族","家族","ピザ") else listOf("familia","na","familia","piza") } else listOf(if(target=="ja") "音楽" else "muziki")
         val face=expected.joinToString(" ")
-        val out=File(filesDir,"starter-route-ui-${if(packed) "packed-" else ""}$target").apply{mkdirs()}
+        val out=File(filesDir,"starter-route-ui-${if(expanded) "expanded-" else if(packed) "packed-" else ""}$target").apply{mkdirs()}
         setContent { VipiTheme(Appearance.LIGHT) {
             val scope=rememberCoroutineScope()
             val owner=remember { ConversationImmersion(this,"en",target,density,translator=NoTranslation(),qaModelsReady=false) }

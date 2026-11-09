@@ -1370,5 +1370,12 @@
     "file": "license-824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2.txt",
     "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
     "origin": "Pinned MIT upstream source/exporter retained in qa/immersion/chinese-reading-upstream-r01; exact data/readings/chinese-ordinary.json is bundled, with native port in ChineseFullReading.swift."
+  },
+  {
+    "id": "immersion-starter-data",
+    "title": "Immersion starter vocabulary — JMdict, Wiktionary and project adaptations",
+    "file": "immersion-starter-notice-2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258.txt",
+    "sha256": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
+    "origin": "data/immersion/NOTICE.txt; official CC BY-SA 4.0 legalcode.txt"
   }
 ]

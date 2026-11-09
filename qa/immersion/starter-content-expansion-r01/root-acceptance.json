@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "accepted_at_utc": "2026-11-09T22:25:26.962648+00:00",
+  "reviewer": "root",
+  "accepted_scope": "Enable the reviewed JA189/SW213 beginner packs and bounded technical-token preservation in both native apps.",
+  "bindings": {
+    "root-final-pack-audit.json": "0b21f1b618027ececaa9acd326bff293ae4ada14c30d00883bbd4805db73c38a",
+    "root-review-r01.json": "eddbed2b81627a59d88302a4622fddb2ead3b5e158a274b4006d4ac7aab6f996",
+    "author-review-r01.json": "00054d888a7f325f5cde372f32efe3c736757c96f9d58efacb159a74f3004309",
+    "root-delta-review-r02.json": "1401aa5508eefa409c15b503b4d581eec413ed5f3562d28ea2044d6b168ca5c5",
+    "author-delta-review-r02.json": "8a072235b598d219b7e8446e0b886d77f044b540850750eb8bc4a5bdb132945c",
+    "joined-r02/joined.json": "b9b5c3df92d173e2cf54c32cd7b0856b9a7c9837b4e9411b46c1960ecbb925e2",
+    "apple-run-r02/root-structure-verification.json": "afacf0262c1a214c1b7de4b0e1787726009dcb2f54b8bb94a0988dc141d00f82",
+    "apple-bundle-r01/collection.json": "529b0b6ad6355af3826d8b726987d757c0a8b0b82fefe4791126ebe59338108b",
+    "apple-bundle-r01/receipt.json": "bbc0527e69bdead055232ac3f13f3cade4b1492901cee0eb7ff04fd90a33ecb2",
+    "apple-bundle-r01/bundle-resources.json": "2b53f7c343d06fd3ef4def2883c5ff93a899a7c1c69be9603f9fd3e0e24c2558",
+    "android-final-r04/receipt.json": "215b91f329ddc231214165d9d002f5b55384389cc56a835c12def3dae214b3b6"
+  },
+  "source_files": {
+    "data/immersion/starter-en-ja-005.json": "26d499d87e12fbf6bb938fcbb095d084f2f09ef301ca2b60a9a0dc42b10480d0",
+    "data/immersion/starter-en-sw-004.json": "e474bfebae95e6f8a6f58c1eeaaf6be65582fad243ae33a6a83e9e1e1f785373",
+    "data/immersion/starter-catalog.json": "85713bb730c555370f5d46c80a1db31e063e062331c3104b46baffdaf376036c",
+    "data/immersion/starter-sw-catalog.json": "860f67674af61cc02c990e6c6ea8d0b5d33058e6ee5f071aa890c2e3254d6be3",
+    "data/immersion/NOTICE.txt": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
+    "ios/VipiCore/Sources/VipiCore/TranslationIntegrity.swift": "e5c725a647a2d333a2651719b585e6600c9a2bc905cddcbd1e81b3db478dec8f",
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/TranslationIntegrity.kt": "13c4b6ed6da2f5a1d36991eb9adb46194f767e6533d8cb095c44ade79fad0944"
+  },
+  "independent_reviews_frozen_before_join": true,
+  "observed_material_errors_in_corrected_comparison": 0,
+  "root_final_control_review": {
+    "apple_complete_outputs_read": 26,
+    "nonempty_compatible": 17,
+    "empty": 9,
+    "interpretation": "Intentional source grammar/base-form vocabulary. No new material meaning error in these authored controls."
+  },
+  "native_ui": {
+    "platforms": [
+      "iPhone 17 simulator iOS26.5 arm64",
+      "Android QA emulator API35"
+    ],
+    "transitions_per_pair_per_platform": 6,
+    "japanese_script_and_transliteration": true,
+    "actual_listen_reached_playing": true,
+    "all_six_screenshots_visually_reviewed": true,
+    "no_claims": [
+      "acoustic correctness",
+      "playback completion",
+      "full customer chat/onboarding acceptance"
+    ],
+    "android_diagnostic_header_overlap_retained": true
+  },
+  "ipad_used": false,
+  "store_ready": false,
+  "customer_ready": false,
+  "limits": [
+    "Only English→Japanese and English→Swahili starter increments.",
+    "Reused diagnostic samples and two model reviews do not establish population accuracy or 90% useful conversation coverage.",
+    "Minor lexical precision/register disagreements remain visible in the original reviews.",
+    "Durable learning progression and broader contextual mappings remain separate work.",
+    "Literal recognition is bounded; it does not detect arbitrary unknown filenames or proper names."
+  ]
+}

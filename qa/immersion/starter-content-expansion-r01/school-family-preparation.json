@@ -1,0 +1,15 @@
+{
+  "private_bindings": {
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/candidates-r03/receipt.json": "cd14a97bae801fc45298ed08f771d3ad900849e708649c85107a24b1b9d4d73e",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/candidates-r03/starter-en-ja-005.json": "26d499d87e12fbf6bb938fcbb095d084f2f09ef301ca2b60a9a0dc42b10480d0",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/candidates-r03/starter-en-sw-004.json": "e474bfebae95e6f8a6f58c1eeaaf6be65582fad243ae33a6a83e9e1e1f785373",
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/schools-recognition-census-r01.json": "587ec0e2027d1491b0cb2dde9d1ec4627851b4191d939c15c4305133a3749c87"
+  },
+  "schema": 1,
+  "source_bindings": {
+    "SCHOOL_FAMILY_AMENDMENT.md": "b0a93bdbfc09346c33abf79c8956ca44af1aa78226e6cf06a51b80df6ea193cd",
+    "compile_school_family_correction.py": "c0b534d8184e2fef449bbd70389443a1967f989b29223a31ea0e1475d96917b3",
+    "verify_school_absence.py": "afbcdde04f1f8a1573821a4bbae5ac58d65829c683b672fbd53b7ac34a249052"
+  },
+  "status": "prepared_no_extra_grid_no_activation"
+}

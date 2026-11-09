@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "status": "enabled in source; final default bundle/native UI qualification passed; no store release",
+  "bindings": {
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-final-r04/receipt.json": {
+      "sha256": "215b91f329ddc231214165d9d002f5b55384389cc56a835c12def3dae214b3b6",
+      "bytes": 3633
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-final-r04/bundle-output.stdout": {
+      "sha256": "7b4c7e0328fa72238c036330f78ac2c14620cedd70f4d52f24ba16c88f720bb9",
+      "bytes": 8397
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-final-r04/literal-controls.stdout": {
+      "sha256": "95d40326004ed607abb1d6b324a0ec935a50eec3c565ce09cf721700ce03943c",
+      "bytes": 9331
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-final-r04/ja-proof.json.stdout": {
+      "sha256": "bcd086673357ef7d5aba1f76bedee6e4eee853343c103e536cc3473277e8d73e",
+      "bytes": 761
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-final-r04/sw-proof.json.stdout": {
+      "sha256": "d1e056bf1aa5972b69882fe37406af055fe7d127d804982dfec516d9839fef42",
+      "bytes": 876
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-assembly-final-r04/receipt.json": {
+      "sha256": "419cc0be2eb53dde8dcada6a0785614ec7cf6c19e365bd04ce14827257789f40",
+      "bytes": 2822
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/android-assembly-final-r03/receipt.json": {
+      "sha256": "a9152c8fede55b8f8413ecd68567217605f5bf796cb25995bbbd3a9dfd29e84f",
+      "bytes": 1234
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/final-native-freeze-r03.json": {
+      "sha256": "85fc64d72a37354cc5b028a48f9bab772a4295dd6a2ed3b25a329a7f75f0c5b8",
+      "bytes": 1126
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/final-native-freeze-r04.json": {
+      "sha256": "6a8cd394fa42c555e0cb8ff59148392e655c0a80c11b926baaadad570b74cc7d",
+      "bytes": 882
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/author-final-bundle-review-r03.json": {
+      "sha256": "0ae8fb078a5775efaafa2eb23a4e87e33b9a6e526eda6d5b84489bc600c04cf3",
+      "bytes": 13648
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/apple-bundle-r01/receipt.json": {
+      "sha256": "bbc0527e69bdead055232ac3f13f3cade4b1492901cee0eb7ff04fd90a33ecb2",
+      "bytes": 6452
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/apple-bundle-r01/collection.json": {
+      "sha256": "529b0b6ad6355af3826d8b726987d757c0a8b0b82fefe4791126ebe59338108b",
+      "bytes": 4940
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/root-final-pack-audit.json": {
+      "sha256": "0b21f1b618027ececaa9acd326bff293ae4ada14c30d00883bbd4805db73c38a",
+      "bytes": 514
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/joined-r02/joined.json": {
+      "sha256": "b9b5c3df92d173e2cf54c32cd7b0856b9a7c9837b4e9411b46c1960ecbb925e2",
+      "bytes": 1039136
+    },
+    "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/bundle-promotion-r01/notices.json": {
+      "sha256": "20fcd30518790c555ff6a88c4fe38d64dccfee28cac6f40922e6feed2c342611",
+      "bytes": 834
+    }
+  },
+  "source_bindings": {
+    "data/immersion/starter-en-ja-005.json": "26d499d87e12fbf6bb938fcbb095d084f2f09ef301ca2b60a9a0dc42b10480d0",
+    "data/immersion/starter-en-sw-004.json": "e474bfebae95e6f8a6f58c1eeaaf6be65582fad243ae33a6a83e9e1e1f785373",
+    "data/immersion/starter-catalog.json": "85713bb730c555370f5d46c80a1db31e063e062331c3104b46baffdaf376036c",
+    "data/immersion/starter-sw-catalog.json": "860f67674af61cc02c990e6c6ea8d0b5d33058e6ee5f071aa890c2e3254d6be3",
+    "data/immersion/NOTICE.txt": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
+    "android/app/src/debug/java/co/fallsoft/vipi/StarterRouteQualificationActivity.kt": "d2cacefef1c6826533e8d736d46fb0b4aa4caa3a702c97ed4f3917b23776c254",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt": "a7800b4ab9f2593fd964f1465e25e9ca38d8f367586ef2214848f4aa1dcad6bb",
+    "ios/Vipi/ThirdPartyNotices/index.json": "a37eb25910f35ae43ae71fe8ce27c8c0dc42809c23648577b5f1fdbfefafeb21",
+    "ios/Vipi/ThirdPartyNotices/immersion-starter-notice-2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258.txt": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258"
+  },
+  "android": {
+    "build_seconds": 38.50373038696125,
+    "controls": 26,
+    "literal_controls": 28,
+    "ui_seconds": 78.65,
+    "session_seconds": 220.33383512101136,
+    "settings_secure_and_system_exact": true,
+    "qa_removed": true,
+    "main_preserved": true,
+    "emulator_stopped": true,
+    "screenshots_visually_inspected": true,
+    "pairs": {
+      "ja": {
+        "units": 3,
+        "transitions": 6,
+        "bounds": "[53,116][1027,190]",
+        "speech_states": [
+          "PREPARING",
+          "READY",
+          "RENDERING",
+          "PLAYING",
+          "READY"
+        ],
+        "script_segments": [
+          {
+            "text": "The ",
+            "language": "en"
+          },
+          {
+            "text": "コーヒー",
+            "language": "ja"
+          },
+          {
+            "text": " and ",
+            "language": "en"
+          },
+          {
+            "text": "パン",
+            "language": "ja"
+          },
+          {
+            "text": " are for ",
+            "language": "en"
+          },
+          {
+            "text": "昼食",
+            "language": "ja"
+          },
+          {
+            "text": ".",
+            "language": "en"
+          }
+        ]
+      },
+      "sw": {
+        "units": 4,
+        "transitions": 6,
+        "bounds": "[53,116][1027,253]",
+        "speech_states": [
+          "PREPARING",
+          "READY",
+          "RENDERING",
+          "PLAYING",
+          "READY"
+        ],
+        "script_segments": [
+          {
+            "text": "The ",
+            "language": "en"
+          },
+          {
+            "text": "kahawa",
+            "language": "sw"
+          },
+          {
+            "text": " ",
+            "language": "en"
+          },
+          {
+            "text": "na",
+            "language": "sw"
+          },
+          {
+            "text": " ",
+            "language": "en"
+          },
+          {
+            "text": "mkate",
+            "language": "sw"
+          },
+          {
+            "text": " are for ",
+            "language": "en"
+          },
+          {
+            "text": "chakula cha mchana",
+            "language": "sw"
+          },
+          {
+            "text": ".",
+            "language": "en"
+          }
+        ]
+      }
+    }
+  },
+  "apple": "Root-owned final bundle controls and UI passed; exact receipt/collection bound above.",
+  "failure_provenance": "Initial final Android compilation used Swift identity property name in test; corrected to Kotlin cacheIdentity only. Original source/receipt/freeze retained, no instrumentation ran from failed build.",
+  "limits": [
+    "Independent agent reviews, not linguistic gold or population coverage",
+    "Reused sources and explicit diagnostic controls",
+    "Known minor sense/register precision retained",
+    "No acoustic correctness or playback completion claim",
+    "No new translation/model calls, iPad use or service change"
+  ]
+}
