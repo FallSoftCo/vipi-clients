@@ -120,9 +120,19 @@ Tom,” a noun requirement on both sides would still admit the wrong word-level
 mapping. Those diagnostic results support treating tags as evidence rather than
 semantic approval. The same retained dictionary trace now serializes 17 direct
 English spelling/POS candidates without selecting a source sense; packed terms
-remain unchanged. The next comparison examines existing Apertium morphology and
-contextual tags on the same frozen examples. See
+remain unchanged. See
 `qa/immersion/bilingual-occurrence-roles-r01/RESULT.md`.
+
+The retained Apertium morphology/HMM comparison now correctly resolves pediste,
+llamas and Tom on those same frozen examples. All 74 exactly mapped focus tokens
+match both reviews, including all 63 reference nouns. Six name tokens remain
+unassessable at the original token granularity: two recognized multiword place
+names and Fisher, which is unknown on both sides. Root verified the raw stage
+streams, exact spans and all comparison counts. This supports complementary
+occurrence evidence, not population accuracy or same-POS lexical selection.
+The next preparation qualifies batch boundaries and counts the larger existing
+candidate cohort before annotation. See
+`qa/immersion/apertium-occurrence-roles-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

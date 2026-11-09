@@ -1,0 +1,72 @@
+{
+  "complete": true,
+  "private_root": "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01",
+  "source_files": {
+    "RESULT.md": "f8bf4b38c46162054c8dcddd4a04fb54417500a190bc57491ff2eb43bae96330",
+    "compare.py": "21976e0d6e7cc6ff33ae4e4dca1c87fae509da7d9e891d181b9fd330dd7de9dd",
+    "preflight.py": "69a9124cd4c6a55c33e467ee09a28e40ae79f7f5a46329e281a4dc018a5f6815",
+    "protocol.json": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82",
+    "run.py": "b0fd08c788842349a63ac3bb3d791ea699dc2ade6a974b444d6d632671a3da5a"
+  },
+  "evidence": {
+    "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/retained-runtime-manifest.json": {
+      "sha256": "9f0a26b8504c2f4e69bee9dd3ad59ffe020b1b2c4aabde2566d1852326c57efa",
+      "bytes": 31310
+    },
+    "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/runtime-preflight.json": {
+      "sha256": "a730d0fc7f7d8e8016e491a4c11b24eb847c9db174cb7252d761049427277e80",
+      "bytes": 4695
+    },
+    "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/outputs/receipt.json": {
+      "sha256": "c87ba874e724935bb53579308853e73dc9136e92a86f0b2fb3149cec37982ab8",
+      "bytes": 50353
+    },
+    "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/outputs/stages.jsonl": {
+      "sha256": "260ac0121ed23017b56579a3da2d7f233b5dc616a13470bbb253f3e7961a0c4b",
+      "bytes": 113126
+    },
+    "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/joined-comparison.json": {
+      "sha256": "a6a9e07ede3fe74a1991f00a80eed6ca55981aea1ce287a4ff7e69b50d11c859",
+      "bytes": 603344
+    },
+    "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01/packet.json": {
+      "sha256": "fe993c979408d69cdc511072581587e67bc4c8c0b91f56b33ee62f772e60eeec",
+      "bytes": 250873
+    },
+    "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01/author-review-r01.json": {
+      "sha256": "b3b5a9675e6610bf459515488c03ef733d630b06017a1064540ed89a033f55c1",
+      "bytes": 27147
+    },
+    "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01/root-review-r01.json": {
+      "sha256": "a196b888aa1468e240fb65ad18c3fb3796cf834316e8e36a6e2df234a30da61d",
+      "bytes": 29924
+    },
+    "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01/direct-english-candidates.json": {
+      "sha256": "9bc923f1b3138d667b3336c171d976d737c294149373f6991ae77945fa2acc7a",
+      "bytes": 26566
+    }
+  },
+  "resources": {
+    "complete": true,
+    "protocol_sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82",
+    "runtime_preflight_sha256": "a730d0fc7f7d8e8016e491a4c11b24eb847c9db174cb7252d761049427277e80",
+    "endpoints": 64,
+    "observed_max_child_VmHWM_bytes": 42250240,
+    "seconds": 3.565124012005981,
+    "parent_VmHWM_bytes": 19857408
+  },
+  "stage_output_total_bytes": 149765,
+  "denominators": {
+    "pairs": 32,
+    "endpoints": 64,
+    "stages": 192,
+    "focus_tokens": 80,
+    "exact_token_assessable": 74,
+    "unassessable": 6,
+    "matching_both_reviews": 74,
+    "reference_nouns": 63,
+    "false_noun_rejections": 0,
+    "false_noun_acceptances": 0
+  },
+  "scope": "Diagnostic only, no population/gold claim; existing morphology+HMM, not CG/HFST; no activation."
+}
