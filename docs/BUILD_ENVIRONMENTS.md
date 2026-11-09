@@ -62,9 +62,13 @@ its password held separately in private local/production paths. No secret value
 belongs in source. New November 8 migration evidence demonstrates native company
 Xcode account access for the separate 8bar release, but that team's later native
 distribution attempt failed authentication before upload. Vipi's App Store Connect
-browser session and app record remain unverified: the bounded read-only browser
-check stayed queued behind shared desktop use and was cancelled before dispatch.
-That is not a fresh authentication failure. Google Cloud and AWS authentication
+browser session and app record remain unverified. An earlier read-only check was
+cancelled while queued; a later native connection still timed out after inspecting
+and handling the exact Chrome debugging approval sheet and using a temporary
+private SSH transport. No store navigation occurred. The ended request was
+dismissed and owned connections closed without restarting shared services or
+Chrome. These control-path failures do not establish an authentication failure.
+Google Cloud and AWS authentication
 steps remain open; no Vipi app-store submission receipt exists.
 
 The native migration reconciliation retained the legacy Vipi source snapshot,

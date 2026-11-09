@@ -59,6 +59,18 @@ These reused TRAIN counts are not population accuracy or correct coverage.
 The completed evidence is retained; no catalog was activated. See
 `qa/immersion/context-key-expansion-r01`.
 
+Read-only loss accounting narrows the next investigation. In the expanded arm,
+9,411 messages have a shared dictionary head in a matched context, but only
+6,221 have an eligible form/sense/POS/number link. Of the 3,190 messages first
+lost there, 2,971 still contain exact native words tagged noun/adjective/adverb;
+whole-utterance POS exclusion is not the main explanation. These are potential
+content words, not verified meanings, and grammatical adverbs may still be
+classified as function words. The next probe inspects concrete source forms,
+target links and corpus witnesses. Raising density does not resolve this loss:
+all 4,557 messages with an admitted candidate already receive a selected word.
+No guard was relaxed, and no recoverable-correctness claim follows from these
+counts. See the two `loss-accounting` reports in the same directory.
+
 | Approach | Observed result | Decision |
 |---|---|---|
 | Exact phrase windows, finite slots and typed possessors | Actual Swift/Kotlin agree on the frozen authored examples. The ten-family catalog recognizes only 54 of 9,535 reused TRAIN messages; typed slots add no TRAIN reach. | Keep the mechanism; small template catalogs do not solve broad coverage. |
@@ -339,7 +351,11 @@ is underway.
 
 Owner-facing authentication requests for App Store Connect, Google Cloud, AWS
 and the existing DeepSeek company credential remain pending. Read-only check r04
-still found Google password challenges; the Mac browser connection timed out,
-so its current ASC state was unobserved. Do not repeat pending questions without
-changed information. No store upload, submission, approval or public launch has
-occurred. Independent authorized development continues.
+found Google password challenges. The later native Apple check identified an
+inactive shared tunnel and the exact Chrome debugging approval sheet, but the
+browser connection still timed out using a temporary private transport. The
+ended debugging request was dismissed and owned transports closed; shared
+services and browser state were preserved. ASC authentication and app records
+remain unobserved, not newly failed authentication. Do not repeat pending
+questions without changed information. No store upload, submission, approval or
+public launch has occurred. Independent authorized development continues.

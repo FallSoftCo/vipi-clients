@@ -1,0 +1,197 @@
+{
+  "production": false,
+  "complete": true,
+  "script_sha256": "5165d80b0475177f9e5567e4974479612fb48ae8995539fc88b3d22df2345a8f",
+  "private_result": {
+    "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/loss-accounting-r01/result.json",
+    "sha256": "18277ff8935910d464af586d456e60130f580fe53a237e2de9c8063d7052af8a"
+  },
+  "private_receipt": {
+    "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/loss-accounting-r01/receipt.json",
+    "sha256": "9ab8ab1bee232bcef3a5b6e42cf0ac335b194ec29a5c1489c927bbadcd39baa7"
+  },
+  "resource_receipt": {
+    "complete": true,
+    "production": false,
+    "script_sha256": "5165d80b0475177f9e5567e4974479612fb48ae8995539fc88b3d22df2345a8f",
+    "inputs": {
+      "heads": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads-r02/heads.sqlite",
+        "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+      },
+      "decisions": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+        "sha256": "255d89336001a080f7cb3e188246da4c81fad3c8f5874cc9195f4f7c6f4cdaaf"
+      },
+      "keys": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+        "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+      },
+      "geometry": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+        "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+      },
+      "annotations": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+        "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+      },
+      "protocol": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head-protocol-r02.json",
+        "sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8"
+      },
+      "metrics": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/metrics.json",
+        "sha256": "10a5384aee0371b24eebc6c99ed0c06b606dd03995116363e5af4d537233850b"
+      }
+    },
+    "seconds": 18.381053225020878,
+    "memory": {
+      "VmPeak": 78536704,
+      "VmHWM": 68976640
+    },
+    "outputs": {
+      "result.json": {
+        "bytes": 13041,
+        "sha256": "18277ff8935910d464af586d456e60130f580fe53a237e2de9c8063d7052af8a"
+      }
+    }
+  },
+  "key_funnel": {
+    "matched": 25931,
+    "aligned": 19960,
+    "stage_presence": {
+      "source_context": 25931,
+      "aligned_context": 19960,
+      "shared_head_context": 15967,
+      "eligible_link_context": 3524,
+      "structural_head_context": 2514
+    },
+    "exclusive_terminal": {
+      "no_eligible_link_context": 12443,
+      "no_shared_head_context": 3993,
+      "structural_head_context": 2514,
+      "no_aligned_context": 5971,
+      "no_structural_head_context": 1010
+    }
+  },
+  "expanded_message_availability": {
+    "source_context": 9506,
+    "aligned_context": 9504,
+    "shared_head_context": 9411,
+    "eligible_link_context": 6221,
+    "structural_head_context": 5622,
+    "projected_candidate": 5622,
+    "single_token": 5587,
+    "role_assessed": 5305,
+    "role_compatible": 5219,
+    "content_classified": 5107,
+    "nonidentical": 4958,
+    "literal_allowed": 4955,
+    "compound_allowed": 4557,
+    "known_allowed": 4557,
+    "pre_budget": 4557,
+    "selected": 4557
+  },
+  "expanded_message_exclusive_ordered_loss": {
+    "selected": 4557,
+    "no_content_classified": 112,
+    "no_eligible_link_context": 3190,
+    "no_structural_head_context": 599,
+    "no_role_assessed": 282,
+    "no_nonidentical": 149,
+    "no_compound_allowed": 398,
+    "no_role_compatible": 86,
+    "no_shared_head_context": 93,
+    "no_single_token": 35,
+    "no_literal_allowed": 3,
+    "no_source_context": 29,
+    "no_aligned_context": 2
+  },
+  "expanded_global300_message_exclusive_ordered_loss": {
+    "selected": 2876,
+    "no_content_classified": 112,
+    "no_eligible_link_context": 3190,
+    "no_structural_head_context": 599,
+    "no_known_allowed": 1681,
+    "no_role_assessed": 282,
+    "no_nonidentical": 149,
+    "no_compound_allowed": 398,
+    "no_role_compatible": 86,
+    "no_shared_head_context": 93,
+    "no_single_token": 35,
+    "no_literal_allowed": 3,
+    "no_source_context": 29,
+    "no_aligned_context": 2
+  },
+  "supported_unit_absence_among_no_shared_head_contexts": {
+    "both_supported_no_shared_link": 2398,
+    "no_complete_supported_target_form": 1279,
+    "no_complete_supported_source_form": 316
+  },
+  "native_occurrence_scope": {
+    "native_word_occurrences": 121960,
+    "exact_native_words_tagged_noun_adj_adv": 39588,
+    "exact_native_words_tagged_verb_aux_out_of_scope": 26810,
+    "role_words_inside_any_retained_source_context": 35264,
+    "role_words_outside_all_retained_source_contexts": 4324,
+    "role_words_with_any_projected_focus": 8226
+  },
+  "head_exclusive_terminal": {
+    "no_eligible_shared_sense_pos_number": 17785,
+    "inside_larger_target_unit": 23,
+    "eligible": 2556,
+    "union_edge_crosses_focus": 698,
+    "inside_larger_source_unit": 325,
+    "no_mutual_anchor": 38
+  },
+  "shared_link_reason_overlap": {
+    "dictionary_guard": 242527,
+    "historical_capitalization_guard": 11755,
+    "incomplete_dictionary_form": 283270,
+    "unsupported_form_mode": 283493,
+    "unsupported_pos": 311168,
+    "pos_mismatch": 1498,
+    "dictionary_term_ineligible": 6016,
+    "sense_not_explicit": 10166,
+    "number_mismatch": 1345,
+    "dictionary_target_unsafe": 2513
+  },
+  "focus_availability": {
+    "expanded|all_function": {
+      "projected_candidate": 9067,
+      "single_token": 8940,
+      "role_assessed": 8226,
+      "role_compatible": 8029,
+      "content_classified": 7737,
+      "nonidentical": 7408,
+      "literal_allowed": 7398,
+      "compound_allowed": 6554,
+      "known_allowed": 6554,
+      "pre_budget": 6554,
+      "selected": 6362
+    },
+    "expanded|all_function_global300": {
+      "projected_candidate": 9067,
+      "single_token": 8940,
+      "role_assessed": 8226,
+      "role_compatible": 8029,
+      "content_classified": 7737,
+      "nonidentical": 7408,
+      "literal_allowed": 7398,
+      "compound_allowed": 6554,
+      "known_allowed": 3579,
+      "pre_budget": 3579,
+      "selected": 3501
+    }
+  },
+  "counts_are_not_recoverable_correctness": true,
+  "caveats": [
+    "Shared dictionary links are retained pivot senses, not exhaustive source meanings; nonexplicit direct-English links can be valid but are excluded by this historical helper.",
+    "Reason counts overlap and use different denominators: links, heads, contexts, candidate instances, distinct message-local focuses, messages. Never add them as a loss total.",
+    "Message first-loss attribution depends on the declared ordering; stages are availability of at least one survivor, not percentages of correct vocabulary.",
+    "Early source/aligned/head-context coverage refers to matching context keys; it is not evidence that each content word inside that context has a valid translated focus.",
+    "Source absence means no retained eligible source window under this inventory/tokenization; single-word cap and stop/geometry policies are confounded with corpus absence.",
+    "Actual noun/adj/adv token tags are diagnostic potential-content scope, not semantic truth; verbs remain deliberately excluded.",
+    "No guard was relaxed or selector rerun. Existing top target/representative restrictions remain."
+  ]
+}

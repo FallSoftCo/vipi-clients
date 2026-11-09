@@ -1,0 +1,262 @@
+{
+  "complete": true,
+  "production": false,
+  "script_sha256": "5a3ca8a10a6aa8b451f8e4150d6baa81a092ac7aae3d4aee92309026cea918d7",
+  "private_result": {
+    "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/loss-accounting-r02/result.json",
+    "sha256": "0ad553d4dc6cc55c76e659f286a022991fa60b8568c451006ec9cd7ca43c3c0a"
+  },
+  "resource_receipt": {
+    "complete": true,
+    "production": false,
+    "script_sha256": "5a3ca8a10a6aa8b451f8e4150d6baa81a092ac7aae3d4aee92309026cea918d7",
+    "inputs": {
+      "heads": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads-r02/heads.sqlite",
+        "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+      },
+      "decisions": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+        "sha256": "255d89336001a080f7cb3e188246da4c81fad3c8f5874cc9195f4f7c6f4cdaaf"
+      },
+      "keys": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+        "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+      },
+      "geometry": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+        "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+      },
+      "annotations": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+        "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+      },
+      "protocol": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head-protocol-r02.json",
+        "sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8"
+      },
+      "metrics": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/metrics.json",
+        "sha256": "10a5384aee0371b24eebc6c99ed0c06b606dd03995116363e5af4d537233850b"
+      },
+      "r01_result": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/loss-accounting-r01/result.json",
+        "sha256": "18277ff8935910d464af586d456e60130f580fe53a237e2de9c8063d7052af8a"
+      }
+    },
+    "helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/loss-accounting-r01.py",
+      "sha256": "5165d80b0475177f9e5567e4974479612fb48ae8995539fc88b3d22df2345a8f"
+    },
+    "seconds": 15.977777811000124,
+    "memory": {
+      "VmPeak": 70438912,
+      "VmHWM": 60309504
+    },
+    "outputs": {
+      "result.json": {
+        "bytes": 33500,
+        "sha256": "0ad553d4dc6cc55c76e659f286a022991fa60b8568c451006ec9cd7ca43c3c0a"
+      }
+    }
+  },
+  "first_loss_parity_with_r01": true,
+  "population": {
+    "messages": 9535,
+    "in_scope_two_plus": 8237,
+    "in_scope_one": 997,
+    "in_scope_zero": 301
+  },
+  "main_no_eligible_link_group": {
+    "messages": 3190,
+    "in_scope_two_plus": 2308,
+    "in_scope_word_occurrences": 8911,
+    "any_projected_focus": 0,
+    "in_scope_projected_focus": 0,
+    "in_scope_words_without_projected_focus": 8911,
+    "in_scope_present_but_no_projected_in_scope_focus": 2971,
+    "in_scope_one": 663,
+    "in_scope_zero": 219,
+    "zero_scope_AUX_only_of_verb_tags": 31,
+    "zero_scope_VERB_present": 167,
+    "zero_scope_no_VERB_or_AUX": 21
+  },
+  "main_scope_and_focus_cross": {
+    "two_plus|projected=false|in_scope_projected=false": 2308,
+    "one|projected=false|in_scope_projected=false": 663,
+    "zero|projected=false|in_scope_projected=false": 219
+  },
+  "expanded_by_first_loss": {
+    "selected": {
+      "messages": 4557,
+      "in_scope_two_plus": 4379,
+      "in_scope_word_occurrences": 23538,
+      "any_projected_focus": 4557,
+      "in_scope_projected_focus": 4557,
+      "in_scope_words_without_projected_focus": 16145,
+      "in_scope_present_but_no_projected_in_scope_focus": 0,
+      "in_scope_one": 178
+    },
+    "no_content_classified": {
+      "messages": 112,
+      "in_scope_two_plus": 108,
+      "in_scope_word_occurrences": 507,
+      "any_projected_focus": 112,
+      "in_scope_projected_focus": 112,
+      "in_scope_words_without_projected_focus": 392,
+      "in_scope_present_but_no_projected_in_scope_focus": 0,
+      "in_scope_one": 4
+    },
+    "no_eligible_link_context": {
+      "messages": 3190,
+      "in_scope_two_plus": 2308,
+      "in_scope_word_occurrences": 8911,
+      "any_projected_focus": 0,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 8911,
+      "in_scope_present_but_no_projected_in_scope_focus": 2971,
+      "in_scope_one": 663,
+      "in_scope_zero": 219,
+      "zero_scope_AUX_only_of_verb_tags": 31,
+      "zero_scope_VERB_present": 167,
+      "zero_scope_no_VERB_or_AUX": 21
+    },
+    "no_structural_head_context": {
+      "messages": 599,
+      "in_scope_two_plus": 548,
+      "in_scope_word_occurrences": 2399,
+      "any_projected_focus": 0,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 2399,
+      "in_scope_present_but_no_projected_in_scope_focus": 594,
+      "in_scope_one": 46,
+      "in_scope_zero": 5,
+      "zero_scope_VERB_present": 5
+    },
+    "no_role_assessed": {
+      "messages": 282,
+      "in_scope_two_plus": 236,
+      "in_scope_word_occurrences": 1015,
+      "any_projected_focus": 282,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 1015,
+      "in_scope_present_but_no_projected_in_scope_focus": 270,
+      "in_scope_zero": 12,
+      "zero_scope_VERB_present": 10,
+      "in_scope_one": 34,
+      "zero_scope_AUX_only_of_verb_tags": 1,
+      "zero_scope_no_VERB_or_AUX": 1
+    },
+    "no_nonidentical": {
+      "messages": 149,
+      "in_scope_two_plus": 142,
+      "in_scope_word_occurrences": 693,
+      "any_projected_focus": 149,
+      "in_scope_projected_focus": 149,
+      "in_scope_words_without_projected_focus": 532,
+      "in_scope_present_but_no_projected_in_scope_focus": 0,
+      "in_scope_one": 7
+    },
+    "no_compound_allowed": {
+      "messages": 398,
+      "in_scope_two_plus": 382,
+      "in_scope_word_occurrences": 1924,
+      "any_projected_focus": 398,
+      "in_scope_projected_focus": 398,
+      "in_scope_words_without_projected_focus": 1457,
+      "in_scope_present_but_no_projected_in_scope_focus": 0,
+      "in_scope_one": 16
+    },
+    "no_role_compatible": {
+      "messages": 86,
+      "in_scope_two_plus": 78,
+      "in_scope_word_occurrences": 340,
+      "any_projected_focus": 86,
+      "in_scope_projected_focus": 86,
+      "in_scope_words_without_projected_focus": 253,
+      "in_scope_present_but_no_projected_in_scope_focus": 0,
+      "in_scope_one": 8
+    },
+    "no_shared_head_context": {
+      "messages": 93,
+      "in_scope_zero": 44,
+      "in_scope_word_occurrences": 71,
+      "any_projected_focus": 0,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 71,
+      "in_scope_present_but_no_projected_in_scope_focus": 49,
+      "zero_scope_no_VERB_or_AUX": 35,
+      "in_scope_one": 33,
+      "in_scope_two_plus": 16,
+      "zero_scope_VERB_present": 7,
+      "zero_scope_AUX_only_of_verb_tags": 2
+    },
+    "no_single_token": {
+      "messages": 35,
+      "in_scope_two_plus": 34,
+      "in_scope_word_occurrences": 160,
+      "any_projected_focus": 35,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 160,
+      "in_scope_present_but_no_projected_in_scope_focus": 35,
+      "in_scope_one": 1
+    },
+    "no_literal_allowed": {
+      "messages": 3,
+      "in_scope_two_plus": 3,
+      "in_scope_word_occurrences": 16,
+      "any_projected_focus": 3,
+      "in_scope_projected_focus": 3,
+      "in_scope_words_without_projected_focus": 13,
+      "in_scope_present_but_no_projected_in_scope_focus": 0
+    },
+    "no_source_context": {
+      "messages": 29,
+      "in_scope_zero": 21,
+      "in_scope_word_occurrences": 11,
+      "any_projected_focus": 0,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 11,
+      "in_scope_present_but_no_projected_in_scope_focus": 8,
+      "zero_scope_no_VERB_or_AUX": 18,
+      "in_scope_one": 6,
+      "in_scope_two_plus": 2,
+      "zero_scope_VERB_present": 3
+    },
+    "no_aligned_context": {
+      "messages": 2,
+      "in_scope_one": 1,
+      "in_scope_word_occurrences": 3,
+      "any_projected_focus": 0,
+      "in_scope_projected_focus": 0,
+      "in_scope_words_without_projected_focus": 3,
+      "in_scope_present_but_no_projected_in_scope_focus": 2,
+      "in_scope_two_plus": 1
+    }
+  },
+  "expanded_global300_known_withholding": {
+    "messages": 1681,
+    "in_scope_two_plus": 1596,
+    "in_scope_word_occurrences": 8145,
+    "any_projected_focus": 1681,
+    "in_scope_projected_focus": 1681,
+    "in_scope_words_without_projected_focus": 5849,
+    "in_scope_present_but_no_projected_in_scope_focus": 0,
+    "in_scope_one": 85
+  },
+  "definitions": {
+    "in_scope": "An existing frozen OpenNLP NOUN/ADJ/ADV token whose full UTF16 range equals one retained native word. No new annotation or confidence threshold.",
+    "projected_focus": "Any recorded structurally eligible projected candidate in this arm before actual-role/content/same-face/mask/known/selection filters.",
+    "in_scope_projected_focus": "Such a projected focus exactly matches an in-scope native word.",
+    "verb_only_proxy": "zero_scope_VERB_present plus zero_scope_AUX_only_of_verb_tags: at least one VERB/AUX and no in-scope NOUN/ADJ/ADV; other function/proper-name/unmapped words can still exist. This is not literally all words are verbs.",
+    "zero_scope_no_VERB_or_AUX": "No exact native token in either role group; may include proper names, interjections, closed classes or tokenization/unassessed cases.",
+    "first_loss": "Same ordered availability attribution as immutable r01, checked exactly for all four arm/state combinations; not recoverable correctness."
+  },
+  "limits": [
+    "NOUN/ADJ/ADV tags indicate diagnostic scope, not verified vocabulary meanings or correct tags.",
+    "An in-scope word without a projected focus may lack a source context, a retained relation, a complete supported form or a fitting witness; this crossing does not isolate those causes.",
+    "VERB/AUX absence from current emission policy is intentional, but AUX is often grammar rather than vocabulary.",
+    "No raw samples, proof copies, selector changes, guard relaxation or semantic claims."
+  ],
+  "interpretation": "The largest first-loss group predominantly contains words in the diagnostic POS scope; exclusion of entire utterances from that scope is not its main explanation. Missing projected support does not prove missing dictionary meanings or recoverable correct output."
+}
