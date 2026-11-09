@@ -26,68 +26,51 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 ## Current language decision
 
-The frozen English→Spanish context evidence is now exported as a 4.9 MB local
-SQLite add-on. All 1,157 rules survive, including 23 no-output winners that must
-block shorter fallback. Original forms, readings, dictionary identities and
-known-family data are preserved; the separate audit metadata is not a runtime
-dependency. Byte determinism and exact input bindings passed. This adds no
-linguistic coverage or display permission by itself. The native iOS reader,
-pinned Unicode matcher and reusable source-recognition API now compile and pass
-focused runtime qualification. All exported synthetic rule contexts and 52
-retained full-source records agree across Mac/iOS. An adapter defect around
-valid no-focus dictionary rows was fixed without dropping their guards. Form and
-term admission, ordinary baseline support, known-family filtering and selection
-remain separate integration work. See `qa/immersion/native-context-reader-r01/RESULT.md`.
+Both native apps now contain an indexed source-phrase candidate engine, still
+uncalled by customer presentation. The complete 127 MB catalog retains all
+2,556 ordinary and 1,480 conditional heads and their original evidence; the
+separate 4.9 MB context pack retains all 1,157 rules, including 23 no-output
+winners. Longest-context selection, whole source units, independent source
+masks and caller-known vocabulary are preserved. Every result binds to the
+exact catalog manifest, catalog, context pack, both dictionaries and policy;
+stale text, protection or bundle identity is rejected.
 
-Native iOS conditional admission now also loads the exact form/term graph and
-reproduces the original gate on eight retained candidate scopes: four have no
-qualified rule, and four admit the same ten head records and 28 supported tuple
-occurrences. Actual dictionary recognition and Apple role evidence are used;
-known-family, supplied-protection and stale-source controls pass. This remains
-conditional evidence with frozen caller source keys. The live candidate
-producer, complete ordinary baseline, actual user knowledge progression,
-selection and presentation still need integration. See
-`qa/immersion/native-head-admission-r01/RESULT.md`.
+The retained 52-case reference reproduces 145 candidate occurrences and all
+312 original selection decisions in both native implementations. Apple actual
+observations remain separately recorded: native role/geometry differences can
+withhold a candidate, and name detection is imperfect. Its current-tuple wrapper
+retains all 50 conditionally qualified occurrences with exact dictionary support.
+Android actual candidate/gate/selection fields match the frozen observations on
+these 52 records, with one source-mask geometry difference. Its current tuple
+evidence also loads, but conditional eligibility remains withheld because the
+Android provider has no generic name protection. Neither POS labels nor these
+implementation comparisons certify meaning or broad conversation coverage.
 
-The corresponding isolated Android reader/tokenizer/source-recognition and
-OpenNLP adapter now pass actual debug and optimized R8 execution. All 1,394
-decoded result rows agree between builds, including every exported rule context
-and 148 source-role samples. All 52 full-source focused rule outcomes agree with
-iOS; 51 dictionary snapshots agree exactly. Android joins `needs.it`, while
-Apple splits it, so the remaining snapshot has two absent Android units and no
-additional ones. That geometry difference remains explicit. The optimized QA
-APK is 2.06 MB, non-debuggable and has no permissions. This is still an isolated
-package: customer integration, complete admission and baseline preservation
-remain open. See `qa/immersion/android-native-context-pack-r01/RESULT.md`.
+Native startup verification now hashes chunks inside autorelease scopes. The
+standalone full Mac probe fell from 1.47 GB to 50 MB peak RSS with unchanged
+non-timing output; this is not total mobile-app memory. Android's actual main-app
+QA package passed on API35, with separate initialization and processing timings.
+Physical devices, broader native inputs and final optimized release qualification
+remain open. See `qa/immersion/native-candidate-binding-r01/RESULT.md`,
+`qa/immersion/native-digest-memory-r01/RESULT.md` and
+`qa/immersion/android-candidate-producer-r01/RESULT.md`.
 
-A real, currently uncalled Apple source-role provider is now compiled into the
-app source and qualified on native macOS and the existing iOS Simulator. It
-uses the current original text, exact native geometry, explicit unknowns and
-additive name protection. All 156 repeated annotation payloads matched across
-the two runtimes; the focused XCTest passed. One of 40 distinct source messages
-had different retained/current token geometry and was rejected. Warm Simulator
-median was 1.31 ms on these short inputs; this is not physical-device or maximum
-input performance. Brand/name misses and role mistakes remain, so this provider
-cannot authorize substitutions or clear existing masks by itself. A versioned
-context pack and native matcher are now qualified separately; complete admission
-and selection remain required before activation. See
-`qa/immersion/native-source-role-provider-r01/simulator-qualification-r01.json`.
+A proposed generic ambiguity gate was tested and rejected: it withheld additive
+“too→demasiado” and emphatic “just→Apenas,” but also discarded substantial valid
+vocabulary. Dictionary `source_safe=false` largely reflects multiple native
+senses, not a wrong translation in the current message. Repeated or dominant
+translation counts alone do not resolve intended meaning either. See
+`qa/immersion/semantic-admission-gap-r01/RESULT.md`.
 
-The discussed NLP approach is partly incorporated. Both native clients have
-local lookup, finite context patterns, exact source ranges, morphology/form
-records and restrictions that prevent an unsafe phrase from leaking through a
-later word fallback. The new broad source-first catalogs are experimental.
-General typed phrase composition, arbitrary grammar transfer and dependable
-conversation-wide sense selection are not accepted production capabilities.
-Local translation still supplies evidence for many existing vocabulary flips.
-
-The central distinction is **recognized context versus displayed focus**. A
-longer phrase can establish the meaning of one word while surrounding grammar
-stays in the user's language. Masks survive missing target faces, familiar-word
-filtering and a small immersion budget. Both native coordinators enforce exact
-output identity/range permissions before selection and again afterward. The
-new source-evidence provider is absent by default, so mechanism qualification
-has not silently enabled a research catalog or corrected a bad full translation.
+The next bounded diagnostic checks eight retained full messages against the
+installed local full-sentence translator and unchanged native alignment. The
+current routing has an important distinction: a full translation requested for
+an already accepted partial attaches the target sentence without rechecking its
+spans. Strict lexical fallback may also abstain before target matching. Neither
+route is being called a semantic confirmer; the diagnostic must establish what
+it can distinguish before a customer adapter is enabled. No new research catalog
+or semantic exception is active. Conversation-level sense selection, useful
+coverage across directions and sustainable progression remain unqualified.
 
 The latest comparisons establish these limits:
 
