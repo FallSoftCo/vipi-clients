@@ -1,0 +1,25 @@
+{
+  "schema": "taskmaster-structural-evidence.1",
+  "plan_sha256": "bdfbe32e8857bb1448f5a79f1f2c0bba1d40d88af4f13772c6f12e2bde539632",
+  "code_sha256": "5396911d4d1421eb6ec5a273299c63aad734409b58e4ebdc3c112501067d22eb",
+  "inputs": {
+    "inputs-200.json": "8ced39c191466dcd6a4f86a3dd738444c8e8d58609f1dbd1d06e46b001c5dc6d",
+    "old-output.json": "c12a21e213e6f19da1c984b666dbf6154b5540898c580259ad2a4f503897126f",
+    "roles.json": "7af13d9ed88bf07b9d5ac2d0b1f77a2871ab6bd5afe717075899cbd2aaa5bed6",
+    "role-comparison.json": "51fefe0b505a3715176dfe3ce040f67fe0d30898ab61d6b21ee1eadea3c16e31",
+    "stream_helper.py": "f15d06a3851dae0699891d06c7fbd3ce6fc2d2af6df3efe27342c72b4da911d8"
+  },
+  "authorization": "root approved single retained engine pass, no provider calls/activation",
+  "limits": {
+    "cpu": 1,
+    "nice": 10,
+    "AS": 1073741824,
+    "engine_seconds": 300,
+    "parse_seconds": 120,
+    "output_bytes": 67108864,
+    "additional_bytes": 134217728,
+    "floor_bytes": 8589934592
+  },
+  "mapping": "Exact full source-unit sequence identity; no invented transfer alignment; ambiguous trace match unassessed",
+  "comparisons": "default vs LRX first/all alternatives separate; source roles and structural trace separate"
+}

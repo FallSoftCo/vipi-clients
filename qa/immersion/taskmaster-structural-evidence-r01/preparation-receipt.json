@@ -1,0 +1,40 @@
+{
+  "status": "preparation_only_awaiting_root_review",
+  "engine_runs": 0,
+  "engine_download_bytes": 0,
+  "new_builds": 0,
+  "existing_closure_bytes": 13260471,
+  "existing_files_hash_verified": 184,
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/PLAN.md",
+      "bytes": 10737,
+      "sha256": "bdfbe32e8857bb1448f5a79f1f2c0bba1d40d88af4f13772c6f12e2bde539632"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/inventory.json",
+      "bytes": 69712,
+      "sha256": "3c2c0960b9ff1a2f6c97a637b5a09dcf6ea1a2c519ff8d20dbfcd3d622f79ec7"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/inventory-query.txt",
+      "bytes": 1437,
+      "sha256": "8c8babcd3fcabe7410ffc53f34904cf89a94b5d27b2a9ae893400043db9af450"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/inventory.initial.txt",
+      "bytes": 2173,
+      "sha256": "3d28cbd5752f2aee06d4ee190451832d117ba8b3f3f152a42a32c4d188b2b7e8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/inventory-initial.stderr",
+      "bytes": 558,
+      "sha256": "7414d8224b911c5ed1ce1c33945d77f00eaa4c61b4358f5f94b16243343fae4d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-apertium-occurrence-roles-20261109-r01/runtime-preflight.json",
+      "bytes": 4695,
+      "sha256": "a730d0fc7f7d8e8016e491a4c11b24eb847c9db174cb7252d761049427277e80"
+    }
+  ]
+}

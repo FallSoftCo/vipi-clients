@@ -1,0 +1,120 @@
+{
+  "status": "completed_no_activation",
+  "engine_runs": 1,
+  "messages": 200,
+  "new_provider_calls": 0,
+  "new_models": 0,
+  "policy_changes": false,
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/compare.py",
+      "bytes": 6278,
+      "sha256": "8207834535144c5741c1dbb00410c85575756098c1b1927dc65558dc0a6e1e99"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/run.py",
+      "bytes": 6159,
+      "sha256": "5396911d4d1421eb6ec5a273299c63aad734409b58e4ebdc3c112501067d22eb"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/RESULT.md",
+      "bytes": 8847,
+      "sha256": "a982196bcf9613d6703504ef9571c6d7b9b676f11e1730f82deee918ad1c7626"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/preparation-receipt.json",
+      "bytes": 1655,
+      "sha256": "b008a5edfa683cacb6e2ee4e7eb74a224a80443f16e02e5d4bd19e69d43c8a0e"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/source_stage_audit.py",
+      "bytes": 2606,
+      "sha256": "812f7cb7b9937fbce269440b7fc86ec921f056a390c43df5d822617bc9582909"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/protocol.json",
+      "bytes": 1242,
+      "sha256": "2f12fb99fd6e77ce94c12fdb26c51b76a8e3ba1c20dccda81e9299b0f75b2943"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/PLAN.md",
+      "bytes": 10737,
+      "sha256": "bdfbe32e8857bb1448f5a79f1f2c0bba1d40d88af4f13772c6f12e2bde539632"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/trace_audit.py",
+      "bytes": 2838,
+      "sha256": "67164a7cafb3c8e74b3d3865390fb7568730a727b54c2f6db77218cb10797cf2"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/engine/receipt.json",
+      "bytes": 1462710,
+      "sha256": "7ca2d0b1abef4afce39786684df81ecde8ec2cb119fd653508542eaf0e46135d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/engine/mapping.json",
+      "bytes": 409489,
+      "sha256": "ccc2b53b3a270ef2c98f640faaf1a6a2db5f4acf6f90d5d7edfe06137876718e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/engine/dependency-check.json",
+      "bytes": 9868,
+      "sha256": "2d5e99a88bbcbe23f59fffc428f1f3ea6d73d54a2ff70b7d0d1933a7b338c65e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/engine/qualification-selection.json",
+      "bytes": 842,
+      "sha256": "2b6a9c234c7d002abfba261457d63866710576e754d94658ae892ab1d05ac3e5"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/comparison/receipt.json",
+      "bytes": 553,
+      "sha256": "e269bb0e63416e31372c0d7ceb640f8c0c2a59c6dc024c319275cf691c7045bc"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/comparison/comparison.json",
+      "bytes": 1493955,
+      "sha256": "1d6e5ea464d612dd6f3d9e9061870b9e194e7b34d2a4bc187dc7151f126d8227"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/comparison/summary.json",
+      "bytes": 788,
+      "sha256": "694d821bf2b4e3dd421f9b38210a083f36042f4a3ea3245f4412ac54b75cd48a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/source-stage-audit.json",
+      "bytes": 461333,
+      "sha256": "d9fa1ece865c1e539ff45bd39f40479d749ae222d3725e4e8906ef207088663f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/trace-audit.json",
+      "bytes": 84253,
+      "sha256": "fd5fe147fbf2d3a91f3ef5f28abfb3d3a6ffed6804c0f66000258aaef3ddb3da"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/diagnostic-transfer.json",
+      "bytes": 15892,
+      "sha256": "12a3f79254990cd206324a967cb090167c96fe2221ca9a28a2e0d7fc5642ab49"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/transfer-receipt.json",
+      "bytes": 834,
+      "sha256": "8191c8d8d2292e2097379eeddd9944256c2d6c70cf785ab1ef113af75ee51d2c"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/execution-freeze.json",
+      "bytes": 601,
+      "sha256": "9511742d3c8ccc97409ac47c31e29fdf2930263c31504641b584093b476eca8b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/parse-freeze.json",
+      "bytes": 327,
+      "sha256": "d386b0d408f2dd0d8ccebbebf927235b4cf300e3457a4988aa9dc43230c48fe7"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-structural-evidence-20261109-r01/diagnostic-stage-selection.json",
+      "bytes": 876,
+      "sha256": "0eb5941910a056f7d801a8e6287206424f60863401b4f49e1b4946bf1221798a"
+    }
+  ]
+}

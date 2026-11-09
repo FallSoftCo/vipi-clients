@@ -96,6 +96,15 @@ targets remain in every denominator. This historically exposed corpus is not
 fresh bilingual gold. See `qa/immersion/target-informed-taskmaster-r01/RESULT.md`
 and `CAUSAL_INSPECTION.md`; no candidate policy is active.
 
+The retained Apertium stack has now processed all200 sources through morphology,
+HMM tagging, lexical selection and structural transfer, stopping before surface
+generation. Its noun analysis exposes the four assistance-help conflicts, but a
+strict role veto would also exclude nine author-correct and five minor B spans.
+The two actual contextual lexical changes concern room/address; none repairs
+the flagged same-POS errors. Different dictionary defaults and generic noun
+chunks are not contextual meaning proof. The experiment adds no engine or
+policy to the apps. See `qa/immersion/taskmaster-structural-evidence-r01/RESULT.md`.
+
 The current routing also distinguishes full translation requested for an already
 accepted partial: it attaches the target sentence without rechecking its spans.
 No new research catalog or semantic exception is active. Conversation-level
@@ -576,7 +585,11 @@ Its decoded entitlements bind `co.fallsoft.vipi` to the company team, production
 push and distribution signing, with debugging disabled and no device list. Its
 certificate matches the existing available company distribution identity and
 expires September 24, 2027. This verifies signing prerequisites, not a signed
-release artifact or upload.
+release artifact or upload. The clean device Release build at `6063b0c`
+compiled with the production WorkOS identifier and pinned device dependencies,
+but archive signing failed with `errSecInternalComponent`. Both native signing
+keychains were independently observed locked. The original failure/log and
+build outputs remain retained; no signed archive or upload is credited.
 
 Google Cloud, AWS and the existing DeepSeek company credential requests remain
 pending. Do not repeat those unchanged questions. Independent authorized
