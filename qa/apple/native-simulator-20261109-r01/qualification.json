@@ -1,0 +1,167 @@
+{
+  "schema": "vipi.native-apple-simulator.root-review.r01",
+  "at_utc": "2026-11-09T03:20:39.838211+00:00",
+  "code_commit": "a330fdc01ee5b7de5ea670d24f7bea8bf45c2d0a",
+  "build": "Clean committed source; full native arm64 Simulator build; ad-hoc signing only.",
+  "platform": {
+    "architecture": "arm64",
+    "deviceId": "46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+    "deviceName": "Vipi iPhone 17 20261024",
+    "modelName": "iPhone 17",
+    "osBuildNumber": "23F77",
+    "osVersion": "26.5",
+    "platform": "iOS Simulator"
+  },
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "id": "SignalKeysTests/testReviewedPeerReplacementPreservesOldCiphertextAndRequiresExactKeys()",
+      "result": "Passed",
+      "seconds": 0.16015708446502686,
+      "warnings": []
+    },
+    {
+      "id": "ChatImmersionTests/testChineseFullReadingUsesBundledReaderAndOriginalScript()",
+      "result": "Passed",
+      "seconds": 20.957528948783875,
+      "warnings": [
+        "[Internal] Thread running at User-interactive quality-of-service class waiting on a lower QoS thread running at Default quality-of-service class. Investigate ways to avoid priority inversions"
+      ]
+    },
+    {
+      "id": "ChatImmersionTests/testJapaneseDefaultReadingUsesOriginalScriptAndAuthoredPriority()",
+      "result": "Passed",
+      "seconds": 20.560943961143494,
+      "warnings": [
+        "[Internal] Thread running at User-interactive quality-of-service class waiting on a lower QoS thread running at Default quality-of-service class. Investigate ways to avoid priority inversions"
+      ]
+    },
+    {
+      "id": "ChatImmersionTests/testKoreanDefaultReadingUsesOriginalScriptAndAuthoredPriority()",
+      "result": "Passed",
+      "seconds": 20.611069083213806,
+      "warnings": [
+        "[Internal] Thread running at User-interactive quality-of-service class waiting on a lower QoS thread running at Default quality-of-service class. Investigate ways to avoid priority inversions"
+      ]
+    },
+    {
+      "id": "ContinuousImmersionTests/testRepeatsWithoutTapsPreservesGeometryAndResumesAfterPause()",
+      "result": "Passed",
+      "seconds": 44.388997077941895,
+      "warnings": [
+        "[Internal] Thread running at User-interactive quality-of-service class waiting on a lower QoS thread running at Default quality-of-service class. Investigate ways to avoid priority inversions"
+      ]
+    },
+    {
+      "id": "ShortReplyImmersionTests/testShortReplyAutomaticallySwitchesWithSwahiliInBothLanguageRoles()",
+      "result": "Passed",
+      "seconds": 46.26211500167847,
+      "warnings": [
+        "[Internal] Thread running at User-interactive quality-of-service class waiting on a lower QoS thread running at Default quality-of-service class. Investigate ways to avoid priority inversions"
+      ]
+    }
+  ],
+  "scope": [
+    "Welcome: six automatic English/Spanish phases, stable minY/height, pause/resume, full authored thought and onboarding navigation.",
+    "Chat short reply: English/Swahili bothroles, light/dark at AccessibilityXXXL, hands-off repeat and stable geometry.",
+    "Default Japanese/Korean/Chinese reading fixtures: local/authored/unknown branches, original script and immutable copy assertions.",
+    "Isolated libsignal peer replacement: old ciphertext preservation and exact replacement-key approval."
+  ],
+  "actual_translation_requests_in_UI_tests": false,
+  "physical_device_test": false,
+  "store_submission": false,
+  "source_identity": {
+    "before_preferences_sha256": "fb87a7f41d11f49c84284e1b7b9c5ddc4ac2c655a2344204262836a2ba1e7b26",
+    "built_identity": {
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/VipiSimulator_iphonesimulator26.5-arm64.xctestrun": "6453babc7d427229634f7f8002520c884396e7bbb81bf8e214639d4c64b84b00",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi": "506ae4fc604222b75d9a8133f409b1584d35a043f5c6941bdef271a13f363d6e",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "550bec2b21e7b98f0c1ba1a1d02c5a1acb3f4caeb77c23c6ef3584be4267b1d9",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/VipiUITests-Runner.app/PlugIns/VipiUITests.xctest/VipiUITests": "d08df1fa8da578908d94394522cb435322fe11a5530323ab8bbc51eea68b10e4"
+    },
+    "xctestrun_change": "Only crypto host fixture launch flag plus absolute TESTROOT relocation; UI tests originalflags; no built binary changes",
+    "original_app_data_preserved_in_place": true,
+    "old_data_bytes": 10216841666
+  },
+  "selected_archive_sha256": "d0b7d6f9f7045d467db0b529df2303a443c9a80b34545a2dda6b1b0bde90c65c",
+  "selected_frames": [
+    {
+      "name": "Continuous-phase-0.png",
+      "bytes": 235682,
+      "sha256": "a267f158d6918364ba2adb2ff35b4b500b22ecb2846b892c78c35cd3852e102d"
+    },
+    {
+      "name": "Continuous-phase-1.png",
+      "bytes": 234167,
+      "sha256": "23749b05c440dc948da7e28420ddd11a0e4aee3259be958029b9e5481a7e6881"
+    },
+    {
+      "name": "ios-chinese-local-full-reading.png",
+      "bytes": 198873,
+      "sha256": "0a022dc34e430f2d97e1d0aa56594e5a612ed7fe38577fdeaa00e86e7d6eb5e1"
+    },
+    {
+      "name": "ios-japanese-local-full-reading.png",
+      "bytes": 202666,
+      "sha256": "0734f2aa696822640a49f8143ec728020ee2380f9c80a7aa9a1b067ff67f24d2"
+    },
+    {
+      "name": "ios-korean-local-full-reading.png",
+      "bytes": 193290,
+      "sha256": "198dbb8e4933f6b456e10a9d181aeac13110a31b189a01bac29cef64adb79ddf"
+    },
+    {
+      "name": "ios-short-reply-en-sw-learning.png",
+      "bytes": 140128,
+      "sha256": "ffb93eab56bbd3871e55c85d266dca505e1a5141ed0f9e414d920c29754ff31f"
+    },
+    {
+      "name": "ios-short-reply-sw-en-learning.png",
+      "bytes": 140773,
+      "sha256": "e24b182aca6582a613931044c1faa8a718f7d9611a8347bbb9a7f23c52ca911a"
+    }
+  ],
+  "root_visual_review": [
+    "Two welcome faces retain the same line wrapping, inline blocks and controls.",
+    "Japanese/Chinese/Korean supplied-text guides remain readable at the large test size; the debug fixture headings truncate. These diagnostic screens are not customer chat design.",
+    "English/Swahili authored short replies remain visible in light/dark at maximum accessibility text size. Waiting-to-send is fixture state, not evidence of actual delivery."
+  ],
+  "limitations": [
+    "Authored fixtures and one simulator; no broad semantic, acoustic, physical-background or store acceptance.",
+    "Five UI cases report an internal QoS priority-inversion warning; origin/production impact not yet diagnosed. No performance promise follows from passing tests.",
+    "Root viewed seven selected frames, not every attachment. The full xcresult remains on the native Mac."
+  ],
+  "state_closure": {
+    "complete": true,
+    "at_unix": 1794191349.248354,
+    "source": "Native root closure command returned success; original receipt retained at app-ui-r01/root-review-r01/closure.json",
+    "app_was_not_running": true,
+    "restored_original_preference_keys": [
+      "appearance",
+      "density",
+      "knownLanguage",
+      "onboardingStep",
+      "readingPace",
+      "targetLanguage"
+    ],
+    "extra_keys_preserved": [
+      "vipi-private-speech-generation"
+    ],
+    "all_six_original_values_verified": true,
+    "monotonic_private_speech_generation_preserved": true,
+    "app_data_not_deleted": true,
+    "simulator_not_recreated_or_shutdown": true,
+    "legacy_lab_alive": true,
+    "import_exit": 0
+  },
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-app-qualification-20261109-r01",
+  "native_result": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-ui-r01/qualification.xcresult",
+  "evidence_sha256": {
+    "summary.stdout": "19b5c602a2c64fac2f4912d8604d5c44f6e3d3d6cd1ca7c541992933ae2c8356",
+    "tests.stdout": "00a9bc9eee155307ebbe452098d09a389f7c6aa4fd943e27c4403841d33be19c",
+    "pre-test-receipt.json": "006cd9cacb8ec5e5a3bec2248cf64286a019d666a14f8077196b0758cb41f03e",
+    "native-execution-receipt.json": "1e900960c26bd5672b8d8cc228ea8814c9a716f65f18d92ee01b0ab4e0631c60",
+    "selected.json": "b050274f3d82ab812c781fcdc589945063ead42a44b747dbe1a052001382b1a0"
+  }
+}

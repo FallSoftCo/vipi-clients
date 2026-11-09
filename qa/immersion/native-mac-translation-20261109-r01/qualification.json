@@ -1,0 +1,130 @@
+{
+  "schema": "vipi.native-mac-translation.root-review.r01",
+  "at_utc": "2026-11-09T01:50:01.203813+00:00",
+  "code_commit": "a330fdc01ee5b7de5ea670d24f7bea8bf45c2d0a",
+  "platform": "Native macOS26.6 /25G72",
+  "authored_intents": 3,
+  "supported_directions": 6,
+  "successful_sentence_requests_each_strategy": 6,
+  "isolated_word_requests_each_strategy": 29,
+  "strategies_executed": [
+    "lowLatency",
+    "platformDefault"
+  ],
+  "reported_default_strategy": "highFidelity (harness reads preferredStrategy; not a model version)",
+  "all_outputs_identical_across_strategy_runs": true,
+  "network_disabled": false,
+  "models_prepared_or_downloaded": false,
+  "runtime_catalog_activated": false,
+  "source_files_verified_against_git": [
+    "qa/macos/Comparison.swift",
+    "qa/macos/Batch.swift"
+  ],
+  "cases": [
+    {
+      "input": {
+        "id": "native-control-01",
+        "source": "en",
+        "target": "es",
+        "text": "I need more time."
+      },
+      "availability": "installed",
+      "full_translation": "Necesito más tiempo.",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    },
+    {
+      "input": {
+        "id": "native-control-02",
+        "source": "es",
+        "target": "en",
+        "text": "Necesito más tiempo."
+      },
+      "availability": "installed",
+      "full_translation": "I need more time.",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    },
+    {
+      "input": {
+        "id": "native-control-03",
+        "source": "en",
+        "target": "sw",
+        "text": "I need more time."
+      },
+      "availability": "unsupported",
+      "full_translation": null,
+      "root_review": "Unsupported control; no output"
+    },
+    {
+      "input": {
+        "id": "native-control-04",
+        "source": "sw",
+        "target": "en",
+        "text": "Ninahitaji muda zaidi."
+      },
+      "availability": "unsupported",
+      "full_translation": null,
+      "root_review": "Unsupported control; no output"
+    },
+    {
+      "input": {
+        "id": "native-control-05",
+        "source": "en",
+        "target": "ja",
+        "text": "The train arrives at noon."
+      },
+      "availability": "installed",
+      "full_translation": "電車は正午に到着します。",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    },
+    {
+      "input": {
+        "id": "native-control-06",
+        "source": "ja",
+        "target": "en",
+        "text": "電車は正午に到着します。"
+      },
+      "availability": "installed",
+      "full_translation": "The train arrives at noon.",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    },
+    {
+      "input": {
+        "id": "native-control-07",
+        "source": "en",
+        "target": "zh",
+        "text": "Please send me the address."
+      },
+      "availability": "installed",
+      "full_translation": "请把地址发给我。",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    },
+    {
+      "input": {
+        "id": "native-control-08",
+        "source": "zh",
+        "target": "en",
+        "text": "请把地址发给我。"
+      },
+      "availability": "installed",
+      "full_translation": "Please send me the address.",
+      "root_review": "Meaning preserved for this authored ordinary-context sentence. Not general source-key safety or independent bilingual gold."
+    }
+  ],
+  "limits": [
+    "Actual native API using installed models; no network-isolation, simulator or physical-iOS proof.",
+    "Isolated roles/senses remain wrong: need as Necesidad, Japanese particles as A leaf/Two, English the as 足够的.",
+    "Three authored intents across six supported directions; not majority coverage or population accuracy.",
+    "Swahili unsupported by both native Apple strategies; product ML Kit route is a separate runtime.",
+    "CLI memory excludes system translation services; sequential timings are not a controlled strategy benchmark."
+  ],
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-translation-readiness-20261109-r01",
+  "evidence_sha256": {
+    "receipt.json": "070c4fdad5a5bec2ac6fbd56e928142ebaca2778c2164c9e48e59cf0d668b301",
+    "platformDefault-addendum-r01.json": "f7aa4f4e67465793d78d499cc981146b7c3a74e6804ca6ba9275cd4eb721ca7a",
+    "live-lowLatency-r01.json": "e48a5118fdd187db1469beba57f5584697348ec61636daff1345927fd1f1739d",
+    "live-platformDefault-r01.json": "3e1c2328ef0f2e5c94d34103626627fa2bd931d33c5c1c1ff31330b1619a60f5",
+    "freeze.json": "c51c81a8c8a9a89cc0a4f390b0371ab8cb83406294f88bac85491c713b292538",
+    "protocol.json": "2a4019d793651b808e710e9ebd4654ccf91c33b8f86696d2afa912e778a62a9d",
+    "protocol-platformDefault-r01.json": "93a27c5ea610586c5143821c276de8c42267e1c830001115253cc6474c38686e"
+  }
+}

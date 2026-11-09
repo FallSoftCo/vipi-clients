@@ -1,0 +1,44 @@
+{
+  "schema": "vipi.context-expansion.source-inventory.r01",
+  "frozen_at_utc": "2026-11-09T02:22:24.350465+00:00",
+  "production": false,
+  "before_new_source_counts": true,
+  "script_sha256": "850f0ba934588ec9ec708eb2b0cd29610e879729e5f9a3665f48c437cee5f80d",
+  "inputs": {
+    "pairs": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/remote-evidence/outputs/fetch/en-es-pairs.jsonl.gz",
+      "bytes": 21464476,
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "fixed_keys": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/source-frequency-keys.json",
+      "bytes": 2579028,
+      "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+    },
+    "geometry": {
+      "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/rows.jsonl",
+      "bytes": 9133177,
+      "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+    },
+    "normalizer": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "bytes": 5873,
+      "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+    },
+    "phrase_helper": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "bytes": 12526,
+      "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+    }
+  },
+  "scope": "Source-only metadata count on retained files; no new fit, translation calls, source fetch, target inspection or activation. Same 40000 Tatoeba pairs and9535 reused native TRAIN messages. Source syntax 1-8 corpus tokens, original stop rule; new native-single-word keys withheld. Fixed control8000 keys (3000unigram5000multiword).",
+  "bounds": {
+    "cpu": 1,
+    "address_space_bytes": 1073741824,
+    "seconds": 300,
+    "output_bytes": 67108864,
+    "free_floor_bytes": 1073741824
+  },
+  "meaning_acceptance": false,
+  "reason_for_repeat": "Correct operation memory instrumentation only, /proc/self/status VmHWM instead of inherited ru_maxrss. Source counts and policies unchanged; compare exact results."
+}

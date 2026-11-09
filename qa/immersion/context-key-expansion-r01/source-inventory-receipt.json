@@ -1,0 +1,59 @@
+{
+  "complete": true,
+  "corpus_pairs": 40000,
+  "fixed_source_keys_present": 6461,
+  "limit": "Exact source-match ceiling only; no target alignment, head, role, budget or meaning acceptance. Reused TRAIN, not population/holdout.",
+  "matched_keys": 25931,
+  "native_message_counts": {
+    "expanded_any": 9506,
+    "fixed_any": 9506,
+    "new_any": 7382,
+    "new_keys_without_prior_any": 0
+  },
+  "native_message_length_buckets": {
+    "expanded": {
+      "2-3": 9256,
+      "4-8": 3117
+    },
+    "fixed": {
+      "2-3": 9118,
+      "4-8": 1595
+    },
+    "new": {
+      "2-3": 7287,
+      "4-8": 2029
+    }
+  },
+  "native_messages": 9535,
+  "new_matched_keys": 19470,
+  "outputs": {
+    "matched-keys.json.gz": {
+      "bytes": 200626,
+      "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+    },
+    "messages.jsonl": {
+      "bytes": 580179,
+      "sha256": "722db5dbe053d4de79d89a084d230f34b37b2480bc8516e30b14f0686642b4c3"
+    }
+  },
+  "process_memory_bytes": {
+    "VmHWM": 452796416,
+    "VmPeak": 478433280,
+    "VmRSS": 402817024
+  },
+  "production": false,
+  "protocol_sha256": "820ffabbb7c9100d92f9f069e2fcd256bf2b7c3dda30204fe92ae63aeb414587",
+  "seconds": 5.967369979945943,
+  "source_inventory_keys": 822134,
+  "target_text_used": false,
+  "schema": "vipi.context-expansion.source-inventory-review.r01",
+  "at_utc": "2026-11-09T02:24:33.281574+00:00",
+  "repeated_counts_and_decompressed_inventory_identical": true,
+  "executed_script_sha256": "850f0ba934588ec9ec708eb2b0cd29610e879729e5f9a3665f48c437cee5f80d",
+  "raw_source_presence_not_aligned_variant_availability": true,
+  "source_selection_unchanged": true,
+  "fixed_unigram_inventory": 3000,
+  "prior_multiword_key_limit": 5000,
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01",
+  "next_step": "Frozen same-corpus context-head comparison; full mixed-message meaning review. No corpus job, fit or app activation authorized by this count receipt alone."
+}

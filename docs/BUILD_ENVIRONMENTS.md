@@ -15,17 +15,24 @@ restart their services, or create replacement VMs.
   provider authentication; production subscription enforcement is not waived.
 - Apple: new work belongs on native `apple@macbook-pro`, under the owner's
   November 8 instruction. The separate migration owner verified the VM shut down
-  at 2026-11-09 00:19:52 UTC. Its backing disk remains intact for read-only
-  recovery; do not restart it or create a replacement VM. The historical guest mirror is
+  at 2026-11-09 00:19:52 UTC and completed preservation and backing-disk retirement
+  at 01:17:27 UTC. Do not restart it or create a replacement VM. All 120,732
+  retained development entries passed the migration owner's independent check;
+  this is preservation evidence, not Vipi release qualification. The historical guest mirror is
   `/Users/lume/Development/vipi-delivery-20261107-r01/source`; the old native
   `/Users/Apple/Development/vipi` tree is not automatically current source.
   A new clean mirror at
   `/Users/Apple/Development/vipi-native-delivery-20261109-r01/source` now contains
   all 351 committed `ios` files from `a330fdc`, independently hash-verified.
   Its first native core build passed 105 XCTest and 26 Swift Testing cases with
-  Xcode 26.6, two compiler jobs and 218.6 MB of final allocated output. This is
-  core-package qualification; the remaining app inputs/dependencies, full app
-  build and model execution are separate work. The mirror has no independent
+  Xcode 26.6. The additional 254 committed app inputs, 66 generated lexical
+  assets, pinned native libsignal libraries and all four Swift package revisions
+  are now verified. The clean arm64 Simulator app and test bundles built in
+  132.17 seconds with two compiler jobs; final build-directory allocation was
+  2.08 GB. Six selected simulator UI/crypto tests then passed with no failures or
+  skips: continuous fixed-geometry flips, Swahili in both roles, three default
+  non-Roman reading views and explicit peer-key replacement. Authored UI fixtures
+  do not establish translation quality. The mirror has no independent
   Git history and excludes the inherited unqualified changes. Preserve native projects, accounts and unrelated jobs;
   keep two compiler jobs and measured physical storage admission.
 - Android: existing `emulator-5620` QA AVD on system76, two virtual CPUs and 2 GiB
@@ -60,10 +67,14 @@ check stayed queued behind shared desktop use and was cancelled before dispatch.
 That is not a fresh authentication failure. Google Cloud and AWS authentication
 steps remain open; no Vipi app-store submission receipt exists.
 
-The native migration reconciliation retained the legacy Vipi source snapshot and
-verified two Vipi runtime-state files. The current `vipi-delivery-20261107-r01`
-workspace is not yet established at the migration destination. Final preservation,
-consistent post-drain state and native active-app qualification remain pending.
+The native migration reconciliation retained the legacy Vipi source snapshot,
+final post-drain runtime state and offline guest backups. The migration owner
+reports zero remaining development files and a verified retirement receipt;
+native working paths and offline backups are distinguished in
+`mac-dev-migration-20261108/README-native-routing.txt` on the Mac. Vipi's clean
+current build mirror is the separate path above. Full app compilation and the
+six selected simulator checks have passed; broader runtime, release and model
+qualification remain separate.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
@@ -111,8 +122,14 @@ but guest free space is still below the threshold. Native physical free space
 is independently low. Do not retry preparation, override the purge service or
 resize/restart the shared VM on the strength of apparent file-size savings.
 The November 8 native migration changes the execution host, not this historical
-result. Native model availability, resource requirements and actual Translation
-execution need fresh qualification after migration reconciliation.
+result. Fresh native macOS 26.6 qualification now executes the same three
+authored intents across six English↔Spanish/Japanese/Chinese directions using
+installed models. Both low-latency and platform-default strategies return
+identical sentence and isolated-word outputs. Swahili is unsupported by both
+checked Apple strategies and retains its separate ML Kit product path. No model
+download occurred, and networking was not disabled. This small CLI result does
+not establish physical iOS execution, general semantic accuracy or app readiness;
+see `qa/immersion/native-mac-translation-20261109-r01`.
 
 ## Historical October setup — do not replay host commands
 

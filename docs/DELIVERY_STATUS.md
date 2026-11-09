@@ -6,7 +6,7 @@ Updated 2026-11-09. Vipi is **not ready for store submission or public customer 
 
 The canonical workspace is `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Private checkpoints preserve committed source on the consolidated host; the exact verified references are in `BUILD_ENVIRONMENTS.md` and private delivery receipts. Source is private until the client corresponding-source release has been assembled and checked.
 
-OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. The November 8 owner directive moves new Apple work to native `apple@macbook-pro`. A separate migration owner is preserving the existing VM's work before retirement; reconcile those receipts and native source authority before builds. Preserve native projects, accounts and unrelated applications. Historical VM results below remain historical evidence. Android uses the existing QA emulator on system76.
+OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. The November 8 owner directive moves new Apple work to native `apple@macbook-pro`. The separate migration owner completed verified preservation and retired the VM's exact backing disk on November 9; do not recreate it. Preserve native projects, accounts and unrelated applications. Historical VM results below remain historical evidence. Android uses the existing QA emulator on system76.
 
 ## Demonstrated behavior and remaining work
 
@@ -43,6 +43,15 @@ new source-evidence provider is absent by default, so mechanism qualification
 has not silently enabled a research catalog or corrected a bad full translation.
 
 The latest comparisons establish these limits:
+
+A new source-only check removes the 5,000-key multiword cap while retaining
+the 3,000 single-word entries and the same 40,000 Tatoeba pairs. It finds 19,470
+additional contexts matching the retained 9,535 native TRAIN messages.
+Four-to-eight-word matches reach 3,117 messages versus 1,595; any-length matches
+remain at 9,506. This expands available context, not proven useful immersion.
+Alignment, complete heads, actual sentence roles, budgeted output and meaning
+still need comparison with identical policies. No catalog was activated. See
+`qa/immersion/context-key-expansion-r01`.
 
 | Approach | Observed result | Decision |
 |---|---|---|
@@ -268,22 +277,36 @@ main app now passes a scoped Japanese interaction sequence: exact original
 copy, native selection/copy of visible mixed text, Menu and Shift+F10/Escape,
 native audio start, reachable stop control, and report confirmation without
 submission. Test corrections account for the separate floating-toolbar window,
-screen coordinates, clipboard completion and restored focus. The next step
-stopped at Android Accessibility Suite's notification permission dialog; its
-actual TalkBack action menu and the Arabic large-text sequence remain untested.
-A continuation was held before instrumentation when the capture reserve failed.
-The owned emulator was stopped and all settings, permission state and original
-APKs restored. Playback stopped-state and acoustic quality are not established.
+screen coordinates, clipboard completion and restored focus. Later test-only
+probes verified denial and dismissal of Android Accessibility Suite's notification
+prompt. The installed TalkBack actions shortcut still did not expose its
+service-owned menu; the unobstructed failure frame shows TalkBack focus on the
+chat. The cause remains unqualified, and the Arabic sequence was not run. Root
+restored all settings and permission state, verified the original app/test hashes
+and stopped only the owned emulator. The later harness overlays remain private;
+the canonical test stays at the previously reviewed r102 source. Playback
+stopped-state and acoustic quality are not established.
 The existing accessible action button remains available.
 
 ## Resource and external gates
 
 New Apple work belongs on the native Mac. The migration owner verified the old
-development VM shut down at 2026-11-09 00:19:52 UTC; its disk remains intact for
-read-only recovery and must not be restarted. A clean native mirror now contains
+development VM shut down at 2026-11-09 00:19:52 UTC, completed preservation and
+retired its exact backing disk at 01:17:27 UTC. The verified retirement reclaimed
+about 112 GB; the guest must not be recreated. A clean native mirror now contains
 all 351 committed Apple source files at `a330fdc`; its native core package passed
-105 XCTest and 26 Swift Testing cases. Full app/dependency restoration, models
-and runtime state still require separate qualification. Native builds preserve
+105 XCTest and 26 Swift Testing cases. All app inputs and pinned dependencies
+have since been restored and verified, and the complete arm64 Simulator app/test
+build passed. Six selected simulator UI/crypto tests also passed with no skips:
+continuous stable-geometry flips, Swahili in both roles, Chinese/Japanese/Korean
+reading views and peer-key replacement. Those authored UI fixtures do not
+establish broad language meaning or physical-device behavior. Root reviewed
+seven selected frames and restored the original simulator preferences while
+preserving the private-speech generation counter and existing data. Five UI
+cases carry an internal thread-priority warning whose origin and production
+impact remain undiagnosed; this is not performance acceptance. See
+`qa/apple/native-simulator-20261109-r01/qualification.json`.
+Native builds preserve
 at least 1 GiB physical headroom plus measured operation size; full source
 builds and model preparation require their own capacity checks. Historical guest
 model thresholds and small-build exceptions do not qualify native model
@@ -291,6 +314,16 @@ readiness. Preserve native projects, accounts and unrelated applications. A fres
 bounded Pixel connection attempt found neither authorized USB nor verified TCP
 access, and native CoreDevice lists both paired Apple devices as unavailable.
 The existing iPhone simulator remains booted; no new physical test is claimed.
+
+Actual native Mac Translation now succeeds for three authored intents across
+English↔Spanish/Japanese/Chinese. Low-latency and platform-default executions
+produce identical full sentences and 29 isolated-word outputs per run. Root's
+review finds the six full sentences meaning-preserving in these ordinary
+contexts, while isolated forms still include noun-for-verb and particle/sense
+errors. Swahili is unsupported by the checked Apple strategies; its ML Kit path
+is separate. No model download occurred. Networking remained enabled, and these
+small macOS CLI runs establish neither offline-isolation nor physical iOS or
+general language acceptance. See `qa/immersion/native-mac-translation-20261109-r01`.
 
 Fresh hosted Apple reauthentication stopped at a generic confirmation-code
 screen. Bounded WorkOS admin lookup found no matching code event. No renewed

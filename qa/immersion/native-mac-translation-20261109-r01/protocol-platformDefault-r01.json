@@ -1,0 +1,54 @@
+{
+  "name": "Native installed-only authored controls r01",
+  "strategy": "platformDefault",
+  "cases": [
+    {
+      "id": "native-control-01",
+      "source": "en",
+      "target": "es",
+      "text": "I need more time."
+    },
+    {
+      "id": "native-control-02",
+      "source": "es",
+      "target": "en",
+      "text": "Necesito más tiempo."
+    },
+    {
+      "id": "native-control-03",
+      "source": "en",
+      "target": "sw",
+      "text": "I need more time."
+    },
+    {
+      "id": "native-control-04",
+      "source": "sw",
+      "target": "en",
+      "text": "Ninahitaji muda zaidi."
+    },
+    {
+      "id": "native-control-05",
+      "source": "en",
+      "target": "ja",
+      "text": "The train arrives at noon."
+    },
+    {
+      "id": "native-control-06",
+      "source": "ja",
+      "target": "en",
+      "text": "電車は正午に到着します。"
+    },
+    {
+      "id": "native-control-07",
+      "source": "en",
+      "target": "zh",
+      "text": "Please send me the address."
+    },
+    {
+      "id": "native-control-08",
+      "source": "zh",
+      "target": "en",
+      "text": "请把地址发给我。"
+    }
+  ]
+}

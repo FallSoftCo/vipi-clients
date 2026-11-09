@@ -1,0 +1,9 @@
+The fixed 8,000-key experiment restricted how much surrounding context the lookup could recognize. This comparison keeps the 3,000 single-word entries and expands multiword context keys from the same 40,000 retained English–Spanish Tatoeba pairs. A context is evidence for choosing a vocabulary replacement; it is not automatically a phrase to substitute into the message.
+
+The [source-only inventory](source-inventory-receipt.json) completed in 5.97 seconds with 452.8 MB process VmHWM. It found 822,134 source keys, of which 25,931 match the retained native windows, including 19,470 outside the original inventory. Among 9,535 reused TRAIN messages, four-to-eight-word matches increase from 1,595 to 3,117. Any-length matches remain at 9,506 for both inventories. Expansion therefore supplies additional context; it does not increase this set's first-match reach.
+
+These are source matches before alignment, complete dictionary heads, actual sentence role, density selection or meaning checks. The original 6,461 source-present keys are different from the 5,816 keys with aligned Tatoeba candidates. Neither count measures correct immersion. The 9,535 messages are reused development data, not a held-out conversational benchmark.
+
+The next comparison must retain the same corpus, fitted alignments, target ranking and head-selection rules in both arms. It should inspect complete mixed messages after selection, including unchanged or worse outputs. No new phrase catalog is active. The source-only count does not justify raw grammar-bearing substitutions.
+
+[Protocol](source-protocol.json) and [script](source_inventory.py) bind the original inputs. The first run's `ru_maxrss` included an unusable inherited high-water value; its private receipt is retained. A second run corrected only instrumentation to `/proc/self/status`: all message counts and the decompressed key inventory are identical. No fit, translation request or new source download occurred.

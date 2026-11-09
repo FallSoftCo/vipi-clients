@@ -1,0 +1,54 @@
+{
+  "schema": "vipi.android-contextual-actions.partial-r105",
+  "at_utc": "2026-11-09T01:46:13.870540+00:00",
+  "main_app_sha256": "828e4536e8b39ab7e09f573743350a2f842124cbe0845690eed35b6795df12fa",
+  "main_app_changed": false,
+  "test_source_integrated": false,
+  "canonical_test_remains": "r102",
+  "default_contextual_menu_enabled": false,
+  "japanese_run_id": "113",
+  "arabic_run_id": "114",
+  "arabic_run_executed": false,
+  "partial_checks": [
+    "Original copy exact",
+    "Actual floating-toolbar copy equals visible mixed text",
+    "Menu and Shift+F10/Escape",
+    "Native audio started; Stop reachable, stopped-state/acoustics not qualified",
+    "Report consent reachable without submission",
+    "Actual notification controller denial and modal dismissal before service shortcut"
+  ],
+  "failure": "Timed out: TalkBack-owned Message actions menu item",
+  "service_shortcut": "Alt + Ctrl + Space",
+  "service_window_observation": [
+    {
+      "id": 289,
+      "type": 3
+    },
+    {
+      "id": 299,
+      "title": "Vipi",
+      "type": 1
+    }
+  ],
+  "root_visual_review": "Failure frame shows unobstructed chat with TalkBack green focus; no service actions menu. This does not establish the cause of shortcut routing failure.",
+  "closure": {
+    "settings_and_permissions_restored": true,
+    "main_and_original_test_hashes_verified": true,
+    "owned_emulator_stopped": true,
+    "root_closed_after_stalled_worker": true
+  },
+  "evidence_root": "/home/ai/Development/investigations/vipi-android-contextual-actions-20261109-r105",
+  "evidence_hashes": {
+    "capture-r105-japanese.json": "328466b927d56aa98ba57bf4bf7f05f82b9b1347bcaf27c170d959fa0990430a",
+    "native-r105-japanese.log": "ea30ec8417b22bc8264d7cc59821ec1df4df5287791a1b7055c3522cdbb32c53",
+    "run-receipt.json": "1c6a8eb4ea6a9cfeb6882004be41aa3a0b03eef47b3d7605316ec8cd748c7a9f",
+    "root-final-state-preflight-r01.json": "bc04ee816b6f5b9aea9879dc692bd298f28870b206528d3388023922ec14aaf4",
+    "root-closure-r01.json": "dd925b5706aaf342793d6a95db50f07ae7107c3f036995e56a5c300940b16ccc",
+    "failure.png": "5a27b8295ebc0338fdaf711b0a557246765acb577547880c233b8bca27f6df71"
+  },
+  "limits": [
+    "Synthetic history and transport; no real friend traffic.",
+    "No TalkBack service-menu acceptance or Arabic large-text sequence.",
+    "No product activation or store readiness."
+  ]
+}
