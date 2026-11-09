@@ -1,0 +1,47 @@
+{
+  "schema": "vipi.ios-native-incremental-build.r01",
+  "at_utc": "2026-11-09T11:32:54.074304+00:00",
+  "complete": true,
+  "native_host": "macbook-pro",
+  "baseline_revision": "a330fdc01ee5b7de5ea670d24f7bea8bf45c2d0a",
+  "reviewed_overlay_commits": [
+    "50c5a3e",
+    "fd9c0a4"
+  ],
+  "overlays": {
+    "ios/Vipi/ChatSession.swift": "8741a6619a268b9ff0e1b6d4a74c4f92d74bb71b37329aedcdc6d7d9c4eff8cb",
+    "ios/project.yml": "0bafd2bb3cbebd198cca10eb7881e2bdad6d6a7d17ea0a972294e6cc3be38700"
+  },
+  "source_files_verified": 605,
+  "source_differences": [],
+  "preparation": "Existing prepare-ios-project.sh completed; pinned CocoaPods deployment and all 66 bundled lexical assets verified. No dependency update.",
+  "configuration": "Simulator arm64, VipiSimulator",
+  "jobs": 2,
+  "build_seconds": 35.895510791102424,
+  "build_exit_code": 0,
+  "build_log_sha256": "034bec7f9f85431cd0bb19e2275b04a45a0414f148791a28deb52ab472287e92",
+  "project_sha256": "2b2eda7df27cf66d69d40bd17fd2107792e386a4115a09b566bde28940af94b4",
+  "production_check_before_compile": {
+    "index": 1,
+    "name": "Verify production configuration",
+    "sha256": "ae19e0fe1f942ea6bb5e5e415072e0ee5209baed5cc96fde59f5de62eb92c47e"
+  },
+  "guard_execution_seen_in_build_log": true,
+  "app_exists": true,
+  "native_receipt_sha256": "158a5963549d568946e02e9c746ad97597fd04b7e9b6cd755b656d475274e5e5",
+  "retained_preflight_failures": [
+    "r01 preparation succeeded, then verification assumed first phase; CocoaPods inserts its manifest check before the guard. No compilation began.",
+    "r02 verified phase order, then assertion used a guessed environment variable name. No compilation began. r03 verified the exact previously qualified script hash."
+  ],
+  "warnings": [
+    "Existing UITextItemInteraction deprecation in StableImmersionText.swift:271",
+    "AppIntents metadata extraction skipped because no AppIntents framework dependency exists"
+  ],
+  "not_exercised": [
+    "install or UI execution of this incremental binary",
+    "distribution signing/archive",
+    "production authentication",
+    "store upload"
+  ],
+  "private_native_receipts": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/incremental-build-r01 through r03"
+}

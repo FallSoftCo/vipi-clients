@@ -82,9 +82,9 @@ qualification remain separate.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
-Committed private source through `e77610751739fdb9e8f5e114145f09e8c6ab232b` is
+Committed private source through `b1e2b84c4a1165ce9172d80116390ed29ccd2dc0` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261109-r17`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261109-r21`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
@@ -93,19 +93,25 @@ corresponding-source publication.
 The native clean mirror now also has the documented `50c5a3e` subscription-error
 copy change in `ChatSession.swift`. Its original baseline manifest remains
 historical. The later Android `7693f9f` Bot allowance error-code/copy correction
-has source-contract verification only. Neither small correction has a fresh
-native build or device qualification receipt.
+has source-contract verification only. The iOS correction now has the native
+Simulator compilation receipt below; neither correction has fresh device
+qualification.
 
 The native source mirror also includes the production configuration check in
 `ios/project.yml`. Each newly generated Release target rejects a missing,
 malformed or known staging WorkOS client and a non-production push environment.
-The exact XcodeGen-generated first app build-phase script passed eight scoped
+The exact XcodeGen-generated production-check script passed eight scoped
 configuration checks on the native Mac, including valid production inputs and
-unchanged Debug/Simulator behavior. The inspection project was separate; the
-current CocoaPods workspace and existing binaries were not rebuilt. Run the
-existing `scripts/prepare-ios-project.sh` before the next build so its project
-includes this check. No signing, store access or production login is established
-by this result; see `qa/release/ios-production-config-r01.json`.
+unchanged Debug/Simulator behavior. The initial inspection project was separate.
+The native CocoaPods workspace has since been regenerated with `scripts/prepare-ios-project.sh`, preserving
+the pinned dependencies. All 605 original source/app inputs match the baseline
+plus the two reviewed iOS overlays. An incremental arm64 Simulator app build
+passed in 35.90 seconds with two compiler jobs; the exact qualified guard ran
+after the CocoaPods manifest check and before source compilation. No app
+installation, new UI run, distribution signing, store access or production
+login follows from compilation. Existing UITextItemInteraction deprecation and
+AppIntents metadata warnings remain. See `qa/release/ios-production-config-r01.json`
+and `qa/release/ios-native-incremental-build-r01.json`.
 
 Seven inherited infinitive-experiment files remain dirty in the canonical
 workspace. Their exact source and additional untracked experiments are preserved
