@@ -96,3 +96,11 @@ production WorkOS configuration and signing are separate release configuration.
 Inspect the migrated signing wrapper and native Xcode account readiness before
 signed exports; a guest wrapper receipt does not qualify its native replacement.
 Never upload the old qualification build 63.
+
+The app's post-build phase preserves the four pinned ML Kit privacy manifests
+from its static frameworks in separate resource bundles before signing.
+`package-mlkit-privacy.py` checks every upstream manifest before copying any;
+an SDK update requires reviewing its new declarations and updating the hashes
+and `release/privacy-data-inventory.json`. The Simulator configuration skips
+this phase because it does not link ML Kit. Device Release packaging is qualified
+in `qa/release/mlkit-privacy-packaging-r01`; inspect the final signed export too.

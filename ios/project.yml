@@ -101,6 +101,12 @@ targets:
               echo "error: Vipi Release requires VIPI_PUSH_ENVIRONMENT=production." >&2
               exit 1
           fi
+    postBuildScripts:
+      - name: Preserve static ML Kit privacy manifests
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+        script: |
+          python3 "${SRCROOT}/package-mlkit-privacy.py"
     info:
       path: Vipi/Info.plist
       properties:

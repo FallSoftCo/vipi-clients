@@ -645,7 +645,15 @@
       "firebase_messaging_auto_init_enabled": false,
       "firebase_messaging_installation_id_enabled": false
     },
-    "caveat": "These are source-manifest flags, not the final merged release manifest or proof that runtime never changes a setting. No address-book, microphone or location permission appears in this source manifest. Final dependency merge must be inspected. Apple APNs integration does not use Firebase Messaging."
+    "caveat": "These are source-manifest flags, not the final merged release manifest or proof that runtime never changes a setting. No address-book, microphone or location permission appears in this source manifest. Final dependency merge must be inspected. Apple APNs integration does not use Firebase Messaging.",
+    "packaging_qualification": {
+      "date": "2026-11-09",
+      "receipt": "qa/release/mlkit-privacy-packaging-r01/receipt.json",
+      "compiled_device_release_manifests": 13,
+      "four_mlkit_vendor_manifests_preserved_unchanged": true,
+      "all_nine_prior_manifests_unchanged": true,
+      "scope": "Unsigned packaging qualification on source6063b0c plus packaging changes; final signed export remains open."
+    }
   },
   "submission_gates": [
     "Aggregate exact signed-release privacy manifests and inspect Android's final merged manifest/dependency graph.",

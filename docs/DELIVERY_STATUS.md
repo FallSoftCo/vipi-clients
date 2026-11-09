@@ -39,6 +39,14 @@ production PostgreSQL integration and native
 re-enrollment remain open; see `qa/backend/service-recovery-r01/README.md` and
 its path-handling amendment. No live restore or runtime change was made.
 
+Device Release packaging now preserves all four ML Kit vendor privacy manifests
+that CocoaPods omitted from the static frameworks. The actual unsigned build
+contains 13 manifests; all nine existing manifests and four upstream copies are
+byte-verified. Missing or changed SDK declarations fail before partial copying.
+The listing's privacy-policy URL is saved and reload-verified. Final signed
+artifact inspection, release-device network observations and the store data
+questionnaire remain open; see `qa/release/mlkit-privacy-packaging-r01`.
+
 An opt-in startup recovery hold now keeps API/WebSocket state paths and all
 deployed worker entry points from initializing databases/providers. Static
 privacy/help/deletion guidance and liveness remain available; readiness fails.

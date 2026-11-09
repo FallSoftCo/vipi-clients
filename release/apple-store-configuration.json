@@ -124,5 +124,13 @@
     "version_fields_reload_verified": true,
     "release_type": "AFTER_APPROVAL, unchanged",
     "review_submitted": false
+  },
+  "privacy_policy_url": {
+    "url": "https://api.mambovipi.app/privacy",
+    "locale": "en-US",
+    "saved_and_reloaded": true,
+    "verified_at": "2026-11-09T19:04:12Z",
+    "private_receipt": "apple-store-provisioning-20261109-r01/r190.json",
+    "data_collection_questionnaire_published": false
   }
 }
