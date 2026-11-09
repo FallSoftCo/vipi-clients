@@ -1,0 +1,14 @@
+{
+  "rows": 1394,
+  "all_decoded_rows_exact": true,
+  "scopes": {
+    "unicode": 20,
+    "negative": 14,
+    "rule": 1157,
+    "full_source": 52,
+    "sentinel": 3,
+    "role": 148
+  },
+  "timings_and_memory_receipts_excluded": true,
+  "scope": "Actual same-emulator debug/R8 results, no physical/performance superiority claim"
+}

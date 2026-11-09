@@ -1,0 +1,23 @@
+{
+  "scope": "Isolated evidence only; no admission or app activation",
+  "memory_before": {
+    "pss_kib": 7797,
+    "java_used": 2830208,
+    "java_max": 201326592,
+    "native_allocated": 5404080,
+    "process_status": "VmHWM:\t   72548 kB\nVmRSS:\t   72548 kB"
+  },
+  "reader_load_and_hash_ns": 3131807957,
+  "no_head_winners": 23,
+  "nil_intrinsic_focus_occurrences": 196,
+  "model_load_ns": 175426663,
+  "success": true,
+  "memory_after": {
+    "pss_kib": 145540,
+    "java_used": 11233248,
+    "java_max": 201326592,
+    "native_allocated": 85527744,
+    "process_status": "VmHWM:\t  222580 kB\nVmRSS:\t  212360 kB"
+  },
+  "end_to_end_probe_ns": 6672769647
+}

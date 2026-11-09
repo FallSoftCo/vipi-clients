@@ -1,0 +1,24 @@
+{
+  "dictionary_source": "existing canonical compressed originals; no raw offload substitution",
+  "compressed": {
+    "d-en.sqlite": {
+      "bytes": 55912030,
+      "sha256": "45fc8a260106ac474c3487831780a2446d4909f3a9320874ed421f174c11e87a"
+    },
+    "d-es.sqlite": {
+      "bytes": 56159017,
+      "sha256": "ce4e5923bc2e5aba00d7f8af06b950a41a51aec674c5b07add3f20cad4fcd472"
+    }
+  },
+  "pack": {
+    "source_host": "fallsoft-production",
+    "source": "/srv/fallsoft/staging/vipi-native-context-pack-20261109-r01/export/context.sqlite",
+    "planned_local": "/home/ai/Development/investigations/vipi-android-context-pack-20261109-r02-source/context.sqlite",
+    "bytes": 4890624,
+    "sha256": "cd7a8667ff0df53610ef19aa585398e24470716dd23af6d640b7c77dbc3badb4",
+    "state": "not transferred; root must authorize and acquire the exact file before prepare"
+  },
+  "guest_route": "/storage/emulated/0/Android/data/co.fallsoft.vipi.contextqa/files/context-inputs",
+  "guest_route_status": "new isolated package external-files route; prepare instrumentation verifies exact route before push; no device access yet",
+  "reuse_cache": "optional root-authorized read-only inventory may justify a later route amendment; current runner uses fully budgeted staging fallback"
+}

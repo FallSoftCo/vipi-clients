@@ -1,0 +1,4 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ <application android:label="Vipi Context Evidence QA" android:allowBackup="false" android:supportsRtl="true" />
+ <instrumentation android:name="co.fallsoft.vipi.contextqa.ContextProbeInstrumentation" android:targetPackage="co.fallsoft.vipi.contextqa" android:functionalTest="true" />
+</manifest>

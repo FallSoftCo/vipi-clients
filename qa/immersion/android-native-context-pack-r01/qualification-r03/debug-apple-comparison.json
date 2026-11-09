@@ -1,0 +1,24 @@
+{
+  "variant": "debug",
+  "rule_count": 1157,
+  "full_source_count": 52,
+  "comparison": "Actual retained iOS outputs versus Android; unit/form order canonicalized, duplicates retained",
+  "differences": [
+    {
+      "scope": "full_source",
+      "id": "qualified-noun-009",
+      "field": "native_words"
+    },
+    {
+      "scope": "full_source",
+      "id": "qualified-noun-009",
+      "field": "all_unit_form_guard_fields"
+    }
+  ],
+  "android_stdout_sha256": "90d21c485bb27a10976c9fe48a12642c63604e9f212ceb9cc282e0d686757ae3",
+  "apple_pins": {
+    "ios-pack.json": "08fbec7753d0cd0b6d50230105729bda9bfd07f2af76b41b24b594b135518125",
+    "recognition-r02.json": "b31f087180b3280c80fc47e5c3b0dcc270b0cceafcbd6aa2129a64df9a93637f"
+  },
+  "scope": "Matcher and dictionary recognition parity only; no semantic, coverage, UI or display permission claim"
+}

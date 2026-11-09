@@ -1,0 +1,8 @@
+{
+  "expected_metadata": {
+    "policy_sha256": "d18fbde6b978d7f3c2dc8f57902d6312524c02ce6c1ab23f2c4227812c47afdb",
+    "input_manifest_sha256": "eee17bcdc5ed5515c548788a30c72ddb7469bcd9d7d59dc261a030071b51f23d"
+  },
+  "pack_sha256": "cd7a8667ff0df53610ef19aa585398e24470716dd23af6d640b7c77dbc3badb4",
+  "policy": "Immutable QA inputs, no sidecars; cache owner must preserve dictionary bytes during load. Actual dictionary hashes and complete metadata reverified by reader."
+}

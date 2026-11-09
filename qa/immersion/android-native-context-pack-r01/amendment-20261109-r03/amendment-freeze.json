@@ -1,0 +1,99 @@
+{
+  "schema": "vipi.android-native-context-amendment.r03",
+  "at_utc": "2026-11-09T13:18:23.905976+00:00",
+  "status": "source_prepared_no_build_inference_or_device_access",
+  "prior_freeze_sha256": "08c7e775ca97eefc5ab5691c2aa0e673681e66af99b16936d87994c53de475bd",
+  "pristine_source_commit": "de9f426fe0abff0b3fdc933388b3ba244dc26185",
+  "current_head": "d47da4d242861042230bf5a4786052911cb9d6cb",
+  "source_hashes": {
+    "AMENDMENT.md": "c40e1f0fb61da603955ae7e632bdfd70c840d088068c4f9cbcf74b77dffa2f18",
+    "app/build.gradle.kts": "1d69c1b648ef4c090ac79aa03e80ed1c825708675f70ebc8c8d65aa999c59b5b",
+    "app/proguard-rules.pro": "702bce9a1dd40403aa2b862fe3743a3e4a1e99390fc63dfd1c5eb58abc5b754f",
+    "app/src/main/AndroidManifest.xml": "e112f29ecde85bc16181c99585b566bcb678625abfee83e2e6f4fd7bb28d4482",
+    "app/src/main/assets/full-sources.json": "59dc06af07ecbbac1786b606728972d68a9adb790edbac2687e0420ac299349d",
+    "app/src/main/assets/model-pins.json": "4035115a3df036c0413737e5968051fa61ce2bd36aa0c534284924fdc318a438",
+    "app/src/main/assets/native-bindings.json": "52bdca671b69da96160e1c34b194518d1138802b94004b37c573505af9af89e2",
+    "app/src/main/assets/role-inputs.json": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266",
+    "app/src/main/assets/rule-fixtures.json": "1a3203d294f4d2fd9f3d00fd7dfa08e04bdbecda905967d3c80d5c7c20cac0ef",
+    "app/src/main/assets/tokenizer-fixtures.json": "96915d126b54ddb6b2ef5f956d52e92426888cd92753b6931317b3defe7b86d9",
+    "app/src/main/assets/unicode15.json": "930b68ddf7c328233125eeb56a68b6863a9b97942a7a5023128e6ad34b489879",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/ContextProbeInstrumentation.kt": "cefbbf1a97a7baea1dc317d8405bc0ba9850ea898505f562d518fb82c7af93e2",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/EnglishRoleEvidence.kt": "76cec91bf59d07a5de1da39b776fd603f22e6277a9b7dbceef2300844f8b48dd",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/EnglishSourceRoleProvider.kt": "b53a100a1ec258d78561f4f2d448b97f5c364e75a4dadd58c56b083d3955c0f3",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/FrozenContextPackReader.kt": "00c3a080fb07c4da935e4598be231b088d647307c720b44860ae3c3643d0a3e3",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/FrozenContextTokenizer.kt": "017b7db635ac8ea2d2266a45021f36c5502377f0029f8c8a39ef78222333d01a",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/LexicalSourceRecognition.kt": "04f63b05aa61ea89e65a79be4321e2154e09aef0637849aa8e91b36f127b50ed",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/NativeGeometry.kt": "ef3138615c7607f8def1988fd3cbd7236aede77b578b37593f316fbcb6b45ed2",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/PristineLexicalSource.kt": "b76831c4cecf3479129b28989a66470f55bdb0d86c438ace7ba14654f1ea4782",
+    "app/src/main/java/co/fallsoft/vipi/contextqa/ReviewedFrameLookup.kt": "fa4ac9947d27355ed6d6be317380d6dc8c0e1a46bc0e794fc200ad51f24fcf01",
+    "asset-route.json": "0f32af5a6880e7c05a8149e118065f8b3cb7eebf06da3524d8c370e819a33633",
+    "build.gradle.kts": "a5b8c32fafe3b7b612fba3d3329a8b4d5857c74ab19070516c4d5667cbc62137",
+    "extraction-provenance.json": "311ffa1e42a42dc01f1ed001f6ee95f61bca33e651754d87f4668cef6c33fe7d",
+    "gradle.properties": "4f5843b8c59f69032ee707af234216c900be8d8248ff85e0132b75fadc13af12",
+    "model-provenance.json": "ae84799e5658e8da0511e771d4649d9d5932f885c379ba47f0e9f55ad0364816",
+    "runner.py": "56b549fafa4861065ef796f15b932c898836ff539234aa1d98a32ad17ece5f57",
+    "settings.gradle.kts": "008834e6cf7e59df863ec795c5715079cdee99d6a68ae939a9cc5291cc5cd802",
+    "source-adapter.fragment": "329ed47f549c98d52dfd1d08bf5070170618b9fd51f871529382a96ba62a5ca7",
+    "verify.py": "1e5a9f766ce54f5592aa16c7a522142ba768d478fd586b94acecd1a58a7efdbd"
+  },
+  "host_contract_hashes": {
+    "OPERATIONS.txt": "2b125ce8d949d342f086ed233dd81a52d402ef35de62597be7dfea621ce45b23",
+    "resource-contract.json": "ad6378b6f410e7b3e1a5007f509c8ab0f50147bd7914e453a44b11979b0a6c3f",
+    "action-register.json": "953bbe7cd10805d50d332a7557eb184400e7a9940c8861b8a95ae9f06c2c33ae"
+  },
+  "apple_final_sources": {
+    "final-sources/ios/Vipi/FrozenContextPack.swift": "8e12d3902adeed2e2ddd20298840385baf2ae72a92752642c62605fc4ccf2240",
+    "final-sources/ios/Vipi/FrozenContextTokenizer.swift": "ff877984016259745db30ab29295c2bf98269bc95d3a7333efadaf5bf4d3525e",
+    "final-sources/ios/Vipi/FrozenContextUnicodeTables.swift": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9",
+    "final-sources/ios/Vipi/LexicalConcordance.swift": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+    "final-sources/ios/Vipi/LexicalSourceRecognition.swift": "f341bf42132e555a16c53ac42318d32c376523a90e3e4072445cd0c46a7eaf13",
+    "final-sources/ios/VipiCryptoTests/FrozenContextPackTests.swift": "8f32da055777363b3ed1e1f64b939eb6347c7eb5a81648eeb26c63c49d94b3a9",
+    "final-sources/ios/VipiCryptoTests/FrozenContextTokenizerFixture.swift": "2355702263cccb71b9718ae14bb716012a7c1399a26e70d878ef239d6ac301ef",
+    "final-sources/ios/VipiCryptoTests/FrozenContextTokenizerTests.swift": "c336edc3228ddd180f04ba2cb7cbef31ff2b9ee61ca584b227ac0e2ddb380cf6",
+    "final-sources/ios/VipiCryptoTests/LexicalSourceRecognitionTests.swift": "7650d7d5fcedd1757f399b06e5781926cdfcffad6b56d14dcc6322eba2b01d0f"
+  },
+  "apple_independent_qualification_sha256": "8a3a7f87c4f3d15a8e185e9e696a3234a4fbcaddffd8eba1e058f3b12b268d3a",
+  "inherited_dirty_tracked_hashes_current": {
+    "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt": "37369f7d8f405b534f732ac7da18b19e1f559c64f695778f3ac6c01c231d6668",
+    "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": "6bca38722007e908a5d5ba7a34e26ecc9e1321ded4734097871b40db1d95cda5",
+    "ios/Vipi/ContextWitnessLookup.swift": "5956264289aaa7cb50b3bc64eba55208b56462e1208d10b7daf5677081e65718",
+    "ios/Vipi/LexicalConcordance.swift": "eb0d328d606a7d08cc9476017bb07f1271ea9142143bf9bdf4bd971524846725",
+    "language-packs/build_context_witnesses.py": "ac69a5539d9d4c8f46fa2325c744985d6b125a81c762b2587764bc14502fe06f",
+    "language-packs/build_noun_context_filter.py": "ac8ac48519e569698361c13978e0e4287592b2d039b387332e96ade0b21c8fab",
+    "language-packs/build_semantic_alternatives.py": "c7c797d801cabf262bcb95cec3d5f65d2e6aefdd98abd6be5393b47267aa45d5"
+  },
+  "external_changes_since_prior_turn": [
+    "ios/Vipi/LexicalConcordance.swift"
+  ],
+  "external_change_note": "This worker wrote only new owned QA amendment files. No existing app source was written; external change reported to root.",
+  "resource_amendment": {
+    "task_only_floor_bytes": 4294967296,
+    "additional_peak_ceiling_bytes": 1900000000,
+    "authority": "Root explicit message changing inherited QA8GiB cap to4GiB; dated host contract has no general local numeric floor",
+    "build_workers": 1,
+    "build_cpu": 2,
+    "build_heap_mib": 384,
+    "build_seconds": 240,
+    "prepare_seconds": 120,
+    "probe_seconds": 180,
+    "output_bytes": 16777216,
+    "boot": "not implemented or authorized in runner; separate root-reviewed two-vCPU existing5620 plan"
+  },
+  "pending": [
+    "exact pack acquisition",
+    "fresh admission",
+    "debug compile and emulator qualification",
+    "independent review before optimized qualification"
+  ],
+  "fixture_counts": {
+    "unicode": 22,
+    "rules": 1157,
+    "full_sources": 52,
+    "source_only_role_geometry": 148
+  },
+  "static_checks": [
+    "Original r01 hashes unchanged",
+    "No existing app source written by this worker; observed external Apple LC change recorded",
+    "Python runner/verifier AST parse only; Kotlin uncompiled"
+  ]
+}

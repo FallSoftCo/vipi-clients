@@ -1,0 +1,24 @@
+    /** Additive English-only observations. No target or display approval. */
+    fun inspect(db:SQLiteDatabase, original:String, language:String, protection:List<Range>):LexicalSourceRecognition.Snapshot? {
+        if(language!="en" || original.length>16384 || original.codePoints().toArray().any{it in 0xd800..0xdfff} || protection.size>4096 || protection.any{!LexicalSourceRecognition.valid(it,original)})return null
+        val side=load(db,original,language) ?: return null
+        val units=mutableListOf<LexicalSourceRecognition.Unit>();var occurrences=0
+        for(word in side.windows.keys.sorted()) {
+            val raw=side.forms[word].orEmpty()
+            if(raw.isEmpty() && word !in side.blocked && word !in side.targetBlocked && word !in side.names && word !in side.guards)continue
+            val forms=raw.map { f ->
+                val focus=LexicalSourceRecognition.intrinsic(f.mode,f.start,f.end,f.written)
+                LexicalSourceRecognition.Form(f.lexeme.toString(),f.written,focus,f.number,f.mode,f.sourceSafe,f.targetSafe,f.features.toSet(),f.pos,f.proper,f.grammar,f.head)
+            }
+            for(r in side.windows[word].orEmpty().sortedWith(compareBy<IntRange>{it.first}.thenBy{it.last})) {
+                val range=Range(r.first,r.last+1)
+                if(!LexicalSourceRecognition.valid(range,original) || units.size>=4096 || occurrences>16384-forms.size)return null
+                occurrences+=forms.size
+                units+=LexicalSourceRecognition.Unit(word,range,original.substring(r),word in side.blocked,word in side.targetBlocked,word in side.names,word in side.guards,forms)
+            }
+        }
+        val names=side.namedPlaces.map{Range(it.first,it.last+1)};val phrases=side.phrases.map{Range(it.first,it.last+1)}
+        if((names+phrases).any{!LexicalSourceRecognition.valid(it,original)})return null
+        return LexicalSourceRecognition.Snapshot(original,language,side.release,side.inventory,protection.toList(),names,phrases,units.toList())
+    }
+}

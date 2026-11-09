@@ -1,0 +1,67 @@
+{
+  "schema": "vipi.android-native-context-preparation.r01",
+  "at_utc": "2026-11-09T12:47:07.713091+00:00",
+  "head": "de9f426fe0abff0b3fdc933388b3ba244dc26185",
+  "status": "draft_sources_not_compiled_or_executed_root_review_required",
+  "source_hashes": {
+    "EnglishRoleEvidence.kt": "e5563c0dec968e0436b294a81b4e842e5266bcbca9e22b5d4b70000a3d1a5c48",
+    "FrozenContextPackReader.kt": "00c3a080fb07c4da935e4598be231b088d647307c720b44860ae3c3643d0a3e3",
+    "FrozenContextTokenizer.kt": "0a7543bf1864a511631300662d0577982c7bbea5929003a93158e1586bedabae",
+    "PREPARATION.md": "f6909c165528cbe8e956ad495ec807a3543d0428fc7c1ef6b6deb4966e2b9f4b",
+    "unicode15.json": "930b68ddf7c328233125eeb56a68b6863a9b97942a7a5023128e6ad34b489879"
+  },
+  "apple_candidate_reference_hashes": {
+    "FrozenContextPack.swift": "8e12d3902adeed2e2ddd20298840385baf2ae72a92752642c62605fc4ccf2240",
+    "FrozenContextTokenizer.swift": "ff877984016259745db30ab29295c2bf98269bc95d3a7333efadaf5bf4d3525e",
+    "FrozenContextUnicodeTables.swift": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9",
+    "tokenizer-fixtures.json": "96915d126b54ddb6b2ef5f956d52e92426888cd92753b6931317b3defe7b86d9",
+    "rule-fixtures.json": "1a3203d294f4d2fd9f3d00fd7dfa08e04bdbecda905967d3c80d5c7c20cac0ef"
+  },
+  "verified_retained_model_hashes": {
+    "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": {
+      "bytes": 1164974,
+      "sha256": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce"
+    },
+    "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin": {
+      "bytes": 20061,
+      "sha256": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8"
+    },
+    "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin": {
+      "bytes": 326080,
+      "sha256": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a"
+    },
+    "opennlp-tools-2.5.10.jar": {
+      "bytes": 1394488,
+      "sha256": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea"
+    },
+    "slf4j-api-2.0.18.jar": {
+      "bytes": 69982,
+      "sha256": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55"
+    }
+  },
+  "inherited_dirty_tracked_hashes": {
+    "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt": "37369f7d8f405b534f732ac7da18b19e1f559c64f695778f3ac6c01c231d6668",
+    "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": "6bca38722007e908a5d5ba7a34e26ecc9e1321ded4734097871b40db1d95cda5",
+    "ios/Vipi/ContextWitnessLookup.swift": "5956264289aaa7cb50b3bc64eba55208b56462e1208d10b7daf5677081e65718",
+    "ios/Vipi/LexicalConcordance.swift": "ddc527d5e8f65fd35aab0ac1dcd2b7f1b2ae920330dec089084e175f69f1335d",
+    "language-packs/build_context_witnesses.py": "ac69a5539d9d4c8f46fa2325c744985d6b125a81c762b2587764bc14502fe06f",
+    "language-packs/build_noun_context_filter.py": "ac8ac48519e569698361c13978e0e4287592b2d039b387332e96ade0b21c8fab",
+    "language-packs/build_semantic_alternatives.py": "c7c797d801cabf262bcb95cec3d5f65d2e6aefdd98abd6be5393b47267aa45d5"
+  },
+  "runtime_qualification_revision": "a0538df",
+  "runtime_qualification_receipt_sha256": "a92b34e275e2fd8144c7f7df7756a0eaeeddd71af85219e7c8560b6ba9e8dea8",
+  "no_execution": [
+    "no build",
+    "no emulator access",
+    "no model inference",
+    "no downloads",
+    "no app path edits"
+  ],
+  "remaining": [
+    "Review uncompiled tokenizer/reader drafts",
+    "Implement isolated dictionary source recognizer from committed source",
+    "Implement source-bound POS adapter; keep name capability unavailable",
+    "Bind exact local pack path and dictionary route",
+    "Freeze exact fixtures and fresh resource admission before root-authorized run"
+  ]
+}

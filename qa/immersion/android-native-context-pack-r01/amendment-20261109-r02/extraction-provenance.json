@@ -1,0 +1,6 @@
+{
+  "commit": "de9f426fe0abff0b3fdc933388b3ba244dc26185",
+  "pristine_LC_sha256": "65f7b8a1e3a5745e2a9143ecbc3aff3610fe185ceeef4f2a1bf8c78459a81be6",
+  "scope": "Exact LC prefix through load, with package/object/key namespace replacements; exact ReviewedFrameLookup.windows; exact ICU sentence and non-Japanese word branch. English-only snapshot restriction; no working-tree dirty source consumed. Full loader retained including terms/readings though observation API does not expose them. Actual parity still unexecuted.",
+  "full_sources_count": 52
+}

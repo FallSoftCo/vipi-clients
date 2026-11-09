@@ -1,0 +1,12 @@
+{
+  "adb_exit": 0,
+  "stdout": "OK: killing emulator, bye bye\nOK\n",
+  "stderr": "",
+  "owned_process_stopped": true,
+  "free_after": 7702122496,
+  "avd_allocated_after": 6465331200,
+  "avd_allocated_change": 1245184,
+  "settings_scope": "No explicit app/system setting commands were issued; emulator boot itself logged automatic screen timeout/logcat adjustment. Full system-setting parity was not measured.",
+  "main_app_touched": false,
+  "shared_adb_server_stopped": false
+}

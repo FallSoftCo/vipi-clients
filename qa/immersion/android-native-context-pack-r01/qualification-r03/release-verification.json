@@ -1,0 +1,40 @@
+{
+  "status": "raw_runtime_verification_only",
+  "counts": {
+    "unicode": 20,
+    "negative": 14,
+    "rule": 1157,
+    "full_source": 52,
+    "sentinel": 3,
+    "role": 148
+  },
+  "raw_tag_range_failures": [],
+  "score_max_abs_difference": 0.0,
+  "score_tolerance": 1e-12,
+  "score_pass": true,
+  "rule_geometry_differences": [],
+  "rule_expected_differences": [],
+  "source_reference_guard_differences": [
+    {
+      "case_id": "qualified-noun-009",
+      "range": [
+        73,
+        5
+      ],
+      "reason": "reference_unit_not_recognized"
+    },
+    {
+      "case_id": "qualified-noun-009",
+      "range": [
+        79,
+        2
+      ],
+      "reason": "reference_unit_not_recognized"
+    }
+  ],
+  "nil_focus_occurrences": 196,
+  "source_recognition_scope": "Compared emitted source-only reference units/flags; not a claim all Android/Apple loader internals are identical. Original masks remain distinct from new observation snapshots.",
+  "semantic_approval": false,
+  "named_protection": "unavailable",
+  "stdout_sha256": "f996b9015b7d295ca97af4352828f2ec137df58cb5d96ae0fabdea91e26ed6ed"
+}

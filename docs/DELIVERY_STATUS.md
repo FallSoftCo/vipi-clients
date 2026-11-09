@@ -39,6 +39,17 @@ valid no-focus dictionary rows was fixed without dropping their guards. Form and
 term admission, ordinary baseline support, known-family filtering and selection
 remain open. See `qa/immersion/native-context-reader-r01/RESULT.md`.
 
+The corresponding isolated Android reader/tokenizer/source-recognition and
+OpenNLP adapter now pass actual debug and optimized R8 execution. All 1,394
+decoded result rows agree between builds, including every exported rule context
+and 148 source-role samples. All 52 full-source focused rule outcomes agree with
+iOS; 51 dictionary snapshots agree exactly. Android joins `needs.it`, while
+Apple splits it, so the remaining snapshot has two absent Android units and no
+additional ones. That geometry difference remains explicit. The optimized QA
+APK is 2.06 MB, non-debuggable and has no permissions. This is still an isolated
+package: customer integration, complete admission and baseline preservation
+remain open. See `qa/immersion/android-native-context-pack-r01/RESULT.md`.
+
 A real, currently uncalled Apple source-role provider is now compiled into the
 app source and qualified on native macOS and the existing iOS Simulator. It
 uses the current original text, exact native geometry, explicit unknowns and

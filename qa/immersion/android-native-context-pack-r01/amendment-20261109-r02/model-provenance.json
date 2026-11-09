@@ -1,0 +1,22 @@
+{
+  "opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": {
+    "bytes": 1164974,
+    "sha256": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce"
+  },
+  "opennlp-en-ud-ewt-sentence-1.3-2.5.4.bin": {
+    "bytes": 20061,
+    "sha256": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8"
+  },
+  "opennlp-en-ud-ewt-tokens-1.3-2.5.4.bin": {
+    "bytes": 326080,
+    "sha256": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a"
+  },
+  "slf4j-api-2.0.18.jar": {
+    "bytes": 69982,
+    "sha256": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55"
+  },
+  "opennlp-tools-2.5.10.jar": {
+    "bytes": 1394488,
+    "sha256": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea"
+  }
+}
