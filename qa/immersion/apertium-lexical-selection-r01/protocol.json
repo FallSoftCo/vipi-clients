@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "experiment": "apertium-lexical-selection-r01",
+  "code_sha256": "f15d06a3851dae0699891d06c7fbd3ce6fc2d2af6df3efe27342c72b4da911d8",
+  "inputs": {
+    "dataset": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/dataset.json",
+      "sha256": "f2dbf75de3f38cb223c012f444fe7b4e6713eaf22ec0f8f41375384362ec0cfa"
+    },
+    "split": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/split-freeze.json",
+      "sha256": "bf9a8638b9bfbe6892ccef01a002da90a7eb1898da251843f4fbde98a9f21a91"
+    },
+    "nb_predictions": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/compare/predictions.json",
+      "sha256": "176681e6422aeb08ebb2e45734ab821f8cef0c722061518a50345d8b4ca6355f"
+    },
+    "development_packet": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/compare/blind-review-packet.json",
+      "sha256": "2c8352a1582c1e570a978e1befddc6fb37986e7fb31a623bcbc122ba8d573f8c"
+    },
+    "evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "assets_protocol": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-occurrence-roles-20261109-r01/protocol.json",
+      "sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82"
+    },
+    "mode": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-occurrence-roles-20261109-r01/root/usr/share/apertium/modes/eng-spa.mode",
+      "sha256": "39e696f95a011766ec06c9141ad8f49c61dcafa04f8fbd8315168bf02f60cf96"
+    },
+    "index.sqlite": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/annotation-r01/index.sqlite",
+      "sha256": "13b62a968df166bc1ee9c7af71c2db3bc31a9c41b172bfec1857218ac96cbaa4"
+    },
+    "tag.raw": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/annotation-r01/tag.raw",
+      "sha256": "a0ac7a853135465bd5b03ca59bb76c59792193e855c49ddf36ac57bd6a248545"
+    },
+    "morph.raw": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/annotation-r01/morph.raw",
+      "sha256": "02aabadda66997c6785adcc0278f7d717ea602ba5b4b82dc74c3779c5c8bdd5d"
+    }
+  },
+  "pipeline": [
+    "reuse stored morphology and -p tag stream",
+    "remove only surface field, qualification exact byte parity against pinned apertium-tagger -g -z on stored morphology for all16 source endpoints",
+    "apertium-pretransfer",
+    "apertium-transfer -n eng-spa.genitive.t1x eng-spa.genitive.bin",
+    "lt-proc -b eng-spa.autobil.bin",
+    "lrx-proc -m -t eng-spa.autolex.bin"
+  ],
+  "stage_semantics": {
+    "genitive": "Required retained mode prefix, not target grammar transfer. All new raw stage bytes retained.",
+    "m": "Pinned upstream v0.4.2 switch m immediately breaks: deprecated no-op, not proof of a maximum-entropy classifier.",
+    "t": "Trace rule firings to retained stderr, lexical stdout unchanged.",
+    "stop": "Before bilingual structural transfer, interchunk/postchunk and generation; no translated sentence used as semantic truth."
+  },
+  "mapping": {
+    "surface": "Stored surface sequence exact left-to-right cursor mapping with no nonblank gaps; exact UTF16 native focus equality required.",
+    "identity": "Entire source lexical-unit analysis list must be identical through normal/pretransfer/genitive and bilateral source headers before/after LRX. Any sentence rewrite => mapping abstention, not engine failure.",
+    "repeated_words": "Occurrence index + entire sequence parity, never first matching lemma.",
+    "multiword": "Complete unit only; partial native token within multiword cannot map.",
+    "alternatives": "Preserve all before/after target analyses; compare first ordered reading as bilingual default and LRX selected/default respectively."
+  },
+  "cohort": {
+    "source": "Exactly781 old explicit held-out records from frozen NB dataset; now exposed benchmark, not new held-out accuracy.",
+    "qualification": "Existing16 reviewed source messages; reuse their verified prefix outputs in main stage.",
+    "guards": "Dataset already fixes exact supported source/target form/number/term/role/alignment/name/compound restrictions; no expansion.",
+    "form_join": "Selected analysis must be one noun with explicit sg/pl/sp number and no unknown/joined marker. Match normalized lexical lemma including retained queue + noun + exact number to existing chosen target analysis at the complete target form span; evidence references kept.",
+    "prediction_pool": "TRAIN-supported exact faces per original source spelling/number key, same candidate pool as NB. One matching face required. Multiple compatible faces abstain.",
+    "off_pool": "Report train-absent but retained elsewhere separately from new/unsupported lexical candidates; no emitted form generated or fabricated.",
+    "direct_relations": "Not included in this explicit-only comparison."
+  },
+  "review": {
+    "max": 12,
+    "selection": "lrx changes first analysis, including unavailable outcomes; hash order source ID, one per component, no outcome-based backfill",
+    "quarantine": "Original split excludes all earlier exposure; additionally exclude entire16 prior NB review components.",
+    "blind": "Anonymous distinct mixed outputs, null/unavailable leaves source unchanged zero immersion. Separate method-key.",
+    "context": "Full original source and full paired witnesses; one exact focus substitution; original native grammar retained."
+  },
+  "resources": {
+    "cpu": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "stage_seconds": 300,
+    "aggregate_output_bytes": 67108864,
+    "additional_reservation_bytes": 134217728,
+    "free_floor_bytes": 8589934592,
+    "basis": "Existing full dataset parse ~270MB resident; <781 endpoint short prefixes, prior14004endpoint morphology13.8MB. No313MBproof copy or58MBdataset transfer."
+  },
+  "references": [
+    "https://wiki.apertium.org/wiki/Constraint-based_lexical_selection_module",
+    "https://wiki.apertium.org/wiki/Apertium_stream_format",
+    "https://raw.githubusercontent.com/apertium/apertium-lex-tools/v0.4.2/src/lrx_proc.cc",
+    "retained pretransfer/tagger/lt-proc manpages and eng-spa.mode"
+  ],
+  "runtime_versions": {
+    "apertium": "3.9.4-1build1",
+    "lttoolbox": "3.7.6-1build1",
+    "eng-spa": "0.8.1-2",
+    "lex-tools": "0.4.2-2build3"
+  },
+  "no_activation": true,
+  "no_new_downloads": true,
+  "no_full_grammar_transfer": true
+}

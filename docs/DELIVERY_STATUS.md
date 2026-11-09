@@ -148,7 +148,8 @@ blocked alignment. The role evidence distinguishes nominal “Here's your order�
 from verbal “I did not order this.” The direct seasonal relation still has no
 resolved English sense identity. No app catalog was activated. The next bounded
 comparison tested default translation frequency against local and whole-sentence
-context with component-separated evaluation and full-output human review. See
+context with component-separated evaluation and independent agent review of
+complete mixed outputs. These reviews are not native-speaker certification. See
 `qa/immersion/apertium-corpus-evidence-r01/RESULT.md`.
 
 That frozen comparison did not establish a better selector. On 201 held-out
@@ -160,9 +161,20 @@ the stratified sample. Sentence context fixes an offspring/young-audience error
 but introduces a technical collection-word defect; reviewers disagree only on
 that defect's severity. Duplicate normalized sentence text does not cross the
 training/evaluation split. No classifier is promoted. The next experiment
-isolates the existing Apertium lexical-selection rules from its bilingual
+isolated the existing Apertium lexical-selection rules from its bilingual
 default and full grammar transfer. See
 `qa/immersion/contextual-lexical-selection-r01/RESULT.md`.
+
+That existing-rule comparison is also complete. Across the same 781 noun focuses,
+the shipped rules change no first choices. Six rules do reduce alternative lists;
+the rule asset is nonempty. Exact position mapping and training-supported forms
+produce 555 provisional faces, of which 524 have exact morphology support;
+31 remain unqualified. There are no new changed cases for semantic review.
+This result concerns this common-noun cohort and does not establish a general
+limit of Apertium. Nothing was activated. The next bounded comparison returns
+to longest-first contiguous context lookup with learned support and backoff,
+using the same frozen data. See
+`qa/immersion/apertium-lexical-selection-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|
