@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "created_at": "2026-11-09T17:36:31.604183+00:00",
+  "parent_validation_sha256": "5206a941b35037d4bc9d901e501815b9288941d43bdf139048a24c4ae762bf86",
+  "reason": "Root review: concatenated SQLite URIs/SQLAlchemy URLs could reinterpret question/hash path characters.",
+  "change": "sqlite3 uses resolved Path.as_uri plus mode=ro; SQLAlchemy uses URL.create with literal database path. No recovery policy changes.",
+  "validation": {
+    "passed": 9,
+    "seconds": 9.01,
+    "special_output_directory": "space ? query # fragment",
+    "assertions": [
+      "exact output DB contains deletion/device/billing quarantine",
+      "source bytes unchanged",
+      "only exact expected three output files created; no sibling database",
+      "receipt binds exact output hash"
+    ]
+  },
+  "files": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ops/reconcile-recovery.py",
+      "sha256": "e32fdf70d1252fb4fb5331210c9c6afb31ce1e9f1111bc20d9f02f0c267c53ab",
+      "bytes": 4023
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/backend/tests/test_recovery.py",
+      "sha256": "2543522d7f325d430bf00385aaebd8f8a6ef5f0730effff94d2a77d72916b2f0",
+      "bytes": 11161
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/backend/vipi/recovery.py",
+      "sha256": "3dbc45752bc1d7d792d6766416f4b02705c29cd3021460431b56dfffc4a0fc12",
+      "bytes": 8757
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/tests-r03.log",
+      "sha256": "e2cf131d0834208f31c4625a0286b957b4b27a3e90519cd468c019183147e103",
+      "bytes": 98
+    }
+  ],
+  "live_changes": false,
+  "runtime_gate_installed": false
+}

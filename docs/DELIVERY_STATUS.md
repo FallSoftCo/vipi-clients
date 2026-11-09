@@ -24,6 +24,15 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
 | Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Signing profiles, real products/purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. |
 
+Offline recovery now has an isolated reconciliation tool with nine passing
+synthetic disk-backed tests. It applies restrictive deletion/suspension records,
+deactivates devices, invalidates billing freshness, preserves surviving spend and
+consumed request IDs, and rolls back conflicts. It creates a separate SQLite
+copy and never authorizes reopening. Independent post-snapshot authority,
+production PostgreSQL integration, a runtime admission gate and native
+re-enrollment remain open; see `qa/backend/service-recovery-r01/README.md` and
+its path-handling amendment. No live restore or runtime change was made.
+
 ## Current language decision
 
 Both native apps now contain an indexed source-phrase candidate engine, still

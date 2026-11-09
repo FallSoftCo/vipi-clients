@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "created_at": "2026-11-09T17:33:36.691350+00:00",
+  "source_head": "67ef337618070930d625202ac34302ed51fa9c24",
+  "files": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/backend/vipi/recovery.py",
+      "bytes": 8757,
+      "sha256": "3dbc45752bc1d7d792d6766416f4b02705c29cd3021460431b56dfffc4a0fc12"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/backend/tests/test_recovery.py",
+      "bytes": 9422,
+      "sha256": "b35fb7e3fcadd8ced9b494bd234feb0ee86c956f6308cbcd94103e3c66010b2f"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ops/reconcile-recovery.py",
+      "bytes": 3958,
+      "sha256": "de68ca1b9aa3398296af64c0783776e57539f160a27dc1467db8d66a2346d70c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/backend/service-recovery-r01/README.md",
+      "bytes": 6116,
+      "sha256": "5859ff0cf42834aae87bf6ab1bfea23f929097fa7b7124f32b78bda8f95d3f46"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/tests-r01.log",
+      "bytes": 98,
+      "sha256": "1e0899c09040cd037f36d4566445b8a01337288a1685328f91307788b1f68a6b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/tests-r02.log",
+      "bytes": 98,
+      "sha256": "a7b26c07070be8ba9448d2162389aef96cdbfe825ee078d484e9f8a8a504a1b3"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-production-delivery-20261107/backend-backup-enrollment-r01/local-restore-receipt.json",
+      "bytes": 4356,
+      "sha256": "83930f9e7c4e18ba75dcc083c2af20b7a3778a89ef5c5006f6e001d230a9d487"
+    }
+  ],
+  "validation": {
+    "passed": 8,
+    "seconds": 6.4,
+    "backend": "synthetic disk-backed SQLite",
+    "retained_python": "/home/ai/Development/investigations/vipi-production-delivery-20261107/backend-env/bin/python",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=backend python -m pytest -q backend/tests/test_recovery.py -p no:cacheprovider"
+  },
+  "production_database_accessed": false,
+  "provider_calls": 0,
+  "services_changed": false,
+  "runtime_gate_implemented": false,
+  "reopen_accepted": false,
+  "existing_files_changed": false,
+  "authority_interval_verified": false
+}
