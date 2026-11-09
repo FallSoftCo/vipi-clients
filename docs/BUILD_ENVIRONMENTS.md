@@ -1,6 +1,6 @@
 # Build environments
 
-## Current authority and consolidation — November 8, 2026
+## Current authority and consolidation — November 9, 2026
 
 This section supersedes host commands and availability claims in the historical
 receipts below. OZZZ-OS and OZZZ-GPU were provider-cancelled. Do not reconnect,
@@ -78,9 +78,9 @@ qualification remain separate.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
-Committed private source through `a330fdc01ee5b7de5ea670d24f7bea8bf45c2d0a` is
+Committed private source through `7956f8404c060663d19295da8c00675d2b32926b` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261109-r03`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261109-r07`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public
@@ -116,11 +116,12 @@ Rebuilding the native library and completing the public source closure remain
 separate requirements.
 
 Historical guest model preparation was held: the guest's observed low-disk purge threshold
-is 10 GiB and the pending model requires roughly 1.85 GiB peak additional space.
+was 10 GiB and the pending model required roughly 1.85 GiB peak additional space.
 Removing 69 proven obsolete Vipi app-only simulator bundles reclaimed 3.60 GB,
-but guest free space is still below the threshold. Native physical free space
-is independently low. Do not retry preparation, override the purge service or
-resize/restart the shared VM on the strength of apparent file-size savings.
+but guest free space remained below the threshold at that checkpoint. Native
+physical free space was also low before migration; those readings are historical.
+The guest and its backing disk have since been retired after verified preservation.
+New native preparation requires fresh measured capacity and must not recreate the VM.
 The November 8 native migration changes the execution host, not this historical
 result. Fresh native macOS 26.6 qualification now executes the same three
 authored intents across six English↔Spanish/Japanese/Chinese directions using

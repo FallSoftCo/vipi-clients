@@ -116,7 +116,7 @@ The source inventory currently includes unreviewed records, so source-recognitio
 
 ## Reproducible real-message probe
 
-The original probes ran before host consolidation. OZZZ-OS and OZZZ-GPU are now provider-cancelled: do not execute on or reconnect to them. Use the reconciled delivery workspace and the current host instructions in AGENTS.md; Apple builds and provider tests belong in the existing development VM. Preserve each receipt revision and inspect actual disk/CPU capacity before new processing. The commands below describe the probe interfaces, not an authorization to revive retired infrastructure.
+The original probes ran before host consolidation. OZZZ-OS and OZZZ-GPU are now provider-cancelled: do not execute on or reconnect to them. Use the reconciled delivery workspace and current host instructions in AGENTS.md; new Apple builds and provider tests belong on native `apple@macbook-pro`. The former development VM was preserved and retired on November 9. Preserve each receipt revision and inspect actual disk/CPU capacity before new processing. The commands below describe the probe interfaces, not an authorization to revive retired infrastructure.
 
 ```sh
 python3 qa/immersion/prepare_sms_probe.py --source vendor-research/conversation/nus-sms-20150309 --output artifacts/sms-probe-NEW --per-language 200 --apple-run-id NNN
