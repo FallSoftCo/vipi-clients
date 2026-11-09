@@ -86,7 +86,12 @@ activation. Author-reviewed correct nonempty messages rise90→113, but material
 error cases rise6→11; all11 lost spans were valid. Root's predetermined40-case
 masked review independently observes18→24 correct messages and a new travel
 “drive→disco” error. All bad faces were already in the captured ML Kit targets.
-Exact lexical ownership cannot establish contextual sense. The original14 null
+Exact lexical ownership cannot establish contextual sense. A subsequent actual
+native-role capture preserves all200 geometries but would catch none of the11
+flagged scopes: all four assistance uses are tagged Verb, and the same-POS
+errors remain. A strict POS filter would instead reject13 author-correct and
+three minor selected spans. It is not being added. See
+`qa/immersion/taskmaster-source-roles-r01/RESULT.md`. The original14 null
 targets remain in every denominator. This historically exposed corpus is not
 fresh bilingual gold. See `qa/immersion/target-informed-taskmaster-r01/RESULT.md`
 and `CAUSAL_INSPECTION.md`; no candidate policy is active.
@@ -565,6 +570,13 @@ Private iOS app `6832624092` is **Mambo Vipi: Language Chat**, version 1.0,
 Prepare for Submission. Both shorter names were rejected as unavailable; each
 attempt was reconciled before the next. No build upload, review submission or
 public availability follows from creating this record.
+
+App Store profile `Vipi App Store 2026-11-09` is now installed on the native Mac.
+Its decoded entitlements bind `co.fallsoft.vipi` to the company team, production
+push and distribution signing, with debugging disabled and no device list. Its
+certificate matches the existing available company distribution identity and
+expires September 24, 2027. This verifies signing prerequisites, not a signed
+release artifact or upload.
 
 Google Cloud, AWS and the existing DeepSeek company credential requests remain
 pending. Do not repeat those unchanged questions. Independent authorized

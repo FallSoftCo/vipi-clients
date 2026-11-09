@@ -1,0 +1,116 @@
+{
+  "status": "complete_annotation_and_read_only_inventory",
+  "created_utc": "2026-11-09T16:47:19.645141+00:00",
+  "native_runs": 1,
+  "source_inspections": 200,
+  "translation_calls": 0,
+  "selector_calls": 0,
+  "activation": false,
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/compare.py",
+      "bytes": 4554,
+      "sha256": "d1e3353d91505ad60dd4b7e96658941b2da7c934c22dcf672e021bdc2581f043"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/run.py",
+      "bytes": 8464,
+      "sha256": "7a86e5235bb1b64d05da156fa68f977b46aec631d8046dc32c4ff6b4ab5e2ea3"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/TaskmasterSourceRolesTests.swift",
+      "bytes": 3089,
+      "sha256": "20285a8b8f5d4be2a2efc358204822d4a2590921ef8d83a80fd02bcb421e148c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/RESULT.md",
+      "bytes": 4765,
+      "sha256": "da330b3651bcd2b961658acdd079f445cfb5495d98b5f2d5aceac2a7a27ad92e"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/query_forms.py",
+      "bytes": 1947,
+      "sha256": "611596c76b0126a9a0b6f72a665f60357a8d2b1ee41832bd59df53b9849fcef9"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/stage.py",
+      "bytes": 2492,
+      "sha256": "4c05eb509dd546eb6a050f9760b487ee5512bf9df30800a5e6bc189b54cd4190"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/protocol.json",
+      "bytes": 1655,
+      "sha256": "bb48b39cfa336a83fdcd529b7cb5c504cbb1be7e7d96a298af5dc1d52a8e839a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/inputs-200.json",
+      "bytes": 231123,
+      "sha256": "8ced39c191466dcd6a4f86a3dd738444c8e8d58609f1dbd1d06e46b001c5dc6d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/stage.stdout",
+      "bytes": 4595,
+      "sha256": "8ee4173e0f68fe09d2e18f37f75183d697cb2499751001f7f54f51dc0c67a3f0"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/stage.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/plan.json",
+      "bytes": 7062,
+      "sha256": "58339d32610e8ff3b86c6deed1196a7ad77e95685980da2ff0a8a077d86a1da7"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/run-r01/receipt.json",
+      "bytes": 6025,
+      "sha256": "e4d379156c1f70eecfb440e2bc85ae616eabb65ad00efdda24c4b619f831f39c"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/run-r01/output.json",
+      "bytes": 422551,
+      "sha256": "7af13d9ed88bf07b9d5ac2d0b1f77a2871ab6bd5afe717075899cbd2aaa5bed6"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/run-r01/summary.json",
+      "bytes": 982,
+      "sha256": "557dd66682f6fe918196ea063a0a0819644afb5216887bd6f3561c92f1b50dd7"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/alignment-transfer-inventory.json",
+      "bytes": 1696,
+      "sha256": "b02dc6f936e6edf693768c864a08f826b51ea2545ceda9f4c5220aa3345c532d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/dictionary-query-receipt.json",
+      "bytes": 2099,
+      "sha256": "d9264f48fc8b862da31c060fee6726c1935de2ab6107c2aecf7928698ee58bf4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/source-dictionary-forms.json",
+      "bytes": 128846,
+      "sha256": "e1de9cf865f48664b46b01b09ce87a008415fe191a859e5be0295c4248a59a21"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/edges-172.json",
+      "bytes": 90812,
+      "sha256": "52b0c70f1fb6eb44dc430eda511379a99a34cd8b9a665c889e6d56de4c878b90"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/query_forms.initial.txt",
+      "bytes": 1872,
+      "sha256": "8aae79aadf33e558fa90b72350a219bbb2d1645014990889756f190bb45ca3d1"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/comparison.json",
+      "bytes": 977580,
+      "sha256": "51fefe0b505a3715176dfe3ce040f67fe0d30898ab61d6b21ee1eadea3c16e31"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-roles-20261109-r01/summary.json",
+      "bytes": 935,
+      "sha256": "f70f32dd18e7b6f8e281c6754aa4b150e5a32ce13b4013f9d1de400daabc7472"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "vipi.taskmaster-source-roles-plan.1",
+  "scope": "200 frozen original messages, one FrozenNativeCandidateProvider.inspect each; no target calls or selector",
+  "input_sha256": "8ced39c191466dcd6a4f86a3dd738444c8e8d58609f1dbd1d06e46b001c5dc6d",
+  "harness_sha256": "20285a8b8f5d4be2a2efc358204822d4a2590921ef8d83a80fd02bcb421e148c",
+  "runner_sha256": "7a86e5235bb1b64d05da156fa68f977b46aec631d8046dc32c4ff6b4ab5e2ea3",
+  "bounds": {
+    "compiler_jobs": 2,
+    "prepare_seconds": 180,
+    "build_seconds": 900,
+    "test_seconds": 300,
+    "output_bytes": 8388608,
+    "additional_disk_bytes": 8589934592,
+    "free_floor_bytes": 8589934592
+  },
+  "comparison": {
+    "edges": 172,
+    "mapping": {
+      "Noun": [
+        "noun"
+      ],
+      "Verb": [
+        "verb"
+      ],
+      "Adjective": [
+        "adj"
+      ],
+      "Adverb": [
+        "adv"
+      ],
+      "Interjection": [
+        "intj"
+      ],
+      "Pronoun": [
+        "pron"
+      ],
+      "Determiner": [
+        "det"
+      ],
+      "Preposition": [
+        "prep"
+      ],
+      "Conjunction": [
+        "conj"
+      ],
+      "Particle": [
+        "particle"
+      ],
+      "Number": [
+        "num"
+      ]
+    },
+    "unknown": "Retain unavailable/unknown/unmapped and multiword geometry separately; never treat as compatible or a semantic error",
+    "unit_admission_surrogate": "At least one exact source-form edge compatible; report alternative incompatible edges separately. No actual re-selection or budget recomputation.",
+    "review": "Use unchanged frozen author labels for collateral description; no new semantic labeling"
+  },
+  "no_activation": true
+}

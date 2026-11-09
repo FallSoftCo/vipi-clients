@@ -7,6 +7,17 @@
   "bundle_id": "co.fallsoft.vipi",
   "name": "Mambo Vipi: Language Chat",
   "state": "Prepare for Submission",
+  "signing_profile": {
+    "name": "Vipi App Store 2026-11-09",
+    "portal_id": "9PJ9U4483K",
+    "uuid": "4b0202f4-7944-45cb-a753-013a9c762250",
+    "expires_utc": "2027-09-24T22:02:58Z",
+    "bundle_and_team_verified": true,
+    "production_push_verified": true,
+    "distribution_certificate_matches_available_identity": true,
+    "installed_on_native_mac": true,
+    "release_artifact_signed": false
+  },
   "subscription_groups": [
     {
       "id": "22561715",
