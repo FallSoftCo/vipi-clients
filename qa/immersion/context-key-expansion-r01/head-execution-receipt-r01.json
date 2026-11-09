@@ -1,0 +1,110 @@
+{
+  "production": false,
+  "activation": false,
+  "complete_through": "extract",
+  "heads_started": false,
+  "projection_started": false,
+  "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+  "private_receipts": {
+    "preflight/receipt.json": {
+      "private_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/preflight-receipt.json",
+      "sha256": "66183acb6d10d563914b3852a6ca60f7c1edeae68a41ddc7e9f719f97a26cb95"
+    },
+    "extract/receipt.json": {
+      "private_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/extract-receipt.json",
+      "sha256": "f3f99364220e519658a5abfbd8f13ac5daf6314308c993784e36fc09e8545355"
+    },
+    "extract/fixed-parity.json": {
+      "private_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/extract-fixed-parity.json",
+      "sha256": "4255e2e99f6abe402c31aa3f5f1e57f8dbf4a2600b6db697493d117407749de6"
+    }
+  },
+  "fixed_parity": {
+    "absent_rows_compared_as_empty": true,
+    "aligned_rows_checked": 43797,
+    "all_variant_fields_and_component_memberships": true,
+    "complete": true,
+    "fixed_keys_without_aligned_row": 645,
+    "fixed_source_present_keys": 6461
+  },
+  "metadata_counts": {
+    "variants": 72586,
+    "aligned_source_keys": 19960,
+    "maximum_variant_distinct_components": 3605
+  },
+  "extraction": {
+    "code_sha256": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "complete": true,
+    "counts": {
+      "expanded_observations": 21325,
+      "missing_lexical_parameters": 128536,
+      "observations": 261954,
+      "pairs": 40000
+    },
+    "error": null,
+    "outputs": {
+      "fixed-parity.json": {
+        "bytes": 206,
+        "sha256": "4255e2e99f6abe402c31aa3f5f1e57f8dbf4a2600b6db697493d117407749de6"
+      },
+      "freeze.json": {
+        "bytes": 11802,
+        "sha256": "e2b376dee78b693399354264584fbbf89c725fe6de3f0d41487cb52ac82f1a64"
+      },
+      "observations.jsonl.gz": {
+        "bytes": 21002542,
+        "sha256": "ee370dba8481e6095aefb2ba948552d770a6b5c6c00347a75fda50100efd2080"
+      },
+      "variants.sqlite": {
+        "bytes": 57536512,
+        "sha256": "69f192344970523d8aa2a453058d36613923790f48a6cf3b261657580ff13e14"
+      }
+    },
+    "process_memory_bytes": {
+      "VmHWM": 82026496,
+      "VmPeak": 96399360,
+      "VmRSS": 57106432
+    },
+    "production": false,
+    "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+    "seconds": 63.746613352006534,
+    "stage": "extract"
+  },
+  "preflight": {
+    "code_sha256": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "complete": true,
+    "error": null,
+    "free_bytes": 290106499072,
+    "outputs": {
+      "freeze.json": {
+        "bytes": 11804,
+        "sha256": "1a3b47a7c889dccfd642ba81ce246ab1b1727cbc9ebf3f45bcc7adba2d9e93ae"
+      }
+    },
+    "process_memory_bytes": {
+      "VmHWM": 52023296,
+      "VmPeak": 63832064,
+      "VmRSS": 37494784
+    },
+    "production": false,
+    "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+    "resource_estimate": {
+      "corpus_occurrences": 384269,
+      "maximum_interval_expansions_per_occurrence": 78,
+      "output_policy": "Per-stage disk reservations and SQLite max_page_count; complete alternatives or explicit failed stage, never success with truncation. No fit/corpus model jobs.",
+      "proof_volume_not_yet_measured": true,
+      "source_matched_keys": 25931
+    },
+    "seconds": 0.6182131380192004,
+    "stage": "preflight",
+    "staged_input_bytes": 616385856
+  },
+  "transfer_receipts": [
+    "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/staging-receipt-r01.json",
+    "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/partial-transfer-inspection-r01.json",
+    "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/english-resume-receipt-r01.json",
+    "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/staging-receipt-r02.json"
+  ],
+  "transfer_failure_preserved": true,
+  "dictionary_origin": "Root identifies these exact hash pairs as standard committed app lexical catalog shards; no alternate source was needed after compressed resume completed."
+}

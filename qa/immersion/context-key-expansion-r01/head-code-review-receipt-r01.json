@@ -1,0 +1,35 @@
+{
+  "complete": true,
+  "corpus_stages_executed": false,
+  "synthetic_validation": "PASS",
+  "checks": [
+    "Python syntax for new scripts",
+    "Exact AST-loaded normalization/tokenizer/link geometry",
+    "25931 matching keys and6461 fixed membership",
+    "Original source classifier AST semantics",
+    "Review quotas, deterministic hashing, global uniqueness and no backfill",
+    "Proof-only changes ignored when face/form/reading unchanged",
+    "Local execution rejected before output directory creation",
+    "Lost emitted focus-word depth with longer context is depth_loss",
+    "Equal emitted depth with shorter context is not depth_loss"
+  ],
+  "code_hashes": {
+    "head_compare.py": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "head_review.py": "50ea259e5bf6c40a4ade46ad99490f3c73cf896201da674a32bcf351c141056d"
+  },
+  "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+  "private_preflight_receipt": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/preparation-receipt.json",
+  "new_input_bytes": 616385856,
+  "reserved_output_bytes": 536870912,
+  "total_peak_budgeted_bytes": 1153256768,
+  "approved_envelope_bytes": 1342177280,
+  "actual_proof_volume_unmeasured": true,
+  "production_read_only_metadata": {
+    "hostname": "fallsoft-production-20261106",
+    "free_bytes": 290895347712,
+    "old_fit_and_candidates_present": true
+  },
+  "source_preservation": "No corpus/annotation/dictionary mutation, no device work, no index change.",
+  "regression_test_sha256": "82036686ac06a51459dd84e764779615b61dc441068e8f51c5ad4e7263e3a5f4",
+  "pre_review_hashes_retained": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/pre-review-hashes-r01.json"
+}

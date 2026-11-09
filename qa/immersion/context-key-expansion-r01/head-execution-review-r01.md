@@ -1,0 +1,19 @@
+Latest status: the single heads attempt failed at its frozen SQLite page cap after59.65seconds. It retained5,648 of19,960 contexts and713 eligible heads in83,881,984B. This is an incomplete prefix, not a comparison result. Host free space remained289.9GB; no replay, quota increase, projection or packet occurred. Exact failure and inspection: `head-failure-receipt-r01.json`.
+
+Current execution: manifest staging and one preflight/extraction pass are complete. Exact fixed parity passed for43,797 variant rows across5,816 aligned fixed keys;645 source-present fixed keys correctly had no aligned row. Extraction retained72,586 variants across19,960 aligned keys and261,954 observations in63.75seconds, with82.0MB VmHWM. See `head-execution-receipt-r01.json`. At that checkpoint, heads, projection and packet had not started. The initial raw English transfer timeout and verified compressed resume are retained privately.
+
+The following records the reviewed implementation and execution commands. `head-protocol-r01.json` binds every local/staged input, both code hashes, stage commands and semantic sampling rules. `head-code-review-receipt-r01.json` records synthetic checks and the read-only production metadata check.
+
+After approval, stage only manifest inputs whose `remote` path starts with `/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/`, plus `head_compare.py`, `head_review.py` and `head-protocol-r01.json` in that root's `code/qa/immersion/context-key-expansion-r01/`. Preserve dependency relative paths exactly. Inspect an existing destination before copying: exact hash/size may be reused; a conflict must stop. Existing Tatoeba inputs remain in their original paths and are verified in place. No source corpus, fit or old outputs are copied or changed. No bulk local generation is needed.
+
+The exact stage argv arrays are in the protocol. Execute them sequentially on `fallsoft-production`, once each: `preflight`, `extract`, `heads`, `project`, `packet`. For example:
+
+```sh
+ssh -o ConnectTimeout=10 fallsoft-production 'timeout --signal=TERM --kill-after=10 1210 python3 -B /srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare.py preflight'
+```
+
+Every stage rejects another hostname/root, sets one CPU/nice10/1GiB address space and a1200-second alarm, verifies hashes, writes a freeze before outputs, and captures `/proc/self/status` VmHWM. Existing output directories refuse replay. Failures remain explicit receipts. `heads` requires completed exact fixed-subtable parity, including empty results for source-present keys without aligned candidates. No raw phrase is emitted; same-face candidates receive zero selection credit.
+
+New staged inputs are616,385,856B; with536,870,912B reserved outputs the total is1,153,256,768B, below1.25GiB. Production metadata reported290,895,347,712B free; execution checks the8GiB floor again. Output quotas are4MiB preflight,256MiB extraction,160MiB heads,64MiB projection and28MiB packet. SQLite reserves half its stage quota for its database and half for journals/other evidence; record writes also check prospective disk reservations. Nothing is silently truncated. The384,269 matched source occurrences have a loose worst-case29,972,982 target interval expansions: this bound cannot guarantee completion inside512MiB. Actual proof volume is unmeasured; hitting a quota means a failed/incomplete comparison requiring review, not permission to discard alternatives or enlarge limits.
+
+Estimated runtime remains4–23minutes over the three computational stages, with1200seconds as each hard ceiling. The accepted narrow policy covers content single-token noun/adjective/adverb heads, two withholding states and25% density. Its role/classification/mask limitations are retained; no runtime or semantic approval follows automatically.

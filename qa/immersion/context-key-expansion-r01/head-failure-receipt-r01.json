@@ -1,0 +1,46 @@
+{
+  "production": false,
+  "complete": false,
+  "failed_stage": "heads",
+  "single_attempt": true,
+  "projection_started": false,
+  "packet_started": false,
+  "private_receipt": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/heads-failure-receipt-r01.json",
+  "receipt_sha256": "02fc194730ad5cef742a8412de12dcae47eb41c535c3356873425995e51a4b33",
+  "failure": {
+    "code_sha256": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "complete": false,
+    "error": "OperationalError('database or disk is full')",
+    "outputs": {
+      "freeze.json": {
+        "bytes": 11800,
+        "sha256": "81f280d60ee68fed1aa8fe2326dd1947fd8317a7ab49d240cd632345f84a8100"
+      },
+      "heads.sqlite": {
+        "bytes": 83881984,
+        "sha256": "bca3bc7693ebf8d492dbf71a614a75c9956c26b37b7635f3f2bbbc87fcafa0a4"
+      }
+    },
+    "process_memory_bytes": {
+      "VmHWM": 126263296,
+      "VmPeak": 137289728,
+      "VmRSS": 126263296
+    },
+    "production": false,
+    "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+    "seconds": 59.650094810000155,
+    "stage": "heads"
+  },
+  "read_only_inspection": {
+    "retained_contexts": 5648,
+    "retained_eligible_heads": 713,
+    "page_count": 20479,
+    "page_size": 4096,
+    "free_bytes": 289945186304,
+    "next_stage_dirs_exist": {
+      "project": false,
+      "packet": false
+    }
+  },
+  "interpretation": "SQLite configured page cap reached; host free space remains ample. Incomplete prefix is not a comparison result. No proof dropped, retry or quota increase."
+}
