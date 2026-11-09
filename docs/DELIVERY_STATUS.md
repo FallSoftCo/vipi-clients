@@ -31,9 +31,13 @@ SQLite add-on. All 1,157 rules survive, including 23 no-output winners that must
 block shorter fallback. Original forms, readings, dictionary identities and
 known-family data are preserved; the separate audit metadata is not a runtime
 dependency. Byte determinism and exact input bindings passed. This adds no
-linguistic coverage or display permission by itself. The native reader and
-Unicode matcher are being implemented separately. See
-`qa/immersion/native-context-pack-r01/RESULT.md`.
+linguistic coverage or display permission by itself. The native iOS reader,
+pinned Unicode matcher and reusable source-recognition API now compile and pass
+focused runtime qualification. All exported synthetic rule contexts and 52
+retained full-source records agree across Mac/iOS. An adapter defect around
+valid no-focus dictionary rows was fixed without dropping their guards. Form and
+term admission, ordinary baseline support, known-family filtering and selection
+remain open. See `qa/immersion/native-context-reader-r01/RESULT.md`.
 
 A real, currently uncalled Apple source-role provider is now compiled into the
 app source and qualified on native macOS and the existing iOS Simulator. It
@@ -44,7 +48,8 @@ had different retained/current token geometry and was rejected. Warm Simulator
 median was 1.31 ms on these short inputs; this is not physical-device or maximum
 input performance. Brand/name misses and role mistakes remain, so this provider
 cannot authorize substitutions or clear existing masks by itself. A versioned
-context pack and native matcher are still required before activation. See
+context pack and native matcher are now qualified separately; complete admission
+and selection remain required before activation. See
 `qa/immersion/native-source-role-provider-r01/simulator-qualification-r01.json`.
 
 The discussed NLP approach is partly incorporated. Both native clients have

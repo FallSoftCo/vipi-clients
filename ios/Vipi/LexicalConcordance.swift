@@ -4,6 +4,67 @@ import VipiCore
 
 /// Indexed published dictionary evidence; native Swift lookup and selection.
 enum LexicalConcordance {
+
+    /// Obtain source recognition before target lookup, knowledge or density
+    /// filtering. No caller is installed and no source-name exception is granted.
+    static func sourceRecognition(db: OpaquePointer, original: String, language: String,
+                                  protectedRanges: [NSRange]) throws -> LexicalSourceRecognition.Snapshot? {
+        guard original.utf16.count <= 16_384, protectedRanges.count <= 4096 else { return nil }
+        let length = original.utf16.count
+        let edges = Set(original.indices.map { $0.utf16Offset(in: original) } + [length])
+        func valid(_ r: NSRange) -> Bool {
+            r.location >= 0 && r.location <= length && r.length > 0 &&
+                r.length <= length-r.location && edges.contains(r.location) && edges.contains(NSMaxRange(r))
+        }
+        guard protectedRanges.allSatisfy(valid),
+              let side = try load(db, text: original, language: language) else { return nil }
+        var units: [LexicalSourceRecognition.Unit] = []
+        var formOccurrences = 0
+        for word in side.windows.keys.sorted() {
+            let rawForms = side.forms[word, default: []]
+            // The window inventory includes arbitrary strings. Keep only actual
+            // dictionary analyses or guards; unresolved guards still survive.
+            guard !rawForms.isEmpty || side.blocked.contains(word) ||
+                  side.targetBlocked.contains(word) || side.names.contains(word) ||
+                  side.guards.contains(word) else { continue }
+            var forms: [LexicalSourceRecognition.Form] = []
+            for form in rawForms {
+                let length = form.written.utf16.count
+                let intrinsicRange: NSRange?
+                if form.mode == 0 && form.start == 0 && form.end == 0 {
+                    // Unanalyzed surface: recognition and its guards survive.
+                    intrinsicRange = nil
+                } else {
+                    guard form.start >= 0, form.start <= length, form.end > form.start,
+                          form.end <= length else { return nil }
+                    intrinsicRange = NSRange(location: form.start, length: form.end-form.start)
+                }
+                forms.append(.init(lexemeID: form.lexeme, written: form.written,
+                    intrinsicRange: intrinsicRange,
+                    number: form.number, mode: form.mode, sourceSafe: form.sourceSafe,
+                    targetSafe: form.targetSafe, features: form.features, partOfSpeech: form.pos,
+                    isProperName: form.proper, isGrammar: form.grammar, headword: form.head))
+            }
+            for range in side.windows[word, default: []].sorted(by: {
+                ($0.location, $0.length) < ($1.location, $1.length)
+            }) {
+                guard valid(range), units.count < 4096,
+                      formOccurrences <= 16_384 - forms.count else { return nil }
+                formOccurrences += forms.count
+                units.append(.init(key: word, range: range,
+                    original: (original as NSString).substring(with: range),
+                    sourceBlocked: side.blocked.contains(word),
+                    targetBlocked: side.targetBlocked.contains(word),
+                    hasNameGuard: side.names.contains(word), protectsInner: side.guards.contains(word),
+                    forms: forms))
+            }
+        }
+        guard (side.namedPlaces + side.phrases).allSatisfy(valid) else { return nil }
+        return .init(original: original, language: language,
+            dictionaryRelease: side.release, dictionaryInventory: side.inventory,
+            suppliedProtection: protectedRanges, namedPlaces: side.namedPlaces,
+            phraseRanges: side.phrases, units: units)
+    }
     private static let policies:Set<String>=["native-linked-analysis-concordance-2","native-linked-lexical-units-3","native-linked-lexical-units-4","native-linked-noun-carriers-5","native-linked-modern-lexemes-6","native-linked-chinese-lexical-7","native-linked-noun-gloss-articles-8","native-linked-adjective-agreement-10","native-linked-swahili-reviewed-13","native-linked-swahili-object-carriers-15","native-linked-arabic-plural-readings-16","native-linked-attested-past-verbs-17","native-linked-attested-present-verbs-18"]
     private static let surfaceReadingRule="supplied-arabic-plural-reading-1"
     private static let pastReadingRule="supplied-past-verb-reading-1"

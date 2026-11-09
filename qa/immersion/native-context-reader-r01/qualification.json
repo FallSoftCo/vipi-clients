@@ -1,0 +1,149 @@
+{
+  "schema": "vipi.native-context-pack.independent-qualification.r02",
+  "at_utc": "2026-11-09T12:53:29.016957+00:00",
+  "original_run": {
+    "tests_passed": 2,
+    "tests_failed": 1,
+    "tests_skipped": 0,
+    "failure": "Additive source snapshot rejected valid dictionary mode0/start0/end0 sentinel; retained original failure."
+  },
+  "focused_retest": {
+    "tests_passed": 1,
+    "tests_failed": 0,
+    "tests_skipped": 0,
+    "build_seconds": 29.58495454187505,
+    "test_command_seconds": 8.548024875111878,
+    "source_inputs_verified": 616
+  },
+  "matcher": {
+    "synthetic_rule_contexts": 1157,
+    "current_native_geometry_equal": 1157,
+    "Mac_iOS_stable_field_differences": [],
+    "actual_no_head_winners": 23,
+    "retained_full_sources": 52,
+    "distinct_source_ids": 40,
+    "Mac_iOS_full_records_exact": true,
+    "diagnostic_focuses": 38,
+    "nonempty_winners": 26,
+    "retained_geometry_differences": [
+      "qualified-noun-009"
+    ],
+    "winner_changes_due_to_retained_geometry": 0,
+    "independent_frozen_python_rank_audit": {
+      "focuses_checked": 38,
+      "with_multiple_matches": 5,
+      "matched_windows": 34,
+      "same_length_top_two": 0,
+      "same_all_quality_top_two": 0
+    },
+    "scope": "Synthetic rule contexts are not1157utterances. Full-source matches use all source-spelling keys, not eligible-head candidate selection; no semantic/display approval. No rescue after qualified winner."
+  },
+  "unicode": {
+    "decoded_table_bytes": 51278,
+    "decoded_table_sha256": "930b68ddf7c328233125eeb56a68b6863a9b97942a7a5023128e6ad34b489879",
+    "Mac_raw22_equal_frozen_expected": true,
+    "supported_cases": 20,
+    "unsupported_new_unassigned_cases": 2,
+    "iOS_evidence": "22case exact token/normalizedUTF8/range/alpha assertions passed against same hash-bound fixtures. Attachment stores assertion receipt, not raw per-case outputs; do not claim independent raw iOS JSON comparison.",
+    "scope": "Pinned Unicode15 classification/casefold; sampled Foundation NFC parity only.",
+    "assembly_provenance": {
+      "table_and_token_generator": "generate_unicode.py, frozen production Python3.12.3/Unicode15.0.0",
+      "whole_string_expected_assembly": "Separate system76 Python3.12.6/Unicode15.0.0 NFC+casefold+whitespace collapse step, reconstructed in assemble_unicode_fixtures.py; not emitted by unchanged original generator.",
+      "assembly_recipe_sha256": "8ff9c647a30130980a201223569a68bd1a839dffbf8476f842b7338b82982675",
+      "generator_sha256": "74885b7c126f27dae1c85d28640bfc01d76e64c21e3ba50b7837cf411fb63825",
+      "reconstruction_receipt_sha256": "4a9fb6d2af33eef207fef9407f0369859a4eac06edf3ba339088f80c0e362a29",
+      "three_outputs_byte_exact_reconstructed": true
+    }
+  },
+  "recognition": {
+    "snapshots": 52,
+    "counts": {
+      "unit_occurrences": 730,
+      "name_guard_units": 107,
+      "inner_guard_units": 730,
+      "source_blocked_units": 511,
+      "target_blocked_units": 26,
+      "form_occurrences": 4520,
+      "nil_intrinsic_focus": 196
+    },
+    "actual_dictionary_row_membership_checked": true,
+    "all_original_source_substrings_exact": true,
+    "all_release_inventory_bindings_exact": true,
+    "raw_guard_extra_blocks": [],
+    "fix_review": "Canonical build_lexical_shards.py surface() deliberately emits (0,0,number,0) for unanalyzed supplied surfaces. Exact sentinel now retains recognized form with nil intrinsic focus and unchanged guards. All196nil focuses independently match real mode0/start0/end0 rows. Other invalid intervals still reject. Diff limited to additive snapshot code/type and selected test; no existing admission changes.",
+    "selected_assertions": "Supplied mask survives; all-the-way inner scope protected while whole distinct; mid-surrogate/decomposed-grapheme/oversize reject; source-byte snapshot identity; loading errors not skipped."
+  },
+  "identity_assertions": "Actual hash-bound EN/ES dictionaries and complete metadata loaded. Pack kind/schema/content hash/counts asserted. Three owned empty sidecar fixtures(-wal/-shm/-journal) rejected by identity guard; actual originals untouched. Reader hashes dictionaries before/after metadata and pack after load.",
+  "latency": {
+    "mac": {
+      "observations": 1157,
+      "total_ms": 19.450427,
+      "median_ms": 0.015375,
+      "p95_nearest_rank_ms": 0.026583,
+      "min_ms": 0.010375,
+      "max_ms": 0.1135
+    },
+    "ios_simulator": {
+      "observations": 1157,
+      "total_ms": 73.211288,
+      "median_ms": 0.055375,
+      "p95_nearest_rank_ms": 0.116625,
+      "min_ms": 0.027666,
+      "max_ms": 0.241041
+    },
+    "limits": "Short synthetic contexts only. Method timing includes tokenizer/matcher, excludes pack/dictionary hashing/loading and source roles. Mac includes small comparison/recording overhead. Not cold startup, full chat or physical-device latency."
+  },
+  "state_closure": {
+    "restored": true,
+    "original_keys_verified": [
+      "readingPace",
+      "density",
+      "knownLanguage",
+      "appearance",
+      "onboardingStep",
+      "targetLanguage",
+      "vipi-private-speech-generation"
+    ],
+    "current_extra_keys_preserved": [],
+    "app_not_running": true,
+    "data_preserved": true,
+    "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/E9C9EFEE-12BE-4F73-B8B2-6CFE889AA341",
+    "labs_alive": true
+  },
+  "limits": [
+    "Uncalled research components; no customer activation or approvedOutputs.",
+    "Reader loads rule/head matching only, not form/term/known-family admission or native selector parity.",
+    "Native source recognition is not claimed equal to Python research masks.",
+    "No model/provider calls, downloads, new test/build execution by reviewing agent.",
+    "Independent38-focus ranking audit encountered5multiple-match focuses but no top-two equal-length ties. Same-length ratio/support/weight/leftmost/ID tie-break branches are not credited as separately exercised by these records."
+  ],
+  "final_source_hashes": {
+    "ios/Vipi/FrozenContextPack.swift": "8e12d3902adeed2e2ddd20298840385baf2ae72a92752642c62605fc4ccf2240",
+    "ios/Vipi/FrozenContextTokenizer.swift": "ff877984016259745db30ab29295c2bf98269bc95d3a7333efadaf5bf4d3525e",
+    "ios/Vipi/FrozenContextUnicodeTables.swift": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9",
+    "ios/Vipi/LexicalConcordance.swift": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+    "ios/Vipi/LexicalSourceRecognition.swift": "f341bf42132e555a16c53ac42318d32c376523a90e3e4072445cd0c46a7eaf13",
+    "ios/VipiCryptoTests/FrozenContextPackTests.swift": "8f32da055777363b3ed1e1f64b939eb6347c7eb5a81648eeb26c63c49d94b3a9",
+    "ios/VipiCryptoTests/FrozenContextTokenizerFixture.swift": "2355702263cccb71b9718ae14bb716012a7c1399a26e70d878ef239d6ac301ef",
+    "ios/VipiCryptoTests/FrozenContextTokenizerTests.swift": "c336edc3228ddd180f04ba2cb7cbef31ff2b9ee61ca584b227ac0e2ddb380cf6",
+    "ios/VipiCryptoTests/LexicalSourceRecognitionTests.swift": "7650d7d5fcedd1757f399b06e5781926cdfcffad6b56d14dcc6322eba2b01d0f"
+  },
+  "artifact_hashes": {
+    "attachment-manifest-r02.json": "d90d052b03605a626472a9f32b2e1b0062af99f117ca14cd6a036ac99dfbf1e7",
+    "attachment-manifest.json": "4aa357b1769a9404b5a35506364e3bb54d493868b6c01fbe693ec6f1883f9843",
+    "dictionary-row-audit-input.json": "5a359fed5c4c3f7dae0468a1cc32c7aedaa222bd09fc9e5b109c44d199d53423",
+    "execution-receipt-r01.json": "5b579c12a1f33dd22490e0d75cffcefffc26489f1efbc6a833cfefb43292bf39",
+    "execution-receipt-r02.json": "c864c193c23e5f51ca892a46eed3e11e6acdac0308333588ae44c71c972bda7a",
+    "final-transfer-verification.json": "b3f0d45d4a1778ded6e27eb4b63c2f1b593d01023e16032e3bc73d7eb2faa2a4",
+    "ios-pack.json": "08fbec7753d0cd0b6d50230105729bda9bfd07f2af76b41b24b594b135518125",
+    "ios-tokenizer.json": "602bd254044f4e32b7fbe508f712194494a50892d472c9858d63689f4a84ecc4",
+    "mac-output.json": "91b6c45f627185d4263a04c936eaeb9950b77f247edf4dbaf0879a11bc69c0f2",
+    "recognition-r02.json": "b31f087180b3280c80fc47e5c3b0dcc270b0cceafcbd6aa2129a64df9a93637f",
+    "rule-ranking-audit-input.json": "d8428febb0188ee7062d628f144d08e2203b36072272cdf88b7c3df62ecdec81",
+    "test-summary-r01.json": "9db818aec89af1ecc63e58f76ee922eb8ea11dc981670987f63f18006b15d6c8",
+    "test-summary-r02.json": "6a4696ba4ca9816d2e96c699bb5eb0996dcde1658d2b9570f711b16841514ce3",
+    "transfer-verification.json": "a47184616746a187ba429a26c3d3cf3eadbe4e529f7bb1c8f150a9883f805b31"
+  },
+  "dictionary_builder_source_sha256": "2cfd8041073c21feff9c58b25a72d171decf275e04d4fc42a65d7906c6f199ef",
+  "prior_qualification_sha256": "cc9d2d0e1577b23c567923376b9389cc4a63ea8d9f577cd7552c3b9f7439c418"
+}

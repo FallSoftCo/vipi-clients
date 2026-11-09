@@ -53,6 +53,16 @@ restart their services, or create replacement VMs.
   and stop receipt remain available for later owned qualification.
   Do not run old container/host scripts against retired environments.
 
+The current native build mirror additionally includes the English source-role
+provider and the new context reader/tokenizer/source-recognition components.
+The latter checks verified 616 source/app inputs and retained the four pinned
+dependency revisions. The Simulator build passed, followed by focused matcher,
+Unicode and corrected recognition checks; prior preferences and data were restored.
+These components remain uncalled by customer paths. The exact clean
+LexicalConcordance index blob adds only the recognition API; seven inherited
+working-tree experiments remain excluded. See
+`qa/immersion/native-context-reader-r01/qualification.json`.
+
 Current provider preparation: a dedicated production WorkOS environment/client
 exists, with Vipi branding and callback URLs. Native live tests still use the
 dedicated staging client. Firebase project `mambo-vipi-4f569` is registered under

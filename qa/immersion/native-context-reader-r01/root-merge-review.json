@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T12:56:59.619380+00:00",
+  "hash_inventory_files_verified": 35,
+  "native_sources_exact": 9,
+  "all1157_stable_winners_and_heads_equal": true,
+  "all52_full_source_records_equal": true,
+  "raw_mac_unicode_cases_compared": 22,
+  "nil_form_occurrences_retained": 196,
+  "source_recognition_addition_only": true,
+  "inherited_working_edits_preserved": true,
+  "concordance_clean_index_blob": "4e71c3fe37c47cda069af7b952231b644508cad7",
+  "qualified_concordance_sha256": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+  "customer_activation": false
+}
