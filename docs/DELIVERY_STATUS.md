@@ -1,8 +1,10 @@
 # Current delivery status
 
-Updated 2026-11-09. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-09. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
+
+The owner has reserved the iPad for 8bar Club. Continue Vipi validation in the existing simulators and on the native Mac; do not wait for or resume iPad work. Hardware-specific evidence limits remain identified separately from this work plan.
 
 The canonical workspace is `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Private checkpoints preserve committed source on the consolidated host; the exact verified references are in `BUILD_ENVIRONMENTS.md` and private delivery receipts. Source is private until the client corresponding-source release has been assembled and checked.
 
@@ -22,7 +24,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; native Release compilation passes but signing still prompts for the separate locked `pbtv58` keychain; the interactive login keychain is unlocked. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; the current iOS Debug app and test bundles sign with the company development key, while distribution signing still prompts for the separate locked `pbtv58` keychain; the interactive login keychain is unlocked. |
 
 Apple’s actual Sandbox V2 TEST notification passed: successful provider delivery,
 verified signature, matching retained event and no entitlement created. The

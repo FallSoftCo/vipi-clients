@@ -2,6 +2,8 @@
 
 ## Current authority and consolidation — November 9, 2026
 
+The owner reserves the physical iPad for 8bar Club. Vipi development and validation now use the existing simulators and native Mac; do not launch Vipi iPad tests or interact with that device. Historical physical commands below are receipts, not current instructions. The current-source iOS development build is signed and qualified as a build in `qa/release/native-ios-development-build-r01`; it is not physical UI or App Store acceptance.
+
 This section supersedes host commands and availability claims in the historical
 receipts below. OZZZ-OS and OZZZ-GPU were provider-cancelled. Do not reconnect,
 restart their services, or create replacement VMs.

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "date": "2026-11-09",
+  "source_revision": "ef76d35c9a13e4d82e5d4eb2d0018e00e0fd4e93",
+  "configuration": "Debug",
+  "sdk": "iphoneos",
+  "architecture": "arm64",
+  "company_team": "3TNL2455JT",
+  "certificate_sha1": "EE3063DAFC37F2B1C78A921A376F2B0701831D32",
+  "build_exit": 0,
+  "build_seconds": 113.72636149986647,
+  "compiler_jobs": 2,
+  "binary_sha256": "371a939fe08ed3f1cdd4bb786955068aba2cbac6ee1f4a74d39be487ea56a4e0",
+  "signature_verified_deep_and_strict": true,
+  "entitlements": {
+    "application-identifier": "3TNL2455JT.co.fallsoft.vipi",
+    "aps-environment": "development",
+    "com.apple.developer.team-identifier": "3TNL2455JT",
+    "get-task-allow": true
+  },
+  "privacy_manifests": 13,
+  "committed_apple_source_files": 383,
+  "committed_app_test_resources": 250,
+  "catalog_pinned_generated_files": 66,
+  "compiled_resource_hashes_verified": true,
+  "private_build_receipt_sha256": "25cecb109a5d8c543c07fcdc0767f71feb71ddf61dcde6f1ed6c9b96527d52d4",
+  "project_signing_overlay": {
+    "canonical_sha256": "1f2199c79fb435cc1e0e01f923933dfbcc8fdf409a6e73f61f908aab725d051f",
+    "build_sha256": "edcb01a489b28777a4af0dec6274e119c9d407171a802bad02896ddee88527fe",
+    "purpose": "App keeps exact company development profile/key. Test targets use automatic development signing with the existing Xcode-managed wildcard profile; no provisioning updates requested. Exact company team and login keychain remain set.",
+    "previous_build_sha256": "b3c25f66f560d7b76529220891dafec04a0e5bfdd883c9e59ffb779346e592d2"
+  },
+  "original_failed_attempts_retained": true,
+  "app_store_distribution_signed": false,
+  "uploaded": false,
+  "physical_ui_acceptance": false,
+  "future_validation": "Existing simulators and native Mac only, per owner instruction; leave physical iPad to 8bar Club."
+}
