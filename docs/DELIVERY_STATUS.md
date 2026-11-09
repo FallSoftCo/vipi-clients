@@ -22,7 +22,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Company identity selected; Apple distribution certificate accessible; Android upload key encrypted and retained. Both build definitions reject missing release auth configuration; the iOS production check is qualified and the updated native Simulator app compiles. | Account reauthentication, app records/profiles/products, real purchases/refunds/push/bot, release qualification and upload/review receipts. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Signing profiles, real products/purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. |
 
 ## Current language decision
 
@@ -62,15 +62,24 @@ senses, not a wrong translation in the current message. Repeated or dominant
 translation counts alone do not resolve intended meaning either. See
 `qa/immersion/semantic-admission-gap-r01/RESULT.md`.
 
-The next bounded diagnostic checks eight retained full messages against the
-installed local full-sentence translator and unchanged native alignment. The
-current routing has an important distinction: a full translation requested for
-an already accepted partial attaches the target sentence without rechecking its
-spans. Strict lexical fallback may also abstain before target matching. Neither
-route is being called a semantic confirmer; the diagnostic must establish what
-it can distinguish before a customer adapter is enabled. No new research catalog
-or semantic exception is active. Conversation-level sense selection, useful
-coverage across directions and sustainable progression remain unqualified.
+The completed eight-message diagnostic used exactly eight installed local full
+translations and unchanged native alignment. Neither known wrong focus was
+emitted, but only two of six designated valid controls survived (eggs and
+definitely). Full translation supplied useful context for here and beauty;
+strict dictionary alignment discarded their multiple source analyses before
+examining it. Exercise/station additionally exposed number, sentence and sense
+evidence limits. Several full translations contained separate meaning errors,
+so translation output is not a gold reference. The existing attested target
+projection within recomendaría is intentional; it is not arbitrary slicing.
+
+An isolated A/B experiment now tests retaining all exact lexical claims until
+target matching and reciprocal ownership. It uses the same eight cached targets,
+retains competing claims and source protections, and changes no customer policy.
+The current routing also distinguishes full translation requested for an already
+accepted partial: it attaches the target sentence without rechecking its spans.
+No new research catalog or semantic exception is active. Conversation-level
+sense selection, useful coverage across directions and sustainable progression
+remain unqualified.
 
 The latest comparisons establish these limits:
 
@@ -532,13 +541,15 @@ authentication or same-device registration is credited; earlier real PKCE and
 refresh results remain valid. No retry, code guessing or provider policy change
 is underway.
 
-Owner-facing authentication requests for App Store Connect, Google Cloud, AWS
-and the existing DeepSeek company credential remain pending. Read-only check r04
-found Google password challenges. The later native Apple check identified an
-inactive shared tunnel and the exact Chrome debugging approval sheet, but the
-browser connection still timed out using a temporary private transport. The
-ended debugging request was dismissed and owned transports closed; shared
-services and browser state were preserved. ASC authentication and app records
-remain unobserved, not newly failed authentication. Do not repeat pending
-questions without changed information. No store upload, submission, approval or
-public launch has occurred. Independent authorized development continues.
+The native signed-in Chrome profile now verifies `arjun@fallsoft.co`, Fallible
+Software, Co., team `3TNL2455JT`. Native AppleEvents succeeded after the earlier
+CDP transport failures; shared services and browser profiles were preserved.
+The explicit `co.fallsoft.vipi` identifier has push and in-app purchase capability.
+Private iOS app `6832624092` is **Mambo Vipi: Language Chat**, version1.0,
+Prepare for Submission. Both shorter names were rejected as unavailable; each
+attempt was reconciled before the next. No build upload, review submission or
+public availability follows from creating this record.
+
+Google Cloud, AWS and the existing DeepSeek company credential requests remain
+pending. Do not repeat those unchanged questions. Independent authorized
+qualification and private store preparation continue.

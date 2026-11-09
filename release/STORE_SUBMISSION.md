@@ -1,7 +1,9 @@
 # Store submission preparation
 
-These are reviewable drafts. Nothing in this directory has been uploaded or
-submitted. `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
+These are reviewable drafts. Private Apple app `6832624092`, **Mambo Vipi:
+Language Chat**, has been created under the company account with bundle
+`co.fallsoft.vipi`. No release binary or review submission has been uploaded.
+`docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
 

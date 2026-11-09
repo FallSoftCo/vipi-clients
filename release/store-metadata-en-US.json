@@ -1,16 +1,17 @@
 {
   "schema": "vipi-store-metadata-draft-1",
-  "status": "draft_not_uploaded",
+  "status": "draft_private_app_record_created_no_metadata_upload",
   "locale": "en-US",
   "application_id": "co.fallsoft.vipi",
   "seller": "Fallible Software, Co.",
   "app_store": {
-    "name": "Vipi",
+    "name": "Mambo Vipi: Language Chat",
     "subtitle": "A new language in every chat",
     "promotional_text": "Keep the conversation going. Discover familiar words in another language, reveal the whole meaning, and listen without leaving the chat.",
     "keywords": "chat,language,immersion,messaging,vocabulary,translation,conversation",
     "primary_category": "Social Networking",
-    "secondary_category": "Education"
+    "secondary_category": "Education",
+    "app_id": "6832624092"
   },
   "google_play": {
     "title": "Vipi",
