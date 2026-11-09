@@ -1,0 +1,70 @@
+{
+  "code_sha256": "d31c34c2cfa50d741340baffba0336547150886760589c488e9c803e82331a1e",
+  "contract_sha256": "fac577684ab7ec09871fcda9bcffa2ada9938478ef83d49766169f215ae0edf3",
+  "inputs": {
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "dictionary_es": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "pairs": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "forward_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+      "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+    },
+    "reverse_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+      "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+    },
+    "endpoint_inventory": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/cohort/endpoint-inventory.json",
+      "sha256": "26a5f6fe70067d2d090d44393a502c17295de73a39d41691a89e9620daa1162d"
+    },
+    "apertium_protocol": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-occurrence-roles-20261109-r01/protocol.json",
+      "sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82"
+    },
+    "direct_relations": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/direct-english-candidates.json",
+      "sha256": "9bc923f1b3138d667b3336c171d976d737c294149373f6991ae77945fa2acc7a"
+    },
+    "evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "stream_helper": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/stream_tools.py",
+      "sha256": "122d6850fa34a965643cfcf0449c5612fe059e31171f9409ec7c77f6ca46938c"
+    },
+    "role_helper": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/form_role_join.py",
+      "sha256": "7e02f1a655e9c59c0e84e107d5e0a35c8aacad4f943e73307872bfbf8aae847c"
+    }
+  },
+  "scope": "Every exact source content-role corpus token in fixed7115pairs; selected-pair bias retained. Immutable helper reasons inclVERBunsupportedPOS, no exception override. Counter only, no proofDB/model/fit/projection.",
+  "bounds": {
+    "CPU": 1,
+    "AS_bytes": 1073741824,
+    "seconds": 120,
+    "aggregate_output_bytes": 2097152,
+    "floor_bytes": 8589934592,
+    "additional_reserve_bytes": 8388608
+  },
+  "sizes": "Exact compact serialized deduplicated objects and index logical bytes; existing content-addressed parent objects reusable; no physical-size guarantee",
+  "all_alternatives": "No count/sample truncation, bound failure retained without replay",
+  "command": "python3 -B /srv/fallsoft/staging/vipi-ordinary-content-preflight-20261109-r01/count.py"
+}

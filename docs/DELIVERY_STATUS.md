@@ -191,12 +191,22 @@ The retained-data inventory now confirms 40,000 Tatoeba English–Spanish,
 annotations contain 24,177 potential English content-role occurrences across
 nouns, verbs, adjectives and adverbs, beyond the prior narrow noun pool. These
 are not yet linked or approved substitutions, and the selected 7,115-pair
-annotation cohort remains biased. The next build first measures complete-form
-relations and fixes separate per-POS eligibility requirements. Swahili has a
-smaller retained dictionary and no qualified live source-role route; it cannot
-inherit Spanish validation. Coverage comparison must retain the original
-9,535-message denominator, useful depth and known-vocabulary states. See
+annotation cohort remains biased. Swahili has a smaller retained dictionary and no qualified live source-role
+route; it cannot inherit Spanish validation. See
 `qa/immersion/coverage-expansion-inventory-r01/RESULT.md`.
+
+The complete-form preflight has now counted 260,900 prospective relations across
+those 7,115 pairs without building another proof database. Existing restrictions
+leave 1,350 noun, 442 adjective and 259 adverb source occurrences clear of the
+legacy checks; none of the verbs passes, and these counts are neither approved
+outputs nor gains over the baseline. The projected evidence would add about
+854 MB of logical objects/index data. Bulk materialization is deferred. The next
+bounded comparison first measures baseline overlap, then tests whether matching
+independently supported multiword contexts can admit ordinary nouns otherwise
+blocked by name flags. The prior unrestricted exception remains a diagnostic
+control. Original guards, complete-message denominators, depth and known-word
+states remain. Wider verb/adjective policies are unapproved proposals. See
+`qa/immersion/ordinary-content-preflight-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

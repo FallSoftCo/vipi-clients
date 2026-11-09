@@ -1,0 +1,94 @@
+{
+  "complete": true,
+  "source_files": {
+    "RESULT.md": {
+      "sha256": "1d84ac7436eeb8e38dd7498d315abdc444bf31398bf1d6d9b80bc25a4b887532",
+      "bytes": 9868
+    },
+    "protocol.json": {
+      "sha256": "adec11063aadf8ba4c0a44d0432b57deb7367005a85a52553929f0b30238e655",
+      "bytes": 3881
+    },
+    "CONTRACT.md": {
+      "sha256": "fac577684ab7ec09871fcda9bcffa2ada9938478ef83d49766169f215ae0edf3",
+      "bytes": 6147
+    },
+    "PROPOSED_CONTRACT_R02.md": {
+      "sha256": "c6b41575f0594d55a7847d55b1772f7f54bdcc6db34631191012d3d763164048",
+      "bytes": 11930
+    },
+    "count.py": {
+      "sha256": "d31c34c2cfa50d741340baffba0336547150886760589c488e9c803e82331a1e",
+      "bytes": 13715
+    }
+  },
+  "private_outputs": {
+    "counts.json": {
+      "sha256": "da6bfde1b8c591670023a934e17dc02650c4577a036a77539bda99cfd542dc3f",
+      "bytes": 56832
+    },
+    "protocol.json": {
+      "sha256": "adec11063aadf8ba4c0a44d0432b57deb7367005a85a52553929f0b30238e655",
+      "bytes": 3881
+    },
+    "receipt.json": {
+      "sha256": "85115515d47138f7b61afc0e775b5a5529ccea210c68815280f198818285d871",
+      "bytes": 1417
+    }
+  },
+  "execution": {
+    "complete": true,
+    "protocol_sha256": "adec11063aadf8ba4c0a44d0432b57deb7367005a85a52553929f0b30238e655",
+    "free_bytes": 287981629440,
+    "seconds": 80.63924985498306,
+    "VmHWM_bytes": 330571776,
+    "partial_counts": {
+      "selected_pairs": 7115,
+      "paired_potential_verb": 7302,
+      "source_form_alternatives_verb": 39919,
+      "target_units_in_envelope_verb": 9729,
+      "relation_rows": 260900,
+      "paired_potential_noun": 11969,
+      "source_form_alternatives_noun": 23098,
+      "target_units_in_envelope_noun": 15631,
+      "paired_potential_adj": 3006,
+      "source_form_alternatives_adj": 4179,
+      "target_units_in_envelope_adj": 3783,
+      "paired_potential_adv": 2290,
+      "source_form_alternatives_adv": 2328,
+      "target_units_in_envelope_adv": 3219
+    },
+    "partial_sizes": {
+      "dictionary_form_unique_rows": 35941,
+      "dictionary_form_logical_bytes": 98769912,
+      "new_objects": 330304,
+      "new_logical_bytes": 814637539,
+      "dictionary_unit_unique_rows": 53986,
+      "dictionary_unit_logical_bytes": 39688350,
+      "prospective_relation_unique_rows": 260900,
+      "prospective_relation_logical_bytes": 697068316,
+      "relation_index_payload_bytes": 39703714,
+      "existing_objects_reused": 20523,
+      "existing_logical_bytes_reused": 20889039
+    },
+    "outputs": {
+      "counts.json": {
+        "sha256": "da6bfde1b8c591670023a934e17dc02650c4577a036a77539bda99cfd542dc3f",
+        "bytes": 56832
+      }
+    }
+  },
+  "original_contract_fresh_local_sha256": "fac577684ab7ec09871fcda9bcffa2ada9938478ef83d49766169f215ae0edf3",
+  "remote_launch_contract_sha256": "fac577684ab7ec09871fcda9bcffa2ada9938478ef83d49766169f215ae0edf3",
+  "remote_launch_command": "sha256sum count.py protocol.json CONTRACT.md && python3 -B count.py",
+  "count_program_does_not_verify_contract_file": true,
+  "direct_alignment_reason_gap": "Direct rows reference immutable alignments but do not compute mutual/union rejection flags. No direct display approval.",
+  "logical_size_not_physical": true,
+  "baseline_overlap_not_measured": true,
+  "all_POS_materialization_optional": true,
+  "refined_contract_post_count_proposal_only": true,
+  "no_materialization_fitting_annotation_projection_activation": true,
+  "no_commit_or_index_changes": true,
+  "private_root": "/home/ai/Development/investigations/vipi-ordinary-content-preflight-20261109-r01",
+  "production_root": "/srv/fallsoft/staging/vipi-ordinary-content-preflight-20261109-r01"
+}
