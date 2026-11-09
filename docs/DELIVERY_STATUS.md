@@ -111,6 +111,19 @@ No catalog or classifier was activated. See
 `qa/immersion/lexical-choice-evidence-r01/RESULT.md` and
 `qa/immersion/lexical-relation-provenance-r01/RESULT.md`.
 
+The first bilingual occurrence-role qualification is complete. Two independent
+pre-inference reviews agree on all 80 focus-token roles in 32 frozen parallel
+pairs. OpenNLP matches 37/39 English and 39/41 Spanish focus roles, with no
+false noun rejections among the 63 reference nouns. However, it labels the
+Spanish verbs pediste and llamas as nouns. In “Your name is Tom” / “Te llamas
+Tom,” a noun requirement on both sides would still admit the wrong word-level
+mapping. Those diagnostic results support treating tags as evidence rather than
+semantic approval. The same retained dictionary trace now serializes 17 direct
+English spelling/POS candidates without selecting a source sense; packed terms
+remain unchanged. The next comparison examines existing Apertium morphology and
+contextual tags on the same frozen examples. See
+`qa/immersion/bilingual-occurrence-roles-r01/RESULT.md`.
+
 | Approach | Observed result | Decision |
 |---|---|---|
 | Exact phrase windows, finite slots and typed possessors | Actual Swift/Kotlin agree on the frozen authored examples. The ten-family catalog recognizes only 54 of 9,535 reused TRAIN messages; typed slots add no TRAIN reach. | Keep the mechanism; small template catalogs do not solve broad coverage. |

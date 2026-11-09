@@ -1,0 +1,109 @@
+{
+  "complete": true,
+  "no_activation": true,
+  "no_bulk_annotation": true,
+  "private_root": "/home/ai/Development/investigations/vipi-bilingual-occurrence-roles-20261109-r01",
+  "private_evidence": {
+    "selection-freeze.json": {
+      "sha256": "fc0abe9e039d444e58494102af52a4f7b4e24be0a523f7c26c63dc2018446956",
+      "bytes": 132564
+    },
+    "packet.json": {
+      "sha256": "fe993c979408d69cdc511072581587e67bc4c8c0b91f56b33ee62f772e60eeec",
+      "bytes": 250873
+    },
+    "role-rubric.json": {
+      "sha256": "700031accab3403293393b2974dacd02dbb701686749d1e332125ff4699a79c8",
+      "bytes": 1597
+    },
+    "author-review-r01.json": {
+      "sha256": "b3b5a9675e6610bf459515488c03ef733d630b06017a1064540ed89a033f55c1",
+      "bytes": 27147
+    },
+    "root-review-r01.json": {
+      "sha256": "a196b888aa1468e240fb65ad18c3fb3796cf834316e8e36a6e2df234a30da61d",
+      "bytes": 29924
+    },
+    "acquisition-receipt.json": {
+      "sha256": "69f106cddf0ca02e760cbbcc04866d3e38344706d5b344bf2c5a7d13ad5ab659",
+      "bytes": 1647
+    },
+    "local-acquisition-admission-stopped.json": {
+      "sha256": "e19ccd099b888d76133484eb30792b78916e8d1526e27a038e21240d5668b32b",
+      "bytes": 256
+    },
+    "staging-preflight.json": {
+      "sha256": "07d5d484a74e46fbeaf3359870a0a8a053372f00dcd945e9a748f15d0982a04f",
+      "bytes": 2427
+    },
+    "failed-launch-receipt-r01.json": {
+      "sha256": "e07427dcb1e8ccd932562e3c5b8774b8bd96b2dc129e8b4f85b1ca570f939a0f",
+      "bytes": 2166
+    },
+    "adoptium-metadata-failure-r02.json": {
+      "sha256": "48e91e164080b55f75faf52082c679b1502cd6fa760826200bf5eef17dd86f83",
+      "bytes": 188
+    },
+    "jdk-provision-receipt-r02.json": {
+      "sha256": "43565cc0c6369d8d66694c908139690b688aa4ef86a628e6f20f18d0fb0f1c35",
+      "bytes": 25258
+    },
+    "jdk-archive-preflight-r02.json": {
+      "sha256": "4b7bc1526d20964cc36af5d224650d57fb54cc57e027c06ee5fe70adb8facad7",
+      "bytes": 276
+    },
+    "runtime-amendment-authorization.json": {
+      "sha256": "6b5270b244c688a7924cf62026432f1a564a7b23a54d3c8514093f0ce842e9c2",
+      "bytes": 744
+    },
+    "outputs-r02/receipt.json": {
+      "sha256": "f0b2f6a1577a794416f771a7d05ab312dac5253cf08b87f435309ba746e6fb7f",
+      "bytes": 3190
+    },
+    "outputs-r02/annotations.jsonl": {
+      "sha256": "797f8cee4ec0719bb7b704d7f0d72a01196381e9c3454c12b77aa3049972b866",
+      "bytes": 30735
+    },
+    "joined-comparison.json": {
+      "sha256": "5cc6d24c13d3d78645e93df71e39de5185bd2acbd39cb23d11592265b3ca0c1b",
+      "bytes": 83122
+    },
+    "direct-english-candidates.json": {
+      "sha256": "9bc923f1b3138d667b3336c171d976d737c294149373f6991ae77945fa2acc7a",
+      "bytes": 26566
+    }
+  },
+  "source_files": {
+    "BilingualRoleProbe.java": "1d2224ac6c438f13017beadbb72d9c30702dcd5dcaa60233f46ae9f6a368df36",
+    "RESULT.md": "ee81cb6821fb196c331c8b8cf36e97709f3adca49577b90b8e4ed987e001bea3",
+    "STATUS.md": "2872302b5f6eccedff75ac7ae401066ce29907e24f0240f165ae0ae52d66fdd8",
+    "acquire.py": "009f6e7d097ba99f7e784834aeaa727133f7b3da63c83c21a5fc3248e203a6cb",
+    "assemble.py": "87fee79dfe407731416dbb97aa0cc5db800a8dd192f5066cf2d141c970ab9891",
+    "compare.py": "202f4f01ca098ef27bf26eb3112c6c02878e24e7594b4dbef70dcc9d9e952584",
+    "prepare.py": "f6cdafa6f0b311330e9237c36877646573a8eb29d266459282da84d6bf6a0353",
+    "protocol-r02.json": "52a5e4e5cad0d0ea45463f348321c32d2ef3ba91a12c279dcdaab6ee364114d9",
+    "protocol.json": "c61f84e4634da8ddb9f2b54ff3e90cc153d2f5c9f25153b4e30296fa2fa65d12",
+    "provision_corretto.py": "36bfe36da655340b487112ae0b5f5431ae3a7513ef5d3bf9e4dd34e2e4c48f63",
+    "provision_jdk.py": "e58224f7f1705264f9587baa34375321f24b9c4e9497621fcd52045ba9054764",
+    "run.py": "34b1577f483423ed94909503951642cbd75d4128938b1c668d36310cdc3944d9",
+    "run_r02.py": "bfbc6f9902e7426d1dfe2febf3f6aaa4cf6865a6dac8569d14d1ae0694f85344",
+    "serialize_relations.py": "cc85c3281e84878455a07bc6e84a23191201fadad966423eb9daad13c26450d5"
+  },
+  "denominators": {
+    "pairs": 32,
+    "endpoints": 64,
+    "supplied_tokens": 554,
+    "source_focus_tokens": 39,
+    "target_focus_tokens": 41,
+    "focus_relations": 39,
+    "development_pairs": 8,
+    "dictionary_ambiguous_surface_pairs": 8,
+    "source_hash_diagnostic_pairs": 16
+  },
+  "review_disagreements": 0,
+  "source_role_errors": 2,
+  "target_role_errors": 2,
+  "false_noun_rejections_source": 0,
+  "false_noun_rejections_target": 0,
+  "limit": "Diagnostic only; original reviewer rationales retained, no population or gold claim."
+}

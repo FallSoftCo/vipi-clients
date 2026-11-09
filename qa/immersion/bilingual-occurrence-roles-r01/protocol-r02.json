@@ -1,0 +1,48 @@
+{
+  "schema": "bilingual-occurrence-roles-r02-runtime-only",
+  "packet_sha256": "fe993c979408d69cdc511072581587e67bc4c8c0b91f56b33ee62f772e60eeec",
+  "rubric_sha256": "700031accab3403293393b2974dacd02dbb701686749d1e332125ff4699a79c8",
+  "runner_sha256": "bfbc6f9902e7426d1dfe2febf3f6aaa4cf6865a6dac8569d14d1ae0694f85344",
+  "assets": {
+    "assets/opennlp-es-ud-gsd-pos-1.3-2.5.4.bin.sha512": "85379250f8b42fb365b911b990725976b4886d1123a61d9312f043c831c88dfd",
+    "assets/opennlp-es-ud-gsd-pos-1.3-2.5.4.bin.asc": "99d5432b195fe988a7f9a104524fb697fb19e034880f2c714f38f30e5084fcde",
+    "assets/opennlp-es-ud-gsd-pos-1.3-2.5.4.bin": "c1d7e327acae631bd25936f2efc51c0110c9338fd6e52cfa3e3b234963e55cd5",
+    "assets/LICENSE": "a9d70cb20bd3347acd915e9baa301807809ffbd62b9eb8b538cd28c13ae25d19",
+    "assets/README": "923cbdb6365894f0f0058ded3e76b1e26c28d614e63584641f28a472b63fd77e",
+    "assets/opennlp-tools-2.5.10.jar": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "assets/slf4j-api-2.0.18.jar": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+    "assets/opennlp-en-ud-ewt-pos-1.3-2.5.4.bin": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce",
+    "inputs.tsv": "1deb29ec28aff9b6c351e42a5b063bbbb9cdaf0a6bae6325df065e3fde84de02",
+    "endpoint-map.json": "70fe6fb261b673250b6585730c4ca84f0b98082c1ed7d20fb13ffc33bf6b6291",
+    "packet.json": "fe993c979408d69cdc511072581587e67bc4c8c0b91f56b33ee62f772e60eeec",
+    "role-rubric.json": "700031accab3403293393b2974dacd02dbb701686749d1e332125ff4699a79c8",
+    "BilingualRoleProbe.java": "1d2224ac6c438f13017beadbb72d9c30702dcd5dcaa60233f46ae9f6a368df36",
+    "runtime-corretto-r02/receipt.json": "43565cc0c6369d8d66694c908139690b688aa4ef86a628e6f20f18d0fb0f1c35",
+    "runtime-corretto-r02/amazon-corretto-21.0.13.0.11-linux-x64/bin/java": "640cf85903b594a8e0a918ae557f5325d0d071038f1b7934a98e008a9a9f95fc",
+    "runtime-corretto-r02/amazon-corretto-21.0.13.0.11-linux-x64/bin/javac": "9b80e7b96c8fba83d726d9d8e1ca72b8ce583b2896c78b9f9200a954958fdd10"
+  },
+  "limits": {
+    "CPU": 1,
+    "nice": 10,
+    "heap_MiB": 256,
+    "seconds_compile_plus_run": 120,
+    "outputs_bytes": 8388608,
+    "additional_reservation_bytes": 67108864,
+    "free_floor_bytes": 8589934592,
+    "RLIMIT_AS": null,
+    "total_retained_plus_future_reservation_bytes": 642081168
+  },
+  "virtual_memory_basis": "Prior9535source run succeeded with256MiB heap,134876KiB VmHWM,8.55s; no prior measured VmPeak. Preserve successful no-AS-cap launch, capture current JVM VmPeak/VmHWM.",
+  "sampling": "Eight explicit development controls, eight dictionary ambiguous noun/verb surfaces (not assumed difficult actual roles),16source-hash diagnostics; distinct source IDs.",
+  "scope": "Only frozen64endpoint supplied token tagging; no tokenizer/sentence detector, training, ranking, selection, app activation or corpus batch.",
+  "reference_reviews_required_before_run": true,
+  "model_output_seen_at_freeze": false,
+  "reference_review_sha256": {
+    "author": "b3b5a9675e6610bf459515488c03ef733d630b06017a1064540ed89a033f55c1",
+    "root": "a196b888aa1468e240fb65ad18c3fb3796cf834316e8e36a6e2df234a30da61d"
+  },
+  "java_home": "/srv/fallsoft/staging/vipi-bilingual-occurrence-roles-20261109-r01/runtime-corretto-r02/amazon-corretto-21.0.13.0.11-linux-x64",
+  "parent_protocol_sha256": "c61f84e4634da8ddb9f2b54ff3e90cc153d2f5c9f25153b4e30296fa2fa65d12",
+  "failed_launch_receipt_sha256": "e07427dcb1e8ccd932562e3c5b8774b8bd96b2dc129e8b4f85b1ca570f939a0f",
+  "amendment": "Only private pinned runtime provisioning, absolute java/javac paths and new outputs-r02 directory. All packet/model/harness/reference semantics unchanged."
+}
