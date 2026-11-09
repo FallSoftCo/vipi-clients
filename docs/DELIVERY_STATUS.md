@@ -17,12 +17,12 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
-| Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. Native beginner starter remains unpromoted. | Larger useful vocabulary, contextual sense safeguards, native expanded selection and all remaining directions. |
+| Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. A 45-entry English→Japanese beginner starter is now enabled through both native default routes. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; this small starter is not the 90% coverage target. |
 | Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, physical/acoustic execution and final clean-source release qualification. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; native Release compilation passes but signing is blocked by locked keychains. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; native Release compilation passes but signing still prompts for the separate locked `pbtv58` keychain; the interactive login keychain is unlocked. |
 
 Apple’s actual Sandbox V2 TEST notification passed: successful provider delivery,
 verified signature, matching retained event and no entitlement created. The
@@ -48,6 +48,8 @@ automatic restore detection, a running-process drain or authority to reopen.
 No live hold is enabled. See the recovery-hold receipt in the same directory.
 
 ## Current language decision
+
+The English→Japanese beginner starter is now active in source on both clients. The corrected 45-entry version removes a demonstrated person-name error (`Winter` becoming the season). Both actual default loaders produced identical selections over 128 frozen messages at three caller-known states. Only those two name rows changed from the original capture; all 382 other selections were unchanged. Root review counts 187 correct, 8 minor and 189 empty outputs across repeated states. These are diagnostic agent judgments, not population coverage or native-human gold. This increment selects one vocabulary unit per message, retains source grammar and supplies a Latin-letter reading; durable learned-vocabulary progression remains open. See `qa/immersion/japanese-starter-promotion-r01/RESULT.md` and root acceptance.
 
 Both native apps now contain an indexed source-phrase candidate engine, still
 uncalled by customer presentation. The complete 127 MB catalog retains all
@@ -621,9 +623,7 @@ certificate matches the existing available company distribution identity and
 expires September 24, 2027. This verifies signing prerequisites, not a signed
 release artifact or upload. The clean device Release build at `6063b0c`
 compiled with the production WorkOS identifier and pinned device dependencies,
-but archive signing failed with `errSecInternalComponent`. Both native signing
-keychains were independently observed locked. The original failure/log and
-build outputs remain retained; no signed archive or upload is credited.
+but archive signing failed with `errSecInternalComponent`. Both keychains were initially observed locked through SSH. A later interactive check found the login keychain unlocked, but the signing retry still prompted for locked `pbtv58`, even with the login keychain explicitly selected. The exact owned build/codesign processes were stopped; no password or keychain configuration was changed. Both failures and outputs are retained; no signed archive or upload is credited.
 
 Vipi-only production APNs key `H8D2H8HN35` is registered, downloaded once,
 cryptographically checked and retained in protected native/production credential
@@ -644,3 +644,5 @@ availability and one-person App Store purchase settings. Store metadata is not
 purchase qualification: real transactions, notifications, provider readiness,
 release screenshots and review remain open. See
 `release/apple-store-configuration.json` for exact identifiers and draft state.
+
+Production WorkOS provider lifecycle now passes real password authentication, pinned-JWKS verification, public-client refresh, rotation and session revocation/rejected refresh on a tagged disposable fixture. Cleanup is verified. Hosted native sign-in, email delivery and live authentication cutover remain separate; see `qa/backend/workos-production-lifecycle-r01/receipt.json`.

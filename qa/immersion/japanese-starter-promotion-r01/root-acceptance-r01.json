@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "at": "2026-11-09T18:53:14.045825+00:00",
+  "decision": "Accept bounded English-to-Japanese45-entry starter in both native default routes. This is not broad conversational or store-release acceptance.",
+  "independent_review_frozen_before_author_labels": "e4384dbdea0f8bdfcf77517bd7927ebaa8d22a989d06f149c025645d0d28b24f",
+  "original_apple_packet_sha256": "7dc8293c4359d71aa2e8833f509eadf02b51dfd6a852d6abeba7e356469a414d",
+  "final_apple_packet_sha256": "06dfba8d7907956d2423a2e1ac6542571b6a2ff740f09b93e7bc7369ddbf4ced",
+  "final_android_packet_sha256": "759340fc98b2b220edf0ab4281f62863ce731dc801d4d79a99a013ebd338fcc3",
+  "original_root_labels": {
+    "correct": 187,
+    "empty": 187,
+    "minor": 8,
+    "material": 2
+  },
+  "final_root_labels": {
+    "correct": 187,
+    "minor": 8,
+    "empty": 189,
+    "material": 0
+  },
+  "rows": 384,
+  "unique_sources": 128,
+  "known_states_per_source": 3,
+  "root_recomputed_cross_platform_span_identity": true,
+  "changed_rows": [
+    {
+      "id": "ja-fresh-011",
+      "known_state": 0,
+      "change": "Winter-person source preserved; no emitted span"
+    },
+    {
+      "id": "ja-fresh-011",
+      "known_state": 1,
+      "change": "Winter-person source preserved; no emitted span"
+    }
+  ],
+  "all_other382_span_arrays_unchanged": true,
+  "remaining_limits": [
+    "Independent agent language judgments, not native-human gold or population estimate.",
+    "Four source contexts retain minor lexical-specificity/naturalness concerns; author/root disagreements retained.",
+    "One selected unit per message; no durable learned-vocabulary progression implemented here.",
+    "Known-state inputs are caller snapshots. Full-translation fallback unavailable by explicit injection in this capture.",
+    "No new device pronunciation, signed binary, store upload or all-language coverage claim."
+  ]
+}

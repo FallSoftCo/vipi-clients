@@ -1,0 +1,34 @@
+{
+  "frozen_utc": "2026-11-09T18:39:57.895077+00:00",
+  "parent46_sha256": "44516f6b5bd289cb31cd3e611e8b0943b763a438615a0e357504dc69b735ab9d",
+  "new45_sha256": "62e147bdad14a8f2bc96de2099fa7977c3e125ef5ef6870c34e1d2716128807e",
+  "removed_entry": {
+    "category": "content",
+    "concept_id": "winter",
+    "id": "word-en-ja-winter",
+    "pos": "noun",
+    "reading": "fuyu",
+    "reading_kana": "ふゆ",
+    "record_sha256": "89fc06b6b805031b153e43bba8d348f5136a8e50b58c897c094b35298c315b2c",
+    "source": "winter",
+    "source_tokens": [
+      "winter"
+    ],
+    "target": "冬",
+    "train_rank": 467
+  },
+  "all_other_entries_identical": true,
+  "root_review_sha256": "e4384dbdea0f8bdfcf77517bd7927ebaa8d22a989d06f149c025645d0d28b24f",
+  "author_review_sha256": "c30ce503885692d9da432e5448f2865dc4bd3ca92a215e7147771e4a2fb413c6",
+  "default_flags_enabled": true,
+  "known_state_api": "Android optional caller snapshot constructor argument; Swift existing configure",
+  "source_hashes": {
+    "ios/Vipi/JapaneseStarterLookup.swift": "a048d8b97e06acb519ecc4bbfcad74b6824b4c7390ad3a23239bad7c5ab87ad7",
+    "ios/Vipi/ConversationImmersion.swift": "1626497edc19c2e17557d7f263f32df640c2c09719d3be1a5b125507f786c7d8",
+    "ios/VipiCryptoTests/JapaneseStarterPromotionTests.swift": "fb8aef40fb23ed86cc181241d3b7db48d2c9ccb4605f61fc7587d6ffa2c4f96d",
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": "34dc220aee562cedce84760e6e0c7e2a2aff5c30db53c76b2e541c8944d73da8",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "6ab3e1a3810026426034efbc2f23d0790225859efe6a8d143c03fa2462adf6ee",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseStarterPromotionTest.kt": "bc604fbe1c27b582b5ee954f2aeb7623b95bb9d38b5226660ce86488859a16e4",
+    "data/immersion/starter-catalog.json": "abe4ba0eef60f32d02587eee2418263e505f829c30b72585ebfd5f8e06574bf4"
+  }
+}

@@ -65,21 +65,13 @@ working-tree experiments remain excluded. See
 
 Current provider preparation: a dedicated production WorkOS environment/client
 exists, with Vipi branding and callback URLs. Native live tests still use the
-dedicated staging client. Firebase project `mambo-vipi-4f569` is registered under
+dedicated staging client. Production provider password/JWT/public-refresh/revocation qualification now passes on a disposable tagged fixture; this does not establish hosted native sign-in or a live authentication cutover. Firebase project `mambo-vipi-4f569` is registered under
 FallSoft; real FCM credentials and push delivery remain unqualified. The first
 Android upload key has an encrypted PKCS#12 recovery copy on Storage Box, with
 its password held separately in private local/production paths. No secret value
 belongs in source. New November 8 migration evidence demonstrates native company
 Xcode account access for the separate 8bar release, but that team's later native
-distribution attempt failed authentication before upload. Vipi's App Store Connect
-browser session and app record remain unverified. An earlier read-only check was
-cancelled while queued; a later native connection still timed out after inspecting
-and handling the exact Chrome debugging approval sheet and using a temporary
-private SSH transport. No store navigation occurred. The ended request was
-dismissed and owned connections closed without restarting shared services or
-Chrome. These control-path failures do not establish an authentication failure.
-Google Cloud and AWS authentication
-steps remain open; no Vipi app-store submission receipt exists.
+distribution attempt failed authentication before upload. Vipi now has a verified company App Store Connect session and private app `6832624092`, distribution profile, draft metadata and annual products. Its own production-configured Release compilation passed; signing still prompts for locked `pbtv58` despite the interactive login keychain being unlocked. Owned waiting processes were stopped and both attempts retained. The retired VM is not a signing fallback. Google Cloud and AWS authentication steps remain open; no Vipi app-store submission receipt exists.
 
 The native migration reconciliation retained the legacy Vipi source snapshot,
 final post-drain runtime state and offline guest backups. The migration owner

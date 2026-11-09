@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "client_id": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+  "environment_id": "environment_01M6VYVQJ917R9W5V4W5T1WCWT",
+  "passed": true,
+  "synthetic_admin_provisioned_fixture": true,
+  "email_delivery_qualified": false,
+  "hosted_native_sign_in_qualified": false,
+  "live_api_changed": false,
+  "steps": [
+    {
+      "step": "01-preflight",
+      "status": 200,
+      "time": "2026-11-09T18:42:53.431908+00:00"
+    },
+    {
+      "step": "02-create",
+      "status": 201,
+      "time": "2026-11-09T18:42:53.709371+00:00"
+    },
+    {
+      "step": "03-password",
+      "status": 200,
+      "time": "2026-11-09T18:42:54.020161+00:00"
+    },
+    {
+      "step": "05-revoke",
+      "status": 200,
+      "time": "2026-11-09T18:42:54.616994+00:00"
+    },
+    {
+      "step": "07-cleanup-lookup",
+      "status": 200,
+      "time": "2026-11-09T18:42:54.795396+00:00"
+    },
+    {
+      "step": "08-cleanup-delete",
+      "status": 200,
+      "time": "2026-11-09T18:42:54.974111+00:00"
+    },
+    {
+      "step": "09-cleanup-verify",
+      "status": 200,
+      "time": "2026-11-09T18:42:55.061943+00:00"
+    }
+  ],
+  "real_jwt_verified": true,
+  "public_refresh_status": 200,
+  "refreshed_jwt_verified": true,
+  "refresh_token_rotated": true,
+  "revoked_refresh": {
+    "status": 400,
+    "error_code": "invalid_grant"
+  },
+  "fixture_removed": true,
+  "auth_source_sha256": "9d3fcf21c075f256515cb782dcf0e1befc364545c2df03f6725a5668de28a7b8",
+  "finished": "2026-11-09T18:42:55.067661+00:00",
+  "qualification_script_sha256": "08fd9b8865b0100d00b32c8e53ae6fede1ae214e703afcb6ac0abbd86fb08925",
+  "fixture_identities_or_credentials_included": false
+}

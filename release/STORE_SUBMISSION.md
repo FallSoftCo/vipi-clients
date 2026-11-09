@@ -38,6 +38,8 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The retained ARM64 qualification estimates about 407 MB, but that blank-auth/debug-signed qualification must never be uploaded. Re-measure the final signed build and confirm the console calculation. See `store-size-constraints.json`.
+
 ## Reviewer access
 
 Use an owned review account against the real release environment, with a

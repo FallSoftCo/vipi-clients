@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "completed_utc": "2026-11-09T18:53:10.469909+00:00",
+  "base_revision": "869d0df495a8b180c12c15645a93b9033b05bbe8",
+  "status": "corrected default path qualified and root accepted for source promotion",
+  "candidate_default_flags_enabled": true,
+  "customer_release_or_upload": false,
+  "current_entries": 45,
+  "original46_preserved": true,
+  "pack_sha256": "62e147bdad14a8f2bc96de2099fa7977c3e125ef5ef6870c34e1d2716128807e",
+  "all_remaining_entries_unchanged": true,
+  "rows_per_platform": 384,
+  "nonempty_by_known_state": [
+    100,
+    95,
+    0
+  ],
+  "all_platform_span_arrays_identical": true,
+  "only_emission_changes": "Winter person case states0/1 withheld;382other rows unchanged",
+  "new_translation_calls": 0,
+  "private_files": {
+    "apple-output-r05.json": {
+      "sha256": "2e45bb5d18f8ce340d38697c24c5c0abdb2d86c3f84ac197b5831e3bdca49861",
+      "bytes": 489027
+    },
+    "apple-review-packet-r05.json": {
+      "sha256": "06dfba8d7907956d2423a2e1ac6542571b6a2ff740f09b93e7bc7369ddbf4ced",
+      "bytes": 406783
+    },
+    "apple-run-r05.stdout": {
+      "sha256": "894bddb58804a785da983ecdf7987555c4f9d5430c04de0716e3eeb82a75d0f4",
+      "bytes": 5284
+    },
+    "android-capture-r06/output.stdout": {
+      "sha256": "3f41d367a7e57cfd1208b8d4354faca2e61dd3a97cb87aad1b93ff03a280737a",
+      "bytes": 485832
+    },
+    "android-capture-r06/receipt.json": {
+      "sha256": "e1f8c8f95f376097a4590c13ee30c715548a5dd919c16fb3dc7930b2a4f634ff",
+      "bytes": 788
+    },
+    "android-capture-r06/route-smoke.stdout": {
+      "sha256": "123da2b7e8ce1c2bc167f20b735a566f62cf3c77fc9fe09caac52c6e3fd5c2cc",
+      "bytes": 461
+    },
+    "android-review-packet-r06.json": {
+      "sha256": "759340fc98b2b220edf0ab4281f62863ce731dc801d4d79a99a013ebd338fcc3",
+      "bytes": 407664
+    },
+    "final-verification-r06.json": {
+      "sha256": "7a91095d467eece1aa04627c6c027e9aff174eb989386f01154ef8e6c0f15a6e",
+      "bytes": 3356
+    },
+    "final-review-disposition-r06.json": {
+      "sha256": "b582be562484d0ba37c4891e5ad18e5051f8cace0cadd2712b8af9a1932de8c3",
+      "bytes": 143272
+    },
+    "joined-review-r01.json": {
+      "sha256": "367da77956abc52d3d3c1b6d4045c895de4ad1b5a3487a7fcc82e0cd21b67beb",
+      "bytes": 5632
+    },
+    "root-apple-review-r01.json": {
+      "sha256": "e4384dbdea0f8bdfcf77517bd7927ebaa8d22a989d06f149c025645d0d28b24f",
+      "bytes": 132573
+    },
+    "author-apple-review-r01.json": {
+      "sha256": "c30ce503885692d9da432e5448f2865dc4bd3ca92a215e7147771e4a2fb413c6",
+      "bytes": 203881
+    },
+    "opt-in-test-amendment-r06/receipt.json": {
+      "sha256": "ed41cb5c21bef6e4e691350ebcbd5e19d32310e9b6aa161ab66c241a2b314ba8",
+      "bytes": 929
+    },
+    "opt-in-test-amendment-r06/exact-body-parity.json": {
+      "sha256": "f4b9bf99ef59fa45b24a2b7e896f6e7937fa713bb1fc0f5e42d79c97d8148322",
+      "bytes": 157
+    },
+    "android-capture-r05/admission-failure.json": {
+      "sha256": "7ce1ff2e0af429f436318f213ece61293a7c98bc8281d2f82c01f314a3657783",
+      "bytes": 411
+    },
+    "final-native-source-r06.patch": {
+      "sha256": "e6234cc8505c80f9a44a508896f592b79c680da97e6af19f0694dd027df9a2a1",
+      "bytes": 65919
+    }
+  },
+  "source_hashes": {
+    "ios/Vipi/JapaneseStarterLookup.swift": "a048d8b97e06acb519ecc4bbfcad74b6824b4c7390ad3a23239bad7c5ab87ad7",
+    "ios/Vipi/ConversationImmersion.swift": "1626497edc19c2e17557d7f263f32df640c2c09719d3be1a5b125507f786c7d8",
+    "ios/VipiCryptoTests/JapaneseStarterPromotionTests.swift": "c5b0af86bd2ebd3194e3dc678b82fe27bc12677001225639d9ea024bfab5c004",
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": "34dc220aee562cedce84760e6e0c7e2a2aff5c30db53c76b2e541c8944d73da8",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "6ab3e1a3810026426034efbc2f23d0790225859efe6a8d143c03fa2462adf6ee",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseStarterPromotionTest.kt": "05cf6019acae590ee183aee7c1ee29363fa666087f47088d7d8e0e3110619082",
+    "data/immersion/starter-en-ja-002.json": "62e147bdad14a8f2bc96de2099fa7977c3e125ef5ef6870c34e1d2716128807e",
+    "data/immersion/starter-catalog.json": "abe4ba0eef60f32d02587eee2418263e505f829c30b72585ebfd5f8e06574bf4"
+  },
+  "result_sha256": "b61dcc0311155c6f871761c190041582b4d3183d271ca588c4e111221c45944c",
+  "apple_post_capture_source_delta": "initial absent-opt-in test skip guard only; exact body parity proven; production code unchanged",
+  "android_opt_in_guard_compiled_and_capture_passed": true,
+  "limitations": [
+    "agent judgments, not native-speaker certification",
+    "minor judgments and disagreements retained",
+    "diagnostic128 sources, not population coverage",
+    "no measured current-app baseline gain",
+    "caller-known snapshot, not durable progression",
+    "supplied masks not proof of general live mask acquisition",
+    "no broad name recognition guarantee",
+    "default trace inventories recomputed diagnostically with identical bound source inputs"
+  ],
+  "compiler_reproduction": {
+    "source_sha256": "3dc7ad08ea33a56c85229a25271efc979ac0a5e1f4121905898148d28e0dbe17",
+    "both_asset_files_exact": true
+  },
+  "necessary_harnesses": {
+    "run_apple_r05.py": "1be6e06d0f94777d5d8582cb50c19b3f51f0d45a47db5f19afea163185bbac92",
+    "compile_pack.py": "3dc7ad08ea33a56c85229a25271efc979ac0a5e1f4121905898148d28e0dbe17",
+    "verify_final.py": "5f82266fa47cb663d7c98b4ce454b884552ec3cfb192906d56a4457628d9eb80",
+    "run_android_assembly_r06.py": "8b0c4b003efc9a9e87995f4b5dbf246a9036adddfa9ed7c87e9a17c152715db0",
+    "assemble_review_r05.py": "67448ca0b47b378eb2d236edd399ff08b37c19f4f71d562e3e6424dfb1ab1972",
+    "run_android_capture_r06.py": "6543a9aaef944289a2fdf3716b5c22e969d7e0b200f95fb6dc303a49dbdeb324"
+  }
+}

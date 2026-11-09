@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "checked_date": "2026-11-09",
+  "google_play": {
+    "primary_reference": "https://support.google.com/googleplay/android-developer/answer/9859372?hl=en",
+    "base_module_compressed_download_limit": "500 MB",
+    "limit_basis": "Play Console compressed download calculation; bundletool is a close estimate, not the same calculation",
+    "over_200_MB_mobile_data_dialog": "non-blocking",
+    "retained_qualification_arm64_estimate_bytes": [
+      406546742,
+      406585883
+    ],
+    "qualification_only": true,
+    "qualification_artifact_must_not_be_uploaded": true,
+    "final_production_bundle_and_console_acceptance": "not yet qualified"
+  },
+  "decision": "Do not introduce an asset-delivery split solely on an outdated 200 MB base-module assumption. Re-measure the final signed bundle; keep selected-pair download/update integration as separate work.",
+  "apple": "This receipt does not qualify App Store size or upload acceptance."
+}

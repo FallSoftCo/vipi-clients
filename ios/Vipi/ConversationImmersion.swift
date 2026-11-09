@@ -60,7 +60,7 @@ import VipiCore
 
     init(modelStatus: @escaping (TranslationPair) async -> LocalLanguageAvailability = { await LanguagePreparation.nativeStatus($0) },
          fullTranslationTimeout: Duration = .seconds(30),
-         sourceUnits: SourceUnitLookup? = nil,
+         sourceUnits: SourceUnitLookup? = JapaneseStarterLookup.bundledIfPromoted(),
          fullReadingProducer: @escaping FullReadingCache.Producer = { FullSentenceReadings.resolve($0, language: $1) }) {
         precondition(fullTranslationTimeout > .zero && fullTranslationTimeout <= .seconds(30))
         self.modelStatus = modelStatus; self.fullTranslationTimeout = fullTranslationTimeout
