@@ -1,0 +1,10 @@
+{
+  "reference_sha256": "34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3",
+  "output_sha256": "6d598e380628a9fccde4079dc482da12691cf5b5b8ee18ef8d908d3c45ca29b3",
+  "cases": 52,
+  "candidate_occurrences": 145,
+  "full_decision_comparisons": 312,
+  "gate_comparisons": 46,
+  "differences": [],
+  "scope": "Root independent retained diagnostic parity; actual Apple live observations, stale-input/order amendments still separate"
+}

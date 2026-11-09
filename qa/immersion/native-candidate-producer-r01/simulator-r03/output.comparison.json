@@ -1,0 +1,13 @@
+{
+  "cases": 52,
+  "candidate_occurrences": 145,
+  "differences": [],
+  "equal": true,
+  "identity_preparation_ms": 968.176458,
+  "producer_ms": {
+    "min": 0.354292,
+    "median": 3.5366665,
+    "max": 12.849791
+  },
+  "input_sha256": "8ffadf7720eaa38e2180112bd689c9ca789938df0d3306e76bbd037b5191cd00"
+}

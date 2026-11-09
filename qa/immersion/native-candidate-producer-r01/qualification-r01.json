@@ -1,0 +1,277 @@
+{
+  "status": "qualified_bounded_disabled_research_components",
+  "canonical_base": "d1ae542; native qualified prior head admission retained; no canonical edits or merge by worker",
+  "new_sources": {
+    "final-sources/ios/Vipi/FrozenCandidateCatalog.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift",
+      "sha256": "5a125d7541c52924b12754e26c4afb9dde7f145bdc871308169263b15ed7402f",
+      "bytes": 7646
+    },
+    "final-sources/ios/Vipi/FrozenCandidateProducer.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateProducer.swift",
+      "sha256": "ea2d20dcadf9e7f8897e8b89fcd9f47490ac51d4496d6dfa9ed6eb3857cfa045",
+      "bytes": 10459
+    },
+    "final-sources/ios/Vipi/FrozenCandidateSelection.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateSelection.swift",
+      "sha256": "9c45e813eddfafcb03dd40e2e958de466995cbdeff571278e0d0109c2942b7de",
+      "bytes": 4328
+    },
+    "final-sources/ios/Vipi/FrozenNativeCandidateProvider.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenNativeCandidateProvider.swift",
+      "sha256": "1025f99e94404cf0045059ab8aa1c039cf0ac65c0137dac86d78a587174acb66",
+      "bytes": 4532
+    },
+    "final-sources/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift",
+      "sha256": "27b612e7f55a7d7392f62a96ee8b99021d3766a772931eb93bc79321f799c232",
+      "bytes": 4414
+    },
+    "final-sources/ios/VipiCryptoTests/FrozenCandidateQualification.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateQualification.swift",
+      "sha256": "50d4a988a556c08b2447f0099ac80ad6c701520e979c999ac7dec29197adc452",
+      "bytes": 7785
+    }
+  },
+  "artifacts": {
+    "transfer-receipt.json": "6e1ca4a89ea321505f0f6fbc04950359d78d93c0a5457d1d53715651cf029b76",
+    "mac-r02/output.json": "ec5f0e04e1e85469057c19e3d46caa8194a77dea5238920e758054613c3b5f36",
+    "mac-r02/output.comparison.json": "83d59dbd241fc40173b540e7021739cf757d4ffd956fddba3230505c03fba569",
+    "simulator-r03/output.json": "8ffadf7720eaa38e2180112bd689c9ca789938df0d3306e76bbd037b5191cd00",
+    "simulator-r03/output.comparison.json": "ff1730d41c3cc0aab311906db3b0d857f3a5a7c93f88ba658553ed49f28141fa",
+    "simulator-r03/receipt.json": "157caef156a787fe4ba91bc285ee92226121fe725234dbd68a0dbc9c544b4b3d",
+    "actual-native-differences-r01.json": "932fdf318ff3e7515ab8b7d064a7c1e29c401a41c71e9c50536af7e6bb45bac3",
+    "final-native-inventory.json": "1d0ffb8d34051138d9bb57b88bcf7aee0725800c2407b4cc0d309feadd2dafeb"
+  },
+  "diagnostic_parity": {
+    "cases": 52,
+    "distinct_sources": 40,
+    "candidate_occurrences": 145,
+    "all_fields_order_and_geometry_rejections_equal": true,
+    "gate_scopes": 46,
+    "all_gate_candidate_indices_admitted_indices_winner_context_reason_equal": true,
+    "complete_decisions": 312,
+    "decision_axes": "52\u00d72 frozen known states\u00d7baseline/experimental/qualified; include ranking/prebudget/budget/rejections/mixed output",
+    "mac_r02_ios_r03_all_stable_diagnostic_payloads_equal": true,
+    "reference": "Retained TRAIN observations, not new corpus coverage or bilingual semantic gold."
+  },
+  "actual_native": {
+    "actual_candidates": 145,
+    "diagnostic_candidates": 145,
+    "mapped_role_occurrences": 5,
+    "nonempty_actual_all_function_baseline": 14,
+    "nonempty_diagnostic_all_function_baseline": 14,
+    "nonempty_actual_all_function_experimental": 35,
+    "nonempty_diagnostic_all_function_experimental": 35,
+    "nonempty_actual_all_function_qualified": 26,
+    "nonempty_diagnostic_all_function_qualified": 26,
+    "nonempty_actual_all_function_global300_baseline": 9,
+    "nonempty_diagnostic_all_function_global300_baseline": 9,
+    "nonempty_actual_all_function_global300_experimental": 23,
+    "nonempty_diagnostic_all_function_global300_experimental": 23,
+    "nonempty_actual_all_function_global300_qualified": 14,
+    "nonempty_diagnostic_all_function_global300_qualified": 14,
+    "role_status_ready": 52,
+    "geometry_cases": 1,
+    "changed_outputs_all_function_baseline": 1,
+    "changed_outputs_all_function_experimental": 3,
+    "changed_outputs_all_function_qualified": 1,
+    "changed_outputs_all_function_global300_baseline": 1,
+    "changed_outputs_all_function_global300_experimental": 3,
+    "changed_outputs_all_function_global300_qualified": 1,
+    "gate_cases": 2,
+    "protection_cases": 2
+  },
+  "actual_observation_details": [
+    "video maps noun\u2192adj; deaf maps adj\u2192noun on2 occurrences; boys becomes raw-tag unknown on2 duplicate source cases. No semantic relabeling.",
+    "needs.it remains one current Apple-vs-retained geometry difference. Produced candidate identities/order remain145 occurrences.",
+    "Two duplicate IVF source cases gain independent detected-name protection [45,48]. Source dictionary mask RANGE SETS match all52; native IDs differ and are not asserted Python-identity equal.",
+    "Qualified mixed output differs on one case under each frozen knowledge state, withholding deaf. Equal26/14nonempty counts are not equal semantics or useful coverage.",
+    "196 mode0/nil intrinsic forms survive source snapshots; none qualifies a name-only live mapping by provider guard."
+  ],
+  "controls": {
+    "same_source_length_stale_original_rejected": true,
+    "changed_protection_rejected": true,
+    "control_runs": "52diagnostic+52actual per selectediOS test; same frozen diagnostics on Mac",
+    "interleaved_focus_groups": "2 explicit synthetic helper controls preserve global indices [0,1,2,3,4,5] despite groups [2,4] and [3,5]; not claimed exercised by52 sparse cases.",
+    "invalid_mid_surrogate_protection_rejected": true,
+    "supplied_whole_water_protection_retained": true,
+    "explicit_raw_role_mapping": "Noun\u2192noun, Adjective\u2192adj, Adverb\u2192adv; nil/Verb/PersonalName abstain. Actual tag differences recorded."
+  },
+  "timing_ms": {
+    "mac_identity_preparation": 929.13075,
+    "ios_identity_preparation": 968.176458,
+    "mac_diagnostic_producer": {
+      "minimum": 0.178583,
+      "median": 1.4836875,
+      "p95_nearest_lower_rank": 4.788375,
+      "maximum": 5.139667
+    },
+    "ios_diagnostic_producer": {
+      "minimum": 0.354292,
+      "median": 3.5366665,
+      "p95_nearest_lower_rank": 11.572625,
+      "maximum": 12.849791
+    },
+    "ios_actual_producer": {
+      "minimum": 0.358,
+      "median": 3.336896,
+      "p95_nearest_lower_rank": 11.57575,
+      "maximum": 12.631875
+    }
+  },
+  "timing_limits": "Method timings include lazy indexed catalog retrieval, frozen tokenization, candidate classification/gating and input identity creation. Exclude native role/sourceRecognition inspection, selection, and identity preparation. One host/short retained sources; no cold-start/full-chat/phone-performance or cache speedup claim. Provider and immutable pack/catalog reused per identity, no101MB JSON reload per message.",
+  "mac_process_memory_evidence": "        1.71 real         1.18 user         0.21 sys\n          1466597376  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n               90117  page reclaims\n                   1  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n                   0  messages sent\n                   0  messages received\n                   0  signals received\n                   1  voluntary context switches\n                 301  involuntary context switches\n         12861834315  instructions retired\n          4392741346  cycles elapsed\n          1450952240  peak memory footprint\n",
+  "ios_test": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "device": {
+      "architecture": "arm64",
+      "deviceId": "46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+      "deviceName": "Vipi iPhone 17 20261024",
+      "modelName": "iPhone 17",
+      "osBuildNumber": "23F77",
+      "osVersion": "26.5",
+      "platform": "iOS Simulator"
+    },
+    "stages": [
+      {
+        "name": "prepare",
+        "command": [
+          "/bin/zsh",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/scripts/prepare-ios-project.sh"
+        ],
+        "deadline_seconds": 180,
+        "pid": 87609,
+        "peak_owned_bytes": 2893524992,
+        "exit_code": 0,
+        "seconds": 2.1147752080578357,
+        "log_sha256": "484170728117f784ad2737eef88fb9ef0c40295cde1ea325295858712f97061c"
+      },
+      {
+        "name": "build",
+        "command": [
+          "xcodebuild",
+          "-workspace",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi.xcworkspace",
+          "-scheme",
+          "VipiSimulator",
+          "-configuration",
+          "Simulator",
+          "-sdk",
+          "iphonesimulator",
+          "-destination",
+          "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+          "-derivedDataPath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+          "-clonedSourcePackagesDirPath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+          "-disableAutomaticPackageResolution",
+          "-onlyUsePackageVersionsFromResolvedFile",
+          "-skipPackageUpdates",
+          "-jobs",
+          "2",
+          "-parallel-testing-enabled",
+          "NO",
+          "-resultBundlePath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/build.xcresult",
+          "CODE_SIGNING_ALLOWED=YES",
+          "CODE_SIGN_IDENTITY=-",
+          "ARCHS=arm64",
+          "EXCLUDED_ARCHS=",
+          "build-for-testing"
+        ],
+        "deadline_seconds": 900,
+        "pid": 87628,
+        "peak_owned_bytes": 2895032320,
+        "exit_code": 0,
+        "seconds": 33.908662624889985,
+        "log_sha256": "37cc223336d79df1f418ffb65f1850387269812840c32dee7bdb02310a107f3a"
+      },
+      {
+        "name": "test",
+        "command": [
+          "xcodebuild",
+          "-xctestrun",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/qualification.xctestrun",
+          "-destination",
+          "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+          "-parallel-testing-enabled",
+          "NO",
+          "-maximum-concurrent-test-simulator-destinations",
+          "1",
+          "-resultBundlePath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/test.xcresult",
+          "-only-testing:VipiCryptoTests/FrozenCandidateProducerTests/testFullCatalogProducerAndActualNativeObservations",
+          "test-without-building"
+        ],
+        "deadline_seconds": 300,
+        "pid": 87841,
+        "peak_owned_bytes": 2894573568,
+        "exit_code": 0,
+        "seconds": 10.752420791890472,
+        "log_sha256": "a1a5257126bf26f317e3b0d7c40cac4caf60cd416c410084ae7256930bf30a38"
+      }
+    ],
+    "source_files_verified": 627,
+    "dependency_pins": [
+      {
+        "identity": "espeak-ng-spm",
+        "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c",
+        "tracked_clean": true
+      },
+      {
+        "identity": "swift-docc-plugin",
+        "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+        "tracked_clean": true
+      },
+      {
+        "identity": "swift-docc-symbolkit",
+        "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+        "tracked_clean": true
+      },
+      {
+        "identity": "workos-ios",
+        "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+        "tracked_clean": true
+      }
+    ],
+    "maximum_additional_measured_bytes": 1515520,
+    "free_after": 71461007360
+  },
+  "state_closure": {
+    "restored": true,
+    "original_keys_verified": [
+      "readingPace",
+      "density",
+      "knownLanguage",
+      "appearance",
+      "onboardingStep",
+      "targetLanguage",
+      "vipi-private-speech-generation"
+    ],
+    "current_extra_keys_preserved": [],
+    "app_not_running": true,
+    "data_preserved": true,
+    "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/51EEA6D1-37BF-49D7-8A93-C7DFCEE15D44",
+    "labs_alive": true
+  },
+  "retained_history": [
+    "Macr01 and iOSr01 initial passing observations retained.",
+    "iOSr02 failed compilation due missing try on throwing sourceRecognition; no test ran, no prefs changed. Exact failed log/receipt and source snapshot retained.",
+    "iOSr03 fixes only required try after identity/order/provider additions; selected test passed. Macr02 qualifies identical final core changes."
+  ],
+  "limits": [
+    "No customer call site, SourceLookupEvidence/approvedOutputs conversion, user-known progression, target edits, model downloads or selection changes in existing app.",
+    "Actual user-known set is explicit caller input. Frozen family-order300 selections are diagnostic controls only, and empty actual-user-known is retained separately.",
+    "Native source provider validates exact source geometry/protections and dictionary release/inventory using immutable hash-bound dictionary; diagnostic Input remains an explicitly injectable research API. Supplied literal protections are caller-owned; this work does not replace the app literal recognizer.",
+    "Companion reader uses externally pinned manifest and bounded dynamic table counts, indexed key lookup and lazy evidence. Existing separate context-pack reader still has artifact1157/23 count checks; no blanket future-content-update qualification.",
+    "Catalog raw record/audit/readings/evidence retained; original static guards/form/term proof remain hash-bound. Conditional live source requires exact name-only raw guard and usable noun form; source protections never cleared.",
+    "Schema/version/count/bounds and hash admission exercised by the valid artifact here; this new reader does not yet have a separate exhaustive malformed-catalog/sidecar negative fixture suite. Existing context-pack sidecar checks retain prior qualification.",
+    "Current native masks and Apple POS/name outputs are different authorities from original research controls. No claim of semantic correctness or universal tokenizer equivalence.",
+    "No broad9535corpus replay;52exposed cases/40distinct sources only. Native Mac/iOS Simulator26.5, not physical iOS18.",
+    "Producer relies on independently pinned static catalog for complete source/target form/term proof. It does not invoke FrozenHeadAdmission exact current tuple checks per selected conditional head. It remains evidence only, not SourceLookupEvidence.",
+    "Output binds exact source observations through inputIdentity but does not expose catalog/context-pack SHA. Future asynchronous app adapter must additionally bind bundle/version identity before applying results."
+  ]
+}

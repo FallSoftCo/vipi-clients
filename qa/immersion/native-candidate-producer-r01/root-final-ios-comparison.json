@@ -1,0 +1,73 @@
+{
+  "diagnostic_errors": [],
+  "exact_cases": 52,
+  "exact_candidate_occurrences": 145,
+  "complete_decisions": 312,
+  "gate_scopes": 46,
+  "actual_candidate_ID_sets_equal": true,
+  "actual_role_differences": [
+    {
+      "case": "qualified-noun-001",
+      "word": "video",
+      "frozen": "noun",
+      "actual": "adj"
+    },
+    {
+      "case": "qualified-noun-010",
+      "word": "deaf",
+      "frozen": "adj",
+      "actual": "noun"
+    },
+    {
+      "case": "qualified-noun-010",
+      "word": "deaf",
+      "frozen": "adj",
+      "actual": "noun"
+    },
+    {
+      "case": "qualified-noun-033",
+      "word": "boys",
+      "frozen": "noun",
+      "actual": null
+    },
+    {
+      "case": "qualified-noun-034",
+      "word": "boys",
+      "frozen": "noun",
+      "actual": null
+    }
+  ],
+  "actual_geometry_difference_cases": [
+    "qualified-noun-009"
+  ],
+  "actual_mask_range_set_difference_cases": [],
+  "actual_protected_range_difference_cases": [
+    "qualified-noun-041",
+    "qualified-noun-042"
+  ],
+  "actual_changed_qualified_outputs": [
+    {
+      "case_id": "qualified-noun-010",
+      "state": "all_function",
+      "original": "I just started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music.",
+      "frozen": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is sordo so I turn up the m\u00fasica.",
+      "actual": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is deaf so I turn up the m\u00fasica."
+    },
+    {
+      "case_id": "qualified-noun-010",
+      "state": "all_function_global300",
+      "original": "I just started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music.",
+      "frozen": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is sordo so I turn up the music.",
+      "actual": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music."
+    }
+  ],
+  "stale_text_and_changed_protection_rejected_both_paths": true,
+  "actual_method_ms": {
+    "median": 3.336896,
+    "max": 12.631875
+  },
+  "timing_scope": "Producer method reported by qualification; does not measure full dictionary/provider/onboarding or physical device latency",
+  "output_sha256": "8ffadf7720eaa38e2180112bd689c9ca789938df0d3306e76bbd037b5191cd00",
+  "reference_sha256": "34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3",
+  "coverage_or_semantic_accuracy_not_inferred": true
+}

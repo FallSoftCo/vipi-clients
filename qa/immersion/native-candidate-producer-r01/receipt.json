@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "at_utc": "2026-11-09T14:15:50.275443+00:00",
+  "script_sha256": "9dac1091a256db7653dae5933c68339347640105233f1f365a269837e63c83a2",
+  "selection_sha256": "59dc06af07ecbbac1786b606728972d68a9adb790edbac2687e0420ac299349d",
+  "no_inference_or_refit": true,
+  "cases": 52,
+  "distinct_sources": 40,
+  "bytes": 656867,
+  "sha256": "34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3",
+  "candidate_occurrences": 145,
+  "seconds": 1.210046278021764,
+  "VmHWM_bytes": 64225280
+}

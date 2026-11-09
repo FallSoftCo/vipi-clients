@@ -1,0 +1,143 @@
+{
+  "complete": true,
+  "started_utc": "2026-11-09T14:30:19.070325+00:00",
+  "plan_sha256": "9d9eba3dd853d4d51bbc1933221d4dec76a2dfabb4e30fb5fa86eb65d5ff007c",
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "deadline_seconds": 180,
+      "pid": 87609,
+      "peak_owned_bytes": 2893524992,
+      "exit_code": 0,
+      "seconds": 2.1147752080578357,
+      "log_sha256": "484170728117f784ad2737eef88fb9ef0c40295cde1ea325295858712f97061c"
+    },
+    {
+      "name": "build",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/build.xcresult",
+        "CODE_SIGNING_ALLOWED=YES",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "deadline_seconds": 900,
+      "pid": 87628,
+      "peak_owned_bytes": 2895032320,
+      "exit_code": 0,
+      "seconds": 33.908662624889985,
+      "log_sha256": "37cc223336d79df1f418ffb65f1850387269812840c32dee7bdb02310a107f3a"
+    },
+    {
+      "name": "test",
+      "command": [
+        "xcodebuild",
+        "-xctestrun",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/qualification.xctestrun",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+        "-parallel-testing-enabled",
+        "NO",
+        "-maximum-concurrent-test-simulator-destinations",
+        "1",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/test.xcresult",
+        "-only-testing:VipiCryptoTests/FrozenCandidateProducerTests/testFullCatalogProducerAndActualNativeObservations",
+        "test-without-building"
+      ],
+      "deadline_seconds": 300,
+      "pid": 87841,
+      "peak_owned_bytes": 2894573568,
+      "exit_code": 0,
+      "seconds": 10.752420791890472,
+      "log_sha256": "a1a5257126bf26f317e3b0d7c40cac4caf60cd416c410084ae7256930bf30a38"
+    }
+  ],
+  "scope": "Root-reviewed conditional head admission with actual native source/role/dictionary evidence; no customer activation or semantic acceptance",
+  "initial_owned_bytes": 2893516800,
+  "free_before": 71549259776,
+  "labs": {
+    "55552": "/Users/Apple/Development/mac-dev-migration-20261108/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab",
+    "65698": "/Users/Apple/Applications/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab --report /Users/Apple/Development/vipi/artifacts/macos-immersion-lab-diagnostics-003.json"
+  },
+  "synthetic_fixture_sha256": "1a3203d294f4d2fd9f3d00fd7dfa08e04bdbecda905967d3c80d5c7c20cac0ef",
+  "source_files_verified": 627,
+  "source_differences": [],
+  "pins": [
+    {
+      "identity": "espeak-ng-spm",
+      "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-plugin",
+      "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-symbolkit",
+      "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+      "tracked_clean": true
+    },
+    {
+      "identity": "workos-ios",
+      "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+      "tracked_clean": true
+    }
+  ],
+  "before_container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/26481B7D-8607-4E8C-99CD-2FBF9BBE989A",
+  "before_preferences_sha256": "1fbe742cc4dca91ed40ef3fe24c2bd2a1326b9cb433ac90324837e99c92fdfd1",
+  "built_hashes": {
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/VipiSimulator_iphonesimulator26.5-arm64.xctestrun": "6453babc7d427229634f7f8002520c884396e7bbb81bf8e214639d4c64b84b00",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r03/qualification.xctestrun": "64a6bee7f41135368f35d01ae6847cb72621761bfa8225bb0cbe8ad77916ab11",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi": "f024eae446f6dfb88aa81c5d509937d825b74faa896f1faab092964b95d16272",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "4ae95d13756dbb5658abd1b3925d0d4735bd91fcffa51399d7076a254dd4785d"
+  },
+  "state_closure": {
+    "restored": true,
+    "original_keys_verified": [
+      "readingPace",
+      "density",
+      "knownLanguage",
+      "appearance",
+      "onboardingStep",
+      "targetLanguage",
+      "vipi-private-speech-generation"
+    ],
+    "current_extra_keys_preserved": [],
+    "app_not_running": true,
+    "data_preserved": true,
+    "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/51EEA6D1-37BF-49D7-8A93-C7DFCEE15D44",
+    "labs_alive": true
+  },
+  "free_after": 71461007360,
+  "final_owned_bytes": 2894761984
+}

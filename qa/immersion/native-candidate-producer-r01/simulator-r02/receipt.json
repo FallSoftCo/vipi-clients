@@ -1,0 +1,97 @@
+{
+  "complete": false,
+  "started_utc": "2026-11-09T14:29:10.455997+00:00",
+  "plan_sha256": "9b0341baaf289e16f947d7091489fe66809472686784ed646b8ed449d89d052f",
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "deadline_seconds": 180,
+      "pid": 87313,
+      "peak_owned_bytes": 2893094912,
+      "exit_code": 0,
+      "seconds": 2.1141712500248104,
+      "log_sha256": "484170728117f784ad2737eef88fb9ef0c40295cde1ea325295858712f97061c"
+    },
+    {
+      "name": "build",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r02/build.xcresult",
+        "CODE_SIGNING_ALLOWED=YES",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "deadline_seconds": 900,
+      "pid": 87330,
+      "peak_owned_bytes": 2894934016,
+      "exit_code": 65,
+      "seconds": 14.9166528750211,
+      "log_sha256": "eb1c003adc2d35a5eff8a388bf67a638dc96cc56dd9391b5f823e12ebc57bbd4"
+    }
+  ],
+  "scope": "Root-reviewed conditional head admission with actual native source/role/dictionary evidence; no customer activation or semantic acceptance",
+  "initial_owned_bytes": 2893086720,
+  "free_before": 71542378496,
+  "labs": {
+    "55552": "/Users/Apple/Development/mac-dev-migration-20261108/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab",
+    "65698": "/Users/Apple/Applications/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab --report /Users/Apple/Development/vipi/artifacts/macos-immersion-lab-diagnostics-003.json"
+  },
+  "synthetic_fixture_sha256": "1a3203d294f4d2fd9f3d00fd7dfa08e04bdbecda905967d3c80d5c7c20cac0ef",
+  "source_files_verified": 627,
+  "source_differences": [],
+  "pins": [
+    {
+      "identity": "espeak-ng-spm",
+      "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-plugin",
+      "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-symbolkit",
+      "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+      "tracked_clean": true
+    },
+    {
+      "identity": "workos-ios",
+      "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+      "tracked_clean": true
+    }
+  ],
+  "before_container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/26481B7D-8607-4E8C-99CD-2FBF9BBE989A",
+  "before_preferences_sha256": "1fbe742cc4dca91ed40ef3fe24c2bd2a1326b9cb433ac90324837e99c92fdfd1",
+  "error": "RuntimeError('build failed; no replay')",
+  "free_after": 71540170752,
+  "final_owned_bytes": 2893492224
+}

@@ -1,0 +1,229 @@
+{
+  "counts": {
+    "actual_candidates": 145,
+    "diagnostic_candidates": 145,
+    "mapped_role_occurrences": 5,
+    "nonempty_actual_all_function_baseline": 14,
+    "nonempty_diagnostic_all_function_baseline": 14,
+    "nonempty_actual_all_function_experimental": 35,
+    "nonempty_diagnostic_all_function_experimental": 35,
+    "nonempty_actual_all_function_qualified": 26,
+    "nonempty_diagnostic_all_function_qualified": 26,
+    "nonempty_actual_all_function_global300_baseline": 9,
+    "nonempty_diagnostic_all_function_global300_baseline": 9,
+    "nonempty_actual_all_function_global300_experimental": 23,
+    "nonempty_diagnostic_all_function_global300_experimental": 23,
+    "nonempty_actual_all_function_global300_qualified": 14,
+    "nonempty_diagnostic_all_function_global300_qualified": 14,
+    "role_status_ready": 52,
+    "geometry_cases": 1,
+    "changed_outputs_all_function_baseline": 1,
+    "changed_outputs_all_function_experimental": 3,
+    "changed_outputs_all_function_qualified": 1,
+    "changed_outputs_all_function_global300_baseline": 1,
+    "changed_outputs_all_function_global300_experimental": 3,
+    "changed_outputs_all_function_global300_qualified": 1,
+    "gate_cases": 2,
+    "protection_cases": 2
+  },
+  "cases": [
+    {
+      "case_id": "qualified-noun-001",
+      "candidate_changes": [
+        {
+          "id": "357c1780cb5cb78ce8d9da9fe3e83fb06009372042f03a6a396de94c61776b0c:034544a3d4fcb8504f4415a0c6851aa89130c38ea76a8f061ba45c359da79b4a@37:42",
+          "source": "video",
+          "difference": {
+            "filter_reasons": {
+              "frozen": [],
+              "actual": [
+                "role_conflict"
+              ]
+            },
+            "mapped_role": {
+              "frozen": "noun",
+              "actual": "adj"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "qualified-noun-009",
+      "geometry_different": true
+    },
+    {
+      "case_id": "qualified-noun-010",
+      "candidate_changes": [
+        {
+          "id": "fcbba4ab7ddde75c2ad8d8595e48ae1f125c111afdf73b7752145f676a768b02:51d520940f30703ebbacda35ede07ca9f3f96d9da785e7ff8258731eece6fd9f@103:110",
+          "source": "deaf",
+          "difference": {
+            "filter_reasons": {
+              "frozen": [],
+              "actual": [
+                "role_conflict"
+              ]
+            },
+            "mapped_role": {
+              "frozen": "adj",
+              "actual": "noun"
+            }
+          }
+        },
+        {
+          "id": "95e291aa92fc553936423ca1434aabac20debca74271696c705cf80401300df9:9b6f399a0b86bdf6d9c79172283be0747c099e6e416e4de26003dab3263c589b@106:110",
+          "source": "deaf",
+          "difference": {
+            "filter_reasons": {
+              "frozen": [],
+              "actual": [
+                "role_conflict"
+              ]
+            },
+            "mapped_role": {
+              "frozen": "adj",
+              "actual": "noun"
+            }
+          }
+        }
+      ],
+      "changed_outputs": [
+        {
+          "state": "all_function",
+          "arm": "baseline",
+          "frozen": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is sordo so I turn up the music.",
+          "actual": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is deaf so I turn up the music."
+        },
+        {
+          "state": "all_function",
+          "arm": "experimental",
+          "frozen": "I Solo started exercising in my casa last month. I watch an ejercicio video and follow along. The esposa is sordo so I turn up the m\u00fasica.",
+          "actual": "I Solo started exercising in my casa last month. I watch an ejercicio video and follow along. The esposa is deaf so I turn up the m\u00fasica."
+        },
+        {
+          "state": "all_function",
+          "arm": "qualified",
+          "frozen": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is sordo so I turn up the m\u00fasica.",
+          "actual": "I Solo started exercising in my house last month. I watch an ejercicio video and follow along. The esposa is deaf so I turn up the m\u00fasica."
+        },
+        {
+          "state": "all_function_global300",
+          "arm": "baseline",
+          "frozen": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is sordo so I turn up the music.",
+          "actual": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music."
+        },
+        {
+          "state": "all_function_global300",
+          "arm": "experimental",
+          "frozen": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is sordo so I turn up the music.",
+          "actual": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music."
+        },
+        {
+          "state": "all_function_global300",
+          "arm": "qualified",
+          "frozen": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is sordo so I turn up the music.",
+          "actual": "I Solo started exercising in my house last month. I watch an exercise video and follow along. The wife is deaf so I turn up the music."
+        }
+      ]
+    },
+    {
+      "case_id": "qualified-noun-033",
+      "candidate_changes": [
+        {
+          "id": "ca6f29aabe7a025fa2b98f2b0bf487759b481f5b814f1b9323ba8e427621fee1:5b74efc6f33dfe93f7b7b418dca4f722dd84abefc88e2ed936403ea1986d304b@2:6",
+          "source": "boys",
+          "difference": {
+            "filter_reasons": {
+              "frozen": [],
+              "actual": [
+                "role_unassessed",
+                "rescue_requires_actual_NOUN"
+              ]
+            },
+            "mapped_role": {
+              "frozen": "noun",
+              "actual": null
+            }
+          }
+        }
+      ],
+      "changed_outputs": [
+        {
+          "state": "all_function",
+          "arm": "experimental",
+          "frozen": "2 chicos. thanks you for the charla i really enjoyed this. bless you",
+          "actual": "2 boys. thanks you for the charla i really enjoyed this. bless you"
+        },
+        {
+          "state": "all_function_global300",
+          "arm": "experimental",
+          "frozen": "2 chicos. thanks you for the charla i really enjoyed this. bless you",
+          "actual": "2 boys. thanks you for the charla i really enjoyed this. bless you"
+        }
+      ],
+      "gate_difference": true
+    },
+    {
+      "case_id": "qualified-noun-034",
+      "candidate_changes": [
+        {
+          "id": "ca6f29aabe7a025fa2b98f2b0bf487759b481f5b814f1b9323ba8e427621fee1:5b74efc6f33dfe93f7b7b418dca4f722dd84abefc88e2ed936403ea1986d304b@2:6",
+          "source": "boys",
+          "difference": {
+            "filter_reasons": {
+              "frozen": [],
+              "actual": [
+                "role_unassessed",
+                "rescue_requires_actual_NOUN"
+              ]
+            },
+            "mapped_role": {
+              "frozen": "noun",
+              "actual": null
+            }
+          }
+        }
+      ],
+      "changed_outputs": [
+        {
+          "state": "all_function",
+          "arm": "experimental",
+          "frozen": "2 chicos. thanks you for the charla i really enjoyed this. bless you",
+          "actual": "2 boys. thanks you for the charla i really enjoyed this. bless you"
+        },
+        {
+          "state": "all_function_global300",
+          "arm": "experimental",
+          "frozen": "2 chicos. thanks you for the charla i really enjoyed this. bless you",
+          "actual": "2 boys. thanks you for the charla i really enjoyed this. bless you"
+        }
+      ],
+      "gate_difference": true
+    },
+    {
+      "case_id": "qualified-noun-041",
+      "protected_ranges": {
+        "frozen": [],
+        "actual": [
+          [
+            45,
+            48
+          ]
+        ]
+      }
+    },
+    {
+      "case_id": "qualified-noun-042",
+      "protected_ranges": {
+        "frozen": [],
+        "actual": [
+          [
+            45,
+            48
+          ]
+        ]
+      }
+    }
+  ]
+}

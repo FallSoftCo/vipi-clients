@@ -1,0 +1,82 @@
+{
+  "final-sources/ios/Vipi/FrozenCandidateCatalog.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift",
+    "sha256": "5a125d7541c52924b12754e26c4afb9dde7f145bdc871308169263b15ed7402f",
+    "bytes": 7646
+  },
+  "final-sources/ios/Vipi/FrozenCandidateProducer.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateProducer.swift",
+    "sha256": "ea2d20dcadf9e7f8897e8b89fcd9f47490ac51d4496d6dfa9ed6eb3857cfa045",
+    "bytes": 10459
+  },
+  "final-sources/ios/Vipi/FrozenCandidateSelection.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateSelection.swift",
+    "sha256": "9c45e813eddfafcb03dd40e2e958de466995cbdeff571278e0d0109c2942b7de",
+    "bytes": 4328
+  },
+  "final-sources/ios/Vipi/FrozenNativeCandidateProvider.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenNativeCandidateProvider.swift",
+    "sha256": "1025f99e94404cf0045059ab8aa1c039cf0ac65c0137dac86d78a587174acb66",
+    "bytes": 4532
+  },
+  "final-sources/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift",
+    "sha256": "27b612e7f55a7d7392f62a96ee8b99021d3766a772931eb93bc79321f799c232",
+    "bytes": 4414
+  },
+  "final-sources/ios/VipiCryptoTests/FrozenCandidateQualification.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateQualification.swift",
+    "sha256": "50d4a988a556c08b2447f0099ac80ad6c701520e979c999ac7dec29197adc452",
+    "bytes": 7785
+  },
+  "mac-r01/receipt.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r01/receipt.json",
+    "sha256": "80a12ebe40178ed22a0eae8661f15bc4475b34d8e1d7d8cee62253595af78543",
+    "bytes": 4420
+  },
+  "mac-r01/compile.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r01/compile.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "mac-r01/probe.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r01/probe.log",
+    "sha256": "ba23d5abc9af7e5d24a66af02029a8f15c4e7a349626a11984129896ec22a386",
+    "bytes": 777
+  },
+  "mac-r01/output.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r01/output.json",
+    "sha256": "6d598e380628a9fccde4079dc482da12691cf5b5b8ee18ef8d908d3c45ca29b3",
+    "bytes": 617294
+  },
+  "mac-r02/receipt.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r02/receipt.json",
+    "sha256": "b4fcb6b6c53c7028da21f5e5cf70276d115b27f83d702b5178a10265da0fbc74",
+    "bytes": 4418
+  },
+  "mac-r02/compile.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r02/compile.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "mac-r02/probe.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r02/probe.log",
+    "sha256": "3d6af3ddca24cb6bdf785eea38aaaabf419d891654b63ec93e0206e7fb5af082",
+    "bytes": 777
+  },
+  "mac-r02/output.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/mac-r02/output.json",
+    "sha256": "ec5f0e04e1e85469057c19e3d46caa8194a77dea5238920e758054613c3b5f36",
+    "bytes": 624888
+  },
+  "simulator-r02/receipt.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r02/receipt.json",
+    "sha256": "6a326b1a4eaf6f78dade6f05601b82358f99a7e3910a2d203450823fe9fd89d5",
+    "bytes": 3726
+  },
+  "simulator-r02/build.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/simulator-r02/build.log",
+    "sha256": "eb1c003adc2d35a5eff8a388bf67a638dc96cc56dd9391b5f823e12ebc57bbd4",
+    "bytes": 74913
+  }
+}
