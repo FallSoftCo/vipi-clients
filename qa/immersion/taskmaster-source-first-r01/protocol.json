@@ -1,0 +1,28 @@
+{
+  "status": "prepared_waiting_explicit_build_slot_release",
+  "input_sha256": "8ced39c191466dcd6a4f86a3dd738444c8e8d58609f1dbd1d06e46b001c5dc6d",
+  "cache_status_sha256": "a0ab888672f197a1e885196ae5ebd8f311d5bb82e76ca79b32bc62bb00912899",
+  "review_selection_sha256": "8824346698eefebf5c956113a82c6e4599d708484fee295836783931966997d9",
+  "rows": 200,
+  "unique_sources": 185,
+  "cached_targets_not_used": 186,
+  "null_targets_retained": 14,
+  "density": 0.25,
+  "known_family_ids": [],
+  "withholdFunction": false,
+  "known_basis": "No caller-known words were supplied to prior200; no frequency simulation and no assumption function words are learned. Original classifier/masks unchanged.",
+  "method": "FrozenNativeCandidateProvider.prepare then select over exact existing catalog/contextpack/dictionary; one loaded tuple; unchanged current admission and selection",
+  "comparison": "Actual source-first outputs versus retained target-informed B; old A can be summarized, not rerun",
+  "no_new_target_provider_calls": true,
+  "no_policy_changes": true,
+  "bounds": {
+    "compiler_jobs": 2,
+    "prepare_seconds": 180,
+    "build_seconds": 900,
+    "test_seconds": 300,
+    "attachment_bytes": 16777216,
+    "additional_disk_bytes": 8589934592,
+    "free_floor_bytes": 8589934592
+  },
+  "output_basis": "Prior52 original full diagnostic+actual payload925468B;200linear3559492B.16MiB permits current-tuple proof/role diagnostics; stop without truncating alternatives."
+}

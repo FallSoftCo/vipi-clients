@@ -1,0 +1,148 @@
+{
+  "schema": "taskmaster-source-first-completion-1",
+  "complete": true,
+  "completed_utc": "2026-11-09T17:25:42.701127+00:00",
+  "native_runs": 1,
+  "translation_calls": 0,
+  "policy_changed": false,
+  "activated": false,
+  "scope": "Companion-catalog/current-tuple native producer only; not complete app routing",
+  "review_independence": "Both frozen before join; historical output/reference familiarity disclosed; agent judgments, no majority gold",
+  "files": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/closure_audit.py",
+      "bytes": 3178,
+      "sha256": "0cd38d3a4f3920223679ce3773486e0632bfe61ae60750f518ffcff09bb13946"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/run.py",
+      "bytes": 8467,
+      "sha256": "bdcbbe15f745940349c99ff3832c21a51afa9bbf8c1bf75790390f59783cf491"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/assemble.py",
+      "bytes": 3863,
+      "sha256": "fe905a69a4880b1fe9ccc8c2a106a8fe605efdcf796731900ba200be24899204"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/RESULT.md",
+      "bytes": 6249,
+      "sha256": "fba548ebe34500d687ff44024a98b6662d6a8c718eac109ad9b451afaec5e72c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/mechanics.py",
+      "bytes": 3242,
+      "sha256": "4d537208323cc3a5b31461b83d67b24c0d1d252922c8c85707926de9c7457015"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/protocol.json",
+      "bytes": 1473,
+      "sha256": "8febb6c43821e6ffd73f79854d5cc1ccdfcc2fdf7f1a8c68673db092eb9a83ba"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/join.py",
+      "bytes": 3425,
+      "sha256": "a8b147245b8294d1a519d427bc9700fc186042bfea6ce3093638c886c246495e"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/PLAN.md",
+      "bytes": 3900,
+      "sha256": "d1a09d141a2889efb6e3aa261e3d3967973183d4569009498829207a15eb5822"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/execution-freeze.json",
+      "bytes": 407,
+      "sha256": "f4f41305ee1d1a0a5f7dce73f84aa0dcd11767e3f5ba1db3a11c78ab9a8ee2ce"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/TaskmasterSourceFirstTests.swift",
+      "bytes": 5671,
+      "sha256": "5a0206310e0bc25a56498a5bb94b27fd9495894783064c63d67eb2afdfee8570"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/run-r01/output.json",
+      "bytes": 651095,
+      "sha256": "cca098a5abb30284be59347780262e7d04f5d921d86e19ff5b8b9c387f0b6a0a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/run-r01/receipt.json",
+      "bytes": 6025,
+      "sha256": "cdc8316adbebb3dcd19794b49ba2bbfe6564a572e283c91f75ae8d572f5d8e14"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/transfer-receipt.json",
+      "bytes": 1963,
+      "sha256": "560382b9bfe3fdb08ba84d0f8ffac76217db12686fd3ba0622fe525835d9c9d0"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/collection-amendment.json",
+      "bytes": 438,
+      "sha256": "9a738df9b802cb9a8ca98d77ce5ad96220b53a5d5d5db041a15d3341a074272c"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/mechanics.json",
+      "bytes": 99229,
+      "sha256": "f93526eb7e03e9bd4ba685df67bdae4a3d79328e167d6e9130214264dcc8a9fc"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/joined-review.json",
+      "bytes": 258865,
+      "sha256": "997b5f0ae3e89b0ff62f6d19fa8bbb2ce834d0c5008813f2c0e914a5081eb76e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/closure-audit.json",
+      "bytes": 280161,
+      "sha256": "07561a0d6b9d4e9cac55245de035db70dcdeb234ac6d2e3d542cf6b0520a5b25"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/author-review-r01.json",
+      "bytes": 269389,
+      "sha256": "a0df5822469f8b2a8fb01b527da722c09e7f41108fcf1d52125cbae56afcadb8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/root-review-r01.json",
+      "bytes": 33774,
+      "sha256": "e612dd38781c658e24b1d2440be8f78981adb0c42032f1b591e419befe314002"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/anonymous-root40.json",
+      "bytes": 43076,
+      "sha256": "f8030a62ad6926c11b7fe96a5bf1ef10049a0c024a1ca718df9a94a733408070"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/anonymous-all200.json",
+      "bytes": 209482,
+      "sha256": "75d0476c6799447e28138fa8bb86940c46851ef9827571f5b91f67cfd504def8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/method-key.json",
+      "bytes": 47149,
+      "sha256": "88fee599cccee944457e75fb2b43bb57e8ef68f675be290f4a1559e9c5fe1ab9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/metrics.json",
+      "bytes": 153,
+      "sha256": "6cf77db2f634b65f7a81a1d7490364ca1fb46b871b1d9e10256193dce1fd59b0"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/deltas.json",
+      "bytes": 52311,
+      "sha256": "6bbdb5af727e8989170496786647155b48b77426f6c5f9ee896c47c304a0d593"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/selection.json",
+      "bytes": 2350,
+      "sha256": "fedbd8792c6097c2a8f9ee5beb275f6f07784a64512c2e7f53492b12174d1afb"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/packet/receipt.json",
+      "bytes": 757,
+      "sha256": "0de1799fb1543ca9d62f22dec18b1e86c6c6b76c7920d5bfd3e4fc44e3866d06"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-taskmaster-source-first-20261109-r01/review-selection-freeze.json",
+      "bytes": 11322,
+      "sha256": "8824346698eefebf5c956113a82c6e4599d708484fee295836783931966997d9"
+    }
+  ]
+}

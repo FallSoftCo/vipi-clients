@@ -105,6 +105,17 @@ the flagged same-POS errors. Different dictionary defaults and generic noun
 chunks are not contextual meaning proof. The experiment adds no engine or
 policy to the apps. See `qa/immersion/taskmaster-structural-evidence-r01/RESULT.md`.
 
+The unchanged companion producer was also run on all200 original sources with
+no target texts supplied. It yields61 nonempty messages, versus133 from retained
+target-informed B. Author review finds40 correct,15 minor,5 material and1
+uncertain companion output. Its five material additions come from ordinary
+heads (movie trailer/caravan, additive too, a place-name number and meal course),
+so conditional noun exceptions are not their cause. This is not overall app
+coverage:21 producer-empty rows already have exact whole authored references in
+the separate app route. All27 bound artifacts and both frozen reviews are
+retained. No activation follows; see
+`qa/immersion/taskmaster-source-first-r01/RESULT.md`.
+
 The current routing also distinguishes full translation requested for an already
 accepted partial: it attaches the target sentence without rechecking its spans.
 No new research catalog or semantic exception is active. Conversation-level
@@ -590,6 +601,13 @@ compiled with the production WorkOS identifier and pinned device dependencies,
 but archive signing failed with `errSecInternalComponent`. Both native signing
 keychains were independently observed locked. The original failure/log and
 build outputs remain retained; no signed archive or upload is credited.
+
+Vipi-only production APNs key `H8D2H8HN35` is registered, downloaded once,
+cryptographically checked and retained in protected native/production credential
+storage. The saved portal configuration confirms only `co.fallsoft.vipi`,
+production environment. Existing team keys remain untouched. No backend
+configuration/restart or physical push-delivery qualification follows from this
+credential preparation.
 
 Google Cloud, AWS and the existing DeepSeek company credential requests remain
 pending. Do not repeat those unchanged questions. Independent authorized

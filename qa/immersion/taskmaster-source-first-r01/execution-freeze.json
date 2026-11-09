@@ -1,0 +1,6 @@
+{
+  "harness_sha256": "5a0206310e0bc25a56498a5bb94b27fd9495894783064c63d67eb2afdfee8570",
+  "runner_sha256": "bdcbbe15f745940349c99ff3832c21a51afa9bbf8c1bf75790390f59783cf491",
+  "protocol_sha256": "8febb6c43821e6ffd73f79854d5cc1ccdfcc2fdf7f1a8c68673db092eb9a83ba",
+  "build_slot": "root explicitly released after archive exit; fresh source pins unchanged/no xcodebuild or app processes/free41054830592B"
+}

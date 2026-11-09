@@ -18,6 +18,16 @@
     "installed_on_native_mac": true,
     "release_artifact_signed": false
   },
+  "push_key": {
+    "key_id": "H8D2H8HN35",
+    "name": "Vipi Push Production 20261109",
+    "environment": "production",
+    "restriction": "topic-specific",
+    "topics": ["co.fallsoft.vipi"],
+    "private_key_downloaded_and_verified": true,
+    "backend_enabled": false,
+    "physical_delivery_verified": false
+  },
   "subscription_groups": [
     {
       "id": "22561715",
