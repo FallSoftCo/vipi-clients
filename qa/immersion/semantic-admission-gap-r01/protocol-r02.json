@@ -1,0 +1,73 @@
+{
+  "experiment": "semantic-admission-gap-r01",
+  "code_sha256": "c317bd6d4c7ce80ce610d7af8a1d4e43be7031cbd5cc0bbd16e694d4b66ea715",
+  "inputs": {
+    "heads": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads-r02/heads.sqlite",
+      "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+    },
+    "trace": {
+      "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+      "sha256": "02a8fca6cb30a0a9912658ee17d92ae2eed50d5858ce5bc7b10376d90efe9e3b"
+    },
+    "selector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+    },
+    "family_control": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+      "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "catalog": {
+      "path": "/srv/fallsoft/staging/vipi-native-baseline-catalog-20261109-r01/export-r02/catalog.sqlite",
+      "sha256": "8b8198a65480a67149fc174bbc03d4eb4644ead7cb5f5aea48e050820122c9a8"
+    },
+    "common": {
+      "path": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/common.py",
+      "sha256": "44189a16bc9ae82d525676ee1e6fa7e59063bebaee4e98cf68bc99f1fbed9412"
+    },
+    "qualified": {
+      "path": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/project/decisions.jsonl.gz",
+      "sha256": "e30cd4a919fab5a97286cb384bf10c1845cc9d519bdeba1bbda908488c18a1db"
+    },
+    "reference": {
+      "path": "/srv/fallsoft/staging/vipi-semantic-admission-gap-20261109-r01/inputs/reference.json",
+      "local_source": "/home/ai/Development/investigations/vipi-native-candidate-producer-20261109-r01/reference.json",
+      "sha256": "34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3",
+      "bytes": 656867
+    },
+    "native": {
+      "path": "/srv/fallsoft/staging/vipi-semantic-admission-gap-20261109-r01/inputs/native.json",
+      "local_source": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-candidate-producer-20261109-r01/simulator-r03/output.json",
+      "sha256": "8ffadf7720eaa38e2180112bd689c9ca789938df0d3306e76bbd037b5191cd00",
+      "bytes": 925468
+    }
+  },
+  "policy": {
+    "baseline": "Exact current qualified noun comparator, original ordinary heads plus unchanged qualified add-ons. Full two-pass parity before any new selections. Actual native52 separately replayed with their frozen actual roles/ranges/masks.",
+    "ordinary_gate": "Inspect original structurally eligible shared links matching candidate actual mapped source POS. Any linked source_safe form retains candidate. Otherwise require source context token length > source focus token length AND original variant.distinct_components >=2. No actual-role eligible link abstains.",
+    "conditional": "Existing qualified noun conditional candidates are unchanged. No source-mask override.",
+    "context": "Original exact source_key/context/focus only; no token recomposition, target substitution, longest-match change, reranking, fit or new evidence. Wider context is minimum evidential support, not semantic certification.",
+    "threshold": "2 independent retained alignment components, frozen once; no search. This differs from qualified noun rule head-specific support and does NOT claim independent sense-specific support.",
+    "known": "Existing two frozen 25% states, original family-order control; never actual-user knowledge.",
+    "masks": "Every original enclosing-unit and protected-range mask survives gate removal.",
+    "safe_flag": "Historical native single-sense/lexical/nonlemma and grammatical/name suitability metadata; not complete source meaning truth. Wrong-POS safe forms cannot rescue actual-POS unsafe forms."
+  },
+  "bounds": {
+    "cpu": 1,
+    "nice": 10,
+    "AS_bytes": 1073741824,
+    "seconds": 120,
+    "output_bytes": 33554432,
+    "compact_uncompressed_delta_bytes": 25165824,
+    "floor_bytes": 8589934592
+  },
+  "review": "All52 already exposed diagnostics; no new blind/population accuracy claim. Preserve earlier labels; additive current assessment calibrates just/Solo as uncertain intent, capitalization separate. Retain all changed source/target candidate IDs and actual full outputs.",
+  "execution": "Requires root-run-approval.json binding protocol/code with run:true. No stage has run. python3 -B compare.py",
+  "activation": false,
+  "root_amendment": {
+    "prior_code_sha256": "f93bd245b7ea6e0bcc012fa27179a09b92609b1c4f428669f19569a0069a7ba5",
+    "prior_protocol_sha256": "676e169cf5483dacddf86b64df8caa1aee17040f418e9b3b940ce0c2db5858f9",
+    "only_change": "Supply required concept_id in synthetic source-mask selector control; experiment rule and retained inputs unchanged"
+  }
+}

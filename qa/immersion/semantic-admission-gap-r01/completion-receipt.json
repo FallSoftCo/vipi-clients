@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "decision": "reject_as_final_admission_policy",
+  "experiment_rerun": false,
+  "output_hashes_verified": true,
+  "original_reviews_modified": false,
+  "activation": false,
+  "actual_review": {
+    "events": 30,
+    "unique_lost_emissions": 14,
+    "same_output_candidate_switches_across_states": 4
+  },
+  "experiment_resources": {
+    "seconds": 12.12065670901211,
+    "VmHWM_bytes": 115507200
+  },
+  "source_files": {
+    "compare.py": "f93bd245b7ea6e0bcc012fa27179a09b92609b1c4f428669f19569a0069a7ba5",
+    "protocol-r02.json": "e1220caf9fa6c41b0a4c5122e3e9d3d3bcd444550aaebc24a333681a9adeef38",
+    "RESULT.md": "4491b0f6c0d3ef0b9c3abca5be170728f33b8504a4bd763b044558b2400381a8",
+    "close_review.py": "bdd089d477b01764f834dfe4d02952ef5031c20494c12add4f10ae92eb0ab819",
+    "compare_r02.py": "c317bd6d4c7ce80ce610d7af8a1d4e43be7031cbd5cc0bbd16e694d4b66ea715",
+    "protocol.json": "676e169cf5483dacddf86b64df8caa1aee17040f418e9b3b940ce0c2db5858f9",
+    "ASSESSMENT.md": "7c509fffdb853e8a19dccbfd83ac11bf7117f3502fecd3ed3b71bfa072a76506"
+  },
+  "private_files": {
+    "dictionary-flag-keyed-read-r01.json": "3606155271b3e11c4cd616494c7b93868d0d8b681e19e0877fb0d85f5714e80b",
+    "run-r02-transport.json": "702f3f357ebf0f8ec01b55dbe929f1e21bf64f84dba5a5e7da7c054f9c204a30",
+    "changed-emission-review-r01.json": "44a7ed63d6a5fb61a4b5e5c338efba2dbd6d58812bb969a153c3de901dded131",
+    "preparation-receipt.json": "0a35e1bbdf03f555df845165d69e207bee6feeb70654bcc940d6f477d225f8e7",
+    "run-r02.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "run-r02.stdout": "3f124140d346d2d4d704abc2c21303e7e11a22b2019a8d413ea725adc14f7864",
+    "root-run-intent-r02.json": "463642fbf4008c76ab10e103252f9934e24ec7170e19dc83dc4948b48e2ad902",
+    "outputs-r02/metrics.json": "2fad71b38ade502d844dd59dd8c527f9787279a11dd58bd58bf5650c62aa20be",
+    "outputs-r02/native52.json": "7da08f6a88b33058776953c3873158b045c9b117c6596d552bf60cd75cd92618",
+    "outputs-r02/deltas.jsonl.gz": "25b779062d86dbac3e954bb580c1a1d546847c21703566eb413d3d486ccfa19e",
+    "outputs-r02/controls.json": "397dd756bd546d39c2455391dbe825d36fc4150f365d0096ddf5cb314149c3de",
+    "outputs-r02/head-gate-evidence.json": "0054fb686855ca8ca2388f71a5458f66628b4066c67033809155cdbdd56401c6",
+    "outputs-r02/parity.json": "af3d4ab8ec38f1907c0d99d0ba2d9632c03844062f2668dfb408072bbfeb4136",
+    "outputs-r02/receipt.json": "3f124140d346d2d4d704abc2c21303e7e11a22b2019a8d413ea725adc14f7864"
+  },
+  "read_only_dictionary_audit": "738 exact lexeme IDs; frozen dictionary identity, no fresh whole-file rehash. Published sense count explains prevalence; flags do not establish current intent."
+}

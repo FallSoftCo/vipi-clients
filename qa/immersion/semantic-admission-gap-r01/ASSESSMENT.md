@@ -1,0 +1,23 @@
+# Semantic admission gap: frozen preparation
+
+The ordinary catalog can admit a polysemous source form using one eligible bilingual sense link and a corpus witness. A current POS match does not select that sense. `source_safe=false` is retained in the proof but was not an ordinary-head admission requirement. This is an evidence gap, not proof that every resulting translation is wrong.
+
+For `qualified-noun-010`, the selected unigram `just → Solo` comes from “I'm just doing it for the dragon's blood.” → “Solo lo hago por la sangre de dragón.” Its 108 observations span 106 components, but a unigram does not distinguish the current temporal use from restrictive, emphatic or imperative uses. The eligible shared pivot is “only, simply, merely”; the English adverb form is source-unsafe. Other retained English links include “recently, moments ago”, emphatic and precision senses. Spanish `solo` itself has a retained “as recently as” relation. Consequently the current “I Solo started … last month” is **uncertain source-intent/teaching evidence**, not established material error. Mid-sentence capitalization is a separate formatting problem. This assessment is additive; earlier frozen agent judgments remain unchanged.
+
+More decisive exposed diagnostics are case007's additive `too → demasiado` and case023's emphatic `they just → they Apenas`. The latter's original context is “They just left, it began to rain.” → “Apenas se fueron, comenzó a llover.”, supported by one component. Two source tokens therefore do not themselves establish reusable disambiguating evidence. These examples motivated a general gate; they are not independent test gold.
+
+## Proposed ablation
+
+Only ordinary candidates are reconsidered. Use the exact structurally eligible original shared links matching the current actual source POS. An eligible source-safe form preserves admission. If every such form is source-unsafe, require an original context wider than the displayed focus and at least two retained independent components. No matching actual-role link abstains. Qualified noun add-ons stay unchanged under their existing stricter context rules. Source-safe unigrams remain; no POS class or word is blacklisted.
+
+This deliberately tests minimum evidence, not all-sense agreement. Component support is for the aligned original variant, not independently certified source intent. Repeated generic contexts can still be ambiguous. A positive result would not authorize shipping this gate or assert sense correctness. Count lost valid content and newly exposed fallback emissions as well as withheld errors. Do not change target casing, target selection, masks, ranking, known-family semantics or the 25% budget.
+
+## Current 52-case inspection
+
+These are reused diagnostic outputs, reviewed by an agent, not a fresh accuracy sample. Actual selected examples with no identified meaning defect include water, friends, job/family, bank in a bank-work context, opportunity, park, football/tennis, plane/cat/pet, city atmosphere, beauty, food and dog. Source grammar is intentionally retained. `cansada` introduces unsupported feminine agreement; `diferentes` with an irregular singular English phrase and initial/mid-sentence casing need form/format qualification rather than automatic meaning-error labels. `sólo` in a restrictive romantic-partner context and imperative `Solo make sure…` are plausibly valid, and their possible loss must be counted. Actual Apple already withholds the deaf/wife head due to source-role evidence; its old masculine `sordo` is not a new actual emission. Ski-race and music-record mappings are withheld in actual outputs, not recovered translations.
+
+## Execution and limits
+
+`compare.py` and `protocol.json` are prepared, not executed. Root must explicitly authorize the frozen hashes. One production pass uses one CPU, nice10, 1 GiB address space, 120 seconds, 32 MiB output and an 8 GiB free-space floor. The two local native/reference inputs total 1,582,335 bytes; existing large assets remain on production. The evidence map retains exact original eligible links/forms and proof hashes; it does not copy full rejected proofs. Output overflow is a retained failure, never silent truncation.
+
+Before any gated prediction, reconstruct all 9,535 × 2 current qualified decisions and the 52 × 2 actual native decisions exactly. A discrepancy stops the run. The source corpus is reused TRAIN, and the 52 cases are exposed diagnostics. Full emitted-word depth, nonempty messages, lost/new candidate indices and full actual-native outputs are retained. A whitelist, POS-only sense inference, hidden mask changes, new inference or activation is outside this experiment.
