@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "frozen_utc": "2026-11-09T20:02:17.458835+00:00",
+  "base_revision": "ef76d35c9a13e4d82e5d4eb2d0018e00e0fd4e93",
+  "experiment": "Non-activated Android native one-unit vs greedy same-budget packing; JA and SW",
+  "inputs": {
+    "ja": {
+      "file": "ja-baseline.json",
+      "sha256": "3f41d367a7e57cfd1208b8d4354faca2e61dd3a97cb87aad1b93ff03a280737a",
+      "parent": "/home/ai/Development/investigations/vipi-japanese-starter-promotion-20261109-r01/android-capture-r06/output.stdout",
+      "bytes": 485832
+    },
+    "sw": {
+      "file": "sw-baseline.json",
+      "sha256": "21e3d835fb6c3ab21bf44cf71f217e277b22075398c44ae6fb5a43ef19dafe53",
+      "parent": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-capture-r02/output.stdout",
+      "bytes": 576621
+    }
+  },
+  "input_manifest_sha256": "aee4ce116e99915ae25777b9a71d2bf871a8b9fe2f30460146a65d69e67541a5",
+  "census": {
+    "ja": {
+      "rows": 384,
+      "unique_source_ids": 128,
+      "trace_rows": 651,
+      "native_token_occurrences_across_states": 3741,
+      "pack_sha256": "62e147bdad14a8f2bc96de2099fa7977c3e125ef5ef6870c34e1d2716128807e"
+    },
+    "sw": {
+      "rows": 384,
+      "unique_source_ids": 128,
+      "trace_rows": 783,
+      "native_token_occurrences_across_states": 3687,
+      "pack_sha256": "e0103acd530f6c4c121e7a976de954fe1e115a1083c6605c680b1e649c7c74b0"
+    }
+  },
+  "policy": {
+    "A": "Unchanged normal default route and single-unit starter; every row must reproduce retained final full/direct spans, mixed text, trace and native ranges. No results credited until all 768 pass.",
+    "B": "Call exact current per-pair loader for all hits/guards. Keep null-reason hits in original stable category-content-first/train_rank ascending/source-token length descending/start ascending order. Greedily accept each whole nonoverlapping unit if its exact native word cost fits remaining budget. No re-ranking, alternate target or new entry.",
+    "budget": "0.25; max(1,floor(actual native words * density)), identical to current native policy. Existing source-known exclusions unchanged.",
+    "presentation": "Re-use actual SourceReferencePresentation.create plus existing evidence.filterPartial and normal ConversationImmersion sourceLookup injection. Report direct starter separately from complete route; authored reference priority remains.",
+    "masks": "All original recognitions, exact approved IDs/ranges and protected masks retained including blocked/known candidates; immutable original pack references remain.",
+    "normalization": "Only unchanged native loader matching/ICU LocalImmersion.words. No Python tokenization or recreated guards.",
+    "limits": "No translations/models; no changes to production sources; no Apple build; historical diagnostic inputs, not population coverage."
+  },
+  "review": {
+    "all_outputs_retained": 768,
+    "anonymous_full_source_options_separate_from_method_key": true,
+    "root_subset": "Per pair take first 20 changed message IDs ordered by SHA256(pair+NUL+id), retaining all three states; separately first 4 unchanged source IDs by same ordering. No outcome/label backfill. Full packet retains all 768 cases.",
+    "author": "Review every newly emitted source-face/context plus full changed messages; preserve prior judgments.",
+    "prior_exposure": "All baseline sources exposed historical diagnostics; new output meanings not tuned or used for selection."
+  },
+  "bounds": {
+    "assembly_seconds": 900,
+    "capture_seconds": 1200,
+    "instrumentation_seconds": 300,
+    "gradle_workers": 1,
+    "active_cpus": 2,
+    "heap_mib": 1536,
+    "emulator_mib": 2048,
+    "floor_bytes": 8589934592,
+    "assembly_additional_bytes": 805306368,
+    "capture_reservation": "Measured APK+2*DEX+retained BOOT_PEAK+64MiB+output reserve, calculated at admission.",
+    "native_output_cap_bytes": 16777216,
+    "private_metadata_output_cap_bytes": 33554432
+  },
+  "familiarity": "Proposal only, separate from exclusions; no persistence/actions/scheduler/automatic mastery or rendering behavior changes.",
+  "source": {
+    "run_assembly.py": "b72cbf49c3ff8bbc4328bff24842900100d6efda622577e18238c754e2764d79",
+    "run_capture.py": "03b8033659f9a304cc6d3f94285a82e7d692cc0eb1d8b165b4aa835d67322190",
+    "StarterPackingComparisonTest.kt": "4af3c75d32297b5ad817d8be1147a529fd68024832e12be3fc385b7c2ae3c313"
+  },
+  "stage_sha256": "1bc6c523c5c9ab76803cbb724d0a7dfd3c3c93e12616f3a7f083ef56b89a5a7c"
+}

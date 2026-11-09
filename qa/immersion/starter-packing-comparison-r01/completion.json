@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "completed_utc": "2026-11-09T20:16:15.370196+00:00",
+  "status": "completed comparison; not activated or promoted",
+  "baseline_parity_rows": 768,
+  "root_review_cases": 144,
+  "author_review_cases": 768,
+  "author_distinct_nonempty_combinations": 293,
+  "new_message_gains": 0,
+  "lost_units": 0,
+  "added_units_across_states": 283,
+  "added_pack_content_units": 56,
+  "added_pack_function_units": 227,
+  "substantive_common_review_disagreements": 0,
+  "normalization": "minor \u2192 minor_issue only; original judgments unchanged",
+  "production_sources_changed": false,
+  "new_translations_or_models": false,
+  "learning_state_implemented": false,
+  "native_jobs_pending": false,
+  "physical_ipad_used": false,
+  "private_bindings": {
+    "android-assembly-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/android-assembly-r01/receipt.json",
+      "bytes": 1577,
+      "sha256": "f2a6a34661de962f9cb4230fb89b7f6e16064ccba7cc6c800027fbcfe56a53f1"
+    },
+    "android-capture-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/android-capture-r01/receipt.json",
+      "bytes": 788,
+      "sha256": "8576e10d0e7ed59611ba1520ff33829093e61a8786cc1e53ca0816c7ee485529"
+    },
+    "android-capture-r01/output.stdout": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/android-capture-r01/output.stdout",
+      "bytes": 1449271,
+      "sha256": "22748c53dec6dc111ca8bd35d1e6bcad0bd5d61a74b4cf186411a17e1fac3403"
+    },
+    "inputs/packing-input-manifest.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/inputs/packing-input-manifest.json",
+      "bytes": 564,
+      "sha256": "aee4ce116e99915ae25777b9a71d2bf871a8b9fe2f30460146a65d69e67541a5"
+    },
+    "native-core-source-binding-addendum.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/native-core-source-binding-addendum.json",
+      "bytes": 1438,
+      "sha256": "ce284a13a62453689816ec6ada017eb76c7f6f368d7e9623b6522c232939f3ef"
+    },
+    "packet-preparation-freeze.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/packet-preparation-freeze.json",
+      "bytes": 215,
+      "sha256": "005307f053496dcacf750c03e084c3904c03890025fdddcd16ffe5ed0d5d1bb0"
+    },
+    "semantic-rubric-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/semantic-rubric-r01.json",
+      "bytes": 1114,
+      "sha256": "77d41fe908a34f9d0ab85e36698891c6a2e14e449e6c2292459446554ae9026c"
+    },
+    "author-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/author-review-r01.json",
+      "bytes": 599029,
+      "sha256": "8a335e8e3886a1ff4058680769938c39c49ba8da6d473dcbb52c3751505b1733"
+    },
+    "root-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/root-review-r01.json",
+      "bytes": 174380,
+      "sha256": "52f2741d37b287a4b1e55b05231fd8aba882ef2b788cd361f3d13947b4f32d9d"
+    },
+    "mechanical-verification-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/mechanical-verification-r01.json",
+      "bytes": 1795,
+      "sha256": "681e74d39e82e6521826ff571b1e8f88226112d87925608c48ebdbfe2166730e"
+    },
+    "joined-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/joined-review-r01.json",
+      "bytes": 35314,
+      "sha256": "7211ccaf2c17e16887eaeafb7384897d86cc86bb3636113d4c2391588f532c47"
+    },
+    "joined-review-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/joined-review-r02.json",
+      "bytes": 17424,
+      "sha256": "e2a5f614e9ba714af07ecafd6aed7c9b2ea681cbfe6a0b90e32f381241ee9979"
+    },
+    "comparison-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/receipt.json",
+      "bytes": 943,
+      "sha256": "825c1e83ce3d09cd7b6a2f4648c74e01847650af11115ce1d681cbc3ef814b3b"
+    },
+    "comparison-r01/metrics.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/metrics.json",
+      "bytes": 2218,
+      "sha256": "45a079880795b8ecaff6eb66e0e941e3921cb9d4dc3a37d028d0a7dfcf2ef8f5"
+    },
+    "comparison-r01/selection.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/selection.json",
+      "bytes": 2234,
+      "sha256": "513f2ce7771116ec859f7f38b6b086470859972ec63e886350c16e0fd0ba01db"
+    },
+    "comparison-r01/timing.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/timing.json",
+      "bytes": 136,
+      "sha256": "493007c69508f5f55f721568a114a4b6e9e7a16d27e2f8b3b274fd88fcf90d47"
+    },
+    "comparison-r01/anonymous-packet.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/anonymous-packet.json",
+      "bytes": 901606,
+      "sha256": "319b5a2a400a2730f883bf4254f6cca8a1d6fa2bced3d26a2f0020b42f2294d1"
+    },
+    "comparison-r01/root-anonymous-subset.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/root-anonymous-subset.json",
+      "bytes": 225625,
+      "sha256": "31b2c56a3625cc755d4764167b74a215b0543fe2cd404e1358ebf33bec44e371"
+    },
+    "comparison-r01/method-key.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/method-key.json",
+      "bytes": 177587,
+      "sha256": "0cf60940ea0c3974520cf172498f3798d59bfc144a8c6fd08450ac2ae772fc38"
+    },
+    "comparison-r01/deltas.json": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/comparison-r01/deltas.json",
+      "bytes": 152408,
+      "sha256": "e632426dcc05829d9648ea2723f92e079990182febc97d7803ebacb4a0f18fcc"
+    },
+    "prepare-failed-r01.py.txt": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/prepare-failed-r01.py.txt",
+      "bytes": 6282,
+      "sha256": "cd4c326bfb056caf73dc237fafe082bfe846ad12a9124244414c0ce32bf646e8"
+    },
+    "prepare.py": {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-comparison-20261109-r01/prepare.py",
+      "bytes": 6285,
+      "sha256": "845722114a3a4d9c1b2024aa7a8a3f239cd33f0a398e8291c4844fbdf17594dc"
+    }
+  },
+  "source_bindings": {
+    "PLAN.md": "72e39cb0c48d97211f0ceb72fac49d8f9e601e7ba35447d786ce76a3d0fec3c7",
+    "RESULT.md": "d6a7f88cda513a0586f8fd43691b08d6b66f39e3eda7fc99d37fae62ea41d686",
+    "StarterPackingComparisonTest.kt": "4af3c75d32297b5ad817d8be1147a529fd68024832e12be3fc385b7c2ae3c313",
+    "assemble.py": "ed820d69662fffa63d696ddd38596e4a0ef470f233d85dfe8bd381bce599ed74",
+    "join.py": "74f94de58d459c88d93f68a525ddb2287cd5b3d953e8935d86608b9bea83ac73",
+    "protocol.json": "b9b98b70239e310985520024a6892ed7d1b92d40569ec7eab3c4d4c7c1e2af9c",
+    "run_assembly.py": "b72cbf49c3ff8bbc4328bff24842900100d6efda622577e18238c754e2764d79",
+    "run_capture.py": "03b8033659f9a304cc6d3f94285a82e7d692cc0eb1d8b165b4aa835d67322190",
+    "verify.py": "a2ca115886d1a7c3c2e0319874d9122a2e445787f27317aa63023b7bd1011edf"
+  }
+}
