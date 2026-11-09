@@ -1,0 +1,152 @@
+{
+  "production": false,
+  "script_sha256": "293bec1cc7ceba96373414a25e9d4d42031ba0e37fa2f4bad7448fdb01116031",
+  "inputs": {
+    "adapter": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5"
+    },
+    "phrase_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+    },
+    "normalizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+    },
+    "tokenizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "geometry": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+      "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+    },
+    "matched_keys": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+      "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+    },
+    "dictionary_es": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "pairs": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "forward_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+      "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+    },
+    "reverse_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+      "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+    },
+    "catalog": {
+      "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/outputs/catalog-r02/catalog.sqlite",
+      "sha256": "e28189e91b8aa5a4e536ef9d209b44ea8927695cdacc2b414e93ae3e8a886429"
+    },
+    "packet": {
+      "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/outputs/packet-r02/review-packet.json",
+      "sha256": "683deace2caefe33addba06053a622f019f44095c742382c150ad8ad97c15c81"
+    },
+    "variants": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/extract/variants.sqlite",
+      "sha256": "69f192344970523d8aa2a453058d36613923790f48a6cf3b261657580ff13e14"
+    },
+    "observations": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/extract/observations.jsonl.gz",
+      "sha256": "ee370dba8481e6095aefb2ba948552d770a6b5c6c00347a75fda50100efd2080"
+    },
+    "audit_freeze": {
+      "path": "/srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/inputs/audit-freeze.json",
+      "sha256": "5308a1599a8bca3815571dbe00e047581da7d3f89201fff097649224557435c6"
+    }
+  },
+  "scope": {
+    "newly_eligible_ids": 1480,
+    "frozen_query": "SELECT id,source_key,record,audit FROM heads WHERE baseline=0 AND experimental=1 ORDER BY id",
+    "id_freeze": "Exact immutable catalog hash and predicate bind the set before execution; metadata writes every ID/record/audit hash before occurrences.",
+    "added_sampled_emissions": 29,
+    "sample_change_allowed": false
+  },
+  "stages": [
+    "occurrences"
+  ],
+  "resources": {
+    "cpu": 1,
+    "AS_bytes": 1073741824,
+    "seconds_per_stage": 120,
+    "aggregate_metadata_bytes": 134217728,
+    "free_floor_bytes": 8589934592,
+    "no_large_input_copy": true
+  },
+  "stage_admission": "Metadata executes only after root code review. Occurrences additionally needs occurrence-approval.json authorized=true, protocol_sha256 and exact metadata_receipt_sha256 after root checks measured joins/volume. Failure retained; no automatic retry/quota change.",
+  "evidence_math": {
+    "wholephrase_variants": "Count retained target keys/variant IDs before any noun interpretation.",
+    "occurrence": "Stream all retained observations with exact40000 full pairs and forward/reverse alignment. Source focus offsets are the frozen catalog offsets within matching source context.",
+    "lexical_span": "Union-linked target token extent, contiguous, within recorded variant target span, mutual anchor, no crossing. Target span >5 tokens is separately unsupported by frozen dictionary-unit bound.",
+    "dictionary": "Read unchanged dictionary-unit helper on exact source/target focus tokens using original whole text/capitalization. Require complete supported noun forms, number agreement and explicit/eligible shared term; only source exact name-only guard may be ignored as already frozen. No target guard removal.",
+    "identities": "Target lexeme+form+actual occurrence spelling+reading retained separately; linked sense IDs recorded, not treated as source occurrence labels or truth.",
+    "independence": "Pair IDs, components, paired(pair ID,source focus tokens) and distinct source(endpoint ID,fingerprint,record SHA,source focus tokens) counted separately. Source-window features counted once per distinct source endpoint occurrence and target identity; multiple Spanish translations and phrase expansions do not multiply source-context observations.",
+    "census": "All1480 IDs, all retained variants and all supported identity alternatives; no defaultwinner/ranking/fitting. All29 added emissions retain detailed occurrence links, source/target units and fullpair evidence.",
+    "size": "All metadata uses an8MiB combined hard cap with receipt reserve; prospective whole encoded file checks. No silent alternative truncation; uncertain dictionary/proof volume is explicit.",
+    "join_integrity": "Every selected observation must match full pair ID/index and both endpoint components, exact source/target token bounds, codepoint/UTF16 geometry and normalized source/target frozen variant spelling. Every variant seen count must equal its retained count; global equality alone is insufficient.",
+    "compact_retention": "Census independent identity sets are represented by exact count and sorted-set SHA; variant IDs and every alternative remain. Detailed29-emission evidence retains every occurrence reference, full pair/token/alignment, and all unit/form/link records through deduplicated content-addressed references. No silent truncation."
+  },
+  "name_diagnostic": {
+    "review_id": "name-scope-011",
+    "title_utf16": [
+      57,
+      70
+    ],
+    "scope": "Separate existing source masks/complete-unit guards, protected ranges, native words, all intersecting source context windows and recorded candidates. No new NER/protection rule."
+  },
+  "interpretation": [
+    "Shared linked dictionary sense is not semantic gold or complete source sense coverage.",
+    "Corpus occurrence POS/sense annotations are absent; preserve dictionary labels and native review role evidence without conflation.",
+    "Whole-sentence compound/literal/current-role eligibility is not regenerated; supported noun links are availability evidence, not admitted runtime candidates.",
+    "An identical target spelling can have multiple meanings/lexemes; one lexeme can have multiple forms.",
+    "Counts compare alternatives and source features; no learned rule, target rerank, projection or accuracy claim.",
+    "Named-title span protection remains distinct from noun lexical selection."
+  ],
+  "proposed_mechanism": "If the census supplies multiple supported target identities with independent component witnesses and distinguishable source-context counts, prepare an offline Apertium-style ambiguous lexical inventory and weighted context rules choosing target forms rather than all fine-grained senses. Keep default-frequency control, component-held-out evaluation and explicit abstention for unsupported cases; no training authorized here. If alternatives are missing, repair evidence collection before classifier work.",
+  "primary_sources": [
+    "https://wiki.apertium.org/wiki/Lexical_selection",
+    "https://wiki.apertium.org/wiki/Learning_rules_from_parallel_and_non-parallel_corpora",
+    "https://wiki.apertium.org/wiki/Constraint-based_lexical_selection_module"
+  ],
+  "parent_metadata": {
+    "protocol_sha256": "36aa91f1e634e639c4d498967bc7737f958019926f44e1002c22893ed76703e5",
+    "receipt_sha256": "2bfffc0a85dec74bfa5fca79785963e532e8b03dd2a17f7a3f8c2b693a49e5fe"
+  },
+  "parent_partial_census_sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc",
+  "resource_amendment": {
+    "revision": "r02",
+    "parent_code_sha256": "e7812e160ab10b9252cf812d6330fdfc3b0434297f4b9a26be4ca9b7aa631cc8",
+    "parent_protocol_sha256": "36aa91f1e634e639c4d498967bc7737f958019926f44e1002c22893ed76703e5",
+    "parent_failure_receipt_sha256": "82403b29d8122889ae4dfef6382c0da084d57b8fb6e72004c91839cc834641a8",
+    "measured_complete_computation_seconds": 10.644435621012235,
+    "measured_peak_RSS_bytes": 101376000,
+    "head_observation_joins": 12500,
+    "audit_rows_upper_bound": 761,
+    "basis": "Rejected audit encoding was allocated within measured101.38MB process peak.128MiB bounds that observed scale plus approximately5MB already-retained metadata/census and reserve. No additional corpus-size pass.",
+    "unchanged": "All inputs,queries,alignment/identity/sense semantics,feature counts,audit scope,1CPU/1GiB/120s. Original metadata reused through exact parent receipt binding; no new sampling.",
+    "additional_integrity": "Exact original retained census SHA required before writing r02 census. Prospective encoded bytes logged before cap check.",
+    "output": "outputs/occurrences-r02",
+    "old_outputs_retained": true,
+    "execution_authorized": false
+  }
+}

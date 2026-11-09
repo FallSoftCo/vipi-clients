@@ -87,9 +87,20 @@ population accuracy estimate. One retained financial-idiom judgment differs
 between reviewers and remains unresolved. The twelve exposed diagnostic sources
 are separate controls: seven of their 24 state-specific outputs gain correct
 immersion; “amazon and costco” remains unchanged. No runtime exception is active.
-The next read-only diagnosis checks whether retained target alternatives and
-their occurrence contexts can support lexical choice, separately from complete
-name/title protection. See `qa/immersion/source-name-scope-r01/RESULT.md`.
+See `qa/immersion/source-name-scope-r01/RESULT.md`.
+
+The completed follow-up checks all 1,480 newly eligible heads and preserves all
+29 sampled additions. Only 91 heads have multiple casefolded target faces under
+the diagnostic rules; 43 have two faces each supported by at least two corpus
+components. Those are availability counts, not correct training labels. Raw
+unigram evidence includes autumn's “otoño,” but the current qualifying noun-link
+path omits it. Conversely, that path admits a verbal “order→pedido” occurrence
+as noun evidence. The title has no retained covering context or spanning mask.
+All 761 detailed audit rows reconstruct exactly against their 28 head aggregates,
+including source/pair/component counts and deduplicated local-context features.
+The next work traces direct-English and alias provenance and qualifies actual
+source and target occurrence roles before training contextual rules. No catalog
+or classifier was activated. See `qa/immersion/lexical-choice-evidence-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

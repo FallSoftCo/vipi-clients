@@ -1,0 +1,16 @@
+{
+  "prepared_only": true,
+  "previous_pre_review_protocol_sha256": "36ea13445a45250c94cd9dde18ff48b40a7f7a8cfb704bff61a34337480bb2c5",
+  "protocol_sha256": "36aa91f1e634e639c4d498967bc7737f958019926f44e1002c22893ed76703e5",
+  "script_sha256": "e7812e160ab10b9252cf812d6330fdfc3b0434297f4b9a26be4ca9b7aa631cc8",
+  "audit_freeze_sha256": "5308a1599a8bca3815571dbe00e047581da7d3f89201fff097649224557435c6",
+  "test_sha256": "b4b1d8c419dab329e771071edd17aa2ca9a3f1f0b71dbb52231053dc17145971",
+  "focused_test": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+  "stage1_command": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/code/diagnose.py metadata'",
+  "stage2_command_after_metadata_approval": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/code/diagnose.py occurrences'",
+  "resource_basis": "Measured source-name full catalog scan17.27s/60.23MB and25.78MB DB; original variants57.54MB and observations21MBgzip reused. Occurrence cardinality, dictionary work and final detailed metadata size unknown until first pass. Root must review metadata before occurrence stage;120s/1CPU/1GiB/8MiB hard limits. No large copy.",
+  "output_volume": "Dictionary forms and supported links deduplicate by full content hash, retaining all alternatives/reasons; no list truncation. Census records counts/digests for independent identity sets, detailed audit retains full original pair identities. If bound insufficient fail and retain, do not retry.",
+  "execution_started": false,
+  "previous_pre_review_script_sha256": "1e3ffc883ec60eefaed09319037355885a3573658ccf25469df1085ce65a0a8a",
+  "source_context_counting": "Distinct source endpoint(id,fingerprint,record SHA,a,b), not paired source-target ID; pair/component counts retained separately."
+}

@@ -1,0 +1,34 @@
+{
+  "protocol_sha256": "b069c13179450d9ef1a0d5d49edb6b6fa743b6957ddd21c230743aec8fbff16c",
+  "script_sha256": "293bec1cc7ceba96373414a25e9d4d42031ba0e37fa2f4bad7448fdb01116031",
+  "unchanged_function_ASTs": [
+    "enc",
+    "sha",
+    "load",
+    "metadata",
+    "verify_observation"
+  ],
+  "occurrences_AST_equal_except_approval_filename": true,
+  "same_inputs": true,
+  "same_evidence_math": true,
+  "same_interpretation": true,
+  "same_name_inventory": true,
+  "command": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 -B /srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/code/diagnose_r02.py occurrences'",
+  "resource_amendment": {
+    "revision": "r02",
+    "parent_code_sha256": "e7812e160ab10b9252cf812d6330fdfc3b0434297f4b9a26be4ca9b7aa631cc8",
+    "parent_protocol_sha256": "36aa91f1e634e639c4d498967bc7737f958019926f44e1002c22893ed76703e5",
+    "parent_failure_receipt_sha256": "82403b29d8122889ae4dfef6382c0da084d57b8fb6e72004c91839cc834641a8",
+    "measured_complete_computation_seconds": 10.644435621012235,
+    "measured_peak_RSS_bytes": 101376000,
+    "head_observation_joins": 12500,
+    "audit_rows_upper_bound": 761,
+    "basis": "Rejected audit encoding was allocated within measured101.38MB process peak.128MiB bounds that observed scale plus approximately5MB already-retained metadata/census and reserve. No additional corpus-size pass.",
+    "unchanged": "All inputs,queries,alignment/identity/sense semantics,feature counts,audit scope,1CPU/1GiB/120s. Original metadata reused through exact parent receipt binding; no new sampling.",
+    "additional_integrity": "Exact original retained census SHA required before writing r02 census. Prospective encoded bytes logged before cap check.",
+    "output": "outputs/occurrences-r02",
+    "old_outputs_retained": true,
+    "execution_authorized": false
+  },
+  "execution_started": false
+}

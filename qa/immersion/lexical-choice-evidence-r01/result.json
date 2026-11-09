@@ -1,0 +1,2249 @@
+{
+  "complete": true,
+  "production": false,
+  "summary": {
+    "heads": 1480,
+    "heads_with_multiple_emitted_faces": 102,
+    "heads_with_multiple_target_lexemes": 191,
+    "heads_with_supported_alternative": 1480,
+    "heads_with_two_target_lexemes_each_two_components": 102,
+    "no_correctness_or_training_label_claim": true,
+    "observations": 12485
+  },
+  "derived_counts": {
+    "multiple_casefold_faces": 91,
+    "case_only_face_variation": 11,
+    "multiple_target_lexemes_one_casefold_face": 102,
+    "two_casefold_faces_each_two_components_lower_bound": 43
+  },
+  "audit_29": [
+    {
+      "candidate_head_ids": [
+        "9028f833833da5c68ce6c95d20e5417847507ed315060e51ebe4b2e13b6459e1:8710be7bf8fee1a5996b6cd00d9d5b2c9c591a85949a0058daaf0a7eaee15955"
+      ],
+      "focus_utf16": [
+        26,
+        30
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-001",
+      "source": "fall",
+      "source_id": "bst-train-3076-06",
+      "source_sha256": "6526fa58a043c44d85938b5c7c5b64bd29ea6d226d9f3b0edb67ed495c778801",
+      "target": "caída",
+      "union_index": 0,
+      "source_keys": [
+        "the fall"
+      ],
+      "retained_observation_rows": 3,
+      "rows_without_diagnostic_reasons": 3,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            531256,
+            "927121d409269c432645fa1664a94fc666c895761a11d413af59817b40d7a05a",
+            "caída",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "b25c5193ffb25b8e527d27f7c571ebeea6b15aa28d5756181417e99655a0821f"
+          },
+          "paired_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "fa7bdd182cf7e8aab55f3081fbe693672dba4939c2c2dcd0f4b5bb4515742d1e"
+          },
+          "components": {
+            "count": 2,
+            "sorted_identity_sha256": "bd1dc716e46251d8031ca9f8121391957c1db2dafcb75a1af887c2b774cfdf0a"
+          },
+          "variant_ids": [
+            "9028f833833da5c68ce6c95d20e5417847507ed315060e51ebe4b2e13b6459e1",
+            "9ea3544588ddff0cd65d6944e02048144e9e4f6ff9e26a64a58dd8834b1d297b"
+          ],
+          "linked_sense_ids": [
+            "14160a04e37c0535b5f32d917fdf46f55092b9f927877c60ce5a8128ac3af0a3",
+            "161f78408b8d7abd29618aa7d8747096753b2e54a8e4955fba2a166b7833418c"
+          ]
+        }
+      ],
+      "interpretation": "Selected the fall context has only caída; raw unigram fall has otoño twice, but neither scoped supported census admits it. Detailed complete fall noun forms link decline/gravity/status or no terms, not autumn. Missing qualifying relation, not proof the corpus lacks autumn."
+    },
+    {
+      "candidate_head_ids": [
+        "b285481a284d952ba902f8fcadf8e652332d27846d13eeed6f6fc997d7fa154f:9e54080c102161bc8b75bfbed7eef66aac47e8ff8d1a8b5d108a694b40fb049b"
+      ],
+      "focus_utf16": [
+        7,
+        13
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-001",
+      "source": "winter",
+      "source_id": "bst-train-3076-06",
+      "source_sha256": "6526fa58a043c44d85938b5c7c5b64bd29ea6d226d9f3b0edb67ed495c778801",
+      "target": "invierno",
+      "union_index": 1,
+      "source_keys": [
+        "winter"
+      ],
+      "retained_observation_rows": 27,
+      "rows_without_diagnostic_reasons": 23,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 4,
+        "no_target_dictionary_unit_in_bound": 3
+      },
+      "alternatives": [
+        {
+          "identity": [
+            381692,
+            "031512479c24439c4be1ae6958ae7dbf6731734fcecae61f1b849717399f14b1",
+            "invierno",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 20,
+            "sorted_identity_sha256": "65fa7fa7016233029070fa88a742f26cb205de151e93a236475bc37759430c4c"
+          },
+          "paired_occurrences": {
+            "count": 20,
+            "sorted_identity_sha256": "460e053aa66c44258bc0aa5c6f224d8607e054f18f3b6e0f46a3411e1e172ff7"
+          },
+          "components": {
+            "count": 20,
+            "sorted_identity_sha256": "c62d101530e0430d1f7d1fabf75b18f5f2bb1869ee3cb7c6b5c3195c63879d21"
+          },
+          "variant_ids": [
+            "69be81ea9bc6a819350657d7f38d9e5763a1643d750f136c8719895f1ab2c2d3",
+            "7794068200741fad358b4d72737a389caaa5a75a4e451882e196363f1f78c0b8",
+            "9592b6879b828fbc8b7767535c167305f9383ea7d981eddc2e3dde8e2cafb773",
+            "b285481a284d952ba902f8fcadf8e652332d27846d13eeed6f6fc997d7fa154f"
+          ],
+          "linked_sense_ids": [
+            "cf4ba545403f22d50a2ea60c49c25c9f3e097178b8ce9b9a34507bc039e848a6"
+          ]
+        }
+      ],
+      "interpretation": "Single supported season face. Multiple witnesses do not establish a target-choice task."
+    },
+    {
+      "candidate_head_ids": [
+        "3a971bd0742779d34c43a1c6792a03e5715b70948ea493cd72abc41ef39498e7:5ce5e7665b77c555597495c710bc1ea6dd5e075b36d078b151b3ab08232b8207"
+      ],
+      "focus_utf16": [
+        88,
+        92
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-002",
+      "source": "life",
+      "source_id": "bst-train-2688-02",
+      "source_sha256": "f0b5ad525c5025e2e37abbf18653fcf1c1bf595969d72f02fad9a8fd22d53286",
+      "target": "vida",
+      "union_index": 0,
+      "source_keys": [
+        "in your life"
+      ],
+      "retained_observation_rows": 5,
+      "rows_without_diagnostic_reasons": 5,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            311599,
+            "2494fa531abede7f9566d851f90da4126aee0b053063455f6c3400273b677e7a",
+            "vida",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "430a969f9aaf07058a31f488d4079d2050eaf5c93c431878c3e112eaf1d942f4"
+          },
+          "paired_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "17ab64f7477d18f95c6d351b53726711815d7c59cce5e330003ad3c96fb50187"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "4ad0369403199d2a86d81e0ada67a06f11ef81ddec2afc4b274e7ae491075a5b"
+          },
+          "variant_ids": [
+            "3a971bd0742779d34c43a1c6792a03e5715b70948ea493cd72abc41ef39498e7",
+            "58d9ca60485b25b80559c0031d9933a86ae396718bc093fc49831ead1aab30bd",
+            "6eb0b0d690e9834fde839745c4f032f959814e7038f62f727f05e2e5d6c886a5",
+            "ba306eb9bb6831dd0e25f5ac920d2e4f7e9eb5e981df18b4c94f822976263ebf"
+          ],
+          "linked_sense_ids": [
+            "65fb43a2cf6b92e13e382c7eafabcf1ee8301645907d6167723eedf917e0d164",
+            "661ad830a423a59a64f79bb55502256739d5fe268311452a3402bbe9fde7a3e9",
+            "6986b640e8531915c9263630bc765dcc11e0c60d4094c77bf7c5be2fe9e91ce9",
+            "6df8b49dfbd871eeafc324b8750dde00d71e7e3270a92789cf6b3ca31a5b5570",
+            "f1151087728cc2c34c90cdd9c44c808d4f13b0a162d3a21452ec9025dc2980af"
+          ]
+        }
+      ],
+      "interpretation": "Single supported face vida."
+    },
+    {
+      "candidate_head_ids": [
+        "a15eca858eba13600485ea6cee82668b22ffd26cdfd4a382aaa6930a24cca0f6:4597306997d28121a075331c2a48ae27a0a8582a2357f72befcf3e511dc5f206"
+      ],
+      "focus_utf16": [
+        79,
+        87
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-003",
+      "source": "universe",
+      "source_id": "bst-train-4568-06",
+      "source_sha256": "1ad9f5e538c71a94a7f962c616702ef096516f11abfc1e488c93b0b8df26260c",
+      "target": "universo",
+      "union_index": 0,
+      "source_keys": [
+        "the universe"
+      ],
+      "retained_observation_rows": 16,
+      "rows_without_diagnostic_reasons": 12,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 4,
+        "no_target_dictionary_unit_in_bound": 2
+      },
+      "alternatives": [
+        {
+          "identity": [
+            297967,
+            "d78f31dd4f67c15893ee4b64030411498e9885d80534385a8a97e4041a22b21e",
+            "universo",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "9549dcee33fb5dbd23af6d35de97ec250065baf137b8ac15e58524c83023c6f3"
+          },
+          "paired_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "e2b97343a5d800dbcbc965b6b1555d83391514f77188916f1b26f092a9a1005a"
+          },
+          "components": {
+            "count": 7,
+            "sorted_identity_sha256": "6d59d4995af76791023c84424d71e65aedd4699166d0f5b2a4b28c50394b792d"
+          },
+          "variant_ids": [
+            "4af2d661cc9f75c78b838438e8f16f8821411f53d5e3b81a3c9cc346546c3ec5",
+            "a15eca858eba13600485ea6cee82668b22ffd26cdfd4a382aaa6930a24cca0f6",
+            "a5b3ff74bd03d8f605ba5d964ed7f323ea6b90a63c62b247145dd33bc3423236",
+            "c1bad4d8dc1ed329fcfb5f718c704f5305f78b046df56e818776583f2fcdbc95",
+            "c631b3889b43a43e6c2847c825b97a068d7aaaef465a4999a5672c42ae9d35ba",
+            "c983b945e0bf8c38c68e6dbca5f57d68ecd92b1fc2679ad466a2085f01a9eedc"
+          ],
+          "linked_sense_ids": [
+            "350a17a107e015ce41faefca7bfccdf291fbbdbdd241a56e728cbefdf91938dd",
+            "da4684ca55bc04b4358c8874eacf20f00d6ce1c6e4ced19d32942b9c5853030a"
+          ]
+        }
+      ],
+      "interpretation": "Single supported face universo."
+    },
+    {
+      "candidate_head_ids": [
+        "407cdef2426ab85f394f81fcd944ea12eb22fe4e28f2544c24909309fd04c55b:19f3e0ead36f58e89651f0eb968f4093cf5a79e2dee733b208d7c3dea0b0b0c2"
+      ],
+      "focus_utf16": [
+        39,
+        44
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-003",
+      "source": "stars",
+      "source_id": "bst-train-4568-06",
+      "source_sha256": "1ad9f5e538c71a94a7f962c616702ef096516f11abfc1e488c93b0b8df26260c",
+      "target": "estrellas",
+      "union_index": 1,
+      "source_keys": [
+        "stars"
+      ],
+      "retained_observation_rows": 21,
+      "rows_without_diagnostic_reasons": 6,
+      "overlapping_reason_counts": {
+        "aligned_focus_outside_variant_target": 13,
+        "no_supported_explicit_noun_pair_link": 15,
+        "no_target_dictionary_unit_in_bound": 15,
+        "noncontiguous_union_target": 4,
+        "target_span_exceeds_dictionary_unit_bound": 3,
+        "union_crosses_focus": 13
+      },
+      "alternatives": [
+        {
+          "identity": [
+            394976,
+            "9bb57d8e79c63451ecc68d23539c61f5cff5a751244c48092097d5ca9a2a94ca",
+            "estrellas",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "4d16a0ca5528a240fcb44dd7206ac7673483a149a4a3851318b33eafc57abc07"
+          },
+          "paired_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "ff0ba437ed2eb89ddcc16ab43d5576a78ea03dfecf879d66db04885d035a7192"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "17e3b32dc6cafd61f618fd771528d7fb09ee64d0eddf4da32117e8067baeae4f"
+          },
+          "variant_ids": [
+            "407cdef2426ab85f394f81fcd944ea12eb22fe4e28f2544c24909309fd04c55b"
+          ],
+          "linked_sense_ids": [
+            "24e6f9c71cf2c6911c207c35ad38cafa5ed49a4392732640cceca407d4d3587f",
+            "307c1e0cf42cff2f9e6de972ed64dfd37512422cee24bf6e7cb040054082f1dd",
+            "30990fbe14eba71ebc0310365b3f93d55a671a8cd88511d1b69cd85cb91bb911",
+            "971eb1f03efd72f201bdd4788ebd45e12969f024f558c64a855b50aa06aec775",
+            "c2fd5ae170cd6dcb2689517158c14c5a9658c91c8e9f31f8149fefd9c998195b",
+            "c42a8285db20a1fe24bcec33087f66e6bfc0469c20caa11be125f177d3c06229",
+            "fab3a298f56da7b30cfcf55d7fb56c5a827c01d7a3d7c06017e13083ff5f4c52"
+          ]
+        },
+        {
+          "identity": [
+            394976,
+            "ab607f7ea1956b8549c6e71e3d3617799410c396cae0ea893d5399fe132c8e6c",
+            "estrellas",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "4d16a0ca5528a240fcb44dd7206ac7673483a149a4a3851318b33eafc57abc07"
+          },
+          "paired_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "ff0ba437ed2eb89ddcc16ab43d5576a78ea03dfecf879d66db04885d035a7192"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "17e3b32dc6cafd61f618fd771528d7fb09ee64d0eddf4da32117e8067baeae4f"
+          },
+          "variant_ids": [
+            "407cdef2426ab85f394f81fcd944ea12eb22fe4e28f2544c24909309fd04c55b"
+          ],
+          "linked_sense_ids": [
+            "24e6f9c71cf2c6911c207c35ad38cafa5ed49a4392732640cceca407d4d3587f",
+            "307c1e0cf42cff2f9e6de972ed64dfd37512422cee24bf6e7cb040054082f1dd",
+            "30990fbe14eba71ebc0310365b3f93d55a671a8cd88511d1b69cd85cb91bb911",
+            "971eb1f03efd72f201bdd4788ebd45e12969f024f558c64a855b50aa06aec775",
+            "c2fd5ae170cd6dcb2689517158c14c5a9658c91c8e9f31f8149fefd9c998195b",
+            "c42a8285db20a1fe24bcec33087f66e6bfc0469c20caa11be125f177d3c06229",
+            "fab3a298f56da7b30cfcf55d7fb56c5a827c01d7a3d7c06017e13083ff5f4c52"
+          ]
+        }
+      ],
+      "interpretation": "One emitted face estrellas across multiple form identities; do not count form duplication as lexical choice."
+    },
+    {
+      "candidate_head_ids": [
+        "27ed559ad41389ee12821e5a184e2a6fdf7f96d02789d84d4d2ed4febb617487:ae3dfcda7011c7a4cec8934c9627965ef023547ee66f32807042d4019784cff2"
+      ],
+      "focus_utf16": [
+        13,
+        16
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-004",
+      "source": "car",
+      "source_id": "bst-train-0814-00",
+      "source_sha256": "d956cce986aae500d7ba63a1a99eb68df19edd851bcd273bf64a6f705f30c51c",
+      "target": "auto",
+      "union_index": 0,
+      "source_keys": [
+        "what kind of car"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            166293,
+            "71cb7b34626ade5539c41b99e4c6d0aa328b1b446edb5c6e89f0ae24cbf89735",
+            "auto",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "869439012ba4d7455d9aa603afcaf9a7f50edff211872bb9113ca502120f04f8"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "3a62608b963883a5f536e04c9e58bb7236841e54aa9cfbb30bda6c8204e0ca1a"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "ae5dcc365cd60ea0b5f140b14c46136d53b7f66194f6881c77a5e8766f8add18"
+          },
+          "variant_ids": [
+            "27ed559ad41389ee12821e5a184e2a6fdf7f96d02789d84d4d2ed4febb617487"
+          ],
+          "linked_sense_ids": [
+            "f391fdf376843dba48087cedbb28892f57154d56db6f02f48a3672ab58339de9"
+          ]
+        },
+        {
+          "identity": [
+            166294,
+            "980a32fa2d5b298cb1b10db3dabfecd74b01f8d866e5d0800bc6b82ca3028b82",
+            "auto",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "869439012ba4d7455d9aa603afcaf9a7f50edff211872bb9113ca502120f04f8"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "3a62608b963883a5f536e04c9e58bb7236841e54aa9cfbb30bda6c8204e0ca1a"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "ae5dcc365cd60ea0b5f140b14c46136d53b7f66194f6881c77a5e8766f8add18"
+          },
+          "variant_ids": [
+            "27ed559ad41389ee12821e5a184e2a6fdf7f96d02789d84d4d2ed4febb617487"
+          ],
+          "linked_sense_ids": [
+            "f391fdf376843dba48087cedbb28892f57154d56db6f02f48a3672ab58339de9"
+          ]
+        }
+      ],
+      "interpretation": "Two target lexemes emit the same auto face; identity ambiguity alone is not a different translation choice."
+    },
+    {
+      "candidate_head_ids": [
+        "6d1e948af2fc513d7cd658d8249e9c39fe55d790d20e292e2a1104b9f63d2796:a46c0491c4d7dabcf42efac60ed83282a9e871ef0bc32e5e8e403108149952cf"
+      ],
+      "focus_utf16": [
+        26,
+        31
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-005",
+      "source": "house",
+      "source_id": "bst-train-2164-02",
+      "source_sha256": "fc0d8302ef26b37cbdb07fb128610109a1d66c1d5bc3454bced98a03b16e44ab",
+      "target": "casa",
+      "union_index": 0,
+      "source_keys": [
+        "my house"
+      ],
+      "retained_observation_rows": 30,
+      "rows_without_diagnostic_reasons": 30,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            123241,
+            "de8f8b778bf89603ee78db9c186d85a0c9484fb3042b6efc86f8da90154dea8d",
+            "casa",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 25,
+            "sorted_identity_sha256": "2fb7ff0f736fff2d57c5c9a870afbef979dab3566dd3e32f1607c14da8cdda9a"
+          },
+          "paired_occurrences": {
+            "count": 25,
+            "sorted_identity_sha256": "1b3f354f6716aa0503e2896540c03b55ef3a6386e1d2b01d93ce7d03f335099e"
+          },
+          "components": {
+            "count": 24,
+            "sorted_identity_sha256": "b8fdc756178376545be092ebcae20c91073be4d7763305f52e140708a00154c7"
+          },
+          "variant_ids": [
+            "2b8c6a178be7e556a62a57117ce7ebbc1146099f8e8ebcdc4f5090f99372f4f3",
+            "327176223e63ff2e0113d1682bb99f5ff7cd02e5b9290b5288ae1e34691e5d22",
+            "51cc7d020792b84615ae6c7738ef54e4882eeb7588db94f1338f00f9b324de59",
+            "6d1e948af2fc513d7cd658d8249e9c39fe55d790d20e292e2a1104b9f63d2796",
+            "f16c907dd7756c23de68143c0b5e1cf3172a12a7d5c93d7d479ed36a731cc865"
+          ],
+          "linked_sense_ids": [
+            "516e5cf303ecba6666226626efcf538c5bf0788f2a32169b44f9855607767afa",
+            "9700ff017bee32d6e7f520b5dc55f7e11e3df9855f32de794b385a486857cc96",
+            "a3d4fc71dc27536911c86eb0749e844ebd0b0f1c444cda968519b27e0ba6142d",
+            "a430a0e72cfe5ddea0dd54037f1c868fb45096505dc840fc25956b1ed573fcc0",
+            "f0ea86020e5af44c6fcedabfd5f617806c96a228de51ca277f73397591ffa5b0"
+          ]
+        }
+      ],
+      "interpretation": "One casefolded casa face; capitalization in some witnesses is retained separately."
+    },
+    {
+      "candidate_head_ids": [
+        "ebce8f85f2c9bd067ab62529a429cd4307db7a9ecc57f1a020ed1434a4827cd0:d2235204cc3a3b2a3720ae366638ba8dd23678e662eb3d8c2365f0ff706d1caa"
+      ],
+      "focus_utf16": [
+        59,
+        64
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-006",
+      "source": "house",
+      "source_id": "bst-train-1362-10",
+      "source_sha256": "3083236e1be661e0bcde9143992762998e032776e45ed81347fc377f8f3c3f3e",
+      "target": "casa",
+      "union_index": 0,
+      "source_keys": [
+        "house"
+      ],
+      "retained_observation_rows": 308,
+      "rows_without_diagnostic_reasons": 299,
+      "overlapping_reason_counts": {
+        "union_crosses_focus": 5,
+        "no_supported_explicit_noun_pair_link": 6,
+        "no_target_dictionary_unit_in_bound": 6,
+        "aligned_focus_outside_variant_target": 2,
+        "no_mutual_focus_anchor": 1,
+        "noncontiguous_union_target": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            123241,
+            "de8f8b778bf89603ee78db9c186d85a0c9484fb3042b6efc86f8da90154dea8d",
+            "Casa",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "4187e2f73fb36725f9a438493f6f49bc1f4edc81193b6f105c42f5b67b77f6ab"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "e8a52bae66bb2e9a5930f37d844129ddb483d6a195815837106745deddcda68d"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "57e30845997698aaf473290452cec7e5d629f16ef636e0b951cd0b10c693945b"
+          },
+          "variant_ids": [
+            "ebce8f85f2c9bd067ab62529a429cd4307db7a9ecc57f1a020ed1434a4827cd0"
+          ],
+          "linked_sense_ids": [
+            "516e5cf303ecba6666226626efcf538c5bf0788f2a32169b44f9855607767afa",
+            "9700ff017bee32d6e7f520b5dc55f7e11e3df9855f32de794b385a486857cc96",
+            "a3d4fc71dc27536911c86eb0749e844ebd0b0f1c444cda968519b27e0ba6142d",
+            "a430a0e72cfe5ddea0dd54037f1c868fb45096505dc840fc25956b1ed573fcc0",
+            "f0ea86020e5af44c6fcedabfd5f617806c96a228de51ca277f73397591ffa5b0"
+          ]
+        },
+        {
+          "identity": [
+            123241,
+            "de8f8b778bf89603ee78db9c186d85a0c9484fb3042b6efc86f8da90154dea8d",
+            "casa",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 257,
+            "sorted_identity_sha256": "5c27c383c30d16266d2f7df56c24213777c7ec13eecef533eee5cd9cc659c259"
+          },
+          "paired_occurrences": {
+            "count": 264,
+            "sorted_identity_sha256": "ee8ef188ab0d3e3dae6923cc3c4adbf4d4e64d88d9a2c01f04c6127abf6abe28"
+          },
+          "components": {
+            "count": 241,
+            "sorted_identity_sha256": "6c7fa9334b568f35c17d6815c5a3adf1eb633775f748926bf029b7f2fc87d38f"
+          },
+          "variant_ids": [
+            "00b480cc51864028d40d1fa2d4cbc41ed138db757d2f9b92eb5abc2ae287df0a",
+            "0406684d14c58e6380fdd8c4a7ae03f379840086039c2b53a16658babe82fb30",
+            "2b4cc3990682cb77b130b5fed0d4e748ab0514ec2f62a0707040a0710bc71b6f",
+            "3ca16c671ca149fbf265383e80ace85ad4756a478abf299982c63ed0f41b084a",
+            "64fcea12fc317a70025f13378cac2858c8db16d611b29ac1bcef36200ba69f9a",
+            "66440362301b8614234c6dfe9395169e67c79fd9e93dcf1e47202033dc7a41f9",
+            "975b3ad256653fe60c9e1e840ea25c2d30c7c051fe5358d01f855a2d39d2180f",
+            "a06748a00b78e81a8bb79f1450edde0d23550342095f9e325f14a12ddd9dbd32",
+            "a2022d107f7caf698a5ea72bf9dab0cb0d9dfdecbbaf11dc520da13c367961d9",
+            "b597a862f843eb444114971189f2cd4ed96df88415ad35eaf858342c5ccae076",
+            "b9ca52cfbcf9b42962390a63fe870b8a3f3a4123265f3fc01a3867882a0a7f89",
+            "bf0c76e95f4bed40e4c845b816cb45b15dd492fe60a2f7fbf0242dc725d15c16",
+            "c9c9961f2b891d5c6cf537dc41683c9e85c6ecddcc7e0cf4bbab563440e9dcdf",
+            "cf2bbb6d4e0764ce1a1070e857d59dee968a0e08ba1d60bebf84fec1ba5d1fcc",
+            "e57e1c1279a4345dec82a3fba4d3fe86f863bf553c0dc920d602d1577d89a42e",
+            "ea11abaa2483b56afa9e2a3c142e4a7dff3cebc288635c95921c5de291be7dee",
+            "ebce8f85f2c9bd067ab62529a429cd4307db7a9ecc57f1a020ed1434a4827cd0",
+            "ed8c164784920f00ee8d7ad95fa284511689168ee1a02806c4bea1e7ad7fbc3d",
+            "f616383553715a5a534c0df47ea17be2f0cb3a3d6003ee296b55fe41568e0eb7",
+            "f61c40f9063d32413e1eb2c9242e7f2f42e2405f55e9f13ac9d430d397113529"
+          ],
+          "linked_sense_ids": [
+            "516e5cf303ecba6666226626efcf538c5bf0788f2a32169b44f9855607767afa",
+            "9700ff017bee32d6e7f520b5dc55f7e11e3df9855f32de794b385a486857cc96",
+            "a3d4fc71dc27536911c86eb0749e844ebd0b0f1c444cda968519b27e0ba6142d",
+            "a430a0e72cfe5ddea0dd54037f1c868fb45096505dc840fc25956b1ed573fcc0",
+            "f0ea86020e5af44c6fcedabfd5f617806c96a228de51ca277f73397591ffa5b0"
+          ]
+        }
+      ],
+      "interpretation": "One casefolded casa face; capitalization in some witnesses is retained separately."
+    },
+    {
+      "candidate_head_ids": [
+        "a06a5c2682cd0a4d23b5fb16e57a5d99062b8f580af393633033b892d5f7f173:857bbc9d9e984a97f0a51800635aea69a478fda29c7b94e7db1e4e4708e92d4f"
+      ],
+      "focus_utf16": [
+        46,
+        50
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-007",
+      "source": "beer",
+      "source_id": "bst-train-1266-08",
+      "source_sha256": "ba795f155bd79a9d0c939c846a847e61ebea55c93a79b5ad834a52ff8904de34",
+      "target": "cerveza",
+      "union_index": 0,
+      "source_keys": [
+        "beer"
+      ],
+      "retained_observation_rows": 40,
+      "rows_without_diagnostic_reasons": 37,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 3,
+        "union_crosses_focus": 1,
+        "no_target_dictionary_unit_in_bound": 2
+      },
+      "alternatives": [
+        {
+          "identity": [
+            365314,
+            "a18f38c4aba3703b39ad1846a0cbfaa5c15c2ef4ba266f8e2912540dc8b91825",
+            "Cerveza",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "8dff698b48f341be449e2ef6c789e2c3b93739e166f78d41faeb4a3e07498d3b"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "db9c93f613ebaf0b676858bb2de21ec69aef90dac67132d226c7cbd644b7dec3"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "62a78ab9bf974443d0c18483308c215b9e58244acd2f2bd3eb1991bd6a4ecbbd"
+          },
+          "variant_ids": [
+            "a06a5c2682cd0a4d23b5fb16e57a5d99062b8f580af393633033b892d5f7f173"
+          ],
+          "linked_sense_ids": [
+            "3a2933480384f0f2bbe768cfe9415d2889acea23b3dae4505368fff2e4d16877",
+            "7848900d25f5eb9386ce7df26ebe258a724b6925344dbbf73d5bade514265f3b",
+            "de023fa2ee788148b7708ebe9a3c9ffc2f7e1aa3a8d70602ecd9707b47803a68"
+          ]
+        },
+        {
+          "identity": [
+            365314,
+            "a18f38c4aba3703b39ad1846a0cbfaa5c15c2ef4ba266f8e2912540dc8b91825",
+            "cerveza",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 34,
+            "sorted_identity_sha256": "38a5725fdfabca04378c7a929beb71ce3d75d2bf7366ef9f59a145eb4efadaa5"
+          },
+          "paired_occurrences": {
+            "count": 34,
+            "sorted_identity_sha256": "f8127cf20e8dbca73aad9394e5a28f8f9d94c3b39adffdaa1f55d8d543cd182e"
+          },
+          "components": {
+            "count": 33,
+            "sorted_identity_sha256": "5c87b341378c492471adee8d26cdbbe64f0c2606c3d82dcc267d3fb3a75b3848"
+          },
+          "variant_ids": [
+            "288e4780928b7bae61a914907a607934f5121a7a20a02a3a81775569f9ed2c48",
+            "a06a5c2682cd0a4d23b5fb16e57a5d99062b8f580af393633033b892d5f7f173"
+          ],
+          "linked_sense_ids": [
+            "3a2933480384f0f2bbe768cfe9415d2889acea23b3dae4505368fff2e4d16877",
+            "7848900d25f5eb9386ce7df26ebe258a724b6925344dbbf73d5bade514265f3b",
+            "de023fa2ee788148b7708ebe9a3c9ffc2f7e1aa3a8d70602ecd9707b47803a68"
+          ]
+        }
+      ],
+      "interpretation": "One casefolded cerveza face with capitalization variation."
+    },
+    {
+      "candidate_head_ids": [
+        "08a0f506fb7153ddbf577f844048520b8c2095adc9b712d8206cbf1949d68b16:63522feeb9b29c8045992aefeac288675465d4bf06609ad2bc0eee345b2ba9a3"
+      ],
+      "focus_utf16": [
+        20,
+        27
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-008",
+      "source": "husband",
+      "source_id": "bst-train-1661-06",
+      "source_sha256": "433d75fa41b7f0e1d8392386b89f1cdd8de202f768bd78d2d7163f9c8beafafc",
+      "target": "esposo",
+      "union_index": 0,
+      "source_keys": [
+        "my husband"
+      ],
+      "retained_observation_rows": 9,
+      "rows_without_diagnostic_reasons": 9,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            311815,
+            "c7b513bae8b7430ab1cd3a0fd191f65d33040c751592a3ff9d454c04c6d9697c",
+            "esposo",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "15077a70c1e2a74c54a7f6a959b908739cd040fc30df0c69576a284855473397"
+          },
+          "paired_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "b4ff5f920cd01f21373ef3926b75e3f61f904c1e1ad2673932af156fdd248edb"
+          },
+          "components": {
+            "count": 5,
+            "sorted_identity_sha256": "4ae0ca6b42de8d4c6bd71ef618370248daf72369b9e4d3a54200e3f0db544c81"
+          },
+          "variant_ids": [
+            "08a0f506fb7153ddbf577f844048520b8c2095adc9b712d8206cbf1949d68b16"
+          ],
+          "linked_sense_ids": [
+            "f036ba8d8a68bec87b48e976a38c4e18b4436d6987191cb81211fa88e0872861"
+          ]
+        },
+        {
+          "identity": [
+            311841,
+            "807778b5422589dde6915c51095f08d45a627c1d55289f9112edaaeec2428ceb",
+            "marido",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "1b40519e392d6d4cb431e3e400811fd804c00353a1e300f6cabe70cf0284180e"
+          },
+          "paired_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "eae350f48a8d1152abd45b4c5ee4273d9ab3307da7ed7a20d197790f0cedaeba"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "1158b0a786ab30f32745b8231fdd7cb44c3a85aaf8666ea026757bcf131bbf0e"
+          },
+          "variant_ids": [
+            "c7c7179ef0a792643183a2ae1816ddf5bb6ffff1f85edb217f06857a8bf2e936"
+          ],
+          "linked_sense_ids": [
+            "f036ba8d8a68bec87b48e976a38c4e18b4436d6987191cb81211fa88e0872861"
+          ]
+        }
+      ],
+      "interpretation": "Esposo and marido are ordinary spouse synonyms; their frequency difference is not evidence one is semantically wrong."
+    },
+    {
+      "candidate_head_ids": [
+        "5724c74b45944349cb2135499c2162298635ba47f2afcf9b937219717ece8f27:263a12641d6e20cc85bf9cf527a32a266ab616b42b550f0925fbb7f9cc45d6cc"
+      ],
+      "focus_utf16": [
+        52,
+        56
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-009",
+      "source": "snow",
+      "source_id": "bst-train-0004-06",
+      "source_sha256": "4c56ea611685905ac943d5bd228504c1ab214848067b740158c2397c292c16da",
+      "target": "nieve",
+      "union_index": 0,
+      "source_keys": [
+        "snow"
+      ],
+      "retained_observation_rows": 47,
+      "rows_without_diagnostic_reasons": 29,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 17,
+        "no_target_dictionary_unit_in_bound": 14,
+        "aligned_focus_outside_variant_target": 3,
+        "noncontiguous_union_target": 3,
+        "union_crosses_focus": 4
+      },
+      "alternatives": [
+        {
+          "identity": [
+            371361,
+            "b3b24f3efbbf8aa003f283bde10b52466017d6fb79d5a37a74d4ab85500b325e",
+            "nieve",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 26,
+            "sorted_identity_sha256": "c0bd8489e79f8c772638ad3ab30d44055ad7d2ace8a84e9d405599959a0c8bc0"
+          },
+          "paired_occurrences": {
+            "count": 26,
+            "sorted_identity_sha256": "ccfbbaa2105188e6f44a2be0d83c8c282f5b35123947c093f9bfe957136c91b6"
+          },
+          "components": {
+            "count": 24,
+            "sorted_identity_sha256": "851e933ef1832a6242d2430d83d48e9aa878026b124845255a26db031d88aa29"
+          },
+          "variant_ids": [
+            "19de308fc4e43b04b85a3ed47bcb43d00dda1677b43c607e48c4179e7b7d25ca",
+            "5724c74b45944349cb2135499c2162298635ba47f2afcf9b937219717ece8f27",
+            "900010703b73c80dc4ce4f3fe6deff6d3ad485c8397516b27fea892516dd578d",
+            "cff5131cfe14348bd27f46aa20a145c52a38e2994c27f1c357c0feaac2af591a"
+          ],
+          "linked_sense_ids": [
+            "45868adb3a8d0f13991664e4fe6d72a785d41610029c2de157989fa5f4edf9de",
+            "7d6a74601454f1677c55b869cc1e048002cccd956c17f8df9fb936de88f3406b",
+            "e85b27b848013d1d3fa88c86ea1cf06bd3e630c4a4217bace8941c5cec81c861",
+            "e9740314a7e0884a6558ab9b63ac0e04829e87e08dd3ad08ef6b89eef20b094f"
+          ]
+        }
+      ],
+      "interpretation": "Single supported nieve face; aligned raw occurrences without link support remain separate."
+    },
+    {
+      "candidate_head_ids": [
+        "08a0f506fb7153ddbf577f844048520b8c2095adc9b712d8206cbf1949d68b16:63522feeb9b29c8045992aefeac288675465d4bf06609ad2bc0eee345b2ba9a3"
+      ],
+      "focus_utf16": [
+        19,
+        26
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-010",
+      "source": "husband",
+      "source_id": "bst-train-1786-06",
+      "source_sha256": "1483aaea861c43a5e3cfd12f5f47961b5dd13fb639f8fc8a816dd1c7673ae33a",
+      "target": "esposo",
+      "union_index": 0,
+      "source_keys": [
+        "my husband"
+      ],
+      "retained_observation_rows": 9,
+      "rows_without_diagnostic_reasons": 9,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            311815,
+            "c7b513bae8b7430ab1cd3a0fd191f65d33040c751592a3ff9d454c04c6d9697c",
+            "esposo",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "15077a70c1e2a74c54a7f6a959b908739cd040fc30df0c69576a284855473397"
+          },
+          "paired_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "b4ff5f920cd01f21373ef3926b75e3f61f904c1e1ad2673932af156fdd248edb"
+          },
+          "components": {
+            "count": 5,
+            "sorted_identity_sha256": "4ae0ca6b42de8d4c6bd71ef618370248daf72369b9e4d3a54200e3f0db544c81"
+          },
+          "variant_ids": [
+            "08a0f506fb7153ddbf577f844048520b8c2095adc9b712d8206cbf1949d68b16"
+          ],
+          "linked_sense_ids": [
+            "f036ba8d8a68bec87b48e976a38c4e18b4436d6987191cb81211fa88e0872861"
+          ]
+        },
+        {
+          "identity": [
+            311841,
+            "807778b5422589dde6915c51095f08d45a627c1d55289f9112edaaeec2428ceb",
+            "marido",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "1b40519e392d6d4cb431e3e400811fd804c00353a1e300f6cabe70cf0284180e"
+          },
+          "paired_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "eae350f48a8d1152abd45b4c5ee4273d9ab3307da7ed7a20d197790f0cedaeba"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "1158b0a786ab30f32745b8231fdd7cb44c3a85aaf8666ea026757bcf131bbf0e"
+          },
+          "variant_ids": [
+            "c7c7179ef0a792643183a2ae1816ddf5bb6ffff1f85edb217f06857a8bf2e936"
+          ],
+          "linked_sense_ids": [
+            "f036ba8d8a68bec87b48e976a38c4e18b4436d6987191cb81211fa88e0872861"
+          ]
+        }
+      ],
+      "interpretation": "Esposo and marido are ordinary spouse synonyms; their frequency difference is not evidence one is semantically wrong."
+    },
+    {
+      "candidate_head_ids": [
+        "a1704c6abb08292b1e4aaeb41ec7f2690ccf1fdd3733aa6958871301baf4abcc:5de1ca0d425d42eaa9ea49e640f98b7052577ee425f6defa6d5248b2a214f52b"
+      ],
+      "focus_utf16": [
+        64,
+        68
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-011",
+      "source": "ball",
+      "source_id": "bst-train-2542-04",
+      "source_sha256": "793a9a365d6a45648ca5f19f7ba556d5438ce069d365fed729c06ecb73139635",
+      "target": "pelota",
+      "union_index": 0,
+      "source_keys": [
+        "ball"
+      ],
+      "retained_observation_rows": 31,
+      "rows_without_diagnostic_reasons": 28,
+      "overlapping_reason_counts": {
+        "aligned_focus_outside_variant_target": 1,
+        "no_supported_explicit_noun_pair_link": 3,
+        "no_target_dictionary_unit_in_bound": 1,
+        "noncontiguous_union_target": 1,
+        "union_crosses_focus": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            1191406,
+            "6bd42cc0951767a71c317f624c7d6ac242e87cb4a7bedbda741e80ae89b22e3a",
+            "balón",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "1022d8662e99d15e9a26086cfd82a3baf99bd72251dfa2f35229eb946b1adae4"
+          },
+          "paired_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "45d143733a5d6d6e40f7b9fe0076315aa8fd29da620eb9ee045a6f8fcf0dffd7"
+          },
+          "components": {
+            "count": 2,
+            "sorted_identity_sha256": "ac45c651c976962557a0bd499d413430a824ed6580c6489d81251ee2a0d547c7"
+          },
+          "variant_ids": [
+            "3ce475b3e7c5d8b68bd64bbe996fa85e0a7f723afe7d5404693d4be0623411d0"
+          ],
+          "linked_sense_ids": [
+            "9315f91280d52cf19adbbafd139162b90a7bb2d0035ad6fbf426beeef9320d8b"
+          ]
+        },
+        {
+          "identity": [
+            542914,
+            "4bb2fe44296e713a4d951457918a8a8d3073292906c89baa2108c218ca0341e8",
+            "bola",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 3,
+            "sorted_identity_sha256": "c7b7b234abe74becd216184c9736625bf2917a84335884d09b0d730377d1abfa"
+          },
+          "paired_occurrences": {
+            "count": 3,
+            "sorted_identity_sha256": "beb84d3e1718f8367fa75f78ee57093fae3a21ce40551f585bbb8a6cc6db4918"
+          },
+          "components": {
+            "count": 3,
+            "sorted_identity_sha256": "f47166b08310e11aa53f45efac82b540d7236cf04d4ade87769032d69feb031b"
+          },
+          "variant_ids": [
+            "37f212123791707a4fecedc5ec3c5d65120355d064f67ef979f842f24030c791",
+            "bf51cc0dd79f908c766c3ad265add6f6f52fce6b9f722c84c1732b5613dbafe1"
+          ],
+          "linked_sense_ids": [
+            "1400d1da00bb1d24c659d5ac72405f5960f0588812a314b193d5a6fc8dab88a3",
+            "59981ca16400be26e65ed44d92f75da10e14259687fdb0dca19cec3cbeac1435",
+            "6d3b042d4983afd37e999b040d001db96de51afc7958bc5fb9489f45cc3df5dd",
+            "9315f91280d52cf19adbbafd139162b90a7bb2d0035ad6fbf426beeef9320d8b",
+            "fd2890d6e07e8e430e4adba18b80435b7a18bcfedfb83dd60025c295357372b0"
+          ]
+        },
+        {
+          "identity": [
+            812174,
+            "c0936634b24af6e743cf2f0f1f3509b43de08982cbdc7f6389652ea9547fd793",
+            "pelota",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 18,
+            "sorted_identity_sha256": "00c149c0429240fa570ae6e566f530fdeac2d0317ef822291188613c5b38fccc"
+          },
+          "paired_occurrences": {
+            "count": 19,
+            "sorted_identity_sha256": "be39edab7abe2b59f2a830f95bc1c298cf37fe6ecd3995c98b1797cf71e7f1f7"
+          },
+          "components": {
+            "count": 18,
+            "sorted_identity_sha256": "f61ca0d8293203caceba8c467b3c7e2671ca7757d8bc7a9ff529461d31029e51"
+          },
+          "variant_ids": [
+            "01908e0f5deba0750bd3cf9821c9a17f6bfc4112c2585cc2a5aeb68d38757cbc",
+            "a1704c6abb08292b1e4aaeb41ec7f2690ccf1fdd3733aa6958871301baf4abcc",
+            "f50d7c916d12983371af1eeb3766e238af4fb3874b6bd269845e4820a4cc46b6"
+          ],
+          "linked_sense_ids": [
+            "1400d1da00bb1d24c659d5ac72405f5960f0588812a314b193d5a6fc8dab88a3",
+            "5fe7ef66ddd68d544f6290746ccdfee8ca4ddc96af978868b6062fa1b8c3bcbc",
+            "9315f91280d52cf19adbbafd139162b90a7bb2d0035ad6fbf426beeef9320d8b"
+          ]
+        }
+      ],
+      "interpretation": "Pelota/bola/balón are genuine generic-ball alternatives, but none preserves the named Dragon Ball Z span by choosing a generic noun."
+    },
+    {
+      "candidate_head_ids": [
+        "75022958595c45555946cbe6eb5309192b91fb6928c2037f66c1872878b91491:2181018f824245f8d545f9ddcaeba17a6d7f413dfb480ec8f889adbfd1809943"
+      ],
+      "focus_utf16": [
+        57,
+        63
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-011",
+      "source": "dragon",
+      "source_id": "bst-train-2542-04",
+      "source_sha256": "793a9a365d6a45648ca5f19f7ba556d5438ce069d365fed729c06ecb73139635",
+      "target": "dragón",
+      "union_index": 1,
+      "source_keys": [
+        "dragon"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            895516,
+            "3a01caba396335b77ad26b6e75fe8457035ec16a8c715e0f17cd215ef3c1a62b",
+            "dragón",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "5e82787d7ee47a62d254e5aff9c8ef1409bb21583fd3c5df77afad93f546c572"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "753eb7294b40fb34ff7be7141a86fd48012d89b6bdefab8ed023011d8127f3d9"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "c51e16e9fd410d7a9e2f7b1c02a79892054686b59e21fa882afabbd0f345fb0e"
+          },
+          "variant_ids": [
+            "75022958595c45555946cbe6eb5309192b91fb6928c2037f66c1872878b91491"
+          ],
+          "linked_sense_ids": [
+            "ea4ec034e2627b88167d58ea362a4fc353fd9d188f69c7074d5ba8112b88937e"
+          ]
+        }
+      ],
+      "interpretation": "Single generic dragón witness; no title-level evidence in this admitted key."
+    },
+    {
+      "candidate_head_ids": [
+        "988ffd5a8d57079ba08a8f18b2e6590e82132524e5b8cc36f0eb7258d0783373:f58fbbf2a893e914a5d58029bfa3f432ed58412ed09e2c67285374cf657594dd"
+      ],
+      "focus_utf16": [
+        47,
+        52
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-012",
+      "source": "south",
+      "source_id": "bst-train-0982-04",
+      "source_sha256": "27c063931c2269abb065eb5d88a709cdc2e0fe812e0aa2c5bff31081fee84b64",
+      "target": "sur",
+      "union_index": 0,
+      "source_keys": [
+        "in the south"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            271479,
+            "38198ffed24bb4943a43893549057ca6630a283248c7e03a3cc790d358087632",
+            "sur",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "c4c8fb2e58b8549718bfd8f7ab497e687bacca8a1f45e023669ad40ab79e7ecd"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "5b14d932d959d839f76417b0fafb9330543512e9328fdc9bbcf3cf88d658176f"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "47675a548b6568660aab30502b85978bbca58e8ada4889548e24e500ad7c057c"
+          },
+          "variant_ids": [
+            "988ffd5a8d57079ba08a8f18b2e6590e82132524e5b8cc36f0eb7258d0783373"
+          ],
+          "linked_sense_ids": [
+            "98b6febe7e59e6aec24db31ec516c3dc5a3a01ea4c23dd690d444a91f45c3217"
+          ]
+        }
+      ],
+      "interpretation": "Only one supported occurrence/component; no demonstrated choice evidence."
+    },
+    {
+      "candidate_head_ids": [
+        "3a875fb883afe66b9010f75f844846e9058afeb2ee7af76a0ce7a0793d95ede2:9400497b1cedddc21e2997715307439089aff9268dc43b7cb9e3310ea78c2cbd"
+      ],
+      "focus_utf16": [
+        103,
+        108
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-013",
+      "source": "money",
+      "source_id": "bst-train-2193-08",
+      "source_sha256": "e1bb269f72b5490660a5f851a112460900a6ced16e2bbfeb042fc232312c0b1c",
+      "target": "dinero",
+      "union_index": 1,
+      "source_keys": [
+        "money is"
+      ],
+      "retained_observation_rows": 7,
+      "rows_without_diagnostic_reasons": 6,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 1,
+        "no_target_dictionary_unit_in_bound": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            390608,
+            "728d905a0bdc57efff5b03a5d81a775d96310b7d6f13637886a874cccecea3e7",
+            "dinero",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "f4135f1df4f6437f43b651aec2f5596341d5d6dc7d78c61ae04891606d387904"
+          },
+          "paired_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "6fdaa40e5e5af075599040f3949f659dbb15867db9587afc0c65bcbce3dcccd0"
+          },
+          "components": {
+            "count": 5,
+            "sorted_identity_sha256": "7fdc8aaf938eccf01576669cbfbf0e6e3fb0cf02e07ac90399adca2abb77868c"
+          },
+          "variant_ids": [
+            "1700f85ab3ad647d5df466929016a49be57204d5554e7d34e2f0141cc4279c60",
+            "3a875fb883afe66b9010f75f844846e9058afeb2ee7af76a0ce7a0793d95ede2",
+            "4113d2b66ef16c17e45d82a1e4f61c795d9ef13a5997e55e7e6dd8e4251dda77",
+            "5bee8ec8383c80f1c1b06625447365b157db421456a4b28b4bbe7655b8ec64c6"
+          ],
+          "linked_sense_ids": [
+            "0f7dbf177827cc5f1f4b6a9e4187947eb4c8a8a45b772f5b139c08460c3c7183",
+            "4d651da39b746deef43dffb3b1dc88cfa993bb24034ea396ff0152ca3012c7d7"
+          ]
+        }
+      ],
+      "interpretation": "Single dinero face; it cannot repair the retained financial tight phrase issue."
+    },
+    {
+      "candidate_head_ids": [
+        "b285158ec83a14fa50a2a580af3784c7a42033e329d884d4a4bc143812dda9ff:b223ef21904669043918878586eeadd31cf6b861a0dedc992b3fb41dfd97503a"
+      ],
+      "focus_utf16": [
+        46,
+        53
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-014",
+      "source": "friends",
+      "source_id": "bst-train-4593-02",
+      "source_sha256": "f4bcac8c533eb792e75ded34685df146738d130c600e41f6edb3f36afef12295",
+      "target": "amigos",
+      "union_index": 1,
+      "source_keys": [
+        "my friends and i"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            10958,
+            "69658815f4c49f22cd8729bda57dd37529f3368ddc50f8eab6fc776de02bcfc0",
+            "amigos",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "1f7faede6fd9f96cc07e243da85a3ef88db0a92b184a3fc99e2d5e8533a86c36"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "a8bbe52a95deb0e3528085fd9bfb84e8fb244797d3d738c119b696387e74a1ab"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "7b290fe555de0b0d0848d09e524133a505c536b1b01baacf01498df9d5c82c9e"
+          },
+          "variant_ids": [
+            "b285158ec83a14fa50a2a580af3784c7a42033e329d884d4a4bc143812dda9ff"
+          ],
+          "linked_sense_ids": [
+            "1f6eacea80001ebeb7e92095186054d5ce4c814156d4d31e72b6cf90e24acc8f"
+          ]
+        },
+        {
+          "identity": [
+            10958,
+            "d59b2a5aea5bae9ac714d36fa50e7b275e23fd06837a42b37294f30c55db61d9",
+            "amigos",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "1f7faede6fd9f96cc07e243da85a3ef88db0a92b184a3fc99e2d5e8533a86c36"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "a8bbe52a95deb0e3528085fd9bfb84e8fb244797d3d738c119b696387e74a1ab"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "7b290fe555de0b0d0848d09e524133a505c536b1b01baacf01498df9d5c82c9e"
+          },
+          "variant_ids": [
+            "b285158ec83a14fa50a2a580af3784c7a42033e329d884d4a4bc143812dda9ff"
+          ],
+          "linked_sense_ids": [
+            "1f6eacea80001ebeb7e92095186054d5ce4c814156d4d31e72b6cf90e24acc8f"
+          ]
+        }
+      ],
+      "interpretation": "One amigos face with form identity duplication."
+    },
+    {
+      "candidate_head_ids": [
+        "3ccae9ae0cfb44b61de1025d0503f4c4fbbcfc8594d899d706ee6022ac321c4e:2c09a8a9b683e8f55f784ceba9a5030768f24595fd2b328d383742ec9d02ccb2"
+      ],
+      "focus_utf16": [
+        14,
+        20
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-015",
+      "source": "person",
+      "source_id": "bst-train-1176-10",
+      "source_sha256": "9e0c9226117006d593982ba306d88b22bc3d7c6cfa9698d8a2ab9652b7f7a266",
+      "target": "persona",
+      "union_index": 1,
+      "source_keys": [
+        "a good person"
+      ],
+      "retained_observation_rows": 5,
+      "rows_without_diagnostic_reasons": 5,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            254747,
+            "6295621ab27e3fe5b0950a7ee25e31e6bd66e96ecbd8e688a58113e20274d634",
+            "persona",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "1fde6eeb92b7ec2e84fd0f05ec76651d5f2d009141d3a3f0ef8ecad14e9856b0"
+          },
+          "paired_occurrences": {
+            "count": 5,
+            "sorted_identity_sha256": "1868985c41fe4c7c0099583fd2f0d98fec0ac925d40e9b2fed8199cf540d2c64"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "bb54069c3a3a6e9400678cfa3a47a2776aff4fc2f0f5171077fb1807a9d95aeb"
+          },
+          "variant_ids": [
+            "165569d2487fc119e168eb27783ac8328e715ad3bc68c37d30182cab63b3cbc5",
+            "3ccae9ae0cfb44b61de1025d0503f4c4fbbcfc8594d899d706ee6022ac321c4e",
+            "4a1efad8b70e0dc89e2943f7a3d4e032257ce8a801320f877c141e0aa6411d66"
+          ],
+          "linked_sense_ids": [
+            "0963e89fcb796e0125ca7bbd6a5ef20bbed534ee21942eb9fc533941ac7b4ffe",
+            "1cbd55281eb2e77b5efee7c31161b8c80c8861f09e545682eaaff4d92d11a5db",
+            "6b9c1509a7e38101be570e64116e34ae5b589af9abb638ede0a162ea33ba8279",
+            "8a69ccf7827cde75610543fd799bffa8390ce009716458e77ac54bc5269cfac7"
+          ]
+        }
+      ],
+      "interpretation": "Single persona face, no competing target choice here."
+    },
+    {
+      "candidate_head_ids": [
+        "cdfaeb14219a49b3da507b9e6cc70c22bb75c610cfcc37264052d7e410251ab2:9aca72f41e477a5aca55927e0d16fba15748da4d94fb96f523dacc95e85d44eb"
+      ],
+      "focus_utf16": [
+        11,
+        14
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-016",
+      "source": "dog",
+      "source_id": "bst-train-1629-04",
+      "source_sha256": "01985da905f791b330c6d7bb0e83afc0a556a85c944d81a25e9a6a619f82564d",
+      "target": "perro",
+      "union_index": 1,
+      "source_keys": [
+        "our dog"
+      ],
+      "retained_observation_rows": 3,
+      "rows_without_diagnostic_reasons": 3,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            6275,
+            "5408927e0606896526f9c769c0d0f2c179873ff74275202ffd6e0a1c6eecfe76",
+            "perro",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "54ddcd462a0377d3df0bc6f12ddeddbeda9952063baa2c5e43c562d085c68d12"
+          },
+          "paired_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "24dd3eb44841cd43cf2a17312bba5be5c90a88367713c3e2817082be576f0e67"
+          },
+          "components": {
+            "count": 2,
+            "sorted_identity_sha256": "981f94b0bfbcf7c21f8534d51c96a2435a968268b2a01c1731ed80b25351d621"
+          },
+          "variant_ids": [
+            "cdfaeb14219a49b3da507b9e6cc70c22bb75c610cfcc37264052d7e410251ab2",
+            "e287e108780be80bdf4f6507a0a83b12626a9b55066376f1918e08126c95a19a"
+          ],
+          "linked_sense_ids": [
+            "13c48b1f017f721b0749c0463a3d6a1fb12fe986f9c7f7d88a56b7e15a2b0d4f",
+            "d62d8d2f8e3ecfbfb63f9b18ce09df7ae04c20069e3dff2d798f1e8d5e1a6ed5",
+            "df8c8b869d099d0c0b560d233537da6c0f7123b83e938a4912fe06f9b97fc6e4"
+          ]
+        }
+      ],
+      "interpretation": "Single perro face in this admitted context."
+    },
+    {
+      "candidate_head_ids": [
+        "e9b140e4260991a8f06cc67dd1de513657f126e287394e6c8555cbd6de1e14e3:4ca15b4b12c18db4bc04814526b2e12bd274bc3afcb55c784d5d8adf41b28b30"
+      ],
+      "focus_utf16": [
+        112,
+        118
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-016",
+      "source": "storms",
+      "source_id": "bst-train-1629-04",
+      "source_sha256": "01985da905f791b330c6d7bb0e83afc0a556a85c944d81a25e9a6a619f82564d",
+      "target": "tormentas",
+      "union_index": 2,
+      "source_keys": [
+        "storms and"
+      ],
+      "retained_observation_rows": 2,
+      "rows_without_diagnostic_reasons": 2,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            398833,
+            "e1138a9a5ebc2d74cbb66be037750433701349cf60f5b995263adb1ece3d0b1e",
+            "tormentas",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "7978caa96dafff03add2636155303b330eb82ee58e9890c1bb3b95cc2bccedbc"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "4c36a6f7a8d474af3c481284aa0584cb6bfed21598fe2db72185dc9e3a029f81"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "e40b9b15eee4431d5e415e67317fc9548f6ee1cd22bfb26e515a39c39c662a95"
+          },
+          "variant_ids": [
+            "e9b140e4260991a8f06cc67dd1de513657f126e287394e6c8555cbd6de1e14e3",
+            "ff6b0f9f2b09da33af82af641bc16c2f1618d2a62ca1696d17c7c8f0563d6f0f"
+          ],
+          "linked_sense_ids": [
+            "ec7d617b97a0461b904e131240d6f6dde78e1f01d0e6e232cabbdf71d9335f65"
+          ]
+        },
+        {
+          "identity": [
+            398833,
+            "f4a485f8d3783956c0f24c371ca086860510aaf8ba74554505463f5a3a8af385",
+            "tormentas",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "7978caa96dafff03add2636155303b330eb82ee58e9890c1bb3b95cc2bccedbc"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "4c36a6f7a8d474af3c481284aa0584cb6bfed21598fe2db72185dc9e3a029f81"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "e40b9b15eee4431d5e415e67317fc9548f6ee1cd22bfb26e515a39c39c662a95"
+          },
+          "variant_ids": [
+            "e9b140e4260991a8f06cc67dd1de513657f126e287394e6c8555cbd6de1e14e3",
+            "ff6b0f9f2b09da33af82af641bc16c2f1618d2a62ca1696d17c7c8f0563d6f0f"
+          ],
+          "linked_sense_ids": [
+            "ec7d617b97a0461b904e131240d6f6dde78e1f01d0e6e232cabbdf71d9335f65"
+          ]
+        }
+      ],
+      "interpretation": "One tormentas face with multiple form identities and only one independent source/component."
+    },
+    {
+      "candidate_head_ids": [
+        "4c0f89d6bba40f5a08a467ceb4368c2a2d234831257e43e050e5d38c0a345374:63af3a71a3d467a817e71bb47a6086814b411cdb25cb3d6ce3a3434481cc1f68"
+      ],
+      "focus_utf16": [
+        15,
+        19
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-017",
+      "source": "name",
+      "source_id": "bst-train-0883-04",
+      "source_sha256": "d70dcedf8aabbde7d89f60b112a9dadd7f1d24bbdd3acbcccf48eadd664b8d73",
+      "target": "nombre",
+      "union_index": 1,
+      "source_keys": [
+        "name"
+      ],
+      "retained_observation_rows": 138,
+      "rows_without_diagnostic_reasons": 120,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 16,
+        "union_crosses_focus": 14,
+        "no_mutual_focus_anchor": 3,
+        "aligned_focus_outside_variant_target": 7,
+        "noncontiguous_union_target": 4,
+        "no_target_dictionary_unit_in_bound": 3
+      },
+      "alternatives": [
+        {
+          "identity": [
+            368422,
+            "4b5bef0f57aa6a37e11e4879080e69ffcf052a5c803c0babccbd6a70646f1bcc",
+            "nombre",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 101,
+            "sorted_identity_sha256": "2776f3c86b6308612d9eb68b368e35ed0abe8f0a5cd441469511efc7e5331ac8"
+          },
+          "paired_occurrences": {
+            "count": 106,
+            "sorted_identity_sha256": "037ad068f46faaa18c3c591d03d6f98366d80c21db8361017aca57d4be909245"
+          },
+          "components": {
+            "count": 83,
+            "sorted_identity_sha256": "08bf70852c0994b885b850c8b2fd915179fa478e947d50ec1ccb566401094b1e"
+          },
+          "variant_ids": [
+            "1aec14cfbc506822dc08cac6d6048ff31d1f26c4c646c62b98f1827e7cd693fe",
+            "207632138f6dd12ce8c0320c1592d1c801fe351c685b855805cf97378cdbff77",
+            "23c767b1b5d42a5fbecfe5ba53aa73a6cc9401de13ffa13ac4f4cefdd9e4757f",
+            "4c0f89d6bba40f5a08a467ceb4368c2a2d234831257e43e050e5d38c0a345374",
+            "65bbdf52202ceaf9ecef675b4e63be29fe7d0785d5b8dd3e446a7e1834a72131",
+            "6f54231cdd0f31d2dc3f4d178fc84be6677127c4c9d72ae569ca76c30c928ed0",
+            "837be73f6a3b235c18d5b00415af1f8d29aca254849e1595d933174c1fb56f34",
+            "ecba0daa6c911607aaf5a389f89f30ba27152bb74d8debcb5dafa954232f999a"
+          ],
+          "linked_sense_ids": [
+            "e9e8e44395a0bd93bbbe98d94a783b049c68b0a3da5edfa36adb692f99d594e2"
+          ]
+        }
+      ],
+      "interpretation": "Single nombre face despite many observations; source meaning and title protection remain separate."
+    },
+    {
+      "candidate_head_ids": [
+        "cab137c0ad974130cafa7b68cdcb7c56be7bb2278ba776484e9d61e23acf164b:a1bf2efea610d2ad19a105464d999a7bb4dbb1f1e5524e7646b6c458ea0ee007"
+      ],
+      "focus_utf16": [
+        59,
+        65
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-018",
+      "source": "places",
+      "source_id": "bst-train-2216-08",
+      "source_sha256": "17b761dd9bf0c05435c450e0974a0e98276832c0044a4f79bfe45dbeda800536",
+      "target": "lugares",
+      "union_index": 3,
+      "source_keys": [
+        "places"
+      ],
+      "retained_observation_rows": 15,
+      "rows_without_diagnostic_reasons": 10,
+      "overlapping_reason_counts": {
+        "aligned_focus_outside_variant_target": 4,
+        "no_mutual_focus_anchor": 2,
+        "no_supported_explicit_noun_pair_link": 5,
+        "no_target_dictionary_unit_in_bound": 5,
+        "union_crosses_focus": 4,
+        "noncontiguous_union_target": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            372568,
+            "86c0ef3aeff76b1c85cdd300ca7d139a75cfa9cb954e8df720b77666b1d53756",
+            "lugares",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "08eec14df4ab8fa4a88c507ac094bbb3b7541cf3029b19f7ae6cfc9d00fb864f"
+          },
+          "paired_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "33287637068cd670770cfe7419119d2c0c491d53f504bcf95cb651fc9bcf6e83"
+          },
+          "components": {
+            "count": 6,
+            "sorted_identity_sha256": "ebd7474737f7371e0c994a3cee8e068e6a6d19fee2cb3452a61b3dccbcc24de7"
+          },
+          "variant_ids": [
+            "b646527b583a0ba42050c3bd7d383ae01fa5deb5e2f48d077ebf3ff98cbfbda9",
+            "cab137c0ad974130cafa7b68cdcb7c56be7bb2278ba776484e9d61e23acf164b"
+          ],
+          "linked_sense_ids": [
+            "10a02ca57049868cb9e4d291858ddec383abc3dfa80f1fb5bca6809fb9ace39e",
+            "5367021cff98d91840630ee9a71fa47f4a1f3eb60e37eb8e620823bb3d458ae9",
+            "88b99bd15f0b787a73da5763fd065e0aeaa2c5de333d4c4fee03f43c01fcdd77",
+            "b7b8eb8a0e3f3dc41eeec1ae666643ce2b66e18e471d7110f18b2bbe1b11ca6d"
+          ]
+        },
+        {
+          "identity": [
+            372568,
+            "b3b4629a6c1e1842ccdf8ef391a3ce6f8e89d7d8c74fc8c2db0c8124838ccb8b",
+            "lugares",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "08eec14df4ab8fa4a88c507ac094bbb3b7541cf3029b19f7ae6cfc9d00fb864f"
+          },
+          "paired_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "33287637068cd670770cfe7419119d2c0c491d53f504bcf95cb651fc9bcf6e83"
+          },
+          "components": {
+            "count": 6,
+            "sorted_identity_sha256": "ebd7474737f7371e0c994a3cee8e068e6a6d19fee2cb3452a61b3dccbcc24de7"
+          },
+          "variant_ids": [
+            "b646527b583a0ba42050c3bd7d383ae01fa5deb5e2f48d077ebf3ff98cbfbda9",
+            "cab137c0ad974130cafa7b68cdcb7c56be7bb2278ba776484e9d61e23acf164b"
+          ],
+          "linked_sense_ids": [
+            "10a02ca57049868cb9e4d291858ddec383abc3dfa80f1fb5bca6809fb9ace39e",
+            "5367021cff98d91840630ee9a71fa47f4a1f3eb60e37eb8e620823bb3d458ae9",
+            "88b99bd15f0b787a73da5763fd065e0aeaa2c5de333d4c4fee03f43c01fcdd77",
+            "b7b8eb8a0e3f3dc41eeec1ae666643ce2b66e18e471d7110f18b2bbe1b11ca6d"
+          ]
+        },
+        {
+          "identity": [
+            403999,
+            "9982022e284bde3bac5f849ab49234c2d679edad2ced09f79f92814c872d61e0",
+            "sitios",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 3,
+            "sorted_identity_sha256": "23e3633733e868fea169985d039b3aa340dcb5fc9f381ae718133d8c33d024dd"
+          },
+          "paired_occurrences": {
+            "count": 3,
+            "sorted_identity_sha256": "f2a6a50675e2a476781463cd8b501c0b03f0f059336e7e8ba0c9c9142ec2f748"
+          },
+          "components": {
+            "count": 3,
+            "sorted_identity_sha256": "c0aa91e459b190b751d201cb1c2fd795c25273541f1f7e05497b64e0f1cde2c7"
+          },
+          "variant_ids": [
+            "a8cefbff28cbf145d03fc3b2bbd9af352d7872cd821850a8363b3142d3242ed5"
+          ],
+          "linked_sense_ids": [
+            "5367021cff98d91840630ee9a71fa47f4a1f3eb60e37eb8e620823bb3d458ae9"
+          ]
+        }
+      ],
+      "interpretation": "Lugares/sitios provide ordinary place alternatives; no claim a contextual winner is needed."
+    },
+    {
+      "candidate_head_ids": [
+        "515ccce242dd78a0b944a376031a12608e8549fc4916b901edee285ee38f0099:6e43401143ca692f84f8e1d35a105db34d9bf2a139f8189f681bd2e2565018cb"
+      ],
+      "focus_utf16": [
+        43,
+        48
+      ],
+      "known": "all_function",
+      "review_id": "name-scope-018",
+      "source": "order",
+      "source_id": "bst-train-2216-08",
+      "source_sha256": "17b761dd9bf0c05435c450e0974a0e98276832c0044a4f79bfe45dbeda800536",
+      "target": "orden",
+      "union_index": 4,
+      "source_keys": [
+        "order"
+      ],
+      "retained_observation_rows": 18,
+      "rows_without_diagnostic_reasons": 10,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 8,
+        "no_mutual_focus_anchor": 1,
+        "no_target_dictionary_unit_in_bound": 3
+      },
+      "alternatives": [
+        {
+          "identity": [
+            339766,
+            "1a892c578f39b13dccd60cf35e0535a82b864b509725d7dfb7fae89a45b8428e",
+            "orden",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "97aa9930d7bb11b8150e5ee1702736995f6ceb6a053faa1f20f993cb8ab37d7c"
+          },
+          "paired_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "d4604601c4d52bfba9a381ca916b391d336d6221e8ad9c30b3974562dc3b54aa"
+          },
+          "components": {
+            "count": 7,
+            "sorted_identity_sha256": "33419276f995a22a896a09dbb197ef87a15f26f51deaab260faad88aa1fb278a"
+          },
+          "variant_ids": [
+            "2e06338527ba3fc17b6ec67ca58247669fc268e470f3d5b3426dc21b52e00f3a",
+            "515ccce242dd78a0b944a376031a12608e8549fc4916b901edee285ee38f0099"
+          ],
+          "linked_sense_ids": [
+            "335e62e9950895ffdd99b2d279a7eb78cba0e11b16d215778ce9ecfbeb694fd4",
+            "354bc3b90461251df17f634a99cbeede0fcd0f9feb11fa3d84a290306895c2d0",
+            "9d84c7a4a375713b0dfcb313aaabd3ed17e5a170613bd45f4198de688b8ebb2e",
+            "9e98c5b9e313b735935e7d9e4391c66b5ffa09784a346c7838a289355d3486b3",
+            "9fb6a396422f2babf1ddee18dbc5670a3dab5bb1317e4d195ef441241c8e70aa",
+            "bea9367c04fc2809c3389313f94ef76ab682db11f704e6f96f71f7b005cc3643",
+            "d93c42a83d8b58d93dc41f2922f080f1d371784458f1893abbc177f41784fadf"
+          ]
+        },
+        {
+          "identity": [
+            339767,
+            "97f14131b328b130b51a3b986859b32963855f1fce0147d0224fe4deeff91dc8",
+            "orden",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "97aa9930d7bb11b8150e5ee1702736995f6ceb6a053faa1f20f993cb8ab37d7c"
+          },
+          "paired_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "d4604601c4d52bfba9a381ca916b391d336d6221e8ad9c30b3974562dc3b54aa"
+          },
+          "components": {
+            "count": 7,
+            "sorted_identity_sha256": "33419276f995a22a896a09dbb197ef87a15f26f51deaab260faad88aa1fb278a"
+          },
+          "variant_ids": [
+            "2e06338527ba3fc17b6ec67ca58247669fc268e470f3d5b3426dc21b52e00f3a",
+            "515ccce242dd78a0b944a376031a12608e8549fc4916b901edee285ee38f0099"
+          ],
+          "linked_sense_ids": [
+            "335e62e9950895ffdd99b2d279a7eb78cba0e11b16d215778ce9ecfbeb694fd4",
+            "354bc3b90461251df17f634a99cbeede0fcd0f9feb11fa3d84a290306895c2d0",
+            "9d84c7a4a375713b0dfcb313aaabd3ed17e5a170613bd45f4198de688b8ebb2e",
+            "9e98c5b9e313b735935e7d9e4391c66b5ffa09784a346c7838a289355d3486b3",
+            "9fb6a396422f2babf1ddee18dbc5670a3dab5bb1317e4d195ef441241c8e70aa",
+            "bea9367c04fc2809c3389313f94ef76ab682db11f704e6f96f71f7b005cc3643",
+            "d93c42a83d8b58d93dc41f2922f080f1d371784458f1893abbc177f41784fadf"
+          ]
+        },
+        {
+          "identity": [
+            398147,
+            "20a4c1cd5cb9529898d27397f2b58d0297a7b675795f955ce5314dd95577d00e",
+            "pedido",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "bdc184e0365ab17575afb04350fb9f2a37fd3448f331e21949483d5e5d4c3651"
+          },
+          "paired_occurrences": {
+            "count": 2,
+            "sorted_identity_sha256": "b83c18b64ace8b33d69c334a4669788a413a069d845d61c222bc28e16f962ef2"
+          },
+          "components": {
+            "count": 2,
+            "sorted_identity_sha256": "b1f40c9318d1eb1fdf99b59554d449bdaee67c2f3619ddb14253c04951901eb8"
+          },
+          "variant_ids": [
+            "ebffd44c2cf4a5d350e3dc7faca948bec299f91995c8d656b11d67c6d2661ef2"
+          ],
+          "linked_sense_ids": [
+            "9fb6a396422f2babf1ddee18dbc5670a3dab5bb1317e4d195ef441241c8e70aa"
+          ]
+        }
+      ],
+      "interpretation": "Orden/pedido alternatives include actual source verb and target participle occurrence I did not order this / No he pedido esto. Dictionary noun compatibility is not corpus occurrence POS."
+    },
+    {
+      "candidate_head_ids": [
+        "9c34aed913dc425ec40f30c0c524a25ce603a4727986c7df77664fac4de079e1:f4475e202cb0658b13e75f08ad392877cb4868a18ed1cb9504bc7d940e571ea4"
+      ],
+      "focus_utf16": [
+        41,
+        45
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-019",
+      "source": "rain",
+      "source_id": "bst-train-3032-04",
+      "source_sha256": "cbe9872ee2aca0a69c6e4021300325e116a207bca7c5e053e55784479e3dffee",
+      "target": "lluvia",
+      "union_index": 1,
+      "source_keys": [
+        "this rain"
+      ],
+      "retained_observation_rows": 3,
+      "rows_without_diagnostic_reasons": 2,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 1,
+        "no_target_dictionary_unit_in_bound": 1,
+        "noncontiguous_union_target": 1,
+        "union_crosses_focus": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            337994,
+            "2433606fdc3327a9eb2bd43ab1b2504a356e3df52636fd49699aa6043d815c91",
+            "lluvia",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "bcf8d6580155b1819943d4a6abc5f9139ea1ba6da985304e039fe0030d70ed33"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "f89a7d1a1ef3b433542665609797da523faa6a38b9dc9a2e3dbc5889ab7ae0e0"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "701e2fdd4170e698e92464608e4725194caca0b46ab71147b4627dd83bd6d86c"
+          },
+          "variant_ids": [
+            "19c427b57af24516cfeedd1d91100c43b09bfdbaefbbb5be6e4eecf18eda0dd7",
+            "9c34aed913dc425ec40f30c0c524a25ce603a4727986c7df77664fac4de079e1"
+          ],
+          "linked_sense_ids": [
+            "480458a4e3fb6aefc23098a2c9e1b80578ca03ace26f825fb51050814bfe1367",
+            "b9d678e380c866593ffeee1014b033a41536c2ce2b49dcf29493d57572644428",
+            "c65c1132344747eb6a93e23d4896a9cf72514f7513b6275189ca062beb3b9bfa"
+          ]
+        }
+      ],
+      "interpretation": "One lluvia face and one independent source/component among supported occurrences."
+    },
+    {
+      "candidate_head_ids": [
+        "45a5934cd096307c010ea02eb8027ef2fd1cdf37b20cb96735347a1f4b464692:00504cd27c63280b4f8b1f15d6f5c09b225127bfbbe2d82d2e5c7409176acaf6"
+      ],
+      "focus_utf16": [
+        32,
+        37
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-020",
+      "source": "voice",
+      "source_id": "bst-train-3974-06",
+      "source_sha256": "1f209ce53df3c4b6e1b3289d5d3fe65bb0c9cd18b7c3bd620e9325ecb012724c",
+      "target": "voz",
+      "union_index": 2,
+      "source_keys": [
+        "a voice"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            21824,
+            "461c4b90a5b57aca95bda9b90d459bd7d48c52396522ebf99cc6eb60efd8fa8e",
+            "voz",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "75cb102f7b6c9c6b0a8904c77f517949dfe8d6593d015ae7484a33213c68a92a"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "507e736f0389578f0180a87310eca42391574c6bedee072fcbba9f2fb0e337a4"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "4ea7d35f6d20a57b89584e46231ed6736dca3c7d4cf0d2ebd5b7926a902599f6"
+          },
+          "variant_ids": [
+            "45a5934cd096307c010ea02eb8027ef2fd1cdf37b20cb96735347a1f4b464692"
+          ],
+          "linked_sense_ids": [
+            "751553253c542a56a095416be866a9fa50d3d667a54889379e7e140b4206c301",
+            "b70f0276b8cc6df0b54dc003c74a2315f2d854982a86786c0bdbf4b0423a967e",
+            "c55764292125162e8ec29a039b527542ae7fa05803ae844dbcfb9af9a0317e86",
+            "f72236110600053c4cc047270240190dac9c92c88a925c475ae32e0fd3a92965"
+          ]
+        }
+      ],
+      "interpretation": "Only one voz occurrence/component."
+    },
+    {
+      "candidate_head_ids": [
+        "bccd9bd1101fa69bb6c184c375932e178162bd3b2c31797c40694c97d3e9ca8d:717aa175178bf4295d4700abfcc158893423200e6117e2fe1382eb4d2d5425b4"
+      ],
+      "focus_utf16": [
+        68,
+        74
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-021",
+      "source": "nature",
+      "source_id": "bst-train-4170-06",
+      "source_sha256": "8705dd7865ad20b31e7731409ebc869ce745a7179b7e1629164648cb0804be4f",
+      "target": "naturaleza",
+      "union_index": 1,
+      "source_keys": [
+        "nature"
+      ],
+      "retained_observation_rows": 15,
+      "rows_without_diagnostic_reasons": 8,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 7,
+        "no_target_dictionary_unit_in_bound": 7,
+        "union_crosses_focus": 4,
+        "aligned_focus_outside_variant_target": 3,
+        "noncontiguous_union_target": 3
+      },
+      "alternatives": [
+        {
+          "identity": [
+            978620,
+            "77a6b2b58afb5180c16aae28f622bc3123dc18b505bdde8d51e4aedc095663e0",
+            "naturaleza",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "8b36c322fb16dc0be8d8931c34c10c0fde2de60b5c49e1042d0fbd020f791151"
+          },
+          "paired_occurrences": {
+            "count": 7,
+            "sorted_identity_sha256": "eaa7c572c0188b76abeb8306ea821660c7358c7dabf21ce99d4a7874cd551d67"
+          },
+          "components": {
+            "count": 7,
+            "sorted_identity_sha256": "c9cfd569e2e173dbecd9755757aca5c35dfda1a60efee3968dd0991472b5edfb"
+          },
+          "variant_ids": [
+            "599fb832a68ec070aa5e76eb2f7c15ef66bbe21cc08540fd8c82a53584320cce",
+            "bccd9bd1101fa69bb6c184c375932e178162bd3b2c31797c40694c97d3e9ca8d"
+          ],
+          "linked_sense_ids": [
+            "636ca97cc9ad75442f684f8e025669f5972c7cd304d484617bbf113be893dd58",
+            "d5d03d41b2c956d2bf68af757fd3661ab6af65237aafbffbe467441e21def777"
+          ]
+        }
+      ],
+      "interpretation": "Single naturaleza face spans different English uses; selecting fine-grained senses is unnecessary when emitted form is valid."
+    },
+    {
+      "candidate_head_ids": [
+        "5819bd3c02954f52579a430a371b32bfe790e4669c78da89dc0a0418699c3bc0:f869d8e27ca795605da619c45b6887075f152c411cc084de0684a4b55e64e6bd"
+      ],
+      "focus_utf16": [
+        79,
+        85
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-022",
+      "source": "monkey",
+      "source_id": "bst-train-0009-00",
+      "source_sha256": "52b9af7aa2a4bc0ba1a61e1ceafe712a8238e1ebf85e7df880cdb7d563fd167c",
+      "target": "mono",
+      "union_index": 2,
+      "source_keys": [
+        "a monkey"
+      ],
+      "retained_observation_rows": 1,
+      "rows_without_diagnostic_reasons": 1,
+      "overlapping_reason_counts": {},
+      "alternatives": [
+        {
+          "identity": [
+            194837,
+            "3ddc865cf2939271b346036f845551253ac5fa39fa547716527c96f4d0830540",
+            "mono",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "2e4c99ce290df4e7b25f732c848ae9e17c2746efe9d5ef8044a98442293b3161"
+          },
+          "paired_occurrences": {
+            "count": 1,
+            "sorted_identity_sha256": "6ae77dfcec1a4dc86543b0102f5a17af15cc3af6250e8ff2ac37eaa8b92f552b"
+          },
+          "components": {
+            "count": 1,
+            "sorted_identity_sha256": "71d96d463ae2e21c89204bf5a1d70e6a7a15c426500334b59f36094258efd71a"
+          },
+          "variant_ids": [
+            "5819bd3c02954f52579a430a371b32bfe790e4669c78da89dc0a0418699c3bc0"
+          ],
+          "linked_sense_ids": [
+            "ab1766e5161ba020ac7fd16c50aee6d4063d64db0c96b53c46156b4b77bc0b16"
+          ]
+        }
+      ],
+      "interpretation": "Only one mono occurrence/component."
+    },
+    {
+      "candidate_head_ids": [
+        "3818f958fe339f3543991f5d208c13fad9f1451af8449a992d7fd2f28aa7619f:3f2d68bc1ac2bd071992dde3eaee3f3eb7ee32582540433a7376f3644f43bb5d"
+      ],
+      "focus_utf16": [
+        64,
+        70
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-023",
+      "source": "circle",
+      "source_id": "bst-train-0141-06",
+      "source_sha256": "f9ca80ed09bf225a68228d6bc60a108955faa87e4a0fd0ad9f15ff632803bdc1",
+      "target": "círculo",
+      "union_index": 1,
+      "source_keys": [
+        "circle"
+      ],
+      "retained_observation_rows": 5,
+      "rows_without_diagnostic_reasons": 4,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            404149,
+            "91881a77b37074c7193177eb51e85004a2b07932f343b34730b7627fb56c26d6",
+            "círculo",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "e36f14def6ef5c7b02450ee1b2977c2747ce92273e1b25e3a568ba278d6ca2a0"
+          },
+          "paired_occurrences": {
+            "count": 4,
+            "sorted_identity_sha256": "78018ea86830c88a40631e94946b6687de5eac737c9f1b5c1f3c5801109937fe"
+          },
+          "components": {
+            "count": 4,
+            "sorted_identity_sha256": "062515efd3e31ab6cd030f5be364fa04ea3c94763d7e5c6f45ca31356cd86650"
+          },
+          "variant_ids": [
+            "3818f958fe339f3543991f5d208c13fad9f1451af8449a992d7fd2f28aa7619f"
+          ],
+          "linked_sense_ids": [
+            "0e0208f6ac0678219f2e6a745da28ea3bf99c0e226e4af282761e4a2de07e41e",
+            "d18e4b78b3ed83a9a365764837bb2ebc8b9d05a23d7167ee217e97ed9e9f6244"
+          ]
+        }
+      ],
+      "interpretation": "Single círculo face can express geometric or social circle; witness sense does not force a different output face."
+    },
+    {
+      "candidate_head_ids": [
+        "a8e4b733630074d8a2ff06a5bd31228b1679ee0cbea0ea37b1e5fb01aa0b7f51:97e5ba987ffc1f060276f8aa4a3a3e4a87df94fb57a4b89253daa59e58561daa"
+      ],
+      "focus_utf16": [
+        22,
+        26
+      ],
+      "known": "all_function_global300",
+      "review_id": "name-scope-024",
+      "source": "body",
+      "source_id": "bst-train-0617-10",
+      "source_sha256": "73e3d9084fe3df5c6d57edf5449723812c21a6157720f46c3a81fbc754cde623",
+      "target": "cuerpo",
+      "union_index": 1,
+      "source_keys": [
+        "the body"
+      ],
+      "retained_observation_rows": 7,
+      "rows_without_diagnostic_reasons": 6,
+      "overlapping_reason_counts": {
+        "no_supported_explicit_noun_pair_link": 1
+      },
+      "alternatives": [
+        {
+          "identity": [
+            109870,
+            "d9029203570a6e88eacc3c72bbb20654cf73091a0a4b1124e32195872e58d4fd",
+            "cuerpo",
+            ""
+          ],
+          "source_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "c2e93b7b9d2ce91b320caa4281aff77ede7b10028e2f873ccd68945b93544fe7"
+          },
+          "paired_occurrences": {
+            "count": 6,
+            "sorted_identity_sha256": "b049a7e672761ebc8acc28869f622b8e3e1a775a674f9cef185961dce57c225a"
+          },
+          "components": {
+            "count": 6,
+            "sorted_identity_sha256": "77d70cd21ee47196ddd0fab40622a9616818793140ec317a512c872246bbae0d"
+          },
+          "variant_ids": [
+            "a8e4b733630074d8a2ff06a5bd31228b1679ee0cbea0ea37b1e5fb01aa0b7f51"
+          ],
+          "linked_sense_ids": [
+            "6198edc57f81d013c8d90150e91fa13ed10bd119c571c9f2df0b471db7ddbc6c",
+            "abf95183aea223d4f49eadb223ee7e63406fb72cfe81ec4de180b070a22de881",
+            "ad4d65402db88e51d0ff3dcac5c89c0772b88a5a18ad072513a39b37e829eefc",
+            "c17d41a6755b7fd25d1051fa48d93fc25ad1ec78cffb0a578461456e49ed8d42"
+          ]
+        }
+      ],
+      "interpretation": "Single cuerpo face."
+    }
+  ],
+  "full_audit_pair_count": 641,
+  "distinct_audit_source_endpoints": 624,
+  "audit_observation_rows": 761,
+  "dictionary_form_records": 285,
+  "supported_link_records": 124,
+  "fall_raw_variants": {
+    "fall": [
+      {
+        "distinct_components": 1,
+        "example_pair_index": 12240,
+        "id": "02ab889c3c4657c9bd286dd24d8c8db1ca2610912242305b3330850aa19fa249",
+        "observations": 1,
+        "source_end": 6,
+        "source_start": 5,
+        "target_end": 9,
+        "target_key": "fall",
+        "target_start": 8
+      },
+      {
+        "distinct_components": 2,
+        "example_pair_index": 27734,
+        "id": "858ffde87f44bbf6151372ecc87a089666efd6af6b2ed813729ad2b94e15522d",
+        "observations": 2,
+        "source_end": 5,
+        "source_start": 4,
+        "target_end": 6,
+        "target_key": "quedarse",
+        "target_start": 5
+      },
+      {
+        "distinct_components": 2,
+        "example_pair_index": 1025,
+        "id": "9fa9a2bac50771f743952664b54a7624903d22bee9d7cccd1f9d1e51bd1c9d93",
+        "observations": 2,
+        "source_end": 7,
+        "source_start": 6,
+        "target_end": 7,
+        "target_key": "otoño",
+        "target_start": 6
+      },
+      {
+        "distinct_components": 3,
+        "example_pair_index": 6321,
+        "id": "a044fbd6d86453924362de8fae598d72b24e8e322b212b72f2fd7ec34a161203",
+        "observations": 3,
+        "source_end": 4,
+        "source_start": 3,
+        "target_end": 7,
+        "target_key": "caída",
+        "target_start": 6
+      },
+      {
+        "distinct_components": 3,
+        "example_pair_index": 2067,
+        "id": "bec59719e7985ee733996cad1d6cc5087d6107e916219c328c4bc16bd2adb620",
+        "observations": 3,
+        "source_end": 14,
+        "source_start": 13,
+        "target_end": 15,
+        "target_key": "caer",
+        "target_start": 14
+      },
+      {
+        "distinct_components": 1,
+        "example_pair_index": 8080,
+        "id": "c45eb150c086cd3cad85829acbd342ee4c2fc47409c990e6b9ce268d2ab2aee1",
+        "observations": 1,
+        "source_end": 5,
+        "source_start": 4,
+        "target_end": 4,
+        "target_key": "cae",
+        "target_start": 3
+      },
+      {
+        "distinct_components": 2,
+        "example_pair_index": 6865,
+        "id": "f7a6d032798cc71ab91d5437f62f2971e65f18962289961d93796e13c1fd191a",
+        "observations": 2,
+        "source_end": 3,
+        "source_start": 2,
+        "target_end": 4,
+        "target_key": "caen",
+        "target_start": 3
+      }
+    ],
+    "the fall": [
+      {
+        "distinct_components": 2,
+        "example_pair_index": 6321,
+        "id": "9028f833833da5c68ce6c95d20e5417847507ed315060e51ebe4b2e13b6459e1",
+        "observations": 2,
+        "source_end": 4,
+        "source_start": 2,
+        "target_end": 7,
+        "target_key": "la caída",
+        "target_start": 5
+      },
+      {
+        "distinct_components": 1,
+        "example_pair_index": 6321,
+        "id": "9ea3544588ddff0cd65d6944e02048144e9e4f6ff9e26a64a58dd8834b1d297b",
+        "observations": 1,
+        "source_end": 4,
+        "source_start": 2,
+        "target_end": 7,
+        "target_key": "que la caída",
+        "target_start": 4
+      }
+    ]
+  },
+  "name_span": {
+    "covering_native_windows": 18,
+    "covering_retained_contexts": 0,
+    "spanning_masks": 0,
+    "protected_ranges": [],
+    "separate_from_lexical_choice": true
+  },
+  "receipt": {
+    "complete": true,
+    "error": null,
+    "memory": {
+      "VmHWM": 114847744,
+      "VmPeak": 125480960
+    },
+    "outputs": {
+      "audit-evidence.json": {
+        "bytes": 3768233,
+        "sha256": "e4d7b855aae253f9ea53c00aa635578c63dab469ff739d3e766f223764135512"
+      },
+      "census.json": {
+        "bytes": 3094072,
+        "sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc"
+      },
+      "name-span-inventory.json": {
+        "bytes": 13960,
+        "sha256": "6c1eb4cd9f887f0b1390de9f1f60780352f326077c555bc77184d9b273c75ef1"
+      }
+    },
+    "production": false,
+    "prospective_encoded_output_bytes": {
+      "audit-evidence.json": 3768233,
+      "census.json": 3094072,
+      "name-span-inventory.json": 13960
+    },
+    "protocol_sha256": "b069c13179450d9ef1a0d5d49edb6b6fa743b6957ddd21c230743aec8fbff16c",
+    "seconds": 10.280900010984624,
+    "stage": "occurrences",
+    "summary": {
+      "heads": 1480,
+      "heads_with_multiple_emitted_faces": 102,
+      "heads_with_multiple_target_lexemes": 191,
+      "heads_with_supported_alternative": 1480,
+      "heads_with_two_target_lexemes_each_two_components": 102,
+      "no_correctness_or_training_label_claim": true,
+      "observations": 12485
+    }
+  },
+  "output_hashes": {
+    "audit-evidence.json": {
+      "bytes": 3768233,
+      "sha256": "e4d7b855aae253f9ea53c00aa635578c63dab469ff739d3e766f223764135512"
+    },
+    "census.json": {
+      "bytes": 3094072,
+      "sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc"
+    },
+    "name-span-inventory.json": {
+      "bytes": 13960,
+      "sha256": "6c1eb4cd9f887f0b1390de9f1f60780352f326077c555bc77184d9b273c75ef1"
+    }
+  },
+  "script_sha256": "7b0b598402d5e42b3c671792098970b23a14fe2b93f129809d1d96fa421795e0",
+  "limits": "Dictionary-linked labels are not actual occurrence roles/senses. Census alternatives are not candidate approval or gold. Feature support is only ±2 surface tokens, excluding full sentence/prior chat. All29 entries interpreted; full761 occurrence records retained, not independently semantically certified."
+}

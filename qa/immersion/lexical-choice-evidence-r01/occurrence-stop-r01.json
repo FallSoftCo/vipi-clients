@@ -1,0 +1,39 @@
+{
+  "complete": false,
+  "metadata_complete": true,
+  "occurrence_stage_complete": false,
+  "failure": "AssertionError('metadata quota; no alternatives dropped')",
+  "seconds": 10.644435621012235,
+  "memory": {
+    "VmHWM": 101376000,
+    "VmPeak": 115732480
+  },
+  "retained_partial_census_summary": {
+    "heads": 1480,
+    "heads_with_multiple_emitted_faces": 102,
+    "heads_with_multiple_target_lexemes": 191,
+    "heads_with_supported_alternative": 1480,
+    "heads_with_two_target_lexemes_each_two_components": 102,
+    "no_correctness_or_training_label_claim": true,
+    "observations": 12485
+  },
+  "retained_outputs": {
+    "census.json": {
+      "bytes": 3094072,
+      "sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc"
+    }
+  },
+  "failure_receipt_sha256": "82403b29d8122889ae4dfef6382c0da084d57b8fb6e72004c91839cc834641a8",
+  "private_evidence": "/home/ai/Development/investigations/vipi-lexical-choice-evidence-20261109-r01/occurrences-failure-r01",
+  "command": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 -B /srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/code/diagnose.py occurrences'",
+  "approval_sha256": "db6cc4bd6ee6107ef2493e9970b86954d315488a3070de7ed159415d87291175",
+  "unwritten_outputs": [
+    "audit-evidence.json",
+    "name-span-inventory.json"
+  ],
+  "exact_rejected_audit_payload_bytes": "Not recorded by original quota assertion; unknown.",
+  "retries": 0,
+  "quota_changes": 0,
+  "fit_rank_projection_activation": false,
+  "limits": "Partial census only. Detailed29-emission evidence and name inventory are absent; do not claim completed diagnostic or validated rule-training data."
+}

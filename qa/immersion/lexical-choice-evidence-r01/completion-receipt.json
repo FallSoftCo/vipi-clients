@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "production": false,
+  "protocol_sha256": "b069c13179450d9ef1a0d5d49edb6b6fa743b6957ddd21c230743aec8fbff16c",
+  "script_sha256": "293bec1cc7ceba96373414a25e9d4d42031ba0e37fa2f4bad7448fdb01116031",
+  "summary_script_sha256": "7b0b598402d5e42b3c671792098970b23a14fe2b93f129809d1d96fa421795e0",
+  "result_sha256": "c6e1c95c779cbe889bdf72a39ac8f650cd1cef970942ba9ed437ca6d38fe1c86",
+  "report_sha256": "c1aeb4216fcf252ee6833b487873655dbf70b7a8b271a0e2459545b6e02da4fe",
+  "receipt_sha256": "8f0cf20429a011ecd5120305c8934e7f5205d91e9159ec135115f339e1ed5608",
+  "outputs": {
+    "audit-evidence.json": {
+      "bytes": 3768233,
+      "sha256": "e4d7b855aae253f9ea53c00aa635578c63dab469ff739d3e766f223764135512"
+    },
+    "census.json": {
+      "bytes": 3094072,
+      "sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc"
+    },
+    "name-span-inventory.json": {
+      "bytes": 13960,
+      "sha256": "6c1eb4cd9f887f0b1390de9f1f60780352f326077c555bc77184d9b273c75ef1"
+    }
+  },
+  "original_census_byte_parity": true,
+  "all29_audit_additions_interpreted": true,
+  "all761_occurrences_semantically_approved": false,
+  "actual_command": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 -B /srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/code/diagnose_r02.py occurrences'",
+  "no_fit_model_download_rank_project_activation_cleanup": true
+}
