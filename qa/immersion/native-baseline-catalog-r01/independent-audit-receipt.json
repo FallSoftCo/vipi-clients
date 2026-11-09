@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "scope": "Read-only independent comparison of exported catalog to all retained original candidate/proof relationships",
+  "ordinary_heads": 2556,
+  "conditional_heads": 1480,
+  "original_contexts": 3947,
+  "conditional_heads_with_keys": 1066,
+  "conditional_heads_without_keys": 414,
+  "exact_evidence_objects": 38668,
+  "exact_relationships": 193133,
+  "table_counts": {
+    "candidates": 4036,
+    "evidence": 38668,
+    "function_words": 87,
+    "head_evidence": 193133,
+    "head_keys": 1066,
+    "known_families": 3011,
+    "metadata": 18,
+    "source_roles": 6384
+  },
+  "logical_UTF8_bytes": {
+    "candidates": 14709729,
+    "evidence": 22390928,
+    "function_words": 656,
+    "head_evidence": 63447073,
+    "head_keys": 168251,
+    "known_families": 64551,
+    "metadata": 8912,
+    "source_roles": 211340
+  },
+  "logical_rows_sha256": "0d6fe438f09dc71f79738bd00a60758546a75d56793d278e503a9b73afc46763",
+  "manifest_sha256": "9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281",
+  "database_sha256": "8b8198a65480a67149fc174bbc03d4eb4644ead7cb5f5aea48e050820122c9a8",
+  "no_inference_or_activation": true,
+  "all_ordinary_IDs_and_raw_records_preserved": true,
+  "all_rejected_alternatives_and_original_readings_preserved": true,
+  "seconds": 14.217355002008844,
+  "script_sha256": "4e5beac800a4f5830b487d8740f2461e26e41d31195045355aea964a8d85ff7c",
+  "VmHWM_bytes": 142192640
+}

@@ -1,0 +1,50 @@
+{
+  "status": "export_complete_independent_root_audit_pending",
+  "production_activated": false,
+  "native_app_changes": false,
+  "catalog_downloaded": false,
+  "export_attempts": 1,
+  "code_sha256": "f62e00c519f4d4a2c543a5eb1208936b4d7f2f7298a68511058eb448c5fee996",
+  "protocol_sha256": "bbb40ba3c6dab94722490d6a579de4219d442956f7290b7dce047dd54bfac612",
+  "source": {
+    "export-receipt.json": "b7e52c264d536a8288b2eb9d85a9e1b91aaf98efd1cafbda8b485fd4fe21db21",
+    "census-receipt.json": "86ee50d212fcabf20b3e2c311df14a955643ea452f4c3562027ec3808bfe0489",
+    "protocol-r02.json": "bbb40ba3c6dab94722490d6a579de4219d442956f7290b7dce047dd54bfac612",
+    "RESULT.md": "fb8d2c99d47052903a0fb8485308e6f21312589e0e819d9d19d897f9a17c02c2",
+    "CONTRACT_R02.md": "35dd7302ffbeb8f276d949f0cccafe8a5f6621396809089d8ae85bea8ba5f924",
+    "preparation-receipt.json": "c3d42906dedf3d6c04dedc80a84d9d9c189c9898cdcb83c7ca23ba501aa2e2c1",
+    "export-manifest.json": "9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281",
+    "compiler.py": "5af742b8cae4f0b180fbb74a133445052fc08c6ab2ba3602c415a466732920e6",
+    "protocol.json": "c8fb143fcbbc34856cb94a1b5a443cfac3d303d9646d2204e6eccdd67a7ee852",
+    "PREPARATION.md": "24256cf3eea00b227e30322fcfde6d649314da43f88b5dcb7220f48f14135d05",
+    "compiler_r02.py": "f62e00c519f4d4a2c543a5eb1208936b4d7f2f7298a68511058eb448c5fee996",
+    "CONTRACT.md": "0ab4cf20903619d22fdc1a29b2f734d3a3a430a862b1b4f56a37b3efd6a7e479"
+  },
+  "private_artifacts": {
+    "root-export-approval-r02.json": {
+      "sha256": "52b2fc86fd0a5604d2debf81b4cdc7b1686e937637a1443b74d0a2e643c2906e",
+      "bytes": 325
+    },
+    "export-launch-r02.json": {
+      "sha256": "cf4f5ae4ac5a77b05dd074781060103770b0e1dcfe53ad34ab6233226138ef8f",
+      "bytes": 577
+    },
+    "export-r02/manifest.json": {
+      "sha256": "9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281",
+      "bytes": 2570
+    },
+    "export-r02/receipt.json": {
+      "sha256": "b7e52c264d536a8288b2eb9d85a9e1b91aaf98efd1cafbda8b485fd4fe21db21",
+      "bytes": 1260
+    },
+    "export-r02/proof-manifest.json": {
+      "sha256": "0e1a45b50e3dc6a4c49c7da3751641a817d39db87410ac266b3fef62d220b32d",
+      "bytes": 1199797
+    }
+  },
+  "catalog": {
+    "path": "/srv/fallsoft/staging/vipi-native-baseline-catalog-20261109-r01/export-r02/catalog.sqlite",
+    "bytes": 127016960,
+    "sha256": "8b8198a65480a67149fc174bbc03d4eb4644ead7cb5f5aea48e050820122c9a8"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "complete": true,
+  "protocol_sha256": "c8fb143fcbbc34856cb94a1b5a443cfac3d303d9646d2204e6eccdd67a7ee852",
+  "counts": {
+    "ordinary": 2556,
+    "ordinary_record_UTF8_bytes": 7271214,
+    "conditional": 1480,
+    "conditional_record_UTF8_bytes": 712821,
+    "contexts_read": 3947,
+    "compressed_proof_bytes_read": 47001195,
+    "source_context_keys": 3947,
+    "conditional_heads_with_keys": 1066,
+    "conditional_heads_without_keys": 414
+  },
+  "table_rows": {
+    "candidates": 4036,
+    "evidence": 38668,
+    "head_evidence": 193133,
+    "head_keys": 1066,
+    "known_families": 3011,
+    "source_roles": 6384,
+    "function_words": 87,
+    "metadata": 18
+  },
+  "logical_UTF8_bytes": {
+    "candidates": 14709729,
+    "evidence": 22390928,
+    "head_evidence": 63447073,
+    "head_keys": 168251,
+    "known_families": 64551,
+    "source_roles": 211340,
+    "function_words": 656,
+    "metadata": 8912
+  },
+  "logical_rows_sha256": "0d6fe438f09dc71f79738bd00a60758546a75d56793d278e503a9b73afc46763",
+  "max_row_UTF8_bytes": 20087,
+  "proof_manifest_bytes": 1199796,
+  "seconds": 10.32815785400453,
+  "VmHWM_bytes": 517693440,
+  "sqlite_version": "3.45.1"
+}

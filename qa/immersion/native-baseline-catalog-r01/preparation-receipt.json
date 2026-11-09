@@ -1,0 +1,23 @@
+{
+  "status": "preparation_complete_export_not_authorized",
+  "full_export_run": false,
+  "census_runs": 1,
+  "census_sha256": "86ee50d212fcabf20b3e2c311df14a955643ea452f4c3562027ec3808bfe0489",
+  "source_files": {
+    "census-receipt.json": "86ee50d212fcabf20b3e2c311df14a955643ea452f4c3562027ec3808bfe0489",
+    "protocol-r02.json": "bbb40ba3c6dab94722490d6a579de4219d442956f7290b7dce047dd54bfac612",
+    "CONTRACT_R02.md": "35dd7302ffbeb8f276d949f0cccafe8a5f6621396809089d8ae85bea8ba5f924",
+    "compiler.py": "5af742b8cae4f0b180fbb74a133445052fc08c6ab2ba3602c415a466732920e6",
+    "protocol.json": "c8fb143fcbbc34856cb94a1b5a443cfac3d303d9646d2204e6eccdd67a7ee852",
+    "PREPARATION.md": "24256cf3eea00b227e30322fcfde6d649314da43f88b5dcb7220f48f14135d05",
+    "compiler_r02.py": "f62e00c519f4d4a2c543a5eb1208936b4d7f2f7298a68511058eb448c5fee996",
+    "CONTRACT.md": "0ab4cf20903619d22fdc1a29b2f734d3a3a430a862b1b4f56a37b3efd6a7e479"
+  },
+  "initial_free_bytes": 287940448256,
+  "no_data_pruning": true,
+  "no_native_changes": true,
+  "no_inference": true,
+  "no_commit": true,
+  "next_requires_explicit_root_export_review": true,
+  "resource_revision_preserves_original_content_policy_hash": true
+}
