@@ -152,9 +152,14 @@ English–Spanish pairs passed independent provenance, exclusion and token-span
 checks. No subset full text overlaps the retained PGV control. The sentences
 average about eight tokens, compared with about 21 English tokens in PGV;
 contributor and sentence-family concentration remain explicit limitations.
-The single frozen alignment/phrase comparison is the next step, not a claim of
-correct conversational coverage. The separate Swahili supplement still needs
-an exact source route. See `qa/immersion/tatoeba-domain-comparison-r01`.
+The single frozen alignment and phrase extraction completed in 6.29 and 27.49
+seconds. Tatoeba supplies candidates for 5,816 of the same 8,000 source keys,
+versus 5,752 for PGV, with 164 versus 72 four-to-eight-word keys. The frozen
+32-proposal review finds incomplete constructions and wrong predicate mapping;
+it does not establish a usable-output quality winner. Reviewer differences and
+unchanged cognates are retained explicitly. No catalog is activated. The separate
+Swahili supplement still needs an exact source route. See
+`qa/immersion/tatoeba-domain-comparison-r01`.
 
 Japanese native tokenization is now qualified as a research prerequisite:
 36 inputs reconstruct exactly, one oversized input rejects as expected, and
