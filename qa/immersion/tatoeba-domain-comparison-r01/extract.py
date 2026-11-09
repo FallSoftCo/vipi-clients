@@ -10,6 +10,11 @@ from conversation_corpus import key
 
 SCHEMA={'sentences':['id','language','text','owner','added','modified','normalized','component','partition'],'links':['a','b'],'tags':['sentence','tag','owner','added'],'tag_metadata':['id','name'],'metadata':['key','value']}
 BAD="name LIKE '@%' OR lower(name) LIKE '%unnatural%' OR lower(name) LIKE '%incorrect%' OR lower(name) IN ('not natural','non natural','less than natural')"
+def reviewed_blocked_ids(names, raw_ids, review):
+ # Exact metadata-only exceptions frozen before any sentence selection.
+ for item in review['retained_non_text_flags']:
+  assert names[item['id']]==item['name'] and item['id'] in raw_ids
+ return raw_ids-{item['id'] for item in review['retained_non_text_flags']}
 # Only metadata columns are selected here, never normalized/raw sentence text.
 SQL="""SELECT l.a,l.b,s.language,t.language,s.owner,t.owner,s.component,t.component
 FROM links l JOIN sentences s ON s.id=l.a JOIN sentences t ON t.id=l.b
@@ -65,6 +70,9 @@ def main():
   else:
    inspection=a.work/'inspect/metadata.json';assert a.reviewed_inspection_sha256 and sha(inspection)==a.reviewed_inspection_sha256
    observed=json.loads(inspection.read_text());assert observed['blocked_tag_ids']==sorted(bad)
+   review=protocol['selection']['metadata_review']
+   assert a.reviewed_inspection_sha256==review['inspection_sha256']
+   bad=reviewed_blocked_ids(names,bad,review)
    def tags(i):
     result=[{'sentence':sid,'tag':tag,'name':names[tag],'owner':owner,'added':added} for sid,tag,owner,added in db.execute('SELECT sentence,tag,owner,added FROM tags WHERE sentence=? ORDER BY tag,owner,added',(i,))]
     return result

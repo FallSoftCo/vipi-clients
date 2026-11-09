@@ -146,13 +146,15 @@ match rate cannot establish sustained accurate immersion. The next comparison
 must address contextual senses and complete constructions beyond the completed
 role-filter comparison, with separate matched-context and display ranges. Do not
 replace this with another small list of hand-picked word fixes. The retained
-Tatoeba corpus has now been located in the existing Storage Box namespace and
-its full checksum verified in place. Its retained metadata records 283,800
-direct English–Spanish pairs across all partitions; this is not the eligible
-development count. The separate Swahili supplement still needs an exact source
-route. A matched-size comparison with the news-derived corpus has not yet run.
-Development eligibility, attribution and a frozen comparison protocol precede
-that work; see `qa/immersion/corpus-phrase-extraction-r01/tatoeba-retained-source-r01.json`.
+Tatoeba corpus has now been recovered through the existing Storage Box route.
+The exact temporary copy and a frozen subset of 40,000 direct development
+English–Spanish pairs passed independent provenance, exclusion and token-span
+checks. No subset full text overlaps the retained PGV control. The sentences
+average about eight tokens, compared with about 21 English tokens in PGV;
+contributor and sentence-family concentration remain explicit limitations.
+The single frozen alignment/phrase comparison is the next step, not a claim of
+correct conversational coverage. The separate Swahili supplement still needs
+an exact source route. See `qa/immersion/tatoeba-domain-comparison-r01`.
 
 Japanese native tokenization is now qualified as a research prerequisite:
 36 inputs reconstruct exactly, one oversized input rejects as expected, and
@@ -256,27 +258,29 @@ promoted; see `qa/immersion/arabic-diacritization-r01`. Native packaging,
 ordinary Latin conversion and pronunciation are separate gates. Full-reader
 metadata must not delay original script, chat interaction or original audio.
 
-The proposed Android contextual message menu remains disabled. `a46718a` fixes
-an accessibility action label collision and retains a final failed harness
-assertion before real chat/callback qualification; its test-only assertion
-correction has not been rerun. TalkBack and RTL checks remain incomplete. The
-existing accessible action button remains available; menu redesign is not the
-current priority.
+The proposed Android contextual message menu remains disabled. The retained
+main app now passes a scoped Japanese interaction sequence: exact original
+copy, native selection/copy of visible mixed text, Menu and Shift+F10/Escape,
+native audio start, reachable stop control, and report confirmation without
+submission. Test corrections account for the separate floating-toolbar window,
+screen coordinates, clipboard completion and restored focus. The next step
+stopped at Android Accessibility Suite's notification permission dialog; its
+actual TalkBack action menu and the Arabic large-text sequence remain untested.
+A continuation was held before instrumentation when the capture reserve failed.
+The owned emulator was stopped and all settings, permission state and original
+APKs restored. Playback stopped-state and acoustic quality are not established.
+The existing accessible action button remains available.
 
 ## Resource and external gates
 
-Apple model preparation remains held: the guest needs the measured 10 GiB
-low-space threshold plus roughly 1.85 GiB model peak, and the native backing volume
-also needs room. Normal native physical capacity requires 1 GiB reserve plus
-measured operation peak; guest logical capacity separately requires 512 MiB
-margin plus peak. Recent existing-cache app jobs declared 256 MiB peak, whereas
-bounded core jobs declared 128 MiB. Neither check substitutes for the other.
-Two earlier tiny existing-cache CLI probes used an explicit narrower exception
-with measured peaks and watchdogs; that exception does not authorize a full app
-build, model download, VM resize or unrelated cleanup. A later exact offload of
-28 closed files verified 1.12 GB before retirement and restored normal physical
-build admission. Guest test capacity is checked independently; current app,
-message data and unrelated simulator applications remain protected.
+New Apple work belongs on the native Mac. The migration owner verified the old
+development VM shut down at 2026-11-09 00:19:52 UTC; its disk remains intact for
+read-only recovery and must not be restarted. Native Vipi source, model and
+runtime-state restoration still require reconciliation. Native builds preserve
+at least 1 GiB physical headroom plus measured operation size; full source
+builds and model preparation require their own capacity checks. Historical guest
+model thresholds and small-build exceptions do not qualify native model
+readiness. Preserve native projects, accounts and unrelated applications.
 
 Fresh hosted Apple reauthentication stopped at a generic confirmation-code
 screen. Bounded WorkOS admin lookup found no matching code event. No renewed

@@ -14,9 +14,9 @@ restart their services, or create replacement VMs.
   `https://api.mambovipi.app`. The backend is still restricted staging with real
   provider authentication; production subscription enforcement is not waived.
 - Apple: new work belongs on native `apple@macbook-pro`, under the owner's
-  November 8 instruction. The separate Mac migration owner is preserving the
-  existing VM before its retirement. Do not start new guest builds or create a
-  replacement VM. The historical guest mirror is
+  November 8 instruction. The separate migration owner verified the VM shut down
+  at 2026-11-09 00:19:52 UTC. Its backing disk remains intact for read-only
+  recovery; do not restart it or create a replacement VM. The historical guest mirror is
   `/Users/lume/Development/vipi-delivery-20261107-r01/source`; the old native
   `/Users/Apple/Development/vipi` tree is not automatically current source.
   Reconcile the migration receipts and establish a clean committed-source native
@@ -47,7 +47,8 @@ FallSoft; real FCM credentials and push delivery remain unqualified. The first
 Android upload key has an encrypted PKCS#12 recovery copy on Storage Box, with
 its password held separately in private local/production paths. No secret value
 belongs in source. New November 8 migration evidence demonstrates native company
-Xcode account access for the separate 8bar release. Vipi's App Store Connect
+Xcode account access for the separate 8bar release, but that team's later native
+distribution attempt failed authentication before upload. Vipi's App Store Connect
 browser session and app record remain unverified: the bounded read-only browser
 check stayed queued behind shared desktop use and was cancelled before dispatch.
 That is not a fresh authentication failure. Google Cloud and AWS authentication

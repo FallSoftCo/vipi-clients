@@ -38,6 +38,8 @@ class ContextualMessageActionsDeviceTest {
         val oldFlags = config.uiAutomationFlags; val oldIdle = config.waitForIdleTimeout
         config.uiAutomationFlags = UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES; config.waitForIdleTimeout = 0
         val automation = ins.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
+        val originalAutomationServiceFlags = automation.serviceInfo.flags
+        automation.serviceInfo = automation.serviceInfo.apply { flags = flags or android.accessibilityservice.AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS }
         val device = UiDevice.getInstance(ins)
         fun shell(command: String) = ParcelFileDescriptor.AutoCloseInputStream(automation.executeShellCommand(command)).bufferedReader().use { it.readText().trim() }
         val settingKeys = listOf("enabled_accessibility_services", "accessibility_enabled", "touch_exploration_enabled")
@@ -173,8 +175,73 @@ class ContextualMessageActionsDeviceTest {
             choose(v, "Select text"); await("native selection") { var selected = false; ins.runOnMainSync { selected = v.hasSelection() }; selected }
             var selectedVisible = ""; ins.runOnMainSync { selectedVisible = v.visibleText(minOf(v.selectionStart, v.selectionEnd), maxOf(v.selectionStart, v.selectionEnd)) }
             assertEquals(visible(v), selectedVisible)
-            screenshot("native-selection"); node(By.text("Copy")).click()
-            ins.runOnMainSync { copied = clipboard.primaryClip?.getItemAt(0)?.text?.toString() }; assertEquals(selectedVisible, copied)
+            val copyProbe = JSONObject().put("expected", selectedVisible)
+            val clipboardEvents = JSONArray(); report.put("native_copy_probe", copyProbe.put("clipboard_events", clipboardEvents)); save()
+            val clipListener = android.content.ClipboardManager.OnPrimaryClipChangedListener {
+                clipboardEvents.put(JSONObject().put("uptime_ms", SystemClock.uptimeMillis())
+                    .put("text", clipboard.primaryClip?.getItemAt(0)?.text?.toString())); save()
+            }
+            ins.runOnMainSync { clipboard.addPrimaryClipChangedListener(clipListener) }
+            try {
+                var stableKey = ""; var stableSince = 0L; var tapBounds = android.graphics.Rect()
+                fun allViews(view: View): List<View> = listOf(view) + if (view is ViewGroup)
+                    (0 until view.childCount).flatMap { allViews(view.getChildAt(it)) } else emptyList()
+                await("settled app floating toolbar Copy control") {
+                    val observed = JSONArray(); var bounds: android.graphics.Rect? = null
+                    ins.runOnMainSync {
+                        WindowInspector.getGlobalWindowViews().filter { it !== v.rootView }.forEach { rootView ->
+                            allViews(rootView).filterIsInstance<android.widget.TextView>().filter { it.text?.toString() == "Copy" }.forEach { label ->
+                                var clickable: View = label
+                                while (!clickable.isClickable && clickable.parent is View) clickable = clickable.parent as View
+                                val rect = android.graphics.Rect(); val shown = clickable.getGlobalVisibleRect(rect)
+                                val rootRelative = android.graphics.Rect(rect); val rootOnScreen = IntArray(2)
+                                rootView.getLocationOnScreen(rootOnScreen); rect.offset(rootOnScreen[0], rootOnScreen[1])
+                                val title = (rootView.layoutParams as? WindowManager.LayoutParams)?.title?.toString().orEmpty()
+                                val resource = runCatching { label.resources.getResourceName(label.id) }.getOrDefault("")
+                                val ready = rootView.isAttachedToWindow && rootView.isShown && rootView.isLaidOut &&
+                                    clickable.isAttachedToWindow && clickable.isShown && clickable.isLaidOut && !clickable.isLayoutRequested &&
+                                    clickable.isEnabled && clickable.isClickable && shown && rect.width() > 8 && rect.height() > 8 &&
+                                    (title.contains("PopupWindow") || resource.contains("floating_toolbar"))
+                                observed.put(JSONObject().put("title", title).put("resource", resource).put("bounds", rect.toShortString())
+                                    .put("root_relative_bounds", rootRelative.toShortString()).put("root_screen_x", rootOnScreen[0]).put("root_screen_y", rootOnScreen[1])
+                                    .put("ready", ready).put("attached", clickable.isAttachedToWindow).put("shown", clickable.isShown).put("laid_out", clickable.isLaidOut))
+                                if (ready) bounds = rect
+                            }
+                        }
+                    }
+                    copyProbe.put("window_controls", observed).put("observed_uptime_ms", SystemClock.uptimeMillis())
+                    val rect = bounds
+                    automation.clearCache()
+                    val copyWindows = automation.windows
+                    copyProbe.put("accessibility_windows", JSONArray(copyWindows.map { w ->
+                        JSONObject().put("id", w.id).put("title", w.title?.toString()).put("type", w.type).put("active", w.isActive).put("focused", w.isFocused)
+                    }))
+                    val copyNodes = copyWindows.flatMap { w -> w.root?.let(::tree).orEmpty() }.filter { it.text?.toString() == "Copy" }
+                    copyProbe.put("copy_accessibility_nodes", JSONArray(copyNodes.map { n ->
+                        val b = android.graphics.Rect(); n.getBoundsInScreen(b)
+                        JSONObject().put("window_id", n.windowId).put("package", n.packageName?.toString()).put("screen_bounds", b.toShortString()).put("visible", n.isVisibleToUser)
+                    }))
+                    val n = if (rect == null) null else copyNodes.firstOrNull { it.text?.toString() == "Copy" && it.isVisibleToUser && it.isEnabled &&
+                        it.packageName?.toString() in setOf(base.packageName, "android") && android.graphics.Rect().also(it::getBoundsInScreen).let { b -> rect.contains(b.centerX(), b.centerY()) && b.width() > 8 && b.height() > 8 } }
+                    val key = if (rect != null && n != null) "${n.windowId}:${n.packageName}:${rect.toShortString()}" else ""
+                    val now = SystemClock.uptimeMillis()
+                    if (key.isEmpty() || key != stableKey) { stableKey = key; stableSince = now }
+                    if (n != null) copyProbe.put("accessibility_node", JSONObject().put("window_id", n.windowId).put("package", n.packageName?.toString()).put("resource", n.viewIdResourceName))
+                    save()
+                    (key.isNotEmpty() && now - stableSince >= 300).also { if (it) tapBounds = requireNotNull(rect) }
+                }
+                screenshot("native-selection-ready")
+                copyProbe.put("tap_bounds", tapBounds.toShortString()).put("click_before_uptime_ms", SystemClock.uptimeMillis()); save()
+                assertTrue(device.click(tapBounds.centerX(), tapBounds.centerY()))
+                copyProbe.put("click_return_uptime_ms", SystemClock.uptimeMillis()); save()
+                await("native Copy updates clipboard and ends selection") {
+                    var selected = true
+                    ins.runOnMainSync { copied = clipboard.primaryClip?.getItemAt(0)?.text?.toString(); selected = v.hasSelection() }
+                    copyProbe.put("clipboard_after", copied).put("selected_after", selected).put("completion_observed_uptime_ms", SystemClock.uptimeMillis()); save()
+                    copied == selectedVisible && !selected && nodes(By.text("Copy")).isEmpty()
+                }
+                assertEquals(selectedVisible, copied)
+            } finally { ins.runOnMainSync { clipboard.removePrimaryClipChangedListener(clipListener) } }
             report.put("native_selected_visible_copy", selectedVisible); save()
             await("selection ended") { var selected = true; ins.runOnMainSync { selected = v.hasSelection() }; !selected }
             // Focus through the native accessibility action, then a real keyboard key.
@@ -182,6 +249,11 @@ class ContextualMessageActionsDeviceTest {
             assertTrue(paragraph.isFocused || paragraph.performAction(AccessibilityNodeInfo.ACTION_FOCUS))
             ins.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU); menuItem("Select text"); device.pressBack()
             report.put("keyboard_menu_key", true)
+            await("Menu Back dismisses popup and restores paragraph window") {
+                var ready = false
+                ins.runOnMainSync { ready = v.isAttachedToWindow && v.hasWindowFocus() && v.isLaidOut && !v.isLayoutRequested }
+                ready && nodes(By.text("Select text")).isEmpty()
+            }
             val focusAgain = nativeNode { it.contentDescription?.toString()?.startsWith("I like ") == true }
             assertTrue(focusAgain.isFocused || focusAgain.performAction(AccessibilityNodeInfo.ACTION_FOCUS))
             val keyTime = SystemClock.uptimeMillis()
@@ -215,13 +287,24 @@ class ContextualMessageActionsDeviceTest {
             scenario.onActivity { it.startActivity(Intent(it, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)) }
             await("native chat accessible") { nativeTree().any { it.contentDescription?.toString()?.startsWith("I like ") == true } }
             val p = nativeNode { it.contentDescription?.toString()?.startsWith("I like ") == true }
-            val action = p.actionList.first { it.label?.toString() == "Message actions" && it.id != android.view.accessibility.AccessibilityNodeInfo.ACTION_LONG_CLICK }
-            assertTrue(p.performAction(action.id)); menuItem("Copy original message"); screenshot("talkback-menu"); device.pressBack()
+            assertTrue(p.isAccessibilityFocused || p.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+            // Actual TalkBack 15 service menu: documented down-then-right gesture.
+            // Standard click on the service-owned menu entry invokes TalkBack's handler;
+            // never call the application's custom action ID for this qualification.
+            device.swipe(arrayOf(android.graphics.Point(200, 400), android.graphics.Point(200, 900), android.graphics.Point(700, 900)), 45)
+            val actions = nativeNode { it.packageName?.toString() == "com.google.android.marvin.talkback" && it.text?.toString() == "Actions" }
+            screenshot("talkback-service-menu")
+            assertTrue(actions.performAction(AccessibilityNodeInfo.ACTION_CLICK))
+            val messageAction = nativeNode { it.packageName?.toString() == "com.google.android.marvin.talkback" && it.text?.toString() == "Message actions" }
+            screenshot("talkback-service-actions")
+            assertTrue(messageAction.performAction(AccessibilityNodeInfo.ACTION_CLICK))
+            menuItem("Copy original message"); screenshot("talkback-app-menu"); device.pressBack()
+            report.put("talkback_service_menu_message_action", true)
             val w = nativeNode { n -> n.actionList.any { it.label?.toString() == "Switch music and $targetWord" } }
             val held = visible(requireNotNull(music())); assertTrue(w.performAction(w.actionList.first { it.label?.toString() == "Switch music and $targetWord" }.id))
             await("TalkBack manual word action") { visible(requireNotNull(music())) != held }
             val paused = visible(requireNotNull(music())); SystemClock.sleep(8500); assertEquals(paused, visible(requireNotNull(music())))
-            report.put("actual_talkback_message_action", true).put("talkback_word_action", true).put("talkback_automatic_pause", true)
+            report.put("service_active_direct_word_node_action", true).put("talkback_automatic_pause", true)
             restore(); report.put("settings_restored", true).put("complete", true); save()
         } catch (failure: Throwable) {
             report.put("failure_class", failure.javaClass.simpleName).put("failure_message", failure.message); save(); screenshot("failure"); throw failure
@@ -229,6 +312,7 @@ class ContextualMessageActionsDeviceTest {
             restore(); scenario?.close(); chat?.let { runBlocking { withContext(Dispatchers.Main) { it.close() } } }
             ins.runOnMainSync { if (previousClip != null) clipboard.setPrimaryClip(previousClip) else clipboard.clearPrimaryClip() }
             root.deleteRecursively(); KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$account") }
+            automation.serviceInfo = automation.serviceInfo.apply { flags = originalAutomationServiceFlags }
             config.uiAutomationFlags = oldFlags; config.waitForIdleTimeout = oldIdle
         }
     }

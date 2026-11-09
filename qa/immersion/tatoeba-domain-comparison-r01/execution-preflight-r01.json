@@ -1,0 +1,86 @@
+{
+  "schema": "vipi.tatoeba-source-preflight.r01",
+  "at_utc": "2026-11-09T00:23:01.072255+00:00",
+  "production": false,
+  "source_copy": {
+    "complete": true,
+    "bytes": 1761800192,
+    "sha256": "a07e1d33c67a876df78c2221ce568e67c5aea773fae8c5d814458838095b28a5",
+    "seconds": 40.103984164001304,
+    "VmHWM_bytes": 20054016,
+    "receipt_sha256": "37c8350419eaa639c7c9efb7c705adc67f460dc52048bfab26905c48b190882c",
+    "original_retained": true
+  },
+  "inspection": {
+    "complete": true,
+    "seconds": 1.2914257899974473,
+    "metadata_sha256": "33baef7fe1526e6c8454b6ea5eeec57ef6efea7df49373d73a45a71182bd6bdc",
+    "sentence_text_read": false,
+    "tag_names": 11188,
+    "legacy_blocked_tags": 73,
+    "reviewed_blocked_tags": 61
+  },
+  "selection_protocol_sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+  "extractor_sha256": "53565cd7121f5211a4a0c5ff938ebb0ae7bda343b6d733716c9c8bae1b0934c1",
+  "metadata_correction": {
+    "at_utc": "2026-11-09T00:21:14.213858+00:00",
+    "inspection_sha256": "33baef7fe1526e6c8454b6ea5eeec57ef6efea7df49373d73a45a71182bd6bdc",
+    "preceding_protocol_sha256": "bb15733c3931fb1475d57a74cfb89179e7d27eade672764a82f59545822c308e",
+    "before_sentence_selection": true,
+    "retained_non_text_flags": [
+      {
+        "id": 1616,
+        "name": "politically incorrect"
+      },
+      {
+        "id": 9789,
+        "name": "@change audio"
+      },
+      {
+        "id": 10794,
+        "name": "@please adopt"
+      },
+      {
+        "id": 11365,
+        "name": "@audio: replace with female voice"
+      },
+      {
+        "id": 11372,
+        "name": "@audio: check"
+      },
+      {
+        "id": 11406,
+        "name": "@audio: replace with German voice"
+      },
+      {
+        "id": 11532,
+        "name": "@move audio"
+      },
+      {
+        "id": 11691,
+        "name": "@audio: move"
+      },
+      {
+        "id": 13007,
+        "name": "@delete audio"
+      },
+      {
+        "id": 14574,
+        "name": "@remove unnecessary tags"
+      },
+      {
+        "id": 15720,
+        "name": "@latin letters"
+      },
+      {
+        "id": 16282,
+        "name": "@monologue"
+      }
+    ],
+    "reason": "The inherited substring/@ filter also matches a political-content label, audio-only edits, adoption/tag-maintenance requests and descriptive script/monologue tags. Those labels do not establish a text/translation error; retain their pairs unless another quality flag applies. All remaining flagged cases are conservatively excluded; absence of flags is not quality certification.",
+    "sampling_changed": false,
+    "target_output_inspected": false
+  },
+  "validation": "Three synthetic SQL/metadata-policy tests pass. No new alignment, phrase output or semantic evaluation has run.",
+  "earlier_route_failures": "DirectlocalSSHhead30s and mountedmetadata35s timeout receipts retained. Existingproductionroute qualified independently; no mount/service repair or credentialcopy."
+}

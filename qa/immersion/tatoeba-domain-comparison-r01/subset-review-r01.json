@@ -1,0 +1,146 @@
+{
+  "schema": "vipi.tatoeba-subset-root-review.r01",
+  "at_utc": "2026-11-09T00:32:57.067827+00:00",
+  "production": false,
+  "selection": {
+    "complete": true,
+    "before_sentence_fetch": true,
+    "protocol_sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+    "inspection_sha256": "33baef7fe1526e6c8454b6ea5eeec57ef6efea7df49373d73a45a71182bd6bdc",
+    "candidate_sha256": "45473dccb9cdd80a3a9e6257421a8f977050002482b833ef78a2bad88d7bf0a1",
+    "candidate_count": 60000,
+    "counts": {
+      "development_direct_rows": 246299,
+      "blocked_tag_pairs": 387
+    },
+    "ranking": "SHA256(seed|canonical_a|canonical_b), no sentence text or target quality"
+  },
+  "fetch": {
+    "accepted_pairs": 40000,
+    "seconds": 12.59837509400677,
+    "measurement": {
+      "VmPeak": 86925312,
+      "VmHWM": 76918784,
+      "VmRSS": 76918784
+    },
+    "counts": {
+      "accepted": 40000,
+      "exposed_full_text": 11,
+      "token_length_or_delimiter": 34,
+      "accepted_cap_no_text_fetch": 19955
+    },
+    "outputs": {
+      "en-es-pairs.jsonl.gz": {
+        "bytes": 21464476,
+        "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+      },
+      "decisions.jsonl.gz": {
+        "bytes": 7715159,
+        "sha256": "d6ac8c491c9e32c1df79ef4f0b2b01050a2fe54e3a1fb76df8965fffc9438236"
+      },
+      "execution-freeze.json": {
+        "bytes": 1483,
+        "sha256": "c280a6a1732b493d2d2beaab9a0ebb1d17aba9d44564f46dd6692295c502a738"
+      },
+      "en-es.txt": {
+        "bytes": 3176364,
+        "sha256": "da0c9bace596758d7b61e084b43498a25fba05bb748f75c76f455b4e25ac083f"
+      }
+    }
+  },
+  "independent_audit": {
+    "complete": true,
+    "production": false,
+    "auditor_sha256": "c07eed020b1a4c2f2ffd234682363cffe011c0cd40dc6413e6f69bac0fd855d7",
+    "subset_receipt_sha256": "bee7a7e616fa158e6a577dfd6665c0706dfc1a40110e3041e15982201948606b",
+    "pair_count": 40000,
+    "distinct_sentence_ids": 78029,
+    "distinct_components": 32641,
+    "largest_component_pairs": 4478,
+    "top_component_counts": [
+      [
+        1,
+        4478
+      ],
+      [
+        13605,
+        10
+      ],
+      [
+        3398251,
+        10
+      ],
+      [
+        12729,
+        9
+      ],
+      [
+        5945,
+        8
+      ],
+      [
+        13776,
+        8
+      ],
+      [
+        13614,
+        8
+      ],
+      [
+        93372,
+        8
+      ],
+      [
+        9788,
+        8
+      ],
+      [
+        1027836,
+        7
+      ]
+    ],
+    "pgv_fulltext_overlap": {
+      "pairs_with_any_shared_fulltext": 0,
+      "pairs_with_both_shared_fulltexts": 0,
+      "en_endpoint_occurrences": 0,
+      "es_endpoint_occurrences": 0
+    },
+    "endpoint_aggregates": {
+      "en": {
+        "distinct_fulltexts": 38682,
+        "total_tokens": 315916,
+        "mean_tokens": 7.8979,
+        "distinct_owners": 1593,
+        "largest_owner_pair_count": 16286,
+        "blank_owner_pair_count": 0
+      },
+      "es": {
+        "distinct_fulltexts": 39345,
+        "total_tokens": 312648,
+        "mean_tokens": 7.8162,
+        "distinct_owners": 878,
+        "largest_owner_pair_count": 7247,
+        "blank_owner_pair_count": 0
+      }
+    },
+    "limits": "Development-only direct pairs with exact provenance and geometry; contributor/component concentration is retained. No semantic quality or conversational coverage established.",
+    "seconds": 6.748934118077159,
+    "VmHWM_bytes": 51695616
+  },
+  "independent_audit_sha256": "e99b40d2f9bec2a97a4e611113c066adca48385700d872f4517607bbfa7811ba",
+  "interpretation": "The subset is ready for the single frozen alignment and phrase comparison. Equal pair counts do not equalize tokens, contributors or sentence-family independence. No semantic review or runtime promotion has occurred.",
+  "next_execution_authorized_by_root": {
+    "host": "fallsoft-production-20261106",
+    "work": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01",
+    "recipe": "One forward and one reverse five-iteration fast_align fit, then grow-diag-final-and only; same pinned binaries, source keys and phrase geometry. No control retraining or parameter grid.",
+    "bounds": {
+      "cpu_threads": 1,
+      "nice": 10,
+      "address_space_bytes": 1073741824,
+      "seconds_per_stage": 1200,
+      "minimum_free_bytes": 8589934592,
+      "additional_output_bytes": 536870912
+    },
+    "must_verify": "Create-only outputs, fixed input hashes, child cleanup on failure, retain failures; source-only inventory before frozen target-review selection."
+  }
+}

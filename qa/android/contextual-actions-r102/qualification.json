@@ -1,0 +1,33 @@
+{
+  "schema": "vipi.android-contextual-actions-root-review.r01",
+  "at_utc": "2026-11-09T00:33:58.351752+00:00",
+  "source_sha256": "13b2339954e816bccc239649323ca477dc8ae9551c0e066ef53baaa2693d9b9e",
+  "closure_sha256": "ef195a485e3a032575f9b49f5d947bca52bc3f86fffde9b897c4083798500718",
+  "verified_artifacts": 25,
+  "independent_review": [
+    "Read exact test patch; no main-app changes.",
+    "Inspected resting, message menu, native-selection-ready and permission-modal screenshots.",
+    "Observed native selection handles and Copy toolbar; clipboard event receipt independently matches visible mixed text.",
+    "Failure image is Android Accessibility Suite notification permission, not an application action-menu failure."
+  ],
+  "qualified_scope": {
+    "copy_original_exact": true,
+    "native_selected_visible_copy": "I like ongaku.",
+    "keyboard_menu_key": true,
+    "keyboard_shift_f10_and_escape": true,
+    "native_audio_started_and_stop_reachable": true,
+    "report_consent_reachable_no_submission": true
+  },
+  "open": [
+    "TalkBack service-owned Actions menu and Message actions selection",
+    "service-active direct word action and automatic pause",
+    "Arabic large-text case",
+    "Independent playback stopped-state and acoustic quality",
+    "Full test completion after permission precondition",
+    "Default activation and final release build"
+  ],
+  "source_integrated": true,
+  "no_new_build": "Exact compiled test source integrated; existing test-only build and partial execution reused. No extra local build under storage pressure.",
+  "default_candidate_enabled": false,
+  "private_evidence_directory": "/home/ai/Development/investigations/vipi-android-contextual-actions-20261108-r102"
+}
