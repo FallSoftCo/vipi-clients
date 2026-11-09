@@ -57,6 +57,7 @@ internal class FrozenContextTokenizer(tableBytes: ByteArray) {
         require(values.all { it !in 0xd800..0xdfff && contains(it, assigned) })
         return values
     }
+    fun originalHasAlphabeticScalar(text:String):Boolean = text.codePoints().toArray().any { contains(it,alpha) }
     fun normalize(text: String): String {
         require(text.length <= 16384)
         scalars(text)

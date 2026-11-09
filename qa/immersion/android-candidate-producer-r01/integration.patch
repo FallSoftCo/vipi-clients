@@ -1,0 +1,637 @@
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateCatalog.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateCatalog.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateCatalog.kt
+@@ -0,0 +1,84 @@
++package co.fallsoft.vipi
++
++import android.database.Cursor
++import android.database.sqlite.SQLiteDatabase
++import org.json.JSONObject
++import java.io.Closeable
++import java.io.File
++import java.security.MessageDigest
++
++/** Indexed, externally pinned evidence reader; one owner/background thread. */
++internal class FrozenCandidateCatalog(private val file:File,manifestFile:File,val manifestSHA256:String,pack:FrozenContextPackReader):Closeable {
++    data class Head(val id:String,val key:String,val contextID:String,val ordinary:Boolean,val conditional:Boolean,val rank:Int,
++        val recordJSON:String,val auditJSON:String,val record:JSONObject,val audit:JSONObject)
++    private data class Stamp(val device:Long,val inode:Long,val bytes:Long,val modified:Long,val changed:Long)
++    private fun stamp():Stamp {
++        require(file.isAbsolute && file.canonicalFile==file.absoluteFile && file.isFile)
++        require(listOf("-wal","-shm","-journal").none{File(file.path+it).exists()})
++        val s=android.system.Os.stat(file.path);return Stamp(s.st_dev,s.st_ino,s.st_size,s.st_mtime,s.st_ctime)
++    }
++    private val originalStamp=stamp()
++    private val db:SQLiteDatabase
++    val sha256:String
++    val contextPackSHA256:String
++    val metadata:Map<String,String>
++    val bundleIdentity:String
++    init {
++        require(digest(manifestFile,1L shl 20)==manifestSHA256)
++        val manifest=JSONObject(manifestFile.readText(Charsets.UTF_8))
++        require(manifest.getString("schema")=="vipi.source-candidate-manifest.1" && manifest.getString("permission")=="disabled_research_only")
++        sha256=manifest.getString("database_sha256");val deps=manifest.getJSONObject("dependencies")
++        contextPackSHA256=deps.getJSONObject("context_pack").getString("sha256")
++        require(contextPackSHA256==pack.contentSHA256)
++        for(lang in listOf("en","es"))require(deps.getJSONObject("dictionary_$lang").getString("sha256")==pack.metadata["dictionary_${lang}_sha256"])
++        require(file.length()==manifest.getLong("database_bytes") && digest(file,256L shl 20)==sha256)
++        db=SQLiteDatabase.openDatabase(file.path,null,SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
++        try {
++            db.execSQL("PRAGMA query_only=ON");db.execSQL("PRAGMA trusted_schema=OFF");db.execSQL("PRAGMA cache_size=-8192")
++            fun pragma(key:String)=db.rawQuery("PRAGMA $key",null).use{require(it.moveToFirst());it.getInt(0)}
++            require(pragma("application_id")==1447645257 && pragma("user_version")==1)
++            val tables=setOf("metadata","candidates","head_keys","evidence","head_evidence","known_families","source_roles","function_words")
++            val counts=manifest.getJSONObject("table_counts");require(counts.keys().asSequence().toSet()==tables)
++            for(table in tables){val expected=counts.getInt(table);require(expected in 0..2000000 && (table!="candidates" || expected<=65536));db.rawQuery("SELECT count(*) FROM $table",null).use{require(it.moveToFirst() && it.getInt(0)==expected)}}
++            val meta=linkedMapOf<String,String>();query("SELECT key,value FROM metadata"){c->val key=text(c,0);require(key !in meta);meta[key]=text(c,1)}
++            require(meta["kind"]=="vipi.source-candidate-catalog" && meta["schema"]=="1" && meta["permission"]=="disabled_research_only")
++            require(meta["context_pack_sha256"]==contextPackSHA256 && meta["policy_sha256"]==manifest.getString("contract_sha256"))
++            for(lang in listOf("en","es"))for(suffix in listOf("_sha256","_metadata_json")){val key="dictionary_$lang$suffix";require(meta[key]==pack.metadata[key])}
++            require(digest(file,256L shl 20)==sha256 && stamp()==originalStamp)
++            metadata=java.util.Collections.unmodifiableMap(meta)
++            bundleIdentity=hash(listOf("vipi.candidate-bundle.1",manifestSHA256,sha256,contextPackSHA256,
++                meta.getValue("dictionary_en_sha256"),meta.getValue("dictionary_es_sha256"),manifest.getString("contract_sha256")).joinToString("\n"))
++        } catch(e:Throwable){db.close();throw e}
++    }
++    @Synchronized fun heads(sourceKey:String,ordinary:Boolean):List<Head> {
++        require(sourceKey.toByteArray().size<=4096);val result=mutableListOf<Head>()
++        query("SELECT id,source_key,context_id,baseline,conditional,train_rank,record_json,audit_json,record_sha256,audit_sha256 FROM candidates WHERE source_key=? AND baseline=? ORDER BY id",arrayOf(sourceKey,if(ordinary)"1" else "0")){c->
++            val raw=text(c,6);val audit=text(c,7);val id=text(c,0);val key=text(c,1);val cid=text(c,2)
++            require(hash(raw)==text(c,8) && hash(audit)==text(c,9));val record=JSONObject(raw);val proof=JSONObject(audit)
++            require(record.getString("id")==id && record.getString("source_key")==key && record.getString("context_id")==cid)
++            val baseline=integer(c,3);val conditional=integer(c,4);val rank=integer(c,5)
++            require(baseline in 0..1 && conditional==1-baseline && rank>=0)
++            result+=Head(id,key,cid,baseline==1,conditional==1,rank,raw,audit,record,proof);require(result.size<=65536)
++        };return result
++    }
++    @Synchronized fun keys(headID:String):List<String> {
++        val result=mutableListOf<String>();query("SELECT source_key FROM head_keys WHERE head_id=? ORDER BY source_key",arrayOf(headID)){result+=text(it,0)};require(result.size<=256);return result
++    }
++    @Synchronized fun evidence(headID:String):List<Map<String,String>> {
++        val result=mutableListOf<Map<String,String>>()
++        query("SELECT h.kind,h.identity,h.evidence_id,e.value_json FROM head_evidence h JOIN evidence e ON e.id=h.evidence_id WHERE h.head_id=? ORDER BY h.kind,h.identity,h.evidence_id",arrayOf(headID)){c->result+=mapOf("kind" to text(c,0),"identity" to text(c,1),"evidence_id" to text(c,2),"value_json" to text(c,3))};return result
++    }
++    private fun query(sql:String,values:Array<String>?=null,body:(Cursor)->Unit){require(stamp()==originalStamp){"Immutable catalog changed"};db.rawQuery(sql,values).use{c->var n=0;while(c.moveToNext()){require(++n<=2000000);body(c)}}}
++    @Synchronized override fun close(){db.close()}
++    companion object {
++        fun hash(text:String)=FrozenContextTokenizer.sha256(text.toByteArray(Charsets.UTF_8))
++        fun digest(file:File,maximum:Long):String {
++            fun sidecars(){require(listOf("-wal","-shm","-journal").none{File(file.path+it).exists()})}
++            sidecars();require(file.isFile && file.length()<=maximum);val h=MessageDigest.getInstance("SHA-256");var count=0L
++            file.inputStream().use{input->val buffer=ByteArray(1 shl 20);while(true){val n=input.read(buffer);if(n<0)break;count+=n;require(count<=maximum);h.update(buffer,0,n)}}
++            sidecars();return h.digest().joinToString(""){"%02x".format(it.toInt() and 255)}
++        }
++        fun text(c:Cursor,i:Int):String {require(c.getType(i)==Cursor.FIELD_TYPE_STRING);return c.getString(i).also{require(it.toByteArray().size<=262144)}}
++        fun integer(c:Cursor,i:Int):Int{require(c.getType(i)==Cursor.FIELD_TYPE_INTEGER);val n=c.getLong(i);require(n in Int.MIN_VALUE.toLong()..Int.MAX_VALUE.toLong());return n.toInt()}
++    }
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateClassifier.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateClassifier.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateClassifier.kt
+@@ -0,0 +1,19 @@
++package co.fallsoft.vipi
++import android.database.sqlite.SQLiteDatabase
++import org.json.JSONArray
++
++/** Original frozen classifier/family tables; never substitutes caller knowledge. */
++internal class FrozenCandidateClassifier(db:SQLiteDatabase) {
++    private val families=linkedMapOf<String,String>()
++    private val roles=linkedMapOf<String,Set<String>>()
++    private val functions=linkedSetOf<String>()
++    init {
++        db.rawQuery("SELECT source,family_id FROM known_families ORDER BY source",null).use{c->while(c.moveToNext()){val s=FrozenCandidateCatalog.text(c,0);val f=FrozenCandidateCatalog.text(c,1);require(s.isNotEmpty() && f.isNotEmpty() && s.toByteArray().size<=4096 && f.toByteArray().size<=4096 && s !in families && families.size<32768);families[s]=f}}
++        db.rawQuery("SELECT source,roles_json FROM source_roles ORDER BY source",null).use{c->while(c.moveToNext()){val s=FrozenCandidateCatalog.text(c,0);val raw=FrozenCandidateCatalog.text(c,1);require(s.isNotEmpty() && s.toByteArray().size<=4096 && raw.toByteArray().size<=16384 && s !in roles && roles.size<32768);val a=JSONArray(raw);require(a.length()<=256);roles[s]=(0 until a.length()).map{a.getString(it).also{x->require(x.toByteArray().size<=4096)}}.toSet()}}
++        db.rawQuery("SELECT source FROM function_words ORDER BY source",null).use{c->while(c.moveToNext()){val s=FrozenCandidateCatalog.text(c,0);require(s.isNotEmpty() && s.toByteArray().size<=4096 && functions.size<4096 && functions.add(s))}}
++        require(families.size==3011 && roles.size==6384 && functions.size==87)
++    }
++    fun family(source:String):String?=families[source]
++    fun roles(source:String):Set<String> = roles[source].orEmpty()
++    fun isFunction(source:String)=source in functions
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateProducer.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateProducer.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateProducer.kt
+@@ -0,0 +1,115 @@
++package co.fallsoft.vipi
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++import org.json.JSONArray
++import org.json.JSONObject
++import java.util.Base64
++
++/** Frozen parity producer, separate from current-tuple diagnostics and display. */
++internal class FrozenCandidateProducer(private val tokenizer:FrozenContextTokenizer,private val sourceCase:FrozenSourceCase) {
++    data class Observation(val raw:List<Any?>?,val mapped:String?)
++    data class Input(val original:String,val words:List<Range>,val windows:List<Range>,val protected:List<Range>,
++        val sourceMasks:List<Map<String,Any?>>,val roles:Map<Range,Observation>,val sourceNameOnlyGuards:Set<Range>,val basis:String)
++    data class Output(val inputIdentity:String,val bundleIdentity:String,val candidates:List<Map<String,Any?>>,
++        val ordinaryCount:Int,val geometryRejections:List<Map<String,Any?>>,val conditionalGeometryRejections:List<Map<String,Any?>>,
++        val gates:Map<String,Map<String,Any?>>,val qualifiedIndices:List<Int>)
++    fun produce(input:Input,catalog:FrozenCandidateCatalog,pack:FrozenContextPackReader):Output {
++        require(pack.contentSHA256==catalog.contextPackSHA256)
++        val text=input.original
++        require(text.length<=16384 && input.words.size<=16384 && input.windows.size<=65536 && input.protected.size<=4096 && input.sourceMasks.size<=16384 && input.basis.isNotEmpty())
++        val offsets=linkedMapOf(0 to 0);var offset=0;var scalar=0
++        while(offset<text.length){val cp=text.codePointAt(offset);require(cp !in 0xd800..0xdfff);offset+=Character.charCount(cp);offsets[offset]=++scalar}
++        var last=0
++        for(r in input.words){require(r.start>=last && r.end>r.start && r.start in offsets && r.end in offsets);last=r.end}
++        for(r in input.windows+input.protected)require(r.start>=0 && r.end>r.start && r.start in offsets && r.end in offsets)
++        require(input.windows==input.windows.sortedWith(rangeOrder) && input.windows.toSet().size==input.windows.size)
++        val tokens=tokenizer.tokenize(text);val starts=tokens.mapIndexed{i,t->t.range.start to i}.toMap();val ends=tokens.mapIndexed{i,t->t.range.end to i+1}.toMap()
++        val cs=mutableListOf<Map<String,Any?>>();val rejected=mutableListOf<Map<String,Any?>>();val conditionalRejected=mutableListOf<Map<String,Any?>>()
++        var ordinaryCount=0
++        for(ordinary in listOf(true,false)) {
++            for(window in input.windows) {
++                val key=tokenizer.normalize(text.substring(window.start,window.end))
++                for(head in catalog.heads(key,ordinary)) {
++                    val record=head.record
++                    fun reject(reason:String){val r=mapOf("head" to head.id,"window" to pair(window),"reason" to reason);if(ordinary)rejected+=r else conditionalRejected+=r}
++                    val first=starts[window.start];val end=ends[window.end]
++                    if(first==null || end==null){reject("training_token_boundary");continue}
++                    val actual=tokens.subList(first,end)
++                    if(actual.map{it.normalized}!=strings(record.getJSONArray("source_context_token_text"))){reject("context_token_sequence");continue}
++                    val relative=ints(record.getJSONArray("source_focus_relative_tokens"));require(relative.size==2 && relative[0]>=0 && relative[1]>relative[0] && relative[1]<=actual.size)
++                    val focus=Range(actual[relative[0]].range.start,actual[relative[1]-1].range.end);val (cost,error)=cost(focus,input.words)
++                    if(error!=null){reject(error);continue}
++                    val original=text.substring(focus.start,focus.end);val norm=tokenizer.normalize(original)
++                    val words=tokenizer.tokenize(original).filter{tokenizer.originalHasAlphabeticScalar(it.original)}.map{it.normalized}
++                    val nonfunction=words.filter{!pack.candidateClassifier.isFunction(it)}
++                    val anchors=nonfunction.filter{pack.candidateClassifier.roles(it).intersect(setOf("noun","adj","adv","verb")).isNotEmpty()}
++                    val category=if(anchors.isNotEmpty())"content" else if(nonfunction.isNotEmpty())"unresolved" else "function"
++                    val knowledge=nonfunction.map{pack.candidateClassifier.family(it)?:"unmapped:$it"}.toSet().sorted()
++                    val role=input.roles[focus];val reasons=mutableListOf<String>()
++                    if(relative[1]-relative[0]!=1 || cost!=1)reasons+="not_single_token_head"
++                    if(role?.mapped==null)reasons+="role_unassessed" else if(role.mapped !in strings(record.getJSONArray("source_pos")))reasons+="role_conflict"
++                    if(category!="content")reasons+="not_content_classified"
++                    val target=record.getString("target_face");val readings=record.getJSONArray("head_readings");val fixed=record.getBoolean("fixed")
++                    if(!ordinary){
++                        if(role?.mapped!="noun")reasons+="rescue_requires_actual_NOUN"
++                        if(category!="content")reasons+="rescue_requires_content"
++                        if(cost!=1 || "not_single_token_head" in reasons)reasons+="rescue_requires_exact_single_token"
++                        if(!sourceCase.isLower(original))reasons+="rescue_requires_lowercase_source"
++                        if(focus !in input.sourceNameOnlyGuards)reasons+="rescue_requires_exact_current_source_name_guard"
++                    }
++                    cs+=linkedMapOf("id" to "${head.id}@${window.start}:${window.end}","head_id" to head.id,"context_id" to head.contextID,
++                        "fixed" to fixed,"focus_utf16" to pair(focus),"context_utf16" to pair(window),"source" to original,"target" to target,
++                        "reading" to (0 until readings.length()).mapNotNull{readings.getJSONObject(it).opt("text") as? String}.toSet().sorted(),
++                        "identical_face" to (tokenizer.normalize(target)==norm),"category" to category,"content_anchor_words" to anchors,
++                        "knowledge_ids" to knowledge,"concept_id" to (pack.candidateClassifier.family(norm)?:"lexical:$norm"),"train_rank" to head.rank,
++                        "cost" to requireNotNull(cost),"source_key" to key,"context_native_cost" to input.words.count{it.start>=window.start && it.end<=window.end},
++                        "role" to mapOf("raw" to role?.raw,"mapped" to role?.mapped),"filter_reasons" to reasons.toList(),
++                        "output_codepoints" to listOf(offsets.getValue(focus.start),offsets.getValue(focus.end)))
++                    require(cs.size<=65536)
++                }
++            }
++            if(ordinary)ordinaryCount=cs.size
++        }
++        val groups=linkedMapOf<Range,MutableList<Int>>();val keep=mutableListOf<Int>();val gates=linkedMapOf<String,Map<String,Any?>>()
++        for((i,c) in cs.withIndex())if((c.getValue("filter_reasons") as List<*>).isEmpty()){
++            if(i<ordinaryCount)keep+=i else groups.getOrPut(range(c.getValue("focus_utf16"))){mutableListOf()}.add(i)
++        }
++        for(focus in groups.keys.sortedWith(rangeOrder)) {
++            val indices=groups.getValue(focus);val keys=indices.flatMap{catalog.keys(cs[it].getValue("head_id") as String)}.toSet().sorted()
++            val match=pack.assess(text,input.words,focus,keys);val winner=match.winner
++            val admitted=indices.filter{winner!=null && cs[it]["head_id"] in winner.rule.headIDs && cs[it]["target"]==winner.rule.target}
++            keep+=admitted;gates["[${focus.start},${focus.end}]"]=linkedMapOf("candidate_indices" to indices.toList(),"admitted_indices" to admitted,
++                "source_keys" to keys,"chosen_rule_id" to winner?.rule?.id,"chosen_context_utf16" to winner?.contextRange?.let(::pair),
++                "reason" to if(admitted.isNotEmpty())"qualified_context" else if(winner==null)"no_qualified_multiword_context" else "winner_without_original_supported_head")
++        }
++        return Output(identity(input),catalog.bundleIdentity,cs.toList(),ordinaryCount,rejected.toList(),conditionalRejected.toList(),gates.toMap(),keep.sorted())
++    }
++    companion object {
++        val rangeOrder=compareBy<Range>{it.start}.thenBy{it.end-it.start}
++        fun pair(r:Range)=listOf(r.start,r.end)
++        fun range(value:Any?):Range {val v=value as List<*>;require(v.size==2);return Range((v[0] as Number).toInt(),(v[1] as Number).toInt())}
++        fun strings(a:JSONArray)=(0 until a.length()).map{a.getString(it)}
++        fun ints(a:JSONArray)=(0 until a.length()).map{a.getInt(it)}
++        fun overlap(a:Range,b:Range)=a.start<b.end && b.start<a.end
++        fun cost(r:Range,words:List<Range>):Pair<Int?,String?> {
++            val inside=words.filter{overlap(r,it)}
++            if(inside.isEmpty())return null to "no_native_words"
++            if(inside.any{it.start<r.start || it.end>r.end})return null to "partial_native_word"
++            if(inside.first().start!=r.start || inside.last().end!=r.end)return null to "not_exact_native_boundaries"
++            return inside.size to null
++        }
++        fun canonical(value:Any?):String=when(value){
++            null,JSONObject.NULL->"null"
++            is String->JSONObject.quote(value)
++            is Boolean,is Number->value.toString()
++            is Map<*,*>->value.keys.map{it as String}.sorted().joinToString(",","{","}"){JSONObject.quote(it)+":"+canonical(value[it])}
++            is Iterable<*>->value.joinToString(",","[","]"){canonical(it)}
++            else->error("Unsupported canonical input")
++        }
++        fun identity(input:Input):String {
++            val roles=input.roles.keys.sortedWith(rangeOrder).map{mapOf("range" to pair(it),"raw" to input.roles.getValue(it).raw,"mapped" to input.roles.getValue(it).mapped)}
++            val value=mapOf("original_utf8" to Base64.getEncoder().encodeToString(input.original.toByteArray()),"words" to input.words.map(::pair),"windows" to input.windows.map(::pair),"protected" to input.protected.map(::pair),"masks" to input.sourceMasks,"roles" to roles,"guards" to input.sourceNameOnlyGuards.sortedWith(rangeOrder).map(::pair),"basis" to input.basis)
++            val bytes=canonical(value).toByteArray();require(bytes.size<=(16 shl 20))
++            return FrozenCandidateCatalog.hash(Base64.getEncoder().encodeToString(bytes))
++        }
++    }
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateSelection.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateSelection.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateSelection.kt
+@@ -0,0 +1,44 @@
++package co.fallsoft.vipi
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++import co.fallsoft.vipi.FrozenCandidateProducer.Companion.cost
++import co.fallsoft.vipi.FrozenCandidateProducer.Companion.range
++import co.fallsoft.vipi.FrozenCandidateProducer.Companion.overlap
++
++/** Caller-known IDs are mandatory input. No frequency-derived production default. */
++internal fun FrozenCandidateProducer.select(output:FrozenCandidateProducer.Output,input:FrozenCandidateProducer.Input,
++    indices:List<Int>,knownFamilyIDs:Set<String>,withholdFunction:Boolean,density:Double,expectedBundleIdentity:String):Map<String,Any?> {
++    require(expectedBundleIdentity.matches(Regex("[0-9a-f]{64}")) && output.bundleIdentity==expectedBundleIdentity)
++    require(output.inputIdentity==FrozenCandidateProducer.identity(input))
++    require(density.isFinite() && density>0 && density<=1 && knownFamilyIDs.size<=65536 && indices.size<=65536 && indices.toSet().size==indices.size && indices.all{it in output.candidates.indices})
++    val cs=output.candidates;val budget=maxOf(1,kotlin.math.floor(input.words.size*density).toInt())
++    val masks=input.sourceMasks.map { m ->require((m["unit_id"] as? String)?.isNotEmpty()==true);range(m["utf16"]).also{require(it.start>=0 && it.end>it.start && it.end<=input.original.length)}}
++    val admitted=mutableListOf<Int>();val rejected=linkedMapOf<Int,List<String>>();val costs=mutableMapOf<Int,Int>();val depths=mutableMapOf<Int,Int>();val ranges=mutableMapOf<Int,Range>()
++    val categories=mapOf("content" to 0,"unresolved" to 1,"function" to 2)
++    for(i in indices) {
++        val c=cs[i];val focus=range(c["focus_utf16"]);val context=range(c["context_utf16"]);val reasons=mutableListOf<String>()
++        if(!(context.start<=focus.start && focus.end<=context.end))reasons+="focus_outside_context"
++        val (cost,error)=cost(focus,input.words);val (depth,contextError)=cost(context,input.words)
++        if(error!=null)reasons+="focus_$error";if(contextError!=null)reasons+="context_$contextError"
++        if(c["identical_face"] as Boolean)reasons+="identical_face"
++        if(withholdFunction && c["category"]=="function")reasons+="known_function"
++        val knowledge=c["knowledge_ids"] as List<*>
++        if(knowledge.isNotEmpty() && knowledge.all{it in knownFamilyIDs})reasons+="known_vocabulary"
++        if(input.protected.any{overlap(it,focus)})reasons+="protected_focus"
++        if(masks.any{it!=focus && it.start<=focus.start && focus.end<=it.end})reasons+="inside_recognized_source_unit"
++        if(reasons.isEmpty()){admitted+=i;costs[i]=requireNotNull(cost);depths[i]=requireNotNull(depth);ranges[i]=focus}else rejected[i]=reasons.toSet().sorted()
++    }
++    admitted.sortWith(compareByDescending<Int>{depths.getValue(it)}.thenBy{categories.getValue(cs[it]["category"] as String)}
++        .thenBy{(cs[it]["train_rank"] as Number).toInt()}.thenByDescending{costs.getValue(it)}.thenBy{ranges.getValue(it).start}.thenBy{cs[it]["id"] as String})
++    val over=admitted.filter{costs.getValue(it)>budget};val selected=mutableListOf<Int>();val occupied=mutableListOf<Range>();val concepts=mutableSetOf<String>();var remaining=budget
++    for(i in admitted){
++        val concept=cs[i]["concept_id"] as String;val reasons=mutableListOf<String>()
++        if(concept in concepts)reasons+="repeated_concept"
++        if(occupied.any{overlap(it,ranges.getValue(i))})reasons+="overlapping_selected_focus"
++        if(costs.getValue(i)>budget)reasons+="over_total_budget" else if(costs.getValue(i)>remaining)reasons+="exceeds_remaining_budget"
++        if(reasons.isEmpty()){selected+=i;occupied+=ranges.getValue(i);concepts+=concept;remaining-=costs.getValue(i)}else rejected[i]=reasons
++    }
++    val mixed=StringBuilder(input.original)
++    for(i in selected.sortedByDescending{ranges.getValue(it).start}){val r=ranges.getValue(i);mixed.replace(r.start,r.end,cs[i]["target"] as String)}
++    return linkedMapOf("selected_indices" to selected,"pre_budget_indices" to admitted,"budget_only_indices" to over,"budget" to budget,
++        "rejected" to rejected.keys.sorted().map{mapOf("index" to it,"reasons" to rejected.getValue(it))},"mixed_output" to mixed.toString())
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenContextPackReader.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextPackReader.kt
+--- a/android/app/src/main/java/co/fallsoft/vipi/FrozenContextPackReader.kt
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextPackReader.kt
+@@ -28,6 +28,8 @@
+     data class Match(val rule: Rule, val contextRange: Range, val tokenStart: Int,
+         val contextGeometryCompatible: Boolean)
+     data class Assessment(val winner: Match?, val rawMatches: List<Match>)
++    val candidateClassifier:FrozenCandidateClassifier
++    val tupleEvidence:FrozenContextTupleEvidence
+     val contentSHA256: String
+     val metadata: Map<String, String>
+     val rules: List<Rule>
+@@ -37,6 +39,8 @@
+     init {
+         require(expectedSHA256.matches(HASH) && dictionaries.keys == setOf("en", "es"))
+         require(digest(pack, 16L shl 20) == expectedSHA256)
++        lateinit var classifier:FrozenCandidateClassifier
++        lateinit var tuples:FrozenContextTupleEvidence
+         val headMap = linkedMapOf<String, Head>(); val loaded = mutableListOf<Rule>()
+         val meta = open(pack).use { db ->
+             require(pragma(db, "application_id") == 1447645257 && pragma(db, "user_version") == 1)
+@@ -92,9 +96,13 @@
+             require(loaded.size == 1157 && loaded.map { it.id }.toSet().size == loaded.size)
+             require(edges.keys.all { key -> loaded.any { it.id == key } })
+             require(loaded.count { it.headIDs.isEmpty() } == 23)
++            classifier=FrozenCandidateClassifier(db)
++            tuples=FrozenContextTupleEvidence(db,loaded,headMap)
+             actual
+         }
+         require(digest(pack, 16L shl 20) == expectedSHA256)
++        candidateClassifier=classifier
++        tupleEvidence=tuples
+         contentSHA256 = expectedSHA256; metadata = Collections.unmodifiableMap(meta.toMap())
+         rules = Collections.unmodifiableList(loaded.toList()); heads = Collections.unmodifiableMap(headMap.toMap()); byKey = rules.groupBy { it.sourceKey }
+     }
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTokenizer.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTokenizer.kt
+--- a/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTokenizer.kt
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTokenizer.kt
+@@ -57,6 +57,7 @@
+         require(values.all { it !in 0xd800..0xdfff && contains(it, assigned) })
+         return values
+     }
++    fun originalHasAlphabeticScalar(text:String):Boolean = text.codePoints().toArray().any { contains(it,alpha) }
+     fun normalize(text: String): String {
+         require(text.length <= 16384)
+         scalars(text)
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTupleEvidence.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTupleEvidence.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenContextTupleEvidence.kt
+@@ -0,0 +1,38 @@
++package co.fallsoft.vipi
++import android.database.Cursor
++import android.database.sqlite.SQLiteDatabase
++import org.json.JSONArray
++import org.json.JSONObject
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++
++internal class FrozenContextTupleEvidence(db:SQLiteDatabase,rules:List<FrozenContextPackReader.Rule>,heads:Map<String,FrozenContextPackReader.Head>) {
++    data class Form(val id:String,val language:String,val lexeme:Long,val surface:String,val range:Range,val number:Int,val mode:Int,val features:Set<String>,val headword:String,val pos:String,val sourceSafe:Boolean,val targetSafe:Boolean,val complete:Boolean,val reasons:Set<String>)
++    data class Term(val id:String,val senseID:String,val reading:String,val eligible:Boolean,val explicit:Boolean,val reasons:Set<String>)
++    data class Link(val ruleID:String,val headID:String,val sourceFormID:String,val targetFormID:String,val sourceTermID:String,val targetTermID:String)
++    val forms:Map<String,Form>;val terms:Map<String,Term>;val linksByRuleHead:Map<Pair<String,String>,List<Link>>
++    init {
++        val fs=linkedMapOf<String,Form>();val ts=linkedMapOf<String,Term>();val links=mutableListOf<Link>()
++        fun text(c:Cursor,i:Int)=FrozenCandidateCatalog.text(c,i)
++        fun bool(c:Cursor,i:Int):Boolean{val n=FrozenCandidateCatalog.integer(c,i);require(n in 0..1);return n==1}
++        fun strings(c:Cursor,i:Int):Set<String>{val raw=text(c,i);require(raw.toByteArray().size<=16384);val a=JSONArray(raw);require(a.length()<=256);return (0 until a.length()).map{a.getString(it).also{s->require(s.toByteArray().size<=4096)}}.toSet()}
++        fun hash(s:String){require(s.matches(Regex("[0-9a-f]{64}")))}
++        db.rawQuery("SELECT id,language,lexeme,surface,form_range_json,number,mode,features_json,headword,pos,source_safe,target_safe,complete,original_reasons_json,source_record_sha256 FROM forms ORDER BY id",null).use{c->while(c.moveToNext()){
++            val id=text(c,0);hash(id);hash(text(c,14));require(id !in fs && fs.size<4096 && c.getType(2)==Cursor.FIELD_TYPE_INTEGER)
++            val lang=text(c,1);val lex=c.getLong(2);val surface=text(c,3);val r=JSONArray(text(c,4));val n=FrozenCandidateCatalog.integer(c,5);val mode=FrozenCandidateCatalog.integer(c,6);val complete=bool(c,12);val pos=text(c,9)
++            require(lang in setOf("en","es") && lex>=0 && surface.isNotEmpty() && surface.length<=1024 && r.length()==2 && r.getInt(0)==0 && r.getInt(1)==surface.length && complete && mode in 1..2 && n in 0..2 && pos=="noun")
++            fs[id]=Form(id,lang,lex,surface,Range(0,surface.length),n,mode,strings(c,7),text(c,8),pos,bool(c,10),bool(c,11),complete,strings(c,13))
++        }}
++        db.rawQuery("SELECT id,sense_id,reading,eligible,explicit,qualifiers_json,original_reasons_json,source_record_sha256 FROM terms ORDER BY id",null).use{c->while(c.moveToNext()){
++            val id=text(c,0);val sense=text(c,1);val reading=text(c,2);val qualifiers=text(c,5);hash(id);hash(sense);hash(text(c,7));require(id !in ts && ts.size<8192 && reading.length<=2048 && qualifiers.toByteArray().size<=16384);JSONObject(qualifiers)
++            ts[id]=Term(id,sense,reading,bool(c,3),bool(c,4),strings(c,6))
++        }}
++        val ruleMap=rules.associateBy{it.id};val seen=mutableSetOf<Link>()
++        db.rawQuery("SELECT rule_id,head_id,source_form,target_form,source_term,target_term FROM links ORDER BY rule_id,head_id,source_form,target_form,source_term,target_term",null).use{c->while(c.moveToNext()){
++            val link=Link(text(c,0),text(c,1),text(c,2),text(c,3),text(c,4),text(c,5));require(seen.add(link) && links.size<32768)
++            val rule=ruleMap.getValue(link.ruleID);val h=heads.getValue(link.headID);val sf=fs.getValue(link.sourceFormID);val tf=fs.getValue(link.targetFormID);val st=ts.getValue(link.sourceTermID);val tt=ts.getValue(link.targetTermID)
++            require(link.headID in rule.headIDs && h.target==rule.target && sf.language=="en" && tf.language=="es" && sf.number==tf.number && sf.pos==tf.pos && st.senseID==tt.senseID && st.eligible && tt.eligible && st.explicit && tt.explicit && st.reasons.isEmpty() && tt.reasons.isEmpty());links+=link
++        }}
++        require(fs.size==326 && ts.size==651 && links.size==5328)
++        forms=java.util.Collections.unmodifiableMap(fs);terms=java.util.Collections.unmodifiableMap(ts);linksByRuleHead=links.groupBy{it.ruleID to it.headID}
++    }
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenHeadAdmission.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenHeadAdmission.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenHeadAdmission.kt
+@@ -0,0 +1,78 @@
++package co.fallsoft.vipi
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++import co.fallsoft.vipi.core.ImmersionEngine
++import org.json.JSONArray
++import org.json.JSONObject
++import org.json.JSONTokener
++
++/** Current tuple evidence. It is not SourceLookupEvidence or display admission. */
++internal class FrozenHeadAdmission(private val tokenizer:FrozenContextTokenizer,private val sourceCase:FrozenSourceCase) {
++    data class KeyScope(val original:String,val focus:Range,val keys:List<String>,val identity:String,val basis:String)
++    data class HeadEvidence(val headID:String,val originalContext:Range?,val target:String,val readingsJSON:String,
++        val supportedTuples:List<FrozenContextTupleEvidence.Link>,val rejectionReasons:List<String>){val conditionallyEligible get()=rejectionReasons.isEmpty() && supportedTuples.isNotEmpty()}
++    data class Assessment(val original:String,val focus:Range,val packSHA256:String,val keyScopeIdentity:String,val keyScopeBasis:String,
++        val chosenRuleID:String?,val learnedContext:Range?,val classification:String,val knowledgeIDs:List<String>,
++        val heads:List<HeadEvidence>,val rejectionReasons:List<String>,val qualificationLimits:List<String>)
++    fun assess(pack:FrozenContextPackReader,original:String,focus:Range,keyScope:KeyScope,recognition:LexicalSourceRecognition.Snapshot,
++        role:EnglishRoleEvidence,knownFamilyIDs:List<String>):Assessment {
++        require(original.length<=16384 && knownFamilyIDs.size<=65536 && knownFamilyIDs.all{it.isNotEmpty() && it.toByteArray().size<=4096} && keyScope.keys.size<=256 && keyScope.identity.isNotEmpty() && keyScope.identity.toByteArray().size<=256 && keyScope.basis.toByteArray().size<=1024)
++        val reasons=mutableListOf<String>()
++        val limits=listOf("Conditional research evidence only; no meaning/display certification","Android source geometry/POS differs from Apple and frozen observations","Generic name detection unavailable; tuple support retained separately","No fallback after fixed winner")
++        fun finish(w:FrozenContextPackReader.Match?,category:String="unassessed",knowledge:List<String> = emptyList(),heads:List<HeadEvidence> = emptyList())=Assessment(original,focus,pack.contentSHA256,keyScope.identity,keyScope.basis,w?.rule?.id,w?.contextRange,category,knowledge,heads,reasons.toList(),limits)
++        if(keyScope.original!=original || keyScope.focus!=focus || !LexicalSourceRecognition.valid(focus,original)){reasons+="invalid_or_stale_key_scope";return finish(null)}
++        val native=LocalImmersion.words(original,"en").map{Range(it.first,it.last+1)}
++        val metadata=JSONObject(pack.metadata.getValue("dictionary_en_metadata_json"))
++        fun id(k:String)=JSONTokener(metadata.getString(k)).nextValue() as String
++        if(!role.matches(original,"en",native,recognition.suppliedProtection,SourceContextAssetPins.models) ||
++            !recognition.matches(original,"en",id("release_id"),id("source_inventory_sha256"),role.suppliedProtection) || focus !in native){reasons+="snapshot_or_dictionary_identity_mismatch";return finish(null)}
++        val winner=pack.assess(original,native,focus,keyScope.keys).winner
++        if(winner==null){reasons+="no_qualified_context_rule";return finish(null)}
++        val source=original.substring(focus.start,focus.end)
++        val words=tokenizer.tokenize(source).filter{tokenizer.originalHasAlphabeticScalar(it.original)}.map{it.normalized}
++        val nonfunction=words.filter{!pack.candidateClassifier.isFunction(it)};val anchors=nonfunction.filter{pack.candidateClassifier.roles(it).intersect(setOf("noun","adj","adv","verb")).isNotEmpty()}
++        val category=if(anchors.isNotEmpty())"content" else if(nonfunction.isNotEmpty())"unresolved" else "function"
++        val knowledge=nonfunction.map{pack.candidateClassifier.family(it)?:"unmapped:$it"}.toSet().sorted()
++        if(knowledge.isNotEmpty() && knowledge.all{it in knownFamilyIDs})reasons+="known_families"
++        if(category!="content")reasons+="not_content_classified"
++        if(!sourceCase.isLower(source))reasons+="requires_lowercase_source"
++        val observations=role.observations.filter{it.range==focus}
++        if(role.status!=EnglishRoleEvidence.Status.READY || observations.size!=1 || observations.firstOrNull()?.role!=EnglishRoleEvidence.Role.NOUN)reasons+="actual_android_noun_unavailable"
++        if(role.namedProtection==EnglishRoleEvidence.NamedProtection.UNAVAILABLE)reasons+="native_name_protection_unavailable"
++        if(observations.firstOrNull()?.overlapsSuppliedProtection!=false)reasons+="source_role_or_name_protection"
++        if(recognition.hasStructuralProtection(focus))reasons+="native_source_structural_protection"
++        if(role.suppliedProtection.any{FrozenCandidateProducer.overlap(it,focus)})reasons+="supplied_or_detected_name_protection"
++        val units=recognition.units.filter{it.range==focus}
++        if(units.isEmpty()){reasons+="no_current_dictionary_focus";return finish(winner,category,knowledge)}
++        if(units.none{it.hasNameGuard && it.sourceBlocked && !it.targetBlocked})reasons+="not_source_name_only_guard"
++        if(units.any{it.targetBlocked || (it.sourceBlocked && !it.hasNameGuard)})reasons+="other_current_dictionary_guard"
++        val windows=ReviewedFrameLookup.windows(original,"en")
++        if(windows==null){reasons+="native_context_window_unavailable";return finish(winner,category,knowledge)}
++        val contextWindows=windows.values.flatten().map{Range(it.first,it.last+1)}.toSet();val tokens=tokenizer.tokenize(original);val position=tokens.indexOfFirst{it.range==focus}
++        if(position<0){reasons+="not_exact_single_research_token";return finish(winner,category,knowledge)}
++        val evidence=mutableListOf<HeadEvidence>()
++        for(headID in winner.rule.headIDs){
++            val head=pack.heads.getValue(headID);val rejected=reasons.toMutableList();var context:Range?=null;val supported=mutableListOf<FrozenContextTupleEvidence.Link>()
++            if(head.focusEnd-head.focusStart!=1)rejected+="not_single_token_original_head"
++            val start=position-head.focusStart;val after=start+head.tokens.size
++            if(start>=0 && after<=tokens.size && head.focusEnd-head.focusStart==1){val actual=tokens.subList(start,after);val r=Range(tokens[start].range.start,tokens[after-1].range.end)
++                if(actual.map{it.normalized}==head.tokens && tokenizer.normalize(original.substring(r.start,r.end))==head.sourceKey && r in contextWindows)context=r}
++            if(context==null)rejected+="original_head_context_missing_or_not_native_window"
++            if("noun" !in FrozenCandidateProducer.strings(JSONArray(head.posJSON)))rejected+="original_head_noun_role_missing"
++            if(head.target!=winner.rule.target)rejected+="head_target_not_winner"
++            if(tokenizer.normalize(source)==tokenizer.normalize(head.target))rejected+="identical_target_face"
++            if(head.target.trim().isEmpty())rejected+="empty_target_face"
++            for(link in pack.tupleEvidence.linksByRuleHead[winner.rule.id to headID].orEmpty()){
++                val sf=pack.tupleEvidence.forms.getValue(link.sourceFormID);val tf=pack.tupleEvidence.forms.getValue(link.targetFormID)
++                val st=pack.tupleEvidence.terms.getValue(link.sourceTermID);val tt=pack.tupleEvidence.terms.getValue(link.targetTermID)
++                if(!(sf.language=="en" && tf.language=="es" && sf.pos=="noun" && tf.pos=="noun" && sf.complete && tf.complete && sf.mode in 1..2 && tf.mode in 1..2 && sf.number==tf.number && sf.reasons==setOf("dictionary_guard") && tf.reasons.isEmpty() && sf.targetSafe && tf.targetSafe && st.eligible && tt.eligible && st.explicit && tt.explicit && st.reasons.isEmpty() && tt.reasons.isEmpty() && st.senseID==tt.senseID && ImmersionEngine.lookupKey(tf.surface)==ImmersionEngine.lookupKey(head.target) && ImmersionEngine.lookupKey(sf.surface)==ImmersionEngine.lookupKey(source)))continue
++                val current=units.flatMap{it.forms}.any{f->f.intrinsicRange==sf.range && f.lexemeID==sf.lexeme.toString() && f.written==sf.surface && f.number==sf.number && f.mode==sf.mode && f.features==sf.features && f.partOfSpeech==sf.pos && f.sourceSafe==sf.sourceSafe && f.targetSafe==sf.targetSafe}
++                if(!current || (sf.surface!=source && sourceCase.firstIsUpper(sf.surface)))continue
++                supported+=link
++            }
++            if(supported.isEmpty())rejected+="no_exact_original_supported_form_term_tuple"
++            evidence+=HeadEvidence(headID,context,head.target,head.readingsJSON,supported,rejected.toSet().sorted())
++        }
++        if(winner.rule.headIDs.isEmpty())reasons+="winner_has_no_supported_original_head"
++        return finish(winner,category,knowledge,evidence)
++    }
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenNativeCandidateProvider.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenNativeCandidateProvider.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenNativeCandidateProvider.kt
+@@ -0,0 +1,64 @@
++package co.fallsoft.vipi
++
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++import co.fallsoft.vipi.core.ImmersionEngine
++import org.json.JSONObject
++import org.json.JSONTokener
++
++/** Research adapter over the existing immutable owner. No chat call site or output permission. */
++internal class FrozenNativeCandidateProvider(private val owner:SourceContextEvidenceOwner,
++    private val catalog:FrozenCandidateCatalog,private val tokenizer:FrozenContextTokenizer,
++    private val sourceCase:FrozenSourceCase) {
++    data class Snapshot(val input:FrozenCandidateProducer.Input,val recognition:LexicalSourceRecognition.Snapshot,val role:EnglishRoleEvidence)
++    data class Prepared(val snapshot:Snapshot,val output:FrozenCandidateProducer.Output,val dictionarySHA256:String,
++        val qualifiedIndices:List<Int>,val currentEvidence:Map<String,FrozenHeadAdmission.Assessment>)
++    private val producer=FrozenCandidateProducer(tokenizer,sourceCase)
++    fun prepare(original:String,suppliedProtection:List<Range>):Prepared {
++        val expected=catalog.metadata.getValue("dictionary_en_sha256")
++        return owner.withCandidateDependencies(expected){pack,db->
++            require(pack.contentSHA256==catalog.contextPackSHA256)
++            val inspection=owner.inspect(original,emptyMap(),suppliedProtection)
++            require(inspection is SourceContextEvidenceOwner.Inspection.Evidence){"Native source evidence unavailable"}
++            val recognition=inspection.recognition;val role=inspection.roles;val words=inspection.nativeWords
++            val meta=JSONObject(catalog.metadata.getValue("dictionary_en_metadata_json"))
++            fun value(key:String)=JSONTokener(meta.getString(key)).nextValue() as String
++            require(recognition.matches(original,"en",value("release_id"),value("source_inventory_sha256"),suppliedProtection))
++            require(role.matches(original,"en",words,suppliedProtection,SourceContextAssetPins.models))
++            val windows=checkNotNull(ReviewedFrameLookup.windows(original,"en")){"Native windows unavailable"}
++                .values.flatten().map{Range(it.first,it.last+1)}.sortedWith(FrozenCandidateProducer.rangeOrder)
++            val roles=role.observations.associate{ob->ob.range to FrozenCandidateProducer.Observation(
++                ob.rawTag?.let{listOf(it,ob.rawScore)},if(role.status==EnglishRoleEvidence.Status.READY)when(ob.rawTag){"NOUN"->"noun";"ADJ"->"adj";"ADV"->"adv";else->null}else null)}
++            val masks=recognition.phraseRanges.mapIndexed{i,r->mapOf<String,Any?>("unit_id" to "native-phrase-$i","utf16" to FrozenCandidateProducer.pair(r))}+
++                recognition.units.mapIndexedNotNull{i,u->if(u.protectsInner)mapOf<String,Any?>("unit_id" to "native-unit-$i","utf16" to FrozenCandidateProducer.pair(u.range))else null}
++            val guards=mutableSetOf<Range>()
++            for(unit in recognition.units){
++                if(!unit.hasNameGuard || !unit.sourceBlocked || unit.targetBlocked || unit.range !in words ||
++                    unit.forms.none{it.partOfSpeech=="noun" && it.mode in 1..2 && it.intrinsicRange==Range(0,it.written.length)})continue
++                db.rawQuery("SELECT blocked,target_blocked,reason FROM guards WHERE normalized=?",arrayOf(ImmersionEngine.lookupKey(unit.original))).use{c->
++                    if(c.moveToFirst() && c.getInt(0)!=0 && c.getInt(1)==0 && c.getString(2)=="name")guards+=unit.range
++                }
++            }
++            val input=FrozenCandidateProducer.Input(original,words,windows,suppliedProtection+recognition.namedPlaces,masks,roles,guards,
++                "Actual Android dictionary/OpenNLP/window snapshot; generic name protection unavailable; no display approval")
++            val snapshot=Snapshot(input,recognition,role);val output=producer.produce(input,catalog,pack)
++            val current=linkedMapOf<String,FrozenHeadAdmission.Assessment>();val conditional=mutableSetOf<Int>()
++            val admission=FrozenHeadAdmission(tokenizer,sourceCase)
++            for((focusKey,gate) in output.gates){
++                val indices=(gate.getValue("candidate_indices") as List<*>).map{(it as Number).toInt()}
++                val focus=FrozenCandidateProducer.range(output.candidates[indices.first()]["focus_utf16"])
++                val keys=(gate.getValue("source_keys") as List<*>).map{it as String}
++                val scope=FrozenHeadAdmission.KeyScope(original,focus,keys,output.inputIdentity,input.basis)
++                val evidence=admission.assess(pack,original,focus,scope,recognition,role,emptyList())
++                require(evidence.chosenRuleID==gate["chosen_rule_id"]){"Current tuple assessment changed fixed winner"}
++                current[focusKey]=evidence
++                val supported=evidence.heads.filter{it.conditionallyEligible}.map{it.headID}.toSet()
++                conditional+=output.qualifiedIndices.filter{it>=output.ordinaryCount && it in indices && output.candidates[it]["head_id"] in supported}
++            }
++            Prepared(snapshot,output,expected,output.qualifiedIndices.filter{it<output.ordinaryCount || it in conditional},current.toMap())
++        }
++    }
++    fun select(prepared:Prepared,knownFamilyIDs:Set<String>,withholdFunction:Boolean,density:Double):Map<String,Any?> {
++        require(prepared.dictionarySHA256==catalog.metadata.getValue("dictionary_en_sha256"))
++        return producer.select(prepared.output,prepared.snapshot.input,prepared.qualifiedIndices,knownFamilyIDs,withholdFunction,density,catalog.bundleIdentity)
++    }
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/FrozenSourceCase.kt b/android/app/src/main/java/co/fallsoft/vipi/FrozenSourceCase.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/main/java/co/fallsoft/vipi/FrozenSourceCase.kt
+@@ -0,0 +1,11 @@
++package co.fallsoft.vipi
++import org.json.JSONObject
++internal class FrozenSourceCase(bytes:ByteArray,expectedSHA:String) {
++    private val table=JSONObject(bytes.toString(Charsets.UTF_8))
++    private val lower:List<IntRange>;private val upper:List<IntRange>;private val title:List<IntRange>
++    init {require(FrozenContextTokenizer.sha256(bytes)==expectedSHA && table.getString("unicode_version")=="15.0.0");lower=ranges("lower");upper=ranges("upper");title=ranges("title")}
++    private fun ranges(key:String):List<IntRange>{val a=table.getJSONArray(key);var end = -1;return (0 until a.length()).map{val r=a.getJSONArray(it);require(r.length()==2);val lo=r.getInt(0);val hi=r.getInt(1);require(lo>end && hi>=lo && hi<=0x10ffff);end=hi;lo..hi}}
++    private fun contains(v:Int,rs:List<IntRange>):Boolean{var lo=0;var hi=rs.size;while(lo<hi){val m=lo+(hi-lo)/2;if(rs[m].last<v)lo=m+1 else hi=m};return lo<rs.size && rs[lo].first<=v}
++    fun isLower(text:String):Boolean{var found=false;for(v in text.codePoints().toArray()){if(contains(v,lower))found=true else if(contains(v,upper)||contains(v,title))return false};return found}
++    fun firstIsUpper(text:String)=text.isNotEmpty() && contains(text.codePointAt(0),upper)
++}
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/SourceContextEvidenceOwner.kt b/android/app/src/main/java/co/fallsoft/vipi/SourceContextEvidenceOwner.kt
+--- a/android/app/src/main/java/co/fallsoft/vipi/SourceContextEvidenceOwner.kt
++++ b/android/app/src/main/java/co/fallsoft/vipi/SourceContextEvidenceOwner.kt
+@@ -110,6 +110,16 @@
+             loaded=null;state.dictionary.close();return unavailable()
+         }
+     }
++    /** Serialized access to the already authenticated dependencies; no rehash/model reload.
++     * Callback must remain synchronous and must not retain the SQLite handle. */
++    @Synchronized internal fun <T> withCandidateDependencies(expectedEnglishSHA256:String,
++        body:(FrozenContextPackReader,SQLiteDatabase)->T):T {
++        worker();check(current.phase==Phase.READY)
++        val state=checkNotNull(loaded)
++        require(state.pack.metadata.getValue("dictionary_en_sha256")==expectedEnglishSHA256)
++        require(state.stamps.all{(file,old)->stamp(file)==old}) { "Immutable dependency changed" }
++        return body(state.pack,state.dictionary)
++    }
+     @Synchronized override fun close() {
+         worker();loaded?.dictionary?.close();loaded=null
+         current=Status(Phase.CLOSED,current.failure)
+diff --git a/android/app/src/androidTest/java/co/fallsoft/vipi/FrozenCandidateQualificationTest.kt b/android/app/src/androidTest/java/co/fallsoft/vipi/FrozenCandidateQualificationTest.kt
+new file mode 100644
+--- /dev/null
++++ b/android/app/src/androidTest/java/co/fallsoft/vipi/FrozenCandidateQualificationTest.kt
+@@ -0,0 +1,73 @@
++package co.fallsoft.vipi
++
++import androidx.test.platform.app.InstrumentationRegistry
++import org.junit.Test
++import org.junit.runner.RunWith
++import androidx.test.ext.junit.runners.AndroidJUnit4
++import org.json.JSONObject
++import org.json.JSONArray
++import java.io.File
++import co.fallsoft.vipi.FrozenContextTokenizer.Range
++
++@RunWith(AndroidJUnit4::class)
++class FrozenCandidateQualificationTest {
++    private fun decode(v:Any?):Any?=when(v){JSONObject.NULL,null->null;is JSONObject->v.keys().asSequence().associateWith{decode(v.get(it))};is JSONArray->(0 until v.length()).map{decode(v.get(it))};else->v}
++    private fun ranges(a:JSONArray)=(0 until a.length()).map{val r=a.getJSONArray(it);Range(r.getInt(0),r.getInt(1))}
++    private fun memory():Map<String,Any?> {
++        val rt=Runtime.getRuntime();val p=android.os.Debug.MemoryInfo();android.os.Debug.getMemoryInfo(p)
++        return mapOf("java_used_bytes" to rt.totalMemory()-rt.freeMemory(),"pss_kib" to p.totalPss,"proc_status" to File("/proc/self/status").readLines().filter{it.startsWith("VmHWM:")||it.startsWith("VmRSS:")})
++    }
++    @Test fun frozenAndActual() {
++        val inst=InstrumentationRegistry.getInstrumentation();val ctx=inst.targetContext
++        val root=File(InstrumentationRegistry.getArguments().getString("sourceContextInputs")!!).canonicalFile
++        require(root.canonicalPath.startsWith(ctx.filesDir.canonicalPath+"/"))
++        val owner=SourceContextEvidenceOwner(ctx.assets,File(root,"context.sqlite"),File(root,"d-en.sqlite"),File(root,"d-es.sqlite"))
++        val begin=System.nanoTime();val before=memory()
++        try {
++            check(owner.initialize().phase==SourceContextEvidenceOwner.Phase.READY)
++            val tokenizer=FrozenContextTokenizer(ctx.assets.open("source-context/unicode15.json").use{it.readBytes()})
++            val sourceCase=FrozenSourceCase(File(root,"source-case-unicode15.json").readBytes(),"12412ea3f7de5e1246d9701574303b045a3a0bde2eab2cd339158e69d059c52a")
++            val referenceFile=File(root,"reference.json");require(FrozenCandidateCatalog.digest(referenceFile,16L shl 20)=="34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3")
++            val reference=JSONObject(referenceFile.readText());val family=FrozenCandidateProducer.strings(reference.getJSONArray("frozen_test_family_order")).take(300).toSet()
++            owner.withCandidateDependencies("5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"){pack,db->
++                FrozenCandidateCatalog(File(root,"catalog.sqlite"),File(root,"manifest.json"),"9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281",pack).use{catalog->
++                    val initialized=System.nanoTime()-begin;val producer=FrozenCandidateProducer(tokenizer,sourceCase)
++                    val provider=FrozenNativeCandidateProvider(owner,catalog,tokenizer,sourceCase)
++                    fun result(input:FrozenCandidateProducer.Input,out:FrozenCandidateProducer.Output,elapsed:Long):Map<String,Any?> {
++                        fun rejects(changed:FrozenCandidateProducer.Input,bundle:String=catalog.bundleIdentity):Boolean {
++                            return try{producer.select(out,changed,out.qualifiedIndices,emptySet(),false,.25,bundle);false}catch(e:IllegalArgumentException){true}
++                        }
++                        check(rejects(input.copy(original="#"+input.original.drop(1))))
++                        check(rejects(input.copy(protected=input.protected+Range(0,1))))
++                        check(rejects(input,"0".repeat(64)))
++                        val selections=linkedMapOf<String,Any?>()
++                        for((name,known) in listOf("all_function" to emptySet(),"all_function_global300" to family)){
++                            val base=out.candidates.indices.filter{it<out.ordinaryCount && (out.candidates[it]["filter_reasons"] as List<*>).isEmpty()}
++                            val all=out.candidates.indices.filter{(out.candidates[it]["filter_reasons"] as List<*>).isEmpty()}
++                            selections[name]=mapOf("baseline" to producer.select(out,input,base,known,true,.25,catalog.bundleIdentity),"experimental" to producer.select(out,input,all,known,true,.25,catalog.bundleIdentity),"qualified" to producer.select(out,input,out.qualifiedIndices,known,true,.25,catalog.bundleIdentity))
++                        }
++                        return mapOf("candidates" to out.candidates,"baseline_candidate_count" to out.ordinaryCount,"geometry_rejections" to out.geometryRejections,"experimental_geometry_rejections" to out.conditionalGeometryRejections,"gates" to out.gates,"selections" to selections,"empty_actual_known_selection" to producer.select(out,input,out.qualifiedIndices,emptySet(),false,.25,catalog.bundleIdentity),"elapsed_ns" to elapsed,"input_identity" to out.inputIdentity,"bundle_identity" to out.bundleIdentity,"stale_text_rejected" to true,"changed_protection_rejected" to true,"changed_bundle_rejected" to true,"native_words_utf16" to input.words.map{FrozenCandidateProducer.pair(it)},"protected_ranges_utf16" to input.protected.map{FrozenCandidateProducer.pair(it)},"source_masks" to input.sourceMasks,"basis" to input.basis)
++                    }
++                    val rows=reference.getJSONArray("cases");check(rows.length()==52);val records=mutableListOf<Map<String,Any?>>()
++                    for(i in 0 until rows.length()){
++                        val row=rows.getJSONObject(i);val text=row.getString("original");val words=ranges(row.getJSONArray("native_words_utf16"));val protection=ranges(row.getJSONArray("protected_ranges_utf16"));val roles=linkedMapOf<Range,FrozenCandidateProducer.Observation>()
++                        val candidates=row.getJSONArray("candidates")
++                        for(j in 0 until candidates.length()){val c=candidates.getJSONObject(j);val role=c.getJSONObject("role");roles[ranges(JSONArray().put(c.getJSONArray("focus_utf16"))).single()]=FrozenCandidateProducer.Observation(decode(role.opt("raw")) as? List<Any?>,decode(role.opt("mapped")) as? String)}
++                        val guards=words.filter{r->db.rawQuery("SELECT blocked,target_blocked,reason FROM guards WHERE normalized=?",arrayOf(tokenizer.normalize(text.substring(r.start,r.end)))).use{c->c.moveToFirst() && c.getInt(0)!=0 && c.getInt(1)==0 && c.getString(2)=="name"}}.toSet()
++                        @Suppress("UNCHECKED_CAST") val masks=decode(row.getJSONArray("source_masks")) as List<Map<String,Any?>>
++                        val input=FrozenCandidateProducer.Input(text,words,ranges(row.getJSONArray("native_windows_utf16")),protection,masks,roles,guards,"Frozen geometry/masks/OpenNLP observations; actual immutable dictionary guard read; diagnostic only")
++                        val tick=System.nanoTime();val out=producer.produce(input,catalog,pack);val diagnostic=result(input,out,System.nanoTime()-tick)
++                        val nativeTick=System.nanoTime();val prepared=provider.prepare(text,protection);val native=result(prepared.snapshot.input,prepared.output,System.nanoTime()-nativeTick)
++                        val evidence=prepared.currentEvidence.mapValues{(_,a)->mapOf("chosen_rule_id" to a.chosenRuleID,"rejection_reasons" to a.rejectionReasons,"heads" to a.heads.map{h->mapOf("head_id" to h.headID,"supported_tuple_count" to h.supportedTuples.size,"conditionally_eligible" to h.conditionallyEligible,"rejection_reasons" to h.rejectionReasons)},"qualification_limits" to a.qualificationLimits)}
++                        records+=mapOf("case_id" to row.getString("case_id"),"diagnostic" to diagnostic,"actual" to native,"current_evidence" to evidence,"current_qualified_indices" to prepared.qualifiedIndices,"current_empty_known_selection" to provider.select(prepared,emptySet(),false,.25))
++                    }
++                    val output=mapOf("cases" to records,"identity_preparation_ns" to initialized,"whole_probe_ns" to System.nanoTime()-begin,"manifest_sha256" to catalog.manifestSHA256,"catalog_sha256" to catalog.sha256,"bundle_identity" to catalog.bundleIdentity,"memory_before" to before,"memory_after" to memory(),"limits" to "Frozen observations establish implementation parity only. Actual Android generic name protection unavailable. No display approval or activation.")
++                    val bytes=FrozenCandidateProducer.canonical(output).toByteArray();check(bytes.size<=16*1024*1024)
++                    File(root,"output.json").outputStream().use{it.write(bytes)}
++                    inst.sendStatus(0,android.os.Bundle().apply{putString("stream","CANDIDATE_QUALIFICATION cases=52 bytes=${bytes.size}\n")})
++                }
++            }
++            check(owner.status().phase==SourceContextEvidenceOwner.Phase.READY)
++        }finally{owner.close()}
++    }
++}

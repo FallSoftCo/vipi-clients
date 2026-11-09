@@ -1,0 +1,17 @@
+# Android frozen candidate producer qualification
+
+The staged Kotlin files add an indexed reader, the original frozen producer and selector, and a source-bound native wrapper. They are isolated source overlays; no chat call site, customer output permission or default activation is added.
+
+The implementation reuses the qualified SourceContextEvidenceOwner. Initialization authenticates immutable dictionaries and pack and loads the pinned OpenNLP models once. The additive synchronous dependency callback serializes access to the same dictionary and pack. The catalog streams its pinned hash once on loading, uses indexed per-key queries, and checks cheap immutable-file stamps during queries; hostile same-stat mutation is outside the immutable-file contract. The catalog and owner must be closed by their background owner.
+
+Bundle identity is SHA256 of seven ASCII fields joined with newline, without a trailing newline: version `vipi.candidate-bundle.1`, manifest SHA, catalog SHA, context-pack SHA, EN SHA, ES SHA and contract SHA. Production-source select requires explicit expected bundle identity. The native wrapper supplies its bound catalog identity and verifies the loaded English dictionary before combining evidence.
+
+Producer parity remains separate from current tuple evidence. The wrapper uses each produced gate's source keys, fixes the same winner, checks exact current form/term invariants, and intersects only originally qualified conditional indices. Ordinary eligibility is unchanged. Caller known-family IDs enter selection explicitly; the two frequency controls exist only in the QA harness. No shorter context rescue is allowed.
+
+Android OpenNLP POS is qualified separately from generic name detection. The wrapper reports `native_name_protection_unavailable`, retains tuple-support diagnostics, and does not claim Apple's nameType-qualified conditional eligibility. Existing app source protections and language UX remain untouched.
+
+Qualification uses all 52 frozen records and actual native source inspection for those records. Exact IDs/order, candidate fields, gate decisions and 312 frozen selections are compared. Actual geometry/masks/POS differences are retained. Stale original text, protection and bundle identities must be rejected. This is implementation/runtime evidence, not semantic coverage or meaning certification.
+
+The private build is the previously qualified r04 source snapshot, reconciled byte-for-byte against its original authority and current committed Android sources. Original r04 receipts and accepted APKs remain retained. Only explicit overlays are added; seven inherited dirty canonical files remain excluded. The isolated packages are `co.fallsoft.vipi.sourcecontextqa` and `.test`; no main app/account data is replaced.
+
+Private execution receipts are under `/home/ai/Development/investigations/vipi-android-candidate-producer-20261109-r01`. The initial plan and additive pre-execution source freeze remain separate. Offline Gradle uses two bounded host CPUs, one worker and 1536 MiB heap. Runtime uses only the existing stopped pocket_verify_api35/5620 AVD, two cores, 2048 MiB RAM, 300-second boot deadline and 384 MiB boot growth bound. Each stage requires the task-only 4 GiB floor plus its complete additional peak. Model/pack/catalog files stream directly into the isolated app's private directory. Cleanup removes only installed QA packages and stops only the owned emulator; 5584, main package and settings are preserved.

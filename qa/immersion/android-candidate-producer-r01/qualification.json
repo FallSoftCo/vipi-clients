@@ -1,0 +1,237 @@
+{
+  "at": "2026-11-09T15:31:53.078062+00:00",
+  "base_commit": "1c53bd7d8ca1e92e0e7c4b35605f8c81713699c8",
+  "files": [
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenCandidateCatalog.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateCatalog.kt",
+      "sha256": "8a77f867bb0fc147b79ca9807034eb626504f4b89aa492222b7aa2b87a746ca1",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenCandidateClassifier.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateClassifier.kt",
+      "sha256": "180f46581df8abbc87dd17af91e5ee81f678f6e28e9c2a365efb70a5787eef62",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenCandidateProducer.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateProducer.kt",
+      "sha256": "7b17a5db9ea32e75978e93dad591aa09b57556b985de3a50fb90766e416a09cf",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenCandidateSelection.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenCandidateSelection.kt",
+      "sha256": "834d69976dc8d6806d66f93436d775641d10bf9c3b0789e7594094c507cda100",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenContextPackReader.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenContextPackReader.kt",
+      "sha256": "60120129c259e5f118296914402e732e81752430f9e598edc552ee22523546e0",
+      "base_sha256": "bd294e3aa3d65f6ae238a3e516f1d215cd43637514d6546d3a3b87439f05e8ad"
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenContextTokenizer.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenContextTokenizer.kt",
+      "sha256": "103ec4c96364d9923be405b4bf3bcddcab01fd2768ae3eb7aa75bbd89d5e0fe6",
+      "base_sha256": "c5a7f9e078775de2d0a2a33780fa50a9db54cadb787601a7159ab5fde3bc176b"
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenContextTupleEvidence.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenContextTupleEvidence.kt",
+      "sha256": "98f1da51ea0a1c554068cae74e9845ddf2c4524913e8e2d84f30adca18081fee",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenHeadAdmission.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenHeadAdmission.kt",
+      "sha256": "4e48d5b4486187142ff92111c7670ca1dd487088e2dfb80031d0111cf4daa101",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenNativeCandidateProvider.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenNativeCandidateProvider.kt",
+      "sha256": "6dba8579e9521f15c98ef123b2697c19d8feb313a7fef9fa383b8a59c16706b8",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/FrozenSourceCase.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/FrozenSourceCase.kt",
+      "sha256": "7edbc6fb1a402e70e7755b93ac1ad957944cf22f571ddba5a2705527626b65ee",
+      "base_sha256": null
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-main/SourceContextEvidenceOwner.kt",
+      "target": "android/app/src/main/java/co/fallsoft/vipi/SourceContextEvidenceOwner.kt",
+      "sha256": "375c05f31167f425c299db7d5ccfd211521f94ca0b9d476b74e4f839b69bdf4e",
+      "base_sha256": "8e6da1cfb46ed1242d08389efcfe2a4040ed83a002399e73104a502f0e9dd9c4"
+    },
+    {
+      "staged": "qa/immersion/android-candidate-producer-r01/staged-test/FrozenCandidateQualificationTest.kt",
+      "target": "android/app/src/androidTest/java/co/fallsoft/vipi/FrozenCandidateQualificationTest.kt",
+      "sha256": "fb1b5d1605ace5dfba888c1321d3f1880b3c22418a8138fd00287fe5e6a53e07",
+      "base_sha256": null
+    }
+  ],
+  "patch_sha256": "808e056a7281191372de482538032a2211a63cf69aa8089038a9027eafa39ea9",
+  "output_sha256": "17370d22d63087a77ad0249ea2ce7f9896d8de258a31e24f32d77846e0ab1c59",
+  "bundle_identity": "4304e2ded3004bd25ea96e9c3c07a38bb368b46be8f79283ba62337017d636a6",
+  "frozen_parity": {
+    "cases": 52,
+    "candidate_occurrences": 145,
+    "differences": [],
+    "equal": true,
+    "identity_preparation_ms": 6807.251747,
+    "producer_ms": {
+      "min": 2.629095,
+      "median": 23.774853999999998,
+      "max": 104.671649
+    },
+    "input_sha256": "17370d22d63087a77ad0249ea2ce7f9896d8de258a31e24f32d77846e0ab1c59"
+  },
+  "native_analysis": {
+    "cases": 52,
+    "actual_equal_to_frozen_by_field": {
+      "candidates": 52,
+      "gates": 52,
+      "native_words_utf16": 52,
+      "protected_ranges_utf16": 52,
+      "selections": 52
+    },
+    "source_mask_note": "Native masks carry native IDs and geometry, not frozen form/guard audit dictionaries; exact objects differ in all52. Geometry sets equal51/52.",
+    "source_mask_geometry_differences": [
+      {
+        "case_id": "qualified-noun-009",
+        "only_actual": [],
+        "only_frozen": [
+          [
+            73,
+            78
+          ],
+          [
+            79,
+            81
+          ]
+        ]
+      }
+    ],
+    "current_gate_count": 46,
+    "current_gate_reasons": {
+      "no_qualified_context_rule": 21,
+      "native_name_protection_unavailable": 25
+    },
+    "current_head_occurrences": 60,
+    "heads_with_supported_tuple": 60,
+    "supported_tuple_occurrences": 149,
+    "conditionally_eligible_head_occurrences": 0,
+    "current_qualified_ordinary_occurrences": 42,
+    "current_empty_known_selected_occurrences": 22,
+    "identity_preparation_seconds": 6.807251747,
+    "native_prepare_median_ms": 60.780166,
+    "probe_through_result_construction_seconds": 15.355326403,
+    "memory_before": {
+      "java_used_bytes": 4650784,
+      "proc_status": [
+        "VmHWM:\t  269856 kB",
+        "VmRSS:\t  269856 kB"
+      ],
+      "pss_kib": 116650
+    },
+    "memory_after": {
+      "java_used_bytes": 46516480,
+      "proc_status": [
+        "VmHWM:\t  416172 kB",
+        "VmRSS:\t  380000 kB"
+      ],
+      "pss_kib": 223117
+    },
+    "memory_scope": "Process samples before owner initialization and after all case calculations, before final JSON serialization. No forced GC or retained-heap study; not model-resident memory or a leak claim.",
+    "limits": [
+      "API35 x86_64 debug only; no new ARM64/API28/R8 claim",
+      "Generic name protection unavailable; no conditional eligibility certification",
+      "Frozen parity and native execution are not meaning/population accuracy evidence",
+      "No customer display activation or production catalog distribution route"
+    ]
+  },
+  "assembly": {
+    "cmd": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--max-workers=1",
+      "--console=plain",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      "-PvipiQaAbi=x86_64",
+      "-PvipiSourceContextQualification=true",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest"
+    ],
+    "exit": 0,
+    "seconds": 82.08387210103683,
+    "free_after": 8046092288
+  },
+  "artifacts": {
+    "apks": [
+      {
+        "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/debug/app-debug.apk",
+        "bytes": 514991202,
+        "sha256": "f059eda4bfe15f7c8ad76c4b933af1dae4abea1419d64e735c802e5d71a53495",
+        "expected_package": "co.fallsoft.vipi.sourcecontextqa"
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+        "bytes": 7833169,
+        "sha256": "72bdbfefbd81846475b5ab0170ed147ea413501da96819fad9940486e37e5b71",
+        "expected_package": "co.fallsoft.vipi.sourcecontextqa.test"
+      }
+    ],
+    "copied_apks": false,
+    "build_allocated_bytes": 3014180864,
+    "free_after": 8045580288,
+    "min_free": 8045608960
+  },
+  "closure": {
+    "success": true,
+    "boot_seconds": 72.3183559649624,
+    "seconds": 155.35849063214846,
+    "free_after": 9125814272,
+    "min_free": 8035602432,
+    "closure": {
+      "packages": {
+        "co.fallsoft.vipi.sourcecontextqa.test": "Success",
+        "co.fallsoft.vipi.sourcecontextqa": "Success",
+        "co.fallsoft.vipi.sourcecontextqa remaining": "",
+        "co.fallsoft.vipi.sourcecontextqa.test remaining": ""
+      },
+      "stop": {
+        "owned_pid": 4025068,
+        "exit": 0
+      },
+      "main_package_changed": false
+    },
+    "settings_mutation_commands_issued": false,
+    "source_identity_unchanged": true,
+    "avd_allocated_after": 6465527808
+  },
+  "settings_exact": {
+    "settings": true,
+    "system-settings": true
+  },
+  "private_root": "/home/ai/Development/investigations/vipi-android-candidate-producer-20261109-r01",
+  "receipt_hashes": {
+    "preparation-plan.json": "acc9cbb47dc20ccecf240c62a44ca0dedbdd697f4c24fb73f05516562be4afdb",
+    "pre-execution-source-amendment.json": "1d68fdef3a0a73d9fa5c145cb89dfb9dbd4a8bff0a3955f0edd74fd01fa6bc4d",
+    "source-authority.json": "f55cee02b2f04d8c5ef6ad38ec0b6e9953502e07d74674151cfad3614596f47d",
+    "runtime-preflight.json": "f7a07ee252b6b8e7671904f95f5f2c82f12e351f4e07b520980e6ec954150d7b",
+    "prior-artifacts.json": "b594d1a7bf16f068c91412c37bda4834a4d6d9450c04315e6d190a122dd50918",
+    "catalog-acquisition.json": "44bc5f6287d031bdde176829481582f99ff2324e0e492ad2bbc841a8cc358e5e"
+  },
+  "canonical_application_sources_modified": false,
+  "committed": false
+}

@@ -1,0 +1,25 @@
+{
+  "source_hashes": {
+    "launch.py": "3b48acee280a7a2c554e7d686a1ad4976053400ffa486485a25f5cd1908b6c1f"
+  },
+  "source_authority_sha256": "f55cee02b2f04d8c5ef6ad38ec0b6e9953502e07d74674151cfad3614596f47d",
+  "inputs": {
+    "catalog.sqlite": [
+      127016960,
+      "8b8198a65480a67149fc174bbc03d4eb4644ead7cb5f5aea48e050820122c9a8"
+    ],
+    "source-case-unicode15.json": [
+      24317,
+      "12412ea3f7de5e1246d9701574303b045a3a0bde2eab2cd339158e69d059c52a"
+    ],
+    "reference.json": [
+      656867,
+      "34048ad4a8754c4097d0bf7c7a7eeddc4245df24817b4206a8f78381f9782be3"
+    ],
+    "manifest.json": [
+      2570,
+      "9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281"
+    ]
+  },
+  "plan_sha256": "acc9cbb47dc20ccecf240c62a44ca0dedbdd697f4c24fb73f05516562be4afdb"
+}

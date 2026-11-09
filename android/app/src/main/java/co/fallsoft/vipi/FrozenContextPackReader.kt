@@ -28,6 +28,8 @@ internal class FrozenContextPackReader(
     data class Match(val rule: Rule, val contextRange: Range, val tokenStart: Int,
         val contextGeometryCompatible: Boolean)
     data class Assessment(val winner: Match?, val rawMatches: List<Match>)
+    val candidateClassifier:FrozenCandidateClassifier
+    val tupleEvidence:FrozenContextTupleEvidence
     val contentSHA256: String
     val metadata: Map<String, String>
     val rules: List<Rule>
@@ -37,6 +39,8 @@ internal class FrozenContextPackReader(
     init {
         require(expectedSHA256.matches(HASH) && dictionaries.keys == setOf("en", "es"))
         require(digest(pack, 16L shl 20) == expectedSHA256)
+        lateinit var classifier:FrozenCandidateClassifier
+        lateinit var tuples:FrozenContextTupleEvidence
         val headMap = linkedMapOf<String, Head>(); val loaded = mutableListOf<Rule>()
         val meta = open(pack).use { db ->
             require(pragma(db, "application_id") == 1447645257 && pragma(db, "user_version") == 1)
@@ -92,9 +96,13 @@ internal class FrozenContextPackReader(
             require(loaded.size == 1157 && loaded.map { it.id }.toSet().size == loaded.size)
             require(edges.keys.all { key -> loaded.any { it.id == key } })
             require(loaded.count { it.headIDs.isEmpty() } == 23)
+            classifier=FrozenCandidateClassifier(db)
+            tuples=FrozenContextTupleEvidence(db,loaded,headMap)
             actual
         }
         require(digest(pack, 16L shl 20) == expectedSHA256)
+        candidateClassifier=classifier
+        tupleEvidence=tuples
         contentSHA256 = expectedSHA256; metadata = Collections.unmodifiableMap(meta.toMap())
         rules = Collections.unmodifiableList(loaded.toList()); heads = Collections.unmodifiableMap(headMap.toMap()); byKey = rules.groupBy { it.sourceKey }
     }

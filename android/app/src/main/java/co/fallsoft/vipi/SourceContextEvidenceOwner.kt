@@ -110,6 +110,16 @@ internal class SourceContextEvidenceOwner(
             loaded=null;state.dictionary.close();return unavailable()
         }
     }
+    /** Serialized access to the already authenticated dependencies; no rehash/model reload.
+     * Callback must remain synchronous and must not retain the SQLite handle. */
+    @Synchronized internal fun <T> withCandidateDependencies(expectedEnglishSHA256:String,
+        body:(FrozenContextPackReader,SQLiteDatabase)->T):T {
+        worker();check(current.phase==Phase.READY)
+        val state=checkNotNull(loaded)
+        require(state.pack.metadata.getValue("dictionary_en_sha256")==expectedEnglishSHA256)
+        require(state.stamps.all{(file,old)->stamp(file)==old}) { "Immutable dependency changed" }
+        return body(state.pack,state.dictionary)
+    }
     @Synchronized override fun close() {
         worker();loaded?.dictionary?.close();loaded=null
         current=Status(Phase.CLOSED,current.failure)

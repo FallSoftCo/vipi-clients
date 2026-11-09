@@ -1,0 +1,13 @@
+{
+  "original_frozen_cases": 52,
+  "candidate_occurrences_exact": 145,
+  "complete_selection_decisions_exact": 312,
+  "actual_android_candidate_gate_geometry_selection_fields_exact": true,
+  "gates_compared": 46,
+  "stale_text_protection_bundle_rejection_observed": true,
+  "bundle_formula_matches_independent_Apple_recomputation": true,
+  "all12compiled_sources_and6receipt_hashes_verified": true,
+  "conditional_native_eligibility": false,
+  "reason": "Android name protection unavailable; supported tuples retained without permission.",
+  "customer_activation": false
+}
