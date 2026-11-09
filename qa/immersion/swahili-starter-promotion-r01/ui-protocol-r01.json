@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "base_revision": "e60834118c79298ade62a3e6cb94316ec123be4b",
+  "source_hashes": {
+    "ios/Vipi/VipiApp.swift": "8021cd9e1fc5f00804ee6fb38741198014f143a35d57f6087f7e5f07c206c5d3",
+    "ios/Vipi/StarterRouteQualification.swift": "cfd70f3a6bc0479ce627cc0078970ca8ecce59037edeb43389c9afdea307238d",
+    "ios/VipiUITests/StarterRouteUITests.swift": "adb424638c7339be1f2708186c949752dd775ed1bf913e8fb63af94b607b819f",
+    "ios/Vipi/SwahiliStarterLookup.swift": "f01f7cb3f558e4b612a1659489413bed6d39f5bad622ede9676d5484243388e1",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "c0cde97f495d12a7a570e77efd51175f314917c79961885aad9c1ef0bd4cfc12",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt": "3bfb265494d8d76bada809c291de8822feb04f67647b288243eccdb2f4c90424"
+  },
+  "runner_hashes": {
+    "run_apple_ui_r01.py": "dfe8869bc6b393975aaef40264fadeafcc5c855c81fbc4b5c8689eb5395293ee",
+    "run_android_ui_assembly_r01.py": "176b2053732eb12e4f46af57dc8941fe72ed25568997b8653e6fd0cca7cc0607",
+    "run_android_ui_capture_r01.py": "ffeb54b731896b67001a44e96941bc73cb854106c8a58021ce0b62af6aa28932"
+  },
+  "apple_plan_sha256": "853dbcaf2eaa075540c6c9603ac04fb46e1cec4958b59c4c47b11d881255b759",
+  "android_stage_sha256": "a1810092a4dff0a8da9d09d18b3ced0f49c0a7f4da39e2061e581764f53898a5",
+  "final_capture_verification_sha256": "ce07cab1fae9a6bc222816cdef711373695331441bb3c11579c0134f3d9ef574",
+  "source": "Country music is fun!",
+  "pairs": [
+    "en-ja",
+    "en-sw"
+  ],
+  "density": 0.25,
+  "known_ids": [],
+  "no_supplied_target_or_span": true,
+  "assertions": [
+    "sourceReferencePartial/one music span/no translations",
+    "six visible original-target transitions",
+    "stable width and height",
+    "JA original-script and ordinary reading modes",
+    "SW no script/transliteration toggle",
+    "actual result speech segment language/script",
+    "Listen produces rendering/playing, no acoustic-correctness inference"
+  ],
+  "native_controls": "same isolated Mac source and emulator5620; settings/state restored; no customer transport",
+  "bounds": {
+    "apple_jobs": 2,
+    "apple_build_seconds": 900,
+    "apple_test_seconds": 240,
+    "android_test_seconds": 300,
+    "disk_floor": 8589934592,
+    "same_measured_build_and_install_reservations": true
+  }
+}

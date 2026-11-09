@@ -1,0 +1,19 @@
+{
+  "frozen_utc": "2026-11-09T19:34:22.137933+00:00",
+  "parent_protocol_sha256": "884ad4f32381304b60e86f65a70b294c4587eee64a521f9026f11a87bef51a8c",
+  "failed_receipt_sha256": "e630aa11e6e0640612f2a18de0a1892b3fb11a0f0cf6857bbbfd321012858140",
+  "recording_sha256": "ac1809112e32c457248019c05f1e634b11b4ab8679c4c0a674584d94eaecf5cc",
+  "visible_playing_frame_sha256": "c5196e960b3d0dacd7f20adbac0956cd0eceda5be0a69058c62ec5dc86692520",
+  "cause": "UI recording proves playing before XCTest post-tap quiescence returned; transient assertion started at46.09s after tap43.28s and observed ready",
+  "change": "DEBUG observation history only; same real Listen action, assert actual recorded playing; no source/provider/selection/content or speech implementation change",
+  "old_sources": {
+    "StarterRouteQualification.swift": "cfd70f3a6bc0479ce627cc0078970ca8ecce59037edeb43389c9afdea307238d",
+    "StarterRouteUITests.swift": "adb424638c7339be1f2708186c949752dd775ed1bf913e8fb63af94b607b819f"
+  },
+  "new_sources": {
+    "ios/Vipi/StarterRouteQualification.swift": "35875e4b86b4b5b907cf413f1432664befeb3c015defb972c9bae203ad1cb0d4",
+    "ios/VipiUITests/StarterRouteUITests.swift": "1abdae50b0d34b08de7b090d6ab1bfc430f3edcfbf6d4ee059b2dd1907746448"
+  },
+  "runner_sha256": "23a25c79baabd23989c4ec2bef05080df8ba0b6585349e5aba82c826424374be",
+  "plan_sha256": "7f214324a717b1c50107c16b23cb3091cbbb3366b7c2d3e965bbdeab859d4f5a"
+}

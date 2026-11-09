@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "frozen_utc": "2026-11-09T19:36:36.724245+00:00",
+  "parent_protocol_sha256": "884ad4f32381304b60e86f65a70b294c4587eee64a521f9026f11a87bef51a8c",
+  "failure_receipt_sha256": "230628917d7c54be79a7ca0e3c6270cbd37240b52d3735c4218c2882ba09d6a0",
+  "original_test_sha256": "3bfb265494d8d76bada809c291de8822feb04f67647b288243eccdb2f4c90424",
+  "test_sha256": "df645ba10c60a011efab981bf22b0b28a39cb196d431c70f4f68862646b189de",
+  "stage_sha256": "575946eee2b3aa9c1971e4bd99f8531d6a51e8c7646d152cd71a7f3fd13ecd19",
+  "runner_hashes": {
+    "run_android_ui_assembly_r02.py": "2127274c1567064a6caf7df0e692f49f462ae8f439187ea92fb74624f99a338e",
+    "run_android_ui_capture_r02.py": "6d0fbf5f8981a1800933a9b0722d5b194504c393b8ece69f671422d71208b2f8"
+  },
+  "change": "Test-only explicit Main.immediate for speech preparation; retain observed PLAYING history after real Listen; validate retained proof/artifact bytes. Runtime main-thread guard unchanged.",
+  "failed_computation": "both default providers produced correct one-span sourceReferencePartial before speech.prepare main Looper check stopped tests; no UI success claimed",
+  "no_content_policy_change": true
+}

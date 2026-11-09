@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "completed_utc": "2026-11-09T19:57:13.762008+00:00",
+  "status": "enabled in source; final native default captures and actual default-to-bubble/speech connection qualified; not a store release or broad coverage claim",
+  "entries": 106,
+  "original_entries": 107,
+  "predeclared_withheld": "winter",
+  "final_rows_each_native": 384,
+  "cross_native_equal": 384,
+  "unchanged_japanese_rows_each_capture": 384,
+  "known_states_nonempty": [
+    104,
+    101,
+    0
+  ],
+  "agent_reviews": {
+    "author": {
+      "correct": 205,
+      "empty": 179
+    },
+    "root": {
+      "correct": 203,
+      "minor": 2,
+      "empty": 179
+    },
+    "disagreements_preserved": true,
+    "native_speaker_validation": false
+  },
+  "independent_delta_reviews": {
+    "changed_rows": 3,
+    "both_correct": 3,
+    "unchanged_rows": 381
+  },
+  "default_route_ui": {
+    "pairs": [
+      "en-ja",
+      "en-sw"
+    ],
+    "injected_spans": false,
+    "translation_calls": 0,
+    "actual_playback_state_both_native": true,
+    "acoustic_correctness_claim": false
+  },
+  "learning_state_implemented": false,
+  "private_evidence": {
+    "final-verification-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/final-verification-r02.json",
+      "sha256": "ce07cab1fae9a6bc222816cdef711373695331441bb3c11579c0134f3d9ef574"
+    },
+    "joined-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/joined-review-r01.json",
+      "sha256": "a8b0a0fc7a81b458d4fbc3b5f63ecb10c60d8d2a0c7f5351478326f8f14ff7ca"
+    },
+    "root-final-delta-review-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/root-final-delta-review-r02.json",
+      "sha256": "253457014542c4a262f3df732196dab6b8cebcda014ef4aab20c505556221954"
+    },
+    "author-final-delta-review-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/author-final-delta-review-r02.json",
+      "sha256": "be62df1a4b9d296c59f494c3efbf30e349e66eb991b4ee901a9b2f2e557ff00f"
+    },
+    "apple-ui-verification-r03.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-ui-verification-r03.json",
+      "sha256": "e1f6ff0de79a5357102ae2b587e7c46db40a43c1cc5f321c8a86cb77b8093916"
+    },
+    "android-ui-verification-r04.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-verification-r04.json",
+      "sha256": "d63fb29fc81fda7b55a8d90e7f82bbbb320d078c6f5f109a1e08a71a56bffe74"
+    },
+    "apple-receipt-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-receipt-r01.json",
+      "sha256": "981d316cd7097106870c4750fe88f5950d37e09bd346ad827f328339c13d3299"
+    },
+    "apple-receipt-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-receipt-r02.json",
+      "sha256": "5ca797071728a969b70f4ef44a80194e95caadb8ab6da956a3c953dd2a72b2bc"
+    },
+    "android-capture-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-capture-r01/receipt.json",
+      "sha256": "6d76401fee35e93770baaa1a11e5163e53eef361fba5e5615b8cd24f1233dc03"
+    },
+    "android-capture-r02/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-capture-r02/receipt.json",
+      "sha256": "86bd43d5b107450c98a1a84bd0a55d59b63ee9c674ed78352852061fee6b13ec"
+    },
+    "android-assembly-r03/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-assembly-r03/receipt.json",
+      "sha256": "44dee4db67b8f2aabb7c7307ba8120f846adee0c17e3f2cc6db57006e146c9bb"
+    },
+    "android-ui-assembly-r04/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-assembly-r04/receipt.json",
+      "sha256": "72a75d4c80ab4aabe5e52405c5c9d91e1902cf924e01ceaa8f297cecc624427e"
+    },
+    "android-ui-capture-r04/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-capture-r04/receipt.json",
+      "sha256": "fb969af80e5da9678a67e5c7e07350a4aad9a8615ef8f84f03ec01ead2f38077"
+    },
+    "android-ui-capture-r03/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-capture-r03/receipt.json",
+      "sha256": "d61b26e72e9b185cb426e10669abc7076b0d88d5fb516351bcc20eeb46109ca1"
+    },
+    "apple-ui-r03/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-ui-r03/receipt.json",
+      "sha256": "d622caf97bd30c1274675e8fa5cce40896ac997b96db90441839506014a608d9"
+    },
+    "runner-retention-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/runner-retention-r01.json",
+      "sha256": "8106124acf2e1e0587b42b3f723e8550ec57647c6f5d43640e5a59b8995993ad"
+    },
+    "runner-retention-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/runner-retention-r02.json",
+      "sha256": "62c83fdf3197517d0ca4c03c2a0a411810b2d8f96f571b996116ae2e739468e4"
+    },
+    "apple-ui-failure-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-ui-failure-r01/receipt.json",
+      "sha256": "e630aa11e6e0640612f2a18de0a1892b3fb11a0f0cf6857bbbfd321012858140"
+    },
+    "android-ui-capture-r01/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-capture-r01/receipt.json",
+      "sha256": "230628917d7c54be79a7ca0e3c6270cbd37240b52d3735c4218c2882ba09d6a0"
+    },
+    "android-ui-capture-r02/receipt.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-ui-capture-r02/receipt.json",
+      "sha256": "ed7a18c65e4c9ee9f768e959ae9986da1074790c1e586d4ee9627c5615c7ddc9"
+    },
+    "apple-ui-admission-r02.json": {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/apple-ui-admission-r02.json",
+      "sha256": "99b912b635d48e5213dfb3cbab63bf10a00dc2f129a145a102f952216c11e99d"
+    }
+  },
+  "source_bindings": {
+    "ios/Vipi/SwahiliStarterLookup.swift": "f01f7cb3f558e4b612a1659489413bed6d39f5bad622ede9676d5484243388e1",
+    "ios/Vipi/BundledStarterLookup.swift": "2ac704c561bf4e38c2573e7a7c49e2c51ddaba934bb7246f97e381f25d81eaa1",
+    "ios/Vipi/ConversationImmersion.swift": "1e8bd3eb63e3e907eb4cac37f421647b732deb9eefca1091345fe9829ac00d97",
+    "ios/Vipi/StarterRouteQualification.swift": "35875e4b86b4b5b907cf413f1432664befeb3c015defb972c9bae203ad1cb0d4",
+    "ios/Vipi/VipiApp.swift": "8021cd9e1fc5f00804ee6fb38741198014f143a35d57f6087f7e5f07c206c5d3",
+    "ios/VipiCryptoTests/SwahiliStarterPromotionTests.swift": "4cae89075fce9cb8df3b70265ee8a2173143e060c37181647355ca8a101e6754",
+    "ios/VipiUITests/StarterRouteUITests.swift": "1abdae50b0d34b08de7b090d6ab1bfc430f3edcfbf6d4ee059b2dd1907746448",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "c0cde97f495d12a7a570e77efd51175f314917c79961885aad9c1ef0bd4cfc12",
+    "android/app/src/main/java/co/fallsoft/vipi/BundledStarterLookup.kt": "475dd5f21087def55f7727af207ffdc85a04decda6a6f12df39eac635f0a6451",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "2d6fd2caf768d80c70843edfb9984a6b1b4aa05407a400fd6724f4aa51e182cc",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SwahiliStarterPromotionTest.kt": "6c33354195c2870fcd7b96afc74663818491f077f3bd432a4a60055108fd9d1c",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt": "db2d0da7f2850570fd7d936b8cac0b68476ea6c6ba922c09004f2de336e5da0b",
+    "android/app/src/debug/java/co/fallsoft/vipi/StarterRouteQualificationActivity.kt": "67f98e6ed4ee154b6ea0d0a8bf3fb8d75d0b4b702b376f56e913a171a5f43ec6",
+    "android/app/src/debug/AndroidManifest.xml": "aadc3c53a81660df994073041c5ae022a6947c886d2f3e091115f1b4353980ad",
+    "data/immersion/starter-en-sw-001.json": "e0103acd530f6c4c121e7a976de954fe1e115a1083c6605c680b1e649c7c74b0",
+    "data/immersion/starter-sw-catalog.json": "0bbc583f8f99eb92711133a1db8965283444e9d5459bd98462969587c559ef65"
+  },
+  "protocols_and_scripts": {
+    "android-ui-amendment-r02.json": "102fff918710dda849e9f6038ee906b99c653eb823781db9633e900377736653",
+    "android-ui-amendment-r04.json": "4c22be4bf7e713530b01d66049da1230ec548e71ad55372d3d786f8a6b281ae4",
+    "android-ui-host-amendment-r03.json": "996c00c3547c7dcdcfdd3b30b4fbbb1ae6b831861f4b5d17661e25518b95e3c4",
+    "assemble_review.py": "292a3f8d98ce7c56e360f323d776d09bdfd532fd0a15f3d80bb27f93b151cb7c",
+    "compile_pack.py": "4045125312aa6949e07e1bcf28f0e4cb164f285049ff697fba594de66dd800a7",
+    "execution-amendment-r03.json": "aa535e972087d90d961275f18fb805c1b0a96b168e85e268f03ff0097259be75",
+    "join_review.py": "7a045690a00f36a3c5018631af8817d24b84df27df1cc2a3d8eacd6e76c77521",
+    "protocol-r01.json": "555c8a4dc862462fbd63e2dfa51d571fc2e25073f8733b982b4db69c5bf1cbb6",
+    "protocol-r02.json": "3c49a555189515d8caceae0c5a3d93a06efd5ec3e1ffb8be1cb7807625413b3c",
+    "run_android_assembly_r03.py": "e34acca81fe96c06f3f305f0681b55f442f54aea605d3504f30e0d898d18d365",
+    "run_android_capture_r03.py": "e6d23453804db3accbfa6ad8d8ce6c901a0baf9d0844b1d7765b7d0229d20574",
+    "run_android_ui_assembly_r04.py": "6e116221e8521036610326e5913100802bf946c251266994b0f40312d1cb0e1f",
+    "run_android_ui_capture_r04.py": "ad859276ca216e4cade930d2a318c54a290018e3719caf30f37375a6196561d8",
+    "run_apple_r02.py": "c29f99e1ffccfd0353440c028208867a47267ee284e4f97ab76cd8978f77deef",
+    "run_apple_ui_r03.py": "798986990483551dfed56d1caf10eedd2af0283ac39b2fb5fbad8d7fb0da2af2",
+    "ui-execution-amendment-r03.json": "bb5b81c42ce4b33d3da21711aae57b18870de87a13d411e821eae0ee19ffc54a",
+    "ui-observation-amendment-r02.json": "6f97057cc0db137dc4b133cbe19669725605a2d3037df932014c410998f72cfb",
+    "ui-protocol-r01.json": "884ad4f32381304b60e86f65a70b294c4587eee64a521f9026f11a87bef51a8c",
+    "verify_final.py": "d3420bc2c897d7e0a7a9e19ecb112dfe9fe210d11f5c67ec69995577826bd260"
+  }
+}

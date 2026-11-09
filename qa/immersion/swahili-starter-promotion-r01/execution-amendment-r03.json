@@ -1,0 +1,11 @@
+{
+  "parent_protocol_sha256": "3c49a555189515d8caceae0c5a3d93a06efd5ec3e1ffb8be1cb7807625413b3c",
+  "change": "execution-only r03 assembly directory after r02 pre-build disk rejection; final capture retains r02 logical output; no source/input/policy change",
+  "failed_admission_sha256": "443a74bc86d8bd309257ebf048fea51d0c1a24b67a39d048263cb6ecc7b4e7df",
+  "root_retirement_receipt": "android-readiness/retirement-superseded-three-apks-20261109-r01/receipt.json",
+  "code": {
+    "run_android_assembly_r03.py": "e34acca81fe96c06f3f305f0681b55f442f54aea605d3504f30e0d898d18d365",
+    "run_android_capture_r03.py": "e6d23453804db3accbfa6ad8d8ce6c901a0baf9d0844b1d7765b7d0229d20574"
+  },
+  "resources_unchanged": true
+}

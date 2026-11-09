@@ -1,0 +1,9 @@
+{
+  "parent_amendment_sha256": "6f97057cc0db137dc4b133cbe19669725605a2d3037df932014c410998f72cfb",
+  "prior_admission_receipt_sha256": "99b912b635d48e5213dfb3cbab63bf10a00dc2f129a145a102f952216c11e99d",
+  "prior_job_pid": 68354,
+  "prior_job_exited_verified": true,
+  "change": "output/plan path only; same frozen observation history and all native inputs; other owner preserved",
+  "runner_sha256": "798986990483551dfed56d1caf10eedd2af0283ac39b2fb5fbad8d7fb0da2af2",
+  "plan_sha256": "88a5a01f2ada24a7a09a33846e27d79e35d7ccc1190fd61aec29b864cae89b39"
+}

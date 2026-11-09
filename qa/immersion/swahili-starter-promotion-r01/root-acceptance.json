@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-09T19:58:14.208534+00:00",
+  "completion_sha256": "d67a2128608673a987d3e26635269097a3800b4e1a89bb03cac9e60bf7d45776",
+  "source_bindings_verified": 16,
+  "private_receipt_bindings_verified": 21,
+  "protocol_bindings_verified": 19,
+  "android_ui_independently_checked": {
+    "ja": {
+      "transitions": 6,
+      "bounds": "[53,116][1027,190]",
+      "proof_sha256": "7287ee523942abe6364322ba4982dbce30394cff522bbaf63ce4e82c7ba15989",
+      "speech_sha256": "e02676144335e87b0c42565c50049de057e8d6d24ef6828a00d5512d0e75885c"
+    },
+    "sw": {
+      "transitions": 6,
+      "bounds": "[53,116][1027,178]",
+      "proof_sha256": "4453eb821f6d6e0172bde10fa9dd1257a3fb04df6631598ea2cefdad03678ac6",
+      "speech_sha256": "e02676144335e87b0c42565c50049de057e8d6d24ef6828a00d5512d0e75885c"
+    }
+  },
+  "android_screenshots_visually_reviewed": [
+    "ja-continuous.png.stdout",
+    "ja-native-script.png.stdout",
+    "sw-continuous.png.stdout"
+  ],
+  "visual_limit": "QA heading overlaps system status bar; actual inline bubble is visible. No acceptance of this debug host as customer UI.",
+  "meaning_review": "Root final delta and initial root review remain unchanged; 203 correct, 2 minor, 179 empty state-specific outputs. No native-speaker or population claim.",
+  "scope": "106-entry bounded Swahili source-first starter plus exact pair dispatcher and native connection QA. Progression, broad coverage and release remain open."
+}

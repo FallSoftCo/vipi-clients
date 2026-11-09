@@ -1,0 +1,12 @@
+{
+  "frozen_utc": "2026-11-09T19:51:45.048832+00:00",
+  "prior_failure_sha256": "d61b26e72e9b185cb426e10669abc7076b0d88d5fb516351bcc20eeb46109ca1",
+  "change": "Wait up to 5 seconds for the existing Show transliteration menu item after opening menu; binary-safe attachment export with exact file hash, no UTF-8 decoding of PNG. No runtime, mapping, content, speech or selection changes.",
+  "prior_ui_result": "SW test passed. JA completed six stable transitions and native script, then immediate menu lookup failed before Listen. Export later failed on PNG decoding; partial artifacts preserved.",
+  "source_sha256": "db2d0da7f2850570fd7d936b8cac0b68476ea6c6ba922c09004f2de336e5da0b",
+  "stage_sha256": "07e28e397afff9244fdda28a0301d00b2c967d444f04c74573b42685596f1941",
+  "runners": {
+    "run_android_ui_assembly_r04.py": "6e116221e8521036610326e5913100802bf946c251266994b0f40312d1cb0e1f",
+    "run_android_ui_capture_r04.py": "ad859276ca216e4cade930d2a318c54a290018e3719caf30f37375a6196561d8"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "frozen_utc": "2026-11-09T19:45:04.888771+00:00",
+  "prior_amendment_sha256": "102fff918710dda849e9f6038ee906b99c653eb823781db9633e900377736653",
+  "failure_receipt_sha256": "ed7a18c65e4c9ee9f768e959ae9986da1074790c1e586d4ee9627c5615c7ddc9",
+  "change": "Replace ComposeRule test dispatcher/virtual-clock host with DEBUG-only non-exported ActivityScenario, matching existing real-time UI qualification. Preserve all selection/source/speech implementations, source/pair/density and assertions. Retain phase data/screenshots/hierarchy on failure; temporary VipiFlip debug property restored.",
+  "causal_limit": "prior harness produced correct real provider proofs but did not qualify visibility/continuous phases; dispatcher divergence established by r01 main Looper failure, r02 phase cause remains unproven",
+  "source_hashes": {
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt": "d8c6a613c3a4ffd52a4b90a0c8e55d0d73793b64f04ac589f41733ddb1e60291",
+    "android/app/src/debug/java/co/fallsoft/vipi/StarterRouteQualificationActivity.kt": "67f98e6ed4ee154b6ea0d0a8bf3fb8d75d0b4b702b376f56e913a171a5f43ec6",
+    "android/app/src/debug/AndroidManifest.xml": "aadc3c53a81660df994073041c5ae022a6947c886d2f3e091115f1b4353980ad"
+  },
+  "stage_sha256": "5a59ec61a3a33e30201b399375fa8bb50ba5c3a8f5b470f724b18889a904c00d",
+  "runners": {
+    "run_android_ui_assembly_r03.py": "cdba0206d60d951bff51359d6abc963d1f04477ed8d7fcd86ff69e294213d2d3",
+    "run_android_ui_capture_r03.py": "3ef05392effe3a342eb0776f56d40ef11c83b1b0c2b52781b24545bd01638a12"
+  }
+}

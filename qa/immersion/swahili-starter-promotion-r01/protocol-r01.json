@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "base_revision": "f92f1f68999f4f852b39917ce81a0139e02518d0",
+  "source_hashes": {
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SwahiliStarterPromotionTest.kt": "9a1e904f398bd0533c74f59a9597ff0e8ca8dfb1b7025a73d3c8b4864073d2b8",
+    "android/app/src/main/java/co/fallsoft/vipi/BundledStarterLookup.kt": "475dd5f21087def55f7727af207ffdc85a04decda6a6f12df39eac635f0a6451",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "2d6fd2caf768d80c70843edfb9984a6b1b4aa05407a400fd6724f4aa51e182cc",
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": "34dc220aee562cedce84760e6e0c7e2a2aff5c30db53c76b2e541c8944d73da8",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "80debd622123a813f316cc759f3555bb6ed8351160ec84472346672e635c1149",
+    "data/immersion/starter-catalog.json": "abe4ba0eef60f32d02587eee2418263e505f829c30b72585ebfd5f8e06574bf4",
+    "data/immersion/starter-en-ja-002.json": "62e147bdad14a8f2bc96de2099fa7977c3e125ef5ef6870c34e1d2716128807e",
+    "data/immersion/starter-en-sw-001.json": "e0103acd530f6c4c121e7a976de954fe1e115a1083c6605c680b1e649c7c74b0",
+    "data/immersion/starter-sw-catalog.json": "0bbc583f8f99eb92711133a1db8965283444e9d5459bd98462969587c559ef65",
+    "ios/Vipi/BundledStarterLookup.swift": "2ac704c561bf4e38c2573e7a7c49e2c51ddaba934bb7246f97e381f25d81eaa1",
+    "ios/Vipi/ConversationImmersion.swift": "1e8bd3eb63e3e907eb4cac37f421647b732deb9eefca1091345fe9829ac00d97",
+    "ios/Vipi/JapaneseStarterLookup.swift": "a048d8b97e06acb519ecc4bbfcad74b6824b4c7390ad3a23239bad7c5ab87ad7",
+    "ios/Vipi/SwahiliStarterLookup.swift": "b773c8792c035c51e52c423a4e74e4badfb12b3927d60fee34ccafa5bcd2a1a6",
+    "ios/VipiCryptoTests/JapaneseStarterPromotionTests.swift": "c5b0af86bd2ebd3194e3dc678b82fe27bc12677001225639d9ea024bfab5c004",
+    "ios/VipiCryptoTests/SwahiliStarterPromotionTests.swift": "552d91099934e19e834a1692aa7ae15815ddd5ab947b5a2e1cd09c8e5d64fcdb"
+  },
+  "qa_hashes": {
+    "compile_pack.py": "4045125312aa6949e07e1bcf28f0e4cb164f285049ff697fba594de66dd800a7",
+    "run_android_assembly_r01.py": "f85052d0aedf1a5724e2ed077f81677c00e1fbfec406debf7ce285bbc75c48d2",
+    "run_android_capture_r01.py": "01666ab8f0fdbe681d6677d8f3d78e047d7eb36c90405eff9ac94f3ffaec327b",
+    "run_apple_r01.py": "8b679e7bd9f8c46409a5ee5e95c2b2a93e2bc82433a84dc8e4cafdc6e96b02c9"
+  },
+  "input_freeze_sha256": "b7a0ab85867b9b20ef58b4342afeccd279e254ee38197d7580892ed58a23f56e",
+  "apple_plan_sha256": "523615098a17dc9763f6b1b00841da34fd9dca179b6240ba8e39b239c4868583",
+  "android_stage_sha256": "2fa1c21de7149fe134ca7a52eb5fd818e1e16b660fca46347571158298ab46e6",
+  "states": [
+    [],
+    [
+      "family",
+      "books",
+      "music"
+    ],
+    "all94activeconcepts"
+  ],
+  "density": 0.25,
+  "candidate_enabled": false,
+  "rows_per_native": 384,
+  "japanese_parity_rows_per_native": 384,
+  "controls": [
+    "disabled returns exact JA identity",
+    "exact wrong-pair empty",
+    "invalid-provider evidence rejected",
+    "known-state masks persist",
+    "source masks persist",
+    "literal and punctuation boundaries",
+    "registered source input language",
+    "no SW romanization",
+    "exact full reference precedes starter",
+    "JA384exact prior spans"
+  ],
+  "review": "Root independent agent review before author labels join; historical sources exposed; fresh root24 mapping-blind; no population claim",
+  "bounds": {
+    "apple": {
+      "compiler_jobs": 2,
+      "prepare_seconds": 180,
+      "build_seconds": 900,
+      "test_seconds": 300,
+      "attachment_bytes": 16777216,
+      "additional_disk_bytes": 8589934592,
+      "free_floor_bytes": 8589934592
+    },
+    "android_build_seconds": 900,
+    "android_capture_seconds": 1200,
+    "android_capture_test_seconds": 300,
+    "android_assembly_additional_bytes": 805306368,
+    "android_capture_additional": "actual APK + 2*DEX + 384MiB boot +64MiB metadata +16MiB output",
+    "floor_bytes": 8589934592
+  },
+  "activation": "off until both reviews and corrected default capture",
+  "source_masks_limit": "supplied-mask API mechanical check distinct from normal caller acquisition; actual route literals separately captured",
+  "post_capture_ui": "inspect existing narrow chat-view seam after frozen capture; no UI changes here"
+}

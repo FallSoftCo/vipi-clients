@@ -150,7 +150,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
     private val qaModelsReady: Boolean? = null,
     sourceKnownConceptIDs: Set<String> = emptySet(),
-    private val sourceLookup: SourceLookupProvider? = JapaneseStarterLookup.bundledIfPromoted(context, sourceKnownConceptIDs)) : AutoCloseable {
+    private val sourceLookup: SourceLookupProvider? = BundledStarterLookup.provider(context, sourceKnownConceptIDs)) : AutoCloseable {
     private val sourceLookupIdentity = sourceLookup?.cacheIdentity
     init {
         require(qaSourceUnits == null || BuildConfig.DEBUG)
