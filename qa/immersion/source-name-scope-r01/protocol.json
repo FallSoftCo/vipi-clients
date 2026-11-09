@@ -1,0 +1,175 @@
+{
+  "production": false,
+  "hypothesis": "An exact source name-only guard may suppress common-noun links; no lexical whitelist, semantic approval or runtime change.",
+  "inputs": {
+    "phrase_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+    },
+    "normalizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+    },
+    "tokenizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "selector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+    },
+    "comparator": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/reference_compare.py",
+      "sha256": "5ed2376c939e441b12e1ad8140da856130c7e6d17f33fe8cce55714ee789127d"
+    },
+    "literal_payload": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/payload.json",
+      "sha256": "5c6a1c513a68f861ca28fd8c45b99b347e130940a29e6898bcc811fcfb47e5bc"
+    },
+    "literal_semantics": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/semantics.json",
+      "sha256": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7"
+    },
+    "old_projector": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+      "sha256": "443cd1db89c48760662b12f503299c89848bcb012c4685e4362ec89d591343de"
+    },
+    "annotation_loader": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/source-role-veto-r01/project.py",
+      "sha256": "6c080ce26ef9a3efa4fea025155e72949781be2bd680e559fcfacbe61f8888f9"
+    },
+    "content_baseline": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+      "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "family_control": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+      "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "geometry": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+      "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+    },
+    "annotation_inputs": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotation-inputs.json",
+      "sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54"
+    },
+    "annotations": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+      "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+    },
+    "source_context": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/train.json",
+      "sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c"
+    },
+    "matched_keys": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+      "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+    },
+    "fixed_keys": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/inputs/source-frequency-keys.json",
+      "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+    },
+    "heads": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads-r02/heads.sqlite",
+      "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+    },
+    "decisions": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+      "sha256": "255d89336001a080f7cb3e188246da4c81fad3c8f5874cc9195f4f7c6f4cdaaf"
+    },
+    "adapter": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5"
+    },
+    "review_exclusions": {
+      "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/inputs/review-exclusions.json",
+      "sha256": "0c55574a17bc1c7d17dd96d1f9589160cb8dc01f0d0400aee1d6e43862d351f3"
+    }
+  },
+  "code_hashes": {
+    "compare.py": "69f97055705962a42fc0159263657d4517edc70178aa2071a885045750d7942b",
+    "mechanism.py": "43dbdac7883e2cc29fdec2f9ec8130fdb532cb58e499e19cc19c31a06ba94e5d",
+    "prepare_protocol.py": "0c01355b73279b1be6bf576a762300128e27ce8b6cc68352d4f6f6fc513c02be",
+    "review.py": "21ce6754436b4a5c0d9a8c90c7609fd30a586a09c0a19df79a3236b7747de21d",
+    "test_mechanism.py": "663b11f55acb88222003ac22611599888ab99ed27696f34988d506b65b5b929f"
+  },
+  "seconds": {
+    "catalog": 120,
+    "project": 300,
+    "packet": 120
+  },
+  "stage_output_bytes": {
+    "catalog": 33554432,
+    "project": 67108864,
+    "packet": 25165824
+  },
+  "resources": {
+    "cpu": 1,
+    "address_space_bytes": 1073741824,
+    "aggregate_output_bytes": 134217728,
+    "additional_staging_bytes_max": 1048576,
+    "disk_floor_bytes": 8589934592
+  },
+  "policy": {
+    "arm_control": "original expanded r02, both original known states, 25% budget",
+    "catalog_exception": "Only a source guard with exact reason=name, blocked=true,target_blocked=false; source and target complete mode1/2 noun forms, same number, explicit eligible terms, no other source form reason and no target form/term reason. Original match must have only dictionary_guard.",
+    "source_identity": "Reconstruct source unit ID from retained exact scope and language lookup key; bind dictionary guard row to that exact key. Recheck actual occurrence key guard.",
+    "occurrence_exception": "Rescued heads additionally require raw current OpenNLP NOUN, exact single native/corpus token, content classification, lowercase original source focus. Preserve all baseline candidates and original restrictions.",
+    "competition": "Recompute catalog geometry competition after adding eligible source-name links, retaining all union/mutual/compound controls. Competition precedes occurrence gating as in baseline; a rescue later blocked at occurrence can still add a catalog conflict. Report resulting losses.",
+    "readings": "Original baseline record/readings arrays remain byte-for-byte identical, including historical ineligible reading entries. Newly rescued heads use only retained originally eligible or conditionally rescued target term/readings. Original proof match/reading flags remain false and immutable; separate override_links identifies the sole removed source-name reason. No target lowercasing.",
+    "baseline_parity": "Reconstruct all original head records, then full 9535 original traces including both fixed/expanded arms and two known states. Experimental outputs provisional until every row and EOF match. Failed parity invalidates entire run.",
+    "retention": "Masks unchanged. Original317MB proof DB retained once; catalog stores exact context/head/form/term references, proof blob SHA and override reason. No refit/model/corpus/guard/catalog activation."
+  },
+  "review": {
+    "seed": "source-name-scope-r01",
+    "max_cases": 32,
+    "strata_order": [
+      "loss",
+      "empty_gain",
+      "nonempty_change"
+    ],
+    "quota_each_known_state": {
+      "loss": 4,
+      "empty_gain": 6,
+      "nonempty_change": 6
+    },
+    "known_order": [
+      "all_function",
+      "all_function_global300"
+    ],
+    "loss": "Selected emitted source-word count decreases; all replacements and lost units retained in union even when depth unchanged.",
+    "empty_gain": "Baseline empty, experimental nonempty.",
+    "nonempty_change": "Other changed outputs or focus/target/reading identity sets.",
+    "ranking": "SHA256(seed|stratum|known|source_id), ascending; source ID unique across strata/states; no backfill or semantic reselection.",
+    "exclusions_sha256": "0c55574a17bc1c7d17dd96d1f9589160cb8dc01f0d0400aee1d6e43862d351f3",
+    "development_controls": "Original12 diagnostic sources shown for both states outside32-case sample, explicitly exposed; all remain excluded from sampled review.",
+    "evidence": "Full original message and full preceding dialogue, both complete outputs, every union emission, selected original head evidence/conditional audit and full parallel witness. Unselected alternatives referenced exactly through original proof/catalog; no silent truncation."
+  },
+  "development_source_ids": [
+    "bst-train-1630-02",
+    "bst-train-4251-10",
+    "bst-train-1907-12",
+    "bst-train-1706-00",
+    "bst-train-2958-02",
+    "bst-train-4748-06",
+    "bst-train-3672-04",
+    "bst-train-3175-02",
+    "bst-train-2018-02",
+    "bst-train-1262-06",
+    "bst-train-2733-00",
+    "bst-train-3935-10"
+  ]
+}

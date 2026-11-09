@@ -1,0 +1,60 @@
+{
+  "production": false,
+  "status": "prepared_not_executed",
+  "host": "fallsoft-production-20261106",
+  "available_bytes_at_readonly_preflight": 289672470528,
+  "owned_remote_root_absent": true,
+  "existing_input_sizes": {
+    "heads.sqlite": 317149184,
+    "decisions.jsonl.gz": 20450123
+  },
+  "input_full_hash_check": "Required inside each bounded stage; no new large input copies.",
+  "protocol_sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+  "code_hashes": {
+    "compare.py": "69f97055705962a42fc0159263657d4517edc70178aa2071a885045750d7942b",
+    "mechanism.py": "43dbdac7883e2cc29fdec2f9ec8130fdb532cb58e499e19cc19c31a06ba94e5d",
+    "prepare_protocol.py": "0c01355b73279b1be6bf576a762300128e27ce8b6cc68352d4f6f6fc513c02be",
+    "review.py": "21ce6754436b4a5c0d9a8c90c7609fd30a586a09c0a19df79a3236b7747de21d",
+    "test_mechanism.py": "663b11f55acb88222003ac22611599888ab99ed27696f34988d506b65b5b929f"
+  },
+  "focused_tests": {
+    "exit_code": 0,
+    "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n",
+    "test_source_sha256": "663b11f55acb88222003ac22611599888ab99ed27696f34988d506b65b5b929f"
+  },
+  "resource_estimate": {
+    "catalog_seconds_estimate": [
+      20,
+      90
+    ],
+    "projection_seconds_estimate": [
+      130,
+      280
+    ],
+    "packet_seconds_estimate": [
+      5,
+      90
+    ],
+    "catalog_db_hard_max_bytes": 16777216,
+    "stage_output_quotas": {
+      "catalog": 33554432,
+      "project": 67108864,
+      "packet": 25165824
+    },
+    "aggregate_output_bytes_max": 134217728,
+    "evidence_basis": "Earlier complete proof scan16.4s/76.8MB; original projection121.6s/142MB. New candidate count and review proof size unknown; hard ceilings fail and retain evidence, never silently truncate or rerun.",
+    "additional_inputs": "Only code/protocol and exposure manifest below1MiB; reuse all existing immutable large files."
+  },
+  "commands": {
+    "catalog": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare.py catalog'",
+    "project": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 310s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare.py project'",
+    "packet": "ssh -o ConnectTimeout=15 fallsoft-production 'timeout 130s python3 /srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/code/compare.py packet'"
+  },
+  "command_sha256": {
+    "catalog": "07211d46ffb72056b5e5e97ed9832ddd7865a0b0bf9d7d369c404af0497613d1",
+    "project": "815fc90e5b37d0cbf49805ef6d2112c2df072ccee53233a9f4e8cc7ed472984e",
+    "packet": "1176356e2c11c470005737d92e0ca21f7edc257994447bb3fe2eb7f5e759a3e8"
+  },
+  "stage_order": "catalog then project then packet; require complete receipt and exact parity before advancing; root review required before first launch",
+  "staging": "Create exact owned root only after approval; copy each manifest file with exclusive create, verify every SHA. No archives, downloads or large input copies."
+}

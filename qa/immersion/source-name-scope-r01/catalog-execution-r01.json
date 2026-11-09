@@ -1,0 +1,36 @@
+{
+  "production": false,
+  "comparison_complete": false,
+  "status": "catalog_failed_at_configured_SQLite_page_ceiling",
+  "protocol_sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+  "private_receipt": {
+    "path": "/home/ai/Development/investigations/vipi-source-name-scope-20261109-r01/catalog-failure-r01/receipt.json",
+    "sha256": "8b40786781681e8341ada8944a1def9d44629b8f7f0b4e5e2d482c318823a50b"
+  },
+  "catalog_receipt": {
+    "complete": false,
+    "error": "OperationalError('database or disk is full')",
+    "memory": {
+      "VmHWM": 59387904,
+      "VmPeak": 69001216
+    },
+    "outputs": {
+      "catalog.sqlite": {
+        "bytes": 16179200,
+        "sha256": "1a438c529fdd50f34fc443967c18d4dde9ade892a4540ca6e472bf178d25a616"
+      },
+      "freeze.json": {
+        "bytes": 5631,
+        "sha256": "82edfbf60a6bc521259604a75b01134893fdba5208e05e4372306c1e7b1faf23"
+      }
+    },
+    "production": false,
+    "protocol_sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+    "seconds": 11.422857115016086,
+    "stage": "catalog"
+  },
+  "projection_started": false,
+  "review_packet_started": false,
+  "partial_database_retained": true,
+  "resource_amendment_status": "Full output-size measurement authorized separately; no replacement catalog or higher quota has run."
+}

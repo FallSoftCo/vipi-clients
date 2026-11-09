@@ -1,0 +1,14 @@
+{
+  "script_sha256": "d40f587f0677243722fbe502b570e849f3f5f7c4ed50dfe301aa8aa357f9af36",
+  "parent_protocol_sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+  "partial_sha256": "1a438c529fdd50f34fc443967c18d4dde9ade892a4540ca6e472bf178d25a616",
+  "failure_receipt_sha256": "8b40786781681e8341ada8944a1def9d44629b8f7f0b4e5e2d482c318823a50b",
+  "resources": {
+    "cpu": 1,
+    "AS_bytes": 1073741824,
+    "seconds": 120,
+    "new_output_bytes": 2097152
+  },
+  "no_replacement_database": true,
+  "method": "Exact original catalog AST with one connection substituted for counting writer; reverse-substitution proves AST equality. Preserve PK uniqueness check, every emitted UTF8 record/audit/id/key and all original catalog decisions. Read-only failed-prefix dbstat and logical payload aggregates."
+}
