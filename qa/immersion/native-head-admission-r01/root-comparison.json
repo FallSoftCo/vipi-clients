@@ -1,0 +1,32 @@
+{
+  "scope": "Independent exact decoded native output comparison to original frozen gate; no new semantic estimate",
+  "sources": 8,
+  "scopes": 8,
+  "same_chosen_winners": 8,
+  "no_rule_scopes": 4,
+  "eligible_head_records": 10,
+  "supported_tuple_occurrences": 28,
+  "winner_differences": [],
+  "eligible_head_differences": [],
+  "head_rejection_counts": {
+    "original_head_context_missing_or_not_native_window": 1
+  },
+  "method_latency_ms": {
+    "median": 0.892854,
+    "max": 1.857083,
+    "excludes": "pack validation/load, source dictionary snapshot and NaturalLanguage annotation"
+  },
+  "limits": [
+    "Two retained sources have no original eligible candidate scope; they are no-output controls, not coverage gains",
+    "Source keys supplied from original frozen producer; new live producer still required",
+    "Known-family control uses explicit supplied IDs, not actual user learning state",
+    "No SourceLookupEvidence/approvedOutputs, selector, UI or customer activation"
+  ],
+  "source_files_verified": 621,
+  "dependency_pins_verified": 4,
+  "native_test": {
+    "pass": 1,
+    "fail": 0,
+    "skip": 0
+  }
+}

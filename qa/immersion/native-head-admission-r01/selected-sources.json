@@ -1,0 +1,4358 @@
+{
+  "schema": "vipi.native-head-admission.sources.r01",
+  "source_packet_sha256": "59dc06af07ecbbac1786b606728972d68a9adb790edbac2687e0420ac299349d",
+  "selection": "Eight exposed fixed IDs selected before adapter execution: water, bank, needs.it geometry, corvette, LaSportiva, records, amazon/costco and IVF. No new semantic gold.",
+  "cases": [
+    {
+      "case_id": "qualified-noun-001",
+      "source_id": "bst-train-2149-08",
+      "source": "Yes, water is relaxing. I also enjoy video games. ",
+      "native_words_utf16": [
+        [
+          0,
+          3
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          14,
+          22
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          31,
+          36
+        ],
+        [
+          37,
+          42
+        ],
+        [
+          43,
+          48
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            3
+          ],
+          "form_ids": [
+            "6a6dbd54c573e47d8b202f2deac2f4f7e5217821334d72ff4401b533506c6538",
+            "a4d8616da9036176cf98257234f49c646bd85e55a333f98a5c923016319b85ea"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "Yes",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "16fd392f2cda5b46f8708145c59cd47e9e768aa8c8aad92618590cbdb5a3c509",
+          "utf16": [
+            0,
+            3
+          ]
+        },
+        {
+          "codepoints": [
+            5,
+            10
+          ],
+          "form_ids": [
+            "388ec3aace3a9d1614d6a73a59542eb1bcf8bd6e581e380438ec14eac67d9e82"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "water",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "09661e16c01ad5f6f99c97bb655e0120ea8d453cf0c6fe7527b6b82d9a7c1e7f",
+          "utf16": [
+            5,
+            10
+          ]
+        },
+        {
+          "codepoints": [
+            11,
+            13
+          ],
+          "form_ids": [
+            "07ab7eac81c41dbe5607e5da5d065a34baa7ae78f2450a5e613fa53aa6e6dbd6",
+            "8517e6fc99c01d77d7e0e31336834ce1418e906a7c5714ecbc416c249017b961",
+            "f1a0025e3418f9d56cbc556664c4ec4c44fdd0395c55cb818a223a8f1aeb8686"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "is",
+          "tokens": [
+            3,
+            4
+          ],
+          "unit_id": "5502adb9a693e0872b51d1fef3ceba782b7fcc07869677cbb8fd7cf0240e84eb",
+          "utf16": [
+            11,
+            13
+          ]
+        },
+        {
+          "codepoints": [
+            14,
+            22
+          ],
+          "form_ids": [
+            "1d99ba21216e08eee8c88cf0afcb494c1a3c1d288a4ee0026b59664d366cf889",
+            "4da14827ec5a4387d7b2d71e2f8dd135ae3dc939b944ec9747528d3ca6842ce3"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "relaxing",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "1ddc942ef5dee35160f532c486f84a6123773be951a40070d75668e0d967277a",
+          "utf16": [
+            14,
+            22
+          ]
+        },
+        {
+          "codepoints": [
+            24,
+            25
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "937696403d8a44309944272574a738eb6fbd1f5d96656b5aa6e55e490d30e351",
+          "utf16": [
+            24,
+            25
+          ]
+        },
+        {
+          "codepoints": [
+            26,
+            30
+          ],
+          "form_ids": [
+            "410663ae7953c440d294ae9db678e16d0c6b6cb7a5048bff09c7ec82c08f7035"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "also",
+          "tokens": [
+            7,
+            8
+          ],
+          "unit_id": "814934e063cfe922aadf1f3812146a7246be80ad64fd953de1a333963a203a8b",
+          "utf16": [
+            26,
+            30
+          ]
+        },
+        {
+          "codepoints": [
+            31,
+            36
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "enjoy",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "d963c2bf609f95a069adbea7bd028f6dd29457bc2f1ec86369368752141bc4f1",
+          "utf16": [
+            31,
+            36
+          ]
+        },
+        {
+          "codepoints": [
+            37,
+            42
+          ],
+          "form_ids": [
+            "f7431fe8019060a65ef396c07f3269d2cf13d78d40aac3166c11e6bb17e2a347"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "video",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "4a42397de2e9b185d5fe101bd06051f4bdf3d86816be9a8673c9d51c7dba86a2",
+          "utf16": [
+            37,
+            42
+          ]
+        },
+        {
+          "codepoints": [
+            37,
+            48
+          ],
+          "form_ids": [
+            "2490812858f6400d64e310a8cca15b27874e44e43e55b5d6e8a352a74172f2b1",
+            "c05fa1c3daa9d0d63c1f98a2fd82a094372fb84ca51ff9efd2e5908ffb40ec05"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "video games",
+          "tokens": [
+            9,
+            11
+          ],
+          "unit_id": "ddee50b9dbedf25cb471c59e71ee3f3cbfd4c9ff4d2b2ef5cafab4de637402ad",
+          "utf16": [
+            37,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            43,
+            48
+          ],
+          "form_ids": [
+            "72d8694c32cdff0fc3b6ceb6c4440c5aa628ab34cee0eeada63a0a8685d5988d",
+            "7ae64fdd9d7a83988decd8a6b5c92a421f313bf7334555820f644da9e205a5df"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "games",
+          "tokens": [
+            10,
+            11
+          ],
+          "unit_id": "f92224e32350433faa46d77cb5119bf1d2e6051fc9ea03517a05f97fd5dfecc7",
+          "utf16": [
+            43,
+            48
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-004",
+      "source_id": "bst-train-0125-08",
+      "source": "i work in a bank ",
+      "native_words_utf16": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          16
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            1
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "i",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "65082b1fe375dbecde6f5d3180cf153f680b69aa0c529f077e0262624c09a974",
+          "utf16": [
+            0,
+            1
+          ]
+        },
+        {
+          "codepoints": [
+            2,
+            6
+          ],
+          "form_ids": [
+            "0fb50e41d62b82f9c9aec7c8e6b825249821bdd00e12dca04dcfbfbf1c2ee60f"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "work",
+          "tokens": [
+            1,
+            2
+          ],
+          "unit_id": "f80826e6f186d2edfa390b6737c81c9d35d83e15dfe54804d3816f33220dc0e5",
+          "utf16": [
+            2,
+            6
+          ]
+        },
+        {
+          "codepoints": [
+            2,
+            9
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "work in",
+          "tokens": [
+            1,
+            3
+          ],
+          "unit_id": "efc0190f2e51997d7daa8cbae538505a2eb621c5d2950236c867e71f6901728c",
+          "utf16": [
+            2,
+            9
+          ]
+        },
+        {
+          "codepoints": [
+            7,
+            9
+          ],
+          "form_ids": [
+            "01880bf1cf4729e74a3535d70ce8417a78d11f67fc8043cbf9a0786b193e7468",
+            "19f1f0c896588f2949bcb35925c5a2339cd37d3d4c0ec089125106e578df1268",
+            "45fb57e8984aa858782f24b0e4b4538be77e3156a6e5e3db9049bc4a828fdbf5",
+            "b141127c6cef18e9559491645ccb5c476c0bb10d3507a08b4649e19734026a79",
+            "bc7e647aa131e0f45411e70a2468b515ecc6391a67fd8b38dfdbccbeed9999a2"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "in",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "152863fc6bb06cab50f2a0481edfbf4c00db5649b3cb4783fd4600161c97531e",
+          "utf16": [
+            7,
+            9
+          ]
+        },
+        {
+          "codepoints": [
+            10,
+            11
+          ],
+          "form_ids": [
+            "30ba4d33b44ca97263627a92019e8bf2b9d2c1a0363bcb6e9198bff30ed72ea6",
+            "418992a7dde2e0620bcc88ddd1538921136aa742ae7d24bb84b35b7a8cfc2664",
+            "544362755ced0c3641b19f0dee87c24611a7febdae3f07e8dfd1ef2a77cf68f1",
+            "8ce6b16e03586c3f77364993ae72e468d8a183677647bc98138b3bd848b39d3b",
+            "94cfbf4fded53f1652bac5d15f740f9523b0cf1c9cdf6448a922933238a84ad4",
+            "9c15b2655e16b56847fbb94101935c2cfceb8ae4d83978d6693cef1cb05e1d63",
+            "b1788c6e601e2677453ef61f33b153700e4fb36217ade704159d0ce660041001",
+            "d3f964f4a0a4218b560f52e6760f7c239690e95066a1e9cbabb05b2ae078334c",
+            "f4e76e433a386e04cd9d073c9888d7f6b77124719b5f679c003c21098ae8b8a4"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "a",
+          "tokens": [
+            3,
+            4
+          ],
+          "unit_id": "b914b7a1f52f2b634f8f1148a3d88587c55d76919d1c93c083da8a867bc9dfb8",
+          "utf16": [
+            10,
+            11
+          ]
+        },
+        {
+          "codepoints": [
+            12,
+            16
+          ],
+          "form_ids": [
+            "75c7aa385752957ec3d5adf982278a29bc3a73a2a7b49bfda065e4579d19620a",
+            "80facbeda3adcafe0f6cd05e6465794b009a3d468393061ffcb8f4acf96bc8b4",
+            "cb158f5f4eae943ff38ee5bbe9d6c168b24e0609e00e94c2a83ee5b9c718ab6d",
+            "eb076e7a0afaeb926f65337d6c01f589c96f45d4d8cc30e9fc5d96dddda002a1"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "bank",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "b32c89a941a7da0980857914847508c5d0c9f2b02eed03bc449a345ed6896529",
+          "utf16": [
+            12,
+            16
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-009",
+      "source_id": "bst-train-1112-06",
+      "source": "in my job, i want to handle different kind of customer and fulfill their needs.it make me so tired .swimming increasing my productivity",
+      "native_words_utf16": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          21,
+          27
+        ],
+        [
+          28,
+          37
+        ],
+        [
+          38,
+          42
+        ],
+        [
+          43,
+          45
+        ],
+        [
+          46,
+          54
+        ],
+        [
+          55,
+          58
+        ],
+        [
+          59,
+          66
+        ],
+        [
+          67,
+          72
+        ],
+        [
+          73,
+          81
+        ],
+        [
+          82,
+          86
+        ],
+        [
+          87,
+          89
+        ],
+        [
+          90,
+          92
+        ],
+        [
+          93,
+          98
+        ],
+        [
+          100,
+          108
+        ],
+        [
+          109,
+          119
+        ],
+        [
+          120,
+          122
+        ],
+        [
+          123,
+          135
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            2
+          ],
+          "form_ids": [
+            "01880bf1cf4729e74a3535d70ce8417a78d11f67fc8043cbf9a0786b193e7468",
+            "19f1f0c896588f2949bcb35925c5a2339cd37d3d4c0ec089125106e578df1268",
+            "45fb57e8984aa858782f24b0e4b4538be77e3156a6e5e3db9049bc4a828fdbf5",
+            "b141127c6cef18e9559491645ccb5c476c0bb10d3507a08b4649e19734026a79",
+            "bc7e647aa131e0f45411e70a2468b515ecc6391a67fd8b38dfdbccbeed9999a2"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "in",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "dc1e07e157e4b89ea228efda6c0a44999bd3bf8bd6e8449e4d5789956375ff76",
+          "utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "codepoints": [
+            3,
+            5
+          ],
+          "form_ids": [
+            "e87a2739516751d89dc4fa579b120a0eb791c4fd6e4a4d7608cb32f380b18a76",
+            "ee8b2ff6e121f44ec1d07d9526d24fc6523d1aebf2eaf467095faae4753df06b"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "my",
+          "tokens": [
+            1,
+            2
+          ],
+          "unit_id": "f8a8826d0993faf75d79096b319e7501f18fe0169a406f2f8c34d8261f6db967",
+          "utf16": [
+            3,
+            5
+          ]
+        },
+        {
+          "codepoints": [
+            6,
+            9
+          ],
+          "form_ids": [
+            "03fa5304828c6c7d2ca54ccaeedba862872b20353c9966bd1a152f88c216156d",
+            "a12ddfa4a499bcf0a3760c6d33230939bc6922089bf0e5dc24ee8451b1e643a1",
+            "aa17104085afa0eba28e196fd9b06b4cd6c46018584940ece9f899665160bd4a"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "job",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "652c20888ddb4cecc1780b1e72137dcf3e9d86566595ec0017372f4f157f52b9",
+          "utf16": [
+            6,
+            9
+          ]
+        },
+        {
+          "codepoints": [
+            11,
+            12
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "i",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "0a380652cbf62d4336b893191b02bf47aca1717d4a592388938cd4e70476514e",
+          "utf16": [
+            11,
+            12
+          ]
+        },
+        {
+          "codepoints": [
+            13,
+            17
+          ],
+          "form_ids": [
+            "3b56f517b91c38e89b2a4c8f8d616035e8528b3f1c12bf6c5ea183bb86d5c12a",
+            "8ee59a96e19685711b503d9683915fca76c7c2c9b4488002fb07ef4d952b31a7"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "want",
+          "tokens": [
+            5,
+            6
+          ],
+          "unit_id": "4dd6616b1478ef83d6b4838691b0d23e5195e5b27b546d03a954c53f640a27bc",
+          "utf16": [
+            13,
+            17
+          ]
+        },
+        {
+          "codepoints": [
+            13,
+            20
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "want to",
+          "tokens": [
+            5,
+            7
+          ],
+          "unit_id": "b1c90c20fc62492fd637afeb3856579859653cd18dc6946489559a96ec275879",
+          "utf16": [
+            13,
+            20
+          ]
+        },
+        {
+          "codepoints": [
+            18,
+            20
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "to",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "04ac371e02bd4eb2787f0d346381ec4e0fcc7ca80e461b9adf37ef7557e48952",
+          "utf16": [
+            18,
+            20
+          ]
+        },
+        {
+          "codepoints": [
+            21,
+            27
+          ],
+          "form_ids": [
+            "fa03225eb2062cdd2d9bebaaeb6b5abd48606d2149462ad9c39fc0d0a3b6277e"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "handle",
+          "tokens": [
+            7,
+            8
+          ],
+          "unit_id": "059d27421dfbb96229969858f336a260618a65b2d96aeb4397d235607c18f8d6",
+          "utf16": [
+            21,
+            27
+          ]
+        },
+        {
+          "codepoints": [
+            28,
+            37
+          ],
+          "form_ids": [
+            "084a86834f663ca38baf32fbc956f6a54a6f7b007bf34dc6d1ddd1f85879935e",
+            "7beed7fee4320cdabc4ad91ceaca53c52d35803ed257b8ce0ca301ffcdb12b90",
+            "c264bdcb04270ba98331ec5256b50fad112a9a6a1412139a76e43471e4bf5cf9"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "different",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "b1cad106cd497cb7ce1d893c6d987baec632ef2c0f964b389f27b3408c6a02b0",
+          "utf16": [
+            28,
+            37
+          ]
+        },
+        {
+          "codepoints": [
+            38,
+            42
+          ],
+          "form_ids": [
+            "5173ea47d6392eb083ad11ad91c5afc99d378760ec3370313620d93af71ee136",
+            "851ada5f76ba93c7cf0a3d22520468ed2b2240be6546d0b13e4b6a931656f29b"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "kind",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "e3bbd172b9d96b35adcfccf6953d4576a42679fdff4a52729cb9bbe0f7e595ff",
+          "utf16": [
+            38,
+            42
+          ]
+        },
+        {
+          "codepoints": [
+            38,
+            45
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "kind of",
+          "tokens": [
+            9,
+            11
+          ],
+          "unit_id": "1e93990115d8cdc6a347f3d197216c20fb1ab4fffff49187c7c9183fe4831ee5",
+          "utf16": [
+            38,
+            45
+          ]
+        },
+        {
+          "codepoints": [
+            43,
+            45
+          ],
+          "form_ids": [
+            "540917dc508a44922ea3bda764014f16ecbbd9d6bd8dfb10d74118c4c800f049",
+            "6941fcb485ec1ee701473871fd39fe03654e6f68190bb5ef9cfba452312a8029"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "of",
+          "tokens": [
+            10,
+            11
+          ],
+          "unit_id": "1e843a04efea24ec9678c74e12e82377f41d2604ba2f589cc63d3c630241a37c",
+          "utf16": [
+            43,
+            45
+          ]
+        },
+        {
+          "codepoints": [
+            46,
+            54
+          ],
+          "form_ids": [
+            "5055848a853544d7a40d7f323cf5bcfe37a137a9be548e0c8f50044f900d61f3"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "customer",
+          "tokens": [
+            11,
+            12
+          ],
+          "unit_id": "076dd9d1f2b41f4e79f52becfd83fa74400cb02f5c444ad3652ba93c3c4900e9",
+          "utf16": [
+            46,
+            54
+          ]
+        },
+        {
+          "codepoints": [
+            55,
+            58
+          ],
+          "form_ids": [
+            "0c794987e777f783f17b702992dac979d9ba417a6981de7f66bd43caa9c0eebf",
+            "378c757f8e302481214b215222e9444bcc60701945bb11387f56bb3a9b9b5e72",
+            "962579d0af948a11be9cce0ea35a57785018f44e384cab40c02d5a9caef8a3b2",
+            "bfe20bf4787363be615d6ceb654f4a0fdf40b8a835edf26a59e8609629bf49f3"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "and",
+          "tokens": [
+            12,
+            13
+          ],
+          "unit_id": "b4cff6a5bf4a1c38fc9c18de8098d5ef2e7a07839b3ea5388e87e2c265f5bcb8",
+          "utf16": [
+            55,
+            58
+          ]
+        },
+        {
+          "codepoints": [
+            59,
+            66
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "fulfill",
+          "tokens": [
+            13,
+            14
+          ],
+          "unit_id": "7ef08c28812257180f2c8dc7b580ce9feee446bd002a4f7599440f1970f8dd0d",
+          "utf16": [
+            59,
+            66
+          ]
+        },
+        {
+          "codepoints": [
+            67,
+            72
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "their",
+          "tokens": [
+            14,
+            15
+          ],
+          "unit_id": "6a83d1f27aa062ecdd156e2589bb125c405ced7bd2903e20b32c41edfbe1aad5",
+          "utf16": [
+            67,
+            72
+          ]
+        },
+        {
+          "codepoints": [
+            73,
+            78
+          ],
+          "form_ids": [
+            "67c6e38cc0cc6fcb976d03624f88e9616b03dbddcb60ba19d19bbc2a58d63960",
+            "8a0753d90efaf8dedbf9a04fd25f4a9018711aa5aa18fc873de7d0911ee4fc76",
+            "c1a22076df39f8ab87b116f73063ce96e63e6a003be2ed8d730083ae2b34da3e"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "needs",
+          "tokens": [
+            15,
+            16
+          ],
+          "unit_id": "79fa5466164313c5515dd8bd713f6653325d7241b5295e02c683857cc6b7c9bc",
+          "utf16": [
+            73,
+            78
+          ]
+        },
+        {
+          "codepoints": [
+            79,
+            81
+          ],
+          "form_ids": [
+            "01b7211ad54fad9ac59fc7912ac23d8680468a51a4aab1f24a81456bf17e04c3",
+            "79d9b28c8515efaf7bda514457e44555886a33a2da8d60a08833831df7c40381",
+            "a398d84bc05d07b17a60d2b808aa2640604345e05c02be4e4d0bc76b09f568be",
+            "a43891d8bc1eaf0396e2903bb1d7a6c52c5ebd9d90bbfc9848e5aecf9bd8abdd",
+            "afaf6e7a31f280b56e9caba10b53d45929fdf7b364702ff8443b066d10292e34"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "it",
+          "tokens": [
+            17,
+            18
+          ],
+          "unit_id": "25beb8609d214f007226fe18cada92cb29bfd8a7c087f6c77e0ef8e863242db2",
+          "utf16": [
+            79,
+            81
+          ]
+        },
+        {
+          "codepoints": [
+            82,
+            86
+          ],
+          "form_ids": [
+            "5f81784bc23d759bca75a59172fb5fdbcd35d919991c523c56b18f99abe2857a",
+            "a652e0cad35c443793081730bc80bee9d5ea1366ac8b19397ff77817b9202c65",
+            "d3bc15215d0fc7a980d2e35a625aeec3e9cc65b771c411c480024f953a15bd5f",
+            "d9f36bf90fa647f7216ea441e0684d189306eacbd6c0b8f9a53c9b75d8f25220"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "make",
+          "tokens": [
+            18,
+            19
+          ],
+          "unit_id": "ac141ce53e51286fd4b3a1515f5c48d86a0f0ebfb3b89a3d980e7c380f87da92",
+          "utf16": [
+            82,
+            86
+          ]
+        },
+        {
+          "codepoints": [
+            82,
+            89
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "make me",
+          "tokens": [
+            18,
+            20
+          ],
+          "unit_id": "fbab2785f937227a2559655bd713dd6489cd179788de9ee44995d1eadcd2b9de",
+          "utf16": [
+            82,
+            89
+          ]
+        },
+        {
+          "codepoints": [
+            87,
+            89
+          ],
+          "form_ids": [
+            "06572424431a36a052a1ea1a792d5135cf20a7f9b0df334c6c1d1369bedb4053",
+            "1b660313af7c0b2558c1b1a6baab0aa7b029354d8bbcf9fe9cf343548adda885",
+            "2a0b91814cda9b89742bb43a25c9cc4a64fc32366e65605feb24f8aed0a77864",
+            "ad83c601874f6f23212fd5cc483239c68c7acbd2856a6954a5292f0f70f3cc4e",
+            "c3ef76f779be20effc54f7519eb21a923b22ab19c1073e7e78bcdffec032e21e"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "me",
+          "tokens": [
+            19,
+            20
+          ],
+          "unit_id": "811b02679f983a152f506d9921e5e850c789a1652a33d5f56751e63bb7143c24",
+          "utf16": [
+            87,
+            89
+          ]
+        },
+        {
+          "codepoints": [
+            90,
+            92
+          ],
+          "form_ids": [
+            "3e7fa7232cda3c5a73e59f166dcca70e307b2f5270174405109f481ec423d7a3",
+            "4155e3b808d1df88d2ecab2d7724981ab55156ce8b1adc4270e557b8cd51c073",
+            "79a1a8779c3bd61ccb13a36ffca3a8d9e508b2f4d6569e8e3dca8e11cca217a3",
+            "8d79a21eb4a31abc55e34556e75976b5c981d92dc0778cad06d7159da6653b51",
+            "a245c159c40337cb98c0838f1190d891e918a9c1356cc9c8c1abf5a822c274be",
+            "d6ff34d49bf03aababa0f6a459e03e8b9854a4aed0832d3f995d69e25bc005c8",
+            "e05630d6bd4080520aa9194654aa17bdc13acb2c46eb35dc9f671087a3a25aa2",
+            "eca996636bde191b88e5fd55bdd1859ededc7b48f9ca99305a719f690fdf0db1"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "so",
+          "tokens": [
+            20,
+            21
+          ],
+          "unit_id": "5c8f6329da4807e72347126b00b1b93eeb5513b95221d92ead2a6d90bee0f050",
+          "utf16": [
+            90,
+            92
+          ]
+        },
+        {
+          "codepoints": [
+            93,
+            98
+          ],
+          "form_ids": [
+            "28cd26d8d0303528f971620d443c31002b40262db57bf164a31f392b10297c3f",
+            "d0501ad7cdfea63c92bc7dd9044c762f9c7f4c48ec2fa6d03256b83e7c20b1f6"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "tired",
+          "tokens": [
+            21,
+            22
+          ],
+          "unit_id": "9dae37b342a625cb95aba2906e251f2767aa5f49db438bb1c7806b01f3eddc98",
+          "utf16": [
+            93,
+            98
+          ]
+        },
+        {
+          "codepoints": [
+            100,
+            108
+          ],
+          "form_ids": [
+            "2c4d0a694a35d5e5c1a715526ab8466e85d16a38b89017f84f1ee1fd816b9d1d",
+            "fa29f7277ba745f1137e3a3a567ce206fa4b00a2ef2fc4eafa77a870e0907f11"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "swimming",
+          "tokens": [
+            23,
+            24
+          ],
+          "unit_id": "d2f01264801ddcb4aa49a99d46985570904bda2882666603da099e2bcb304a83",
+          "utf16": [
+            100,
+            108
+          ]
+        },
+        {
+          "codepoints": [
+            109,
+            119
+          ],
+          "form_ids": [
+            "7ea2fef8cc1be86813c4237e4adf156078632b54c6f38c021f381cb6723b1663",
+            "cc9ad0521c8f64bf0d6314d0e55f78285a4f2d0097597ab45373af98fb0db682"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "increasing",
+          "tokens": [
+            24,
+            25
+          ],
+          "unit_id": "cc5a710028f0ba36d565487fc68f167cbb78f253e454057bc30d63748cbce4ed",
+          "utf16": [
+            109,
+            119
+          ]
+        },
+        {
+          "codepoints": [
+            120,
+            122
+          ],
+          "form_ids": [
+            "e87a2739516751d89dc4fa579b120a0eb791c4fd6e4a4d7608cb32f380b18a76",
+            "ee8b2ff6e121f44ec1d07d9526d24fc6523d1aebf2eaf467095faae4753df06b"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "my",
+          "tokens": [
+            25,
+            26
+          ],
+          "unit_id": "e6c01031bb5da4582d274e66b3aacf40bea8c154adb80f2a94c7a15767ca091a",
+          "utf16": [
+            120,
+            122
+          ]
+        },
+        {
+          "codepoints": [
+            123,
+            135
+          ],
+          "form_ids": [
+            "068a98382e9f09186cfbb8a9a65f3a833589571dc196a7e28a3163aee9823f3f"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "productivity",
+          "tokens": [
+            26,
+            27
+          ],
+          "unit_id": "f50b899c83e0bb2645d8cd1d02d6520066bfa8336dca44257a9e147a8efe7658",
+          "utf16": [
+            123,
+            135
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-014",
+      "source_id": "bst-train-4139-06",
+      "source": "No. I don't have a car, but that corvette has to be a beauty. I mostly wheel myself to the park and shoot baskets.",
+      "native_words_utf16": [
+        [
+          0,
+          2
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          24,
+          27
+        ],
+        [
+          28,
+          32
+        ],
+        [
+          33,
+          41
+        ],
+        [
+          42,
+          45
+        ],
+        [
+          46,
+          48
+        ],
+        [
+          49,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          60
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          64,
+          70
+        ],
+        [
+          71,
+          76
+        ],
+        [
+          77,
+          83
+        ],
+        [
+          84,
+          86
+        ],
+        [
+          87,
+          90
+        ],
+        [
+          91,
+          95
+        ],
+        [
+          96,
+          99
+        ],
+        [
+          100,
+          105
+        ],
+        [
+          106,
+          113
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            2
+          ],
+          "form_ids": [
+            "0fa0fbbc8eb93d337d80f7e3778c2bad8ee3448a1a1b770e87f21a2a51d92114",
+            "108f4c0395a3781c3b843345b94deb3890496ae3ea0fe95d0ca238645cac14a9",
+            "74a446b3ff1c0c9ab26b4f79934f4f57a87ebc6077292f41a3f9669c01631c88",
+            "87b5c0da73fafd672c9114f3139b272567d9729c93fa21f9aad9c5b5ca6299fe",
+            "a7a965c8cd1a4659a67457b76f167e1a07d75f70084edaf301e76cba9ccfb0f7",
+            "abacad08f2b26b1ef6102adf7a15a83009e4c8b20bf7cd3be7e10139ff011de6",
+            "d331153daa1c62b8fc1c1d7495d3beb478098e94649b223a5ef944183522a345",
+            "d8c8791e66ad56571ab1e06da93d01264e7b65600e953b33fd83cfe47bcd8968",
+            "f6b37177545871bc50a7d3f5c9c2bee93f50ed95ec9dae022002e6a5aab2eb29"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "No",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "97be5489df8b49d9a721230ce7934c28a13c7722421e16d378d10d76f88d0c8c",
+          "utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "codepoints": [
+            4,
+            5
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "45957ab23c04f8932af2f5444442f00126b3355aec1534454a8c99aee57651a1",
+          "utf16": [
+            4,
+            5
+          ]
+        },
+        {
+          "codepoints": [
+            6,
+            11
+          ],
+          "form_ids": [
+            "a202bd096a964abfae8205343b0ab02569dcc92d2a8ecf941269ace071995746"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "don't",
+          "tokens": [
+            3,
+            4
+          ],
+          "unit_id": "1882e0a61c02b599d07b65c5937937bb409215faf38121db4fad02bd24a91658",
+          "utf16": [
+            6,
+            11
+          ]
+        },
+        {
+          "codepoints": [
+            12,
+            16
+          ],
+          "form_ids": [
+            "a92c19b5dc1bc499255557598ca44a13abbb071097a17dadd37224b8f4c71146",
+            "c26cb294593263bdab3280562a655839b544243c0a54da03c6470ba4ab5846a2",
+            "d74176e3b94f823afe78c62c6ed65d5f2ccd3921d9b885fcd8522a99fb59cc51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "have",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "e3dbb666d3f7829829383737b5f18e19688d45169eb491791f95eec1e613a885",
+          "utf16": [
+            12,
+            16
+          ]
+        },
+        {
+          "codepoints": [
+            17,
+            18
+          ],
+          "form_ids": [
+            "30ba4d33b44ca97263627a92019e8bf2b9d2c1a0363bcb6e9198bff30ed72ea6",
+            "418992a7dde2e0620bcc88ddd1538921136aa742ae7d24bb84b35b7a8cfc2664",
+            "544362755ced0c3641b19f0dee87c24611a7febdae3f07e8dfd1ef2a77cf68f1",
+            "8ce6b16e03586c3f77364993ae72e468d8a183677647bc98138b3bd848b39d3b",
+            "94cfbf4fded53f1652bac5d15f740f9523b0cf1c9cdf6448a922933238a84ad4",
+            "9c15b2655e16b56847fbb94101935c2cfceb8ae4d83978d6693cef1cb05e1d63",
+            "b1788c6e601e2677453ef61f33b153700e4fb36217ade704159d0ce660041001",
+            "d3f964f4a0a4218b560f52e6760f7c239690e95066a1e9cbabb05b2ae078334c",
+            "f4e76e433a386e04cd9d073c9888d7f6b77124719b5f679c003c21098ae8b8a4"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "a",
+          "tokens": [
+            5,
+            6
+          ],
+          "unit_id": "fb8de9593dc78d4be6738fbe650f9fcad52b5a63c2c71b8667a0c794df7bbba1",
+          "utf16": [
+            17,
+            18
+          ]
+        },
+        {
+          "codepoints": [
+            19,
+            22
+          ],
+          "form_ids": [
+            "0c1a0efe9dbfbef2cbe540af9c7e19f2aa9b172d7d832d1cd12e9fa92680d4e2",
+            "9c8f6dad469cbf6bc7178910b01d45ae83f5f5ce1a6ad730c6fdfcbf3aadc477",
+            "c9a16e00e62b3a695c32a05e02ceb209998a89ffe891d9cc89b0f2f530ce9176"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "car",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "f78d0bef4bd8a82157daf5e7eb5d8e0a830b05f07133ccc0ba5a195e5d438bb6",
+          "utf16": [
+            19,
+            22
+          ]
+        },
+        {
+          "codepoints": [
+            24,
+            27
+          ],
+          "form_ids": [
+            "114d1ffc755e02aa231dfe7a554820f21145ae9a3bb0d3a809a1bc42b087c4d3",
+            "186800fac305e9ccc7f76421443a41817e010aab1f6f38de9f6945597d9f875e",
+            "d89a7072d4078cd24e5795bdb0f095e427b8029cba23b2fe1486183376423d0b"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "but",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "6680d2e06fcee5c36d7aa8aca87881094e442ff9191e04845fbc5b5048ffc9cb",
+          "utf16": [
+            24,
+            27
+          ]
+        },
+        {
+          "codepoints": [
+            24,
+            32
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "but that",
+          "tokens": [
+            8,
+            10
+          ],
+          "unit_id": "93c4a25165c4c38f5bb01b0eca91d7c922e1e30061b988e80cdd05a489fc6b4d",
+          "utf16": [
+            24,
+            32
+          ]
+        },
+        {
+          "codepoints": [
+            28,
+            32
+          ],
+          "form_ids": [
+            "2700a9b59b557268098dfb2999d7e71e2ca51782fddace098c91ad928622e0fd",
+            "835c729f1c7b6fcb31699b75a85234d24fe89e577ba094d8fc6c5bb0a2b9eafb"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "that",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "cb287f22bb6074696da8f24d41de6a256103c3bcc835f8c917d07433107ad283",
+          "utf16": [
+            28,
+            32
+          ]
+        },
+        {
+          "codepoints": [
+            33,
+            41
+          ],
+          "form_ids": [
+            "6a91e926a97f57ab5836fa454a7af11108042a09559b28335967a9a59c64c6d2",
+            "fd5fcf4d371b48e878032fc4da84ea8a3e419a77e558c415265066df3d2582ba"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "corvette",
+          "tokens": [
+            10,
+            11
+          ],
+          "unit_id": "5c7b1095d7fa1a3d3f833518bb3f29da8f0a4ffd465f273f1f436e439c4e3c23",
+          "utf16": [
+            33,
+            41
+          ]
+        },
+        {
+          "codepoints": [
+            42,
+            45
+          ],
+          "form_ids": [
+            "12dbab0f752652f4797faee0d3cc16d5c4602236333b287d0c3518b84efa88ae",
+            "3aad192f5d16630736b23e8e5fc6cc0466780ca38b3e2b2b66cf3a8806e8bc7f",
+            "57f3e6c3f16695111d8922c7fda62519fc96acee4640e9d2ab744201f4218c8d"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "has",
+          "tokens": [
+            11,
+            12
+          ],
+          "unit_id": "122acbd92b4e8c0aaebef5448d099500519e49f227dd061f642b07614631c028",
+          "utf16": [
+            42,
+            45
+          ]
+        },
+        {
+          "codepoints": [
+            42,
+            48
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "has to",
+          "tokens": [
+            11,
+            13
+          ],
+          "unit_id": "e7e37001a0147b6929b41f7efd0ac148fea5c867d4474b863ddaf3dd7b1c693e",
+          "utf16": [
+            42,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            46,
+            48
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "to",
+          "tokens": [
+            12,
+            13
+          ],
+          "unit_id": "601928b2435a55ca2ed7226e229ad835c678da2992404b6fedbf54914451b841",
+          "utf16": [
+            46,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            49,
+            51
+          ],
+          "form_ids": [
+            "12c2285b9eab231d22dd74229b65a59fbbdbf5eddf16db0712487012780bca80",
+            "8da1a586d2d06162de28f7b327d455bfeba12f94aa57fb361f5f8b78effff992",
+            "baa0d3434601e864693d3a6c3d262027ed79d1d614143ee72594a704521326f2"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "be",
+          "tokens": [
+            13,
+            14
+          ],
+          "unit_id": "42ba145527a3cb5b60a80abb60d0c56a143d13cbfd7f3c0a2a155469a3c3c177",
+          "utf16": [
+            49,
+            51
+          ]
+        },
+        {
+          "codepoints": [
+            52,
+            53
+          ],
+          "form_ids": [
+            "30ba4d33b44ca97263627a92019e8bf2b9d2c1a0363bcb6e9198bff30ed72ea6",
+            "418992a7dde2e0620bcc88ddd1538921136aa742ae7d24bb84b35b7a8cfc2664",
+            "544362755ced0c3641b19f0dee87c24611a7febdae3f07e8dfd1ef2a77cf68f1",
+            "8ce6b16e03586c3f77364993ae72e468d8a183677647bc98138b3bd848b39d3b",
+            "94cfbf4fded53f1652bac5d15f740f9523b0cf1c9cdf6448a922933238a84ad4",
+            "9c15b2655e16b56847fbb94101935c2cfceb8ae4d83978d6693cef1cb05e1d63",
+            "b1788c6e601e2677453ef61f33b153700e4fb36217ade704159d0ce660041001",
+            "d3f964f4a0a4218b560f52e6760f7c239690e95066a1e9cbabb05b2ae078334c",
+            "f4e76e433a386e04cd9d073c9888d7f6b77124719b5f679c003c21098ae8b8a4"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "a",
+          "tokens": [
+            14,
+            15
+          ],
+          "unit_id": "ca03a601605b5e5259fd423912e913b448a26ad8a547b87f8b2d4606019b0a95",
+          "utf16": [
+            52,
+            53
+          ]
+        },
+        {
+          "codepoints": [
+            54,
+            60
+          ],
+          "form_ids": [
+            "457ea9297ab51d324b316f4c350b6304312bbac4e734db3deaa6e0f34fab28d6",
+            "f5506570b94986e051e94c8cf366ad18eaf877edf6a7c7d51a5a8d1e96afcdd2"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "beauty",
+          "tokens": [
+            15,
+            16
+          ],
+          "unit_id": "0673f582d3a34c88c764572534ece2623bed07008544fd92139810075b215d71",
+          "utf16": [
+            54,
+            60
+          ]
+        },
+        {
+          "codepoints": [
+            62,
+            63
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I",
+          "tokens": [
+            17,
+            18
+          ],
+          "unit_id": "fe3b72b8e284a6ac39bb50d9479b7456688a5723dcfe2362eb3f85c800126fc3",
+          "utf16": [
+            62,
+            63
+          ]
+        },
+        {
+          "codepoints": [
+            64,
+            70
+          ],
+          "form_ids": [
+            "b6237749a84b225e0d0251663d1e18bffc9c9a449729d18143ee57394b18abe8"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "mostly",
+          "tokens": [
+            18,
+            19
+          ],
+          "unit_id": "c6eb30bbb1d9f288d344852c7007947675479b493634f5c66525bec6d3496ee0",
+          "utf16": [
+            64,
+            70
+          ]
+        },
+        {
+          "codepoints": [
+            71,
+            76
+          ],
+          "form_ids": [
+            "777c5cbe6d0c9790e0f2f3bd7d45ee09a99b252e763cc4467d4402d3bfc6ed76"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "wheel",
+          "tokens": [
+            19,
+            20
+          ],
+          "unit_id": "78a98a45c3b7c03a73c1f9b6d5f6705216edb3bdae8ec63d7f36ba00719464d6",
+          "utf16": [
+            71,
+            76
+          ]
+        },
+        {
+          "codepoints": [
+            77,
+            83
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "myself",
+          "tokens": [
+            20,
+            21
+          ],
+          "unit_id": "8f54142eec239e54311c3b7b1a78493274d2dbd35fbaaa5b25fffcf3772c2b3d",
+          "utf16": [
+            77,
+            83
+          ]
+        },
+        {
+          "codepoints": [
+            84,
+            86
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "to",
+          "tokens": [
+            21,
+            22
+          ],
+          "unit_id": "a9e772eeaa0328ff14c6b4f0b096d975d10f6ffe9be47cd8209168a61157be4e",
+          "utf16": [
+            84,
+            86
+          ]
+        },
+        {
+          "codepoints": [
+            84,
+            90
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "to the",
+          "tokens": [
+            21,
+            23
+          ],
+          "unit_id": "45babc309aeaf15ed3ec4e00120aaf665c1c817332bb176d2d217f6d73146003",
+          "utf16": [
+            84,
+            90
+          ]
+        },
+        {
+          "codepoints": [
+            87,
+            90
+          ],
+          "form_ids": [
+            "5864a000f05e49674fabe9125423310a6dd961e16e0bce04e84db9278d65331d"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "the",
+          "tokens": [
+            22,
+            23
+          ],
+          "unit_id": "a676df206dcedaa555e213e66c7ca2ae5308b53caddfa2623c3460c99a8b051c",
+          "utf16": [
+            87,
+            90
+          ]
+        },
+        {
+          "codepoints": [
+            91,
+            95
+          ],
+          "form_ids": [
+            "88c6470dba6dc5b487e9963635064b9bc83b2e57108b404b1357855cec483407"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "park",
+          "tokens": [
+            23,
+            24
+          ],
+          "unit_id": "34a5ff6328b391041bce52d1f7514afe2ed3c23782aafb001f1a2818a9bc9f9d",
+          "utf16": [
+            91,
+            95
+          ]
+        },
+        {
+          "codepoints": [
+            96,
+            99
+          ],
+          "form_ids": [
+            "0c794987e777f783f17b702992dac979d9ba417a6981de7f66bd43caa9c0eebf",
+            "378c757f8e302481214b215222e9444bcc60701945bb11387f56bb3a9b9b5e72",
+            "962579d0af948a11be9cce0ea35a57785018f44e384cab40c02d5a9caef8a3b2",
+            "bfe20bf4787363be615d6ceb654f4a0fdf40b8a835edf26a59e8609629bf49f3"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "and",
+          "tokens": [
+            24,
+            25
+          ],
+          "unit_id": "101b11f211392164d9b170c76b21a2b055ac5c0c77cd8f48561cb20ee6447fe6",
+          "utf16": [
+            96,
+            99
+          ]
+        },
+        {
+          "codepoints": [
+            100,
+            105
+          ],
+          "form_ids": [
+            "d38504a249531beb46df9a4c16b3239bfc447892382b7d8bfc50b3bdeb8eab7b"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "shoot",
+          "tokens": [
+            25,
+            26
+          ],
+          "unit_id": "4122f37afc170ee0a986857badd6a031d241faf03ad4751bcaa8d7f20d5deabe",
+          "utf16": [
+            100,
+            105
+          ]
+        },
+        {
+          "codepoints": [
+            106,
+            113
+          ],
+          "form_ids": [
+            "6aace01a7e5da37f27a12457bc31f4364b9f47dd6e9ad4837f947baaf4238ed6",
+            "fd1e6aa47ffa8c6fe42652672d8754d6d7d5ae53e0bdff25a4508b3109f8de2a"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "baskets",
+          "tokens": [
+            26,
+            27
+          ],
+          "unit_id": "25d15738cbb6c0f57e88175a445b413121ffbb46aec8af5bb2661aa01dd422f3",
+          "utf16": [
+            106,
+            113
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-018",
+      "source_id": "bst-train-4551-10",
+      "source": "I would recommend LaSportiva. Most people go for full blown hiking shoes which are heavier but I prefer their very lightweight trail running shoes. You should definitely go for it!",
+      "native_words_utf16": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          8,
+          17
+        ],
+        [
+          18,
+          28
+        ],
+        [
+          30,
+          34
+        ],
+        [
+          35,
+          41
+        ],
+        [
+          42,
+          44
+        ],
+        [
+          45,
+          48
+        ],
+        [
+          49,
+          53
+        ],
+        [
+          54,
+          59
+        ],
+        [
+          60,
+          66
+        ],
+        [
+          67,
+          72
+        ],
+        [
+          73,
+          78
+        ],
+        [
+          79,
+          82
+        ],
+        [
+          83,
+          90
+        ],
+        [
+          91,
+          94
+        ],
+        [
+          95,
+          96
+        ],
+        [
+          97,
+          103
+        ],
+        [
+          104,
+          109
+        ],
+        [
+          110,
+          114
+        ],
+        [
+          115,
+          126
+        ],
+        [
+          127,
+          132
+        ],
+        [
+          133,
+          140
+        ],
+        [
+          141,
+          146
+        ],
+        [
+          148,
+          151
+        ],
+        [
+          152,
+          158
+        ],
+        [
+          159,
+          169
+        ],
+        [
+          170,
+          172
+        ],
+        [
+          173,
+          176
+        ],
+        [
+          177,
+          179
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            1
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "5e4ac35f0a534376c9738744f312101e7e4bed3ed002b85a2827b17c472ec5e3",
+          "utf16": [
+            0,
+            1
+          ]
+        },
+        {
+          "codepoints": [
+            0,
+            7
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I would",
+          "tokens": [
+            0,
+            2
+          ],
+          "unit_id": "2d25cdff93df78691a748dddc447025fd5beea72aa538c44f4be916d53014822",
+          "utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "codepoints": [
+            2,
+            7
+          ],
+          "form_ids": [
+            "7c1c604f707ffd401e9a19acf5a49c32ac0845d9d4b3c2fcb20dc09c33380e92"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "would",
+          "tokens": [
+            1,
+            2
+          ],
+          "unit_id": "6432b54ea1d997babbb1f091daf0d30914c3c72468bec07c635352feeb77421e",
+          "utf16": [
+            2,
+            7
+          ]
+        },
+        {
+          "codepoints": [
+            8,
+            17
+          ],
+          "form_ids": [
+            "9cd90660261ba405488b88a0b3e2f01d6344ef0d3c010c99ed30e5bfd94307fc"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "recommend",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "1628c5d27067f5dd55271684b00589a6939876fbd21b46a6b62e6b86cf0dedfd",
+          "utf16": [
+            8,
+            17
+          ]
+        },
+        {
+          "codepoints": [
+            30,
+            34
+          ],
+          "form_ids": [
+            "150d1a47e3ea0a1d70550cf25753bc4531fd407da66da2ac8f7dcdeef197b59a",
+            "c0bb973d12d27d8d13ca48ca00874fa0540d1b2922946d0953d73672d839689e",
+            "d892acd6eeb0b0e51ef4ee78c50c47b8512050dc9a9be6963d4f7358a5d5bbe6",
+            "e7c7f227f6042e9e13f3199ce3199589221033106f85a4563fa22b556033fe90"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "Most",
+          "tokens": [
+            5,
+            6
+          ],
+          "unit_id": "85e8b2ada58c67e43bd4a712eea0fbc6e612218a21c8e9fb7ee73d7c2112ddff",
+          "utf16": [
+            30,
+            34
+          ]
+        },
+        {
+          "codepoints": [
+            35,
+            41
+          ],
+          "form_ids": [
+            "3354292c79c3a29954c144bfcff568de6f85b2d6f8fff397076c421ab3efcd50",
+            "bd9d55da79ee3b7e678602a05869cec532e2a229cb623732f2e5a95ff303fed2"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "people",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "f88bdce3d6bee88b589bc985127a164d6b72302edfd268f9abcce1c7bcb45893",
+          "utf16": [
+            35,
+            41
+          ]
+        },
+        {
+          "codepoints": [
+            42,
+            44
+          ],
+          "form_ids": [
+            "40ce576f6feaba544190299d8659e4581c0b31ff356aa64dcd160ec593814133",
+            "5fcf621e6083761d94e2cc89982a7eac9964e74565975321d6af02625814b8fb",
+            "672614d58f8d2f06c320c6e301f6df7f28e739a422f28a15ecd2edac513cceec",
+            "78ffefbaaa22981adc3e8dd95f7eba77f56cc93f8993a331dba48546abb2845b",
+            "d2014a1de6d0063bc11210242b00baed8915f47fdf989dc6ebc8efeee874d762",
+            "f0202210a1f10f83999a5ec5673f99e0d48ebdf746815879fbedf235acad9bfd"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "go",
+          "tokens": [
+            7,
+            8
+          ],
+          "unit_id": "aca9564eb175b1f7ad8de38c1ce9b4afaa438a3f2eb42928208b80796ca75969",
+          "utf16": [
+            42,
+            44
+          ]
+        },
+        {
+          "codepoints": [
+            42,
+            48
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "go for",
+          "tokens": [
+            7,
+            9
+          ],
+          "unit_id": "c7855bbaee771142f332ab85e8523a75d874aa2d09037f54c2ac468c522e9f13",
+          "utf16": [
+            42,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            45,
+            48
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "for",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "2e5ebdaf31bc98a904c13fabb38ab8723ef0f3f01e07dd09a938f1b1691c56dc",
+          "utf16": [
+            45,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            49,
+            53
+          ],
+          "form_ids": [
+            "42c57f204e169f6e40158649005961c7c01f1d22cd0d8173ee87a7a9f2005818",
+            "51d5e8ad74d405cc571d5b582c2daa85f66d5a68173a32089480078f32b99719",
+            "a17065060594d2c2ddb6d396a3d42f0733e617914c8fc55e06acc9d76e405a0c"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "full",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "76b20bd96600e28c3a7f396e4bcb1f4d5b9d661337fd363e76268f95790d9a14",
+          "utf16": [
+            49,
+            53
+          ]
+        },
+        {
+          "codepoints": [
+            54,
+            59
+          ],
+          "form_ids": [
+            "194a54cdc0c5ae06946ee2354ba71420f8b98e170103b5fe50d06183e6c6be44"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "blown",
+          "tokens": [
+            10,
+            11
+          ],
+          "unit_id": "8430867b1c29031fe58593e36c634e063b43b7cf32e50b3d2dc5b2694b412c79",
+          "utf16": [
+            54,
+            59
+          ]
+        },
+        {
+          "codepoints": [
+            60,
+            66
+          ],
+          "form_ids": [
+            "e6de139467e988643b030d8d2779791464d0d18b5d32619a8091bbd1bf1ff566"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "hiking",
+          "tokens": [
+            11,
+            12
+          ],
+          "unit_id": "862c4f4c6916db36c5821e36ac025f1b9d50ce0c779bce4dc927c1eec1f1c375",
+          "utf16": [
+            60,
+            66
+          ]
+        },
+        {
+          "codepoints": [
+            67,
+            72
+          ],
+          "form_ids": [
+            "30fd66231dc3d03a52b19f426c566f352bd50dd1b9b721bcd964337c037d75cc",
+            "97bd9a55043da425d281b58a4be30ae5c2e719025f471affa78ef482ad995ee1"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "shoes",
+          "tokens": [
+            12,
+            13
+          ],
+          "unit_id": "eaa1a38cdb2d11b3e8ec5f5214607d456f32331e48ffbd73cdeeb6eff3da0369",
+          "utf16": [
+            67,
+            72
+          ]
+        },
+        {
+          "codepoints": [
+            73,
+            78
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "which",
+          "tokens": [
+            13,
+            14
+          ],
+          "unit_id": "41726d4bccbf4cdad402107c5670716dad79b6ce1e44961154357cbcd2e3af84",
+          "utf16": [
+            73,
+            78
+          ]
+        },
+        {
+          "codepoints": [
+            79,
+            82
+          ],
+          "form_ids": [
+            "09a4ceb968396bf734711e37d04ee628d27e0684c313afa64420c93b3452a4ba",
+            "5173a0c8d4f4be315d6f6b2d49460adcd60e4b63ada75237c5038e0bc15eeafc"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "are",
+          "tokens": [
+            14,
+            15
+          ],
+          "unit_id": "0eeead634684c7ec0f5f9001b40c3e73c624b33ae1d8cef05e5e66e9de81ce79",
+          "utf16": [
+            79,
+            82
+          ]
+        },
+        {
+          "codepoints": [
+            83,
+            90
+          ],
+          "form_ids": [
+            "8944173c33273841539e99c9bad44216f40126b529618e8e18fd468cd065ebd9"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "heavier",
+          "tokens": [
+            15,
+            16
+          ],
+          "unit_id": "5e0d56597870cb2fabe1f099fb3d6aee8eb5fad3a74b99e0d7c96678eebbc45a",
+          "utf16": [
+            83,
+            90
+          ]
+        },
+        {
+          "codepoints": [
+            91,
+            94
+          ],
+          "form_ids": [
+            "114d1ffc755e02aa231dfe7a554820f21145ae9a3bb0d3a809a1bc42b087c4d3",
+            "186800fac305e9ccc7f76421443a41817e010aab1f6f38de9f6945597d9f875e",
+            "d89a7072d4078cd24e5795bdb0f095e427b8029cba23b2fe1486183376423d0b"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "but",
+          "tokens": [
+            16,
+            17
+          ],
+          "unit_id": "13a2be00218f40afc5ddcc93e10c3bc3a3e3bf73d2bf8a9700c030f794436476",
+          "utf16": [
+            91,
+            94
+          ]
+        },
+        {
+          "codepoints": [
+            95,
+            96
+          ],
+          "form_ids": [
+            "10a87b8a97919bd986c3a15b73dedf1a72a4d1633dd1f261184b02757d99ec3a",
+            "165d5d4be59fac7df488cd808033a92eff5aa1158abb75ecc15b8e3a1ac96b7f",
+            "241543de55099c77bcaeac5855f755bceb53975425e4c31bb10ea3eb310127e7",
+            "40a2d1eff842f2b03475ab472a24a0263d8fc4c0a9a2c1f1e08699da55b10eb8",
+            "8a92fd24fe3502ef45eb3e98b494fe7124e10ce5a93901cda2c46155611e6152",
+            "b0b389a9fc1e2a9a63c381bd9e79fabc1e69ae03e13cad9afbbbc57976b77d46",
+            "cbe1292466b4c73480389ff8cd54feff3972d6d69280933fd773bd98b35b7278",
+            "e7dad577803421ae7523168f1df1bda0730109d9b309dfc686d7fbdb3a977a9c",
+            "eadf84c9591cae159f1179a2821af84a5623eb7af74b73c48dd2518564de4487",
+            "fb20a846b66ea09bb44287143c89b3f664dd72609f60bf57c93928df676b37df",
+            "fb8a40f3758e50cba31fa853102c7e03896e4ece3b7c85d8d8e4023274386e51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "I",
+          "tokens": [
+            17,
+            18
+          ],
+          "unit_id": "dbec9bfbe11eb4893ed813c7d59d3bad285be76708a5e6d97e856b4bc586f976",
+          "utf16": [
+            95,
+            96
+          ]
+        },
+        {
+          "codepoints": [
+            97,
+            103
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "prefer",
+          "tokens": [
+            18,
+            19
+          ],
+          "unit_id": "e2b0eba061ad39ec8fc0ae6abf97a188408cda62e6060732177b22b8f21eea33",
+          "utf16": [
+            97,
+            103
+          ]
+        },
+        {
+          "codepoints": [
+            104,
+            109
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "their",
+          "tokens": [
+            19,
+            20
+          ],
+          "unit_id": "2e5580fdae0e66d6906259d12d8889ac445c157c62c2098154ba2e821e45c889",
+          "utf16": [
+            104,
+            109
+          ]
+        },
+        {
+          "codepoints": [
+            110,
+            114
+          ],
+          "form_ids": [
+            "2848fa3dfb8e015555c117755f69d6c65372e7e1a9521fad4f5fb4d5209b6ec4",
+            "d527387e7d4cd5c84fc250e2f2813656f250b176f2edd9e2c2fcaeba25f13d82"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "very",
+          "tokens": [
+            20,
+            21
+          ],
+          "unit_id": "23c7da5836571ada6cd64aa80e34d45b9f9e520c93f985743562fec8bcaa47ec",
+          "utf16": [
+            110,
+            114
+          ]
+        },
+        {
+          "codepoints": [
+            115,
+            126
+          ],
+          "form_ids": [
+            "1688d455b423c9789816f8b6683ca696f6164cfd9dffc5fe2aefac19815e81b0",
+            "daf51ff0a3dc299c48a97ed150d1876ba0f4d7aee5d4f7bddec22e0b3b513575"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "lightweight",
+          "tokens": [
+            21,
+            22
+          ],
+          "unit_id": "323a700fa21829a1d4861a669765f817d0fd3bd26d7ab25b286e8242dab9bf1e",
+          "utf16": [
+            115,
+            126
+          ]
+        },
+        {
+          "codepoints": [
+            127,
+            132
+          ],
+          "form_ids": [
+            "cdd59a84dce8306e4039ac706171e4dbf8a37956e13d524fd98f768910a9bbcc"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "trail",
+          "tokens": [
+            22,
+            23
+          ],
+          "unit_id": "4aeb27fd61a53fa50afabd4de29727dd4d83171ca5e6611ca3ccba9b8c0f5698",
+          "utf16": [
+            127,
+            132
+          ]
+        },
+        {
+          "codepoints": [
+            133,
+            140
+          ],
+          "form_ids": [
+            "4b3d018d11e5b4ef7e7b4ca70383d293561f23d515355fa1b4fbf8679e617bc3",
+            "86ffda6b70419de146c99d3ebc54e8a05e2a09cc97e41fe28157d599a6651536",
+            "dc09183c9ef7bc4c3e85f823fdb5acba4dd702b29feaa9f487b0dc4f804c4d34"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "running",
+          "tokens": [
+            23,
+            24
+          ],
+          "unit_id": "8b98d5a43016ef857948fa187c73058ba405fef4e9fb2984acf0ab9c94a7ef06",
+          "utf16": [
+            133,
+            140
+          ]
+        },
+        {
+          "codepoints": [
+            133,
+            146
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "unresolved-native-entry",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "running shoes",
+          "tokens": [
+            23,
+            25
+          ],
+          "unit_id": "c400dc7d83443ee85c7edacc95813b73f20762534c64fd2963e54765f740a86a",
+          "utf16": [
+            133,
+            146
+          ]
+        },
+        {
+          "codepoints": [
+            141,
+            146
+          ],
+          "form_ids": [
+            "30fd66231dc3d03a52b19f426c566f352bd50dd1b9b721bcd964337c037d75cc",
+            "97bd9a55043da425d281b58a4be30ae5c2e719025f471affa78ef482ad995ee1"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "shoes",
+          "tokens": [
+            24,
+            25
+          ],
+          "unit_id": "1eaabffc705611134fc4c176b0782f5f31df64fdb6b5a33ca3c8d6a95b233400",
+          "utf16": [
+            141,
+            146
+          ]
+        },
+        {
+          "codepoints": [
+            148,
+            151
+          ],
+          "form_ids": [
+            "09df30efcd923375c88bdd6d7ee31c126710b4127835aaaebcbc46723c258d6b",
+            "37f118da608c78600b5db11bfa132961e823492da0aa13ae39ac58ef801ba1b5"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "You",
+          "tokens": [
+            26,
+            27
+          ],
+          "unit_id": "03abd77d3623425f67d952dae9d04e4d6f9eeecf94aeed95b3fa68099340f219",
+          "utf16": [
+            148,
+            151
+          ]
+        },
+        {
+          "codepoints": [
+            152,
+            158
+          ],
+          "form_ids": [
+            "1030f5de948dd303f6e138e4f5170100ead1e6d13274184ef7dee8eab7280c29"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "should",
+          "tokens": [
+            27,
+            28
+          ],
+          "unit_id": "ac8f567a9df9754b8cd9cccd0a9de6c450bbf43b664b358e32e4448a5f933476",
+          "utf16": [
+            152,
+            158
+          ]
+        },
+        {
+          "codepoints": [
+            159,
+            169
+          ],
+          "form_ids": [
+            "bd4a7fc9c87bb39931ffadc1df2a23e4e8aa3671cd757ed7fa9eb5579f8edcc6"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "definitely",
+          "tokens": [
+            28,
+            29
+          ],
+          "unit_id": "6b86d5da1ac1c0db686d5b6feaf6c0db09fad6562724da2e0673d4505a3cdf0f",
+          "utf16": [
+            159,
+            169
+          ]
+        },
+        {
+          "codepoints": [
+            170,
+            172
+          ],
+          "form_ids": [
+            "40ce576f6feaba544190299d8659e4581c0b31ff356aa64dcd160ec593814133",
+            "5fcf621e6083761d94e2cc89982a7eac9964e74565975321d6af02625814b8fb",
+            "672614d58f8d2f06c320c6e301f6df7f28e739a422f28a15ecd2edac513cceec",
+            "78ffefbaaa22981adc3e8dd95f7eba77f56cc93f8993a331dba48546abb2845b",
+            "d2014a1de6d0063bc11210242b00baed8915f47fdf989dc6ebc8efeee874d762",
+            "f0202210a1f10f83999a5ec5673f99e0d48ebdf746815879fbedf235acad9bfd"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "go",
+          "tokens": [
+            29,
+            30
+          ],
+          "unit_id": "eebb46643215b3cb0969796aa57a5ff711f685c743986a92be09edf7ab27eee9",
+          "utf16": [
+            170,
+            172
+          ]
+        },
+        {
+          "codepoints": [
+            170,
+            176
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "go for",
+          "tokens": [
+            29,
+            31
+          ],
+          "unit_id": "82e7a34f53d2a8785c90faf207ac2fb22d274c9700ad165f37eb763fd21ee6f3",
+          "utf16": [
+            170,
+            176
+          ]
+        },
+        {
+          "codepoints": [
+            170,
+            179
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "go for it",
+          "tokens": [
+            29,
+            32
+          ],
+          "unit_id": "31ffbe5fb11656b09d0028798bc55b0896d2406f518fa7e922ed0e417286d989",
+          "utf16": [
+            170,
+            179
+          ]
+        },
+        {
+          "codepoints": [
+            173,
+            176
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "for",
+          "tokens": [
+            30,
+            31
+          ],
+          "unit_id": "94dd40163f861022db50e7f0a1440b226e97fc363cf7823f6613f002015fe337",
+          "utf16": [
+            173,
+            176
+          ]
+        },
+        {
+          "codepoints": [
+            173,
+            179
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "for it",
+          "tokens": [
+            30,
+            32
+          ],
+          "unit_id": "d027417b5c9aa3c8087734c4f4fca6b1589bf64600ad93138d503787fdd6f07c",
+          "utf16": [
+            173,
+            179
+          ]
+        },
+        {
+          "codepoints": [
+            177,
+            179
+          ],
+          "form_ids": [
+            "01b7211ad54fad9ac59fc7912ac23d8680468a51a4aab1f24a81456bf17e04c3",
+            "79d9b28c8515efaf7bda514457e44555886a33a2da8d60a08833831df7c40381",
+            "a398d84bc05d07b17a60d2b808aa2640604345e05c02be4e4d0bc76b09f568be",
+            "a43891d8bc1eaf0396e2903bb1d7a6c52c5ebd9d90bbfc9848e5aecf9bd8abdd",
+            "afaf6e7a31f280b56e9caba10b53d45929fdf7b364702ff8443b066d10292e34"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "it",
+          "tokens": [
+            31,
+            32
+          ],
+          "unit_id": "faa2945e7b98e83f39392b9c53dc4e8465a4a1d4c8ec1b62c3e4094ffe5049db",
+          "utf16": [
+            177,
+            179
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-024",
+      "source_id": "bst-train-2552-08",
+      "source": "that is nice, have you thought about making records",
+      "native_words_utf16": [
+        [
+          0,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          31,
+          36
+        ],
+        [
+          37,
+          43
+        ],
+        [
+          44,
+          51
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            4
+          ],
+          "form_ids": [
+            "2700a9b59b557268098dfb2999d7e71e2ca51782fddace098c91ad928622e0fd",
+            "835c729f1c7b6fcb31699b75a85234d24fe89e577ba094d8fc6c5bb0a2b9eafb"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "that",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "a8580c99f2484cf5d53c34535ab2cc634a6eed0f0992f21ace7df51104281d65",
+          "utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "codepoints": [
+            0,
+            7
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "that is",
+          "tokens": [
+            0,
+            2
+          ],
+          "unit_id": "32c5649be3a7f35b454dc68431b0cb653151559074f5fd5ea4b5d94320099fc4",
+          "utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "codepoints": [
+            5,
+            7
+          ],
+          "form_ids": [
+            "07ab7eac81c41dbe5607e5da5d065a34baa7ae78f2450a5e613fa53aa6e6dbd6",
+            "8517e6fc99c01d77d7e0e31336834ce1418e906a7c5714ecbc416c249017b961",
+            "f1a0025e3418f9d56cbc556664c4ec4c44fdd0395c55cb818a223a8f1aeb8686"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "is",
+          "tokens": [
+            1,
+            2
+          ],
+          "unit_id": "57147abf5520292ce34a424dcdd5c0c91bc230745883f40cdaf2d464e00711c1",
+          "utf16": [
+            5,
+            7
+          ]
+        },
+        {
+          "codepoints": [
+            8,
+            12
+          ],
+          "form_ids": [
+            "668fe62ea7a77a251903e444e565b6b4ec6e752a4f50fdfd48e284539fae0d42",
+            "7ae0d193eb25c09857a9a808946b5130633d2ef6577a598cf3461e11bc2a9837",
+            "b3afae8ce54355ab283be752fcf614e33a3f9ed0337dcab01ac350aa903baa84"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "nice",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "b82f3583ff7644c36de51099bf69a18a11ead055b9599ac04472906fece70801",
+          "utf16": [
+            8,
+            12
+          ]
+        },
+        {
+          "codepoints": [
+            14,
+            18
+          ],
+          "form_ids": [
+            "a92c19b5dc1bc499255557598ca44a13abbb071097a17dadd37224b8f4c71146",
+            "c26cb294593263bdab3280562a655839b544243c0a54da03c6470ba4ab5846a2",
+            "d74176e3b94f823afe78c62c6ed65d5f2ccd3921d9b885fcd8522a99fb59cc51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "have",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "2db32529a6170b21d0ee2994c59dec7a4f00e9b9ed690915bd8f61df85b8f4f0",
+          "utf16": [
+            14,
+            18
+          ]
+        },
+        {
+          "codepoints": [
+            19,
+            22
+          ],
+          "form_ids": [
+            "09df30efcd923375c88bdd6d7ee31c126710b4127835aaaebcbc46723c258d6b",
+            "37f118da608c78600b5db11bfa132961e823492da0aa13ae39ac58ef801ba1b5"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "you",
+          "tokens": [
+            5,
+            6
+          ],
+          "unit_id": "a00cd7c6bc47e2ab04fcbba59c11ed759223f808379c5277c03c361056e571be",
+          "utf16": [
+            19,
+            22
+          ]
+        },
+        {
+          "codepoints": [
+            23,
+            30
+          ],
+          "form_ids": [
+            "861be061262e0da0a80eaf5b9d3cede2f6da1f49dacf8033fa948796eea0c30e"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "thought",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "2763ef399d49d9bb19306fdeebac4906ff66bf12b6e1f34eb652026bbc5bf814",
+          "utf16": [
+            23,
+            30
+          ]
+        },
+        {
+          "codepoints": [
+            23,
+            36
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "thought about",
+          "tokens": [
+            6,
+            8
+          ],
+          "unit_id": "b3f7db5c130af1dd2ce540f2059f159621d395d5a5681c3737263c96c1dd1be6",
+          "utf16": [
+            23,
+            36
+          ]
+        },
+        {
+          "codepoints": [
+            31,
+            36
+          ],
+          "form_ids": [
+            "3d4a2580255d67e9d1d86887929cb063c1f22615d6024f64029bb62a90b15d8b",
+            "85e80df4d74e6f8b9c2c84963e64b3a606552be0cb3e3c959e6184e06e776cf3"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "about",
+          "tokens": [
+            7,
+            8
+          ],
+          "unit_id": "3b9a9cc5b70ed0b454c8151961887211263501c759e0d761a4c63ae0f8a6cd8f",
+          "utf16": [
+            31,
+            36
+          ]
+        },
+        {
+          "codepoints": [
+            37,
+            43
+          ],
+          "form_ids": [
+            "180f27d5d980927cd1b4225912901e26c199fcf1cf905ca0c6980ce5fd0bc9ad"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "making",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "e86479a91f8ce510027d83bc95aef6cb4dbe3ab48cffc9a753e0e02b9baac19d",
+          "utf16": [
+            37,
+            43
+          ]
+        },
+        {
+          "codepoints": [
+            44,
+            51
+          ],
+          "form_ids": [
+            "82376077ab2be98f7999dd07024b4c2196c009df9354b803dd5b4455705c2c5f",
+            "ab0c8af886a0f17646ee215efe96074a9c302c881b4c2b06aaf18c445f31c67e"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "records",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "750b41bd92d2a78e517891d03969409429095ee68d5acdd1f5f21e028a121fb9",
+          "utf16": [
+            44,
+            51
+          ]
+        }
+      ],
+      "development_control": false
+    },
+    {
+      "case_id": "qualified-noun-031",
+      "source_id": "bst-train-4251-10",
+      "source": "amazon and costco",
+      "native_words_utf16": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          11,
+          17
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            6
+          ],
+          "form_ids": [
+            "04a8d1001bcf95901174b02cdfb41dbaa33901bccb1962586b321a40ce71f83e",
+            "3af964a88acbb1f9d905246cfb901b056d60c9a761c1047005587740e84f3c8d",
+            "6b4c3599872ec191d8455cadd8b3cf6b6db7c40fe72bf42504a12ca82dae53c2"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "amazon",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "9ed2cefc6066353fa875df3fccbcc34cdf941a951b9beef867b3d54d92e05698",
+          "utf16": [
+            0,
+            6
+          ]
+        },
+        {
+          "codepoints": [
+            7,
+            10
+          ],
+          "form_ids": [
+            "0c794987e777f783f17b702992dac979d9ba417a6981de7f66bd43caa9c0eebf",
+            "378c757f8e302481214b215222e9444bcc60701945bb11387f56bb3a9b9b5e72",
+            "962579d0af948a11be9cce0ea35a57785018f44e384cab40c02d5a9caef8a3b2",
+            "bfe20bf4787363be615d6ceb654f4a0fdf40b8a835edf26a59e8609629bf49f3"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "and",
+          "tokens": [
+            1,
+            2
+          ],
+          "unit_id": "259f435fc9303caed76cb9f778fc59d47d0a250e116889c3f080b9305c6e554e",
+          "utf16": [
+            7,
+            10
+          ]
+        }
+      ],
+      "development_control": true
+    },
+    {
+      "case_id": "qualified-noun-041",
+      "source_id": "bst-train-3672-04",
+      "source": "Thanks! We do not have kids. We went through IVF but it wasn't successful. You?",
+      "native_words_utf16": [
+        [
+          0,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          14,
+          17
+        ],
+        [
+          18,
+          22
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          29,
+          31
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          37,
+          44
+        ],
+        [
+          45,
+          48
+        ],
+        [
+          49,
+          52
+        ],
+        [
+          53,
+          55
+        ],
+        [
+          56,
+          62
+        ],
+        [
+          63,
+          73
+        ],
+        [
+          75,
+          78
+        ]
+      ],
+      "protected_ranges_utf16": [],
+      "source_masks": [
+        {
+          "codepoints": [
+            0,
+            6
+          ],
+          "form_ids": [
+            "42362884ce055f4cfff18f2fb615f4b13d8bff372849716410b418c239f52cfa",
+            "ee8c1a1fba3dc28f812cac267867734c94e5577c1deba2db66aa26627802e92f"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "Thanks",
+          "tokens": [
+            0,
+            1
+          ],
+          "unit_id": "b47f7c4b0f84f64832c4e75397bf6613c8c20a919a57d6b0561b2ed55c5830a1",
+          "utf16": [
+            0,
+            6
+          ]
+        },
+        {
+          "codepoints": [
+            8,
+            10
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "We",
+          "tokens": [
+            2,
+            3
+          ],
+          "unit_id": "9f77fe2de8f84a3fe12ea601536c972a85163dab8b7d53031670d8e6ce97ff03",
+          "utf16": [
+            8,
+            10
+          ]
+        },
+        {
+          "codepoints": [
+            11,
+            13
+          ],
+          "form_ids": [
+            "2310f6167427baceccdbbed65eaad8076078e1ec8c86130d8b5248e2e68bc28e",
+            "4ec43ddf870d02e6350ce5cd8e487df254e8aa58ca443f9a6b8fc85553d1441e",
+            "73c7d82acb03f36fd81906173813581aa5d2e844142a071a8a95e7c0d53e8e75",
+            "b42f4409524f8af980ed00e6183694974e3c0ca16d296c60c0a49f0d463d553b",
+            "d9c6e57b890cab2e6e78c1e360fd01b013dca0676090c04d877b92b7f5f88f4f"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "do",
+          "tokens": [
+            3,
+            4
+          ],
+          "unit_id": "0012079a6689cb541f7b6824b79eb44b5308188df7484b29db1b726f80766da5",
+          "utf16": [
+            11,
+            13
+          ]
+        },
+        {
+          "codepoints": [
+            14,
+            17
+          ],
+          "form_ids": [
+            "661221b1291f8aec1f2647b439bfd7ed6b238fdb8ec60c1025ee9a42a81165b3",
+            "6c682cc2d521075b613688ef17a2d40fd27c4fc059511adfe2f314b9b94180ec",
+            "f2a4ca355e290e2f7405b2df61f76c64ae2b3fd8d0ea92bfb84e1cc91bc63724"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "not",
+          "tokens": [
+            4,
+            5
+          ],
+          "unit_id": "84c8ff676a480c71e188d7c852713c580bd7369dad37d3b501448a8ade3a3664",
+          "utf16": [
+            14,
+            17
+          ]
+        },
+        {
+          "codepoints": [
+            18,
+            22
+          ],
+          "form_ids": [
+            "a92c19b5dc1bc499255557598ca44a13abbb071097a17dadd37224b8f4c71146",
+            "c26cb294593263bdab3280562a655839b544243c0a54da03c6470ba4ab5846a2",
+            "d74176e3b94f823afe78c62c6ed65d5f2ccd3921d9b885fcd8522a99fb59cc51"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "have",
+          "tokens": [
+            5,
+            6
+          ],
+          "unit_id": "8c9fa6dd10521acd4dec9aa110b38e1b7be4dfe997e0b98a2a5b77e229d53067",
+          "utf16": [
+            18,
+            22
+          ]
+        },
+        {
+          "codepoints": [
+            23,
+            27
+          ],
+          "form_ids": [
+            "58fb184992ea45ec51dd8704736921038499cfe4ea706532da29e8858066dce3",
+            "691bc5f9343067ff9b636ccf102eb25a443659f1f5b5f71b334437d17701f43a"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "kids",
+          "tokens": [
+            6,
+            7
+          ],
+          "unit_id": "4ae6436cbab4c9c734923f6f5e7ba5a9b615b4c33b6b56fc3dbd117d9f365d8a",
+          "utf16": [
+            23,
+            27
+          ]
+        },
+        {
+          "codepoints": [
+            29,
+            31
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "We",
+          "tokens": [
+            8,
+            9
+          ],
+          "unit_id": "85cd9e11720d032d73eb0b5eef5e0d2027612ac876f17803ddf9ef2827cf4234",
+          "utf16": [
+            29,
+            31
+          ]
+        },
+        {
+          "codepoints": [
+            32,
+            36
+          ],
+          "form_ids": [
+            "3e96479055fb54718b504baf01ed71902358e5a8a3479be88d38efc0ddd70063"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "name",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "went",
+          "tokens": [
+            9,
+            10
+          ],
+          "unit_id": "ecbe3ce115b3d24b0dc53ab15d06d98efbc1851712461761b5c3dcd485836132",
+          "utf16": [
+            32,
+            36
+          ]
+        },
+        {
+          "codepoints": [
+            32,
+            44
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "went through",
+          "tokens": [
+            9,
+            11
+          ],
+          "unit_id": "caf55d5bfe7e99da62ba2f44175b21df770338873d8529c0cd1409b1a7c7c931",
+          "utf16": [
+            32,
+            44
+          ]
+        },
+        {
+          "codepoints": [
+            37,
+            44
+          ],
+          "form_ids": [
+            "1eb65bcecc44d430cd09a9ea2b7669fb43a068de6b5d04b51a9532a0214cf931",
+            "6302176d209c0baaded2d542bb8136c1873b6bcfbdd378b6604534a9a7c2f1a8",
+            "9e77588cef41b44d848f6387dd5f4fabf44dbc3aeac7212b0884e27bc99c327c"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "through",
+          "tokens": [
+            10,
+            11
+          ],
+          "unit_id": "a8d25bdfe63550449b73c493001e21ffeb05f1137c541dea02b7e387d0dd76c4",
+          "utf16": [
+            37,
+            44
+          ]
+        },
+        {
+          "codepoints": [
+            45,
+            48
+          ],
+          "form_ids": [
+            "0d7cf91ec342d27a75848e32d00fab1a9046dbdb0ca7068d6c70ab0991219f4d"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "IVF",
+          "tokens": [
+            11,
+            12
+          ],
+          "unit_id": "dd653d694ea5c494959e9b612ffa461572bf3c0e72acbca102f5a76a5fbb825f",
+          "utf16": [
+            45,
+            48
+          ]
+        },
+        {
+          "codepoints": [
+            49,
+            52
+          ],
+          "form_ids": [
+            "114d1ffc755e02aa231dfe7a554820f21145ae9a3bb0d3a809a1bc42b087c4d3",
+            "186800fac305e9ccc7f76421443a41817e010aab1f6f38de9f6945597d9f875e",
+            "d89a7072d4078cd24e5795bdb0f095e427b8029cba23b2fe1486183376423d0b"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "but",
+          "tokens": [
+            12,
+            13
+          ],
+          "unit_id": "f0ec6a21a10d9a94df5e599de8ff4e40b8b63c2e77f2cb2391d79ca82ad84eb6",
+          "utf16": [
+            49,
+            52
+          ]
+        },
+        {
+          "codepoints": [
+            53,
+            55
+          ],
+          "form_ids": [
+            "01b7211ad54fad9ac59fc7912ac23d8680468a51a4aab1f24a81456bf17e04c3",
+            "79d9b28c8515efaf7bda514457e44555886a33a2da8d60a08833831df7c40381",
+            "a398d84bc05d07b17a60d2b808aa2640604345e05c02be4e4d0bc76b09f568be",
+            "a43891d8bc1eaf0396e2903bb1d7a6c52c5ebd9d90bbfc9848e5aecf9bd8abdd",
+            "afaf6e7a31f280b56e9caba10b53d45929fdf7b364702ff8443b066d10292e34"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "it",
+          "tokens": [
+            13,
+            14
+          ],
+          "unit_id": "295474cc978bc224f8ff8bde4db849be0570f26cb3915becf2b82cf3d715f528",
+          "utf16": [
+            53,
+            55
+          ]
+        },
+        {
+          "codepoints": [
+            56,
+            62
+          ],
+          "form_ids": [],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 1
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "wasn't",
+          "tokens": [
+            14,
+            15
+          ],
+          "unit_id": "d701149aa395160d9f920c477f69b3e2e7d897fab98e3cc642babc54de20b348",
+          "utf16": [
+            56,
+            62
+          ]
+        },
+        {
+          "codepoints": [
+            63,
+            73
+          ],
+          "form_ids": [
+            "f184104b1193014eea107e8148e2e1d1411ab924d470075cc31f276a14d05e3b"
+          ],
+          "guard": {
+            "blocked": 0,
+            "protect_inner": 1,
+            "reason": "native-word-boundary",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "successful",
+          "tokens": [
+            15,
+            16
+          ],
+          "unit_id": "f4fcd7969cd0d95cfb88810fb7f2f96d79c56dfdbe687b19990e54bb1b27b87c",
+          "utf16": [
+            63,
+            73
+          ]
+        },
+        {
+          "codepoints": [
+            75,
+            78
+          ],
+          "form_ids": [
+            "09df30efcd923375c88bdd6d7ee31c126710b4127835aaaebcbc46723c258d6b",
+            "37f118da608c78600b5db11bfa132961e823492da0aa13ae39ac58ef801ba1b5"
+          ],
+          "guard": {
+            "blocked": 1,
+            "protect_inner": 1,
+            "reason": "grammar",
+            "target_blocked": 0
+          },
+          "policy": "strict_containing_complete_unit_or_guard",
+          "protects_without_target": true,
+          "text": "You",
+          "tokens": [
+            17,
+            18
+          ],
+          "unit_id": "97d9a58fdf403543b68dc783d6b6e1f2c320f44cbe96de00c511dfcff5c29e4c",
+          "utf16": [
+            75,
+            78
+          ]
+        }
+      ],
+      "development_control": true
+    }
+  ]
+}

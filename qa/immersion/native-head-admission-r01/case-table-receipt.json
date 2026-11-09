@@ -1,0 +1,101 @@
+{
+  "runtime": "3.12.6 (main, Sep  9 2024, 14:41:06) [GCC 13.3.0]",
+  "unicode": "15.0.0",
+  "seconds": 0.168431025929749,
+  "table_bytes": 24317,
+  "table_sha256": "12412ea3f7de5e1246d9701574303b045a3a0bde2eab2cd339158e69d059c52a",
+  "source_sha256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+  "generator_sha256": "311f8675ced45c6e60f8963141a52b10a720b2739b24b3c004253aadb3f20708",
+  "controls": [
+    {
+      "source": "dog",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "DOG",
+      "islower": false,
+      "first_isupper": true
+    },
+    {
+      "source": "Dog",
+      "islower": false,
+      "first_isupper": true
+    },
+    {
+      "source": "café",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "Straße",
+      "islower": false,
+      "first_isupper": true
+    },
+    {
+      "source": "ß",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "ǅ",
+      "islower": false,
+      "first_isupper": false
+    },
+    {
+      "source": "ǆ",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "ª",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "ᾳ",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "中文",
+      "islower": false,
+      "first_isupper": false
+    },
+    {
+      "source": "123",
+      "islower": false,
+      "first_isupper": false
+    },
+    {
+      "source": "dog2",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "dog’s",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "ͅ",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "İ",
+      "islower": false,
+      "first_isupper": true
+    },
+    {
+      "source": "ı",
+      "islower": true,
+      "first_isupper": false
+    },
+    {
+      "source": "ﬃ",
+      "islower": true,
+      "first_isupper": false
+    }
+  ]
+}

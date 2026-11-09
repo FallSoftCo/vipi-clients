@@ -37,7 +37,17 @@ focused runtime qualification. All exported synthetic rule contexts and 52
 retained full-source records agree across Mac/iOS. An adapter defect around
 valid no-focus dictionary rows was fixed without dropping their guards. Form and
 term admission, ordinary baseline support, known-family filtering and selection
-remain open. See `qa/immersion/native-context-reader-r01/RESULT.md`.
+remain separate integration work. See `qa/immersion/native-context-reader-r01/RESULT.md`.
+
+Native iOS conditional admission now also loads the exact form/term graph and
+reproduces the original gate on eight retained candidate scopes: four have no
+qualified rule, and four admit the same ten head records and 28 supported tuple
+occurrences. Actual dictionary recognition and Apple role evidence are used;
+known-family, supplied-protection and stale-source controls pass. This remains
+conditional evidence with frozen caller source keys. The live candidate
+producer, complete ordinary baseline, actual user knowledge progression,
+selection and presentation still need integration. See
+`qa/immersion/native-head-admission-r01/RESULT.md`.
 
 The corresponding isolated Android reader/tokenizer/source-recognition and
 OpenNLP adapter now pass actual debug and optimized R8 execution. All 1,394

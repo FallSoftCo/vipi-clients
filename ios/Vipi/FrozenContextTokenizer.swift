@@ -46,6 +46,10 @@ struct FrozenContextTokenizer {
         }
         return low < ranges.count && ranges[low][0] <= scalar
     }
+    /// Classifier uses original scalar alpha, while rule windows use normalized token alpha.
+    func originalHasAlphabeticScalar(_ text: String) -> Bool {
+        text.unicodeScalars.contains { contains($0.value, tables.alpha) }
+    }
     func normalize(_ text: String) throws -> String {
         guard text.utf16.count <= 16_384 else { throw Failure.inputBound }
         guard text.unicodeScalars.allSatisfy({ contains($0.value, tables.assigned) }) else { throw Failure.unsupportedScalar }

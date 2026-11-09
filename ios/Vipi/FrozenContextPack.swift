@@ -28,6 +28,7 @@ struct FrozenContextPack {
     let contentSHA256: String
     let metadata: [String: String]
     let rules: [Rule]
+    let evidence: Evidence
     let heads: [String: Head]
     private let byKey: [Data: [Rule]]
     private let tokenizer: FrozenContextTokenizer
@@ -62,7 +63,7 @@ struct FrozenContextPack {
         }
         return db
     }
-    private static func rows(_ db: OpaquePointer, _ sql: String, maximum: Int,
+    static func rows(_ db: OpaquePointer, _ sql: String, maximum: Int,
                              body: (OpaquePointer) throws -> Void) throws {
         var statement: OpaquePointer?
         guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK, let statement else { throw Failure.sqlite }
@@ -75,16 +76,16 @@ struct FrozenContextPack {
             count += 1; guard count <= maximum else { throw Failure.bound }; try body(statement)
         }
     }
-    private static func text(_ s: OpaquePointer, _ column: Int32) throws -> String {
+    static func text(_ s: OpaquePointer, _ column: Int32) throws -> String {
         guard sqlite3_column_type(s, column) == SQLITE_TEXT, let pointer = sqlite3_column_text(s, column) else { throw Failure.malformed }
         let data = Data(bytes: pointer, count: Int(sqlite3_column_bytes(s, column)))
         guard let value = String(data: data, encoding: .utf8), !value.contains("\0") else { throw Failure.malformed }; return value
     }
-    private static func integer(_ s: OpaquePointer, _ column: Int32) throws -> Int {
+    static func integer(_ s: OpaquePointer, _ column: Int32) throws -> Int {
         guard sqlite3_column_type(s, column) == SQLITE_INTEGER else { throw Failure.malformed }
         let n = sqlite3_column_int64(s, column); guard let value = Int(exactly: n) else { throw Failure.bound }; return value
     }
-    private static func strings(_ text: String) throws -> [String] { try JSONDecoder().decode([String].self, from: Data(text.utf8)) }
+    static func strings(_ text: String) throws -> [String] { try JSONDecoder().decode([String].self, from: Data(text.utf8)) }
     private static func metadata(_ db: OpaquePointer) throws -> [String: String] {
         var result: [String: String] = [:]
         try rows(db, "SELECT key,value FROM metadata ORDER BY key", maximum: 512) { s in
@@ -151,6 +152,9 @@ struct FrozenContextPack {
         }
         guard loaded.count == 1157, loaded.filter({ $0.headIDs.isEmpty }).count == 23,
               try Self.digest(url, maximum: 16 << 20) == expectedSHA256 else { throw Failure.identity }
+        let parsedEvidence = try Self.readEvidence(db, rules: loaded, heads: headMap)
+        guard try Self.digest(url, maximum: 16 << 20) == expectedSHA256 else { throw Failure.identity }
+        evidence = parsedEvidence
         contentSHA256 = expectedSHA256; metadata = meta; heads = headMap; rules = loaded
         byKey = Dictionary(grouping: loaded, by: { Data($0.sourceKey.utf8) }); tokenizer = try FrozenContextTokenizer()
     }

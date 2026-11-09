@@ -1,0 +1,398 @@
+{
+  "status": "prepared_uncompiled_awaiting_root_run",
+  "base": "d47da4d; later canonical Android commits do not change this preserved native base",
+  "native_root": "/Users/Apple/Development/vipi-native-delivery-20261109-r01",
+  "snapshot": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/qualified-before",
+  "snapshot_receipt": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/before-snapshot.json",
+  "source_files": {
+    "source/ios/Vipi/FrozenContextPack.swift": {
+      "previous": "8e12d3902adeed2e2ddd20298840385baf2ae72a92752642c62605fc4ccf2240",
+      "sha256": "cf0d0c54d750bfe218d768aa2808f44c6beeccc8088e6cb65113bfbc9705f2ee",
+      "bytes": 14453
+    },
+    "source/ios/Vipi/FrozenContextTokenizer.swift": {
+      "previous": "ff877984016259745db30ab29295c2bf98269bc95d3a7333efadaf5bf4d3525e",
+      "sha256": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e",
+      "bytes": 5090
+    },
+    "source/ios/Vipi/FrozenContextEvidence.swift": {
+      "previous": null,
+      "sha256": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d",
+      "bytes": 7379
+    },
+    "source/ios/Vipi/FrozenHeadAdmission.swift": {
+      "previous": null,
+      "sha256": "8d643bd6063f3a97702acc249a81552ee87a93d787aaf5cad23fc60ab7a75167",
+      "bytes": 11964
+    },
+    "source/ios/Vipi/FrozenSourceCase.swift": {
+      "previous": null,
+      "sha256": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1",
+      "bytes": 1390
+    },
+    "source/ios/Vipi/FrozenSourceCaseTables.swift": {
+      "previous": null,
+      "sha256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+      "bytes": 32665
+    },
+    "source/ios/VipiCryptoTests/FrozenHeadAdmissionTests.swift": {
+      "previous": null,
+      "sha256": "d07eadf8f61434d19f95af55eae71d51aa16511396c044ee6ba5ee0b094a6c24",
+      "bytes": 8294
+    },
+    "native-head-admission-20261109-r01/inputs/selected-sources.json": {
+      "previous": null,
+      "sha256": "500325937f919ce546d8911c770038db100a9aa7070121f945262a25dacb308c",
+      "bytes": 121224
+    },
+    "native-head-admission-20261109-r01/inputs/extract_frozen_admission.py": {
+      "previous": null,
+      "sha256": "1090e113c2df2ad21d9b0c0ae90ea2435a975e3efc54787dc0abdb2e9859a2d7",
+      "bytes": 3387
+    },
+    "native-head-admission-20261109-r01/inputs/case-table-receipt.json": {
+      "previous": null,
+      "sha256": "e451f64f7dfa2615d7bd4280d91163324a9bfc0231d3ad6719d142f5ad32193d",
+      "bytes": 2026
+    },
+    "native-head-admission-20261109-r01/inputs/generate_case_tables.py": {
+      "previous": null,
+      "sha256": "311f8675ced45c6e60f8963141a52b10a720b2739b24b3c004253aadb3f20708",
+      "bytes": 1547
+    }
+  },
+  "free_bytes_at_staging": 72499077120,
+  "commands": {
+    "prepare": [
+      "/bin/zsh",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/scripts/prepare-ios-project.sh"
+    ],
+    "build": [
+      "xcodebuild",
+      "-workspace",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi.xcworkspace",
+      "-scheme",
+      "VipiSimulator",
+      "-configuration",
+      "Simulator",
+      "-sdk",
+      "iphonesimulator",
+      "-destination",
+      "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+      "-derivedDataPath",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+      "-clonedSourcePackagesDirPath",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+      "-disableAutomaticPackageResolution",
+      "-onlyUsePackageVersionsFromResolvedFile",
+      "-skipPackageUpdates",
+      "-jobs",
+      "2",
+      "-parallel-testing-enabled",
+      "NO",
+      "-resultBundlePath",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/simulator-r01/build.xcresult",
+      "CODE_SIGNING_ALLOWED=YES",
+      "CODE_SIGN_IDENTITY=-",
+      "ARCHS=arm64",
+      "EXCLUDED_ARCHS=",
+      "build-for-testing"
+    ],
+    "test": [
+      "xcodebuild",
+      "-xctestrun",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/simulator-r01/qualification.xctestrun",
+      "-destination",
+      "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+      "-parallel-testing-enabled",
+      "NO",
+      "-maximum-concurrent-test-simulator-destinations",
+      "1",
+      "-resultBundlePath",
+      "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/simulator-r01/test.xcresult",
+      "-only-testing:VipiCryptoTests/FrozenHeadAdmissionTests/testConditionalEvidenceAndVetoesOnFrozenFullMessages",
+      "test-without-building"
+    ]
+  },
+  "inputs": {
+    "en": {
+      "path": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/5AD9C8DA-751D-4B3A-941A-2A6FB986DC77/Library/Caches/lexical-public/d-en-5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68.sqlite",
+      "bytes": 207884288,
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+      "sidecars": []
+    },
+    "es": {
+      "path": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-context-pack-r01/inputs/d-es.sqlite",
+      "bytes": 364613632,
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "sidecars": []
+    },
+    "pack": {
+      "path": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-context-pack-r01/inputs/context.sqlite",
+      "bytes": 4890624,
+      "sha256": "cd7a8667ff0df53610ef19aa585398e24470716dd23af6d640b7c77dbc3badb4",
+      "sidecars": []
+    }
+  },
+  "bounds": {
+    "selected_full_messages": 8,
+    "maximum_scopes": 128,
+    "maximum_scopes_per_message": 16,
+    "role_inspections_max": 16,
+    "comparison_json_bytes": 4194304,
+    "attachment_bytes": 4194304,
+    "data_extract_seconds": 60,
+    "data_extract_memory_bytes": 1073741824,
+    "project_prepare_seconds": 180,
+    "build_seconds": 900,
+    "test_seconds": 300,
+    "compiler_jobs": 2,
+    "max_additional_native_bytes": 3221225472,
+    "free_floor_bytes": 1073741824
+  },
+  "execution_requirements": [
+    "Root explicit run required; no builds/inference have run for these new sources.",
+    "Before job: compare full current qualified source/app manifest with exact listed overlays and preserve root-owned unrelated changes; exact four dependency pins; fresh free-space and existing job admission. This preparation verifies staged file hashes, not a new complete app manifest.",
+    "Prepare frozen-comparison.json once from existing production evidence using extract_frozen_admission.py; original inputs hash-checked, no model/selector replay. Transfer only that bounded output with hash receipt.",
+    "Write inputs/bindings.json from prior native-bindings expected metadata with pack_input_directory pointing to native-context-pack-r01/inputs and comparison_sha256 equal exact extracted file. No invented source keys.",
+    "Use current exact EN app cache via existing simulator; no duplicate expanded dictionary; reject sidecars and verify immutable dictionary/pack hashes before loading. EN path in prior receipt is historical; app resolves current cache path.",
+    "Generate project once; use existing app-build-r01 and locked SourcePackages. Derive isolated qualification.xctestrun with absolute product roots, -vipi-full-reading-qa and VIPI_HEAD_ADMISSION_QA_DIRECTORY=/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/inputs.",
+    "Selected test must execute once with zero skips. Retain failures; no automatic replay. Preserve simulator preferences/private speech generation and all app data; preserve labs55552/65698. Restore prior state and retain execution/closure receipts.",
+    "Retain full xcresult native; extract only compact JSON attachment/summary to private evidence. No activation, approvedOutputs conversion, source-name protection bypass, target prediction or full suite."
+  ],
+  "data_preparation": {
+    "script": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-head-admission-20261109-r01/extract_frozen_admission.py",
+    "selection": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-head-admission-20261109-r01/selected-sources.json",
+    "command": [
+      "python3",
+      "extract_frozen_admission.py",
+      "selected-sources.json",
+      "NEW_OWNED_OUTPUT/frozen-comparison.json"
+    ],
+    "execution_host": "fallsoft-production-20261106 (existing retained evidence only)",
+    "native_output": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-head-admission-20261109-r01/inputs/frozen-comparison.json"
+  },
+  "comparison": [
+    "Compare fixed winner IDs and eligible original head IDs by exact source/focus/key scope; current Apple lexical roles and current native geometry/protections can legitimately differ from frozen OpenNLP/source-mask interpretation.",
+    "Record each supported original form/term tuple, raw reasons, unknown/name/role rejects, all-known withholding, supplied-mask veto and stale-snapshot rejection. Mode0/null focus cannot admit a mapping.",
+    "Original qualified selection is post-known/budget; adapter evidence is prebudget. No claim these are identical selection levels or that POS proves meaning.",
+    "Load and hash-bind immutable pack/evidence once per data identity; retain adapter/provider for message processing. Record preparation separately from method latency; never infer cold-chat performance from small samples."
+  ],
+  "unicode_case_provenance": {
+    "runtime": "3.12.6 (main, Sep  9 2024, 14:41:06) [GCC 13.3.0]",
+    "unicode": "15.0.0",
+    "seconds": 0.168431025929749,
+    "table_bytes": 24317,
+    "table_sha256": "12412ea3f7de5e1246d9701574303b045a3a0bde2eab2cd339158e69d059c52a",
+    "source_sha256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+    "generator_sha256": "311f8675ced45c6e60f8963141a52b10a720b2739b24b3c004253aadb3f20708",
+    "controls": [
+      {
+        "source": "dog",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "DOG",
+        "islower": false,
+        "first_isupper": true
+      },
+      {
+        "source": "Dog",
+        "islower": false,
+        "first_isupper": true
+      },
+      {
+        "source": "caf\u00e9",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "Stra\u00dfe",
+        "islower": false,
+        "first_isupper": true
+      },
+      {
+        "source": "\u00df",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u01c5",
+        "islower": false,
+        "first_isupper": false
+      },
+      {
+        "source": "\u01c6",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u00aa",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u03b1\u0345",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u4e2d\u6587",
+        "islower": false,
+        "first_isupper": false
+      },
+      {
+        "source": "123",
+        "islower": false,
+        "first_isupper": false
+      },
+      {
+        "source": "dog2",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "dog\u2019s",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u0345",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\u0130",
+        "islower": false,
+        "first_isupper": true
+      },
+      {
+        "source": "\u0131",
+        "islower": true,
+        "first_isupper": false
+      },
+      {
+        "source": "\ufb03",
+        "islower": true,
+        "first_isupper": false
+      }
+    ]
+  },
+  "baseline_gap": {
+    "status": "Ordinary candidate producer/current source-key enumeration and actual user-known progression are not implemented by this adapter. Known-family IDs are caller input; learned frequency is never substituted.",
+    "reusable_code": [
+      "qa/immersion/source-name-scope-r01/compare_r02.py: catalog() preserves ordinary baseline and adds explicitly conditional name-only links; project() supplies exact candidates and role/mask evidence",
+      "qa/immersion/corpus-phrase-extraction-r01/project_contextual.py: Producer/source classification and existing dictionary+head lookup",
+      "qa/immersion/corpus-phrase-extraction-r01/context_heads.py: supported original head/context/form/term creation",
+      "qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py: original known-family withholding, geometry, budget and selector; unchanged"
+    ],
+    "current_catalog": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/outputs/catalog-r02/catalog.sqlite",
+    "catalog_identity": "Read verified catalog-r02/receipt.json before reuse; this preparation does not invent an uninspected catalog hash.",
+    "original_lookup": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01/prepare/lookup.json; original head_keys precede qualification and cannot be reconstructed from exported winning rule_heads alone.",
+    "frozen_input_records": {
+      "phrase_helper": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+        "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+      },
+      "normalizer": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+        "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+      },
+      "tokenizer": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+        "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+      },
+      "head_helper": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+        "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+      },
+      "lookup_key_dependency": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+        "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+      },
+      "selector": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+        "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+      },
+      "comparator": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/reference_compare.py",
+        "sha256": "5ed2376c939e441b12e1ad8140da856130c7e6d17f33fe8cce55714ee789127d"
+      },
+      "literal_payload": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/payload.json",
+        "sha256": "5c6a1c513a68f861ca28fd8c45b99b347e130940a29e6898bcc811fcfb47e5bc"
+      },
+      "literal_semantics": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/semantics.json",
+        "sha256": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7"
+      },
+      "old_projector": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+        "sha256": "443cd1db89c48760662b12f503299c89848bcb012c4685e4362ec89d591343de"
+      },
+      "annotation_loader": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/source-role-veto-r01/project.py",
+        "sha256": "6c080ce26ef9a3efa4fea025155e72949781be2bd680e559fcfacbe61f8888f9"
+      },
+      "content_baseline": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+        "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+      },
+      "dictionary_en": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+        "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+      },
+      "family_control": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+        "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+      },
+      "geometry": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+        "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+      },
+      "annotation_inputs": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotation-inputs.json",
+        "sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54"
+      },
+      "annotations": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+        "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+      },
+      "source_context": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/train.json",
+        "sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c"
+      },
+      "matched_keys": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+        "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+      },
+      "fixed_keys": {
+        "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/inputs/source-frequency-keys.json",
+        "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+      },
+      "heads": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads-r02/heads.sqlite",
+        "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+      },
+      "decisions": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/project-r02/decisions.jsonl.gz",
+        "sha256": "255d89336001a080f7cb3e188246da4c81fad3c8f5874cc9195f4f7c6f4cdaaf"
+      },
+      "adapter": {
+        "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+        "sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5"
+      },
+      "review_exclusions": {
+        "path": "/srv/fallsoft/staging/vipi-source-name-scope-20261109-r01/inputs/review-exclusions.json",
+        "sha256": "0c55574a17bc1c7d17dd96d1f9589160cb8dc01f0d0400aee1d6e43862d351f3"
+      }
+    },
+    "protocol_sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de"
+  },
+  "limits": [
+    "Uncalled QA adapter only. No complete native candidate producer, known-family progression or selector integration.",
+    "Pinned UCD15 lower/cased data removes OS casing property dependency; Foundation NFC remains qualified by existing sample probes, not universal proof.",
+    "Caller source-key identity is an explicit seam; source text/focus/protection snapshots are bound exactly. Actual role and source mask behavior are measured, not assumed Python parity."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "status": "actual_iOS_conditional_admission_qualified_no_customer_activation",
+  "canonical_base": "bc7dc987b7302061af7d7a6ec3155508604d8e41",
+  "private_root": "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/native-head-admission-20261109-r01",
+  "source_files": {
+    "ios/Vipi/FrozenContextPack.swift": "cf0d0c54d750bfe218d768aa2808f44c6beeccc8088e6cb65113bfbc9705f2ee",
+    "ios/Vipi/FrozenContextTokenizer.swift": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e",
+    "ios/Vipi/FrozenContextEvidence.swift": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d",
+    "ios/Vipi/FrozenHeadAdmission.swift": "8d643bd6063f3a97702acc249a81552ee87a93d787aaf5cad23fc60ab7a75167",
+    "ios/Vipi/FrozenSourceCase.swift": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1",
+    "ios/Vipi/FrozenSourceCaseTables.swift": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+    "ios/VipiCryptoTests/FrozenHeadAdmissionTests.swift": "d07eadf8f61434d19f95af55eae71d51aa16511396c044ee6ba5ee0b094a6c24"
+  },
+  "evidence": {
+    "bindings.json": "454a4bd1d43ec3f9b4631614d035eecd27d50d6274598dd73cd774ad2fe250c2",
+    "preparation-plan-r01.json": "f45455e3f33bdc2f08bdfe38bffeb7d1959f2c7de154c0f85303ca79e00d1fd5",
+    "root-comparison.json": "f1aa580481ae26c49ef535295857d3ba4c287bbeed0548663252bf5d506dfd25",
+    "head-admission.json": "fa0af425dd630f8161978719d06c6c67ab859e2c1de6031c1e5b15b014d442b7",
+    "case-table-receipt.json": "e451f64f7dfa2615d7bd4280d91163324a9bfc0231d3ad6719d142f5ad32193d",
+    "test-summary.json": "c7478f6f73988168a60d1662b1d3c2c1503c4867e1d904fd41e4609845345566",
+    "extract_frozen_admission.py": "1090e113c2df2ad21d9b0c0ae90ea2435a975e3efc54787dc0abdb2e9859a2d7",
+    "generate_case_tables.py": "311f8675ced45c6e60f8963141a52b10a720b2739b24b3c004253aadb3f20708",
+    "transfer-verification.json": "068a5c2d21a0b8a39ef89cbde58854a37164fdc3ae57c50fc4e842cc2185d175",
+    "data-extract-response.json": "4314d03d91e0910ff4bac2e5dfd740267a22205a3efebc6efcf977dfd5a5ac97",
+    "execution-plan-r01.json": "ed5a9774abbc4148328103444bf03cccbe81a50b451a28c15d7e05544d3c7ba3",
+    "execution-receipt.json": "0c62f43c5e836a75dcb9915488005254222b37c5896799d6d863f131e9d54fe4",
+    "root-execute-native-r01.py": "e3af4e1543532cd05a6518667d47fc28c1052eec77ddcb76f5afcd5a47eb2ae1",
+    "frozen-comparison.json": "8dcd86c6c20a45372c868751c6a0ebfd5cdbd4a7a55e2789a8f138d6737236a4",
+    "selected-sources.json": "500325937f919ce546d8911c770038db100a9aa7070121f945262a25dacb308c"
+  },
+  "independent_comparison": {
+    "scope": "Independent exact decoded native output comparison to original frozen gate; no new semantic estimate",
+    "sources": 8,
+    "scopes": 8,
+    "same_chosen_winners": 8,
+    "no_rule_scopes": 4,
+    "eligible_head_records": 10,
+    "supported_tuple_occurrences": 28,
+    "winner_differences": [],
+    "eligible_head_differences": [],
+    "head_rejection_counts": {
+      "original_head_context_missing_or_not_native_window": 1
+    },
+    "method_latency_ms": {
+      "median": 0.892854,
+      "max": 1.857083,
+      "excludes": "pack validation/load, source dictionary snapshot and NaturalLanguage annotation"
+    },
+    "limits": [
+      "Two retained sources have no original eligible candidate scope; they are no-output controls, not coverage gains",
+      "Source keys supplied from original frozen producer; new live producer still required",
+      "Known-family control uses explicit supplied IDs, not actual user learning state",
+      "No SourceLookupEvidence/approvedOutputs, selector, UI or customer activation"
+    ],
+    "source_files_verified": 621,
+    "dependency_pins_verified": 4,
+    "native_test": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "limits": [
+    "Eight retained full sources with eight original candidate scopes, four with eligible contexts; no held-out conversational coverage estimate",
+    "Caller key producer and baseline catalog remain missing",
+    "Explicit known-family withholding qualified; actual user progression not implemented",
+    "No display permissions or source-mask relaxation",
+    "Physical devices, audio, stores and external authentication unchanged"
+  ]
+}

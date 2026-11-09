@@ -1,0 +1,58 @@
+{
+  "execution-receipt.json": {
+    "sha256": "0c62f43c5e836a75dcb9915488005254222b37c5896799d6d863f131e9d54fe4",
+    "bytes": 6151
+  },
+  "test.log": {
+    "sha256": "c722b82db1661bd7b8ed58a2806c77d9f1a93bf5638757d04dc70e1e84f73d08",
+    "bytes": 5964
+  },
+  "build.log": {
+    "sha256": "c4b903f6b8ca99ca544991953ccfb92a0d66629afea26fac114aac145f4614c0",
+    "bytes": 181161
+  },
+  "prepare.log": {
+    "sha256": "484170728117f784ad2737eef88fb9ef0c40295cde1ea325295858712f97061c",
+    "bytes": 2157
+  },
+  "attachment-manifest.json": {
+    "sha256": "9e0d3706f3628d6181a202c26ac80d5b09492b453c6ad565e4942840c280fa2d",
+    "bytes": 746
+  },
+  "head-admission.json": {
+    "sha256": "fa0af425dd630f8161978719d06c6c67ab859e2c1de6031c1e5b15b014d442b7",
+    "bytes": 25402
+  },
+  "final-sources/ios/Vipi/FrozenContextPack.swift": {
+    "sha256": "cf0d0c54d750bfe218d768aa2808f44c6beeccc8088e6cb65113bfbc9705f2ee",
+    "bytes": 14453
+  },
+  "final-sources/ios/Vipi/FrozenContextTokenizer.swift": {
+    "sha256": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e",
+    "bytes": 5090
+  },
+  "final-sources/ios/Vipi/FrozenContextEvidence.swift": {
+    "sha256": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d",
+    "bytes": 7379
+  },
+  "final-sources/ios/Vipi/FrozenHeadAdmission.swift": {
+    "sha256": "8d643bd6063f3a97702acc249a81552ee87a93d787aaf5cad23fc60ab7a75167",
+    "bytes": 11964
+  },
+  "final-sources/ios/Vipi/FrozenSourceCase.swift": {
+    "sha256": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1",
+    "bytes": 1390
+  },
+  "final-sources/ios/Vipi/FrozenSourceCaseTables.swift": {
+    "sha256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+    "bytes": 32665
+  },
+  "final-sources/ios/VipiCryptoTests/FrozenHeadAdmissionTests.swift": {
+    "sha256": "d07eadf8f61434d19f95af55eae71d51aa16511396c044ee6ba5ee0b094a6c24",
+    "bytes": 8294
+  },
+  "test-summary.json": {
+    "sha256": "c7478f6f73988168a60d1662b1d3c2c1503c4867e1d904fd41e4609845345566",
+    "bytes": 982
+  }
+}
