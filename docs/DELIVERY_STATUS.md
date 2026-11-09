@@ -200,13 +200,23 @@ those 7,115 pairs without building another proof database. Existing restrictions
 leave 1,350 noun, 442 adjective and 259 adverb source occurrences clear of the
 legacy checks; none of the verbs passes, and these counts are neither approved
 outputs nor gains over the baseline. The projected evidence would add about
-854 MB of logical objects/index data. Bulk materialization is deferred. The next
-bounded comparison first measures baseline overlap, then tests whether matching
-independently supported multiword contexts can admit ordinary nouns otherwise
-blocked by name flags. The prior unrestricted exception remains a diagnostic
-control. Original guards, complete-message denominators, depth and known-word
-states remain. Wider verb/adjective policies are unapproved proposals. See
-`qa/immersion/ordinary-content-preflight-r01/RESULT.md`.
+854 MB of logical objects/index data. Bulk materialization remains deferred. The bounded context-qualified noun
+comparison below has completed; broader verb/adjective policies remain proposals.
+See `qa/immersion/ordinary-content-preflight-r01/RESULT.md`.
+
+That context-qualified comparison recovers ordinary nouns in 531 additional
+messages, or 143 after withholding the first 300 vocabulary families. Nonempty
+outputs become 5,088/3,019 of the same reused 9,535 TRAIN messages. Both blind
+agent reviews accept all 18 sampled additions over the baseline. However, the
+gate also removes nine accepted sample emissions relative to the unrestricted
+exception, and inherited non-noun errors remain. The older seasonal fall and
+Dragon Ball Z errors are withheld, not translated correctly. Overall emitted
+word depth remains only 7,376/3,700 of 121,960 native words. Root independently
+reconstructed every competing training face and support set for the 1,157
+qualified rules; original controls and full decision fields reproduced exactly.
+The 28 stratified sampled cases and 24 exposed controls do not establish
+population accuracy. No research catalog is activated. See
+`qa/immersion/context-qualified-nouns-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

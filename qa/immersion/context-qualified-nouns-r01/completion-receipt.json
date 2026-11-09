@@ -1,0 +1,96 @@
+{
+  "complete": true,
+  "production_activated": false,
+  "app_changes": false,
+  "committed": false,
+  "execution": "prepare/project/packet each once; read-only closure audit once; no inference rerun",
+  "private_root": "/home/ai/Development/investigations/vipi-context-qualified-nouns-20261109-r01",
+  "production_root": "/srv/fallsoft/staging/vipi-context-qualified-nouns-20261109-r01",
+  "files": {
+    "protocol.json": {
+      "sha256": "499fb50bc2d175b25c7fde3438326dd4f094866e8a199e00efe1126a579688e2",
+      "bytes": 11884
+    },
+    "preparation-launch-receipt.json": {
+      "sha256": "46f2281acb71cf3d23f11e53c14f51aa0d73ba174d34de8251264118adb461c0",
+      "bytes": 813
+    },
+    "root-project-approval.json": {
+      "sha256": "dd1e5ddaf4b1a4597787835c4f60557ca737362051e8f43a607beff60d298644",
+      "bytes": 295
+    },
+    "prepare/receipt.json": {
+      "sha256": "8e07fbde8214367f19c45dea06c3c20aa752b24085181ea22c7e479d97634794",
+      "bytes": 551
+    },
+    "prepare/overlap.json": {
+      "sha256": "9820f6a6fb7c5283d7a5e5977f32eeb8f1962c06d83215eb702e1d5fdb6426b5",
+      "bytes": 952
+    },
+    "prepare/support-summary.json": {
+      "sha256": "01b68da0560a05e88489444d0d2f7013a1d0ba168e5df664847d1cbca7004965",
+      "bytes": 712
+    },
+    "project/receipt.json": {
+      "sha256": "cec276050609a8166ac68149eed1f29cb841484d42389b9d4528b221f82e9367",
+      "bytes": 687
+    },
+    "project/metrics.json": {
+      "sha256": "5e7788f7cf9ac27deeba69e71a1906021ce6c5492d2246f64890ca5f2158d349",
+      "bytes": 2122
+    },
+    "project/baseline-control-parity.json": {
+      "sha256": "221a83a7cd653a2f3b39ecb762712441c505af490f8d691b3cd7735603bd1f0b",
+      "bytes": 392
+    },
+    "packet/receipt.json": {
+      "sha256": "274a672a493166acc5ab78541e2d3329fb9bdc45b3fe89025080ddce1c1b5919",
+      "bytes": 570
+    },
+    "packet/anonymous-packet.json": {
+      "sha256": "4055c03d024896c66cd3b0f60e6adf60c61d7c188d02178c2ccf2fc2f85c65ad",
+      "bytes": 434148
+    },
+    "packet/method-key.json": {
+      "sha256": "ebca1ea6e4c3aeea301eae85afa61b9e6a97896c8d7ecca55ab9b8679949b1de",
+      "bytes": 12706
+    },
+    "author-review-r01.json": {
+      "sha256": "8e3b5eebfef42c5009149748b37e5ce7014430e4b98f9a8b7e9c110a1627b367",
+      "bytes": 64657
+    },
+    "root-review-r01.json": {
+      "sha256": "520b7ae43231f325b045c524eea79b51f3f510a003333fe98c9d6eb9039841f3",
+      "bytes": 57426
+    },
+    "joined-review-r01.json": {
+      "sha256": "0565428fc7380d0b892cb64eaa84fdda41a48541319c45548d798a335c7b8ad3",
+      "bytes": 164372
+    },
+    "closure-audit/receipt.json": {
+      "sha256": "654130c1e0b92fc11cb00f3ef9df3276d48da9effae2a6fa60921bc39c31af7d",
+      "bytes": 1033
+    },
+    "closure-audit/exposed-diagnostics.json": {
+      "sha256": "fe2218cf478811f4f9067fc56f2b3623b2c49a513f20bb82c165f5d852d0de7b",
+      "bytes": 341035
+    },
+    "old-error-followup.json": {
+      "sha256": "de9885baed6cb24d0c632f5dec0bb46e3635575f6abcca65206e65c222b7b763",
+      "bytes": 2804
+    }
+  },
+  "source": {
+    "project.py": "16bba114e8d079ad7881c516f77d6f4efa2c7f27a4d04fc60e0f9e3731de20a1",
+    "RESULT.md": "b3309f83c7e9753448f2432ad77c250c1304305ca398ad745e7fd2e90cb15bd4",
+    "join_reviews.py": "e36acc83631f9bfa160ced2f881ceab490fc4d1e625fa0affca34a64c5e14628",
+    "protocol.json": "499fb50bc2d175b25c7fde3438326dd4f094866e8a199e00efe1126a579688e2",
+    "audit_outputs.py": "35e92c5d6bf375a0ac897c39f48989cb44438c526473dfd75090b6fab9b83374",
+    "common.py": "44189a16bc9ae82d525676ee1e6fa7e59063bebaee4e98cf68bc99f1fbed9412",
+    "packet.py": "10d8732138d5ce22b9ae09babe1b902396e79a4081881ee59442341d12391196",
+    "prepare.py": "adaf36dfdbeaaa083b0d79d3cf61e89ec5a6ca64b3d2d14b8f1161f640025e05",
+    "NEXT_STEP.md": "6d0df07c9afe5b8c18a8d598cb0e0cc830aea9512cf235aeb26c56bfbdec7fcf"
+  },
+  "review": "Two independent reference/method/metrics/peer-blind agents; 28 sampled plus24 exposed controls; disagreements preserved; no semantic gold/population claim",
+  "retained_derivation_correction": "Initial joined derivative omitted normalization of root minor_form; original draft retained privately, final maps minor_form to minor_issue only for comparison; frozen labels unchanged."
+}
