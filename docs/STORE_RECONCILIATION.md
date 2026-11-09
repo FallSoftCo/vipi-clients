@@ -64,10 +64,15 @@ concurrent lease claims, a new event during verification, outage backoff,
 expiry and migration consistency. Apple adapter tests exercise the official
 verifier call boundary with fixtures; they do not establish a real Apple event.
 
-Release qualification still requires configured provider endpoints and an active
-worker, Apple's actual TEST notification receipt, Google's actual test message,
-real store sandbox purchase/renewal/refund/restore events and confirmed account
-binding. Credentials or passing unit tests alone do not satisfy those gates.
+The actual Apple Sandbox TEST notification passed on November 9, 2026: Apple
+reported SUCCESS, the official SDK verified the V2 signature and the matching
+event was retained without creating an entitlement. The existing restricted
+staging service now uses the Sandbox verifier; the production callback is unset.
+See `qa/backend/apple-sandbox-notification-r01/receipt.json`.
+
+Release qualification still requires production provider configuration, Google's
+actual test message, real store sandbox purchase/renewal/refund/restore events
+and confirmed account binding. Credentials or passing unit tests alone do not satisfy those gates.
 Monitor worker failures and pending reconciliation age; no external alert
 recipient or staffed response is established by this implementation.
 

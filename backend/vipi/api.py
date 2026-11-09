@@ -160,6 +160,9 @@ async def principal(request: Request, verified: Annotated[Principal, Depends(ver
 
 def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None,
                store_providers=None, bot_transport=None, notification_transport=None):
+    if settings.recovery_hold:
+        from .recovery_gate import held_application
+        return held_application()
     if settings.environment == "staging" and not settings.allowed_subjects:
         raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)

@@ -12,6 +12,9 @@ from .deletion import WorkOSUserDeleter, expire_deletion_receipts, process_delet
 
 async def main():
     settings = Settings()
+    if settings.recovery_hold:
+        # Do not construct database/provider clients or dispatch/expire records.
+        return
     db = Database(settings.database_url)
     try:
         now = datetime.now(UTC)

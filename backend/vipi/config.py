@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     workos_issuer: str
     service_secret: str = Field(min_length=43)
     environment: Literal["development", "test", "native-qa", "staging", "production"] = "development"
+    # Startup-only hold; never inferred from an offline recovery receipt.
+    recovery_hold: bool = False
     allowed_subjects: frozenset[str] = frozenset()
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000

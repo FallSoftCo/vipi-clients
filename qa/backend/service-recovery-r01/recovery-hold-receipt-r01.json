@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "created_at": "2026-11-09T17:52:46.880047+00:00",
+  "source_head": "576836dd962c8dce0846c4238ce5838b67ef82db",
+  "configuration": {
+    "variable": "VIPI_RECOVERY_HOLD",
+    "default": false,
+    "scope": "explicit startup configuration on API and all workers; no live change performed",
+    "release": "operator changes configuration only after independently verified recovery; reports cannot clear the hold"
+  },
+  "enforcement": {
+    "held_app_constructed_before": [
+      "Database",
+      "WorkOSVerifier",
+      "store providers",
+      "BotGateway",
+      "InboxEvents"
+    ],
+    "safe_GET_HEAD": [
+      "/",
+      "/privacy",
+      "/terms",
+      "/help",
+      "/delete-account",
+      "/delete-account/style.css",
+      "/health/live"
+    ],
+    "readiness": "503 recovery_hold without database access",
+    "other_HTTP": "503 before receiving body/authentication",
+    "websocket": "close 1013 before accept/receive/authentication",
+    "workers": "billing, maintenance/deletion, push return before database/provider construction",
+    "moderation": "resolve/suspend/restore refused before database; private read-only list/show unchanged",
+    "deletion_guidance": "static temporary-unavailability/contact/subscription guidance; no request submitted or dynamic account lookup",
+    "default_behavior": "unchanged normal app and injection contracts when false"
+  },
+  "tests": {
+    "focused": "25 passed in 0.52s",
+    "affected_regression": "101 passed, 4 skipped in 51.60s",
+    "backend": "disk-backed synthetic SQLite; optional PostgreSQL test URL absent",
+    "selection_failure": "first regression command named nonexistent test_public_pages.py; no tests ran; original failure log preserved; corrected file selection then passed",
+    "suites": [
+      "test_recovery_gate",
+      "test_recovery",
+      "test_api",
+      "test_events",
+      "test_subscriptions",
+      "test_bot",
+      "test_store_notifications",
+      "test_web_deletion",
+      "test_deployment_config",
+      "test_push"
+    ]
+  },
+  "remaining_gaps": [
+    "Opt-in startup hold is not automatic restore detection, a running-process drain or a hot toggle. Operator must set it consistently before starting every restored service/worker.",
+    "No verified post-snapshot deletion/restriction authority or cutoff is created by this implementation.",
+    "Billing freshness and missing personal/global spend/request history still require reconciliation before release.",
+    "No real PostgreSQL recovery/integration deployment or provider call was exercised; skipped PostgreSQL-only tests remain unqualified.",
+    "Explicit native device re-enrollment remains unproven after disaster.",
+    "Internal low-level library functions are not a security sandbox; deployed HTTP/WS/worker/operator entry points are the boundary."
+  ],
+  "live_environment_database_service_changes": false,
+  "customer_activation": false,
+  "files": [
+    {
+      "path": "backend/vipi/recovery_gate.py",
+      "sha256": "21bbf4ac3ae9e98f7a0b84f5f2ac1c885d2d586525dbd511ab8218654ff3bc9d",
+      "bytes": 4021
+    },
+    {
+      "path": "backend/vipi/config.py",
+      "sha256": "bad255f51acd6ead9b059f7ccf7bf94d4673ca408602e7d4ae7b43e6d9980609",
+      "bytes": 5424
+    },
+    {
+      "path": "backend/vipi/api.py",
+      "sha256": "960633443b9d346dc048207a9c4b98dc9c23f1ebbf277cc14a91a5415dc88488",
+      "bytes": 27815
+    },
+    {
+      "path": "backend/vipi/billing_worker.py",
+      "sha256": "c099b9c377a9207da7c95368c7eb65b07327ed99838e1a7cacc2a40c84e601a6",
+      "bytes": 1373
+    },
+    {
+      "path": "backend/vipi/maintenance.py",
+      "sha256": "8adf899c17855b3f853a49f357bae893ce87ee7cb1152655ce4d9d42bcd5c619",
+      "bytes": 1633
+    },
+    {
+      "path": "backend/vipi/push.py",
+      "sha256": "926262954e288b9c7177ba07afa04ba9e217aa46be02ec7c229fbe57490f5512",
+      "bytes": 11426
+    },
+    {
+      "path": "backend/vipi/moderation.py",
+      "sha256": "b68ba58bb51a929a6f238306f070ace0d01d34b2da5b0e2f724b87062d5873db",
+      "bytes": 4303
+    },
+    {
+      "path": "backend/tests/test_recovery_gate.py",
+      "sha256": "c8358b5fc43efa6b5b79fd1460ea6231f03c183df2b8ab71a0b6e09be9ba3b0f",
+      "bytes": 6429
+    }
+  ],
+  "logs": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/gate-tests-r01.log",
+      "sha256": "5bc4b65b50f8ba281b2a7b93d56a26a9566f0084d70680a77518eb34ee3a7f7d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/gate-regression-r01.log",
+      "sha256": "b8fb0d8f1ba0886ba1bfae1ed02fdf3feac93afab86745ed2955e90ebe6f8288"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-service-recovery-20261109-r01/gate-regression-r02.log",
+      "sha256": "5be513ba6d9056f5fcafcd6040c4a32d9932e0dc49de8f9385fb3a4f85e97f11"
+    }
+  ]
+}

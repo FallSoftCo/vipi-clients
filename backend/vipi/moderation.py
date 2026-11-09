@@ -15,6 +15,9 @@ from .reports import report_cipher, restrict
 
 async def run(args):
     settings = Settings()
+    if args.command not in {"list", "show"}:
+        from .recovery_gate import require_not_held
+        require_not_held(settings)
     db = Database(settings.database_url)
     try:
         async with db.sessions.begin() as session:

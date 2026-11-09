@@ -12,7 +12,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `5ca447b`, same database/schema/environment. Activation took 7.95 seconds; help/privacy return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
+| Service | Restricted staging runs `5ca447b`, same database/schema; Apple Sandbox verification is now configured. Activation took 7.95 seconds; help/privacy return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
 | Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
@@ -22,16 +22,30 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Signing profiles, real products/purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; native Release compilation passes but signing is blocked by locked keychains. |
+
+Apple’s actual Sandbox V2 TEST notification passed: successful provider delivery,
+verified signature, matching retained event and no entitlement created. The
+production URL remains unset. Annual base/Bot mini products and their separate
+one-month trials are configured; real purchase/refund/restore remain open. See
+`qa/backend/apple-sandbox-notification-r01/receipt.json`.
 
 Offline recovery now has an isolated reconciliation tool with nine passing
 synthetic disk-backed tests. It applies restrictive deletion/suspension records,
 deactivates devices, invalidates billing freshness, preserves surviving spend and
 consumed request IDs, and rolls back conflicts. It creates a separate SQLite
 copy and never authorizes reopening. Independent post-snapshot authority,
-production PostgreSQL integration, a runtime admission gate and native
+production PostgreSQL integration and native
 re-enrollment remain open; see `qa/backend/service-recovery-r01/README.md` and
 its path-handling amendment. No live restore or runtime change was made.
+
+An opt-in startup recovery hold now keeps API/WebSocket state paths and all
+deployed worker entry points from initializing databases/providers. Static
+privacy/help/deletion guidance and liveness remain available; readiness fails.
+The focused/affected regression passes 101 tests, with four PostgreSQL-only
+tests skipped. This requires explicit configuration before startup; it is not
+automatic restore detection, a running-process drain or authority to reopen.
+No live hold is enabled. See the recovery-hold receipt in the same directory.
 
 ## Current language decision
 

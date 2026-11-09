@@ -188,6 +188,9 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
 async def main():
     from .config import Settings
     settings = Settings()
+    if settings.recovery_hold:
+        # Do not construct database/provider clients or dispatch/expire records.
+        return
     db, providers = Database(settings.database_url), PushProviders(settings)
     try:
         while True:

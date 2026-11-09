@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-11-09T17:51:25.112122+00:00",
+  "service_environment": "restricted staging",
+  "code_revision": "5ca447b60bba56116c2a87db1d47c8830630b7aa",
+  "schema_unchanged": true,
+  "apple_environment": "Sandbox",
+  "bundle_id": "co.fallsoft.vipi",
+  "app_id": "6832624092",
+  "callback_url": "https://api.mambovipi.app/v1/store-notifications/apple",
+  "production_callback_configured": false,
+  "request_count": 1,
+  "official_sdk_version": "3.1.2",
+  "verification": {
+    "at_utc": "2026-11-09T17:51:25.112122+00:00",
+    "mode": "inspect_original_token",
+    "new_test_requests": 0,
+    "attempts": [
+      {
+        "date_ms": 1794246659760,
+        "result": "SUCCESS"
+      }
+    ],
+    "event_id": "5ac9c030-fc69-406a-96c4-617599fa4291",
+    "notification_type": "TEST",
+    "version": "2.0",
+    "signature_verified": true,
+    "retained_event_matches": true,
+    "transaction_id_absent": true,
+    "entitlement_counts_before": {},
+    "entitlement_counts_after": {},
+    "no_entitlements_created": true,
+    "passed": true
+  },
+  "activation": {
+    "state": "active_verified",
+    "duration_seconds": 4.569,
+    "invalid_signed_payload_http_status": 400,
+    "unauthenticated_me_http_status": 401,
+    "public_readiness_http_status": 403,
+    "shared_services_unchanged": true,
+    "public_registration_opened": false,
+    "billing_enforcement_changed": false
+  },
+  "private_keys_tokens_signed_payloads_in_source": false,
+  "qualification_limits": [
+    "No actual purchase, renewal, refund, revocation or restore qualified.",
+    "Production verification/callback remains unconfigured.",
+    "No APNs or Google notification delivery qualified.",
+    "No release build uploaded or customer availability implied."
+  ],
+  "private_receipt_hashes": {
+    "activation.json": "2e6681eee66fa05967859292f3e54d0ef7e87258732b1e48d65a9cee9e607691",
+    "test-request-intent.json": "cb5c2644ee2545df12c794da15ae01a2b2aeb5570ab7788ae9967511b32c56bc",
+    "test-request-result.json": "6b6d9e644f7a3e95609d5de962ded62df9d341938d7fa7c2b467025f5411068d",
+    "test-status-20261109T175126237291Z.json": "d2c486d33dc55e1189ca8df32e59f14f37e15ccb5633b4e24410bf572b8dfb18"
+  }
+}

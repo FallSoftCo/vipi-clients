@@ -23,7 +23,9 @@
     "name": "Vipi Push Production 20261109",
     "environment": "production",
     "restriction": "topic-specific",
-    "topics": ["co.fallsoft.vipi"],
+    "topics": [
+      "co.fallsoft.vipi"
+    ],
     "private_key_downloaded_and_verified": true,
     "backend_enabled": false,
     "physical_delivery_verified": false
@@ -79,7 +81,48 @@
     "provider_notifications": false,
     "build_uploaded": false,
     "submitted_for_review": false,
-    "customer_available": false
+    "customer_available": false,
+    "apple_sandbox_test_notification": true
   },
-  "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01"
+  "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
+  "in_app_purchase_key": {
+    "key_id": "4RNYU333FS",
+    "name": "Vipi Server 20261109",
+    "purpose": "In-App Purchase server API",
+    "private_key_downloaded_and_verified": true,
+    "backend_environment": "Sandbox",
+    "actual_test_notification_verified": true
+  },
+  "server_notifications": {
+    "sandbox_url": "https://api.mambovipi.app/v1/store-notifications/apple",
+    "sandbox_url_reload_verified": true,
+    "production_url": null,
+    "actual_sandbox_test": {
+      "version": "2.0",
+      "signature_verified": true,
+      "apple_delivery_result": "SUCCESS",
+      "matching_event_retained": true,
+      "entitlements_created": false,
+      "receipt": "qa/backend/apple-sandbox-notification-r01/receipt.json"
+    }
+  },
+  "listing_draft": {
+    "subtitle": "A new language in every chat",
+    "primary_category": "SOCIAL_NETWORKING",
+    "secondary_category": "EDUCATION",
+    "saved_and_reload_verified": true,
+    "version": "1.0",
+    "version_fields_saved": [
+      "promotional_text",
+      "description",
+      "keywords",
+      "support_url",
+      "marketing_url",
+      "copyright"
+    ],
+    "metadata_source_sha256": "f9f21981bd04bbab923b5800fd6fa1a4a8403bc203d7b831252f6d52e35d5aa6",
+    "version_fields_reload_verified": true,
+    "release_type": "AFTER_APPROVAL, unchanged",
+    "review_submitted": false
+  }
 }

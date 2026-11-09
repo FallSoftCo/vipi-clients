@@ -37,3 +37,22 @@ Checks cover idempotency, claimed completeness never opening service, conflict-t
 Before editing existing runtime files, review an explicit recovery-admission design: a restored-service epoch/checkpoint bound to the exact restore and externally verified reconciliation authority/cutoff, checked by API startup **and** deletion/billing/bot workers before serving or dispatching. A Boolean in this report cannot supply that authority. The database schema and API/config hooks are intentionally not implemented here; an enforced gate needs separate review and isolated integration tests showing that every relevant entry point refuses an unresolved epoch.
 
 The external evidence prerequisite remains unresolved: a complete independently retained deletion/restriction interval, current store verification, personal/global spending and consumed-request reconciliation (including uncertainty), then explicit device re-enrollment. If that evidence is unavailable, keep recovery offline. This patch does not make reopening release-ready.
+
+## Subsequent startup hold
+
+`recovery-hold-receipt-r01.json` records the separately reviewed runtime addition.
+Set `VIPI_RECOVERY_HOLD=true` consistently in the environment of the API,
+billing, expiry/deletion and push processes **before** starting a restored copy.
+The held API constructs no database, authentication, store, bot or event clients.
+It serves only static product/privacy/help/deletion guidance and liveness;
+readiness returns 503, all other HTTP paths return 503 and WebSockets close
+before acceptance. Worker entry points return before client construction.
+Private operator list/show remain available; operator mutations are refused.
+
+The default is false, preserving ordinary deployments. This startup flag is
+not automatic restore detection, a live drain, evidence authority or an epoch
+protocol. It cannot stop processes already running with the flag unset. An
+offline report never changes it. No live service was changed. The same external
+evidence and explicit re-enrollment gates above remain necessary before release.
+The focused plus affected default-path regression passed 101 tests; four optional
+PostgreSQL-only tests were skipped. Source/log hashes are in the receipt.
