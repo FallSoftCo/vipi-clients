@@ -472,6 +472,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             case "invalid_username": return "Use 3–24 letters, numbers or underscores, starting with a letter."
             case "own_username": return "That’s your username. Enter your friend’s username to start a conversation."
             case "service_not_available": return "Vipi is being prepared for launch. This account isn’t in the preview yet."
+            case "base_subscription_required": return "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available."
             case "device_replacement_confirmation_required": return "This account is already active on another device. Moving your account needs a separate confirmation."
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
             case "recipient_keys_unavailable": return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
