@@ -1,0 +1,224 @@
+{
+  "production": false,
+  "activation": false,
+  "complete": true,
+  "r01_source_closure_commit": "265c42c",
+  "code_sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+  "protocol_sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+  "stages": {
+    "heads-r02": {
+      "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/r02-evidence/heads-r02/receipt.json",
+      "sha256": "68dee602b881d9b6270643381aba6dc1b0406d840dbb9775935749aa30feab14",
+      "receipt": {
+        "code_sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+        "complete": true,
+        "counts": {
+          "all_heads": 21425,
+          "contexts": 19960,
+          "eligible_heads": 2556,
+          "rejected:inside_larger_source_unit": 4887,
+          "rejected:inside_larger_target_unit": 1381,
+          "rejected:no_eligible_shared_sense_pos_number": 17785,
+          "rejected:no_mutual_anchor": 1131,
+          "rejected:union_edge_crosses_focus": 7032
+        },
+        "error": null,
+        "outputs": {
+          "freeze.json": {
+            "bytes": 11800,
+            "sha256": "6dec991ea072522ba542b64f5f82cac159e63f6f859127f9ad47176e87dcb4a5"
+          },
+          "heads.sqlite": {
+            "bytes": 317149184,
+            "sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90"
+          }
+        },
+        "process_memory_bytes": {
+          "VmHWM": 127397888,
+          "VmPeak": 138928128,
+          "VmRSS": 94343168
+        },
+        "production": false,
+        "protocol_sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+        "seconds": 274.3709302540228,
+        "stage": "heads"
+      }
+    },
+    "project-r02": {
+      "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/r02-evidence/project-r02/receipt.json",
+      "sha256": "a21a06cd1b29af0a4e513012d880742bf3a9ed33e7565c1bbe5e65467d73616b",
+      "receipt": {
+        "code_sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+        "complete": true,
+        "error": null,
+        "outputs": {
+          "decisions.jsonl.gz": {
+            "bytes": 20450123,
+            "sha256": "255d89336001a080f7cb3e188246da4c81fad3c8f5874cc9195f4f7c6f4cdaaf"
+          },
+          "freeze.json": {
+            "bytes": 11802,
+            "sha256": "5ccd3b9e57d7d63e134e71a8c397a2ab3d66769d022f15ffd4545283ef66f9be"
+          },
+          "metrics.json": {
+            "bytes": 468,
+            "sha256": "10a5384aee0371b24eebc6c99ed0c06b606dd03995116363e5af4d537233850b"
+          },
+          "review-selection-freeze.json": {
+            "bytes": 5568,
+            "sha256": "4c882f987bff50dde3fcf3ff115a450f0954676bb6b3e27f6b54b7256d149765"
+          }
+        },
+        "process_memory_bytes": {
+          "VmHWM": 142041088,
+          "VmPeak": 152039424,
+          "VmRSS": 86609920
+        },
+        "production": false,
+        "protocol_sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+        "rows": 9535,
+        "seconds": 121.57396751499618,
+        "stage": "project"
+      }
+    },
+    "packet-r02": {
+      "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/r02-evidence/packet-r02/receipt.json",
+      "sha256": "3c4cbf8586ad515f300c3a1fba565c42d5a137893b764151e77d686c8c543e4a",
+      "receipt": {
+        "cases": 24,
+        "code_sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+        "complete": true,
+        "error": null,
+        "outputs": {
+          "freeze.json": {
+            "bytes": 11801,
+            "sha256": "b1eeaafbd480f00b3066aa58c283dfaa19dc1c9a0b0764af4a50fc6aba973abe"
+          },
+          "review-packet.json": {
+            "bytes": 6411415,
+            "sha256": "3032eeb91acb02a7dfb265dde0dcac5615d1c1ded4e20b6a7cedd191bade2d95"
+          }
+        },
+        "packet_sha256": "3032eeb91acb02a7dfb265dde0dcac5615d1c1ded4e20b6a7cedd191bade2d95",
+        "process_memory_bytes": {
+          "VmHWM": 123387904,
+          "VmPeak": 146767872,
+          "VmRSS": 59977728
+        },
+        "production": false,
+        "protocol_sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+        "seconds": 1.895808104018215,
+        "stage": "packet",
+        "unique_context_proofs": 95
+      }
+    }
+  },
+  "metrics": {
+    "expanded|all_function": {
+      "changed_words": 6362,
+      "messages": 9535,
+      "nonempty": 4557,
+      "selected_context_depth_sum": 9712
+    },
+    "expanded|all_function_global300": {
+      "changed_words": 3501,
+      "messages": 9535,
+      "nonempty": 2876,
+      "selected_context_depth_sum": 5216
+    },
+    "fixed|all_function": {
+      "changed_words": 6014,
+      "messages": 9535,
+      "nonempty": 4398,
+      "selected_context_depth_sum": 7479
+    },
+    "fixed|all_function_global300": {
+      "changed_words": 3274,
+      "messages": 9535,
+      "nonempty": 2729,
+      "selected_context_depth_sum": 3941
+    }
+  },
+  "selection": {
+    "selected_count": 24,
+    "counts": {
+      "all_function:both_empty": 4978,
+      "all_function:changed": 512,
+      "all_function:unchanged": 9023,
+      "all_function_global300:both_empty": 6659,
+      "all_function_global300:changed": 331,
+      "all_function_global300:unchanged": 9204,
+      "empty_gain|all_function": 159,
+      "empty_gain|all_function_global300": 147,
+      "excluded_review_exposure": 34,
+      "new_long_context|all_function": 21,
+      "new_long_context|all_function_global300": 8,
+      "other_change|all_function": 332,
+      "other_change|all_function_global300": 176
+    },
+    "shortages": [
+      {
+        "known": "all_function",
+        "quota": 4,
+        "selected": 0,
+        "stratum": "depth_loss"
+      },
+      {
+        "known": "all_function_global300",
+        "quota": 4,
+        "selected": 0,
+        "stratum": "depth_loss"
+      }
+    ],
+    "sha256": "4c882f987bff50dde3fcf3ff115a450f0954676bb6b3e27f6b54b7256d149765"
+  },
+  "packet": {
+    "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/r02-evidence/packet-r02/review-packet.json",
+    "sha256": "3032eeb91acb02a7dfb265dde0dcac5615d1c1ded4e20b6a7cedd191bade2d95",
+    "bytes": 6411415
+  },
+  "prefix_equivalence": {
+    "contexts_compared": 5648,
+    "heads_compared": 713,
+    "context_row_blob_mismatches": 0,
+    "head_row_mismatches": 0,
+    "complete": true,
+    "old_retained": true,
+    "output_bytes": 506513550,
+    "total_root_bytes": 1122990980,
+    "seconds": 0.5359496229793876
+  },
+  "author_review_freeze": {
+    "path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/author-review-r01.json",
+    "sha256": "0e202c3c246a00fa97ff56ca355c251979d714de061dc02a1790f8c8850a9ece",
+    "case_count": 24,
+    "union_emission_count": 46,
+    "whole_outputs": 48,
+    "other_labels_read": false
+  },
+  "interpretation": "Execution and independent review freezes complete. Joined results are recorded separately; no activation or population accuracy claim. Failed r01 database retired only after root-accepted exact prefix equality, replacement hashes and fresh no-reader check; all receipts and full r02 outputs retained.",
+  "failed_r01_retirement": {
+    "private_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/failed-r01-retirement-receipt.json",
+    "sha256": "d6b982762504ec59ab165ba56055b33f4f3e494e403378c4b52e40386a97539c",
+    "receipt": {
+      "exact_deleted_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/heads/heads.sqlite",
+      "bytes_reclaimed": 83881984,
+      "old_sha256": "bca3bc7693ebf8d492dbf71a614a75c9956c26b37b7635f3f2bbbc87fcafa0a4",
+      "replacement_sha256": "df310b8628079900c2e2ee5c638a21de6e1ef1cc9b15c1a20ae7479a83bcfd90",
+      "fresh_reader_check": {
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      "root_authorized": true,
+      "accepted_prefix_equality": {
+        "context_rows_and_blobs": 5648,
+        "head_rows": 713,
+        "mismatches": 0
+      },
+      "failure_receipt_retained": true,
+      "deleted": true,
+      "replacement_retained": true
+    }
+  }
+}

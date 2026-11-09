@@ -1,0 +1,319 @@
+{
+  "schema": "vipi.context-head-comparison.r02",
+  "production": false,
+  "status": "pending_root_r02_code_review_no_r02_execution",
+  "code_hashes": {
+    "head_compare_r02.py": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+    "head_review.py": "50ea259e5bf6c40a4ade46ad99490f3c73cf896201da674a32bcf351c141056d"
+  },
+  "inputs": {
+    "phrase_helper": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "bytes": 12526,
+      "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+    },
+    "normalizer": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "bytes": 5873,
+      "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+    },
+    "tokenizer": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "bytes": 5195,
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "head_helper": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "bytes": 31578,
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "local": "/home/ai/Development/vipi-production-20261107/language-packs/context_hints.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "bytes": 5374,
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "selector": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_native_selection.py",
+      "bytes": 16332,
+      "sha256": "3e0be2b00bee65801bb220b3109df348d86041555b8bd85618dc051b405243fa"
+    },
+    "comparator": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/reference_compare.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/reference_compare.py",
+      "bytes": 20057,
+      "sha256": "5ed2376c939e441b12e1ad8140da856130c7e6d17f33fe8cce55714ee789127d"
+    },
+    "literal_payload": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/payload.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/payload.json",
+      "bytes": 89944,
+      "sha256": "5c6a1c513a68f861ca28fd8c45b99b347e130940a29e6898bcc811fcfb47e5bc"
+    },
+    "literal_semantics": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/semantics.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/nlp-template-comparison-r01/semantics.json",
+      "bytes": 14044,
+      "sha256": "ac0df4d3ef183b9628fd6d29b868e50b7c02556a270de355d13dd6ff595cf3d7"
+    },
+    "old_projector": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/project_contextual.py",
+      "bytes": 17508,
+      "sha256": "443cd1db89c48760662b12f503299c89848bcb012c4685e4362ec89d591343de"
+    },
+    "annotation_loader": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-role-veto-r01/project.py",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/source-role-veto-r01/project.py",
+      "bytes": 16498,
+      "sha256": "6c080ce26ef9a3efa4fea025155e72949781be2bd680e559fcfacbe61f8888f9"
+    },
+    "content_baseline": {
+      "local": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/coverage_ceiling_experiment/content-expansion-candidate-r01.json",
+      "bytes": 1523199,
+      "sha256": "5264106ac021932f97350767a792a53e74cdac2fed4242997c9e771a683508a4"
+    },
+    "dictionary_en": {
+      "local": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-en.sqlite",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "bytes": 207884288,
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "dictionary_es": {
+      "local": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/noun-boundary-arms/d-es.sqlite",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "bytes": 364613632,
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "family_control": {
+      "local": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/scaled-mechanism-cases-r01/editorial-runtime-candidate-r03.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/editorial-runtime-candidate-r03.json",
+      "bytes": 8297238,
+      "sha256": "38a5c9989baa7603d5caf2bb03c2ca38021b56e0cba871a1b4b16e4de98aedc1"
+    },
+    "geometry": {
+      "local": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/tokenizer-r87b/rows.jsonl",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/rows.jsonl",
+      "bytes": 9133177,
+      "sha256": "fc41c289c79d3d7d07a72b5f9041c359565f88cdca38deaf5cc0569530425780"
+    },
+    "annotation_inputs": {
+      "local": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/inputs.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotation-inputs.json",
+      "bytes": 968946,
+      "sha256": "c0ee9c86f35828b3309ab7278dcb0ce1d702fa168ec47e9bd91fd0ea3fa1df54"
+    },
+    "annotations": {
+      "local": "/home/ai/Development/investigations/vipi-source-role-veto-20261108-r01/android/annotations.jsonl",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/annotations.jsonl",
+      "bytes": 5976874,
+      "sha256": "d74ad01af3d62c969993a96f2c10d51ad6a25986af2e5b8cbf8e9711c61776fe"
+    },
+    "source_context": {
+      "local": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/bst-evaluation-source-r01/train.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/train.json",
+      "bytes": 17399995,
+      "sha256": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c"
+    },
+    "exclusions": {
+      "local": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/review-exclusions.json",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/review-exclusions.json",
+      "bytes": 152952,
+      "sha256": "d1263accefac1791dd0754f17483679eeed6cf7a88ba79ed0d731308a32601c0"
+    },
+    "matched_keys": {
+      "local": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/source-inventory-r02/matched-keys.json.gz",
+      "remote": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/matched-keys.json.gz",
+      "bytes": 200626,
+      "sha256": "74df5e859e3ea1c221c751521ffb3501e84e9301044e7457277de19f8b2ac19f"
+    },
+    "fixed_keys": {
+      "local": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/source-frequency-keys.json",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/inputs/source-frequency-keys.json",
+      "bytes": 2579028,
+      "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+    },
+    "pairs": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/remote-evidence/outputs/fetch/en-es-pairs.jsonl.gz",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "bytes": 21464476,
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "forward_align": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/en-es-forward.align",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+      "bytes": 1274409,
+      "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+    },
+    "reverse_align": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/en-es-reverse.align",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+      "bytes": 1298184,
+      "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+    },
+    "grow_align": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/en-es-grow-diag-final-and.align",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-grow-diag-final-and.align",
+      "bytes": 1428886,
+      "sha256": "19c1bc614d2c5cc5a792d2a15da6fb4b1aabb2c794347e1c5b49c736827d1ab8"
+    },
+    "forward_params": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/en-es-forward.params",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.params",
+      "bytes": 972931,
+      "sha256": "bc5445ab619016fc5d7ca5b16a6d6347d3f394b69ed35804b76f3e16592db27b"
+    },
+    "reverse_params": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/en-es-reverse.params",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.params",
+      "bytes": 1200805,
+      "sha256": "f9698a65187b22d7fabc504c65f6b1ec27afd7a48db77752b408d20797b9bd69"
+    },
+    "fixed_variants": {
+      "local": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/remote-evidence/outputs/phrases-r01/candidates.sqlite",
+      "remote": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/phrases-r01/candidates.sqlite",
+      "bytes": 41271296,
+      "sha256": "d9ac43f7be22f10d03df4bfc69e58566865794324f3b71eb71f58fe014e42981"
+    }
+  },
+  "stage_quotas_bytes": {
+    "heads": 805306368,
+    "project": 67108864,
+    "packet": 29360128
+  },
+  "limits": {
+    "host": "fallsoft-production-20261106",
+    "cpu": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "seconds_per_stage": 1200,
+    "output_bytes": 1073741824,
+    "additional_disk_bytes": 2147483648,
+    "free_floor_bytes": 8589934592
+  },
+  "policy": {
+    "arms": [
+      "fixed",
+      "expanded"
+    ],
+    "key_count": 25931,
+    "fixed_source_present": 6461,
+    "fixed_original_key_count": 8000,
+    "fixed_original_aligned_keys": 5816,
+    "same_corpus_pairs": 40000,
+    "native_messages": 9535,
+    "context_token_max": 8,
+    "target_token_max": 12,
+    "source_head_unit_max": 5,
+    "head_POS": [
+      "noun",
+      "adj",
+      "adv"
+    ],
+    "role": "Frozen OpenNLP exact single-token mapped role required, confidence unused, unknown/composites/PROPN abstain",
+    "emission": "Single corpus/native/annotation-token content head only; same-face zero output",
+    "density": 0.25,
+    "known": [
+      "all_function",
+      "all_function_global300"
+    ],
+    "representative": "First pair index and source/target token interval insertion order; source/context identity checked",
+    "ranking": "distinct components descending, mean bidirectional lexical score descending, variant ID ascending; no alternate rescue",
+    "fixed_parity": "Full native-matched existing fixed variant rows and component memberships; absent aligned keys compare empty; no downstream head output until parity complete",
+    "proofs": "All phrase variants, all observations, all head alternatives/rejections retained keyed; masks independent; fail on bounds, never truncate",
+    "selection": "Exact frozen select; expanded unranked key train_rank1e9; same common candidates, historical strict-containing masks",
+    "not_claimed": [
+      "all meanings complete",
+      "verb coverage",
+      "safe grammar transfer",
+      "held-out accuracy",
+      "catalog activation"
+    ]
+  },
+  "review": {
+    "seed": "vipi-context-head-expansion-review-r01",
+    "ordered_strata": [
+      "empty_gain",
+      "depth_loss",
+      "new_long_context",
+      "other_change"
+    ],
+    "known": [
+      "all_function",
+      "all_function_global300"
+    ],
+    "quota": 4,
+    "maximum": 32,
+    "global_unique_source_ids": true,
+    "backfill": false,
+    "depth_loss": "Sum of selected emitted focus native-word costs decreases; context length does not define this stratum, and semantic loss is reviewed separately",
+    "output_change": "Focus/target/reading-text sets or mixed output differ; proof identity alone is not change",
+    "full_context": true,
+    "independent_labels_before_join": true
+  },
+  "commands": [
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "heads"
+    ],
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "project"
+    ],
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "packet"
+    ]
+  ],
+  "parent_extract": {
+    "receipt_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/extract/receipt.json",
+    "receipt_sha256": "f3f99364220e519658a5abfbd8f13ac5daf6314308c993784e36fc09e8545355",
+    "protocol_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head-protocol-r01.json",
+    "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+    "code_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare.py",
+    "code_sha256": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "outputs": {
+      "fixed-parity.json": {
+        "bytes": 206,
+        "sha256": "4255e2e99f6abe402c31aa3f5f1e57f8dbf4a2600b6db697493d117407749de6"
+      },
+      "freeze.json": {
+        "bytes": 11802,
+        "sha256": "e2b376dee78b693399354264584fbbf89c725fe6de3f0d41487cb52ac82f1a64"
+      },
+      "observations.jsonl.gz": {
+        "bytes": 21002542,
+        "sha256": "ee370dba8481e6095aefb2ba948552d770a6b5c6c00347a75fda50100efd2080"
+      },
+      "variants.sqlite": {
+        "bytes": 57536512,
+        "sha256": "69f192344970523d8aa2a453058d36613923790f48a6cf3b261657580ff13e14"
+      }
+    }
+  },
+  "revision_scope": "Only execution directories, storage allowances and explicit verified parent extraction reuse. Same frozen inputs, helper/semantic/selection/review policies. No preflight, extraction or fit replay. Retain failed r01 heads until complete replacement hash and row equivalence justify retirement."
+}

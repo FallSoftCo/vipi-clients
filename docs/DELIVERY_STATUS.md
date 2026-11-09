@@ -44,13 +44,19 @@ has not silently enabled a research catalog or corrected a bad full translation.
 
 The latest comparisons establish these limits:
 
-A new source-only check removes the 5,000-key multiword cap while retaining
+The completed context expansion removes the 5,000-key multiword cap while retaining
 the 3,000 single-word entries and the same 40,000 Tatoeba pairs. It finds 19,470
 additional contexts matching the retained 9,535 native TRAIN messages.
 Four-to-eight-word matches reach 3,117 messages versus 1,595; any-length matches
-remain at 9,506. This expands available context, not proven useful immersion.
-Alignment, complete heads, actual sentence roles, budgeted output and meaning
-still need comparison with identical policies. No catalog was activated. See
+remain at 9,506. With the same alignment, head/role rules and 25% budget, raw
+nonempty outputs increase from 4,398 to 4,557, or 2,729 to 2,876 when the first
+300 vocabulary families are withheld. Both independently frozen reviews agree
+on all 46 emitted units in 24 stratified changed-output cases. Strictly correct
+nonempty outputs increase 12→17, but decline 12→10 among the 16 cases already
+nonempty in both arms. Longer contexts repair one additive “too” error but
+introduce a university/school mismatch and form defects; “just as” remains wrong.
+These reused TRAIN counts are not population accuracy or correct coverage.
+The completed evidence is retained; no catalog was activated. See
 `qa/immersion/context-key-expansion-r01`.
 
 | Approach | Observed result | Decision |

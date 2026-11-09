@@ -1,0 +1,166 @@
+{
+  "production": false,
+  "activation": false,
+  "joined_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/joined-review-r01.json",
+  "joined_sha256": "0010fa638b0cb8b827ccd3b7d30d6654c86918ad942d5094fdb4c47382093de6",
+  "script_sha256": "60877611f2ffc237a03cd1a93de0d7065237609c28aace649de8ec232079c009",
+  "input_hashes": {
+    "packet": "3032eeb91acb02a7dfb265dde0dcac5615d1c1ded4e20b6a7cedd191bade2d95",
+    "author": "0e202c3c246a00fa97ff56ca355c251979d714de061dc02a1790f8c8850a9ece",
+    "root": "41d91b74a9623f265f981ffe60382f2f11c2d228eb5a0b261830b126b4d87169"
+  },
+  "review_cases": 24,
+  "review_unique_emissions": 46,
+  "review_whole_outputs": 48,
+  "unit_disagreements": [],
+  "whole_output_disagreements": [],
+  "review_aggregates": {
+    "author": {
+      "unit:correct": 36,
+      "fixed:empty": 8,
+      "fixed:strict": 12,
+      "fixed:minor_tolerant": 14,
+      "expanded:correct": 17,
+      "expanded:strict": 17,
+      "expanded:minor_tolerant": 22,
+      "unit:material_error": 4,
+      "expanded:material_error": 2,
+      "unit:minor_issue": 6,
+      "fixed:minor_issue": 2,
+      "expanded:minor_issue": 5,
+      "fixed:correct": 12,
+      "fixed:material_error": 2
+    },
+    "root": {
+      "unit:correct": 36,
+      "fixed:empty": 8,
+      "fixed:strict": 12,
+      "fixed:minor_tolerant": 14,
+      "expanded:correct": 17,
+      "expanded:strict": 17,
+      "expanded:minor_tolerant": 22,
+      "unit:material_error": 4,
+      "expanded:material_error": 2,
+      "unit:minor_issue": 6,
+      "fixed:minor_issue": 2,
+      "expanded:minor_issue": 5,
+      "fixed:correct": 12,
+      "fixed:material_error": 2
+    }
+  },
+  "review_paired_and_unit_changes": {
+    "author": {
+      "added:correct": 20,
+      "strict:gain": 8,
+      "minor_tolerant:gain": 8,
+      "added:material_error": 2,
+      "strict:both_fail": 4,
+      "minor_tolerant:both_fail": 2,
+      "retained:minor_issue": 2,
+      "retained:correct": 8,
+      "removed:minor_issue": 1,
+      "minor_tolerant:both_pass": 14,
+      "removed:correct": 8,
+      "strict:both_pass": 9,
+      "removed:material_error": 2,
+      "added:minor_issue": 3,
+      "strict:loss": 3
+    },
+    "root": {
+      "added:correct": 20,
+      "strict:gain": 8,
+      "minor_tolerant:gain": 8,
+      "added:material_error": 2,
+      "strict:both_fail": 4,
+      "minor_tolerant:both_fail": 2,
+      "retained:minor_issue": 2,
+      "retained:correct": 8,
+      "removed:minor_issue": 1,
+      "minor_tolerant:both_pass": 14,
+      "removed:correct": 8,
+      "strict:both_pass": 9,
+      "removed:material_error": 2,
+      "added:minor_issue": 3,
+      "strict:loss": 3
+    }
+  },
+  "both_nonempty_review": {
+    "author": {
+      "fixed:strict": 12,
+      "expanded:strict": 10,
+      "fixed:minor_tolerant": 14,
+      "expanded:minor_tolerant": 15,
+      "cases": 16
+    },
+    "root": {
+      "fixed:strict": 12,
+      "expanded:strict": 10,
+      "fixed:minor_tolerant": 14,
+      "expanded:minor_tolerant": 15,
+      "cases": 16
+    }
+  },
+  "all_messages_raw_availability": {
+    "all_function": {
+      "denominator_messages": 9535,
+      "fixed": {
+        "changed_words": 6014,
+        "messages": 9535,
+        "nonempty": 4398,
+        "selected_context_depth_sum": 7479
+      },
+      "expanded": {
+        "changed_words": 6362,
+        "messages": 9535,
+        "nonempty": 4557,
+        "selected_context_depth_sum": 9712
+      },
+      "net_nonempty_gain": 159,
+      "net_changed_words_gain": 348,
+      "paired_changed_outputs": 512,
+      "empty_to_nonempty": 159,
+      "emitted_depth_loss_cases": 0
+    },
+    "all_function_global300": {
+      "denominator_messages": 9535,
+      "fixed": {
+        "changed_words": 3274,
+        "messages": 9535,
+        "nonempty": 2729,
+        "selected_context_depth_sum": 3941
+      },
+      "expanded": {
+        "changed_words": 3501,
+        "messages": 9535,
+        "nonempty": 2876,
+        "selected_context_depth_sum": 5216
+      },
+      "net_nonempty_gain": 147,
+      "net_changed_words_gain": 227,
+      "paired_changed_outputs": 331,
+      "empty_to_nonempty": 147,
+      "emitted_depth_loss_cases": 0
+    }
+  },
+  "selection_shortages": [
+    {
+      "known": "all_function",
+      "quota": 4,
+      "selected": 0,
+      "stratum": "depth_loss"
+    },
+    {
+      "known": "all_function_global300",
+      "quota": 4,
+      "selected": 0,
+      "stratum": "depth_loss"
+    }
+  ],
+  "limits": [
+    "24 changed-case stratified reused-TRAIN cases, not representative population accuracy.",
+    "Raw reach/changed words are selection quantities, not usable meaning coverage.",
+    "Empty output has zero immersion credit.",
+    "No sampled emitted-depth losses occurred, but different valid units and occurrences can still be displaced.",
+    "Agreement of these two reviews does not establish gold labels or general safety."
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "status": "pending_root_review_before_r02_execution",
+  "production": false,
+  "code_sha256": "d472c628a199b0e435b568fd46b91ef1122afae0e64421adc5555850d02fcae5",
+  "protocol_sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+  "unchanged_review_sha256": "50ea259e5bf6c40a4ade46ad99490f3c73cf896201da674a32bcf351c141056d",
+  "proof_size_audit": {
+    "contexts": 5648,
+    "proof_blob_sum_bytes": 69455846,
+    "proof_blob_max_bytes": 42954,
+    "proof_blob_length_quantiles": {
+      "0": 2370,
+      "0.25": 8310,
+      "0.5": 11006,
+      "0.75": 15254,
+      "0.9": 19815,
+      "0.95": 22934,
+      "0.99": 28775,
+      "1": 42954
+    },
+    "page_count": 20479,
+    "freelist_count": 0,
+    "page_size": 4096,
+    "file_bytes": 83881984,
+    "expected_full_contexts": 19960,
+    "linear_full_database_bytes_estimate": 296438456.203966,
+    "linear_full_proof_bytes_estimate": 245456566.24645892,
+    "limits": "Aggregate lengths only, no proof decompression or target inspection. Ordered corpus prefix is not random; tail distribution may differ."
+  },
+  "audit_private_path": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/head-proof-size-audit-r01.json",
+  "audit_sha256": "1d3dd5734d5ad532b5a05b6eea87c049b4d1ed94ef2c99d442c305267b013097",
+  "new_database_cap_bytes": 402653184,
+  "new_heads_quota_bytes": 805306368,
+  "aggregate_outputs_bytes_including_r01": 1073741824,
+  "total_footprint_bytes_including_inputs_and_r01": 2147483648,
+  "inputs_bytes": 616385856,
+  "estimated_database_headroom_bytes": 106214727.79603398,
+  "parent_extract": {
+    "receipt_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/extract/receipt.json",
+    "receipt_sha256": "f3f99364220e519658a5abfbd8f13ac5daf6314308c993784e36fc09e8545355",
+    "protocol_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head-protocol-r01.json",
+    "protocol_sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+    "code_path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare.py",
+    "code_sha256": "7f6b48c2b616a9696f8004f6237bc2992741e7c041d2ff9fc7bcd69aeea4f2dc",
+    "outputs": {
+      "fixed-parity.json": {
+        "bytes": 206,
+        "sha256": "4255e2e99f6abe402c31aa3f5f1e57f8dbf4a2600b6db697493d117407749de6"
+      },
+      "freeze.json": {
+        "bytes": 11802,
+        "sha256": "e2b376dee78b693399354264584fbbf89c725fe6de3f0d41487cb52ac82f1a64"
+      },
+      "observations.jsonl.gz": {
+        "bytes": 21002542,
+        "sha256": "ee370dba8481e6095aefb2ba948552d770a6b5c6c00347a75fda50100efd2080"
+      },
+      "variants.sqlite": {
+        "bytes": 57536512,
+        "sha256": "69f192344970523d8aa2a453058d36613923790f48a6cf3b261657580ff13e14"
+      }
+    }
+  },
+  "old_closure": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/r01-closure",
+  "validation": [
+    "Syntax compiled",
+    "AST equality verified for extraction, heads, projection, packet and pure helpers",
+    "Input, semantic/selection and review policies exactly equal r01",
+    "Only heads/project/packet CLI stages enabled",
+    "Explicit parent receipt/protocol/code/output hashes checked before reused extraction",
+    "Root output footprint includes failed r01 outputs; no retirement performed"
+  ],
+  "commands": [
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "heads"
+    ],
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "project"
+    ],
+    [
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "1210",
+      "python3",
+      "-B",
+      "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/context-key-expansion-r01/head_compare_r02.py",
+      "packet"
+    ]
+  ],
+  "not_executed": true
+}
