@@ -19,8 +19,14 @@ restart their services, or create replacement VMs.
   recovery; do not restart it or create a replacement VM. The historical guest mirror is
   `/Users/lume/Development/vipi-delivery-20261107-r01/source`; the old native
   `/Users/Apple/Development/vipi` tree is not automatically current source.
-  Reconcile the migration receipts and establish a clean committed-source native
-  mirror before building. Preserve native projects, accounts and unrelated jobs;
+  A new clean mirror at
+  `/Users/Apple/Development/vipi-native-delivery-20261109-r01/source` now contains
+  all 351 committed `ios` files from `a330fdc`, independently hash-verified.
+  Its first native core build passed 105 XCTest and 26 Swift Testing cases with
+  Xcode 26.6, two compiler jobs and 218.6 MB of final allocated output. This is
+  core-package qualification; the remaining app inputs/dependencies, full app
+  build and model execution are separate work. The mirror has no independent
+  Git history and excludes the inherited unqualified changes. Preserve native projects, accounts and unrelated jobs;
   keep two compiler jobs and measured physical storage admission.
 - Android: existing `emulator-5620` QA AVD on system76, two virtual CPUs and 2 GiB
   RAM. It is a 4-KiB runtime, not physical 16-KiB page-size qualification. The
@@ -61,9 +67,9 @@ consistent post-drain state and native active-app qualification remain pending.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
-Committed private source through `15675ec9ac13ee29ed56df30b5a1dec76049d6e5` is
+Committed private source through `a330fdc01ee5b7de5ea670d24f7bea8bf45c2d0a` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261108-r25`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261109-r03`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public

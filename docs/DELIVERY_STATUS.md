@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-08 23:57 UTC. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-09. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, physical release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -280,12 +280,17 @@ The existing accessible action button remains available.
 
 New Apple work belongs on the native Mac. The migration owner verified the old
 development VM shut down at 2026-11-09 00:19:52 UTC; its disk remains intact for
-read-only recovery and must not be restarted. Native Vipi source, model and
-runtime-state restoration still require reconciliation. Native builds preserve
+read-only recovery and must not be restarted. A clean native mirror now contains
+all 351 committed Apple source files at `a330fdc`; its native core package passed
+105 XCTest and 26 Swift Testing cases. Full app/dependency restoration, models
+and runtime state still require separate qualification. Native builds preserve
 at least 1 GiB physical headroom plus measured operation size; full source
 builds and model preparation require their own capacity checks. Historical guest
 model thresholds and small-build exceptions do not qualify native model
-readiness. Preserve native projects, accounts and unrelated applications.
+readiness. Preserve native projects, accounts and unrelated applications. A fresh
+bounded Pixel connection attempt found neither authorized USB nor verified TCP
+access, and native CoreDevice lists both paired Apple devices as unavailable.
+The existing iPhone simulator remains booted; no new physical test is claimed.
 
 Fresh hosted Apple reauthentication stopped at a generic confirmation-code
 screen. Bounded WorkOS admin lookup found no matching code event. No renewed
