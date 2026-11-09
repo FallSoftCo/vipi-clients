@@ -81,6 +81,16 @@ prove rejection behavior. Full target errors remain separate, and neither this
 exposed diagnostic nor the root review is a population benchmark. The source
 change remains qualification-only. See
 `qa/immersion/target-informed-alignment-r01/RESULT.md`.
+The subsequent fixed200-row Taskmaster comparison does **not** qualify B for
+activation. Author-reviewed correct nonempty messages rise90→113, but material
+error cases rise6→11; all11 lost spans were valid. Root's predetermined40-case
+masked review independently observes18→24 correct messages and a new travel
+“drive→disco” error. All bad faces were already in the captured ML Kit targets.
+Exact lexical ownership cannot establish contextual sense. The original14 null
+targets remain in every denominator. This historically exposed corpus is not
+fresh bilingual gold. See `qa/immersion/target-informed-taskmaster-r01/RESULT.md`
+and `CAUSAL_INSPECTION.md`; no candidate policy is active.
+
 The current routing also distinguishes full translation requested for an already
 accepted partial: it attaches the target sentence without rechecking its spans.
 No new research catalog or semantic exception is active. Conversation-level
@@ -551,7 +561,7 @@ The native signed-in Chrome profile now verifies `arjun@fallsoft.co`, Fallible
 Software, Co., team `3TNL2455JT`. Native AppleEvents succeeded after the earlier
 CDP transport failures; shared services and browser profiles were preserved.
 The explicit `co.fallsoft.vipi` identifier has push and in-app purchase capability.
-Private iOS app `6832624092` is **Mambo Vipi: Language Chat**, version1.0,
+Private iOS app `6832624092` is **Mambo Vipi: Language Chat**, version 1.0,
 Prepare for Submission. Both shorter names were rejected as unavailable; each
 attempt was reconciled before the next. No build upload, review submission or
 public availability follows from creating this record.
@@ -559,3 +569,12 @@ public availability follows from creating this record.
 Google Cloud, AWS and the existing DeepSeek company credential requests remain
 pending. Do not repeat those unchanged questions. Independent authorized
 qualification and private store preparation continue.
+
+The private Apple subscription records are configured: `vipi.base.annual`
+($12 USD/year) and `vipi.botmini.annual` ($48 USD/year), each in its own group
+with a one-month introductory free trial for eligible subscribers. Localized
+prices vary by storefront. Both have English names/descriptions, annual upfront
+availability and one-person App Store purchase settings. Store metadata is not
+purchase qualification: real transactions, notifications, provider readiness,
+release screenshots and review remain open. See
+`release/apple-store-configuration.json` for exact identifiers and draft state.

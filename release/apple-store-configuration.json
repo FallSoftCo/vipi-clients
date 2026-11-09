@@ -1,0 +1,64 @@
+{
+  "schema": "vipi-apple-store-configuration-1",
+  "verified_date": "2026-11-09",
+  "company": "Fallible Software, Co.",
+  "team_id": "3TNL2455JT",
+  "app_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "name": "Mambo Vipi: Language Chat",
+  "state": "Prepare for Submission",
+  "subscription_groups": [
+    {
+      "id": "22561715",
+      "name": "Vipi",
+      "product_id": "vipi.base.annual",
+      "apple_id": "6832625761",
+      "duration": "P1Y",
+      "base_storefront": "USA",
+      "base_price": "12.00",
+      "currency": "USD",
+      "localization": "en-US",
+      "display_name": "Vipi Annual",
+      "description": "Private chat, daily immersion and encrypted backups."
+    },
+    {
+      "id": "22561805",
+      "name": "Bot mini",
+      "product_id": "vipi.botmini.annual",
+      "apple_id": "6832634497",
+      "duration": "P1Y",
+      "base_storefront": "USA",
+      "base_price": "48.00",
+      "currency": "USD",
+      "localization": "en-US",
+      "display_name": "Bot mini Annual",
+      "description": "150 vBot replies monthly. Requires Vipi."
+    }
+  ],
+  "common_configuration": {
+    "introductory_offer": "FREE_TRIAL",
+    "introductory_duration": "P1M",
+    "offer_start_date": "2026-11-09",
+    "offer_end_date": null,
+    "current_countries_or_regions": 175,
+    "other_prices": "Apple-calculated storefront prices; amounts vary by currency and region",
+    "family_sharing_enabled": false,
+    "multiseat_enabled": false,
+    "purchase_destinations": [
+      "App Store"
+    ],
+    "monthly_commitment_configured": false,
+    "streamlined_purchasing": "on, unchanged",
+    "promoted_purchases_configured": false,
+    "win_back_or_contingent_offers_configured": false
+  },
+  "qualification": {
+    "real_sandbox_purchase": false,
+    "renewal_refund_restore": false,
+    "provider_notifications": false,
+    "build_uploaded": false,
+    "submitted_for_review": false,
+    "customer_available": false
+  },
+  "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01"
+}

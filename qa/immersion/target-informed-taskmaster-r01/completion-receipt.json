@@ -1,0 +1,157 @@
+{
+  "status": "completed_no_activation",
+  "created_utc": "2026-11-09T16:41:59.692767+00:00",
+  "rows": 200,
+  "cached_targets": 186,
+  "null_targets": 14,
+  "unique_sources": 185,
+  "execution_attempts": 2,
+  "complete_retained_outputs": 1,
+  "new_translation_calls": 0,
+  "policy_changes_after_outputs": false,
+  "reviews_preserved": true,
+  "causal_cases": 11,
+  "raw_native_occurrence_pos_retained": false,
+  "artifacts": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/assemble.py",
+      "bytes": 5131,
+      "sha256": "7ba37c7a95bbe8fe87588f986ce7bedcce1b1fe7842b9fe631f4a577bbcc10b2"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/causal_inspection.py",
+      "bytes": 6367,
+      "sha256": "933d1903a3d5a6c99e118f70af85dd474521a8d6dbb1d027133eeb41053d8eb8"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/join.py",
+      "bytes": 5932,
+      "sha256": "95aec7bd63dc0f58084c2f888252148fa67fafb0e93054b36916dc07ff0ef908"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/prepare.py",
+      "bytes": 6379,
+      "sha256": "61ef8aa37ebf9f3bc9c708cf86362cdd02feff576b73cc58c08d1d8502974978"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/RESULT.md",
+      "bytes": 6430,
+      "sha256": "0a5cc06e55bb06b53a601442dc6867918c9bcf3e81eaba575808eec9ff91cc2c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/CAUSAL_INSPECTION.md",
+      "bytes": 4932,
+      "sha256": "e65a47c9cba01fef2a6d4ffe4e60dff71da597a2474c69d58174b44aa1c21cb2"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/protocol.json",
+      "bytes": 3153,
+      "sha256": "682295ae869081fd31f78c8e7f1ff662ee02d053e3f3368c0abd35aef5b52c49"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/inputs-200.json",
+      "bytes": 231123,
+      "sha256": "8ced39c191466dcd6a4f86a3dd738444c8e8d58609f1dbd1d06e46b001c5dc6d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/full-translations.json",
+      "bytes": 66798,
+      "sha256": "fa866349dfbd7dc6c0b7780a238d15d8170befdfeb39e9d12f93fee9ff817827"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/selection-freeze.json",
+      "bytes": 62206,
+      "sha256": "a9af42d1d23aafc105a4339d6bac50f211036c9d27f81fa803e6430784d673b1"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/serialization-amendment-r02.json",
+      "bytes": 448,
+      "sha256": "391b4933f8e2f13ed9737eb9d1c0755fffcbbf224a3528464667c1d1e0dfc808"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/author-review-r01.json",
+      "bytes": 363470,
+      "sha256": "c848b0d16c9c17ffcd2d6005b41fa51ccd68bb0b64d05de3ed096b2659d5c0e8"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/root-masked-review-r01.json",
+      "bytes": 40685,
+      "sha256": "87299d778185a65d13a6e4aab3ef997a2b17570ed38f90332df7fd03827f893d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/review-exposure-receipt.json",
+      "bytes": 656,
+      "sha256": "0fb1a4c900d756b7e3789ae13c4e1e612d1039f589292e41525f4fe3e981c501"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/joined-review-r01.json",
+      "bytes": 192442,
+      "sha256": "c4fbffe1ef84a4da79d2a840936ce30fcb78a76ac793bc1dbaef809deece9d67"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/causal-inspection-r01.json",
+      "bytes": 215486,
+      "sha256": "2fa84758485812e8c70b70759632ca0c9bdd8dff33fd7f9c7131ac2f801a676a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/causal-dictionary-query.json",
+      "bytes": 1289,
+      "sha256": "6efef70a5054d805e7cec9174c0b780126c0c59d38c23f0f0a68875566bc17d9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/causal-native-pack-bindings.json",
+      "bytes": 351,
+      "sha256": "1d4058bab7d294e0fa2376432b0175069bc7dcbbb974c2dde49dac63c62ee9d6"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/run-r01/receipt.json",
+      "bytes": 6142,
+      "sha256": "28ef84a802ec7fd2b846abc342a4ac7af47d8a14acce3e0076931b38cc20c6ef"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/run-r02/receipt.json",
+      "bytes": 6085,
+      "sha256": "820f50ae306762b6399f6526d9526b161effc7808801f6a39bfe78d760e8f2f6"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/run-r02/output.json",
+      "bytes": 4862966,
+      "sha256": "c12a21e213e6f19da1c984b666dbf6154b5540898c580259ad2a4f503897126f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/metrics.json",
+      "bytes": 39586,
+      "sha256": "3c4995ac5bbdc5ad84a9d7b3a547300998de17bca3554715e26df6302c43ac52"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/anonymous-all200.json",
+      "bytes": 271216,
+      "sha256": "7f0890017553447830f0bd4cf3e50ebc347a9427ec0d22457d6850aa6a8d9b8e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/parallel-witnesses.json",
+      "bytes": 245250,
+      "sha256": "4381ef4aa880e6575b218c5c67d4e22d28851209a2d5e36dcadb704791ab51c4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/method-key.json",
+      "bytes": 42149,
+      "sha256": "ee3072f1ed1f24f2189e3f334419080ba14e295773a4f0f214ccb9fa9d6fdbe3"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/receipt.json",
+      "bytes": 802,
+      "sha256": "cbad78e494e9e760c1b22cb8993c84407b7684c3114c76c708291de9ca3034e1"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/deltas.json",
+      "bytes": 63759,
+      "sha256": "9c01ce7c497c558b144bcf6bfdc845dd8e94c356ec5743684b4f894231ef3c36"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-target-informed-taskmaster-20261109-r01/packet/anonymous-root40.json",
+      "bytes": 53992,
+      "sha256": "55f8e05f99ac50a15b2bc8153f1ca16cc9c6a23fcb086031594050d883d9f9b0"
+    }
+  ]
+}
