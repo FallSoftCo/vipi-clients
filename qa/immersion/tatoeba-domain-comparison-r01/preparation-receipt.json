@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "scope": "Offline source-code/protocol and existing-artifact binding only",
+  "source_corpus_accessed": false,
+  "new_alignment_or_corpus_job": false,
+  "protocol_sha256": "bb15733c3931fb1475d57a74cfb89179e7d27eade672764a82f59545822c308e",
+  "input_freeze_sha256": "799c126380be402560c297879b597d414dbc4f8235336374558bb816e0727c43",
+  "expanded_exclusion_count": 2052,
+  "original_exclusion_count": 1113,
+  "initial_failure": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/preparation-failure-r01.json",
+    "sha256": "8ee13b20fff7ae6952e839d30cf471b2e572544222c4687382bee6ab4cbff497"
+  },
+  "source_route_unqualified": true,
+  "synthetic_validation": {
+    "tests": 2,
+    "passed": true,
+    "scope": "Both direct-edge orientations; reserved endpoints excluded in metadata SQL; editorial flag matching retains ambiguous tags. No corpus opened."
+  },
+  "control_audit": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/control-audit.json",
+    "sha256": "5db25c4b010f711a2ef642da15ead53b1ec9ac7af0515155ad65c2ede9033d31",
+    "expanded_exposure_pairs": 44,
+    "original1113_exposure_pairs": 0,
+    "owner_semantics": "PGV owner is synthetic Global Voices contributors; PGV archive#tu provenance, not contributor identity. Do not compare distinct owner counts directly to Tatoeba usernames."
+  },
+  "code_sha256": {
+    "prepare.py": "37170d0c196ebdd23adfbc56aba7bbe10f584907c4f4ec41bedc7adb59a58708",
+    "extract.py": "1ed8707802634f1a69629a96a332b197c6b2674017e4151b263515ae7fb7b260",
+    "test_extract.py": "dafaac375fe27a931a3e565e9801fa03bccd028bdcb8f7fc533b439b9018b38f",
+    "audit_control.py": "62dbda0b7678e31858d28d8c24b23398ddcab87016e3b1e03a9dfc3fbc14a374"
+  }
+}

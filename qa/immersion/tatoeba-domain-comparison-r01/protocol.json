@@ -1,0 +1,144 @@
+{
+  "schema": "vipi.tatoeba-domain-comparison.r01",
+  "production": false,
+  "status": "prepared_not_authorized_for_source_or_heavy_execution",
+  "source_route": "Root owns exact temporary copy and route qualification. Current StorageBox mounted/SSH probes timed out; do not retry, remount or restart. Source copy is prerequisite, not authorized by this protocol. No bulk local restore.",
+  "source": {
+    "sha256": "a07e1d33c67a876df78c2221ce568e67c5aea773fae8c5d814458838095b28a5",
+    "bytes": 1761800192,
+    "split_recipe": "vipi-tatoeba-components-1:85-development:15-reserved",
+    "license": "Tatoeba text CC BY2.0FR except explicitly marked CC0 subset; preserve per-sentence owners/IDs/links and actual source license. No audio acquired.",
+    "primary_source": "https://tatoeba.org/en/downloads"
+  },
+  "source_authority_receipt": {
+    "path": "qa/immersion/corpus-phrase-extraction-r01/tatoeba-retained-source-r01.json",
+    "sha256": "7c02802d26f99056f0cc46d636f003bb2845bb3dea94eee98528dd09c07ce0fd"
+  },
+  "input_freeze": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/input-freeze.json",
+    "sha256": "799c126380be402560c297879b597d414dbc4f8235336374558bb816e0727c43",
+    "expanded_exclusions": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/exclusions.json",
+      "sha256": "94876a12abd80093d6595585964d4393f105dbbed7e0b7a54f38c5945e709a16",
+      "count": 2052
+    }
+  },
+  "selection": {
+    "seed": "vipi-tatoeba-domain-r01",
+    "pair": "en-es",
+    "metadata_cap": 60000,
+    "accepted_cap": 40000,
+    "rank": "SHA256(seed|canonical_a|canonical_b), ascending; tie canonical IDs. Both metadata endpoints development, exact en/es orientation, same retained component. No pivot edges.",
+    "metadata_only_first": [
+      "Inspect actual schema, corrected tag schema, split recipe, all tag names, blocked tag IDs and query plan; no raw or normalized sentence text.",
+      "Root reviews inspection hash before select. Scan direct development pair metadata, retain all both-endpoint owners/components/tags with 60000 minimum hash ranks; freeze before text.",
+      "Root reviews selection hash before fetch. Fetch only development endpoints; retain original text, tokens, codepoint/UTF16 spans, IDs, owners, tag names and tag authors/times, component, sourcehash and URLs."
+    ],
+    "tag_filter": "Retained policy: name LIKE '@%' OR lower(name) LIKE '%unnatural%' OR lower(name) LIKE '%incorrect%' OR lower(name) IN ('not natural','non natural','less than natural'). Either endpoint flags blocks pair; unflagged/ambiguous tags do not certify quality.",
+    "text_filters": [
+      "Exact full-text expanded exclusions for both endpoint languages, using retained fingerprint.",
+      "2–60 pinned tokenizer tokens on each side, no ||| delimiter.",
+      "Deduplicate normalized en/es fingerprint pair; retain component counts separately from pair counts.",
+      "Fill 40000 in frozen rank order only. If frozen60000 insufficient, retain shortage and stop; no output-driven widening or sample change."
+    ],
+    "license_policy": "Conservative retained Tatoeba text attribution license; no inference that an endpoint is CC0 without exact supporting record. Preserve unknown/blank owners, do not silently invent attribution.",
+    "tag_policy_source": {
+      "path": "qa/immersion/build_lexical_contexts.py",
+      "line": 297,
+      "sha256": "044427a7ad8b78df1dd1f39bf7ea939bda68e2b63330800409bceeaf159d7b3c",
+      "interpretation": "Existing conservative editorial policy, not a guarantee every @ tag indicates incorrect text. Root must inspect actual matching tag names before selection."
+    }
+  },
+  "control": {
+    "identity": "Exact retained 40000 PGV EN–ES pairs, text, directional alignments and grow-diag-final-and result in input-freeze.json. Do not filter/retrain control.",
+    "overlap_audit": "Before interpreting targets, audit retained PGV full endpoint fingerprints against expanded exclusions and Tatoeba chosen fingerprints; report same-component/owner concentration and token-length distributions. PGV exposure differences remain an explicit confound.",
+    "confounds": [
+      "Contributor-authored Tatoeba sentence references are not conversational frequency or bilingual gold. PGV is published news/article alignment.",
+      "40k pair counts do not match total tokens, component diversity, contributors, sentence length, quality flags or historical exposure.",
+      "PGV lacks dependable article IDs; components are not independent-document certificates.",
+      "The subsequent parallel review sentences come from original control training; expanded exclusions apply prospectively only to Tatoeba."
+    ],
+    "audit": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/control-audit.json",
+      "sha256": "5db25c4b010f711a2ef642da15ead53b1ec9ac7af0515155ad65c2ede9033d31",
+      "expanded_exposure_pairs": 44,
+      "original1113_exposure_pairs": 0,
+      "owner_semantics": "PGV owner is synthetic Global Voices contributors; PGV archive#tu provenance, not contributor identity. Do not compare distinct owner counts directly to Tatoeba usernames."
+    }
+  },
+  "matched_recipe": {
+    "execution": "Deferred until metadata/selection/subset receipts and commands reviewed. No corpus/model run authorized now.",
+    "source_keys": {
+      "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/source-frequency-keys.json",
+      "sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762",
+      "unigram_count": 3000,
+      "multiword_count": 5000
+    },
+    "tokenizer": {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/prepare_statistical_alignment_pilot.py",
+      "sha256": "d1f41157ec44e95e25420a7d65b37bcfe40b174592dfce812248e49955aeeb5f"
+    },
+    "aligner": "Reuse exact pinned fast_align/toolchain hashes; forward+reverse five iterations -d -o -v -I 5; reverse adds -r. One new Tatoeba fit only, no PGV retraining.",
+    "symmetrization": "grow-diag-final-and only for primary matched comparison; reuse retained PGV output, no grid.",
+    "phrases": "Same existing extract_phrases.py geometry: source max8 targetmax12, aligned interval consistency and all bounded unaligned boundary expansions, punctuation restrictions. Preserve all target variants; do not call consistency construction completeness.",
+    "source_only_first": "Report raw matched selected-key availability/length/component support for same3000unigram+5000multiword keys before targetquality review. Do not tune keys from Tatoeba outputs.",
+    "ranking": "Unchanged existing joint distinct-component count descending, bidirectional lexical score descending, stable target identity tie; retain all alternatives. No sameface rescue or target patches.",
+    "semantic_packet": {
+      "seed": "vipi-tatoeba-domain-review-r01",
+      "count_max": 32,
+      "selection_before_target_quality_inspection": true,
+      "source_key_buckets_order": [
+        "shared",
+        "tatoeba_only",
+        "pgv_only"
+      ],
+      "length_buckets_order": [
+        "1",
+        "2-3",
+        "4-8"
+      ],
+      "keys_per_availability_length": [
+        3,
+        3,
+        2
+      ],
+      "ranking": "Within availability bucket and length, ascending SHA256(seed|availability|length|normalized_source_key), key tie. Shared8keys produce both corpus proposals16; each corpus-only8 produces8, totalmax32. Freeze exact keys before target packet assembly. No quota backfill if short.",
+      "availability": "At least one grow-diag-final-and retained phrase variant for a frozen8000sourcekey. Availability is source-key output metadata, not reviewed correctness.",
+      "target_choice": "Use predeclared count/lexical-score/target-ID ranking, preserve all variants. Retain original full source and target evidence sentences for each nominated top variant and all emitted scopes; no clipping to nominated word.",
+      "evidence_choice": "For chosen variant, ascending component then canonical pair identity among retained supporting records; preserve total support and all provenance links.",
+      "review": "Author and root freeze labels separately before joining. No fresh-independence or population claims; oldreview/exposure membership remains explicit. Distinguish complete constructions from merely alignment-consistent ngrams."
+    },
+    "projection": "No new app projection/density/known-state grid here; defer exact whole-output policy to root after source-only inventory.",
+    "phrase_extractor_binding": {
+      "path": "qa/immersion/corpus-phrase-extraction-r01/extract_phrases.py",
+      "sha256": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd"
+    }
+  },
+  "extraction_bounds": {
+    "host": "consolidated production temporary staging only, after root explicit execution authorization",
+    "cpu_threads": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "seconds_per_stage": 1200,
+    "maximum_output_bytes": 536870912,
+    "minimum_free_bytes": 8589934592,
+    "temporary_source_bytes": 1761800192,
+    "failure": "Retain per-stage failures and partial artifacts. Each stage directory create-only; no blind retry. No network in extractor; no old SSHFS repair, new VM, local bulk restore, or runtime activation.",
+    "enforced_paths": {
+      "host": "fallsoft-production-20261106",
+      "source": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/source/corpus.sqlite",
+      "work": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs",
+      "inputs": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/inputs"
+    }
+  },
+  "implementation": {
+    "extractor_sha256": "1ed8707802634f1a69629a96a332b197c6b2674017e4151b263515ae7fb7b260",
+    "preparer_sha256": "37170d0c196ebdd23adfbc56aba7bbe10f584907c4f4ec41bedc7adb59a58708"
+  },
+  "remaining_review_prerequisites": [
+    "Qualified source route plus verified exact temporary source copy.",
+    "Actual schema/tag/query-plan inspection review.",
+    "Frozen metadata candidate selection review.",
+    "Exactsubset40k and PGV overlap/domain audit, then root review of execution commands/resources; target-review selection is already frozen here."
+  ]
+}
