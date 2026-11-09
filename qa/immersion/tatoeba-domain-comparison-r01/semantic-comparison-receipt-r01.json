@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "production": false,
+  "script_sha256": "a1a32ff2cee76037c03207245db40d6b015cb13ca1a6dc1da8a1ed2a5c5ea4a0",
+  "input_bindings": {
+    "review-packet.json": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/review-packet.json",
+      "sha256": "4134b20abfed4ac15ae63aa34111631bc8ccafcd94caed9752eb77639fc5b247"
+    },
+    "author-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/author-review-r01.json",
+      "sha256": "007f76182288955d22f16719ffdfdab12a65fd4d5dc1df990445ccb16e0f450b"
+    },
+    "root-review-r01.json": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/root-review-r01.json",
+      "sha256": "63487457e8ec0e578ccf63b31e190008c928c2d1e275b9d02d7326c4005ec159"
+    }
+  },
+  "root_wording_addendum": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/root-review-notes-addendum-r01.json",
+    "sha256": "2bd449159b4a844510b82a195914217cb2ab980d7dfb1fbdbcb8952aa47a9e42",
+    "labels_changed": false
+  },
+  "private_join": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/joined-reviews-r01.json",
+    "sha256": "5b3f04f3f96729affced6f2a608e200a0b30c244f5c4331ff7b062f3b310f41e"
+  },
+  "summary": {
+    "author": {
+      "tatoeba": {
+        "denominator": 16,
+        "meaning_counts": {
+          "minor_difference": 2,
+          "correct": 12,
+          "material_error": 2
+        },
+        "changed_usable": 12,
+        "identical_faces": 2,
+        "by_bucket": {
+          "shared": {
+            "denominator": 8,
+            "changed_usable": 7
+          },
+          "tatoeba_only": {
+            "denominator": 8,
+            "changed_usable": 5
+          }
+        },
+        "accepted_changed_content": 5,
+        "construction_scope_counts": {
+          "lexical_unit": 5,
+          "context_bound_complete_response": 1,
+          "open_grammatical_fragment": 5,
+          "context_bound_lexical_unit": 1,
+          "incomplete_unit": 2,
+          "context_bound_predicate": 1,
+          "context_bound_paraphrase": 1
+        }
+      },
+      "pgv": {
+        "denominator": 16,
+        "meaning_counts": {
+          "correct": 9,
+          "minor_difference": 3,
+          "material_error": 3,
+          "uncertain": 1
+        },
+        "changed_usable": 10,
+        "identical_faces": 2,
+        "by_bucket": {
+          "pgv_only": {
+            "denominator": 8,
+            "changed_usable": 4
+          },
+          "shared": {
+            "denominator": 8,
+            "changed_usable": 6
+          }
+        },
+        "accepted_changed_content": 4,
+        "construction_scope_counts": {
+          "lexical_unit": 3,
+          "open_grammatical_fragment": 5,
+          "context_bound_lexical_unit": 1,
+          "incomplete_unit": 3,
+          "identifier_fragment": 1,
+          "compound_fragment": 1,
+          "name_fragment": 1,
+          "complete_prepositional_unit": 1
+        }
+      }
+    },
+    "root": {
+      "tatoeba": {
+        "denominator": 16,
+        "meaning_counts": {
+          "correct": 14,
+          "material_error": 2
+        },
+        "changed_usable": 10,
+        "identical_faces": 2,
+        "by_bucket": {
+          "shared": {
+            "denominator": 8,
+            "changed_usable": 5
+          },
+          "tatoeba_only": {
+            "denominator": 8,
+            "changed_usable": 5
+          }
+        }
+      },
+      "pgv": {
+        "denominator": 16,
+        "meaning_counts": {
+          "correct": 12,
+          "material_error": 3,
+          "uncertain": 1
+        },
+        "changed_usable": 10,
+        "identical_faces": 2,
+        "by_bucket": {
+          "pgv_only": {
+            "denominator": 8,
+            "changed_usable": 4
+          },
+          "shared": {
+            "denominator": 8,
+            "changed_usable": 6
+          }
+        }
+      }
+    }
+  },
+  "comparative_axis_disagreements": [
+    {
+      "review_id": "domain-001",
+      "corpus": "tatoeba",
+      "axes": [
+        "meaning"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor_difference",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": true
+        }
+      }
+    },
+    {
+      "review_id": "domain-006",
+      "corpus": "pgv",
+      "axes": [
+        "meaning"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor_difference",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": true
+        }
+      }
+    },
+    {
+      "review_id": "domain-009",
+      "corpus": "tatoeba",
+      "axes": [
+        "changed_usable"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": false
+        }
+      }
+    },
+    {
+      "review_id": "domain-010",
+      "corpus": "pgv",
+      "axes": [
+        "meaning"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor_difference",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": true
+        }
+      }
+    },
+    {
+      "review_id": "domain-013",
+      "corpus": "tatoeba",
+      "axes": [
+        "changed_usable"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "correct",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": false
+        }
+      }
+    },
+    {
+      "review_id": "domain-024",
+      "corpus": "tatoeba",
+      "axes": [
+        "meaning"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor_difference",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": true
+        }
+      }
+    },
+    {
+      "review_id": "domain-026",
+      "corpus": "pgv",
+      "axes": [
+        "meaning"
+      ],
+      "normalized": {
+        "author": {
+          "meaning": "minor_difference",
+          "changed_usable": true
+        },
+        "root": {
+          "meaning": "correct",
+          "changed_usable": true
+        }
+      }
+    }
+  ],
+  "normalization": "Only material/minor spelling unified for meaning comparison; author minor may include form/register. Author changed-usable derives own minor-tolerant pass, actual face change and no unverified identity flag; root uses explicit whole-output usable-changed field. Raw labels, construction scope, role/form/completeness/utility and notes preserved unchanged. Root has no separate structured content-utility counts; do not fabricate them.",
+  "limits": [
+    "No majority gold or label replacement.",
+    "Shared source keys have different attested sentences; not same-context paired outcomes.",
+    "Stratified diagnostic sample with reused keys, not population accuracy.",
+    "Contextual semantic compatibility does not approve reusable phrase construction, vocabulary-only policy or native mask permission.",
+    "Same-face outputs earn no changed immersion credit.",
+    "No runtime grid or activation."
+  ]
+}

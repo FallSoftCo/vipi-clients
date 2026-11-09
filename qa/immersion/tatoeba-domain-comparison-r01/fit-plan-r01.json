@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "production": false,
+  "status": "pending_root_structural_review_before_single_fit",
+  "protocol_sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+  "subset_root_review_sha256": "44d684242f6edbb7b1ff5b9f4a1e198a8cdf007f285a667abbf286dc439c45c1",
+  "adapter_sha256": "acdee316120a44834e2da15d11d3e8e38b3a0b54403090e289ed9ca21360a61d",
+  "inputs": {
+    "outputs/fetch/en-es-pairs.jsonl.gz": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268",
+    "outputs/fetch/en-es.txt": "da0c9bace596758d7b61e084b43498a25fba05bb748f75c76f455b4e25ac083f",
+    "toolchain/fast_align": "453d6fbb338cddb9d4d119026abac98f9106363302f3d1fe944cb3547fb87197",
+    "toolchain/atools": "66eb827bfabdb0bcf1c420b0c94ab904bc2e53642fa8db6eebc0bd0e9ea9b47f",
+    "toolchain/build-receipt.json": "cb1c949c79770a6bcc56b33838e0e03f839809c81b9ecfa9b2dc97973b3a737c",
+    "inputs/source-frequency-keys.json": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762",
+    "adapter-deps/extract_phrases.py": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd",
+    "adapter-deps/prepare_inputs.py": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+  },
+  "pure_module_hashes": {
+    "extract_phrases.py": "e67089b3fbf41cd77acda405150f9ab369ba1a35888aa9a5f0421319f794b9bd",
+    "prepare_inputs.py": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+  },
+  "commands": [
+    {
+      "name": "forward",
+      "argv": [
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/fast_align",
+        "-i",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es.txt",
+        "-d",
+        "-o",
+        "-v",
+        "-I",
+        "5",
+        "-p",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.params"
+      ],
+      "stdout": "en-es-forward.align"
+    },
+    {
+      "name": "reverse",
+      "argv": [
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/fast_align",
+        "-i",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es.txt",
+        "-d",
+        "-o",
+        "-v",
+        "-I",
+        "5",
+        "-p",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.params",
+        "-r"
+      ],
+      "stdout": "en-es-reverse.align"
+    },
+    {
+      "name": "grow-diag-final-and",
+      "argv": [
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/atools",
+        "-i",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+        "-j",
+        "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+        "-c",
+        "grow-diag-final-and"
+      ],
+      "stdout": "en-es-grow-diag-final-and.align"
+    }
+  ],
+  "commands_sha256": "8e0c9b81a8770720a659ac76d1bbea0ba96642297e29fdc92fed8b4574c606e1",
+  "bounds": {
+    "host": "fallsoft-production-20261106",
+    "cpu": 1,
+    "nice": 10,
+    "address_space_bytes": 1073741824,
+    "seconds_per_stage": 1200,
+    "output_tree_bytes": 536870912,
+    "minimum_free_bytes": 8589934592
+  },
+  "stages": [
+    "fit creates fit-r01 once, forward/reverse5iterations and one symmetrization",
+    "phrases creates phrases-r01 once, same pure geometry and score functions, all observations/variants retained",
+    "source-only comparison then exact review-key freeze before targetpacket"
+  ],
+  "control_plan": "Read retained local PGV candidates.sqlite read-only for source-key count summary; no full704MB copy or recomputation. Retrieve small source-only Tatoeba availability then freeze reviewkeys locally under bounded memory/disk. Later keyed PGV variants/observation scan and small selected Tatoeba evidence assembly only, no projection grid."
+}

@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "production": false,
+  "activation": false,
+  "single_fit_and_extraction": true,
+  "protocol_sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+  "fit_plan_sha256": "89579c33730ae8b6a97ae08f84e184ab3098c0ebe13910491f266638c2e39d27",
+  "code_hashes": {
+    "fit_phrases.py": "acdee316120a44834e2da15d11d3e8e38b3a0b54403090e289ed9ca21360a61d",
+    "test_fit_adapter.py": "18dae49e99f529168b4b55a012138c775f3861e20a4a11d042052bb1f1959afd",
+    "compare_availability.py": "49536668ea4e136bb15b0d14603798970914526b42a597290fe5eaac5bf668e7",
+    "assemble_phrase_review.py": "fa431403fce2dcf6d73a2b5dcf4da1767c7efed85ed9271ca32e768134003afa"
+  },
+  "private_receipts": {
+    "root_approval": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-root-approval-r01.json",
+      "sha256": "c1b12f2977ca277584bc334dcb224e09eed5c61200d74c3ed307c7d35f82419d",
+      "receipt": {
+        "approved_by": "root via native agent message",
+        "adapter_sha256": "acdee316120a44834e2da15d11d3e8e38b3a0b54403090e289ed9ca21360a61d",
+        "plan_sha256": "89579c33730ae8b6a97ae08f84e184ab3098c0ebe13910491f266638c2e39d27",
+        "scope": "Exact single fit and phrase stages; frozen source-only inventory/review-key assembly after staging verification; no control retraining; hold author labels until root freeze.",
+        "archive_sha256": "dadcae77dc8074b675f4d4c448f2cbdb4877545edebe196792da9de3afdfc86c"
+      }
+    },
+    "fit": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/fit-receipt.json",
+      "sha256": "4b315557fdb60ef3b11c0b5c9142b7d02c70bbd770ec3fe638ff57acdb57868c",
+      "receipt": {
+        "complete": true,
+        "production": false,
+        "stage": "fit",
+        "builder_sha256": "acdee316120a44834e2da15d11d3e8e38b3a0b54403090e289ed9ca21360a61d",
+        "plan_sha256": "89579c33730ae8b6a97ae08f84e184ab3098c0ebe13910491f266638c2e39d27",
+        "commands": [
+          {
+            "name": "forward",
+            "argv": [
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/fast_align",
+              "-i",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es.txt",
+              "-d",
+              "-o",
+              "-v",
+              "-I",
+              "5",
+              "-p",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.params"
+            ],
+            "stdout": "en-es-forward.align",
+            "exit_code": 0,
+            "child_peak_sampled_rss_bytes": 88997888
+          },
+          {
+            "name": "reverse",
+            "argv": [
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/fast_align",
+              "-i",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es.txt",
+              "-d",
+              "-o",
+              "-v",
+              "-I",
+              "5",
+              "-p",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.params",
+              "-r"
+            ],
+            "stdout": "en-es-reverse.align",
+            "exit_code": 0,
+            "child_peak_sampled_rss_bytes": 88969216
+          },
+          {
+            "name": "grow-diag-final-and",
+            "argv": [
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/toolchain/atools",
+              "-i",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+              "-j",
+              "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+              "-c",
+              "grow-diag-final-and"
+            ],
+            "stdout": "en-es-grow-diag-final-and.align",
+            "exit_code": 0,
+            "child_peak_sampled_rss_bytes": 3825664
+          }
+        ],
+        "seconds": 6.287803295010235,
+        "measurement": {
+          "VmPeak": 32714752,
+          "VmHWM": 22724608,
+          "VmRSS": 20889600
+        },
+        "outputs": {
+          "reverse.log": {
+            "bytes": 2760,
+            "sha256": "8a0439c1b3eec3eab9939cab6ddf1b8a7c34ffd62ed6fe0cb0563589d7bed626"
+          },
+          "forward.log": {
+            "bytes": 2759,
+            "sha256": "f976c1dc955bcd09ec87e3f5d4e1dcc8dfcca4325c3d2805f5c5a5d138a44fbb"
+          },
+          "en-es-reverse.align": {
+            "bytes": 1298184,
+            "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+          },
+          "en-es-forward.align": {
+            "bytes": 1274409,
+            "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+          },
+          "grow-diag-final-and.log": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "forward-complete.json": {
+            "bytes": 507,
+            "sha256": "95553dac8657b6c4239a594d2253d26e6e467ec00d14769df950ec76d47fb762"
+          },
+          "reverse-complete.json": {
+            "bytes": 517,
+            "sha256": "9fabbe455c105044a29caf52ae7c5d732694414ca24aec2396a28d35afb42f82"
+          },
+          "en-es-reverse.params": {
+            "bytes": 1200805,
+            "sha256": "f9698a65187b22d7fabc504c65f6b1ec27afd7a48db77752b408d20797b9bd69"
+          },
+          "grow-diag-final-and-complete.json": {
+            "bytes": 525,
+            "sha256": "63938fb88b559d42a2bc52b7f01436c150b0feff5f8a405be290458af76d6f65"
+          },
+          "en-es-forward.params": {
+            "bytes": 972931,
+            "sha256": "bc5445ab619016fc5d7ca5b16a6d6347d3f394b69ed35804b76f3e16592db27b"
+          },
+          "execution-freeze.json": {
+            "bytes": 2089,
+            "sha256": "db273df025a41e6ff406b84d6a076dc8dc00856fd188283b9befddaaaf02c321"
+          },
+          "en-es-grow-diag-final-and.align": {
+            "bytes": 1428886,
+            "sha256": "19c1bc614d2c5cc5a792d2a15da6fb4b1aabb2c794347e1c5b49c736827d1ab8"
+          }
+        }
+      }
+    },
+    "phrases": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/fit-evidence-r01/phrases-receipt.json",
+      "sha256": "1c94d6cbf78b6c08ef629ccb0888a0bff158cfb33be6663449fdd5546da694cf",
+      "receipt": {
+        "complete": true,
+        "production": false,
+        "stage": "phrases",
+        "builder_sha256": "acdee316120a44834e2da15d11d3e8e38b3a0b54403090e289ed9ca21360a61d",
+        "plan_sha256": "89579c33730ae8b6a97ae08f84e184ab3098c0ebe13910491f266638c2e39d27",
+        "counts": {
+          "source_inventory_occurrences": 317021,
+          "observations": 217484,
+          "expanded_observations": 17080,
+          "missing_lexical_parameters": 88337,
+          "sentence_pairs": 40000
+        },
+        "seconds": 27.492795055994065,
+        "measurement": {
+          "VmPeak": 95535104,
+          "VmHWM": 80441344,
+          "VmRSS": 77012992
+        },
+        "outputs": {
+          "en-es-observations.jsonl.gz": {
+            "bytes": 16535505,
+            "sha256": "d9acb8bff2d8cd663b5938f7f81fe624b551808224de760f91e2a6f8cbdfd55b"
+          },
+          "execution-freeze.json": {
+            "bytes": 904,
+            "sha256": "3d57c97768ebeef3479d88bf3efe0c711156fb0ae1285a7272b05501c4d00627"
+          },
+          "candidates.sqlite": {
+            "bytes": 41271296,
+            "sha256": "d9ac43f7be22f10d03df4bfc69e58566865794324f3b71eb71f58fe014e42981"
+          },
+          "source-availability.json": {
+            "bytes": 875220,
+            "sha256": "f64ebd6f66770159d4dd06349725e728fb03652034441b691a4393c0215f486e"
+          }
+        }
+      }
+    },
+    "source_comparison": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/source-comparison-r01/receipt.json",
+      "sha256": "d59cb080395a5a89ddc57067795cc39243843fddb95a9a25fb086b2503d7ba42",
+      "receipt": {
+        "complete": true,
+        "production": false,
+        "code_sha256": "49536668ea4e136bb15b0d14603798970914526b42a597290fe5eaac5bf668e7",
+        "bindings": {
+          "protocol_sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+          "tatoeba_phrase_receipt_sha256": "1c94d6cbf78b6c08ef629ccb0888a0bff158cfb33be6663449fdd5546da694cf",
+          "tatoeba_source_availability_sha256": "f64ebd6f66770159d4dd06349725e728fb03652034441b691a4393c0215f486e",
+          "pgv_candidates_sha256": "54cbd4e1bc1af66b5045fb5e683b2e6e5abbd333421dd272357e061a32772747",
+          "source_keys_sha256": "e5a252dcadf14db1fea1385f16aa9cc0f617b82e363472b5152511b379302762"
+        },
+        "availability_by_length": {
+          "shared": {
+            "1": 2337,
+            "2-3": 2564,
+            "4-8": 55
+          },
+          "tatoeba_only": {
+            "1": 119,
+            "2-3": 632,
+            "4-8": 109
+          },
+          "pgv_only": {
+            "1": 333,
+            "2-3": 446,
+            "4-8": 17
+          }
+        },
+        "tatoeba_keys": 5816,
+        "pgv_keys": 5752,
+        "neither_available": 1388,
+        "review_proposals": 32,
+        "seconds": 2.591925430111587,
+        "VmHWM_bytes": 50819072,
+        "outputs": {
+          "review-key-freeze.json": {
+            "sha256": "d09487b6d4c4ab9469d1d93bbe2aee39ee403687a7251711558580b820052709",
+            "bytes": 7993
+          },
+          "source-inventory.json": {
+            "sha256": "f90db1f1570b1a716deb5e54763d4d25f78c58d3f582c69e6b4e697b848b8798",
+            "bytes": 1560311
+          }
+        }
+      }
+    },
+    "review_join": {
+      "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/join-receipt.json",
+      "sha256": "b53c220bb70f862b3c0201ac402f89dae383a32f5285b6c9264012242462a855",
+      "receipt": {
+        "complete": true,
+        "production": false,
+        "stage": "join",
+        "selection_sha256": "d09487b6d4c4ab9469d1d93bbe2aee39ee403687a7251711558580b820052709",
+        "script_sha256": "fa431403fce2dcf6d73a2b5dcf4da1767c7efed85ed9271ca32e768134003afa",
+        "proposal_count": 32,
+        "seconds": 0.01574320299550891,
+        "VmHWM_bytes": 25133056,
+        "outputs": {
+          "pgv-evidence.json": {
+            "bytes": 375967,
+            "sha256": "9e6a89cea3c34dfb920ed4bcfce67084d5a6c1727f0ef73b23922c02a74469e5"
+          },
+          "review-packet.json": {
+            "bytes": 605532,
+            "sha256": "4134b20abfed4ac15ae63aa34111631bc8ccafcd94caed9752eb77639fc5b247"
+          },
+          "tatoeba-evidence.json": {
+            "bytes": 218782,
+            "sha256": "436bbbc21ab93fd457568ea7947fd66013b1c7870a019229b63e6a5bb43517fa"
+          }
+        }
+      }
+    }
+  },
+  "review_key_freeze": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/source-comparison-r01/review-key-freeze.json",
+    "sha256": "d09487b6d4c4ab9469d1d93bbe2aee39ee403687a7251711558580b820052709"
+  },
+  "review_packet": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/review-packet.json",
+    "sha256": "4134b20abfed4ac15ae63aa34111631bc8ccafcd94caed9752eb77639fc5b247"
+  },
+  "author_review_freeze": {
+    "path": "/home/ai/Development/investigations/vipi-tatoeba-domain-comparison-20261108-r01/review-evidence-r01/author-review-r01.json",
+    "sha256": "007f76182288955d22f16719ffdfdab12a65fd4d5dc1df990445ccb16e0f450b",
+    "labels_withheld_pending_root": true
+  },
+  "validation": {
+    "prior_pure_function_tests": 10,
+    "adapter_tests": 2,
+    "passed": true,
+    "exact_input_and_artifact_hashes_verified": true
+  },
+  "limits": [
+    "Source availability is not meaning/completeness approval.",
+    "No PGV retraining, no projection grid, no target patch or runtime activation.",
+    "No bulk local source/candidate restore; local output small.",
+    "Retained component/owner/length and exposure asymmetries remain."
+  ]
+}
