@@ -1,0 +1,69 @@
+{
+  "complete": true,
+  "inventory_sha256": "86f641dbd507836dc4207a4a64f5ab80a85875dc1824bf22b4d4cbf4bac9fd3a",
+  "execution_receipt_sha256": "ff3cef49d612802d44e971d0bb5d039fadf7553ecbcbb6b3b7548cd4b8e4ec3a",
+  "source_files": {
+    "RESULT.md": {
+      "bytes": 15166,
+      "sha256": "937fb782cd7f644b5e2db651abb8e50235cb58ba58f216e72c2f770a031cdde2"
+    },
+    "protocol.json": {
+      "bytes": 3081,
+      "sha256": "1bbce6ca15e13cf37cdac6513ec56f494c6a57699a27892edcc38f7edfe33328"
+    },
+    "count.py": {
+      "bytes": 7860,
+      "sha256": "4b0de10cdf447e77bed0b5799b56a7d2a9f135e0c473b9ef4a8821e218cac780"
+    }
+  },
+  "retained_authorities": {
+    "qa/immersion/corpus-phrase-extraction-r01/tatoeba-retained-source-r01.json": "7c02802d26f99056f0cc46d636f003bb2845bb3dea94eee98528dd09c07ce0fd",
+    "qa/immersion/tatoeba-domain-comparison-r01/subset-review-r01.json": "44d684242f6edbb7b1ff5b9f4a1e198a8cdf007f285a667abbf286dc439c45c1",
+    "qa/immersion/native-source-annotations-r01/corpus-support-inventory-receipt.json": "88d4d9ebdb1a4b6a3d128f8e076f18ed2cc253ef43cb82fba44f9d1e503c31d4",
+    "qa/immersion/native-source-annotations-r01/scheme-inventory-r01.json": "672bca46fbd5bb627234f0dfd4118456256f7232286439be90a2292929b96497",
+    "qa/immersion/context-key-expansion-r01/loss-accounting-r02-receipt.json": "b5d492b211b4bba7897c866949d16ec54364a39f43eb74e0dd26d2ce47507ea8",
+    "qa/immersion/source-name-scope-r01/RESULT.md": "499c43aa42b4f494d85e85c2f8495ec9c18663fa81c845ee6e2bd358de76c8bd",
+    "docs/IMMERSION_COVERAGE_ACCEPTANCE.md": "944fc07a5fee08fc9f58f78042f9253ca86b6c8f5c849bd92160e7f2afe6f821"
+  },
+  "execution": {
+    "complete": true,
+    "protocol_sha256": "1bbce6ca15e13cf37cdac6513ec56f494c6a57699a27892edcc38f7edfe33328",
+    "free_bytes": 287986311168,
+    "input_hashes": {
+      "dictionary_en": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68",
+      "dictionary_es": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e",
+      "endpoint_inventory": "26a5f6fe70067d2d090d44393a502c17295de73a39d41691a89e9620daa1162d",
+      "apertium_protocol": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82",
+      "tatoeba_en_es": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268",
+      "evidence": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3",
+      "dictionary_sw": "3d44e3f098d2d00f8a0907a1f8b1fa29955921832e6afb244cba0b2259cac6bf",
+      "pgv_en_es": "2968021613e98886ecacb02d34503535d70743fc50805dca7baa6115cc00eae4",
+      "pgv_en_sw": "2f7ec0c73945b48e4807f5ad2d968c621434ca5d3174a868b95c613d83a50825"
+    },
+    "seconds": 15.173051849997137,
+    "VmHWM_bytes": 559841280,
+    "outputs": {
+      "inventory.json": {
+        "bytes": 22698,
+        "sha256": "86f641dbd507836dc4207a4a64f5ab80a85875dc1824bf22b4d4cbf4bac9fd3a"
+      }
+    }
+  },
+  "source_state": "Retained exact40k Tatoeba,40k PGV EN-ES,20kPGV EN-SW. Original wholeTatoeba temporaryDB absent; no restore. HistoricalSwahili supplement unresolved. Raw4.4GB dictionary not scanned.",
+  "role_count_geometry_correction": "Frozen output label not_exact_native_token refers to retained corpus-token geometry, not device-native qualification. No output/schema modified.",
+  "selection_bias": "Existing7115annotatedpairs were selected by prior1480headcohort; all-focus expansion remains selection-biased.",
+  "primary_tool_inventory_lookup": {
+    "date": "2026-11-09",
+    "OpenNLP": "https://opennlp.apache.org/models.html",
+    "finding": "36-language inventory; no Swahili POS listing. No model downloaded.",
+    "Apertium_lead": "https://wiki.apertium.org/wiki/English",
+    "finding_apertium": "Experimental swa-eng listed, not a retained qualified runtime."
+  },
+  "next_build_proposed_only": true,
+  "no_annotation_training_projection_activation": true,
+  "no_commits_or_index_changes": true,
+  "owned_staged_SW_bytes": 14819328,
+  "temporary_transport_raw_sha_verified": true,
+  "private_root": "/home/ai/Development/investigations/vipi-coverage-expansion-inventory-20261109-r01",
+  "production_root": "/srv/fallsoft/staging/vipi-coverage-expansion-inventory-20261109-r01"
+}

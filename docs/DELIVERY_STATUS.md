@@ -183,9 +183,20 @@ cases, so these synonym changes establish no semantic improvement. Root saw
 some parallel references before freezing; only the author review is also
 reference-blind. No five-to-eight-token rule met the fixed support threshold.
 Root independently reconstructed the 11,848 patterns, source annotations and
-all 2,343 method choices. No catalog is activated. The next increment examines
-retained data outside this narrow noun cohort, including Swahili, before
-expanding the build. See `qa/immersion/context-rule-lookup-r01/RESULT.md`.
+all 2,343 method choices. No catalog is activated. See
+`qa/immersion/context-rule-lookup-r01/RESULT.md`.
+
+The retained-data inventory now confirms 40,000 Tatoeba English–Spanish,
+40,000 PGV English–Spanish and 20,000 PGV English–Swahili pairs. Existing
+annotations contain 24,177 potential English content-role occurrences across
+nouns, verbs, adjectives and adverbs, beyond the prior narrow noun pool. These
+are not yet linked or approved substitutions, and the selected 7,115-pair
+annotation cohort remains biased. The next build first measures complete-form
+relations and fixes separate per-POS eligibility requirements. Swahili has a
+smaller retained dictionary and no qualified live source-role route; it cannot
+inherit Spanish validation. Coverage comparison must retain the original
+9,535-message denominator, useful depth and known-vocabulary states. See
+`qa/immersion/coverage-expansion-inventory-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|
