@@ -14,16 +14,18 @@ import java.io.File
 class StarterRouteDeviceTest {
     @Test fun japaneseDefaultRoute()=demonstrate("ja")
     @Test fun swahiliDefaultRoute()=demonstrate("sw")
-    private fun demonstrate(target:String) {
+    @Test fun japanesePackedDefaultRoute()=demonstrate("ja",true)
+    @Test fun swahiliPackedDefaultRoute()=demonstrate("sw",true)
+    private fun demonstrate(target:String,packed:Boolean=false) {
         val args=InstrumentationRegistry.getArguments()
-        org.junit.Assume.assumeTrue(args.getString("vipiStarterRouteUI")=="true")
+        org.junit.Assume.assumeTrue(args.getString(if(packed) "vipiStarterPackedUI" else "vipiStarterRouteUI")=="true")
         check(args.getString("vipiDedicatedEmulator")=="true")
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         val device=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        val out=File(context.filesDir,"starter-route-ui-$target");check(!out.exists());out.mkdirs()
-        val original="Country music is fun!"
-        val mixed=if(target=="ja") "Country ongaku is fun!" else "Country muziki is fun!"
-        val scenario=ActivityScenario.launch<StarterRouteQualificationActivity>(Intent(context,StarterRouteQualificationActivity::class.java).putExtra("target",target))
+        val out=File(context.filesDir,"starter-route-ui-${if(packed) "packed-" else ""}$target");check(!out.exists());out.mkdirs()
+        val original=if(packed) "My family and my family enjoy pizza." else "Country music is fun!"
+        val mixed=if(packed) { if(target=="ja") "My kazoku and my kazoku enjoy piza." else "My familia na my familia enjoy piza." } else if(target=="ja") "Country ongaku is fun!" else "Country muziki is fun!"
+        val scenario=ActivityScenario.launch<StarterRouteQualificationActivity>(Intent(context,StarterRouteQualificationActivity::class.java).putExtra("target",target).putExtra("packed",packed))
         val observations=JSONArray()
         try {
             checkNotNull(device.wait(Until.findObject(By.desc(mixed)),20_000));assertTrue(File(out,"proof.json").exists())
@@ -44,7 +46,7 @@ class StarterRouteDeviceTest {
             checkNotNull(device.findObject(By.desc("Reading options"))).click()
             if(target=="ja") {
                 checkNotNull(device.wait(Until.findObject(By.text("Show original script")),5000)).click()
-                assertNotNull(device.wait(Until.findObject(By.desc("Country 音楽 is fun!")),12_000));device.takeScreenshot(File(out,"native-script.png"))
+                assertNotNull(device.wait(Until.findObject(By.desc(if(packed) "My 家族 and my 家族 enjoy ピザ." else "Country 音楽 is fun!")),12_000));device.takeScreenshot(File(out,"native-script.png"))
                 checkNotNull(device.findObject(By.desc("Reading options"))).click();checkNotNull(device.wait(Until.findObject(By.text("Show transliteration")),5000)).click()
             } else { assertFalse(device.hasObject(By.text("Show original script")));device.pressBack() }
             assertNotNull(device.wait(Until.findObject(By.desc(mixed)),12_000))

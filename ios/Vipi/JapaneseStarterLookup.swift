@@ -5,6 +5,7 @@ import VipiCore
 /// Versioned source-only beginner pack. Reviewed starter; the withheld winter entry is absent.
 @MainActor final class JapaneseStarterLookup {
     static let promotionEnabled = true
+    static let packingEnabled = true // Qualified native packing; see starter-packing-density-r01.
     static func whitespaceGap(_ value: String) -> Bool {
         !value.isEmpty && value.unicodeScalars.allSatisfy { CharacterSet.whitespacesAndNewlines.contains($0) }
     }
@@ -29,13 +30,16 @@ import VipiCore
     enum Invalid: Error { case pack, input }
     let pack: Pack
     let sha: String
-    var identity: String { pack.version + ":" + sha }
+    private let packMultiple: Bool
+    private var packIdentity: String { pack.version + ":" + sha }
+    var identity: String { packIdentity + (packMultiple ? ":packing-1" : "") }
     var trace: [[String: Any]] = []
     private let words = try! NSRegularExpression(pattern: #"[\p{L}\p{Nl}\p{No}]+(?:['’][\p{L}\p{Nl}\p{No}]+)*"#)
     private let literals = try! NSRegularExpression(pattern: #"https?://\S+|\b[^\s@]+@[^\s@]+\.[^\s@]+|```[\s\S]*?```|`[^`]*`"#)
     static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
     private func fold(_ s: String) -> String { s.folding(options: [.caseInsensitive], locale: Locale(identifier: "en_US_POSIX")).replacingOccurrences(of: "’", with: "'") }
-    init(data: Data, manifest: Data) throws {
+    init(data: Data, manifest: Data, packMultiple: Bool = false) throws {
+        self.packMultiple = packMultiple
         let m = try JSONDecoder().decode(Manifest.self, from: manifest)
         guard m.schema == "vipi-source-starter-manifest-1", m.file.range(of: "^starter-en-ja-[0-9]{3}\\.json$", options: .regularExpression) != nil,
               m.bytes == data.count, data.count <= 1_048_576, Self.digest(data) == m.sha256 else { throw Invalid.pack }
@@ -53,7 +57,7 @@ import VipiCore
               let metadata = try? JSONDecoder().decode(Manifest.self, from: manifest),
               metadata.file.range(of: "^starter-en-ja-[0-9]{3}\\.json$", options: .regularExpression) != nil,
               let data = try? Data(contentsOf: root.appendingPathComponent(metadata.file)),
-              let owner = try? JapaneseStarterLookup(data: data, manifest: manifest) else { return nil }
+              let owner = try? JapaneseStarterLookup(data: data, manifest: manifest, packMultiple: packingEnabled) else { return nil }
         return owner.provider()
     }
     func provider() -> SourceUnitLookup {
@@ -120,7 +124,14 @@ import VipiCore
             if $0.entry.source_tokens.count != $1.entry.source_tokens.count { return $0.entry.source_tokens.count > $1.entry.source_tokens.count }
             return $0.range.location < $1.range.location
         }
-        let units = found.prefix(1).map { h in SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:h.entry.reading,referenceID:identity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID) }
+        var chosen: [Hit] = []; var used = 0
+        for hit in found {
+            // The existing presentation contract accepts at most 128 whole units.
+            if chosen.count >= (packMultiple ? 128 : 1) { break }
+            if used + hit.cost > budget || chosen.contains(where: { NSIntersectionRange($0.range,hit.range).length > 0 }) { continue }
+            chosen.append(hit); used += hit.cost
+        }
+        let units = chosen.sorted { $0.range.location < $1.range.location }.map { h in SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:h.entry.reading,referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID) }
         let partial = SourceReferencePresentation.create(original:original,target:"ja",units:units,density:density,nativeSourceTokenCount:basis.count)
         // Merge overlapping matches so short/long valid alternatives do not
         // veto each other. Recognition survives known/budget/guard abstention.

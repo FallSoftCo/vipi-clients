@@ -24,11 +24,15 @@ class StarterRouteQualificationActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         val target=requireNotNull(intent.getStringExtra("target"));require(target in setOf("ja","sw"))
-        val original="Country music is fun!";val face=if(target=="ja") "音楽" else "muziki"
-        val out=File(filesDir,"starter-route-ui-$target").apply{mkdirs()}
+        val packed=intent.getBooleanExtra("packed",false)
+        val original=if(packed) "My family and my family enjoy pizza." else "Country music is fun!"
+        val density=if(packed) .75 else .25
+        val expected=if(packed) { if(target=="ja") listOf("家族","家族","ピザ") else listOf("familia","na","familia","piza") } else listOf(if(target=="ja") "音楽" else "muziki")
+        val face=expected.joinToString(" ")
+        val out=File(filesDir,"starter-route-ui-${if(packed) "packed-" else ""}$target").apply{mkdirs()}
         setContent { VipiTheme(Appearance.LIGHT) {
             val scope=rememberCoroutineScope()
-            val owner=remember { ConversationImmersion(this,"en",target,.25,translator=NoTranslation(),qaModelsReady=false) }
+            val owner=remember { ConversationImmersion(this,"en",target,density,translator=NoTranslation(),qaModelsReady=false) }
             val speech=remember { SpeechPlayback(this,"en",target,scope) }
             val events=remember { mutableListOf<String>() };val speechState=speech.state.name
             var ready by remember { mutableStateOf(false) }
@@ -43,8 +47,8 @@ class StarterRouteQualificationActivity:ComponentActivity() {
                 owner.selectInputLanguage("starter-ui-$target","en")
                 val result=requireNotNull(owner.presentation(original,"en","starter-ui-$target"));val outcome=requireNotNull(owner.lastOutcome)
                 check(outcome.origin?.name=="SOURCE_REFERENCE_PARTIAL" && outcome.localTranslationCalls==0)
-                check(result.spans.size==1 && result.spans[0].translated==face)
-                val proof=JSONObject().put("original",original).put("target",target).put("density",.25).put("known_ids",JSONArray())
+                check(result.spans.map{it.translated}==expected)
+                val proof=JSONObject().put("original",original).put("target",target).put("density",density).put("packed",packed).put("known_ids",JSONArray())
                     .put("provider_identity",BundledStarterLookup.provider(this@StarterRouteQualificationActivity)?.cacheIdentity).put("origin",outcome.origin?.name)
                     .put("spans",JSONArray(result.spans.map{JSONObject().put("source",it.original).put("target",it.translated).put("reading",it.romanization ?: JSONObject.NULL).put("scope",JSONArray(listOf(it.start,it.end)))}))
                     .put("speech_segments",JSONArray(result.speech("en",target).map{JSONObject().put("text",it.text).put("language",it.language)}))

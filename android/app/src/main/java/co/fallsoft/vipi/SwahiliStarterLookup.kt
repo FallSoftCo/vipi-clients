@@ -9,9 +9,10 @@ import java.security.MessageDigest
 import java.text.Normalizer
 
 /** Source-only versioned Swahili starter; reviewed bounded content increment. */
-internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, knownIDs: Set<String> = emptySet()) : SourceLookupProvider {
+internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, knownIDs: Set<String> = emptySet(), private val packMultiple: Boolean = false) : SourceLookupProvider {
     companion object {
         const val PROMOTION_ENABLED = true
+        const val PACKING_ENABLED = true // Qualified native packing; see starter-packing-density-r01.
         fun whitespaceGap(value:String)=value.isNotEmpty() && value.all { it.isWhitespace() }
         fun sha(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
         fun bundledIfPromoted(context: Context, knownIDs: Set<String> = emptySet()): SourceLookupProvider? {
@@ -20,7 +21,7 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
                 val manifest=context.assets.open("immersion/starter-sw-catalog.json").use { it.readBytes() }
                 val file=JSONObject(manifest.toString(Charsets.UTF_8)).getString("file")
                 require(file.matches(Regex("starter-en-sw-[0-9]{3}\\.json")))
-                SwahiliStarterLookup(context.assets.open("immersion/$file").use { it.readBytes() },manifest,knownIDs)
+                SwahiliStarterLookup(context.assets.open("immersion/$file").use { it.readBytes() },manifest,knownIDs,packMultiple=PACKING_ENABLED)
             }.getOrNull()
         }
         private val words = Regex("[\\p{L}\\p{Nl}\\p{No}]+(?:['’][\\p{L}\\p{Nl}\\p{No}]+)*")
@@ -56,7 +57,7 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
         }
         require(entries.map { it.id }.distinct().size==entries.size && entries.all { it.id.isNotBlank() && it.tokens.isNotEmpty() && it.target.isNotBlank() && it.category in setOf("content","function") })
         val c=p.getJSONObject("source_context_sets");lefts=(strings(c.getJSONArray("determiners"))+strings(c.getJSONArray("prepositions"))+strings(c.getJSONArray("object_verbs"))).toSet();copulas=strings(c.getJSONArray("copulas")).toSet()
-        cacheIdentity="$version:$packSHA:"+sha(known.sorted().joinToString("\u0000").toByteArray())
+        cacheIdentity="$version:$packSHA:"+sha(known.sorted().joinToString("\u0000").toByteArray()) + if(packMultiple) ":packing-1" else ""
     }
     override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence =
         resolve(original,source,target,density)
@@ -98,9 +99,16 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
                 .put("source_utf16",JSONArray(listOf(start,end))).put("reason",reason ?: JSONObject.NULL).put("record_sha256",e.record))
             require(hits.size<=4096)
         }
-        val chosen=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenBy{it.entry.rank}.thenByDescending{it.entry.tokens.size}.thenBy{it.range.start}).firstOrNull()
-        val units=chosen?.let{listOf(SourceReferenceUnit(it.range.start,it.range.end,original.substring(it.range.start,it.range.end),it.entry.target,it.entry.reading,
-            "$version:$packSHA:${it.entry.id}",packSHA,it.cost,it.outputID))} ?: emptyList()
+        val ordered=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenBy{it.entry.rank}.thenByDescending{it.entry.tokens.size}.thenBy{it.range.start})
+        val chosen=mutableListOf<Hit>();var used=0
+        for(hit in ordered) {
+            // The existing presentation contract accepts at most 128 whole units.
+            if(chosen.size >= if(packMultiple) 128 else 1) break
+            if(used+hit.cost>budget || chosen.any{it.range.overlaps(hit.range)}) continue
+            chosen+=hit;used+=hit.cost
+        }
+        val units=chosen.sortedBy{it.range.start}.map{SourceReferenceUnit(it.range.start,it.range.end,original.substring(it.range.start,it.range.end),it.entry.target,it.entry.reading,
+            "$version:$packSHA:${it.entry.id}",packSHA,it.cost,it.outputID)}
         val partial=SourceReferencePresentation.create(original,target,units,density,native.size)
         val groups=mutableListOf<MutableList<Hit>>()
         for(h in hits.sortedWith(compareBy<Hit>{it.range.start}.thenBy{it.range.end})) {

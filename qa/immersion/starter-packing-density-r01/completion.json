@@ -1,0 +1,337 @@
+{
+  "schema": 1,
+  "completed_utc": "2026-11-09T21:07:38.658736+00:00",
+  "base_revision": "134f4812c1cc42d197dc064917be2fb5d9412304",
+  "status": "Both native loaders and real default multi-unit UI qualified; packing enabled in source; no store publication.",
+  "private_evidence": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/inputs/density-input-manifest.json",
+      "bytes": 662,
+      "sha256": "1a41e3767e654e806c246a08be3b5bf8dc0d261351b6b4df6eabfa3dfff9705d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/assembly-freeze-r01.json",
+      "bytes": 231,
+      "sha256": "d08375270e266e5cb16e2a34d1d460c9a4226c24fdf61d8064314733883570f5"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/semantic-rubric-r01.json",
+      "bytes": 995,
+      "sha256": "86b542fb9abeb667bc23d9a576bcd28f823d58ac1e4ceafa8a3b6675f8754d2a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-stage-r01.json",
+      "bytes": 2214,
+      "sha256": "a724f9eaa31cce13b6f019d2936e94568d762e59386fb6e598cca2278f167188"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-assembly-r01/receipt.json",
+      "bytes": 1577,
+      "sha256": "c2e6d19f827f3a70aaa4b475cd724138d0ee981ce6047aad0268fbd531c6d22b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-capture-r01/receipt.json",
+      "bytes": 876,
+      "sha256": "5d51299a92377567355e6deb93cf7531d9e261f45de51bee529f027d382bc048"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-capture-r01/output.stdout",
+      "bytes": 8164596,
+      "sha256": "58ef38ef6375c63cec77e9cdd8cd76c49361e53d7bb0a31570dd7f1829a425df"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-capture-r01/status.stdout",
+      "bytes": 2657,
+      "sha256": "28ececeffc767e2b13040c28b5112a9f5f10a86a09c5a24be1af2ee839b702cc"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/review-r01/receipt.json",
+      "bytes": 702,
+      "sha256": "6098c97fd809505bf599fec1c3643c156844f2fab78112c7c1f9122f246a1bdd"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/review-r01/anonymous-packet.json",
+      "bytes": 569965,
+      "sha256": "e99e0bfba687f4b780a09136ab61b09a5e8c2c32306dab2b236c86408793d7b0"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/review-r01/metrics.json",
+      "bytes": 40290,
+      "sha256": "55fee961f57133daf8d1cbd9b7a98cfc6b4af10f6ccfacd632c4a37ced4923ba"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/author-review-r01.json",
+      "bytes": 280054,
+      "sha256": "97dc08d3f9995b10c4ed71f40f130e512c602e905e286ae78c78785d91ae3e9a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/root-review-r01.json",
+      "bytes": 97201,
+      "sha256": "698fb20f592e448c68d0b926bfa44643a89d423f600ab354f634b7d34c947878"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/joined-review-r01.json",
+      "bytes": 358305,
+      "sha256": "34944a3c11411b93f9ae747d77deac8bd87b99f4973bb96d5ce753a16d6d92e5"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/postflight-r01.json",
+      "bytes": 328,
+      "sha256": "2aa1ef4be0ecccae3e8bca14ea22acfd5c3e2adb4ac985a8b940af0b1fbb142d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/concept-diversity-r01.json",
+      "bytes": 958,
+      "sha256": "464499021d4c710be3c4be4687779d6391abef6517383de4cb24f3ddf72f62cc"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/native-patch-freeze-r01.json",
+      "bytes": 964,
+      "sha256": "75f7a86de6fba8d5a7ef65be827d1ad5d8013820c69426752cb34be86275ef08"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/native-inputs-r01/manifest.json",
+      "bytes": 1046,
+      "sha256": "b10d1d9ba114097f0014736cedae81d77a3197db9dd3af2ab6457f2c0df1e98c"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/swift-native-geometry-amendment-r02.json",
+      "bytes": 631,
+      "sha256": "72bf77cb048e2358d8db5feaa8e487c5babd49d001423ea715bcffb0406f6d46"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-run-r01/receipt.json",
+      "bytes": 6148,
+      "sha256": "fabca2e6ac5aa6d396df58e1151750435c33a275a2e87f72fab7a6668977c5fe"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-run-r01/output.json",
+      "bytes": 3589906,
+      "sha256": "ce7a9b3f242650b3d8215661a2f17af9aaeacddbc71e6e0ca82018818c619b0a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-run-r02/receipt.json",
+      "bytes": 6170,
+      "sha256": "8e764d3487f93ce18cad23dd0f5f81c4dbecc382a86b5add86db92261fad838b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-run-r02/output.json",
+      "bytes": 4146424,
+      "sha256": "3f57ff068b336beab5bc7f95bbb29a5eefd167ac19e6b144e576602493d44544"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-independent-verification-r02.json",
+      "bytes": 62497,
+      "sha256": "1667499b9818495cfdcac074be5c7bcd5edcabaed2a9230d4da715dddf9cb024"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/protocol.json",
+      "bytes": 1289,
+      "sha256": "e9544126a9c7f99e4eb5080cede8d6fccdcc98035eb1807c600690de663ba66e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/android-assembly-r01/receipt.json",
+      "bytes": 1578,
+      "sha256": "cd6010c3855774a3fe624261074585be509917af7ad20f85cfb214492736334a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/android-capture-r01/receipt.json",
+      "bytes": 875,
+      "sha256": "6a7f06dcd594fa8daab01de46db81a8f3081e66a69984fdf0d7f6f1aded6ed82"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/android-capture-r01/output.stdout",
+      "bytes": 7126422,
+      "sha256": "20ba80cbd56f635a6e993e531c0c6674a1021c9a05dd8a80656754a9a9400fc1"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/android-capture-r01/controls.stdout",
+      "bytes": 40439,
+      "sha256": "0285f153c9df2f9ae74a54f68ae95466cc39ee5e63bcd5ab38616a6d6020bdeb"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/production-android-r01/android-capture-r01/independent-postflight.json",
+      "bytes": 482,
+      "sha256": "67cb6c8a7c80781f7e8ec1c1dcd95e91b64ce70ef2d749437ced191365fad3e4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/activation-r01.json",
+      "bytes": 2005,
+      "sha256": "f9a87fe7f50ca6ffb8c4946770454d0bad4a4e7eedbee4a3e95df1a2edb9e412"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/ui-protocol-r01.json",
+      "bytes": 1606,
+      "sha256": "e19656ef2060768f803b9a139b64312fcaa518d836e54543e27bebd5575f529d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-ui-protocol-r01.json",
+      "bytes": 1149,
+      "sha256": "ed53c648218803c1939275d2dc4a84d791ed9559f68ae220e233ca2bf0b1199f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/ui-android-r01/protocol.json",
+      "bytes": 757,
+      "sha256": "3c533423eb8a579f6325a38a4f47160f8785a4ad5f876636d613e6f83beb7406"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/ui-android-r01/android-assembly-r01/receipt.json",
+      "bytes": 1576,
+      "sha256": "175158549e7d53d8524fa66a53014978d4903b63dbca085fa6f0a4c15517f77d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/ui-android-r01/android-capture-r01/receipt.json",
+      "bytes": 3340,
+      "sha256": "ff7b89979bdc057e99a156a66a528018e3cbaaa18c312e47df7fa70d33324130"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/android-ui-verification-r01.json",
+      "bytes": 4430,
+      "sha256": "530dca47a972ff5041b5459d9fdcf96dd61dcd3121d33e7d6b3fb6bc7087f4fd"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/apple-ui-verification-r01.json",
+      "bytes": 3053,
+      "sha256": "8020735b4162c4ec8334e80d0eb76c5247b7f0e1eab62c850c0a032a9d7cedb8"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/complete.py",
+      "bytes": 3976,
+      "sha256": "ae073e7a459c8073adfc1b319c1452a395e2b8a73f62720aad850a820a22a855"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/StarterPackingDensityTest.kt",
+      "bytes": 12615,
+      "sha256": "12c3afa58f4309583e27cbc903b7656a366e5d799ec744f3e0dfd11c0a8e4b1b"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_packed_ui_assembly.py",
+      "bytes": 2671,
+      "sha256": "25052d8968f6c7101a5e5e4919b5327e97dc00ce5e37f40b3f7d96d7b71f6228"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_production_assembly.py",
+      "bytes": 2679,
+      "sha256": "2d720d5c625e7ae94b5274be0c3b45a2fd46009c973e6fed3c4857a4caffdb0a"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/assemble.py",
+      "bytes": 4387,
+      "sha256": "f8281276bb6ce026b44a3267dd948269a474764997f34f8f9ffb2b4f58b1da13"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/RESULT.md",
+      "bytes": 7338,
+      "sha256": "a83d00c1899cd4d5b8ffad1fd388d08afea58eacf6cb61ca1b683531478bd1ee"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_apple_ui_r01.py",
+      "bytes": 8457,
+      "sha256": "9531ddbdc7756a93689b41d78dce850b65191cb02af2a12706bda3740f727291"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_assembly.py",
+      "bytes": 2656,
+      "sha256": "15dc6774ca25768249cab88d5be327939ea27cbe553b7627022e06beccb786c7"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/StarterPackingProductionTests.swift",
+      "bytes": 7965,
+      "sha256": "f8e09026294630cd809f260026f9cc158e561efce63bdc51dd9c75dc9718612d"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_packed_ui_capture.py",
+      "bytes": 6789,
+      "sha256": "0edd1aa7735be75dad6a9706cbda6358d99de91356fbfe955f2c2fdae272bb8c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_capture.py",
+      "bytes": 5904,
+      "sha256": "44eae0e10b8df97566d2808c797705537e8b5b9f6f03b43c0e26a7fdb6eb9548"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/join_reviews.py",
+      "bytes": 2001,
+      "sha256": "f8722ef2223ac00cf544f6e079d8d60816032978e4ca33574ec943fd8ad41c2e"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_apple_r02.py",
+      "bytes": 8567,
+      "sha256": "041f614eba9d3dc05916e131a0703d33cfe3703f1389e27ff16a5e8964168110"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/protocol.json",
+      "bytes": 4622,
+      "sha256": "0c06a2d97d16334cff5dde3d955192e7a4d82ff620295213a6c617302a89db1c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/StarterPackingProductionTest.kt",
+      "bytes": 11847,
+      "sha256": "c409b9b8f496eaa71b9d63e67bc746c4093bfa950f707d5e85e5609be661e87d"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_production_capture.py",
+      "bytes": 6092,
+      "sha256": "35c0b93faa3d64ae5e9d3cb1d83221897e96eeeae0a901c9e6f40907989026a2"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/run_apple_r01.py",
+      "bytes": 8567,
+      "sha256": "687338c8b01398df54f5f1c5876efe63c04ec2ecd4a571cfb4f0eb7757b14f41"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ios/Vipi/JapaneseStarterLookup.swift",
+      "bytes": 12705,
+      "sha256": "08c14331e8176b1a7a3803495678ea7c929f4ca32c47bcc949b6b00b4cb8a843"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ios/Vipi/SwahiliStarterLookup.swift",
+      "bytes": 12725,
+      "sha256": "ab0a77cc36097855a4b7376ed4129bae541e393d47ddf2a5ad5c26f84e06d9f0"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt",
+      "bytes": 10339,
+      "sha256": "a7796a55d76075f5f60a4c52c9eabf2a8198ce55da8e986cb7d92fc381ec303c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt",
+      "bytes": 10320,
+      "sha256": "8afdc635fc7569ec71c3ad2e82310b14401910ac05e6d4aaeb1e904ea8ef69af"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/android/app/src/debug/java/co/fallsoft/vipi/StarterRouteQualificationActivity.kt",
+      "bytes": 4321,
+      "sha256": "678971f80b4b1fed4ed3ec5ea64c47f457f7a3072d63a7a772578e3b8c992190"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt",
+      "bytes": 4962,
+      "sha256": "f70f31da82334697c19dc552e7ee027424cabeb0658c5ac78b6f76ce324d78e1"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ios/Vipi/StarterRouteQualification.swift",
+      "bytes": 4383,
+      "sha256": "e27b24dfbd3b62e2c164294e08c8c96a8fb4aefee736a90fe48367bea9e29b62"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/ios/VipiUITests/StarterRouteUITests.swift",
+      "bytes": 4937,
+      "sha256": "e5e8fd75c755d5438c39572dc97418fb4e311027f3415993d3681c6431fc43b6"
+    }
+  ],
+  "selection": "Original greedy priority, whole units, nonoverlap, actual native total budget and all masks/permissions;128-unit existing representation ceiling.",
+  "semantic_review": "83 novel occurrences/200 unique full outputs independently agent-reviewed;82 correct/1 minor novel for both, no observed material;three whole-option disagreements preserved. Reused diagnostics, not population or native-speaker gold.",
+  "remaining_limits": [
+    "Small retained starter vocabulary; no broad coverage claim",
+    "Known content nuance: hair, opinion and post-illness okay",
+    "Platform native tokenization differs; selected outputs match in retained cohort",
+    "No acoustic correctness/playback completion claim",
+    "No physical iPad use",
+    "No familiarity persistence/actions",
+    "Store release separate"
+  ],
+  "committed_by_worker": false
+}

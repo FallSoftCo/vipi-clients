@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-09T21:09:30.188100+00:00",
+  "completion_sha256": "bd25adc39508c06d0a221024256fc4a64503d217613e31d715da366492e87ae9",
+  "verified_private_bindings": 38,
+  "verified_source_bindings": 25,
+  "root_receipts": {
+    "root-review-r01.json": "698fb20f592e448c68d0b926bfa44643a89d423f600ab354f634b7d34c947878",
+    "apple-independent-verification-r02.json": "1667499b9818495cfdcac074be5c7bcd5edcabaed2a9230d4da715dddf9cb024",
+    "apple-ui-verification-r01.json": "8020735b4162c4ec8334e80d0eb76c5247b7f0e1eab62c850c0a032a9d7cedb8",
+    "android-ui-root-verification-r01.json": "acabe67e287fc3c866e97077eef72d0c66851e17d5926881eca5407a792c92c1",
+    "gallery-receipt-r01.json": "f274dfc59c3afa378ea2020eb9b176e0ca01e94e2ed7ad90cfc8186641dd0031",
+    "activation-r01.json": "f9a87fe7f50ca6ffb8c4946770454d0bad4a4e7eedbee4a3e95df1a2edb9e412"
+  },
+  "decision": "Accept enabled same-budget multi-unit JA/SW starter selection and actual default native component connection. Preserve all source guards, pack data, minor semantic concerns and native word-basis differences.",
+  "no_ipad": true,
+  "gallery": "Six root-viewed images copied and exact direct HTTPS responses verified; shared index remains blocked by unrelated missing poster.",
+  "remaining": "Broader content, familiarity/progression, other language directions and release/provider qualification remain open. No store/public launch."
+}

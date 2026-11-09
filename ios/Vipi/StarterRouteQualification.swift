@@ -9,7 +9,9 @@ import VipiCore
     @State private var ready = false
     @State private var proof = "pending"
     @State private var speechEvents = [String]()
-    private let original = "Country music is fun!"
+    private var packed: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-starter-packed") }
+    private var original: String { packed ? "My family and my family enjoy pizza." : "Country music is fun!" }
+    private var density: Double { packed ? 0.75 : 0.25 }
     private var target: String { ProcessInfo.processInfo.arguments.contains("-vipi-starter-sw") ? "sw" : "ja" }
     var body: some View {
         NavigationStack {
@@ -28,13 +30,13 @@ import VipiCore
         }
         .task {
             let id = "starter-ui-"+target
-            await owner.configure(pair:.init(source:"en",target:target),density:0.25,knownConceptIDs:[])
+            await owner.configure(pair:.init(source:"en",target:target),density:density,knownConceptIDs:[])
             owner.selectInputLanguage("en",for:id)
             _ = await owner.result(for:original,inputLanguage:"en",messageID:id)
             guard let outcome=owner.lastOutcome,let result=outcome.result else { proof="failed:no result";return }
             let segments=result.speech(source:"en",target:target).map { ["text":$0.text,"language":$0.language] }
             let rows=result.spans.map { ["source":$0.original,"target":$0.translated,"reading":$0.romanization as Any? ?? NSNull(),"scope":[$0.range.location,NSMaxRange($0.range)]] as [String:Any] }
-            let evidence:[String:Any] = ["original":original,"target":target,"density":0.25,"known_ids":[String](),
+            let evidence:[String:Any] = ["original":original,"target":target,"density":density,"known_ids":[String](),
                 "provider_identity":BundledStarterLookup.provider()?.identity ?? "missing","origin":outcome.origin?.rawValue ?? "none",
                 "translation_calls":outcome.localTranslationCalls,"spans":rows,"speech_segments":segments,
                 "policy":"actual default provider result, no supplied target/span; speech segments do not certify acoustic correctness"]

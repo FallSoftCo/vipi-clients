@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "frozen_utc": "2026-11-09T20:29:31.534817+00:00",
+  "base_revision": "134f4812c1cc42d197dc064917be2fb5d9412304",
+  "treatment": "Exact prior test-only Packed body, byte-identical; unchanged production JA/SW guards/pack/readings/recognitions and masks. No promotion.",
+  "sources": {
+    "ja": {
+      "file": "ja-baseline.json",
+      "sha256": "3f41d367a7e57cfd1208b8d4354faca2e61dd3a97cb87aad1b93ff03a280737a",
+      "parent": "/home/ai/Development/investigations/vipi-japanese-starter-promotion-20261109-r01/android-capture-r06/output.stdout",
+      "bytes": 485832
+    },
+    "sw": {
+      "file": "sw-baseline.json",
+      "sha256": "21e3d835fb6c3ab21bf44cf71f217e277b22075398c44ae6fb5a43ef19dafe53",
+      "parent": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/android-capture-r02/output.stdout",
+      "bytes": 576621
+    },
+    "previous_025_prediction_sha256": "22748c53dec6dc111ca8bd35d1e6bcad0bd5d61a74b4cf186411a17e1fac3403",
+    "input_manifest_sha256": "1a41e3767e654e806c246a08be3b5bf8dc0d261351b6b4df6eabfa3dfff9705d"
+  },
+  "density": {
+    "steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "nominal_value": "step /20.0",
+    "actual_android": "Record existing Compose Slider(valueRange=0f..0.75f,steps=14) callbacks via SetProgress for nominal Float requests; preserve exact returned Float\u2192Double bits, no app preferences.",
+    "tracks": [
+      "canonical decimal Double (not Swift execution)",
+      "actual Android slider callback Float\u2192Double"
+    ],
+    "distinct_values_only": true,
+    "no_epsilon_or_rounding_policy_change": true
+  },
+  "evaluation": {
+    "rows": 768,
+    "cases_per_pair": 128,
+    "exclusion_states": 3,
+    "maximum_native_evaluations": 24576,
+    "native_boundary": "LocalImmersion.words; no emulated tokenizer",
+    "parity": "Every .25 direct A/B/trace exactly equals retained completed comparison. No interpretation credited unless all 768 pass.",
+    "representation": "JSONL source/state record once, content-addressed unique output/full mixed/spans/references and evidence objects; exact density bits map to objects plus actual budget. No silent alternative truncation.",
+    "scope": "Actual native starter packing + core presentation directly. Prior .25 normal route parity reused. This is not Swift execution or new whole-routing/transport qualification.",
+    "empty": "Zero at density0 and all-concept exclusions; not counted as quality observations.",
+    "asymmetry": "JA selected IDs family/books/music retain unmatched family; SW families/books/music. Both frozen."
+  },
+  "review": {
+    "novel_unit": "pair+sourceID+exactUTF16 scope+target+reading not present in same source at any prior .25 exclusion state; report state-specific newly exposed units separately",
+    "novel_combinations": "Every unique full mixed output retained, even if its constituent units were previously reviewed.",
+    "packet": "Full source/mixed/options with variant ID and density labels; no parallel translations. Separate provenance/evidence sidecar. Review all genuinely novel occurrence contexts; no count of repeated empty density rows as validation.",
+    "no_tuning": "No content, guard, rank or source changes from output; only retain/correct harness failures explicitly."
+  },
+  "bounds": {
+    "assembly_seconds": 900,
+    "capture_total_seconds": 1200,
+    "instrumentation_seconds": 450,
+    "native_output_cap_bytes": 33554432,
+    "private_metadata_cap_bytes": 67108864,
+    "floor_bytes": 8589934592,
+    "gradle_workers": 1,
+    "active_cpus": 2,
+    "heap_mib": 1536,
+    "emulator_mib": 2048,
+    "assembly_peak_bytes": 805306368,
+    "capture_reservation": "Measured APK+2*DEX+retained boot/output reserves, fresh capacity admission.",
+    "basis": "Prior 768-row full-route comparison119.86s included repeated whole-report rewrites and normal-route calls. This pass removes report rewrites and routing, bounds at most32 densities\u00d7768 direct native calls, and retains one compact JSONL record per source/state."
+  },
+  "no_physical_device": true,
+  "no_familiarity_change": true,
+  "stage_sha256": "a724f9eaa31cce13b6f019d2936e94568d762e59386fb6e598cca2278f167188",
+  "code": {
+    "StarterPackingDensityTest.kt": "12c3afa58f4309583e27cbc903b7656a366e5d799ec744f3e0dfd11c0a8e4b1b",
+    "run_assembly.py": "15dc6774ca25768249cab88d5be327939ea27cbe553b7627022e06beccb786c7",
+    "run_capture.py": "44eae0e10b8df97566d2808c797705537e8b5b9f6f03b43c0e26a7fdb6eb9548"
+  }
+}
