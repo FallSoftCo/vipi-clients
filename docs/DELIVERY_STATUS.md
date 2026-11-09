@@ -98,9 +98,18 @@ path omits it. Conversely, that path admits a verbal “order→pedido” occurr
 as noun evidence. The title has no retained covering context or spanning mask.
 All 761 detailed audit rows reconstruct exactly against their 28 head aggregates,
 including source/pair/component counts and deduplicated local-context features.
-The next work traces direct-English and alias provenance and qualifies actual
-source and target occurrence roles before training contextual rules. No catalog
-or classifier was activated. See `qa/immersion/lexical-choice-evidence-r01/RESULT.md`.
+The retained dictionary trace now identifies the missing seasonal relation:
+Spanish otoño explicitly glosses “autumn, fall,” but the builder drops fall
+because two English noun entries pass its uniqueness check. The season is a
+sense of entry 15812; the separate zero-term entry 15814 means whale hunting.
+Changing the explicit-link flag alone cannot recover this omitted relation.
+The trace covers all 110 noun forms from the 29 additions and retains the
+different causes behind the 17 zero-term forms. The next experiment preserves
+direct spelling/POS candidates without inventing a unique English sense, then
+qualifies source and target occurrence roles before fitting contextual rules.
+No catalog or classifier was activated. See
+`qa/immersion/lexical-choice-evidence-r01/RESULT.md` and
+`qa/immersion/lexical-relation-provenance-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

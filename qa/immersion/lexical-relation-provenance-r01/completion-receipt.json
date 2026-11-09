@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "scope": "Read-only retained native provenance and packed diagnostic cross-check; no compiler/model/selector execution",
+  "files": {
+    "OCCURRENCE_ROLE_PLAN.md": "fb1fdc868d3f5e11d40815e0207251302dcdb9afbc01a2233a978a4c6b19e1d3",
+    "RESULT.md": "2a90579bcf11d9d85b383818e3becbd66b026cf1420162e1f0ce97eb6976536d",
+    "packed_trace.py": "7ab88871c93da1e3c461c0e26b0a1cbc8bd3d06fe8c340f3bdf4e47ab3ed335a",
+    "trace.py": "4df55aa7a90bc5414caca0cb8a6bb777a90db092dc8416c53663975715213fc2"
+  },
+  "private_inputs_outputs": {
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/cohort-freeze.json": "65b7108711d2d2065c4cb8a5c6d3828cab5735b223d1c94873ee5748cdb904b2",
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/route-schema-r01.json": "393eabc056fb59cee3fe84b1cbcd48fb7a1c4f4466caa14fb03612cd675b3eda",
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/trace-r01/evidence.json": "b4561383adff91b0b899b4c613eda0c79bd5d616fe20080d1cf85467fb99fe82",
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/trace-r01/receipt.json": "80665d7008e39e6869950b50f65168823502e5812c5a68654a2a014c9257716b",
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/packed-trace-r01/evidence.json": "805caa783eae2722e69ebadd471040df8280fd779084f8451b0c2c5195b645ff",
+    "/home/ai/Development/investigations/vipi-lexical-relation-provenance-20261109-r01/packed-trace-r01/receipt.json": "8aeb5b6271175bb52f536136cb33cc863874e09d03f8dbca073f5c026b773a81"
+  },
+  "fresh_inventory_full_hash": false,
+  "model_downloaded": false,
+  "activation": false
+}
