@@ -72,9 +72,15 @@ evidence limits. Several full translations contained separate meaning errors,
 so translation output is not a gold reference. The existing attested target
 projection within recomendaría is intentional; it is not arbitrary slicing.
 
-An isolated A/B experiment now tests retaining all exact lexical claims until
-target matching and reciprocal ownership. It uses the same eight cached targets,
-retains competing claims and source protections, and changes no customer policy.
+The isolated A/B comparison retained all16 baseline spans and added11 across
+the same eight cached targets. All11 additions were independently reviewed as
+contextually compatible; here and beauty raise designated-control retention
+from2/6 to4/6. Exact baseline parity and synthetic ownership controls passed.
+The eight real graphs had no conflicting-owner cases; they do not independently
+prove rejection behavior. Full target errors remain separate, and neither this
+exposed diagnostic nor the root review is a population benchmark. The source
+change remains qualification-only. See
+`qa/immersion/target-informed-alignment-r01/RESULT.md`.
 The current routing also distinguishes full translation requested for an already
 accepted partial: it attaches the target sentence without rechecking its spans.
 No new research catalog or semantic exception is active. Conversation-level

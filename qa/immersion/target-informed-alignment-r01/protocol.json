@@ -1,0 +1,77 @@
+{
+  "experiment": "target-informed-alignment-r01",
+  "status": "prepared_awaiting_root_review_no_execution",
+  "cases": [
+    "qualified-noun-007",
+    "qualified-noun-010",
+    "qualified-noun-011",
+    "qualified-noun-014",
+    "qualified-noun-015",
+    "qualified-noun-016",
+    "qualified-noun-018",
+    "qualified-noun-023"
+  ],
+  "inputs": {
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/contextual-fallback-20261109-r01/translation-r02/outputs.json": {
+      "sha256": "59f9faf8cbb2b0fd59940e5ae230d295fc3858956d4c5e63cdf3cddaf3e2aa9e",
+      "bytes": 4303
+    },
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/contextual-fallback-20261109-r01/alignment-r01/output.json": {
+      "sha256": "e68608a062d4cd3e21317d21ab4921aaee700534be53de59f1bdd733015f63cb",
+      "bytes": 48776
+    },
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/contextual-fallback-20261109-r01/review-and-closure-r01.json": {
+      "sha256": "850413e9e713b4bf7e55353059b4b4f0a8e5cfebd83cb7e47416a8ce3d8669e6",
+      "bytes": 19885
+    },
+    "/home/ai/Development/investigations/vipi-apple-delivery-20261107-r01/contextual-fallback-20261109-r01/final-sources/ContextualFallbackTests.swift": {
+      "sha256": "c1bb65d984d29c67cb3b77a93d38c3c2b1bdc90b40b32fcdeb582bd3fa20168d",
+      "bytes": 7990
+    },
+    "/home/ai/Development/investigations/vipi-target-informed-alignment-20261109-r01/keyed-forms.json": {
+      "sha256": "38f661c04b6bc223ac389bb152c2651923183207765bce8b4efdd2a605db229c",
+      "bytes": 62212
+    },
+    "/home/ai/Development/investigations/vipi-target-informed-alignment-20261109-r01/inspection-execution.json": {
+      "sha256": "44a19c7a7e8affdf50102e75576e68ca4babb4d30eb7329a7a77fe58f3177762",
+      "bytes": 1277
+    }
+  },
+  "source_patch": {
+    "base_commit": "0d2451a",
+    "base_sha256": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+    "experimental_sha256": "2da8e09fefdc46f62e08aa1f6dce75287c62dc40343d1def2ee1369704fbc386",
+    "increment_sha256": "e5c736a7345aad784994e1fad5160da127f09bbc759f7e1130010bfee10b44dd",
+    "executed": false,
+    "canonical_files_modified": false
+  },
+  "policy_document_sha256": "81b0e3fcc9ef72ee34163301adfa7bf9a392328b2a19308e5f412feff0b8df76",
+  "code": {
+    "target_informed.swift.inc": "e5c736a7345aad784994e1fad5160da127f09bbc759f7e1130010bfee10b44dd",
+    "prepare_patch.py": "53c477bad8715faf88166569d791def70703611e2b099474f458c7d766ac3a4b"
+  },
+  "arms": [
+    "unchanged full primary+lexical+witness alignment",
+    "all retained exact dictionary form/term occurrence claims, reciprocal ownership before display; unchanged full primary/witness/selection/masks"
+  ],
+  "new_translation_calls": 0,
+  "new_models": false,
+  "canonical_app_edits": false,
+  "density": 0.25,
+  "source_boundaries": "whole source carrier; unchanged exact native ranges",
+  "target_boundaries": "unchanged complete forms or explicitly attested intrinsic mode3 target carrier",
+  "source_safe": "metadata retained; no pre-target global veto",
+  "same_face_convergence": "exact same source+target scopes and reading only; retain all term identities",
+  "unresolved_alternatives": "retained inventory, no fabricated target or assertion of source-sense completeness",
+  "negative_controls": [
+    "different target geometry",
+    "repeated target",
+    "repeated source with competing claim",
+    "number mismatch",
+    "named/protected/enclosing units",
+    "missing/unlinked target",
+    "unattested substring"
+  ],
+  "activation": false,
+  "execution_requires_root_run": true
+}
