@@ -1,0 +1,63 @@
+{
+  "production": false,
+  "selection_sha256": "6315e4ba2e77c81d3c0d6d90905b3a33df212622c17b2edb3cdb2d87a8d24c3a",
+  "probe_sha256": "e2748337c7f61879a8de2c2556155885122dd44e02f7b75dbd90dbc39d6cd78f",
+  "script_sha256": "9400635a1f8a705b9847e8ea0b65106adb2f262b69985fb2f725ff47675d8993",
+  "protocol_sha256": "a56a5b93f4fa83aef776b33625be9a05adbaf539a3b498c528604d1c9a875e42",
+  "private_root": "/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/missing-support-probe-r01",
+  "cohort_counts": {
+    "no_eligible_link_messages": 3190,
+    "review_exposed_excluded": 143,
+    "with_in_scope_words": 2971
+  },
+  "unexposed_pool": 2828,
+  "cases": 12,
+  "classifier_counts": {
+    "content": 31,
+    "function": 4,
+    "unresolved": 1
+  },
+  "ordered_focus_diagnoses": {
+    "classifier_function": 4,
+    "classifier_unresolved": 1,
+    "no_retained_covering_source_context": 8,
+    "no_shared_focus_link_in_top_witnesses": 7,
+    "shared_focus_links_rejected_by_frozen_rules": 16
+  },
+  "overlapping_content_focus_link_reasons": {
+    "sense_not_explicit": 2,
+    "unsupported_pos": 5,
+    "dictionary_target_unsafe": 1,
+    "number_mismatch": 1,
+    "historical_capitalization_guard": 2,
+    "dictionary_guard": 13,
+    "unsupported_form_mode": 3,
+    "incomplete_dictionary_form": 3,
+    "dictionary_term_ineligible": 2
+  },
+  "content_focus_actual_source_blocked_guard_reasons": {
+    "name": 9,
+    "grammar": 4
+  },
+  "resources": {
+    "select": {
+      "seconds": 16.394726697006263,
+      "memory": {
+        "VmHWM": 76812288,
+        "VmPeak": 87089152
+      }
+    },
+    "evidence": {
+      "seconds": 0.9842638339905534,
+      "memory": {
+        "VmHWM": 98775040,
+        "VmPeak": 112160768
+      }
+    }
+  },
+  "private_bytes": 1874996,
+  "receipts": {
+    "select/receipt.json": "849b2d602b6ac8ea9ba24009a4f17a100999ae2f1bdd46855ef036f05536118d",
+    "evidence/receipt.json": "4dd1a4060704d98a702424e620988c00fa01ae0b7dcf700658683b3c269a8052"
+  }
+}

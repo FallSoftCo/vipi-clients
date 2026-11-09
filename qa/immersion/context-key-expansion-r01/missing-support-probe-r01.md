@@ -1,0 +1,19 @@
+The frozen 12-message probe contains 36 exact native NOUN/ADJ/ADV words. The unchanged classifier calls 31 content, four function and one unresolved. Selection was frozen before examples: ascending SHA256(source ID), after 143 review-exposed sources were excluded from the 2,971 eligible messages (2,828 remain). This is a missing-support diagnostic, not translation accuracy sampling.
+
+Within the 31 classifier-content focuses, the ordered availability diagnosis is:
+
+| Retained evidence | Focuses |
+|---|---:|
+| No retained covering source context | 8 |
+| Covering top witness but no shared focus link | 7 |
+| Shared focus links present but rejected by frozen rules | 16 |
+
+All 31 have at least one complete source form in the permitted dictionary POS/mode classes. Thus absent source forms do not explain this small probe. A missing covering key does not prove the word never occurs in the corpus: this is the retained fixed-unigram/expanded-context inventory. A missing shared link describes the retained top witness, not every dictionary translation or source meaning. Twelve witness contexts for the seven no-link focuses explicitly record `no_shared_sense_counterpart_in_context`; phrase and POS differences can contribute, but the evidence does not assign one unique causal explanation.
+
+The largest observed rejection family is `dictionary_guard`, affecting 13 content focuses (overlapping count). The actual source guards are nine `name` and four `grammar`. Some source-name guards occur on ordinary common-word uses, while another occurs on a brand reference; the private cases allow direct inspection. Classifier-content also includes grammatical uses, so neither the role tag nor this classifier establishes vocabulary value. Other overlapping link reasons affect five focuses for unsupported POS, three each for incomplete form and unsupported form mode, two each for explicitness, term eligibility and capitalization, and one each for safety and number mismatch. These counts are not additive or estimates of recoverable correct output.
+
+The probe itself makes no guard change. Root subsequently inspected all twelve sources and the name-blocked alternatives. Ordinary boys/chat/mom/family/parks/dog uses retain noun links whose only form/sense objection can be the source name guard. The Amazon brand example still has other restrictions; right/well are outside a noun-only exception. This motivates a separate, bounded common-noun comparison, conditional on actual lowercase NOUN usage and preserving target guards, other reasons and competing geometries. That comparison is preparation, not an accepted runtime change. Grammar guards, absent contexts and missing links remain separate. Lifting explicitness or safety is not shown to restore correct coverage.
+
+The private [probe](/home/ai/Development/investigations/vipi-context-key-expansion-20261109-r01/head-preparation-r01/missing-support-probe-r01/evidence/probe.json) retains all 12 original messages, exact in-scope native role spans/scores, frozen classifier output, all actual source unit records, all covering retained contexts, 51 full parallel source/target witnesses, all focus-linked head/form/shared-sense reasons and every ranked variant ID. Repeated proofs are referenced, never silently truncated. Dictionary-wide target alternatives and source-meaning completeness remain unassessed. Exposure exclusion covers the frozen prior list plus all current/prior/witness source text in the completed r02 packet; undocumented exposure cannot be ruled out.
+
+Selection took 16.39s with 76.8MB VmHWM; evidence took 0.98s with 98.8MB VmHWM. Both used one CPU and a 1GiB address limit; total private output is below 2MB. Input hashes and output hashes are retained in separate immutable receipts. No selector/model/fit rerun, runtime change, cleanup or activation occurred.

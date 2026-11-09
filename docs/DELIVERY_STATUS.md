@@ -71,6 +71,17 @@ all 4,557 messages with an admitted candidate already receive a selected word.
 No guard was relaxed, and no recoverable-correctness claim follows from these
 counts. See the two `loss-accounting` reports in the same directory.
 
+A subsequent frozen twelve-message probe includes 31 words the existing
+classifier calls content: eight lack a retained covering context, seven lack a
+shared focus link in the top witnesses, and sixteen have rejected links. All
+have a complete supported source form. Root found that a global source name
+flag blocks ordinary boys/chat/mom/family/parks/dog uses despite otherwise
+eligible noun links. A separate narrow common-noun exception is being prepared
+for comparison, requiring actual lowercase NOUN usage for rescued candidates
+and preserving target guards and all other restrictions. The brand reference
+“amazon and costco” remains a development control. No runtime exception is active;
+these selected failures do not estimate general correctness.
+
 | Approach | Observed result | Decision |
 |---|---|---|
 | Exact phrase windows, finite slots and typed possessors | Actual Swift/Kotlin agree on the frozen authored examples. The ten-family catalog recognizes only 54 of 9,535 reused TRAIN messages; typed slots add no TRAIN reach. | Keep the mechanism; small template catalogs do not solve broad coverage. |
