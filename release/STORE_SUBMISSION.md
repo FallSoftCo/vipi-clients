@@ -73,7 +73,7 @@ the final build/provider configuration before sending it to a reviewer.
 | Company access | Correct organization selected; current agreements accepted by the appropriate account holder; app identifiers and signing profile verified. |
 | Subscription products | Actual annual base and Bot mini products, independent eligible one-month trials, localized prices, separate Apple subscription groups, usable restore/manage flows. |
 | Store authority | Real sandbox purchase, renewal, refund/revocation and restore; authenticated Apple test notification and Google RTDN receipt; account binding and lapse behavior. |
-| Background delivery | Real APNs/FCM registration and delivery on physical devices, denied-permission recovery, reconnect and expiry. |
+| Background delivery | Real APNs/FCM registration and delivery in supported native simulator/emulator environments, denied-permission recovery, reconnect and expiry. Retain the exact environment and delivery evidence; direct callback tests or locally injected notifications do not prove provider delivery. The owner has reserved the iPad for 8bar Club. |
 | vBot | Actual provider response and cancellation, visible reply allowance, spending controls, consent and selected-report behavior. |
 | Privacy | Final SDK/network inventory reconciled with actual store privacy/data-safety forms, app manifests and deployed policy text. E2EE does not justify claiming zero service metadata. |
 | Safety operations | Working block/report/delete paths and a real owner for timely review through the published company contact. A CLI alone does not establish operational response. |

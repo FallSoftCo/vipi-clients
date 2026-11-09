@@ -95,6 +95,15 @@ import UserNotifications
 }
 
 @MainActor final class VipiAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    private let backgroundInboxSync: @MainActor () async -> UIBackgroundFetchResult
+    override init() {
+        backgroundInboxSync = { await PushNotifications.shared.inboxChanged() }
+        super.init()
+    }
+    init(backgroundInboxSync: @escaping @MainActor () async -> UIBackgroundFetchResult) {
+        self.backgroundInboxSync = backgroundInboxSync
+        super.init()
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         return true
@@ -102,8 +111,8 @@ import UserNotifications
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) { PushNotifications.shared.receivedToken(deviceToken) }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) { PushNotifications.shared.registrationFailed() }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
-        guard userInfo["type"] as? String == "inbox_changed" else { return .noData }
-        return await PushNotifications.shared.inboxChanged()
+        guard userInfo["kind"] as? String == "inbox_changed" else { return .noData }
+        return await backgroundInboxSync()
     }
     nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         _ = await PushNotifications.shared.inboxChanged()

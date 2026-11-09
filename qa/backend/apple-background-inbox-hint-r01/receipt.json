@@ -1,0 +1,29 @@
+{
+  "completed_utc": "2026-11-09T21:31:27.578022+00:00",
+  "base_revision": "b49db35688110479b00090e40d96032cba90109b",
+  "source_files": {
+    "ios/Vipi/PushNotifications.swift": "e2b2fc105635a671bfa1e9ba63d2fa0047471608c42377bbce5db433d9ffa6da",
+    "ios/VipiCryptoTests/PushInboxHintTests.swift": "d8a610319a523b3add0b3d643e273031e787b0c54cda57da30c6ad11d5d0148b",
+    "ios/VipiCryptoTests/APNsInboxChanged.json": "2147fda3cb16da3236d298ffa05069c919edc95d2c9bd916f3372a26116f3909",
+    "backend/tests/test_push.py": "a2474a1b05cc204af38c2f871d62f72da3c94b0b85ce26fc46eb3f62dbbd01ac"
+  },
+  "private_evidence": {
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/backend-tests.log": "2e34549c8e79426cd89c4c1dcae864debe7149dacd2995fe25ec6ec984648d34",
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/plan-r01.json": "2d6e51ad8005334e532f701ad8fcae99d351038ade84789bdd90276f930ee23e",
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/run_r01.py": "b405f13ecbf5b19f7d5d22bd4e2a76807c6dcd4a3000026ea0ff5ef3c4d6f671",
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/stage-r01.json": "bdd7104481961d61db718adca3fe9bd0ea5e9356f9d0afe4cb411638dc92545a",
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/apple-run-r01/receipt.json": "69479910acd77565f9b47e1be480f96e54186d242968599872a36b6d4891be60",
+    "/home/ai/Development/investigations/vipi-apple-background-hint-20261109-r01/apple-run-r01/test.log": "218a1c7e6b63d8089ed897fcce5fd0a4d27cd7e4eec7c36a371e4e573dd2a53e"
+  },
+  "backend_push_tests": 9,
+  "apple_callback_tests": 2,
+  "apple_simulator": "46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+  "build_seconds": 35.377784125,
+  "test_command_seconds": 9.935200959,
+  "source_files_verified": 648,
+  "preferences_restored": true,
+  "labs_preserved": true,
+  "ipad_used": false,
+  "live_push_provider_called": false,
+  "store_ready": false
+}

@@ -15,7 +15,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
 | Service | Restricted staging runs `5ca447b`, same database/schema; Apple Sandbox verification is now configured. Activation took 7.95 seconds; help/privacy return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
-| Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Physical background delivery, complete hosted recovery and final signed release builds. |
+| Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Real provider background delivery in the available native testing environments, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression and physical pronunciation/accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
@@ -31,6 +31,13 @@ verified signature, matching retained event and no entitlement created. The
 production URL remains unset. Annual base/Bot mini products and their separate
 one-month trials are configured; real purchase/refund/restore remain open. See
 `qa/backend/apple-sandbox-notification-r01/receipt.json`.
+
+Apple's background inbox callback now checks the backend's `kind` field rather
+than the incompatible `type` field. The actual provider payload matches a shared
+native fixture in both APNs environments; nine backend push tests and two real
+delegate callback tests pass in the existing iPhone simulator. No live APNs
+request was made, and this is not proof of OS background delivery. See
+`qa/backend/apple-background-inbox-hint-r01/RESULT.md`.
 
 Offline recovery now has an isolated reconciliation tool with nine passing
 synthetic disk-backed tests. It applies restrictive deletion/suspension records,

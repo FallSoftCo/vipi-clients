@@ -1,8 +1,13 @@
 import asyncio
+import json
 from datetime import timedelta
+from pathlib import Path
 from types import SimpleNamespace
 
 import httpx
+import pytest
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import ec
 from sqlalchemy import select
 
 from conftest import NOW
@@ -107,6 +112,37 @@ async def test_fcm_payload_has_no_conversation_content_or_identity():
         payload = captured[0]["message"]
         assert payload["data"] == {"kind": "inbox_changed"}
         assert "notification" not in payload and payload["android"]["ttl"] == "3600s"
+    finally:
+        await providers.close()
+
+
+@pytest.mark.parametrize("environment,host", [
+    ("sandbox", "api.sandbox.push.apple.com"),
+    ("production", "api.push.apple.com"),
+])
+async def test_apns_payload_matches_native_background_callback_fixture(tmp_path, environment, host):
+    key = ec.generate_private_key(ec.SECP256R1())
+    key_path = tmp_path / "fixture-apns-key.pem"
+    key_path.write_bytes(key.private_bytes(serialization.Encoding.PEM,
+        serialization.PrivateFormat.PKCS8, serialization.NoEncryption()))
+    expected = json.loads((Path(__file__).resolve().parents[2] /
+        "ios/VipiCryptoTests/APNsInboxChanged.json").read_text())
+    requests = []
+    def handler(request):
+        requests.append(request)
+        return httpx.Response(200, json={})
+    providers = PushProviders(settings(apns_private_key_path=str(key_path),
+        apns_key_id="fixture-key-id", apns_team_id="fixture-team"), transport=httpx.MockTransport(handler))
+    try:
+        assert await providers.send(SimpleNamespace(provider="apns", environment=environment),
+            "fixture-device-token", NOW, NOW + timedelta(hours=72)) == "sent"
+        assert len(requests) == 1
+        request = requests[0]
+        assert request.url.host == host
+        assert request.headers["apns-topic"] == "co.fallsoft.vipi"
+        assert request.headers["apns-push-type"] == "alert"
+        assert request.headers["apns-expiration"] == str(int(NOW.timestamp()) + 3600)
+        assert json.loads(request.content) == expected
     finally:
         await providers.close()
 
