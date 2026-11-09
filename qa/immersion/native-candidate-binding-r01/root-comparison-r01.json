@@ -1,0 +1,16 @@
+{
+  "old_fields_unchanged": true,
+  "cases": 52,
+  "counts": {
+    "conditional_before": 50,
+    "conditional_after": 50,
+    "tuple_occurrences": 149,
+    "heads": 60
+  },
+  "reasons": {
+    "no_qualified_context_rule": 19,
+    "original_head_context_missing_or_not_native_window": 10
+  },
+  "changed_decisions": [],
+  "bundle_identity": "4304e2ded3004bd25ea96e9c3c07a38bb368b46be8f79283ba62337017d636a6"
+}

@@ -18,7 +18,22 @@ final class FrozenCandidateProducerTests:XCTestCase {
   XCTAssertThrowsError(try provider.inspect(original:"𐐀 a",protectedRanges:[NSRange(location:0,length:1)]))
   let protectedWater=try provider.inspect(original:"water",protectedRanges:[NSRange(location:0,length:5)])
   XCTAssertTrue(protectedWater.input.protected.contains(NSRange(location:0,length:5)))
-  let result=try FrozenCandidateQualification.run(root:root,en:en){text,supplied in
+  func currentEvidence(_ text:String,_ protection:[NSRange],_ catalog:FrozenCandidateCatalog,_ pack:FrozenContextPack,_ familyOrder:[String])throws->[String:Any] {
+                let prepared=try provider.prepare(original:text,protectedRanges:protection,catalog:catalog,pack:pack)
+                let evidence=prepared.currentEvidence.mapValues{a -> [String:Any] in
+                    ["chosen_rule_id":a.chosenRuleID as Any? ?? NSNull(),"rejections":a.rejectionReasons,
+                     "heads":a.heads.map{h -> [String:Any] in
+                        ["id":h.headID,"eligible":h.conditionallyEligible,"rejections":h.rejectionReasons,
+                         "supported_tuples":h.supportedTuples.map{["source_form":$0.sourceFormID,"target_form":$0.targetFormID,"source_term":$0.sourceTermID,"target_term":$0.targetTermID]}]}]
+                }
+                var selections:[String:Any]=[:]
+                for (name,known) in [("all_function",Set<String>()),("all_function_global300",Set(familyOrder.prefix(300)))] {
+                    selections[name]=try provider.select(prepared,catalog:catalog,knownFamilyIDs:known,withholdFunction:true,density:0.25)
+                }
+                return ["qualified_indices":prepared.qualifiedIndices,"before_current_tuple_indices":prepared.output.qualifiedIndices,
+                    "assessments":evidence,"selections":selections,"bundle_identity":prepared.output.bundleIdentity]
+  }
+  let result=try FrozenCandidateQualification.run(root:root,en:en,nativeEvidence:currentEvidence){text,supplied in
    let snapshot=try provider.inspect(original:text,protectedRanges:supplied),role=snapshot.role,recognition=snapshot.recognition
    XCTAssertTrue(snapshot.input.protected.starts(with:supplied))
    return(snapshot.input,["role_status":role.status.rawValue,"schemes":role.availableSchemes,"named_ranges":role.detectedNames.map(FrozenCandidateProducer.pair),"dictionary_release":recognition.dictionaryRelease,"dictionary_inventory":recognition.dictionaryInventory,"units":recognition.units.count,"nil_form_focus":recognition.units.flatMap(\.forms).filter{$0.intrinsicRange==nil}.count])

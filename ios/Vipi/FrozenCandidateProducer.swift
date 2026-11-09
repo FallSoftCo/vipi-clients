@@ -17,7 +17,7 @@ struct FrozenCandidateProducer {
         // These must describe independent full source observations, not candidates.
         let basis:String
     }
-    struct Output {let inputIdentity:String; let candidates:[[String:Any]], ordinaryCount:Int, geometryRejections:[[String:Any]], conditionalGeometryRejections:[[String:Any]], gates:[String:[String:Any]], qualifiedIndices:[Int]}
+    struct Output {let inputIdentity:String, bundleIdentity:String; let candidates:[[String:Any]], ordinaryCount:Int, geometryRejections:[[String:Any]], conditionalGeometryRejections:[[String:Any]], gates:[String:[String:Any]], qualifiedIndices:[Int]}
     private let tokenizer:FrozenContextTokenizer,sourceCase:FrozenSourceCase
     init()throws{tokenizer=try FrozenContextTokenizer();sourceCase=try FrozenSourceCase()}
     static func identity(_ input:Input)throws->String {
@@ -41,6 +41,7 @@ struct FrozenCandidateProducer {
         return(inside.count,nil)
     }
     func produce(_ input:Input,catalog:FrozenCandidateCatalog,pack:FrozenContextPack)throws->Output {
+        guard catalog.contextPackSHA256 == pack.contentSHA256 else{throw FrozenContextPack.Failure.identity}
         let text=input.original,ns=text as NSString
         guard text.utf16.count<=16384,input.words.count<=16384,input.windows.count<=65536,input.protected.count<=4096,input.sourceMasks.count<=16384,!input.basis.isEmpty else{throw FrozenContextPack.Failure.bound}
         var offsets:[Int:Int]=[0:0],offset=0
@@ -95,6 +96,6 @@ struct FrozenCandidateProducer {
             let key="[\(focus.location),\(NSMaxRange(focus))]"
             gates[key]=["candidate_indices":indices,"admitted_indices":admitted,"source_keys":keys,"chosen_rule_id":match.winner?.rule.id as Any? ?? NSNull(),"chosen_context_utf16":match.winner.map{Self.pair($0.contextRange)} as Any? ?? NSNull(),"reason": !admitted.isEmpty ? "qualified_context":match.winner == nil ? "no_qualified_multiword_context":"winner_without_original_supported_head"]
         }
-        return .init(inputIdentity:try Self.identity(input),candidates:candidates,ordinaryCount:ordinaryCount,geometryRejections:rejections,conditionalGeometryRejections:experimental,gates:gates,qualifiedIndices:Self.qualifiedOrder(ordinary:keep,admittedGroups:[]))
+        return .init(inputIdentity:try Self.identity(input),bundleIdentity:catalog.bundleIdentity,candidates:candidates,ordinaryCount:ordinaryCount,geometryRejections:rejections,conditionalGeometryRejections:experimental,gates:gates,qualifiedIndices:Self.qualifiedOrder(ordinary:keep,admittedGroups:[]))
     }
 }

@@ -44,3 +44,57 @@ final class FrozenNativeCandidateProvider {
         return .init(input:input,recognition:recognition,role:role)
     }
 }
+
+
+extension FrozenNativeCandidateProvider {
+    /// A current native evidence assessment, still without display permission.
+    /// Only indices supported by both the frozen context and current dictionary
+    /// may enter this wrapper's selector. No shorter context is retried.
+    struct Prepared {
+        let snapshot: Snapshot
+        let output: FrozenCandidateProducer.Output
+        let dictionarySHA256: String
+        let qualifiedIndices: [Int]
+        let currentEvidence: [String:FrozenHeadAdmission.Assessment]
+    }
+    func prepare(original:String, protectedRanges:[NSRange], catalog:FrozenCandidateCatalog,
+                 pack:FrozenContextPack)throws->Prepared {
+        guard dictionarySHA256 == catalog.metadata["dictionary_en_sha256"],
+              catalog.contextPackSHA256 == pack.contentSHA256 else{throw FrozenContextPack.Failure.identity}
+        let snapshot=try inspect(original:original,protectedRanges:protectedRanges)
+        let producer=try FrozenCandidateProducer(),admission=try FrozenHeadAdmission()
+        let output=try producer.produce(snapshot.input,catalog:catalog,pack:pack)
+        var eligible=Set(output.qualifiedIndices.filter{$0<output.ordinaryCount})
+        var assessments:[String:FrozenHeadAdmission.Assessment]=[:]
+        for key in output.gates.keys.sorted() {
+            let gate=output.gates[key]!
+            guard let indices=gate["candidate_indices"] as? [Int],let first=indices.first,
+                  let keys=gate["source_keys"] as? [String],
+                  let focusPair=output.candidates[first]["focus_utf16"] as? [Int] else{throw FrozenContextPack.Failure.malformed}
+            let focus=FrozenCandidateProducer.range(focusPair)
+            let scope=FrozenHeadAdmission.KeyScope(original:original,focus:focus,keys:keys,
+                identity:FrozenCandidateCatalog.hash(output.bundleIdentity+"\n"+output.inputIdentity+"\n"+key),
+                basis:"Eligible current candidate head keys, exact source context and immutable bundle")
+            let assessed=try admission.assess(pack:pack,original:original,focus:focus,keyScope:scope,
+                recognition:snapshot.recognition,role:snapshot.role,knownFamilyIDs:[])
+            // Both assessments must have fixed the same context before any head
+            // checks. A disagreement is an integrity failure, not a fallback.
+            guard assessed.chosenRuleID == gate["chosen_rule_id"] as? String else{throw FrozenContextPack.Failure.identity}
+            let supported=Set(assessed.heads.filter{assessed.rejectionReasons.isEmpty && $0.conditionallyEligible}.map(\.headID))
+            for index in output.qualifiedIndices where indices.contains(index) {
+                if let head=output.candidates[index]["head_id"] as? String,supported.contains(head){eligible.insert(index)}
+            }
+            assessments[key]=assessed
+        }
+        return .init(snapshot:snapshot,output:output,dictionarySHA256:dictionarySHA256,
+            qualifiedIndices:eligible.sorted(),currentEvidence:assessments)
+    }
+    func select(_ prepared:Prepared,catalog:FrozenCandidateCatalog,knownFamilyIDs:Set<String>,
+                withholdFunction:Bool,density:Double)throws->[String:Any] {
+        guard prepared.dictionarySHA256 == dictionarySHA256,
+              dictionarySHA256 == catalog.metadata["dictionary_en_sha256"] else{throw FrozenContextPack.Failure.identity}
+        return try FrozenCandidateProducer().select(prepared.output,input:prepared.snapshot.input,
+            expectedBundleIdentity:catalog.bundleIdentity,indices:prepared.qualifiedIndices,
+            knownFamilyIDs:knownFamilyIDs,withholdFunction:withholdFunction,density:density)
+    }
+}

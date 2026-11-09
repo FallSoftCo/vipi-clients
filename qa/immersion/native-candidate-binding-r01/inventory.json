@@ -1,0 +1,70 @@
+{
+  "final-sources/ios/Vipi/FrozenCandidateCatalog.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift",
+    "sha256": "f3fb7186712e2fe1cb55697937b58505e8dcd72938a53756f86701d12d092094"
+  },
+  "preimages/FrozenCandidateCatalog.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenCandidateCatalog.swift",
+    "sha256": "dafcfda2fdd2ff502e764bb831f3ebbd6a5f9180fba2c8b5ccf618323612beef"
+  },
+  "final-sources/ios/Vipi/FrozenCandidateProducer.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateProducer.swift",
+    "sha256": "899b9ae6d33b760bba875031e479efa8d9e798c46165cd5a067dd5bc1585b4f4"
+  },
+  "preimages/FrozenCandidateProducer.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenCandidateProducer.swift",
+    "sha256": "ea2d20dcadf9e7f8897e8b89fcd9f47490ac51d4496d6dfa9ed6eb3857cfa045"
+  },
+  "final-sources/ios/Vipi/FrozenCandidateSelection.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateSelection.swift",
+    "sha256": "2f9584c4944a0f86c6055be4ba4b75288da8fd6e6953a2f8a2182b128897ee66"
+  },
+  "preimages/FrozenCandidateSelection.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenCandidateSelection.swift",
+    "sha256": "9c45e813eddfafcb03dd40e2e958de466995cbdeff571278e0d0109c2942b7de"
+  },
+  "final-sources/ios/Vipi/FrozenNativeCandidateProvider.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenNativeCandidateProvider.swift",
+    "sha256": "32076b1d1096fe9cb1a36c5553301aca9308dca370738213db84e75eb6b75dcf"
+  },
+  "preimages/FrozenNativeCandidateProvider.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenNativeCandidateProvider.swift",
+    "sha256": "1025f99e94404cf0045059ab8aa1c039cf0ac65c0137dac86d78a587174acb66"
+  },
+  "final-sources/ios/VipiCryptoTests/FrozenCandidateQualification.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateQualification.swift",
+    "sha256": "a90aba086eba4cbfb4eecb14140ef28044cd3062faf517bcdff4c6c1fe8a800a"
+  },
+  "preimages/FrozenCandidateQualification.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenCandidateQualification.swift",
+    "sha256": "50d4a988a556c08b2447f0099ac80ad6c701520e979c999ac7dec29197adc452"
+  },
+  "final-sources/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateProducerTests.swift",
+    "sha256": "33be80f8923af147c60364919a9306b19e5872585d3683b793ae0f83b366691b"
+  },
+  "preimages/FrozenCandidateProducerTests.swift": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/preimages/FrozenCandidateProducerTests.swift",
+    "sha256": "27b612e7f55a7d7392f62a96ee8b99021d3766a772931eb93bc79321f799c232"
+  },
+  "simulator-r01/receipt.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/simulator-r01/receipt.json",
+    "sha256": "3da2466e3b5f14c62b741ac7c00ae1947219d8c564de4a6d131424561c14d1e7"
+  },
+  "simulator-r01/test.log": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/simulator-r01/test.log",
+    "sha256": "b246bd6ca4f333bc2f003fd069908d0fc09a1d36bd7da03973761feddbd8150e"
+  },
+  "simulator-r01/output.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/simulator-r01/attachments/BF51B76D-FD3A-4436-AC46-755BB417EEE2.json",
+    "sha256": "3fb20f14e08c8dcb08e43e39420999b1613588f8173c858c48175f4b33b8704b"
+  },
+  "execution-plan-r01.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/execution-plan-r01.json",
+    "sha256": "77bdc92ffde4578d7a4826a89b1c12f3ef87bc301d79849e242c6063e91020b0"
+  },
+  "simulator-r01/summary.json": {
+    "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-binding-r01/simulator-r01/test.xcresult",
+    "sha256": "241f17175381924a1e29818a561543ae30d61b0d6280901a9fc010159b4d3b9f"
+  }
+}

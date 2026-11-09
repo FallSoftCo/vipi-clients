@@ -1,0 +1,59 @@
+{
+  "complete": true,
+  "production_source_changes": {
+    "ios/Vipi/FrozenCandidateCatalog.swift": {
+      "before": "dafcfda2fdd2ff502e764bb831f3ebbd6a5f9180fba2c8b5ccf618323612beef",
+      "after": "f3fb7186712e2fe1cb55697937b58505e8dcd72938a53756f86701d12d092094"
+    },
+    "ios/Vipi/FrozenCandidateProducer.swift": {
+      "before": "ea2d20dcadf9e7f8897e8b89fcd9f47490ac51d4496d6dfa9ed6eb3857cfa045",
+      "after": "899b9ae6d33b760bba875031e479efa8d9e798c46165cd5a067dd5bc1585b4f4"
+    },
+    "ios/Vipi/FrozenCandidateSelection.swift": {
+      "before": "9c45e813eddfafcb03dd40e2e958de466995cbdeff571278e0d0109c2942b7de",
+      "after": "2f9584c4944a0f86c6055be4ba4b75288da8fd6e6953a2f8a2182b128897ee66"
+    },
+    "ios/Vipi/FrozenNativeCandidateProvider.swift": {
+      "before": "1025f99e94404cf0045059ab8aa1c039cf0ac65c0137dac86d78a587174acb66",
+      "after": "32076b1d1096fe9cb1a36c5553301aca9308dca370738213db84e75eb6b75dcf"
+    },
+    "ios/VipiCryptoTests/FrozenCandidateQualification.swift": {
+      "before": "50d4a988a556c08b2447f0099ac80ad6c701520e979c999ac7dec29197adc452",
+      "after": "41fdfaa684d693e30c134e6fd6efda81f2c4ccfca3dc16ebe96aee938005004a"
+    },
+    "ios/VipiCryptoTests/FrozenCandidateProducerTests.swift": {
+      "before": "27b612e7f55a7d7392f62a96ee8b99021d3766a772931eb93bc79321f799c232",
+      "after": "2fd41eaa236b4abff5b5b721e6493a337a66a8cf6ed972208ab733e1f6809b56"
+    }
+  },
+  "bundle_identity": "4304e2ded3004bd25ea96e9c3c07a38bb368b46be8f79283ba62337017d636a6",
+  "root_independent_checks": {
+    "all_old_mac_and_iOS_payloads_unchanged_except_timing": true,
+    "every_bundle_identity_independently_recomputed": true,
+    "actual_current_evidence_unchanged_after_QA_compatibility_amendment": true,
+    "all_current_evidence_selections_equal_original_actual": true
+  },
+  "actual_iOS": {
+    "cases": 52,
+    "conditional_candidate_occurrences_before": 50,
+    "conditional_candidate_occurrences_after": 50,
+    "supported_tuple_occurrences": 149,
+    "all_head_evidence_records_including_rejected": 60,
+    "test_pass": 1,
+    "test_fail": 0,
+    "test_skip": 0
+  },
+  "qualifications": [
+    "Stale bundle rejection on diagnostic and actual inputs; existing stale-text/protection guards retained.",
+    "Pure comparator is unchanged; wrapper intersects only conditional indices with original/current form-term evidence.",
+    "Mac standalone shared helper compiles and runs; actual native wrapper was exercised on iOS Simulator, not claimed Mac parity.",
+    "This does not fix or certify contextual meaning, new input coverage, customer UI integration, or physical device behavior."
+  ],
+  "evidence_root": "/home/ai/Development/investigations/vipi-native-candidate-binding-20261109-r01",
+  "output_sha256": {
+    "simulator-r01/output.json": "3fb20f14e08c8dcb08e43e39420999b1613588f8173c858c48175f4b33b8704b",
+    "simulator-r02/output.json": "ab0e91995eeb6e8fd6cb5f04b5fb6862df58e38ef88222b6fe95290b9ecdd98a",
+    "mac-r01/output.json": "7fe973dde820701cf0d03e9eafea429eec007b291d6e858e351c2ddae21625d5"
+  },
+  "customer_activation": false
+}

@@ -1,0 +1,7 @@
+Candidate results now bind to the exact catalog manifest, catalog, context pack, both dictionaries and policy. Selection requires the current bundle identity. A different identity is rejected before candidate access.
+
+The native wrapper also checks the loaded English dictionary, fixes the original context winner, and validates the exact current source form against its original form/term links before retaining conditional candidates. It never retries a shorter rule. Caller-known vocabulary is applied at selection. This remains evidence without customer display permission.
+
+On the retained 52 actual iOS cases, all 50 conditionally qualified candidate occurrences retained exact support; 149 supporting tuple occurrences were recorded across all assessed heads. All original candidate decisions and displayed diagnostic strings remain unchanged. Stale bundle, text and protection checks passed. One selected iOS test passed with no failures or skips. The standalone Mac comparator also compiled and ran with identical prior non-timing fields. These are implementation checks on exposed records, not new semantic accuracy or population coverage.
+
+The first iOS run passed. A subsequent QA-only amendment moved native evidence formatting into an optional callback, preserving standalone Mac helper compatibility; Mac and selected iOS checks then both passed. Original receipts and source preimages remain retained. Source authority, preferences and unrelated lab processes were preserved. No customer call site, store upload or semantic gate was activated.

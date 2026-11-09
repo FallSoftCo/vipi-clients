@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T15:12:59.210810+00:00",
+  "scope": "Qualify immutable-bundle binding and exact current source tuple wrapper on existing iOS Simulator. No customer activation or semantic policy change.",
+  "plan_sha256": "77bdc92ffde4578d7a4826a89b1c12f3ef87bc301d79849e242c6063e91020b0",
+  "once": true,
+  "resource_budget": {
+    "compiler_jobs": 2,
+    "peak_additional_bytes": 3221225472,
+    "physical_floor_bytes": 1073741824,
+    "build_deadline_seconds": 900,
+    "test_deadline_seconds": 300
+  },
+  "original_parent": "native-digest-memory-r01"
+}

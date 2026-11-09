@@ -2,8 +2,8 @@ import Foundation
 
 extension FrozenCandidateProducer {
     /// Caller-known vocabulary is explicit. Frozen frequency controls belong to QA callers only.
-    func select(_ output:Output,input:Input,indices:[Int],knownFamilyIDs:Set<String>,withholdFunction:Bool,density:Double)throws->[String:Any] {
-        guard output.inputIdentity == (try Self.identity(input)) else{throw FrozenContextPack.Failure.identity}
+    func select(_ output:Output,input:Input,expectedBundleIdentity:String,indices:[Int],knownFamilyIDs:Set<String>,withholdFunction:Bool,density:Double)throws->[String:Any] {
+        guard output.bundleIdentity == expectedBundleIdentity, output.inputIdentity == (try Self.identity(input)) else{throw FrozenContextPack.Failure.identity}
         guard density.isFinite,density>0,density<=1,knownFamilyIDs.count<=65536,indices.count<=65536,Set(indices).count==indices.count,indices.allSatisfy({output.candidates.indices.contains($0)}) else{throw FrozenContextPack.Failure.bound}
         let cs=output.candidates,budget=max(1,Int(floor(Double(input.words.count)*density)))
         var masks:[NSRange]=[]

@@ -15,7 +15,7 @@ enum FrozenCandidateQualification {
             else if code != SQLITE_ROW && code != SQLITE_DONE{throw FrozenContextPack.Failure.sqlite}
         };return result
     }
-    static func run(root:URL,en:URL,actual:((String,[NSRange])throws->(FrozenCandidateProducer.Input,[String:Any]))? = nil)throws->[String:Any] {
+    static func run(root:URL,en:URL,nativeEvidence:((String,[NSRange],FrozenCandidateCatalog,FrozenContextPack,[String])throws->[String:Any])? = nil,actual:((String,[NSRange])throws->(FrozenCandidateProducer.Input,[String:Any]))? = nil)throws->[String:Any] {
         let start=DispatchTime.now().uptimeNanoseconds
         let config=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("bindings.json"))) as! [String:Any]
         let packRoot=URL(fileURLWithPath:config["pack_input_directory"] as! String),expected=config["expected_metadata"] as! [String:String]
@@ -37,20 +37,22 @@ enum FrozenCandidateQualification {
                 // Same geometry and character count cannot authorize stale original text.
                 let changedText = input.original.isEmpty ? "x" : "#"+String(input.original.dropFirst())
                 let stale=FrozenCandidateProducer.Input(original:changedText,words:input.words,windows:input.windows,protected:input.protected,sourceMasks:input.sourceMasks,roles:input.roles,sourceNameOnlyGuards:input.sourceNameOnlyGuards,basis:input.basis)
-                do {_ = try producer.select(out,input:stale,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25);throw FrozenContextPack.Failure.malformed} catch FrozenContextPack.Failure.identity {}
+                do {_ = try producer.select(out,input:stale,expectedBundleIdentity:catalog.bundleIdentity,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25);throw FrozenContextPack.Failure.malformed} catch FrozenContextPack.Failure.identity {}
                 let changedMasks=FrozenCandidateProducer.Input(original:input.original,words:input.words,windows:input.windows,protected:input.protected+[NSRange(location:0,length:1)],sourceMasks:input.sourceMasks,roles:input.roles,sourceNameOnlyGuards:input.sourceNameOnlyGuards,basis:input.basis)
-                do {_ = try producer.select(out,input:changedMasks,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25);throw FrozenContextPack.Failure.malformed} catch FrozenContextPack.Failure.identity {}
+                do {_ = try producer.select(out,input:changedMasks,expectedBundleIdentity:catalog.bundleIdentity,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25);throw FrozenContextPack.Failure.malformed} catch FrozenContextPack.Failure.identity {}
+                do {_ = try producer.select(out,input:input,expectedBundleIdentity:"different-pack",indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25);throw FrozenContextPack.Failure.malformed} catch FrozenContextPack.Failure.identity {}
                 var selected:[String:Any]=[:]
                 for (name,known) in [("all_function",Set<String>()),("all_function_global300",Set(familyOrder.prefix(300)))] {
                     let base=out.candidates.indices.filter{$0<out.ordinaryCount && (out.candidates[$0]["filter_reasons"] as! [String]).isEmpty},all=out.candidates.indices.filter{(out.candidates[$0]["filter_reasons"] as! [String]).isEmpty}
-                    selected[name]=["baseline":try producer.select(out,input:input,indices:base,knownFamilyIDs:known,withholdFunction:true,density:0.25),"experimental":try producer.select(out,input:input,indices:all,knownFamilyIDs:known,withholdFunction:true,density:0.25),"qualified":try producer.select(out,input:input,indices:out.qualifiedIndices,knownFamilyIDs:known,withholdFunction:true,density:0.25)]
+                    selected[name]=["baseline":try producer.select(out,input:input,expectedBundleIdentity:catalog.bundleIdentity,indices:base,knownFamilyIDs:known,withholdFunction:true,density:0.25),"experimental":try producer.select(out,input:input,expectedBundleIdentity:catalog.bundleIdentity,indices:all,knownFamilyIDs:known,withholdFunction:true,density:0.25),"qualified":try producer.select(out,input:input,expectedBundleIdentity:catalog.bundleIdentity,indices:out.qualifiedIndices,knownFamilyIDs:known,withholdFunction:true,density:0.25)]
                 }
                 // Explicit empty actual-user-known set; frequency controls above are diagnostics only.
-                let emptyUser=try producer.select(out,input:input,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25)
-                return ["candidates":out.candidates,"baseline_candidate_count":out.ordinaryCount,"geometry_rejections":out.geometryRejections,"experimental_geometry_rejections":out.conditionalGeometryRejections,"gates":out.gates,"selections":selected,"empty_actual_known_selection":emptyUser,"elapsed_ns":duration,"input_identity":out.inputIdentity,"stale_text_rejected":true,"changed_protection_rejected":true,"native_words_utf16":input.words.map(FrozenCandidateProducer.pair),"protected_ranges_utf16":input.protected.map(FrozenCandidateProducer.pair),"source_masks":input.sourceMasks,"basis":input.basis]
+                let emptyUser=try producer.select(out,input:input,expectedBundleIdentity:catalog.bundleIdentity,indices:out.qualifiedIndices,knownFamilyIDs:[],withholdFunction:false,density:0.25)
+                return ["candidates":out.candidates,"baseline_candidate_count":out.ordinaryCount,"geometry_rejections":out.geometryRejections,"experimental_geometry_rejections":out.conditionalGeometryRejections,"gates":out.gates,"selections":selected,"empty_actual_known_selection":emptyUser,"elapsed_ns":duration,"input_identity":out.inputIdentity,"bundle_identity":out.bundleIdentity,"stale_bundle_rejected":true,"stale_text_rejected":true,"changed_protection_rejected":true,"native_words_utf16":input.words.map(FrozenCandidateProducer.pair),"protected_ranges_utf16":input.protected.map(FrozenCandidateProducer.pair),"source_masks":input.sourceMasks,"basis":input.basis]
             }
             var record:[String:Any]=["case_id":row["case_id"]!,"diagnostic":try result(input)]
             if let actual{let(value,metadata)=try actual(text,protection);record["actual"]=try result(value);record["actual_metadata"]=metadata}
+            if let nativeEvidence {record["current_evidence"]=try nativeEvidence(text,protection,catalog,pack,familyOrder)}
             records.append(record)
         }
         return ["cases":records,"identity_preparation_ns":prepared,"manifest_sha256":"9c0d7af245a599bfaadc07dc6fb84c41a3bf72b5e657adcee0b7b68efa96a281","catalog_sha256":catalog.sha256,"actual_role_mapping":["Noun":"noun","Adjective":"adj","Adverb":"adv"],"limits":"Diagnostic frozen observations are implementation parity, not fresh gold. Actual provider/mask differences retained. No SourceLookupEvidence or app activation. Loaded immutable catalog and pack retained across all52 cases."]

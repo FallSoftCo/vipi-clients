@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-09T15:24:20.371385+00:00",
+  "reason": "Qualify standalone Mac helper compatibility after replacing iOS-only helper dependency with optional callback; rerun selected iOS test for moved QA code. No production changes after successful r01.",
+  "once": true,
+  "order": [
+    "standalone Mac compile/probe",
+    "selected iOS build/test"
+  ],
+  "same_preflight_and_resource_guards": true
+}

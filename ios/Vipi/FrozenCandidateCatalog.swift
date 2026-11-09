@@ -15,6 +15,7 @@ final class FrozenCandidateCatalog {
     }
     private let db: OpaquePointer
     let sha256: String, metadata: [String:String]
+    let bundleIdentity: String, contextPackSHA256: String
     let manifest: [String:Any]
     static func digest(_ url: URL, maximum: Int) throws -> String {
         for suffix in ["-wal","-shm","-journal"] {
@@ -42,6 +43,10 @@ final class FrozenCandidateCatalog {
         guard (try url.resourceValues(forKeys:[.fileSizeKey])).fileSize==m["database_bytes"] as? Int else{throw Failure.identity}
         var pointer:OpaquePointer?;guard sqlite3_open_v2(url.path,&pointer,SQLITE_OPEN_READONLY|SQLITE_OPEN_NOMUTEX,nil)==SQLITE_OK,let pointer else{if let pointer{sqlite3_close(pointer)};throw Failure.sqlite}
         db=pointer;sha256=hash;manifest=m
+        contextPackSHA256=contextPack.contentSHA256
+        bundleIdentity=Self.hash(["vipi.candidate-bundle.1",manifestSHA256,hash,contextPack.contentSHA256,
+            dependencies["dictionary_en"]!["sha256"]!,dependencies["dictionary_es"]!["sha256"]!,
+            m["contract_sha256"] as? String ?? ""].joined(separator:"\n"))
         do {
             sqlite3_limit(db,SQLITE_LIMIT_LENGTH,262144);sqlite3_limit(db,SQLITE_LIMIT_ATTACHED,0)
             guard sqlite3_exec(db,"PRAGMA query_only=ON;PRAGMA trusted_schema=OFF;PRAGMA cache_size=-8192;BEGIN",nil,nil,nil)==SQLITE_OK else{throw Failure.sqlite}
