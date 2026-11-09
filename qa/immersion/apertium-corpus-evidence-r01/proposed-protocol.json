@@ -1,0 +1,76 @@
+{
+  "status": "prepared_only_not_authorized_for_larger_execution",
+  "cohort": {
+    "heads": 1480,
+    "source_keys": 1470,
+    "variants": 3651,
+    "observations": 12485,
+    "head_observation_joins": 12500,
+    "distinct_pairs": 7115,
+    "distinct_components": 6437,
+    "distinct_source_focus_occurrences": 7701,
+    "distinct_endpoints": 14004,
+    "endpoints_by_language": {
+      "en": 6968,
+      "es": 7036
+    },
+    "tokens_by_language": {
+      "en": 65297,
+      "es": 66408
+    },
+    "utf8_text_bytes_by_language": {
+      "en": 286586,
+      "es": 313541
+    },
+    "no_annotation": true
+  },
+  "endpoint_inventory": {
+    "remote_path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/cohort/endpoint-inventory.json",
+    "sha256": "26a5f6fe70067d2d090d44393a502c17295de73a39d41691a89e9620daa1162d",
+    "bytes": 7986748
+  },
+  "batch": {
+    "max_endpoints_per_language_batch": 32,
+    "order": "endpoint key SHA ascending within each language",
+    "reset_contract": "Exactly expectedN endpoint records byte-identical; only provably empty terminal EOF records may follow. No stripping/normalizing nonempty content.",
+    "deformatter": "Existing apertium-destxt once per endpoint, no custom implementation.",
+    "original_strict_all_byte_equal": false,
+    "additive_endpoint_byte_parity": true
+  },
+  "cost_estimate_seconds": {
+    "deformatter": 67.15981822528556,
+    "morphology_and_HMM": 35.730764697975246,
+    "sum": 102.89058292326081,
+    "basis": "Linear extrapolation of64endpoint preprocessing and32endpoint batches, forward/reverse timing average. Bound includes roughly3x reserve; corpus token lengths vary, max60tokens/346UTF8bytes."
+  },
+  "proposed_stages": {
+    "annotate": {
+      "CPU": 1,
+      "AS_bytes": 268435456,
+      "seconds": 300,
+      "per_child_timeout_seconds": 10,
+      "output_bytes": 33554432,
+      "outputs": "Raw deformat/morphology/contextual streams with endpoint offset/hash index; no duplicate full proof database. Estimated raw morphology+tagging8.0MB from measured554token reference and131705tokens."
+    },
+    "join_evidence": {
+      "CPU": 1,
+      "AS_bytes": 1073741824,
+      "seconds": 300,
+      "output_bytes": 100663296,
+      "outputs": "Exact source/target form-span role references, unchanged old proof IDs/reasons, link strata, contextual alternatives, aggregate counts. Count prospective encoded bytes before writes; fail retained without dropped alternatives."
+    }
+  },
+  "aggregate_new_output_bytes": 134217728,
+  "reservation_additional_bytes": 167772160,
+  "free_floor_bytes": 8589934592,
+  "joins": "Source exact displayed focus form; target each complete supported dictionary form inside retained aligned envelope, not all envelope tokens. Preserve envelope/alignment/compound/mutual-crossing reasons separately. Old candidate eligibility is never rewritten by this evidence pass.",
+  "relation_strata": [
+    "old_explicit_shared_link",
+    "old_nonexplicit_shared_link",
+    "new_direct_english_unresolved_candidate",
+    "no_shared_retained_link"
+  ],
+  "new_direct_english_candidate_count": 17,
+  "no_ranking_training_projection_activation": true,
+  "no_existing_output_changed": true
+}

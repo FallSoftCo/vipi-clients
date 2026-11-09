@@ -1,0 +1,92 @@
+{
+  "annotation_complete": true,
+  "join_complete": false,
+  "no_availability_result_claimed": true,
+  "legacy_parity_not_reached": true,
+  "protocol_sha256": "0b5b24ffc189932e4f490f93ae8a944d1e41d472b33dd33392218d580ebb0187",
+  "pipeline_sha256": "9c3de54293d1237f1b0223768cccef31e8ca302988569224d117c356854e7bb6",
+  "annotation": {
+    "receipt_sha256": "7e5b368d3a14bfd0fed636babfe0d8b3d229c754a30df25ead8cf7a6f6cf9449",
+    "endpoints": 14004,
+    "tokens": 131705,
+    "seconds": 88.16669188198284,
+    "VmHWM_bytes": 111132672,
+    "output_bytes": 13813008,
+    "outputs": {
+      "index.sqlite": {
+        "bytes": 5554176,
+        "sha256": "13b62a968df166bc1ee9c7af71c2db3bc31a9c41b172bfec1857218ac96cbaa4"
+      },
+      "deformat.raw": {
+        "bytes": 698161,
+        "sha256": "6a7d7654ff4cf569db49638adfbaa2fbaea6b8103dfd55f40eb6fa076a80d1dd"
+      },
+      "tag.raw": {
+        "bytes": 3201012,
+        "sha256": "a0ac7a853135465bd5b03ca59bb76c59792193e855c49ddf36ac57bd6a248545"
+      },
+      "morph.raw": {
+        "bytes": 4359659,
+        "sha256": "02aabadda66997c6785adcc0278f7d717ea602ba5b4b82dc74c3779c5c8bdd5d"
+      }
+    }
+  },
+  "join_failure": {
+    "receipt_sha256": "f62406d2ed91516bec8f2c55a5429290fbbe6e27a30b15754b7d2545e97a3714",
+    "error": "OperationalError('database or disk is full')",
+    "seconds": 41.77570927000488,
+    "VmHWM_bytes": 85590016,
+    "partial_database": {
+      "source_path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r01/evidence.sqlite",
+      "source_bytes": 94363648,
+      "page_count": 23038,
+      "page_size": 4096,
+      "objects_by_kind": [
+        {
+          "kind": "dictionary_form",
+          "rows": 2930,
+          "payload_bytes": 5601578,
+          "max_row_bytes": 14515
+        },
+        {
+          "kind": "dictionary_unit",
+          "rows": 4800,
+          "payload_bytes": 3157352,
+          "max_row_bytes": 1849
+        },
+        {
+          "kind": "lexical_unit",
+          "rows": 36688,
+          "payload_bytes": 11869288,
+          "max_row_bytes": 645
+        },
+        {
+          "kind": "mask",
+          "rows": 499,
+          "payload_bytes": 222801,
+          "max_row_bytes": 571
+        },
+        {
+          "kind": "observation",
+          "rows": 3572,
+          "payload_bytes": 3028781,
+          "max_row_bytes": 1353
+        },
+        {
+          "kind": "relation",
+          "rows": 10489,
+          "payload_bytes": 31931639,
+          "max_row_bytes": 6638
+        }
+      ],
+      "relation_rows": 10489,
+      "heads_in_relations": 799,
+      "max_completed_pair_index": 11189,
+      "free_bytes": 288848039936,
+      "seconds": 0.2509373349894304,
+      "source_sha256": "3a44b59ddce5b834384f1dc29e4b0c6b2d9e279b5dd6d4fc7c5490ccb56a3261"
+    }
+  },
+  "next_action": "No replay. Review measured lossless representation/resource amendment; retain complete annotation and immutablefailedjoin.",
+  "no_activation": true
+}

@@ -130,9 +130,26 @@ unassessable at the original token granularity: two recognized multiword place
 names and Fisher, which is unknown on both sides. Root verified the raw stage
 streams, exact spans and all comparison counts. This supports complementary
 occurrence evidence, not population accuracy or same-POS lexical selection.
-The next preparation qualifies batch boundaries and counts the larger existing
-candidate cohort before annotation. See
+See
 `qa/immersion/apertium-occurrence-roles-r01/RESULT.md`.
+
+The larger frozen pass is now complete: 14,004 full endpoints, 131,705 tokens
+and all 12,500 head-observation joins. Annotation took 88.2 seconds; the completed
+join took 147.0 seconds and retains 313 MB of provenance on production. Every
+legacy alternative and independent occurrence/component identity reproduces
+exactly. Requiring noun roles on both exact forms retains 1,335 of 1,480 heads
+and 5,090 of 5,857 source occurrences. Existing alignment/mask restrictions
+then retain 1,334 heads and 4,426 occurrences. These are evidence-availability
+counts, not correct conversational coverage.
+
+Root inspected all five retained fall/order diagnostic witnesses. Two support
+seasonal fall→otoño; a third discusses the quoted word “fall” itself and has
+blocked alignment. The role evidence distinguishes nominal “Here's your order”
+from verbal “I did not order this.” The direct seasonal relation still has no
+resolved English sense identity. No app catalog was activated. The next bounded
+comparison tests default translation frequency against local and whole-sentence
+context with component-separated evaluation and full-output human review. See
+`qa/immersion/apertium-corpus-evidence-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

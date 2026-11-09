@@ -1,0 +1,92 @@
+{
+  "schema": "apertium-corpus-evidence-execution-r01",
+  "scripts": {
+    "pipeline.py": "9c3de54293d1237f1b0223768cccef31e8ca302988569224d117c356854e7bb6",
+    "stream_tools.py": "122d6850fa34a965643cfcf0449c5612fe059e31171f9409ec7c77f6ca46938c",
+    "form_role_join.py": "7e02f1a655e9c59c0e84e107d5e0a35c8aacad4f943e73307872bfbf8aae847c"
+  },
+  "inputs": {
+    "normalizer": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/prepare_inputs.py",
+      "sha256": "b20a0a07f0e087597511e1520d87e999c57fd7e6e9b98ae96868002da1829f5f"
+    },
+    "head_helper": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/qa/immersion/corpus-phrase-extraction-r01/context_heads.py",
+      "sha256": "11795245e37d3155ff9779add6b3c5338bd0e32e855fae22697e4d04977e4df5"
+    },
+    "lookup_key_dependency": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/code/language-packs/context_hints.py",
+      "sha256": "a6daa8743a2f5e33a0711b5b8de07c27fbf8d402d40c8442542e985901e1bf3e"
+    },
+    "dictionary_en": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-en.sqlite",
+      "sha256": "5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68"
+    },
+    "dictionary_es": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/inputs/d-es.sqlite",
+      "sha256": "fcae976ecf9a8eb79c4ea0e4e214e19894db12c8eb21959270e1b9ce78ab1e8e"
+    },
+    "pairs": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fetch/en-es-pairs.jsonl.gz",
+      "sha256": "4eabc120af4d8cf31a8ba85709d7e9408cc06623fa585b0f3355e915eb6b8268"
+    },
+    "forward_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-forward.align",
+      "sha256": "ac4c1a10e2750e0964d085956d6f5e8320bfd6cf01ce3f6c104eba5613b4c2c8"
+    },
+    "reverse_align": {
+      "path": "/srv/fallsoft/staging/vipi-tatoeba-domain-comparison-20261108-r01/outputs/fit-r01/en-es-reverse.align",
+      "sha256": "6befc96f9d4679402d8394aca056839f59d2892b689db0f7b7be787fac1962f2"
+    },
+    "observations": {
+      "path": "/srv/fallsoft/staging/vipi-context-key-expansion-20261109-r01/outputs/extract/observations.jsonl.gz",
+      "sha256": "ee370dba8481e6095aefb2ba948552d770a6b5c6c00347a75fda50100efd2080"
+    },
+    "scope": {
+      "path": "/srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/outputs/metadata/scope-freeze.json",
+      "sha256": "497aac49744131f60af51b056fba41a403c3c16980fd1ff63fed56069fcd991a"
+    },
+    "variant_census": {
+      "path": "/srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/outputs/metadata/variant-census.json",
+      "sha256": "95254365adc5f39b0e43ff019bb6ffd82a3293644e72db245ae12f6da8ea14ff"
+    },
+    "old_census": {
+      "path": "/srv/fallsoft/staging/vipi-lexical-choice-evidence-20261109-r01/outputs/occurrences-r02/census.json",
+      "sha256": "6f77cb64a1f723abcf4c3a4d41f5311eb597e6658a2b3300c2c5da68888352cc"
+    },
+    "direct_relations": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/direct-english-candidates.json",
+      "sha256": "9bc923f1b3138d667b3336c171d976d737c294149373f6991ae77945fa2acc7a"
+    },
+    "apertium_protocol": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-occurrence-roles-20261109-r01/protocol.json",
+      "sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82"
+    },
+    "endpoint_inventory": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/cohort/endpoint-inventory.json",
+      "sha256": "26a5f6fe70067d2d090d44393a502c17295de73a39d41691a89e9620daa1162d"
+    }
+  },
+  "authorization": "Root explicitly authorized exact annotation and join stages after independent framing/manifest verification; no further review stop needed within bounds.",
+  "limits": {
+    "CPU": 1,
+    "annotation_AS_MiB": 256,
+    "join_AS_MiB": 1024,
+    "seconds_per_stage": 300,
+    "annotation_output_MiB": 32,
+    "join_output_MiB": 96,
+    "aggregate_output_MiB": 128,
+    "additional_reservation_MiB": 160,
+    "free_floor_GiB": 8
+  },
+  "proposed_protocol_sha256": "3714b552c3345928f02db0e4b76f73f2d2baa01e7584da0fbce0f4426613190b",
+  "controls": {
+    "controls": 4,
+    "passed": true,
+    "scope": "Exact form vs envelope, guards retained, proper-name role retained, unknown/multiword mismatch abstain; no target-specific tests.",
+    "active_sources_parse": true,
+    "escaped_stream_controls": true,
+    "retained_normalization_control": true
+  },
+  "policy": "Exact frozen7115pair associations;14004endpoints,32endpoint language batches; reject embeddedNUL; accept only empty terminal flush surplus. Complete absolute dictionary-form scopes join actual role; preserve all old reasons and actual fullsentence masks/crossings. No eligibility rewrite. Legacy explicit alternative/source/pair/component identity parity mandatory. Direct17remain unresolved source spelling/POS candidates with per-form evidence, no invented sense or first-form choice. Availability only; no ranking, fitting, projection or activation."
+}

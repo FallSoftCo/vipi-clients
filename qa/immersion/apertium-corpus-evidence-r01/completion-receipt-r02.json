@@ -1,0 +1,177 @@
+{
+  "complete": true,
+  "scope": "Frozen Apertium corpus annotation and occurrence evidence join; no semantic approval or activation",
+  "source_files": {
+    "execution-protocol.json": {
+      "sha256": "0b5b24ffc189932e4f490f93ae8a944d1e41d472b33dd33392218d580ebb0187",
+      "bytes": 5238
+    },
+    "pipeline.py": {
+      "sha256": "9c3de54293d1237f1b0223768cccef31e8ca302988569224d117c356854e7bb6",
+      "bytes": 23918
+    },
+    "stream_tools.py": {
+      "sha256": "122d6850fa34a965643cfcf0449c5612fe059e31171f9409ec7c77f6ca46938c",
+      "bytes": 1694
+    },
+    "RESULT.md": {
+      "sha256": "1f9135a4a79217ae24991bdd7202fe23ac681f121e465054bb0aa24e5baf2689",
+      "bytes": 10983
+    },
+    "preparation-receipt.json": {
+      "sha256": "64783ad9eecd6d6d1695b92dfca6d633a6f2a9272cc85927eed2a79d16dba25c",
+      "bytes": 1857
+    },
+    "qualify_batch_r02.py": {
+      "sha256": "907a8b21d643bfd95f765c78ee8cd5e694b4558405cd69ba8b1d8fd468afa32e",
+      "bytes": 4330
+    },
+    "execution-protocol-r02.json": {
+      "sha256": "4989a791ffb8b672fe5f58ba56aa5789b23e5631ab19e8eb8249eebc65c92bdc",
+      "bytes": 6367
+    },
+    "qualify_batch.py.failed.txt": {
+      "sha256": "73b1a13d550fce1efc5ae54c8f8168138ecc36bc3332f15ab0bf4cf08009cc15",
+      "bytes": 4328
+    },
+    "post_audit.py": {
+      "sha256": "d040fac764a7d9cb9166c9379306bf8997baa52a13b3542ff608af4ecce5b988",
+      "bytes": 4467
+    },
+    "pipeline_r02.py": {
+      "sha256": "62813aafddcbc72c7610e4b7a522801d978a4a049eab2d1d526413c8ca808fd1",
+      "bytes": 23933
+    },
+    "loss_audit.py": {
+      "sha256": "3d201ed73ed0ee55bedfd9d4e12ba49eed42790dd295c1b9d44b3d0bd100d588",
+      "bytes": 7456
+    },
+    "execution-status-r01.json": {
+      "sha256": "ac50e21faa76741a793e689b4db1d2ec397a810a3b5db053319ebf47313b04dc",
+      "bytes": 2972
+    },
+    "finish_batch_audit.py": {
+      "sha256": "d73b6756d6e6da8a89a71e6cb1b9a7de2ae84e85c8fefc6ce498f4fa0969836d",
+      "bytes": 2989
+    },
+    "README.md": {
+      "sha256": "b0078859bcd00bc9285a844627b1139e666b400e3f652d0b3768fee81c77a76c",
+      "bytes": 6439
+    },
+    "form_role_join.py": {
+      "sha256": "7e02f1a655e9c59c0e84e107d5e0a35c8aacad4f943e73307872bfbf8aae847c",
+      "bytes": 3197
+    },
+    "proposed-protocol.json": {
+      "sha256": "3714b552c3345928f02db0e4b76f73f2d2baa01e7584da0fbce0f4426613190b",
+      "bytes": 3203
+    },
+    "count_cohort.py": {
+      "sha256": "a14782f3fef0836ca39840cccdb0095bc1c385dba617ae4eed2b626daa6e5d2f",
+      "bytes": 4740
+    }
+  },
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-apertium-corpus-evidence-20261109-r01",
+  "private_evidence": {
+    "batch-qualification-receipt-r02.json": {
+      "sha256": "1045a64ab0efe02eaa73cce0a9e9ff90eb125a90914b431857aba643be6afbae",
+      "bytes": 93424
+    },
+    "resource-amendment-freeze-r02.json": {
+      "sha256": "28c4a03a4bb4a20eb70266519eb49139a4bb6b50e40f3cda67940c4ea75e71cc",
+      "bytes": 495
+    },
+    "batch-syntax-failure-r01.json": {
+      "sha256": "64333422df0d1dfe0b05b793be421390f08d363d067f2387f203408733aed003",
+      "bytes": 363
+    },
+    "root-full-join-verification-r01.json": {
+      "sha256": "38ba2debc60e7e421f673a1fc51bcc6633dba1d25c92ada83b8206d296a6e1f4",
+      "bytes": 649
+    },
+    "root-framing-and-manifest-verification-r01.json": {
+      "sha256": "92fcdc91a6dd12b514ca5e084fda707ec083f315b51e4e33a0d9571371295457",
+      "bytes": 1584
+    },
+    "annotation-receipt-r01.json": {
+      "sha256": "7e5b368d3a14bfd0fed636babfe0d8b3d229c754a30df25ead8cf7a6f6cf9449",
+      "bytes": 1052
+    },
+    "post-audit-r02.json": {
+      "sha256": "832e23d9fa60a2d045c7b9e5d22b151ba9a17c42b9bd2e5b80cde81548a443aa",
+      "bytes": 8146
+    },
+    "batch-framing-audit-receipt.json": {
+      "sha256": "4f1207d61a42efe4ddd1f79fde9ea4b8140b5475548d20de263feba72cc4f839",
+      "bytes": 20015
+    },
+    "join-summary-r02.json": {
+      "sha256": "29f77f986ddad1bfe8c4568e6679b7b6249759d9842e2115291ede9f68fb17be",
+      "bytes": 8408
+    },
+    "join-receipt-r02.json": {
+      "sha256": "e44ec6dc3691f4b047b8bf106333e9f6b7ba57fafd6ab65ba94d898a52e5f426",
+      "bytes": 984
+    },
+    "cohort-receipt.json": {
+      "sha256": "6cb4159768e958cbc0ef82f630fe9abff5f5a4a892f5f8b12ce22847e5d6e9fc",
+      "bytes": 829
+    },
+    "join-failure-receipt-r01.json": {
+      "sha256": "f62406d2ed91516bec8f2c55a5429290fbbe6e27a30b15754b7d2545e97a3714",
+      "bytes": 409
+    },
+    "execution-freeze.json": {
+      "sha256": "00d30d5dfbffec1000ee057ee745133aedc93ce8db3350c061d614732fea3f21",
+      "bytes": 730
+    },
+    "annotation-predecessor-binding-r02.json": {
+      "sha256": "d36786755adfca67e8e3346271168494230ef730852a820b9252ce9c043082fb",
+      "bytes": 250
+    },
+    "join-partial-size-audit-r01.json": {
+      "sha256": "7722e7d7fdb017cbdd6ef3109d5dd56deb97354871a6513dde172afb93f6399a",
+      "bytes": 1186
+    },
+    "resource-amendment-r02.diff": {
+      "sha256": "f9556a1c4cc305ffabedfcd16bbfa1d117d2c2dfe731d4c0451bd7b59c7349ce",
+      "bytes": 6005
+    },
+    "syntax-verification.json": {
+      "sha256": "bf04f30d6387ac18402444accce5aeb7ac6110495339ed48ae73c06523e9ff10",
+      "bytes": 500
+    },
+    "resource-preflight-r02.json": {
+      "sha256": "16a56915610dc558238010c53cff62b5f27c2a03a14e2c4eeb923d084ba9a6de",
+      "bytes": 532
+    },
+    "loss-audit-r02/diagnostic-proofs.json": {
+      "sha256": "bbbe04c8109ab1fd1e52cbc012d85ac5539cb3cbee9a58983e4f8a2e70346799",
+      "bytes": 198643
+    },
+    "loss-audit-r02/summary.json": {
+      "sha256": "80f4ef804ee9facffac9c74101e55b97a50cb31c4013d01ee6377df2a90c8265",
+      "bytes": 17758
+    },
+    "loss-audit-r02/prior-llamas-diagnostic.json": {
+      "sha256": "915baab55e93e0407300f33eda6825500ff21cd3d608a4270eb241f2eb9e24c9",
+      "bytes": 11049
+    },
+    "loss-audit-r02/receipt.json": {
+      "sha256": "39678b4f34d4d9f5ea1456f835366d3ea7edc30eed53b061adee8086cc9f6be5",
+      "bytes": 469
+    }
+  },
+  "remote_root": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01",
+  "remote_database": {
+    "path": "join-r02/evidence.sqlite",
+    "bytes": 313032704,
+    "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+  },
+  "annotation_replayed": false,
+  "legacy_parity": true,
+  "failed_prefix_containment": true,
+  "failed_prefix_deleted": false,
+  "root_independent_verification": "root-full-join-verification-r01.json",
+  "no_runtime_or_catalog_activation": true
+}
