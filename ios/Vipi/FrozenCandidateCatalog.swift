@@ -21,7 +21,12 @@ final class FrozenCandidateCatalog {
             guard !FileManager.default.fileExists(atPath:url.path+suffix) else { throw Failure.identity }
         }
         let f=try FileHandle(forReadingFrom:url);defer{try? f.close()};var hash=SHA256(),n=0
-        while let b=try f.read(upToCount:1<<20),!b.isEmpty { n+=b.count;guard n<=maximum else{throw Failure.bound};hash.update(data:b) }
+        while try autoreleasepool(invoking: { () throws -> Bool in
+            guard let b=try f.read(upToCount:1<<20),!b.isEmpty else{return false}
+            n+=b.count;guard n<=maximum else{throw Failure.bound}
+            hash.update(data:b)
+            return true
+        }) {}
         return hash.finalize().map{String(format:"%02x",$0)}.joined()
     }
     static func hash(_ s:String)->String { SHA256.hash(data:Data(s.utf8)).map{String(format:"%02x",$0)}.joined() }

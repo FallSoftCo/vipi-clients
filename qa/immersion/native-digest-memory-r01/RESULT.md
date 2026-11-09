@@ -1,0 +1,5 @@
+Fixed transient buffer accumulation during native file verification by hashing each FileHandle chunk inside an autoreleasepool. The two digest routines retain their existing hashes, byte bounds and sidecar/identity behavior. No data, model, ranking or semantic policy changed.
+
+The isolated native hash experiment verified identical bytes/hashes and reduced its peak RSS from1,411,039,232 to8,503,296bytes. The complete real52-case Mac candidate probe then fell from1,466,597,376 to50,020,352bytes RSS, with33,227,328bytes reported peak footprint. These are separate measurements; the50MB includes fixture processing and accumulated output. Neither is a total phone-app memory claim or a per-message allocation measurement.
+
+Root independently compared the complete final Mac and iOS output payloads to their prior versions, excluding only elapsed_ns and identity_preparation_ns. All other fields, hashes and source-input identities match. The selected iOS test passed1/0/0; all627 source/app inputs and four dependencies were verified. Preferences restored, app stopped, lab processes preserved. No iOS process RSS measurement or physical-device verification was collected.

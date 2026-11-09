@@ -1,0 +1,24 @@
+{
+  "comparisons": [
+    {
+      "platform": "Mac",
+      "cases": 52,
+      "before_sha256": "ec5f0e04e1e85469057c19e3d46caa8194a77dea5238920e758054613c3b5f36",
+      "after_sha256": "302a6bcc04c904e372374c243ed13ed34e9d853ad42f480f2006231d07c13cce",
+      "all_stable_fields_equal": true
+    },
+    {
+      "platform": "iOS",
+      "cases": 52,
+      "before_sha256": "8ffadf7720eaa38e2180112bd689c9ca789938df0d3306e76bbd037b5191cd00",
+      "after_sha256": "4f16176defbae4459b78019e3e8a87ce303e088b8b102266386ee2eb8d216c93",
+      "all_stable_fields_equal": true
+    }
+  ],
+  "only_removed_fields": [
+    "elapsed_ns",
+    "identity_preparation_ns"
+  ],
+  "same_pinned_hashes_and_source_identities": true,
+  "new_semantic_or_physical_claim": false
+}

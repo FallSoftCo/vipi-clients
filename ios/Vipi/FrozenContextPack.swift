@@ -42,9 +42,12 @@ struct FrozenContextPack {
         try noSidecars(url)
         let h = try FileHandle(forReadingFrom: url); defer { try? h.close() }
         var hash = SHA256(), total = 0
-        while let data = try h.read(upToCount: 1 << 20), !data.isEmpty {
-            total += data.count; guard total <= maximum else { throw Failure.bound }; hash.update(data: data)
-        }
+        while try autoreleasepool(invoking: { () throws -> Bool in
+            guard let data = try h.read(upToCount: 1 << 20), !data.isEmpty else { return false }
+            total += data.count; guard total <= maximum else { throw Failure.bound }
+            hash.update(data: data)
+            return true
+        }) {}
         try noSidecars(url)
         return hash.finalize().map { String(format: "%02x", $0) }.joined()
     }

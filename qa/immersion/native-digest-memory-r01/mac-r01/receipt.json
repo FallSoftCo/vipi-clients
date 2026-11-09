@@ -1,0 +1,55 @@
+{
+  "complete": true,
+  "stages": [
+    {
+      "name": "compile",
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-O",
+        "-o",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/probe",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateProducer.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateSelection.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextPack.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextEvidence.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextTokenizer.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextUnicodeTables.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenSourceCase.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenSourceCaseTables.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateQualification.swift",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/Probe.swift"
+      ],
+      "seconds": 14.509914292022586,
+      "exit_code": 0
+    },
+    {
+      "name": "probe",
+      "command": [
+        "/usr/bin/time",
+        "-l",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/probe",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01",
+        "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/51EEA6D1-37BF-49D7-8A93-C7DFCEE15D44/Library/Caches/lexical-public/d-en-5b16dafff9b2a27474792104bad11195ba8aff2236c134cf0265257b92727d68.sqlite",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/output.json"
+      ],
+      "seconds": 1.721123875118792,
+      "exit_code": 0
+    }
+  ],
+  "free_before": 71239462912,
+  "source_sha256": {
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift": "dafcfda2fdd2ff502e764bb831f3ebbd6a5f9180fba2c8b5ccf618323612beef",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateProducer.swift": "ea2d20dcadf9e7f8897e8b89fcd9f47490ac51d4496d6dfa9ed6eb3857cfa045",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateSelection.swift": "9c45e813eddfafcb03dd40e2e958de466995cbdeff571278e0d0109c2942b7de",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextPack.swift": "ed3d9361b70f5d25625cc5d73423320d2371bf4c9fc1505f6073ab9a299ea278",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextEvidence.swift": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextTokenizer.swift": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextUnicodeTables.swift": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenSourceCase.swift": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenSourceCaseTables.swift": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/VipiCryptoTests/FrozenCandidateQualification.swift": "50d4a988a556c08b2447f0099ac80ad6c701520e979c999ac7dec29197adc452",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-candidate-producer-r01/Probe.swift": "17a657854518af2b80355f7834b5be1be264e1b43cadd34d29f102335c5aa73a"
+  }
+}

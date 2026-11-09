@@ -1,0 +1,228 @@
+{
+  "complete": true,
+  "change": "Only per-read autoreleasepool scopes in FrozenContextPack.digest and FrozenCandidateCatalog.digest. Data is consumed/hash-updated inside pool; returned Bool carries no Data. Existing identity, byte limits and sidecar checks unchanged. Provider inherits catalog digest fix.",
+  "source_changes": {
+    "free_before": 71241396224,
+    "changes": {
+      "source/ios/Vipi/FrozenContextPack.swift": {
+        "before": "cf0d0c54d750bfe218d768aa2808f44c6beeccc8088e6cb65113bfbc9705f2ee",
+        "after": "ed3d9361b70f5d25625cc5d73423320d2371bf4c9fc1505f6073ab9a299ea278"
+      },
+      "source/ios/Vipi/FrozenCandidateCatalog.swift": {
+        "before": "5a125d7541c52924b12754e26c4afb9dde7f145bdc871308169263b15ed7402f",
+        "after": "dafcfda2fdd2ff502e764bb831f3ebbd6a5f9180fba2c8b5ccf618323612beef"
+      }
+    }
+  },
+  "mac_memory": {
+    "prior_full_probe_max_RSS_bytes": 1466597376,
+    "new_full_probe_max_RSS_bytes": 50020352,
+    "new_peak_footprint_bytes": 33227328,
+    "RSS_ratio": 0.034106396764751884,
+    "same_real52case_probe": true,
+    "full_probe_seconds": 1.721123875118792,
+    "timing_is_not_speedup_claim": true
+  },
+  "parity": {
+    "mac_all_stable_payloads_equal_prior": true,
+    "ios_all_stable_payloads_equal_prior": true,
+    "only_excluded_fields": [
+      "elapsed_ns",
+      "identity_preparation_ns"
+    ],
+    "cases": 52,
+    "distinct_sources": 40,
+    "diagnostic_candidates": 145,
+    "actual_ios_candidates": 145,
+    "gates_and_all312diagnostic_decisions_unchanged": true,
+    "source_input_identities_unchanged": true,
+    "actual_Apple_differences_unchanged": true,
+    "pinned_catalog_context_dictionary_hashes_still_verify": true
+  },
+  "ios": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "stages": [
+      {
+        "name": "prepare",
+        "command": [
+          "/bin/zsh",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/scripts/prepare-ios-project.sh"
+        ],
+        "deadline_seconds": 180,
+        "pid": 89598,
+        "peak_owned_bytes": 2899542016,
+        "exit_code": 0,
+        "seconds": 2.1396852920297533,
+        "log_sha256": "484170728117f784ad2737eef88fb9ef0c40295cde1ea325295858712f97061c"
+      },
+      {
+        "name": "build",
+        "command": [
+          "xcodebuild",
+          "-workspace",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi.xcworkspace",
+          "-scheme",
+          "VipiSimulator",
+          "-configuration",
+          "Simulator",
+          "-sdk",
+          "iphonesimulator",
+          "-destination",
+          "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+          "-derivedDataPath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+          "-clonedSourcePackagesDirPath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+          "-disableAutomaticPackageResolution",
+          "-onlyUsePackageVersionsFromResolvedFile",
+          "-skipPackageUpdates",
+          "-jobs",
+          "2",
+          "-parallel-testing-enabled",
+          "NO",
+          "-resultBundlePath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/build.xcresult",
+          "CODE_SIGNING_ALLOWED=YES",
+          "CODE_SIGN_IDENTITY=-",
+          "ARCHS=arm64",
+          "EXCLUDED_ARCHS=",
+          "build-for-testing"
+        ],
+        "deadline_seconds": 900,
+        "pid": 89617,
+        "peak_owned_bytes": 2901229568,
+        "exit_code": 0,
+        "seconds": 36.2284389170818,
+        "log_sha256": "df3b30c31e01afe83398fd264d73b2e0da89987e1b17b2bc3e13f16e6832076d"
+      },
+      {
+        "name": "test",
+        "command": [
+          "xcodebuild",
+          "-xctestrun",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/qualification.xctestrun",
+          "-destination",
+          "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+          "-parallel-testing-enabled",
+          "NO",
+          "-maximum-concurrent-test-simulator-destinations",
+          "1",
+          "-resultBundlePath",
+          "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/test.xcresult",
+          "-only-testing:VipiCryptoTests/FrozenCandidateProducerTests/testFullCatalogProducerAndActualNativeObservations",
+          "test-without-building"
+        ],
+        "deadline_seconds": 300,
+        "pid": 89916,
+        "peak_owned_bytes": 2900086784,
+        "exit_code": 0,
+        "seconds": 12.886042749974877,
+        "log_sha256": "c2d2fe32507cc5da21534a783c806b6a6c240d15bf20ee560f7d9f4ea3047d90"
+      }
+    ],
+    "source_files_verified": 627,
+    "pins": [
+      {
+        "identity": "espeak-ng-spm",
+        "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c",
+        "tracked_clean": true
+      },
+      {
+        "identity": "swift-docc-plugin",
+        "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+        "tracked_clean": true
+      },
+      {
+        "identity": "swift-docc-symbolkit",
+        "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+        "tracked_clean": true
+      },
+      {
+        "identity": "workos-ios",
+        "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+        "tracked_clean": true
+      }
+    ],
+    "state_closure": {
+      "restored": true,
+      "original_keys_verified": [
+        "readingPace",
+        "density",
+        "knownLanguage",
+        "appearance",
+        "onboardingStep",
+        "targetLanguage",
+        "vipi-private-speech-generation"
+      ],
+      "current_extra_keys_preserved": [],
+      "app_not_running": true,
+      "data_preserved": true,
+      "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/1F2066DB-F96A-4A98-83D3-8C7A803EACD9",
+      "labs_alive": true
+    },
+    "free_after": 71109005312,
+    "peak_additional_bytes": 1695744
+  },
+  "memory_limits": [
+    "Standalone root digest experiment isolates the autorelease accumulation; this full Mac result measures the entire real producer process.",
+    "Full-probe RSS includes immutable reader preparation, fixture/reference decoding, all52message computations and accumulated output serialization; residual50MB is not attributed to catalog, model or per-message state separately.",
+    "No iOS process peak RSS measurement was collected. Passing selected Simulator test is behavioral evidence, not phone memory certification.",
+    "No code beyond2digest loops changed. Existing semantic/tuple/version-identity/customer-adapter limitations remain unchanged."
+  ],
+  "artifacts": {
+    "final-sources/ios/Vipi/FrozenContextPack.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenContextPack.swift",
+      "sha256": "ed3d9361b70f5d25625cc5d73423320d2371bf4c9fc1505f6073ab9a299ea278"
+    },
+    "preimages/FrozenContextPack.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/preimages/FrozenContextPack.swift",
+      "sha256": "cf0d0c54d750bfe218d768aa2808f44c6beeccc8088e6cb65113bfbc9705f2ee"
+    },
+    "final-sources/ios/Vipi/FrozenCandidateCatalog.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/source/ios/Vipi/FrozenCandidateCatalog.swift",
+      "sha256": "dafcfda2fdd2ff502e764bb831f3ebbd6a5f9180fba2c8b5ccf618323612beef"
+    },
+    "preimages/FrozenCandidateCatalog.swift": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/preimages/FrozenCandidateCatalog.swift",
+      "sha256": "5a125d7541c52924b12754e26c4afb9dde7f145bdc871308169263b15ed7402f"
+    },
+    "mac-r01/receipt.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/receipt.json",
+      "sha256": "91ae345e4741291791ddb43ba001ed149f27905e3f643d97bce3508bb370c422"
+    },
+    "mac-r01/probe.log": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/probe.log",
+      "sha256": "fd77eead917c1f910ca16e06be9a986a897f8300c0268f03f76604f0dd69020d"
+    },
+    "mac-r01/compile.log": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mac-r01/output.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/mac-r01/output.json",
+      "sha256": "302a6bcc04c904e372374c243ed13ed34e9d853ad42f480f2006231d07c13cce"
+    },
+    "simulator-r01/receipt.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/receipt.json",
+      "sha256": "62b199d06eea47f262c14460fb57d9dfa0b428ee00e6e2140a9b7d46ea91ea04"
+    },
+    "simulator-r01/test.log": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/test.log",
+      "sha256": "c2d2fe32507cc5da21534a783c806b6a6c240d15bf20ee560f7d9f4ea3047d90"
+    },
+    "simulator-r01/output.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/attachments/4F954F7F-2F7C-473C-896C-ABB7BF7EC877.json",
+      "sha256": "4f16176defbae4459b78019e3e8a87ce303e088b8b102266386ee2eb8d216c93"
+    },
+    "execution-plan-r01.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/execution-plan-r01.json",
+      "sha256": "81b3d4ab389e89ad6e83419d58d7d9d2e35f6bb3d9d8068908bbb41e68bebd72"
+    },
+    "simulator-r01/summary.json": {
+      "native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-digest-memory-r01/simulator-r01/test.xcresult",
+      "sha256": "c5f908e347c2e69d09d32887dfba21df0de3415984cd3620baa33225019a4090"
+    }
+  }
+}

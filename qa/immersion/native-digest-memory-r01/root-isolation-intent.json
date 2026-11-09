@@ -1,0 +1,7 @@
+{
+  "at_utc": "2026-11-09T14:46:48.271261+00:00",
+  "purpose": "Compare exact existing FileHandle hash loop with per-chunk autorelease scope in two separate native processes; no app mutation",
+  "native_script_sha256": "cfd11104d4ae108f360e0812d0230639554d793be6387399ebded3e11fe89d78",
+  "remote": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/native-hash-memory-r01",
+  "no_VM_or_service_changes": true
+}
