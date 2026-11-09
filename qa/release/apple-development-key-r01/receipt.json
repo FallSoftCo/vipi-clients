@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-09T19:49:41.814506+00:00",
+  "scope": "Interactive development-key dry run only. codesign generates then discards the signature; no app install, signing ACL change or distribution retry.",
+  "identity": "EE3063DAFC37F2B1C78A921A376F2B0701831D32",
+  "binary_sha256": "da062398e94c398b661b03815f1c9f8bcea402a7a807b5357eee756ad1664553",
+  "complete": true,
+  "exit_code": 0,
+  "seconds": 2.6548243751749396,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "binary_unchanged": true,
+  "schema": "vipi-development-signing-probe-1",
+  "company_team": "3TNL2455JT",
+  "bundle_id": "co.fallsoft.vipi",
+  "keychain": "Native Mac login keychain",
+  "probe": "codesign --dryrun --force; signature generated and discarded",
+  "private_receipt_sha256": "c07b6e83a8e6fef1dcc3352668d0f9e03d8f40596dce8b954489e05b8c49f897",
+  "device_installed": false,
+  "distribution_key_qualified": false,
+  "app_store_uploaded": false
+}

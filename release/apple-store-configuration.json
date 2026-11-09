@@ -132,5 +132,23 @@
     "verified_at": "2026-11-09T19:04:12Z",
     "private_receipt": "apple-store-provisioning-20261109-r01/r190.json",
     "data_collection_questionnaire_published": false
+  },
+  "development_device_profile": {
+    "name": "Vipi iPad Development 2026-11-09",
+    "portal_id": "4D869UCWH4",
+    "uuid": "de2ba4d5-2534-46ba-bc89-123f2fc77081",
+    "profile_sha256": "b2959a8459b5735959aa728641d4a77cfc36c9a4240087320257991111507289",
+    "company_team": "3TNL2455JT",
+    "bundle": "co.fallsoft.vipi",
+    "exact_attached_ipad_only": true,
+    "certificate_matches_native_mac_identity": true,
+    "certificate_expires_utc": "2026-11-30T18:46:09Z",
+    "profile_expires_utc": "2027-11-09T19:30:31Z",
+    "installed_on_native_mac": true,
+    "private_key_use_qualified": true,
+    "device_installation_qualified": false,
+    "private_receipt": "ipad-development-profile-20261109-r01.json",
+    "note": "Profile expiration does not extend the included development certificate validity. Separate from App Store signing.",
+    "key_qualification_receipt": "qa/release/apple-development-key-r01/receipt.json"
   }
 }
