@@ -82,9 +82,9 @@ qualification remain separate.
 The Vipi team has no outstanding guest build or model job and is not duplicating
 the migration owner's transfer or retirement work.
 
-Committed private source through `b3b2abcc76ef59c12fbb12bbf818da289be3399e` is
+Committed private source through `e77610751739fdb9e8f5e114145f09e8c6ab232b` is
 retained on the consolidated host under
-`refs/heads/checkpoints/production-20261109-r15`. Push and exact remote reference
+`refs/heads/checkpoints/production-20261109-r17`. Push and exact remote reference
 were verified. This separate reference
 does not replace the recovery repository's checked-out branch. Later native
 changes and uncommitted work require their own checkpoint; this is not public

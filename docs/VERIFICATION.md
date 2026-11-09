@@ -2,6 +2,21 @@
 
 Current consolidated status: [DELIVERY_STATUS.md](DELIVERY_STATUS.md). Older dated checkpoints below are historical evidence, not current deployment instructions.
 
+## Longest-first context lookup — November 9, 2026, 10:27 UTC
+
+The same component-separated noun cohort now has a completed longest-first
+context-rule comparison. All 11,848 training patterns and 30 admitted rules,
+4,141 exact source token/lemma inventories, 2,343 choices and metric strata were
+independently reconstructed from retained evidence without rerunning inference.
+Narrow context matched zero cases; wider context changed three synonym choices
+(two noncentral trigrams, one four-token context). All ten alternatives in the
+seven-case packet were acceptable to both agents. Root accidentally saw some
+parallel references; its review is method-blind, not reference-blind. Original
+reviews and the exposure correction are retained. This demonstrates no semantic
+coverage gain, no new runtime and no catalog activation. Complete source,
+resource measurements and limitations are in
+`qa/immersion/context-rule-lookup-r01/RESULT.md`.
+
 ## Native interaction and lookup checkpoint — November 8, 2026, 02:55 UTC
 
 Android's eight curated current-renderer cases pass English↔Arabic, Japanese,

@@ -1,0 +1,105 @@
+{
+  "experiment": "context-rule-lookup-r01",
+  "code_sha256": "cd08fcccfc6b760ddc09563b6bbe6bf638c4ec6dfb2265f57bf8d3bf2cc41fb7",
+  "inputs": {
+    "dataset": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/dataset.json",
+      "sha256": "f2dbf75de3f38cb223c012f444fe7b4e6713eaf22ec0f8f41375384362ec0cfa"
+    },
+    "split": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/prepare/split-freeze.json",
+      "sha256": "bf9a8638b9bfbe6892ccef01a002da90a7eb1898da251843f4fbde98a9f21a91"
+    },
+    "default_predictions": {
+      "path": "/srv/fallsoft/staging/vipi-contextual-lexical-selection-20261109-r01/compare/predictions.json",
+      "sha256": "176681e6422aeb08ebb2e45734ab821f8cef0c722061518a50345d8b4ca6355f"
+    },
+    "corpus_evidence": {
+      "path": "/srv/fallsoft/staging/vipi-apertium-corpus-evidence-20261109-r01/join-r02/evidence.sqlite",
+      "sha256": "03415f4547ed645a9dc5e9283ab4bfb77621e8ebb801f46f608a75b6053b01e3"
+    },
+    "review_exposures": {
+      "path": "/srv/fallsoft/staging/vipi-context-rule-lookup-20261109-r01/review-exposures.json",
+      "sha256": "b5c59d77f3fc743b1fec77da16d5f4dddb412eb9f94106d62c5542314c39d2e0"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/apertium/apertium-lex-tools/v0.4.2/scripts/ngram-count-patterns.py",
+      "sha256": "19cbe9d2d857ccf0a1beb2c0035d88957a5c551236000fb394adf86f810d3574",
+      "path": "/home/ai/Development/investigations/vipi-context-rule-lookup-20261109-r01/ngram-count-patterns.py.source"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/apertium/apertium-lex-tools/v0.4.2/scripts/ngrams-to-rules.py",
+      "sha256": "a496d9801e43aa7826f5135222e8685b0255b2e93c14169eb57adf508a95e7d8",
+      "path": "/home/ai/Development/investigations/vipi-context-rule-lookup-20261109-r01/ngrams-to-rules.py.source"
+    }
+  ],
+  "official_recipe": "https://wiki.apertium.org/wiki/Learning_rules_from_parallel_and_non-parallel_corpora",
+  "scope": {
+    "pool": "explicit only",
+    "split": "unchanged component/text-disjoint train/test/development; benchmark reused/exposed",
+    "train_occurrences": 2987,
+    "test_occurrences": 781,
+    "multi_target_test": 201,
+    "guards": "All frozen dataset form/number/term/noun-role/alignment/name/compound/mask guards unchanged. Corpus evidence is not live-user role proof."
+  },
+  "methods": {
+    "default": "Exact prior component-weighted target-face frequency; all prior explicit predictions must match",
+    "narrow": "left bigram, right bigram, centered trigram; pinned MAX_NGRAMS=2 range(1,2)",
+    "wide": "Every contiguous 2–8 native-token window containing exact focus, including noncentral positions",
+    "feature_channels": [
+      "NFC/casefold/whitespace-normalized original token",
+      "exact singleton contextual lemma+first POS"
+    ],
+    "punctuation": "Any token without alphabetic character is a barrier, never skipped. Unknown/multiunit/ambiguous lemma is a barrier in lemma channel only."
+  },
+  "learning": {
+    "weight": "Each source key/component total mass1; divide by independent source-focus rows and by retained target faces of row; same prior default",
+    "pattern_admission": "Unique maximum target, differs from default, >=2 independent supporting components, winner weighted count >1.5*default contextual count +1e-12",
+    "ties": "Context target tie within1e-12 abstains; frequency tie lexicographic",
+    "absent_default": "Permitted with >=2 supporting components; infinite ratio for rule ordering. Explicit adaptation: pinned upstream initializes absent default probability1, which suppresses such rules. No claim of verbatim upstream execution.",
+    "single_target_keys": "No contextual rule possible; retain defaults/training IDs but skip redundant pattern materialization",
+    "adaptations": [
+      "Target exact supported faces rather than bilingual lemmas",
+      "Component/source-occurrence weights instead of raw translation repetitions",
+      "Two independent source feature channels",
+      "JSON lookup table rather than LRX binary",
+      "Wider2–8 arm extends pinned adjacent/centered recipe"
+    ]
+  },
+  "lookup": {
+    "ordering": [
+      "longest token count",
+      "token before lemma+POS",
+      "higher ratio",
+      "more winner independent components",
+      "higher winner mass",
+      "leftmost context start",
+      "stable rule SHA"
+    ],
+    "backoff": "Next shorter eligible rule then exact frequency default; unseen key unavailable",
+    "no_target_leakage": true
+  },
+  "review": {
+    "sample": "up to8 changed plus4 unchanged controls, hash(source-focus ID) ordering one per component; controls only if any eligible changed; no quota backfill",
+    "methods_blind": true,
+    "agent_not_human": true,
+    "exposure_sha256": "b5c59d77f3fc743b1fec77da16d5f4dddb412eb9f94106d62c5542314c39d2e0",
+    "no_labels_used_for_fit": true
+  },
+  "bounds": {
+    "cpu": 1,
+    "address_space_bytes": 1073741824,
+    "seconds_per_stage": 300,
+    "aggregate_bytes": 100663296,
+    "additional_reserve_bytes": 201326592,
+    "floor_bytes": 8589934592,
+    "basis": "Only30 multi-target keys generate context rules; at most70windows/source row (2channels*sum2..8), max209090 training windows before barriers/dedup. Retain compact shared evidence, reject before output cap, no truncation. Production fresh free288GB/25GBavailableRAM."
+  },
+  "commands": [
+    "python3 -B /srv/fallsoft/staging/vipi-context-rule-lookup-20261109-r01/run.py compile",
+    "python3 -B /srv/fallsoft/staging/vipi-context-rule-lookup-20261109-r01/run.py apply"
+  ],
+  "activation": false
+}

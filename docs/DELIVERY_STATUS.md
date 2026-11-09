@@ -171,10 +171,21 @@ the rule asset is nonempty. Exact position mapping and training-supported forms
 produce 555 provisional faces, of which 524 have exact morphology support;
 31 remain unqualified. There are no new changed cases for semantic review.
 This result concerns this common-noun cohort and does not establish a general
-limit of Apertium. Nothing was activated. The next bounded comparison returns
-to longest-first contiguous context lookup with learned support and backoff,
-using the same frozen data. See
+limit of Apertium. Nothing was activated. See
 `qa/immersion/apertium-lexical-selection-r01/RESULT.md`.
+
+The longest-first learned context lookup is now complete on the same frozen
+data. It compiles 30 rules into a 270,164-byte table including support metadata.
+The adjacent/centered arm matches no test case; the wider arm changes three
+of 781 choices. Two use noncentral three-token contexts and one uses four
+tokens. Both agents accept all ten anonymous options in seven complete-message
+cases, so these synonym changes establish no semantic improvement. Root saw
+some parallel references before freezing; only the author review is also
+reference-blind. No five-to-eight-token rule met the fixed support threshold.
+Root independently reconstructed the 11,848 patterns, source annotations and
+all 2,343 method choices. No catalog is activated. The next increment examines
+retained data outside this narrow noun cohort, including Swahili, before
+expanding the build. See `qa/immersion/context-rule-lookup-r01/RESULT.md`.
 
 | Approach | Observed result | Decision |
 |---|---|---|

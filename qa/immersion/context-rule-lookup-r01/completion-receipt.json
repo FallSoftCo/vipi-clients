@@ -1,0 +1,201 @@
+{
+  "complete": true,
+  "experiment": "context-rule-lookup-r01",
+  "protocol_sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+  "source_files": {
+    "audit_predictions.py": {
+      "sha256": "55edf85c186a388229a260fd1b0be44e7690b83531aa9e747b7e1c06d2782960",
+      "bytes": 1877
+    },
+    "run.py": {
+      "sha256": "cd08fcccfc6b760ddc09563b6bbe6bf638c4ec6dfb2265f57bf8d3bf2cc41fb7",
+      "bytes": 17190
+    },
+    "RESULT.md": {
+      "sha256": "737767487fe5a98eac475d0d4fd79060432d587f1f69fa772aa202257163e485",
+      "bytes": 9045
+    },
+    "join_reviews.py": {
+      "sha256": "ecf76939c734f9ad553a174323d1055957b6984e492fe081dff15426cd76c9da",
+      "bytes": 2262
+    },
+    "protocol.json": {
+      "sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+      "bytes": 5689
+    }
+  },
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-context-rule-lookup-20261109-r01",
+  "private_files": {
+    "joined-review-r01.json": {
+      "sha256": "988ab3fe7ce7df8b76966f9d8b4621bbd64c209a44e88000e59c6590377bc216",
+      "bytes": 8620
+    },
+    "root-review-exposure-correction-r01.json": {
+      "sha256": "1d90240fce949b845a459dc3a51444225dabef6bbbc8d80e40d1c53a8ef925fc",
+      "bytes": 636
+    },
+    "execution-preflight-r01.json": {
+      "sha256": "150e5f4fd921da56fd7b9525be13eb2e1f9ec6d41eedd832d40d61b704dd01ec",
+      "bytes": 1118
+    },
+    "author-review-r01.sha256": {
+      "sha256": "d43d2081a8976e885c2c70fa70de4736ce4ac5190c7d16c0a8393d5238160464",
+      "bytes": 89
+    },
+    "root-verify.py": {
+      "sha256": "a91a037ac591b5cd799d76ce99e73a70d1524d596c76e8d1a807f07d834fdc10",
+      "bytes": 10771
+    },
+    "review-exposures.json": {
+      "sha256": "b5c59d77f3fc743b1fec77da16d5f4dddb412eb9f94106d62c5542314c39d2e0",
+      "bytes": 6627
+    },
+    "protocol.json": {
+      "sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+      "bytes": 5689
+    },
+    "root-review-r01.json": {
+      "sha256": "f39081cfc7694ad9072997cc70309703f731980778f33ac899e7a3fbf5ae615b",
+      "bytes": 4799
+    },
+    "ngrams-to-rules.py.source": {
+      "sha256": "a496d9801e43aa7826f5135222e8685b0255b2e93c14169eb57adf508a95e7d8",
+      "bytes": 4699
+    },
+    "author-review-r01.json": {
+      "sha256": "eac007126a3f43e74591266955532d9cf1b191d83eb169383e3468e4b3506799",
+      "bytes": 4331
+    },
+    "prediction-reporting-audit-r01.json": {
+      "sha256": "35113c06937a1c78db13cbc7ed21ca051ef8fbca3747fc553e1673fc4b70a14b",
+      "bytes": 3503
+    },
+    "root-independent-verification-r01.json": {
+      "sha256": "b44a0b9ae591f15289f54e993bfc2cdfeb4ba9121305970f3e798b32020455fa",
+      "bytes": 596
+    },
+    "ngram-count-patterns.py.source": {
+      "sha256": "19cbe9d2d857ccf0a1beb2c0035d88957a5c551236000fb394adf86f810d3574",
+      "bytes": 7980
+    },
+    "apply/blind-review-packet.json": {
+      "sha256": "879cf7be967b46b2a9efd351bcd9ead6b66c21170dbda6dc5a17e64c63446b6e",
+      "bytes": 63309
+    },
+    "apply/metrics.json": {
+      "sha256": "fb8b1451a9201ba99ccc2cc8a272c9003e008aa08e4672b60226671d59c28a27",
+      "bytes": 4056
+    },
+    "apply/review-method-key.json": {
+      "sha256": "ee2bc5641f3405ec8ce342764c67eb71d35c9a8d909670359196810c074dcab5",
+      "bytes": 1704
+    },
+    "apply/predictions.json": {
+      "sha256": "defc2a59948200eb81a12e1eeb25e949c54e772ffedb0786f75631eb9a47c2ef",
+      "bytes": 4446539
+    },
+    "apply/review-selection-freeze.json": {
+      "sha256": "fab9ded9c0d3e4589d66b10f32d2f5af555e385164ae9a92446341a59c7fce87",
+      "bytes": 1262
+    },
+    "apply/receipt.json": {
+      "sha256": "13c3c19dadcae6623b8ba05b3e153ed4b8cca45940a59c76e206d4d7592f3c1c",
+      "bytes": 1277
+    },
+    "compile/compiled-lookup.json": {
+      "sha256": "d75beb08761f62ba3ac597462a2a6ce2e6a380cc4920c81de0e5cc3817c59597",
+      "bytes": 270164
+    },
+    "compile/compile-summary.json": {
+      "sha256": "ff44eabf19080b0a0dd6b58ef08c863665b2eeb80b2576c518e2fa381fe69acf",
+      "bytes": 526
+    },
+    "compile/receipt.json": {
+      "sha256": "559cb79faaaa4d606edcdb6c7eaa83672749e8835647bc0020989eb75748041f",
+      "bytes": 967
+    }
+  },
+  "production_root": "/srv/fallsoft/staging/vipi-context-rule-lookup-20261109-r01",
+  "stage_receipts": {
+    "compile": {
+      "complete": true,
+      "stage": "compile",
+      "protocol_sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+      "error": null,
+      "seconds": 2.8037018459872343,
+      "VmHWM_bytes": 270094336,
+      "outputs": {
+        "compile-summary.json": {
+          "bytes": 526,
+          "sha256": "ff44eabf19080b0a0dd6b58ef08c863665b2eeb80b2576c518e2fa381fe69acf"
+        },
+        "training-occurrence-evidence.json": {
+          "bytes": 4235885,
+          "sha256": "232379445197190632baacb772c0e53a4e4113afc8d0baf6f30536b3fb3390c3"
+        },
+        "all-pattern-evidence.json": {
+          "bytes": 10368929,
+          "sha256": "777bc097927ad9ab93cab0734d374d8eed5d8a71263479945f974d73188fd019"
+        },
+        "context-inventory.json": {
+          "bytes": 1759107,
+          "sha256": "b9389450e55a81af0c0fd16d39c3dc9fda33fca0ae7f78f7b31bd15c178de94d"
+        },
+        "compiled-lookup.json": {
+          "bytes": 270164,
+          "sha256": "d75beb08761f62ba3ac597462a2a6ce2e6a380cc4920c81de0e5cc3817c59597"
+        }
+      }
+    },
+    "apply": {
+      "complete": true,
+      "stage": "apply",
+      "protocol_sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+      "table_memory_and_timing": {
+        "serialized_bytes": 270164,
+        "python_object_graph_bytes": 677538,
+        "load_seconds": 0.0016578570066485554,
+        "process_RSS_before_load": 20201472,
+        "process_RSS_after_load": 21250048,
+        "lookup_all781_both_arms_seconds": 0.2707136899989564,
+        "python_memory_not_mobile_runtime": true
+      },
+      "error": null,
+      "seconds": 1.2165753600129392,
+      "VmHWM_bytes": 277864448,
+      "outputs": {
+        "blind-review-packet.json": {
+          "bytes": 63309,
+          "sha256": "879cf7be967b46b2a9efd351bcd9ead6b66c21170dbda6dc5a17e64c63446b6e"
+        },
+        "predictions.json": {
+          "bytes": 4446539,
+          "sha256": "defc2a59948200eb81a12e1eeb25e949c54e772ffedb0786f75631eb9a47c2ef"
+        },
+        "review-method-key.json": {
+          "bytes": 1704,
+          "sha256": "ee2bc5641f3405ec8ce342764c67eb71d35c9a8d909670359196810c074dcab5"
+        },
+        "review-selection-freeze.json": {
+          "bytes": 1262,
+          "sha256": "fab9ded9c0d3e4589d66b10f32d2f5af555e385164ae9a92446341a59c7fce87"
+        },
+        "metrics.json": {
+          "bytes": 4056,
+          "sha256": "fb8b1451a9201ba99ccc2cc8a272c9003e008aa08e4672b60226671d59c28a27"
+        }
+      }
+    }
+  },
+  "independent_verification_sha256": "b44a0b9ae591f15289f54e993bfc2cdfeb4ba9121305970f3e798b32020455fa",
+  "independent_verifier_source_sha256": "a91a037ac591b5cd799d76ce99e73a70d1524d596c76e8d1a807f07d834fdc10",
+  "root_review_exposure_correction_sha256": "1d90240fce949b845a459dc3a51444225dabef6bbbc8d80e40d1c53a8ef925fc",
+  "joined_review_sha256": "988ab3fe7ce7df8b76966f9d8b4621bbd64c209a44e88000e59c6590377bc216",
+  "review_qualification": "Two independent agents; author reference-blind, root parallel references exposed. No human/native validation. No majority gold. Three changed cases plus four controls; no severity disagreements.",
+  "outcome": "narrow0matches;wide3matches(two length3/focusoffset2,one length4/offset2);reference1gain2losses but all alternatives accepted by both agents",
+  "unavailable": 12,
+  "emitted_same_source_face": 44,
+  "no_runtime_or_catalog_activation": true,
+  "no_new_models_fit_or_downloaded_runtime": true,
+  "no_commit_or_index_changes": true
+}
