@@ -11,7 +11,7 @@ import VipiCore
     }
 
     /// Candidate promotion is intentionally separate from the shipped catalog.
-    static let allPairPromotionEnabled = false
+    static let allPairPromotionEnabled = true
 
     /// Explicit candidate composition is available to isolated qualification.
     static func compose(japanese: SourceUnitLookup?, swahili: SourceUnitLookup?,

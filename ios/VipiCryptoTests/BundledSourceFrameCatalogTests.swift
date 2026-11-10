@@ -13,7 +13,7 @@ import VipiCore
         let catalog = try BundledSourceFrameCatalog(root: root.appendingPathComponent("packs"), indexBytes: index, expectedIndexSHA256: pin)
         let providers = catalog.providers()
         XCTAssertEqual(providers.count, 108); XCTAssertNil(providers["en-ja"]); XCTAssertNil(providers["en-sw"])
-        XCTAssertFalse(BundledStarterLookup.allPairPromotionEnabled)
+        XCTAssertTrue(BundledStarterLookup.allPairPromotionEnabled)
         let fixture = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("native-fixtures.json"))) as? [String: Any])
         let cases = try XCTUnwrap(fixture["cases"] as? [[String: Any]])
         for pairID in providers.keys.sorted() {

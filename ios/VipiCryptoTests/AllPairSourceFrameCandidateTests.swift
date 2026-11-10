@@ -40,7 +40,7 @@ import VipiCore
     func testIsolatedCandidateNativeBoundariesAndAutomaticRouting() async throws {
         let root = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("all-pair-starter-candidate-r02")
         guard FileManager.default.fileExists(atPath: root.path) else { throw XCTSkip("Explicit isolated candidate required") }
-        XCTAssertFalse(BundledStarterLookup.allPairPromotionEnabled)
+        XCTAssertTrue(BundledStarterLookup.allPairPromotionEnabled)
         let fixture = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("native-fixtures.json"))) as? [String: Any])
         let cases = try XCTUnwrap(fixture["cases"] as? [[String: Any]])
         var owners: [String: SourceFrameLookup] = [:], providers: [String: SourceUnitLookup] = [:]
@@ -150,7 +150,7 @@ import VipiCore
             }
             conversation.close()
         }
-        let receipt: [String: Any] = ["controls": controls, "known_detector_errors": errorRoutes,"direct": records, "automatic": automatic, "demonstrated_pairs": demonstrated.sorted(), "automatic_pairs": automaticPairs.sorted(), "promotion_enabled": false]
+        let receipt: [String: Any] = ["controls": controls, "known_detector_errors": errorRoutes,"direct": records, "automatic": automatic, "demonstrated_pairs": demonstrated.sorted(), "automatic_pairs": automaticPairs.sorted(), "promotion_enabled": BundledStarterLookup.allPairPromotionEnabled]
         try JSONSerialization.data(withJSONObject: receipt, options: [.sortedKeys]).write(to: root.appendingPathComponent("apple-native-r02.json"))
         XCTAssertEqual(Set(cases.compactMap { $0["pair"] as? String }).count, 110)
         // A boundary rejection is evidence, never permission to split a source unit.
