@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "known token arithmetic",
+    "trial conversion allocation",
+    "cloud/amplification scaling",
+    "VAT before store fee",
+    "price inversion",
+    "zero cloud boundary",
+    "invalid denominators/nonnegative values"
+  ]
+}

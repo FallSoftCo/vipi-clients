@@ -1,0 +1,176 @@
+{
+  "schema": "vipi-hybrid-confidence-investigation-1",
+  "at_utc": "2026-11-10T03:55:11.316690+00:00",
+  "production_ready": false,
+  "runtime_changed": false,
+  "api_capabilities": {
+    "apple_translation_quality_confidence": false,
+    "mlkit_translation_quality_confidence": false,
+    "language_identification_confidence_is_different": true,
+    "sources": [
+      "https://developer.apple.com/documentation/translation/translationsession/response",
+      "https://developers.google.com/android/reference/com/google/mlkit/nl/translate/Translator",
+      "https://developers.google.com/ml-kit/language/identification/android"
+    ]
+  },
+  "new_native_probe": {
+    "requested_cases": 210,
+    "completed": 174,
+    "native_forward_reverse_cases": 162,
+    "authored_adversarial_candidates": 12,
+    "distinct_english_source_messages": 18,
+    "exposed_public_conversation_sources": 8,
+    "authored_source_messages": 10,
+    "targets_executed": [
+      "ar",
+      "de",
+      "es",
+      "fr",
+      "it",
+      "ja",
+      "ko",
+      "pt",
+      "zh"
+    ],
+    "uninstalled_targets": [
+      "hi"
+    ],
+    "unsupported_targets": [
+      "sw"
+    ],
+    "platform": "macOS26.6",
+    "seconds": 19.778200583998114,
+    "model_downloads": 0,
+    "provider_calls": 0,
+    "network_isolated": false,
+    "ios_android_equivalence_claim": false,
+    "latency_ms": {
+      "forward_ms": {
+        "n": 162,
+        "median": 29.983250499999997,
+        "p95_nearest_rank": 492.597167,
+        "max": 829.52625
+      },
+      "reverse_ms": {
+        "n": 162,
+        "median": 24.468228500000002,
+        "p95_nearest_rank": 76.589292,
+        "max": 214.25025
+      },
+      "embedding_ms": {
+        "n": 162,
+        "median": 7.5120415000000005,
+        "p95_nearest_rank": 19.172916,
+        "max": 22.522417
+      }
+    }
+  },
+  "independent_reviews": {
+    "root_labels": {
+      "minor": 9,
+      "compatible": 147,
+      "material": 6
+    },
+    "peer_labels": {
+      "minor": 14,
+      "compatible": 142,
+      "material": 6
+    },
+    "material_ids_agree": true,
+    "label_differences": [
+      {
+        "id": "bst-valid-depth-r01-0064-06:ar",
+        "root": "compatible",
+        "peer": "minor"
+      },
+      {
+        "id": "bst-valid-depth-r01-0064-06:es",
+        "root": "compatible",
+        "peer": "minor"
+      },
+      {
+        "id": "sense-02:fr",
+        "root": "compatible",
+        "peer": "minor"
+      },
+      {
+        "id": "bst-valid-depth-r01-0311-04:ko",
+        "root": "compatible",
+        "peer": "minor"
+      },
+      {
+        "id": "sense-02:pt",
+        "root": "compatible",
+        "peer": "minor"
+      }
+    ],
+    "independent_native_speaker_gold": false
+  },
+  "exploratory_gate": {
+    "signal": "1 minus Apple English sentence-embedding cosine distance between original and back-translation",
+    "threshold": 0.7,
+    "calibrated": false,
+    "native_selected": 81,
+    "native_material_errors_selected_both_reviewers": 0,
+    "native_material_errors_rejected_both_reviewers": 6,
+    "authored_diagnostic_material_errors_rejected": 8,
+    "authored_compatible_selected": 3,
+    "authored_compatible_rejected": 1,
+    "interpretation": "Useful quality signal to investigate; not proof of correctness and not ready as product gate. Threshold examined on these same exposed examples, with correlated sources across targets."
+  },
+  "cost": {
+    "official_deepseek_pricing": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "peak_uncached_input_per_million_usd": 0.3,
+    "peak_output_per_million_usd": 1.2,
+    "assumed_input_output_tokens": [
+      200,
+      60
+    ],
+    "paid_year_forward_inference_cost_at_50_200_500_per_day_usd": [
+      2.409,
+      9.636,
+      24.09
+    ],
+    "excludes_trial_commission_tax_non_inference": true,
+    "candidate_policy": "Keep12 annual local-first Base with bounded optional cloud allowance. Do not promise unlimited heavy cloud usage. Separate Bot mini revenue/entitlements remain unchanged.",
+    "not_measured": [
+      "customer traffic",
+      "cloud fallback fraction",
+      "provider latency or semantic quality",
+      "true token usage",
+      "hosting and support allocation",
+      "trial conversion"
+    ]
+  },
+  "direction": {
+    "immediate_stage": "Reviewed local phrase/word spans, with original text retained and native ranges protected. Expand attested phrase and construction packs, not arbitrary ngrams.",
+    "asynchronous_stage": "Whole-sentence local translation, readings and audio preparation. Evaluate sentence quality separately from replaceability of individual spans.",
+    "uncertain_stage": "Evaluate smaller local translation LM and optional cloud translator using bounded costs. Do not promote a cloud answer merely because it is fluent or self-reports confidence.",
+    "full_sentence_flip": "A meaningful whole translation may be suitable for full-sentence flip even when no safe fragment alignment exists.",
+    "privacy": "Local default for E2EE human chats; optional provider translation must explicitly disclose decrypted text processing. No real private conversations were sent.",
+    "learning": "Do not infer durable mastery merely from display or a model quality score."
+  },
+  "remaining_evaluation": [
+    "Independent calibration and untouched validation grouped by conversation, pair and error severity; score-vs-coverage curves instead of one universal probability.",
+    "Swahili actualMLKit and small-LM arm; Apple unsupported is not product support.",
+    "LLM forward-only vs local reverse vs dedicated reference-free QE: measured quality and billed tokens, no provider key currently available to this workstream.",
+    "Word/phrase correctness and actual mixed-language display must be scored separately from full-sentence translation.",
+    "NativeUI automatic progressive reveal, fixed geometry, transliteration and mixed audio latency/energy need evaluation once a candidate is selected."
+  ],
+  "preserved_holds": [
+    "Mac signing/keychain; no signing retry",
+    "No iPad",
+    "No store upload/submission, external purchase or public release",
+    "Inherited canonical edits untouched"
+  ],
+  "evidence_files": {
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/freeze.json": "e34f907bca66e3fd7cbf13f3920a1d7353492fbae6483625e821d47903fd8bfa",
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/native/native-receipt-r02.json": "75511248ed13faa83842820750e6b301a3a9cf23ea157ed28bd0f1f016743665",
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/native/capture.jsonl": "89032a789d52074f208f107f5c729051918b80ea3685389e7307af059f6b4ed3",
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/root-meaning-review-r01.json": "2c2b64f959f2178c9fa994e80c56d82cae0c2023d6018cfe9d9dd0e153afbfd4",
+    "/home/ai/Development/investigations/vipi-quality-cost-20261110-r01/independent-review-r01.json": "93b3c07d5f5f4cd63d63428ad3ccea84958f67e8289f0ba06ef47f777fa749a9",
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/analysis-root-r02.json": "e4bb81605f98bc83edfbb28438f77ce08fe9a26b4afcae769cd542eed0dd1d6f",
+    "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01/analysis-independent-r01.json": "4c8ed57da9894e19cf148fc0f924f8f9252c1d0e32727db64c0889781a9987da",
+    "/home/ai/Development/investigations/vipi-quality-cost-20261110-r01/completion-cost-r01.json": "f13ed29440359eb31cbee86bc1e1fb0bafdcf0b93f5cd576b2ab01734616c1b2"
+  }
+}

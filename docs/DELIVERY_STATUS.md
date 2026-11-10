@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-09. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-10. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 ## Source and host authority
 
@@ -11,6 +11,41 @@ The canonical workspace is `/home/ai/Development/vipi-production-20261107`, bran
 OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production-20261106`; retained bulk data uses Storage Box `u684605`. The November 8 owner directive moves new Apple work to native `apple@macbook-pro`. The separate migration owner completed verified preservation and retired the VM's exact backing disk on November 9; do not recreate it. Preserve native projects, accounts and unrelated applications. Historical VM results below remain historical evidence. Android uses the existing QA emulator on system76.
 
 ## Demonstrated behavior and remaining work
+
+The owner has reopened all immersion techniques for comparative evaluation,
+including immediate local word/phrase flips followed by whole-sentence local or
+language-model translation. A new unsigned native Mac diagnostic completed 162
+forward/backward sentence pairs across nine target languages and 12 authored
+Spanish quality controls in 19.78 seconds. These are only 18 distinct English
+sources, including eight previously exposed conversation messages. Both
+independent agent reviews flag the same six material native-output errors;
+they differ on five minor-versus-compatible judgments. An exploratory English
+sentence-embedding threshold rejects all six errors but retains only 81/162
+native outputs. It is not calibrated, native-human gold, or a production gate.
+Apple and ML Kit translation APIs expose no semantic-quality confidence score.
+Hindi was uninstalled and Swahili unsupported on this Apple path; neither is
+credited as covered. No model download, signing retry or app activation occurred.
+See `qa/immersion/hybrid-confidence-r01/root-conclusion-r01.json` and the retained
+blinded reviews, timing evidence and reproducible probe.
+
+The team's cost calculator covers 576 explicitly assumed scenarios using current
+official DeepSeek Flash prices. At peak, with 200 input/60 output tokens per
+forward call, 50/200/500 cloud translations per day cost $2.41/$9.64/$24.09 per
+paid year before trials and other costs. A $12 annual local-first plan with a
+bounded optional cloud allowance remains plausible; unlimited heavy cloud
+translation is not supported by that calculation. Cloud routing frequency,
+provider quality/latency, actual tokens and overhead remain unmeasured. Existing
+Base/Bot mini prices, independent trials and entitlements are unchanged. The
+existing GPU host has been retired; self-hosting cannot assume free GPU capacity.
+The pure calculator and its assumptions are retained beside the diagnostic.
+
+Bulk development-data mining also completed: 14,010 dictionary phrase lexemes
+and 59,945 complete parallel-sentence proposals retain alternatives and provenance.
+These are a review pool, not new activated coverage. On the exposed 9,535-message
+TRAIN set, mechanically compatible phrase entries cover only 839 Japanese,
+129 Swahili and 927 Spanish native words before semantic/selection checks; exact
+whole-sentence corpus matches remain rare. Raw dictionary, grammatical and
+round-trip signals are not interchangeable with contextual correctness.
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|

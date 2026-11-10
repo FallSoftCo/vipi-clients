@@ -1,0 +1,76 @@
+{
+  "checked_at_utc": "2026-11-10T03:49:02.710490+00:00",
+  "primary_sources": [
+    {
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "facts": {
+        "model": "deepseek-flash",
+        "peak_uncached_input_per_million_usd": 0.3,
+        "peak_output_per_million_usd": 1.2,
+        "off_peak_multiplier": 0.5,
+        "tokens_per_request_not_measured": true
+      }
+    },
+    {
+      "url": "https://github.com/google-research/metricx",
+      "facts": [
+        "reference-free QE supported",
+        "regressed error score, not probability",
+        "Apache-2.0 implementation"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/google/metricx-24-hybrid-large-v2p6",
+      "facts": [
+        "Apache-2.0 model card",
+        "source+hypothesis QE"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/google/metricx-24-hybrid-large-v2p6/tree/main",
+      "facts": [
+        "4.92 GB published weights listing, no download"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/google/metricx-24-hybrid-large-v2p6-bfloat16/tree/main",
+      "facts": [
+        "2.46 GB published weights listing, no download"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/Unbabel/wmt22-cometkiwi-da",
+      "facts": [
+        "CC BY-NC-SA 4.0 model weights",
+        "0..1 quality score",
+        "Swahili listed in language coverage; not actual application calibration"
+      ]
+    },
+    {
+      "url": "https://developer.apple.com/documentation/naturallanguage/finding-similarities-between-pieces-of-text",
+      "facts": [
+        "embedding similarity/paraphrase retrieval, not translation confidence"
+      ]
+    },
+    {
+      "url": "https://developer.apple.com/documentation/translation/translationsession/response",
+      "facts": [
+        "documented response text/languages/identity; no public semantic confidence field found"
+      ]
+    }
+  ],
+  "local_price_binding": {
+    "path": "/home/ai/Development/vipi-production-20261107/release/apple-store-configuration.json",
+    "sha256": "abe26c2e0d092b088e3fe7c6c44ba0ee6f6e87c6ca47caade27acf46adf2a7eb",
+    "base_usd_annual": 12,
+    "bot_mini_usd_annual": 48,
+    "bot_mini_requires_base": true,
+    "bot_mini_replies_monthly": 150,
+    "introductory_trial": "P1M"
+  },
+  "existing_round_trip_binding": {
+    "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/round-trip-decision-r01.json",
+    "sha256": "9316cd97c933442176825e5faf55dec31f927be777261c260c2e62de5b9dfdb7"
+  },
+  "no_model_download_provider_call_store_change": true
+}

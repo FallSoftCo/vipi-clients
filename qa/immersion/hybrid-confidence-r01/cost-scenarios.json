@@ -1,0 +1,68 @@
+{
+  "schema": "vipi-cost-scenarios-1",
+  "rates": {
+    "peak": {
+      "input_per_million": 0.3,
+      "output_per_million": 1.2
+    },
+    "off_peak": {
+      "input_per_million": 0.15,
+      "output_per_million": 0.6
+    }
+  },
+  "assumptions": {
+    "input_tokens": 200,
+    "output_tokens": 60,
+    "paid_days": 365,
+    "trial_days": 30,
+    "margin": 0.6,
+    "non_inference": 1
+  },
+  "axes": {
+    "messages_per_day": [
+      50,
+      200,
+      500
+    ],
+    "cloud_fraction": [
+      1,
+      0.2
+    ],
+    "calls_per_cloud_message": [
+      1,
+      2,
+      3
+    ],
+    "conversion": [
+      1,
+      0.25
+    ],
+    "commission": [
+      0.15,
+      0.3
+    ],
+    "vat": [
+      0,
+      0.2
+    ],
+    "annual_price": [
+      12,
+      48
+    ],
+    "rate_period": [
+      "peak",
+      "off_peak"
+    ]
+  },
+  "assumption_notes": [
+    "200 input and 60 output tokens per call are assumptions, not measurements; every repeated/check call uses the same assumed token envelope.",
+    "1 call forward; 2 calls forward+reverse; 3 calls forward+reverse+checker. A separate QE model is not priced as this API call unless actually used that way.",
+    "No prompt-cache savings, no retries/tool/search charges, no hidden reasoning or longer chat history included; token envelope must cover billed tokens.",
+    "365 paid usage days plus 30 trial days for every acquired trial user. Trial inference allocated per converter as 30/conversion; trial and paid daily usage assumed equal.",
+    "Non-inference allowance $1 per paying subscriber per year is explicitly assumed pooled operating cost, not measured; no additional trial infra, acquisition cost, refunds, bot usage, profit tax or fixed R&D modeled.",
+    "Gross price includes modeled VAT; VAT removed before commission applied. Commission15/30 and VAT0/20 are scenarios, not account/tax qualification.",
+    "60% contribution margin is defined on net receipts after modeled tax/store commission, before unmodeled fixed costs.",
+    "20% cloud routing is assumed availability/choice, not a measured safe local-translation fraction.",
+    "48 is the existing Bot mini ADD-ON price requiring Base; scenarios at48 are price sensitivity, not entitlement to spend Bot mini revenue on translation."
+  ]
+}

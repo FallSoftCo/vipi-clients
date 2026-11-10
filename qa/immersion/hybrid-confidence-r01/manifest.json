@@ -1,0 +1,17 @@
+{
+  "schema": "vipi-hybrid-research-inputs-1",
+  "production": false,
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-translation-confidence-20261110-r01",
+  "cost_evidence_root": "/home/ai/Development/investigations/vipi-quality-cost-20261110-r01",
+  "invocation": "Run TranslationConfidenceProbe protocol.json new-capture.jsonl on macOS26.4+ with installed models only; review outputs independently before joining scores. Analyzer requires retained private native/capture.jsonl and meaning-review-packet.json. Cost calculator standalone: python3 cost-calculate.py cost-scenarios.json; --self-test runs arithmetic checks.",
+  "no_data_or_product_activation": true,
+  "files": {
+    "root-conclusion-r01.json": "00c3abc1699f750e0663c3d80fadb686a8aa0154eaa65968405f1194b7019f7e",
+    "cost-scenarios.json": "0e58c06bbdbf4dc9388a7405d6dbcf9f1087b97931f6f1da6c4a9cd6a99a1cbd",
+    "cost-calculate.py": "d7eaa5027e9b43192b397f66a897f2d2c3f64c51683b5ffafe84c1979da96d06",
+    "analyze.py": "3333a48c8bec5beffdc1b4adec0765fb0b0dfed1786fb447a9bf8f9c6e3c50ab",
+    "cost-test-result.json": "7ea61cdf4426b12ad4bffc94fe6b1381b373f68afd9a7760e2e7d475b2135539",
+    "TranslationConfidenceProbe.swift": "721b2b58671eebe78e5968dc379445480c17ee6280c618e8367fb4723ffad5f0",
+    "cost-evidence.json": "961c59208fd957697c94ef739ea9751acf40596a434ce520e3a8b91bb8d9968d"
+  }
+}
