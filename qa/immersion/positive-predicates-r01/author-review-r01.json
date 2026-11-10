@@ -1,0 +1,456 @@
+{
+  "schema": "vipi-predicate-author-review-1",
+  "complete": true,
+  "packet_sha256": "94614c3508838506145f747938b4c9b14eb6ed26502d2150501e2d272e7f84c1",
+  "frozen_at_utc": "2026-11-10T01:31:36.520226+00:00",
+  "reviewer": "independent agent /root/immersion_medium",
+  "root_labels_read": false,
+  "exposure": "Own implementation, prior critique, candidate policy and aggregate mechanics known. All 56 packet sources, full mixed outputs/readings and supplied prior dialogue inspected. No new source/reference research or untouched corpus read. Not method-blind or native-speaker validation.",
+  "rows": [
+    {
+      "id": "P001",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Two-word predicate withheld at this budget; no displayed immersion. Loss of prior pronoun only, not a meaning error."
+    },
+    {
+      "id": "P002",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Swimming is an enjoyed activity; ninapenda preserves first-person present liking in the supplied dialogue."
+    },
+    {
+      "id": "P003",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "First-person preference for eating varied foods and kula eating are compatible. Retaining English to/complement grammar is intended."
+    },
+    {
+      "id": "P004",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Cat/dog and first-person belief about the cat are compatible; ninafikiri expresses the opinion here. Loss of repeated cat exposure is a budget tradeoff."
+    },
+    {
+      "id": "P005",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4,
+        5,
+        6
+      ],
+      "reason": "Animal nouns and the first-person belief preserve meaning. Pronouns, yes and coordination are not credited as content depth."
+    },
+    {
+      "id": "P006",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Knowing remains under the visible English negation where applicable; ninahitaji expresses present need to talk, ninajua the speaker knowledge. No polarity reversal."
+    },
+    {
+      "id": "P007",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "reason": "Knowledge/need predicates fit the infidelity discussion; English negative operators remain. Labda also retains meaningful uncertainty."
+    },
+    {
+      "id": "P008",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "reason": "Ninapenda conveys strong liking for iced coffee; kahawa is coffee. Untranslated complements do not change the referent."
+    },
+    {
+      "id": "P009",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "reason": "Same compatible love/coffee meanings at the other density; not an independent vocabulary observation."
+    },
+    {
+      "id": "P010",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "reason": "Love expresses liking for the named band, which remains intact; muziki preserves music. No band-name translation."
+    },
+    {
+      "id": "P011",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        4
+      ],
+      "reason": "Daima preserves always, muziki music, and ninapenda liking for the intact band name."
+    },
+    {
+      "id": "P012",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Preference for horror movies is preserved; filamu supports films/movies. Lost story span reduces variety rather than correcting meaning."
+    },
+    {
+      "id": "P013",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        3
+      ],
+      "reason": "Preference, films and story all fit the source. Swahili noun number neutrality here is compatible with preserved English grammar."
+    },
+    {
+      "id": "P014",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Budget withholds the complete predicate; earlier pronoun exposure is lost. No immersion credit."
+    },
+    {
+      "id": "P015",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "First-person love of the named pasta dish is a normal liking meaning; dish text remains intact."
+    },
+    {
+      "id": "P016",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Social media complement lacks approved following context; valid liking remains untranslated. This is lost coverage, not evidence the source sense is wrong."
+    },
+    {
+      "id": "P017",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Same deliberate complement abstention even at larger budget; no useful output."
+    },
+    {
+      "id": "P018",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Complete predicate cannot fit the small budget; prior isolated know is withheld. No immersion credit."
+    },
+    {
+      "id": "P019",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Ninajua can acknowledge the shared unfortunate situation. This discourse acknowledgement is not credited as new content/construction depth here."
+    },
+    {
+      "id": "predicate-control-01",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Music preference is ordinary first-person present liking."
+    },
+    {
+      "id": "predicate-control-02",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Affection for family and familia retain the intended meanings; English possessive remains."
+    },
+    {
+      "id": "predicate-control-03",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Ninataka expresses wanting and chai tea; source complement structure is intentionally retained."
+    },
+    {
+      "id": "predicate-control-04",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninahitaji expresses the speaker need for help."
+    },
+    {
+      "id": "predicate-control-05",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninajua expresses knowledge of an answer, with the source object retained."
+    },
+    {
+      "id": "predicate-control-06",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninafikiri expresses the tentative opinion in think so; the English propositional complement remains."
+    },
+    {
+      "id": "predicate-control-07",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Enjoying film-watching is the pleasure sense of ninafurahia."
+    },
+    {
+      "id": "predicate-control-08",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninaishi expresses living/residing near the station without changing the location."
+    },
+    {
+      "id": "predicate-control-09",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninafundisha expresses first-person teaching; the English object remains under intended mixed grammar."
+    },
+    {
+      "id": "predicate-control-10",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Ninapenda and kuogelea preserve liking and swimming; English infinitival to is deliberately retained."
+    },
+    {
+      "id": "predicate-control-11",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Ninapenda my mbwa retains preference/affection for the dog."
+    },
+    {
+      "id": "predicate-control-12",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Cooking is an ordinary pleasurable activity, compatible with ninafurahia."
+    },
+    {
+      "id": "predicate-control-13",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Baba is father/dad. The resemblance-like construction remains English rather than becoming preference."
+    },
+    {
+      "id": "predicate-control-14",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Negative need-not remains unchanged; no false affirmative necessity. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-15",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Modal question remains unchanged; no false present preference. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-16",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Only mimi replaces I; conditional preference remains English. Compatible but function-only."
+    },
+    {
+      "id": "predicate-control-17",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Only mimi replaces I, leaving the negative need construction unchanged; no content depth credit."
+    },
+    {
+      "id": "predicate-control-18",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Want-for-nothing idiom remains unchanged. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-19",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Benefit/entitlement enjoy-immunity is withheld; no pleasure-sense substitution. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-20",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Afya preserves health; benefit-sense enjoy is correctly not converted to pleasure."
+    },
+    {
+      "id": "predicate-control-21",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Enjoy-myself is outside the approved complement set and remains unchanged. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-22",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Sentence barrier prevents a residential predicate context from spanning the period. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-23",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Muziki retains music; broken I? like sequence does not acquire a predicate."
+    },
+    {
+      "id": "predicate-control-24",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Discourse-like before totally forgot remains unchanged. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-25",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Discourse-like before ran away remains unchanged. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-26",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Kuchukia preserves hate while discourse-like remains English. Base-form mixed grammar is intended."
+    },
+    {
+      "id": "predicate-control-27",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Siku preserves day; no incorrect preference predicate is introduced in this awkward discourse source."
+    },
+    {
+      "id": "predicate-control-28",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Entire filename context is protected and no predicate emits. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-29",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Code literal remains exact. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-30",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Muziki preserves music; ALLCAPS predicate remains unchanged under the declared identifier caution."
+    },
+    {
+      "id": "predicate-control-31",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Person-knowledge meaning is plausible, but natural Swahili commonly marks the human object (ninamjua John). Treat missing object agreement/idiomatic acquaintance precision as a minor mixed-form concern, not a substantially wrong sense."
+    },
+    {
+      "id": "predicate-control-32",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Ninajua is a compatible acknowledgement, but does not receive content-depth credit for this discourse use."
+    },
+    {
+      "id": "predicate-control-33",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ninaishi retains living in the metaphorical living-in-hope expression; the English hope complement carries the idiom. This does not establish all live-in complements as qualified."
+    },
+    {
+      "id": "predicate-control-34",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Both preference predicates preserve their distinct music/tea objects; repetition has not swapped or merged occurrences."
+    },
+    {
+      "id": "predicate-control-35",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Small budget cannot admit the complete two-word predicate; no inner word rescue. No immersion usefulness credit."
+    },
+    {
+      "id": "predicate-control-36",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Known/excluded predicate stays source-visible while muziki remains valid unrelated content."
+    },
+    {
+      "id": "predicate-control-37",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Caller-protected predicate remains source text; separate music span is compatible and outside the protected focus."
+    }
+  ],
+  "recommendation": {
+    "decision": "activate_bounded_increment_after_joint_review",
+    "rationale": "Reviewed predicates add coherent first-person content while preserving source grammar. At .75 the measured word gain is modest; at .25 whole-unit priority loses three words and four nonempty messages, mostly pronoun-only exposure but also valid isolated content/repeated nouns. Accept this as a phrase-priority tradeoff, not a coverage increase claim.",
+    "limitations": [
+      "No material error identified in this finite reviewed packet; not proof of universal sense safety.",
+      "Social-media liking and human-hair omissions remain deliberate gaps; no whitelist expansion proposed.",
+      "I know acknowledgement adds little content depth; acquaintance/object agreement is minor on the authored John control.",
+      "Fixed following-context lists and finite left operators do not establish arbitrary clause scope or eliminate all discourse-like/idiom ambiguity.",
+      "No automatic mastery, population accuracy or 90% usefulness claim."
+    ]
+  }
+}

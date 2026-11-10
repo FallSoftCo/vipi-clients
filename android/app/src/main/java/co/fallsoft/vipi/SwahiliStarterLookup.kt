@@ -32,11 +32,15 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
         private fun strings(a: JSONArray) = (0 until a.length()).map { a.getString(it) }
     }
     private data class Entry(val id:String,val tokens:List<String>,val target:String,val reading:String?,val category:String,
-        val rank:Int,val guard:String?,val following:Set<String>,val concept:String,val record:String)
+        val rank:Int,val guard:String?,val following:Set<String>,val concept:String,val record:String,
+        val followingContexts:List<List<String>>,val rejectFollowing:Set<String>)
     private val known = knownIDs.toSet()
     private val entries: List<Entry>
     private val lefts: Set<String>
     private val copulas: Set<String>
+    private val predicatePolicyPresent: Boolean
+    private val predicateLeftOperators: Set<String>
+    private val predicateRejectFollowing: Set<String>
     private val packSHA: String
     private val version: String
     override val cacheIdentity: String
@@ -48,14 +52,36 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
         require(m.getString("schema")=="vipi-source-starter-manifest-1" && m.getString("file").matches(Regex("starter-en-sw-[0-9]{3}\\.json")) &&
             m.getInt("bytes")==bytes.size && bytes.size<=1048576 && m.getString("sha256")==packSHA && m.getString("version")==version)
         require(p.getString("schema")=="vipi-source-starter-1" && p.getString("source")=="en" && p.getString("target")=="sw")
+        fun policyTokens(a:JSONArray):List<String> {
+            require(a.length()<=256)
+            return (0 until a.length()).map { n ->
+                val token=a.get(n);require(token is String && token.isNotEmpty() && token.length<=64 && Regex("[a-z]+(?:'[a-z]+)?").matches(token));token
+            }
+        }
+        predicatePolicyPresent=p.has("positive_predicate_policy")
+        val predicatePolicy=if(predicatePolicyPresent)p.getJSONObject("positive_predicate_policy")else null
+        if(predicatePolicy!=null)require(predicatePolicy.getString("schema")=="vipi-positive-predicate-policy-1")
+        predicateLeftOperators=predicatePolicy?.getJSONArray("left_operators")?.let(::policyTokens)?.toSet() ?: emptySet()
+        predicateRejectFollowing=predicatePolicy?.getJSONArray("reject_following")?.let(::policyTokens)?.toSet() ?: emptySet()
+        if(predicatePolicy!=null) {
+            require(predicatePolicy.getJSONArray("left_operators").length() in 1..64)
+            require(policyTokens(predicatePolicy.getJSONArray("reject_following"))==listOf("not"))
+        }
         val rows=p.getJSONArray("entries");require(rows.length() in 1..512 && rows.length()==m.getInt("entries"))
         entries=(0 until rows.length()).map { n -> val e=rows.getJSONObject(n)
             val guard=if(e.isNull("guard")) null else e.getString("guard")
-            require(guard in setOf(null,"interrogative","ordinary_noun_context","withheld_contextual_sense"))
+            require(guard in setOf(null,"interrogative","ordinary_noun_context","withheld_contextual_sense","positive_first_person_predicate"))
             require(e.isNull("reading") && e.isNull("reading_kana") && e.getString("concept_id").isNotBlank())
             require(e.getString("record_sha256").matches(Regex("[a-f0-9]{64}")))
-            Entry(e.getString("id"),strings(e.getJSONArray("source_tokens")),e.getString("target"),null,e.getString("category"),
-                e.getInt("train_rank"),guard,e.optJSONArray("following")?.let(::strings)?.toSet() ?: emptySet(),e.getString("concept_id"),e.getString("record_sha256"))
+            val contexts=(if(e.has("following_contexts"))e.getJSONArray("following_contexts")else null)?.let { all ->
+                require(all.length() in 1..256)
+                (0 until all.length()).map { n -> policyTokens(all.getJSONArray(n)).also{require(it.size in 1..2)} }
+            } ?: emptyList()
+            val reject=(if(e.has("reject_following"))e.getJSONArray("reject_following")else null)?.let(::policyTokens)?.toSet() ?: emptySet()
+            val sourceTokens=strings(e.getJSONArray("source_tokens"))
+            if(guard=="positive_first_person_predicate")require(predicatePolicyPresent && sourceTokens.size==2 && sourceTokens[0]=="i" && policyTokens(e.getJSONArray("source_tokens"))==sourceTokens && e.getString("source")==sourceTokens.joinToString(" ") && e.getString("category")=="content")
+            Entry(e.getString("id"),sourceTokens,e.getString("target"),null,e.getString("category"),
+                e.getInt("train_rank"),guard,e.optJSONArray("following")?.let(::strings)?.toSet() ?: emptySet(),e.getString("concept_id"),e.getString("record_sha256"),contexts,reject)
         }
         require(entries.map { it.id }.distinct().size==entries.size && entries.all { it.id.isNotBlank() && it.tokens.isNotEmpty() && it.target.isNotBlank() && it.category in setOf("content","function") })
         val c=p.getJSONObject("source_context_sets");lefts=(strings(c.getJSONArray("determiners"))+strings(c.getJSONArray("prepositions"))+strings(c.getJSONArray("object_verbs"))).toSet();copulas=strings(c.getJSONArray("copulas")).toSet()
@@ -72,7 +98,8 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
         val native=LocalImmersion.words(original,source);val tokens=words.findAll(original).toList();val keys=tokens.map{fold(it.value)}
         val budget=if(density>0) maxOf(1,(native.size*density).toInt()) else 0
         val protection=protectedRanges+sourceMasks+literals.findAll(original).map{SourceLookupRange(it.range.first,it.range.last+1)}.toList()
-        data class Hit(val entry:Entry,val range:SourceLookupRange,val cost:Int,val outputID:String,val reason:String?)
+        val predicateProtection=protection+TranslationIntegrity.protectedLiteralRanges(original).map{SourceLookupRange(it.first,it.last+1)}
+        data class Hit(val entry:Entry,val range:SourceLookupRange,val context:SourceLookupRange,val cost:Int,val outputID:String,var reason:String?)
         val hits=mutableListOf<Hit>()
         for(i in tokens.indices) for(e in entries) {
             val j=i+e.tokens.size;if(j>keys.size || keys.subList(i,j)!=e.tokens) continue
@@ -80,11 +107,30 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
             val before=original.substring(0,start).trimEnd().trimEnd('"','\'','“','”','‘','’');val initial=before.isEmpty() || before.last() in ".!?"
             val first=tokens[i].value;fun gap(k:Int)=original.substring(tokens[k].range.last+1,tokens[k+1].range.first)
             val touched=native.filter{it.first<end && start<=it.last};val complete=touched.isNotEmpty() && touched.first().first==start && touched.last().last+1==end && touched.all{it.first>=start && it.last<end}
+            val predicate=e.guard=="positive_first_person_predicate"
+            val matchedContext=if(predicate)e.followingContexts.filter { sequence ->
+                val k=j+sequence.size
+                k<=keys.size && keys.subList(j,k)==sequence && (j-1 until k-1).all{whitespaceGap(gap(it))}
+            }.maxByOrNull{it.size}else null
+            val contextEnd=matchedContext?.let{tokens[j+it.size-1].range.last+1} ?: end
+            val predicateContext=SourceLookupRange(start,contextEnd)
+            val contextWords=native.filter{it.first<contextEnd && start<=it.last}
+            val contextComplete=contextWords.isNotEmpty() && contextWords.first().first==start && contextWords.last().last+1==contextEnd && contextWords.all{it.first>=start && it.last<contextEnd} &&
+                (!predicate || (i until (j+(matchedContext?.size ?: 0))).all { n -> native.any{it.first==tokens[n].range.first && it.last==tokens[n].range.last} })
+            val left=if(i>0 && whitespaceGap(gap(i-1)))keys[i-1]else null
+            val right=if(j<keys.size && whitespaceGap(gap(j-1)))keys[j]else null
             val reason=when {
                 protection.any{it.overlaps(range)} -> "protected_source"
                 keys[i]!="i" && first.codePointCount(0,first.length)>1 && first.any{it.isUpperCase()} && first.none{it.isLowerCase()} -> "uppercase_identifier"
                 keys[i]!="i" && first.first().isUpperCase() && !initial -> "mid_sentence_capital"
                 (i until j-1).any { !whitespaceGap(gap(it)) } -> "noncontiguous_source_unit"
+                predicate && tokens[j-1].value.length>1 && tokens[j-1].value.any{it.isUpperCase()} && tokens[j-1].value.none{it.isLowerCase()} -> "uppercase_predicate"
+                predicate && left in predicateLeftOperators -> "external_predicate_operator"
+                predicate && right in predicateRejectFollowing -> "negative_predicate_scope"
+                predicate && right in e.rejectFollowing -> "unsupported_predicate_complement"
+                predicate && e.followingContexts.isNotEmpty() && matchedContext==null -> "predicate_right_context_absent"
+                predicate && (!contextComplete || touched.size!=2) -> "partial_native_predicate_context"
+                predicate && predicateProtection.any{it.overlaps(predicateContext)} -> "protected_predicate_context"
                 e.guard=="withheld_contextual_sense" -> "unqualified_source_sense"
                 e.guard=="interrogative" && !initial -> "question_not_sentence_initial"
                 e.guard=="interrogative" && (j>=keys.size || keys[j] !in e.following) -> "question_right_context_absent"
@@ -97,10 +143,16 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
                 touched.size>budget -> "native_density_budget"
                 else -> null
             }
-            hits+=Hit(e,range,touched.size,"${e.id}@$start:$end",reason)
-            trace.put(JSONObject().put("entry_id",e.id).put("concept_id",e.concept).put("source",original.substring(start,end)).put("target",e.target).put("reading",e.reading ?: JSONObject.NULL)
-                .put("source_utf16",JSONArray(listOf(start,end))).put("reason",reason ?: JSONObject.NULL).put("record_sha256",e.record))
+            hits+=Hit(e,range,predicateContext,touched.size,"${e.id}@$start:$end",reason)
             require(hits.size<=4096)
+        }
+        val predicates=hits.filter{it.entry.guard=="positive_first_person_predicate"}
+        for(h in hits)if(h.reason==null && h.entry.guard!="positive_first_person_predicate" && predicates.any{it.range.contains(h.range) && it.range!=h.range})h.reason="stronger_predicate_recognized"
+        for(h in hits) {
+            val row=JSONObject().put("entry_id",h.entry.id).put("concept_id",h.entry.concept).put("source",original.substring(h.range.start,h.range.end)).put("target",h.entry.target).put("reading",h.entry.reading ?: JSONObject.NULL)
+                .put("source_utf16",JSONArray(listOf(h.range.start,h.range.end))).put("reason",h.reason ?: JSONObject.NULL).put("record_sha256",h.entry.record)
+            if(h.entry.guard=="positive_first_person_predicate")row.put("predicate_context_utf16",JSONArray(listOf(h.context.start,h.context.end)))
+            trace.put(row)
         }
         rawCandidates=hits.map { h -> SourceFrameStarterCandidate(h.entry.id,h.entry.concept,h.entry.category,h.entry.rank,h.entry.tokens.size,h.range,h.cost,h.reason,
             SourceReferenceUnit(h.range.start,h.range.end,original.substring(h.range.start,h.range.end),h.entry.target,null,
@@ -121,7 +173,7 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
             if(groups.isNotEmpty() && h.range.start<groups.last().maxOf{it.range.end}) groups.last().add(h) else groups.add(mutableListOf(h))
         }
         val recognitions=groups.mapIndexed { n,g -> val range=SourceLookupRange(g.minOf{it.range.start},g.maxOf{it.range.end})
-            SourceRecognition("starter-$n",sha(g.map{it.entry.record}.sorted().joinToString("").toByteArray()),range,range,SourceAtomicMode.HEAD_BACKOFF,
+            SourceRecognition("starter-$n",sha(g.map{it.entry.record}.sorted().joinToString("").toByteArray()),SourceLookupRange(g.minOf{it.context.start},g.maxOf{it.context.end}),range,SourceAtomicMode.HEAD_BACKOFF,
                 g.filter{it.reason==null}.map{SourceApprovedOutput(it.outputID,it.range)})
         }+protection.mapIndexed { n,r -> SourceRecognition("protection-$n",packSHA,r,r,SourceAtomicMode.AMBIGUOUS,emptyList()) }
         return evidence(partial,recognitions).also{require(it.isValid(original,source,target,cacheIdentity))}

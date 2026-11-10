@@ -16,16 +16,20 @@ import VipiCore
         let source_tokens: [String]
         let guardValue: String?
         let following: [String]?
+        let following_contexts: [[String]]?
+        let reject_following: [String]?
         enum CodingKeys: String, CodingKey {
-            case id, source, target, category, pos, reading, reading_kana, concept_id, record_sha256, train_rank, source_tokens, following
+            case id, source, target, category, pos, reading, reading_kana, concept_id, record_sha256, train_rank, source_tokens, following, following_contexts, reject_following
             case guardValue = "guard"
         }
     }
     struct Pack: Decodable {
         struct Context: Decodable { let determiners, prepositions, object_verbs, copulas: [String] }
+        struct PredicatePolicy: Decodable { let schema: String; let left_operators, reject_following: [String] }
         let schema, version, source, target: String
         let entries: [Entry]
         let source_context_sets: Context
+        let positive_predicate_policy: PredicatePolicy?
     }
     struct Manifest: Decodable { let schema, file, sha256, version: String; let bytes, entries: Int }
     enum Invalid: Error { case pack, input }
@@ -49,8 +53,29 @@ import VipiCore
         guard p.schema == "vipi-source-starter-1", p.source == "en", p.target == "sw", p.version == m.version,
               p.entries.count == m.entries, (1...512).contains(p.entries.count), Set(p.entries.map(\.id)).count == p.entries.count,
               p.entries.allSatisfy({ !$0.id.isEmpty && !$0.source_tokens.isEmpty && !$0.target.isEmpty && $0.reading == nil && $0.reading_kana == nil && !$0.concept_id.isEmpty &&
-                  [nil,"ordinary_noun_context","interrogative","withheld_contextual_sense"].contains($0.guardValue) && ["content","function"].contains($0.category) &&
+                  [nil,"ordinary_noun_context","interrogative","withheld_contextual_sense","positive_first_person_predicate"].contains($0.guardValue) && ["content","function"].contains($0.category) &&
                   $0.record_sha256.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil }) else { throw Invalid.pack }
+        let predicates = p.entries.filter { $0.guardValue == "positive_first_person_predicate" }
+        if !predicates.isEmpty {
+            func validKeys(_ keys: [String]) -> Bool {
+                keys.count <= 64 && Set(keys).count == keys.count && keys.allSatisfy {
+                    !$0.isEmpty && $0.range(of: "^[a-z]+(?:'[a-z]+)?$", options: .regularExpression) != nil
+                }
+            }
+            guard let policy = p.positive_predicate_policy,
+                  policy.schema == "vipi-positive-predicate-policy-1",
+                  !policy.left_operators.isEmpty, validKeys(policy.left_operators),
+                  policy.reject_following == ["not"], predicates.allSatisfy({ entry in
+                    entry.source_tokens.count == 2 && entry.source_tokens[0] == "i" &&
+                    entry.source == entry.source_tokens.joined(separator: " ") && entry.category == "content" &&
+                    validKeys(entry.source_tokens) && validKeys(entry.reject_following ?? []) &&
+                    (entry.following_contexts.map { contexts in
+                        (1...256).contains(contexts.count) && contexts.allSatisfy {
+                            (1...2).contains($0.count) && validKeys($0)
+                        }
+                    } ?? true)
+                  }) else { throw Invalid.pack }
+        }
         pack = p; sha = m.sha256
     }
     static func bundledIfPromoted() -> SourceUnitLookup? {
@@ -80,8 +105,11 @@ import VipiCore
         let tokens = words.matches(in: original, range: NSRange(location: 0, length: text.length)).map(\.range)
         let keys = tokens.map { fold(text.substring(with: $0)) }
         let protection = protectedRanges + sourceMasks + literals.matches(in: original, range: NSRange(location: 0, length: text.length)).map(\.range)
+        let predicateProtection = protection + TranslationIntegrity.protectedLiteralRanges(original)
+        let predicateOperators = Set(pack.positive_predicate_policy?.left_operators ?? [])
+        let predicateNegatives = Set(pack.positive_predicate_policy?.reject_following ?? [])
         let lefts = Set(pack.source_context_sets.determiners + pack.source_context_sets.prepositions + pack.source_context_sets.object_verbs)
-        struct Hit { let entry: Entry, range: NSRange, cost: Int, outputID: String, reason: String? }
+        struct Hit { let entry: Entry, range: NSRange, context: NSRange, cost: Int, outputID: String; var reason: String? }
         var hits: [Hit] = []
         func gap(_ a: Int, _ b: Int) -> String { text.substring(with: NSRange(location: a, length: b-a)) }
         for i in tokens.indices {
@@ -96,11 +124,32 @@ import VipiCore
                 let touched = native.filter { NSIntersectionRange($0, unit).length > 0 }
                 let cost = basis.cost(for: unit)
                 var reason: String?
+                let predicate = entry.guardValue == "positive_first_person_predicate"
+                let matchedContext = predicate ? (entry.following_contexts ?? []).filter { sequence in
+                    let end = j + sequence.count
+                    return end <= keys.count && Array(keys[j..<end]) == sequence &&
+                        ((j-1)..<(end-1)).allSatisfy { Self.whitespaceGap(gap(NSMaxRange(tokens[$0]), tokens[$0+1].location)) }
+                }.sorted { $0.count > $1.count }.first : nil
+                let contextEnd = matchedContext.map { NSMaxRange(tokens[j+$0.count-1]) } ?? NSMaxRange(unit)
+                let predicateContext = NSRange(location:unit.location,length:contextEnd-unit.location)
+                let predicateComplete = cost == 2 && (i..<(j+(matchedContext?.count ?? 0))).allSatisfy { native.contains(tokens[$0]) }
                 if protection.contains(where: { NSIntersectionRange($0, unit).length > 0 }) { reason = "protected_source" }
                 else if (i..<(j-1)).contains(where: { !Self.whitespaceGap(gap(NSMaxRange(tokens[$0]), tokens[$0+1].location)) }) { reason = "noncontiguous_source_unit" }
                 else if keys[i] != "i", first.count > 1, first == first.uppercased(), first != first.lowercased() { reason = "uppercase_identifier" }
                 else if keys[i] != "i", first.first?.isUppercase == true, !initial { reason = "mid_sentence_capital" }
                 else if entry.guardValue == "withheld_contextual_sense" { reason = "unqualified_source_sense" }
+                else if entry.guardValue == "positive_first_person_predicate" {
+                    let left = i > 0 && Self.whitespaceGap(gap(NSMaxRange(tokens[i-1]), unit.location)) ? keys[i-1] : nil
+                    let right = j < keys.count && Self.whitespaceGap(gap(NSMaxRange(unit), tokens[j].location)) ? keys[j] : nil
+                    let verb = text.substring(with: tokens[j-1])
+                    if verb.count > 1 && verb == verb.uppercased() && verb != verb.lowercased() { reason = "uppercase_predicate" }
+                    else if left.map({ predicateOperators.contains($0) }) == true { reason = "external_predicate_operator" }
+                    else if right.map({ predicateNegatives.contains($0) }) == true { reason = "negative_predicate_scope" }
+                    else if right.map({ (entry.reject_following ?? []).contains($0) }) == true { reason = "unsupported_predicate_complement" }
+                    else if entry.following_contexts != nil && matchedContext == nil { reason = "predicate_right_context_absent" }
+                    else if !predicateComplete { reason = "partial_native_predicate_context" }
+                    if reason == nil && predicateProtection.contains(where: { NSIntersectionRange($0, predicateContext).length > 0 }) { reason = "protected_predicate_context" }
+                }
                 else if entry.guardValue == "interrogative" {
                     if !initial { reason = "question_not_sentence_initial" }
                     else if j >= keys.count || !(entry.following ?? []).contains(keys[j]) { reason = "question_right_context_absent" }
@@ -116,9 +165,18 @@ import VipiCore
                 if reason == nil && context.knownConceptIDs.contains(entry.concept_id) { reason = "caller_known_concept" }
                 if reason == nil && (cost ?? Int.max) > budget { reason = "native_density_budget" }
                 let outputID = entry.id + "@\(unit.location):\(NSMaxRange(unit))"
-                hits.append(.init(entry: entry, range: unit, cost: cost ?? 0, outputID: outputID, reason: reason))
+                hits.append(.init(entry: entry, range: unit, context: predicateContext, cost: cost ?? 0, outputID: outputID, reason: reason))
                 trace.append(["entry_id":entry.id,"concept_id":entry.concept_id,"source":source,"target":entry.target,"reading":entry.reading as Any? ?? NSNull(),"source_utf16":[unit.location,NSMaxRange(unit)],"reason":reason as Any? ?? NSNull(),"record_sha256":entry.record_sha256])
+                if entry.guardValue == "positive_first_person_predicate" { trace[trace.count-1]["predicate_context_utf16"] = [predicateContext.location, NSMaxRange(predicateContext)] }
                 guard hits.count <= 4096 else { throw Invalid.input }
+            }
+        }
+        // A recognized whole predicate owns its inner words even when withheld.
+        let predicateRanges = hits.filter { $0.entry.guardValue == "positive_first_person_predicate" }.map(\.range)
+        for i in hits.indices where hits[i].entry.guardValue != "positive_first_person_predicate" && hits[i].reason == nil {
+            if predicateRanges.contains(where: { hits[i].range.location >= $0.location && NSMaxRange(hits[i].range) <= NSMaxRange($0) }) {
+                hits[i].reason = "stronger_predicate_recognized"
+                trace[i]["reason"] = "stronger_predicate_recognized"
             }
         }
         rawCandidates = hits.map { h in SourceFrameStarterCandidate(entryID:h.entry.id,conceptID:h.entry.concept_id,category:h.entry.category,rank:h.entry.train_rank,tokenCount:h.entry.source_tokens.count,range:h.range,cost:h.cost,reason:h.reason,
@@ -149,7 +207,9 @@ import VipiCore
         var recognition = groups.enumerated().map { n,g -> SourceRecognition in
             let start = g.map(\.range.location).min()!, end = g.map { NSMaxRange($0.range) }.max()!
             let range = NSRange(location:start,length:end-start)
-            return .init(ruleID:"starter-\(n)",recordSHA256:Self.digest(Data(g.map(\.entry.record_sha256).sorted().joined().utf8)),context:range,mask:range,mode:.headBackoff,approvedOutputs:g.filter{$0.reason == nil}.map{.init(outputID:$0.outputID,range:$0.range)})
+            let contextStart = g.map { $0.context.location }.min()!, contextEnd = g.map { NSMaxRange($0.context) }.max()!
+            let recognizedContext = NSRange(location:contextStart,length:contextEnd-contextStart)
+            return .init(ruleID:"starter-\(n)",recordSHA256:Self.digest(Data(g.map(\.entry.record_sha256).sorted().joined().utf8)),context:recognizedContext,mask:range,mode:.headBackoff,approvedOutputs:g.filter{$0.reason == nil}.map{.init(outputID:$0.outputID,range:$0.range)})
         }
         recognition += protection.enumerated().map { n,r in .init(ruleID:"protection-\(n)",recordSHA256:sha,context:r,mask:r,mode:.ambiguous,approvedOutputs:[]) }
         let result = evidence(partial, recognition)

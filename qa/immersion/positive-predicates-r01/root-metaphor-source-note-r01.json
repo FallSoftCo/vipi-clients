@@ -1,0 +1,20 @@
+{
+  "scope": "Native written language usage only, not medical/financial guidance or bilingual gold. No page content copied into app data.",
+  "url": "https://amkamtanzania.com/2021/01/18/2210-kila-mtu-anaishi-kwa-matumaini/",
+  "author": "Dr. Makirita Amani",
+  "date": "2021-01-18",
+  "retrieved": "2026-11-10",
+  "short_quote": "kila mtu anaishi kwa matumaini",
+  "inference": "Authored usage applies ishi with hope beyond residence. This supports reviewer judgment for mixed ninaishi in hope, not every possible live context.",
+  "failed_primary_pdf_fetches": [
+    {
+      "url": "https://www.tie.go.tz/uploads/files/URAIA%20NA%20MAADILI%20%20SEPT%202020.pdf",
+      "status": 404
+    },
+    {
+      "url": "https://polis.bunge.go.tz/uploads/documents/1466150378-HS-16-21-2004.pdf",
+      "status": 502
+    }
+  ],
+  "page_full_access": "Authored blog page fetched; government PDF search snippets are supplementary leads only."
+}

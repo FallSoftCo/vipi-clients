@@ -1,0 +1,133 @@
+{
+  "schema": "vipi-predicate-android-completion-1",
+  "complete": true,
+  "default_rows": 160,
+  "controls": 37,
+  "controls_are_mechanism_not_meaning": true,
+  "source_states_restored": true,
+  "native_word_metrics": {
+    "0.25": {
+      "baseline": {
+        "native_words": 864,
+        "emitted_native_words": 150,
+        "predicate_spans": 0
+      },
+      "candidate": {
+        "native_words": 864,
+        "emitted_native_words": 147,
+        "predicate_spans": 6
+      }
+    },
+    "0.75": {
+      "baseline": {
+        "native_words": 864,
+        "emitted_native_words": 178,
+        "predicate_spans": 0
+      },
+      "candidate": {
+        "native_words": 864,
+        "emitted_native_words": 184,
+        "predicate_spans": 10
+      }
+    }
+  },
+  "no_canonical_pack_install": true,
+  "translation_calls": 0,
+  "bindings": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-freeze-r02.json",
+      "bytes": 3182,
+      "sha256": "80a8dcbdfc71dd3419cb7bf2d9b1982aae0a76ec8686f31e5013e8eef003ba78"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-stage-r01.json",
+      "bytes": 8264,
+      "sha256": "f55f49602b40c7adfc6204a5f3dc1ef426dbe3375f52f9c69133a21ddf24661f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-prestage-failure-r01.json",
+      "bytes": 535,
+      "sha256": "53604fd91ad5c51a6722b2342276c87305212bf887d82d9132a03a3dd6d51c3a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-build-amendment-r02.json",
+      "bytes": 624,
+      "sha256": "52df14e35cae485e4de9c0bd3ede5de24674c278e096327acf311ce24d199eec"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/capture-build-binding-r02.json",
+      "bytes": 339,
+      "sha256": "b591bedf3a2e7a37bd58bd136f54a7a1798c2068d93f66cf055ebab7b1b8e728"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-assembly-r01/receipt.json",
+      "bytes": 998,
+      "sha256": "82fd588ab7cb56d30500ac4d7e63f757fa9e3321359d50ccdde60f27bc27881d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-assembly-r02/receipt.json",
+      "bytes": 8107,
+      "sha256": "83ac3ddb6016feb362e1d2a3abdbccc4a77058abb5c39bddb872e7fcea4c8319"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-comparison-r01.json",
+      "bytes": 36716,
+      "sha256": "2885959a01b2d060a174f52dfdf64b7ffdbbee6eaacfd8d979953fd6c988064a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/receipt.json",
+      "bytes": 1135,
+      "sha256": "bc8290bd45f94d43258fc8ac9270c8ce660eee660bc6edeefbb62f5a322481a1"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/output.stdout",
+      "bytes": 432372,
+      "sha256": "30769f157e63873e56d847a9fb1458505786f7bb8069a95fb7f20451ef7961fb"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/status.stdout",
+      "bytes": 142,
+      "sha256": "47c38e82c55cd1469af73bb786b0d7a3a89c1729d8f31455a7a52291e98a451d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/controls.stdout",
+      "bytes": 45860,
+      "sha256": "281f4b5d1a6d3eec840cf5bdbb1de92a10d70c098c0bd794c39c229035950658"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/capture.stdout",
+      "bytes": 72,
+      "sha256": "01271e03c2b62a3f795522827ae0d989b4ee8a50467d1b08b2cd80ab0e8db9f3"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/settings-before.stdout",
+      "bytes": 8638,
+      "sha256": "2f20fb45a1ad2dcd46e04d79b5d9f50747bcf87404563e17edd27f09e42ebc04"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/settings-after.stdout",
+      "bytes": 8638,
+      "sha256": "2f20fb45a1ad2dcd46e04d79b5d9f50747bcf87404563e17edd27f09e42ebc04"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/system-before.stdout",
+      "bytes": 1144,
+      "sha256": "71e0c0b5de23993dd1312ac546de64a6cf8e64e0e325346ef4795b4547911de9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/system-after.stdout",
+      "bytes": 1144,
+      "sha256": "71e0c0b5de23993dd1312ac546de64a6cf8e64e0e325346ef4795b4547911de9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/main-before.stdout",
+      "bytes": 96,
+      "sha256": "05eaf9c5e6059a38e90b6f8043c5a97d7c5ef57b24cb3baf1260026cef23ba0b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-capture-r01/main-after.stdout",
+      "bytes": 96,
+      "sha256": "05eaf9c5e6059a38e90b6f8043c5a97d7c5ef57b24cb3baf1260026cef23ba0b"
+    }
+  ]
+}

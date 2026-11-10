@@ -1,0 +1,60 @@
+{
+  "native_rows": 160,
+  "default_selections_and_geometry_identical": true,
+  "control_rows": 37,
+  "control_selected_spans_and_script_identical": true,
+  "control_native_token_differences": [
+    {
+      "id": "predicate-control-28",
+      "source": "I like reading_room.txt.",
+      "apple": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          14
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          20,
+          23
+        ]
+      ],
+      "android": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          23
+        ]
+      ],
+      "both_preserve_literal_and_withhold_predicate": true
+    }
+  ],
+  "worker_bindings_checked": 19,
+  "default_translation_calls": 0,
+  "controls_are_separate_raw_provider_not_default_route": true,
+  "initial_root_full_geometry_assertion_failure_retained": "control28nativewordtokenization differs; compared raw values, selectedspansliteralwithholding identical; no rerun",
+  "packet_sha256": "94614c3508838506145f747938b4c9b14eb6ed26502d2150501e2d272e7f84c1",
+  "bindings": {
+    "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/apple-capture-r01/inputs-r01/apple-output.jsonl": "0ed6b0f5c146d65fac0ac089dee673ab15384206810ad9bd0f6d45ba9573433d",
+    "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/apple-capture-r01/inputs-r01/apple-controls.json": "8254104edb9ec850ce4ef4195cdfe2e1dd9a4c5c0cfdf90f92a7c55bae78c47f",
+    "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/android-completion-r01.json": "f83fb22c5ff3d3c367e553b3df1e14f1004d5d59971e7d582d8454020c05df75",
+    "/home/ai/Development/investigations/vipi-predicate-units-20261109-r01/candidate-policy-r01.json": "bf734c87e139bc60877add19ffdd13dea308d112282abad0d95f5968f9ed7c84"
+  }
+}

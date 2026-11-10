@@ -1,0 +1,449 @@
+{
+  "reviewer": "root",
+  "independent_agent_judgment": true,
+  "native_human_gold": false,
+  "packet_sha256": "94614c3508838506145f747938b4c9b14eb6ed26502d2150501e2d272e7f84c1",
+  "all56complete_outputs_reviewed": true,
+  "rows": [
+    {
+      "id": "P001",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Valid liking is withheld by the two-word budget; previous pronoun exposure is lost."
+    },
+    {
+      "id": "P002",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Preference for swimming is correctly expressed by the complete first-person predicate."
+    },
+    {
+      "id": "P003",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Preference and eating meanings retained; English to/complement deliberately remain mixed, not a full Swahili sentence."
+    },
+    {
+      "id": "P004",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Animal nouns and first-person opinion about the cat retain the playful prior meaning."
+    },
+    {
+      "id": "P005",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4,
+        5,
+        6
+      ],
+      "reason": "Complete opinion predicate replaces the isolated infinitive; animal nouns and function words retain meanings."
+    },
+    {
+      "id": "P006",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Need to discuss infidelity and knowledge of it are preserved. English negation remains intact; budget drops other previously displayed units."
+    },
+    {
+      "id": "P007",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "reason": "Need/knowledge clauses retain person and present meaning; possibility labda preserves uncertainty about counseling."
+    },
+    {
+      "id": "P008",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "reason": "Loving iced coffee is the intended preference; first-person finite form and coffee are compatible."
+    },
+    {
+      "id": "P009",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "reason": "Same coffee preference result at the larger budget; no new meaning change."
+    },
+    {
+      "id": "P010",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "reason": "Music noun and love for the named band are correct; band name stays untouched."
+    },
+    {
+      "id": "P011",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        4
+      ],
+      "reason": "Habitual always, music, and love for the band retain complete context; pronouns are function-only."
+    },
+    {
+      "id": "P012",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Love of horror movies retained; story exposure is lost to the whole-predicate budget, a coverage tradeoff."
+    },
+    {
+      "id": "P013",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        3
+      ],
+      "reason": "Movie preference and story meanings retained; conjunction is function-only."
+    },
+    {
+      "id": "P014",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Valid food preference withheld by the two-word budget; previous pronoun exposure lost."
+    },
+    {
+      "id": "P015",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Food preference is correctly expressed; dish spelling remains as authored."
+    },
+    {
+      "id": "P016",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Valid social-media preference omitted because the following context is outside the finite set."
+    },
+    {
+      "id": "P017",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Larger budget cannot repair missing positive context; original pronoun exposure lost."
+    },
+    {
+      "id": "P018",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Acknowledgement omitted at low budget; this is not deep content loss."
+    },
+    {
+      "id": "P019",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Ninajua retains acknowledgement of the unfortunate situation, but is discourse-only for this usefulness score."
+    },
+    {
+      "id": "predicate-control-01",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Ordinary musical preference; person and positive present sense retained."
+    },
+    {
+      "id": "predicate-control-02",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Love and family senses retained; English possessive remains intentionally mixed."
+    },
+    {
+      "id": "predicate-control-03",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Desire for tea is retained; no unsupported want-for reading."
+    },
+    {
+      "id": "predicate-control-04",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Positive need for help is retained."
+    },
+    {
+      "id": "predicate-control-05",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Knowing the answer is factual knowledge, supported by jua."
+    },
+    {
+      "id": "predicate-control-06",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "First-person think-so opinion remains understandable; English complement is preserved."
+    },
+    {
+      "id": "predicate-control-07",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Enjoyment of watching films is ordinary pleasure, not possession of a benefit."
+    },
+    {
+      "id": "predicate-control-08",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Residence near a station fits live/dwell with the bounded following preposition."
+    },
+    {
+      "id": "predicate-control-09",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Teaching children retains predicate/person; complete Swahili complement agreement is not asserted."
+    },
+    {
+      "id": "predicate-control-10",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Preference and swimming meanings retained with source infinitive connector still visible."
+    },
+    {
+      "id": "predicate-control-11",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1
+      ],
+      "reason": "Preference for the dog and animal noun retained; no claim of fully Swahili object agreement."
+    },
+    {
+      "id": "predicate-control-12",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Pleasure from cooking is the intended enjoyment sense."
+    },
+    {
+      "id": "predicate-control-13",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Inverted comparison remains English; only dad changes safely to baba."
+    },
+    {
+      "id": "predicate-control-14",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Lack-of-necessity construction withheld, without inventing affirmative need."
+    },
+    {
+      "id": "predicate-control-15",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Modal inversion withheld."
+    },
+    {
+      "id": "predicate-control-16",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Conditional preference remains English; independent pronoun is correct but function-only."
+    },
+    {
+      "id": "predicate-control-17",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Negative need remains English; pronoun-only exposure is compatible."
+    },
+    {
+      "id": "predicate-control-18",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Want-for idiom withheld."
+    },
+    {
+      "id": "predicate-control-19",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Legal-benefit sense withheld rather than adding pleasure."
+    },
+    {
+      "id": "predicate-control-20",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Benefit enjoyment remains unmodified; health maps safely to afya."
+    },
+    {
+      "id": "predicate-control-21",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Unsupported reflexive enjoyment withheld."
+    },
+    {
+      "id": "predicate-control-22",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Following preposition from a later sentence is not borrowed."
+    },
+    {
+      "id": "predicate-control-23",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Broken I/predicate scope remains English; music substitution is independently compatible."
+    },
+    {
+      "id": "predicate-control-24",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Discourse filler does not introduce preference."
+    },
+    {
+      "id": "predicate-control-25",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Filler before ran does not introduce preference."
+    },
+    {
+      "id": "predicate-control-26",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Filler remains English, while hatred meaning survives in the existing hate substitution; no false liking."
+    },
+    {
+      "id": "predicate-control-27",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Filler and other-day construction remain; day noun retains calendar meaning."
+    },
+    {
+      "id": "predicate-control-28",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Filename preserved; no context borrowed from reading_room.txt."
+    },
+    {
+      "id": "predicate-control-29",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Code literal preserved."
+    },
+    {
+      "id": "predicate-control-30",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "ALLCAPS predicate is withheld; music noun remains compatible."
+    },
+    {
+      "id": "predicate-control-31",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Person-familiarity meaning is recoverable, but ordinary Swahili would normally mark the human object (ninamjua). Keep this grammar caveat; not a wrong predicate/person claim."
+    },
+    {
+      "id": "predicate-control-32",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "reason": "Discourse acknowledgement is compatible but not credited as content depth."
+    },
+    {
+      "id": "predicate-control-33",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Living-in-hope metaphor preserves the live/exist sense; independent authored Swahili usage supports ishi with hope. English preposition remains, not native complete-idiom proof."
+    },
+    {
+      "id": "predicate-control-34",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2
+      ],
+      "reason": "Both preference predicates and music noun retain meaning; repeated construction is allowed."
+    },
+    {
+      "id": "predicate-control-35",
+      "label": "empty",
+      "useful_span_indices": [],
+      "reason": "Low budget omits whole I know rather than splitting it."
+    },
+    {
+      "id": "predicate-control-36",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Caller exclusion withholds preference and inner pronoun; independent music noun remains."
+    },
+    {
+      "id": "predicate-control-37",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "reason": "Explicit source mask withholds the predicate; independent music noun remains."
+    }
+  ],
+  "counts": {
+    "empty": 16,
+    "compatible": 39,
+    "minor": 1
+  },
+  "value_judgment": "Bounded useful-content improvement at higher density, with disclosed lower-density losses. Does not demonstrate broad coverage. The missing social-media context and no-inner-backoff policy remain deliberate limitations; do not retune this exposed sample and call it unseen."
+}

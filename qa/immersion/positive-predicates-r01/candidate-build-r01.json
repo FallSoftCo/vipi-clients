@@ -1,0 +1,12 @@
+{
+  "candidate_only": true,
+  "base_sha256": "c4403e5bb254838a28348d32277c47dcfaa126e7a91a81be6a197ad608b278d7",
+  "existing_entries_unchanged": 213,
+  "new_predicates": 9,
+  "new_families": 5,
+  "outputs": {
+    "starter-en-sw-006.json": "825526afe3d15f129db4674b0a744f0da1da296048b6bb9360f834b6f395a552",
+    "starter-sw-catalog.json": "243b03dfd6d5a803c05782c6d465dd0c7a50d72c35db302a32c695422a2d4d2c"
+  },
+  "compiler_sha256": "a2334af800d973b8e84d3a8d88903555aa7353b0ef7ca87d1ac1a300adcdc503"
+}

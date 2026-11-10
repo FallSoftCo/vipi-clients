@@ -1,0 +1,348 @@
+{
+  "schema": "vipi-predicate-controls-1",
+  "authored_not_heldout": true,
+  "candidate_scope_only": true,
+  "case_rule": "ALLCAPS verb token withheld; I exempt.",
+  "cases": [
+    {
+      "id": "predicate-control-01",
+      "group": "ordinary",
+      "source": "I like music.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-02",
+      "group": "ordinary",
+      "source": "I love my family.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-03",
+      "group": "ordinary",
+      "source": "I want a cup of tea.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-04",
+      "group": "ordinary",
+      "source": "I need help.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-05",
+      "group": "ordinary",
+      "source": "I know the answer.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-06",
+      "group": "ordinary",
+      "source": "I think so.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-07",
+      "group": "ordinary",
+      "source": "I enjoy watching films.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-08",
+      "group": "ordinary",
+      "source": "I live near the station.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-09",
+      "group": "ordinary",
+      "source": "I teach children.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-10",
+      "group": "ordinary",
+      "source": "I like to swim.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-11",
+      "group": "ordinary",
+      "source": "I like my dog.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-12",
+      "group": "ordinary",
+      "source": "I enjoy cooking.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-13",
+      "group": "withheld",
+      "source": "Am I like my dad?",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-14",
+      "group": "withheld",
+      "source": "I need not go.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-15",
+      "group": "withheld",
+      "source": "Would I like this?",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-16",
+      "group": "withheld",
+      "source": "I would like this.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-17",
+      "group": "withheld",
+      "source": "I don't need help.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-18",
+      "group": "withheld",
+      "source": "I want for nothing.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-19",
+      "group": "withheld",
+      "source": "I enjoy diplomatic immunity.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-20",
+      "group": "withheld",
+      "source": "I enjoy good health.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-21",
+      "group": "withheld",
+      "source": "I enjoy myself.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-22",
+      "group": "withheld",
+      "source": "I live. In Paris?",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-23",
+      "group": "withheld",
+      "source": "I? like music.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-24",
+      "group": "withheld",
+      "source": "I like totally forgot.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-25",
+      "group": "withheld",
+      "source": "I like ran away.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-26",
+      "group": "withheld",
+      "source": "I like, hate this.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-27",
+      "group": "withheld",
+      "source": "I like the other day forgot.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-28",
+      "group": "withheld",
+      "source": "I like reading_room.txt.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-29",
+      "group": "withheld",
+      "source": "`I like music`",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-30",
+      "group": "withheld",
+      "source": "I LIKE music.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-31",
+      "group": "semantic_review_required",
+      "source": "I know John.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-32",
+      "group": "semantic_review_required",
+      "source": "I know, it's unfortunate.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-33",
+      "group": "semantic_review_required",
+      "source": "I live in hope.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 1
+    },
+    {
+      "id": "predicate-control-34",
+      "group": "repeated",
+      "source": "I like music and I like tea.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 2
+    },
+    {
+      "id": "predicate-control-35",
+      "group": "low_budget",
+      "source": "I know",
+      "density": 0.25,
+      "known_ids": [],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-36",
+      "group": "caller_exclusion",
+      "source": "I like music.",
+      "density": 0.75,
+      "known_ids": [
+        "like"
+      ],
+      "source_masks": [],
+      "expected_predicate_count": 0
+    },
+    {
+      "id": "predicate-control-37",
+      "group": "caller_mask",
+      "source": "I like music.",
+      "density": 0.75,
+      "known_ids": [],
+      "source_masks": [
+        [
+          0,
+          6
+        ]
+      ],
+      "expected_predicate_count": 0
+    }
+  ]
+}

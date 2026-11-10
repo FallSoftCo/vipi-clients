@@ -19,7 +19,7 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
-| Language data | Expanded 189-entry Japanese and 213-entry Swahili starters, plus 41 reviewed finite source-context patterns per pair, are enabled through both native default routes. Default-route comparisons and continuous component UI pass on both platforms. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
+| Language data | Japanese has 189 starter entries; Swahili now has 222 including nine bounded first-person predicates. Both retain 41 reviewed finite source-context patterns per pair. Default native routing is qualified; earlier continuous component UI remains separately scoped. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
 | Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, acoustic verification and final clean-source release qualification. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
@@ -73,6 +73,18 @@ automatic restore detection, a running-process drain or authority to reopen.
 No live hold is enabled. See the recovery-hold receipt in the same directory.
 
 ## Current language decision
+
+Nine bounded Swahili first-person predicates are now enabled. Both native clients
+agree on all 160 default-route outputs and pass 37 authored controls. Two
+independent reviews retain no material error in the changed outputs, with a
+minor human-object-agreement caveat in one authored control. At .75, strict
+useful-message counts rise from 41→42 under the root review and 35→37 under the
+independent review; useful depth rises from 6.81%→9.01% and 5.47%→8.04%.
+Whole-unit priority also loses some low-density flips, and any-span reach falls
+from 67→63 at .25 and 67→66 at .75. These are disclosed tradeoffs on the exposed
+80-message lookup-only diagnostic, not broad coverage or native-speaker gold.
+The existing 213 records remain unchanged in the 222-entry pack. See
+`qa/immersion/positive-predicates-r01/FINAL_RESULT.md` and root acceptance.
 
 The newer ordinary-conversation diagnostic exposes a substantial content-depth
 gap. On 80 source messages from separate retained BST VALID conversations, both

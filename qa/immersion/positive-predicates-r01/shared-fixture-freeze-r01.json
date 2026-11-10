@@ -1,0 +1,20 @@
+{
+  "actual_default_rows": 160,
+  "source_messages": 80,
+  "pair": "en-sw",
+  "densities": [
+    0.25,
+    0.75
+  ],
+  "shared_messages_unchanged": true,
+  "controls": 37,
+  "authored_semantic_sensitive_cases_explicit": true,
+  "allcaps_case_contract": true,
+  "files": {
+    "controls.json": "c3843f59dfee960081154fae4349dda28babbf44fe7185487414219d62cb14ce",
+    "messages.json": "4948e7fd25f594c8cfe1faf91a48e0bde2843653cb3dc90203cdc6060723a28f",
+    "manifest.json": "05c669ed5d52a55b2f06c8c3062a7a12f6772902d2aa393d348c01ed061f461c"
+  },
+  "candidate_pack_sha256": "825526afe3d15f129db4674b0a744f0da1da296048b6bb9360f834b6f395a552",
+  "native_results_not_seen": true
+}

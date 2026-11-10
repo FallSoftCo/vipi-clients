@@ -1,0 +1,80 @@
+{
+  "at_utc": "2026-11-10T01:35:06.504483+00:00",
+  "canonical_enabled": true,
+  "customer_deployed": false,
+  "baseline_revision": "dfacf0d3aff79755b5a53587eef65f2ccd34dc59",
+  "new_predicate_units": 9,
+  "new_families_relative_to_starter": 5,
+  "existing_entries_unchanged": 213,
+  "total_entries": 222,
+  "native_rows_per_platform": 160,
+  "mechanism_controls_per_platform": 37,
+  "zero_translation_calls": true,
+  "model_availability_forced_unavailable": true,
+  "reviewed_complete_changed_outputs_and_controls": 56,
+  "native_human_gold": false,
+  "runtime_sha256": {
+    "ios/Vipi/SwahiliStarterLookup.swift": "b9f7713b1783748df1b2b543206cf54ea3bf551b6b2b87b19d43016e561c6e5e",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "a03fafcb6d35af58251ab8dfe82668a80dd8916b6311b3f119050ad6ae8e9882"
+  },
+  "files": {
+    "data/immersion/starter-en-sw-006.json": {
+      "bytes": 62905,
+      "sha256": "825526afe3d15f129db4674b0a744f0da1da296048b6bb9360f834b6f395a552"
+    },
+    "data/immersion/starter-sw-catalog.json": {
+      "bytes": 210,
+      "sha256": "243b03dfd6d5a803c05782c6d465dd0c7a50d72c35db302a32c695422a2d4d2c"
+    }
+  },
+  "tradeoffs": {
+    "density25_nonempty": [
+      67,
+      63
+    ],
+    "density75_nonempty": [
+      67,
+      66
+    ],
+    "density25_emitted_native_words": [
+      150,
+      147
+    ],
+    "density75_emitted_native_words": [
+      178,
+      184
+    ],
+    "density75_strict_useful_messages_root": [
+      41,
+      42
+    ],
+    "density75_strict_useful_messages_independent": [
+      35,
+      37
+    ],
+    "fixed_context_omissions": [
+      "social-media preference",
+      "unlisted enjoyment contexts"
+    ],
+    "low_density_whole_unit_omissions": true,
+    "minor_authored_human_object_agreement_caveat": true
+  },
+  "bindings": {
+    "root-native-comparison-r01.json": "8661bfdfc90655852e2d0f2d4f5d1bb613e7b4a10220d5c986fc3914246f44a0",
+    "android-completion-r01.json": "f83fb22c5ff3d3c367e553b3df1e14f1004d5d59971e7d582d8454020c05df75",
+    "apple-capture-r01/apple-run-r01/receipt.json": "631246fe6819794dcb1d41b9834911bcccb2cbb512b7e956ccd81366265ff6a1",
+    "root-review-r01.json": "3ff2cbf23374eb6e958ef95d06f35ea935aaf4f10239768455978f262af2189c",
+    "author-review-r01.json": "5a33381b6521f2815f6c9ad8dfd1287ff1d67fddc1bb5024d0df92505411cc48",
+    "reviewed-scorecard-r01.json": "610220f92fbf29f63078b8f6819d38ed3d126d0fe7f279bb48a4cd9b428ec934",
+    "candidate-policy-r01.json": "bf734c87e139bc60877add19ffdd13dea308d112282abad0d95f5968f9ed7c84",
+    "predicate-provenance-r01.json": "a8891e1889be8023c9228afa63898b22e1e8e5c09965ba2aa23995c7d182aa3b"
+  },
+  "no_coverage_population_or_fluency_claim": true,
+  "no_ui_or_acoustic_requalification_claim": true,
+  "holds": {
+    "mac_signing_keychain": true,
+    "no_ipad": true,
+    "no_store_submission": true,
+    "no_public_customer_launch": true
+  }
+}
