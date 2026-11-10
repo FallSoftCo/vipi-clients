@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "private_receipt": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/android-ui-completion-r02.json",
+  "sha256": "d06f01a230ce09eea5fe67e05aba5e80ee6d708d334c8ee58343737c72e19c56",
+  "capture_receipt_sha256": "b6122ddccf65432592da9ffab15bec73e429b4ab4f6d130a98772fec222f6d87",
+  "scope": "Private actual engine/reference-first provider to real conversation component; no production activation",
+  "screenshots_individually_viewed": 5,
+  "production_activation": false
+}

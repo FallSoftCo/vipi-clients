@@ -1,0 +1,15 @@
+# Android source-frame production candidate
+
+Canonical `SourceFrameLookup.PROMOTION_ENABLED` remains false and source-frame assets are not installed in canonical data. The private Android stage enables the exact implementation and adds the root's hash-bound JA/SW promotion candidates as DEBUG assets. Only the approved `Sherehe` → `sherehe` and `Nambari ya simu` → `nambari ya simu` content corrections differ from the previously qualified finite frames.
+
+The loader checks bounded bytes before JSON decoding, manifest hash/size/version/pair/policy, unique pattern identities, explicit source-only permission, Japanese readings and every finite source/focus geometry. Missing or invalid bundled data returns the original starter provider. Existing exact/composed-reference priority uses unchanged baseline evidence; frame evidence is considered only on a miss. Starter raw candidates are captured before reference lookup. Whole native units, context protection, stronger-context withholding, original starter ranking, one native budget and 128-unit ceiling remain unchanged. The literal range API and literal preservation use the same matcher and URL trimming.
+
+Qualification uses the retained 656 Android route rows through the actual default factory, with no provider, target or span injection. Exact comparisons permit only eight previously identified Swahili display corrections. Nine malformed-pack controls exercise hash, pair, permission, focus and Japanese reading failures; existing core tests and a UTF16 literal-range control run on retained dependencies. Earlier adapters remain frozen; private aliases let their tests compile without redefining production types.
+
+A separate actual conversation-component UI check uses the retained original phone-charger/phone-number message at 0.75, empty exclusions and the normal bundled provider. It retains six flips, fixed bounds, Japanese reading/script and real Listen state checks. The private host uses safe system insets. The prior bounded exact System UI ANR Wait handling is reused; unknown/repeated/unresolved dialogs fail. No acoustic correctness or playback-completion claim follows from PLAYING.
+
+Build: two CPU affinity, one Gradle worker, 1.5 GiB heap, offline dependencies, 900 seconds and 768 MiB additional disk. Captures: owned emulator 5620 only, two cores/2 GiB, 1,200-second wrapper, measured APK/DEX/boot/output reservation above 8 GiB free floor. Engine pass: 300 seconds/8 MiB output. Inputs use adb push, staged SHA, run-as copy and final SHA. Source, settings, main app and cleanup receipts are retained. No iPad, signing, service changes or translation/model calls.
+
+The first assembly failed solely because the new range test imported unavailable kotlin.test. Its original source/log/receipt remain private. The r02 compile amendment uses the already installed JUnit API; no runtime, content, input or dependency change.
+
+Frozen files: private `android-production-freeze-r01.json`; compile-only successor `android-production-compile-amendment-r02.json`. Stage and execution scripts in this directory preserve separate output paths and reject uncertain replay.

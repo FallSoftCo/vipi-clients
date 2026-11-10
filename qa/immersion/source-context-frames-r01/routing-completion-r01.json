@@ -1,0 +1,39 @@
+{
+  "schema": "vipi-frame-routing-completion-1",
+  "created_utc": "2026-11-09T23:33:15.042979+00:00",
+  "private_sha256": {
+    "routing-amendment-freeze-r01.json": "ba2bd89a9e2327f3034c742890ffdc92cc2ca181455edcaa86d40d69f37a9231",
+    "root-routing-code-review-r01.json": "d0d92f6d8463c64db171607b3da19b0c5a20c50d6f1b6ff8f6e399e8d426895e",
+    "android-stage-r02.json": "c6d909b0bf941f99c420737cf224fb4481a02c10bff9c520dc5c6a9d9b589d03",
+    "android-assembly-r02/receipt.json": "cb50b259ed42c6f665ea6aff537863536b4fd5ad90d1fe33e5a02f99b4a2b0b7",
+    "android-capture-r02/receipt.json": "d5125a820c456c7c6ca4fc567adcf5b19bf78026b2eb81ecf5c2362d38e31b1a",
+    "transport-amendment-r03b.json": "d315754d76c05fc5cec9453d8ad64578acda8cb64d625285641f420d5d5526af",
+    "root-transport-review-r03.json": "3df611fae64872da2f65ae9ca6648fe3c13cae7842f86e60c49398eaf3b1d333",
+    "android-capture-r03/receipt.json": "cf563257c1498b2f0c2d721c32400105ea502b718964d5937045779691081513",
+    "android-capture-r03/output.stdout": "4e1134618c159e61c13866d45589068d79848e8a15071f3f1178541976142311",
+    "android-capture-r03/status.stdout": "fdac2b506933d37be0cfa1e37165b6f134332d4cab04d7acff55f740fd7f1d45",
+    "android-capture-r03/mechanisms.stdout": "261fa86d174d2598c09b2cf2445222d238965a79e095a4b184ebd2b02d28b22f",
+    "android-capture-r03/transport-removed.json": "f5aeddbb455225b932ad8b83de2eb6c7b85d515d31ffaae659bc68baff7c22b3",
+    "apple-run-r02/collection.json": "045692ed8a17fd909716e1de5c2ba22b462b7f4fa0b35415e91e4598f0d8f06f",
+    "apple-run-r02/root-verification.json": "614e337540448d2a208622d31dbfab6e14365496194c035afa06ade900e427a5",
+    "apple-run-r02/inputs-r03/frame-output.jsonl": "bcaaa8e4a95ea89e639708caa3f45eb21f3a621153543fb92c1785315c7a735b",
+    "routing-accounting-r01/receipt.json": "53c89c00b01b49c47e022f7b8b7c76b123cdc1b664a1311beffb98a67e5cb0d7",
+    "author-review-r01.json": "ba2de62cdf3af16b383b737b1f79bff4a24eef1a6df17213364f900a0db5cef7",
+    "root-review-r01.json": "8c82f4f45e8c3e51a9c0ad5ee05979674a29e58e52524747aede07d5e98eec10",
+    "routing-completion-r01/label-counts.json": "c16912bbd15d2dc357e5466ef39b83ce49997b28f6f692bc99d1d70fe7fc061c"
+  },
+  "source_sha256": {
+    "ROUTING_RESULT.md": "465883c18e1d83c4caee3c423fc44242b454406fec92b7abcb5aae0563abc282",
+    "summarize_routing.py": "a7dc23893f5dcecdbfd0a23f56f00b3a77d0182c2b32942e6ce658cc5bfffede",
+    "finalize_routing.py": "50c212bf1d36b57cb699739f8dd6522cc2f0c7d195c1ce2d1fa2d78e046f8898",
+    "run_capture_r03.py": "3ad6828c8c860c94bafac6134358e0a53505c307267ee06565c9e5f225bf73c1"
+  },
+  "direct_rows_unchanged_per_platform": 656,
+  "reference_hit_rows_restored_per_platform": 348,
+  "reference_miss_rows_unchanged_per_platform": 308,
+  "new_semantic_options": 0,
+  "platform_output_differences": 0,
+  "runtime_activation": false,
+  "canonical_runtime_modified": false,
+  "reviews_preserved": true
+}

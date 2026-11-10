@@ -1,0 +1,28 @@
+{
+  "schema": "vipi-source-context-original-capture-completion-1",
+  "created_utc": "2026-11-09T23:17:36.135981+00:00",
+  "status": "completed test-only capture; actual-route reference composition defect prevents activation",
+  "private_bindings": {
+    "root-code-review-r02.json": "f14266182cc809f461911e35bc7cac15af8f97f476aabeeacf55c540687659d0",
+    "code-review-freeze-r02.json": "535aca6d689438bafc7d8d1c4f6c5a4a44ed565a347679424b1aa2a13a0690a7",
+    "android-stage-r01.json": "c9d4eacaee9baeb64ab35456583ce7098edb807d65e0a293dc9f867a3337bd6f",
+    "android-assembly-r01/receipt.json": "d6218295fe16a715b28414c222a23cff19c1de110c391bb926807d6ffd1efdb8",
+    "android-capture-r01/receipt.json": "088cf394e213d12112aeafd74f5cfafe2e7327a5988cd355ecff40fa86e95baa",
+    "android-capture-r01/output.stdout": "2c636a05099f68a71727b81db31eeb913101bf75400a91d324d8075a9d233cb8",
+    "android-capture-r01/boundary.stdout": "87f25e86392a4799cb767d116a0c031c55debbaa2ebac713e732d1bf8f8cc3c3",
+    "android-capture-r01/status.stdout": "9135b4b3ec47006322762bf8047151e89138a84f0f54a49891480a6e101812d8",
+    "android-capture-r01/mechanisms.stdout": "261fa86d174d2598c09b2cf2445222d238965a79e095a4b184ebd2b02d28b22f",
+    "apple-run-r01/inputs-r02/frame-output.jsonl": "4251713d80f1f0ce7a70153606f73d4ed6ecc6d8a1dc214b06f04db856d5d01d",
+    "review-merged-r01/receipt.json": "0851ba7f7729cae0ad09b9033db49c1ee0a76931d49a9b1bf4e0bb3952337c30",
+    "author-review-r01.json": "ba2de62cdf3af16b383b737b1f79bff4a24eef1a6df17213364f900a0db5cef7",
+    "root-review-r01.json": "8c82f4f45e8c3e51a9c0ad5ee05979674a29e58e52524747aede07d5e98eec10",
+    "joined-r01/receipt.json": "40a58fbbfbafebf5218a21252a28afa6b4c0b1fcbaab044bbdbd17b4761958c5",
+    "mechanics-r01/failure.json": "2302a079e2b147d9211941e99124500d7ed1f709ccd6b931cf282bfcbd8423d2",
+    "mechanics-r02/receipt.json": "c2522e3976e7e7c1c673b6b4a4ce1f518ecb26ed9d9b7df847dae4640c7d24b8"
+  },
+  "result_sha256": "4b0b3e20f33d583f9441257f1b6666dd3d91c67f6ea633a22abcdba9578ff1e1",
+  "production_runtime_changed": false,
+  "activation": false,
+  "original_inputs_and_labels_preserved": true,
+  "route_correction": "separate preparation only"
+}

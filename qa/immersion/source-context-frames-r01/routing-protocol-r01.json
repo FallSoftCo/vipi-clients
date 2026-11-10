@@ -1,0 +1,18 @@
+{
+  "schema": "vipi-frame-reference-priority-amendment-1",
+  "parent_protocol_sha256": "b4abd1d8ebbe56e6260bfe543a8b4b5375c9715bcc86094aaa42fc2eab2b031e",
+  "original_completion_sha256": "849c044220237cc8397f548f1b426169d9366d1fc2d929e008e1dee23786ca55",
+  "original_cases_unchanged": true,
+  "input_manifest_sha256": "7ebbcfdb1e72290a5fdd1beda5c9c99c1fda1940a92fc1152876e89880cc7896",
+  "harness_case_rows": 656,
+  "description_sha256": "89cfe39c1f74f5bf1608adb5b7228aa54c69c4ce08762dd54f61351ce6a81795",
+  "production_activation": false,
+  "launch_requires_root_review": true,
+  "timing": "monotonic milliseconds only; existing calls; fresh engine per row/arm",
+  "limits": {
+    "body_seconds": 300,
+    "instrumentation_seconds": 600,
+    "raw_output_bytes": 33554432,
+    "disk_floor": 8589934592
+  }
+}

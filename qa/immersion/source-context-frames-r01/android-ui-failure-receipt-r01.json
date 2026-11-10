@@ -1,0 +1,8 @@
+{
+  "private_review_path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/android-ui-failure-review-r01.json",
+  "private_review_sha256": "402ce1bd9bc6621f0ae9dd4581d28aea95dbf6ff7224550362ce9d11a6a27451",
+  "result_sha256": "1161d78b3177062594a759bbdcaa52114d29afb24294855aee12ab20a045567f",
+  "build_receipt_sha256": "5008bc42146c84e7dfff8f134639fc571ccb7dd7a2fd15a035f437811c79a7db",
+  "capture_receipt_sha256": "ed8e8aeac657afad4f0e3dc2d6ed165c4abb35fe7f0b6b4b969c2bc2b4c9cf35",
+  "production_activation": false
+}

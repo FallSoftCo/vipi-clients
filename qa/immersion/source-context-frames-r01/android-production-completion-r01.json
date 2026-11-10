@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "private_receipt": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/android-production-completion-r01.json",
+  "sha256": "b16a8384db6e64a3c95d2fffc9c9cc0e3001ee5d58bb3e440dfd74488e77de4f",
+  "canonical_enabled": false,
+  "route_rows": 656,
+  "expected_display_corrections": 8,
+  "final_loader_sha256": "b14ece87d44b7174b9261dec595c4a94e96be4d2de91021a74f2242631fd01d0",
+  "reading_validation": {
+    "valid_frozen_packs": 2,
+    "invalid_reading_rejections": 7,
+    "selector_executions": 0
+  },
+  "ui_verified": true
+}

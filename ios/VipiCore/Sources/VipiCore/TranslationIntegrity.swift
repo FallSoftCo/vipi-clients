@@ -9,9 +9,10 @@ public enum TranslationIntegrity {
     private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+|"# + technicalTokens)
     private static let punctuation = Set(".,!?;:。！？、，；：…")
 
-    private static func literalOccurrences(_ text: String) -> [String] {
+    /// Exact native literal ranges, using the same URL trimming as preservation.
+    public static func protectedLiteralRanges(_ text: String) -> [NSRange] {
         let ns = text as NSString
-        var result: [String] = []
+        var result: [NSRange] = []
         for match in literals.matches(in: text, range: NSRange(location: 0, length: ns.length)) {
             var value = ns.substring(with: match.range)
             let lower = value.lowercased()
@@ -24,9 +25,14 @@ public enum TranslationIntegrity {
                     value.removeLast()
                 }
             }
-            result.append(value)
+            result.append(NSRange(location: match.range.location, length: value.utf16.count))
         }
         return result
+    }
+
+    private static func literalOccurrences(_ text: String) -> [String] {
+        let ns = text as NSString
+        return protectedLiteralRanges(text).map { ns.substring(with: $0) }
     }
 
     // Retained for existing diagnostics/tests only. Swift String dictionary

@@ -1,0 +1,89 @@
+{
+  "at_utc": "2026-11-10T00:17:05.243031+00:00",
+  "source_base": "69b6583d1079fc8a8884822dd1fc3ccbedb82aef",
+  "canonical_enabled": true,
+  "customer_deployed": false,
+  "pairs": [
+    "en-ja",
+    "en-sw"
+  ],
+  "policy": "reference-first-source-frames-1",
+  "qualified_cases_per_platform": 656,
+  "cross_platform_selections_identical": true,
+  "translation_calls": 0,
+  "pack_files": {
+    "data/immersion/source-frames-en-ja-001.json": {
+      "bytes": 48312,
+      "sha256": "3e7f606fdf7603769d5a85927aa7c66cd4ec2dd0bc5278a8e04d389cc8fa9905"
+    },
+    "data/immersion/source-frames-en-ja-catalog.json": {
+      "bytes": 291,
+      "sha256": "9e5097b483ba7601a643e8f4cb3e5ce718eb43372235a45018340f59c5cc00c1"
+    },
+    "data/immersion/source-frames-en-sw-001.json": {
+      "bytes": 57534,
+      "sha256": "d17a1733c046fe136199c96196bfbf6995240540bc462e7a27cff2b34291bc1c"
+    },
+    "data/immersion/source-frames-en-sw-catalog.json": {
+      "bytes": 291,
+      "sha256": "85a3f3471cd425c3ad8135d4c5e3f309eceb0d7699dd860967b441f51af0d083"
+    }
+  },
+  "activation_delta": {
+    "ios/Vipi/SourceFrameLookup.swift": {
+      "before": "e0b2b977b99c25302b5665b6cc5ac6eb9547d08f561880e64dd416c5f95893f6",
+      "after": "c24740e8af1ee17ddf22a3edf30cb0e67c5f110c35e353c25e811b0ea493ec33",
+      "qualified_enabled_source_identity": true
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": {
+      "before": "b14ece87d44b7174b9261dec595c4a94e96be4d2de91021a74f2242631fd01d0",
+      "after": "97abceea2250a28199f412fbd2cf99a6ebc746f01d62ca5e681a0f4c3ba282ea",
+      "qualified_enabled_source_identity": true
+    }
+  },
+  "android_private_qa_only_difference": "TranslationIntegrity adds an unused compatibility alias for retained historical adapters; canonical matcher is identical.",
+  "additional_validation_only_change": "Android requires an actual String reading field; separate final binary accepted two frozen packs and rejected seven malformed readings. Prior 656/UI were not replayed.",
+  "continuous_ui": {
+    "apple": {
+      "transitions_per_pair": 6,
+      "stable_bounds": true,
+      "japanese_script_and_readings": true,
+      "listen_playing": true
+    },
+    "android": {
+      "transitions_per_pair": 6,
+      "stable_bounds": true,
+      "japanese_script_and_readings": true,
+      "listen_playing": true
+    }
+  },
+  "evidence_sha256": {
+    "root-production-cross-platform-r01.json": "416a095210ce2a834400fecb8c1692cec0f6fa9b252a45082961ea1b331c7272",
+    "android-production-completion-r01.json": "b16a8384db6e64a3c95d2fffc9c9cc0e3001ee5d58bb3e440dfd74488e77de4f",
+    "android-production-ui-r01/root-review-r01.json": "15c76a510b4d38d48d3335d07bb4734afdb7bd6bf83fa282ed020f205f389a4b",
+    "apple-production-ui-r01/root-visual-review.json": "80e754e2a8449d54c11088e2907c1b3e121aab229174012d90659860cc9e6a29",
+    "apple-production-controls-r01/receipt.json": "c61d59c605b0a1e421608ae6aefcd648802742b0d96d66d22df6e0f1ddf4c314"
+  },
+  "inherited_edits_preserved": {
+    "ios/Vipi/ContextWitnessLookup.swift": "5956264289aaa7cb50b3bc64eba55208b56462e1208d10b7daf5677081e65718",
+    "ios/Vipi/LexicalConcordance.swift": "eb0d328d606a7d08cc9476017bb07f1271ea9142143bf9bdf4bd971524846725",
+    "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt": "37369f7d8f405b534f732ac7da18b19e1f559c64f695778f3ac6c01c231d6668",
+    "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt": "ef73965ac664ae8fd9edcf6640178854852f133383095a84eef4fc20778bebb0",
+    "language-packs/build_context_witnesses.py": "ac69a5539d9d4c8f46fa2325c744985d6b125a81c762b2587764bc14502fe06f",
+    "language-packs/build_noun_context_filter.py": "ac8ac48519e569698361c13978e0e4287592b2d039b387332e96ade0b21c8fab",
+    "language-packs/build_semantic_alternatives.py": "c7c797d801cabf262bcb95cec3d5f65d2e6aefdd98abd6be5393b47267aa45d5"
+  },
+  "holds": {
+    "signing_keychain": true,
+    "no_ipad": true,
+    "no_store_submission": true,
+    "no_public_customer_launch": true
+  },
+  "limitations": [
+    "Finite diagnostic comparisons and agent semantic reviews, not independent population accuracy.",
+    "No 90 percent coverage or fluency guarantee.",
+    "Speech playback state is not acoustic verification.",
+    "Known-concept exclusion is not durable learned familiarity.",
+    "Customer account flows and signed release qualification remain open."
+  ]
+}

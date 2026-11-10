@@ -1,0 +1,59 @@
+{
+  "schema": "vipi-source-context-qualification-plan-1",
+  "status": "prepared; source-only permission false; native code review and execution pending",
+  "data_receipt_sha256": "3d57c70a310e2fad1448faef96cc343eac05268a817ff9f80070c8dd022a0e88",
+  "case_receipt_sha256": "5b4371c4bdb45e679ee54064824b089d23dcec3d6e2b2156926ddbf555d586ec",
+  "sources_sha256": "7e07547b3fc794fd02f0f3ce0bae9beece5e23efbb5f13996505113b74cad549",
+  "code_bindings": {
+    "prepare.py": "c14a0dd9f19c53ede234b90f072f9d8e0c946318265a9b4dc2335f70e5068d6b",
+    "prepare_cases.py": "a4453ec072f23fb7ab31376d170387d8f31774b9ed3742f177659e5ea154ee59"
+  },
+  "plan_sha256": "fd81d30195e806904332c48a194eb45c283dd2543b0cabda8720808989619c3d",
+  "scope": {
+    "pairs": [
+      "en-ja",
+      "en-sw"
+    ],
+    "distinct_patterns_per_pair": 41,
+    "expanded_exact_contexts_per_pair": 390,
+    "focus_only_excluded": {
+      "en-ja": 306,
+      "en-sw": 622
+    },
+    "source_pair_cases": 154,
+    "original_seed_record_associations": 121,
+    "ordinary_densities": [
+      0.25,
+      0.75
+    ],
+    "extra_budget_controls": {
+      "control-32": [
+        0,
+        0.05
+      ],
+      "control-33": [
+        0,
+        0.05
+      ]
+    },
+    "known_states": [
+      "none",
+      "current_starter_concepts_excluded"
+    ]
+  },
+  "immutable_requirements": [
+    "exact original records/faces/readings",
+    "native complete-word and punctuation boundaries",
+    "full literal and caller/enclosing protections",
+    "whole exact reference priority",
+    "longest recognized context retains no-shorter-rescue mask",
+    "one native budget and unchanged starter tier priority",
+    "baseline parity before candidate credit",
+    "no translation/model calls",
+    "no new runtime dependency",
+    "no iPad"
+  ],
+  "native_execution_authorized_by_this_file": false,
+  "activation": false,
+  "review": "All unique complete outputs and added occurrences; anonymous options separate from seed/parallel witnesses and method key; independent agents, not semantic gold."
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "vipi-source-context-native-amendment-2",
+  "parent_protocol_sha256": "c7b77cc3e1e4abcab0026fcdbf017949585aeab804c39c915bfd7b882824f82c",
+  "base_commit": "69b6583d1079fc8a8884822dd1fc3ccbedb82aef",
+  "scope": {
+    "case_pairs": 160,
+    "comparison_rows": 656,
+    "baseline_comparisons": 1536,
+    "geometry_variants": 780
+  },
+  "native_input_manifest_sha256": "c36718bef3a35b830f429089c178dbe7604fc87cbb4233d2d5263e32dc5f9356",
+  "handoff_sha256": "18f5e3f4b1831a99c1fe80e5ded50c80d6f9fb1053b4b370251f78b08498c6e9",
+  "amendments": [
+    "Exact native literal ranges veto entire context",
+    "Atomic/ambiguous enclosing recognitions retain original mode and masks",
+    "Six additive context-only literal controls; original 154 cases unchanged",
+    "Explicit Swift SourceAtomicMode serializer",
+    "32 MiB raw output cap with both device and local copies reserved"
+  ],
+  "native_execution_authorized_by_this_file": false,
+  "activation": false
+}

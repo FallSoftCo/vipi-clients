@@ -2,7 +2,7 @@
 
 ## Current authority and consolidation — November 9, 2026
 
-The owner reserves the physical iPad for 8bar Club. Vipi development and validation now use the existing simulators and native Mac; do not launch Vipi iPad tests or interact with that device. Historical physical commands below are receipts, not current instructions. The current-source iOS development build is signed and qualified as a build in `qa/release/native-ios-development-build-r01`; it is not physical UI or App Store acceptance.
+The owner reserves the physical iPad for 8bar Club. Vipi development and validation now use the existing simulators and native Mac; do not launch Vipi iPad tests or interact with that device. Historical physical commands below are receipts, not current instructions. An earlier native iOS development build is qualified in `qa/release/native-ios-development-build-r01`. The later iOS-on-Mac attempt compiled but failed signing with `errSecInternalComponent` after the login keychain locked; no app launch followed. Both that dependency and the separate `pbtv58` distribution-keychain hold remain in force. Do not retry signing until the dependency changes; see `qa/release/apple-mac-development-r01/RESULT.md`.
 
 This section supersedes host commands and availability claims in the historical
 receipts below. OZZZ-OS and OZZZ-GPU were provider-cancelled. Do not reconnect,

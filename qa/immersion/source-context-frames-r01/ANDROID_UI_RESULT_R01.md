@@ -1,0 +1,9 @@
+# Android private frame UI result
+
+Qualification failed before observing the first accessible mixed paragraph: both retained final screenshots show a system-owned “System UI isn’t responding” dialog over the correctly rendered JA/SW message. This is an observed system-dialog obstruction; it does not establish a Vipi layout/meaning failure or prove the system’s underlying cause.
+
+Both engine proofs exactly match the retained .75/no-exclusion route: JA 3 spans, SW 4 spans, original source intact, no supplied spans, no translation/model calls, reference-miss frame branch. Both screenshots were inspected individually. The Japanese reading text and Swahili multiword text are legible behind the dialog; original mid-sentence Nambari capitalization remains as frozen. The DEBUG host’s status-bar/header overlap is visible and is not the production chat screen. Speech reached READY; Listen was never exercised. Six transitions, fixed bounds through transitions and Japanese script switching remain unqualified in this attempt. Missing continuous/script files returned error text and are not image evidence.
+
+The bounded build passed; UI tests failed after 49.743 seconds, total owned capture 208.412 seconds. All failure artifacts remain private. Secure/system settings matched before/after, the flip logging property was restored, QA packages were removed, the main app path was unchanged and emulator 5620 exited 0. No shared ADB reset, Apple work, iPad use, production runtime change or replay occurred.
+
+The exact review/cleanup/image hashes are retained in private `android-ui-failure-review-r01.json`. Root owns the completed Apple UI evidence. A new Android attempt requires reconciling and handling the system-dialog readiness issue, without changing source messages, provider policy or success assertions.

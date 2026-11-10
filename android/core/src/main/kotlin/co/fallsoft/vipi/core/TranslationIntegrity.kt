@@ -9,11 +9,12 @@ object TranslationIntegrity {
     private val literals = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+|" + technicalTokens)
     private val punctuation = ".,!?;:。！？、，；：…"
 
-    internal fun identifiers(text: String): Map<String, Int> = literals.findAll(text).map { match ->
+    /** UTF16 ranges from the same matcher and URL trimming used for preservation. */
+    fun protectedLiteralRanges(text: String): List<IntRange> = literals.findAll(text).map { match ->
         var value = match.value
         if (value.startsWith("http://", true) || value.startsWith("https://", true) || value.startsWith("www.", true)) {
-            // Sentence punctuation is not part of an address. Keep balanced URL
-            // parentheses, query strings and fragments exactly as received.
+            // Sentence punctuation is not part of an address. Preserve balanced
+            // URL parentheses, query strings and fragments exactly as received.
             while (value.isNotEmpty()) {
                 val last = value.last()
                 val opening = when (last) { ')' -> '('; ']' -> '['; '}' -> '{'; else -> null }
@@ -21,8 +22,11 @@ object TranslationIntegrity {
                 else break
             }
         }
-        value
-    }.groupingBy { it }.eachCount()
+        match.range.first until match.range.first + value.length
+    }.filter { !it.isEmpty() }.toList()
+
+    internal fun identifiers(text: String): Map<String, Int> =
+        protectedLiteralRanges(text).map { text.substring(it) }.groupingBy { it }.eachCount()
 
     fun preservesIdentifiers(original: String, translation: String): Boolean =
         identifiers(original) == identifiers(translation)

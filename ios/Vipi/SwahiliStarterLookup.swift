@@ -34,6 +34,7 @@ import VipiCore
     private let packMultiple: Bool
     private var packIdentity: String { pack.version + ":" + sha }
     var identity: String { packIdentity + (packMultiple ? ":packing-1" : "") }
+    private(set) var rawCandidates: [SourceFrameStarterCandidate] = []
     var trace: [[String: Any]] = []
     private let words = try! NSRegularExpression(pattern: #"[\p{L}\p{Nl}\p{No}]+(?:['’][\p{L}\p{Nl}\p{No}]+)*"#)
     private let literals = try! NSRegularExpression(pattern: #"https?://\S+|\b[^\s@]+@[^\s@]+\.[^\s@]+|```[\s\S]*?```|`[^`]*`"#)
@@ -59,13 +60,13 @@ import VipiCore
               metadata.file.range(of: "^starter-en-sw-[0-9]{3}\\.json$", options: .regularExpression) != nil,
               let data = try? Data(contentsOf: root.appendingPathComponent(metadata.file)),
               let owner = try? SwahiliStarterLookup(data: data, manifest: manifest, packMultiple: packingEnabled) else { return nil }
-        return owner.provider()
+        return SourceFrameLookup.bundled(target: "sw", baseline: owner.provider(), raw: { owner.rawCandidates })
     }
     func provider() -> SourceUnitLookup {
         SourceUnitLookup(identity: identity) { context in try self.resolve(context) }
     }
     func resolve(_ context: SourceUnitLookup.Context, protectedRanges: [NSRange] = [], sourceMasks: [NSRange] = []) throws -> SourceLookupEvidence {
-        trace = []
+        trace = []; rawCandidates = []
         let original = context.original, pair = context.pair, density = context.density
         func evidence(_ partial: PartialImmersionResult?, _ recognition: [SourceRecognition]) -> SourceLookupEvidence {
             .init(original: original, source: pair.source, target: pair.target, catalogIdentity: identity, partial: partial, recognitions: recognition)
@@ -119,6 +120,9 @@ import VipiCore
                 guard hits.count <= 4096 else { throw Invalid.input }
             }
         }
+        rawCandidates = hits.map { h in SourceFrameStarterCandidate(entryID:h.entry.id,conceptID:h.entry.concept_id,category:h.entry.category,rank:h.entry.train_rank,tokenCount:h.entry.source_tokens.count,range:h.range,cost:h.cost,reason:h.reason,
+            unit:SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:nil,
+                referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID)) }
         let found = hits.filter { $0.reason == nil }.sorted {
             if ($0.entry.category == "content") != ($1.entry.category == "content") { return $0.entry.category == "content" }
             if $0.entry.train_rank != $1.entry.train_rank { return $0.entry.train_rank < $1.entry.train_rank }

@@ -1,0 +1,45 @@
+{
+  "schema": "vipi-private-frame-android-ui-plan-1",
+  "source": "We need a phone charger and your phone number.",
+  "pairs": [
+    "en-ja",
+    "en-sw"
+  ],
+  "density": 0.75,
+  "known_ids": [],
+  "provider": "unchanged private reference-first frame provider; actual ConversationImmersion + ConversationImmersionText",
+  "target_or_span_injection": false,
+  "expected_route_sha256": "5b9bb9da2d9614962a43932b830f473520b3a69082af910c64887c0c4a972de3",
+  "controls": [
+    "JA3/SW4 exact retained spans",
+    "six source/mixed transitions",
+    "constant paragraph bounds",
+    "JA reading/script switch",
+    "SW no romanization toggle",
+    "real Listen action reaches recorded PLAYING",
+    "speech segment text and language retained",
+    "zero translation/model calls",
+    "settings/main app/unrelated emulator preservation"
+  ],
+  "resource": {
+    "build_seconds": 900,
+    "instrumentation_seconds": 300,
+    "owned_capture_seconds": 1200,
+    "cpu_affinity": [
+      2,
+      3
+    ],
+    "gradle_workers": 1,
+    "build_additional_bytes": 805306368,
+    "capture_reservation": "measured APK + 2*DEX + 384MiB boot +64MiB margin +16MiB output; 4.77MB temporary input copy fits margin",
+    "floor_bytes": 8589934592,
+    "minimum_available_ram_bytes": 3221225472,
+    "output_per_command_bytes": 16777216
+  },
+  "private_manifest_addition": "FrameRouteQualificationActivity exported=false",
+  "native_input_manifest_sha256": "7ebbcfdb1e72290a5fdd1beda5c9c99c1fda1940a92fc1152876e89880cc7896",
+  "parent_stage_sha256": "c6d909b0bf941f99c420737cf224fb4481a02c10bff9c520dc5c6a9d9b589d03",
+  "no_signing_ipad_service_or_production_mutation": true,
+  "acoustic_correctness_claim": false,
+  "launch_pending_root_review": true
+}

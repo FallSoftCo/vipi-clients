@@ -19,12 +19,20 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
-| Language data | Broader primary-backed content candidate improves English→Swahili/Japanese/Spanish reach on a frozen fresh 79 comparison. The expanded 189-entry English→Japanese and 213-entry English→Swahili starters are enabled through both native default routes. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; this small starter is not the 90% coverage target. |
+| Language data | Expanded 189-entry Japanese and 213-entry Swahili starters, plus 41 reviewed finite source-context patterns per pair, are enabled through both native default routes. Default-route comparisons and continuous component UI pass on both platforms. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
 | Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, acoustic verification and final clean-source release qualification. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key are accessible; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Distribution profile/products exist; the current iOS Debug app and test bundles sign with the company development key, while distribution signing still prompts for the separate locked `pbtv58` keychain; the interactive login keychain is unlocked. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key exist; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Development signing previously passed, but the latest native Mac build stopped at signing after the login keychain locked. Distribution signing also remains held on the separate `pbtv58` keychain. No signing retry until that dependency changes. |
+
+The Mac is registered once with the company team and its development profile is
+installed and hash-verified. The private iOS-on-Mac app compiled, but its signing
+step failed with `errSecInternalComponent`; it has not launched, downloaded a
+translation model or produced translation evidence. The existing keychain dialog
+was left untouched. Simulator lookup qualification can continue independently
+with account signing disabled. See
+`qa/release/apple-mac-development-r01/RESULT.md`.
 
 Apple’s actual Sandbox V2 TEST notification passed: successful provider delivery,
 verified signature, matching retained event and no entitlement created. The
@@ -65,6 +73,28 @@ automatic restore detection, a running-process drain or authority to reopen.
 No live hold is enabled. See the recovery-hold receipt in the same directory.
 
 ## Current language decision
+
+The reviewed source-context increment is now enabled in both clients. Existing exact
+and composed full references retain priority; on misses, finite reviewed phrase
+contexts add whole units before ordinary starter vocabulary within one budget.
+The corrected routing comparison preserves all baseline message matches in the
+retained 80-case-per-pair diagnostic, increasing .75 nonempty messages from
+54→59 Japanese and 55→58 Swahili. The independently reviewed results and
+disagreements remain in `qa/immersion/source-context-frames-r01`.
+
+Both actual default native routes pass all 656 retained comparisons with zero
+translation calls and identical selections. Only eight captured Swahili display
+faces change by the two documented capitalization corrections. The 41 patterns
+and 390 finite variants per pair retain their seed provenance; these are not
+population coverage counts. Both default conversation components demonstrate six
+fixed-layout flips, Japanese script/readings and Listen reaching playback.
+Malformed-pack controls and an Apple shared-provider concurrency check pass;
+Android's final reading-type guard has separate targeted binary qualification.
+The original Android System UI obstruction and later successful runs remain
+separately recorded. The enabled source and four installed pack files match the
+qualified copies; their combined size is 106,428 bytes. No customer deployment
+or signing retry followed. See `qa/immersion/source-context-frames-r01/FINAL_RESULT.md`
+and its root acceptance receipt.
 
 The corrected starter expansion is now enabled: **189 Japanese / 213 Swahili entries**, adding 144 / 107 while preserving all previous records. Demonstrated Apple/Jobs/school sense conflicts are withheld, including plural schools; generic underscore/common-filename preservation prevents vocabulary changes inside technical tokens. Both native default routes pass the final bundle controls, continuous fixed-layout flips, Japanese reading/script display and Listen reaching playback with the new vocabulary. At .75 on the retained 231-source comparison, nonempty messages increase 173→188 Japanese and 192→199 Swahili, with covered native words 336→425 and 448→498. These diagnostic gains are not a 90% population-coverage claim. Both independent reviews retain the original failures and minor disagreements; no corrected candidate output carries their material-error label in this sample. Dictionary notices and full license text are accessible in both clients. See `qa/immersion/starter-content-expansion-r01/FINAL_RESULT.md` and `root-acceptance.json`.
 

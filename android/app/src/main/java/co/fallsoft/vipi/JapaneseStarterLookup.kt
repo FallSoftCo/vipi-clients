@@ -21,7 +21,8 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
                 val manifest=context.assets.open("immersion/starter-catalog.json").use { it.readBytes() }
                 val file=JSONObject(manifest.toString(Charsets.UTF_8)).getString("file")
                 require(file.matches(Regex("starter-en-ja-[0-9]{3}\\.json")))
-                JapaneseStarterLookup(context.assets.open("immersion/$file").use { it.readBytes() },manifest,knownIDs,packMultiple=PACKING_ENABLED)
+                val baseline=JapaneseStarterLookup(context.assets.open("immersion/$file").use { it.readBytes() },manifest,knownIDs,packMultiple=PACKING_ENABLED)
+                SourceFrameLookup.bundled(context,"ja",baseline,knownIDs){baseline.rawCandidates}
             }.getOrNull()
         }
         private val words = Regex("[\\p{L}\\p{Nl}\\p{No}]+(?:['’][\\p{L}\\p{Nl}\\p{No}]+)*")
@@ -39,6 +40,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
     private val packSHA: String
     private val version: String
     override val cacheIdentity: String
+    var rawCandidates: List<SourceFrameStarterCandidate> = emptyList(); private set
     var trace = JSONArray(); private set
     init {
         val m=JSONObject(manifest.toString(Charsets.UTF_8));val p=JSONObject(bytes.toString(Charsets.UTF_8))
@@ -63,7 +65,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
         resolve(original,source,target,density)
     fun resolve(original:String,source:String,target:String,density:Double,
                 protectedRanges:List<SourceLookupRange> = emptyList(),sourceMasks:List<SourceLookupRange> = emptyList()):SourceLookupEvidence {
-        trace=JSONArray()
+        trace=JSONArray();rawCandidates=emptyList()
         fun evidence(partial:PartialImmersionResult?,rs:List<SourceRecognition>)=SourceLookupEvidence(original,source,target,cacheIdentity,partial,rs)
         if(source!="en" || target!="ja") return evidence(null,emptyList())
         require(original.isNotEmpty() && original.length<=16384 && density.isFinite() && density in 0.0..1.0)
@@ -99,6 +101,9 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
                 .put("source_utf16",JSONArray(listOf(start,end))).put("reason",reason ?: JSONObject.NULL).put("record_sha256",e.record))
             require(hits.size<=4096)
         }
+        rawCandidates=hits.map { h -> SourceFrameStarterCandidate(h.entry.id,h.entry.concept,h.entry.category,h.entry.rank,h.entry.tokens.size,h.range,h.cost,h.reason,
+            SourceReferenceUnit(h.range.start,h.range.end,original.substring(h.range.start,h.range.end),h.entry.target,h.entry.reading,
+                "$version:$packSHA:${h.entry.id}",packSHA,h.cost,h.outputID)) }
         val ordered=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenBy{it.entry.rank}.thenByDescending{it.entry.tokens.size}.thenBy{it.range.start})
         val chosen=mutableListOf<Hit>();var used=0
         for(hit in ordered) {
