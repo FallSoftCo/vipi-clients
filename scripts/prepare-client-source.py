@@ -25,6 +25,7 @@ FILES = (
     "scripts/check-android-release.py", "scripts/check-bundled-lexical.py",
     "scripts/check-source-context-assets.py",
     "scripts/prepare-ios-project.sh", "scripts/prepare-client-source.py",
+    "qa/immersion/local-release-r01/provenance.json",
     "qa/immersion/corpus.json", "qa/immersion/speech.json", "qa/immersion/speech-lengths.json",
     "qa/immersion/source_lookup_experiment/controls.json",
     "qa/immersion/source_lookup_experiment/native-pilot-protocol.json",
