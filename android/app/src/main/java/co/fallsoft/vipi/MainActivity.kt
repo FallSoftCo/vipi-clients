@@ -242,7 +242,7 @@ class MainActivity : ComponentActivity() {
         owner.lifecycle.addObserver(observer)
         onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
     }
-    Heading("Language learning through chat", "Chat with friends.\nLearn new words.", "Selected words and short phrases switch between your language and the language you choose. Message order and grammar stay the same.")
+    Heading("Language learning through chat", "Chat with friends.\nLearn new words.", "Selected words and short phrases switch between your language and the language you choose. Word order and grammar stay the same.")
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text("EXAMPLE: ENGLISH AND SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)

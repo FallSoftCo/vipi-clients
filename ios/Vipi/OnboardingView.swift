@@ -61,7 +61,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "Language learning through chat", title: "Chat with friends.\nLearn new words.", detail: "Selected words and short phrases switch between your language and the language you choose. Message order and grammar stay the same.")
+            IntroHeading(eyebrow: "Language learning through chat", title: "Chat with friends.\nLearn new words.", detail: "Selected words and short phrases switch between your language and the language you choose. Word order and grammar stay the same.")
             VStack(alignment: .leading, spacing: 14) {
                 HStack { Text("EXAMPLE: ENGLISH AND SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
                 ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
