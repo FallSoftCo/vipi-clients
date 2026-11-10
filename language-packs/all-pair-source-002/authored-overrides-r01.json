@@ -1,0 +1,71 @@
+{
+  "schema":"vipi-finite-source-candidate-overrides-1",
+  "review_level":"Agent-authored hypotheses after inspecting retained exact contexts and competing senses; not native-human gold",
+  "withheld_concepts":{
+    "chat_opener_thanks_a_lot":"Defer nested intensified-gratitude formula to avoid overlapping ordinary-thanks contexts in the first finite candidate.",
+    "phrase_frame_possessed_dog":"Possession alone does not establish animal-companion sense; retain walking-dog context instead.",
+    "requests_job_search":"German suche die Stelle can mean finding a location; cross-language job-only inference needs stronger source evidence. Withhold entire shared concept in this increment."
+  },
+  "overrides":{
+    "pt":{
+      "chat_opener_thanks":{"focus":"Agradeço","context":"Agradeço.","reason":"Retained Valeu also has the ordinary verb-valued meaning. Use an explicit expression of thanks; register differs from casual valeu."}
+    },
+    "fr":{
+      "needs_help":{"context":"veut une aide","reason":"Avoid apostrophe-attached source focus; finite assistance noun context."},
+      "needs_information":{"context":"veut ces informations","reason":"Avoid apostrophe-attached source focus."},
+      "needs_money":{"context":"argent pour payer le loyer","reason":"Rent-payment purpose disambiguates financial means from silver material."},
+      "needs_water":{"context":"veut cette eau","reason":"Avoid apostrophe-attached source focus."},
+      "phrase_frame_bus_stop":{"context":"cet arrêt de bus","reason":"Avoid apostrophe-attached source focus."},
+      "phrase_frame_drinking_water":{"context":"bois cette eau","reason":"Drinking context with separate whole focus."},
+      "requests_hotel_search":{"context":"cherche un hôtel","reason":"Avoid apostrophe-attached source focus."}
+    },
+    "it":{
+      "requests_send_email":{"context":"invia questa email","reason":"Avoid apostrophe-attached source focus while preserving electronic-message sense."}
+    },
+    "ar":{
+      "needs_doctor":{"context":"طبيب في المستشفى","reason":"Hospital context excludes academic-title reading."},
+      "needs_umbrella":{"context":"مظلة للمطر","reason":"Rain purpose excludes parachute/canopy senses."},
+      "phrase_frame_birthday_party":{"context":"حفل عيد ميلادي","reason":"My birthday disambiguates عيد الميلاد from Christmas."},
+      "phrase_frame_drinking_coffee":{"context":"أشرب قهوة","reason":"Indefinite beverage noun; no attached definite article stripped."},
+      "phrase_frame_drinking_tea":{"context":"أشرب شاي","reason":"Unvowelled finite beverage context; no attached definite article stripped."},
+      "phrase_frame_drinking_water":{"context":"أشرب ماء","reason":"Unvowelled finite beverage context; no attached definite article stripped."},
+      "phrase_frame_eating_bread":{"context":"آكل خبز","reason":"Unvowelled food context with complete bare word."},
+      "phrase_frame_eating_cheese":{"context":"آكل جبن","reason":"Eating context disambiguates cheese from cowardice; complete bare word."},
+      "phrase_frame_liking_music":{"context":"أحب موسيقى هادئة","reason":"Quiet music context without attached article."},
+      "phrase_frame_listening_music":{"context":"أستمع إلى موسيقى","reason":"Listening context without attached article."},
+      "phrase_frame_playing_piano":{"context":"أعزف على بيانو","reason":"Playing instrument context without attached article."},
+      "phrase_frame_reading_book":{"context":"قراءة كتاب","reason":"Reading-noun construction avoids partial stripping of written accusative suffix."},
+      "phrase_frame_walking_dog":{"context":"المشي مع كلب","reason":"Walking with animal context without article stripping."},
+      "phrase_frame_watching_movie":{"context":"مشاهدة فيلم","reason":"Watching-noun construction avoids partial stripping of written accusative suffix."}
+    },
+    "ko":{
+      "needs_doctor":{"context":"병원 의사 만나고 싶어요","reason":"Hospital physician context; naturally omitted object particle, not stripping a written one."},
+      "phrase_frame_bank_account":{"context":"은행 계좌 개설","reason":"Bank-account opening; complete eojeol focus."},
+      "phrase_frame_birthday_party":{"context":"생일 파티 준비","reason":"Birthday party preparation; complete eojeol focus."},
+      "phrase_frame_bus_stop":{"context":"버스 정류장 위치","reason":"Bus stop location; complete eojeol focus."},
+      "phrase_frame_drinking_coffee":{"context":"커피 마셔요","reason":"Natural colloquial particle omission, not stripping written particles."},
+      "phrase_frame_drinking_tea":{"context":"차 마셔요","reason":"Drinking disambiguates tea from car; complete eojeol focus."},
+      "phrase_frame_drinking_water":{"context":"물 마셔요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_eating_bread":{"context":"빵 먹어요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_eating_cheese":{"context":"치즈 먹어요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_liking_music":{"context":"음악 좋아해요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_listening_music":{"context":"음악 듣고 있어요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_phone_charger":{"context":"휴대폰 충전기 필요해요","reason":"Phone qualifier selects charging device; complete eojeol focus."},
+      "phrase_frame_phone_number":{"context":"전화번호 알려 주세요","reason":"Request for telephone number; complete eojeol focus."},
+      "phrase_frame_playing_piano":{"context":"피아노 치고 있어요","reason":"Natural colloquial particle omission."},
+      "phrase_frame_reading_book":{"context":"책 읽어요","reason":"Reading context; written particle is absent, never stripped."},
+      "phrase_frame_train_station":{"context":"기차역 위치","reason":"Train station location; complete eojeol focus."},
+      "phrase_frame_walking_dog":{"context":"개 산책시키고 있어요","reason":"Dog-walking context; written particle is absent, never stripped."},
+      "phrase_frame_watching_movie":{"context":"영화 보고 있어요","reason":"Movie viewing; natural colloquial particle omission."},
+      "requests_hotel_room_request":{"context":"호텔 방 필요해요","reason":"Hotel accommodation context; complete eojeol focus."},
+      "requests_hotel_search":{"context":"호텔 찾고 있어요","reason":"Hotel search; natural colloquial particle omission."},
+      "requests_restaurant_search":{"context":"식당 찾고 있어요","reason":"Restaurant search; natural colloquial particle omission."},
+      "requests_send_email":{"context":"이메일 보내요","reason":"Email sending; natural colloquial particle omission."},
+      "requests_send_message":{"context":"메시지 보내요","reason":"Message sending; natural colloquial particle omission."},
+      "requests_train_ticket_request":{"context":"기차표 필요해요","reason":"Train ticket request; natural colloquial particle omission."}
+    },
+    "sw":{
+      "needs_doctor":{"context":"daktari hospitalini","reason":"Hospital location narrows medical practitioner rather than academic-title sense."}
+    }
+  }
+}

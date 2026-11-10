@@ -1,0 +1,97 @@
+R02 DATA-ONLY REVIEW — frozen after root finite review, 2026-11-10
+
+The candidate adds useful exact compounds outside the original need/search
+templates, while addressing measured and reviewed r01 context failures. It
+does not activate language data or change native code. Both platform agents
+received exact hashes for separate native qualification. Production acceptance
+remains pending actual mixed outputs and controls.
+
+Scope:
+1. Three greeting/thanks/farewell groups now declare whole_sentence, preserving
+   their terminal punctuation and standalone-utterance meaning. Merely dropping
+   punctuation would have admitted arbitrary embedded formulas; this revision
+   instead requires exact native sentence content, with surrounding whitespace.
+2. Original Chinese phrase variants ending at the focus have clause_or_end
+   guards. This rejects continued compound words while permitting ordinary short
+   clauses and clause-final punctuation. Bread retains guarded 吃面包 plus the
+   explicit 吃面包的时候 variant. Tea/water use guarded 喝一杯茶 / 喝一杯水 plus
+   their explicit when variants; no native word is split to manufacture a match.
+3. Eight standalone compound groups: mailing address, phone charger, phone
+   number, door key, hotel room, train station, train ticket, bus stop. Exact
+   full compounds supply their own meaning cue; generic room/key/charger/etc.
+   are not included. These use the same concept IDs and target readings as the
+   corresponding reviewed grid items. The clause-final guard is intentionally
+   not imposed on these self-disambiguating compounds with normal open grammar.
+4. Japanese bare 駅 is withheld as a standalone source: 道の駅 is a common
+   roadside-service-area counterexample that native token edges do not solve.
+   The existing candidate source context 駅は was also narrowed to 電車の駅.
+   Japanese target 駅 remains when another source language establishes railway
+   meaning. Shipped en-ja/sw behavior is untouched.
+
+Root inspected all 87 standalone source-language examples and target faces and
+found no material meaning error for this next candidate. That finite review is
+not production acceptance, native-human gold or a population-accuracy claim.
+Examples are agent-authored, including naturally omitted Korean particles:
+I left my phone charger upstairs.
+휴대폰 충전기 위층에 두고 왔어요.
+我把手机充电器落在楼上了。
+Native word edges, protected literals, zero density and source language guards
+remain mandatory. Attached-particle examples are explicitly negative controls.
+
+R01 native evidence reviewed before this revision:
+- Apple actual result: apple-all-pair-adapter-receipts/all-pair-adapter-r02/
+  native.json, summary.json, misses.json (that receipt suffix is the native run
+  label; its DATA input is frozen all-pair-starter-candidate-r01).
+- Android actual result: android-all-pair-candidate-r01/native-results.json and
+  summary.json. Native translation-call count was zero in that receipt.
+- Both platforms produced the same unsafe Chinese control: 吃面包虫 → 吃bread虫.
+  Their tokenizers separated 面包 and 虫, so complete native focus edges alone
+  were insufficient. The new right-boundary guard addresses this concrete class,
+  without changing tokenization or granting all dictionary senses permission.
+- Apple direct intended-focus outputs were 4,157/4,620; Android 4,097/4,620.
+  These are fixture observations, not coverage/accuracy percentages. Some misses
+  were unchanged target faces, source-budget limits or overlapping stronger
+  contexts, not incorrect translations.
+- Formula direct lookups rejected terminal punctuation. Automatic greeting
+  success sometimes came from existing exact-sentence reference partials, e.g.
+  Hello.→Hola., despite the full message being absent from the reference catalog.
+  It must not be cited as proof of SourceFrame whole_sentence support.
+- Remaining Chinese safe abstentions are explicit: Apple grouped 喝茶/喝水;
+  Android additionally grouped 生日派对, joined 站在 across 公交站在哪里 and
+  火车站在哪里, split 吃奶酪 at an unsafe edge, grouped 一本书 in 读一本书, and
+  grouped 遛狗. Only the finite tea/water alternatives and independently reviewed
+  standalone compounds address some of these. No boundaries were weakened to
+  inflate counts; the other abstentions are intentionally retained for native
+  reporting, not hidden by new heuristics.
+- Both native reports retained no output for their known detector-error probes;
+  root-owned detector/route qualification remains separate from data semantics.
+
+Reviewable artifacts:
+- standalone-review.txt: all 87 ordinary source-language examples and faces.
+- standalone-examples.json: exact examples and Japanese omission rationale.
+- standalone-modeled-outputs.json: deterministic single-focus proposed outputs
+  for those examples across target languages; NOT actual native execution.
+- concept-grid.json: retained grid plus exact r02 context changes.
+- review-manifest.json: permission scope, limits and pending-root-acceptance flag.
+- packs/: 110 private packs/manifests; 49 patterns for Japanese source, 50 for
+  each other source. The count is a finite inventory, not a product claim.
+- native-fixtures.json: inherited probes plus compound, whole-sentence, clause,
+  Unicode spacing, common Japanese counterexample and mixed-valid/invalid cases.
+- structural-tests.json and frozen-hashes.json: schema/offset/hash validation.
+
+Controls include coffee-shop, tea-leaf, breadworm, bookcase and music-drama
+continuations; NBSP, ideographic space and TAB before a compound continuation;
+clause-final comma/spacing positives; embedded/negated standalone formulas;
+and two mixed cases checking that a rejected hit cannot mask an independent
+valid span. The compiler does not implement native rejection; actual checks
+belong to the platform owners.
+
+Frozen fixture SHA256:
+9132604adefaf6de6a7758d8ef46e84cbf83399bd37a0224e18844ef14a84b63
+Frozen review-manifest SHA256:
+b3b015204c812eeed44dc53943f0bd425058d7067617472885bf98345f2cd108
+
+All frozen r01 hashes were verified unchanged. No inherited repository files,
+native builds, runtime activation, store copy, external services or signing
+were changed by this agent. Combined private data revisions remain below the
+100 MiB allowance. Future revisions must preserve both frozen snapshots.

@@ -1,0 +1,33 @@
+R02 DATA CONTRACT — isolated candidate, runtime promotion false
+
+Existing pack/manifest schemas retained: vipi-source-frame-pack-1 and
+vipi-source-frame-manifest-1; files source-frames-SOURCE-TARGET-002.json and
+source-frames-SOURCE-TARGET-catalog.json. Source/target and native complete-focus
+contract unchanged. Existing shipped en-ja/sw provider priority remains.
+
+Every variant explicitly declares context_scope:
+- local_phrase: existing bounded exact local context, existing barrier rules.
+- whole_sentence: exact native sentence content including the declared terminal
+  punctuation. Surrounding whitespace is permitted, arbitrary embedded formula
+  borrowing is not. Focus remains a complete native word unit; punctuation is
+  outside the replaceable focus. Context token cost does not require punctuation
+  itself to be a native word. Only three formula groups use this scope.
+
+Optional variant right_boundary='clause_or_end':
+After the exact matched context, skip only TAB U+0009 or Unicode category Zs.
+Then require end of message, one of .!?。！？,，;；, CR or LF. No other enum
+value accepted. Native complete-focus bounds remain unchanged. A rejected
+context must not produce a recognition that masks unrelated valid matches.
+Applied only to original Chinese local-phrase variants ending at their focus.
+It is not automatically applied to the new self-disambiguating compounds.
+
+native-fixtures.json remains {schema,cases,controls}. Cases keep id,pair,
+source_language,target_language,concept_id,original,expected_source,
+expected_target,focus_utf16,reading,density,kind; context_scope is diagnostic.
+Two mixed cases add forbidden_sources: these source strings must not be emitted,
+while the separately named expected focus should remain eligible. Controls
+declare expected_no_spans. Some native density/unchanged-face abstentions remain
+valid and must be distinguished from unintended source/target substitutions.
+
+Native owners test the schema semantics; Python structural validation is not a
+tokenizer or linguistic qualification. No candidate is copied into app bundles.

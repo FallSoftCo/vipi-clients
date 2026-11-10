@@ -1,0 +1,27 @@
+FINITE SOURCE-FRAME QA
+
+The adjacent native-fixtures.json contains original agent-authored examples and
+controls, not a third-party research sentence corpus. It pins the exact finite
+candidate probes used by both native test harnesses. All 110 directions appear
+in fixtures; canonical bundled assets exclude en-ja/en-sw to preserve shipped
+providers. Fixture SHA256: 9132604adefaf6de6a7758d8ef46e84cbf83399bd37a0224e18844ef14a84b63
+
+Native semantic review and exact capture hashes are recorded in
+native-semantic-review.json. Actual captures are private receipts; no private
+filesystem paths are required for asset regeneration. Review observed 5512
+positive probes per platform, 63 authored negative controls and finite
+protected-literal/detector checks. These are fixture counts, not language
+coverage or accuracy rates. Known detector-error sentences are intentionally
+not copied into this portable package.
+
+Native harness owners can point their source-frame injection at generated assets
+and read cases/controls from native-fixtures.json. Preserve native token edges,
+source-language gating, density limits, and protected literals. Direct candidate
+qualification uses density 0.5; composed routes use default 0.25. Fixture density
+metadata is historical upper-bound metadata, not a request to weaken guards.
+
+Regenerate or verify assets using build.py as documented in README.md. The
+compiler needs only adjacent concept-grid.json and review-manifest.json;
+authored-overrides-r01.json, authored-scope-review.txt and standalone-review.txt
+retain content decisions and provenance. The retained record/evidence hashes
+identify source mapping provenance without copying the research corpora.

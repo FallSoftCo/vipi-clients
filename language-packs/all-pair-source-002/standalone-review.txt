@@ -1,0 +1,114 @@
+STANDALONE COMPOUND CANDIDATE — exact forms only, root acceptance pending.
+Japanese bare 駅 withheld; target 駅 retained for unambiguous other-language railway sources.
+
+needs_address
+a postal address for delivery, not a speech or computer memory address
+en | mailing address |  | I wrote the mailing address on the envelope.
+es | dirección postal |  | Escribí la dirección postal en el sobre.
+fr | adresse postale |  | J’ai écrit cette adresse postale sur l’enveloppe.
+de | Postanschrift |  | Ich habe die Postanschrift auf den Umschlag geschrieben.
+pt | endereço postal |  | Escrevi o endereço postal no envelope.
+it | indirizzo postale |  | Ho scritto questo indirizzo postale sulla busta.
+ar | عنوان بريدي | 'unwān barīdī | كتبت عنوان بريدي على الظرف.
+zh | 邮寄地址 | yóujì dìzhǐ | 我把邮寄地址写在信封上了。
+ja | 郵送先の住所 | yūsōsaki no jūsho | 封筒に郵送先の住所を書きました。
+ko | 우편 주소 | upyeon juso | 봉투에 우편 주소 적어 두었어요.
+sw | anwani ya posta |  | Niliandika anwani ya posta kwenye bahasha.
+
+needs_phone_charger
+an electrical charger for a phone
+en | phone charger |  | I left my phone charger upstairs.
+es | cargador de teléfono |  | Dejé el cargador de teléfono arriba.
+fr | chargeur de téléphone |  | J’ai laissé le chargeur de téléphone à l’étage.
+de | Handyladegerät |  | Ich habe das Handyladegerät oben liegen lassen.
+pt | carregador de telefone |  | Deixei o carregador de telefone no andar de cima.
+it | caricabatterie per il telefono |  | Ho lasciato il caricabatterie per il telefono al piano di sopra.
+ar | شاحن هاتف | shāḥin hātif | تركت شاحن هاتف في الطابق العلوي.
+zh | 手机充电器 | shǒujī chōngdiànqì | 我把手机充电器落在楼上了。
+ja | 携帯電話の充電器 | keitai denwa no jūdenki | 携帯電話の充電器を二階に置いてきました。
+ko | 휴대폰 충전기 | hyudaepon chungjeongi | 휴대폰 충전기 위층에 두고 왔어요.
+sw | chaja ya simu |  | Niliacha chaja ya simu ghorofani.
+
+needs_phone_number
+a number identifying a telephone connection, not a count, musical number or generic identifier
+en | phone number |  | She saved my phone number yesterday.
+es | número de teléfono |  | Guardó mi número de teléfono ayer.
+fr | numéro de téléphone |  | Elle a enregistré mon numéro de téléphone hier.
+de | Telefonnummer |  | Sie hat gestern meine Telefonnummer gespeichert.
+pt | número de telefone |  | Ela guardou o meu número de telefone ontem.
+it | numero di telefono |  | Ha salvato il mio numero di telefono ieri.
+ar | رقم هاتف | raqam hātif | حفظت رقم هاتف في دفتري أمس.
+zh | 电话号码 | diànhuà hàomǎ | 她昨天保存了我的电话号码。
+ja | 電話番号 | denwa bangō | 昨日、電話番号を保存しました。
+ko | 전화번호 | jeonhwabeonho | 어제 전화번호 저장했어요.
+sw | nambari ya simu |  | Alihifadhi nambari ya simu jana.
+
+needs_door_key
+a physical key for a door, not an encryption key or solution
+en | door key |  | I left the door key on the table.
+es | llave de la puerta |  | Dejé la llave de la puerta en la mesa.
+fr | clé de porte |  | Cette clé de porte est sur la table.
+de | Türschlüssel |  | Der Türschlüssel liegt auf dem Tisch.
+pt | chave da porta |  | Deixei a chave da porta na mesa.
+it | chiave della porta |  | Ho lasciato la chiave della porta sul tavolo.
+ar | مفتاح باب | miftāḥ bāb | تركت مفتاح باب على الطاولة.
+zh | 门钥匙 | mén yàoshi | 我把门钥匙放在桌子上了。
+ja | ドアの鍵 | doa no kagi | ドアの鍵をテーブルの上に置きました。
+ko | 문 열쇠 | mun yeolsoe | 문 열쇠 탁자 위에 두었어요.
+sw | ufunguo wa mlango |  | Niliacha ufunguo wa mlango mezani.
+
+requests_hotel_room_request
+a room for accommodation in a hotel, not spare capacity
+en | hotel room |  | We returned to the hotel room after dinner.
+es | habitación de hotel |  | Volvimos a la habitación de hotel después de cenar.
+fr | chambre d’hôtel |  | Nous sommes rentrés dans notre chambre d’hôtel après le dîner.
+de | Hotelzimmer |  | Wir sind nach dem Abendessen ins Hotelzimmer zurückgekehrt.
+pt | quarto de hotel |  | Voltamos ao quarto de hotel depois do jantar.
+it | camera d’albergo |  | Siamo tornati nella camera d’albergo dopo cena.
+ar | غرفة فندق | ghurfat funduq | عدنا إلى غرفة فندق بعد العشاء.
+zh | 酒店房间 | jiǔdiàn fángjiān | 晚饭后我们回到了酒店房间。
+ja | ホテルの部屋 | hoteru no heya | 夕食の後でホテルの部屋に戻りました。
+ko | 호텔 방 | hotel bang | 호텔 방 청소는 끝났어요.
+sw | chumba cha hoteli |  | Tulirudi kwenye chumba cha hoteli baada ya chakula cha jioni.
+
+phrase_frame_train_station
+a station serving railway trains, not a broadcast station or a social position
+en | train station |  | We met outside the train station yesterday.
+es | estación de tren |  | Nos vimos frente a la estación de tren ayer.
+fr | gare ferroviaire |  | Nous nous sommes retrouvés devant la gare ferroviaire hier.
+de | Bahnhof |  | Wir haben uns gestern vor dem Bahnhof getroffen.
+pt | estação de trem |  | Nós nos encontramos perto da estação de trem ontem.
+it | stazione ferroviaria |  | Ci siamo incontrati davanti alla stazione ferroviaria ieri.
+ar | محطة القطار | maḥaṭṭat al-qiṭār | التقينا قرب محطة القطار أمس.
+zh | 火车站 | huǒchēzhàn | 我们昨天在火车站外面见面了。
+ja | 駅 | eki | WITHHELD AS STANDALONE SOURCE
+ko | 기차역 | gichayeok | 어제 기차역 앞에서 만났어요.
+sw | kituo cha treni |  | Tulikutana karibu na kituo cha treni jana.
+
+requests_train_ticket_request
+a ticket for travel on a railway train
+en | train ticket |  | I put the train ticket in my bag.
+es | billete de tren |  | Guardé el billete de tren en mi bolso.
+fr | billet de train |  | J’ai mis le billet de train dans mon sac.
+de | Zugfahrkarte |  | Ich habe die Zugfahrkarte in meine Tasche gesteckt.
+pt | passagem de trem |  | Coloquei a passagem de trem na minha bolsa.
+it | biglietto del treno |  | Ho messo il biglietto del treno nella borsa.
+ar | تذكرة قطار | tadhkirat qiṭār | وضعت تذكرة قطار في حقيبتي.
+zh | 火车票 | huǒchēpiào | 我把火车票放进包里了。
+ja | 列車の切符 | ressha no kippu | 列車の切符をかばんに入れました。
+ko | 기차표 | gichapyo | 기차표 가방 안에 넣었어요.
+sw | tiketi ya treni |  | Niliweka tiketi ya treni kwenye begi langu.
+
+phrase_frame_bus_stop
+a stopping place served by buses, not a verb, punctuation or a musical stop
+en | bus stop |  | We waited at the bus stop after lunch.
+es | parada de autobús |  | Esperamos en la parada de autobús después de comer.
+fr | arrêt de bus |  | Nous avons attendu à cet arrêt de bus après le déjeuner.
+de | Bushaltestelle |  | Wir haben nach dem Mittagessen an der Bushaltestelle gewartet.
+pt | ponto de ônibus |  | Esperamos no ponto de ônibus depois do almoço.
+it | fermata dell’autobus |  | Abbiamo aspettato alla fermata dell’autobus dopo pranzo.
+ar | موقف الحافلة | mawqif al-ḥāfila | انتظرنا قرب موقف الحافلة بعد الغداء.
+zh | 公交站 | gōngjiāozhàn | 午饭后我们在公交站等车。
+ja | バス停 | basutei | 昼食の後でバス停で待ちました。
+ko | 버스 정류장 | beoseu jeongnyujang | 점심 먹고 버스 정류장 앞에서 기다렸어요.
+sw | kituo cha basi |  | Tulisubiri kwenye kituo cha basi baada ya chakula cha mchana.

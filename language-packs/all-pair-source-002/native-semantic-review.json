@@ -1,0 +1,56 @@
+{
+  "status": "finite_native_output_review_complete_no_material_meaning_error_found",
+  "runtime_activation": false,
+  "reviewer": "diction_bfm_medium; data author, independent of native implementations; not independent native-human linguistic gold",
+  "method": {
+    "structural": "Inspect every actual emitted span for exact UTF-16 source geometry, reviewed target face/Latin reading, unchanged surrounding source, and agreement with Android mixed output; compare actual direct outputs between platforms.",
+    "linguistic": "Read complete reconstructed Apple outputs for every source-target direction using charger/address examples, all 87 distinct standalone originals with rotating targets, all 33 formula originals, high-risk Chinese/Japanese outputs and controls. Compare Android full-sentence differences and manually inspect material differences. This is finite authored-case review, not a population accuracy estimate.",
+    "android_linguistic": "All 5512 direct complete outputs compared against the Apple-reviewed outputs; 72 differing complete sentences inspected as Chinese native-token abstentions. Additional Korean/Swahili complete formula and all eight standalone sentences inspected with Arabic target readings, including unchanged source grammar. Every emitted tuple across all targets checked against finite-reviewed grid."
+  },
+  "r01_material_failure": "Both platforms substituted bread inside 吃面包虫. Native token edges alone did not establish the authored sense.",
+  "r02_corrections": [
+    "Chinese context-ending-focus clause_or_end guard",
+    "Whole-sentence formula scope with exact punctuation",
+    "Japanese railway source narrowed from 駅は to 電車の駅; bare standalone 駅 withheld",
+    "Eight self-disambiguating compound groups across 87 authored source forms"
+  ],
+  "apple": {
+    "path": "apple-all-pair-adapter-receipts/all-pair-adapter-r05/native.json",
+    "sha256": "6d31bb3a96b95325f1ec22e8cdad393ca6139b074544e25e11e350bc1137f15f",
+    "material_meaning_errors_found": []
+  },
+  "known_limits": [
+    "Apple Chinese water alternatives abstain on complete native word edges; Android admits those water examples but abstains for several other Chinese contexts.",
+    "Android mixed breadworm/coffee example rejects breadworm correctly but also abstains on coffee because ICU groups 想喝 and context starts inside that native word. This does not prove independent positive-output survival in that particular Android example.",
+    "Swahili charger phrase may exceed native per-sentence token budget at direct density 0.5.",
+    "Mixed source articles and inflections remain unchanged even when the target noun has different gender or number conventions. This is the intended source-grammar contract, not a claim that the full mixed sentence follows target grammar.",
+    "Shipped en-ja/en-sw providers take priority in composed routes; their reviewed shorter spans or exact-sentence references are not new candidate full-compound success.",
+    "At default density 0.25, many multiword Korean/Swahili focuses abstain despite direct 0.5 success. All110 fixture directions having some output does not imply useful coverage of arbitrary messages."
+  ],
+  "benign_variation": [
+    "Greeting register and regional vocabulary vary within stated everyday senses.",
+    "Latin readings are authored pronunciation aids, not IPA; historical provider romanization styles can differ."
+  ],
+  "production_acceptance": "No material meaning correction required for this finite package. Suitable for root review and disabled portable packaging; activation remains root-owned. This is neither conversation-wide coverage nor native-human gold.",
+  "android": {
+    "path": "android-all-pair-candidate-r02/native-results-consolidated.json",
+    "sha256": "5863072bb1918c8b5dc4cd32e246a0a67673b84c2d1d42c2b7439c6f7462bca6",
+    "capture_reconciliation": "4510 durable original cases plus 1002 disjoint Korean/Swahili continuation cases; harness serialization OOM retained, no runtime/data change or repeated broad suite.",
+    "control_counts": {
+      "authored_boundary_or_ambiguity": 63,
+      "protected_literal": 110,
+      "known_detector_false_positive": 1100
+    },
+    "control_outputs": 0,
+    "material_meaning_errors_found": []
+  },
+  "structural_result": {
+    "rows_per_platform": 16536,
+    "cases_per_platform": 5512,
+    "source_range_or_mixed_reconstruction_errors": 0,
+    "unreviewed_direct_target_or_reading_tuples": 0,
+    "cross_platform_direct_differences": 72,
+    "difference_scope": "All Chinese source; emitted source/target/readings agree whenever both emit. Differences are native word-boundary or recognition abstentions, including Android water successes and Apple-only coffee in mixed control.",
+    "composed_non_grid_outputs": "Only preserved en-ja/en-sw providers; explicitly reviewed rather than attributed to candidate."
+  }
+}
