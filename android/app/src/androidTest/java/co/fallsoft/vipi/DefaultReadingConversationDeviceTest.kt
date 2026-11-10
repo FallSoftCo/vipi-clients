@@ -110,7 +110,7 @@ class DefaultReadingConversationDeviceTest {
                     choose(name); val shown = node(By.text(expected)); row.put("reading_bounds", shown.visibleBounds.toShortString())
                     check(device.takeScreenshot(File(out, "$id-reading.png")))
                     choose("Show original script"); node(By.text(text)); check(device.takeScreenshot(File(out, "$id-script.png")))
-                    choose("Show transliteration"); node(By.text(expected))
+                    choose("Show Latin letters"); node(By.text(expected))
                     choose("Copy original message"); var copied: String? = null
                     ins.runOnMainSync { copied = clipboard.primaryClip?.getItemAt(0)?.text?.toString() }; assertEquals(text, copied)
                     choose("English"); choose(name); node(By.text(expected)); row.put("reentry_display_exact", true).put("copy_original_exact", true)

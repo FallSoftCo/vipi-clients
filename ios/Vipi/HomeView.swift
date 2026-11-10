@@ -38,8 +38,8 @@ struct HomeView: View {
                             }
                         } else { VStack(alignment: .leading, spacing: 16) {
                             VipiMark(size: 54)
-                            Text("Your world,\none conversation away.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
-                            Text("Bring a friend. Make plans. Talk about your day. A little \(VipiLanguage.named(state.targetLanguage).name) will find its way in.")
+                            Text("Start a chat\nwith a friend.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
+                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).name) as you read.")
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
@@ -61,7 +61,7 @@ struct HomeView: View {
                                 Image(systemName: "sparkle").font(.title2).frame(width: 50, height: 50).background(VipiDesign.outgoing, in: RoundedRectangle(cornerRadius: 18))
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("vBot").font(.body.weight(.semibold)).foregroundStyle(.primary)
-                                    Text("A conversation whenever you feel like one.").font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
+                                    Text("Chat with a chatbot. Requires the separate Bot mini plan.").font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
                                 }
                                 Spacer(minLength: 0)
                                 Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
@@ -137,7 +137,7 @@ struct BotIntroductionView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
                 Image(systemName: "sparkle").font(.system(size: 44)).foregroundStyle(VipiDesign.highlight)
-                IntroHeading(eyebrow: "Meet vBot", title: "Something\non your mind?", detail: "Talk about your day, follow a curiosity, or make a plan. vBot keeps the conversation going while your chosen language becomes more familiar.")
+                IntroHeading(eyebrow: "Meet vBot", title: "Chat with\na chatbot.", detail: "Ask vBot a question or talk about your day. Supported words switch into your chosen language as you read. vBot can make mistakes; check important details.")
                 Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                 Text("Available with Bot mini").font(.subheadline.weight(.semibold))
@@ -166,17 +166,17 @@ struct SettingsView: View {
                     }
                 }
             }
-            Section("Your immersion") {
+            Section("Words in your chats") {
                 NavigationLink { LanguageDownloadView() } label: {
                     LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
                 }.accessibilityIdentifier("language-settings-link")
                 VStack(alignment: .leading, spacing: 12) {
-                    HStack { Text("A little or a little more"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
-                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Immersion amount")
-                    Text("The amount of unfamiliar vocabulary you see. You can always reveal the original.").font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    HStack { Text("How many words change"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
+                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Amount of words to switch")
+                    Text("Choose how much of each message you want to switch. The amount shown depends on available words and phrases.").font(.footnote).foregroundStyle(VipiDesign.secondary)
                 }.padding(.vertical, 8)
             }
-            Section("Make yourself at home") {
+            Section("Appearance and notifications") {
                 if chat != nil { NavigationLink("Notifications") { NotificationSettingsView() } }
                 Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
             }
@@ -192,6 +192,6 @@ struct SettingsView: View {
             if let chat {
                 Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
             }
-        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Your Vipi").navigationBarTitleDisplayMode(.inline)
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
 }

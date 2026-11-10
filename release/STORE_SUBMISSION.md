@@ -1,11 +1,21 @@
 # Store submission preparation
 
-These are reviewable drafts. Private Apple app `6832624092`, **Mambo Vipi:
-Language Chat**, has been created under the company account with bundle
-`co.fallsoft.vipi`. No release binary or review submission has been uploaded.
+The requested name and current listing draft are **Vipi**. Private Apple app
+`6832624092` exists under the company account with bundle `co.fallsoft.vipi`;
+its last verified saved name was **Mambo Vipi: Language Chat**. Saving the new
+name and copy awaits renewed App Store Connect authentication. No release
+binary or review submission has been uploaded.
 `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
+
+On November 10, the correct Google Play company account was accessible and
+`co.fallsoft.vipi` was available. The create-app form was populated with Vipi,
+en-US, App and Free; it was not submitted. Its export-compliance certification
+still needs a documented basis for this complete application. No Google app ID
+or submission receipt exists. Google Cloud separately requires company
+reauthentication; Firebase shows the project's HTTP v1 messaging API disabled.
+Do not treat Firebase page access as active push delivery.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
 declarations to candidate store categories. It records remaining questions and

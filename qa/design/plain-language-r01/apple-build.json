@@ -1,0 +1,79 @@
+{
+  "started": "2026-11-10T21:16:59.790178+00:00",
+  "complete": true,
+  "manifest_sha256": "74838a046e51cd98ae786cd8eafa1cecba028687748eb4bb646acd5e4334f7ab",
+  "free_before": 20793749504,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 1610612736,
+  "stages": [
+    {
+      "name": "prepare",
+      "cmd": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 68340,
+      "min_free": 20793331712,
+      "exit": 0,
+      "seconds": 2.0120785410981625,
+      "log_sha256": "3b9b3b6fe52fa2fe2dabcf441f4b62e9f9d3263302529ea569a1d0157580e791"
+    },
+    {
+      "name": "app-build",
+      "cmd": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/submit-copy-build-r01/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "pid": 68365,
+      "min_free": 20787941376,
+      "exit": 0,
+      "seconds": 40.19605604093522,
+      "log_sha256": "8377bb489dc959628f1b5dd8d0fcd8fd320862211e2a2a11c11b86a39369d80d"
+    }
+  ],
+  "staged_files": [
+    "ios/Vipi/ConnectedChatView.swift",
+    "ios/Vipi/ConversationPreview.swift",
+    "ios/Vipi/HomeView.swift",
+    "ios/Vipi/ImmersionBubble.swift",
+    "ios/Vipi/LanguageDownloadView.swift",
+    "ios/Vipi/OnboardingView.swift",
+    "ios/Vipi/SubscriptionView.swift",
+    "ios/VipiUITests/ChatImmersionTests.swift",
+    "ios/VipiUITests/ContinuousImmersionTests.swift",
+    "ios/VipiUITests/LanguageReadingTests.swift",
+    "ios/VipiUITests/LanguageSettingsTests.swift",
+    "ios/VipiUITests/LiveSignInTests.swift",
+    "ios/VipiUITests/SpeechInteractionTests.swift",
+    "ios/VipiUITests/StarterRouteUITests.swift",
+    "ios/VipiUITests/VoiceOverDeviceTests.swift"
+  ],
+  "free_after": 20793331712
+}

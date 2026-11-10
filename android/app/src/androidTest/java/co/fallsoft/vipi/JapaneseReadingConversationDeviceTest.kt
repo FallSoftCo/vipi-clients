@@ -150,9 +150,9 @@ class JapaneseReadingConversationDeviceTest {
                     check(device.takeScreenshot(File(out, "$id-full-reading.png")))
                     if (reading != null) {
                         choose("Show original script"); node(By.text(text)); check(device.takeScreenshot(File(out, "$id-original-script.png")))
-                        choose("Show transliteration"); node(By.text(reading))
+                        choose("Show Latin letters"); node(By.text(reading))
                     } else {
-                        menu(); assertTrue(nodes(By.text("Show transliteration")).isEmpty()); assertTrue(nodes(By.text("Show original script")).isEmpty()); device.pressBack()
+                        menu(); assertTrue(nodes(By.text("Show Latin letters")).isEmpty()); assertTrue(nodes(By.text("Show original script")).isEmpty()); device.pressBack()
                     }
                     choose("Copy original message"); var copied: String? = null
                     instrumentation.runOnMainSync { copied = clipboard.primaryClip?.getItemAt(0)?.text?.toString() }; assertEquals(text, copied); row.put("copy_original_exact", true)

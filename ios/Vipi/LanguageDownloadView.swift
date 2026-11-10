@@ -92,7 +92,7 @@ struct LanguageDownloadView: View {
                 languagePicker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
                              choices: VipiLanguage.initial, localName: false)
                     .accessibilityIdentifier("language-source-picker")
-                languagePicker("I’m picking up", selection: $state.targetLanguage,
+                languagePicker("I want to learn", selection: $state.targetLanguage,
                              choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage }, localName: true)
                     .accessibilityIdentifier("language-target-picker")
             }
@@ -101,16 +101,16 @@ struct LanguageDownloadView: View {
                     Image(systemName: preparation.availability == .installed ? "checkmark.circle" : "arrow.down.circle")
                         .foregroundStyle(VipiDesign.highlight)
                         .accessibilityLabel(preparation.availability == .installed ? "Languages downloaded" : "Language download")
-                    (Text("Offline translation\n").font(.headline) +
+                    (Text("Full-message translation\n").font(.headline) +
                      Text(statusText).foregroundColor(VipiDesign.secondary))
                         .lineSpacing(6).fixedSize(horizontal: false, vertical: true)
-                        .accessibilityLabel("Offline translation. \(statusText)")
+                        .accessibilityLabel("Full-message translation. \(statusText)")
                         .accessibilityIdentifier("language-download-status")
                     if preparation.busy || preparation.availability == .checking { Spacer(); ProgressView().accessibilityLabel(statusText) }
                 }.padding(.vertical, 5)
                 if preparation.availability == .downloadable && !preparation.busy {
                     Button { preparation.prepare() } label: {
-                        Text("Download languages").foregroundStyle(VipiDesign.highlight)
+                        Text("Download for full translation").foregroundStyle(VipiDesign.highlight)
                             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }.accessibilityIdentifier("language-download-start")
                 }
@@ -126,7 +126,7 @@ struct LanguageDownloadView: View {
                     }
                         .accessibilityIdentifier("language-download-check")
                 }
-                Text("Your messages are translated on this device. They aren’t sent to a translation service.")
+                Text("These downloads are for optional full-message translation. Word switching does not need them. To translate a whole message, choose Full translation in its reading options. Messages stay on this device.")
                     .font(.callout).foregroundStyle(VipiDesign.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                     .accessibilityIdentifier("language-download-explanation")
@@ -183,12 +183,12 @@ struct LanguageDownloadView: View {
         }.disabled(preparation.busy)
     }
     private var statusText: String {
-        if preparation.busy { return preparation.request == nil ? "Removing downloads…" : "Preparing your languages…" }
+        if preparation.busy { return preparation.request == nil ? "Removing downloads…" : "Preparing translation downloads…" }
         switch preparation.availability {
         case .checking: return "Checking this device…"
-        case .downloadable: return "Download \(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) to translate offline."
-        case .installed: return "\(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) are ready for offline translation."
-        case .unsupported: return "This device can’t translate this language pair. You can choose another language."
+        case .downloadable: return "Download \(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) for full-message translation offline."
+        case .installed: return "\(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) are ready for full-message translation offline."
+        case .unsupported: return "Full-message translation isn’t available for this language pair on this device. Supported words can still switch."
         }
     }
 }

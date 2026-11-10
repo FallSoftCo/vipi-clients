@@ -61,10 +61,10 @@ final class VoiceOverDeviceTests: XCTestCase {
         try activate(word, until: { paragraph.label != held })
         XCTAssertTrue(["I like music.", "I like muziki."].contains(paragraph.label))
         capture("ipad-voiceover-manual-word")
-        try activate(app.buttons["Reading options"], until: { app.buttons["Show meanings now"].exists })
-        for title in ["Pause word switching", "Resume word switching", "Switching pace"] { XCTAssertFalse(app.buttons[title].exists) }
+        try activate(app.buttons["Reading options"], until: { app.buttons["Show original words now"].exists })
+        for title in ["Pause word switching", "Resume word switching", "Word switching speed"] { XCTAssertFalse(app.buttons[title].exists) }
         XCTAssertTrue(app.buttons["Swahili"].exists)
-        try activate(app.buttons["Show meanings now"], until: { !app.buttons["Show meanings now"].exists && paragraph.label == "I like music." })
+        try activate(app.buttons["Show original words now"], until: { !app.buttons["Show original words now"].exists && paragraph.label == "I like music." })
         if initial == "0" {
             settings.activate()
             try setVoiceOver("0", control: try voiceControl(in: settings))
@@ -72,7 +72,7 @@ final class VoiceOverDeviceTests: XCTestCase {
             XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'I like muziki.'"), object: paragraph)], timeout: 12), .completed)
             app.buttons["Reading options"].tap()
             XCTAssertTrue(app.buttons["Pause word switching"].waitForExistence(timeout: 5))
-            XCTAssertTrue(app.buttons["Switching pace"].exists)
+            XCTAssertTrue(app.buttons["Word switching speed"].exists)
         }
         let receipt = XCTAttachment(string: "{\"physical_voiceover_setting_verified\":true,\"eight_second_pause\":true,\"native_word_activation\":true,\"inactive_controls_hidden\":true,\"automatic_resume_checked\":\(initial == "0"),\"speech_listening_acceptance\":false}")
         receipt.name = "voiceover-immersion-result"; receipt.lifetime = .keepAlways; add(receipt)

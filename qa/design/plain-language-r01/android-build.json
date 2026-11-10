@@ -1,0 +1,57 @@
+{
+  "started": "2026-11-10T21:16:20.122904+00:00",
+  "complete": true,
+  "manifest_sha256": "74838a046e51cd98ae786cd8eafa1cecba028687748eb4bb646acd5e4334f7ab",
+  "free_before": 9960620032,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 536870912,
+  "stages": [
+    {
+      "name": "app-build",
+      "cmd": [
+        "taskset",
+        "-c",
+        "2,3",
+        "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--max-workers=1",
+        "--console=plain",
+        "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+        "-Pkotlin.compiler.execution.strategy=in-process",
+        "-PvipiQaAbi=x86_64",
+        "-PvipiSourceContextQualification=true",
+        ":app:assembleDebug",
+        ":app:assembleDebugAndroidTest"
+      ],
+      "pid": 1586473,
+      "min_free": 9957904384,
+      "exit": 0,
+      "seconds": 76.00752376392484,
+      "log_sha256": "fd36ab35c971f06259ca5055f7b4e269d2c8620e6aa73f6288cb7af85569592e"
+    }
+  ],
+  "staged_files": [
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ChatImmersionDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ChineseReadingConversationDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ContextualMessageActionsDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/DefaultReadingConversationDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingCacheUIDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseReadingConversationDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageDownloadsUiTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageReadingDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ScriptConversationInteractionTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SentenceReadingsDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SourceUnitUIDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SpeechInteractionDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/TalkBackImmersionDeviceTest.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationPreview.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/LanguageDownloadsScreen.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/SubscriptionScreen.kt"
+  ],
+  "free_after": 9957986304
+}

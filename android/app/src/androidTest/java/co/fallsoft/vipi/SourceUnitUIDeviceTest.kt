@@ -144,7 +144,7 @@ class SourceUnitUIDeviceTest {
             choose("Listen");val listenStart=SystemClock.elapsedRealtime();await("actual player start",25) { speech.state==SpeechState.PLAYING }
             report.put("observed_player_start_bound_ms",SystemClock.elapsedRealtime()-listenStart);event("full_reference_native_player_started")
             node(By.text(reference));await("player completion",35) { speech.activeMessage==null };assertNull(speech.error)
-            choose("Immersed");await("restored partial") { face()!=null };changes(2,"continuous-after-full-view")
+            choose("Word switching");await("restored partial") { face()!=null };changes(2,"continuous-after-full-view")
             choose("Swahili");node(By.text(reference));assertEquals(1,actual.get());assertEquals(3,attempts.get());capture("cached-full-reference")
             choose("English");node(By.text(original));event("exact_original_view")
             report.put("complete",true).put("provider_attempts",attempts.get()).put("actual_mlkit_calls",actual.get())

@@ -13,11 +13,11 @@ struct SubscriptionOfferView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 VipiMark(size: 46)
-                IntroHeading(eyebrow: plan == .base ? "Make conversation a habit" : "A conversation whenever you like",
-                    title: plan == .base ? "Your world.\nA little more language." : "Meet Bot mini.",
+                IntroHeading(eyebrow: plan == .base ? "Vipi subscription" : "Optional chatbot subscription",
+                    title: plan == .base ? "Chat with friends.\nLearn words as you read." : "Chat with vBot.",
                     detail: plan == .base
-                        ? "Private conversations with friends, with language immersion woven into the words you already care about."
-                        : "Talk with vBot about your day, an idea, or a plan. Bot mini is an optional addition to Vipi.")
+                        ? "Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan."
+                        : "Bot mini adds chatbot conversations with vBot to your Vipi plan. Ask a question or talk about your day. Automated replies can be mistaken.")
                 if plan == .botMini {
                     Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)

@@ -45,6 +45,26 @@ icon provenance and actual visual-review scope are retained in
 `qa/design/vipi-identity-r01`. This work does not certify the complete customer
 journey, purchases, background delivery, or store release.
 
+The following plain-language pass now leads with **Chat with friends. Learn new
+words.** Both clients explain the automatic word/phrase switching and separate
+optional full-message translation. Reading controls use Latin letters and
+Slower/Standard/Faster; stored settings and behavior are unchanged. Both native
+builds passed. Android's actual onboarding and four prepared non-Latin previews
+passed; iOS component checks passed themes, largest text, step scroll reset and
+six stable automatic flips. These are copy/layout checks, not new conversational
+coverage or signed account-flow evidence. See `qa/design/plain-language-r01`.
+
+Store reconciliation on November 10 found the company Google Play account
+accessible and the package name available, but no Vipi app was created. The
+form's export certification is unsubmitted. App Store Connect remains signed
+out and both Mac signing keychains remained locked at the read-only check;
+no signing attempt followed. Existing Apple sandbox server-notification success
+is preserved and was not replayed. Google Cloud requires company password
+verification; Firebase reports HTTP v1 messaging disabled. The live backend
+remains restricted staging with subscriptions unenforced and no APNs, FCM or
+DeepSeek configuration enabled. Public-page copy and the local exposure-record
+privacy addendum are prepared in source; their deployment is separately recorded.
+
 Before that narrowing, all immersion techniques were evaluated as candidates,
 including immediate local word/phrase flips followed by whole-sentence local or
 language-model translation. An unsigned native Mac diagnostic completed 162

@@ -219,7 +219,7 @@ class ScriptConversationInteractionTest {
                     val scriptBaseline = checkNotNull(snapshot())
                     menu(); node(By.text("Show original script")).click()
                     stable(scriptBaseline, awaitVisible(face(true))); capture("script")
-                    menu(); node(By.text("Show transliteration")).click(); stable(scriptBaseline, awaitVisible(mixed))
+                    menu(); node(By.text("Show Latin letters")).click(); stable(scriptBaseline, awaitVisible(mixed))
                 }
                 val audio = JSONArray(); var afterFirst: Map<String, Pair<Long, Long>>? = null
                 row.put("stage", "audio"); save()

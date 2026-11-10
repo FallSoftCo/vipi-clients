@@ -91,7 +91,7 @@ class SpeechInteractionDeviceTest {
             }
             assertTrue("No active audio snapshot sampled", samples > 0)
             waitFor("Listen")
-            tap("Find your language"); waitFor("I already speak")
+            tap("Choose languages"); waitFor("I already speak")
             assertFalse(device.hasObject(By.text("TRY A LITTLE SPANISH")))
             File(directory, "report.json").writeText(JSONObject().put("status", "passed").put("audioSnapshotSamples", samples)
                 .put("evidence", "native_touch_cancel_and_continuous_state_freeze_not_acoustic_or_screen_reader_acceptance").toString(2))

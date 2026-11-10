@@ -10,7 +10,7 @@ final class LanguageSettingsTests: XCTestCase {
             XCTAssertTrue(app.buttons["Your profile and settings"].waitForExistence(timeout: 10)); app.buttons["Your profile and settings"].tap()
             XCTAssertTrue(app.buttons["language-settings-link"].waitForExistence(timeout: 5)); app.buttons["language-settings-link"].tap()
             for (identifier,title,last) in [("language-source-picker","I already speak","Swahili"),
-                                             ("language-target-picker","I’m picking up","Swahili · Kiswahili")] {
+                                             ("language-target-picker","I want to learn","Swahili · Kiswahili")] {
                 XCTAssertTrue(app.buttons[identifier].waitForExistence(timeout: 5)); app.buttons[identifier].tap()
                 XCTAssertTrue(app.navigationBars[title].waitForExistence(timeout: 5))
                 try app.performAccessibilityAudit { issue in

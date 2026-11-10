@@ -351,7 +351,8 @@
         "immersion matches",
         "ordinary readings",
         "synthesized speech",
-        "learning preferences"
+        "learning preferences",
+        "account-local word/phrase exposure-day counters and keyed identifiers"
       ],
       "recipients": [
         "on-device engines"
@@ -364,11 +365,20 @@
         "ios/Vipi/SwahiliTranslation.swift",
         "ios/Vipi/MessageLanguage.swift",
         "android/app/src/main/java/co/fallsoft/vipi/LocalTranslation.kt",
-        "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt"
+        "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt",
+        "ios/Vipi/VocabularyFamiliarityStore.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt"
       ],
       "open": [
         "Complete final release-device network observations, including installed system voices; source review is not proof of every third-party runtime behavior."
-      ]
+      ],
+      "familiarity_record": {
+        "purpose": "Adjust target-language dwell time from completed visible displays; no claim of attention or mastery.",
+        "storage": "Encrypted per-account MessageVault records; HMAC-SHA256 identifiers with an independent random per-account 32-byte key. No message text or message identifiers in these records.",
+        "network": "No upload path in the two inspected familiarity stores.",
+        "retention": "Stored with the local account vault; not part of the explicit human-message history export.",
+        "qualification": "Android persistence and account/pair isolation qualified; Apple encrypted persistence remains unqualified while signing/keychain hold is unchanged."
+      }
     },
     {
       "id": "language_sdk_operations",
@@ -674,5 +684,36 @@
     "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
     "https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html"
   ],
-  "working_tree_note": "Hash list binds the inspected bytes; backend/vipi/public_pages.py includes the pending notice correction beyond source_commit. Unrelated team edits are outside this inventory."
+  "working_tree_note": "Hash list binds the inspected bytes; backend/vipi/public_pages.py includes the pending notice correction beyond source_commit. Unrelated team edits are outside this inventory.",
+  "incremental_reviews": [
+    {
+      "reviewed_at": "2026-11-10",
+      "base_commit": "28be80d5ad7554bcac4ddda4c11261da0602a0c6",
+      "scope": "Local exposure records and corresponding draft privacy notice; earlier SDK/provider audit remains dated November 8. This does not claim a fresh whole-app privacy audit.",
+      "files": [
+        {
+          "path": "ios/Vipi/VocabularyFamiliarityStore.swift",
+          "sha256": "925087bf16be803ea5fd180e7e1e83676b42094f86fb181f704c259839f4ab47"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt",
+          "sha256": "752fd427c0389090ea03d0da6a028f13cdc3260614c3c8bfeaef0752f418c10c"
+        },
+        {
+          "path": "ios/Vipi/HistoryBackupCodec.swift",
+          "sha256": "c884a003f6c30018b7752ccd86788032030d8771b7655915d2a863a14e889805"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/HistoryBackupCodec.kt",
+          "sha256": "0a767c922a12ccf5e37ed39e3ff5e13d2bbb680447132b3cddcdf0d93f011d31"
+        },
+        {
+          "path": "backend/vipi/public_pages.py",
+          "sha256": "ab85d7dc363b61cbc7ee597919a28e956bb35f7e39f8e9c9fa0bb5b55b3a1115"
+        }
+      ],
+      "store_forms_submitted": false,
+      "notice_deployed": false
+    }
+  ]
 }

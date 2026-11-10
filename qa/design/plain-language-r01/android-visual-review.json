@@ -1,0 +1,26 @@
+{
+  "onboarding_visual": "accepted for tested 1080x2400 API35 emulator at font1.0 and2.0",
+  "welcome": "Literal headline and explanation readable in light and dark; remaining coverage text reachable by scrolling.",
+  "language": "Labels visible at default; large font uses scroll flow.",
+  "account": "Language-to-account arrival resets to top; full heading readable, stacked legal links and enabled CTA reachable at maximum text.",
+  "arrival_heading_bounds": "[68,389][1012,783]",
+  "sign_in_invoked": false,
+  "capture_issue": "CLI UIAutomator intermittently returned null; failed attempts did not reuse stale dumps. Large-font readiness corrected to visible heading rather than below-fold picker.",
+  "controls_tests": "OK (2 tests), ContinuousImmersionDeviceTest and LanguageReadingDeviceTest; 120.139 seconds",
+  "source_changes": false,
+  "complete": true,
+  "continuous_switching": "Six no-tap transitions with identical [174,1251][927,1388] bounds, pause/resume and original action passed.",
+  "latin_letters": "Japanese, Chinese, Arabic and Korean prepared examples passed default Latin letters, original script, Show Latin letters and prepared full translation controls. Four reading screenshots visually inspected: no stacked text or clipped controls.",
+  "menus": "Reading-options and Slower/Standard/Faster modal inspected, labels readable. Translation-download explanation inspected, complete and visible. No download requested.",
+  "limitations": [
+    "Prepared examples do not qualify live language coverage or translation quality.",
+    "No acoustic listening or authenticated chat/subscription flows tested in this copy-only pass.",
+    "Welcome first viewport shows only beginning of coverage note; content scrolls. No source changes needed."
+  ],
+  "restoration": "preferences hashes exactly restored; font1.0/night no restored; QA app stopped; owned emulator shut down",
+  "excluded_diagnostic_frames": [
+    "diagnostic.png",
+    "diagnostic-download.png",
+    "current.png"
+  ]
+}

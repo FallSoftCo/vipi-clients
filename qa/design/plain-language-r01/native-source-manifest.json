@@ -1,0 +1,142 @@
+{
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ChatImmersionDeviceTest.kt": {
+    "sha256": "477293ccfd3cf00afa2c3c0063274362586e6f72917119da9a973734315caf9c",
+    "base_sha256": "a584ce1d35cb6700efc869f562d85d629d2317bc92445ea1e5ac22dc2761e555"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ChineseReadingConversationDeviceTest.kt": {
+    "sha256": "b8dcc68841a2187037eaf87866d63f61ba379e660379377cc83ad880c62b5fcc",
+    "base_sha256": "0139a95b5a6308080033ae52913cf14cbd84f92f6bb3ae225dbf99521b9f2f38"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ContextualMessageActionsDeviceTest.kt": {
+    "sha256": "842b8953c6b6879cb956cf67eecab0962b3acf27f464419b6f642c5519c7a1ad",
+    "base_sha256": "13b2339954e816bccc239649323ca477dc8ae9551c0e066ef53baaa2693d9b9e"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/DefaultReadingConversationDeviceTest.kt": {
+    "sha256": "493f9342588acce4abdcea08d0cc817c332c6f8ab003020ac4df0f06517e0233",
+    "base_sha256": "f61bcfa0b53981afb31fe024ce583094611e0aa356b689812a60af2215b2f5a0"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingCacheUIDeviceTest.kt": {
+    "sha256": "c490bdb8556848f81ad8ae4648e0710a2658875dafdc0a3ce6e1f5e0fbd687cc",
+    "base_sha256": "d8d4fb2241daae284493f0bf4bca7387faf546391c3288288c5e4e8fb7117328"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseReadingConversationDeviceTest.kt": {
+    "sha256": "0c174620b205f76543472f0f808337d78190615e7f4c76d38b640af82777c36f",
+    "base_sha256": "925ca4e77354b3f983ea2cf843d1e7931e43fb18b28ed9749c7bc29bf104aa0f"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageDownloadsUiTest.kt": {
+    "sha256": "29b2e05bd68b0ddd0ad36d6d48f99680c51412aebe10e4a8ceeda92e0c9910ba",
+    "base_sha256": "71e75cbe9fbfac40cbaf1e6b7fb1763a5b9cb3fc76cdd281f0e0a89342adf5c0"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageReadingDeviceTest.kt": {
+    "sha256": "43b6a3bc24784c577346fa454ad73a4f7ca57cbb890c18ea227e55ef1de71c68",
+    "base_sha256": "dd948ca0b6977530335d9e0499f95798b53c1f56292248406d8755196a40cf8b"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ScriptConversationInteractionTest.kt": {
+    "sha256": "faf07270124c62654c5db1a67f3958558234aa4af0a472d782f26c55e339b744",
+    "base_sha256": "3d7452d3563c31372e36b3b9e9e25841966d1451f3d27aa8a222b6e5cc1f0507"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/SentenceReadingsDeviceTest.kt": {
+    "sha256": "7adccd876d2864b4e140a8043934457a35259194ebe7a5e03e6971ab11a4c90f",
+    "base_sha256": "023223443efd60c3629c9fe8bb53a2aedeb5ff3d5e11f77ccd43ac4007d7299c"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/SourceUnitUIDeviceTest.kt": {
+    "sha256": "1da064b30a60af777d0939c73dc118133e37c4aa56d2e126ac34f5db9c466144",
+    "base_sha256": "52a6b22fdcf282043abbfd4209d19b40cef133b0a599fa0653bf042dcd206a4c"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/SpeechInteractionDeviceTest.kt": {
+    "sha256": "b69455d96e3b17ef27b17be52d4ec11df364252a18aed5012efa4dbd90697867",
+    "base_sha256": "d1d0d2dd8f4e352e96fc768c5b0bea2181bfb476b18eeb1241616b550ad2faf7"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt": {
+    "sha256": "01473cdf7b2f58dd68c99efa401001fdf487056a0f5d7327f1864b1955e93600",
+    "base_sha256": "a7800b4ab9f2593fd964f1465e25e9ca38d8f367586ef2214848f4aa1dcad6bb"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/TalkBackImmersionDeviceTest.kt": {
+    "sha256": "68c3fa906c8cb30dbdaed261e32781e499d7637d2c6a38ac1b91c3129ec145e1",
+    "base_sha256": "24ca56082c6084be4ddacf207e3c93c132da2c3c5e1b42428de58314b8ab5030"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": {
+    "sha256": "e87c5c6995f418d6acc03bdfe045a52c7270ac7ea6e57d791c96d239f2e043da",
+    "base_sha256": "b6b8fe07740d50c955e4bb1e07bc7c30832be89101c0c8dee12330badd4ebb8e"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ConversationPreview.kt": {
+    "sha256": "7c3e29333c0f44d7c14889d8410fdee0f0821484322a69602b41d0d39a65e151",
+    "base_sha256": "e73905ab810e590b6cf49aa5339cb7668756225f8d8215d4b7d1af708b17343e"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": {
+    "sha256": "71ea7770480199db4358fbf7366543b284c9bbd2f2aca2c8e48d1385ef19921b",
+    "base_sha256": "dc867c87eca1b228860031b27686263cf802ae4aa0428e847dfae8e63e1daebd"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/LanguageDownloadsScreen.kt": {
+    "sha256": "a7d66b6371eb741c6e2cfc5409a1bd6fe73c750f5a6ef468a5a8be4c003b108a",
+    "base_sha256": "da3c37e102b802a1e5c7c0b88742fd00a019069a6ec762587f6f1fcd1c22e5db"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+    "sha256": "6f7b1b5511d903a1161814897f032a04787e0a26d1d3004e0eac5f8896a4d5ac",
+    "base_sha256": "8ef0a83e21a0875603bb72ef5a79afda2e7b6036a2567632c5247bfd07f9cf6b"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/SubscriptionScreen.kt": {
+    "sha256": "20c516d8afae091ba3a4f16887d5a9416359e84cabb3e90db6fb25e08826c5e0",
+    "base_sha256": "313d1d8ada317e1b065934229deb95c3fe9315c7d092e46f84601724589b9e11"
+  },
+  "ios/Vipi/ConnectedChatView.swift": {
+    "sha256": "3348f9834a7d8f89ebcc7bc91f83295afa21fe9d0db2cb348b790b44c3681e5f",
+    "base_sha256": "5a9e8f84555fdb8ea92c1f4740e584370d35cc74a667fe85d689488fa8642b2c"
+  },
+  "ios/Vipi/ConversationPreview.swift": {
+    "sha256": "c563c98255da64cbe39aac8a21f74c3278ac411fcf99b4c9d8532fcbbbca00e0",
+    "base_sha256": "1835bf2a2b53019dfaf2b2b22a6099ff5f3a115bd1d7683168769e3e4ff0bce5"
+  },
+  "ios/Vipi/HomeView.swift": {
+    "sha256": "77d1d438b767dec08cef32ede12c323e89d4ae7f38a5338106c38d291b0b3231",
+    "base_sha256": "183710aad9429173be5a79059ae1a3f5e6e62b45df020255240c79fc8b446f2f"
+  },
+  "ios/Vipi/ImmersionBubble.swift": {
+    "sha256": "f2aa2e496cb4aa116b2e38efd12d89b6a181d6cc63063461f5575c3822d73e3a",
+    "base_sha256": "f0cb43817900d7f843473b0d42b83fb86c1d670feff5a56011de98f36dfbd3e7"
+  },
+  "ios/Vipi/LanguageDownloadView.swift": {
+    "sha256": "30e3779d6d378bb9961c64baffc9669d75cdd5cdad6fedb599ed114e28b5184c",
+    "base_sha256": "5c5c30504ceff35a1aa14ca55857a748e4ecadcc3a4f59531d023dd972948113"
+  },
+  "ios/Vipi/OnboardingView.swift": {
+    "sha256": "9f5c6aa56db6a7129cc88a69c03b8637926c3b5efe2b5ade056a7b779cbfecd9",
+    "base_sha256": "846345df6b2aa2827e70745f5047b26806e83c183c9e35ef090d8120cd7e5cc2"
+  },
+  "ios/Vipi/SubscriptionView.swift": {
+    "sha256": "c57f7a8c4bde788cc0b95e549921cfd71627b8c291f2bce06e3d2483e2a482ab",
+    "base_sha256": "f5f1e453a4e16395c6ebd6ceb5d3b0052de2f3ad2931e5598daa824486f180d6"
+  },
+  "ios/VipiUITests/ChatImmersionTests.swift": {
+    "sha256": "2645de13dce2888fa3cbe978e33723d5409632d640242a38511ac6d139cac483",
+    "base_sha256": "fd6e5734ec800b51fe2734f77197ed1cbccda1acd8774ac3c46512cb4e053383"
+  },
+  "ios/VipiUITests/ContinuousImmersionTests.swift": {
+    "sha256": "aeb228af10dd26188e03a71c4580715d281dca141862bf11321b9a4ab6a99d53",
+    "base_sha256": "e2c01180b3097c0ab9968152e634a9aaba801f3452811f8cac0d4468f753981f"
+  },
+  "ios/VipiUITests/LanguageReadingTests.swift": {
+    "sha256": "48da49476199f8e114ac9e64c78af0a22cb6804ccbc862e7d604faa56aa05065",
+    "base_sha256": "d56470551c1bcf7052606c3784ec8f08db983afdad4f771f4d1d23cd2ac43538"
+  },
+  "ios/VipiUITests/LanguageSettingsTests.swift": {
+    "sha256": "9122a06a3c59840ac896b9e3521cbe18d5fa6afa61a39978404a65f46bf8fd67",
+    "base_sha256": "1ca2e354f5331259020521c926ecc18049933d35c3a269be634a1acc0f6ee061"
+  },
+  "ios/VipiUITests/LiveSignInTests.swift": {
+    "sha256": "bedd1755bd199264bf2156b4e8bd5aa05c507caa72a895eec2e6d830605cf5e2",
+    "base_sha256": "2b85c48376bfa0354c0a6a7443a14acf6ef15561f32d860fa72d5945c1d8f0a2"
+  },
+  "ios/VipiUITests/SpeechInteractionTests.swift": {
+    "sha256": "8a4017429299c930d7e18689ac2e4573de574043f86e9480a5bad66c744405c6",
+    "base_sha256": "3ada46ac70c00b16f205a5fb571190c309b4cb6bb72a0b0b4c7a14a5714b2366"
+  },
+  "ios/VipiUITests/StarterRouteUITests.swift": {
+    "sha256": "fbd09f1c51a500a3a44e4c88e22c745ee48c2a194089908b6731ebe2e376a300",
+    "base_sha256": "1d42e986f218cfab0d19719d7edd5fb9bd35c8a8a594072012cc30d733879d74"
+  },
+  "ios/VipiUITests/VoiceOverDeviceTests.swift": {
+    "sha256": "aef35320a1bf359fee2b8c01bbb3d48c1418ec04cb8fc12a71bd8bf0537a389e",
+    "base_sha256": "3f951ae5b2dc99eb959dbedecd96197eebd381ba67050ea4d72ccf05c764a1d9"
+  }
+}

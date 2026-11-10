@@ -1,0 +1,41 @@
+{
+  "files": [
+    "ios/VipiUITests/ChatImmersionTests.swift",
+    "ios/VipiUITests/VoiceOverDeviceTests.swift",
+    "ios/VipiUITests/LiveSignInTests.swift",
+    "ios/VipiUITests/LanguageReadingTests.swift",
+    "ios/VipiUITests/SpeechInteractionTests.swift",
+    "ios/VipiUITests/ContinuousImmersionTests.swift",
+    "ios/VipiUITests/LanguageSettingsTests.swift",
+    "ios/VipiUITests/StarterRouteUITests.swift",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SpeechInteractionDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ScriptConversationInteractionTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/JapaneseReadingConversationDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SentenceReadingsDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/TalkBackImmersionDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageDownloadsUiTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/DefaultReadingConversationDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/StarterRouteDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ChatImmersionDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ContextualMessageActionsDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/FullReadingCacheUIDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/LanguageReadingDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SourceUnitUIDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ChineseReadingConversationDeviceTest.kt"
+  ],
+  "literal_replacements": {
+    "Find your language": "Choose languages",
+    "See the whole thought in": "Show full translation in",
+    "Back to immersion": "Resume word switching",
+    "I want to pick up": "I want to learn",
+    "I\u2019m picking up": "I want to learn",
+    "Show transliteration": "Show Latin letters",
+    "Switching pace": "Word switching speed",
+    "Show meanings now": "Show original words now",
+    "\"Immersed\"": "\"Word switching\"",
+    "\"Relaxed\"": "\"Slower\"",
+    "\"Balanced\"": "\"Standard\"",
+    "\"Brisk\"": "\"Faster\""
+  },
+  "test_semantics_changed": false
+}

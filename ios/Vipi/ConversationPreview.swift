@@ -31,11 +31,11 @@ struct ConversationPreview: View {
     var body: some View {
         if let result = ConversationExamples.result(source: source, target: target) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("CONVERSATION PREVIEW").font(.caption2.weight(.semibold)).tracking(1.2).foregroundStyle(VipiDesign.secondary)
+                Text("EXAMPLE MESSAGE").font(.caption2.weight(.semibold)).tracking(1.2).foregroundStyle(VipiDesign.secondary)
                 ImmersionBubble(result: .complete(result), mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
                     messageID: "language-preview-\(source)-\(target)", interactionPaused: scrolling, fullReading: ConversationExamples.examples?.languages[target]?.reading)
-                Text("A sample plan with a friend. Words keep switching; their meaning stays close.").font(.footnote).foregroundStyle(VipiDesign.secondary)
-                Button(mode == .translation ? "Back to immersion" : "See the whole thought in \(VipiLanguage.named(target).name)") {
+                Text("Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.").font(.footnote).foregroundStyle(VipiDesign.secondary)
+                Button(mode == .translation ? "Resume word switching" : "Show full translation in \(VipiLanguage.named(target).name)") {
                     mode = mode == .translation ? .immersed : .translation
                 }.font(.footnote.weight(.semibold)).frame(minHeight: 44)
                 if let error = speech.error { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }

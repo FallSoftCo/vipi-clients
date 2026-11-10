@@ -39,11 +39,11 @@ internal object ConversationExamples {
     LaunchedEffect(speech) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     DisposableEffect(speech) { onDispose { speech.close() } }
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text("CONVERSATION PREVIEW", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("EXAMPLE MESSAGE", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
-        Text("A sample plan with a friend. Words keep switching; their meaning stays close.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }) {
-            Text(if (mode == ReadingMode.TRANSLATION) "Back to immersion" else "See the whole thought in ${languageName(target)}", fontSize = 13.sp)
+            Text(if (mode == ReadingMode.TRANSLATION) "Resume word switching" else "Show full translation in ${languageName(target)}", fontSize = 13.sp)
         }
         speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }

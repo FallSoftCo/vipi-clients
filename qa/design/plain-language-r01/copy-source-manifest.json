@@ -1,0 +1,17 @@
+{
+  "ios/Vipi/OnboardingView.swift": "9f5c6aa56db6a7129cc88a69c03b8637926c3b5efe2b5ade056a7b779cbfecd9",
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": "6f7b1b5511d903a1161814897f032a04787e0a26d1d3004e0eac5f8896a4d5ac",
+  "design/store-metadata-draft.json": "f8f30ba2dce27d5ff9d4c6708f70c3fe6687230fb737fc67767e2b9831c489dc",
+  "release/store-metadata-en-US.json": "fd5846caff33331516ab13593a84ea530c74cf10cbd3766afa47096f668f66db",
+  "ios/Vipi/ConversationPreview.swift": "c563c98255da64cbe39aac8a21f74c3278ac411fcf99b4c9d8532fcbbbca00e0",
+  "ios/Vipi/HomeView.swift": "77d1d438b767dec08cef32ede12c323e89d4ae7f38a5338106c38d291b0b3231",
+  "ios/Vipi/SubscriptionView.swift": "c57f7a8c4bde788cc0b95e549921cfd71627b8c291f2bce06e3d2483e2a482ab",
+  "android/app/src/main/java/co/fallsoft/vipi/ConversationPreview.kt": "7c3e29333c0f44d7c14889d8410fdee0f0821484322a69602b41d0d39a65e151",
+  "android/app/src/main/java/co/fallsoft/vipi/SubscriptionScreen.kt": "20c516d8afae091ba3a4f16887d5a9416359e84cabb3e90db6fb25e08826c5e0",
+  "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": "e87c5c6995f418d6acc03bdfe045a52c7270ac7ea6e57d791c96d239f2e043da",
+  "ios/Vipi/LanguageDownloadView.swift": "30e3779d6d378bb9961c64baffc9669d75cdd5cdad6fedb599ed114e28b5184c",
+  "android/app/src/main/java/co/fallsoft/vipi/LanguageDownloadsScreen.kt": "a7d66b6371eb741c6e2cfc5409a1bd6fe73c750f5a6ef468a5a8be4c003b108a",
+  "ios/Vipi/ImmersionBubble.swift": "f2aa2e496cb4aa116b2e38efd12d89b6a181d6cc63063461f5575c3822d73e3a",
+  "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": "71ea7770480199db4358fbf7366543b284c9bbd2f2aca2c8e48d1385ef19921b",
+  "ios/Vipi/ConnectedChatView.swift": "3348f9834a7d8f89ebcc7bc91f83295afa21fe9d0db2cb348b790b44c3681e5f"
+}

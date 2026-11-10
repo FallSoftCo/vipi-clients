@@ -111,9 +111,9 @@ class ChineseReadingConversationDeviceTest {
                     check(device.takeScreenshot(File(out, "$id-reading.png")))
                     if (expected != null) {
                         choose("Show original script"); node(By.text(text)); check(device.takeScreenshot(File(out, "$id-script.png")))
-                        choose("Show transliteration"); node(By.text(expected))
+                        choose("Show Latin letters"); node(By.text(expected))
                     } else {
-                        node(By.desc("Reading options")).click(); assertTrue(nodes(By.text("Show transliteration")).isEmpty())
+                        node(By.desc("Reading options")).click(); assertTrue(nodes(By.text("Show Latin letters")).isEmpty())
                         assertTrue(nodes(By.text("Show original script")).isEmpty()); device.pressBack(); row.put("unknown_script_retained", true)
                     }
                     choose("Copy original message"); var copied: String? = null

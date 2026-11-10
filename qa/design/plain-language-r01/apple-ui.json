@@ -1,0 +1,25 @@
+{
+  "started": "2026-11-10T21:19:09.305212+00:00",
+  "complete": true,
+  "command": [
+    "xcodebuild",
+    "-xctestrun",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/submit-copy-build-r01/ui-test-r01/qualification.xctestrun",
+    "-destination",
+    "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+    "-parallel-testing-enabled",
+    "NO",
+    "-maximum-concurrent-test-simulator-destinations",
+    "1",
+    "-resultBundlePath",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/submit-copy-build-r01/ui-test-r01/test.xcresult",
+    "-only-testing:VipiCryptoTests/LocalUIReviewTests",
+    "test-without-building"
+  ],
+  "pid": 68721,
+  "exit": 0,
+  "seconds": 60.216964750085026,
+  "scope": "Only UI component navigation, max-type controls, six flips. Plain-language copy updated; no runtime or language data changes.",
+  "restored": true,
+  "lab_pid503_alive": true
+}

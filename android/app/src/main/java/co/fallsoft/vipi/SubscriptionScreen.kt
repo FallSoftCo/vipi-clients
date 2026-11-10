@@ -37,9 +37,9 @@ import kotlinx.coroutines.launch
         }
     }
     fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = "This link couldn’t open. Please try again." } }
-    Text(if (plan == SubscriptionPlan.BASE) "A new language,\nin your everyday life." else "More conversation\nwith vBot.", fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
-    Text(if (plan == SubscriptionPlan.BASE) "Private chats, local immersion, and offline speech. Bot mini is a separate, optional plan."
-        else "Bot mini adds vBot to your Vipi plan. It is a separate subscription, with its own renewal date.", lineHeight = 23.sp)
+    Text(if (plan == SubscriptionPlan.BASE) "Chat with friends.\nLearn words as you read." else "Chat with vBot.", fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
+    Text(if (plan == SubscriptionPlan.BASE) "Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan."
+        else "Bot mini adds chatbot conversations with vBot to your Vipi plan. Automated replies can be mistaken. It is a separate subscription, with its own renewal date.", lineHeight = 23.sp)
     if (plan == SubscriptionPlan.BOT_MINI) Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.", style = MaterialTheme.typography.bodyMedium)
     if (plan == SubscriptionPlan.BOT_MINI) {
         val amount = botAllowance?.takeIf { it.serviceReady }?.monthly?.takeIf { it > 0 }

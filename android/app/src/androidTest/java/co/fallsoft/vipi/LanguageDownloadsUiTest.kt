@@ -61,7 +61,7 @@ class LanguageDownloadsUiTest {
             compose.onNodeWithText("Spanish and Swahili are ready for offline translation.").assertIsDisplayed()
             compose.runOnIdle { theme.value = Appearance.DARK }; compose.waitForIdle()
             capture("android-languages-dark.png")
-            compose.onNodeWithContentDescription("I’m picking up").performClick()
+            compose.onNodeWithContentDescription("I want to learn").performClick()
             compose.onNodeWithText("Japanese · 日本語").performClick()
             compose.onNodeWithText("Download languages").performScrollTo().performClick()
             compose.onNodeWithText("Spanish and Japanese are ready for offline translation.").performScrollTo().assertIsDisplayed()

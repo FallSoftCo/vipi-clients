@@ -43,7 +43,7 @@ import XCTest
                 let expected=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",expanded ? "The コーヒー and パン are for 昼食." : packed ? "My 家族 and my 家族 enjoy ピザ." : "Country 音楽 is fun!"),object:paragraph)
                 XCTAssertEqual(XCTWaiter.wait(for:[expected],timeout:12),.completed)
                 let script=XCTAttachment(screenshot:app.screenshot());script.name="starter-ui-ja-native-script";script.lifetime = .keepAlways;add(script)
-                app.buttons["Reading options"].tap();XCTAssertTrue(app.buttons["Show transliteration"].exists);app.buttons["Show transliteration"].tap()
+                app.buttons["Reading options"].tap();XCTAssertTrue(app.buttons["Show Latin letters"].exists);app.buttons["Show Latin letters"].tap()
             } else {
                 XCTAssertFalse(app.buttons["Show original script"].exists);app.coordinate(withNormalizedOffset:CGVector(dx:0.95,dy:0.1)).tap()
             }

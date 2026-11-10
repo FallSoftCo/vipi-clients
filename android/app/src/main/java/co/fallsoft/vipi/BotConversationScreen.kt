@@ -81,7 +81,7 @@ import java.time.format.FormatStyle
                     OutlinedTextField(bot.draft, { value ->
                         if (value.toByteArray(Charsets.UTF_8).size <= 8192) runCatching { bot.saveDraft(value); localError = null }
                             .onFailure { localError = "Your draft couldn’t be saved. Please try again." }
-                        else localError = "This message is too long. Send a shorter thought."
+                        else localError = "This message is too long. Send a shorter message."
                     }, placeholder = { Text("Message vBot") }, maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
                     FilledIconButton(onClick = { scope.launch { bot.send() } }, enabled = !bot.busy && bot.draft.isNotBlank() && bot.allowance?.let { it.available && it.remaining > 0 } == true) {
                         if (bot.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp) else Icon(Icons.Outlined.ArrowUpward, "Send to vBot")
@@ -94,7 +94,7 @@ import java.time.format.FormatStyle
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 if (bot.earlierAvailable) TextButton(onClick = { runCatching { bot.earlier() }.onFailure { localError = "Earlier messages couldn’t be opened." } }) { Text("Earlier messages") }
-                else Text("A conversation about whatever is on your mind. Replies can be mistaken; check important details.", style = MaterialTheme.typography.bodySmall)
+                else Text("Ask vBot a question or talk about your day. vBot is a chatbot and can make mistakes; check important details.", style = MaterialTheme.typography.bodySmall)
             }
             items(bot.messages, key = { it.id }) { message ->
                 Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp)).padding(14.dp)) {

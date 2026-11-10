@@ -35,7 +35,7 @@ struct ConnectedChatRoot: View {
                 else if chat.needsProfile { ProfileSetupView(chat: chat) }
                 else {
                     ContentUnavailableView {
-                        Label(chat.busy ? "Getting your Vipi ready" : "Let’s reconnect", systemImage: "bubble.left.and.bubble.right")
+                        Label(chat.busy ? "Connecting to your chats" : "Reconnect to your chats", systemImage: "bubble.left.and.bubble.right")
                     } description: { Text(chat.notice ?? "Your conversations stay on your device.") }
                     actions: {
                         if chat.busy { ProgressView() }
@@ -47,7 +47,7 @@ struct ConnectedChatRoot: View {
                 }
             } else if let error {
                 ContentUnavailableView("Your conversations couldn’t be opened", systemImage: "lock.shield", description: Text(error))
-            } else { ProgressView("Getting your Vipi ready") }
+            } else { ProgressView("Connecting to your chats") }
         }
         .background(VipiDesign.canvas)
         .sheet(isPresented: $showReplacement) {
@@ -99,7 +99,7 @@ struct ProfileSetupView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
                 VipiMark(size: 50)
-                IntroHeading(eyebrow: "Make yourself at home", title: "How will friends\nfind you?", detail: "Choose a name they’ll recognise and a username to share.")
+                IntroHeading(eyebrow: "Your profile", title: "How will friends\nfind you?", detail: "Choose a name they’ll recognise and a username to share.")
                 VStack(alignment: .leading, spacing: 14) {
                     TextField("Your name", text: $name).textContentType(.name).accessibilityIdentifier("profile-name")
                     Divider()
@@ -239,7 +239,7 @@ struct FriendConversationView: View {
             HStack(spacing: 12) {
                 if immersion.availability == .downloadable || immersion.availability == .unsupported {
                     NavigationLink { LanguageDownloadView() } label: {
-                        statusLabel("Prepare languages", symbol: "arrow.down.circle")
+                        statusLabel("Translation downloads", symbol: "arrow.down.circle")
                     }.accessibilityIdentifier("conversation-language-download")
                 }
                 Spacer(minLength: 0)

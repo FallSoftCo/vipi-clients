@@ -16,7 +16,7 @@ final class ChatImmersionTests: XCTestCase {
         app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["ZoëとJoséにメッセージを送った。"].waitForExistence(timeout: 5))
         capture("ios-japanese-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Mizu ga hitsuyō desu."].waitForExistence(timeout: 5))
@@ -27,7 +27,7 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-japanese-unknown-reading-abstains")
         app.buttons["Reading options"].tap()
         XCTAssertFalse(app.buttons["Show original script"].exists)
-        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertFalse(app.buttons["Show Latin letters"].exists)
         XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
@@ -44,7 +44,7 @@ final class ChatImmersionTests: XCTestCase {
         app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["같이 학교에 갑니다."].waitForExistence(timeout: 5))
         capture("ios-korean-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Muri piryohaeyo."].waitForExistence(timeout: 5))
@@ -55,7 +55,7 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-korean-unknown-reading-abstains")
         app.buttons["Reading options"].tap()
         XCTAssertFalse(app.buttons["Show original script"].exists)
-        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertFalse(app.buttons["Show Latin letters"].exists)
         XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
@@ -165,7 +165,7 @@ final class ChatImmersionTests: XCTestCase {
         app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["银行行长正在走路。"].waitForExistence(timeout: 5))
         capture("ios-chinese-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Wǒ xūyào shuǐ."].waitForExistence(timeout: 5))
@@ -176,7 +176,7 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-chinese-unknown-reading-abstains")
         app.buttons["Reading options"].tap()
         XCTAssertFalse(app.buttons["Show original script"].exists)
-        XCTAssertFalse(app.buttons["Show transliteration"].exists)
+        XCTAssertFalse(app.buttons["Show Latin letters"].exists)
         XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
@@ -281,7 +281,7 @@ final class ChatImmersionTests: XCTestCase {
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup", "-vipi-density", "0.25"]; app.launch() }
         let menu = app.buttons["Reading options"]
         XCTAssertTrue(menu.waitForExistence(timeout: 20)); menu.tap()
-        for title in ["Pause word switching", "Switching pace", "Show meanings now"] {
+        for title in ["Pause word switching", "Word switching speed", "Show original words now"] {
             XCTAssertFalse(app.buttons[title].exists)
         }
         XCTAssertTrue(app.buttons["Copy original message"].exists)
@@ -315,16 +315,16 @@ final class ChatImmersionTests: XCTestCase {
             capture("ios-request-reading-largest-" + code)
             menu.tap()
             XCTAssertFalse(app.buttons["Pause word switching"].exists)
-            XCTAssertFalse(app.buttons["Switching pace"].exists)
+            XCTAssertFalse(app.buttons["Word switching speed"].exists)
             app.buttons["Show original script"].tap()
             XCTAssertTrue(app.staticTexts[native].waitForExistence(timeout: 5))
             menu.tap(); app.buttons["English"].tap()
             XCTAssertTrue(app.staticTexts["I need a phone charger."].waitForExistence(timeout: 5))
             if code == "ar" {
-                menu.tap(); app.buttons["Immersed"].tap()
-                for label in ["Relaxed", "Balanced"] {
+                menu.tap(); app.buttons["Word switching"].tap()
+                for label in ["Slower", "Standard"] {
                     menu.tap()
-                    let pace = app.buttons["Switching pace"]
+                    let pace = app.buttons["Word switching speed"]
                     XCTAssertTrue(pace.isHittable)
                     pace.tap()
                     XCTAssertTrue(app.buttons[label].waitForExistence(timeout: 5))
@@ -341,11 +341,11 @@ final class ChatImmersionTests: XCTestCase {
         app.launchArguments = ["-vipi-language", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
         defer { app.terminate(); app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es"]; app.launch() }
-        let targetPicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I want to pick up'")).firstMatch
+        let targetPicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I want to learn'")).firstMatch
         XCTAssertTrue(targetPicker.waitForExistence(timeout: 15)); targetPicker.tap()
         app.buttons["Swahili · Kiswahili"].tap()
         XCTAssertTrue(app.buttons["Continue with Swahili"].waitForExistence(timeout: 5))
-        let whole = app.buttons["See the whole thought in Swahili"]
+        let whole = app.buttons["Show full translation in Swahili"]
         for _ in 0..<3 {
             if whole.isHittable && whole.frame.maxY < app.buttons["Continue with Swahili"].frame.minY - 24 { break }
             app.scrollViews.firstMatch.swipeUp()
@@ -353,13 +353,13 @@ final class ChatImmersionTests: XCTestCase {
         whole.tap()
         XCTAssertTrue(app.staticTexts["Kahawa kesho? Ninajua sehemu ndogo karibu na mto."].waitForExistence(timeout: 5))
         capture("ios-onboarding-swahili-whole-thought")
-        app.buttons["Back to immersion"].tap()
+        app.buttons["Resume word switching"].tap()
         for _ in 0..<3 { if targetPicker.isHittable { break }; app.swipeDown() }
         let sourcePicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I already speak'")).firstMatch
         sourcePicker.tap(); app.buttons["Swahili"].tap()
         targetPicker.tap(); app.buttons["English · English"].tap()
         XCTAssertTrue(app.buttons["Continue with English"].waitForExistence(timeout: 5))
-        let reverseWhole = app.buttons["See the whole thought in English"]
+        let reverseWhole = app.buttons["Show full translation in English"]
         for _ in 0..<3 {
             if reverseWhole.isHittable && reverseWhole.frame.maxY < app.buttons["Continue with English"].frame.minY - 24 { break }
             app.scrollViews.firstMatch.swipeUp()
@@ -428,7 +428,7 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-japanese-whole-reading")
         app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["私は音楽が好きです。"].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["Show transliteration"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(app.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 5))
         app.buttons["Reading options"].tap(); app.buttons["English"].tap()
         XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
@@ -500,7 +500,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
         app.buttons["Reading options"].tap(); app.buttons["Swahili"].tap()
         XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["Immersed"].tap()
+        app.buttons["Reading options"].tap(); app.buttons["Word switching"].tap()
         app.buttons["Reading options"].tap(); app.buttons["Message language"].tap()
         app.buttons["Swahili"].tap()
         XCTAssertTrue(immersed.waitForExistence(timeout: 10))
@@ -623,7 +623,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
         capture("ios-swahili-whole-translation-light")
         app.buttons.matching(NSPredicate(format: "label == %@", "Reading options")).allElementsBoundByIndex.last!.tap()
-        app.buttons["Immersed"].tap()
+        app.buttons["Word switching"].tap()
         XCTAssertTrue(target.waitForExistence(timeout: 10))
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
         input.tap(); input.typeText("I am eating bread now.")

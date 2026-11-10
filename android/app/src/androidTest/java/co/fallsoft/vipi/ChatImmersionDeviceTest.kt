@@ -33,7 +33,7 @@ class ChatImmersionDeviceTest {
                 onModeChange = { mode.value = it }, originalMessage = result.original)
         } }
         compose.onNodeWithContentDescription("Reading options").performClick()
-        for (title in listOf("Pause word switching", "Switching pace", "Show meanings now"))
+        for (title in listOf("Pause word switching", "Word switching speed", "Show original words now"))
             compose.onNodeWithText(title).assertDoesNotExist()
         compose.onNodeWithText("Copy original message").assertIsDisplayed()
         compose.onNodeWithText("Swahili").performClick()
@@ -115,7 +115,7 @@ class ChatImmersionDeviceTest {
             compose.onNodeWithText("Ninapenda muziki.").assertIsDisplayed()
             capture("android-swahili-whole-translation-light")
             compose.onAllNodesWithContentDescription("Reading options").onLast().performClick()
-            compose.onNodeWithText("Immersed").performClick()
+            compose.onNodeWithText("Word switching").performClick()
             compose.waitUntil(10_000) { lastParagraph()?.first == "I like muziki." }
             compose.onAllNodesWithContentDescription("Reading options").onLast().performClick()
             compose.onNodeWithText("Message language").performClick()

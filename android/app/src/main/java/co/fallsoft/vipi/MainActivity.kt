@@ -242,9 +242,9 @@ class MainActivity : ComponentActivity() {
         owner.lifecycle.addObserver(observer)
         onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
     }
-    Heading("A little language, every day", "Your conversations.\nA new language.", "Familiar conversations. New words and short phrases, woven into what you read.")
+    Heading("Language learning through chat", "Chat with friends.\nLearn new words.", "Selected words and short phrases switch between your language and the language you choose. Message order and grammar stay the same.")
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Text("TRY A LITTLE SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
+        Text("EXAMPLE: ENGLISH AND SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
         if (speech.state == SpeechState.UNAVAILABLE) {
             Text(speech.error ?: "Voices aren’t ready.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -253,7 +253,7 @@ class MainActivity : ComponentActivity() {
                 TextButton(onClick = { speech.prepare(warmups) }) { Text("Retry") }
             }
         } else speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        Text("Highlighted words keep switching between Spanish and English. Pause whenever you like.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Watch the highlighted words switch in place. Tap Pause to stop them or Listen to hear pronunciation.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.ORIGINAL) ReadingMode.IMMERSED else ReadingMode.ORIGINAL }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
             Text(if (mode == ReadingMode.ORIGINAL) "Resume Spanish words" else "Show original message", fontSize = 13.sp)
@@ -261,14 +261,14 @@ class MainActivity : ComponentActivity() {
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Icon(Icons.Outlined.Spa, null, tint = MaterialTheme.colorScheme.primary)
-        Text("Small words. Familiar moments. Listen to pronunciation as you read.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 21.sp)
+        Text("This is an example. In your chats, only supported words and phrases switch. The rest stays unchanged.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 21.sp)
     }
 }
 
 @Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
     var targetMenu by remember { mutableStateOf(false) }
     var knownMenu by remember { mutableStateOf(false) }
-    Heading("Make it your world", "Make room for\na new language.", "Start with one. You can change it whenever you like.")
+    Heading("Language settings", "Choose your\nlanguages.", "Choose the language you know and the one you want to learn. You can change these later.")
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("I already speak", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
@@ -280,23 +280,23 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    Text("I want to pick up", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
+    Text("I want to learn", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
     Box {
         Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { targetMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(languageName(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, "Choose your immersion language")
+            Text(languageName(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, "Choose the language you want to learn")
         }
         DropdownMenu(expanded = targetMenu, onDismissRequest = { targetMenu = false }) {
             initialLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${language.name} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
         }
     }
     key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling) }
-    Text("Language downloads stay on your phone. You choose when to download them.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text("Available words and phrases vary by language. Pronunciation may need a voice download.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 @Composable private fun AccountView() {
-    Heading("A place for your people", "Say hello\nas yourself.", "Create an account or sign in. Your email stays private; friends will find you by your username.")
+    Heading("Your account", "Sign in to\nchat with friends.", "Create an account or sign in to an existing one. Friends find you by username, not your email.")
     Column(Modifier.background(MaterialTheme.colorScheme.surface, RoundedCornerShape(22.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-        Text("Your chats belong to you."); Text("Your immersion happens on your phone."); Text("You decide who can reach you.")
+        Text("Find friends by username."); Text("Your email is not shown to friends."); Text("Chats with friends are end-to-end encrypted.")
     }
 }
 
@@ -315,10 +315,10 @@ class MainActivity : ComponentActivity() {
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
             model.authentication.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.error) }
         }
-        PrimaryButton(when (model.screen) { Screen.WELCOME -> "Find your language"; Screen.LANGUAGE -> "Continue with ${languageName(model.targetLanguage)}"; else -> "Continue to sign in" }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
+        PrimaryButton(when (model.screen) { Screen.WELCOME -> "Choose languages"; Screen.LANGUAGE -> "Continue with ${languageName(model.targetLanguage)}"; else -> "Continue to sign in" }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
         }
-        if (model.screen == Screen.WELCOME && !largeText) Text("Try the example before you sign in.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
+        if (model.screen == Screen.WELCOME && !largeText) Text("No account needed to try this example.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
     }
 }
 
@@ -328,7 +328,7 @@ class MainActivity : ComponentActivity() {
     val context = LocalContext.current
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
     if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && (chat?.ready != true || model.chatError != null)) {
-        Text("Getting your Vipi ready", fontFamily = FontFamily.Serif, fontSize = 30.sp)
+        Text("Connecting to your chats", fontFamily = FontFamily.Serif, fontSize = 30.sp)
         Text(model.chatError ?: chat?.notice ?: "Your conversations stay on your device.", color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (chat?.busy == true) CircularProgressIndicator()
         else PrimaryButton("Try again") { scope.launch { model.activateChats() } }
@@ -351,15 +351,15 @@ class MainActivity : ComponentActivity() {
         }
     } else Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp)).padding(26.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         VipiMark(54)
-        Text("Your world,\none conversation away.", fontFamily = FontFamily.Serif, fontSize = 28.sp, lineHeight = 35.sp)
-        Text("Bring a friend. Make plans. Talk about your day. A little ${languageName(model.targetLanguage)} will find its way in.", lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Start a chat\nwith a friend.", fontFamily = FontFamily.Serif, fontSize = 28.sp, lineHeight = 35.sp)
+        Text("Find a friend by username and send a message. Supported words and phrases will switch into ${languageName(model.targetLanguage)} as you read.", lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         PrimaryButton("Start a conversation") { model.navigate(Screen.NEW_CHAT) }
     }
     chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
     Row(Modifier.fillMaxWidth().clickable { model.openBot() }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(50.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(18.dp)).padding(13.dp), tint = MaterialTheme.colorScheme.primary)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text("vBot", fontWeight = FontWeight.SemiBold); Text("A conversation whenever you feel like one.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text("vBot", fontWeight = FontWeight.SemiBold); Text("Chat with a chatbot. Requires the separate Bot mini plan.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         Icon(Icons.Outlined.ChevronRight, null)
     }
 }
@@ -369,7 +369,7 @@ class MainActivity : ComponentActivity() {
     var error by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    Heading("Your people", "Start a conversation.", "Enter their exact Vipi username. Your phone contacts stay private.")
+    Heading("Find a friend", "Start a conversation.", "Enter their exact Vipi username. Your phone contacts stay private.")
     OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Friend’s username") }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
     PrimaryButton("Find friend", enabled = username.isNotBlank(), busy = busy) {
@@ -393,15 +393,15 @@ class MainActivity : ComponentActivity() {
 @Composable private fun SettingsView(model: VipiModel) {
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     var linkError by remember { mutableStateOf<String?>(null) }
-    Text("Your Vipi", fontFamily = FontFamily.Serif, fontSize = 34.sp)
-    Text("Your immersion", fontWeight = FontWeight.SemiBold)
+    Text("Settings", fontFamily = FontFamily.Serif, fontSize = 34.sp)
+    Text("Words in your chats", fontWeight = FontWeight.SemiBold)
     TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text("Your plan") }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text("Chat backup") }
     Row(Modifier.fillMaxWidth().clickable { model.navigate(Screen.LANGUAGE_DOWNLOAD) }.padding(vertical = 14.dp)) { Text("Languages & downloads"); Spacer(Modifier.weight(1f)); Text(languageName(model.targetLanguage), color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Column {
-        Row { Text("A little or a little more"); Spacer(Modifier.weight(1f)); Text("${(model.density * 100).toInt()}%") }
-        Slider(value = model.density.toFloat(), onValueChange = { model.changeDensity(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = "Immersion amount" })
-        Text("The amount of unfamiliar vocabulary you see. You can always reveal the original.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Row { Text("How many words change"); Spacer(Modifier.weight(1f)); Text("${(model.density * 100).toInt()}%") }
+        Slider(value = model.density.toFloat(), onValueChange = { model.changeDensity(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = "Amount of words to switch" })
+        Text("Choose how much of each message you want to switch. The amount shown depends on available words and phrases.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     Text("Appearance", fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->

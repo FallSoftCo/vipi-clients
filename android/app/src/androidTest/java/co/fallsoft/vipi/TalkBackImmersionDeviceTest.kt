@@ -129,10 +129,10 @@ class TalkBackImmersionDeviceTest {
                 automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Swahili" }
             }
             val menuLabels = nodes(requireNotNull(automation.rootInActiveWindow)).map { it.text?.toString() }
-            for (inactive in listOf("Pause word switching", "Resume word switching", "Switching pace")) {
+            for (inactive in listOf("Pause word switching", "Resume word switching", "Word switching speed")) {
                 assertFalse("Inactive automatic controls must be absent with TalkBack", inactive in menuLabels)
             }
-            assertTrue("Show meanings now" in menuLabels)
+            assertTrue("Show original words now" in menuLabels)
             assertTrue(automation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK))
             compose.waitForIdle()
             tree = nodes(requireNotNull(automation.rootInActiveWindow))

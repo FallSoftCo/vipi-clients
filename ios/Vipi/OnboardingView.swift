@@ -61,15 +61,15 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "A little language, every day", title: "Your conversations.\nA new language.", detail: "Familiar conversations. New words and short phrases, woven into what you read.")
+            IntroHeading(eyebrow: "Language learning through chat", title: "Chat with friends.\nLearn new words.", detail: "Selected words and short phrases switch between your language and the language you choose. Message order and grammar stay the same.")
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Text("TRY A LITTLE SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
+                HStack { Text("EXAMPLE: ENGLISH AND SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
                 ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
                 if let error = speech.error {
                     Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary)
                     if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
                 }
-                Text("Highlighted words keep switching between Spanish and English. Pause whenever you like.").font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
+                Text("Watch the highlighted words switch in place. Tap Pause to stop them or Listen to hear pronunciation.").font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
                 Button {
                     withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) {
                         previewMode = previewMode == .original ? .immersed : .original
@@ -81,7 +81,7 @@ struct OnboardingView: View {
             }.padding(20).background(VipiDesign.outgoing.opacity(0.48), in: RoundedRectangle(cornerRadius: 28))
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: "leaf").font(.title3).foregroundStyle(VipiDesign.highlight)
-                Text("Small words. Familiar moments. Listen to pronunciation as you read.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
+                Text("This is an example. In your chats, only supported words and phrases switch. The rest stays unchanged.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
             }
         }.onAppear { preparePreviewVoices() }
             .onDisappear { speech.close() }
@@ -93,7 +93,7 @@ struct OnboardingView: View {
     private var languages: some View {
         @Bindable var state = state
         return VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "Make it your world", title: "Make room for\na new language.", detail: "Start with one. You can change it whenever you like.")
+            IntroHeading(eyebrow: "Language settings", title: "Choose your\nlanguages.", detail: "Choose the language you know and the one you want to learn. You can change these later.")
             VStack(alignment: .leading, spacing: 10) {
                 Text("I already speak").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
                 Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
@@ -101,8 +101,8 @@ struct OnboardingView: View {
                 }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
                     .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
             }
-            Text("I want to pick up").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
-            Picker("I want to pick up", selection: $state.targetLanguage) {
+            Text("I want to learn").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
+            Picker("I want to learn", selection: $state.targetLanguage) {
                 ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
                     Text("\(language.name) · \(language.localName)").tag(language.id)
                 }
@@ -111,21 +111,21 @@ struct OnboardingView: View {
             ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
             if ["ar", "zh", "ja", "ko"].contains(state.targetLanguage) {
-                Text("Latin letters help you follow along. Use Listen to hear pronunciation.")
+                Text("Reading guides show words in Latin letters. Tap Listen to hear pronunciation.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary)
             }
-            Label("Language downloads stay on your phone. You choose when to download them.", systemImage: "arrow.down.circle")
+            Label("Available words and phrases vary by language. Pronunciation may need a voice download.", systemImage: "arrow.down.circle")
                 .font(.footnote).foregroundStyle(VipiDesign.secondary)
         }
     }
 
     private var account: some View {
         VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "A place for your people", title: "Say hello\nas yourself.", detail: "Create an account or sign in. Your email stays private; friends will find you by your username.")
+            IntroHeading(eyebrow: "Your account", title: "Sign in to\nchat with friends.", detail: "Create an account or sign in to an existing one. Friends find you by username, not your email.")
             VStack(alignment: .leading, spacing: 20) {
-                Label("Your chats belong to you.", systemImage: "bubble.left.and.bubble.right")
-                Label("Your immersion happens on your phone.", systemImage: "iphone")
-                Label("You decide who can reach you.", systemImage: "person.crop.circle.badge.checkmark")
+                Label("Find friends by username.", systemImage: "bubble.left.and.bubble.right")
+                Label("Your email is not shown to friends.", systemImage: "iphone")
+                Label("Chats with friends are end-to-end encrypted.", systemImage: "person.crop.circle.badge.checkmark")
             }.font(.subheadline).padding(22).frame(maxWidth: .infinity, alignment: .leading)
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 22))
             Toggle(isOn: $acceptedTerms) {
@@ -146,14 +146,14 @@ struct OnboardingView: View {
 
     private var bottomAction: some View {
         VStack(spacing: 12) {
-            PrimaryButton(title: state.onboarding == .welcome ? "Find your language" : state.onboarding == .language ? "Continue with \(VipiLanguage.named(state.targetLanguage).name)" : "Continue to sign in", busy: authentication.busy) {
+            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue with \(VipiLanguage.named(state.targetLanguage).name)" : "Continue to sign in", busy: authentication.busy) {
                 switch state.onboarding {
                 case .welcome: advance(.language)
                 case .language: advance(.account)
                 case .account: authentication.signIn()
                 }
             }.disabled(state.onboarding == .account && !acceptedTerms).opacity(state.onboarding == .account && !acceptedTerms ? 0.5 : 1)
-            if state.onboarding == .welcome && !dynamicTypeSize.isAccessibilitySize { Text("Try the example before you sign in.").font(.caption).foregroundStyle(VipiDesign.secondary) }
+            if state.onboarding == .welcome && !dynamicTypeSize.isAccessibilitySize { Text("No account needed to try this example.").font(.caption).foregroundStyle(VipiDesign.secondary) }
         }.padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 0 : 26).padding(.top, 14).padding(.bottom, 12)
             .frame(maxWidth: 560).frame(maxWidth: .infinity).background(VipiDesign.canvas)
     }

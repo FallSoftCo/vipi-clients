@@ -27,7 +27,7 @@ import XCTest
         XCTAssertTrue(app.staticTexts["Coffee tomorrow? I know a little place by the river."].exists)
         app.buttons["Resume Spanish words"].tap()
         XCTAssertTrue(text.waitForExistence(timeout: 3))
-        app.buttons["Find your language"].tap()
+        app.buttons["Choose languages"].tap()
         XCTAssertTrue(app.staticTexts["I already speak"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.staticTexts["TRY A LITTLE SPANISH"].exists)
     }

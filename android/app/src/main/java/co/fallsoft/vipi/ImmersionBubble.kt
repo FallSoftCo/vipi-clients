@@ -205,10 +205,11 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                             val missingFull = value == ReadingMode.TRANSLATION && completeTranslation == null
                             val title = when {
                                 missingFull && fullTranslationLoading -> "Translating to ${languageName(target)}…"
-                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> "Prepare ${languageName(target)} translation"
-                                missingFull && fullTranslationError != null -> "Try ${languageName(target)} again"
-                                !embedded || value == ReadingMode.IMMERSED -> value.label
-                                else -> languageName(if (value == ReadingMode.ORIGINAL) source else target)
+                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> "Download for full translation"
+                                missingFull && fullTranslationError != null -> "Retry full translation"
+                                value == ReadingMode.IMMERSED -> "Word switching"
+                                value == ReadingMode.ORIGINAL -> "Original message"
+                                else -> "Full translation"
                             }
                             DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
                                 enabled = !missingFull || !fullTranslationLoading,
@@ -223,16 +224,16 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                             DropdownMenuItem(text = { Text("Cancel full translation") }, onClick = { onCancelFullTranslation(); menu = false })
                         if (completeTranslation == null && fullTranslationError != null) Text(when (fullTranslationError) {
                             ImmersionStatus.MODEL_NOT_READY -> "Translation needs a download for this language pair."
-                            ImmersionStatus.TIMEOUT -> "That took too long. Your immersion is still here."
+                            ImmersionStatus.TIMEOUT -> "That took too long. Word switching is still available."
                             ImmersionStatus.INVALID_LANGUAGE -> "Choose this message’s language, then try again."
-                            else -> "The full translation couldn’t be prepared. Your immersion is still here."
+                            else -> "The full translation couldn’t be prepared. Word switching is still available."
                         }, modifier = Modifier.widthIn(max = 280.dp).padding(horizontal = 16.dp, vertical = 12.dp),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         else if (completeTranslation == null && onFullTranslation == null)
                             DropdownMenuItem(text = { Text("Full translation isn’t ready") }, enabled = false, onClick = {})
-                        if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show transliteration" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Switching pace") }, onClick = { choosingPace = true; menu = false })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show meanings now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
+                        if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show Latin letters" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Word switching speed") }, onClick = { choosingPace = true; menu = false })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show original words now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
                         if (nativeActions) DropdownMenuItem(text = { Text("Select text") }, onClick = { selectText = true; menu = false })
                         DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
@@ -252,9 +253,9 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     }
     if (chooseLanguage && onInputLanguage != null) MessageLanguageDialog(source, target, inputLanguage,
         onSelect = { speech?.stop(); onInputLanguage(it); chooseLanguage = false }, dismiss = { chooseLanguage = false })
-    if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text("Switching pace") },
+    if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text("Word switching speed") },
         text = { Column {
-            listOf("relaxed" to "Relaxed", "balanced" to "Balanced", "brisk" to "Brisk").forEach { (key, title) ->
+            listOf("relaxed" to "Slower", "balanced" to "Standard", "brisk" to "Faster").forEach { (key, title) ->
                 TextButton(onClick = { preferences.edit().putString("readingPace", key).apply(); choosingPace = false },
                     modifier = Modifier.fillMaxWidth().semantics { selected = pace == key }) {
                     if (pace == key) Icon(Icons.Outlined.Check, null, modifier = Modifier.padding(end = 8.dp))

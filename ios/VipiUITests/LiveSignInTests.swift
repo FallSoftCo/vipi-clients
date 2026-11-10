@@ -53,8 +53,8 @@ import UIKit
         app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
         if app.buttons["New chat"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
-        XCTAssertTrue(app.buttons["Find your language"].waitForExistence(timeout: 15))
-        app.buttons["Find your language"].tap()
+        XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 15))
+        app.buttons["Choose languages"].tap()
         XCTAssertTrue(app.buttons["Continue with Spanish"].waitForExistence(timeout: 10))
         app.buttons["Continue with Spanish"].tap()
         XCTAssertTrue(app.switches.firstMatch.waitForExistence(timeout: 10)); app.switches.firstMatch.tap()

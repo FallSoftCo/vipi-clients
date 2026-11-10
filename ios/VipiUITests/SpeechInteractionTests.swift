@@ -31,7 +31,7 @@ import XCTest
             XCTAssertTrue(app.links["tomorrow"].exists)
             let revealed = XCTAttachment(screenshot: app.screenshot()); revealed.name = "Word revealed — audio stopped"; revealed.lifetime = .keepAlways; add(revealed)
         }
-        app.buttons["Find your language"].tap()
+        app.buttons["Choose languages"].tap()
         XCTAssertTrue(app.staticTexts["I already speak"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.staticTexts["TRY A LITTLE SPANISH"].exists)
     }

@@ -49,7 +49,7 @@ class StarterRouteDeviceTest {
             if(target=="ja") {
                 checkNotNull(device.wait(Until.findObject(By.text("Show original script")),5000)).click()
                 assertNotNull(device.wait(Until.findObject(By.desc(if(expanded) "The コーヒー and パン are for 昼食." else if(packed) "My 家族 and my 家族 enjoy ピザ." else "Country 音楽 is fun!")),12_000));device.takeScreenshot(File(out,"native-script.png"))
-                checkNotNull(device.findObject(By.desc("Reading options"))).click();checkNotNull(device.wait(Until.findObject(By.text("Show transliteration")),5000)).click()
+                checkNotNull(device.findObject(By.desc("Reading options"))).click();checkNotNull(device.wait(Until.findObject(By.text("Show Latin letters")),5000)).click()
             } else { assertFalse(device.hasObject(By.text("Show original script")));device.pressBack() }
             assertNotNull(device.wait(Until.findObject(By.desc(mixed)),12_000))
             checkNotNull(device.findObject(By.desc("Reading options"))).click();checkNotNull(device.wait(Until.findObject(By.text("Listen")),20_000)).click()

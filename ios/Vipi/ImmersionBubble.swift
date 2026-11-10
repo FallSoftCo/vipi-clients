@@ -4,6 +4,7 @@ import VipiCore
 enum ReadingMode: String, CaseIterable, Identifiable {
     case immersed = "Immersed", original = "Original", translation = "Translation"
     var id: String { rawValue }
+    var label: String { switch self { case .immersed: "Word switching"; case .original: "Original message"; case .translation: "Full translation" } }
 }
 
 struct ImmersionBubble: View {
@@ -105,12 +106,11 @@ struct ImmersionBubble: View {
                             }
                         }
                         if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
-                            Button("Switching pace") { choosingPace = true }
+                            Button("Word switching speed") { choosingPace = true }
                         }
                         if let onModeChange {
                             ForEach(ReadingMode.allCases.filter { $0 != .translation || result.translation != nil || onRequestTranslation != nil }) { value in
-                                let label = !embedded || value == .immersed ? value.rawValue
-                                    : VipiLanguage.named(value == .original ? sourceLanguage : targetLanguage).name
+                                let label = value.label
                                 Button(label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") {
                                     if value == .translation, result.translation == nil { onRequestTranslation?() }
                                     else { onModeChange(value) }
@@ -118,9 +118,9 @@ struct ImmersionBubble: View {
                             }
                         }
                         if (effectiveMode == .translation && fullReading != nil) || (effectiveMode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
-                            Button(script ? "Show transliteration" : "Show original script") { script.toggle(); revision += 1 }
+                            Button(script ? "Show Latin letters" : "Show original script") { script.toggle(); revision += 1 }
                         }
-                        if effectiveMode == .immersed && !result.spans.isEmpty { Button("Show meanings now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
+                        if effectiveMode == .immersed && !result.spans.isEmpty { Button("Show original words now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
                         if let onInputLanguage {
                             MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
                         }
@@ -144,12 +144,12 @@ struct ImmersionBubble: View {
             }
         }.padding(.horizontal, embedded ? 0 : 20).padding(.top, embedded ? 0 : 20).padding(.bottom, embedded ? 0 : 6)
             .background(embedded ? Color.clear : (outgoing ? VipiDesign.outgoing : VipiDesign.surface), in: RoundedRectangle(cornerRadius: 23))
-            .confirmationDialog("Switching pace", isPresented: $choosingPace, titleVisibility: .visible) {
-                Button("Relaxed") { pace = "relaxed" }
-                Button("Balanced") { pace = "balanced" }
-                Button("Brisk") { pace = "brisk" }
+            .confirmationDialog("Word switching speed", isPresented: $choosingPace, titleVisibility: .visible) {
+                Button("Slower") { pace = "relaxed" }
+                Button("Standard") { pace = "balanced" }
+                Button("Faster") { pace = "brisk" }
                 Button("Cancel", role: .cancel) { }
-            } message: { Text("Currently \(pace.capitalized)") }
+            } message: { Text("Current speed: \(pace == "relaxed" ? "Slower" : pace == "brisk" ? "Faster" : "Standard")") }
             .onAppear { visible = true }
             #if DEBUG
             .onChange(of: qualificationKey, initial: true) { recordLiveState() }

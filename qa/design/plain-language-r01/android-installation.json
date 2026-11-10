@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "8c5fe6e2e2a5b88998c25c29ec213d7c22b386c7d43766b99401d03aa771e605",
+    "result": "Performing Streamed Install\nSuccess\n"
+  },
+  {
+    "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+    "sha256": "d049986203068948e46f121b6a331b457a70d52752a6182ee4ee6af8a405d1e6",
+    "result": "Performing Streamed Install\nSuccess\n"
+  }
+]

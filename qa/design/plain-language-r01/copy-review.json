@@ -1,0 +1,100 @@
+{
+  "request": "Replace abstract product copy with literal explanations of what Vipi does.",
+  "base_head": "28be80d",
+  "owned_files": [
+    "ios/Vipi/OnboardingView.swift",
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt",
+    "design/store-metadata-draft.json",
+    "release/store-metadata-en-US.json",
+    "ios/Vipi/ConversationPreview.swift",
+    "ios/Vipi/HomeView.swift",
+    "ios/Vipi/SubscriptionView.swift",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationPreview.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/SubscriptionScreen.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt",
+    "ios/Vipi/LanguageDownloadView.swift",
+    "android/app/src/main/java/co/fallsoft/vipi/LanguageDownloadsScreen.kt",
+    "ios/Vipi/ImmersionBubble.swift",
+    "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt",
+    "ios/Vipi/ConnectedChatView.swift"
+  ],
+  "changes": {
+    "welcome_title": "Chat with friends. Learn new words.",
+    "welcome_detail": "Selected words and short phrases switch between your language and the language you choose. Message order and grammar stay the same.",
+    "example_label": "EXAMPLE: ENGLISH AND SPANISH",
+    "controls": "Watch the highlighted words switch in place. Tap Pause to stop them or Listen to hear pronunciation.",
+    "coverage": "This is an example. In your chats, only supported words and phrases switch. The rest stays unchanged.",
+    "language_title": "Choose your languages.",
+    "account_title": "Sign in to chat with friends.",
+    "store_subtitle": "Learn words while you chat"
+  },
+  "audit_scope": "Read customer-facing entry/onboarding, chat, settings, subscription, language-download, bot, backup, deletion, notification and device-recovery UI strings across both platforms. Runtime errors/generated copy are not exhaustively linguistically certified.",
+  "remaining_priorities": [],
+  "keep_specific_copy": [
+    "Backup exclusions and password recovery limits",
+    "Deletion consequences, friends copies, separate subscription cancellation",
+    "Device replacement signs out old device and changes keys",
+    "Bot provider disclosure and separate billing",
+    "Notification message-text privacy notice"
+  ],
+  "evidence_basis": [
+    "BFM https://builtformars.com/cheatsheets/6-onboarding-rules: show real first task, keep it simple, defer secondary features",
+    "Mobbin Speak and Preply inspected references in design-research.json support concrete first action and one CTA; no copied design or prose"
+  ],
+  "checks": {
+    "diff_check": "passed",
+    "metadata_lengths": "passed",
+    "name_exact": "Vipi",
+    "company_ids_urls_subscription_disclosures": "preserved",
+    "native_visual_recheck": "required for new longer literal detail and changed labels",
+    "build_or_device_actions": false,
+    "store_writes": false,
+    "copy_no_AI_branding": "passed in owned UI and metadata"
+  },
+  "test_note": "Existing UI tests matching Find your language/Say hello/I want to pick up must use new labels; no accessibility identifiers changed in owned files.",
+  "resolved_expanded_scope": [
+    "Both ConversationPreview headings, explanation and full-translation control are literal; existing translation mode unchanged.",
+    "iOS HomeView empty-state/settings/vBot introduction aligned with Android.",
+    "Both subscription benefit descriptions explain chat, word switching and separate Bot mini chatbot plan; all prices, eligibility, billing and consent disclosures preserved.",
+    "Android bot introduction identifies chatbot replies and possible mistakes."
+  ],
+  "preview_recommendation": "Clearest core story would use original/word-switching only, as welcome already does. Current language preview retains working full translation, explicitly labeled a prepared example, to avoid runtime changes in this copy pass.",
+  "changed_test_labels": [
+    "Choose languages",
+    "Choose your languages.",
+    "I want to learn",
+    "Sign in to chat with friends.",
+    "EXAMPLE: ENGLISH AND SPANISH",
+    "EXAMPLE MESSAGE",
+    "Show full translation in [language]",
+    "Resume word switching",
+    "Settings",
+    "Words in your chats",
+    "How many words change",
+    "Amount of words to switch",
+    "I want to learn (downloads)",
+    "Full-message translation",
+    "Download for full translation",
+    "Translation downloads",
+    "Word switching",
+    "Original message",
+    "Full translation",
+    "Show Latin letters",
+    "Show original words now",
+    "Word switching speed",
+    "Slower",
+    "Standard",
+    "Faster",
+    "Current speed: [Slower/Standard/Faster]",
+    "Download for full translation (message menu)",
+    "Retry full translation"
+  ],
+  "final_followup": {
+    "bot_terms": "Chatbot / automated replies, no AI branding; Bot mini plan name preserved.",
+    "reading_guide": "Words in Latin letters; Listen teaches pronunciation.",
+    "downloads": "Optional full-message translation separated from automatic word switching.",
+    "runtime_verified": "Read explicit requestTranslation/requestFull action handlers and message option callbacks. No handlers changed.",
+    "preserved": "ReadingMode raw values and IDs; pace keys relaxed/balanced/brisk; every accessibility identifier; runtime behavior; legal/billing/consent terms.",
+    "native_build": "Not run; root owns integration."
+  }
+}

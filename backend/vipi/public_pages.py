@@ -3,25 +3,27 @@ from html import escape
 
 from starlette.responses import HTMLResponse
 
-VERSION = "2026-11-08"
+VERSION = "2026-11-10"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
 PAGES = {
-    "/": ("A little more language, in every conversation.", """
-        <p class="lead">Vipi brings another language into the conversations you already care about.</p>
-        <p>Choose an immersion language. Familiar words and phrases gradually alternate with their translations, right inside a message. Keep the original close, reveal the whole translation, and listen when you want to hear it.</p>
-        <p>Chat with friends using end-to-end encryption. Language matching, translation, and speech run on your device after the needed language data is available. The optional vBot is a separate conversation partner with separate data sharing.</p>
+    "/": ("Chat with friends. Learn new words.", """
+        <p class="lead">Vipi is a messaging app that helps you learn words as you read your chats.</p>
+        <p>Choose the language you know and the one you want to learn. Selected words and short phrases switch in place between the two languages. The rest of the message keeps its original wording, word order and grammar. Available words vary by language; unsupported words stay unchanged.</p>
+        <p>Pause the changes, show the original message, or tap Listen to hear pronunciation. Words in Latin letters help you read supported non-Latin scripts. Full-message translation is a separate option and may need a language download.</p>
+        <p>Chats with friends are end-to-end encrypted. Word switching, translation and speech run on your device. Bot mini is an optional separate subscription for chatting with vBot. Messages you send to vBot go to our response provider.</p>
         <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
     """),
     "/privacy": ("Vipi privacy", """
         <p class="lead">Your conversations belong to you.</p>
-        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 8, 2026.</p>
+        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 10, 2026.</p>
         <h2>Conversations with friends</h2>
         <p>Human messages are encrypted on the sender's device and decrypted on the recipient's device using the Signal protocol. Vipi's relay does not have the keys to read their content. Account identifiers, device identifiers, message identifiers, routing, timing, delivery state, and public encryption keys are visible to the service. End-to-end encryption does not hide that metadata.</p>
         <p>Undelivered ciphertext has a 72-hour delivery window measured from the message's creation time. Ciphertext is cleared after a delivery receipt, cancellation, or expiry cleanup. Delivery metadata is removed seven days after that delivery window ends. Cleanup normally runs each minute; an outage can delay cleanup. Your device and your friend's device keep their own history until it is removed there.</p>
         <h2>Language and audio</h2>
         <p>Immersion lookup and translation of human messages happen locally. Downloads fetch language data, not translations of your conversations. Speech uses the app's local speech engines or supported device voices. Downloaded data, learning preferences, and chat history remain on your device.</p>
+        <p>Vipi keeps an encrypted record on your device of days when a switched word or phrase was displayed long enough to count. This helps set how long that translation stays visible. These records use private keyed identifiers, do not contain message text or message identifiers, and are not sent to Vipi's servers. They record display time, not whether you read or learned a word.</p>
         <p>Third-party language and notification SDKs can send operational diagnostics such as installation and device identifiers, app and operating-system details, language/model selections, performance, and errors to their providers. Google's on-device ML Kit translation does not send translation input or output to Google. See <a href="https://developers.google.com/ml-kit/terms">ML Kit's terms</a>, its <a href="https://developers.google.com/ml-kit/ios-data-disclosure">Apple-platform disclosures</a> and <a href="https://developers.google.com/ml-kit/android-data-disclosure">Android disclosures</a>, and <a href="https://firebase.google.com/support/privacy">Firebase privacy information</a>. We do not use advertising tracking or sell your chat content.</p>
         <h2>Account, purchases, and notifications</h2>
         <p>WorkOS handles sign-in, including your email address and authentication records. Vipi stores an account identifier, your chosen username and display name, and device registration information. Your email is not exposed through username lookup. People who know your exact username can find your profile.</p>
@@ -63,8 +65,8 @@ PAGES = {
         <p>Messages have a 72-hour relay delivery window. Devices can retry within that window when connectivity permits. A message can expire if the recipient remains offline; the relay is not long-term history storage. Vipi does not promise delivery, uninterrupted service, or a particular latency. Keep backups of history you wish to retain.</p>
     """),
     "/help": ("Vipi help", """
-        <h2>Start a conversation</h2><p>Choose your native and immersion languages, prepare their language data, and sign in. Share your exact username with a friend or search for theirs. No address-book upload is needed.</p>
-        <h2>Read at your own pace</h2><p>Words and phrases alternate in place while their space stays stable. Pause the alternation, reveal the original, view the whole translation, or listen. For supported scripts, letter guides help you recognize unfamiliar writing; use Listen for pronunciation, and switch back to the original script whenever you want. Translation quality varies by language and context.</p>
+        <h2>Start a conversation</h2><p>Try the example, choose the language you know and the one you want to learn, then sign in. Share your exact username with a friend or search for theirs. No address-book upload is needed.</p>
+        <h2>Read at your own pace</h2><p>Selected words and short phrases switch between two languages without moving the surrounding text. Use Pause to stop them, Original message to see the unchanged message, or Listen to hear pronunciation. For supported scripts, Show Latin letters displays a reading guide. Choose Full translation for a whole-message translation; this separate option may need language downloads. Translation quality varies by language and context.</p>
         <h2>Missing messages</h2><p>Check connectivity and notification permission, then reopen the conversation to refresh. If a message expires after 72 hours, send a new message when it is still relevant. Replacing your active device can require your friend to verify its new identity.</p>
         <h2>Subscriptions</h2><p>Use <a href="https://apps.apple.com/account/subscriptions">Apple subscription settings</a> or <a href="https://play.google.com/store/account/subscriptions">Google Play subscription settings</a> to manage or cancel the plan purchased there. Base and the optional Bot mini plan are separate.</p>
         <h2>History and your account</h2><p>Use History backup in Settings to save an encrypted file. Keep the password separately; it cannot be reset by Vipi. Restore under the same Vipi account. Backups do not restore live encryption keys or unsent messages.</p><p><a href="/delete-account">Delete your account</a>. This does not cancel a subscription or remove copies kept by friends or in your own backup storage.</p>

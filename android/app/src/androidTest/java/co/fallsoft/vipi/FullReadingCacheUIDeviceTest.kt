@@ -134,7 +134,7 @@ class FullReadingCacheUIDeviceTest {
             SystemClock.sleep(500); recompose(); node(By.text(expected["zh"]!!.text))
             assertEquals(1, calls["ja"]!!.get()); assertEquals(1, calls["zh"]!!.get()); event("late_japanese_completion_not_published")
             choose("Show original script"); node(By.text(references["zh"]!!)); capture("chinese-original-script")
-            choose("Show transliteration"); node(By.text(expected["zh"]!!.text)); assertEquals(1, calls["zh"]!!.get())
+            choose("Show Latin letters"); node(By.text(expected["zh"]!!.text)); assertEquals(1, calls["zh"]!!.get())
             instrumentation.runOnMainSync { target.value = "ja" }
             await("fresh Japanese cache") { calls["ja"]?.get() == 2 }
             choose("Japanese"); node(By.text(expected["ja"]!!.text)); recompose(); node(By.text(expected["ja"]!!.text))

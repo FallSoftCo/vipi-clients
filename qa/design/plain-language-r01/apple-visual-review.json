@@ -1,0 +1,17 @@
+{
+  "reviewed_at": "2026-11-10T21:23:08.543801+00:00",
+  "reviewer": "root",
+  "source_manifest_sha256": "74838a046e51cd98ae786cd8eafa1cecba028687748eb4bb646acd5e4334f7ab",
+  "observed": [
+    "Literal headline and readable two-language explanation in light/dark.",
+    "Example and original-message control fit without horizontal overflow.",
+    "Language selection remains scrollable; lower example continues below fixed CTA.",
+    "At largest accessibility type, consent text, both policy links and disabled sign-in action remain reachable at bottom.",
+    "Native component test verifies six no-tap flips, stable height and step scroll reset."
+  ],
+  "limits": [
+    "Component window captures are not full signed-app account-flow qualification.",
+    "Physical device, production auth and encrypted Apple persistence still not qualified."
+  ],
+  "accepted": true
+}

@@ -43,20 +43,20 @@ import kotlinx.coroutines.launch
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text("Your languages", style = MaterialTheme.typography.headlineMedium)
         LanguageChoice("I already speak", source, initialLanguages, !downloads.busy, onSource)
-        LanguageChoice("I’m picking up", target, initialLanguages.filter { it.code != source }, !downloads.busy, onTarget)
+        LanguageChoice("I want to learn", target, initialLanguages.filter { it.code != source }, !downloads.busy, onTarget)
         Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Icon(if (downloads.ready) Icons.Outlined.CheckCircle else Icons.Outlined.Download, null,
                         tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(24.dp))
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text("Offline translation", fontWeight = FontWeight.SemiBold)
+                        Text("Full-message translation", fontWeight = FontWeight.SemiBold)
                         Text(when {
                             downloads.busy -> downloads.operation!!
                             downloads.checking -> "Checking this phone…"
-                            downloads.ready -> "${languageName(source)} and ${languageName(target)} are ready for offline translation."
+                            downloads.ready -> "${languageName(source)} and ${languageName(target)} are ready for full-message translation offline."
                             downloads.installed == null -> "Download status isn’t available."
-                            else -> "Download your languages to translate on this phone, even offline."
+                            else -> "Download your languages for full-message translation offline."
                         }, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
@@ -72,7 +72,7 @@ import kotlinx.coroutines.launch
                             Text("Allow mobile data")
                         }
                         Button(onClick = { scope.launch { downloads.download(cellular) } }, modifier = Modifier.fillMaxWidth()) {
-                            Text("Download languages")
+                            Text("Download for full translation")
                         }
                     }
                     TextButton(onClick = { scope.launch { downloads.refresh(pair) } }) { Text("Check downloads") }
@@ -80,7 +80,7 @@ import kotlinx.coroutines.launch
                 downloads.message?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             }
         }
-        Text("Once downloaded, translation happens on your phone. Your messages aren’t sent to a translation service.",
+        Text("These downloads are for optional full-message translation. Word switching does not need them. To translate a whole message, choose Full translation in its reading options. Messages stay on this phone.",
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (!downloads.installed.isNullOrEmpty()) TextButton(onClick = { confirmRemoval = true }, enabled = !downloads.busy && !downloads.checking) {
             Text("Remove translation downloads", color = MaterialTheme.colorScheme.error)

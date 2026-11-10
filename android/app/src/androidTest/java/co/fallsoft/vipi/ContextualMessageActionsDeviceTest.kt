@@ -86,7 +86,7 @@ class ContextualMessageActionsDeviceTest {
             return requireNotNull(found)
         }
         fun menuItem(label: String): UiObject2 {
-            await("menu controls") { nativeTree().any { it.text?.toString() in setOf("Listen", "Stop listening", "Immersed", "Select text", "Copy original message") } }
+            await("menu controls") { nativeTree().any { it.text?.toString() in setOf("Listen", "Stop listening", "Word switching", "Select text", "Copy original message") } }
             repeat(8) {
                 nodes(By.text(label)).firstOrNull { it.visibleBounds.height() > 4 && it.visibleBounds.width() > 4 }?.let { return it }
                 val scroll = nativeTree().firstOrNull { it.isScrollable && it.actionList.any { action -> action.id == AccessibilityNodeInfo.ACTION_SCROLL_FORWARD } }
@@ -114,7 +114,7 @@ class ContextualMessageActionsDeviceTest {
             touch(MotionEvent.ACTION_DOWN)
             try { SystemClock.sleep(hold) } finally { touch(MotionEvent.ACTION_UP) }
             probe.put("up_uptime_ms", SystemClock.uptimeMillis()); save()
-            await("contextual popup") { nativeTree().any { it.text?.toString() in setOf("Listen", "Stop listening", "Immersed", "Copy original message") } }
+            await("contextual popup") { nativeTree().any { it.text?.toString() in setOf("Listen", "Stop listening", "Word switching", "Copy original message") } }
         }
         fun choose(v: StableImmersionText, label: String) { menu(v); menuItem(label).click() }
         fun screenshot(name: String) { check(device.takeScreenshot(File(out, "$name.png"))) }
@@ -272,7 +272,7 @@ class ContextualMessageActionsDeviceTest {
             val speechNode = nativeNode { it.contentDescription?.toString() == fullScript }
             assertTrue(speechNode.performAction(speechNode.actionList.first { it.label?.toString() == "Message actions" && it.id != android.view.accessibility.AccessibilityNodeInfo.ACTION_LONG_CLICK }.id))
             menuItem("Stop listening").click(); report.put("native_audio_started_and_stop_reachable", audioStarted)
-            choose(script, "Immersed"); await("music inline again") { music() != null }
+            choose(script, "Word switching"); await("music inline again") { music() != null }
             val water = paragraphs().first { it.visibleText().startsWith("I need ") }
             menu(water); menuItem("Report reply").click(); node(By.text("Report this message")); screenshot("incoming-report-confirmation"); device.pressBack()
             assertEquals(0, reportRequests); report.put("report_consent_reachable_no_submission", true); save()
