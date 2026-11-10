@@ -63,7 +63,17 @@ is preserved and was not replayed. Google Cloud requires company password
 verification; Firebase reports HTTP v1 messaging disabled. The live backend
 remains restricted staging with subscriptions unenforced and no APNs, FCM or
 DeepSeek configuration enabled. Public-page copy and the local exposure-record
-privacy addendum are prepared in source; their deployment is separately recorded.
+privacy addendum are now live at `4473238`. The scoped deployment preserved the
+database/schema, environment configuration and shared nginx/PostgreSQL services;
+public routes return 200, protected routes still reject unauthenticated requests.
+The actual signed Android production bundle also passed local package/version,
+production-configuration, signature and ARM64 split/alignment checks. Its measured
+ARM64 download estimate is 408,542,274 bytes. It has not been installed against
+the production service, uploaded or accepted by Google Play.
+The matching iOS device Release archive passed with 637 committed inputs and
+13 bundled privacy manifests. It is intentionally unsigned, has no embedded
+profile and must not be uploaded. The signing hold was preserved. Exact binary
+hashes and receipt bindings are in `release/build-artifacts-20261110.json`.
 
 Before that narrowing, all immersion techniques were evaluated as candidates,
 including immediate local word/phrase flips followed by whole-sentence local or
@@ -115,7 +125,7 @@ round-trip signals are not interchangeable with contextual correctness.
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `5ca447b`, same database/schema; Apple Sandbox verification is now configured. Activation took 7.95 seconds; help/privacy return 200 with CSP and unauthenticated WebSockets close with 4401. | Production registration/configuration and real provider credentials. |
+| Service | Restricted staging runs `4473238`, same database/schema and credentials. Plain-language homepage/help and the exposure-record privacy disclosure are live; Apple Sandbox verification remains configured. Public routes return 200 with CSP and protected routes remain closed. | Production registration/configuration and real provider credentials. |
 | Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Real provider background delivery in the available native testing environments, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |

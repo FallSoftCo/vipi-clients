@@ -1,0 +1,62 @@
+{
+  "schema": "vipi-native-release-artifacts-1",
+  "recorded_at": "2026-11-10T21:58:06.197214+00:00",
+  "native_revision": "44732382688619c42028234f4a58163a69044784",
+  "customer_ready": false,
+  "store_uploads": 0,
+  "store_submissions": 0,
+  "android": {
+    "identity": {
+      "package": "co.fallsoft.vipi",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "debuggable": false
+    },
+    "aab_bytes": 502955254,
+    "aab_sha256": "b3e00775bd190e9322465d14dd1f591281c27f02e3d88461bf0c97208ae68fd5",
+    "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "source_verified": true,
+    "production_configuration_embedded": true,
+    "arm64_split_count": 4,
+    "arm64_estimated_download_bytes": 408542274,
+    "arm64_elf_and_apk_16k_alignment_verified": true,
+    "production_service_runtime_verified": false,
+    "play_console_acceptance": false
+  },
+  "apple": {
+    "identity": {
+      "bundle": "co.fallsoft.vipi",
+      "version": "1.0",
+      "build": "1"
+    },
+    "unsigned_device_archive_completed": true,
+    "main_executable_sha256": "be7fa1ae0d0bb94b9a41d4631452806963b05fc2a42fe13f4be1b33f457aba79",
+    "privacy_manifests": 13,
+    "signed": false,
+    "embedded_profile_present": false,
+    "committed_files_verified": 637,
+    "signing_hold_preserved": true,
+    "must_not_upload": true
+  },
+  "receipt_bindings": {
+    "apple-unsigned-release-receipt-r01.json": {
+      "bytes": 2580,
+      "sha256": "b2cfe9684287c4fa00df44bc0773d7874b22b67e8ce4832e0665ea5a0ba0c1c3"
+    },
+    "android-production-bundle-r01/closure.json": {
+      "bytes": 4552,
+      "sha256": "c6a92168dff16ae23b022c119066b67552ac6cf2f8f98e668c2077c9d12637a6"
+    },
+    "backend-deployment-receipt-r01.json": {
+      "bytes": 2344,
+      "sha256": "ac6a786ae55688f25a77e457cc04f8f9f54a156a47971e7bd93825762cad37d2"
+    }
+  },
+  "remaining": [
+    "Renew company App Store Connect access and unlock held signing keychains before any signing retry.",
+    "Renew Google Cloud company authentication and finish real push/store setup and qualification.",
+    "Restore DeepSeek console access and qualify the optional Bot mini provider.",
+    "Resolve exact linked dependency distribution terms and complete corresponding-source publication.",
+    "Complete actual store declarations, reviewer access and release journey before submitting."
+  ]
+}
