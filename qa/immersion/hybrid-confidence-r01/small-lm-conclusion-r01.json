@@ -1,0 +1,55 @@
+{
+  "schema": "vipi-small-lm-qualified-diagnostic-1",
+  "at_utc": "2026-11-10T04:17:51.352857+00:00",
+  "runtime_activation": false,
+  "private_evidence_root": "/home/ai/Development/investigations/vipi-small-translation-model-20261110-r01",
+  "model": "NiuTrans/LMT-60-0.6B",
+  "snapshot": "dd189845cdc73346cef33c7a94f4b8bd8efdd4eb",
+  "weight_bytes": 1503300328,
+  "weight_sha256": "c48c3b8d7b04d3c6e56452fa51ddefc03921043b0f70641cb80c5d3ac71b73e6",
+  "completed_cases": 18,
+  "distinct_exposed_sources": 6,
+  "targets": [
+    "es",
+    "ja",
+    "sw"
+  ],
+  "original_54_case_objective_complete": false,
+  "execution_seconds": 203.37,
+  "peak_child_rss_bytes": 4902854656,
+  "generated_tokens": 317,
+  "all_ended_in_eos": true,
+  "max_token_hits": 0,
+  "threads": 2,
+  "dtype": "float32 CPU",
+  "beams": 5,
+  "use_cache": true,
+  "first_three_cache_parity_controls_equal": true,
+  "root_labels": {
+    "compatible": 11,
+    "minor": 6,
+    "material": 1
+  },
+  "peer_labels": {
+    "compatible": 14,
+    "minor": 3,
+    "material": 1
+  },
+  "material_ids_equal": true,
+  "material_example": "Swahili online-shopping output turns keeps us busy into habitual hard work.",
+  "independent_native_speaker_gold": false,
+  "peer_independence_limit": "First3 baseline judgments were disclosed in scheduling message; remaining15 source-target judgments made before seeing root labels.",
+  "interpretation": "Local small LM is executable includingSwahili; this arm does not qualify broad accuracy or phone latency/memory. Do not replace native translator or activate from6sources.",
+  "stopped_runs_preserved": true,
+  "scheduling_correction": "Original54 order already interleaved languages; root initial language-blocking concern was wrong. Actual throughput justified reducing scope.",
+  "dependencies": "Isolated pinned CPU runtime, no service/global environment changes; retained original models reused.",
+  "provider_calls": 0,
+  "source": "https://huggingface.co/NiuTrans/LMT-60-0.6B",
+  "evidence": {
+    "completion-r01.json": "345d6a8773d8673793e01354f174bf371e426d0e9aecef2fcaad95881188d5ca",
+    "meaning-review-packet.json": "d0ef2c158425db4fa1d8233fc2ad7c27f65d40f90c4d753fb990ce69dfd6a9b8",
+    "root-meaning-review-r01.json": "8307ade45676320c19991ab34db1429e71013b35c758b8f8e7321945fb5759e7",
+    "peer-meaning-review-r01.json": "4bf0d553b4aa721d8553f2bc79a9e7e360bd53e00bc52f54ff7e56c42a98c1e2",
+    "run-r03/receipt.json": "e4f672e30e8cfe42cc8300d26e2a606aab09ffd855970e3b81b562fa6ab592be"
+  }
+}

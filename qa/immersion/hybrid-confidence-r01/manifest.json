@@ -9,9 +9,12 @@
     "root-conclusion-r01.json": "00c3abc1699f750e0663c3d80fadb686a8aa0154eaa65968405f1194b7019f7e",
     "cost-scenarios.json": "0e58c06bbdbf4dc9388a7405d6dbcf9f1087b97931f6f1da6c4a9cd6a99a1cbd",
     "cost-calculate.py": "d7eaa5027e9b43192b397f66a897f2d2c3f64c51683b5ffafe84c1979da96d06",
+    "small-lm-conclusion-r01.json": "18ccfd39cedaffaa3658d53df01da371422eaba4da2aa94d15692128efe50965",
+    "provider-price-comparison-r01.json": "44f224c089f4be10d758d4d7c88f7614cfcc6646167c72c63ac53d7772f62d55",
     "analyze.py": "3333a48c8bec5beffdc1b4adec0765fb0b0dfed1786fb447a9bf8f9c6e3c50ab",
     "cost-test-result.json": "7ea61cdf4426b12ad4bffc94fe6b1381b373f68afd9a7760e2e7d475b2135539",
     "TranslationConfidenceProbe.swift": "721b2b58671eebe78e5968dc379445480c17ee6280c618e8367fb4723ffad5f0",
+    "approach-register-r02.json": "62057225efe5b6d9dc1221c184d82dfb0846e18a3398f569ffc8f764023e46fe",
     "cost-evidence.json": "961c59208fd957697c94ef739ea9751acf40596a434ce520e3a8b91bb8d9968d"
   }
 }

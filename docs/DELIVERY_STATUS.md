@@ -39,6 +39,19 @@ Base/Bot mini prices, independent trials and entitlements are unchanged. The
 existing GPU host has been retired; self-hosting cannot assume free GPU capacity.
 The pure calculator and its assumptions are retained beside the diagnostic.
 
+A separately pinned, offline small translation-model pilot now completes six
+exposed sources across Spanish, Japanese and Swahili. NiuTrans LMT-60-0.6B with
+five-beam cached CPU decoding took 203 seconds for 18 cases and peaked at 4.90 GB
+process memory. Both reviewers identify the same material Swahili meaning
+change; their minor-versus-compatible labels differ. The first three judgments
+were previously disclosed to the peer reviewer; the remaining 15 were reviewed
+independently. This is neither phone qualification nor broad accuracy evidence.
+The original 54-case uncached run and its smaller continuation were explicitly
+stopped and retained. Cached decoding matched the three completed baseline
+outputs exactly; no general parity claim follows. See the retained small-model
+conclusion and approach register. Cloud comparisons include official OpenAI and
+DeepSeek pricing, but no paid provider inference or customer text was submitted.
+
 Bulk development-data mining also completed: 14,010 dictionary phrase lexemes
 and 59,945 complete parallel-sentence proposals retain alternatives and provenance.
 These are a review pool, not new activated coverage. On the exposed 9,535-message

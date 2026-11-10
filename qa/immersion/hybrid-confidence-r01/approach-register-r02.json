@@ -1,0 +1,98 @@
+{
+  "schema": "vipi-immersion-approach-register-1",
+  "at_utc": "2026-11-10T04:09:56.352185+00:00",
+  "policy": "No technique excluded in advance. Compare meaning, useful immersion depth, latency,devicecost,privacy and annual economics. Prior completed experiments retained; no new research claim for old work.",
+  "methods": [
+    {
+      "method": "single_word",
+      "status": "Tested",
+      "conclusion": "Fast reviewed local word flips remain useful for beginners. Uncontextualized word MT confuses role/sense; agreement of dictionary alternatives is not semantic proof.",
+      "canonical_evidence": [
+        "qa/immersion/conversation-depth-r01/REVIEWED_RESULT.md"
+      ]
+    },
+    {
+      "method": "longest_phrase_lookup",
+      "status": "Tested, expanded proposal pool",
+      "conclusion": "Indexed lexicalized phrases, complete utterances and explicit context masks. Bulk mine preserves alternatives; exact whole-sentence recurrence remains low.",
+      "canonical_evidence": [
+        "qa/immersion/source-context-frames-r01/FINAL_RESULT.md"
+      ]
+    },
+    {
+      "method": "morphology_and_grammar_templates",
+      "status": "Partially tested",
+      "conclusion": "Apertium morphology/tagging/transfer and bounded source constructions can reuse grammar. Same-POS senses and idioms still need lexical/context selection.",
+      "canonical_evidence": [
+        "qa/immersion/apertium-transfer-feasibility-r01/result.json",
+        "qa/immersion/apertium-lexical-selection-r01/RESULT.md"
+      ]
+    },
+    {
+      "method": "individual_translation_vs_whole_target_alignment",
+      "status": "Tested",
+      "conclusion": "A word appearing in full target is a useful clue, not proof that this source occurrence can be replaced. Retained200-message target-informed extension increased material errors.",
+      "canonical_evidence": [
+        "qa/immersion/target-informed-taskmaster-r01/RESULT.md"
+      ]
+    },
+    {
+      "method": "subsequence_windows_and_recursive_splits",
+      "status": "Tested",
+      "conclusion": "Larger snippets preserve some context but can still include missing/imported constituents or change sense; exact reverse equality over-withholds.",
+      "canonical_evidence": [
+        "qa/immersion/coverage_ceiling_experiment/round-trip-decision-r01.json"
+      ]
+    },
+    {
+      "method": "full_sentence_native_translation",
+      "status": "Newly measured9targetMacdiagnostic",
+      "conclusion": "Whole sentences avoid many isolated-role problems and support correct-grammar full flips. Source typo/negation scope still produced material errors. Not all pairs or phones qualified.",
+      "canonical_evidence": [
+        "qa/immersion/hybrid-confidence-r01/root-conclusion-r01.json"
+      ]
+    },
+    {
+      "method": "semantic_round_trip_quality_signal",
+      "status": "Newly tested",
+      "conclusion": "Local reverse plus English sentenceembedding helps reject observed errors, but high abstention and per-pair calibration remain. Not a confidence probability.",
+      "canonical_evidence": [
+        "qa/immersion/hybrid-confidence-r01/TranslationConfidenceProbe.swift"
+      ]
+    },
+    {
+      "method": "reference_free_quality_estimator",
+      "status": "Primary research only",
+      "conclusion": "MetricX24 can score source+target without reverse; commercial license feasible,2.46GB bf16 weights before runtime, no local accuracy/latency qualification. COMETKiwi22 weights have noncommercial license.",
+      "canonical_evidence": [
+        "qa/immersion/hybrid-confidence-r01/cost-evidence.json"
+      ]
+    },
+    {
+      "method": "small_local_translation_lm",
+      "status": "Bounded18caseCPUandmeaningpilotcomplete",
+      "conclusion": "ES/JA/SW six-source pilot complete; both reviews find oneSwahili meaning change.4.90GB peakCPU and7\u201326s cases are notphone qualification. Noactivation.",
+      "canonical_evidence": [
+        "qa/immersion/hybrid-confidence-r01/small-lm-conclusion-r01.json"
+      ]
+    },
+    {
+      "method": "cheap_cloud_lm_sentence_or_contextual_spans",
+      "status": "Prices verified, inference pending",
+      "conclusion": "DeepSeek/OpenAI prices compared. Structured contextual spans are a separate accuracy/output-token arm from full-sentence translation; no provider quality or token-usage claim.",
+      "canonical_evidence": []
+    },
+    {
+      "method": "two_tier_live_immersion",
+      "status": "Candidate selected for next comparative UI evaluation",
+      "conclusion": "Immediate accepted word/phrase flips; asynchronous whole-sentence target. Quality-check full target separately from fragment alignment. An unsafe fragment cannot be licensed by a good sentence score.",
+      "canonical_evidence": []
+    },
+    {
+      "method": "offline_model_generated_packs_and_personal_cache",
+      "status": "Design candidate",
+      "conclusion": "Use public/licensed material to expand reviewed mappings offline. Cache exact context locally; do not infer generalized rules or upload private chats from mere repetition.",
+      "canonical_evidence": []
+    }
+  ]
+}
