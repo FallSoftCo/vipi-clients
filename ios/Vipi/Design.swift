@@ -12,14 +12,39 @@ enum VipiDesign {
     static let outgoing = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.18, green: 0.26, blue: 0.20, alpha: 1) : UIColor(red: 0.88, green: 0.93, blue: 0.83, alpha: 1) })
 }
 
+// Original two-voice mark; geometry matches design/vipi-icon.svg and Android.
 struct VipiMark: View {
     var size: CGFloat = 42
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: size * 0.32).fill(VipiDesign.accent)
-            Image(systemName: "bubble.left.fill").font(.system(size: size * 0.61)).foregroundStyle(Color(red: 0.87, green: 0.94, blue: 0.75))
-            Text("v").font(.system(size: size * 0.44, weight: .semibold, design: .rounded)).foregroundStyle(VipiDesign.accent).offset(y: -size * 0.04)
+            RoundedRectangle(cornerRadius: size * 0.28).fill(Color(red: 35/255, green: 78/255, blue: 61/255))
+            VipiVoiceShape(right: false).fill(Color(red: 249/255, green: 247/255, blue: 242/255))
+            VipiVoiceShape(right: true).fill(Color(red: 221/255, green: 243/255, blue: 166/255))
         }.frame(width: size, height: size).accessibilityHidden(true)
+    }
+}
+
+private struct VipiVoiceShape: Shape {
+    var right: Bool
+    func path(in rect: CGRect) -> Path {
+        var p = Path()
+        if right {
+            p.move(to: CGPoint(x: 68, y: 29))
+            p.addQuadCurve(to: CGPoint(x: 63, y: 32), control: CGPoint(x: 64.5, y: 29))
+            p.addLine(to: CGPoint(x: 48, y: 62)); p.addLine(to: CGPoint(x: 57, y: 80))
+            p.addLine(to: CGPoint(x: 81, y: 32))
+            p.addQuadCurve(to: CGPoint(x: 79, y: 29), control: CGPoint(x: 82.5, y: 29))
+        } else {
+            p.move(to: CGPoint(x: 27, y: 29))
+            p.addQuadCurve(to: CGPoint(x: 25.5, y: 32), control: CGPoint(x: 24, y: 29))
+            p.addLine(to: CGPoint(x: 45, y: 70))
+            p.addQuadCurve(to: CGPoint(x: 51, y: 74), control: CGPoint(x: 47, y: 74))
+            p.addLine(to: CGPoint(x: 56, y: 74)); p.addLine(to: CGPoint(x: 45, y: 52))
+            p.addLine(to: CGPoint(x: 35, y: 32))
+            p.addQuadCurve(to: CGPoint(x: 30, y: 29), control: CGPoint(x: 33.5, y: 29))
+        }
+        p.closeSubpath()
+        return p.applying(CGAffineTransform(scaleX: rect.width / 108, y: rect.height / 108))
     }
 }
 
@@ -30,24 +55,27 @@ struct PrimaryButton: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 10) {
-                if busy { ProgressView().tint(.white) }
+                if busy { ProgressView().tint(VipiDesign.onHighlight) }
                 Text(title).font(.body.weight(.semibold))
                 if !busy { Image(systemName: "arrow.right").font(.body.weight(.medium)) }
             }.frame(maxWidth: .infinity).padding(.vertical, 17)
         }
-        .buttonStyle(.plain).foregroundStyle(.white)
-        .background(VipiDesign.accent, in: RoundedRectangle(cornerRadius: 18))
+        .buttonStyle(.plain).foregroundStyle(VipiDesign.onHighlight)
+        .background(VipiDesign.highlight, in: RoundedRectangle(cornerRadius: 18))
         .disabled(busy)
     }
 }
 
 struct IntroHeading: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let eyebrow: String
     let title: String
     let detail: String
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(eyebrow.uppercased()).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
+            if !dynamicTypeSize.isAccessibilitySize {
+                Text(eyebrow.uppercased()).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
+            }
             Text(title).font(.system(.largeTitle, design: .serif).weight(.medium)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
             Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
         }.frame(maxWidth: .infinity, alignment: .leading)

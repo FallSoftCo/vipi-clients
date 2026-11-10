@@ -124,7 +124,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   }
   for(h in hits)trace.put(JSONObject().put("pattern_id",h.pattern.getString("id")).put("output_id",h.id).put("context",JSONArray(listOf(h.context.start,h.context.end))).put("focus",JSONArray(listOf(h.focus.start,h.focus.end))).put("reason",h.reason?:JSONObject.NULL))
   val frameMasks=frameRecognitions.mapNotNull{it.mask}
-  val ordinary=raw.filter{it.reason==null && frameMasks.none{m->m.overlaps(it.range)}}.sortedWith(compareBy<SourceFrameStarterCandidate>{it.category!="content"}.thenBy{it.rank}.thenByDescending{it.tokenCount}.thenBy{it.range.start})
+  val ordinary=raw.filter{it.reason==null && frameMasks.none{m->m.overlaps(it.range)}}.sortedWith(compareBy<SourceFrameStarterCandidate>{it.category!="content"}.thenByDescending{it.tokenCount}.thenBy{it.rank}.thenBy{it.range.start})
   val frames=frameUnits.sortedWith(compareByDescending<Pair<Hit,SourceReferenceUnit>>{it.first.contextCost}.thenByDescending{it.first.context.end-it.first.context.start}.thenByDescending{it.first.cost}.thenBy{it.first.focus.start}.thenBy{it.first.id}).map{it.second}
   val fixed=baseline.recognitions.filter{it.mode!=SourceAtomicMode.HEAD_BACKOFF}+frameRecognitions.filter{it.mode!=SourceAtomicMode.HEAD_BACKOFF}+literalRanges.mapIndexed{n,r->SourceRecognition("native-literal-$n",packSHA,r,r,SourceAtomicMode.AMBIGUOUS,emptyList())}
   val candidates=(frames+ordinary.map{it.unit}).filter{u->val r=SourceLookupRange(u.start,u.end);fixed.all{n->n.mask?.overlaps(r)!=true || (n.mode!=SourceAtomicMode.AMBIGUOUS && n.approvedOutputs.any{it.outputID==u.outputID && it.range==r})}}

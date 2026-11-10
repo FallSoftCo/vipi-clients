@@ -1,0 +1,47 @@
+{
+  "apple_r03": {
+    "all_six_visually_reviewed": true,
+    "source": "../vipi-local-release-20261110-r01/apple-ui-r03/manifest.json",
+    "accepted_scope": [
+      "Light/dark welcome visual hierarchy and icon/CTA contrast",
+      "Language selection layout and named step",
+      "Largest-text account top preserves essential text scaling without decorative eyebrow crowding",
+      "Largest-text account bottom reaches full terms toggle, both legal links and CTA",
+      "Continuous component readable, stable slot layout in captured phase"
+    ],
+    "limits": [
+      "Apple captures use test-only UIWindow hosting actual components; normal unsigned app/keychain gate remains unqualified.",
+      "Continuous component blue controls reflect isolated test environment tint; production brand appearance separately shown in onboarding.",
+      "Still images do not independently prove flip timing, speech quality, VoiceOver traversal or enabled sign-in; root owns those tests.",
+      "No account sign-in, signing or store actions."
+    ]
+  },
+  "android_r01": {
+    "package": "co.fallsoft.vipi.sourcecontextqa",
+    "device": "emulator-5620",
+    "font_scale_tested": 2.0,
+    "observed_defect": "Horizontal Privacy Policy label clips and pinned terms/footer consumes about one third of viewport at max text.",
+    "valid_pre_fix_evidence": [
+      "android-ui-r01/account-max-top-r02.png",
+      "android-ui-r01/account-max-bottom-r02.png",
+      "android-ui-r01/language-max.png",
+      "android-ui-r01/welcome-dark.png"
+    ],
+    "invalid_final_visuals": {
+      "android-ui-r01/welcome-light.png": "splash, not welcome",
+      "android-ui-r01/welcome-light-r02.png": "splash, not welcome",
+      "android-ui-r01/welcome-dark-r02.png": "transition, not stable capture",
+      "android-ui-r01/account-max-top.png": "language menu due initial coordinate mismatch",
+      "android-ui-r01/account-max-bottom.png": "language menu, not account"
+    },
+    "fix": "MainActivity.kt: fontScale>=1.5 footer joins scrolling form; legal links stack; decorative eyebrow/tagline omitted; no essential font cap.",
+    "verification": "Source diff whitespace passes; post-fix native build/capture delegated to root.",
+    "restored": {
+      "font_scale": "1.0",
+      "night_mode": "no",
+      "preferences": "byte-for-byte restored from private preferences-before.xml",
+      "app": "force-stopped, emulator released"
+    },
+    "effects": "No sign-in, terms acceptance, language change or account effect."
+  }
+}

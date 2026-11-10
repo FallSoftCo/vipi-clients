@@ -27,6 +27,7 @@ struct ImmersionBubble: View {
     var onInputLanguage: ((String?) -> Void)? = nil
     var requestingTranslation = false
     var onRequestTranslation: (() -> Void)? = nil
+    var onExposure: (([ImmersionSpan]) -> Void)? = nil
     @State private var originalPhase = false
     @State private var overrides: [Int: Bool] = [:]
     @State private var paused = false
@@ -34,6 +35,7 @@ struct ImmersionBubble: View {
     @State private var selecting = false
     @State private var choosingPace = false
     @State private var visible = false
+    @State private var exposureVisible = false
     @State private var revision = 0
     @AppStorage("readingPace") private var pace = "balanced"
     @Environment(\.scenePhase) private var scenePhase
@@ -50,7 +52,7 @@ struct ImmersionBubble: View {
     private var revealed: Set<Int> { Set(result.spans.filter { overrides[$0.id] ?? originalPhase }.map(\.id)) }
     private var active: Bool { speech?.activeMessage == messageID }
     private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && effectiveMode == .immersed && !result.spans.isEmpty }
-    private var clockKey: String { "\(eligible)-\(revision)-\(pace)" }
+    private var clockKey: String { "\(eligible)-\(exposureVisible)-\(revision)-\(pace)" }
     #if DEBUG
     private var qualificationKey: String { "\(visible)|\(scenePhase)|\(paused)|\(selecting)|\(choosingPace)|\(interactionPaused)|\(speech?.activeMessage ?? "")|\(String(describing: speech?.state))|\(voiceOver)|\(effectiveMode)|\(result.spans.count)|\(originalPhase)|\(revision)" }
     private func recordLiveState() {
@@ -157,6 +159,7 @@ struct ImmersionBubble: View {
             #endif
             .onDisappear { visible = false; if active { speech?.stop() } }
             .onScrollVisibilityChange(threshold: 0.1) { visible = $0 }
+            .onScrollVisibilityChange(threshold: 0.95) { exposureVisible = $0 }
             .task(id: clockKey) {
                 guard eligible else { return }
                 do {
@@ -168,6 +171,7 @@ struct ImmersionBubble: View {
                         let dwell = originalPhase ? meaningDwell : targetDwell
                         try await Task.sleep(for: pace == "relaxed" ? dwell * 2 : (pace == "brisk" ? dwell / 2 : dwell))
                         try Task.checkCancellation()
+                        if !originalPhase && exposureVisible { onExposure?(result.spans.filter { !revealed.contains($0.id) }) }
                         originalPhase.toggle(); overrides = [:]
                     }
                 } catch { /* Lifecycle changes cancel rather than catch up. */ }

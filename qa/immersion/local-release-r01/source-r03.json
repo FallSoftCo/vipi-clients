@@ -1,0 +1,42 @@
+{
+  "ios/VipiCryptoTests/VocabularyFamiliarityStoreTests.swift": {
+    "sha256": "802b6e2b606b9cc7c4af2ffee2170d83156b2d00ecb621314f3624a1587d3bb0",
+    "base_sha256": "11c01e88f5f5178f3b5f2ec2c8b9d7274dc579372dc0138670e2abfed1876ee3",
+    "bytes": 2672
+  },
+  "ios/VipiCryptoTests/LocalPhraseCandidateTests.swift": {
+    "sha256": "f187913489bb798427c5b55baeb0fe0fed1d63a363aae035129e6ef086ffb9cc",
+    "base_sha256": "97e9c907f22a37b93442c61ad20fc29ca9b7d8193100469056321a6c3de87ebe",
+    "bytes": 3466
+  },
+  "ios/VipiCryptoTests/LocalUIReviewTests.swift": {
+    "sha256": "51d84a3ca1aa11d9aa453db3e1c66e1440d15f9a332dbc2cbc07d28856d02913",
+    "base_sha256": null,
+    "bytes": 3284
+  },
+  "ios/VipiUITests/ContinuousImmersionTests.swift": {
+    "sha256": "e2c01180b3097c0ab9968152e634a9aaba801f3452811f8cac0d4468f753981f",
+    "base_sha256": "8c81cafe14e9f903d6e876de5e16b42fec65ef73da06b78397485bb8b7cce33b",
+    "bytes": 2160
+  },
+  "ios/VipiUITests/SpeechInteractionTests.swift": {
+    "sha256": "3ada46ac70c00b16f205a5fb571190c309b4cb6bb72a0b0b4c7a14a5714b2366",
+    "base_sha256": "1c38d76ff3800963e560057811a9238bc5f83c357085f2365394680520a97551",
+    "bytes": 2722
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LocalPhraseCandidateTest.kt": {
+    "sha256": "e32fd63e7437782ac27dc2a7a680d67c49047b02b69dac11196e0a49b3c38def",
+    "base_sha256": "f8a9f196c481d865a692f44f5e140d990f09e6f67c4e5f5f13518f46ba259c1a",
+    "bytes": 3173
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ContinuousImmersionDeviceTest.kt": {
+    "sha256": "3c4188a1f4a63a43b3cd25660f8f166cf67f04ff1c9d47098b3feeea55f6f09f",
+    "base_sha256": "03696c2f1506f1bb8f6db61f346310d1354dd35d325cd892ee3dc3ce9eaf0c92",
+    "bytes": 3240
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/SpeechInteractionDeviceTest.kt": {
+    "sha256": "d1d0d2dd8f4e352e96fc768c5b0bea2181bfb476b18eeb1241616b550ad2faf7",
+    "base_sha256": "e9c94bf3a8bbe62edfb5cab5b56b03fc3007eda701cd292e936d404a199196c3",
+    "bytes": 6108
+  }
+}

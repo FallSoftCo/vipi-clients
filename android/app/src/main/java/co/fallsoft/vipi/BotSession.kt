@@ -34,6 +34,7 @@ internal data class BotMessage(val id: String, val role: String, val text: Strin
  * A request is recorded before network work and never retried automatically. */
 internal class BotSession(context: Context, account: UUID, private val api: ChatTransport) : AutoCloseable {
     private val vault = MessageVault(context, account)
+    val familiarity = VocabularyFamiliarityStore(vault)
     private var closed = false
     var messages by mutableStateOf<List<BotMessage>>(emptyList()); private set
     var earlierAvailable by mutableStateOf(false); private set

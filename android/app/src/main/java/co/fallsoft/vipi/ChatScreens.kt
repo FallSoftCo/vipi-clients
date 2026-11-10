@@ -98,7 +98,7 @@ import java.util.UUID
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val immersion = remember(chat, peer, source, target, density, qaReadingProducer, qaTranslator, qaModelsReady) {
-        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer, qaModelsReady = qaModelsReady)
+        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer, qaModelsReady = qaModelsReady, familiarity = chat.familiarity)
     }
     val speech = remember(chat, peer, source, target) { SpeechPlayback(context, source, target, scope) }
     val warmups = remember(source, target) {

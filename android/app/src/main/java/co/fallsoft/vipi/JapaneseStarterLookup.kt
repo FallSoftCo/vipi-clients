@@ -59,7 +59,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
         }
         require(entries.map { it.id }.distinct().size==entries.size && entries.all { it.id.isNotBlank() && it.tokens.isNotEmpty() && it.target.isNotBlank() && it.category in setOf("content","function") })
         val c=p.getJSONObject("source_context_sets");lefts=(strings(c.getJSONArray("determiners"))+strings(c.getJSONArray("prepositions"))+strings(c.getJSONArray("object_verbs"))).toSet();copulas=strings(c.getJSONArray("copulas")).toSet()
-        cacheIdentity="$version:$packSHA:"+sha(known.sorted().joinToString("\u0000").toByteArray()) + if(packMultiple) ":packing-1" else ""
+        cacheIdentity="$version:$packSHA:"+sha(known.sorted().joinToString("\u0000").toByteArray()) + if(packMultiple) ":packing-2" else ""
     }
     override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence =
         resolve(original,source,target,density)
@@ -84,6 +84,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
                 protection.any{it.overlaps(range)} -> "protected_source"
                 keys[i]!="i" && first.codePointCount(0,first.length)>1 && first.any{it.isUpperCase()} && first.none{it.isLowerCase()} -> "uppercase_identifier"
                 keys[i]!="i" && first.first().isUpperCase() && !initial -> "mid_sentence_capital"
+                j-i>1 && (i until j).all { tokens[it].value.first().isUpperCase() } -> "title_case_phrase"
                 (i until j-1).any { !whitespaceGap(gap(it)) } -> "noncontiguous_source_unit"
                 e.guard=="interrogative" && !initial -> "question_not_sentence_initial"
                 e.guard=="interrogative" && (j>=keys.size || keys[j] !in e.following) -> "question_right_context_absent"
@@ -104,7 +105,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
         rawCandidates=hits.map { h -> SourceFrameStarterCandidate(h.entry.id,h.entry.concept,h.entry.category,h.entry.rank,h.entry.tokens.size,h.range,h.cost,h.reason,
             SourceReferenceUnit(h.range.start,h.range.end,original.substring(h.range.start,h.range.end),h.entry.target,h.entry.reading,
                 "$version:$packSHA:${h.entry.id}",packSHA,h.cost,h.outputID)) }
-        val ordered=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenBy{it.entry.rank}.thenByDescending{it.entry.tokens.size}.thenBy{it.range.start})
+        val ordered=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenByDescending{it.entry.tokens.size}.thenBy{it.entry.rank}.thenBy{it.range.start})
         val chosen=mutableListOf<Hit>();var used=0
         for(hit in ordered) {
             // The existing presentation contract accepts at most 128 whole units.

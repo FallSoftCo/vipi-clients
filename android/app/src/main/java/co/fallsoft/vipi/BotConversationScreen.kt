@@ -33,7 +33,7 @@ import java.time.format.FormatStyle
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val owner = LocalLifecycleOwner.current
-    val immersion = remember(bot, model.knownLanguage, model.targetLanguage, model.density) { ConversationImmersion(context, model.knownLanguage, model.targetLanguage, model.density) }
+    val immersion = remember(bot, model.knownLanguage, model.targetLanguage, model.density) { ConversationImmersion(context, model.knownLanguage, model.targetLanguage, model.density, familiarity = bot.familiarity) }
     val speech = remember(bot, model.knownLanguage, model.targetLanguage) { SpeechPlayback(context, model.knownLanguage, model.targetLanguage, scope) }
     val warmups = remember(immersion) {
         val example = ConversationExamples.result(context, model.knownLanguage, model.targetLanguage)

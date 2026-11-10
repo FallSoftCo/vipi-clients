@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-11-10T15:38:48.156893+00:00",
+  "requested_name": "Vipi",
+  "app_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "status": "blocked_auth",
+  "observed_url": "https://appstoreconnect.apple.com/login",
+  "signin_frame": "https://idmsa.apple.com/appleauth/auth/signin",
+  "metadata_read": false,
+  "name_save_attempted": false,
+  "account_recovery_attempted": false,
+  "configuration_file_changed": false,
+  "preservation": "Temporary task tab closed. Task-owned bounded SSH forward closed. Other tabs, shared stopped tunnel service, signing, accounts and unrelated work preserved.",
+  "jobs": {
+    "original_discovery": "vipi-name-mac-discover-r01: failed ECONNREFUSED on stopped shared tunnel",
+    "owned_transport_discovery": "vipi-name-owned-transport-discover-r01: completed",
+    "actual_app_inspection": "vipi-name-inspect-app-r01: completed, redirected to login"
+  },
+  "actual_inspection_result": "/home/ai/.local/state/trusted-computer-broker/result-5d466789c55e4e6b2eb64a9e8eec9e400761809aa2b15df6fc7e0c865985777b.json",
+  "next_step": "Company App Store Connect authentication must be available before exact name-only save and reload verification. No alternate name proposed."
+}

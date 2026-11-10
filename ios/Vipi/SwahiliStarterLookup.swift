@@ -37,7 +37,7 @@ import VipiCore
     let sha: String
     private let packMultiple: Bool
     private var packIdentity: String { pack.version + ":" + sha }
-    var identity: String { packIdentity + (packMultiple ? ":packing-1" : "") }
+    var identity: String { packIdentity + (packMultiple ? ":packing-2-longest" : "") }
     private(set) var rawCandidates: [SourceFrameStarterCandidate] = []
     var trace: [[String: Any]] = []
     private let words = try! NSRegularExpression(pattern: #"[\p{L}\p{Nl}\p{No}]+(?:['’][\p{L}\p{Nl}\p{No}]+)*"#)
@@ -137,6 +137,7 @@ import VipiCore
                 else if (i..<(j-1)).contains(where: { !Self.whitespaceGap(gap(NSMaxRange(tokens[$0]), tokens[$0+1].location)) }) { reason = "noncontiguous_source_unit" }
                 else if keys[i] != "i", first.count > 1, first == first.uppercased(), first != first.lowercased() { reason = "uppercase_identifier" }
                 else if keys[i] != "i", first.first?.isUppercase == true, !initial { reason = "mid_sentence_capital" }
+                else if j-i > 1, (i..<j).allSatisfy({ text.substring(with: tokens[$0]).first?.isUppercase == true }) { reason = "title_case_phrase" }
                 else if entry.guardValue == "withheld_contextual_sense" { reason = "unqualified_source_sense" }
                 else if entry.guardValue == "positive_first_person_predicate" {
                     let left = i > 0 && Self.whitespaceGap(gap(NSMaxRange(tokens[i-1]), unit.location)) ? keys[i-1] : nil
@@ -184,8 +185,9 @@ import VipiCore
                 referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID)) }
         let found = hits.filter { $0.reason == nil }.sorted {
             if ($0.entry.category == "content") != ($1.entry.category == "content") { return $0.entry.category == "content" }
-            if $0.entry.train_rank != $1.entry.train_rank { return $0.entry.train_rank < $1.entry.train_rank }
+            // Prefer a complete approved phrase over its contained words.
             if $0.entry.source_tokens.count != $1.entry.source_tokens.count { return $0.entry.source_tokens.count > $1.entry.source_tokens.count }
+            if $0.entry.train_rank != $1.entry.train_rank { return $0.entry.train_rank < $1.entry.train_rank }
             return $0.range.location < $1.range.location
         }
         var chosen: [Hit] = []; var used = 0

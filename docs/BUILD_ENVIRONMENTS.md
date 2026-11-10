@@ -1,5 +1,29 @@
 # Build environments
 
+## Local immersion and identity qualification — November 10, 2026
+
+The current bounded revision is retained in `qa/immersion/local-release-r01`
+and `qa/design/vipi-identity-r01`. Native source snapshots are explicitly bound
+by source-r02 through source-r07 manifests; they do not include the seven
+inherited unqualified contextual/lexical edits in the canonical worktree.
+Apple uses `vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source`
+and the existing `app-build-r01` DerivedData. Android uses the existing
+`vipi-android-source-context-integration-20261109-r01/source`, qualification
+package `co.fallsoft.vipi.sourcecontextqa`, and emulator-5620. The historical
+base package is separate and was preserved. Do not install a qualification APK
+under an assumed production application ID.
+
+Only unsigned Simulator builds were performed on Apple; signing and distribution
+keychains remain held. Apple familiarity vault test fails with OSStatus -34018
+before persistence can be qualified; it was not retried after the dependency was
+identified. No iPad was used. Store-name change to Vipi is prepared but company
+App Store Connect login is required; no name save or upload was attempted.
+
+The final app bundles contain JA197/SW237 and match their source hashes. Default
+lookup outcomes match all 140 previously reviewed candidate configurations on
+each platform, without automatic translation calls. Scope, errors, reviews and
+native interaction evidence remain separate from the release gates.
+
 ## Current authority and consolidation — November 9, 2026
 
 The owner reserves the physical iPad for 8bar Club. Vipi development and validation now use the existing simulators and native Mac; do not launch Vipi iPad tests or interact with that device. Historical physical commands below are receipts, not current instructions. An earlier native iOS development build is qualified in `qa/release/native-ios-development-build-r01`. The later iOS-on-Mac attempt compiled but failed signing with `errSecInternalComponent` after the login keychain locked; no app launch followed. Both that dependency and the separate `pbtv58` distribution-keychain hold remain in force. Do not retry signing until the dependency changes; see `qa/release/apple-mac-development-r01/RESULT.md`.

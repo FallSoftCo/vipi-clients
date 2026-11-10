@@ -1,0 +1,25 @@
+{
+  "apple": {
+    "lookup": 18,
+    "familiarity": 2,
+    "failures": 0,
+    "log_sha256": "f5e1589656422a0f10b472398c0f7b99fc652cb7aeba14fca048d841a5de3514"
+  },
+  "android": {
+    "LookupFirstTest": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "495fd53f2ac43b8c11cb6801bc7bca7b7a88654f52f0a7fa328ce4e08877ea29"
+    },
+    "VocabularyFamiliarityTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "95b288ca5f0573a821b93c256ccd6934d8abb79fe203f276851ad6ee5ff24a50"
+    }
+  },
+  "scope": "Selected policy tests before native package qualification; no claim about whole project suite"
+}

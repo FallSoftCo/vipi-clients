@@ -1,0 +1,38 @@
+{
+  "started": "2026-11-10T16:14:37.814101+00:00",
+  "complete": true,
+  "manifest_sha256": "f2b3c030c0467f23bb63690ea8994bd40cdb8c35265bcb71d4797f788f8565ad",
+  "free_before": 9990070272,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 536870912,
+  "stages": [
+    {
+      "name": "app-build",
+      "cmd": [
+        "taskset",
+        "-c",
+        "2,3",
+        "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--max-workers=1",
+        "--console=plain",
+        "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+        "-Pkotlin.compiler.execution.strategy=in-process",
+        "-PvipiQaAbi=x86_64",
+        "-PvipiSourceContextQualification=true",
+        ":app:assembleDebug",
+        ":app:assembleDebugAndroidTest"
+      ],
+      "pid": 613642,
+      "min_free": 9985138688,
+      "exit": 0,
+      "seconds": 74.02501400397159,
+      "log_sha256": "73d408e9ddf06598ddc9fc0fdbbaa8623ac8f8f582900e948563a58ed924269e"
+    }
+  ],
+  "staged_files": [
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt"
+  ],
+  "free_after": 9985368064
+}

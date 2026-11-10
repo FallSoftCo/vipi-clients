@@ -6,9 +6,10 @@ import java.util.concurrent.CancellationException
 enum class ImmersionIntent { AUTOMATIC_IMMERSION, FULL_TRANSLATION }
 class ImmersionTranslationTimeout : Exception()
 data class LookupFirstRequest(val text: String, val source: String, val target: String, val inputLanguage: String? = null,
-                              val intent: ImmersionIntent = ImmersionIntent.AUTOMATIC_IMMERSION)
+                              val intent: ImmersionIntent = ImmersionIntent.AUTOMATIC_IMMERSION,
+                              val allowModelTranslation: Boolean = true)
 enum class ImmersionOrigin { LOOKUP_REFERENCE, SOURCE_REFERENCE_PARTIAL, LOCAL_FULL_CONTEXT }
-enum class ImmersionStatus { READY, PARTIAL, INVALID_INPUT, INVALID_LANGUAGE, MODEL_NOT_READY, INVALID_RESULT, STALE, ERROR, TIMEOUT }
+enum class ImmersionStatus { READY, PARTIAL, INVALID_INPUT, INVALID_LANGUAGE, MODEL_NOT_READY, NO_LOCAL_MATCH, INVALID_RESULT, STALE, ERROR, TIMEOUT }
 data class LookupFirstOutcome(val result: ImmersionPresentation?, val origin: ImmersionOrigin?,
                               val status: ImmersionStatus, val localTranslationCalls: Int,
                               val fallbackStatus: ImmersionStatus? = null, val cacheHit: Boolean = false,
@@ -74,6 +75,8 @@ object LookupFirst {
             }
             val reversed = detected == target
             val known = forward ?: reverse
+            // No readiness check, translator or model download on a local miss.
+            if (known == null && !request.allowModelTranslation) return stop(ImmersionStatus.NO_LOCAL_MATCH)
             if (known == null && !modelsReady()) return stop(ImmersionStatus.MODEL_NOT_READY)
             if (!valid()) return stop(ImmersionStatus.STALE)
             origin = if (known != null) ImmersionOrigin.LOOKUP_REFERENCE else ImmersionOrigin.LOCAL_FULL_CONTEXT

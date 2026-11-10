@@ -1,0 +1,33 @@
+{
+  "review": "Accepted scoped actual Android r05 visual layout; step arrival defect found and source amendment awaits rebuilt qualification.",
+  "accepted_visuals": [
+    "welcome-light.png",
+    "welcome-dark-stable.png",
+    "account-max-top-scrolled.png",
+    "account-max-bottom-disabled.png",
+    "account-max-bottom-enabled.png"
+  ],
+  "excluded": [
+    "welcome-dark.png is splash",
+    "account-max-top.png is bottom due inherited language scroll; not top evidence",
+    "current.png duplicates enabled bottom"
+  ],
+  "checks": {
+    "light_dark_readable": true,
+    "max_font_2_0_essential_text_preserved": true,
+    "legal_links_full_stacked": true,
+    "checkbox_checked": true,
+    "sign_in_button_enabled": true,
+    "sign_in_invoked": false,
+    "screen_arrival_reset": "Source amendment added, not yet tested"
+  },
+  "navigation_issue": "Shared scrollState retained language bottom offset upon account arrival. One-line LaunchedEffect(model.screen){scrollState.scrollTo(0)} added under root authorization.",
+  "apple_source_audit": "OnboardingView has shared ScrollView and changes state.onboarding in advance with no scrollTo/scrollPosition/step-scoped identity. Analogous risk exists but not proven by screenshots mounting each step independently. Apple source left unchanged.",
+  "restoration": "restoration.json",
+  "limitations": [
+    "No authentication, signing, store or release validation.",
+    "Audio button readiness visually observed; no acoustic verification.",
+    "Only one emulator/window and font1.0/2.0 inspected.",
+    "Initial UIAutomator stale-dump issue corrected by removing dump before each read; images inspected to reject splash/transitions."
+  ]
+}

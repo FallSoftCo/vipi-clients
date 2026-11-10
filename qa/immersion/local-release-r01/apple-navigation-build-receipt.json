@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-10T16:14:25.776282+00:00",
+  "complete": true,
+  "manifest_sha256": "f2b3c030c0467f23bb63690ea8994bd40cdb8c35265bcb71d4797f788f8565ad",
+  "free_before": 24629137408,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 1610612736,
+  "stages": [
+    {
+      "name": "prepare",
+      "cmd": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 37165,
+      "min_free": 24629096448,
+      "exit": 0,
+      "seconds": 2.0122509580105543,
+      "log_sha256": "3b9b3b6fe52fa2fe2dabcf441f4b62e9f9d3263302529ea569a1d0157580e791"
+    },
+    {
+      "name": "app-build",
+      "cmd": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/local-release-build-r06/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "pid": 37180,
+      "min_free": 24625778688,
+      "exit": 0,
+      "seconds": 32.16709754196927,
+      "log_sha256": "dba3a57f4a3f166ab6c40aa37f72d7eec05a70192ca5c0d2023f5d9a3bcb79cd"
+    }
+  ],
+  "staged_files": [
+    "ios/Vipi/OnboardingView.swift",
+    "ios/VipiCryptoTests/LocalUIReviewTests.swift"
+  ],
+  "free_after": 24625827840
+}

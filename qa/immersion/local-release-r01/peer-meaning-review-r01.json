@@ -1,0 +1,2690 @@
+{
+  "schema": "vipi-local-phrase-peer-review-1",
+  "complete": true,
+  "frozen_at": "2026-11-10T15:28:43.638371+00:00",
+  "capture_sha256": "a57077b330691b6c1eade4d8ddc4bab5e9da3d18310e0c20b1082a1dfede5ad7",
+  "independent_native_speaker_gold": false,
+  "root_review_read": false,
+  "reviewer_exposure": "Candidate/fixture author and earlier retained dictionary/usage review; independent from root labels, not blind to methods or authored contrasts. Read all changed complete outputs and both span lists. No runtime execution.",
+  "scope": "Every changed per(id,density) candidate output; unchanged rows not given fresh semantic labels. Native capture success is separate from unrelated persistence/UI failures.",
+  "labels": {
+    "compatible": 32,
+    "material": 16
+  },
+  "changed_rows": 48,
+  "unchanged_candidate_rows": 92,
+  "rows": [
+    {
+      "id": "sw-ice-cream-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We shared some ice cream after dinner at home.",
+      "baseline_mixed": "sisi shared some ice cream after chakula cha jioni at home.",
+      "candidate_mixed": "sisi shared some aiskrimu after chakula cha jioni at home.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 37,
+          "reading": "",
+          "source": "dinner",
+          "start": 31,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 24,
+          "reading": "",
+          "source": "ice cream",
+          "start": 15,
+          "target": "aiskrimu"
+        },
+        {
+          "end": 37,
+          "reading": "",
+          "source": "dinner",
+          "start": 31,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 24,
+          "reading": "",
+          "source": "ice cream",
+          "start": 15,
+          "target": "aiskrimu"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-climate-change-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We talked about climate change during lunch with friends.",
+      "baseline_mixed": "sisi talked about climate change during chakula cha mchana with marafiki.",
+      "candidate_mixed": "sisi talked about mabadiliko ya tabia nchi during chakula cha mchana with marafiki.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 43,
+          "reading": "",
+          "source": "lunch",
+          "start": 38,
+          "target": "chakula cha mchana"
+        },
+        {
+          "end": 56,
+          "reading": "",
+          "source": "friends",
+          "start": 49,
+          "target": "marafiki"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 30,
+          "reading": "",
+          "source": "climate change",
+          "start": 16,
+          "target": "mabadiliko ya tabia nchi"
+        },
+        {
+          "end": 43,
+          "reading": "",
+          "source": "lunch",
+          "start": 38,
+          "target": "chakula cha mchana"
+        },
+        {
+          "end": 56,
+          "reading": "",
+          "source": "friends",
+          "start": 49,
+          "target": "marafiki"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 30,
+          "reading": "",
+          "source": "climate change",
+          "start": 16,
+          "target": "mabadiliko ya tabia nchi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-radio-station-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "My friend works at the radio station near our house.",
+      "baseline_mixed": "My rafiki works at the radio station near our nyumba.",
+      "candidate_mixed": "My rafiki works at the kituo cha redio near our nyumba.",
+      "baseline_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "friend",
+          "start": 3,
+          "target": "rafiki"
+        },
+        {
+          "end": 51,
+          "reading": "",
+          "source": "house",
+          "start": 46,
+          "target": "nyumba"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "friend",
+          "start": 3,
+          "target": "rafiki"
+        },
+        {
+          "end": 36,
+          "reading": "",
+          "source": "radio station",
+          "start": 23,
+          "target": "kituo cha redio"
+        },
+        {
+          "end": 51,
+          "reading": "",
+          "source": "house",
+          "start": 46,
+          "target": "nyumba"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 36,
+          "reading": "",
+          "source": "radio station",
+          "start": 23,
+          "target": "kituo cha redio"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-bad-luck-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I had bad luck with the weather on our holiday.",
+      "baseline_mixed": "mimi had bad luck with the hali ya hewa on our likizo.",
+      "candidate_mixed": "mimi had nuksi with the hali ya hewa on our likizo.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "weather",
+          "start": 24,
+          "target": "hali ya hewa"
+        },
+        {
+          "end": 46,
+          "reading": "",
+          "source": "holiday",
+          "start": 39,
+          "target": "likizo"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 14,
+          "reading": "",
+          "source": "bad luck",
+          "start": 6,
+          "target": "nuksi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "weather",
+          "start": 24,
+          "target": "hali ya hewa"
+        },
+        {
+          "end": 46,
+          "reading": "",
+          "source": "holiday",
+          "start": 39,
+          "target": "likizo"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 14,
+          "reading": "",
+          "source": "bad luck",
+          "start": 6,
+          "target": "nuksi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-heart-attack-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "My father had a heart attack and went to hospital.",
+      "baseline_mixed": "My baba had a heart attack na went to hospital.",
+      "candidate_mixed": "My baba had a mshtuko wa moyo na went to hospital.",
+      "baseline_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "father",
+          "start": 3,
+          "target": "baba"
+        },
+        {
+          "end": 32,
+          "reading": "",
+          "source": "and",
+          "start": 29,
+          "target": "na"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "father",
+          "start": 3,
+          "target": "baba"
+        },
+        {
+          "end": 28,
+          "reading": "",
+          "source": "heart attack",
+          "start": 16,
+          "target": "mshtuko wa moyo"
+        },
+        {
+          "end": 32,
+          "reading": "",
+          "source": "and",
+          "start": 29,
+          "target": "na"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 28,
+          "reading": "",
+          "source": "heart attack",
+          "start": 16,
+          "target": "mshtuko wa moyo"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-heart-attack-contrast",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The English nearly gave me a ... loud noise frame retains the hyperbolic fright meaning; mshtuko wa moyo preserves the heart-attack image. It does not assert an actual diagnosed attack in this sentence. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "You nearly gave me a heart attack with that loud noise!",
+      "baseline_mixed": "You nearly gave mimi a heart attack with that loud noise!",
+      "candidate_mixed": "You nearly gave me a mshtuko wa moyo with that loud noise!",
+      "baseline_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "me",
+          "start": 16,
+          "target": "mimi"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 33,
+          "reading": "",
+          "source": "heart attack",
+          "start": 21,
+          "target": "mshtuko wa moyo"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 33,
+          "reading": "",
+          "source": "heart attack",
+          "start": 21,
+          "target": "mshtuko wa moyo"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "me",
+          "start": 16,
+          "target": "mimi"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 1,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-heart-attack-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The English nearly gave me a ... loud noise frame retains the hyperbolic fright meaning; mshtuko wa moyo preserves the heart-attack image. It does not assert an actual diagnosed attack in this sentence.",
+      "source": "You nearly gave me a heart attack with that loud noise!",
+      "baseline_mixed": "You nearly gave mimi a heart attack with that loud noise!",
+      "candidate_mixed": "You nearly gave mimi a mshtuko wa moyo with that loud noise!",
+      "baseline_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "me",
+          "start": 16,
+          "target": "mimi"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "me",
+          "start": 16,
+          "target": "mimi"
+        },
+        {
+          "end": 33,
+          "reading": "",
+          "source": "heart attack",
+          "start": 21,
+          "target": "mshtuko wa moyo"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 33,
+          "reading": "",
+          "source": "heart attack",
+          "start": 21,
+          "target": "mshtuko wa moyo"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-credit-card-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I paid for our dinner with my credit card.",
+      "baseline_mixed": "mimi paid for our chakula cha jioni with my credit card.",
+      "candidate_mixed": "mimi paid for our chakula cha jioni with my kadi ya mkopo.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 21,
+          "reading": "",
+          "source": "dinner",
+          "start": 15,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 21,
+          "reading": "",
+          "source": "dinner",
+          "start": 15,
+          "target": "chakula cha jioni"
+        },
+        {
+          "end": 41,
+          "reading": "",
+          "source": "credit card",
+          "start": 30,
+          "target": "kadi ya mkopo"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 41,
+          "reading": "",
+          "source": "credit card",
+          "start": 30,
+          "target": "kadi ya mkopo"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-police-officer-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "My sister works as a police officer in our town.",
+      "baseline_mixed": "My dada works as a police officer in our mji.",
+      "candidate_mixed": "My dada works as a afisa wa polisi in our mji.",
+      "baseline_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "sister",
+          "start": 3,
+          "target": "dada"
+        },
+        {
+          "end": 47,
+          "reading": "",
+          "source": "town",
+          "start": 43,
+          "target": "mji"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 9,
+          "reading": "",
+          "source": "sister",
+          "start": 3,
+          "target": "dada"
+        },
+        {
+          "end": 35,
+          "reading": "",
+          "source": "police officer",
+          "start": 21,
+          "target": "afisa wa polisi"
+        },
+        {
+          "end": 47,
+          "reading": "",
+          "source": "town",
+          "start": 43,
+          "target": "mji"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 35,
+          "reading": "",
+          "source": "police officer",
+          "start": 21,
+          "target": "afisa wa polisi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-police-officer-contrast",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "The source explicitly identifies the exact game title Police Officer. Replacing it with afisa wa polisi changes the identifying title surface. The noun translation itself is sound; material rating concerns exact-name/metalinguistic fidelity in this reading view.",
+      "source": "Police Officer is the exact title of this computer game.",
+      "baseline_mixed": "Police Officer is the exact title of this computer game.",
+      "candidate_mixed": "afisa wa polisi is the exact title of this computer game.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 14,
+          "reading": "",
+          "source": "Police Officer",
+          "start": 0,
+          "target": "afisa wa polisi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 14,
+          "reading": "",
+          "source": "Police Officer",
+          "start": 0,
+          "target": "afisa wa polisi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-police-officer-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "The source explicitly identifies the exact game title Police Officer. Replacing it with afisa wa polisi changes the identifying title surface. The noun translation itself is sound; material rating concerns exact-name/metalinguistic fidelity in this reading view.",
+      "source": "Police Officer is the exact title of this computer game.",
+      "baseline_mixed": "Police Officer is the exact title of this computer game.",
+      "candidate_mixed": "afisa wa polisi is the exact title of this computer game.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 14,
+          "reading": "",
+          "source": "Police Officer",
+          "start": 0,
+          "target": "afisa wa polisi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 14,
+          "reading": "",
+          "source": "Police Officer",
+          "start": 0,
+          "target": "afisa wa polisi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-cost-of-living-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "The cost of living has increased in our town.",
+      "baseline_mixed": "The cost of living has increased in our mji.",
+      "candidate_mixed": "The gharama ya maisha has increased in our mji.",
+      "baseline_spans": [
+        {
+          "end": 44,
+          "reading": "",
+          "source": "town",
+          "start": 40,
+          "target": "mji"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "cost of living",
+          "start": 4,
+          "target": "gharama ya maisha"
+        },
+        {
+          "end": 44,
+          "reading": "",
+          "source": "town",
+          "start": 40,
+          "target": "mji"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 18,
+          "reading": "",
+          "source": "cost of living",
+          "start": 4,
+          "target": "gharama ya maisha"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-this-morning-contrast",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "This Morning denotes a television programme, not the morning of today. Asubuhi ya leo supplies a deictic time expression and obscures the named programme. This is a referent/title use, not simply mixed grammar. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "This Morning is the television programme she watches.",
+      "baseline_mixed": "This Morning is the television programme yeye watches.",
+      "candidate_mixed": "asubuhi ya leo is the television programme she watches.",
+      "baseline_spans": [
+        {
+          "end": 44,
+          "reading": "",
+          "source": "she",
+          "start": 41,
+          "target": "yeye"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "This Morning",
+          "start": 0,
+          "target": "asubuhi ya leo"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "This Morning",
+          "start": 0,
+          "target": "asubuhi ya leo"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 44,
+          "reading": "",
+          "source": "she",
+          "start": 41,
+          "target": "yeye"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 1,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-this-morning-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "This Morning denotes a television programme, not the morning of today. Asubuhi ya leo supplies a deictic time expression and obscures the named programme. This is a referent/title use, not simply mixed grammar.",
+      "source": "This Morning is the television programme she watches.",
+      "baseline_mixed": "This Morning is the television programme yeye watches.",
+      "candidate_mixed": "asubuhi ya leo is the television programme yeye watches.",
+      "baseline_spans": [
+        {
+          "end": 44,
+          "reading": "",
+          "source": "she",
+          "start": 41,
+          "target": "yeye"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "This Morning",
+          "start": 0,
+          "target": "asubuhi ya leo"
+        },
+        {
+          "end": 44,
+          "reading": "",
+          "source": "she",
+          "start": 41,
+          "target": "yeye"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "This Morning",
+          "start": 0,
+          "target": "asubuhi ya leo"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-boarding-school-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "My cousin lived at a boarding school for two years.",
+      "baseline_mixed": "My cousin lived at a boarding school for two miaka.",
+      "candidate_mixed": "My cousin lived at a shule ya bweni for two miaka.",
+      "baseline_spans": [
+        {
+          "end": 50,
+          "reading": "",
+          "source": "years",
+          "start": 45,
+          "target": "miaka"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 36,
+          "reading": "",
+          "source": "boarding school",
+          "start": 21,
+          "target": "shule ya bweni"
+        },
+        {
+          "end": 50,
+          "reading": "",
+          "source": "years",
+          "start": 45,
+          "target": "miaka"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 36,
+          "reading": "",
+          "source": "boarding school",
+          "start": 21,
+          "target": "shule ya bweni"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-boarding-school-contrast",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "The source explicitly says exact title printed on the poster. Shule ya bweni translates the common phrase but no longer gives that exact identifying title. Material title-surface/presentation concern, not a defective ordinary-school translation.",
+      "source": "Boarding School is the exact title printed on the poster.",
+      "baseline_mixed": "Boarding School is the exact title printed on the poster.",
+      "candidate_mixed": "shule ya bweni is the exact title printed on the poster.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 15,
+          "reading": "",
+          "source": "Boarding School",
+          "start": 0,
+          "target": "shule ya bweni"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 15,
+          "reading": "",
+          "source": "Boarding School",
+          "start": 0,
+          "target": "shule ya bweni"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-boarding-school-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "The source explicitly says exact title printed on the poster. Shule ya bweni translates the common phrase but no longer gives that exact identifying title. Material title-surface/presentation concern, not a defective ordinary-school translation.",
+      "source": "Boarding School is the exact title printed on the poster.",
+      "baseline_mixed": "Boarding School is the exact title printed on the poster.",
+      "candidate_mixed": "shule ya bweni is the exact title printed on the poster.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 15,
+          "reading": "",
+          "source": "Boarding School",
+          "start": 0,
+          "target": "shule ya bweni"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 15,
+          "reading": "",
+          "source": "Boarding School",
+          "start": 0,
+          "target": "shule ya bweni"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-common-cold-positive",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "Mafua ya kawaida names the illness; source causality and speaker remain intact. At low density the loss of translated I/because returns them to English, not a meaning loss. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "I stayed home from work because of the common cold.",
+      "baseline_mixed": "mimi stayed home from work kwa sababu of the common cold.",
+      "candidate_mixed": "I stayed home from work because of the mafua ya kawaida.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "because",
+          "start": 24,
+          "target": "kwa sababu"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 50,
+          "reading": "",
+          "source": "common cold",
+          "start": 39,
+          "target": "mafua ya kawaida"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 50,
+          "reading": "",
+          "source": "common cold",
+          "start": 39,
+          "target": "mafua ya kawaida"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "because",
+          "start": 24,
+          "target": "kwa sababu"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 2,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-common-cold-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "Mafua ya kawaida names the illness; source causality and speaker remain intact. At low density the loss of translated I/because returns them to English, not a meaning loss.",
+      "source": "I stayed home from work because of the common cold.",
+      "baseline_mixed": "mimi stayed home from work kwa sababu of the common cold.",
+      "candidate_mixed": "mimi stayed home from work kwa sababu of the mafua ya kawaida.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "because",
+          "start": 24,
+          "target": "kwa sababu"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 31,
+          "reading": "",
+          "source": "because",
+          "start": 24,
+          "target": "kwa sababu"
+        },
+        {
+          "end": 50,
+          "reading": "",
+          "source": "common cold",
+          "start": 39,
+          "target": "mafua ya kawaida"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 50,
+          "reading": "",
+          "source": "common cold",
+          "start": 39,
+          "target": "mafua ya kawaida"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-common-cold-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "Common Cold is expressly a band name. Mafua ya kawaida presents the illness phrase rather than preserving the identifying name. The illness translation is fine; title/name policy is the concern.",
+      "source": "Common Cold is the name of the band on this poster.",
+      "baseline_mixed": "Common Cold is the jina of the band on this poster.",
+      "candidate_mixed": "mafua ya kawaida is the jina of the band on this poster.",
+      "baseline_spans": [
+        {
+          "end": 23,
+          "reading": "",
+          "source": "name",
+          "start": 19,
+          "target": "jina"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 11,
+          "reading": "",
+          "source": "Common Cold",
+          "start": 0,
+          "target": "mafua ya kawaida"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "name",
+          "start": 19,
+          "target": "jina"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 11,
+          "reading": "",
+          "source": "Common Cold",
+          "start": 0,
+          "target": "mafua ya kawaida"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-sweet-potato-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "Kiazi kitamu names the edible tuber in an English attributive casserole construction. The singular generic ingredient is compatible; no target-language grammar transformation is required.",
+      "source": "I made sweet potato casserole for our dinner today.",
+      "baseline_mixed": "mimi made sweet potato casserole for our chakula cha jioni today.",
+      "candidate_mixed": "mimi made kiazi kitamu casserole for our chakula cha jioni today.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 44,
+          "reading": "",
+          "source": "dinner",
+          "start": 38,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 19,
+          "reading": "",
+          "source": "sweet potato",
+          "start": 7,
+          "target": "kiazi kitamu"
+        },
+        {
+          "end": 44,
+          "reading": "",
+          "source": "dinner",
+          "start": 38,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 19,
+          "reading": "",
+          "source": "sweet potato",
+          "start": 7,
+          "target": "kiazi kitamu"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-sweet-potato-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "material",
+      "notes": "Sweet Potato is the dog nickname, not an edible tuber in this occurrence. Kiazi kitamu changes the stated identifying name. Some users may accept reversible translated nicknames; this label uses exact-name preservation for this explicit naming statement.",
+      "source": "Sweet Potato is the nickname of my small dog.",
+      "baseline_mixed": "Sweet Potato is the nickname of my small mbwa.",
+      "candidate_mixed": "kiazi kitamu is the nickname of my small mbwa.",
+      "baseline_spans": [
+        {
+          "end": 44,
+          "reading": "",
+          "source": "dog",
+          "start": 41,
+          "target": "mbwa"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "Sweet Potato",
+          "start": 0,
+          "target": "kiazi kitamu"
+        },
+        {
+          "end": 44,
+          "reading": "",
+          "source": "dog",
+          "start": 41,
+          "target": "mbwa"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 12,
+          "reading": "",
+          "source": "Sweet Potato",
+          "start": 0,
+          "target": "kiazi kitamu"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "sw-fresh-air-positive",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "We opened the window to let some fresh air inside.",
+      "baseline_mixed": "sisi opened the window to let some fresh air inside.",
+      "candidate_mixed": "We opened the window to let some hewa safi inside.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 42,
+          "reading": "",
+          "source": "fresh air",
+          "start": 33,
+          "target": "hewa safi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 42,
+          "reading": "",
+          "source": "fresh air",
+          "start": 33,
+          "target": "hewa safi"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 1,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-fresh-air-positive",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We opened the window to let some fresh air inside.",
+      "baseline_mixed": "sisi opened the window to let some fresh air inside.",
+      "candidate_mixed": "sisi opened the window to let some hewa safi inside.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 42,
+          "reading": "",
+          "source": "fresh air",
+          "start": 33,
+          "target": "hewa safi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 42,
+          "reading": "",
+          "source": "fresh air",
+          "start": 33,
+          "target": "hewa safi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-fresh-air-contrast",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The English breath of ... advice frame retains the refreshment metaphor. Hewa safi preserves its clean-air image; a metaphor need not remain entirely English to be compatible.",
+      "source": "Her honest advice was a breath of fresh air.",
+      "baseline_mixed": "Her honest advice was a breath of fresh air.",
+      "candidate_mixed": "Her honest advice was a breath of hewa safi.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 43,
+          "reading": "",
+          "source": "fresh air",
+          "start": 34,
+          "target": "hewa safi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 43,
+          "reading": "",
+          "source": "fresh air",
+          "start": 34,
+          "target": "hewa safi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-fresh-air-contrast",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The English breath of ... advice frame retains the refreshment metaphor. Hewa safi preserves its clean-air image; a metaphor need not remain entirely English to be compatible.",
+      "source": "Her honest advice was a breath of fresh air.",
+      "baseline_mixed": "Her honest advice was a breath of fresh air.",
+      "candidate_mixed": "Her honest advice was a breath of hewa safi.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 43,
+          "reading": "",
+          "source": "fresh air",
+          "start": 34,
+          "target": "hewa safi"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 43,
+          "reading": "",
+          "source": "fresh air",
+          "start": 34,
+          "target": "hewa safi"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-high-school-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I met my best friend when we were in high school.",
+      "baseline_mixed": "私 met my best 友達 when 私たち were in high school.",
+      "candidate_mixed": "私 met my best 友達 when 私たち were in 高校.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 20,
+          "reading": "tomodachi",
+          "source": "friend",
+          "start": 14,
+          "target": "友達"
+        },
+        {
+          "end": 28,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 26,
+          "target": "私たち"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 20,
+          "reading": "tomodachi",
+          "source": "friend",
+          "start": 14,
+          "target": "友達"
+        },
+        {
+          "end": 28,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 26,
+          "target": "私たち"
+        },
+        {
+          "end": 48,
+          "reading": "kōkō",
+          "source": "high school",
+          "start": 37,
+          "target": "高校"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 48,
+          "reading": "kōkō",
+          "source": "high school",
+          "start": 37,
+          "target": "高校"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-high-school-contrast",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "High School Musical is the film title. Replacing only High School with 高校 changes part of that identifying title, without evidence that this is the localized title. The ordinary school meaning/readout kōkō is sound; naming fidelity is the concern.",
+      "source": "High School Musical is the title of her favourite film.",
+      "baseline_mixed": "High School Musical is the title of her favourite film.",
+      "candidate_mixed": "高校 Musical is the title of her favourite film.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 11,
+          "reading": "kōkō",
+          "source": "High School",
+          "start": 0,
+          "target": "高校"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 11,
+          "reading": "kōkō",
+          "source": "High School",
+          "start": 0,
+          "target": "高校"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "ja-high-school-contrast",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "High School Musical is the film title. Replacing only High School with 高校 changes part of that identifying title, without evidence that this is the localized title. The ordinary school meaning/readout kōkō is sound; naming fidelity is the concern.",
+      "source": "High School Musical is the title of her favourite film.",
+      "baseline_mixed": "High School Musical is the title of her favourite film.",
+      "candidate_mixed": "高校 Musical is the title of her favourite film.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 11,
+          "reading": "kōkō",
+          "source": "High School",
+          "start": 0,
+          "target": "高校"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 11,
+          "reading": "kōkō",
+          "source": "High School",
+          "start": 0,
+          "target": "高校"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "ja-free-time-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I like to read books in my free time.",
+      "baseline_mixed": "私 like to read 本 in my free time.",
+      "candidate_mixed": "私 like to read 本 in my 余暇.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 20,
+          "reading": "hon",
+          "source": "books",
+          "start": 15,
+          "target": "本"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 20,
+          "reading": "hon",
+          "source": "books",
+          "start": 15,
+          "target": "本"
+        },
+        {
+          "end": 36,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 27,
+          "target": "余暇"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 36,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 27,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-free-time-contrast",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "Free here means free of charge at the parking meter. 余暇/yoka means leisure time, changing the price/time proposition rather than merely target grammar.",
+      "source": "The parking meter gives us some free time before we must pay.",
+      "baseline_mixed": "The parking meter gives us some free time before 私たち must pay.",
+      "candidate_mixed": "The parking meter gives us some 余暇 before 私たち must pay.",
+      "baseline_spans": [
+        {
+          "end": 51,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 49,
+          "target": "私たち"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 32,
+          "target": "余暇"
+        },
+        {
+          "end": 51,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 49,
+          "target": "私たち"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 32,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-free-time-contrast",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "Free here means free of charge at the parking meter. 余暇/yoka means leisure time, changing the price/time proposition rather than merely target grammar.",
+      "source": "The parking meter gives us some free time before we must pay.",
+      "baseline_mixed": "The parking meter gives us some free time before 私たち must pay.",
+      "candidate_mixed": "The parking meter gives us some 余暇 before 私たち must pay.",
+      "baseline_spans": [
+        {
+          "end": 51,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 49,
+          "target": "私たち"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 32,
+          "target": "余暇"
+        },
+        {
+          "end": 51,
+          "reading": "watashitachi",
+          "source": "we",
+          "start": 49,
+          "target": "私たち"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "free time",
+          "start": 32,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-country-music-contrast",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "The source identifies the title printed on a book cover. カントリー translates the genre but removes the exact Country Music wording being identified. This is title/metalinguistic fidelity rather than an ordinary genre mistranslation.",
+      "source": "Country Music is the title printed on the book cover.",
+      "baseline_mixed": "Country Music is the title printed on the book cover.",
+      "candidate_mixed": "カントリー is the title printed on the book cover.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 13,
+          "reading": "kantorī",
+          "source": "Country Music",
+          "start": 0,
+          "target": "カントリー"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 13,
+          "reading": "kantorī",
+          "source": "Country Music",
+          "start": 0,
+          "target": "カントリー"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "ja-country-music-contrast",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "The source identifies the title printed on a book cover. カントリー translates the genre but removes the exact Country Music wording being identified. This is title/metalinguistic fidelity rather than an ordinary genre mistranslation.",
+      "source": "Country Music is the title printed on the book cover.",
+      "baseline_mixed": "Country Music is the title printed on the book cover.",
+      "candidate_mixed": "カントリー is the title printed on the book cover.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 13,
+          "reading": "kantorī",
+          "source": "Country Music",
+          "start": 0,
+          "target": "カントリー"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 13,
+          "reading": "kantorī",
+          "source": "Country Music",
+          "start": 0,
+          "target": "カントリー"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": true
+    },
+    {
+      "id": "ja-spare-time-positive",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "I enjoy drawing pictures in my spare time at home.",
+      "baseline_mixed": "私 enjoy drawing pictures in my spare time at home.",
+      "candidate_mixed": "I enjoy drawing pictures in my 余暇 at home.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 31,
+          "target": "余暇"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 31,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 1,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-spare-time-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I enjoy drawing pictures in my spare time at home.",
+      "baseline_mixed": "私 enjoy drawing pictures in my spare time at home.",
+      "candidate_mixed": "私 enjoy drawing pictures in my 余暇 at home.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 31,
+          "target": "余暇"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 41,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 31,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-spare-time-contrast",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "The source parses as spare [time machine], an extra time machine. 余暇 means leisure and falsely groups spare time into a constituent. This is a real phrase-boundary/sense error.",
+      "source": "My spare time machine is stored in the garage.",
+      "baseline_mixed": "My spare time machine is stored in the garage.",
+      "candidate_mixed": "My 余暇 machine is stored in the garage.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 13,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 3,
+          "target": "余暇"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 13,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 3,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-spare-time-contrast",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "material",
+      "notes": "The source parses as spare [time machine], an extra time machine. 余暇 means leisure and falsely groups spare time into a constituent. This is a real phrase-boundary/sense error.",
+      "source": "My spare time machine is stored in the garage.",
+      "baseline_mixed": "My spare time machine is stored in the garage.",
+      "candidate_mixed": "My 余暇 machine is stored in the garage.",
+      "baseline_spans": [],
+      "candidate_spans": [
+        {
+          "end": 13,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 3,
+          "target": "余暇"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 13,
+          "reading": "yoka",
+          "source": "spare time",
+          "start": 3,
+          "target": "余暇"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-grocery-store-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I bought some bread at the grocery store near home.",
+      "baseline_mixed": "私 bought some パン at the grocery store near home.",
+      "candidate_mixed": "私 bought some パン at the 食料品店 near home.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 19,
+          "reading": "pan",
+          "source": "bread",
+          "start": 14,
+          "target": "パン"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 19,
+          "reading": "pan",
+          "source": "bread",
+          "start": 14,
+          "target": "パン"
+        },
+        {
+          "end": 40,
+          "reading": "shokuryōhinten",
+          "source": "grocery store",
+          "start": 27,
+          "target": "食料品店"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 40,
+          "reading": "shokuryōhinten",
+          "source": "grocery store",
+          "start": 27,
+          "target": "食料品店"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-ice-cream-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We shared some ice cream after dinner at home.",
+      "baseline_mixed": "私たち shared some ice cream after 夕食 at home.",
+      "candidate_mixed": "私たち shared some アイスクリーム after 夕食 at home.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        },
+        {
+          "end": 37,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 31,
+          "target": "夕食"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        },
+        {
+          "end": 24,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 15,
+          "target": "アイスクリーム"
+        },
+        {
+          "end": 37,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 31,
+          "target": "夕食"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 24,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 15,
+          "target": "アイスクリーム"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-fried-chicken-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We had fried chicken with vegetables for dinner at home.",
+      "baseline_mixed": "私たち had fried chicken with 野菜 for 夕食 at home.",
+      "candidate_mixed": "私たち had フライドチキン with 野菜 for 夕食 at home.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        },
+        {
+          "end": 36,
+          "reading": "yasai",
+          "source": "vegetables",
+          "start": 26,
+          "target": "野菜"
+        },
+        {
+          "end": 47,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 41,
+          "target": "夕食"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        },
+        {
+          "end": 20,
+          "reading": "furaidochikin",
+          "source": "fried chicken",
+          "start": 7,
+          "target": "フライドチキン"
+        },
+        {
+          "end": 36,
+          "reading": "yasai",
+          "source": "vegetables",
+          "start": 26,
+          "target": "野菜"
+        },
+        {
+          "end": 47,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 41,
+          "target": "夕食"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 20,
+          "reading": "furaidochikin",
+          "source": "fried chicken",
+          "start": 7,
+          "target": "フライドチキン"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-social-media-positive",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "I share pictures of my garden on social media.",
+      "baseline_mixed": "私 share pictures of my 庭 on social media.",
+      "candidate_mixed": "私 share pictures of my 庭 on ソーシャルメディア.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 29,
+          "reading": "niwa",
+          "source": "garden",
+          "start": 23,
+          "target": "庭"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 29,
+          "reading": "niwa",
+          "source": "garden",
+          "start": 23,
+          "target": "庭"
+        },
+        {
+          "end": 45,
+          "reading": "sōsharu media",
+          "source": "social media",
+          "start": 33,
+          "target": "ソーシャルメディア"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 45,
+          "reading": "sōsharu media",
+          "source": "social media",
+          "start": 33,
+          "target": "ソーシャルメディア"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-shared-repetition",
+      "density": 0.25,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "We shared ice cream and then ordered more ice cream.",
+      "baseline_mixed": "私たち shared ice cream and then ordered more ice cream.",
+      "candidate_mixed": "We shared アイスクリーム and then ordered more ice cream.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 19,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 10,
+          "target": "アイスクリーム"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 19,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 10,
+          "target": "アイスクリーム"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 1,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-shared-repetition",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We shared ice cream and then ordered more ice cream.",
+      "baseline_mixed": "私たち shared ice cream and then ordered more ice cream.",
+      "candidate_mixed": "私たち shared アイスクリーム and then ordered more アイスクリーム.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "watashitachi",
+          "source": "We",
+          "start": 0,
+          "target": "私たち"
+        },
+        {
+          "end": 19,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 10,
+          "target": "アイスクリーム"
+        },
+        {
+          "end": 51,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 42,
+          "target": "アイスクリーム"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 19,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 10,
+          "target": "アイスクリーム"
+        },
+        {
+          "end": 51,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 42,
+          "target": "アイスクリーム"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 2,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0,
+        1
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "ja-shared-negation",
+      "density": 0.75,
+      "target_language": "ja",
+      "label": "compatible",
+      "notes": "Ice cream becomes アイスクリーム/aisukurīmu; source do not remains explicit. Existing want→望む stays visible and no new polarity change is introduced.",
+      "source": "I do not want ice cream with dinner tonight.",
+      "baseline_mixed": "私 do not 望む ice cream with 夕食 tonight.",
+      "candidate_mixed": "私 do not 望む アイスクリーム with 夕食 tonight.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 13,
+          "reading": "nozomu",
+          "source": "want",
+          "start": 9,
+          "target": "望む"
+        },
+        {
+          "end": 35,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 29,
+          "target": "夕食"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "watashi",
+          "source": "I",
+          "start": 0,
+          "target": "私"
+        },
+        {
+          "end": 13,
+          "reading": "nozomu",
+          "source": "want",
+          "start": 9,
+          "target": "望む"
+        },
+        {
+          "end": 23,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 14,
+          "target": "アイスクリーム"
+        },
+        {
+          "end": 35,
+          "reading": "yuushoku",
+          "source": "dinner",
+          "start": 29,
+          "target": "夕食"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 23,
+          "reading": "aisukurīmu",
+          "source": "ice cream",
+          "start": 14,
+          "target": "アイスクリーム"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-shared-repetition",
+      "density": 0.25,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source. Lost translated spans return to their unchanged original English text; they reduce or redistribute immersion but do not delete source content.",
+      "source": "We shared ice cream and then ordered more ice cream.",
+      "baseline_mixed": "sisi shared ice cream na then ordered more ice cream.",
+      "candidate_mixed": "We shared aiskrimu and then ordered more ice cream.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "and",
+          "start": 20,
+          "target": "na"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 19,
+          "reading": "",
+          "source": "ice cream",
+          "start": 10,
+          "target": "aiskrimu"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 19,
+          "reading": "",
+          "source": "ice cream",
+          "start": 10,
+          "target": "aiskrimu"
+        }
+      ],
+      "lost_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "and",
+          "start": 20,
+          "target": "na"
+        }
+      ],
+      "gain_span_count": 1,
+      "loss_span_count": 2,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-shared-repetition",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "The complete mixed output retains the source proposition and surrounding English grammar. Added phrase face and, for Japanese, romanized reading match the intended ordinary meaning here. Existing selected faces do not introduce a material meaning change in this source.",
+      "source": "We shared ice cream and then ordered more ice cream.",
+      "baseline_mixed": "sisi shared ice cream na then ordered zaidi ice cream.",
+      "candidate_mixed": "sisi shared aiskrimu na then ordered zaidi aiskrimu.",
+      "baseline_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "and",
+          "start": 20,
+          "target": "na"
+        },
+        {
+          "end": 41,
+          "reading": "",
+          "source": "more",
+          "start": 37,
+          "target": "zaidi"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 2,
+          "reading": "",
+          "source": "We",
+          "start": 0,
+          "target": "sisi"
+        },
+        {
+          "end": 19,
+          "reading": "",
+          "source": "ice cream",
+          "start": 10,
+          "target": "aiskrimu"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "and",
+          "start": 20,
+          "target": "na"
+        },
+        {
+          "end": 41,
+          "reading": "",
+          "source": "more",
+          "start": 37,
+          "target": "zaidi"
+        },
+        {
+          "end": 51,
+          "reading": "",
+          "source": "ice cream",
+          "start": 42,
+          "target": "aiskrimu"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 19,
+          "reading": "",
+          "source": "ice cream",
+          "start": 10,
+          "target": "aiskrimu"
+        },
+        {
+          "end": 51,
+          "reading": "",
+          "source": "ice cream",
+          "start": 42,
+          "target": "aiskrimu"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 2,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0,
+        1
+      ],
+      "title_policy_dependent": false
+    },
+    {
+      "id": "sw-shared-negation",
+      "density": 0.75,
+      "target_language": "sw",
+      "label": "compatible",
+      "notes": "Ice cream becomes aiskrimu while do not remains explicit. Existing infinitive kutaka is tolerated vocabulary-mode source grammar, not a new predicate tense/person claim.",
+      "source": "I do not want ice cream with dinner tonight.",
+      "baseline_mixed": "mimi do not kutaka ice cream with chakula cha jioni tonight.",
+      "candidate_mixed": "mimi do not kutaka aiskrimu with chakula cha jioni tonight.",
+      "baseline_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 13,
+          "reading": "",
+          "source": "want",
+          "start": 9,
+          "target": "kutaka"
+        },
+        {
+          "end": 35,
+          "reading": "",
+          "source": "dinner",
+          "start": 29,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "candidate_spans": [
+        {
+          "end": 1,
+          "reading": "",
+          "source": "I",
+          "start": 0,
+          "target": "mimi"
+        },
+        {
+          "end": 13,
+          "reading": "",
+          "source": "want",
+          "start": 9,
+          "target": "kutaka"
+        },
+        {
+          "end": 23,
+          "reading": "",
+          "source": "ice cream",
+          "start": 14,
+          "target": "aiskrimu"
+        },
+        {
+          "end": 35,
+          "reading": "",
+          "source": "dinner",
+          "start": 29,
+          "target": "chakula cha jioni"
+        }
+      ],
+      "new_spans": [
+        {
+          "end": 23,
+          "reading": "",
+          "source": "ice cream",
+          "start": 14,
+          "target": "aiskrimu"
+        }
+      ],
+      "lost_spans": [],
+      "gain_span_count": 1,
+      "loss_span_count": 0,
+      "useful_new_span_indices": [
+        0
+      ],
+      "title_policy_dependent": false
+    }
+  ],
+  "recommendation": {
+    "decision": "narrow_before_activation",
+    "clear_lexical_removals": [
+      "ja:free time",
+      "ja:spare time"
+    ],
+    "clear_lexical_reason": "Do not ship unconditional leisure mappings. A separately reviewed finite possessive/leisure context can retain ordinary benefit; existing broad noun guard is not that policy.",
+    "exact_name_surface_holds": [
+      "sw:police officer",
+      "sw:this morning",
+      "sw:boarding school",
+      "sw:common cold",
+      "sw:sweet potato",
+      "ja:high school",
+      "ja:country music"
+    ],
+    "name_policy_limit": "These title/nickname labels use exact-reference preservation. Reversible reading with original/flip controls may motivate another presentation judgment; do not collapse that disagreement into dictionary sense gold. Prefer a general explicit-title/name context hold if implemented and qualified; otherwise withhold affected new entries in this increment rather than claim title-safe coverage. Do not add word-specific case heuristics.",
+    "figurative_policy": "Do not automatically withhold heart attack or fresh air: reviewed English framing preserves these metaphors.",
+    "unexercised_entries": "An addition with no changed selected output receives no fresh positive semantic acceptance from this capture.",
+    "remaining": "No population accuracy, native-speaker certification, or activation recommendation for the uncorrected candidate."
+  }
+}

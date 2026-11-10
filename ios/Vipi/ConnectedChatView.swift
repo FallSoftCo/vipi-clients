@@ -454,7 +454,7 @@ struct FriendConversationView: View {
         .safeAreaInset(edge: .bottom) { composer }
         .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.density)") {
             speech.close()
-            await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
+            await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density, familiarity: chat.familiarity)
             prepareVoices()
         }
         .onDisappear { cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; immersion.close(); speech.close() }

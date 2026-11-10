@@ -45,7 +45,8 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     onInteractionChange: ((Boolean) -> Unit)? = null, onReport: (() -> Unit)? = null,
     onFullTranslation: (() -> Unit)? = null, fullTranslationLoading: Boolean = false,
     fullTranslationError: ImmersionStatus? = null, onCancelFullTranslation: (() -> Unit)? = null,
-    onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false
+    onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false,
+    onExposure: ((List<co.fallsoft.vipi.core.ImmersionSpan>) -> Unit)? = null
 ) {
     require(!contextualActions || BuildConfig.DEBUG)
     val nativeActions = contextualActions && embedded
@@ -69,6 +70,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     var selecting by remember { mutableStateOf(false) }
     var selectText by remember(visibleIdentity) { mutableStateOf(false) }
     var visible by remember { mutableStateOf(false) }
+    var exposureVisible by remember { mutableStateOf(false) }
     var resumed by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var chooseLanguage by remember { mutableStateOf(false) }
@@ -106,12 +108,13 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         }
     }
     val revealed = result.spans.filter { overrides[it.id] ?: originalPhase }.map { it.id }.toSet()
-    LaunchedEffect(eligible, inlineIdentity, revision, pace) {
+    LaunchedEffect(eligible, exposureVisible, inlineIdentity, revision, pace) {
         if (!eligible) return@LaunchedEffect
         if (embedded) delay((messageID.hashCode().toLong() and 0xffffffffL) % 1200)
         while (true) {
             val dwell = if (originalPhase) meaningDwellMs else targetDwellMs
             delay(when (pace) { "relaxed" -> dwell * 2; "brisk" -> dwell / 2; else -> dwell })
+            if (!originalPhase && exposureVisible) onExposure?.invoke(result.spans.filter { overrides[it.id] != true })
             originalPhase = !originalPhase; overrides = emptyMap()
         }
     }
@@ -137,6 +140,10 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         .onGloballyPositioned {
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width
+            // boundsInWindow is clipped by ancestors: compare with measured size
+            // before treating a partially scrolled bubble as a complete exposure.
+            exposureVisible = visible && bounds.width >= it.size.width - 1 && bounds.height >= it.size.height - 1 &&
+                bounds.top >= 0 && bounds.bottom <= root.height && bounds.left >= 0 && bounds.right <= root.width
         }) {
         if (effectiveMode == ReadingMode.IMMERSED) {
             AndroidView(factory = { StableImmersionText(it) }, modifier = Modifier.fillMaxWidth(), update = {

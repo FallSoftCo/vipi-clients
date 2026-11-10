@@ -25,6 +25,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private var vault: MessageVault? = null
     private var core: MessagingCore? = null
     private var history: ConversationHistory? = null
+    var familiarity: VocabularyFamiliarityStore? = null; private set
     var profile by mutableStateOf<ChatProfile?>(null); private set
     var needsProfile by mutableStateOf(false); private set
     var busy by mutableStateOf(false); private set
@@ -56,6 +57,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
+            familiarity = VocabularyFamiliarityStore(store)
             ready = store.transaction { store.get("local", "registered-device")?.toString(Charsets.UTF_8) == core!!.device.id.toString() }
             contacts = store.transaction { store.ids("contact").associate { key ->
                 val contact = ChatProfile.parse(JSONObject(requireNotNull(store.get("contact", key)).toString(Charsets.UTF_8)))

@@ -20,14 +20,32 @@ class LookupFirstTest {
         var translated = "Hola."; var detected: String? = "en"; var partial: PartialImmersionResult? = null
         var invalidate: String? = null; var invalidAlignment = false; var translationFailure: Exception? = null
         fun event(s: String) { events += s; if (s == invalidate) valid = false }
-        fun resolve(input: String? = "en", original: String = "Hello.", intent: ImmersionIntent = ImmersionIntent.AUTOMATIC_IMMERSION) = this@LookupFirstTest.run {
-            LookupFirst.resolve(LookupFirstRequest(original,"en","es",input,intent), {valid},
+        fun resolve(input: String? = "en", original: String = "Hello.", intent: ImmersionIntent = ImmersionIntent.AUTOMATIC_IMMERSION, allowModelTranslation: Boolean = true) = this@LookupFirstTest.run {
+            LookupFirst.resolve(LookupFirstRequest(original,"en","es",input,intent,allowModelTranslation), {valid},
                 reference={_,a,_-> event("reference:$a"); if(a=="en")known else reverse},
                 identify={ event("identify"); detected }, modelsReady={ event("models");ready },
                 translate={_,a,b->event("translate:$a-$b"); translationFailure?.let { throw it }; translated},
                 align={a,b,_->event("align");ImmersionResult(if(invalidAlignment)"wrong" else a,b,emptyList())},
                 partialReference={_,_,_->event("partial");partial}, onPartial={event("show_partial")})
         }
+    }
+    @Test fun localOnlyMissNeverUsesModelsEvenWhenInstalled() {
+        for (intent in ImmersionIntent.entries) {
+            val w = Work(); w.ready = true
+            val result = w.resolve(intent = intent, allowModelTranslation = false)
+            assertEquals(ImmersionStatus.NO_LOCAL_MATCH, result.status); assertNull(result.result)
+            assertEquals(listOf("reference:en", "partial"), w.events)
+        }
+    }
+    @Test fun localOnlyKeepsReviewedPartialAndKnownReference() {
+        val w = Work()
+        w.partial = SourceReferencePresentation.create("Hello. Unknown.", "es", listOf(
+            SourceReferenceUnit(0,6,"Hello.","Hola.",null,"r1","a".repeat(64),nativeSourceTokens=1)),.25,2)
+        val partial = w.resolve(original="Hello. Unknown.", allowModelTranslation=false)
+        assertEquals(w.partial!!.spans, partial.result!!.spans)
+        w.known = "Hola."
+        val exact = w.resolve(allowModelTranslation=false)
+        assertEquals("Hola.", exact.result!!.translation); assertEquals(0, exact.localTranslationCalls)
     }
     @Test fun fullyKnownNeverChecksModelsOrTranslates() {
         val w=Work();w.known="Hola.";w.ready=false

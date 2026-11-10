@@ -5,15 +5,17 @@ public struct LookupFirstRequest: Sendable {
     public let text: String, source: String, target: String
     public let inputLanguage: String?
     public let intent: ImmersionRequestIntent
+    public let allowModelTranslation: Bool
     public init(text: String, source: String, target: String, inputLanguage: String? = nil,
-                intent: ImmersionRequestIntent = .automaticImmersion) {
+                intent: ImmersionRequestIntent = .automaticImmersion, allowModelTranslation: Bool = true) {
         self.text = text; self.source = source; self.target = target; self.inputLanguage = inputLanguage
         self.intent = intent
+        self.allowModelTranslation = allowModelTranslation
     }
 }
 public enum ImmersionOrigin: String, Sendable { case lookupReference, sourceReferencePartial, localFullContext }
 public enum ImmersionStatus: String, Sendable {
-    case ready, partial, invalidInput, invalidLanguage, modelNotReady, invalidResult, stale, error
+    case ready, partial, invalidInput, invalidLanguage, modelNotReady, noLocalMatch, invalidResult, stale, error
 }
 public struct LookupFirstOutcome: Sendable {
     public let result: ImmersionPresentation?
@@ -128,6 +130,9 @@ public enum LookupFirst {
             let reversed = detected == target
             let known = forward ?? reverse
             let from = reversed ? target : source, to = reversed ? source : target
+            // A missing reviewed mapping is ordinary original-language text.
+            // This guard precedes readiness checks and any inference provider.
+            if known == nil && !request.allowModelTranslation { return stop(.noLocalMatch) }
             if known == nil {
                 readinessCalls += 1
                 let ready = try await modelsReady(from, to)

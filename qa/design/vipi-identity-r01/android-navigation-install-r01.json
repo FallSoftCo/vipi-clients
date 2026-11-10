@@ -1,0 +1,9 @@
+{
+  "started": "2026-11-10T16:16:50.253301+00:00",
+  "apk_sha256": "461ed590c530a82601e7cb35c32b995a366951b3cb89a6f008543d9074a7dc11",
+  "effect": "Install new navigation-only main QA APK",
+  "complete": true,
+  "exit": 0,
+  "stdout": "Performing Streamed Install\nSuccess\n",
+  "stderr": ""
+}

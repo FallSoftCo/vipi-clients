@@ -186,8 +186,8 @@ struct SourceFrameStarterCandidate {
         let masks=frameRecognitions.compactMap(\.mask)
         let ordinary=raw.filter{c in c.reason==nil && !masks.contains(where:{overlap($0,c.range)})}.sorted {
             if ($0.category=="content") != ($1.category=="content") {return $0.category=="content"}
-            if $0.rank != $1.rank {return $0.rank<$1.rank}
             if $0.tokenCount != $1.tokenCount {return $0.tokenCount>$1.tokenCount}
+            if $0.rank != $1.rank {return $0.rank<$1.rank}
             return $0.range.location<$1.range.location
         }
         let fixed=baseline.recognitions.filter{$0.mode != .headBackoff}+frameRecognitions.filter{$0.mode != .headBackoff}+literalRanges.enumerated().map{n,r in SourceRecognition(ruleID:"native-literal-\(n)",recordSHA256:packSHA,context:r,mask:r,mode:.ambiguous,approvedOutputs:[])}

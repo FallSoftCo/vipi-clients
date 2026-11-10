@@ -150,7 +150,13 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
     private val qaModelsReady: Boolean? = null,
     sourceKnownConceptIDs: Set<String> = emptySet(),
-    private val sourceLookup: SourceLookupProvider? = BundledStarterLookup.provider(context, sourceKnownConceptIDs)) : AutoCloseable {
+    private val sourceLookup: SourceLookupProvider? = BundledStarterLookup.provider(context, sourceKnownConceptIDs),
+    private val familiarity: VocabularyFamiliarityStore? = null) : AutoCloseable {
+    private fun exposureDay() = (System.currentTimeMillis() / 86_400_000L).toInt()
+    fun targetDwell(value: ImmersionPresentation?) = familiarity?.targetMilliseconds(value?.spans.orEmpty(), source, target, exposureDay()) ?: 4500L
+    fun observeExposure(spans: List<co.fallsoft.vipi.core.ImmersionSpan>) {
+        if (!closed) familiarity?.observe(spans, source, target, exposureDay())
+    }
     private val sourceLookupIdentity = sourceLookup?.cacheIdentity
     init {
         require(qaSourceUnits == null || BuildConfig.DEBUG)
@@ -298,7 +304,8 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         val attempt = requestEpoch?.let { FullAttempt(revision, messageID, inputLanguage, text, it) }
         attempt?.let { synchronized(stateLock) { fullAttempts[it] } }?.let { return@withRequestGate finish(it.cachedInvocation()) }
         val outcome = try {
-            LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage, intent), ::valid,
+            LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage, intent,
+                allowModelTranslation = intent == ImmersionIntent.FULL_TRANSLATION), ::valid,
                 reference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(original, from, to) } } },
                 identify = { language.identify(it) }, modelsReady = { readinessCalls++; ready == true },
                 translate = { original, from, to ->
@@ -425,11 +432,11 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
         }
     }
     ImmersionBubble(current ?: remember(text) { OriginalOnlyPresentation(text) }, mode, speech, immersion.source, immersion.target, id, paused,
-        fullReading = fullReading?.text,
+        fullReading = fullReading?.text, targetDwellMs = immersion.targetDwell(current),
         embedded = true, onModeChange = { value -> cancelFull(); mode = value }, metadata = metadata, onVoiceHelp = onVoiceHelp,
         originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { cancelFull(); immersion.selectInputLanguage(id, it) },
         onInteractionChange = { interacting = it }, onReport = onReport,
         onFullTranslation = ::requestFull, fullTranslationLoading = fullLoading, fullTranslationError = fullError,
         onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup,
-        contextualActions = contextualActions)
+        contextualActions = contextualActions, onExposure = immersion::observeExposure)
 }

@@ -47,8 +47,8 @@ class ContinuousImmersionDeviceTest {
             }
             checkNotNull(device.findObject(By.desc("Resume word switching"))).click()
             waitFor(if (held == original) target else original)
-            checkNotNull(device.findObject(By.text("See the whole thought in Spanish"))).click()
-            assertNotNull(device.wait(Until.findObject(By.text("¿Café mañana? Conozco un pequeño lugar junto al río.")), 3000))
+            checkNotNull(device.findObject(By.text("Show original message"))).click()
+            assertNotNull(device.wait(Until.findObject(By.text("Coffee tomorrow? I know a little place by the river.")), 3000))
             File(output, "report.json").writeText(JSONObject().put("status", "passed").put("observations", observations)
                 .put("proof", "six_real_time_transitions_without_taps_stable_bubble_bounds_natural_paragraphs_pause_resume").toString(2))
         } finally { scenario.close() }

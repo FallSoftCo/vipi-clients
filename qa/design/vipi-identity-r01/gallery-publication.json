@@ -1,0 +1,32 @@
+{
+  "assets_and_review_page_served": true,
+  "main_gallery_index_published": false,
+  "catalog_entry_prepared": "output/catalog-extras/vipi-local-release-20261110.json",
+  "main_build_failed": "Pre-existing missing personal-digital-double-head-v40/poster.png",
+  "unchanged_main_gallery_browser_check": "Passed desktop/mobile/reduced-motion/automatic-reload; does not qualify adding these new cards",
+  "direct_review_url": "https://system76-pc.tailb77f2a.ts.net/8bar/vipi-local-release-20261110/",
+  "no_unrelated_asset_changed": true,
+  "direct_review_health": {
+    "passed": true,
+    "reports": [
+      {
+        "width": 1280,
+        "layout": {
+          "viewport": 1280,
+          "width": 1280,
+          "images": 9
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "layout": {
+          "viewport": 390,
+          "width": 390,
+          "images": 9
+        },
+        "errors": []
+      }
+    ]
+  }
+}

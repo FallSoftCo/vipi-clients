@@ -16,6 +16,15 @@ import VipiCore
     private(set) var lastOutcome: LookupFirstOutcome?
     private(set) var lexicalPreparation = "unmeasured"
     private var density = 0.25
+    private var familiarity: VocabularyFamiliarityStore?
+    private var exposureDay: Int { Int(Date().timeIntervalSince1970 / 86400) }
+    func targetDwell(_ result: ImmersionPresentation) -> Duration {
+        .milliseconds(familiarity?.targetMilliseconds(result.spans, source: pair.source, target: pair.target, day: exposureDay) ?? 4500)
+    }
+    func observeExposure(_ spans: [ImmersionSpan]) {
+        guard !closed else { return }
+        familiarity?.observe(spans, source: pair.source, target: pair.target, day: exposureDay)
+    }
     private var knownConceptIDs = Set<String>()
     private let sourceUnits: SourceUnitLookup?
     private var epoch = UUID()
@@ -125,9 +134,10 @@ import VipiCore
     /// Knowledge is an immutable request snapshot, empty by default. Only the
     /// optional source-unit provider consumes these catalog-scoped IDs; legacy
     /// aligned entries and authored sentence references do not infer mastery.
-    func configure(pair: TranslationPair, density: Double, knownConceptIDs: Set<String> = []) async {
+    func configure(pair: TranslationPair, density: Double, knownConceptIDs: Set<String> = [],
+                   familiarity: VocabularyFamiliarityStore? = nil) async {
         close(); closed = false; self.pair = pair; self.density = density
-        self.knownConceptIDs = knownConceptIDs
+        self.knownConceptIDs = knownConceptIDs; self.familiarity = familiarity
         availability = .checking; lexicalPreparation = "unmeasured"
         // No readiness gate, TranslationSession, translator factory or lexical
         // materialization before exact/source-only lookup has had its turn.
@@ -184,7 +194,8 @@ import VipiCore
         do {
             let outcome = try await LookupFirst.resolve(
                 .init(text: text, source: activePair.source, target: activePair.target,
-                      inputLanguage: inputLanguage, intent: intent),
+                      inputLanguage: inputLanguage, intent: intent,
+                      allowModelTranslation: intent == .fullTranslation),
                 valid: valid,
                 reference: { original, source, target in
                     try await self.catalog.reference(original: original, pair: .init(source: source, target: target))
@@ -398,10 +409,12 @@ struct ConversationImmersionText: View {
                     sourceLanguage: identity.source, targetLanguage: identity.target,
                     messageID: id, interactionPaused: paused,
                     fullReading: immersion.fullReading(for: result, identity: identity)?.text,
+                    targetDwell: immersion.targetDwell(result),
                     embedded: true, onModeChange: chooseMode, metadata: metadata, onVoiceHelp: onVoiceHelp,
                     originalMessage: text, inputLanguage: inputLanguage,
                     onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) },
-                    requestingTranslation: fullRequest != nil, onRequestTranslation: requestTranslation)
+                    requestingTranslation: fullRequest != nil, onRequestTranslation: requestTranslation,
+                    onExposure: immersion.observeExposure)
                     .id(identity) // Drop old reveal/selection/full-target action state.
             } else {
                 VStack(alignment: .leading, spacing: 7) {

@@ -1,0 +1,452 @@
+{
+  "reviewer": "design_medium",
+  "reviewed_at": "2026-11-10T16:03:48.921715+00:00",
+  "independence": {
+    "root_meaning_review_read": false,
+    "read_inputs": [
+      "candidate-r03-changed-rows.json",
+      "candidate-r02/correction.json",
+      "candidate-r02/provenance.json"
+    ],
+    "prior_exposure": "Task described candidate as corrected 23 phrases; no root verdict read."
+  },
+  "input_sha256": "93008e6099542396b6002017f3288695ee9f5a141afc3148f030b5e5d112f9b6",
+  "rows_reviewed": 59,
+  "distinct_case_ids": 30,
+  "scope": "Actual exposed Apple changed outputs only, densities .25/.75; source-language grammar and base target vocabulary intentionally preserved.",
+  "significant_errors": [],
+  "conclusion": "No significant meaning, contextual-sense, negation, or name corruption identified in these 59 changed rows. Scoped linguistic compatibility, not blanket production approval.",
+  "minor_cautions": {
+    "ja-shared-negation": "At density .75, want→望む is relatively formal/wish-like for wanting food, but retains desire and source do not retains negation. Stylistic caution, not significant meaning reversal. A future everyday-food desire sense can improve this without broad suppression.",
+    "sw-rap-music-positive": "rap is the supplied attested loan for the music genre. Dropping English music is not a loss of genre meaning in listening context; pedagogical novelty is limited.",
+    "sw-heart-attack-contrast": "English nearly gave me a ... with that loud noise retains hyperbole around the same heart-attack concept. Not independently diagnosed as medical meaning reversal. Does not validate fully Swahili idiom naturalness.",
+    "sw-horror-movie-contrast": "English journey was a ... from start to finish preserves overt metaphor, with a matching frightening-film concept. No significant context error found in mixed-language frame.",
+    "sw-fresh-air-contrast": "English advice was a breath of ... preserves metaphor; target is corresponding fresh/clean-air concept. Mixed-frame compatibility is not proof of autonomous target-language idiom usage.",
+    "ja-high-school-positive": "高校 is the normal upper-secondary/high-school concept for this exposed sentence. Broader countries/school systems and title protection are not established by this positive case.",
+    "sw-bad-luck-positive": "nuksi denotes misfortune in retained dictionary provenance; weather/holiday context supports it. Regional/register preference still merits native review."
+  },
+  "rows": [
+    {
+      "index": 0,
+      "id": "sw-ice-cream-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 1,
+      "id": "sw-ice-cream-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 2,
+      "id": "sw-climate-change-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 3,
+      "id": "sw-climate-change-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 4,
+      "id": "sw-radio-station-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 5,
+      "id": "sw-radio-station-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 6,
+      "id": "sw-rap-music-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "rap is the supplied attested loan for the music genre. Dropping English music is not a loss of genre meaning in listening context; pedagogical novelty is limited."
+    },
+    {
+      "index": 7,
+      "id": "sw-rap-music-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "rap is the supplied attested loan for the music genre. Dropping English music is not a loss of genre meaning in listening context; pedagogical novelty is limited."
+    },
+    {
+      "index": 8,
+      "id": "sw-family-member-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 9,
+      "id": "sw-family-member-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 10,
+      "id": "sw-bad-luck-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "nuksi denotes misfortune in retained dictionary provenance; weather/holiday context supports it. Regional/register preference still merits native review."
+    },
+    {
+      "index": 11,
+      "id": "sw-bad-luck-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "nuksi denotes misfortune in retained dictionary provenance; weather/holiday context supports it. Regional/register preference still merits native review."
+    },
+    {
+      "index": 12,
+      "id": "sw-mental-health-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 13,
+      "id": "sw-mental-health-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 14,
+      "id": "sw-heart-attack-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 15,
+      "id": "sw-heart-attack-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 16,
+      "id": "sw-heart-attack-contrast",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English nearly gave me a ... with that loud noise retains hyperbole around the same heart-attack concept. Not independently diagnosed as medical meaning reversal. Does not validate fully Swahili idiom naturalness."
+    },
+    {
+      "index": 17,
+      "id": "sw-heart-attack-contrast",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English nearly gave me a ... with that loud noise retains hyperbole around the same heart-attack concept. Not independently diagnosed as medical meaning reversal. Does not validate fully Swahili idiom naturalness."
+    },
+    {
+      "index": 18,
+      "id": "sw-credit-card-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 19,
+      "id": "sw-credit-card-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 20,
+      "id": "sw-cost-of-living-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 21,
+      "id": "sw-living-room-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 22,
+      "id": "sw-living-room-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 23,
+      "id": "sw-electric-car-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 24,
+      "id": "sw-electric-car-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 25,
+      "id": "sw-horror-movie-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 26,
+      "id": "sw-horror-movie-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 27,
+      "id": "sw-horror-movie-contrast",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English journey was a ... from start to finish preserves overt metaphor, with a matching frightening-film concept. No significant context error found in mixed-language frame."
+    },
+    {
+      "index": 28,
+      "id": "sw-horror-movie-contrast",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English journey was a ... from start to finish preserves overt metaphor, with a matching frightening-film concept. No significant context error found in mixed-language frame."
+    },
+    {
+      "index": 29,
+      "id": "sw-short-story-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 30,
+      "id": "sw-short-story-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 31,
+      "id": "sw-fresh-air-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 32,
+      "id": "sw-fresh-air-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 33,
+      "id": "sw-fresh-air-contrast",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English advice was a breath of ... preserves metaphor; target is corresponding fresh/clean-air concept. Mixed-frame compatibility is not proof of autonomous target-language idiom usage."
+    },
+    {
+      "index": 34,
+      "id": "sw-fresh-air-contrast",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "English advice was a breath of ... preserves metaphor; target is corresponding fresh/clean-air concept. Mixed-frame compatibility is not proof of autonomous target-language idiom usage."
+    },
+    {
+      "index": 35,
+      "id": "ja-high-school-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "高校 is the normal upper-secondary/high-school concept for this exposed sentence. Broader countries/school systems and title protection are not established by this positive case."
+    },
+    {
+      "index": 36,
+      "id": "ja-high-school-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "高校 is the normal upper-secondary/high-school concept for this exposed sentence. Broader countries/school systems and title protection are not established by this positive case."
+    },
+    {
+      "index": 37,
+      "id": "ja-grocery-store-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 38,
+      "id": "ja-grocery-store-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 39,
+      "id": "ja-ice-cream-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 40,
+      "id": "ja-ice-cream-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 41,
+      "id": "ja-fried-chicken-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 42,
+      "id": "ja-fried-chicken-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 43,
+      "id": "ja-computer-science-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 44,
+      "id": "ja-computer-science-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 45,
+      "id": "ja-social-media-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 46,
+      "id": "ja-social-media-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 47,
+      "id": "ja-rock-music-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 48,
+      "id": "ja-rock-music-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 49,
+      "id": "ja-chocolate-chip-positive",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 50,
+      "id": "ja-chocolate-chip-positive",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 51,
+      "id": "ja-shared-repetition",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 52,
+      "id": "ja-shared-repetition",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 53,
+      "id": "ja-shared-negation",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "At density .75, want→望む is relatively formal/wish-like for wanting food, but retains desire and source do not retains negation. Stylistic caution, not significant meaning reversal. A future everyday-food desire sense can improve this without broad suppression."
+    },
+    {
+      "index": 54,
+      "id": "ja-shared-negation",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "At density .75, want→望む is relatively formal/wish-like for wanting food, but retains desire and source do not retains negation. Stylistic caution, not significant meaning reversal. A future everyday-food desire sense can improve this without broad suppression."
+    },
+    {
+      "index": 55,
+      "id": "sw-shared-repetition",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 56,
+      "id": "sw-shared-repetition",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 57,
+      "id": "sw-shared-negation",
+      "density": 0.25,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    },
+    {
+      "index": 58,
+      "id": "sw-shared-negation",
+      "density": 0.75,
+      "verdict": "compatible_in_exposed_mixed_context",
+      "note": "Whole selected concept remains compatible with surrounding English; no significant semantic change identified."
+    }
+  ],
+  "conservative_remedy": "No data/runtime edit requested from this evidence. Do not extrapolate to unseen titles, metaphors, inflections, regional usages, or school-system equivalences. Withhold future ambiguous occurrences until context support is demonstrated.",
+  "limitations": [
+    "Agent linguistic review, not native-human validation.",
+    "Authored exposed probes and repeated densities are not independent natural conversational coverage.",
+    "Changed rows contain no named entities needing translation; this file cannot certify global proper-name protection.",
+    "Source provenance supports lexical senses, not all occurrence contexts.",
+    "No independent audio/pronunciation check or generic runtime-offset verification in this semantic pass.",
+    "No runtime/data edits or activation performed."
+  ]
+}

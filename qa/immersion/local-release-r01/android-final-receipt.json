@@ -1,0 +1,49 @@
+{
+  "started": "2026-11-10T16:07:38.636465+00:00",
+  "complete": true,
+  "target_application_id": "co.fallsoft.vipi.sourcecontextqa",
+  "stages": [
+    {
+      "name": "create-input",
+      "exit": 0
+    },
+    {
+      "name": "reuse-verified-fixtures.json",
+      "exit": 0
+    },
+    {
+      "name": "reuse-verified-starter-en-ja-007.json",
+      "exit": 0
+    },
+    {
+      "name": "reuse-verified-starter-en-sw-008.json",
+      "exit": 0
+    },
+    {
+      "name": "reuse-verified-starter-catalog.json",
+      "exit": 0
+    },
+    {
+      "name": "reuse-verified-starter-sw-catalog.json",
+      "exit": 0
+    },
+    {
+      "name": "install-amended-main",
+      "exit": 0
+    },
+    {
+      "name": "install-amended-tests",
+      "exit": 0
+    },
+    {
+      "name": "tests",
+      "exit": 0
+    },
+    {
+      "name": "capture",
+      "exit": 0
+    }
+  ],
+  "amendment": "Final bundled JA197/SW237 default route with corrected phrase selection and accessible onboarding; actual six-flip pause/resume UX.",
+  "rows": 280
+}

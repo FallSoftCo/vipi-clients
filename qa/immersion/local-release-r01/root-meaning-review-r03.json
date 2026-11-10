@@ -1,0 +1,370 @@
+{
+  "reviewer": "root",
+  "reviewed_at": "2026-11-10T16:02:20.779474+00:00",
+  "binding_sha256": "93008e6099542396b6002017f3288695ee9f5a141afc3148f030b5e5d112f9b6",
+  "source_outputs": "Apple native r03, corrected candidate r02; Android r06 rejected and not counted",
+  "rows_reviewed": 59,
+  "method": "Full source and displayed target chunks read for every changed output at both densities. Prior rejected r01 labels already exposed to root; this is not blinded or native-human review. Source-language syntax deliberately retained.",
+  "judgments": [
+    {
+      "id": "sw-ice-cream-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-ice-cream-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-climate-change-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-climate-change-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-radio-station-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-radio-station-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-rap-music-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Rap is a loanword genre label; lexical substitution offers limited novelty."
+    },
+    {
+      "id": "sw-rap-music-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Rap is a loanword genre label; lexical substitution offers limited novelty."
+    },
+    {
+      "id": "sw-family-member-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-family-member-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-bad-luck-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-bad-luck-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-mental-health-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-mental-health-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-heart-attack-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-heart-attack-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-heart-attack-contrast",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Figurative alarm retains the heart-attack metaphor; not a diagnosis."
+    },
+    {
+      "id": "sw-heart-attack-contrast",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Figurative alarm retains the heart-attack metaphor; not a diagnosis."
+    },
+    {
+      "id": "sw-credit-card-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-credit-card-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-cost-of-living-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-living-room-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-living-room-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-electric-car-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-electric-car-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-horror-movie-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-horror-movie-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-horror-movie-contrast",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Figurative disastrous journey remains a frightening-film metaphor."
+    },
+    {
+      "id": "sw-horror-movie-contrast",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Figurative disastrous journey remains a frightening-film metaphor."
+    },
+    {
+      "id": "sw-short-story-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-short-story-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-fresh-air-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-fresh-air-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-fresh-air-contrast",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Fresh-air metaphor remains in English context; phrase face hewa safi is compatible."
+    },
+    {
+      "id": "sw-fresh-air-contrast",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Fresh-air metaphor remains in English context; phrase face hewa safi is compatible."
+    },
+    {
+      "id": "ja-high-school-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-high-school-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-grocery-store-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-grocery-store-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-ice-cream-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-ice-cream-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-fried-chicken-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-fried-chicken-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-computer-science-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "計算機科学 is a valid technical term; register is more formal than daily computer talk."
+    },
+    {
+      "id": "ja-computer-science-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "計算機科学 is a valid technical term; register is more formal than daily computer talk."
+    },
+    {
+      "id": "ja-social-media-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-social-media-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-rock-music-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-rock-music-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-chocolate-chip-positive",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-chocolate-chip-positive",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-shared-repetition",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-shared-repetition",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-shared-negation",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "ja-shared-negation",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-shared-repetition",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-shared-repetition",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-shared-negation",
+      "density": 0.25,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    },
+    {
+      "id": "sw-shared-negation",
+      "density": 0.75,
+      "classification": "compatible",
+      "note": "Approved short phrase retains the source meaning within mixed-language source grammar."
+    }
+  ],
+  "limits": [
+    "70 authored reused source cases, not population accuracy.",
+    "A proper-name capitalization guard is not general entity detection.",
+    "No fluency or learning-efficacy evidence.",
+    "Existing starter entries are unchanged; this review accepts only added phrase faces in observed contexts."
+  ]
+}

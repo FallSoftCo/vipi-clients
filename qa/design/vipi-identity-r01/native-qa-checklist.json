@@ -1,0 +1,67 @@
+{
+  "reviewed_at": "2026-11-10T15:57:17.592165+00:00",
+  "source_changed": false,
+  "consistency": {
+    "app_name": "Vipi",
+    "wordmark": "lowercase vipi is intentional visual styling, not a different product name",
+    "store_draft": "design/store-metadata-draft.json: app_name Vipi; subtitle separate",
+    "live_store": "Rename not performed. Historical recorded name remains Mambo Vipi: Language Chat; current ASC authentication unavailable.",
+    "domains": "api.mambovipi.app links are existing service URLs, preserved rather than renamed without infrastructure authority.",
+    "onboarding": "New words/short phrases; repeated flips, pause, original message, and pronunciation. No full-sentence demonstration or fluency promise.",
+    "icon": "Same original V paths in SVG, iOS Shape, Android vector; adaptive monochrome references that vector."
+  },
+  "native_qa": [
+    {
+      "screen": "Welcome, light and dark",
+      "check": "One primary CTA, clear inline demo before sign-in; original toggle restores source message and Resume returns to stable flipping; no clipped text or unexpected movement.",
+      "basis": "BFM interactive demo; Mobbin Preply/Speak hierarchy."
+    },
+    {
+      "screen": "Language then account, normal type",
+      "check": "Named progress matches step; back preserves language selection; target cannot equal known language; account CTA stays disabled until terms accepted. Do not trigger sign-in.",
+      "basis": "Mobbin Duolingo progress; BFM simple first task."
+    },
+    {
+      "screen": "Account, largest accessibility text",
+      "check": "Decorative eyebrow absent; short visible progress with full accessibility label. Scroll to every disclosure, terms toggle, both stacked legal links and complete CTA. No pinned footer covering form. Toggle terms and inspect enabled CTA without activating it.",
+      "basis": "Observed account-largest r02 failure; preserve text scaling."
+    },
+    {
+      "screen": "Welcome/language, largest text; Android maximum font scale",
+      "check": "All essential text readable and controls reachable by scroll; no horizontal clipping. Specifically inspect Android pinned action/legal row because iOS accessibility amendment does not alter Android.",
+      "basis": "Cross-platform accessibility parity remains unproven."
+    },
+    {
+      "screen": "Voice unavailable/recovery",
+      "check": "Specific truthful setup/retry guidance, readable error, working original/flip control without audio; no claim that unavailable voice played.",
+      "basis": "BFM reduce switching friction, contextual support."
+    },
+    {
+      "screen": "Native icon and launcher",
+      "check": "Recognizable V at small size; round/squircle masks preserve tips; Android themed icon silhouette matches; no old speech-bubble asset.",
+      "basis": "Official Apple app-icon guidance and Android adaptive-icon safe region."
+    },
+    {
+      "screen": "Evidence labeling",
+      "check": "Label Apple screenshots as real component test-window captures; do not call normal unsigned app gate passed. Record Android real QA applicationId. Do not infer account, signing, store-name or release qualification.",
+      "basis": "Current native build and authorization boundaries."
+    }
+  ],
+  "provenance": {
+    "icon": "Original geometric paths authored for Vipi; no downloaded artwork, font glyph, AI bitmap or copied Mobbin asset. design/vipi-icon.svg is editable source; rsvg-convert created iOS PNG.",
+    "research": "design-research.json",
+    "source_manifest": "source-manifest.json",
+    "accessibility_amendment": "accessibility-layout-manifest.json",
+    "contrast": "contrast.json",
+    "monochrome": "monochrome-audit.json",
+    "auth": "store-name-auth-blocked.json"
+  },
+  "references": [
+    "https://builtformars.com/cheatsheets/6-onboarding-rules",
+    "https://mobbin.com/screens/d834bcce-41a7-48a5-bc57-db633edaecde",
+    "https://mobbin.com/screens/1f67e3ca-3f06-4805-8d0a-a80ea1f0b93a",
+    "https://mobbin.com/screens/0eed678c-da44-4e3a-ba32-c02660e92866",
+    "https://developer.apple.com/design/human-interface-guidelines/app-icons",
+    "https://developer.android.com/develop/ui/compose/system/icon_design_adaptive"
+  ]
+}

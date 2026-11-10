@@ -1,0 +1,10 @@
+{
+  "status": "draft-only-not-applied",
+  "app_name": "Vipi",
+  "subtitle": "Language in your conversations",
+  "short_description": "Chat with friends. Meet new words and short phrases as you read.",
+  "description": "Vipi brings a little language into your everyday conversations.\n\nChat about your plans, your people and your day. Selected words and short phrases switch between your chosen language and their meaning, while the rest of the message stays familiar. Pause the changes or return to the original message whenever you like.\n\nHear pronunciation with local audio. Reading guides help you follow supported writing systems. Language immersion runs on your device, with available vocabulary and voices depending on your language and downloads.\n\nVipi is everyday exposure through conversation. It does not provide a structured course or promise fluency.",
+  "publication_gate": "Reconcile implemented language availability, voice setup, privacy, subscription disclosures and native release evidence before applying this draft. Root owns live store metadata.",
+  "historical_store_name": "Mambo Vipi: Language Chat",
+  "historical_store_name_status": "Earlier store receipt only; not the desired release name."
+}

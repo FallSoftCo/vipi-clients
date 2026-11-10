@@ -14,8 +14,8 @@ import XCTest
     var staleDuringReadiness = false, staleDuringTranslation = false, cancelTranslation = false
     var badAlignment = false
     var partialEvents: [PartialImmersionResult] = []
-    func run(_ text: String = "Hello. Unknown message.", input: String? = "en", intent: ImmersionRequestIntent = .automaticImmersion) async throws -> LookupFirstOutcome {
-        try await LookupFirst.resolve(.init(text: text, source: "en", target: "es", inputLanguage: input, intent: intent),
+    func run(_ text: String = "Hello. Unknown message.", input: String? = "en", intent: ImmersionRequestIntent = .automaticImmersion, allowModelTranslation: Bool = true) async throws -> LookupFirstOutcome {
+        try await LookupFirst.resolve(.init(text: text, source: "en", target: "es", inputLanguage: input, intent: intent, allowModelTranslation: allowModelTranslation),
             valid: { self.current },
             reference: { text, source, target in self.known[source + "-" + target + ":" + text] },
             identify: { _ in self.detected },
@@ -45,6 +45,22 @@ import XCTest
             units: [.init(range: NSRange(location: 0, length: 6), original: "Hello.", translated: "Hola.",
                 reading: nil, referenceID: "authored-reference", catalogSHA256: String(repeating: "a", count: 64), nativeSourceTokens: 1)],
             density: 1, nativeSourceTokenCount: 3))
+    }
+    func testLocalOnlyMissNeverUsesModelsEvenWhenInstalled() async throws {
+        for intent in [ImmersionRequestIntent.automaticImmersion, .fullTranslation] {
+            let h = LookupHarness(); h.ready = true
+            let outcome = try await h.run(intent: intent, allowModelTranslation: false)
+            XCTAssertEqual(outcome.status, .noLocalMatch); XCTAssertNil(outcome.result)
+            XCTAssertEqual(h.readinessCalls, 0); XCTAssertEqual(h.inferenceCalls, 0); XCTAssertEqual(h.alignCalls, 0)
+        }
+    }
+    func testLocalOnlyKeepsReviewedPartialAndKnownReference() async throws {
+        let h = LookupHarness(); h.partial = try partial()
+        let partialResult = try await h.run(allowModelTranslation: false)
+        XCTAssertEqual(partialResult.result?.spans, h.partial?.spans)
+        h.known["en-es:Hello."] = "Hola."
+        let exact = try await h.run("Hello.", allowModelTranslation: false)
+        XCTAssertEqual(exact.result?.translation, "Hola."); XCTAssertEqual(h.inferenceCalls, 0)
     }
     func testApprovedAutomaticPartialNeverInspectsOrInvokesProvider() async throws {
         for installed in [false, true] {

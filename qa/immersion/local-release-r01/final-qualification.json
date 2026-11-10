@@ -1,0 +1,63 @@
+{
+  "accepted_scope": "Final packaged native source-only phrase increment",
+  "native_rows_each": 280,
+  "distinct_authored_sources": 70,
+  "default_bundle_configurations_each": 140,
+  "actual_span_differences": 0,
+  "default_vs_reviewed_candidate_differences": 0,
+  "automatic_translation_calls": 0,
+  "android_status_counts": {
+    "PARTIAL": 188,
+    "NO_LOCAL_MATCH": 92
+  },
+  "apple_status_counts": {
+    "partial": 188,
+    "noLocalMatch": 92
+  },
+  "pack_counts": {
+    "en-ja": 197,
+    "en-sw": 237
+  },
+  "new_entries": {
+    "en-ja": 8,
+    "en-sw": 15
+  },
+  "ui": {
+    "apple": "Native component six no-tap stable-height flips, light/dark and maximum text legal/CTA layout, one-mounted-view next-step scroll reset qualified; unsigned keychain gate remains.",
+    "android": "Actual welcome six no-tap stable-bound flips, pause/resume, original reveal; light/dark and maximum-text navigation, legal links and enabled CTA visually reviewed. No sign-in."
+  },
+  "apple_encrypted_vault": "BLOCKED: unsigned keychain entitlement OSStatus -34018; no repeated attempt",
+  "android_encrypted_vault": "native reopen + pair isolation + HMAC identifier + failed write handling passed",
+  "android_clipped_exposure": "native clipped no-credit then visible credit passed",
+  "production_ready": false,
+  "store_ready": false,
+  "customer_text_submitted": false,
+  "store_writes": false,
+  "bindings": {
+    "fixtures.json": "ef4c9940029c94a42491d096dc90a3b8b4b8599624f380ff13a9551d248cb1b9",
+    "apple-results-r03.json": "ba39ad9281c8b1d6c8adc4c1a8a50de081a5870db159f16fdbb0728dd08a8337",
+    "independent-meaning-review-r03.json": "de3abb0ecbd751601895572930b80312c911929240fa0e79bbc879a01461f9d4",
+    "provenance.json": "3c1070024211505da144ee44e4662edd2653c0eaf29ce6daf80b3ec7ed82f7f0",
+    "source-r02.json": "9ae13ea400751615389e514c7c3e7ca9273da2ddd45ad45c10aac5836ea92839",
+    "rejected-android-capture-r06.json": "32a5d552373c35d1e05d37f5eac87f2b8632505ffbd4fb13d044f4d5de4ac8cc",
+    "source-r03.json": "ccddbdefa6fcd09111588691fa9a57b2dd0807b40df4f07efbfe809f89062acb",
+    "runtime-review-r01.json": "f243297dab796c23c6a825ff16c48e17f78ee72787c341ca21791a313edfe45e",
+    "peer-meaning-review-r01.json": "8b318fa175967f477b77140c5ca1b341e12aa6159c4d8c2a7ebdae0d72133946",
+    "source-r05.json": "4b437adc866207d67ae65afd000eb32b67aa890907d68d13b3881bc03e4a4987",
+    "apple-bundled-assets-r05.json": "c8bdae7189dc6823ccc9cc72bd4cd92daed5732f553bc8501275e18284ebe6c5",
+    "android-candidate-results-r07.json": "7b907351d7471cf466383b51584f8bd07c26baa9851a2e586e28d50cd493a1a4",
+    "android-final-receipt.json": "0aa4804d63d783445a2f42f86a65ff64b5eb0715ca9cccd70d18e41acc80c7fb",
+    "source-r04.json": "c96b3321af3e756cd9bed60ce3b1881af51db1e00b2b3b03eac25bd48ca1c570",
+    "apple-final-receipt.json": "5f07ac9bac36cffb8eaea4572939675d3170c4e1587ee55cba4ec50f02dc85b3",
+    "source-r06.json": "10ae93ce2e920475aa35414e2cc343fb4bee1758d3087c9055a4687b84e1a294",
+    "candidate-r02-validation.json": "3ece27b7bbf455846eb19ed08ef23672f96427db5727f91a24507d96e19ffead",
+    "apple-final-results.json": "0112cdbdd70e84a6d76244253d138c3b9af9b210e56ce8346fe8c5608b4589ac",
+    "root-meaning-review-r03.json": "21af253b9a23f3203db0246c62a07e0ae971d65d791c14b4640165f65e458b7d",
+    "pack-promotion.json": "bdb27aa6d97b2def473168f7d13aeb93a24cfac8f95db6af637c89c32e5be2dc",
+    "android-final-results.json": "0a965f3a597d927d8dea4a7d04f355307243ce65a614415f75af8f5ac93024a7",
+    "correction.json": "b48ee72a294a30ee206b8059c5781cdab00dbbe4254702aee9b0499059e94205",
+    "candidate-r04-native-comparison.json": "7de214bab2ff66be5f8fb5c71851b7030d9426593a3256d031cf4c60d64bf0a1",
+    "android-bundled-assets-r05.json": "1305465385ea093451004bdfbb17a6c4550ed18ea025f0801f9389394b68e6fd"
+  },
+  "apple_exposure_visibility": "95% scroll visibility required; Android requires full measured bubble bounds. A visual exposure counter is not comprehension or mastery."
+}

@@ -18,6 +18,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
+    private(set) var familiarity: VocabularyFamiliarityStore?
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
     private(set) var busy = false
@@ -58,6 +59,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if vault == nil {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
+            familiarity = VocabularyFamiliarityStore(vault: store)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {

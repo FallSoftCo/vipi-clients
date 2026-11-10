@@ -12,9 +12,42 @@ OZZZ-OS and OZZZ-GPU are provider-cancelled. The relay uses `fallsoft-production
 
 ## Demonstrated behavior and remaining work
 
-The owner has reopened all immersion techniques for comparative evaluation,
+The owner's latest November 10 direction narrows the first release to entirely
+local single-word and short-phrase immersion. Prior full-sentence translation,
+quality-estimation and cloud-model investigations remain research evidence, not
+prerequisites for this initial experience. The content priority is meaningful
+everyday vocabulary and reusable small phrases in the user's own conversations,
+with source-language grammar, continuous stable inline flips, readings and local
+audio. Matching must still respect contextual senses, complete units and protected
+text. Automatic misses now retain original text without invoking a translation
+model or readiness/download check. Explicit on-device full translation remains a
+separate action. Familiarity records extend target display time after exposure
+on different days; they do not claim mastery or expand the vocabulary budget.
+Android encrypted persistence is qualified; the unsigned Apple test remains
+blocked by keychain entitlement error -34018. Broad useful coverage is unfinished.
+A phrase proposal count or a pronoun-only match does not establish it.
+
+The November 10 native increment adds eight Japanese and fifteen Swahili short
+phrases, preserving original-script audio and Japanese readings. Content phrases
+now precede their smaller overlapping entries; finite reviewed source contexts
+keep priority. Two independent agent reviews found no significant error in the
+59 changed native outputs from the retained 70 authored sources. These exposed
+controls are not broad conversation accuracy or native-human certification.
+An Android cache-identity regression was caught by inspecting actual output,
+corrected, and covered by stronger outcome assertions; the rejected run remains
+in the evidence. Final packaged-asset and default-route receipts are retained in
+`qa/immersion/local-release-r01`.
+
+The original Vipi icon, semantic light/dark controls, interactive pre-account
+example and accessible account form are now implemented. The UX agent used
+Mobbin screens and Built for Mars onboarding guidance; exact sources, original
+icon provenance and actual visual-review scope are retained in
+`qa/design/vipi-identity-r01`. This work does not certify the complete customer
+journey, purchases, background delivery, or store release.
+
+Before that narrowing, all immersion techniques were evaluated as candidates,
 including immediate local word/phrase flips followed by whole-sentence local or
-language-model translation. A new unsigned native Mac diagnostic completed 162
+language-model translation. An unsigned native Mac diagnostic completed 162
 forward/backward sentence pairs across nine target languages and 12 authored
 Spanish quality controls in 19.78 seconds. These are only 18 distinct English
 sources, including eight previously exposed conversation messages. Both
@@ -67,12 +100,12 @@ round-trip signals are not interchangeable with contextual correctness.
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
-| Language data | Japanese has 189 starter entries; Swahili now has 222 including nine bounded first-person predicates. Both retain 41 reviewed finite source-context patterns per pair. Default native routing is qualified; earlier continuous component UI remains separately scoped. | Broader useful vocabulary, durable progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
+| Language data | Japanese has 197 starter entries; Swahili has 237 including nine bounded first-person predicates. Both retain 41 reviewed finite source-context patterns per pair. Default native routing is qualified; earlier continuous component UI remains separately scoped. | Broader useful vocabulary, Apple persistence qualification, adaptive vocabulary progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
 | Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, acoustic verification and final clean-source release qualification. |
 | Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092`, **Mambo Vipi: Language Chat**, is Prepare for Submission. Distribution certificate and retained Android upload key exist; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Development signing previously passed, but the latest native Mac build stopped at signing after the login keychain locked. Distribution signing also remains held on the separate `pbtv58` keychain. No signing retry until that dependency changes. |
+| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092` was last recorded as **Mambo Vipi: Language Chat**, Prepare for Submission. Desired name and release metadata are now **Vipi**; the exact saved-name change is pending company browser authentication (November 10 redirected to login, no save attempted). Distribution certificate and retained Android upload key exist; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Development signing previously passed, but the latest native Mac build stopped at signing after the login keychain locked. Distribution signing also remains held on the separate `pbtv58` keychain. No signing retry until that dependency changes. |
 
 The Mac is registered once with the company team and its development profile is
 installed and hash-verified. The private iOS-on-Mac app compiled, but its signing

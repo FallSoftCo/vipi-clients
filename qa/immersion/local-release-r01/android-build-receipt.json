@@ -1,0 +1,44 @@
+{
+  "started": "2026-11-10T16:05:51.804514+00:00",
+  "complete": true,
+  "manifest_sha256": "10ae93ce2e920475aa35414e2cc343fb4bee1758d3087c9055a4687b84e1a294",
+  "free_before": 10772979712,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 1610612736,
+  "stages": [
+    {
+      "name": "app-build",
+      "cmd": [
+        "taskset",
+        "-c",
+        "2,3",
+        "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--max-workers=1",
+        "--console=plain",
+        "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+        "-Pkotlin.compiler.execution.strategy=in-process",
+        "-PvipiQaAbi=x86_64",
+        "-PvipiSourceContextQualification=true",
+        ":app:assembleDebug",
+        ":app:assembleDebugAndroidTest"
+      ],
+      "pid": 581587,
+      "min_free": 10642137088,
+      "exit": 0,
+      "seconds": 80.00870557618327,
+      "log_sha256": "35d0d6923857af1ec47a3c284b84a531285ab489c81d31434962a0b8fec76c52"
+    }
+  ],
+  "staged_files": [
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/LocalPhraseCandidateTest.kt",
+    "data/immersion/starter-en-ja-007.json",
+    "data/immersion/starter-en-sw-008.json",
+    "data/immersion/starter-catalog.json",
+    "data/immersion/starter-sw-catalog.json",
+    "data/immersion/NOTICE.txt"
+  ],
+  "free_after": 10642034688
+}

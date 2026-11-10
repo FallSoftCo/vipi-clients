@@ -1,0 +1,12 @@
+{
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "alpha_extrema": [
+    255,
+    255
+  ],
+  "original_source": "design/vipi-icon.svg",
+  "opaque": true
+}

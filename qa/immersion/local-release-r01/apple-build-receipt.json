@@ -1,0 +1,70 @@
+{
+  "started": "2026-11-10T16:05:50.630685+00:00",
+  "complete": true,
+  "manifest_sha256": "10ae93ce2e920475aa35414e2cc343fb4bee1758d3087c9055a4687b84e1a294",
+  "free_before": 25371906048,
+  "floor_bytes": 8589934592,
+  "peak_budget_bytes": 1610612736,
+  "stages": [
+    {
+      "name": "prepare",
+      "cmd": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 30011,
+      "min_free": 25371648000,
+      "exit": 0,
+      "seconds": 2.011964083183557,
+      "log_sha256": "3b9b3b6fe52fa2fe2dabcf441f4b62e9f9d3263302529ea569a1d0157580e791"
+    },
+    {
+      "name": "app-build",
+      "cmd": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/local-release-build-r05/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "pid": 30028,
+      "min_free": 25336090624,
+      "exit": 0,
+      "seconds": 18.081860709004104,
+      "log_sha256": "42f3593fe0562298ff50dbf7214bf065c1eecb7e3221f567e2692a8ddff027eb"
+    }
+  ],
+  "staged_files": [
+    "ios/VipiCryptoTests/LocalPhraseCandidateTests.swift",
+    "data/immersion/starter-en-ja-007.json",
+    "data/immersion/starter-en-sw-008.json",
+    "data/immersion/starter-catalog.json",
+    "data/immersion/starter-sw-catalog.json",
+    "data/immersion/NOTICE.txt"
+  ],
+  "free_after": 25335648256
+}

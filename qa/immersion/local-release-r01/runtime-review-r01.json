@@ -1,0 +1,88 @@
+{
+  "schema": "vipi-familiarity-readonly-review-1",
+  "time": "2026-11-10T15:45:28.582063+00:00",
+  "review_mode": "source inspection only; no native execution or runtime mutation",
+  "bindings": {
+    "ios/Vipi/VocabularyFamiliarityStore.swift": "925087bf16be803ea5fd180e7e1e83676b42094f86fb181f704c259839f4ab47",
+    "ios/VipiCore/Sources/VipiCore/VocabularyFamiliarity.swift": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a",
+    "ios/Vipi/ImmersionBubble.swift": "f0cb43817900d7f843473b0d42b83fb86c1d670feff5a56011de98f36dfbd3e7",
+    "ios/Vipi/ChatSession.swift": "ed0af94f19215bd718bd44e3e7da7ce332bacc04a981b9a9c727d1243a957ad1",
+    "ios/Vipi/ConversationImmersion.swift": "6900499e0d0e2f09f99126103553a800ceb65178c4d431455158cac7810e8057",
+    "ios/Vipi/ConnectedChatView.swift": "5a9e8f84555fdb8ea92c1f4740e584370d35cc74a667fe85d689488fa8642b2c",
+    "ios/Vipi/BotConversation.swift": "bfd3debf897129f4b3ebb8601bd675f6ae692457a108ff746dbe61d42c90ced8",
+    "ios/Vipi/MessageVault.swift": "96aa7f5e5f738811cd9020e5e7ddedc61a62ab6d1f99abcafc8294616650c756",
+    "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt": "752fd427c0389090ea03d0da6a028f13cdc3260614c3c8bfeaef0752f418c10c",
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/VocabularyFamiliarity.kt": "3e1c8d2bcad9bb279dad2f8b1effb202bbf290b6069e982784dffd31e13a3ebb",
+    "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": "dc867c87eca1b228860031b27686263cf802ae4aa0428e847dfae8e63e1daebd",
+    "android/app/src/main/java/co/fallsoft/vipi/ChatSession.kt": "568d67521d594f98d0044ee7e8e83abfa3d26c1bacd4afbb4523d2ec54a74930",
+    "android/app/src/main/java/co/fallsoft/vipi/BotSession.kt": "862259e91774b34eab7315f4926d2e98c0f5be57fad0f389a46ad48fb79c2a3b",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "a15a87b6441150d694aacde42aa81da2595ee4c315f3d6d0bb70c06f531898c8",
+    "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt": "9d2dff1c4c6b357c6e8d39d834bc22905d6f70aa0549cf07758d80ff2985acde",
+    "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": "b6b8fe07740d50c955e4bb1e07bc7c30832be89101c0c8dee12330badd4ebb8e",
+    "android/app/src/main/java/co/fallsoft/vipi/MessageVault.kt": "d6ab9a7dad798331229230f3ec46fe8fd13b59435e1c2098f3e8a227e9e1beac",
+    "ios/VipiCryptoTests/VocabularyFamiliarityStoreTests.swift": "6efb9d47f0d366ec0b10f8af1c155c6030297a98925ee72468101713e2d91185",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/VocabularyFamiliarityStoreTest.kt": "42a1c086cebc673bf45ff8fc0e2259f640d0aa455606af992b247eddf34ddf4d"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "priority": "high",
+      "file": "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt",
+      "lines": [
+        140,
+        143
+      ],
+      "issue": "Clipped rectangle is mistaken for full bubble visibility.",
+      "evidence": "boundsInWindow() returns clipping-affected bounds. Checking that this already-clipped rectangle fits root does not prove original bubble is fully contained. A partial LazyColumn row can meet exposureVisible and credit every result span.",
+      "primary_reference": "https://developer.android.com/reference/kotlin/androidx/compose/ui/layout/package-summary#(androidx.compose.ui.layout.LayoutCoordinates).boundsInWindow(kotlin.Boolean)",
+      "minimal_fix": "Compare original measured/unclipped extent with visible clipped extent in a consistent window/viewport coordinate space. Retain existing lifecycle/dwell gate.",
+      "focused_validation": "A half-clipped multiline bubble must flip as allowed but earn no exposure; fully visible bubble earns once after full dwell; scroll away/back resets incomplete dwell."
+    },
+    {
+      "id": "F2",
+      "priority": "low",
+      "files": [
+        "ios/Vipi/VocabularyFamiliarityStore.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt",
+        "ios/Vipi/ChatSession.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/ChatSession.kt"
+      ],
+      "issue": "Cached familiarity/HMAC key outlive vault close while session/store is retained.",
+      "evidence": "Session close does not nil familiarity; store has no close/invalidate. Cached targetMilliseconds returns prior timing without touching closed vault; observe on same cached day returns true without checking vault. Tests only exercise observe on the next day, which does hit closed DB and fail.",
+      "impact": "No demonstrated cross-account disk write: stores bind their original account vault and actual ConversationImmersion.observeExposure refuses after engine close. This is a stale-cache/lifecycle contract gap and key retention, not proof of account leakage.",
+      "minimal_fix": "Invalidate store cache/idKey on session close and clear session reference; retain fail-safe beginner response on closed access.",
+      "focused_validation": "After close, same-day observe cannot claim success and cached dwell returns baseline; account B never receives account A timing."
+    },
+    {
+      "id": "F3",
+      "priority": "low",
+      "files": [
+        "ios/Vipi/VocabularyFamiliarityStore.swift",
+        "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt"
+      ],
+      "issue": "Independent chat/bot store caches can show stale familiarity timing.",
+      "evidence": "Both can open same account vault using separate store instances. Observe reads persisted record within transaction, so same-day counting is protected. targetMilliseconds can indefinitely reuse an older instance cache until that instance observes or is recreated.",
+      "impact": "Conservative/lagging target dwell, not double-counted exposure or wrong-account contamination.",
+      "minimal_fix": "Document delayed cross-screen freshness or invalidate on screen re-entry; no new scheduler needed.",
+      "focused_validation": "Observe on bot store, reopen/read through chat and confirm persisted count; distinguish already-cached timing behavior."
+    }
+  ],
+  "positive_checks": [
+    "Per-account random HMAC secret is encrypted through existing vault; identifiers no longer allow simple unkeyed dictionary guessing from SQLite IDs. Record kind/count still observable metadata, not claimed hidden.",
+    "Account-specific vault paths/AAD and open-account equality checks are present. No concrete wrong-account routing failure established.",
+    "Observed records update inside transaction; cache merges only after commit. Duplicate spans deduplicated and same-day calls cannot increase count.",
+    "Corrupt/decryption/decoding failures return baseline dwell and false observation; no silent mastery advancement.",
+    "Clock rollback yields beginner dwell and refuses backward-day increments; large forward clock changes can freeze progression until catch-up, a conservative limitation rather than meaning approval.",
+    "Both clocks cancel/restart on exposure visibility/lifecycle/interaction changes; manually revealed source spans excluded. Familiarity is not passed into knownConceptIDs exclusions.",
+    "Target dwell uses minimum familiarity among spans, so unfamiliar words retain beginner cadence. Existing user pace scales durations; exposure remains once/day, not mastery."
+  ],
+  "limits": [
+    "Native visibility/cancellation behavior not executed in this review.",
+    "Overlapping windows/sheets/other views may occlude a geometrically visible bubble; these checks are not proof of human attention.",
+    "Synchronous first-read and committed daily writes use vault IO on UI-facing paths; cached reads avoid repeated rendering IO, but real-device latency is not measured here.",
+    "Existing tests cover reopen, same-day cap and language-pair separation, not half-clipped visibility, cache-after-close or distinct-account controls."
+  ],
+  "runtime_edits": false,
+  "root_resolution_after_review": "Root reports patched Android exposureVisible to compare clipped bounds dimensions with measured it.size within1px before containment. This directly addresses F1; native partial-visibility validation remains separate. Runtime files were concurrently root-owned; binding hashes are closure-time, not a claim every finding remains in those latest bytes.",
+  "release_priority": "No additional critical finding identified. F2/F3 are optional low-priority lifecycle/cache observations, not release-blocking account leakage claims."
+}

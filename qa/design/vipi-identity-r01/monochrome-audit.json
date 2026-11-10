@@ -1,0 +1,15 @@
+{
+  "foreground": "@drawable/vipi_icon_foreground",
+  "monochrome": "@drawable/vipi_icon_foreground",
+  "same_vector": true,
+  "opaque_paths": 2,
+  "safe_region": [
+    21,
+    21,
+    87,
+    87
+  ],
+  "geometry_within_region": true,
+  "patch_required": false,
+  "themed_launcher_visual_review": "pending native root qualification"
+}

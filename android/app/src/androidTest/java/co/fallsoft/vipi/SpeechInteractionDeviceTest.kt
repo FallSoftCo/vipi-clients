@@ -60,10 +60,10 @@ class SpeechInteractionDeviceTest {
                 android.text.Selection.removeSelection(text.text as android.text.Spannable)
             }
             tap("Listen"); waitFor("Stop")
-            tap("See the whole thought in Spanish"); waitFor("Listen")
-            waitFor("¿Café mañana? Conozco un pequeño lugar junto al río.")
+            tap("Show original message"); waitFor("Listen")
+            waitFor("Coffee tomorrow? I know a little place by the river.")
             tap("Listen"); waitFor("Stop")
-            tap("Back to a little Spanish"); waitFor("Listen")
+            tap("Resume Spanish words"); waitFor("Listen")
             assertNotNull(device.wait(Until.findObject(By.desc("Café mañana? I know a little place by the río.")), 3000))
             tap("Listen"); waitFor("Stop")
             var point = Point()

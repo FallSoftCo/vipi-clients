@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-10T16:05:11.839252+00:00",
+  "scope": "Canonical bundled local phrase increment; no backend/store/public activation",
+  "before": {
+    "starter-catalog.json": "85713bb730c555370f5d46c80a1db31e063e062331c3104b46baffdaf376036c",
+    "starter-sw-catalog.json": "243b03dfd6d5a803c05782c6d465dd0c7a50d72c35db302a32c695422a2d4d2c",
+    "NOTICE.txt": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258"
+  },
+  "after": {
+    "starter-en-ja-007.json": "dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3",
+    "starter-catalog.json": "8a5eb2f66398e676f6e5783ab6b5a2abf6c4eb3eb9e08508bfe1bcdaed7981e2",
+    "starter-en-sw-008.json": "37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a",
+    "starter-sw-catalog.json": "83a04508801096539bc774f4eebc59a45de7deefcbf486c0945966b5971d6f7c",
+    "NOTICE.txt": "d3ef980da1ce17ff0310a5d530469fe83338908f5a1e2f98f550978491e04965"
+  },
+  "reviews": {
+    "root-meaning-review-r03.json": "21af253b9a23f3203db0246c62a07e0ae971d65d791c14b4640165f65e458b7d",
+    "independent-meaning-review-r03.json": "de3abb0ecbd751601895572930b80312c911929240fa0e79bbc879a01461f9d4",
+    "candidate-r04-native-comparison.json": "7de214bab2ff66be5f8fb5c71851b7030d9426593a3256d031cf4c60d64bf0a1"
+  }
+}

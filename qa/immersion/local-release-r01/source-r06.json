@@ -1,0 +1,42 @@
+{
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+    "sha256": "41524d4672b9a1d91b1f612f4209e70b8beffae4b5cb7622f508a8225d9cad4e",
+    "base_sha256": "5eb84151db1eb06f06ce1d29f6936bb60bf6f57a5e5dde14b2528c567260ef1e",
+    "bytes": 30115
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LocalPhraseCandidateTest.kt": {
+    "sha256": "f0ab61c7737c406dc522db1047e6507ce19a7328cf66bde269da616380c5543d",
+    "base_sha256": "c432cb0cbc9aeedc76963450a512bea100f0b09f78953a8088907169e375785c",
+    "bytes": 3851
+  },
+  "ios/VipiCryptoTests/LocalPhraseCandidateTests.swift": {
+    "sha256": "4f159ff3ad578edb8e60312392357dc62038a3033b01c081045c70d1eb8cbf90",
+    "base_sha256": "f187913489bb798427c5b55baeb0fe0fed1d63a363aae035129e6ef086ffb9cc",
+    "bytes": 3982
+  },
+  "data/immersion/starter-en-ja-007.json": {
+    "sha256": "dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3",
+    "base_sha256": null,
+    "bytes": 61422
+  },
+  "data/immersion/starter-en-sw-008.json": {
+    "sha256": "37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a",
+    "base_sha256": null,
+    "bytes": 67832
+  },
+  "data/immersion/starter-catalog.json": {
+    "sha256": "8a5eb2f66398e676f6e5783ab6b5a2abf6c4eb3eb9e08508bfe1bcdaed7981e2",
+    "base_sha256": "85713bb730c555370f5d46c80a1db31e063e062331c3104b46baffdaf376036c",
+    "bytes": 210
+  },
+  "data/immersion/starter-sw-catalog.json": {
+    "sha256": "83a04508801096539bc774f4eebc59a45de7deefcbf486c0945966b5971d6f7c",
+    "base_sha256": "243b03dfd6d5a803c05782c6d465dd0c7a50d72c35db302a32c695422a2d4d2c",
+    "bytes": 210
+  },
+  "data/immersion/NOTICE.txt": {
+    "sha256": "d3ef980da1ce17ff0310a5d530469fe83338908f5a1e2f98f550978491e04965",
+    "base_sha256": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
+    "bytes": 22221
+  }
+}

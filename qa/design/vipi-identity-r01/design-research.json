@@ -1,0 +1,87 @@
+{
+  "purpose": "Native Vipi identity and first-run design review",
+  "actual_tools_used": [
+    "mcp__mobbin__search_screens",
+    "mcp__builtForMars__bfm_analyze_lessons",
+    "mcp__builtForMars__bfm_find_content"
+  ],
+  "mobbin": [
+    {
+      "app": "Preply",
+      "url": "https://mobbin.com/screens/d834bcce-41a7-48a5-bc57-db633edaecde",
+      "observed": "Single strong benefit headline, brand color field, anchored primary action; visual image overlaps. Adopt hierarchy, not layout or imagery."
+    },
+    {
+      "app": "Babbel",
+      "url": "https://mobbin.com/screens/834e7af8-58b4-4959-8de6-db3d121da727",
+      "observed": "One language choice action on a compact card over a human image. Transfer clear next step; do not borrow teaching promise."
+    },
+    {
+      "app": "Speak",
+      "url": "https://mobbin.com/screens/1f67e3ca-3f06-4805-8d0a-a80ea1f0b93a",
+      "observed": "One immediate activity and anchored CTA. Vipi instead demonstrates its real inline flip interaction."
+    },
+    {
+      "app": "Duolingo",
+      "url": "https://mobbin.com/screens/0eed678c-da44-4e3a-ba32-c02660e92866",
+      "observed": "Visible progress and grouped outcomes. Vipi retains two-step progress, rejects course/fluency/streak framing."
+    }
+  ],
+  "bfm": {
+    "url": "https://builtformars.com/cheatsheets/6-onboarding-rules",
+    "evidence": "Full hydrated article read through exact lookup. Apply interactive real demo before account, simple first task, defer secondary features.",
+    "rejected_advisory_suggestions": [
+      "location permission: local means on-device, not geography",
+      "microphone permission/pronunciation practice: not an implemented Vipi feature",
+      "new interests/topic preferences: no supporting product capability",
+      "commitment pledges/streaks: inconsistent with ambient exposure"
+    ]
+  },
+  "primary_guidelines": [
+    {
+      "url": "https://developer.apple.com/design/human-interface-guidelines/app-icons",
+      "retrieval": "Official Markdown retrieved by curl after browser tool rejected Markdown MIME. Large simple shapes, full bleed opaque background, vector source and system masking."
+    },
+    {
+      "url": "https://developer.android.com/develop/ui/compose/system/icon_design_adaptive",
+      "retrieval": "Official current document read. Foreground/background/monochrome layers; 108 canvas with 66 center safe region."
+    }
+  ],
+  "baseline_visuals_inspected": [
+    "vipi-apple-delivery-20261107-r01/welcome-dark-r01.png",
+    "vipi-android-readiness-20261107-r01/native-welcome-r06.png",
+    "canonical ios/Vipi/Assets.xcassets/AppIcon.appiconset/AppIcon.png before replacement"
+  ],
+  "decisions": [
+    "Preserve warm paper / forest theme and editorial headings; make dark primary controls adapt semantically.",
+    "Replace platform-dependent bubble/font icon with exact shared original geometry.",
+    "Shorten eyebrow to fit typical phone width.",
+    "Offer Original versus Immersion demonstration, not full-sentence translation.",
+    "Retain one CTA and an interactive example before account creation.",
+    "No new navigation destinations without actual product capability. Existing Chats, new conversation, profile/settings structure is appropriate for current scope."
+  ],
+  "limits": [
+    "No claim of world-class acceptance or user research.",
+    "New simulator visual checks pending root integration.",
+    "No signed build, keychain, iPad, account writes or store submission.",
+    "Existing iOS PNG format retained; layered Icon Composer packaging remains a later native release enhancement."
+  ],
+  "icon": {
+    "source": "design/vipi-icon.svg",
+    "provenance": "Original geometric paths authored for Vipi; no third-party artwork or font glyph.",
+    "export": "rsvg-convert design/vipi-icon.svg -o ios/Vipi/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+    "bounds": [
+      24,
+      29,
+      82.5,
+      80
+    ],
+    "android_safe_region": [
+      21,
+      21,
+      87,
+      87
+    ],
+    "review": "Viewed full-size exported PNG. Clean open V silhouette, two voices; no type, gradient, shadow or pre-rounded launcher mask."
+  }
+}

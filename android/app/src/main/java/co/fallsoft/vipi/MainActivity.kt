@@ -78,7 +78,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private val Green = Color(0xFF33644F)
 @Composable internal fun VipiTheme(appearance: Appearance, content: @Composable () -> Unit) {
     val dark = appearance == Appearance.DARK || (appearance == Appearance.SYSTEM && isSystemInDarkTheme())
     val activity = generateSequence(LocalContext.current) { context ->
@@ -154,7 +153,9 @@ private val Green = Color(0xFF33644F)
         onDispose { lifecycle.removeObserver(observer); events?.close() }
     }
     val scrollState = rememberScrollState()
+    LaunchedEffect(model.screen) { scrollState.scrollTo(0) }
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
+    val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     if (model.screen == Screen.BOT && model.bot != null) { BotConversationScreen(model, model.bot!!); return }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
@@ -165,7 +166,7 @@ private val Green = Color(0xFF33644F)
             model.density, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onPlan = { model.navigate(Screen.PLANS) }) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        bottomBar = { if (onboarding) OnboardingAction(model) }) { padding ->
+        bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(28.dp)) {
             TopBar(model)
             when (model.screen) {
@@ -183,15 +184,17 @@ private val Green = Color(0xFF33644F)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
                 Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
             }
+            if (onboarding && largeText) OnboardingAction(model, inScroll = true)
             Spacer(Modifier.height(20.dp))
         }
     }
 }
 
 @Composable private fun VipiMark(size: Int = 36) {
-    Box(Modifier.size(size.dp).background(Green, RoundedCornerShape((size * .32).dp)), contentAlignment = Alignment.Center) {
-        Icon(Icons.Outlined.ChatBubble, null, tint = Color(0xFFDEEFBE), modifier = Modifier.size((size * .73).dp))
-        Text("v", color = Green, fontWeight = FontWeight.Bold, fontSize = (size * .4).sp, modifier = Modifier.offset(y = (-size * .06).dp))
+    Box(Modifier.size(size.dp).background(Color(0xFF234E3D), RoundedCornerShape((size * .28).dp))) {
+        androidx.compose.foundation.Image(
+            painter = androidx.compose.ui.res.painterResource(R.drawable.vipi_icon_foreground),
+            contentDescription = null, modifier = Modifier.fillMaxSize())
     }
 }
 
@@ -203,13 +206,15 @@ private val Green = Color(0xFF33644F)
         Text("vipi", fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.weight(1f))
         if (model.screen == Screen.HOME) IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, "Your profile and settings") }
-        if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) Text(if (model.screen == Screen.LANGUAGE) "1 of 2" else "2 of 2", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) Text(if (model.screen == Screen.LANGUAGE) "Language · 1 of 2" else "Account · 2 of 2", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
 @Composable private fun Heading(eyebrow: String, title: String, detail: String) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text(eyebrow.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.SemiBold)
+        if (androidx.compose.ui.platform.LocalDensity.current.fontScale < 1.5f) {
+            Text(eyebrow.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.SemiBold)
+        }
         Text(title, fontSize = 36.sp, lineHeight = 41.sp, fontFamily = FontFamily.Serif, fontWeight = FontWeight.Medium)
         Text(detail, fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
@@ -217,9 +222,9 @@ private val Green = Color(0xFF33644F)
 
 @Composable private fun PrimaryButton(title: String, enabled: Boolean = true, busy: Boolean = false, onClick: () -> Unit) {
     Button(onClick = onClick, enabled = enabled && !busy, shape = RoundedCornerShape(18.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = Color.White),
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 17.dp), modifier = Modifier.fillMaxWidth()) {
-        if (busy) CircularProgressIndicator(Modifier.size(20.dp), color = Color.White, strokeWidth = 2.dp)
+        if (busy) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary, strokeWidth = 2.dp)
         else { Text(title, fontSize = 16.sp, fontWeight = FontWeight.SemiBold); Spacer(Modifier.width(10.dp)); Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.size(18.dp)) }
     }
 }
@@ -237,7 +242,7 @@ private val Green = Color(0xFF33644F)
         owner.lifecycle.addObserver(observer)
         onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
     }
-    Heading("A little more language. A lot more life.", "Your conversations.\nA new language.", "Chat about what matters to you. Pick up another language along the way.")
+    Heading("A little language, every day", "Your conversations.\nA new language.", "Familiar conversations. New words and short phrases, woven into what you read.")
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text("TRY A LITTLE SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
@@ -248,22 +253,22 @@ private val Green = Color(0xFF33644F)
                 TextButton(onClick = { speech.prepare(warmups) }) { Text("Retry") }
             }
         } else speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        Text("Words switch between Spanish and their meaning. Just keep reading.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }, contentPadding = PaddingValues(0.dp)) {
+        Text("Highlighted words keep switching between Spanish and English. Pause whenever you like.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        TextButton(onClick = { mode = if (mode == ReadingMode.ORIGINAL) ReadingMode.IMMERSED else ReadingMode.ORIGINAL }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
-            Text(if (mode == ReadingMode.TRANSLATION) "Back to a little Spanish" else "See the whole thought in Spanish", fontSize = 13.sp)
+            Text(if (mode == ReadingMode.ORIGINAL) "Resume Spanish words" else "Show original message", fontSize = 13.sp)
         }
     }
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Icon(Icons.Outlined.Spa, null, tint = MaterialTheme.colorScheme.primary)
-        Text("No lessons to finish. No streak to keep. Just the words in your world.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 21.sp)
+        Text("Small words. Familiar moments. Listen to pronunciation as you read.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 21.sp)
     }
 }
 
 @Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
     var targetMenu by remember { mutableStateOf(false) }
     var knownMenu by remember { mutableStateOf(false) }
-    Heading("Make it your world", "What language\nwill you live in?", "Start with one. You can change it whenever you like.")
+    Heading("Make it your world", "Make room for\na new language.", "Start with one. You can change it whenever you like.")
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text("I already speak", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
@@ -295,22 +300,25 @@ private val Green = Color(0xFF33644F)
     }
 }
 
-@Composable private fun OnboardingAction(model: VipiModel) {
+@Composable private fun OnboardingAction(model: VipiModel, inScroll: Boolean = false) {
     var accepted by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).navigationBarsPadding().padding(horizontal = 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
+    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (model.screen == Screen.ACCOUNT) {
             Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text("I agree to the Terms of Service and have read the Privacy Policy.", fontSize = 12.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            val legalLinks: @Composable () -> Unit = {
                 TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text("Terms of Service", fontSize = 12.sp) }
                 TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text("Privacy Policy", fontSize = 12.sp) }
             }
+            if (largeText) Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { legalLinks() }
+            else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
             model.authentication.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.error) }
         }
         PrimaryButton(when (model.screen) { Screen.WELCOME -> "Find your language"; Screen.LANGUAGE -> "Continue with ${languageName(model.targetLanguage)}"; else -> "Continue to sign in" }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
         }
-        if (model.screen == Screen.WELCOME) Text("Learn through life, one conversation at a time.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
+        if (model.screen == Screen.WELCOME && !largeText) Text("Try the example before you sign in.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
     }
 }
 

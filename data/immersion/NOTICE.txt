@@ -6,6 +6,8 @@ Japanese starter vocabulary includes adapted JMdict data, copyright the Electron
 
 Swahili starter vocabulary includes adapted English Wiktionary data extracted by Kaikki/Wiktextract, attributed to Wiktionary contributors and the Kaikki project. Source: https://en.wiktionary.org/ and https://kaikki.org/dictionary/ . Retained source records identify the exact entries. This derived vocabulary is distributed under Creative Commons Attribution-ShareAlike 4.0 International: https://creativecommons.org/licenses/by-sa/4.0/ . Vipi curated source/target faces, context conditions and concept grouping. Primary dictionary consultation used for verification is recorded separately; it is not represented as a new bulk licensed dictionary redistribution.
 
+Additional Japanese short phrases also adapt English Wiktionary/Kaikki data under CC BY-SA 4.0. Exact entry URLs, alternatives, source records and Vipi reading annotations are retained in qa/immersion/local-release-r01/provenance.json.
+
 Exact data versions, source hashes, original per-entry provenance and correction history are retained in the Vipi source repository and qualification evidence. Attribution and license obligations remain applicable to adapted dictionary material. No claim of complete language coverage or universal sense correctness is made.
 
 Full license text (unchanged official Creative Commons text):

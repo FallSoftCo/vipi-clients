@@ -1,0 +1,17 @@
+{
+  "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": {
+    "sha256": "e7fdb206616d24acb5640813dcf79ab2fe135566623e3c9aeeeee24022514e70",
+    "base_sha256": "702628c35963ab7f7afbcd97386d08a32b478a8d96ae86181ec55cc849a7b769",
+    "bytes": 11051
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": {
+    "sha256": "87d25703b82d847e47aab2f9173f7cd3b27335cc052176af4660937f564e884c",
+    "base_sha256": "2f3ceb3bcfe18e2101ceb5651eb14a56bf5b4a5c4b871596fe7b1e57316600ed",
+    "bytes": 15995
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LocalPhraseCandidateTest.kt": {
+    "sha256": "c432cb0cbc9aeedc76963450a512bea100f0b09f78953a8088907169e375785c",
+    "base_sha256": "e32fd63e7437782ac27dc2a7a680d67c49047b02b69dac11196e0a49b3c38def",
+    "bytes": 3457
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+    "sha256": "8ef0a83e21a0875603bb72ef5a79afda2e7b6036a2567632c5247bfd07f9cf6b",
+    "base_sha256": "41524d4672b9a1d91b1f612f4209e70b8beffae4b5cb7622f508a8225d9cad4e",
+    "bytes": 30176
+  },
+  "ios/Vipi/OnboardingView.swift": {
+    "sha256": "846345df6b2aa2827e70745f5047b26806e83c183c9e35ef090d8120cd7e5cc2",
+    "base_sha256": "a0083d13d6e9dcb3bbaf99d51889ceea464aa18b14a11e023db699dac4a98544",
+    "bytes": 10618
+  },
+  "ios/VipiCryptoTests/LocalUIReviewTests.swift": {
+    "sha256": "4a88a4cd949158a76734e47deca8a96a13b94bdb2b78c3425aed225237ba3277",
+    "base_sha256": "8720a64e4368dacd5231d3a5a78664187d482d4df771dabbba74aa0b146c8fbb",
+    "bytes": 5547
+  }
+}

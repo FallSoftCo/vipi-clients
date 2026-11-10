@@ -1,0 +1,82 @@
+{
+  "static_checks_passed": true,
+  "native_guard_execution": false,
+  "guard_branch_checks": [
+    {
+      "phrase": "police officer",
+      "positive_guard_allows": [
+        true
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "this morning",
+      "positive_guard_allows": [
+        false
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "boarding school",
+      "positive_guard_allows": [
+        true
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "common cold",
+      "positive_guard_allows": [
+        true
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "sweet potato",
+      "positive_guard_allows": [
+        false
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "country music",
+      "positive_guard_allows": [
+        false
+      ],
+      "contrast_guard_allows": [
+        true
+      ]
+    },
+    {
+      "phrase": "high school",
+      "positive_guard_allows": [
+        true
+      ],
+      "contrast_guard_allows": [
+        false
+      ]
+    }
+  ],
+  "all_new_proofs_bound": 23,
+  "fixtures_unchanged": true,
+  "files": {
+    "build_candidate_r02.py": "89423d7138bcdef7cd5aa0e6ab2ccf45ba20101cace53ff761d0041da0336479",
+    "candidate-r02/correction.json": "b48ee72a294a30ee206b8059c5781cdab00dbbe4254702aee9b0499059e94205",
+    "candidate-r02/fixtures.json": "ef4c9940029c94a42491d096dc90a3b8b4b8599624f380ff13a9551d248cb1b9",
+    "candidate-r02/manifest.json": "7f0ec28c0f23e37fca8e1f673a7029a8e2b1066d1d3d57d875a4380f8d6aae91",
+    "candidate-r02/provenance.json": "3c1070024211505da144ee44e4662edd2653c0eaf29ce6daf80b3ec7ed82f7f0",
+    "candidate-r02/starter-catalog.json": "069c539041ae912e11c48a6a8f354936df9654009376837ef5c3454fcb6300cb",
+    "candidate-r02/starter-en-ja-007.json": "dc138df1ba7577e1b23227186bb4f842a6dd8b6c12ebe9e41ad567d981505928",
+    "candidate-r02/starter-en-sw-008.json": "0d1810345c3082e272c7a0ab6172f6dff6016051188c130035e9ec33940824bf",
+    "candidate-r02/starter-sw-catalog.json": "f2047604a4b1d6be52ad4f803f7503d5a25cf6936b3974e7f43d69747dee67d5"
+  }
+}

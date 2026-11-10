@@ -1,0 +1,26 @@
+{
+  "started": "2026-11-10T16:07:28.130516+00:00",
+  "complete": true,
+  "command": [
+    "xcodebuild",
+    "-xctestrun",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/local-release-20261110-r01/test-r04/qualification.xctestrun",
+    "-destination",
+    "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+    "-parallel-testing-enabled",
+    "NO",
+    "-maximum-concurrent-test-simulator-destinations",
+    "1",
+    "-resultBundlePath",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/local-release-20261110-r01/test-r04/test.xcresult",
+    "-only-testing:VipiCryptoTests/LocalPhraseCandidateTests",
+    "test-without-building"
+  ],
+  "pid": 31431,
+  "exit": 0,
+  "seconds": 12.056022207951173,
+  "rows": 280,
+  "calls": 0,
+  "restored": true,
+  "labs_alive": true
+}

@@ -17,6 +17,7 @@ struct BotMessage: Codable, Identifiable {
 @MainActor @Observable final class BotSession {
     private let api: any ChatTransport
     private let vault: MessageVault
+    let familiarity: VocabularyFamiliarityStore
     private var closed = false
     private(set) var messages: [BotMessage] = []
     private(set) var consent = false
@@ -27,6 +28,7 @@ struct BotMessage: Codable, Identifiable {
     var draft = ""
     init(api: any ChatTransport, vault: MessageVault) throws {
         self.api = api; self.vault = vault
+        self.familiarity = VocabularyFamiliarityStore(vault: vault)
         try vault.transaction {
             consent = try vault.get("bot-local", "consent") == Data("deepseek-v1".utf8)
             draft = try vault.get("bot-local", "draft").flatMap { String(data: $0, encoding: .utf8) } ?? ""
@@ -179,9 +181,9 @@ struct BotConversationView: View {
                     session = value; await value.refresh()
                 } catch { self.error = "Your saved conversation couldn’t be opened. Please try again." }
             }
-            .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.density)") {
+            .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.density)-\(session != nil)") {
                 speech.close()
-                await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density)
+                await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density, familiarity: session?.familiarity)
                 prepareVoices()
             }
             .onDisappear { session?.close(); immersion.close(); speech.close() }

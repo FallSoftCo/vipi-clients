@@ -1,8 +1,1 @@
-{
-  "schema": "vipi-source-starter-manifest-1",
-  "file": "starter-en-ja-005.json",
-  "sha256": "26d499d87e12fbf6bb938fcbb095d084f2f09ef301ca2b60a9a0dc42b10480d0",
-  "bytes": 57784,
-  "version": "starter-en-ja-005",
-  "entries": 189
-}
+{"bytes":61422,"entries":197,"file":"starter-en-ja-007.json","schema":"vipi-source-starter-manifest-1","sha256":"dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3","version":"starter-en-ja-007"}

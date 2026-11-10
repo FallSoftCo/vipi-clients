@@ -1,0 +1,157 @@
+{
+  "android/app/src/androidTest/java/co/fallsoft/vipi/LocalPhraseCandidateTest.kt": {
+    "sha256": "f8a9f196c481d865a692f44f5e140d990f09e6f67c4e5f5f13518f46ba259c1a",
+    "base_sha256": null,
+    "bytes": 3019
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/VocabularyFamiliarityStoreTest.kt": {
+    "sha256": "627786f5f057751b01eeba7967ade4db2edd54c9fb986cbc65d5c71b52a517c7",
+    "base_sha256": null,
+    "bytes": 2211
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": {
+    "sha256": "b6b8fe07740d50c955e4bb1e07bc7c30832be89101c0c8dee12330badd4ebb8e",
+    "base_sha256": "016113daaa8b6b3dcd31ec6a2b43c1df2fb4599f7e5715778fc12111e8687066",
+    "bytes": 10269
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/BotSession.kt": {
+    "sha256": "862259e91774b34eab7315f4926d2e98c0f5be57fad0f389a46ad48fb79c2a3b",
+    "base_sha256": "5fee8067fc487f7ed9e4a504458ef98936f01b4a29bef2047a480e3a0f62c863",
+    "bytes": 8854
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt": {
+    "sha256": "9d2dff1c4c6b357c6e8d39d834bc22905d6f70aa0549cf07758d80ff2985acde",
+    "base_sha256": "ffc565bedebcf3c8809a844226b8cec9c94c912c0b090cc0d51e9eea5a782919",
+    "bytes": 24709
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ChatSession.kt": {
+    "sha256": "568d67521d594f98d0044ee7e8e83abfa3d26c1bacd4afbb4523d2ec54a74930",
+    "base_sha256": "334a20a9ec9591ad44d7150f4041822fd23700be36f37ff37fd502352aa48cb3",
+    "bytes": 29832
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": {
+    "sha256": "a15a87b6441150d694aacde42aa81da2595ee4c315f3d6d0bb70c06f531898c8",
+    "base_sha256": "2d6fd2caf768d80c70843edfb9984a6b1b4aa05407a400fd6724f4aa51e182cc",
+    "bytes": 27921
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": {
+    "sha256": "e18bdf4a282ea0d08d1ee9a77a4e3a4a915957d76c29caacb638ece94c7c78fb",
+    "base_sha256": "d5ba26c5e2def73444165e957b258c6c7c3620f28dbc54fde1e53a4df28dbd04",
+    "bytes": 22914
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+    "sha256": "5eb84151db1eb06f06ce1d29f6936bb60bf6f57a5e5dde14b2528c567260ef1e",
+    "base_sha256": "6a7d7767dfdc0de9803c9f62304414c65ec34cd70e247745a93273ca82517485",
+    "bytes": 29463
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt": {
+    "sha256": "9f5eddc6460cf88b625c87551af024725efc1440b30ecec487e84477ad9dcff3",
+    "base_sha256": null,
+    "bytes": 2650
+  },
+  "android/app/src/main/res/drawable/vipi_icon_foreground.xml": {
+    "sha256": "dc4ba0aff05f480a5a6078f4e99b8178271e3a1ed4197eac3e29eb4138b88099",
+    "base_sha256": "531df45f7e53049acee14a71f9e04d3855e98696ccd23d353388153ec9af3354",
+    "bytes": 493
+  },
+  "android/app/src/main/res/values/colors.xml": {
+    "sha256": "0d462bd2a7ad8dfd26b627f0e34905d9cf484eb656c941c7f72ff14ab6b3830b",
+    "base_sha256": "b881490018b73cfbce01d19711d6fe336fbbdcf972809de1521d7befe663832a",
+    "bytes": 113
+  },
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/LookupFirst.kt": {
+    "sha256": "b07f8524ff89e824677202c8581037aaf83757c35d7e235d3148cb2e8d1b2e21",
+    "base_sha256": "c116443958a7be863ba4a96e01b59760652ac07000c3fd58dd922ed1fa657694",
+    "bytes": 8678
+  },
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/VocabularyFamiliarity.kt": {
+    "sha256": "3e1c8d2bcad9bb279dad2f8b1effb202bbf290b6069e982784dffd31e13a3ebb",
+    "base_sha256": null,
+    "bytes": 662
+  },
+  "android/core/src/test/kotlin/co/fallsoft/vipi/core/LookupFirstTest.kt": {
+    "sha256": "c0e30552a0dbefbcfc93293198bae41dda569d50cd1c81a62d788a2f3f49520f",
+    "base_sha256": "303f16a0d8f01e702816abf98ab2d9b156b331cacd0f4eff7f397d15f2e38403",
+    "bytes": 10284
+  },
+  "android/core/src/test/kotlin/co/fallsoft/vipi/core/VocabularyFamiliarityTest.kt": {
+    "sha256": "8fe44b4968e3f80d1e9ecf68947d6a6479c1fc4c2735df5ac93494d35b8dee90",
+    "base_sha256": null,
+    "bytes": 907
+  },
+  "ios/Vipi/Assets.xcassets/AppIcon.appiconset/AppIcon.png": {
+    "sha256": "8ba03b1f1823e0489a9d01caad516b840c27cdb3fd8eaf558e1ffea6c9ccd179",
+    "base_sha256": "2ef113cf53bf576e18a7bb4815823deb59f2495b12be850494e94cb0160fb36e",
+    "bytes": 15324
+  },
+  "ios/Vipi/BotConversation.swift": {
+    "sha256": "bfd3debf897129f4b3ebb8601bd675f6ae692457a108ff746dbe61d42c90ced8",
+    "base_sha256": "3dc690c32c50a9c37f13e831cbb2d95e01935ae19e4bfbc6c6267ad01b16243d",
+    "bytes": 21226
+  },
+  "ios/Vipi/ChatSession.swift": {
+    "sha256": "ed0af94f19215bd718bd44e3e7da7ce332bacc04a981b9a9c727d1243a957ad1",
+    "base_sha256": "8741a6619a268b9ff0e1b6d4a74c4f92d74bb71b37329aedcdc6d7d9c4eff8cb",
+    "bytes": 32744
+  },
+  "ios/Vipi/ConnectedChatView.swift": {
+    "sha256": "5a9e8f84555fdb8ea92c1f4740e584370d35cc74a667fe85d689488fa8642b2c",
+    "base_sha256": "b6742485c82e56a08663f4c7b40e582d27332234b31edbabcf675a8b8b4e3ec5",
+    "bytes": 37948
+  },
+  "ios/Vipi/ConversationImmersion.swift": {
+    "sha256": "6900499e0d0e2f09f99126103553a800ceb65178c4d431455158cac7810e8057",
+    "base_sha256": "1e8bd3eb63e3e907eb4cac37f421647b732deb9eefca1091345fe9829ac00d97",
+    "bytes": 27505
+  },
+  "ios/Vipi/Design.swift": {
+    "sha256": "ef4f5b543a83658142ebba112c233131412a337c9bee13e8e8dd8c53590f449f",
+    "base_sha256": "1bcd648105d72cd902e63afb87b0aa05af92032cec9e5c8414929ba592a8ccc0",
+    "bytes": 4461
+  },
+  "ios/Vipi/ImmersionBubble.swift": {
+    "sha256": "f0cb43817900d7f843473b0d42b83fb86c1d670feff5a56011de98f36dfbd3e7",
+    "base_sha256": "39cb525fe34fb8c6957b348063bbe733f05e4fe0e2fe17c475762baebd890fa6",
+    "bytes": 13274
+  },
+  "ios/Vipi/OnboardingView.swift": {
+    "sha256": "b04cb4ed99901b87234ecbafe83ff30d6af43f89f842bb3fdd82b1fdc65418e8",
+    "base_sha256": "16a62cfd3917291654dae22683b1a7134c71c8a915e03de8c90e1b059b829dbf",
+    "bytes": 9496
+  },
+  "ios/Vipi/VocabularyFamiliarityStore.swift": {
+    "sha256": "7212271a527d62aa8c6de31ec30a8d23a1d553e6a1c7cea39a64d8da243829fd",
+    "base_sha256": null,
+    "bytes": 2915
+  },
+  "ios/VipiCore/Sources/VipiCore/LookupFirst.swift": {
+    "sha256": "49c37585b11066416b08bfeafe1a6ace4d7fbf590e42649b406ca6f6441d6729",
+    "base_sha256": "c25804fa99051b5d7c5d4e1ad6c2ef162ee0fb189f90e997f08302398e7c9063",
+    "bytes": 11743
+  },
+  "ios/VipiCore/Sources/VipiCore/VocabularyFamiliarity.swift": {
+    "sha256": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a",
+    "base_sha256": null,
+    "bytes": 984
+  },
+  "ios/VipiCore/Tests/VipiCoreTests/LookupFirstTests.swift": {
+    "sha256": "a31762673b0daf69fdac1585d2b3656c07eaacc4405d72135d856d450fabac20",
+    "base_sha256": "df4d1a8f44a95248e2994ff253d8fb5be8709e9353a483e9a0bf30ca8e4a6a3b",
+    "bytes": 11363
+  },
+  "ios/VipiCore/Tests/VipiCoreTests/VocabularyFamiliarityTests.swift": {
+    "sha256": "f67954fe6474713703b987b6557a8ba878246f450b41aa9ebb57943bea453e15",
+    "base_sha256": null,
+    "bytes": 1062
+  },
+  "ios/VipiCryptoTests/LocalPhraseCandidateTests.swift": {
+    "sha256": "97e9c907f22a37b93442c61ad20fc29ca9b7d8193100469056321a6c3de87ebe",
+    "base_sha256": null,
+    "bytes": 3176
+  },
+  "ios/VipiCryptoTests/VocabularyFamiliarityStoreTests.swift": {
+    "sha256": "11c01e88f5f5178f3b5f2ec2c8b9d7274dc579372dc0138670e2abfed1876ee3",
+    "base_sha256": null,
+    "bytes": 2372
+  }
+}
