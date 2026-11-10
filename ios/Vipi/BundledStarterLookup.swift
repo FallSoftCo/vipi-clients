@@ -5,8 +5,9 @@ import VipiCore
 @MainActor enum BundledStarterLookup {
     static func provider() -> SourceUnitLookup? {
         let japanese = JapaneseStarterLookup.bundledIfPromoted()
-        guard SwahiliStarterLookup.promotionEnabled else { return japanese }
-        return compose(japanese: japanese, swahili: SwahiliStarterLookup.bundledIfPromoted())
+        let swahili = SwahiliStarterLookup.promotionEnabled ? SwahiliStarterLookup.bundledIfPromoted() : nil
+        let additional = allPairPromotionEnabled ? BundledSourceFrameCatalog.bundledProviders() : [:]
+        return compose(japanese: japanese, swahili: swahili, candidates: additional)
     }
 
     /// Candidate promotion is intentionally separate from the shipped catalog.
