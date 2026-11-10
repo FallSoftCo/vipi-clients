@@ -11,9 +11,11 @@ Do not use the unrelated personal developer account or qualification build 63.
 
 On November 10, the correct Google Play company account was accessible and
 `co.fallsoft.vipi` was available. The create-app form was populated with Vipi,
-en-US, App and Free; it was not submitted. Its export-compliance certification
-still needs a documented basis for this complete application. No Google app ID
-or submission receipt exists. Google Cloud separately requires company
+en-US, App and Free; it was not submitted. `EXPORT_ASSESSMENT.md` now records the
+whole-client technical basis and corrects the earlier blanket source-email and
+annual-report assumptions. Final release distribution facts and dependency
+compatibility remain to be reconciled before console declarations. No Google
+app ID or submission receipt exists. Google Cloud separately requires company
 reauthentication; Firebase shows the project's HTTP v1 messaging API disabled.
 Do not treat Firebase page access as active push delivery.
 

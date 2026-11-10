@@ -3,6 +3,8 @@
   "recorded_at": "2026-11-10T21:58:06.197214+00:00",
   "native_revision": "44732382688619c42028234f4a58163a69044784",
   "customer_ready": false,
+  "superseded_for_submission": true,
+  "superseded_reason": "These artifacts predate CLD2 integration, current notices and the expanded bundled source-frame release. Retain as historical qualification; rebuild final artifacts before upload.",
   "store_uploads": 0,
   "store_submissions": 0,
   "android": {

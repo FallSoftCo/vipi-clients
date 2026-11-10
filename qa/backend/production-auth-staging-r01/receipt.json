@@ -1,0 +1,23 @@
+{
+  "schema": "vipi-restricted-production-identity-qualification-1",
+  "verified_at": "2026-11-10T23:17:51Z",
+  "api_revision": "44732382688619c42028234f4a58163a69044784",
+  "environment": "staging",
+  "identity_provider": "WorkOS production application",
+  "allowed_owned_review_accounts": 2,
+  "account_creation_readback_verified": true,
+  "api_restart_scope": "Vipi API only; owned expiry/billing timers restored",
+  "database_and_schema_unchanged": true,
+  "shared_services_unchanged": true,
+  "public_registration": false,
+  "health_checks": {
+    "public_liveness": 200,
+    "public_readiness": 403,
+    "unauthenticated_profile": 401
+  },
+  "store_submission": false,
+  "provider_push_enabled": false,
+  "bot_provider_enabled": false,
+  "native_production_sign_in_verified": false,
+  "limits": "Restricted configuration qualification only; no public customer access, purchase, push delivery, bot response, native production sign-in or complete reviewer journey is credited."
+}

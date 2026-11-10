@@ -1,0 +1,19 @@
+{
+  "schema": "vipi-hosted-signin-visual-review-1",
+  "date": "2026-11-10",
+  "origin": "straightforward-feather-66.authkit.app",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "actual_hosted_captures": true,
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "review": "Current Vipi mark, email field, primary action and correct terms/privacy links are visible and readable in both themes. No entered credentials or customer content.",
+  "branding_save_readback_verified": true,
+  "form_submitted_during_capture": false,
+  "native_callback_or_account_flow_qualified": false,
+  "image_provenance": "Original Vipi vector mark from design/vipi-icon.svg; rendered by the hosted provider; unmodified browser screenshots."
+}
