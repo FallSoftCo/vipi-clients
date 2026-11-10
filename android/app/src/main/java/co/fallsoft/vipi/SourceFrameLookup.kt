@@ -8,17 +8,18 @@ import org.json.JSONArray
 /** Finite approved source contexts; existing full-reference priority remains first. */
 internal data class SourceFrameStarterCandidate(val entryID:String,val conceptID:String,val category:String,val rank:Int,val tokenCount:Int,
  val range:SourceLookupRange,val cost:Int,val reason:String?,val unit:SourceReferenceUnit)
-internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private val target:String,private val baselineIdentity:String) {
- private val pack=JSONObject(bytes.also { require(it.size<=1048576 && manifestBytes.size<=8192 && target in setOf("ja","sw")) }.toString(Charsets.UTF_8));private val patterns=pack.getJSONArray("patterns")
+internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private val target:String,private val baselineIdentity:String,private val source:String="en") {
+ private val pack=JSONObject(bytes.also { require(it.size<=1048576 && manifestBytes.size<=8192 && source in SUPPORTED && target in SUPPORTED && source!=target) }.toString(Charsets.UTF_8));private val patterns=pack.getJSONArray("patterns")
  private val packSHA=JapaneseStarterLookup.sha(bytes)
  private val manifest=JSONObject(manifestBytes.toString(Charsets.UTF_8))
  private val allowed=(0 until patterns.length()).map{patterns.getJSONObject(it).getString("id")}.toSet()
  val identity="source-frames-v1:"+JapaneseStarterLookup.sha((packSHA+JapaneseStarterLookup.sha(manifestBytes)+baselineIdentity).toByteArray(Charsets.UTF_8))
  var trace=JSONArray();private set
  companion object {
+  private val SUPPORTED=setOf("en","es","fr","de","it","pt","ar","zh","ja","ko","sw")
   const val PROMOTION_ENABLED=true
   fun bundled(context:Context,target:String,baseline:SourceLookupProvider,known:Set<String>,raw:()->List<SourceFrameStarterCandidate>):SourceLookupProvider {
-   if(!PROMOTION_ENABLED)return baseline
+   if(!PROMOTION_ENABLED || target !in setOf("ja","sw"))return baseline
    val owner=runCatching {
     val manifest=context.assets.open("immersion/source-frames-en-$target-catalog.json").use{it.readBytes()}
     val file=JSONObject(manifest.toString(Charsets.UTF_8)).getString("file")
@@ -29,18 +30,20 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   }
  }
  init {
-  require(bytes.size<=1048576 && manifestBytes.size<=8192 && target in setOf("ja","sw"))
-  require(manifest.getString("schema")=="vipi-source-frame-manifest-1" && manifest.getString("file").matches(Regex("source-frames-en-$target-[0-9]{3}\\.json")))
+  require(bytes.size<=1048576 && manifestBytes.size<=8192 && source in SUPPORTED && target in SUPPORTED && source!=target)
+  require(manifest.getString("schema")=="vipi-source-frame-manifest-1" && manifest.getString("file").matches(Regex("source-frames-$source-$target-[0-9]{3}\\.json")))
   require(manifest.getString("sha256")==packSHA && manifest.getInt("bytes")==bytes.size && manifest.getString("version")==pack.getString("version") && manifest.getInt("patterns")==patterns.length())
-  require(manifest.getString("source")=="en" && manifest.getString("target")==target && manifest.getString("policy")=="reference-first-source-frames-1")
-  require(pack.getString("schema")=="vipi-source-frame-pack-1" && pack.getString("source")=="en" && pack.getString("target")==target && pack.getString("policy")==manifest.getString("policy"))
+  require(manifest.getString("source")==source && manifest.getString("target")==target && manifest.getString("policy")=="reference-first-source-frames-1")
+  require(pack.getString("schema")=="vipi-source-frame-pack-1" && pack.getString("source")==source && pack.getString("target")==target && pack.getString("policy")==manifest.getString("policy"))
   require(pack.getString("approval_sha256").matches(Regex("[a-f0-9]{64}")) && patterns.length() in 1..256 && allowed.size==patterns.length())
   for(i in 0 until patterns.length()) {
-   val p=patterns.getJSONObject(i);require(p.getBoolean("source_only_permission") && p.getString("pair")=="en-$target")
+   val p=patterns.getJSONObject(i);require(p.getBoolean("source_only_permission") && p.getString("pair")=="$source-$target")
    for(k in listOf("id","source","target","meaning","concept_id"))require(p.getString(k).isNotEmpty())
-   require(p.opt("reading") is String);require(target!="ja" || p.getString("reading").isNotEmpty());val variants=p.getJSONArray("variants");require(variants.length() in 1..1024)
+   require(p.opt("reading") is String);require(target !in setOf("ja","zh","ko","ar") || p.getString("reading").isNotEmpty());val variants=p.getJSONArray("variants");require(variants.length() in 1..1024)
    for(j in 0 until variants.length()) {
     val v=variants.getJSONObject(j);val text=v.getString("context");val f=v.getJSONArray("focus_utf16")
+    require(!v.has("context_scope") || v.getString("context_scope") in setOf("local_phrase","whole_sentence"))
+    require(!v.has("right_boundary") || v.getString("right_boundary")=="clause_or_end")
     require(text.length in 1..256 && f.length()==2);val a=f.getInt(0);val b=f.getInt(1)
     require(a>=0 && b>a && b<=text.length && (a==0 || !Character.isLowSurrogate(text[a])) && (b==text.length || !Character.isLowSurrogate(text[b])))
     require(text.substring(a,b)==p.getString("source"))
@@ -53,7 +56,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    override val cacheIdentity=combinedIdentity
    override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence {
     val b=baseline.lookup(original,source,target,density);val candidates=raw()
-    val result=if(source!="en" || target!=owner.target || catalog.reference(original,source,target)!=null)b else owner.resolve(original,density,snapshot,b,candidates)
+    val result=if(source!=owner.source || target!=owner.target || catalog.reference(original,source,target)!=null)b else owner.resolve(original,density,snapshot,b,candidates)
     return SourceLookupEvidence(result.original,result.source,result.target,cacheIdentity,result.partial,result.recognitions).also{require(it.isValid(original,source,target,cacheIdentity))}
    }
   }
@@ -65,8 +68,18 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   val touched=words.filter{it.first<range.end && range.start<=it.last}
   return if(touched.isNotEmpty() && touched.first().first==range.start && touched.last().last+1==range.end && touched.all{it.first>=range.start && it.last<range.end})touched.size else null
  }
+ private fun sentenceCost(words:List<IntRange>,range:SourceLookupRange):Int? {
+  val touched=words.filter{it.first<range.end && range.start<=it.last}
+  return if(touched.isNotEmpty() && touched.all{it.first>=range.start && it.last<range.end})touched.size else null
+ }
+ private fun clauseOrEnd(original:String,end:Int):Boolean {
+  var next=end
+  while(next<original.length && (original[next]=='\t' || Character.getType(original[next])==Character.SPACE_SEPARATOR.toInt()))next++
+  return next==original.length || original[next] in ".!?。！？,，;；\r\n"
+ }
  private fun matches(original:String):List<Hit> {
-  val words=LocalImmersion.words(original,"en");val hits=mutableListOf<Hit>();val seen=mutableSetOf<String>()
+  val words=LocalImmersion.words(original,source);val sentences=LocalImmersion.sentences(original,source)
+  val hits=mutableListOf<Hit>();val seen=mutableSetOf<String>()
   for(i in 0 until patterns.length()) {
    val p=patterns.getJSONObject(i);val variants=p.getJSONArray("variants")
    require(variants.length() in 1..1024)
@@ -78,8 +91,16 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
      val context=SourceLookupRange(a,a+needle.length);val focus=SourceLookupRange(a+rel.getInt(0),a+rel.getInt(1));require(context.contains(focus) && original.substring(focus.start,focus.end)==p.getString("source"))
      val id=p.getString("id")+"@$a:${context.end}:${focus.start}:${focus.end}"
      if(!seen.add(id))continue
-     val cc=nativeCost(words,context);val fc=nativeCost(words,focus)
-     val reason=if(cc==null || fc==null)"partial_native_word" else if(needle.any{it in ".!?。！？;；\r\n"})"context_barrier" else null
+     val wholeSentence=v.optString("context_scope")=="whole_sentence"
+     val cc=if(wholeSentence)sentenceCost(words,context) else nativeCost(words,context);val fc=nativeCost(words,focus)
+     val barrierText=if(wholeSentence)needle.trimEnd { it in ".!?。！？" } else needle
+     val reason=when {
+      wholeSentence && sentences.none{it.first==context.start && it.last+1==context.end}->"whole_sentence_scope"
+      v.optString("right_boundary")=="clause_or_end" && !clauseOrEnd(original,context.end)->"right_boundary"
+      cc==null || fc==null->"partial_native_word"
+      barrierText.any{it in ".!?。！？;；\r\n"}->"context_barrier"
+      else->null
+     }
      hits+=Hit(p,context,focus,cc?:0,fc?:0,id,reason);require(hits.size<=4096)
     }
    }
@@ -89,8 +110,8 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
  fun geometry(original:String):JSONArray=JSONArray(matches(original).map{h->JSONObject().put("pattern_id",h.pattern.getString("id")).put("context",JSONArray(listOf(h.context.start,h.context.end))).put("focus",JSONArray(listOf(h.focus.start,h.focus.end))).put("reason",h.reason?:JSONObject.NULL)})
  fun resolve(original:String,density:Double,known:Set<String>,baseline:SourceLookupEvidence,raw:List<SourceFrameStarterCandidate>):SourceLookupEvidence {
   require(original.isNotEmpty() && original.length<=16384 && density.isFinite() && density in 0.0..0.75)
-  require(baseline.catalogIdentity==baselineIdentity && baseline.isValid(original,"en",target,baselineIdentity))
-  trace=JSONArray();val native=LocalImmersion.words(original,"en");val budget=if(density>0)maxOf(1,(native.size*density).toInt())else 0
+  require(baseline.catalogIdentity==baselineIdentity && baseline.isValid(original,source,target,baselineIdentity))
+  trace=JSONArray();val native=LocalImmersion.words(original,source);val budget=if(density>0)maxOf(1,(native.size*density).toInt())else 0
   val literalRanges=TranslationIntegrity.protectedLiteralRanges(original).map{SourceLookupRange(it.first,it.last+1)}
   val hits=matches(original);val hardReasons=setOf("caller_known_concept","native_density_budget","unchanged_normalized_face")
   for(h in hits) {
@@ -107,7 +128,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    }
   }
   val groups=mutableListOf<MutableList<Hit>>()
-  for(h in hits.filter{it.reason !in setOf("partial_native_word","context_barrier")}.sortedWith(compareBy<Hit>{it.focus.start}.thenBy{it.focus.end})) {
+  for(h in hits.filter{it.reason !in setOf("partial_native_word","context_barrier","whole_sentence_scope","right_boundary")}.sortedWith(compareBy<Hit>{it.focus.start}.thenBy{it.focus.end})) {
    if(groups.isNotEmpty() && h.focus.start<groups.last().maxOf{it.focus.end})groups.last().add(h) else groups.add(mutableListOf(h))
   }
   val frameUnits=mutableListOf<Pair<Hit,SourceReferenceUnit>>();val frameRecognitions=mutableListOf<SourceRecognition>()
@@ -139,6 +160,6 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    SourceRecognition("merged-$n",JapaneseStarterLookup.sha(g.map{it.recordSHA256}.sorted().joinToString("").toByteArray()),context,mask,if(ambiguous)SourceAtomicMode.AMBIGUOUS else SourceAtomicMode.HEAD_BACKOFF,permitted)
   }
   val partial=SourceReferencePresentation.create(original,target,chosen.sortedBy{it.start},density,native.size)
-  val result=SourceLookupEvidence(original,"en",target,identity,partial,recognition+fixed);require(result.isValid(original,"en",target,identity));if(partial!=null)require(result.filterPartial(partial)==partial);return result
+  val result=SourceLookupEvidence(original,source,target,identity,partial,recognition+fixed);require(result.isValid(original,source,target,identity));if(partial!=null)require(result.filterPartial(partial)==partial);return result
  }
 }
