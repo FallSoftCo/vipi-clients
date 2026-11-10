@@ -1,0 +1,4 @@
+module VipiLanguageDetector {
+    header "VipiLanguageDetector.h"
+    export *
+}

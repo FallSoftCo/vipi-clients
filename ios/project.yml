@@ -37,6 +37,23 @@ packages:
   LibSignalClient:
     path: ../vendor/libsignal/source/swift
 targets:
+  VipiLanguageDetector:
+    type: library.static
+    platform: iOS
+    sources:
+      - path: VipiLanguageDetector
+        headerVisibility: public
+      - path: ../vendor/cld2/internal
+        includes: ["*.cc"]
+    settings:
+      base:
+        PRODUCT_MODULE_NAME: VipiLanguageDetector
+        DEFINES_MODULE: YES
+        MODULEMAP_FILE: $(SRCROOT)/VipiLanguageDetector/module.modulemap
+        CLANG_CXX_LANGUAGE_STANDARD: c++17
+        HEADER_SEARCH_PATHS: $(SRCROOT)/../vendor
+        OTHER_CPLUSPLUSFLAGS: $(inherited) -Wno-c++11-narrowing
+        PUBLIC_HEADERS_FOLDER_PATH: include/VipiLanguageDetector
   Vipi:
     type: application
     platform: iOS
@@ -61,6 +78,7 @@ targets:
       - path: ../qa/immersion/corpus.json
         buildPhase: resources
     dependencies:
+      - target: VipiLanguageDetector
       - sdk: libz.tbd
       - package: ESpeakNG
         product: libespeak-ng
@@ -132,6 +150,7 @@ targets:
         TARGETED_DEVICE_FAMILY: '1,2'
         SUPPORTS_MACCATALYST: NO
         SWIFT_STRICT_CONCURRENCY: complete
+        SWIFT_INCLUDE_PATHS: $(SRCROOT)/VipiLanguageDetector
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
       configs:
@@ -179,6 +198,7 @@ targets:
           OTHER_LDFLAGS: '-lsqlite3 -lc++'
       base:
         GENERATE_INFOPLIST_FILE: YES
+        SWIFT_INCLUDE_PATHS: $(SRCROOT)/VipiLanguageDetector
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
   VipiUITests:

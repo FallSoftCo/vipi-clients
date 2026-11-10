@@ -1,0 +1,731 @@
+{
+  "parity": [
+    {
+      "text": "Coffee tomorrow? I know a little place by the river.",
+      "expected": "en",
+      "id": "coffee_plan:en"
+    },
+    {
+      "text": "¿Tomamos un café mañana? Conozco un pequeño lugar junto al río.",
+      "expected": "es",
+      "id": "coffee_plan:es"
+    },
+    {
+      "text": "Un café demain ? Je connais un petit endroit au bord de la rivière.",
+      "expected": "fr",
+      "id": "coffee_plan:fr"
+    },
+    {
+      "text": "Morgen einen Kaffee? Ich kenne ein kleines Café am Fluss.",
+      "expected": "de",
+      "id": "coffee_plan:de"
+    },
+    {
+      "text": "Un caffè domani? Conosco un posticino vicino al fiume.",
+      "expected": "it",
+      "id": "coffee_plan:it"
+    },
+    {
+      "text": "Vamos tomar um café amanhã? Conheço um lugar pequeno perto do rio.",
+      "expected": "pt",
+      "id": "coffee_plan:pt"
+    },
+    {
+      "text": "هل نشرب القهوة غدًا؟ أعرف مكانًا صغيرًا قرب النهر.",
+      "expected": "ar",
+      "id": "coffee_plan:ar"
+    },
+    {
+      "text": "明天一起喝咖啡吗？我知道河边有个小地方。",
+      "expected": "zh",
+      "id": "coffee_plan:zh"
+    },
+    {
+      "text": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",
+      "expected": "ja",
+      "id": "coffee_plan:ja"
+    },
+    {
+      "text": "내일 커피 마실래? 강 옆에 작은 카페를 알고 있어.",
+      "expected": "ko",
+      "id": "coffee_plan:ko"
+    },
+    {
+      "text": "My sister works at a bank. She will help me open an account tomorrow.",
+      "expected": "en",
+      "id": "bank_finance:en"
+    },
+    {
+      "text": "Mi hermana trabaja en un banco. Mañana me ayudará a abrir una cuenta.",
+      "expected": "es",
+      "id": "bank_finance:es"
+    },
+    {
+      "text": "Ma sœur travaille dans une banque. Elle m'aidera à ouvrir un compte demain.",
+      "expected": "fr",
+      "id": "bank_finance:fr"
+    },
+    {
+      "text": "Meine Schwester arbeitet bei einer Bank. Morgen hilft sie mir, ein Konto zu eröffnen.",
+      "expected": "de",
+      "id": "bank_finance:de"
+    },
+    {
+      "text": "Mia sorella lavora in banca. Domani mi aiuterà ad aprire un conto.",
+      "expected": "it",
+      "id": "bank_finance:it"
+    },
+    {
+      "text": "Minha irmã trabalha em um banco. Amanhã ela vai me ajudar a abrir uma conta.",
+      "expected": "pt",
+      "id": "bank_finance:pt"
+    },
+    {
+      "text": "تعمل أختي في بنك. ستساعدني غدًا في فتح حساب.",
+      "expected": "ar",
+      "id": "bank_finance:ar"
+    },
+    {
+      "text": "我姐姐在银行工作。她明天会帮我开一个账户。",
+      "expected": "zh",
+      "id": "bank_finance:zh"
+    },
+    {
+      "text": "姉は銀行で働いています。明日、口座を開くのを手伝ってくれます。",
+      "expected": "ja",
+      "id": "bank_finance:ja"
+    },
+    {
+      "text": "제 누나는 은행에서 일해요. 내일 계좌를 여는 것을 도와줄 거예요.",
+      "expected": "ko",
+      "id": "bank_finance:ko"
+    },
+    {
+      "text": "Let's sit on the bank of the river. The water is calm today.",
+      "expected": "en",
+      "id": "river_bank:en"
+    },
+    {
+      "text": "Sentémonos en la orilla del río. Hoy el agua está tranquila.",
+      "expected": "es",
+      "id": "river_bank:es"
+    },
+    {
+      "text": "Asseyons-nous au bord de la rivière. L'eau est calme aujourd'hui.",
+      "expected": "fr",
+      "id": "river_bank:fr"
+    },
+    {
+      "text": "Setzen wir uns ans Flussufer. Das Wasser ist heute ruhig.",
+      "expected": "de",
+      "id": "river_bank:de"
+    },
+    {
+      "text": "Sediamoci sulla riva del fiume. Oggi l'acqua è calma.",
+      "expected": "it",
+      "id": "river_bank:it"
+    },
+    {
+      "text": "Vamos sentar na margem do rio. A água está calma hoje.",
+      "expected": "pt",
+      "id": "river_bank:pt"
+    },
+    {
+      "text": "لنجلس على ضفة النهر. المياه هادئة اليوم.",
+      "expected": "ar",
+      "id": "river_bank:ar"
+    },
+    {
+      "text": "我们坐在河岸上吧。今天的水面很平静。",
+      "expected": null,
+      "id": "river_bank:zh"
+    },
+    {
+      "text": "川岸に座ろう。今日は水面が穏やかだね。",
+      "expected": "ja",
+      "id": "river_bank:ja"
+    },
+    {
+      "text": "강가에 앉자. 오늘은 물이 잔잔하네.",
+      "expected": "ko",
+      "id": "river_bank:ko"
+    },
+    {
+      "text": "Please do not add peanuts. I am allergic to them.",
+      "expected": "en",
+      "id": "negation_allergy:en"
+    },
+    {
+      "text": "Por favor, no añadas cacahuetes. Soy alérgico a ellos.",
+      "expected": "es",
+      "id": "negation_allergy:es"
+    },
+    {
+      "text": "N'ajoute pas de cacahuètes, s'il te plaît. J'y suis allergique.",
+      "expected": "fr",
+      "id": "negation_allergy:fr"
+    },
+    {
+      "text": "Bitte keine Erdnüsse dazugeben. Ich bin dagegen allergisch.",
+      "expected": "de",
+      "id": "negation_allergy:de"
+    },
+    {
+      "text": "Per favore, non aggiungere arachidi. Sono allergico.",
+      "expected": "it",
+      "id": "negation_allergy:it"
+    },
+    {
+      "text": "Por favor, não coloque amendoim. Tenho alergia.",
+      "expected": "pt",
+      "id": "negation_allergy:pt"
+    },
+    {
+      "text": "من فضلك لا تضف الفول السوداني. لدي حساسية منه.",
+      "expected": "ar",
+      "id": "negation_allergy:ar"
+    },
+    {
+      "text": "请不要加花生。我对花生过敏。",
+      "expected": "zh",
+      "id": "negation_allergy:zh"
+    },
+    {
+      "text": "ピーナッツを入れないでください。アレルギーがあります。",
+      "expected": "ja",
+      "id": "negation_allergy:ja"
+    },
+    {
+      "text": "땅콩을 넣지 말아 주세요. 땅콩 알레르기가 있어요.",
+      "expected": "ko",
+      "id": "negation_allergy:ko"
+    },
+    {
+      "text": "Dad is cooking dinner. Can you buy some bread on your way home?",
+      "expected": "en",
+      "id": "family_message:en"
+    },
+    {
+      "text": "Papá está preparando la cena. ¿Puedes comprar pan de camino a casa?",
+      "expected": "es",
+      "id": "family_message:es"
+    },
+    {
+      "text": "Papa prépare le dîner. Tu peux acheter du pain en rentrant ?",
+      "expected": "fr",
+      "id": "family_message:fr"
+    },
+    {
+      "text": "Papa kocht das Abendessen. Kannst du auf dem Heimweg Brot kaufen?",
+      "expected": "de",
+      "id": "family_message:de"
+    },
+    {
+      "text": "Papà sta preparando la cena. Puoi comprare del pane tornando a casa?",
+      "expected": null,
+      "id": "family_message:it"
+    },
+    {
+      "text": "O pai está preparando o jantar. Você pode comprar pão no caminho de casa?",
+      "expected": "pt",
+      "id": "family_message:pt"
+    },
+    {
+      "text": "يعد أبي العشاء. هل يمكنك شراء بعض الخبز في طريق عودتك إلى المنزل؟",
+      "expected": "ar",
+      "id": "family_message:ar"
+    },
+    {
+      "text": "爸爸正在做晚饭。你回家的路上能买些面包吗？",
+      "expected": "zh",
+      "id": "family_message:zh"
+    },
+    {
+      "text": "お父さんが夕食を作っているよ。帰りにパンを買ってきてくれる？",
+      "expected": "ja",
+      "id": "family_message:ja"
+    },
+    {
+      "text": "아빠가 저녁을 만들고 있어. 집에 오는 길에 빵 좀 사 올래?",
+      "expected": "ko",
+      "id": "family_message:ko"
+    },
+    {
+      "text": "Meet me at 18:30. Email qa@example.test or open https://example.test/river. The code is `bank_123` 🙂",
+      "expected": "en",
+      "id": "protected_details:en"
+    },
+    {
+      "text": "Nos vemos a las 18:30. Escribe a qa@example.test o abre https://example.test/river. El código es `bank_123` 🙂",
+      "expected": "es",
+      "id": "protected_details:es"
+    },
+    {
+      "text": "Retrouve-moi à 18:30. Écris à qa@example.test ou ouvre https://example.test/river. Le code est `bank_123` 🙂",
+      "expected": "fr",
+      "id": "protected_details:fr"
+    },
+    {
+      "text": "Treffen wir uns um 18:30. Schreib an qa@example.test oder öffne https://example.test/river. Der Code ist `bank_123` 🙂",
+      "expected": "de",
+      "id": "protected_details:de"
+    },
+    {
+      "text": "Ci vediamo alle 18:30. Scrivi a qa@example.test o apri https://example.test/river. Il codice è `bank_123` 🙂",
+      "expected": "it",
+      "id": "protected_details:it"
+    },
+    {
+      "text": "Encontre-me às 18:30. Envie um email para qa@example.test ou abra https://example.test/river. O código é `bank_123` 🙂",
+      "expected": "pt",
+      "id": "protected_details:pt"
+    },
+    {
+      "text": "قابلني الساعة 18:30. أرسل رسالة إلى qa@example.test أو افتح https://example.test/river. الرمز هو `bank_123` 🙂",
+      "expected": "ar",
+      "id": "protected_details:ar"
+    },
+    {
+      "text": "18:30见。发邮件到qa@example.test，或打开https://example.test/river。代码是`bank_123` 🙂",
+      "expected": "zh",
+      "id": "protected_details:zh"
+    },
+    {
+      "text": "18:30に会おう。qa@example.testにメールするか、https://example.test/riverを開いてね。コードは`bank_123` 🙂",
+      "expected": "ja",
+      "id": "protected_details:ja"
+    },
+    {
+      "text": "18:30에 만나자. qa@example.test로 메일을 보내거나 https://example.test/river를 열어 봐. 코드는 `bank_123`야 🙂",
+      "expected": "ko",
+      "id": "protected_details:ko"
+    },
+    {
+      "text": "Kahawa kesho? Ninajua sehemu ndogo karibu na mto.",
+      "expected": "sw",
+      "id": "authored:sw:0"
+    },
+    {
+      "text": "Nitarudi nyumbani baada ya kazi.",
+      "expected": "sw",
+      "id": "authored:sw:1"
+    },
+    {
+      "text": "Tunaweza kukutana kwenye kituo cha basi kesho asubuhi.",
+      "expected": "sw",
+      "id": "authored:sw:2"
+    },
+    {
+      "text": "Tafadhali niletee maji ya kunywa.",
+      "expected": "sw",
+      "id": "authored:sw:3"
+    },
+    {
+      "text": "Rafiki yangu anapenda kusoma vitabu.",
+      "expected": "sw",
+      "id": "authored:sw:4"
+    },
+    {
+      "text": "Usisahau funguo zako.",
+      "expected": "sw",
+      "id": "authored:sw:5"
+    },
+    {
+      "text": "Nimefika salama, nitakupigia simu baadaye.",
+      "expected": "sw",
+      "id": "authored:sw:6"
+    },
+    {
+      "text": "मैं कल अपने दोस्त से मिलने जा रहा हूँ।",
+      "expected": null,
+      "id": "authored:hi:0"
+    },
+    {
+      "text": "क्या हम शाम को कॉफ़ी पीने चलें?",
+      "expected": null,
+      "id": "authored:hi:1"
+    },
+    {
+      "text": "मुझे थोड़ी देर हो जाएगी।",
+      "expected": null,
+      "id": "authored:hi:2"
+    },
+    {
+      "text": "कृपया दरवाज़ा बंद कर दो।",
+      "expected": null,
+      "id": "authored:hi:3"
+    },
+    {
+      "text": "मैं घर पहुँच गया हूँ।",
+      "expected": null,
+      "id": "authored:hi:4"
+    },
+    {
+      "text": "OK",
+      "expected": null,
+      "id": "ambiguous:0"
+    },
+    {
+      "text": "no",
+      "expected": null,
+      "id": "ambiguous:1"
+    },
+    {
+      "text": "chat",
+      "expected": null,
+      "id": "ambiguous:2"
+    },
+    {
+      "text": "gift",
+      "expected": null,
+      "id": "ambiguous:3"
+    },
+    {
+      "text": "pain",
+      "expected": null,
+      "id": "ambiguous:4"
+    },
+    {
+      "text": "menu",
+      "expected": null,
+      "id": "ambiguous:5"
+    },
+    {
+      "text": "12345",
+      "expected": null,
+      "id": "ambiguous:6"
+    },
+    {
+      "text": "https://example.com/meet",
+      "expected": null,
+      "id": "ambiguous:7"
+    },
+    {
+      "text": "😀👍",
+      "expected": null,
+      "id": "ambiguous:8"
+    },
+    {
+      "text": "I am going mañana",
+      "expected": "en",
+      "id": "ambiguous:9"
+    },
+    {
+      "text": "Niko free tomorrow",
+      "expected": "en",
+      "id": "ambiguous:10"
+    },
+    {
+      "text": "merci",
+      "expected": null,
+      "id": "ambiguous:11"
+    },
+    {
+      "text": "ありがとう",
+      "expected": "ja",
+      "id": "ambiguous:12"
+    },
+    {
+      "text": "Nimefika",
+      "expected": null,
+      "id": "ambiguous:13"
+    },
+    {
+      "text": "Sawa",
+      "expected": null,
+      "id": "ambiguous:14"
+    }
+  ],
+  "errors": [
+    {
+      "id": "2481",
+      "expected": "es",
+      "text": "¡Intentemos algo!",
+      "owner": "Shishir",
+      "url": "https://tatoeba.org/en/sentences/show/2481",
+      "reliable": true,
+      "bytes_found": 17,
+      "details": [
+        [
+          "ENGLISH",
+          "en",
+          94,
+          896.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "2504",
+      "expected": "es",
+      "text": "Eso va a costar 30 €.",
+      "owner": "Shishir",
+      "url": "https://tatoeba.org/en/sentences/show/2504",
+      "reliable": true,
+      "bytes_found": 17,
+      "details": [
+        [
+          "CATALAN",
+          "ca",
+          94,
+          640.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "2519",
+      "expected": "es",
+      "text": "Les dije que me mandaran otro boleto.",
+      "owner": "Raimondi",
+      "url": "https://tatoeba.org/en/sentences/show/2519",
+      "reliable": true,
+      "bytes_found": 38,
+      "details": [
+        [
+          "PORTUGUESE",
+          "pt",
+          97,
+          415.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "119",
+      "expected": "de",
+      "text": "Ich mochte Biologie noch nie.",
+      "owner": "ludoviko",
+      "url": "https://tatoeba.org/en/sentences/show/119",
+      "reliable": true,
+      "bytes_found": 30,
+      "details": [
+        [
+          "SLOVAK",
+          "sk",
+          96,
+          847.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "4377",
+      "expected": "it",
+      "text": "Non ti preoccupare.",
+      "owner": "Pharamp",
+      "url": "https://tatoeba.org/en/sentences/show/4377",
+      "reliable": true,
+      "bytes_found": 20,
+      "details": [
+        [
+          "INTERLINGUA",
+          "ia",
+          95,
+          808.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "4387",
+      "expected": "it",
+      "text": "Mi volevi parlare di libertà?",
+      "owner": "Pharamp",
+      "url": "https://tatoeba.org/en/sentences/show/4387",
+      "reliable": true,
+      "bytes_found": 31,
+      "details": [
+        [
+          "CORSICAN",
+          "co",
+          96,
+          477.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "4397",
+      "expected": "it",
+      "text": "Come si scrive \"pretty\"?",
+      "owner": "Pharamp",
+      "url": "https://tatoeba.org/en/sentences/show/4397",
+      "reliable": true,
+      "bytes_found": 23,
+      "details": [
+        [
+          "ENGLISH",
+          "en",
+          95,
+          744.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "338673",
+      "expected": "sw",
+      "text": "Ninakupenda.",
+      "url": "https://tatoeba.org/en/sentences/show/338673",
+      "masked": "Ninakupenda.",
+      "reliable": true,
+      "details": [
+        [
+          "QUECHUA",
+          "qu",
+          92,
+          853.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ],
+      "accepted": "qu"
+    },
+    {
+      "id": "869023",
+      "expected": "sw",
+      "text": "Msichana anaruka.",
+      "url": "https://tatoeba.org/en/sentences/show/869023",
+      "masked": "Msichana anaruka.",
+      "reliable": true,
+      "details": [
+        [
+          "ENGLISH",
+          "en",
+          94,
+          602.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ],
+      "accepted": "en"
+    },
+    {
+      "id": "879731",
+      "expected": "sw",
+      "text": "Kumbe wanachelewa!",
+      "url": "https://tatoeba.org/en/sentences/show/879731",
+      "masked": "Kumbe wanachelewa!",
+      "reliable": true,
+      "details": [
+        [
+          "TSONGA",
+          "ts",
+          94,
+          910.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ],
+        [
+          "Unknown",
+          "un",
+          0,
+          0.0
+        ]
+      ],
+      "accepted": "ts"
+    }
+  ]
+}
