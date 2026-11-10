@@ -15,10 +15,11 @@ class BundledSourceFrameCatalogDeviceTest {
         val inst = InstrumentationRegistry.getInstrumentation()
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val context = inst.targetContext
-        val output = File(context.filesDir, "bundled-loader-off-001.json"); check(!output.exists())
-        assertFalse(BundledStarterLookup.ALL_PAIR_PROMOTION_ENABLED)
+        val promoted = BundledStarterLookup.ALL_PAIR_PROMOTION_ENABLED
+        val output = File(context.filesDir, "bundled-loader-${if (promoted) "on" else "off"}-001.json"); check(!output.exists())
         val baseline = BundledStarterLookup.compose(JapaneseStarterLookup.bundledIfPromoted(context), SwahiliStarterLookup.bundledIfPromoted(context))
-        assertEquals(baseline?.cacheIdentity, BundledStarterLookup.provider(context)?.cacheIdentity)
+        if (promoted) assertNotEquals(baseline?.cacheIdentity, BundledStarterLookup.provider(context)?.cacheIdentity)
+        else assertEquals(baseline?.cacheIdentity, BundledStarterLookup.provider(context)?.cacheIdentity)
         val index = context.assets.open("immersion/${BundledSourceFrameCatalog.INDEX_FILE}").use { it.readBytes() }
         assertEquals(BundledSourceFrameCatalog.INDEX_BYTES, index.size)
         val entries = JSONObject(index.toString(Charsets.UTF_8)).getJSONArray("entries")
@@ -67,9 +68,9 @@ class BundledSourceFrameCatalogDeviceTest {
         try { BundledSourceFrameCatalog.qualificationProviders(context, index.copyOf().apply { this[0] = (this[0].toInt() xor 1).toByte() }, openAsset = streams) }
         catch (_: IllegalArgumentException) { rejected = true }
         assertTrue(rejected)
-        output.writeText(JSONObject().put("complete", true).put("promotion", false)
+        output.writeText(JSONObject().put("complete", true).put("promotion", promoted)
             .put("index_sha256", JapaneseStarterLookup.sha(index)).put("pairs", captured)
             .put("lazy_selected_pair_only", true).put("corrupt_pack_abstained_and_cached", true)
-            .put("corrupt_index_rejected", true).put("off_baseline_identity_unchanged", true).toString(2))
+            .put("corrupt_index_rejected", true).put("off_baseline_identity_unchanged", !promoted).toString(2))
     }
 }

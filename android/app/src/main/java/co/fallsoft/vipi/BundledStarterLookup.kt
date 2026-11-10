@@ -12,7 +12,7 @@ internal object BundledStarterLookup {
         return composeProviders(japanese, swahili, additional)
     }
 
-    const val ALL_PAIR_PROMOTION_ENABLED = false
+    const val ALL_PAIR_PROMOTION_ENABLED = true
 
     /** Explicit candidate composition is only used by isolated qualification. */
     fun compose(japanese: SourceLookupProvider?, swahili: SourceLookupProvider?,

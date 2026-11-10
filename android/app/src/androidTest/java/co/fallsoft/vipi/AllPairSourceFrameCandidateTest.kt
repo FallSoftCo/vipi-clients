@@ -17,10 +17,12 @@ class AllPairSourceFrameCandidateTest {
         check(args.getString("vipiDedicatedEmulator") == "true")
         val name = requireNotNull(args.getString("vipiCandidateRun"))
         require(name.matches(Regex("all-pair-starter-candidate-r[0-9]{2}")))
+        val useBundledDefault = args.getString("vipiUseBundledDefault") == "true"
+        check(!useBundledDefault || BundledStarterLookup.ALL_PAIR_PROMOTION_ENABLED)
         val context = inst.targetContext
         val root = File(context.filesDir, name)
         val suffix = args.getString("vipiCaptureSuffix").orEmpty()
-        require(suffix.isEmpty() || suffix.matches(Regex("-remaining-[0-9]{2}")))
+        require(suffix.isEmpty() || suffix.matches(Regex("-(remaining|default)-[0-9]{2}")))
         val out = File(context.filesDir, "$name-android$suffix.json")
         val pairDirectory = File(context.filesDir, "$name-android$suffix-pairs")
         check(!out.exists() && !pairDirectory.exists())
@@ -56,7 +58,8 @@ class AllPairSourceFrameCandidateTest {
             JapaneseStarterLookup.bundledIfPromoted(context, emptySet()),
             SwahiliStarterLookup.bundledIfPromoted(context, emptySet()), candidates))
         val report = JSONObject().put("schema", "vipi-all-pair-android-candidate-segmented-1")
-            .put("runtime_promotion", false).put("linguistic_acceptance", false)
+            .put("runtime_promotion", BundledStarterLookup.ALL_PAIR_PROMOTION_ENABLED).put("linguistic_acceptance", false)
+            .put("actual_default_provider", useBundledDefault).put("bundled_index_sha256", BundledSourceFrameCatalog.INDEX_SHA256)
             .put("direct_density", 0.5).put("conversation_density", 0.25)
         var rows = JSONArray(); var controls = JSONArray()
         val pairFiles = JSONArray(); val negativeFailures = JSONArray(); val forbiddenFailures = JSONArray()
@@ -80,7 +83,10 @@ class AllPairSourceFrameCandidateTest {
             }
             rejectedControls.forEach { negativeFailures.put(it) }
             forbiddenRows.forEach { forbiddenFailures.put(it) }
-            val bytes = JSONObject().put("pair", pair).put("cases", rows).put("controls", controls).toString().toByteArray(Charsets.UTF_8)
+            val runtime = Runtime.getRuntime()
+            val bytes = JSONObject().put("pair", pair).put("cases", rows).put("controls", controls)
+                .put("harness_heap_used_bytes", runtime.totalMemory() - runtime.freeMemory()).put("heap_limit_bytes", runtime.maxMemory())
+                .toString().toByteArray(Charsets.UTF_8)
             val file = File(pairDirectory, "$pair.json"); check(!file.exists()); file.writeBytes(bytes)
             pairFiles.put(JSONObject().put("pair", pair).put("file", file.name).put("bytes", bytes.size)
                 .put("sha256", JapaneseStarterLookup.sha(bytes)).put("cases", rows.length()).put("controls", controls.length()))
@@ -102,8 +108,9 @@ class AllPairSourceFrameCandidateTest {
                 .put("full_translation", value?.translation ?: JSONObject.NULL)
         }
         suspend fun route(immersion: ConversationImmersion, text: String, manual: String?): JSONObject {
+            val started = android.os.SystemClock.elapsedRealtimeNanos()
             val value = immersion.presentation(text, inputLanguage = manual)
-            return presentation(value, text).put("status", immersion.lastOutcome?.status.toString())
+            return presentation(value, text).put("elapsed_ms", (android.os.SystemClock.elapsedRealtimeNanos() - started) / 1_000_000.0).put("status", immersion.lastOutcome?.status.toString())
                 .put("origin", immersion.lastOutcome?.origin.toString())
                 .put("local_translation_calls", immersion.lastOutcome?.localTranslationCalls ?: 0)
         }
@@ -113,7 +120,8 @@ class AllPairSourceFrameCandidateTest {
                 if (source !in selectedSources) continue
                 activePair = "$source-$target"
                 val owner = requireNotNull(owners[pair])
-                val immersion = ConversationImmersion(context, source, target, 0.25, sourceLookup = composed)
+                val immersion = if (useBundledDefault) ConversationImmersion(context, source, target, 0.25)
+                    else ConversationImmersion(context, source, target, 0.25, sourceLookup = composed)
                 try {
                     var first: String? = null
                     for (i in 0 until fixtures.length()) {
