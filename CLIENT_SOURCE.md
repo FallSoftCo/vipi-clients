@@ -20,6 +20,7 @@ Check them before building:
 
 ```sh
 python3 scripts/check-bundled-lexical.py
+python3 scripts/check-source-context-assets.py
 ```
 
 The archive includes pinned upstream source packages under `upstream-sources`.
@@ -36,7 +37,7 @@ locks during an ordinary reproduction.
 ## Android
 
 The source pins Gradle 8.13, Android Gradle Plugin 8.13.2, Kotlin 2.4.0, SDK 36,
-minimum API 28, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17. Set `JAVA_HOME`
+minimum API 28, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17 or newer (the release build used Java 21). Set `JAVA_HOME`
 and `ANDROID_HOME` to compatible installed tools; `ANDROID_SDK_ROOT`, if present,
 must identify the same SDK. The helper defaults to two Gradle workers.
 
@@ -96,7 +97,7 @@ workspace. Open `ios/Vipi.xcworkspace` rather than the generated project.
 A simulator build can be made with a locally available destination:
 
 ```sh
-xcodebuild -workspace ios/Vipi.xcworkspace -scheme Vipi \
+xcodebuild -workspace ios/Vipi.xcworkspace -scheme VipiSimulator \
   -configuration Simulator -sdk iphonesimulator \
   -destination 'generic/platform=iOS Simulator' -jobs 2 \
   -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile \

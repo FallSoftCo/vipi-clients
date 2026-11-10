@@ -23,6 +23,7 @@ FILES = (
     "scripts/build-android.sh", "scripts/build-android-speech-data.py",
     "scripts/android-dependency-inventory.gradle", "scripts/collect-android-notices.py",
     "scripts/check-android-release.py", "scripts/check-bundled-lexical.py",
+    "scripts/check-source-context-assets.py",
     "scripts/prepare-ios-project.sh", "scripts/prepare-client-source.py",
     "qa/immersion/corpus.json", "qa/immersion/speech.json", "qa/immersion/speech-lengths.json",
     "qa/immersion/source_lookup_experiment/controls.json",
