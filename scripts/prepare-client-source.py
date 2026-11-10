@@ -19,7 +19,7 @@ import tarfile
 
 TREES = ("android", "ios", "data", "language-packs")
 FILES = (
-    "CLIENT_SOURCE.md",
+    "CLIENT_SOURCE.md", "vendor/cld2",
     "scripts/build-android.sh", "scripts/build-android-speech-data.py",
     "scripts/android-dependency-inventory.gradle", "scripts/collect-android-notices.py",
     "scripts/check-android-release.py", "scripts/check-bundled-lexical.py",

@@ -1,0 +1,62 @@
+--- a/vendor/cld2/internal/compact_lang_det_impl.cc
++++ b/vendor/cld2/internal/compact_lang_det_impl.cc
+@@ -1156,6 +1156,8 @@
+                             bool FLAGS_cld2_html, bool FLAGS_cld2_quiet) {
+   for (int sub = 0; sub < doc_tote->MaxSize(); ++sub) {
+     int close_packedlang = doc_tote->Key(sub);
++    // Vipi: unused slots are not valid Language enum values.
++    if (close_packedlang == DocTote::kUnusedKey) {continue;}
+     int subscr = LanguageCloseSet(static_cast<Language>(close_packedlang));
+     if (subscr == 0) {continue;}
+ 
+@@ -1164,9 +1166,10 @@
+ 
+     // Nonzero longword score: Go look for the other of this pair
+     for (int sub2 = sub + 1; sub2 < doc_tote->MaxSize(); ++sub2) {
+-      if (LanguageCloseSet(static_cast<Language>(doc_tote->Key(sub2))) == subscr) {
++      int close_packedlang2 = doc_tote->Key(sub2);
++      if (close_packedlang2 == DocTote::kUnusedKey) {continue;}
++      if (LanguageCloseSet(static_cast<Language>(close_packedlang2)) == subscr) {
+         // We have a matching pair
+-        int close_packedlang2 = doc_tote->Key(sub2);
+ 
+         // Move all the text bytes from lower byte-count to higher one
+         int from_sub, to_sub;
+--- a/vendor/cld2/internal/utf8statetable.cc
++++ b/vendor/cld2/internal/utf8statetable.cc
+@@ -325,7 +325,7 @@
+     e = Tbl[c];
+     Tbl = &Tbl_0[e << (eshift + 4)];  // 16x the range
+     e = (reinterpret_cast<const int8*>(Tbl))[lsrc[1]];
+-    Tbl = &Tbl[e << eshift];          // Relative +/-
++    Tbl = &Tbl[e * (1 << eshift)];          // Relative +/-
+     e = Tbl[lsrc[2]];
+     *src += 3;
+     *srclen -= 3;
+@@ -335,7 +335,7 @@
+     e = Tbl[lsrc[1]];
+     Tbl = &Tbl_0[e << (eshift + 4)];  // 16x the range
+     e = (reinterpret_cast<const int8*>(Tbl))[lsrc[2]];
+-    Tbl = &Tbl[e << eshift];          // Relative +/-
++    Tbl = &Tbl[e * (1 << eshift)];          // Relative +/-
+     e = Tbl[lsrc[3]];
+     *src += 4;
+     *srclen -= 4;
+@@ -368,7 +368,7 @@
+     e = Tbl[c];
+     Tbl = &Tbl_0[e << (eshift + 4)];  // 16x the range
+     e = (reinterpret_cast<const int8*>(Tbl))[lsrc[1]];
+-    Tbl = &Tbl[e << eshift];          // Relative +/-
++    Tbl = &Tbl[e * (1 << eshift)];          // Relative +/-
+     e = Tbl[lsrc[2]];
+   } else {                            // four bytes
+     e = Tbl[c];
+@@ -376,7 +376,7 @@
+     e = Tbl[lsrc[1]];
+     Tbl = &Tbl_0[e << (eshift + 4)];  // 16x the range
+     e = (reinterpret_cast<const int8*>(Tbl))[lsrc[2]];
+-    Tbl = &Tbl[e << eshift];          // Relative +/-
++    Tbl = &Tbl[e * (1 << eshift)];          // Relative +/-
+     e = Tbl[lsrc[3]];
+   }
+   return e;

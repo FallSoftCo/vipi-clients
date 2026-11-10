@@ -1,0 +1,1394 @@
+[
+  {
+    "id": "coffee_plan:en",
+    "text": "Coffee tomorrow? I know a little place by the river.",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "Coffee tomorrow? I know a little place by the river.",
+    "native": [
+      "1",
+      "en",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:es",
+    "text": "¿Tomamos un café mañana? Conozco un pequeño lugar junto al río.",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "¿Tomamos un café mañana? Conozco un pequeño lugar junto al río.",
+    "native": [
+      "1",
+      "es",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:fr",
+    "text": "Un café demain ? Je connais un petit endroit au bord de la rivière.",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "Un café demain ? Je connais un petit endroit au bord de la rivière.",
+    "native": [
+      "1",
+      "fr",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:de",
+    "text": "Morgen einen Kaffee? Ich kenne ein kleines Café am Fluss.",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Morgen einen Kaffee? Ich kenne ein kleines Café am Fluss.",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:it",
+    "text": "Un caffè domani? Conosco un posticino vicino al fiume.",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Un caffè domani? Conosco un posticino vicino al fiume.",
+    "native": [
+      "1",
+      "it",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:pt",
+    "text": "Vamos tomar um café amanhã? Conheço um lugar pequeno perto do rio.",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "Vamos tomar um café amanhã? Conheço um lugar pequeno perto do rio.",
+    "native": [
+      "1",
+      "pt",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:ar",
+    "text": "هل نشرب القهوة غدًا؟ أعرف مكانًا صغيرًا قرب النهر.",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "هل نشرب القهوة غدًا؟ أعرف مكانًا صغيرًا قرب النهر.",
+    "native": [
+      "1",
+      "ar",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:zh",
+    "text": "明天一起喝咖啡吗？我知道河边有个小地方。",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "明天一起喝咖啡吗？我知道河边有个小地方。",
+    "native": [
+      "1",
+      "zh",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:ja",
+    "text": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",
+    "native": [
+      "1",
+      "ja",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "coffee_plan:ko",
+    "text": "내일 커피 마실래? 강 옆에 작은 카페를 알고 있어.",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "내일 커피 마실래? 강 옆에 작은 카페를 알고 있어.",
+    "native": [
+      "1",
+      "ko",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:en",
+    "text": "My sister works at a bank. She will help me open an account tomorrow.",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "My sister works at a bank. She will help me open an account tomorrow.",
+    "native": [
+      "1",
+      "en",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:es",
+    "text": "Mi hermana trabaja en un banco. Mañana me ayudará a abrir una cuenta.",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "Mi hermana trabaja en un banco. Mañana me ayudará a abrir una cuenta.",
+    "native": [
+      "1",
+      "es",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:fr",
+    "text": "Ma sœur travaille dans une banque. Elle m'aidera à ouvrir un compte demain.",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "Ma sœur travaille dans une banque. Elle m'aidera à ouvrir un compte demain.",
+    "native": [
+      "1",
+      "fr",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:de",
+    "text": "Meine Schwester arbeitet bei einer Bank. Morgen hilft sie mir, ein Konto zu eröffnen.",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Meine Schwester arbeitet bei einer Bank. Morgen hilft sie mir, ein Konto zu eröffnen.",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:it",
+    "text": "Mia sorella lavora in banca. Domani mi aiuterà ad aprire un conto.",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Mia sorella lavora in banca. Domani mi aiuterà ad aprire un conto.",
+    "native": [
+      "1",
+      "it",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:pt",
+    "text": "Minha irmã trabalha em um banco. Amanhã ela vai me ajudar a abrir uma conta.",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "Minha irmã trabalha em um banco. Amanhã ela vai me ajudar a abrir uma conta.",
+    "native": [
+      "1",
+      "pt",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:ar",
+    "text": "تعمل أختي في بنك. ستساعدني غدًا في فتح حساب.",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "تعمل أختي في بنك. ستساعدني غدًا في فتح حساب.",
+    "native": [
+      "1",
+      "ar",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:zh",
+    "text": "我姐姐在银行工作。她明天会帮我开一个账户。",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "我姐姐在银行工作。她明天会帮我开一个账户。",
+    "native": [
+      "1",
+      "zh",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:ja",
+    "text": "姉は銀行で働いています。明日、口座を開くのを手伝ってくれます。",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "姉は銀行で働いています。明日、口座を開くのを手伝ってくれます。",
+    "native": [
+      "1",
+      "ja",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "bank_finance:ko",
+    "text": "제 누나는 은행에서 일해요. 내일 계좌를 여는 것을 도와줄 거예요.",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "제 누나는 은행에서 일해요. 내일 계좌를 여는 것을 도와줄 거예요.",
+    "native": [
+      "1",
+      "ko",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:en",
+    "text": "Let's sit on the bank of the river. The water is calm today.",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "Let's sit on the bank of the river. The water is calm today.",
+    "native": [
+      "1",
+      "en",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:es",
+    "text": "Sentémonos en la orilla del río. Hoy el agua está tranquila.",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "Sentémonos en la orilla del río. Hoy el agua está tranquila.",
+    "native": [
+      "1",
+      "es",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:fr",
+    "text": "Asseyons-nous au bord de la rivière. L'eau est calme aujourd'hui.",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "Asseyons-nous au bord de la rivière. L'eau est calme aujourd'hui.",
+    "native": [
+      "1",
+      "fr",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:de",
+    "text": "Setzen wir uns ans Flussufer. Das Wasser ist heute ruhig.",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Setzen wir uns ans Flussufer. Das Wasser ist heute ruhig.",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:it",
+    "text": "Sediamoci sulla riva del fiume. Oggi l'acqua è calma.",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Sediamoci sulla riva del fiume. Oggi l'acqua è calma.",
+    "native": [
+      "1",
+      "it",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:pt",
+    "text": "Vamos sentar na margem do rio. A água está calma hoje.",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "Vamos sentar na margem do rio. A água está calma hoje.",
+    "native": [
+      "1",
+      "pt",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:ar",
+    "text": "لنجلس على ضفة النهر. المياه هادئة اليوم.",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "لنجلس على ضفة النهر. المياه هادئة اليوم.",
+    "native": [
+      "1",
+      "ar",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:zh",
+    "text": "我们坐在河岸上吧。今天的水面很平静。",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "我们坐在河岸上吧。今天的水面很平静。",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:ja",
+    "text": "川岸に座ろう。今日は水面が穏やかだね。",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "川岸に座ろう。今日は水面が穏やかだね。",
+    "native": [
+      "1",
+      "ja",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "river_bank:ko",
+    "text": "강가에 앉자. 오늘은 물이 잔잔하네.",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "강가에 앉자. 오늘은 물이 잔잔하네.",
+    "native": [
+      "1",
+      "ko",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:en",
+    "text": "Please do not add peanuts. I am allergic to them.",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "Please do not add peanuts. I am allergic to them.",
+    "native": [
+      "1",
+      "en",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:es",
+    "text": "Por favor, no añadas cacahuetes. Soy alérgico a ellos.",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "Por favor, no añadas cacahuetes. Soy alérgico a ellos.",
+    "native": [
+      "1",
+      "es",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:fr",
+    "text": "N'ajoute pas de cacahuètes, s'il te plaît. J'y suis allergique.",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "N'ajoute pas de cacahuètes, s'il te plaît. J'y suis allergique.",
+    "native": [
+      "1",
+      "fr",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:de",
+    "text": "Bitte keine Erdnüsse dazugeben. Ich bin dagegen allergisch.",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Bitte keine Erdnüsse dazugeben. Ich bin dagegen allergisch.",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:it",
+    "text": "Per favore, non aggiungere arachidi. Sono allergico.",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Per favore, non aggiungere arachidi. Sono allergico.",
+    "native": [
+      "1",
+      "it",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:pt",
+    "text": "Por favor, não coloque amendoim. Tenho alergia.",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "Por favor, não coloque amendoim. Tenho alergia.",
+    "native": [
+      "1",
+      "pt",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:ar",
+    "text": "من فضلك لا تضف الفول السوداني. لدي حساسية منه.",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "من فضلك لا تضف الفول السوداني. لدي حساسية منه.",
+    "native": [
+      "1",
+      "ar",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:zh",
+    "text": "请不要加花生。我对花生过敏。",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "请不要加花生。我对花生过敏。",
+    "native": [
+      "1",
+      "zh",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:ja",
+    "text": "ピーナッツを入れないでください。アレルギーがあります。",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "ピーナッツを入れないでください。アレルギーがあります。",
+    "native": [
+      "1",
+      "ja",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "negation_allergy:ko",
+    "text": "땅콩을 넣지 말아 주세요. 땅콩 알레르기가 있어요.",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "땅콩을 넣지 말아 주세요. 땅콩 알레르기가 있어요.",
+    "native": [
+      "1",
+      "ko",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:en",
+    "text": "Dad is cooking dinner. Can you buy some bread on your way home?",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "Dad is cooking dinner. Can you buy some bread on your way home?",
+    "native": [
+      "1",
+      "en",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:es",
+    "text": "Papá está preparando la cena. ¿Puedes comprar pan de camino a casa?",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "Papá está preparando la cena. ¿Puedes comprar pan de camino a casa?",
+    "native": [
+      "1",
+      "es",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:fr",
+    "text": "Papa prépare le dîner. Tu peux acheter du pain en rentrant ?",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "Papa prépare le dîner. Tu peux acheter du pain en rentrant ?",
+    "native": [
+      "1",
+      "fr",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:de",
+    "text": "Papa kocht das Abendessen. Kannst du auf dem Heimweg Brot kaufen?",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Papa kocht das Abendessen. Kannst du auf dem Heimweg Brot kaufen?",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:it",
+    "text": "Papà sta preparando la cena. Puoi comprare del pane tornando a casa?",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Papà sta preparando la cena. Puoi comprare del pane tornando a casa?",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:pt",
+    "text": "O pai está preparando o jantar. Você pode comprar pão no caminho de casa?",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "O pai está preparando o jantar. Você pode comprar pão no caminho de casa?",
+    "native": [
+      "1",
+      "pt",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:ar",
+    "text": "يعد أبي العشاء. هل يمكنك شراء بعض الخبز في طريق عودتك إلى المنزل؟",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "يعد أبي العشاء. هل يمكنك شراء بعض الخبز في طريق عودتك إلى المنزل؟",
+    "native": [
+      "1",
+      "ar",
+      "99",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:zh",
+    "text": "爸爸正在做晚饭。你回家的路上能买些面包吗？",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "爸爸正在做晚饭。你回家的路上能买些面包吗？",
+    "native": [
+      "1",
+      "zh",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:ja",
+    "text": "お父さんが夕食を作っているよ。帰りにパンを買ってきてくれる？",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "お父さんが夕食を作っているよ。帰りにパンを買ってきてくれる？",
+    "native": [
+      "1",
+      "ja",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "family_message:ko",
+    "text": "아빠가 저녁을 만들고 있어. 집에 오는 길에 빵 좀 사 올래?",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "아빠가 저녁을 만들고 있어. 집에 오는 길에 빵 좀 사 올래?",
+    "native": [
+      "1",
+      "ko",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:en",
+    "text": "Meet me at 18:30. Email qa@example.test or open https://example.test/river. The code is `bank_123` 🙂",
+    "expected": "en",
+    "kind": "existing-authored",
+    "masked": "Meet me at 18:30. Email   or open  . The code is   🙂",
+    "native": [
+      "1",
+      "en",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:es",
+    "text": "Nos vemos a las 18:30. Escribe a qa@example.test o abre https://example.test/river. El código es `bank_123` 🙂",
+    "expected": "es",
+    "kind": "existing-authored",
+    "masked": "Nos vemos a las 18:30. Escribe a   o abre  . El código es   🙂",
+    "native": [
+      "1",
+      "es",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:fr",
+    "text": "Retrouve-moi à 18:30. Écris à qa@example.test ou ouvre https://example.test/river. Le code est `bank_123` 🙂",
+    "expected": "fr",
+    "kind": "existing-authored",
+    "masked": "Retrouve-moi à 18:30. Écris à   ou ouvre  . Le code est   🙂",
+    "native": [
+      "1",
+      "fr",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:de",
+    "text": "Treffen wir uns um 18:30. Schreib an qa@example.test oder öffne https://example.test/river. Der Code ist `bank_123` 🙂",
+    "expected": "de",
+    "kind": "existing-authored",
+    "masked": "Treffen wir uns um 18:30. Schreib an   oder öffne  . Der Code ist   🙂",
+    "native": [
+      "1",
+      "de",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:it",
+    "text": "Ci vediamo alle 18:30. Scrivi a qa@example.test o apri https://example.test/river. Il codice è `bank_123` 🙂",
+    "expected": "it",
+    "kind": "existing-authored",
+    "masked": "Ci vediamo alle 18:30. Scrivi a   o apri  . Il codice è   🙂",
+    "native": [
+      "1",
+      "it",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:pt",
+    "text": "Encontre-me às 18:30. Envie um email para qa@example.test ou abra https://example.test/river. O código é `bank_123` 🙂",
+    "expected": "pt",
+    "kind": "existing-authored",
+    "masked": "Encontre-me às 18:30. Envie um email para   ou abra  . O código é   🙂",
+    "native": [
+      "1",
+      "pt",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:ar",
+    "text": "قابلني الساعة 18:30. أرسل رسالة إلى qa@example.test أو افتح https://example.test/river. الرمز هو `bank_123` 🙂",
+    "expected": "ar",
+    "kind": "existing-authored",
+    "masked": "قابلني الساعة 18:30. أرسل رسالة إلى   أو افتح  . الرمز هو   🙂",
+    "native": [
+      "1",
+      "ar",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:zh",
+    "text": "18:30见。发邮件到qa@example.test，或打开https://example.test/river。代码是`bank_123` 🙂",
+    "expected": "zh",
+    "kind": "existing-authored",
+    "masked": "18:30见。 ，或打开  🙂",
+    "native": [
+      "1",
+      "zh",
+      "93",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:ja",
+    "text": "18:30に会おう。qa@example.testにメールするか、https://example.test/riverを開いてね。コードは`bank_123` 🙂",
+    "expected": "ja",
+    "kind": "existing-authored",
+    "masked": "18:30に会おう。 、  🙂",
+    "native": [
+      "1",
+      "ja",
+      "92",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "protected_details:ko",
+    "text": "18:30에 만나자. qa@example.test로 메일을 보내거나 https://example.test/river를 열어 봐. 코드는 `bank_123`야 🙂",
+    "expected": "ko",
+    "kind": "existing-authored",
+    "masked": "18:30에 만나자.   메일을 보내거나   열어 봐. 코드는  야 🙂",
+    "native": [
+      "1",
+      "ko",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:0",
+    "text": "Kahawa kesho? Ninajua sehemu ndogo karibu na mto.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Kahawa kesho? Ninajua sehemu ndogo karibu na mto.",
+    "native": [
+      "1",
+      "sw",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:1",
+    "text": "Nitarudi nyumbani baada ya kazi.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Nitarudi nyumbani baada ya kazi.",
+    "native": [
+      "1",
+      "sw",
+      "96",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:2",
+    "text": "Tunaweza kukutana kwenye kituo cha basi kesho asubuhi.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Tunaweza kukutana kwenye kituo cha basi kesho asubuhi.",
+    "native": [
+      "1",
+      "sw",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:3",
+    "text": "Tafadhali niletee maji ya kunywa.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Tafadhali niletee maji ya kunywa.",
+    "native": [
+      "1",
+      "sw",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:4",
+    "text": "Rafiki yangu anapenda kusoma vitabu.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Rafiki yangu anapenda kusoma vitabu.",
+    "native": [
+      "1",
+      "sw",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:5",
+    "text": "Usisahau funguo zako.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Usisahau funguo zako.",
+    "native": [
+      "1",
+      "sw",
+      "95",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:sw:6",
+    "text": "Nimefika salama, nitakupigia simu baadaye.",
+    "expected": "sw",
+    "kind": "new-authored-language-control",
+    "masked": "Nimefika salama, nitakupigia simu baadaye.",
+    "native": [
+      "1",
+      "sw",
+      "97",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:hi:0",
+    "text": "मैं कल अपने दोस्त से मिलने जा रहा हूँ।",
+    "expected": "hi",
+    "kind": "new-authored-language-control",
+    "masked": "मैं कल अपने दोस्त से मिलने जा रहा हूँ।",
+    "native": [
+      "1",
+      "hi",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:hi:1",
+    "text": "क्या हम शाम को कॉफ़ी पीने चलें?",
+    "expected": "hi",
+    "kind": "new-authored-language-control",
+    "masked": "क्या हम शाम को कॉफ़ी पीने चलें?",
+    "native": [
+      "1",
+      "hi",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:hi:2",
+    "text": "मुझे थोड़ी देर हो जाएगी।",
+    "expected": "hi",
+    "kind": "new-authored-language-control",
+    "masked": "मुझे थोड़ी देर हो जाएगी।",
+    "native": [
+      "1",
+      "hi",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:hi:3",
+    "text": "कृपया दरवाज़ा बंद कर दो।",
+    "expected": "hi",
+    "kind": "new-authored-language-control",
+    "masked": "कृपया दरवाज़ा बंद कर दो।",
+    "native": [
+      "1",
+      "hi",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "authored:hi:4",
+    "text": "मैं घर पहुँच गया हूँ।",
+    "expected": "hi",
+    "kind": "new-authored-language-control",
+    "masked": "मैं घर पहुँच गया हूँ।",
+    "native": [
+      "1",
+      "hi",
+      "98",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:0",
+    "text": "OK",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "OK",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:1",
+    "text": "no",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "no",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:2",
+    "text": "chat",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "chat",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:3",
+    "text": "gift",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "gift",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:4",
+    "text": "pain",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "pain",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:5",
+    "text": "menu",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "menu",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:6",
+    "text": "12345",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "12345",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:7",
+    "text": "https://example.com/meet",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": " ",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:8",
+    "text": "😀👍",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "😀👍",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:9",
+    "text": "I am going mañana",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "I am going mañana",
+    "native": [
+      "1",
+      "en",
+      "95",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:10",
+    "text": "Niko free tomorrow",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "Niko free tomorrow",
+    "native": [
+      "1",
+      "en",
+      "95",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:11",
+    "text": "merci",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "merci",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:12",
+    "text": "ありがとう",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "ありがとう",
+    "native": [
+      "1",
+      "ja",
+      "94",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:13",
+    "text": "Nimefika",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "Nimefika",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  },
+  {
+    "id": "ambiguous:14",
+    "text": "Sawa",
+    "expected": null,
+    "kind": "ambiguous-or-short-observation",
+    "masked": "Sawa",
+    "native": [
+      "0",
+      "un",
+      "0",
+      "un",
+      "0",
+      "un",
+      "0"
+    ]
+  }
+]
