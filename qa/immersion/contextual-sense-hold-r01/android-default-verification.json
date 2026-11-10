@@ -1,0 +1,92 @@
+{
+  "rows": 320,
+  "unchanged_selected_outputs": 318,
+  "changed": [
+    {
+      "id": "bst-valid-depth-r01-0878-10",
+      "pair": "en-sw",
+      "density": 0.25,
+      "source": "He's one of the ones without hair!",
+      "before_spans": [
+        {
+          "source": "hair",
+          "target": "nywele",
+          "reading": null,
+          "source_utf16": [
+            29,
+            33
+          ]
+        }
+      ],
+      "after_spans": [],
+      "before_script": "He's one of the ones without nywele!",
+      "after_script": "He's one of the ones without hair!",
+      "removed": [
+        {
+          "source": "hair",
+          "target": "nywele",
+          "reading": null,
+          "source_utf16": [
+            29,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bst-valid-depth-r01-0878-10",
+      "pair": "en-sw",
+      "density": 0.75,
+      "source": "He's one of the ones without hair!",
+      "before_spans": [
+        {
+          "source": "hair",
+          "target": "nywele",
+          "reading": null,
+          "source_utf16": [
+            29,
+            33
+          ]
+        }
+      ],
+      "after_spans": [],
+      "before_script": "He's one of the ones without nywele!",
+      "after_script": "He's one of the ones without hair!",
+      "removed": [
+        {
+          "source": "hair",
+          "target": "nywele",
+          "reading": null,
+          "source_utf16": [
+            29,
+            33
+          ]
+        }
+      ]
+    }
+  ],
+  "calls": 0,
+  "constructed_target_control": {
+    "qualified": false,
+    "failure": "Existing legacy catalog emitted no unmasked hair span; positive prerequisite failed after complete default capture."
+  },
+  "closure": {
+    "co.fallsoft.vipi.sourcecontextqa.test": "Success",
+    "co.fallsoft.vipi.sourcecontextqa": "Success",
+    "main_unchanged": true,
+    "exit_before_requested_shutdown": null,
+    "quit_command_exit": 0,
+    "owned_emulator_exit": 0
+  },
+  "settings_unchanged": true,
+  "coverage_claim": "Withholding only; valid human hair is also deliberately omitted. No alternative translation or inference.",
+  "bindings": {
+    "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-capture-r01/output.stdout": "48c69774dbbf3474e773ca6e112d2f102e55b71552e23790614360a166505ec3",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/output.stdout": "c217e55d2ed3114b9435ccce6dd954f1b17dcb38835eabe3e2e19466ca81792a",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/receipt.json": "717ab08078df762184252c0fe208e8fd5ae2732592b6671c36ce3a9e1c2fee12",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/capture.stdout": "dae5d320d7b584ae93a78871bb195ae41c5b47614a480d1afda0e33aedd5fb41",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/protocol.json": "8e6c8d475b36d7fde1386f3b3a577f70786fd87b7e5ed422aae8d313a8da77ac",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-freeze-r01.json": "9fa2ec0be22d751c6f8ef6db752d8fc695745d188a5168188889bebb74f3ad43",
+    "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/verify_default.py": "22ffb0da2ecab84e2c1ec3dc6282ce4ad27675c31d9090b383b30c9e441da636"
+  }
+}

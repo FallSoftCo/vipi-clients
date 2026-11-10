@@ -1,0 +1,1531 @@
+{
+  "protocol_sha256": "0beee3876c7cc80708b84c79560b15112b25674b59e7692b4a02fa6992b5bad6",
+  "audit_sha256": "d2c8de28fbdc7b71b7edc1f1fb1bb53686aee352e7e5ee014f300bb2e80b5ca4",
+  "cases": [
+    {
+      "id": "bst-valid-depth-r01-0264-04",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 264,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "b61ff85fd95ce492c6332b5c1715327633c00e4b7bbb173fbfbf6d65d5855ec1",
+      "normalized_sha256": "491556d41ddcfcd754062c9ea4a324fe1a453f66e1908d6dacdd93b69d9a1fc4",
+      "rank": "0045e962cc9d7296dd2f48521cb954f06432c9a53a783ca6cb17e9e5f74e2fb6",
+      "prior_exact_sha256": "67a47874e1bfc4d62d7dcfc8ad36ce679c2918a03dae33c50ddbbb90126469ac",
+      "prior_normalized_sha256": "9338766d3512f0060729a3efcec36365f81a1a367eefc24e1818e9965d26d2cb",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0289-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 289,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "8ce183f215f15f13621c0017069498bc3561e18fc70aa125376eed1e4a498128",
+      "normalized_sha256": "8ce183f215f15f13621c0017069498bc3561e18fc70aa125376eed1e4a498128",
+      "rank": "0063d493183bdfe7a69ebdd589dea426227559e80633560bc4333fb7daaac08b",
+      "prior_exact_sha256": "8351b0bbb971c74caffa24fa89977cb2f959b10b5cff9fc56527298415eba74a",
+      "prior_normalized_sha256": "49dae324e0b6c6087b9b2c6309d7bec8429e778fe174e56a032b9082aee10f6a",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-1008-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 1008,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "59ef60792454e2b40894e8f34c7b74af97cd16bdc63e84efaa8fa0c4e2f6c819",
+      "normalized_sha256": "9e7a06d614a860f366633391e5715b6f5c935b057549089d3d09487de788f6a2",
+      "rank": "006ebfefc430c43f5f30ce10f0d96907c16abb5641c7ba6ec856d05eadae89bb",
+      "prior_exact_sha256": "29a37a0927e32322a26fcad5b591af3a9fbdff147d2737d3bb2935af4f42f0fa",
+      "prior_normalized_sha256": "b27ce23e6d373292e45e67b7f5a39835795f83167e2fdebff4edbf7fc6bd3b07",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0403-00",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 403,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "882e3ce85d8dc44316281ce90b4542f4d471225c07e6d0c8290652f2dcdde8f6",
+      "normalized_sha256": "319586be5206297fc64a7854183aa33626ede146dfa9ae1bef1fbfabed6513a5",
+      "rank": "006f8108d6f9e9a1b8c0e9ba328df75d05639612d47450d903d55dafe77bd222",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0848-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 848,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "a4c35b73598401e2a93e2c9be0b445ad0837355a5239d339ef4fbca1730f9f9d",
+      "normalized_sha256": "51fbba57a394ae27f0b457e0fceda8306158735488ff98fc4352ae912d8da272",
+      "rank": "00b5af7a86b4d71fa7ebb6f9f42f6f24cf0a843d49d73959691fe13d337a236c",
+      "prior_exact_sha256": "4a0b8877576a147f9bfaf61c26e088def23631374b03d818a3a3a102fc43b740",
+      "prior_normalized_sha256": "f521ce5b6414c3d9498a7a9d09fe1a9376420bbda44df05ea5dc82fa71f2ace4",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0325-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 325,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "807d862aafa3df11472bbab36fba5a8b3d81a7fbde6af93860e42b1f0421ecd8",
+      "normalized_sha256": "22f8ab8c6469780ef1dbda9aa983395445db095ad5346f8f131117a1e0ab601b",
+      "rank": "00c1815fba0c9ebdee94902fcf9049cd2acb7d90b5ca43bf6dff658a1dd14e8b",
+      "prior_exact_sha256": "e6b39d43ca5e0a42e1f175324dac5025230a5cf182ba8ffee3e76150c536e853",
+      "prior_normalized_sha256": "07cb14baf68e353c4335e723f74acb51b06bcdb2b251931e5e48af48ae041521",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0701-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 701,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "8642dac91f5cf88e1ae100e282d28296db2e5ebf009528b239ecef2aebb7952d",
+      "normalized_sha256": "f349b8ec9323bfc4fd29d6ea959a9fb9885bc7ee0e812529acd2276e40e6f8f9",
+      "rank": "00e55c3b3d80d9de4ae69461402dcaa0f9d8d7f2bb932e483af63005787e44dc",
+      "prior_exact_sha256": "14556db8311d2e3fd7646729e0f66bb24ab810916df21589043627ddb6eb195e",
+      "prior_normalized_sha256": "d6975d1f1d580cbcd06d4c8c60d615cd4a551ae1fe449febe560c6098edf1db8",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0030-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 30,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "1ba17d9772ad70ac89649db1f4b4abb64c56e4c0ed3ceacf9485be1d0a6e0896",
+      "normalized_sha256": "0b5bb466e3231fd888bec7b37d555980544afb698f24eb732764be0fe63e5451",
+      "rank": "00f2ff0d64ab2fd1a6671ed4ff61ba73aa22673d4098bd1f4a26aa12bebc2670",
+      "prior_exact_sha256": "1c76fb4c8e08fc28f345352db2412985a7e3b6f924fb81d3aa6f56d372d80f43",
+      "prior_normalized_sha256": "04bef2038e54df9d414176b7b06ec65e06f630737b9420d791a085a559a21493",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0696-00",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 696,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "fd5de2b9b0fdcb8373514be7e719f7b09a48681bc14333c8cc16978f9570c4d2",
+      "normalized_sha256": "fd55a34b1fe38a9f066eaff134337a74901ac19b0a65d431c0131c90af00bb2f",
+      "rank": "0101eb8fee47c969cee670076788b1c95d4d017ae467ead6627f52a31315d56c",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0704-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 704,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "a3f2745a999a845cd4e15aacd361bafbe91e2aa8f197a8a0a8088501db1d5381",
+      "normalized_sha256": "528cd4da8747d72fb9e38fa83098db948888f102d9a8c45d03fffa27ec7911dc",
+      "rank": "0116d463e1a0eb04640553506a78ecfbbdc905fad2c90b6911a0b5baa55e42f3",
+      "prior_exact_sha256": "23ec0843367770062222c04af790316e3c7f04ce7188175ee94156de05e73b6e",
+      "prior_normalized_sha256": "f65d501249f299ea693e039da5ae78036d826ab208b7fda8b72dd31c219f6d6c",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0791-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 791,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "49ee12e3313ea04e991581f5f18738d48462173fda6930234268f5cf9fc8eb85",
+      "normalized_sha256": "49ee12e3313ea04e991581f5f18738d48462173fda6930234268f5cf9fc8eb85",
+      "rank": "01c1b1d63ebdab9481a098f0dea6441ea9412235580af7e43fb14c5c700df21e",
+      "prior_exact_sha256": "8bb0880fe0706c01367bc881d186e8896ba8e1900e0b74c59a169a48f3e3444c",
+      "prior_normalized_sha256": "a0489339047ce7ae62f068185a316683dd419d0de89c3af2f0da519d1bb92c17",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0734-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 734,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "a372937dbed6574136b95534d70ca408f279d44db8e8cceb0947b3d1ccfa2a9e",
+      "normalized_sha256": "667bde28db4569a55451946aa21493586bb08a966dabfbd88a0e10c0d2e908df",
+      "rank": "01c86ab7e265f1d08332cf5700dbdf320cd03e190b4e7f2dfe0bbc55e820ead9",
+      "prior_exact_sha256": "f1e1c3fb58ef977a9fad2b208e7e1ead9b543926bf2aca0868a825dfc18b68c6",
+      "prior_normalized_sha256": "0b6e692fd98b8fc04e74f3c6c4d5a743bbaada26cccd7b616b6a5c19ead1b59f",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0044-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 44,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "1c2e6b163b69105d13503a6febd8a15aba9f1f1b025bca2086a927851cbf32cb",
+      "normalized_sha256": "1c2e6b163b69105d13503a6febd8a15aba9f1f1b025bca2086a927851cbf32cb",
+      "rank": "024a84e6cee3781de98b9a99db2cdcbe11424de978572713354fa5552470c55d",
+      "prior_exact_sha256": "437e69b1e171b7db19400f2cffd3d7464a05a3af5c4f994505301a5625f4154d",
+      "prior_normalized_sha256": "a1f7531981e39bbcf1f7fe917e2c7b527f17065bc1ca21355e6f3d2cc198705a",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0171-00",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 171,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "17c3b83cb79cfa3cfd9bae7c81399b005da9696d45d021f3dfb21d415a736629",
+      "normalized_sha256": "f637ee11ab2af78573fecbda5cbf85225a170a8a6c59423d7f8bd6ca01d3fe0e",
+      "rank": "026c366f85be3553c03e0f2daab89734b091bce14947689ecfe9a5271e4c54a4",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0630-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 630,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "ab3995078fc0d142090ea6f85de7f408ae00a7406d2637c22dbff77c2da71113",
+      "normalized_sha256": "f98775b0313c73b5a617ae74a87d065f807695b5ea2f1ed14c9b7dae43f6cb20",
+      "rank": "027ee95238db5755c53ea874e70ad2b892f01ad11e9afa11bf6a87d7dbb531ef",
+      "prior_exact_sha256": "f10c5bd78fc49ddc31c6ba9e222fae93fb1f2c1f316c913d326e1833524a2e34",
+      "prior_normalized_sha256": "333759f6c7220dc13599aa269509beec9dc5d3771b2381ad38320d78d9676777",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0158-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 158,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "fabdbd5a118a66e66e238b573493268706432a6a40458e084b3bcc5489423ea5",
+      "normalized_sha256": "1a7aed94fa4da407fda97aa5a4b028311ea71af1a408c43a194e374e34534c81",
+      "rank": "02844eebc51142ec35771e2a9cc53b63db7b4869f6031c570e60ceca6ec5a2c7",
+      "prior_exact_sha256": "dbf491cb81aa35e4676444d6b8e391b4dd2760bc21b3f2dca91401f2df543262",
+      "prior_normalized_sha256": "a3a0156b9e3695f21ad12626181d460f224131a1ebc18e0c153caee6924c5347",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0260-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 260,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "f1dc477fd2d4ce7b1d4410c168e4e953aeba40413b7438fd322992a1290d4f32",
+      "normalized_sha256": "3c4e970b746bedfda702b0fe44a1eaf836c340cefdd9f631095ab445a6c3e91b",
+      "rank": "02d5635e5f1fb4a1fdf70aa13a81c64eec830f82923db887251d21eb6ffb6e14",
+      "prior_exact_sha256": "a3d384d5593bc3abd5d2abe6cbc8d4fa6b473ca80e5cb988cb3a919e3f5414db",
+      "prior_normalized_sha256": "f2e5f26ab563c5680e312547f46229cb6dcefda3828623e4927fdc692b546057",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0727-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 727,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "3d628c87d7078c9800977c003e6d78d002d6a7ee662ebc08f381a5e52854fdff",
+      "normalized_sha256": "905e435816f6e188bd26235e7e5c94979d28fc8874067b77826893c4a9007397",
+      "rank": "030ae71f7973032a8f44e1d78d7ec373cc5d754c50ba7e9a21993536f8c10c6a",
+      "prior_exact_sha256": "535bfd461be933bc61cfac88fe8681c03a0193bfee2bc2d326bd23c81e3a6901",
+      "prior_normalized_sha256": "35e68a85ba90805b0d792a6749435937201ae203cbd64f3c5a0b10c0debfe7fc",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0558-00",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 558,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "232fac70ac2cc799600c81925eba1ad7aaa70e5b0eb27011aebafedfe8605537",
+      "normalized_sha256": "26042d72a8619f0c4ef767c4674263343ca1d1391489f881e98a7a96b30dcad6",
+      "rank": "032a30d708b43521e58be2ed3feb33290618028fbbe64856ff981d335a87991f",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0165-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 165,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "0e4f7011e4039b0c09ede351a3101297e7bfac1c808f806ddb1368a5c07733bb",
+      "normalized_sha256": "8451a8bf1667e41d0307372d89824937eb047ec49dc14e61dc1517d030dc547d",
+      "rank": "03361c3f447d600eea2598189b679651d3d94f47e7e11c23c1cdf8c603c81c23",
+      "prior_exact_sha256": "32e53ead76b0d2baebb234d4a4bacf08edc87d56a3f9da531a510c951cc87ead",
+      "prior_normalized_sha256": "3c3906346542df8f937144e9868cce1ff7a885b0143c211e6c89a01dcd2932a1",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0303-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 303,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "d416291e11d6abe41f495bba6cf7f089432192905c38891360fe7bf484e97fc4",
+      "normalized_sha256": "fbe927e7b5f3cea033cedec603610f0126ea7f8e492d8ef8919db2f4bf38b4a8",
+      "rank": "036172de4d92d7ffeca9835436dcbf076316861339006750bdd14ee491224c2b",
+      "prior_exact_sha256": "a5b6452f9872a335f11846ec015dc63d67a2196e7bb9e6d6e011ca0395345f52",
+      "prior_normalized_sha256": "4bcd08fd176d2825565a3eeac80a9d45c9c83e05f5441437c2da0c9f65514025",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0229-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 229,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "d59bf959daf784140cad4d5da95374a9a11bc8cc8375ef57cbfe3331ad83f0a2",
+      "normalized_sha256": "a730a7c61610c2c93e874283dd08c06d2234897819c67e36b6b9a902ba9ce229",
+      "rank": "038855b3e5f12d3799d0e6d2a8d8cb65b67e0493f92121569769a6472f7a5216",
+      "prior_exact_sha256": "8b16f7607b364fd63bbd5e052f23575ad8545dc5af36e41b7d5b127be9747a12",
+      "prior_normalized_sha256": "6766241817289ab270d75410d5b60d7645bec75f4295299b4f8342ab2580d7c5",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0718-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 718,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "30d3c9639bbb22dca9b51d620cc385903d3256b598acc8dc49481350bda56c8b",
+      "normalized_sha256": "69078faffdea4a07c501123d1fde73fad3d86e4a78f9db6fd598a11aa93fa944",
+      "rank": "038cfcdbbd47adced1e031bbbfb5832e3ef46a30b2925b6c09ba695686b62bf9",
+      "prior_exact_sha256": "c3bb744112cd9577d053ce60f30eb6a652e86378bbb9cffbfe26390319b1d865",
+      "prior_normalized_sha256": "943241e5931eed28886bfc28ede9b34fe0c86bf950ed3d72bac1bfe533637a33",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0968-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 968,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "c22db47aeb5a476b8fe4359b2ebe37d4926bb3c7c695c463e8fba59478bf05d9",
+      "normalized_sha256": "c22db47aeb5a476b8fe4359b2ebe37d4926bb3c7c695c463e8fba59478bf05d9",
+      "rank": "038e8f89d018e0244d3d13995d94298827e8ea4bd6de3720a7348bc69a719c3b",
+      "prior_exact_sha256": "14d4ae02c3c0b31b75e0c0d7118ea5752dc0191a87fffa2d1d22d57c8e3f2884",
+      "prior_normalized_sha256": "0510ae31f1e7f1163779daa89cb3b53128ddffa24dbf520408046605eb70680f",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0446-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 446,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "b680f68bb770642b4aaafe51281960fbdc1a546ae39aff406055aab65dcc77b2",
+      "normalized_sha256": "09a1c886799d1a8bdccd04fd88e3eece7905485545e5276771ff95212f5b81e5",
+      "rank": "03d2cae6acad5c86cc5b5afdd812598032b9896b7d851c5c0b491ef483ebf618",
+      "prior_exact_sha256": "542b7e7ff142c845880d04102802714b40d391599e1c89e656c2080f332cb48e",
+      "prior_normalized_sha256": "ac1b040dac400a6299d10d99d174fa1ba4127857992b17308d5510c77d137038",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0937-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 937,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "464e5f2185e332bfd2d71601d8b50e840477aa37351cf37848df364eaabfe486",
+      "normalized_sha256": "40ff4524613c9381603aeae59eebb4c736dda7363e3676075da1db5b969fd32c",
+      "rank": "04076684b2e996b871bfbf36c06b19c9c00a2343332dd63483f6b990b8b30979",
+      "prior_exact_sha256": "e60ddaaf33588565f66322fb240bfa8decc0d54689b2b881780d9c5edf310488",
+      "prior_normalized_sha256": "e09a1bad23a6fa36dd384acd0292e908629105fe7fa7117fc3b5a8d77fb2827d",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0643-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 643,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "1006c0a677374adb53714ccc903ef12675b33f6fd420c3ded35aa2533e9d9c40",
+      "normalized_sha256": "2bb90045ed6926f1d47c0d08cd66b996b85f9be69292f99d37b1c0710a68ed67",
+      "rank": "041e5f719b5cefb0ded7f451d50a3246c58760a3c41a5071b96f3d374aa2b795",
+      "prior_exact_sha256": "011ac2f5ba870ba988aa83c21684ac3046af5a93caa26508dbf8cb5359fb5a88",
+      "prior_normalized_sha256": "383a49378fddb280216d996e45ff90ad8e44d6aaac03bdc90ed2672c8efdc950",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0780-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 780,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "aa48d286896feeef464335cbbb3315e346317b7d88ee6130da11d94c69e0bfa1",
+      "normalized_sha256": "ea26778963795da48d1c77c9cf477f24655fbeadf34ba7d0e5cb4351ceed8751",
+      "rank": "0432a7122038e434a051b0245c358a87832a3f0f54128d3698fc1dacd7d1a5b0",
+      "prior_exact_sha256": "2c6cc874a99e0d0822c576de9d7873704b4f27ac66e985a3c6083cea82fa65f3",
+      "prior_normalized_sha256": "e4d3f4e7461b28c0ceb8895dd4930395d2c98c6b99502ecb514b3fae4e4657ff",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0503-04",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 503,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "cf5b6e9bb37242d24cc8adbf1b1471f77eb1025d37333b0df94708e375d1cb0e",
+      "normalized_sha256": "0db5b9036fa9d494fc102ef7e7c497c9ab3e6c21cfab9a6c9330abb7c56fc0da",
+      "rank": "04805b2af718044a022b248b56c6cd47ba25a37f0b903ab23adc508b4bd14f70",
+      "prior_exact_sha256": "2cb2b247b6c60714e5f87b4de1693a60d89597860d89348089580659fce56fbc",
+      "prior_normalized_sha256": "20792dc1ede578961c8114d6d85e3156d3ef1e20ac218afad5e426f79801e207",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0908-00",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 908,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "b571d8ceb1a5301c51e4e7d945964f7c6198ce347909a04cf4644d14e1d1bb47",
+      "normalized_sha256": "8d540787832f4f51e0c02c0fa0f61f7e2e3b006b455cc68619200b4e3e7cfd89",
+      "rank": "04815108fa06f617b49ec87f4e4d7e954b1848fe221d3c927814e6c447c4238b",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0810-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 810,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "4fba4a086cde653011b7285ce0ed0655b7eae8ef1efb91b728dfbc3414f96cff",
+      "normalized_sha256": "08a66915c91d4c1f26ae76751146291bc6b0a0e7e094e3d3f50365cf17497203",
+      "rank": "04c1827eff13521ae652552b9faf14f27a53346b58d6aad413008fa03c192db8",
+      "prior_exact_sha256": "0609ddb218afc4f903873f26f68ccee25cdf016087a03a94c09ecc9253ba1db0",
+      "prior_normalized_sha256": "755a2cc058f1ee9653e921c2f6647c3eb123c138cf92512331bf9f69a074ea13",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0550-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 550,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "9d77e31a645b03e1a6d334bf4ee26167cb637d5123f9f1952ed127114edbf5bc",
+      "normalized_sha256": "b6112086d1c7607f0c7adc0deda6724512394e333331f3964c9698be4e309a46",
+      "rank": "04d8834c776453e5fe8f29536535173eae7b588ab713ef2cdab94686ecc468ac",
+      "prior_exact_sha256": "bffd65da5aa74f119d27e76aec396b0dd5cdd72cc2e44621a8eebf059a27fc5c",
+      "prior_normalized_sha256": "445e9e3122c19d6f05f15518c7dbdedc20fff2ba98a8e9cd3ef9118360dc6389",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0662-12",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 662,
+        "dialog_index": 12,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "f37244672ee2102e2610b0d71d8f6057bbd35ddb4430b0e7a3ed3ebb22a4633d",
+      "normalized_sha256": "94c63fa37181682d7834275d4f1086cb971b53dd5766fbf728a7122f7ddc9a76",
+      "rank": "04f3f37bc45d1ebd19f0e2adf3b06f6b15f027d6be12527210cd1715eb8496db",
+      "prior_exact_sha256": "577c28bcabcab8d8b14279ce3e1e2189ae8d1703ec46f6f8cf0e5591761b53e8",
+      "prior_normalized_sha256": "ed22af6b022e2544356e36138fa5f6d617599c6169440ccd2bb055b0e134089e",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0086-08",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 86,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "e5e33b08303342a0ad217fe01fa794f59d1572298c0864328c26843276bb73a9",
+      "normalized_sha256": "6dbc0aee78cf54ace103bc416eef198e92eab7da88a150a84a4574e39b0cbc37",
+      "rank": "051b5f3752c713f99c5b836a8d01fb3373c29775baeec6cce9d10437b183ffea",
+      "prior_exact_sha256": "80bd83ff04f74d298fd11c57ce7ec4e264720eea90db67d44b05bc6bc99c6579",
+      "prior_normalized_sha256": "9b96bd1a37a2eabd80a92bf79ffc0452becc585f47b739ba8c0a5d0ba935a67e",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0064-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 64,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "423050e9109109f2191c136ddd84250828c0996009666e16aff41c3b281206d8",
+      "normalized_sha256": "1949ea40f941693b14cd21cba8ad96567d2549ceaf1fce8af95cc336953c7e13",
+      "rank": "05f7c48cc2fae09199485a39eee791300be5de096b39d249087e55688ecd339f",
+      "prior_exact_sha256": "3c73847cb48674a30d8279007e5811c6971fee675b9481df3a807c251b877b82",
+      "prior_normalized_sha256": "67164fb124bb5f5949e4010d05042c09b831f7334030fd6f751ee8370b2fee88",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0654-02",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 654,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "eff1780695a8a8de047aa04dd0e09666f0b20a9ea400ca3d28e52c9a39d0d7ba",
+      "normalized_sha256": "6470c62595093b8c73d77b41cd3ff2998fefce8347179fc1285ab4e3ebe0fd20",
+      "rank": "062ed559b4f6934e2f8993dd6793ba0b72ba0a67c79a834c56e3dd42c9b48d7f",
+      "prior_exact_sha256": "f6ebfa87d7f3c0bacb03fa3246658f279acd57838d38f72b580822563938cec9",
+      "prior_normalized_sha256": "6e294fa47acd52ad8ecab384927f54196580de5e824ad6b87da814f923e2c351",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0568-12",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 568,
+        "dialog_index": 12,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "961323629b7d3e6db43f6967a914c808fd957e8ce78b2d062357afc49f5792b6",
+      "normalized_sha256": "1eb83d645573a245652211c25e612a74f014fcee7771a998290a7c9dc75ba556",
+      "rank": "07d3474d746d3bbfba322e26dd07af8a4e2b683c004e08bfc12f35b94ae66dc8",
+      "prior_exact_sha256": "23f05862555476e05acfd9369403e716363da0e40fc459808d4f9a1f31f76ffc",
+      "prior_normalized_sha256": "8e8c20eef915ee645279319b8d12fc98e5e44d6f47221ca086be94f3d667ac4c",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0237-10",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 237,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "a71bf940218c2c550f559ec5dfcdb477a51ff58e3ffc45a3db2a9edffcffdf4f",
+      "normalized_sha256": "a71bf940218c2c550f559ec5dfcdb477a51ff58e3ffc45a3db2a9edffcffdf4f",
+      "rank": "07e6d750a98cc5555e0f13399f83bb0d6c9df374745fcf83ac1c5c8c2dc0b459",
+      "prior_exact_sha256": "ea69b130fbf7096c27395f52ecdb8b203e13a05b9581e4cedf2dc62f817f443d",
+      "prior_normalized_sha256": "7d856d70baa116dbb63c24d1e6fcc5ab459dce23568360698a2a961440185767",
+      "prior_individual_exact_overlap": 1,
+      "prior_individual_normalized_overlap": 1
+    },
+    {
+      "id": "bst-valid-depth-r01-0530-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 530,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "735e4ae1af8293884a769f8ca92387d8577e4d1b0a12b01b54308231fb32b05f",
+      "normalized_sha256": "6ad4d50071efdc83fa7fa8f908280c57b0a675c0ed5621b20aad95022e7131d1",
+      "rank": "09a83c8cf7b58ad4c1ae437a1acddbf71baf2db96c7114d7df615fb987c25ddc",
+      "prior_exact_sha256": "c09ddff46bf5db7f5dd1b13f0ac0333d35dcac1428feb690d1a11bf43d1b27aa",
+      "prior_normalized_sha256": "4b2e2a6e58ad3c3eac980f175d10243b497c7b34826e9cb4f1c1b988a2e3c57e",
+      "prior_individual_exact_overlap": 1,
+      "prior_individual_normalized_overlap": 1
+    },
+    {
+      "id": "bst-valid-depth-r01-0286-06",
+      "stratum": "empathetic",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 286,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "05d783d135bd458d7757c0d6a2943605c5c372db2d3f1adcbb766ef075cc027f",
+      "normalized_sha256": "bcc3d99054cc243dafe4d2844a02bb0da48057b5c86f615ad9f7efb6b36fd04e",
+      "rank": "0a2c88bee995d29e91dd32187fa5b2f8af3f9bb0ce751703886f4977c95d3085",
+      "prior_exact_sha256": "4baf43c8d2e0573584464ffb5db1aa2a08f7cda41718fb56fab120719cc31e33",
+      "prior_normalized_sha256": "32506b508b97c3ec89756f083eaffe91911d9a4f51df4352dceafa0e9ba32fb1",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0224-02",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 224,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "3cb80dedbc6e7dd5c6ab1f3bd16241b6cdb82d24f0b8e99b3c0a4dece19e784b",
+      "normalized_sha256": "bf5269636dc200f3ce25538c3406860417940db8e9e1e2391b707da462724fd5",
+      "rank": "00b0f8d62ce39a3571615d9338ea5441f05563641dad6580de8b7c9a2c480ebb",
+      "prior_exact_sha256": "7567c2900a780019bacb064dcfaf74897a0211d1a8895631374d2162e262650e",
+      "prior_normalized_sha256": "c4242945d22ea1a0bf0de7e4a9278cb052e3515766a13a428d4045347abb5396",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0130-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 130,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "7518d6e4bee94102debefecdc3642f0226f6a8a4932d0e223e740b94eecd9af2",
+      "normalized_sha256": "7518d6e4bee94102debefecdc3642f0226f6a8a4932d0e223e740b94eecd9af2",
+      "rank": "00b593f4880c72058069a06c4c4ad2e49a1fb14dd4290072d7a645f737c4ad56",
+      "prior_exact_sha256": "5ca9cbdbc486fb895e1310f63d856c48b407488798762815481ca553a9ddc33d",
+      "prior_normalized_sha256": "c285ea6d0eb797eec9d7643ef149e181f207eb1d794e927e97af87b4eb2fdec7",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0549-10",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 549,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "42ac14513f2792ae0017f790dab77ad219a1153e520e7da93c579684a02a3944",
+      "normalized_sha256": "0a3a331f58f4ae4aca560f7894daba15a3233dadded3f51e66d86ff96b811bee",
+      "rank": "015c747f8e05328758b23b8b649cbb41e9c4f6f76d5a036cadf985928b6b9cad",
+      "prior_exact_sha256": "c8332c14f527c53b1364ea8a05662789e0a215da7803b19668ced3b56220b281",
+      "prior_normalized_sha256": "dbac5f9e3b88527d9956e3b8b69ff865ca5a063afbe493ce15acade84d27a514",
+      "prior_individual_exact_overlap": 1,
+      "prior_individual_normalized_overlap": 1
+    },
+    {
+      "id": "bst-valid-depth-r01-0035-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 35,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "6472545c361cb90a3e0ea9a365d19bab2827f8976052a2eee6247a9707d7a778",
+      "normalized_sha256": "6472545c361cb90a3e0ea9a365d19bab2827f8976052a2eee6247a9707d7a778",
+      "rank": "022f2f910c882790a8a5be252cbeaa2f3b5a849a906fdd91cce52ab6aa486c56",
+      "prior_exact_sha256": "cf2cfdae8d33b81f9a647f9853ef2187046dc7492f377f7e8bc6f63e56ed706c",
+      "prior_normalized_sha256": "9e1cccb6b41b16d45296e7ff8a4661fd8b6824cf2c41c14447ffcb491cee7236",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0698-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 698,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "451109b7819b98204bcc2427472dc1b2088723c5ca43a2a998f145e4010a21cf",
+      "normalized_sha256": "451109b7819b98204bcc2427472dc1b2088723c5ca43a2a998f145e4010a21cf",
+      "rank": "02bc3a15b8cba8291ab3fcf359aafc59eb27b6256690d074996084ee06aa0b8b",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0311-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 311,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "1cb30df77a84d0b1fab774ef755fd32f0504086f0e341ece7621c999ecd9cecd",
+      "normalized_sha256": "7c07da37b84cc08a277d8a45563301b7dca4b13d5fb067f158c7c13008f293b5",
+      "rank": "033470185e05827443a3b61770c149455b4b75b54466aa920e1e9f376a0a76f6",
+      "prior_exact_sha256": "988de757254130d1bb7ef25f2b01cb9640ed6c8cbcfe6c283dbda0dd1f174486",
+      "prior_normalized_sha256": "994147acca2ad1bb71c351266815ecaa84589e71fcff113dad19daf6bcadbb34",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0218-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 218,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "d339e436ee1b38e097f8d7f8a523f9887f79b3637d815fd059dd6e1d592136e7",
+      "normalized_sha256": "64b0216dce8d2d9e7d01d1decd03931e27f1f2baa8f90cc0926c1cbe8b6b4b82",
+      "rank": "047552074f87c198f6e5ce56bedf1da344b139c2eca120ba46575a72772c46e7",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0691-02",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 691,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "15901b1ae78f222e0360dbff7c5c15e1d3f13006582ed129ec307e3425bee154",
+      "normalized_sha256": "6bcc382112e29ee95d3dafbb3fec0879c2a0b5bec6732f872e993a0ec63954ce",
+      "rank": "0539799e1fdf6737273f34379ea5dd08f9e695ea4d97c722712c58c9f8758145",
+      "prior_exact_sha256": "9e176819b0cdf61fa231f5d1b0e46af2e3d2ff210398e9c2ebf117a6ffa32f9f",
+      "prior_normalized_sha256": "798c1d02b9bd6008f5f96ce936089626454fb03b9dcde31377655285dd1f40eb",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0744-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 744,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "7f5210effff4814fddfe03e2a3f931223e3e085d470f7889b2a8fbef28807020",
+      "normalized_sha256": "f0b66086692b57ef432619e0c1d7e1811216a9facabcaac93889bdd8e27fb010",
+      "rank": "0550843ca8c528a4c1bf80a789c6efb16dd92d41a50ee8ab634aa42e8988449a",
+      "prior_exact_sha256": "14198214464a9dbb71c01419a026db2cc250c57b2fcf5524daee425a7d8afc8b",
+      "prior_normalized_sha256": "e95e287293ee6ac6026c352c7c39ba5a26f5329d7714994738bc8e30aaba1e94",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0356-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 356,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "b2ddd5b792347625958369ffa6fd90148de97ba96c87de90dd466de22bd80324",
+      "normalized_sha256": "f288229b6b60c13cd109ef26e696fbe4f5f8d07036d61d58bc2c256bd3f8286c",
+      "rank": "060ad5135d279602b27dc81faa751a4dddea3efee80b5a988fbe439786096c35",
+      "prior_exact_sha256": "655decea145e55d9524544603526493c4305ada4e74643426ffddfa35db42fdc",
+      "prior_normalized_sha256": "9b9150146074a6a71daeae5d68db9d3b59289c5482ea39e099e491daadbe29d9",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0476-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 476,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "984493d31beb0de8251b03cfa012751e4d245631e55db241d0cfb6e133f37743",
+      "normalized_sha256": "072ac0b0d88973eac57decc02865b509028e37bed1e2fe40e59eac653c8eba6f",
+      "rank": "0654c0b562a691e62c70f493623787fa41076b7d6036a6a8c38b1f9f67083fb7",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0976-08",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 976,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "9bfc52a3b7c0c14ce7479276906cb4758d70d7048884335a57d9810cd433f8d4",
+      "normalized_sha256": "5c663a0b10d94d6067605e82530dbbecce7d4ca997200df0007b0a695934620e",
+      "rank": "067a21dbe04c03dbf26f17ed71c0c775c9c706da965e52e1ef91b033f185c18c",
+      "prior_exact_sha256": "5ef936922fa166f3400e8d81d5dcac5b8a91f0e71cf710b9448188597a5f2e62",
+      "prior_normalized_sha256": "20c16b4544d3abe720100ffb9eff50b3523b49397d75c640906278340a71dc02",
+      "prior_individual_exact_overlap": 1,
+      "prior_individual_normalized_overlap": 1
+    },
+    {
+      "id": "bst-valid-depth-r01-0973-02",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 973,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "4e76eec3b5b845b4ce8598a7a898d883e081792bf0b808d5374c60e1b14621ae",
+      "normalized_sha256": "8d28b0b90d3e75dd5995138e51a9c270ef685353470b3b2db256a826bbb407d6",
+      "rank": "06c230556a6c43f2b327ff01215d9f20d8c7ed3f5e3905a36dc8448bd6726b5b",
+      "prior_exact_sha256": "6a0bfb17618588205d729b13579fe95e6f6df7516e8d6e5edb9333ffae8bc975",
+      "prior_normalized_sha256": "d49030afa06f3e620dc185e910956fff5d5b40b5f7630bac7a59d32d4579909b",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0466-10",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 466,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "55c2c9fed1e5cc8f455d35bd3519bd8ba9dd61891b57205a81ea41c061c196b9",
+      "normalized_sha256": "861d441874fc42227ba0155ee8f2d519e26eccbd586cdc4c19f07fdf7080527c",
+      "rank": "0723b422975074c22c0d155c8d7835b124140ab6177aaaffd0027eaeb4ddd584",
+      "prior_exact_sha256": "236a00fa10414d943397ffb4a943d3afe30db3c7d663dcc687915fa57af03454",
+      "prior_normalized_sha256": "970c29b1720fefc113d2458df7b892db55260732a7faf725263f08a425521a06",
+      "prior_individual_exact_overlap": 1,
+      "prior_individual_normalized_overlap": 1
+    },
+    {
+      "id": "bst-valid-depth-r01-0839-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 839,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "6837348094d686678e58e2d639bfb1c836081ccc073416f843933c4b4b16e1c6",
+      "normalized_sha256": "a2cf7655f4b63774fcae24ff2f57ef04e213f051474e8f46f9793e9cf57cb855",
+      "rank": "07321078b4c45285f149ff9461d9ff531b470fcd66cf97cc4fd2f4acaee6faa8",
+      "prior_exact_sha256": "ed9a905fd487ce5b755635c7a0a12edd0b5a381c75fb8aa18fd4e1a222969971",
+      "prior_normalized_sha256": "d0f91fbe224429c0d131058df89ab5920ab6a7bd07eb4b34d1030daf071b6330",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0493-10",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 493,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "da11295c4103133d7954ff43781e3db842822fac552f0c9142d27bbd48a3a8cc",
+      "normalized_sha256": "4657c9dca232ce35e03b843c76574776bc8334833e760e888865c5b39be60348",
+      "rank": "081a168221108599255db1e79d1750c0da3686b5488f1e0751f8fd4edb30c0f8",
+      "prior_exact_sha256": "8001e1f9343d43ceadc29613d29e75a49d61765af9afb8d0686459af24ccd9b9",
+      "prior_normalized_sha256": "0799ffe9ff9be2991e1cf4ce1e95db9ef455204d6be37d713e5f8bb69f5d2e12",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0011-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 11,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "bd7ed48eefcf60f0e04449938512ad94e7ce1c7fcce889b1926c6ed050df2484",
+      "normalized_sha256": "aac600fe21ddb97ae9711539b92bcbe06d364a46004aa8ef536f210172ad1c2f",
+      "rank": "0839224316adc1301866edf7784c9fddbf72e0786cf3eeabcc8f93b1dc609b6c",
+      "prior_exact_sha256": "8519fcf8fd2209a65c5c8719a3d223eaf6a6c78e0f6b5cfad620a9d9d7d2b4f7",
+      "prior_normalized_sha256": "68ff5196aa9e80022ba93ed3b21d66dacb08ee85f285c4bfef6107bd699ff986",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0507-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 507,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "bd8b30e3543f4b4e59794364aa936151ad8e33c33c98b491d048a785f300b12e",
+      "normalized_sha256": "ae0f9960b2a807856212141348b6c468574d725483e9ecb33b9b27167c8b927a",
+      "rank": "084e47e74e96d2cacdf2aa250ac63d885496953010991caf77de62d337a30c4b",
+      "prior_exact_sha256": "16af25e4d595804a5e36fc6892910ea5201357708a426c62836ea3a3f2b41ffe",
+      "prior_normalized_sha256": "941ffbb5ecb9fa234a3d8123001489101e1a23e98bef9d91c70dc3d4ad4cebce",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0792-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 792,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "936fb98eb534b21c6da2041b0cf913606d20c78126a241e2f8d43d3aa3b05768",
+      "normalized_sha256": "3e37e787428e44ba6527378dd4d5c26f824946fb79e95f6450bb98e3461f2560",
+      "rank": "0873c2e93e46087e6f20291a52ce6e6bba47135d035738c792d90b2afe5feb76",
+      "prior_exact_sha256": "2f5558453a2aaefb4ac56fd39e8feaa8b26cb77e639f0d1eedbe7f6a46052e7f",
+      "prior_normalized_sha256": "27c46d8361745ac5a2fe847d91a21e75e336b150e858a65b46bbf01116bc5094",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0572-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 572,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "149f7c3df8f02d09c583929d8e4e453e32eb7cbe9556bdd2bc547b7c6445d968",
+      "normalized_sha256": "28a4673bb3e85589d12cfc17e77f8d3441c40230dea512c2f0e0fe29e3134c69",
+      "rank": "08865e8ab529108ff1dfcc2c5c5cbd744df79f6a7fff282c23a329189eaece0f",
+      "prior_exact_sha256": "180a781889311c0e19f1e6dee638515d1b4ad6a0ec6011066c7cd5af85055cf2",
+      "prior_normalized_sha256": "d573f1229babbb278bbd7d4ecf036aab431be10b665bf69e9c508349952e5930",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0428-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 428,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "long",
+      "source_sha256": "fc8923cc587579584159815a83bcb80076c1361cdcdc9736e2bfd52c29ad35be",
+      "normalized_sha256": "6e3890669c5e939bee45715803d6337bda9c419ed4211bed8009301f1fe5cd40",
+      "rank": "08b147aebcffa00df27a95bbc03f20a557ebf11f1439a14016cf9f960d36601f",
+      "prior_exact_sha256": "686786c761d0154aae269ba981e22d4fea36d68e04f98d8936cad9402ddf2ac2",
+      "prior_normalized_sha256": "c4ca9e7bf7dc5bcc8f84af2dffaac82c23a5f9008aa9ef35e78034eb6ac0dbad",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0998-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 998,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "ce60853e3b0803d25cfe368dad77d50cedc43ab1b2f72d4cde2133990aba5ae8",
+      "normalized_sha256": "fc01f65b824dd69dde3bab3eac99abedb5f167343ae42050f371bb047a28e048",
+      "rank": "0ae7dcf7fb719235dc650cf95542f88bef24cac65595c2f34625f0277fa8fa43",
+      "prior_exact_sha256": "6bff0563392adafbf14754675638b934c25b8cea311ea700e99c23ee25fd528c",
+      "prior_normalized_sha256": "498bc67ab2f4b5c668a15e773e131b1d85b0ddda39acf62fd294e79e2fbfcde9",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0331-08",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 331,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "fb58545609af5253b50ee10187d76a98c5b7a4bef4dfa349d55d8c0d89a93e82",
+      "normalized_sha256": "5505ef1f83b8af600de60925597550a99ed8403cafbb1fae0e69f5483a024349",
+      "rank": "0bab1f47e1543a9cf19edd84960f8de52aea8e09a0b50486a0431b362f29d117",
+      "prior_exact_sha256": "31d795818fd9b292b052cc142b06357c0b2e503608b27d3ff3af2159d72103ab",
+      "prior_normalized_sha256": "8685459a87ca32c32bb8374f529b229cbe55aceefb9665c4892e66851e6f5f43",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0878-10",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 878,
+        "dialog_index": 10,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "a310cec9ca346c316ec99452e5336b4d2eb964d064904e83168989afa7b91dc4",
+      "normalized_sha256": "dce72d653ac700968d6b321e4845840dc7c5f44f08f143eadbb887b22cead352",
+      "rank": "0bafa0d6d8cb97202b48137f1caed4fd7745b556941a1f38fdddd01b3ae3cdaa",
+      "prior_exact_sha256": "6076820beaeae6743c9db4b3894045903218c9f5f5becd57aa0f53d0949a20a1",
+      "prior_normalized_sha256": "0224bafbfcc0deb2dbf8dccb04653a48716feab3170abdd48aa67c7442aaaf77",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0135-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 135,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "220e3fdf3580d65a22c18ddafffc171d2dd19ed9d78f869580f1638035132dca",
+      "normalized_sha256": "165e0775efe8aeb1d40c4e2ad145833fb829fc954aa078723e156e948b9170d9",
+      "rank": "0c20344c9e3644b49984eed7a78dcdf0451adb01dd86736c4693ed0ae1e693ce",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0949-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 949,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "0e95d9c8222dce18e8f42c252e98f892115b3c473efd46a5a18dfe570dcc132c",
+      "normalized_sha256": "d3034167adc49a6d32e1d533e74d1465fa554f518b59412bf8504454847f61fc",
+      "rank": "0cb54c82a5f63f9af673bfa292b20e5b7b395d0ee703877ba3f00d8a63bae58f",
+      "prior_exact_sha256": "511ef1a5a0c083f96de354670514bb5e1d4f4bf94fa3b1acd601e389fb34de9d",
+      "prior_normalized_sha256": "6213e5dbb33bb7c478d8876f5587bf19315d98a5499745aab4e9cee240d832b9",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0640-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 640,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "22d897a60d657ca0692dd6a8ef4793bd71bbdb032535c5ae2916625da3162a6b",
+      "normalized_sha256": "4106d8c2289a3906a443b1723aee106ea9bd88cea3b0d072344522e5dda11e83",
+      "rank": "0cbbce729c741b6a931fc8427d2a32319bf0d91b598ca78ce89265c7f39dc83f",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0920-02",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 920,
+        "dialog_index": 2,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "2cfd9969453923586bd465afb85a04db4463ae444cd7861546c1cf20718ea66a",
+      "normalized_sha256": "82a9acfa2e260d61613f4263b457a21c7cb49acec0d77c7c823a90e93c252b04",
+      "rank": "0f086ffa3547273d490617fd4b608c36f8498dce44f389cf1485fa70df30646e",
+      "prior_exact_sha256": "86ac5e8d6210b85bbfba0a8a270468985a681e431f6fc5d85df20c5a69d6556d",
+      "prior_normalized_sha256": "a33aacb882a058b377eda21656146203a42e3556a216578be27fac1e60e70192",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0410-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 410,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "ebbbfd38f11f487ebafe56058b5b70162d2918ac9135612426adf2f76be747f6",
+      "normalized_sha256": "af03c98af395a739acf819bb07863845618f7ddb011b28c5544a443eab175520",
+      "rank": "111c7f5cbfb9c92364b96c876635bec854c6e58c0f3b77025e6a296b61075e35",
+      "prior_exact_sha256": "61be6e83ed6090e0f3e4d91e689d395d8377cb5d6b38ac1e22b544af9bfc0282",
+      "prior_normalized_sha256": "7f9b12f7c5d427265f58bd8051c24344e2a50fcb2c8676c4284bacfeae2372f1",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0726-12",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 726,
+        "dialog_index": 12,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "e1707423945c36153b0ad112b2f100445e2bd3463632355338c2f53a24b9c576",
+      "normalized_sha256": "af0b4feee501fc841013eb1e3a742ccf1ba33cca4bba2cee0d032371af776339",
+      "rank": "11a008afa461409354000a493349fecd8c00ad81b52568d89c40b4790f9e9227",
+      "prior_exact_sha256": "d512c44350c82c272c2e00000a3e8dd7d893ccac6f357cd00cb4989189d83fcc",
+      "prior_normalized_sha256": "3d1289068c76cac268fc7a81f75cf70dad7eda610224444691cb61b1e1498e33",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0729-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 729,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "981e76d151424d98a170716e2f10630ff5917b26264855264e102494a90396c8",
+      "normalized_sha256": "981e76d151424d98a170716e2f10630ff5917b26264855264e102494a90396c8",
+      "rank": "13e8a840da59c46c5a5c52f0b26ce61d139831c9a42cc146697dcc57b8c0b12c",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0570-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 570,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "medium",
+      "source_sha256": "6f23870cc31e64664e06ddaa5f04c5f31103c023cf8579919dce6e4f3a128b47",
+      "normalized_sha256": "596bc5f0b144182470cce8e8f79e39302479fbc30f0d8b9c977837c7bf7d0b58",
+      "rank": "142bb889fbf45b781793151a3c09ceaa6b83143b64b94d1f70c48bd3da07d219",
+      "prior_exact_sha256": "bf26900cec22e38318b9f51cc80757462586c4aaa1a7f24eb275d2167aa2231d",
+      "prior_normalized_sha256": "148d1d64395e57c910822c1672c0aa9d44701668df52cc27224f0e485be6c520",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0121-08",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 121,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "375e2633361a2159f45a21cb8fd66385cc5cafb565036747875a5844b1604110",
+      "normalized_sha256": "375e2633361a2159f45a21cb8fd66385cc5cafb565036747875a5844b1604110",
+      "rank": "14edee2f515b585778594fcd74dae17b2baa83963b29b1b9e8c8ee9f668eda88",
+      "prior_exact_sha256": "f11794d4192d37972d8f68de78a41a5cb10e8b0e4fae1a94f53eb04136ed02f5",
+      "prior_normalized_sha256": "e3632d883d70c97e767bb96a61b3944b7567912028b5b7744177179f05eac371",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0450-08",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 450,
+        "dialog_index": 8,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "e5331deaeed2bb8bf1b7f67ad496cad267869310c41ab6deb617d06b791718f1",
+      "normalized_sha256": "cfc27c93e14ab77af4c211c2398b02293fc97d582513572d45b86c04e0350fd8",
+      "rank": "1a4360ccf13cbef9bebb3930f64680282a1c58312571e290609f63de3bf51881",
+      "prior_exact_sha256": "5904eaebb51aaa3c8e662713050ebcd25b5e48c3132b709df763b69b8c3539e8",
+      "prior_normalized_sha256": "c2f85385e2ae16997fbedea9040d6154ecef30099d576255d378626bd64abd70",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0296-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 296,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "ebaff96dabb9ca229d710e1b1164ff149aa905a3f676a727dd006132a188296a",
+      "normalized_sha256": "93235f3235dde2338dd6c5ec6d6d19baa36df071524f14f470134ff0fb7248da",
+      "rank": "1d6143917b971df78fb99c0fde128b36452a595a20a1fcb2e4dff897af0476fb",
+      "prior_exact_sha256": "f46c0989bbf948ac1e01e41b5641c875aa87fa317b175b85c39fc98f90ba177e",
+      "prior_normalized_sha256": "53be81c743a2856b9d17ab623614b0a4cc8bfad139d55d9ef728867381d7944c",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0033-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 33,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "c769468ac5a20e0200ee23ba756953b1eb59e299d15ca58c8c51914dd7db45a5",
+      "normalized_sha256": "6d934ccc94de847691a895d9fa00a3f12897c6bc7637a56a3c6799a2f4fef1df",
+      "rank": "2795b1857e70a13328b40ad5a8e6c95930fd90b03d5bc78920ab3cdfca3e115a",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0390-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 390,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "a6531d49e396e6b8bbed7bea10019c351914a0e1ed0afb68a74e20726f841da6",
+      "normalized_sha256": "1ab53c7cd7e9049d2ff49052d14acbb2ccfcdfeca0708ea4788b6a3a48a390be",
+      "rank": "2b6e04ca0fe0b19c4273aa3d408c74642a7c2e34c0217fcf7e05d1b39da581e9",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0914-04",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 914,
+        "dialog_index": 4,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "5962b8aa2991cb8110ff9183053a7d8c1eadb13ced8d22330c4ac78035daa9ee",
+      "normalized_sha256": "0098c6d24030914998ebe48ad21d57bc6044cbb7ff3943a2883ed7d63d51e3d3",
+      "rank": "3034226f3677d9640b73f65a8cebce9c8524f808bebef1417c15e1c06d4b53d8",
+      "prior_exact_sha256": "4f4a7a15a1eb437846c7d00c271f28106bb1fe4c88e3062e9f8be21e285ba97f",
+      "prior_normalized_sha256": "5e881b6c925b9f11ea26b4a3f9741651ec70582d44fab508a3b61a8f7a1f9f29",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0509-06",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 509,
+        "dialog_index": 6,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "e991d7d119f9a2bc8830e4d8edfe662f523202cc499c58a0530b285cba24b95e",
+      "normalized_sha256": "b05c1fc98fda70059bc02b41e9243b63d9eaf68b1e11d60931a7aee721dbd3f3",
+      "rank": "36b200eedb8d869fe938ef6e0bc58d772572028162e991df5df6d86840509729",
+      "prior_exact_sha256": "a81f0814587a7e94479098296c5949e7b454db400a4ebea5b134293a55328b8e",
+      "prior_normalized_sha256": "3f9dfa21008b3e65739f73253fee43eb33abe631ad1cb587b288c058085edd59",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    },
+    {
+      "id": "bst-valid-depth-r01-0787-00",
+      "stratum": "persona",
+      "source_ids": {
+        "dataset": "BlendedSkillTalk",
+        "split": "valid",
+        "conversation_index": 787,
+        "dialog_index": 0,
+        "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa"
+      },
+      "length_bin": "short",
+      "source_sha256": "bbdacf48816f6f0cf2d5c679f45a99cf410649e2167900513f65e5ee6ce603af",
+      "normalized_sha256": "b986597ceec118b5d7e24b299b8622c7cd9b2d4d7b756a261d398db59569871d",
+      "rank": "5ef47b6dbd43ac5f46fbf3c3f9f9efc36ddb6c33ff89328b48d35593089aefd1",
+      "prior_exact_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_normalized_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "prior_individual_exact_overlap": 0,
+      "prior_individual_normalized_overlap": 0
+    }
+  ],
+  "remaining_pool_not_selected": true,
+  "no_match_or_output_access": true,
+  "source_texts_printed": false,
+  "native_messages_sha256": "4948e7fd25f594c8cfe1faf91a48e0bde2843653cb3dc90203cdc6060723a28f",
+  "prior_dialogue_sha256": "93954514655bebb763194cb97638eb0bd9e4bfcee74fbd0f3b7fd88ef4be6e02"
+}

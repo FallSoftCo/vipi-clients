@@ -1,0 +1,592 @@
+{
+  "source_sha256": "f5859f14d739f12b1dd3c373bffead2a47920b746af436511cef4f2b8cea7320",
+  "license": "CC-BY-SA-4.0",
+  "rows": [
+    {
+      "line": 2264,
+      "url": "https://en.wiktionary.org/wiki/nywele#Swahili",
+      "record": {
+        "pos": "noun",
+        "head_templates": [
+          {
+            "name": "head",
+            "args": {
+              "1": "sw",
+              "2": "noun form"
+            },
+            "expansion": "nywele"
+          }
+        ],
+        "word": "nywele",
+        "lang": "Swahili",
+        "lang_code": "sw",
+        "sounds": [
+          {
+            "audio": "Sw-ke-nywele.flac",
+            "tags": [
+              "Kenya"
+            ],
+            "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/Sw-ke-nywele.flac/Sw-ke-nywele.flac.ogg",
+            "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/25/Sw-ke-nywele.flac/Sw-ke-nywele.flac.mp3"
+          }
+        ],
+        "senses": [
+          {
+            "links": [
+              [
+                "unywele",
+                "unywele#Swahili"
+              ],
+              [
+                "hair",
+                "hair"
+              ],
+              [
+                "head of hair",
+                "head of hair"
+              ]
+            ],
+            "glosses": [
+              "plural of unywele: many pieces of hair, a head of hair"
+            ],
+            "tags": [
+              "form-of",
+              "plural"
+            ],
+            "form_of": [
+              {
+                "word": "unywele",
+                "extra": "many pieces of hair, a head of hair"
+              }
+            ],
+            "id": "en-nywele-sw-noun-fLA8qziZ",
+            "categories": [
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Anatomy",
+                "kind": "other",
+                "parents": [],
+                "source": "w",
+                "orig": "sw:Anatomy",
+                "langcode": "sw"
+              }
+            ],
+            "related": [
+              {
+                "word": "mvi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "line": 2781,
+      "url": "https://en.wiktionary.org/wiki/unyoya#Swahili",
+      "record": {
+        "pos": "noun",
+        "head_templates": [
+          {
+            "name": "sw-noun",
+            "args": {
+              "1": "u-ma",
+              "pl2": "nyoya",
+              "pl2cl": "X"
+            },
+            "expansion": "unyoya class XI (plural manyoya class VI or nyoya class X)"
+          }
+        ],
+        "forms": [
+          {
+            "form": "manyoya",
+            "tags": [
+              "class-vi",
+              "plural"
+            ]
+          },
+          {
+            "form": "nyoya",
+            "tags": [
+              "class-x",
+              "plural"
+            ]
+          }
+        ],
+        "etymology_text": "Inherited from Proto-Bantu *bʊ̀jòjá.",
+        "etymology_links": [
+          [
+            "*bʊ̀jòjá",
+            "Reconstruction:Proto-Bantu/bʊ̀jòjá"
+          ]
+        ],
+        "etymology_templates": [
+          {
+            "name": "ety",
+            "args": {
+              "1": "sw",
+              "2": ":inh",
+              "3": "bnt-pro:*bʊ̀jòjá",
+              "text": "+",
+              "tree": "1"
+            },
+            "expansion": "[Appendix:Glossary#inherited|Inherited]] from\", \"keyword\" : \"inherited\" } ], \"lang_name\" : \"Swahili\", \"term\" : \"unyoya\", \"status\" : \"ok\", \"lang\" : \"sw\" }\" data-lang=\"sw\" data-title=\"unyoya\">\nInherited from Proto-Bantu *bʊ̀jòjá."
+          },
+          {
+            "name": "ety",
+            "args": {
+              "1": "sw",
+              "2": ":inh",
+              "3": "bnt-pro:*bʊ̀jòjá",
+              "text": "+",
+              "tree": "1"
+            },
+            "expansion": "Inherited from Proto-Bantu *bʊ̀jòjá."
+          }
+        ],
+        "sounds": [
+          {
+            "audio": "Sw-ke-unyoya.flac",
+            "tags": [
+              "Kenya"
+            ],
+            "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/44/Sw-ke-unyoya.flac/Sw-ke-unyoya.flac.ogg",
+            "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/44/Sw-ke-unyoya.flac/Sw-ke-unyoya.flac.mp3"
+          }
+        ],
+        "word": "unyoya",
+        "lang": "Swahili",
+        "lang_code": "sw",
+        "senses": [
+          {
+            "links": [
+              [
+                "feather",
+                "feather"
+              ]
+            ],
+            "glosses": [
+              "feather"
+            ],
+            "tags": [
+              "class-xi"
+            ],
+            "id": "en-unyoya-sw-noun-tSEV6lU8",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              }
+            ]
+          },
+          {
+            "links": [
+              [
+                "fur",
+                "fur"
+              ]
+            ],
+            "glosses": [
+              "fur (hairy coat of a mammal, especially when fine, soft and thick)"
+            ],
+            "tags": [
+              "class-xi"
+            ],
+            "id": "en-unyoya-sw-noun-~mxYwkuU",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Anatomy",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Anatomy",
+                "langcode": "sw",
+                "_dis": "24 52 24"
+              },
+              {
+                "name": "Zoology",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "orig": "sw:Zoology",
+                "langcode": "sw",
+                "_dis": "9 64 27"
+              }
+            ]
+          },
+          {
+            "links": [
+              [
+                "hair",
+                "hair"
+              ]
+            ],
+            "glosses": [
+              "hair (of an animal)"
+            ],
+            "tags": [
+              "class-xi"
+            ],
+            "id": "en-unyoya-sw-noun-nfqcJnak",
+            "categories": [
+              {
+                "name": "Pages using etymon with no ID",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "32 36 32"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Pages with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries referencing missing etymons",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymology texts",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with etymon",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w+disamb",
+                "_dis": "37 36 27"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "line": 4721,
+      "url": "https://en.wiktionary.org/wiki/manyoya#Swahili",
+      "record": {
+        "pos": "noun",
+        "head_templates": [
+          {
+            "name": "head",
+            "args": {
+              "1": "sw",
+              "2": "noun form"
+            },
+            "expansion": "manyoya"
+          }
+        ],
+        "word": "manyoya",
+        "lang": "Swahili",
+        "lang_code": "sw",
+        "sounds": [
+          {
+            "audio": "Sw-ke-manyoya.flac",
+            "tags": [
+              "Kenya"
+            ],
+            "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/Sw-ke-manyoya.flac/Sw-ke-manyoya.flac.ogg",
+            "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/Sw-ke-manyoya.flac/Sw-ke-manyoya.flac.mp3"
+          }
+        ],
+        "senses": [
+          {
+            "links": [
+              [
+                "unyoya",
+                "unyoya#Swahili"
+              ]
+            ],
+            "glosses": [
+              "plural of unyoya"
+            ],
+            "tags": [
+              "form-of",
+              "plural"
+            ],
+            "form_of": [
+              {
+                "word": "unyoya"
+              }
+            ],
+            "id": "en-manyoya-sw-noun-FSTGvo0f",
+            "categories": [
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "line": 5943,
+      "url": "https://en.wiktionary.org/wiki/unywele#Swahili",
+      "record": {
+        "pos": "noun",
+        "head_templates": [
+          {
+            "name": "sw-noun",
+            "args": {
+              "1": "u"
+            },
+            "expansion": "unywele class XI (plural nywele class X)"
+          }
+        ],
+        "forms": [
+          {
+            "form": "nywele",
+            "tags": [
+              "class-x",
+              "plural"
+            ]
+          }
+        ],
+        "word": "unywele",
+        "lang": "Swahili",
+        "lang_code": "sw",
+        "sounds": [
+          {
+            "audio": "Sw-ke-unywele.flac",
+            "tags": [
+              "Kenya"
+            ],
+            "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/57/Sw-ke-unywele.flac/Sw-ke-unywele.flac.ogg",
+            "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/57/Sw-ke-unywele.flac/Sw-ke-unywele.flac.mp3"
+          }
+        ],
+        "senses": [
+          {
+            "links": [
+              [
+                "hair",
+                "hair"
+              ]
+            ],
+            "glosses": [
+              "a piece of hair (a pigmented filament of keratin which grows from a follicle on the human head)"
+            ],
+            "tags": [
+              "class-xi"
+            ],
+            "id": "en-unywele-sw-noun-jB5C4FUn",
+            "categories": [
+              {
+                "name": "Pages with 1 entry",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Pages with entries",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Swahili entries with incorrect language header",
+                "kind": "other",
+                "parents": [],
+                "source": "w"
+              },
+              {
+                "name": "Anatomy",
+                "kind": "other",
+                "parents": [],
+                "source": "w",
+                "orig": "sw:Anatomy",
+                "langcode": "sw"
+              },
+              {
+                "name": "Hair",
+                "kind": "other",
+                "parents": [],
+                "source": "w",
+                "orig": "sw:Hair",
+                "langcode": "sw"
+              }
+            ],
+            "related": [
+              {
+                "word": "mvi"
+              },
+              {
+                "word": "udevu"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decision": "The active head-hair face does not establish animal-coat meaning; retain recognition but withhold emission pending a reviewed sense context. No replacement animal translation added.",
+  "original_reviewer_labels_preserved": true
+}

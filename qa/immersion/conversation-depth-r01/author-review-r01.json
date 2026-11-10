@@ -1,0 +1,1863 @@
+{
+  "schema": "vipi-conversation-depth-author-review-1",
+  "complete": true,
+  "packetSHA": "8cb3c7171468723ba1000b7523b039f1f5d5172c3549bd2b478e1adb9e0e56d0",
+  "reviewer": "/root/immersion_medium",
+  "review_type": "independent agent judgment, not native-human gold",
+  "frozen_at": "2026-11-10T00:43:01.011578+00:00",
+  "root_labels_read": false,
+  "scorecard_or_predicate_opportunities_read": false,
+  "external_research_used": false,
+  "exposure": "Read frozen native mechanical counts and prior starter/frame qualification; reviewed all packet sources, complete script/reading options and prior dialogue. No peer labels read.",
+  "useful_span_policy": "Meaning-bearing content nouns/predicates and temporal descriptors count; pronouns, connectives, interrogatives, acknowledgements, degree/emphasis and discourse know do not. Concerns remain included in potential useful indices, but whole-output label controls strict/minor-inclusive credit. No full construction claimed from isolated constituents.",
+  "rows": [
+    {
+      "case": "D001",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Emphasis really and interrogative what retain their functions; this does not translate the proposed activity or effort.",
+      "span_concerns": []
+    },
+    {
+      "case": "D002",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Emphasis, comparative degree and interrogative words retain their functions; none supplies the central activity predicate.",
+      "span_concerns": []
+    },
+    {
+      "case": "D003",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D004",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D005",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        6
+      ],
+      "rationale": "Children remains the intended referent. Replacing or alone inside the lexicalized Halloween expression trick-or-treaters fragments that expression; the alternatives are still recoverable, so this is a minor phrase-teaching concern rather than a different event.",
+      "span_concerns": [
+        {
+          "span_index": 2,
+          "label": "minor",
+          "rationale": "Children remains the intended referent. Replacing or alone inside the lexicalized Halloween expression trick-or-treaters fragments that expression; the alternatives are still recoverable, so this is a minor phrase-teaching concern rather than a different event."
+        }
+      ]
+    },
+    {
+      "case": "D006",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        6
+      ],
+      "rationale": "Children remains the intended referent. Isolated au inside trick-or-treaters treats part of a lexicalized Halloween expression as free coordination; minor phrase-teaching concern, not a changed event.",
+      "span_concerns": [
+        {
+          "span_index": 2,
+          "label": "minor",
+          "rationale": "Children remains the intended referent. Isolated au inside trick-or-treaters treats part of a lexicalized Halloween expression as free coordination; minor phrase-teaching concern, not a changed event."
+        }
+      ]
+    },
+    {
+      "case": "D007",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Always expresses habitual regularity here; the agreement marker remains appropriate.",
+      "span_concerns": []
+    },
+    {
+      "case": "D008",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Daima retains habitual regularity; ndiyo retains agreement.",
+      "span_concerns": []
+    },
+    {
+      "case": "D009",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D010",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D011",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Eating the same cake after finding coins is preserved; base verb under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D011",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Eating the same cake after finding coins is preserved; base verb under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D012",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Kula and keki preserve eating and cake; source grammar intentionally supplies the surrounding inflection.",
+      "span_concerns": []
+    },
+    {
+      "case": "D012",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Kula and keki preserve eating and cake; source grammar intentionally supplies the surrounding inflection.",
+      "span_concerns": []
+    },
+    {
+      "case": "D013",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Pronoun and emphasis retain their local roles, with the ineffective discipline predicate left in English.",
+      "span_concerns": []
+    },
+    {
+      "case": "D014",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Kweli preserves the emphasis on ineffectiveness; no content predicate is translated.",
+      "span_concerns": []
+    },
+    {
+      "case": "D015",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D016",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D017",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D018",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "minor",
+          "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern."
+        }
+      ]
+    },
+    {
+      "case": "D018",
+      "option": "o1",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "minor",
+          "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern."
+        }
+      ]
+    },
+    {
+      "case": "D019",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "The selected content words retain their intended referents/actions in the complete source and prior dialogue; deliberate source grammar is preserved.",
+      "span_concerns": []
+    },
+    {
+      "case": "D020",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "The selected content words retain their intended referents/actions in the complete source and prior dialogue; deliberate source grammar is preserved.",
+      "span_concerns": []
+    },
+    {
+      "case": "D021",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D022",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D023",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Understanding the fear and recounting traffic stories retain their meanings; monogatari can denote an account, not only fiction.",
+      "span_concerns": []
+    },
+    {
+      "case": "D024",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Kuelewa and hadithi retain understanding and the recounted traffic accounts.",
+      "span_concerns": []
+    },
+    {
+      "case": "D025",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D026",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D027",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Food remains food within the source phrase fast food; no new claim about speed or cuisine.",
+      "span_concerns": []
+    },
+    {
+      "case": "D028",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Chakula retains the food referent within the English modifier phrase.",
+      "span_concerns": []
+    },
+    {
+      "case": "D029",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Week denotes the illness duration. The acknowledgement and disjunction remain compatible.",
+      "span_concerns": []
+    },
+    {
+      "case": "D030",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Wiki and miezi retain the time units; sasa retains current time where present. Lo is stronger surprise than the fairly routine acknowledgement Oh yeah, a minor register shift.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "minor",
+          "rationale": "Wiki and miezi retain the time units; sasa retains current time where present. Lo is stronger surprise than the fairly routine acknowledgement Oh yeah, a minor register shift."
+        }
+      ]
+    },
+    {
+      "case": "D030",
+      "option": "o1",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        4,
+        5
+      ],
+      "rationale": "Wiki and miezi retain the time units; sasa retains current time where present. Lo is stronger surprise than the fairly routine acknowledgement Oh yeah, a minor register shift.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "minor",
+          "rationale": "Wiki and miezi retain the time units; sasa retains current time where present. Lo is stronger surprise than the fairly routine acknowledgement Oh yeah, a minor register shift."
+        }
+      ]
+    },
+    {
+      "case": "D031",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Online describes the shopping medium, retained by onrain.",
+      "span_concerns": []
+    },
+    {
+      "case": "D032",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Mtandaoni describes the shopping medium; coordination and object pronoun remain source-grammar substitutions.",
+      "span_concerns": []
+    },
+    {
+      "case": "D032",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Mtandaoni describes the shopping medium; coordination and object pronoun remain source-grammar substitutions.",
+      "span_concerns": []
+    },
+    {
+      "case": "D033",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D034",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D035",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Saisho retains the initial/original sense within in the first place; this fragment is not credited as a complete construction.",
+      "span_concerns": []
+    },
+    {
+      "case": "D036",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Kwanza retains the initial sense within in the first place; no complete idiom is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D037",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D038",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D039",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D040",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D041",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D042",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D043",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Uta retains the musical song referent, with country remaining the genre modifier.",
+      "span_concerns": []
+    },
+    {
+      "case": "D044",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Wimbo retains the musical song referent.",
+      "span_concerns": []
+    },
+    {
+      "case": "D045",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Taberu retains eating; English to and clause structure intentionally remain.",
+      "span_concerns": []
+    },
+    {
+      "case": "D045",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Taberu retains eating; English to and clause structure intentionally remain.",
+      "span_concerns": []
+    },
+    {
+      "case": "D046",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kula retains eating, without demanding Swahili clause inflection.",
+      "span_concerns": []
+    },
+    {
+      "case": "D046",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Kula retains eating, without demanding Swahili clause inflection.",
+      "span_concerns": []
+    },
+    {
+      "case": "D047",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Machi retains town; aa is compatible with the explicit surprise wow.",
+      "span_concerns": []
+    },
+    {
+      "case": "D047",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Machi retains town; aa is compatible with the explicit surprise wow.",
+      "span_concerns": []
+    },
+    {
+      "case": "D048",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Mji retains town; lo is supported by explicit surprise wow.",
+      "span_concerns": []
+    },
+    {
+      "case": "D048",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Mji retains town; lo is supported by explicit surprise wow.",
+      "span_concerns": []
+    },
+    {
+      "case": "D049",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rationale": "Cats and dog retain their referents. Kangaeru emphasizes considering/thinking rather than the tentative opinion sense normally expressed with omou here; minor precision concern, not a changed belief.",
+      "span_concerns": [
+        {
+          "span_index": 2,
+          "label": "minor",
+          "rationale": "Cats and dog retain their referents. Kangaeru emphasizes considering/thinking rather than the tentative opinion sense normally expressed with omou here; minor precision concern, not a changed belief."
+        }
+      ]
+    },
+    {
+      "case": "D049",
+      "option": "o1",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3,
+        5,
+        6
+      ],
+      "rationale": "Cats and dog retain their referents. Kangaeru emphasizes considering/thinking rather than the tentative opinion sense normally expressed with omou here; minor precision concern, not a changed belief.",
+      "span_concerns": [
+        {
+          "span_index": 5,
+          "label": "minor",
+          "rationale": "Cats and dog retain their referents. Kangaeru emphasizes considering/thinking rather than the tentative opinion sense normally expressed with omou here; minor precision concern, not a changed belief."
+        }
+      ]
+    },
+    {
+      "case": "D050",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rationale": "Paka and mbwa retain the pets; kufikiri can express thinking/supposing here. Base infinitive under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D050",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4,
+        6,
+        7
+      ],
+      "rationale": "Paka and mbwa retain the pets; kufikiri can express thinking/supposing here. Base infinitive under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D051",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D052",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D053",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Morning and person retain their meanings inside the source idiom morning person; this does not claim idiomatic standalone Japanese.",
+      "span_concerns": []
+    },
+    {
+      "case": "D054",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Asubuhi and mtu retain the constituent meanings of morning person under deliberately English construction.",
+      "span_concerns": []
+    },
+    {
+      "case": "D055",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Husband is the spouse referent; the contrast remains intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D056",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Mume is husband and sasa is current time; source question grammar remains.",
+      "span_concerns": []
+    },
+    {
+      "case": "D057",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D058",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D059",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D060",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D061",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D062",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D063",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D064",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D065",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D066",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D067",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Water refers metonymically to the lake/waterside from prior dialogue. Mizu and habitual itsumo remain interpretable under source grammar; this is not a Japanese locative construction.",
+      "span_concerns": []
+    },
+    {
+      "case": "D068",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Maji retains the lake/water referent under the original locative phrase; daima retains the longstanding wish.",
+      "span_concerns": []
+    },
+    {
+      "case": "D069",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        4
+      ],
+      "rationale": "Knowing factual information is preserved, including source negations and repeated distinct occurrences.",
+      "span_concerns": []
+    },
+    {
+      "case": "D069",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        5
+      ],
+      "rationale": "Knowing factual information is preserved, including source negations and repeated distinct occurrences.",
+      "span_concerns": []
+    },
+    {
+      "case": "D070",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        4
+      ],
+      "rationale": "Kujua retains factual knowledge and all source negations; base forms are intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D070",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        4,
+        6
+      ],
+      "rationale": "Kujua retains factual knowledge and all source negations; base forms are intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D071",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Pets and dogs preserve the animals and explicit source numerals; Japanese nouns need not mark English plural.",
+      "span_concerns": []
+    },
+    {
+      "case": "D071",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4
+      ],
+      "rationale": "Pets and dogs preserve the animals and explicit source numerals; Japanese nouns need not mark English plural.",
+      "span_concerns": []
+    },
+    {
+      "case": "D072",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "The domestic-pet phrase is supported by the explicit dogs context; mbwa retains dogs and numerals stay intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D072",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        5
+      ],
+      "rationale": "The domestic-pet phrase is supported by the explicit dogs context; mbwa retains dogs and numerals stay intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D073",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D074",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D075",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D076",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D077",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D078",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D079",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D080",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D081",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Family is the relatives at a gathering; Ford remains unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D082",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Familia retains relatives, and Ford remains unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D083",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D084",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D085",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D086",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D087",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "The discourse you know is understandable but does not count as useful content. 年 retains years; displayed toshi is less natural for a counted duration than nen/nenkan, a minor reading/context concern.",
+      "span_concerns": [
+        {
+          "span_index": 2,
+          "label": "minor",
+          "rationale": "The discourse you know is understandable but does not count as useful content. 年 retains years; displayed toshi is less natural for a counted duration than nen/nenkan, a minor reading/context concern."
+        }
+      ]
+    },
+    {
+      "case": "D088",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Miaka retains the duration. You know is a discourse appeal to shared understanding, so kujua is not credited as new propositional content.",
+      "span_concerns": []
+    },
+    {
+      "case": "D089",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Utau retains the singing action; interrogative remains compatible where present.",
+      "span_concerns": []
+    },
+    {
+      "case": "D089",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Utau retains the singing action; interrogative remains compatible where present.",
+      "span_concerns": []
+    },
+    {
+      "case": "D090",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kuimba retains singing; base verb under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D090",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Kuimba retains singing; base verb under source grammar is intentional.",
+      "span_concerns": []
+    },
+    {
+      "case": "D091",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        3
+      ],
+      "rationale": "Kōhī retains the beverage, with iced left as the source modifier.",
+      "span_concerns": []
+    },
+    {
+      "case": "D092",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        3
+      ],
+      "rationale": "Kahawa retains the beverage under iced.",
+      "span_concerns": []
+    },
+    {
+      "case": "D093",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D094",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D095",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Nenrei retains the age category of intended readers.",
+      "span_concerns": []
+    },
+    {
+      "case": "D096",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Umri retains the age category of intended readers.",
+      "span_concerns": []
+    },
+    {
+      "case": "D097",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D098",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D099",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D100",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D101",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "The selected content words retain their intended referents/actions in the complete source and prior dialogue; deliberate source grammar is preserved.",
+      "span_concerns": []
+    },
+    {
+      "case": "D102",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "The selected content words retain their intended referents/actions in the complete source and prior dialogue; deliberate source grammar is preserved.",
+      "span_concerns": []
+    },
+    {
+      "case": "D103",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Dog referents and year unit remain clear. 年 read toshi is awkward for half a year duration, where nen/nenkan would be usual; minor reading/context concern.",
+      "span_concerns": [
+        {
+          "span_index": 3,
+          "label": "minor",
+          "rationale": "Dog referents and year unit remain clear. 年 read toshi is awkward for half a year duration, where nen/nenkan would be usual; minor reading/context concern."
+        }
+      ]
+    },
+    {
+      "case": "D104",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Mbwa and mwaka preserve the animal referents and half-year age; no new numeral or tense is introduced.",
+      "span_concerns": []
+    },
+    {
+      "case": "D104",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4
+      ],
+      "rationale": "Mbwa and mwaka preserve the animal referents and half-year age; no new numeral or tense is introduced.",
+      "span_concerns": []
+    },
+    {
+      "case": "D105",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Shuu denotes the week in the frequency expression; source numerals are intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D105",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Shuu denotes the week in the frequency expression; source numerals are intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D106",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Wiki retains the frequency time unit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D106",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Wiki retains the frequency time unit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D107",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D108",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D109",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Konsāto is the musical concert; Bowie knife remains unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D110",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Tamasha is a sufficiently compatible concert/event term in the band context, though broad; sawa retains mild approval.",
+      "span_concerns": []
+    },
+    {
+      "case": "D111",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Dinner and morning retain their meanings. Can always try offers a fallback option rather than habitual frequency; itsumo leans toward frequency. Minor modal nuance concern, excluded from useful content credit.",
+      "span_concerns": [
+        {
+          "span_index": 1,
+          "label": "minor",
+          "rationale": "Dinner and morning retain their meanings. Can always try offers a fallback option rather than habitual frequency; itsumo leans toward frequency. Minor modal nuance concern, excluded from useful content credit."
+        }
+      ]
+    },
+    {
+      "case": "D112",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Dinner and morning remain compatible. Daima leans toward continual frequency whereas can always try offers an available alternative; minor modal nuance concern, not credited as useful content.",
+      "span_concerns": [
+        {
+          "span_index": 1,
+          "label": "minor",
+          "rationale": "Dinner and morning remain compatible. Daima leans toward continual frequency whereas can always try offers an available alternative; minor modal nuance concern, not credited as useful content."
+        }
+      ]
+    },
+    {
+      "case": "D113",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Hitobito retains the people the children become; source evaluation good is unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D114",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Watu retains the human referents; source evaluation and grammar remain.",
+      "span_concerns": []
+    },
+    {
+      "case": "D115",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Ongaku retains music and habitual itsumo is appropriate where selected; band name is unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D115",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Ongaku retains music and habitual itsumo is appropriate where selected; band name is unchanged.",
+      "span_concerns": []
+    },
+    {
+      "case": "D116",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Muziki retains music and daima is habitual where selected; band name remains intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D116",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Muziki retains music and daima is habitual where selected; band name remains intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D117",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Kare refers to the named male pet in an anthropomorphic source sentence; retain the source gender/personification rather than treating it as a new human referent.",
+      "span_concerns": []
+    },
+    {
+      "case": "D118",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Yeye retains the animate pet referent under source grammar.",
+      "span_concerns": []
+    },
+    {
+      "case": "D119",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D120",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D121",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D122",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Sasa retains the current-time contrast in the speaker’s choice of activity.",
+      "span_concerns": []
+    },
+    {
+      "case": "D123",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Eating burgers and the choice question remain compatible.",
+      "span_concerns": []
+    },
+    {
+      "case": "D124",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kula preserves eating and au preserves the alternative question.",
+      "span_concerns": []
+    },
+    {
+      "case": "D125",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D125",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D126",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Maisha preserves life; sana is the degree modifier where present, not additional useful content.",
+      "span_concerns": []
+    },
+    {
+      "case": "D126",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        3
+      ],
+      "rationale": "Maisha preserves life; sana is the degree modifier where present, not additional useful content.",
+      "span_concerns": []
+    },
+    {
+      "case": "D127",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Prior dialogue establishes a hairless cat. Ke is appropriate for animal hair/fur, unlike a human-head-hair context.",
+      "span_concerns": []
+    },
+    {
+      "case": "D128",
+      "option": "o0",
+      "label": "uncertain",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Prior dialogue establishes a cat coat. Nywele is commonly head hair, while animal fur is often manyoya; I cannot confidently approve this animal-hair use without a meaning-source check. Retain uncertain, not a proven material error.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "uncertain",
+          "rationale": "Prior dialogue establishes a cat coat. Nywele is commonly head hair, while animal fur is often manyoya; I cannot confidently approve this animal-hair use without a meaning-source check. Retain uncertain, not a proven material error."
+        }
+      ]
+    },
+    {
+      "case": "D129",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Factual knowledge is the intended sense, and the source negation remains visible.",
+      "span_concerns": []
+    },
+    {
+      "case": "D130",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kujua retains factual knowledge; source negation remains intact.",
+      "span_concerns": []
+    },
+    {
+      "case": "D131",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Aa is compatible with the surprise and question about illness.",
+      "span_concerns": []
+    },
+    {
+      "case": "D132",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Lo is supported by explicit wow/surprise here, unlike a neutral acknowledgement.",
+      "span_concerns": []
+    },
+    {
+      "case": "D133",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kangaeru is thinking/considering; the question seeks an opinion or supposition, usually omou. Minor precision concern, not a contrary proposition.",
+      "span_concerns": [
+        {
+          "span_index": 0,
+          "label": "minor",
+          "rationale": "Kangaeru is thinking/considering; the question seeks an opinion or supposition, usually omou. Minor precision concern, not a contrary proposition."
+        }
+      ]
+    },
+    {
+      "case": "D134",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Kufikiri can express the requested supposition; source grammar intentionally remains.",
+      "span_concerns": []
+    },
+    {
+      "case": "D135",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D136",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D136",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D137",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D138",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D139",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D140",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Tu preserves restriction in only live once; source position is retained rather than Swahili word order.",
+      "span_concerns": []
+    },
+    {
+      "case": "D141",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Movies and true story retain their referents; monogatari need not mean fiction.",
+      "span_concerns": []
+    },
+    {
+      "case": "D142",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Filamu and hadithi preserve the films and account; true remains explicit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D142",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Filamu and hadithi preserve the films and account; true remains explicit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D143",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D144",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D145",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D146",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D147",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D148",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D149",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Piza retains the preferred food.",
+      "span_concerns": []
+    },
+    {
+      "case": "D150",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Piza retains the preferred food.",
+      "span_concerns": []
+    },
+    {
+      "case": "D151",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Inu retains dogs as animals.",
+      "span_concerns": []
+    },
+    {
+      "case": "D152",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Mbwa retains dogs as animals.",
+      "span_concerns": []
+    },
+    {
+      "case": "D153",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D154",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+      "span_concerns": []
+    },
+    {
+      "case": "D155",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No displayed immersion spans; unchanged source receives no usefulness credit.",
+      "span_concerns": []
+    },
+    {
+      "case": "D156",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Wapi retains the source location question, not a content noun or predicate.",
+      "span_concerns": []
+    },
+    {
+      "case": "D157",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Shitteiru can express acknowledged knowledge here; its discourse function is not credited as a new useful proposition.",
+      "span_concerns": []
+    },
+    {
+      "case": "D157",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Shitteiru can express acknowledged knowledge here; its discourse function is not credited as a new useful proposition.",
+      "span_concerns": []
+    },
+    {
+      "case": "D158",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Kujua retains acknowledged knowledge in mixed grammar; this discourse marker is not credited as new useful content.",
+      "span_concerns": []
+    },
+    {
+      "case": "D158",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Kujua retains acknowledged knowledge in mixed grammar; this discourse marker is not credited as new useful content.",
+      "span_concerns": []
+    },
+    {
+      "case": "D159",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Ocha retains tea in the iced-tea expression.",
+      "span_concerns": []
+    },
+    {
+      "case": "D160",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Chai retains tea, with iced unchanged and affirmation compatible where present.",
+      "span_concerns": []
+    },
+    {
+      "case": "D160",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Chai retains tea, with iced unchanged and affirmation compatible where present.",
+      "span_concerns": []
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "complete": true,
+  "recorded_at": "2026-11-10T01:02:44.305661+00:00",
+  "default_rows": 320,
+  "changed_rows": 2,
+  "unchanged_selected_outputs": 318,
+  "control_only_rerun": true,
+  "default_rows_replayed": 0,
+  "original_control_failure_preserved": true,
+  "synthetic_legacy_control": {
+    "unmasked": 1,
+    "masked": 0
+  },
+  "settings_system_main_unchanged": true,
+  "owned_emulator_absent": true,
+  "canonical_packs_installed_by_worker": false,
+  "qualified_runtime_sha256": "1f401f3cdedbb2681f47045fca9fc060b9b7565f398050acb68480b9e48bd17f",
+  "bindings": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/protocol.json",
+      "bytes": 1213,
+      "sha256": "8e6c8d475b36d7fde1386f3b3a577f70786fd87b7e5ed422aae8d313a8da77ac"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/primary-evidence-r01.json",
+      "bytes": 2234,
+      "sha256": "a46bafe86eb37288023d439cfded4a0591cb8a3bc3275eda096cbcc93858a11b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-delta-r01.json",
+      "bytes": 438,
+      "sha256": "aaf6d44bbbe0d621d68bd96ed1a83ea317326b13b6bc1d483f933b9bc9a14fab"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-freeze-r01.json",
+      "bytes": 1977,
+      "sha256": "9fa2ec0be22d751c6f8ef6db752d8fc695745d188a5168188889bebb74f3ad43"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-stage-r01.json",
+      "bytes": 7763,
+      "sha256": "aa5ee846e974196652aca3724d10ae449f000d5cf1cb59a5a65f3580ef83a6eb"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-assembly-r01/receipt.json",
+      "bytes": 8062,
+      "sha256": "a002a1a1142fefb8a038f586f3441225c5363324c8eedc74b997139b0459773d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/receipt.json",
+      "bytes": 791,
+      "sha256": "717ab08078df762184252c0fe208e8fd5ae2732592b6671c36ce3a9e1c2fee12"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/output.stdout",
+      "bytes": 645051,
+      "sha256": "c217e55d2ed3114b9435ccce6dd954f1b17dcb38835eabe3e2e19466ca81792a"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/status.stdout",
+      "bytes": 142,
+      "sha256": "f6c3a210538870f2173f78a873efc22d8be1ead08e1155ef80f4a243ca8173d2"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/capture.stdout",
+      "bytes": 2304,
+      "sha256": "dae5d320d7b584ae93a78871bb195ae41c5b47614a480d1afda0e33aedd5fb41"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-default-verification-r01.json",
+      "bytes": 3406,
+      "sha256": "90d78ccd5f90732faa25653c9a7a29c26b5cfe0d5cfb7f07bb2ce16c85f9c719"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/control-amendment-r02.json",
+      "bytes": 847,
+      "sha256": "33e6a85ffc9943a88971e5272a1c5b28a329a4c04714accf82d4d0c7af827853"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-freeze-r02.json",
+      "bytes": 1069,
+      "sha256": "b5886fdd82e0eee759ba28d8c376310eff04551641cbd34e3733ee2201e481ef"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-stage-r02.json",
+      "bytes": 7213,
+      "sha256": "55cc4772051aec87643a7d2b2cc4249b098ecb0c79f6d9b11cc25eb0bbdd7a9f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-assembly-r02/receipt.json",
+      "bytes": 8036,
+      "sha256": "e8450864f3fdb86f3e49444b4c02cadb0b7d62a2b627aeb39cebc806bbb2f13e"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-capture-r02/receipt.json",
+      "bytes": 1066,
+      "sha256": "235b1b86b95272233a3b7dce1d44c13a9cfa35c57bbb79d67ca5c37a9063f062"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-capture-r02/controls.stdout",
+      "bytes": 1235,
+      "sha256": "83c31eb9b1831abe0c599c14323f2ff309fa43fc36f85055503f2925f20e6ecf"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-control-capture-r02/status.stdout",
+      "bytes": 83,
+      "sha256": "177c58ff73122b021cb00040056d3e57df76c6fc5f162e1adf91609f4d20a83d"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/candidate-r01/starter-en-sw-005.json",
+      "bytes": 55821,
+      "sha256": "c4403e5bb254838a28348d32277c47dcfaa126e7a91a81be6a197ad608b278d7"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/candidate-r01/starter-sw-catalog.json",
+      "bytes": 210,
+      "sha256": "338493d918e5eb174df9262d674eeda4b01e9cb4c2103bf7da175c89fbec0f98"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/PLAN.md",
+      "bytes": 2018,
+      "sha256": "5508bdd740fa53368cef0591df75368d80d9c1f99598e81169bee43e1cccafac"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/RESULT.md",
+      "bytes": 2804,
+      "sha256": "0048726b461b1f2ddc2adb039a537398e01cd7f070b8fbc5108c701b58e4d568"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/ContextualSenseHoldTest.kt",
+      "bytes": 6860,
+      "sha256": "5060f9cf1b23edce85bc28d5e20b82c31abfdbf08befdca9073f79100218a54b"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/ContextualSenseMaskTest.kt",
+      "bytes": 3001,
+      "sha256": "00d9558a39482580cee03b26f010c56204cb92f859c41dbe0630447a9c3adbbd"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/stage_android.py",
+      "bytes": 1801,
+      "sha256": "de783126a49ff774d42f8f897804025c2dbd95e559151c2286f30ed4a324e0b8"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/run_assembly.py",
+      "bytes": 2815,
+      "sha256": "761f1978101cd7ac1d433db57f16389de2b2161e1cc46d3bcfeb5c6eb670f69b"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/run_capture.py",
+      "bytes": 7168,
+      "sha256": "3a22795f8327a485beedbda90f89f87cbb7994b279372dac8d2297b473e27c36"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/run_control_assembly.py",
+      "bytes": 2818,
+      "sha256": "32352f676108fb83e3c5af74623d999426ceb5b3dac18c2c3cd7529272268047"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/run_control_capture.py",
+      "bytes": 7219,
+      "sha256": "92e0a526590261bcc519b64a24d25725085b54ab9982f4c11714b56b6fa5d78d"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-sense-hold-r01/verify_default.py",
+      "bytes": 3125,
+      "sha256": "22ffb0da2ecab84e2c1ec3dc6282ce4ad27675c31d9090b383b30c9e441da636"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt",
+      "bytes": 11025,
+      "sha256": "1f401f3cdedbb2681f47045fca9fc060b9b7565f398050acb68480b9e48bd17f"
+    }
+  ]
+}

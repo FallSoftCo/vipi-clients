@@ -1,0 +1,587 @@
+{
+  "schema": "vipi-conversation-depth-source-protocol-1",
+  "created_utc": "2026-11-10T00:26:38.401747+00:00",
+  "base_commit": "1d42f9c09c895a757172c8bdce22f0676c6e0d6f",
+  "seed": "vipi-conversation-depth-20261109-r01-source-only",
+  "valid_sha256": "9033cf4ff55a374f0ab3445682a2a64c87f91eddd274a6b28fa1512616aa24aa",
+  "cross_split_inputs": {
+    "train.json": "a5a9672c3e2e8a2f3d740cb0b61810ad46f3e3cd7bbe86b8d79962c6b34ad33c",
+    "test.json": "14ee0431113d28ca5e9424212170196c7e45706e96e7b46d34d52b96cbd0b380"
+  },
+  "sample": {
+    "persona": 40,
+    "empathetic": 40,
+    "one_free_worker_turn_per_conversation": true,
+    "source_only": true,
+    "nonblank": true,
+    "max_utf16": 16384
+  },
+  "length_quotas": {
+    "short": 10,
+    "medium": 20,
+    "long": 10
+  },
+  "length_definition": "Whitespace token count for sampling only: 1\u20135 / 6\u201315 / 16+. Native token geometry used for output metrics; no upper word-count cutoff.",
+  "selection": "Deterministic augmenting-path conversation assignment across fixed short,medium,long slots; each slot orders eligible per-conversation representative turns by SHA256(seed NUL stable ID); no native matching or target inspection. Preserve insufficient-pool/duplicate failures; no automatic substitution.",
+  "exposure_policy": "Exclude known VALID conversation IDs; selected source exact or NFC/casefold/whitespace normalized overlap with enumerated source/prior review inputs, legacy index or any TRAIN/TEST free-worker text; exclude nonempty complete prior sequence exact/normalized reuse. Individual common prior-turn overlap is recorded, not mistaken for identical conversation/excluded wholesale.",
+  "exposure_limits": [
+    "Finite declared artifact inventory, not a proof of every historical agent view.",
+    "Generic source/text fields include frozen diagnostic input declarations and anonymous review sheets; their presence is conservative exposure evidence, not all machine-stored corpus contexts.",
+    "Prior individual turn overlap (e.g. greetings) is reported; only complete prior sequence collision excludes a candidate.",
+    "BST free worker is human; preceding guided worker may incorporate model suggestions. No population, model-training or native-human-gold claim."
+  ],
+  "exposure_inputs": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-japanese-starter-promotion-20261109-r01/fresh-inputs.json",
+      "sha256": "94564372591ea941dc774bc2ab1c56c6470870504cfa0d98495851d4f2a5ef34",
+      "bytes": 3158
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-japanese-starter-promotion-20261109-r01/root-fresh-inputs-r01.json",
+      "sha256": "c801c434417042d78e3d5d98b4722889ce3e2768b2589e5252ca0381230c0d02",
+      "bytes": 2890
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r01/baseline-cases.json",
+      "sha256": "318e7b88994d65d86a813b29ed60792424a43697231684236964004da9c439b4",
+      "bytes": 56651
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r01/cases.json",
+      "sha256": "7e07547b3fc794fd02f0f3ce0bae9beece5e23efbb5f13996505113b74cad549",
+      "bytes": 73936
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r02/baseline-cases.json",
+      "sha256": "318e7b88994d65d86a813b29ed60792424a43697231684236964004da9c439b4",
+      "bytes": 56651
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r02/cases.json",
+      "sha256": "177aeb7b6ec02e6f5dd9117883f2f19cd37852d3277430444cadf1b0e6e668b3",
+      "bytes": 75798
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r03/baseline-cases.json",
+      "sha256": "318e7b88994d65d86a813b29ed60792424a43697231684236964004da9c439b4",
+      "bytes": 56651
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/native-inputs-r03/cases.json",
+      "sha256": "177aeb7b6ec02e6f5dd9117883f2f19cd37852d3277430444cadf1b0e6e668b3",
+      "bytes": 75798
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/review-apple-r01/anonymous-review.json",
+      "sha256": "3528a4aae2f4ecff187eb0cefd0277d32e5ab7380662828d3571a99c21e993b2",
+      "bytes": 327852
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-source-context-frames-20261109-r01/review-merged-r01/anonymous-review.json",
+      "sha256": "b298f8b9b56907b99f7fc96d7caf6c0fa98e21f0f51a7824417d8afcd4d284d4",
+      "bytes": 328021
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/review-r01/anonymous-packet.json",
+      "sha256": "6cc996f341fa973a4b5504336c377efd2d4104d61b7c477d1ac884a99104c885",
+      "bytes": 470898
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-content-expansion-20261109-r01/review-r02/anonymous-packet.json",
+      "sha256": "65408af8b02345ff3b4437537f6eb66ea8f4e6cf293930c69cc02d503aa1c7bf",
+      "bytes": 13929
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-starter-packing-density-20261109-r01/review-r01/anonymous-packet.json",
+      "sha256": "e99e0bfba687f4b780a09136ab61b09a5e8c2c32306dab2b236c86408793d7b0",
+      "bytes": 569965
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/author-fresh-inputs-r01.json",
+      "sha256": "bc8cc6e5dd2ff0ee86b4a51c54afd3f8310f01d3fe7c1e979600bb5b925b3db5",
+      "bytes": 2419
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-swahili-starter-promotion-20261109-r01/root-fresh-inputs-r01.json",
+      "sha256": "15c97f8d9527865e31d5b59bd671295731203be5a2bf64e1fe8c57565bbb498f",
+      "bytes": 3493
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/android-native-context-pack-r01/amendment-20261109-r02/app/src/main/assets/role-inputs.json",
+      "sha256": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266",
+      "bytes": 15844
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/android-native-context-pack-r01/amendment-20261109-r03/app/src/main/assets/role-inputs.json",
+      "sha256": "896c629d47941f005e36c8afe513e99348ddb8b6a1e605213f9962829982a266",
+      "bytes": 15844
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-corpus-evidence-r01/execution-protocol-r02.json",
+      "sha256": "4989a791ffb8b672fe5f58ba56aa5789b23e5631ab19e8eb8249eebc65c92bdc",
+      "bytes": 6367
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-corpus-evidence-r01/execution-protocol.json",
+      "sha256": "0b5b24ffc189932e4f490f93ae8a944d1e41d472b33dd33392218d580ebb0187",
+      "bytes": 5238
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-corpus-evidence-r01/proposed-protocol.json",
+      "sha256": "3714b552c3345928f02db0e4b76f73f2d2baa01e7584da0fbce0f4426613190b",
+      "bytes": 3203
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-lexical-selection-r01/protocol.json",
+      "sha256": "aec4051cacd47e46a527e662be18409da38c5c97462c91b3f4681c821d9af5da",
+      "bytes": 6625
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-occurrence-roles-r01/protocol.json",
+      "sha256": "93276fb390ba1446cc47cb36070d5806925a2291825c52fa49186a7e83e8fc82",
+      "bytes": 23947
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apertium-transfer-feasibility-r01/protocol.json",
+      "sha256": "d78433f97063477619a4de7413d9293cfb05153f4f747001e8e968c2e7ad520d",
+      "bytes": 6953
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apple-japanese-tokenization-r01/inputs.json",
+      "sha256": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+      "bytes": 131916
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/apple-japanese-tokenization-r02/inputs.json",
+      "sha256": "7e1c4b967d7f08f86791558e5557f7062443c5dce88fa126a12781e2ebb480ed",
+      "bytes": 131916
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/bilingual-occurrence-roles-r01/protocol-r02.json",
+      "sha256": "52a5e4e5cad0d0ea45463f348321c32d2ef3ba91a12c279dcdaab6ee364114d9",
+      "bytes": 3709
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/bilingual-occurrence-roles-r01/protocol.json",
+      "sha256": "c61f84e4634da8ddb9f2b54ff3e90cc153d2f5c9f25153b4e30296fa2fa65d12",
+      "bytes": 2719
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-key-expansion-r01/head-protocol-r01.json",
+      "sha256": "d49bbcbb6f51686f414ba41d5f5865ecee11e97be15c62d7a19c72a657a31f64",
+      "bytes": 15875
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-key-expansion-r01/head-protocol-r02.json",
+      "sha256": "51739ac6a8d9f44ea385fd7ecb025c866bb3f5d7f440c35f6dd5dc0cafaa25b8",
+      "bytes": 16940
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-key-expansion-r01/missing-support-probe-r01-protocol.json",
+      "sha256": "a56a5b93f4fa83aef776b33625be9a05adbaf539a3b498c528604d1c9a875e42",
+      "bytes": 5891
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-key-expansion-r01/source-protocol.json",
+      "sha256": "820ffabbb7c9100d92f9f069e2fcd256bf2b7c3dda30204fe92ae63aeb414587",
+      "bytes": 2353
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-qualified-nouns-r01/protocol.json",
+      "sha256": "499fb50bc2d175b25c7fde3438326dd4f094866e8a199e00efe1126a579688e2",
+      "bytes": 11884
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/context-rule-lookup-r01/protocol.json",
+      "sha256": "a63969b5ceba833099d58dc9112e6e1ae9a9da2f0bcd206593ff6fe251ed70a5",
+      "bytes": 5689
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/contextual-lexical-selection-r01/protocol.json",
+      "sha256": "fb10aba675945eb208dc085ad9855ea9d8964b765d62faf5bc09787e859b1dc4",
+      "bytes": 6847
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/corpus-phrase-extraction-r01/protocol.json",
+      "sha256": "57e5ece9c986a3058e04be6b3873ac391d009fac614985f3fcfe391839ae6efa",
+      "bytes": 13994
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage-expansion-inventory-r01/protocol.json",
+      "sha256": "1bbce6ca15e13cf37cdac6513ec56f494c6a57699a27892edcc38f7edfe33328",
+      "bytes": 3081
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/apple-conversational-full-protocol-r01.json",
+      "sha256": "6cad526efe56994b5bda2d5d5512fb931a1462aa82adb0d6536ed5caa33efaad",
+      "bytes": 46666
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/apple-direct-parity-protocol-r01.json",
+      "sha256": "bcfc43c50873aebaafc3acc5b693c1c30693f2925dac65a5992eceb8bc56c922",
+      "bytes": 237051
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/complement-frame-holdout-r01.json",
+      "sha256": "e24f6af0d353b7a3028581eaf5d68f025d93b83ef7ebb79234fe208d1379a42b",
+      "bytes": 126428
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/content-expansion-context-heldout-r01.json",
+      "sha256": "20b6e9cb8a4f7295edfaa3590c1c288d77c1f8626723abf06771d4aa5c0fed82",
+      "bytes": 114692
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/conversational-direct-protocol-r01.json",
+      "sha256": "95fb58995247f49b192e131581fca9c3f4fc826d7b4e3536c2afb9b3a9df02d8",
+      "bytes": 1284824
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/conversational-holdout-source-r01.json",
+      "sha256": "76545660657732d09a98ac749cec9365292479c9d0a463563dfbe46e4e986586",
+      "bytes": 135431
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/direct-extension-native-protocol-r01.json",
+      "sha256": "00c9a1ef756427c069790ae86021e32e2624f3d883c8502025b6b04602d1b74e",
+      "bytes": 3013865
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/directional-native-protocol-r01.json",
+      "sha256": "aec5ced94bc82c071f16f568b078703a4460841201c079bf78eb0edaab9c9e73",
+      "bytes": 188168
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/editorial-content-contrasts-r01.json",
+      "sha256": "36bb41a479a7e8715c3517637911eac913cc65288c10cdb9815c5a8d9f46296c",
+      "bytes": 6971
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/japanese-transfer-heldout-r01.json",
+      "sha256": "8e6c6bd217df719c403c2d68f1a1605273c0c1e1857ea718a4003f6bf6caf160",
+      "bytes": 113316
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/native-protocol.json",
+      "sha256": "2b1fdf67eed1f52a0323e678730c34f5805fc1d300a999a521bef4b8d2a26471",
+      "bytes": 70694
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/normalized-native-protocol-r01.json",
+      "sha256": "d1d6909714c810ae1d188941fe6412679bebc391f4cf0bab7a787b2dc3358dde",
+      "bytes": 93356
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/role-content-contrasts-r01.json",
+      "sha256": "5021d99eba81f8352284a6a0390cce79f966820870410e2815df2f05ec643682",
+      "bytes": 6493
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/round-trip-native-protocol-r01.json",
+      "sha256": "ee79e818f4dc7d4101b8175456a6ed59d7faec2ef478cac7d4511d5ad414e4ca",
+      "bytes": 574280
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/short-conversation-authored-contrasts-r01.json",
+      "sha256": "dbdf6c2d5771351fb31d6ebc42d8ce3d0bba4b695b58c36974d75cda3e443544",
+      "bytes": 5893
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/short-conversation-context-heldout-r01.json",
+      "sha256": "3932b1d52b54497a633d150b75b7bb026d860b118125bd2f15376da18c8b3dbd",
+      "bytes": 120753
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-clause-heldout-valid-r03.json",
+      "sha256": "c3f3b4cc71ffe85b695e4c6fa3ac7bf4b8199ce840cf51aebf4bf2b4c3a8609e",
+      "bytes": 105701
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-only-fresh-protocol.json",
+      "sha256": "dda29150ff5a9ebe3a83c07084d14fc96151a7e18c10a0d109ea2ff0fb400662",
+      "bytes": 71457
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-unit-starter-native-protocol-r01.json",
+      "sha256": "fd89fd2bf9988b657fe3f8d689f23d5554364c9c5b73675ac80ebf6a6f2e3ec6",
+      "bytes": 82317
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-word-heldout-valid-r01.json",
+      "sha256": "88b779961d3c1d2e93d8df69e7f807fa5822c9c0f2fa7826dc0e1efff0c52553",
+      "bytes": 107655
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/source-word-heldout-valid-r02.json",
+      "sha256": "1231e05d1e3b19545ebdb3b8898ca192354302494df06055126d2f4ec739834b",
+      "bytes": 115301
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/coverage_ceiling_experiment/taskmaster-native-protocol-r01.json",
+      "sha256": "ee7b48847333461e6f2ac7ba584f6bef00740181232ad3dfc29310cb5a7782f0",
+      "bytes": 221730
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/flores200-heldout.json",
+      "sha256": "f8617d0ee6c4497aad494ddd3c412859f9381f9e4776e10d1fcdaeb2b1dd5df9",
+      "bytes": 64556
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/full-reading-probe-inputs-r01.json",
+      "sha256": "98e26a9fa030796ea138bb92a5dd62d445c405259e90127b6a572b296d042a38",
+      "bytes": 7820
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r01/inputs.json",
+      "sha256": "4da6c97e071b604f11a069648d172a7c58c2e3ae1460e354747192d434193b80",
+      "bytes": 119879
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r02/protocol.json",
+      "sha256": "87091763596886fb7a62f6c81d4f017a784053609840f29d935986c1acb90dca",
+      "bytes": 53109
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r03/protocol-erratum-r01.json",
+      "sha256": "bad6074110dcb5592ff0e70098d926d977fd7701bd2c6a6a98875def4a0bb68b",
+      "bytes": 59623
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r03/protocol.json",
+      "sha256": "453b06d9605cc5548ec15c315017f801f47140dfa79f58f4db5ac14a0ca8615d",
+      "bytes": 58691
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r04/converter-protocol.json",
+      "sha256": "1f8e8514d65dad02b1a7e4de1db52fd7bf28b78efc5084a126c50139d5bd1356",
+      "bytes": 430344
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-reading-r04/sentence-protocol-erratum-r01.json",
+      "sha256": "e325bb8b60567f594a7de72aeb1d263fc65e26c64c1bd57bd4beb670e3ca6462",
+      "bytes": 60294
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/japanese-starter-promotion-r01/correction-protocol-r05.json",
+      "sha256": "81845006f283e149eb215aa1dcb52f976bffed9b917b24162a51b57a4f267d3b",
+      "bytes": 1911
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/korean-reading-cldr-r01/stress-inputs-r01.json",
+      "sha256": "e2d1fa63621d3a16a7516d577fa6e78aa44a93d15e5a1d41a122ab3db1aea85b",
+      "bytes": 177907
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/korean-reading-r01/inputs.json",
+      "sha256": "b18de78e591117543a5475705e19a52e1707e45097f1c355bfd79ab856c8a155",
+      "bytes": 128651
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/lexical-choice-evidence-r01/protocol-r02.json",
+      "sha256": "b069c13179450d9ef1a0d5d49edb6b6fa743b6957ddd21c230743aec8fbff16c",
+      "bytes": 11029
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/lexical-choice-evidence-r01/protocol.json",
+      "sha256": "36aa91f1e634e639c4d498967bc7737f958019926f44e1002c22893ed76703e5",
+      "bytes": 9519
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-baseline-catalog-r01/protocol-r02.json",
+      "sha256": "bbb40ba3c6dab94722490d6a579de4219d442956f7290b7dce047dd54bfac612",
+      "bytes": 2506
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-baseline-catalog-r01/protocol.json",
+      "sha256": "c8fb143fcbbc34856cb94a1b5a443cfac3d303d9646d2204e6eccdd67a7ee852",
+      "bytes": 2247
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-context-pack-r01/protocol.json",
+      "sha256": "277ce0df82e64b92e304a3d976a89d0f3251e151fa47fefd747371dc464fe798",
+      "bytes": 5183
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-mac-translation-20261109-r01/protocol-platformDefault-r01.json",
+      "sha256": "93a27c5ea610586c5143821c276de8c42267e1c830001115253cc6474c38686e",
+      "bytes": 1156
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-mac-translation-20261109-r01/protocol.json",
+      "sha256": "2a4019d793651b808e710e9ebd4654ccf91c33b8f86696d2afa912e778a62a9d",
+      "bytes": 1151
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-source-annotations-r01/conditional-agreement-protocol.json",
+      "sha256": "b724fdbe2f5f499d0703742aa7adfed5e90ef9c0227deaf6b73df33fdbcaf9a3",
+      "bytes": 2918
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-source-annotations-r01/inputs.json",
+      "sha256": "cb37306db9723bf39ea41204674515c890fa12186d7e6ac052db06e6d1f27b14",
+      "bytes": 101622
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/native-source-annotations-r01/protocol.json",
+      "sha256": "3037c33a188571cfa6d8e6abd4959166efec1f53760f9d490a5c56b2c8460b73",
+      "bytes": 2433
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/authored-cases.json",
+      "sha256": "736be225fc4b6615e04efdfe8566bdf2e65681817377031ba61380c3f45f4f4f",
+      "bytes": 47382
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/preflight-r00/authored-cases.json",
+      "sha256": "b3b80f3c039526a9d45629c7278da09b5a971deaaaac67befe3480f471b280e9",
+      "bytes": 47382
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/provider-spot-protocol.json",
+      "sha256": "9ee9c3d25da7fd8acc1e10054e654ec6d4652f8ebcf44d79368e18b255669d83",
+      "bytes": 5722
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/nlp-template-comparison-r01/train-source-protocol.json",
+      "sha256": "4f0102f6a74dd79c60a770e24ed502bcc8c53158f070fdbe9545bdc0214507b3",
+      "bytes": 2657021
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/ordinary-adverb-contexts-r01/protocol.json",
+      "sha256": "0774338952fee17c8b09828484e321c75d72972200ad32335a3dd602d5c4c408",
+      "bytes": 6483
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/ordinary-content-preflight-r01/protocol.json",
+      "sha256": "adec11063aadf8ba4c0a44d0432b57deb7367005a85a52553929f0b30238e655",
+      "bytes": 3881
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/semantic-admission-gap-r01/protocol-r02.json",
+      "sha256": "e1220caf9fa6c41b0a4c5122e3e9d3d3bcd444550aaebc24a333681a9adeef38",
+      "bytes": 4996
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/semantic-admission-gap-r01/protocol.json",
+      "sha256": "676e169cf5483dacddf86b64df8caa1aee17040f418e9b3b940ce0c2db5858f9",
+      "bytes": 4642
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-context-frames-r01/protocol-r02.json",
+      "sha256": "b4abd1d8ebbe56e6260bfe543a8b4b5375c9715bcc86094aaa42fc2eab2b031e",
+      "bytes": 969
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-context-frames-r01/protocol.json",
+      "sha256": "c7b77cc3e1e4abcab0026fcdbf017949585aeab804c39c915bfd7b882824f82c",
+      "bytes": 2042
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-context-frames-r01/routing-protocol-r01.json",
+      "sha256": "80929efaec8c1a5377ea71db4210c8842e22cfaaa0831429e1265f58f70c5883",
+      "bytes": 808
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-name-scope-r01/protocol-r02.json",
+      "sha256": "faaa6e3f5674d71855720ab52604175c855fc913c2ee368d97a7fae19130a2de",
+      "bytes": 12805
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-name-scope-r01/protocol.json",
+      "sha256": "5767614a19065ed5dffe643f648077bcd083f86c7ad076b078315f9ebfb9f299",
+      "bytes": 10425
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source-role-veto-r01/comparison-protocol.json",
+      "sha256": "f4f22f184a7f05bc7fea15d17fd028951e38b7795d6afdd7818ffa36d98d145b",
+      "bytes": 6187
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/source_lookup_experiment/native-pilot-protocol.json",
+      "sha256": "13cffd415c8b73a54686bf2401f75897e7154944eab7c9e9a71a6513d2f85dad",
+      "bytes": 10276
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-content-expansion-r01/protocol.json",
+      "sha256": "595f873b4b60f3fb89bdc68e7b2abc32520cef60f7507151bd8014f107f22c71",
+      "bytes": 4097
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-comparison-r01/protocol.json",
+      "sha256": "b9b98b70239e310985520024a6892ed7d1b92d40569ec7eab3c4d4c7c1e2af9c",
+      "bytes": 4493
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/starter-packing-density-r01/protocol.json",
+      "sha256": "0c06a2d97d16334cff5dde3d955192e7a4d82ff620295213a6c617302a89db1c",
+      "bytes": 4622
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/swahili-starter-promotion-r01/protocol-r01.json",
+      "sha256": "555c8a4dc862462fbd63e2dfa51d571fc2e25073f8733b982b4db69c5bf1cbb6",
+      "bytes": 4314
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/swahili-starter-promotion-r01/protocol-r02.json",
+      "sha256": "3c49a555189515d8caceae0c5a3d93a06efd5ec3e1ffb8be1cb7807625413b3c",
+      "bytes": 5381
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/swahili-starter-promotion-r01/ui-protocol-r01.json",
+      "sha256": "884ad4f32381304b60e86f65a70b294c4587eee64a521f9026f11a87bef51a8c",
+      "bytes": 2342
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-alignment-r01/protocol.json",
+      "sha256": "a3123e2da5ce13f9767d687c10bc62aff739e31615009bea2f14cd73a2b86f16",
+      "bytes": 3617
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/target-informed-taskmaster-r01/protocol.json",
+      "sha256": "682295ae869081fd31f78c8e7f1ff662ee02d053e3f3368c0abd35aef5b52c49",
+      "bytes": 3153
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-first-r01/protocol.json",
+      "sha256": "8febb6c43821e6ffd73f79854d5cc1ccdfcc2fdf7f1a8c68673db092eb9a83ba",
+      "bytes": 1473
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-source-roles-r01/protocol.json",
+      "sha256": "bb48b39cfa336a83fdcd529b7cb5c504cbb1be7e7d96a298af5dc1d52a8e839a",
+      "bytes": 1655
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/taskmaster-structural-evidence-r01/protocol.json",
+      "sha256": "2f12fb99fd6e77ce94c12fdb26c51b76a8e3ba1c20dccda81e9299b0f75b2943",
+      "bytes": 1242
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/tatoeba-domain-comparison-r01/protocol.json",
+      "sha256": "7aab49bf0aa81e478922feb9e655d2369bacdbf97bd98f76b93f3a5fcc9e5d65",
+      "bytes": 12269
+    }
+  ],
+  "legacy_exclusion_index": {
+    "path": "/home/ai/Development/investigations/vipi-immersion-reconciliation-20261107-r01/corpus-phrase-extraction-r01/evaluation-exclusion-hashes.json",
+    "sha256": "f0aab9c30e5764504241aa0ed0ce7ee593c8f78eb0c1b78ad007ce0776915a9d"
+  },
+  "prepare_sha256": "85defc166e40d4a7252a4efe1565b6cac57b782e6bed1693d73023b862b90add",
+  "native": {
+    "pairs": [
+      "en-ja",
+      "en-sw"
+    ],
+    "densities": [
+      0.25,
+      0.75
+    ],
+    "known_ids": [],
+    "rows": 320,
+    "provider": "actual current default; no provider/target/span injection",
+    "translation_model_calls": 0,
+    "review_context_staged": false
+  },
+  "license": "BST CC BY 4.0 per retained dataset README/LICENSE_DOCUMENTATION; attribution remains retained",
+  "source_texts_not_printed": true
+}

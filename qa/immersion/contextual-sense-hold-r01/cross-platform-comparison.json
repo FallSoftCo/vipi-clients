@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-11-10T00:57:34.268625+00:00",
+  "rows": 320,
+  "comparable_fields": [
+    "source",
+    "known_ids",
+    "native_words",
+    "spans",
+    "mixed_script",
+    "mixed_reading",
+    "reference_hit",
+    "translation_calls"
+  ],
+  "exactly_changed": [
+    [
+      "bst-valid-depth-r01-0878-10",
+      "en-sw",
+      0.25
+    ],
+    [
+      "bst-valid-depth-r01-0878-10",
+      "en-sw",
+      0.75
+    ]
+  ],
+  "other318_selections_readings_geometry_unchanged": true,
+  "both_platforms_zero_translation_calls": true,
+  "qualified_without_prepared_translation_models": true,
+  "android_r01_overall_control_failed_and_retained": true,
+  "bindings": {
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/apple-capture-r01/inputs-r01/apple-output.jsonl": "f88f9feb08ca1a9081bdc7f72554e24bbc4e1e97c305efef518f8eb740d79f1f",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-capture-r01/output.stdout": "c217e55d2ed3114b9435ccce6dd954f1b17dcb38835eabe3e2e19466ca81792a",
+    "/home/ai/Development/investigations/vipi-contextual-sense-hold-20261109-r01/android-default-verification-r01.json": "90d78ccd5f90732faa25653c9a7a29c26b5cfe0d5cfb7f07bb2ce16c85f9c719"
+  }
+}

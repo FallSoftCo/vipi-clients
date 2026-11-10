@@ -49,7 +49,7 @@ import VipiCore
         guard p.schema == "vipi-source-starter-1", p.source == "en", p.target == "sw", p.version == m.version,
               p.entries.count == m.entries, (1...512).contains(p.entries.count), Set(p.entries.map(\.id)).count == p.entries.count,
               p.entries.allSatisfy({ !$0.id.isEmpty && !$0.source_tokens.isEmpty && !$0.target.isEmpty && $0.reading == nil && $0.reading_kana == nil && !$0.concept_id.isEmpty &&
-                  [nil,"ordinary_noun_context","interrogative"].contains($0.guardValue) && ["content","function"].contains($0.category) &&
+                  [nil,"ordinary_noun_context","interrogative","withheld_contextual_sense"].contains($0.guardValue) && ["content","function"].contains($0.category) &&
                   $0.record_sha256.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil }) else { throw Invalid.pack }
         pack = p; sha = m.sha256
     }
@@ -100,6 +100,7 @@ import VipiCore
                 else if (i..<(j-1)).contains(where: { !Self.whitespaceGap(gap(NSMaxRange(tokens[$0]), tokens[$0+1].location)) }) { reason = "noncontiguous_source_unit" }
                 else if keys[i] != "i", first.count > 1, first == first.uppercased(), first != first.lowercased() { reason = "uppercase_identifier" }
                 else if keys[i] != "i", first.first?.isUppercase == true, !initial { reason = "mid_sentence_capital" }
+                else if entry.guardValue == "withheld_contextual_sense" { reason = "unqualified_source_sense" }
                 else if entry.guardValue == "interrogative" {
                     if !initial { reason = "question_not_sentence_initial" }
                     else if j >= keys.count || !(entry.following ?? []).contains(keys[j]) { reason = "question_right_context_absent" }

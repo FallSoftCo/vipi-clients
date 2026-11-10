@@ -74,6 +74,27 @@ No live hold is enabled. See the recovery-hold receipt in the same directory.
 
 ## Current language decision
 
+The newer ordinary-conversation diagnostic exposes a substantial content-depth
+gap. On 80 source messages from separate retained BST VALID conversations, both
+native routes produce identical results at two densities. At .75 the baseline
+reaches 63 Japanese and 68 Swahili messages with any span, but the independent
+reviewer credits useful, strictly compatible content in only 31 and 35 messages.
+Correct useful-content depth is about 4.7–6.2% Japanese and 5.5–6.8% Swahili
+across the two reviewers. The finite-context patterns contribute no selected
+unit in this sample. These measurements isolate lookup with translation-model
+availability disabled; they do not measure the complete product with prepared
+local translation models. See `qa/immersion/conversation-depth-r01/REVIEWED_RESULT.md`.
+This exposed sample is now development evidence, with a retained exposure ledger.
+
+The diagnostic's cat-hair meaning error is corrected by withholding the
+unqualified Swahili human-head-hair mapping. Both native default routes agree:
+only the two affected density rows change; the other 318 selections stay the
+same. Source masks prevent alignment fallback from restoring the withheld
+mapping. The retained 213-entry pack changes only this guard; valid human-hair
+uses are also withheld. Swahili any-span reach therefore falls to 67/80 in this
+diagnostic. See `qa/immersion/contextual-sense-hold-r01/FINAL_RESULT.md` for
+qualification, the retained failed Android control and its isolated amendment.
+
 The reviewed source-context increment is now enabled in both clients. Existing exact
 and composed full references retain priority; on misses, finite reviewed phrase
 contexts add whole units before ordinary starter vocabulary within one budget.

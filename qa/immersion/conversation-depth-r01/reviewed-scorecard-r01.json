@@ -1,0 +1,1135 @@
+{
+  "schema": "vipi-conversation-depth-reviewed-scorecard-1",
+  "baseline_revision": "1d42f9c",
+  "source_messages": 80,
+  "native_rows_per_platform": 320,
+  "distinct_reviewed_options": 189,
+  "model_availability_forced_unavailable": true,
+  "scope": "Local lookup coverage only; does not measure installed translation-model fallback or learning outcomes.",
+  "source_frame_units_selected": 0,
+  "exact_reference_hits": 0,
+  "native_human_gold": false,
+  "reviewers_kept_separate": true,
+  "scores": [
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 58,
+        "minor": 5,
+        "empty": 17
+      },
+      "strict_useful_messages": 38,
+      "minor_inclusive_useful_messages": 43,
+      "macro_strict_correct_depth": 0.13818483387424782,
+      "macro_minor_inclusive_correct_depth": 0.15099733387424782,
+      "macro_strict_useful_content_depth": 0.05938253134875325,
+      "selected_native_words": 137,
+      "native_words": 864
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "empty": 7,
+        "minor": 3
+      },
+      "strict_useful_messages": 19,
+      "minor_inclusive_useful_messages": 22,
+      "macro_strict_correct_depth": 0.1403751919734892,
+      "macro_minor_inclusive_correct_depth": 0.15391685864015586,
+      "macro_strict_useful_content_depth": 0.06364993301332311,
+      "selected_native_words": 66,
+      "native_words": 417
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 28,
+        "minor": 2,
+        "empty": 10
+      },
+      "strict_useful_messages": 19,
+      "minor_inclusive_useful_messages": 21,
+      "macro_strict_correct_depth": 0.13599447577500645,
+      "macro_minor_inclusive_correct_depth": 0.1480778091083398,
+      "macro_strict_useful_content_depth": 0.05511512968418339,
+      "selected_native_words": 71,
+      "native_words": 447
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 58,
+        "minor": 5,
+        "empty": 17
+      },
+      "strict_useful_messages": 39,
+      "minor_inclusive_useful_messages": 44,
+      "macro_strict_correct_depth": 0.15485418807077594,
+      "macro_minor_inclusive_correct_depth": 0.17079168807077594,
+      "macro_strict_useful_content_depth": 0.061870454054067256,
+      "selected_native_words": 153,
+      "native_words": 864
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "empty": 7,
+        "minor": 3
+      },
+      "strict_useful_messages": 20,
+      "minor_inclusive_useful_messages": 23,
+      "macro_strict_correct_depth": 0.16093074752904474,
+      "macro_minor_inclusive_correct_depth": 0.1744724141957114,
+      "macro_strict_useful_content_depth": 0.067538821902212,
+      "selected_native_words": 71,
+      "native_words": 417
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 28,
+        "minor": 2,
+        "empty": 10
+      },
+      "strict_useful_messages": 19,
+      "minor_inclusive_useful_messages": 21,
+      "macro_strict_correct_depth": 0.14877762861250712,
+      "macro_minor_inclusive_correct_depth": 0.16711096194584046,
+      "macro_strict_useful_content_depth": 0.05620208620592252,
+      "selected_native_words": 82,
+      "native_words": 447
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 62,
+        "minor": 4,
+        "empty": 12,
+        "uncertain": 1,
+        "material": 1
+      },
+      "strict_useful_messages": 41,
+      "minor_inclusive_useful_messages": 45,
+      "macro_strict_correct_depth": 0.15441828010208258,
+      "macro_minor_inclusive_correct_depth": 0.16548445657267083,
+      "macro_strict_useful_content_depth": 0.06497313008824905,
+      "selected_native_words": 151,
+      "native_words": 864
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 32,
+        "empty": 5,
+        "minor": 2,
+        "material": 1
+      },
+      "strict_useful_messages": 21,
+      "minor_inclusive_useful_messages": 23,
+      "macro_strict_correct_depth": 0.15485070366939563,
+      "macro_minor_inclusive_correct_depth": 0.16526737033606229,
+      "macro_strict_useful_content_depth": 0.06570350444189453,
+      "selected_native_words": 72,
+      "native_words": 417
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "minor": 2,
+        "empty": 7,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 20,
+      "minor_inclusive_useful_messages": 22,
+      "macro_strict_correct_depth": 0.15398585653476957,
+      "macro_minor_inclusive_correct_depth": 0.16570154280927937,
+      "macro_strict_useful_content_depth": 0.06424275573460356,
+      "selected_native_words": 79,
+      "native_words": 447
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 62,
+        "minor": 4,
+        "empty": 12,
+        "uncertain": 1,
+        "material": 1
+      },
+      "strict_useful_messages": 41,
+      "minor_inclusive_useful_messages": 45,
+      "macro_strict_correct_depth": 0.18370982606089115,
+      "macro_minor_inclusive_correct_depth": 0.1962465907667735,
+      "macro_strict_useful_content_depth": 0.06811894753040516,
+      "selected_native_words": 179,
+      "native_words": 864
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 32,
+        "empty": 5,
+        "minor": 2,
+        "material": 1
+      },
+      "strict_useful_messages": 21,
+      "minor_inclusive_useful_messages": 23,
+      "macro_strict_correct_depth": 0.18822845895504564,
+      "macro_minor_inclusive_correct_depth": 0.1986451256217123,
+      "macro_strict_useful_content_depth": 0.07090818280446763,
+      "selected_native_words": 82,
+      "native_words": 417
+    },
+    {
+      "reviewer": "root",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "minor": 2,
+        "empty": 7,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 20,
+      "minor_inclusive_useful_messages": 22,
+      "macro_strict_correct_depth": 0.17919119316673665,
+      "macro_minor_inclusive_correct_depth": 0.19384805591183468,
+      "macro_strict_useful_content_depth": 0.0653297122563427,
+      "selected_native_words": 97,
+      "native_words": 447
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 57,
+        "minor": 6,
+        "empty": 17
+      },
+      "strict_useful_messages": 31,
+      "minor_inclusive_useful_messages": 37,
+      "macro_strict_correct_depth": 0.1355532549268794,
+      "macro_minor_inclusive_correct_depth": 0.15099733387424782,
+      "macro_strict_useful_content_depth": 0.04665966413169099,
+      "selected_native_words": 137,
+      "native_words": 864
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 29,
+        "empty": 7,
+        "minor": 4
+      },
+      "strict_useful_messages": 16,
+      "minor_inclusive_useful_messages": 20,
+      "macro_strict_correct_depth": 0.13511203407875236,
+      "macro_minor_inclusive_correct_depth": 0.15391685864015586,
+      "macro_strict_useful_content_depth": 0.05198197635697636,
+      "selected_native_words": 66,
+      "native_words": 417
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.25,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 28,
+        "minor": 2,
+        "empty": 10
+      },
+      "strict_useful_messages": 15,
+      "minor_inclusive_useful_messages": 17,
+      "macro_strict_correct_depth": 0.13599447577500645,
+      "macro_minor_inclusive_correct_depth": 0.1480778091083398,
+      "macro_strict_useful_content_depth": 0.04133735190640561,
+      "selected_native_words": 71,
+      "native_words": 447
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 57,
+        "minor": 6,
+        "empty": 17
+      },
+      "strict_useful_messages": 31,
+      "minor_inclusive_useful_messages": 37,
+      "macro_strict_correct_depth": 0.15222260912340752,
+      "macro_minor_inclusive_correct_depth": 0.17079168807077594,
+      "macro_strict_useful_content_depth": 0.04735410857613543,
+      "selected_native_words": 153,
+      "native_words": 864
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 29,
+        "empty": 7,
+        "minor": 4
+      },
+      "strict_useful_messages": 16,
+      "minor_inclusive_useful_messages": 20,
+      "macro_strict_correct_depth": 0.1556675896343079,
+      "macro_minor_inclusive_correct_depth": 0.1744724141957114,
+      "macro_strict_useful_content_depth": 0.05337086524586525,
+      "selected_native_words": 71,
+      "native_words": 417
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-ja",
+      "density": 0.75,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 28,
+        "minor": 2,
+        "empty": 10
+      },
+      "strict_useful_messages": 15,
+      "minor_inclusive_useful_messages": 17,
+      "macro_strict_correct_depth": 0.14877762861250712,
+      "macro_minor_inclusive_correct_depth": 0.16711096194584046,
+      "macro_strict_useful_content_depth": 0.04133735190640561,
+      "selected_native_words": 82,
+      "native_words": 447
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 63,
+        "minor": 4,
+        "empty": 12,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 35,
+      "minor_inclusive_useful_messages": 39,
+      "macro_strict_correct_depth": 0.1575432801020826,
+      "macro_minor_inclusive_correct_depth": 0.1672701708583851,
+      "macro_strict_useful_content_depth": 0.05398436374837977,
+      "selected_native_words": 151,
+      "native_words": 864
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 33,
+        "empty": 5,
+        "minor": 1,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 20,
+      "minor_inclusive_useful_messages": 21,
+      "macro_strict_correct_depth": 0.1611007036693956,
+      "macro_minor_inclusive_correct_depth": 0.16526737033606229,
+      "macro_strict_useful_content_depth": 0.06006624953993375,
+      "selected_native_words": 72,
+      "native_words": 417
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.25,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "minor": 3,
+        "empty": 7
+      },
+      "strict_useful_messages": 15,
+      "minor_inclusive_useful_messages": 18,
+      "macro_strict_correct_depth": 0.15398585653476957,
+      "macro_minor_inclusive_correct_depth": 0.16927297138070796,
+      "macro_strict_useful_content_depth": 0.047902477956825784,
+      "selected_native_words": 79,
+      "native_words": 447
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "all",
+      "messages": 80,
+      "labels": {
+        "compatible": 63,
+        "minor": 4,
+        "empty": 12,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 35,
+      "minor_inclusive_useful_messages": 39,
+      "macro_strict_correct_depth": 0.18683482606089113,
+      "macro_minor_inclusive_correct_depth": 0.19981801933820206,
+      "macro_strict_useful_content_depth": 0.05467880819282421,
+      "selected_native_words": 179,
+      "native_words": 864
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "persona",
+      "messages": 40,
+      "labels": {
+        "compatible": 33,
+        "empty": 5,
+        "minor": 1,
+        "uncertain": 1
+      },
+      "strict_useful_messages": 20,
+      "minor_inclusive_useful_messages": 21,
+      "macro_strict_correct_depth": 0.19447845895504565,
+      "macro_minor_inclusive_correct_depth": 0.1986451256217123,
+      "macro_strict_useful_content_depth": 0.06145513842882264,
+      "selected_native_words": 82,
+      "native_words": 417
+    },
+    {
+      "reviewer": "author",
+      "pair": "en-sw",
+      "density": 0.75,
+      "stratum": "empathetic",
+      "messages": 40,
+      "labels": {
+        "compatible": 30,
+        "minor": 3,
+        "empty": 7
+      },
+      "strict_useful_messages": 15,
+      "minor_inclusive_useful_messages": 18,
+      "macro_strict_correct_depth": 0.17919119316673665,
+      "macro_minor_inclusive_correct_depth": 0.20099091305469183,
+      "macro_strict_useful_content_depth": 0.047902477956825784,
+      "selected_native_words": 97,
+      "native_words": 447
+    }
+  ],
+  "disagreements": [
+    {
+      "case": "D001",
+      "option": "o0",
+      "root": {
+        "case": "D001",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D001",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Emphasis really and interrogative what retain their functions; this does not translate the proposed activity or effort.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D002",
+      "option": "o0",
+      "root": {
+        "case": "D002",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          2
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D002",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Emphasis, comparative degree and interrogative words retain their functions; none supplies the central activity predicate.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D013",
+      "option": "o0",
+      "root": {
+        "case": "D013",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D013",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Pronoun and emphasis retain their local roles, with the ineffective discipline predicate left in English.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D014",
+      "option": "o0",
+      "root": {
+        "case": "D014",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D014",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Kweli preserves the emphasis on ineffectiveness; no content predicate is translated.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D018",
+      "option": "o0",
+      "root": {
+        "case": "D018",
+        "option": "o0",
+        "label": "uncertain",
+        "useful_span_indices": [],
+        "rationale": "No idea expresses lack of knowledge here; wazo is an idea/thought. Idiomatic compatibility is not established by this lexical face."
+      },
+      "author": {
+        "case": "D018",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern.",
+        "span_concerns": [
+          {
+            "span_index": 0,
+            "label": "minor",
+            "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D018",
+      "option": "o1",
+      "root": {
+        "case": "D018",
+        "option": "o1",
+        "label": "uncertain",
+        "useful_span_indices": [],
+        "rationale": "No idea expresses lack of knowledge here; wazo is an idea/thought. Idiomatic compatibility is not established by this lexical face."
+      },
+      "author": {
+        "case": "D018",
+        "option": "o1",
+        "label": "minor",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern.",
+        "span_concerns": [
+          {
+            "span_index": 0,
+            "label": "minor",
+            "rationale": "No idea here means lack of knowledge, not absence of a proposed thought. Wazo is readily interpretable in this mixed idiom but less precise than the knowledge sense; minor lexical-context concern."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D035",
+      "option": "o0",
+      "root": {
+        "case": "D035",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D035",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Saisho retains the initial/original sense within in the first place; this fragment is not credited as a complete construction.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D036",
+      "option": "o0",
+      "root": {
+        "case": "D036",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+      },
+      "author": {
+        "case": "D036",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Kwanza retains the initial sense within in the first place; no complete idiom is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D042",
+      "option": "o0",
+      "root": {
+        "case": "D042",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D042",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D051",
+      "option": "o0",
+      "root": {
+        "case": "D051",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D051",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D052",
+      "option": "o0",
+      "root": {
+        "case": "D052",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D052",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D069",
+      "option": "o1",
+      "root": {
+        "case": "D069",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D069",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          3,
+          5
+        ],
+        "rationale": "Knowing factual information is preserved, including source negations and repeated distinct occurrences.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D070",
+      "option": "o1",
+      "root": {
+        "case": "D070",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          4,
+          6,
+          7
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D070",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          4,
+          6
+        ],
+        "rationale": "Kujua retains factual knowledge and all source negations; base forms are intentional.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D088",
+      "option": "o0",
+      "root": {
+        "case": "D088",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          2
+        ],
+        "rationale": "you know is a discourse marker here; literal knowing face loses pragmatic nuance. Years retains meaning."
+      },
+      "author": {
+        "case": "D088",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          2
+        ],
+        "rationale": "Miaka retains the duration. You know is a discourse appeal to shared understanding, so kujua is not credited as new propositional content.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D099",
+      "option": "o0",
+      "root": {
+        "case": "D099",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D099",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D100",
+      "option": "o0",
+      "root": {
+        "case": "D100",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D100",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D103",
+      "option": "o0",
+      "root": {
+        "case": "D103",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          2,
+          3
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D103",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          2,
+          3
+        ],
+        "rationale": "Dog referents and year unit remain clear. 年 read toshi is awkward for half a year duration, where nen/nenkan would be usual; minor reading/context concern.",
+        "span_concerns": [
+          {
+            "span_index": 3,
+            "label": "minor",
+            "rationale": "Dog referents and year unit remain clear. 年 read toshi is awkward for half a year duration, where nen/nenkan would be usual; minor reading/context concern."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D104",
+      "option": "o1",
+      "root": {
+        "case": "D104",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1,
+          2,
+          4
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D104",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          2,
+          4
+        ],
+        "rationale": "Mbwa and mwaka preserve the animal referents and half-year age; no new numeral or tense is introduced.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D111",
+      "option": "o0",
+      "root": {
+        "case": "D111",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          1,
+          2,
+          3
+        ],
+        "rationale": "can always try presents a fallback option; frequency-adverb face is less precise than available-anytime/alternative sense. Dinner and morning retain meaning."
+      },
+      "author": {
+        "case": "D111",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          2,
+          3
+        ],
+        "rationale": "Dinner and morning retain their meanings. Can always try offers a fallback option rather than habitual frequency; itsumo leans toward frequency. Minor modal nuance concern, excluded from useful content credit.",
+        "span_concerns": [
+          {
+            "span_index": 1,
+            "label": "minor",
+            "rationale": "Dinner and morning retain their meanings. Can always try offers a fallback option rather than habitual frequency; itsumo leans toward frequency. Minor modal nuance concern, excluded from useful content credit."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D112",
+      "option": "o0",
+      "root": {
+        "case": "D112",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          1,
+          2,
+          3
+        ],
+        "rationale": "can always try presents a fallback option; frequency-adverb face is less precise than available-anytime/alternative sense. Dinner and morning retain meaning."
+      },
+      "author": {
+        "case": "D112",
+        "option": "o0",
+        "label": "minor",
+        "useful_span_indices": [
+          2,
+          3
+        ],
+        "rationale": "Dinner and morning remain compatible. Daima leans toward continual frequency whereas can always try offers an available alternative; minor modal nuance concern, not credited as useful content.",
+        "span_concerns": [
+          {
+            "span_index": 1,
+            "label": "minor",
+            "rationale": "Dinner and morning remain compatible. Daima leans toward continual frequency whereas can always try offers an available alternative; minor modal nuance concern, not credited as useful content."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D125",
+      "option": "o1",
+      "root": {
+        "case": "D125",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          2
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D125",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "The displayed pronoun, connective, acknowledgement or degree words retain their local function in the complete source context; no content predicate or construction is credited.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D126",
+      "option": "o1",
+      "root": {
+        "case": "D126",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          2,
+          3
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D126",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          3
+        ],
+        "rationale": "Maisha preserves life; sana is the degree modifier where present, not additional useful content.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D128",
+      "option": "o0",
+      "root": {
+        "case": "D128",
+        "option": "o0",
+        "label": "material",
+        "useful_span_indices": [],
+        "rationale": "Prior dialogue identifies a hairless cat. nywele denotes head hair; animal fur needs a different face. Current message alone does not expose this referent."
+      },
+      "author": {
+        "case": "D128",
+        "option": "o0",
+        "label": "uncertain",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Prior dialogue establishes a cat coat. Nywele is commonly head hair, while animal fur is often manyoya; I cannot confidently approve this animal-hair use without a meaning-source check. Retain uncertain, not a proven material error.",
+        "span_concerns": [
+          {
+            "span_index": 0,
+            "label": "uncertain",
+            "rationale": "Prior dialogue establishes a cat coat. Nywele is commonly head hair, while animal fur is often manyoya; I cannot confidently approve this animal-hair use without a meaning-source check. Retain uncertain, not a proven material error."
+          }
+        ]
+      }
+    },
+    {
+      "case": "D157",
+      "option": "o0",
+      "root": {
+        "case": "D157",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D157",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Shitteiru can express acknowledged knowledge here; its discourse function is not credited as a new useful proposition.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D157",
+      "option": "o1",
+      "root": {
+        "case": "D157",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D157",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Shitteiru can express acknowledged knowledge here; its discourse function is not credited as a new useful proposition.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D158",
+      "option": "o0",
+      "root": {
+        "case": "D158",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [
+          0
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D158",
+        "option": "o0",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Kujua retains acknowledged knowledge in mixed grammar; this discourse marker is not credited as new useful content.",
+        "span_concerns": []
+      }
+    },
+    {
+      "case": "D158",
+      "option": "o1",
+      "root": {
+        "case": "D158",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [
+          1
+        ],
+        "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+      },
+      "author": {
+        "case": "D158",
+        "option": "o1",
+        "label": "compatible",
+        "useful_span_indices": [],
+        "rationale": "Kujua retains acknowledged knowledge in mixed grammar; this discourse marker is not credited as new useful content.",
+        "span_concerns": []
+      }
+    }
+  ],
+  "bindings": {
+    "root-review-r01.json": "5dfa484cf3889f19eab1451aac85219a093ae3a14eee6f99cf1591bfc6ccec84",
+    "author-review-r01.json": "2a276fcd7ae3b38e07edcc4141b1e69d9e93b0f709d5cad2792388c44d8946b7",
+    "review-r01/packet.json": "8cb3c7171468723ba1000b7523b039f1f5d5172c3549bd2b478e1adb9e0e56d0",
+    "root-platform-verification-r01.json": "0e760d198187b814c9b907a0538b0ef85ad7c5206e2a27b5837ef525d51be827",
+    "selection-freeze.json": "0389b9d13951cce32a02c5f9935b6688d5f678ce3d8aec7978dfe13df63bb520"
+  }
+}

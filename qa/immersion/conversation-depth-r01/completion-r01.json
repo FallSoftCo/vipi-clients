@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "capture_complete": true,
+  "semantic_review_pending": true,
+  "root_labels_read": false,
+  "native_replays": 0,
+  "abnormal_cleanup_exit": -6,
+  "rows": 320,
+  "translation_calls": 0,
+  "new_android_review_options": 0,
+  "bindings": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/protocol.json",
+      "bytes": 29116,
+      "sha256": "0beee3876c7cc80708b84c79560b15112b25674b59e7692b4a02fa6992b5bad6"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/selection-freeze.json",
+      "bytes": 74005,
+      "sha256": "0389b9d13951cce32a02c5f9935b6688d5f678ce3d8aec7978dfe13df63bb520"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/inputs/messages.json",
+      "bytes": 32590,
+      "sha256": "4948e7fd25f594c8cfe1faf91a48e0bde2843653cb3dc90203cdc6060723a28f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/inputs/manifest.json",
+      "bytes": 90,
+      "sha256": "441565f0fc7ca8139d8b47ab597a8a8b6c53de1a156ae8b45326225026af869c"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/exposure-audit.json",
+      "bytes": 29977,
+      "sha256": "d2c8de28fbdc7b71b7edc1f1fb1bb53686aee352e7e5ee014f300bb2e80b5ca4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-freeze-r01.json",
+      "bytes": 3793,
+      "sha256": "7e2d5927e8db07489f7c20057eb61e5fb70a52b8ba25a0eb1c83e3ca172accbb"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-stage-r01.json",
+      "bytes": 8758,
+      "sha256": "1be0ccd177fd15391c8ad9dcf675686f81c8768f2525c0d182a94c7e25cff8b9"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-assembly-r01/receipt.json",
+      "bytes": 8062,
+      "sha256": "81969777d4193697c09c49228c19aca17a7248c5885e6a783913f1c882d3289b"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-bundle-verification.json",
+      "bytes": 801,
+      "sha256": "9cac8eab9c95d7936bc2d3e9316dc0bca82946b0a79a0182eb28547ee3322d8f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-capture-r01/receipt.json",
+      "bytes": 1063,
+      "sha256": "e88d9b47e47670744047046814ba02cb501beb42429e860ac8879968e535eee4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-capture-r01/output.stdout",
+      "bytes": 645893,
+      "sha256": "48c69774dbbf3474e773ca6e112d2f102e55b71552e23790614360a166505ec3"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-capture-r01/status.stdout",
+      "bytes": 141,
+      "sha256": "b71f7545b22750737c698bfe884c8ac0c79bd05041e13309ffd8493a87b4c2fd"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-closure-reconciliation-r01.json",
+      "bytes": 2552,
+      "sha256": "2aeafa58c89f760e4947d8f9681aad2205c4930f5f8b79bfe43395bd7e23dbda"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/android-bookkeeping-r02.json",
+      "bytes": 16368,
+      "sha256": "2801a727eebabc72847e8fe276816371450ac0ca75c9253e702ae607286d32c4"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-conversation-depth-20261109-r01/platform-comparison-r01.json",
+      "bytes": 54428,
+      "sha256": "884842efa70d25119f3ff56d1008985fd0c0dc358fe03c35126b56eb3e3ea7ef"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/RESULT.md",
+      "bytes": 3063,
+      "sha256": "aa404d7448299cd7f1356c72dc4e0f42a16daed80eeef6f7b49aeb3aa7c321ee"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/prepare.py",
+      "bytes": 9050,
+      "sha256": "85defc166e40d4a7252a4efe1565b6cac57b782e6bed1693d73023b862b90add"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/stage_android.py",
+      "bytes": 2699,
+      "sha256": "dc19793d72f850788f8a8b81e2b955cf5b81b14b8bfdd7f97f684a7e38ffaeef"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/run_assembly.py",
+      "bytes": 2812,
+      "sha256": "a267b37c76ba4c17f9be5b8372c7288fb2761f3be4a5b013dbef3818a0495403"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/run_capture.py",
+      "bytes": 6654,
+      "sha256": "e8dfb3b54239245ff3da75ad17364bcc468103b378eece8a2057fa8b243e8c8c"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/ConversationDepthTest.kt",
+      "bytes": 5290,
+      "sha256": "2b5773405eddaee7ec026616e83cd9896dc26201432484c54fd742c5426a7186"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/bookkeeping.py",
+      "bytes": 5169,
+      "sha256": "2bf08e2d104727db0f6d1ba58a6c79683294a37fea1745d16abfb7429634031a"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/bookkeeping_r02.py",
+      "bytes": 5356,
+      "sha256": "883b59ba0c9dd721fbafe3875956df9fe114fff68e80b78351cca7f5273a4eff"
+    },
+    {
+      "path": "/home/ai/Development/vipi-production-20261107/qa/immersion/conversation-depth-r01/compare_platforms.py",
+      "bytes": 2002,
+      "sha256": "7a35a7437143a6ad486c9d219d9dc6b480dced747803c69c6f3919dfa2411d32"
+    }
+  ]
+}

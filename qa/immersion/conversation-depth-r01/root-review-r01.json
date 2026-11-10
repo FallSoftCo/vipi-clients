@@ -1,0 +1,1627 @@
+{
+  "complete": true,
+  "reviewed_through": "D160",
+  "rows": [
+    {
+      "case": "D001",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D002",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D003",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D004",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D005",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        6
+      ],
+      "rationale": "Alternative-conjunction face inside fixed trick-or-treaters compound; no referent change, but fragment should be handled as a whole."
+    },
+    {
+      "case": "D006",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        6
+      ],
+      "rationale": "Alternative-conjunction face inside fixed trick-or-treaters compound; no referent change, but fragment should be handled as a whole."
+    },
+    {
+      "case": "D007",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D008",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D009",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D010",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D011",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D011",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D012",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D012",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D013",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D014",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D015",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D016",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D017",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D018",
+      "option": "o0",
+      "label": "uncertain",
+      "useful_span_indices": [],
+      "rationale": "No idea expresses lack of knowledge here; wazo is an idea/thought. Idiomatic compatibility is not established by this lexical face."
+    },
+    {
+      "case": "D018",
+      "option": "o1",
+      "label": "uncertain",
+      "useful_span_indices": [],
+      "rationale": "No idea expresses lack of knowledge here; wazo is an idea/thought. Idiomatic compatibility is not established by this lexical face."
+    },
+    {
+      "case": "D019",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D020",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D021",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D022",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D023",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D024",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D025",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D026",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D027",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D028",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D029",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D030",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "lo adds a surprise/exclamation tone to acknowledging Oh yeah; time vocabulary remains compatible."
+    },
+    {
+      "case": "D030",
+      "option": "o1",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        4,
+        5
+      ],
+      "rationale": "lo adds a surprise/exclamation tone to acknowledging Oh yeah; time vocabulary remains compatible."
+    },
+    {
+      "case": "D031",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D032",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D032",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D033",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D034",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D035",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D036",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D037",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D038",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D039",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D040",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning; source-language grammar is deliberately retained."
+    },
+    {
+      "case": "D041",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D042",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D043",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D044",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D045",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D045",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D046",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D046",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D047",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D047",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D048",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D048",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D049",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rationale": "考える is understandable thinking but this belief/opinion use is more naturally 思う; animal faces retain meaning."
+    },
+    {
+      "case": "D049",
+      "option": "o1",
+      "label": "minor",
+      "useful_span_indices": [
+        2,
+        3,
+        5,
+        6
+      ],
+      "rationale": "考える is understandable thinking but this belief/opinion use is more naturally 思う; animal faces retain meaning."
+    },
+    {
+      "case": "D050",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D050",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4,
+        6,
+        7
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D051",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D052",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D053",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D054",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D055",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D056",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D057",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D058",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D059",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D060",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D061",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D062",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D063",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D064",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D065",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D066",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D067",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D068",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D069",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        4
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D069",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        5,
+        6
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D070",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3,
+        4
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D070",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        4,
+        6,
+        7
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D071",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D071",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        4
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D072",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D072",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        5
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D073",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D074",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D075",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D076",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D077",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D078",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D079",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D080",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D081",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D082",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D083",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D084",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D085",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D086",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D087",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "you know is a discourse marker here; literal knowing face loses pragmatic nuance. Years retains meaning."
+    },
+    {
+      "case": "D088",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "you know is a discourse marker here; literal knowing face loses pragmatic nuance. Years retains meaning."
+    },
+    {
+      "case": "D089",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D089",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D090",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D090",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D091",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D092",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D093",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D094",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D095",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D096",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D097",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D098",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D099",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D100",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D101",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D102",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D103",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D104",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D104",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2,
+        4
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D105",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D105",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D106",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D106",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D107",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D108",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D109",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D110",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D111",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        1,
+        2,
+        3
+      ],
+      "rationale": "can always try presents a fallback option; frequency-adverb face is less precise than available-anytime/alternative sense. Dinner and morning retain meaning."
+    },
+    {
+      "case": "D112",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        1,
+        2,
+        3
+      ],
+      "rationale": "can always try presents a fallback option; frequency-adverb face is less precise than available-anytime/alternative sense. Dinner and morning retain meaning."
+    },
+    {
+      "case": "D113",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D114",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D115",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D115",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D116",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D116",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D117",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D118",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D119",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D120",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D121",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D122",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D123",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D124",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D125",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D125",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D126",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D126",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        2,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D127",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D128",
+      "option": "o0",
+      "label": "material",
+      "useful_span_indices": [],
+      "rationale": "Prior dialogue identifies a hairless cat. nywele denotes head hair; animal fur needs a different face. Current message alone does not expose this referent."
+    },
+    {
+      "case": "D129",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D130",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D131",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D132",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D133",
+      "option": "o0",
+      "label": "minor",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "考える is broad thinking/considering; this belief/conjecture question is more naturally 思う."
+    },
+    {
+      "case": "D134",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D135",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D136",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D136",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D137",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D138",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D139",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D140",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D141",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D142",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        2
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D142",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1,
+        3
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D143",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D144",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D145",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D146",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D147",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D148",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D149",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D150",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D151",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D152",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D153",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D154",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D155",
+      "option": "o0",
+      "label": "empty",
+      "useful_span_indices": [],
+      "rationale": "No immersion span."
+    },
+    {
+      "case": "D156",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D157",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D157",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D158",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D158",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D159",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D160",
+      "option": "o0",
+      "label": "compatible",
+      "useful_span_indices": [
+        0
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    },
+    {
+      "case": "D160",
+      "option": "o1",
+      "label": "compatible",
+      "useful_span_indices": [
+        1
+      ],
+      "rationale": "Selected faces retain local meaning within deliberate source-grammar scaffold."
+    }
+  ],
+  "completed_at": "2026-11-10T00:33:35.544621+00:00",
+  "packet_sha256": "8cb3c7171468723ba1000b7523b039f1f5d5172c3549bd2b478e1adb9e0e56d0",
+  "reviewer": "root",
+  "other_reviewer_labels_seen": false,
+  "scope": "All189 complete options inspected with displayed Japanese readings and preceding dialogue. Earlier source authoring exposure disclosed; agent judgment, not native-human gold.",
+  "counts": {
+    "compatible": 146,
+    "minor": 11,
+    "empty": 29,
+    "uncertain": 2,
+    "material": 1
+  }
+}

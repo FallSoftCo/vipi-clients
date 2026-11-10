@@ -1,0 +1,22 @@
+{
+  "success": false,
+  "script_sha256": "3a22795f8327a485beedbda90f89f87cbb7994b279372dac8d2297b473e27c36",
+  "helper_sha256": "3b48acee280a7a2c554e7d686a1ad4976053400ffa486485a25f5cd1908b6c1f",
+  "assembly_sha256": "a002a1a1142fefb8a038f586f3441225c5363324c8eedc74b997139b0459773d",
+  "free_before": 14438985728,
+  "additional_reserved": 1228279759,
+  "floor": 8589934592,
+  "error": "AssertionError()",
+  "seconds": 222.39124927087687,
+  "min_free": 14435422208,
+  "free_after": 14675668992,
+  "closure": {
+    "co.fallsoft.vipi.sourcecontextqa.test": "Success",
+    "co.fallsoft.vipi.sourcecontextqa": "Success",
+    "main_unchanged": true,
+    "exit_before_requested_shutdown": null,
+    "quit_command_exit": 0,
+    "owned_emulator_exit": 0
+  },
+  "settings_mutation_commands": false
+}

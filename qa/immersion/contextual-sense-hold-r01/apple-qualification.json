@@ -1,0 +1,151 @@
+{
+  "complete": true,
+  "started_utc": "2026-11-10T00:49:08.282760+00:00",
+  "plan_sha256": "1c3b5394ec86fada57562f02d3538c961867d8d9da810d4c15c7d1fe44cced42",
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "deadline_seconds": 180,
+      "pid": 26720,
+      "peak_owned_bytes": 6083866624,
+      "exit_code": 0,
+      "seconds": 2.433706667,
+      "log_sha256": "3b9b3b6fe52fa2fe2dabcf441f4b62e9f9d3263302529ea569a1d0157580e791"
+    },
+    {
+      "name": "build",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-parallel-testing-enabled",
+        "NO",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/contextual-sense-hold-r01/apple-run-r01/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGN_IDENTITY=-",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build-for-testing"
+      ],
+      "deadline_seconds": 900,
+      "pid": 26756,
+      "peak_owned_bytes": 6104805376,
+      "exit_code": 0,
+      "seconds": 29.185443749999997,
+      "log_sha256": "120107f0cbf9ff5e3f1ebb0796945cc85720085bdb78b5b6d18b06a74899d2a2"
+    },
+    {
+      "name": "test",
+      "command": [
+        "xcodebuild",
+        "-xctestrun",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/contextual-sense-hold-r01/apple-run-r01/qualification.xctestrun",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87,arch=arm64",
+        "-parallel-testing-enabled",
+        "NO",
+        "-maximum-concurrent-test-simulator-destinations",
+        "1",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/contextual-sense-hold-r01/apple-run-r01/test.xcresult",
+        "-only-testing:VipiCryptoTests/ContextualSenseHoldTests/testCurrentConversationDepth",
+        "test-without-building"
+      ],
+      "deadline_seconds": 360,
+      "pid": 27142,
+      "peak_owned_bytes": 6085791744,
+      "exit_code": 0,
+      "seconds": 34.510308124999995,
+      "log_sha256": "163326706528ea4acbc5e15ecb8b63461063ab577fc63aa2a507c6a1fe1fc449"
+    }
+  ],
+  "scope": "Changed candidate: retain contextual-sense hold for Swahili hair without removing source masks. Same frozen320 default rows plus three explicitly constructed-target mask controls; no signing or customer activation.",
+  "initial_owned_bytes": 6083854336,
+  "free_before": 17502937088,
+  "labs": {
+    "55552": "/Users/Apple/Development/mac-dev-migration-20261108/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab",
+    "65698": "/Users/Apple/Applications/Vipi Immersion Lab.app/Contents/MacOS/VipiImmersionLab --report /Users/Apple/Development/vipi/artifacts/macos-immersion-lab-diagnostics-003.json"
+  },
+  "synthetic_fixture_sha256": "1a3203d294f4d2fd9f3d00fd7dfa08e04bdbecda905967d3c80d5c7c20cac0ef",
+  "source_files_verified": 670,
+  "source_differences": [],
+  "pins": [
+    {
+      "identity": "espeak-ng-spm",
+      "revision": "fd28f6460cc4cdf631528c8e2f7bd825747aac5c",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-plugin",
+      "revision": "85e4bb4e1cd62cec64a4b8e769dcefdf0c5b9d64",
+      "tracked_clean": true
+    },
+    {
+      "identity": "swift-docc-symbolkit",
+      "revision": "b45d1f2ed151d057b54504d653e0da5552844e34",
+      "tracked_clean": true
+    },
+    {
+      "identity": "workos-ios",
+      "revision": "388a4bf903f53747887eeba55a79a7d2fdf64ee2",
+      "tracked_clean": true
+    }
+  ],
+  "before_container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/58A306B3-19C6-4067-9C67-5CAE0BCCC11A",
+  "before_preferences_sha256": "1fbe742cc4dca91ed40ef3fe24c2bd2a1326b9cb433ac90324837e99c92fdfd1",
+  "built_hashes": {
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/VipiSimulator_iphonesimulator26.5-arm64.xctestrun": "6453babc7d427229634f7f8002520c884396e7bbb81bf8e214639d4c64b84b00",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/contextual-sense-hold-r01/apple-run-r01/qualification.xctestrun": "c3d4fbdbd592af35bb78a3ab08ecf030339aaab411bc0bec05fb3309301812a0",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi": "595c4b3e209a90485853dd27b361fb31de13287a5ceac51de2aa6bea351fd316",
+    "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "9e391abf45af241da8e36f2c9defee94ac6ebf29b4754dbaf33cda662813e2d8"
+  },
+  "capture_status": {
+    "actual_default_factory": true,
+    "constructed_target_mask_controls": 3,
+    "rows": 320,
+    "seconds": 24.94894304149784,
+    "semantic_acceptance_asserted": false,
+    "translation_calls": 0
+  },
+  "state_closure": {
+    "restored": true,
+    "original_keys_verified": [
+      "readingPace",
+      "density",
+      "knownLanguage",
+      "appearance",
+      "onboardingStep",
+      "targetLanguage",
+      "vipi-private-speech-generation"
+    ],
+    "current_extra_keys_preserved": [],
+    "app_not_running": true,
+    "data_preserved": true,
+    "container": "/Users/Apple/Library/Developer/CoreSimulator/Devices/46CB569D-EA59-40E3-82CC-F4A0F36EDB87/data/Containers/Data/Application/999F146B-731C-4CE1-BBF2-3C8701FDB92E",
+    "labs_alive": true
+  },
+  "free_after": 17098633216,
+  "final_owned_bytes": 6085861376
+}

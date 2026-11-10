@@ -51,7 +51,7 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
         val rows=p.getJSONArray("entries");require(rows.length() in 1..512 && rows.length()==m.getInt("entries"))
         entries=(0 until rows.length()).map { n -> val e=rows.getJSONObject(n)
             val guard=if(e.isNull("guard")) null else e.getString("guard")
-            require(guard in setOf(null,"interrogative","ordinary_noun_context"))
+            require(guard in setOf(null,"interrogative","ordinary_noun_context","withheld_contextual_sense"))
             require(e.isNull("reading") && e.isNull("reading_kana") && e.getString("concept_id").isNotBlank())
             require(e.getString("record_sha256").matches(Regex("[a-f0-9]{64}")))
             Entry(e.getString("id"),strings(e.getJSONArray("source_tokens")),e.getString("target"),null,e.getString("category"),
@@ -85,6 +85,7 @@ internal class SwahiliStarterLookup(bytes: ByteArray, manifest: ByteArray, known
                 keys[i]!="i" && first.codePointCount(0,first.length)>1 && first.any{it.isUpperCase()} && first.none{it.isLowerCase()} -> "uppercase_identifier"
                 keys[i]!="i" && first.first().isUpperCase() && !initial -> "mid_sentence_capital"
                 (i until j-1).any { !whitespaceGap(gap(it)) } -> "noncontiguous_source_unit"
+                e.guard=="withheld_contextual_sense" -> "unqualified_source_sense"
                 e.guard=="interrogative" && !initial -> "question_not_sentence_initial"
                 e.guard=="interrogative" && (j>=keys.size || keys[j] !in e.following) -> "question_right_context_absent"
                 e.guard=="interrogative" && (i until j).any{gap(it).isNotBlank()} -> "noncontiguous_question_context"

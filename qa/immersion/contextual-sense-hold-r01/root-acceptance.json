@@ -1,0 +1,59 @@
+{
+  "at_utc": "2026-11-10T01:03:12.007889+00:00",
+  "baseline_revision": "1d42f9c09c895a757172c8bdce22f0676c6e0d6f",
+  "canonical_enabled": true,
+  "customer_deployed": false,
+  "entries_retained": 213,
+  "other_entries_unchanged": 212,
+  "changed_field": {
+    "id": "word-en-sw-hair",
+    "guard": "withheld_contextual_sense"
+  },
+  "retained_source_mask": true,
+  "valid_human_hair_deliberately_withheld": true,
+  "no_alternative_translation_added": true,
+  "native_rows_per_platform": 320,
+  "changed_rows_per_platform": 2,
+  "other318_selections_readings_geometry_unchanged": true,
+  "translation_calls": 0,
+  "model_availability_forced_unavailable": true,
+  "apple_constructed_target_controls": 3,
+  "android_amended_control": {
+    "synthetic_edge": true,
+    "unmasked": 1,
+    "masked": 0,
+    "replayed_conversations": 0
+  },
+  "original_android_control_failure_preserved": true,
+  "files": {
+    "data/immersion/starter-en-sw-005.json": {
+      "bytes": 55821,
+      "sha256": "c4403e5bb254838a28348d32277c47dcfaa126e7a91a81be6a197ad608b278d7"
+    },
+    "data/immersion/starter-sw-catalog.json": {
+      "bytes": 210,
+      "sha256": "338493d918e5eb174df9262d674eeda4b01e9cb4c2103bf7da175c89fbec0f98"
+    }
+  },
+  "runtime_sha256": {
+    "ios/Vipi/SwahiliStarterLookup.swift": "fad59fb2b09b4537e88f9f5aaa5f4c3fbf5b795b4ec685bd133659f0fe18d741",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "1f401f3cdedbb2681f47045fca9fc060b9b7565f398050acb68480b9e48bd17f"
+  },
+  "bindings": {
+    "root-cross-platform-r01.json": "c2f2dc4ed518bee8bf04b1d836f24284b4e73aebc1baa73043d828aa9b4d0a80",
+    "root-apple-comparison-r01.json": "7f1b3931b77d0f6b03a07722b23246434a6075f9fae9fb846458c3ac59d986fb",
+    "android-default-verification-r01.json": "90d78ccd5f90732faa25653c9a7a29c26b5cfe0d5cfb7f07bb2ce16c85f9c719",
+    "primary-sense-evidence-r01.json": "e02c7399ad988771c91168d22286de100e400894d6dafbde7bd0e2dd744051a4",
+    "apple-capture-r01/apple-run-r01/receipt.json": "6c28ce1e99bbac23a38bd64f9bee14ff5c80ae19c01903310b0625a81ca7e5f6",
+    "android-capture-r01/receipt.json": "717ab08078df762184252c0fe208e8fd5ae2732592b6671c36ce3a9e1c2fee12",
+    "control-amendment-r02.json": "33e6a85ffc9943a88971e5272a1c5b28a329a4c04714accf82d4d0c7af827853",
+    "android-control-capture-r02/receipt.json": "235b1b86b95272233a3b7dce1d44c13a9cfa35c57bbb79d67ca5c37a9063f062",
+    "android-control-capture-r02/controls.stdout": "83c31eb9b1831abe0c599c14323f2ff309fa43fc36f85055503f2925f20e6ecf"
+  },
+  "holds": {
+    "mac_signing_keychain": true,
+    "no_ipad": true,
+    "no_store_or_provider_actions": true
+  },
+  "coverage_claim": false
+}
