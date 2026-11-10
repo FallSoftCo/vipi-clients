@@ -11,7 +11,12 @@ struct SourceFrameStarterCandidate {
 }
 /// Finite reviewed source contexts, composed after existing full-reference priority.
 @MainActor final class SourceFrameLookup {
-    struct Variant: Decodable { let context: String; let focus_utf16: [Int] }
+    struct Variant: Decodable {
+        let context: String
+        let focus_utf16: [Int]
+        let context_scope: String?
+        let right_boundary: String?
+    }
     struct Pattern: Decodable {
         let id, pair, source, target, reading, meaning, concept_id: String
         let source_only_permission: Bool
@@ -26,43 +31,47 @@ struct SourceFrameStarterCandidate {
         let bytes, patterns: Int
     }
     enum Invalid: Error { case evidence }
-    // Remains disabled until the corrected data and both default native routes qualify.
+    static let languages: Set<String> = ["en", "es", "fr", "de", "it", "pt", "ar", "zh", "ja", "ko", "sw"]
+    // Previously qualified en→ja/sw frames only; candidate packs are never auto-loaded.
     static let promotionEnabled = true
     let identity: String
-    private let pack: Pack, packSHA: String, target: String, allowed: Set<String>
+    private let pack: Pack, packSHA: String, source: String, target: String, allowed: Set<String>
     private let baselineIdentity: String
     private(set) var trace: [[String:Any]] = []
 
-    init(bytes: Data, manifestBytes: Data, target: String, baselineIdentity: String) throws {
+    init(bytes: Data, manifestBytes: Data, target: String, baselineIdentity: String, source: String = "en") throws {
         guard bytes.count <= 1_048_576, manifestBytes.count <= 8_192,
-              ["ja", "sw"].contains(target) else { throw Invalid.evidence }
+              Self.languages.contains(source), Self.languages.contains(target), source != target else { throw Invalid.evidence }
         let manifest = try JSONDecoder().decode(Manifest.self, from: manifestBytes)
         pack = try JSONDecoder().decode(Pack.self, from: bytes)
         packSHA = JapaneseStarterLookup.digest(bytes)
+        self.source = source
         self.target = target
         self.baselineIdentity = baselineIdentity
         allowed = Set(pack.patterns.map(\.id))
         identity = "source-frames-v1:" + JapaneseStarterLookup.digest(Data(
             (packSHA + JapaneseStarterLookup.digest(manifestBytes) + baselineIdentity).utf8))
         guard manifest.schema == "vipi-source-frame-manifest-1",
-              manifest.file.range(of: "^source-frames-en-" + target + "-[0-9]{3}\\.json$", options: .regularExpression) != nil,
+              manifest.file.range(of: "^source-frames-" + source + "-" + target + "-[0-9]{3}\\.json$", options: .regularExpression) != nil,
               manifest.sha256 == packSHA, manifest.bytes == bytes.count,
               manifest.version == pack.version, manifest.patterns == pack.patterns.count,
-              manifest.source == "en", manifest.target == target,
+              manifest.source == source, manifest.target == target,
               manifest.policy == "reference-first-source-frames-1",
-              pack.schema == "vipi-source-frame-pack-1", pack.source == "en", pack.target == target,
+              pack.schema == "vipi-source-frame-pack-1", pack.source == source, pack.target == target,
               pack.policy == manifest.policy,
               pack.approval_sha256.range(of: "^[a-f0-9]{64}$", options: .regularExpression) != nil,
               (1...256).contains(pack.patterns.count), allowed.count == pack.patterns.count else { throw Invalid.evidence }
         for pattern in pack.patterns {
-            guard pattern.source_only_permission, pattern.pair == "en-" + target,
+            guard pattern.source_only_permission, pattern.pair == source + "-" + target,
                   !pattern.id.isEmpty, !pattern.source.isEmpty, !pattern.target.isEmpty,
                   !pattern.meaning.isEmpty, !pattern.concept_id.isEmpty,
-                  target != "ja" || !pattern.reading.isEmpty,
+                  !["ar", "zh", "ja", "ko"].contains(target) || !pattern.reading.isEmpty,
                   (1...1024).contains(pattern.variants.count) else { throw Invalid.evidence }
             for variant in pattern.variants {
                 let text = variant.context as NSString
-                guard (1...256).contains(text.length), variant.focus_utf16.count == 2,
+                guard variant.context_scope == nil || variant.context_scope == "local_phrase" || variant.context_scope == "whole_sentence",
+                      variant.right_boundary == nil || variant.right_boundary == "clause_or_end",
+                      (1...256).contains(text.length), variant.focus_utf16.count == 2,
                       variant.focus_utf16[0] >= 0,
                       variant.focus_utf16[1] > variant.focus_utf16[0],
                       variant.focus_utf16[1] <= text.length else { throw Invalid.evidence }
@@ -112,9 +121,27 @@ struct SourceFrameStarterCandidate {
     private func union(_ ranges:[NSRange])->NSRange { let lo=ranges.map(\.location).min()!;return NSRange(location:lo,length:ranges.map(NSMaxRange).max()!-lo) }
     private func contains(_ outer:NSRange,_ inner:NSRange)->Bool { inner.location >= outer.location && NSMaxRange(inner) <= NSMaxRange(outer) }
     private func matches(_ original:String) throws -> [Hit] {
-        let text=original as NSString;let native=LocalImmersion.words(original,language:"en")
+        let text=original as NSString;let native=LocalImmersion.words(original,language:source)
         guard let basis=NativeSourceTokenBasis(original:original,wordRanges:native) else { throw Invalid.evidence }
+        let sentenceRanges: Set<NSRange> = pack.patterns.contains(where: {
+            $0.variants.contains(where: { $0.context_scope == "whole_sentence" })
+        }) ? Set(LocalImmersion.sentences(original, language: source)) : []
         var hits:[Hit]=[];var seen=Set<String>()
+        func rightBoundary(_ range: NSRange) -> Bool {
+            let suffix = text.substring(from: NSMaxRange(range))
+            for scalar in suffix.unicodeScalars {
+                if scalar.value == 9 || scalar.properties.generalCategory == .spaceSeparator { continue }
+                return ".!?。！？,，;；\r\n".unicodeScalars.contains(scalar)
+            }
+            return true
+        }
+        func contextBarrier(_ variant: Variant) -> Bool {
+            var content = variant.context
+            if variant.context_scope == "whole_sentence" {
+                while let last = content.last, ".!?。！？".contains(last) { content.removeLast() }
+            }
+            return content.contains(where: { ".!?。！？;；\r\n".contains($0) })
+        }
         func cost(_ range:NSRange)->Int? {
             let touched=native.filter{overlap($0,range)}
             guard touched.first?.location == range.location,touched.last.map(NSMaxRange) == NSMaxRange(range) else {return nil}
@@ -132,8 +159,14 @@ struct SourceFrameStarterCandidate {
                     guard contains(context,focus),Range(focus,in:original) != nil,text.substring(with:focus)==p.source else {throw Invalid.evidence}
                     let id=p.id+"@\(context.location):\(NSMaxRange(context)):\(focus.location):\(NSMaxRange(focus))"
                     if !seen.insert(id).inserted {continue}
-                    let cc=cost(context),fc=cost(focus)
-                    let reason:String? = cc == nil || fc == nil ? "partial_native_word" : (v.context.contains(where:{".!?。！？;；\r\n".contains($0)}) ? "context_barrier" : nil)
+                    let cc = v.context_scope == "whole_sentence" ? basis.cost(for: context) : cost(context)
+                    let fc = cost(focus)
+                    let reason: String?
+                    if cc == nil || fc == nil { reason = "partial_native_word" }
+                    else if v.context_scope == "whole_sentence" && !sentenceRanges.contains(context) { reason = "not_whole_sentence" }
+                    else if v.right_boundary == "clause_or_end" && !rightBoundary(context) { reason = "right_context_boundary" }
+                    else if contextBarrier(v) { reason = "context_barrier" }
+                    else { reason = nil }
                     hits.append(Hit(p,context,focus,cc ?? 0,fc ?? 0,id,reason));guard hits.count<=4096 else {throw Invalid.evidence}
                 }
             }
@@ -145,8 +178,8 @@ struct SourceFrameStarterCandidate {
     }
     func resolve(original:String,density:Double,known:Set<String>,baseline:SourceLookupEvidence,raw:[SourceFrameStarterCandidate]) throws -> SourceLookupEvidence {
         guard !original.isEmpty,original.utf16.count<=16384,density.isFinite,(0...0.75).contains(density),
-              baseline.catalogIdentity == baselineIdentity, baseline.validated(text:original,sourceLanguage:"en",targetLanguage:target,identity:baseline.catalogIdentity) != nil else {throw Invalid.evidence}
-        trace=[];let text=original as NSString;let native=LocalImmersion.words(original,language:"en")
+              baseline.catalogIdentity == baselineIdentity, baseline.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:baseline.catalogIdentity) != nil else {throw Invalid.evidence}
+        trace=[];let text=original as NSString;let native=LocalImmersion.words(original,language:source)
         let budget=density>0 ? max(1,Int(Double(native.count)*density)) : 0
         let literalRanges=TranslationIntegrity.protectedLiteralRanges(original)
         let hits=try matches(original);let presentationReasons:Set<String>=["caller_known_concept","native_density_budget","unchanged_normalized_face"]
@@ -167,7 +200,7 @@ struct SourceFrameStarterCandidate {
             return a.id<b.id
         }
         var groups:[[Hit]]=[]
-        for h in hits.filter({ !["partial_native_word","context_barrier"].contains($0.reason ?? "") }).sorted(by:{($0.focus.location,NSMaxRange($0.focus))<($1.focus.location,NSMaxRange($1.focus))}) {
+        for h in hits.filter({ !["partial_native_word","context_barrier","not_whole_sentence","right_context_boundary"].contains($0.reason ?? "") }).sorted(by:{($0.focus.location,NSMaxRange($0.focus))<($1.focus.location,NSMaxRange($1.focus))}) {
             if let last=groups.last,h.focus.location<last.map({NSMaxRange($0.focus)}).max()! {groups[groups.count-1].append(h)}else{groups.append([h])}
         }
         var frameUnits:[(Hit,SourceReferenceUnit)]=[];var frameRecognitions:[SourceRecognition]=[]
@@ -204,8 +237,8 @@ struct SourceFrameStarterCandidate {
             return .init(ruleID:"merged-\(n)",recordSHA256:JapaneseStarterLookup.digest(Data(g.map(\.recordSHA256).sorted().joined().utf8)),context:context,mask:mask,mode:ambiguous ? .ambiguous : .headBackoff,approvedOutputs:permitted)
         }
         let partial=SourceReferencePresentation.create(original:original,target:target,units:chosen.sorted{$0.range.location<$1.range.location},density:density,nativeSourceTokenCount:native.count)
-        let result=SourceLookupEvidence(original:original,source:"en",target:target,catalogIdentity:identity,partial:partial,recognitions:recognitions+fixed)
-        guard let constraints=result.validated(text:original,sourceLanguage:"en",targetLanguage:target,identity:identity) else {throw Invalid.evidence}
+        let result=SourceLookupEvidence(original:original,source:source,target:target,catalogIdentity:identity,partial:partial,recognitions:recognitions+fixed)
+        guard let constraints=result.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:identity) else {throw Invalid.evidence}
         if let partial {guard constraints.filterPartial(partial)==partial else {throw Invalid.evidence}}
         return result
     }

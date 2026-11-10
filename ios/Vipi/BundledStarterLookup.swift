@@ -9,17 +9,30 @@ import VipiCore
         return compose(japanese: japanese, swahili: SwahiliStarterLookup.bundledIfPromoted())
     }
 
+    /// Candidate promotion is intentionally separate from the shipped catalog.
+    static let allPairPromotionEnabled = false
+
     /// Explicit candidate composition is available to isolated qualification.
-    static func compose(japanese: SourceUnitLookup?, swahili: SourceUnitLookup?) -> SourceUnitLookup? {
-        guard let swahili else { return japanese }
-        guard let japanese else { return swahili }
+    static func compose(japanese: SourceUnitLookup?, swahili: SourceUnitLookup?,
+                        candidates: [String: SourceUnitLookup] = [:]) -> SourceUnitLookup? {
+        guard !candidates.isEmpty else {
+            guard let swahili else { return japanese }
+            guard let japanese else { return swahili }
+            return dispatch(japanese: japanese, swahili: swahili, candidates: [:])
+        }
+        return dispatch(japanese: japanese, swahili: swahili, candidates: candidates)
+    }
+
+    private static func dispatch(japanese: SourceUnitLookup?, swahili: SourceUnitLookup?,
+                                 candidates: [String: SourceUnitLookup]) -> SourceUnitLookup {
+        let candidateIdentity = candidates.keys.sorted().map { $0 + "\u{0}" + candidates[$0]!.identity }.joined(separator: "\u{0}")
         let identity = "starter-pairs-v1:" + JapaneseStarterLookup.digest(Data(
-            ("en-ja\u{0}" + japanese.identity + "\u{0}en-sw\u{0}" + swahili.identity).utf8))
+            ("en-ja\u{0}" + (japanese?.identity ?? "absent") + "\u{0}en-sw\u{0}" + (swahili?.identity ?? "absent") + (candidateIdentity.isEmpty ? "" : "\u{0}candidate\u{0}" + candidateIdentity)).utf8))
         return SourceUnitLookup(identity: identity) { context in
             let selected: SourceUnitLookup?
             if context.pair.source == "en" && context.pair.target == "ja" { selected = japanese }
             else if context.pair.source == "en" && context.pair.target == "sw" { selected = swahili }
-            else { selected = nil }
+            else { selected = candidates[context.pair.source + "-" + context.pair.target] }
             guard let selected else {
                 return SourceLookupEvidence(original: context.original, source: context.pair.source,
                     target: context.pair.target, catalogIdentity: identity, partial: nil, recognitions: [])
