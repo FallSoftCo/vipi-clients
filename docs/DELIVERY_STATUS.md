@@ -2,6 +2,25 @@
 
 Updated 2026-11-10. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
+The latest direct routing audit distinguishes the language data from usable
+automatic coverage: ordinary source-only vocabulary currently runs only for
+English→Japanese and English→Swahili. The other 108 selectable directions
+primarily use exact authored references. The larger frame, context and lexical
+databases do not supply automatic vocabulary on arbitrary messages because the
+current path reaches those databases only after obtaining a full translation.
+An all-pair source-context increment is being qualified separately; it is not
+enabled in the shipped configuration and no broad coverage claim follows.
+
+Both native clients now use the pinned local CLD2 detector. Actual Android and
+Apple tests reproduce the same 87 detector cases and preserve originals in the
+tested known-error routes. English vocabulary switching remains functional.
+The detector can still be wrong or abstain, including on short Swahili messages;
+its reliability flag is not a translation-quality score. The two source fixes
+preserve the measured outputs and pass the bounded native parser exercise.
+These changes do not remove the optional Google translation SDK or qualify a
+new store release binary. The Mac signing hold and provider-authentication
+dependencies remain unchanged.
+
 ## Source and host authority
 
 The owner has reserved the iPad for 8bar Club. Continue Vipi validation in the existing simulators and on the native Mac; do not wait for or resume iPad work. Hardware-specific evidence limits remain identified separately from this work plan.

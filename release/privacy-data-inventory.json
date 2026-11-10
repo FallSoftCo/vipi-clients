@@ -3,6 +3,15 @@
   "status": "review_draft_not_submitted",
   "reviewed_at": "2026-11-08",
   "scope": "Source inspection and pinned dependency declarations. This is not a completed store questionnaire, release-binary network audit, or legal approval.",
+  "local_detector_update_20261110": {
+    "source_commit": "1df6368b4553e58c3200dba0b9d4810bbfd59d50",
+    "component": "Pinned CLD2 with local model tables, compiled into both clients",
+    "processing": "Language identification runs on device without a provider request or model download. Protected technical literals are masked in the classification copy; the original message is preserved.",
+    "telemetry": "No network or telemetry code in the two CLD2 bridges or MessageLanguage adapters. This does not describe other installed SDKs.",
+    "limits": "A classifier reliability flag is not a semantic translation confidence score. Classification can be wrong or abstain.",
+    "other_sdks": "Google ML Kit translation SDKs remain linked for explicit full translation. Their operational-data declarations below remain relevant. No claim that all SDK operational traffic was removed.",
+    "qualification": "Both native debug/simulator integrations qualified. Existing signed Android and unsigned Apple release artifacts predate this change; final release inspection remains required."
+  },
   "policy_url": "https://api.mambovipi.app/privacy",
   "deletion_url": "https://api.mambovipi.app/delete-account",
   "source_commit": "759764a487f6fe52c3dfe2a0525c1ceb06b343f5",

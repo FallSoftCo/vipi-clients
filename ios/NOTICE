@@ -10,6 +10,11 @@ This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
+Local language identification uses CLD2, from the pinned pycld2 0.42 source,
+under Apache License 2.0. Copyright 2013 Google Inc. The bundled license and
+NOTICE preserve attribution and describe Vipi's two defined-behavior fixes.
+Source, patches and file hashes are retained in vendor/cld2.
+
 Local Swahili speech uses eSpeak NG through the upstream Swift package,
 revision fd28f6460cc4cdf631528c8e2f7bd825747aac5c, under GPL version 3:
 https://github.com/espeak-ng/espeak-ng-spm/tree/fd28f6460cc4cdf631528c8e2f7bd825747aac5c
@@ -21,8 +26,8 @@ Podfile.lock (GoogleMLKit/Translate 8.0.0). Its vendor license and privacy
 manifests remain applicable; this notice does not relicense that SDK.
 
 Complete dependency notice texts, including libsignal's Rust acknowledgments,
-are included in Vipi/ThirdPartyNotices and shown in Settings. BUILDING.md records
-the pinned source, native archive hashes and preparation instructions. The
+are included in Vipi/ThirdPartyNotices and shown in Settings. CLIENT_SOURCE.md
+at the source archive root records the native preparation instructions. The
 complete public corresponding-source release and final dependency compatibility
 review remain required before distribution. This file does not relicense
 third-party dependencies.

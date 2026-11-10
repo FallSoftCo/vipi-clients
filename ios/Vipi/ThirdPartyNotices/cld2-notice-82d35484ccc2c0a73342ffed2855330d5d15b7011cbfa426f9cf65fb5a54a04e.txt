@@ -1,0 +1,4 @@
+CLD2 — Compact Language Detector 2
+Copyright 2013 Google Inc. All Rights Reserved.
+Licensed under the Apache License, Version 2.0; see LICENSE.
+Vipi modifications: skip unused language sentinel values before enum casts and replace signed negative shifts with multiplication. See patches/defined-behavior.patch and PROVENANCE.json.

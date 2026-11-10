@@ -10,6 +10,11 @@ This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
+Local language identification uses CLD2, from the pinned pycld2 0.42 source,
+under Apache License 2.0. Copyright 2013 Google Inc. Its bundled license and
+NOTICE preserve attribution and describe Vipi's two defined-behavior fixes.
+Source, patches and file hashes are retained in vendor/cld2.
+
 Offline speech fallback uses eSpeak NG core 699e79690f23e2558d990a3a78b0050745b96932
 (GPL-3.0-or-later), its included Unicode/BSD/Apache components, and Sonic
 9a8d05dc0baa9159fc322dd9905a04e23b161337 (Apache-2.0). Original source, licenses

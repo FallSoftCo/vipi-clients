@@ -1377,5 +1377,19 @@
     "file": "immersion-starter-notice-2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258.txt",
     "sha256": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
     "origin": "data/immersion/NOTICE.txt; official CC BY-SA 4.0 legalcode.txt"
+  },
+  {
+    "id": "cld2-license",
+    "title": "CLD2 — Apache 2.0 license",
+    "file": "cld2-license-877c66283a889b5bb8bd6183f35d1af134f13e6b9a70032fae092b6bb522745c.txt",
+    "sha256": "877c66283a889b5bb8bd6183f35d1af134f13e6b9a70032fae092b6bb522745c",
+    "origin": "vendor/cld2/LICENSE"
+  },
+  {
+    "id": "cld2-notice",
+    "title": "CLD2 — copyright and modifications",
+    "file": "cld2-notice-82d35484ccc2c0a73342ffed2855330d5d15b7011cbfa426f9cf65fb5a54a04e.txt",
+    "sha256": "82d35484ccc2c0a73342ffed2855330d5d15b7011cbfa426f9cf65fb5a54a04e",
+    "origin": "vendor/cld2/NOTICE"
   }
 ]

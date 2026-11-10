@@ -63,6 +63,20 @@
       "asset": "legal/upstream/pinyin-pro-3.29.5-LICENSE.txt",
       "sha256": "824f6069c5a59b0c1650d0fb9f8d091866c6019eb761c8e658dfc03f001eabd2",
       "bytes": 1070
+    },
+    {
+      "coordinate": "CLD2 (pycld2 0.42 source) — LICENSE",
+      "url": "https://github.com/aboSamoor/pycld2",
+      "asset": "legal/upstream/cld2-license-877c66283a889b5bb8bd6183f35d1af134f13e6b9a70032fae092b6bb522745c.txt",
+      "sha256": "877c66283a889b5bb8bd6183f35d1af134f13e6b9a70032fae092b6bb522745c",
+      "bytes": 11385
+    },
+    {
+      "coordinate": "CLD2 (pycld2 0.42 source) — NOTICE",
+      "url": "https://github.com/aboSamoor/pycld2",
+      "asset": "legal/upstream/cld2-notice-82d35484ccc2c0a73342ffed2855330d5d15b7011cbfa426f9cf65fb5a54a04e.txt",
+      "sha256": "82d35484ccc2c0a73342ffed2855330d5d15b7011cbfa426f9cf65fb5a54a04e",
+      "bytes": 333
     }
   ]
 }
