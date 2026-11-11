@@ -6,6 +6,7 @@ import XCTest
     private final class Transport: ChatTransport {
         var requests: [(String, String, Data?)] = []
         var failReply = false
+        var refusal: String?
         var devices: [DeviceCredential?] = []
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             requests.append((method, path, body))
@@ -13,6 +14,7 @@ import XCTest
             let allowance: [String: Any] = ["available": true, "service_ready": true, "remaining_replies": 149, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192]
             let value: [String: Any]
             if path == "/v1/bot/messages" {
+                if let refusal { throw ServiceFailure(status: 401, code: refusal) }
                 if failReply { throw URLError(.timedOut) }
                 let request = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(body)) as? [String: Any])
                 value = ["request_id": request["request_id"]!, "reply": "Coffee tomorrow sounds good.", "allowance": allowance]
@@ -88,6 +90,20 @@ import XCTest
             XCTAssertEqual(Set(value.keys), ["request_id", "reason", "selected_reply"])
             XCTAssertLessThanOrEqual(try XCTUnwrap(value["selected_reply"]).utf8.count, 4000)
             XCTAssertFalse(try XCTUnwrap(value["selected_reply"]).contains("�"))
+        }
+    }
+    func testDefinitiveDeviceRefusalIsNotReplayed() async throws {
+        try await withVault { vault in
+            let api = Transport(); api.refusal = "device_revoked"
+            let session = try BotSession(api: api, vault: vault)
+            await session.refresh(); try session.setConsent(true)
+            session.draft = "One request"; await session.send()
+            XCTAssertEqual(session.messages.first?.state, "rejected")
+            XCTAssertTrue(session.notice?.contains("wasn’t accepted") == true)
+            let reopened = try BotSession(api: api, vault: vault)
+            await reopened.refresh(); await reopened.send()
+            XCTAssertEqual(reopened.messages.first?.state, "rejected")
+            XCTAssertEqual(api.requests.filter { $0.1 == "/v1/bot/messages" }.count, 1)
         }
     }
     func testMissingRegistrationPreservesDraftWithoutSending() async throws {

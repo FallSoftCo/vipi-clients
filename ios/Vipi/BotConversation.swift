@@ -123,7 +123,7 @@ struct BotMessage: Codable, Identifiable {
             if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
             messages.append(incoming); allowance = reply.allowance
         } catch {
-            outgoing.state = "unconfirmed"
+            outgoing.state = (error as? ServiceFailure)?.code == "device_revoked" ? "rejected" : "unconfirmed"
             try? vault.transaction { try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing)) }
             if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
             notice = Self.explanation(error)
@@ -151,6 +151,7 @@ struct BotMessage: Codable, Identifiable {
     }
     private static func explanation(_ error: Error) -> String {
         if let error = error as? ServiceFailure {
+            if error.code == "device_revoked" { return "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically." }
             if error.code == "monthly_allowance_reached" { return "You’ve used this month’s Bot mini replies. Your allowance refreshes next month." }
             if ["base_subscription_required", "bot_subscription_required"].contains(error.code) { return "Check your subscriptions to continue this conversation." }
             if ["bot_unavailable", "bot_busy", "bot_temporarily_unavailable"].contains(error.code) { return "vBot is unavailable right now. Your message is saved and won’t be resent automatically." }
@@ -222,7 +223,7 @@ struct BotConversationView: View {
                             if item.role == "user" { Spacer(minLength: 38) }
                             ConversationImmersionText(text: item.text, id: "bot-" + item.id.uuidString, immersion: immersion,
                                 speech: speech, paused: scrolling || composing,
-                                metadata: AnyView(Text(item.state == "sending" ? "Waiting for vBot" : item.state == "unconfirmed" ? "Reply unconfirmed" : item.createdAt.formatted(date: .omitted, time: .shortened)).font(.caption).foregroundStyle(VipiDesign.secondary)),
+                                metadata: AnyView(Text(item.state == "sending" ? "Waiting for vBot" : item.state == "unconfirmed" ? "Reply unconfirmed" : item.state == "rejected" ? "Request not accepted" : item.createdAt.formatted(date: .omitted, time: .shortened)).font(.caption).foregroundStyle(VipiDesign.secondary)),
                                 onVoiceHelp: { voiceHelp = true })
                                 .padding(15).background(item.role == "user" ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                                 .contextMenu {
