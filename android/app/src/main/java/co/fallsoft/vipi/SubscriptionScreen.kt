@@ -55,11 +55,7 @@ import kotlinx.coroutines.launch
     val access = if (plan == SubscriptionPlan.BASE) snapshot?.base else snapshot?.bot
     val offer = subscriptions.offers[plan]
     if (access?.usable() == true) {
-        Text(if (access.reviewAccess) "Review access is active. No subscription is required for this account."
-            else "${plan.title} is active", fontWeight = FontWeight.SemiBold)
-        val trial = access.trialEndsAt?.takeIf { it.isAfter(java.time.Instant.now()) }
-        val until = trial ?: access.expiresAt
-        until?.let { Text("${if (trial != null) "Trial ends" else "Current access ends"} ${DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(it)}.") }
+        PlanAccessSummary(plan, access)
         if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable() != true) Text("Bot mini needs an active Vipi plan. Restore Vipi or manage Bot mini in Google Play to prevent another renewal.")
         if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text("Continue to chats") }
         else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text("Continue to vBot") }
@@ -99,4 +95,15 @@ import kotlinx.coroutines.launch
         TextButton(onClick = { open("https://api.mambovipi.app/privacy") }) { Text("Privacy") }
     }
     linkError?.let { Text(it) }
+}
+
+/** Shared by the normal plan screen and isolated native UI qualification. */
+@Composable internal fun PlanAccessSummary(plan: SubscriptionPlan, access: PlanAccess,
+    now: java.time.Instant = java.time.Instant.now()) {
+    if (!access.usable(now)) return
+    Text(if (access.reviewAccess) "Review access is active. No subscription is required for this account."
+        else "${plan.title} is active", fontWeight = FontWeight.SemiBold)
+    val trial = access.trialEndsAt?.takeIf { it.isAfter(now) }
+    val until = trial ?: access.expiresAt
+    until?.let { Text("${if (trial != null) "Trial ends" else "Current access ends"} ${DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(it)}.") }
 }
