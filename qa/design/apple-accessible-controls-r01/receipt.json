@@ -1,0 +1,37 @@
+{
+  "schema": "vipi-apple-accessible-controls-1",
+  "status": "PASS",
+  "source_base": "c87fcd76e277609db399c84720c0a1de6c73e5a8",
+  "changed_file": "ios/Vipi/ImmersionBubble.swift",
+  "source_sha256": "cbc35b61920237ad9a15aeb2416c3ef7cef28a579346755252f4247e012914f2",
+  "problem": "At accessibility5, the shared control row split Listen into Lis-ten and Preparing into Pre-paring.",
+  "fix": "Nonembedded bubbles use a separate full-width voice-action row at accessibility text sizes. Pause/options remain together; ordinary-size and embedded layout policy remain compact.",
+  "qualification": {
+    "actual_native_simulator": "iPhone17 iOS26.5 46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+    "unsigned": true,
+    "compiler_jobs": 2,
+    "audit_test_passed": true,
+    "focused_fix_test_passed": true,
+    "maximum_dynamic_type": "accessibility5",
+    "actual_reduce_motion_asserted": true,
+    "prior_reduce_motion_value": 0,
+    "restored_reduce_motion_value": 0,
+    "onboarding_top_middle_bottom_captures": 9,
+    "message_reauth_initial_captures": 2,
+    "fixed_ready_preparing_ordinary_captures": 3,
+    "all14captures_visually_reviewed": true,
+    "production_bundled_provider_used": true,
+    "private_candidate_injected": false,
+    "ready_speech_state": "DEBUG preparation callback for layout only; no audio qualification",
+    "normal_startup_qualified": false,
+    "signing_attempts": 0
+  },
+  "scope": "Isolated actual components only. Scroll viewport edges are not content clipping. Onboarding headings/legal/primary actions and reauth notice remain reachable/readable; complete chat/account/store journey is not qualified. Reduce Motion removes onboarding transition animation in current source; this audit does not claim automatic vocabulary switching is disabled.",
+  "private_receipt_directory": "/home/ai/Development/investigations/vipi-submit-20261110-r01/apple-store-readiness-accessibility-r01",
+  "fixed_images": {
+    "6F22CB78-86B9-44E6-87FC-023D88C47DE1.png": "04b84c54832dbc27e14f758c7688b022ef653df31779328f937ffca132e3202f",
+    "A84FBB2E-BD94-42D1-8D48-08311FCB8158.png": "bea95e15c02e3ade69191d4863fd2383729ac8999226ecff2bf0a77afc1a8d8d",
+    "DA88415D-BE03-4175-B98E-D31C8F10745F.png": "c705fd6d97a8754fd0dccd88e6bc245addba1edff5e672ce8a25260ebd1e6d67"
+  },
+  "failed_harness_attempt": "Initial audit tried setting SwiftUI read-only accessibilityReduceMotion environment; compilation rejected it. App source unchanged in that attempt; retained separately."
+}

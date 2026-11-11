@@ -41,6 +41,12 @@ struct ImmersionBubble: View {
     @AppStorage("readingPace") private var pace = "balanced"
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private var stackedControls: Bool { dynamicTypeSize.isAccessibilitySize && !embedded }
+    private var controlLayout: AnyLayout {
+        stackedControls ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8)) : AnyLayout(HStackLayout(spacing: 0))
+    }
 
     private var effectiveMode: ReadingMode { mode == .translation && result.translation == nil ? .immersed : mode }
     private var speechMode: ImmersionSpeechMode {
@@ -85,8 +91,9 @@ struct ImmersionBubble: View {
                 Text(effectiveMode == .original ? result.original : (script ? (result.translation ?? result.original) : (fullReading ?? result.translation ?? result.original))).font(.body).lineSpacing(5)
                     .textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
             }
-            HStack(spacing: 0) {
+            controlLayout {
                 if embedded { metadata; Spacer(minLength: 8) }
+                HStack(spacing: stackedControls ? 12 : 0) {
                 if !embedded && effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)
@@ -128,7 +135,8 @@ struct ImmersionBubble: View {
                     } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
                         .accessibilityLabel("Reading options")
                 }
-                if !embedded { Spacer() }
+                }
+                if !embedded && !stackedControls { Spacer() }
                 if !embedded, let speech, canListen {
                     Button {
                         listen()
@@ -138,6 +146,7 @@ struct ImmersionBubble: View {
                             else { Image(systemName: active ? "stop.fill" : "speaker.wave.2") }
                             Text(active ? "Stop" : speech.state == .preparing ? "Preparing voices" : "Listen")
                         }.font(.footnote.weight(.medium)).frame(minWidth: 44, minHeight: 44)
+                            .frame(maxWidth: stackedControls ? .infinity : nil, alignment: .leading)
                     }.disabled(speech.state == .preparing || speech.state == .unavailable)
                         .accessibilityIdentifier("messageListen")
                 }
