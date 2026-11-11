@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "time": "2026-11-11T01:01:37.674349+00:00",
+  "scope": "Two owned accounts, real native PKCE/profile/device enrollment and encrypted synthetic native UI messaging on restricted staging with production WorkOS",
+  "messages_sent": 2,
+  "native_send_actions_per_message": 1,
+  "both_decrypted_exact_originals": true,
+  "both_outbound_delivered_native_receipts": true,
+  "alpha_default_target": "sw",
+  "beta_default_target": "ja",
+  "alpha_normal_chat_ten_samples_original_and_target_phases": true,
+  "alpha_bubble_bounds_stable": true,
+  "beta_native_script_visually_reviewed": [
+    "コーヒー",
+    "朝"
+  ],
+  "beta_latin_restored": true,
+  "alpha_word_switching_resumed": true,
+  "full_translation_actions": 0,
+  "purchase_actions": 0,
+  "entitlement_changes": 0,
+  "acoustic_quality": "Not assessed: retained WAV and exact native spans/voice binding exist; this model cannot receive audio input.",
+  "current_night": "Night mode: no",
+  "current_font_scale": "1.0",
+  "emulator_5620": "running, accounts and message history preserved",
+  "emulator_5584": "untouched",
+  "screenshots": {
+    "beta-live-script.png": "9f487c38f1b966d4c4ba72f2a11bfc87937ba6c6f0033eb9571497d47d3b7207",
+    "alpha-live-chat.png": "431ff81d702749f38f6c36b4d7e30f39dd5d2529330a8b24f9402577abea819a",
+    "beta-live-latin.png": "18c2b536245dbf30494328550b8904f25ed0519bfd3948a9609c0a8dd56dfe8b"
+  },
+  "evidence_sha256": "9aeff7c013dc3d5d86f9bf1692797e844c7f41db91dc7f11f2d8ca200f8f7bac",
+  "limitations": [
+    "Restricted staging with production identity, two owned synthetic accounts, subscriptions unenforced",
+    "No APNs/FCM background delivery or real store-purchase qualification",
+    "No Apple signed-account qualification",
+    "No security-equivalence or throughput certification"
+  ]
+}

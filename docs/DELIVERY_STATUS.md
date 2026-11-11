@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated 2026-11-10. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
+Updated 2026-11-11. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
 Automatic source-only vocabulary is now enabled for all 110 directions among
 the eleven supported languages. The new pinned catalog adds 108 directions;
@@ -16,9 +16,14 @@ seeing the active catalog. Both native default engines emitted words in only
 the English output was pronouns. Originals were preserved and no automatic
 translation or model-readiness calls occurred. Review found no clear wrong-sense
 substitution in those emitted spans, but this sparse exposure is insufficient
-for the intended everyday experience. New everyday and high-frequency content
-increments are being independently reviewed; they are not yet shipped. This
-synthetic sample is a usefulness warning, not a population accuracy estimate.
+for the intended everyday experience. A corrected private everyday/frequency increment now emits in 264 of the same
+1,320 cases on both platforms. The separate bare-noun candidate reaches 304
+on Apple, with sixty additive spans independently reviewed in context. Those
+figures describe reused development data and private candidates, not shipped
+coverage or population accuracy. Of the remaining 1,016 Apple cases, 938 lack
+a candidate, 48 fail native word boundaries (38 correctly reject substrings),
+and 30 stop at detection. None are blocked only by density. Accepted content
+is being prepared for promotion; meaning and reading holds remain enforced.
 
 Both native clients now use the pinned local CLD2 detector. Actual Android and
 Apple tests reproduce the same 87 detector cases and preserve originals in the
@@ -102,18 +107,21 @@ is preserved and was not replayed. Google Cloud requires company password
 verification; Firebase reports HTTP v1 messaging disabled. The live backend
 remains restricted staging with subscriptions unenforced and no APNs, FCM or
 DeepSeek configuration enabled. Public-page copy and the local exposure-record
-privacy addendum are now live at `4473238`. The scoped deployment preserved the
+privacy addendum are now live; the latest help/plan copy is deployed at `c87fcd7`. The scoped deployment preserved the
 database/schema, environment configuration and shared nginx/PostgreSQL services;
 public routes return 200, protected routes still reject unauthenticated requests.
 The subsequent Vipi-only identity configuration now uses the production WorkOS
 application, restricted to two owned review accounts. Its activation and account
 readback are verified; public registration remains off. The current Vipi icon
 and light/dark hosted sign-in screens are also verified. Android production PKCE,
-native profile creation and encryption-key enrollment now pass for one owned
-review account against this restricted service. The original observer timeout
-was reconciled with actual session/token state and read-only backend results:
-one active device, one public bundle and twenty prekeys. No purchase, push or
-peer-exchange qualification follows from this account flow. See
+native profile creation and separate encryption-key enrollment now pass for
+two owned review accounts against this restricted service. Exactly two native
+synthetic messages were exchanged, decrypted to the exact originals and marked
+Delivered. The retained real chat shows continuous local Swahili substitutions
+with stable bubble bounds and Japanese script/readings. Native mixed-language
+audio was retained with its source spans and voice IDs; acoustic quality remains
+unassessed. This does not qualify purchases, background push or Apple sign-in.
+See `qa/backend/native-peer-chat-android-r01`. See
 `qa/backend/native-production-auth-android-r01`,
 `qa/backend/production-auth-staging-r01` and `qa/design/hosted-signin-r01`.
 The actual signed Android production bundle also passed local package/version,
@@ -183,7 +191,7 @@ round-trip signals are not interchangeable with contextual correctness.
 
 | Area | Latest demonstrated result | Remaining gate |
 |---|---|---|
-| Service | Restricted staging runs `4473238`, same database/schema and credentials. Plain-language homepage/help and the exposure-record privacy disclosure are live; Apple Sandbox verification remains configured. Public routes return 200 with CSP and protected routes remain closed. | Production registration/configuration and real provider credentials. |
+| Service | Restricted staging runs `c87fcd7`, same database/schema and credentials. Plain-language homepage/help and the exposure-record privacy disclosure are live; Apple Sandbox verification remains configured. Public routes return 200 with CSP and protected routes remain closed. | Production registration/configuration and real provider credentials. |
 | Human chat | Actual native E2EE exchange, out-of-order replies, replay rejection, foreground arrival/reconnect, persistent history and cross-platform encrypted export/import. | Real provider background delivery in the available native testing environments, complete hosted recovery and final signed release builds. |
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
