@@ -1,0 +1,3431 @@
+{
+  "runtime_promotion": false,
+  "schema": "vipi-finite-source-variant-amendment-1",
+  "provenance": "New finite assistant-authored English scope review, reusing existing accepted repetition/temporal concepts; not dictionary-attested or native-human gold. No target eligibility changes.",
+  "grammar": "All slot products are materialized literal contexts. No runtime variable matching, casefold, stemming or exceptions. Full native context/focus edges and existing clause_or_end contract remain required.",
+  "patterns": [
+    {
+      "concept_id": "candidate-frequency-r01:again",
+      "source_language": "en",
+      "source": "again",
+      "replace_all_existing_source_variants": true,
+      "source_only_permission": false,
+      "root_approval": true,
+      "variants": [
+        {
+          "context": "try again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "try again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "try again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call him again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call him again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call him again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call her again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call her again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call her again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call us again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call us again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call us again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call them again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call them again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call them again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask him again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask him again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask him again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask her again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask her again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask her again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask us again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask us again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask us again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask them again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask them again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask them again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send that again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send that again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send that again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the photo again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the photo again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the photo again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the message again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the message again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the message again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the link again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the link again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the link again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request it again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request it again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request it again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request that again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request that again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request that again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the file again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the file again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the file again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the address again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the address again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the address again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the photo again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the photo again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the photo again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the message again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the message again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the message again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the link again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the link again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "request the link again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost my keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost my phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost my wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost your keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost your phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost your wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost our keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost our phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost our wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost their keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost their phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "lost their wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot my keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot my phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot my lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot your keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot your phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot your lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot our keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot our phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot our lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot their keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot their phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            19,
+            24
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "forgot their lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            19,
+            24
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call him again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call him again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call him again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call her again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call her again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call her again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call us again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call us again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call us again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call them again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call them again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call them again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask him again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask him again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask him again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask her again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask her again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask her again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask us again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask us again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask us again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask them again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask them again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask them again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send that again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send that again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send that again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the photo again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the photo again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the photo again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the message again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the message again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the message again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the link again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the link again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the link again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request it again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request it again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request it again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request that again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request that again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request that again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the file again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the file again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the file again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the address again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the address again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the address again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the photo again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the photo again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the photo again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the message again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the message again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the message again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            20,
+            25
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the link again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the link again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Request the link again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost my keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost my phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost my wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost your keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost your phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost your wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost our keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost our phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost our wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost their keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost their phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Lost their wallet again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot my keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            20
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot my phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot my lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot your keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot your phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot your lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot our keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot our phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot our lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot their keys again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            18,
+            23
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot their phone again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            19,
+            24
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Forgot their lunch again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            19,
+            24
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask again",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask again tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask again tonight",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    },
+    {
+      "concept_id": "candidate-frequency-r01:later",
+      "source_language": "en",
+      "source": "later",
+      "replace_all_existing_source_variants": true,
+      "source_only_permission": false,
+      "root_approval": true,
+      "variants": [
+        {
+          "context": "talk later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "talk later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "talk later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "talk about this later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "talk about this later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "talk about this later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "discuss this later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "discuss this later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "discuss this later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call me later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "call you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask me later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "ask you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "meet later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "see you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "see you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "see you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send it later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the file later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "send the address later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "reply later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "reply later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "reply later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "try later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "try later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "try later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "do it later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "do it later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "do it later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "come back later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "come back later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "come back later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "get back to you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "get back to you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "get back to you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "pay you back later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "pay you back later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "pay you back later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "check later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "check later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "check later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "decide later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "decide later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "decide later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "leave later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "leave later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "leave later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "start later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "start later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "start later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "finish later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "finish later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "finish later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "arrive later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "arrive later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "arrive later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk about this later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk about this later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Talk about this later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Discuss this later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Discuss this later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Discuss this later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call me later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Call you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask me later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Ask you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Meet later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "See you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "See you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "See you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send it later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the file later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            19
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Send the address later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            17,
+            22
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Reply later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Reply later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Reply later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Try later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Do it later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Do it later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Do it later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Come back later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Come back later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Come back later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Get back to you later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Get back to you later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Get back to you later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            16,
+            21
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Pay you back later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Pay you back later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Pay you back later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            18
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Check later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Check later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Check later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Decide later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Decide later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Decide later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Leave later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Leave later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Leave later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Start later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Start later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Start later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Finish later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Finish later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Finish later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Arrive later",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Arrive later today",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "Arrive later tomorrow",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    }
+  ],
+  "root_acceptance": "Root reviewed108+75; then explicitly added call/ask again suffix family and uppercase first-character copies for these exact verb phrases."
+}

@@ -1,0 +1,4082 @@
+{
+  "accepted": [
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "Need food",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "food",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "food",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "Need information",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "information",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "information",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "Need money",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "money",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "money",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_coffee",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "drink coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "coffee",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "like music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "music",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_watching_movie",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "watching a movie",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "movie",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "movie",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "find a restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            17
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "restaurant",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere información",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            18
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "información",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "información",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere dinero",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "dinero",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "dinero",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere un taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "taxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere agua",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "agua",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "agua",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "bebe té",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            7
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "té",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "té",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "come pan",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            8
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pan",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pan",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "come queso",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "queso",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "queso",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "gusta la música",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "música",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "música",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "busca el restaurante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "restaurante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "restaurante",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_doctor",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "veut un médecin",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "médecin",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "médecin",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "besoin de nourriture",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "nourriture",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "nourriture",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "veut ces informations",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            21
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "informations",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "informations",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "veut un taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            12
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "taxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "veut cette eau",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "eau",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "eau",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "bois du thé",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "thé",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "thé",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "mange du pain",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pain",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pain",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "mange du fromage",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "fromage",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "fromage",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "aime la musique",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "musique",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "musique",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "joue du piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "piano",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_hotel_search",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "cherche un hôtel",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "hôtel",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "hôtel",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "cherche le restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            21
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "restaurant",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_breakfast",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte ein Frühstück",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Frühstück",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Frühstück",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_doctor",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte einen Arzt",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            17
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Arzt",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Arzt",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte Informationen",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Informationen",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Informationen",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte Geld",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Geld",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Geld",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte ein Taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Taxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte Wasser",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Wasser",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Wasser",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_coffee",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "trinke Kaffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Kaffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Kaffee",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "trinke Tee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Tee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Tee",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "esse Brot",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Brot",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Brot",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "mag Musik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Musik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Musik",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "spiele Klavier",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Klavier",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Klavier",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_reading_book",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "lese ein Buch",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Buch",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Buch",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_hotel_search",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "suche das Hotel",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Hotel",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Hotel",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "suche das Restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Restaurant",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Restaurant",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_breakfast",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole una colazione",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            19
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "colazione",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "colazione",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "cibo",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole informazioni",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            18
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "informazioni",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "informazioni",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole dei soldi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "soldi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "soldi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole un taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "taxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "bisogno di acqua",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "acqua",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "acqua",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "beve tè",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            7
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "tè",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "tè",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "mangia pane",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pane",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pane",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "mangia formaggio",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "formaggio",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "formaggio",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "ama la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "musica",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "suonando il pianoforte",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            22
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pianoforte",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pianoforte",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_reading_book",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "legge un libro",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "libro",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "libro",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "cerca un ristorante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            19
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "ristorante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "ristorante",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer informações",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "informações",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "informações",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer dinheiro",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "dinheiro",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "dinheiro",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer um táxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            12
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "táxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "táxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer água",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "água",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "água",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "bebe chá",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            8
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "chá",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "chá",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "come pão",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            8
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pão",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pão",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "come queijo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "queijo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "queijo",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "gosta de música",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "música",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "música",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "procura um restaurante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            22
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "restaurante",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "restaurante",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أود طعام",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "طعام",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "طعام",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أود معلومات",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "معلومات",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "معلومات",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أود سيارة أجرة",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "سيارة أجرة",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "سيارة أجرة",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أود ماء",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            7
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "ماء",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "ماء",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أشرب شاي",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            8
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "شاي",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "شاي",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أحب موسيقى هادئة",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "موسيقى",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "موسيقى",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "أعزف على بيانو",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "بيانو",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "بيانو",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_reading_book",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "قراءة كتاب",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "كتاب",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "كتاب",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_watching_movie",
+      "decision": "propose_bare",
+      "language": "ar",
+      "original_variants": [
+        {
+          "context": "مشاهدة فيلم",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "فيلم",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "فيلم",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_breakfast",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要早餐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "早餐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "早餐",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_doctor",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要一位医生",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            5
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "医生",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "医生",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要食物",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "食物",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "食物",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要信息",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "信息",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "信息",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要钱",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "钱",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "钱",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要一辆出租车",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            6
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "出租车",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "出租车",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "吃奶酪",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "奶酪",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "奶酪",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "喜欢音乐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            2,
+            4
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "音乐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "音乐",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "弹钢琴",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "钢琴",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "钢琴",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "找餐厅",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            1,
+            3
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "餐厅",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "餐厅",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_breakfast",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "朝食が必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "朝食",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "朝食",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "食べ物が必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "食べ物",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "食べ物",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "情報が必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "情報",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "情報",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "お金が必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "お金",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "お金",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "タクシーが必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "タクシー",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "タクシー",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_coffee",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "コーヒーを飲む",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "コーヒー",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "コーヒー",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "パンを食べる",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "パン",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "パン",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "チーズを食べる",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "チーズ",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "チーズ",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "音楽が好き",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "音楽",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "音楽",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "ピアノを弾いています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "ピアノ",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "ピアノ",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_watching_movie",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "映画を見ています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "映画",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "映画",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_hotel_search",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "ホテルを探す",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "ホテル",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "ホテル",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "レストランを探す",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "レストラン",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "レストラン",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "음식 주세요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "음식",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "음식",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "정보 주세요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "정보",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "정보",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "택시 주세요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "택시",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "택시",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_coffee",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "커피 마셔요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "커피",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "커피",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "치즈 먹어요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "치즈",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "치즈",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "음악 좋아해요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "음악",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "음악",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "피아노 치고 있어요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "피아노",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "피아노",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_reading_book",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "책 읽어요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "책",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "책",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_watching_movie",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "영화 보고 있어요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "영화",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "영화",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:requests_restaurant_search",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "식당 찾고 있어요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "식당",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "식당",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka chakula",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "chakula",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "chakula",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_information",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka taarifa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "taarifa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "taarifa",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_money",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka pesa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            12
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "pesa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "pesa",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka teksi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "teksi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "teksi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka maji",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            12
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "maji",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "maji",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_coffee",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alikunywa kahawa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "kahawa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "kahawa",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alikunywa chai",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "chai",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "chai",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alikula jibini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "jibini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "jibini",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_liking_music",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alipenda muziki",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "muziki",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "muziki",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alipiga piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "piano",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_reading_book",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alisoma kitabu",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "kitabu",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "kitabu",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    }
+  ],
+  "approval_scope": "Root-reviewed finite content packaging proposal: corrected r04 plus accepted bare cells, excluding English cheese and all prior exclusions. Runtime activation requires separate root authorization.",
+  "excluded": [
+    {
+      "concept_id": "candidate-common:needs_taxi",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "Need a taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "taxi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "taxi",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "Need an umbrella",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            16
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "umbrella",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "umbrella",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_drinking_tea",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "drink tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "tea",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_playing_piano",
+      "decision": "propose_bare",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "playing the piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            17
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "piano",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "piano",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere comida",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "comida",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "comida",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "es",
+      "original_variants": [
+        {
+          "context": "Quiere un paraguas",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            18
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "paraguas",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "paraguas",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "fr",
+      "original_variants": [
+        {
+          "context": "veut un parapluie",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            17
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "parapluie",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "parapluie",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "Möchte einen Regenschirm",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            24
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Regenschirm",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Regenschirm",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "propose_bare",
+      "language": "de",
+      "original_variants": [
+        {
+          "context": "esse Käse",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "Käse",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "Käse",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "it",
+      "original_variants": [
+        {
+          "context": "vuole un ombrello",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            17
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "ombrello",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "ombrello",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_food",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer comida",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            11
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "comida",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "comida",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "pt",
+      "original_variants": [
+        {
+          "context": "Quer um guarda-chuva",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            20
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "guarda-chuva",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "guarda-chuva",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_clause_guarded_bare",
+      "language": "zh",
+      "original_variants": [
+        {
+          "context": "要一把雨伞",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            5
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "雨伞",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "雨伞",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "ja",
+      "original_variants": [
+        {
+          "context": "傘が必要",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "傘",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "傘",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_water",
+      "decision": "propose_bare",
+      "language": "ko",
+      "original_variants": [
+        {
+          "context": "물 주세요",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "물",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            1
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "물",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:needs_umbrella",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alitaka mwavuli",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            15
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "mwavuli",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "mwavuli",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_bread",
+      "decision": "propose_bare",
+      "language": "sw",
+      "original_variants": [
+        {
+          "context": "Alikula mkate",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            13
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "mkate",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            5
+          ]
+        }
+      ],
+      "reason": "Ordinary everyday noun meaning is sufficiently stable for this finite editorial proposal; native whole-unit and protected-range checks remain mandatory.",
+      "runtime_permission": false,
+      "source": "mkate",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    },
+    {
+      "concept_id": "candidate-common:phrase_frame_eating_cheese",
+      "decision": "withhold",
+      "language": "en",
+      "original_variants": [
+        {
+          "context": "eat cheese",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_variants": [
+        {
+          "context": "cheese",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "reason": "Ordinary say cheese and the big cheese uses do not select the retained food sense.",
+      "runtime_permission": false,
+      "source": "cheese",
+      "source_only_permission": false,
+      "target_policy": "Reuse existing accepted concept target faces/readings, pending exact per-pair reconciliation; no new target translations."
+    }
+  ],
+  "proposal_sha256": "d68337f2b93587ca932ecbfb4bb7f10672509144e79ca9eb70462a5816e5fd22",
+  "root_experiment_approval": true,
+  "runtime_promotion": false
+}

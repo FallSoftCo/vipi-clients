@@ -1,0 +1,280 @@
+{
+  "runtime_promotion": false,
+  "purpose": "New finite ambiguity probes; never edit or optimize against frozen fresh conversation set. Assert forbidden concept/focus, not globally zero spans if another approved concept appears.",
+  "controls": [
+    {
+      "id": "review-negative-0",
+      "source_language": "en",
+      "concept": "pharmacy",
+      "original": "I study pharmacy at university.",
+      "forbidden_focus": "pharmacy"
+    },
+    {
+      "id": "review-negative-1",
+      "source_language": "en",
+      "concept": "pharmacy",
+      "original": "We met at the pharmacy school.",
+      "forbidden_focus": "pharmacy"
+    },
+    {
+      "id": "review-negative-2",
+      "source_language": "es",
+      "concept": "pharmacy",
+      "original": "Estudio farmacia.",
+      "forbidden_focus": "farmacia"
+    },
+    {
+      "id": "review-negative-3",
+      "source_language": "fr",
+      "concept": "pharmacy",
+      "original": "Je fais des études de pharmacie.",
+      "forbidden_focus": "pharmacie"
+    },
+    {
+      "id": "review-negative-4",
+      "source_language": "it",
+      "concept": "pharmacy",
+      "original": "Studio farmacia.",
+      "forbidden_focus": "farmacia"
+    },
+    {
+      "id": "review-negative-5",
+      "source_language": "pt",
+      "concept": "pharmacy",
+      "original": "Estudo farmácia.",
+      "forbidden_focus": "farmácia"
+    },
+    {
+      "id": "review-negative-6",
+      "source_language": "pt",
+      "concept": "black_pepper",
+      "original": "pimenta-do-reino branca",
+      "forbidden_focus": "pimenta-do-reino"
+    },
+    {
+      "id": "review-negative-7",
+      "source_language": "ko",
+      "concept": "black_pepper",
+      "original": "흰 후추",
+      "forbidden_focus": "후추"
+    },
+    {
+      "id": "review-negative-8",
+      "source_language": "fr",
+      "concept": "again",
+      "original": "quelque chose de nouveau",
+      "forbidden_focus": "de nouveau"
+    },
+    {
+      "id": "review-negative-9",
+      "source_language": "it",
+      "concept": "again",
+      "original": "qualcosa di nuovo",
+      "forbidden_focus": "di nuovo"
+    },
+    {
+      "id": "review-negative-10",
+      "source_language": "pt",
+      "concept": "again",
+      "original": "algo de novo",
+      "forbidden_focus": "de novo"
+    },
+    {
+      "id": "review-negative-11",
+      "source_language": "en",
+      "concept": "together",
+      "original": "pull yourself together",
+      "forbidden_focus": "together"
+    },
+    {
+      "id": "review-negative-12",
+      "source_language": "en",
+      "concept": "together",
+      "original": "put the parts together",
+      "forbidden_focus": "together"
+    },
+    {
+      "id": "review-negative-13",
+      "source_language": "en",
+      "concept": "carefully",
+      "original": "read carefully",
+      "forbidden_focus": "carefully"
+    },
+    {
+      "id": "review-negative-14",
+      "source_language": "de",
+      "concept": "carefully",
+      "original": "lies vorsichtig",
+      "forbidden_focus": "vorsichtig"
+    },
+    {
+      "id": "review-negative-15",
+      "source_language": "en",
+      "concept": "tonight",
+      "original": "I will sleep tonight.",
+      "forbidden_focus": "tonight"
+    },
+    {
+      "id": "review-negative-16",
+      "source_language": "de",
+      "concept": "tonight",
+      "original": "heute Abend",
+      "forbidden_focus": "heute Abend"
+    },
+    {
+      "id": "review-negative-17",
+      "source_language": "en",
+      "concept": "always",
+      "original": "I have always lived here.",
+      "forbidden_focus": "always"
+    },
+    {
+      "id": "review-negative-18",
+      "source_language": "sw",
+      "concept": "sometimes",
+      "original": "wakati mwingine",
+      "forbidden_focus": "wakati mwingine"
+    },
+    {
+      "id": "review-negative-19",
+      "source_language": "en",
+      "concept": "never",
+      "original": "I never forget.",
+      "forbidden_focus": "never"
+    },
+    {
+      "id": "final-negative-20",
+      "source_language": "en",
+      "concept": "picnic",
+      "original": "The work was no picnic.",
+      "forbidden_focus": "picnic"
+    },
+    {
+      "id": "final-negative-21",
+      "source_language": "ar",
+      "concept": "again",
+      "original": "في مرة أخرى",
+      "forbidden_focus": "مرة أخرى"
+    },
+    {
+      "id": "final-negative-22",
+      "source_language": "sw",
+      "concept": "again",
+      "original": "tena",
+      "forbidden_focus": "tena"
+    },
+    {
+      "id": "final-negative-23",
+      "source_language": "fr",
+      "concept": "usually",
+      "original": "une question d'habitude",
+      "forbidden_focus": "d'habitude"
+    },
+    {
+      "id": "final-negative-24",
+      "source_language": "es",
+      "concept": "usually",
+      "original": "respira normalmente",
+      "forbidden_focus": "normalmente"
+    },
+    {
+      "id": "r03-scope-negative-14",
+      "source_language": "en",
+      "original": "Then again, we could stay home.",
+      "concept": "again",
+      "forbidden_focus": "again",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-15",
+      "source_language": "en",
+      "original": "It costs half as much again.",
+      "concept": "again",
+      "forbidden_focus": "again",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-16",
+      "source_language": "en",
+      "original": "There were twice as many again.",
+      "concept": "again",
+      "forbidden_focus": "again",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-17",
+      "source_language": "en",
+      "original": "I will try again and again.",
+      "concept": "again",
+      "forbidden_focus": "again",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-18",
+      "source_language": "en",
+      "original": "Please send the file againish.",
+      "concept": "again",
+      "forbidden_focus": "again",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-19",
+      "source_language": "en",
+      "original": "We took a later train.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-20",
+      "source_language": "en",
+      "original": "He will arrive later than expected.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-21",
+      "source_language": "en",
+      "original": "She will call later than usual.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-22",
+      "source_language": "en",
+      "original": "Please choose the later appointment.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-23",
+      "source_language": "en",
+      "original": "We will meet laterish.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    },
+    {
+      "id": "r03-scope-negative-24",
+      "source_language": "en",
+      "original": "I will send it later today than planned.",
+      "concept": "later",
+      "forbidden_focus": "later",
+      "expected_no_spans": false,
+      "reason": "Rejected by approved English event-repeat/temporal context scope, not a global blacklist."
+    }
+  ]
+}

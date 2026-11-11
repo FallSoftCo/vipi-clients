@@ -1,0 +1,265 @@
+{
+  "authorship": "New finite editorial chat and ambiguity samples; not held-out evaluation or exact sentence permissions.",
+  "negatives": [
+    [
+      "en",
+      "We had tea at six, with sandwiches and cake.",
+      "tea",
+      "meal sense"
+    ],
+    [
+      "en",
+      "The planes taxi to the runway.",
+      "taxi",
+      "aviation verb"
+    ],
+    [
+      "en",
+      "Play this passage piano.",
+      "piano",
+      "musical dynamic"
+    ],
+    [
+      "es",
+      "La comida empieza a las dos.",
+      "comida",
+      "meal occasion"
+    ],
+    [
+      "pt",
+      "A comida de domingo começa ao meio-dia.",
+      "comida",
+      "meal occasion"
+    ],
+    [
+      "de",
+      "Das ist doch Käse!",
+      "Käse",
+      "ordinary nonsense idiom"
+    ],
+    [
+      "sw",
+      "Tafadhali mkate kamba hiyo.",
+      "mkate",
+      "cut that rope imperative plural"
+    ],
+    [
+      "ko",
+      "요즘 이 동네 물이 안 좋아요.",
+      "물",
+      "social atmosphere/crowd sense"
+    ],
+    [
+      "en",
+      "They rely on a nuclear umbrella.",
+      "umbrella",
+      "nuclear protection metaphor"
+    ],
+    [
+      "es",
+      "Buscan un paraguas nuclear.",
+      "paraguas",
+      "nuclear protection metaphor"
+    ],
+    [
+      "fr",
+      "Ils comptent sur le parapluie nucléaire.",
+      "parapluie",
+      "nuclear protection metaphor"
+    ],
+    [
+      "de",
+      "Sie stehen unter einem nuklearen Regenschirm.",
+      "Regenschirm",
+      "nuclear protection metaphor"
+    ],
+    [
+      "it",
+      "Contano su un ombrello nucleare.",
+      "ombrello",
+      "nuclear protection metaphor"
+    ],
+    [
+      "pt",
+      "Buscam um guarda-chuva nuclear.",
+      "guarda-chuva",
+      "nuclear protection metaphor"
+    ],
+    [
+      "ar",
+      "يعتمدون على مظلة نووية.",
+      "مظلة",
+      "nuclear protection metaphor"
+    ],
+    [
+      "zh",
+      "他们依靠核保护伞。",
+      "雨伞",
+      "nuclear protection; retained face is different"
+    ],
+    [
+      "ja",
+      "核の傘に頼っている。",
+      "傘",
+      "nuclear protection metaphor"
+    ],
+    [
+      "ko",
+      "핵우산 아래에 있어요.",
+      "우산",
+      "nuclear protection metaphor"
+    ],
+    [
+      "sw",
+      "Wanategemea mwavuli wa nyuklia.",
+      "mwavuli",
+      "nuclear protection metaphor"
+    ],
+    [
+      "it",
+      "Passo dalla panetteria.",
+      "pane",
+      "larger lexical form"
+    ],
+    [
+      "it",
+      "La libreria è chiusa.",
+      "libro",
+      "derived noun, no stemming"
+    ],
+    [
+      "zh",
+      "我买了奶酪蛋糕。",
+      "奶酪",
+      "compound suffix; current clause guard rejects"
+    ],
+    [
+      "zh",
+      "这是音乐会。",
+      "音乐",
+      "compound suffix; current clause guard rejects"
+    ],
+    [
+      "en",
+      "https://example.invalid/cheese",
+      "cheese",
+      "protected URL"
+    ],
+    [
+      "it",
+      "`pane`",
+      "pane",
+      "protected code"
+    ],
+    [
+      "en",
+      "Say cheese!",
+      "cheese",
+      "photography instruction"
+    ],
+    [
+      "en",
+      "He is the big cheese.",
+      "cheese",
+      "important person idiom"
+    ]
+  ],
+  "positives": [
+    [
+      "es",
+      "Queda pan para mañana.",
+      "pan"
+    ],
+    [
+      "fr",
+      "Il reste du pain sur la table.",
+      "pain"
+    ],
+    [
+      "de",
+      "Das Brot liegt auf dem Tisch.",
+      "Brot"
+    ],
+    [
+      "it",
+      "Ho comprato il pane per domani.",
+      "pane"
+    ],
+    [
+      "it",
+      "Serve acqua per la pasta.",
+      "acqua"
+    ],
+    [
+      "it",
+      "Il formaggio è nel frigo.",
+      "formaggio"
+    ],
+    [
+      "it",
+      "Ho dimenticato il libro sul divano.",
+      "libro"
+    ],
+    [
+      "it",
+      "C’è musica in cucina.",
+      "musica"
+    ],
+    [
+      "pt",
+      "Comprei pão para amanhã.",
+      "pão"
+    ],
+    [
+      "ar",
+      "اشتريت ماء للرحلة.",
+      "ماء"
+    ],
+    [
+      "ar",
+      "عندي كتاب للقراءة.",
+      "كتاب"
+    ],
+    [
+      "zh",
+      "我买了奶酪。",
+      "奶酪"
+    ],
+    [
+      "zh",
+      "桌上还有食物。",
+      "食物"
+    ],
+    [
+      "ja",
+      "チーズを冷蔵庫に入れた。",
+      "チーズ"
+    ],
+    [
+      "ja",
+      "音楽を少し小さくして。",
+      "音楽"
+    ],
+    [
+      "ko",
+      "치즈 좀 사다 줄래?",
+      "치즈"
+    ],
+    [
+      "ko",
+      "음악 소리가 너무 커요.",
+      "음악"
+    ],
+    [
+      "sw",
+      "Tuna maji ya kutosha.",
+      "maji"
+    ],
+    [
+      "sw",
+      "Nimenunua jibini leo.",
+      "jibini"
+    ]
+  ],
+  "runtime_promotion": false
+}

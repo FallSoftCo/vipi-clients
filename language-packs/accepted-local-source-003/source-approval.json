@@ -1,0 +1,88 @@
+{
+  "schema": "vipi-finite-content-packaging-review-1",
+  "activation_authorized": false,
+  "root_requested_packaging": true,
+  "content_basis": "Original agent-authored finite grids and scopes, independently reviewed by root; no native-human gold or dictionary-generated semantic approval claim. Reading corrections retain their separately bound source records.",
+  "canonical_base_revision": "6374129e00a5ba19408b3673e3791ada0fe5884a",
+  "accepted_bare_faces": 117,
+  "withheld_bare_faces": 18,
+  "removed_vs_native_tested_bare": [
+    {
+      "pair": "en-es",
+      "id": "bare-noun-r01:en-es:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-zh",
+      "id": "bare-noun-r01:en-zh:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-it",
+      "id": "bare-noun-r01:en-it:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-pt",
+      "id": "bare-noun-r01:en-pt:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-ar",
+      "id": "bare-noun-r01:en-ar:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-sw",
+      "id": "bare-noun-r01:en-sw:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-ko",
+      "id": "bare-noun-r01:en-ko:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-fr",
+      "id": "bare-noun-r01:en-fr:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-de",
+      "id": "bare-noun-r01:en-de:phrase_frame_eating_cheese",
+      "source": "cheese"
+    },
+    {
+      "pair": "en-ja",
+      "id": "bare-noun-r01:en-ja:phrase_frame_eating_cheese",
+      "source": "cheese"
+    }
+  ],
+  "native_receipt_bindings": {
+    "apple-bare-noun-candidate-r02/root-independent-review.json": {
+      "sha256": "a744755aaa23601508b80b0ec0613db0024b5a7315ba40a04ce5a3196970c5a7",
+      "bytes": 1719
+    },
+    "apple-bare-noun-candidate-r02/benchmark-consolidated.json": {
+      "sha256": "11bc13935066026e4441644c00be69eb50523e283d248b7ddcdb14c53ded4be8",
+      "bytes": 1075276
+    },
+    "apple-bare-noun-candidate-r02/review-consolidated.json": {
+      "sha256": "5e085b7fad8536860c581bbe972124c72319b0ace6e58d9caef92a4d596f9f9a",
+      "bytes": 83617
+    },
+    "android-bare-noun-r02/summary.json": {
+      "sha256": "cbb14ec69b037fd7a0be432cad7512af28f88dcc84c7f8dc509ff235fd8f7e29",
+      "bytes": 149
+    },
+    "android-content-extension-r04/fresh-consolidated.json": {
+      "sha256": "e90ef43585698e14276aacdcfef484cfa94221c24e06d9a0df0ebc7a7e714537",
+      "bytes": 1083269
+    },
+    "android-content-extension-r04/focused-consolidated.json": {
+      "sha256": "f32c3c8c7ac80f9925c9593b09a6bbc46aec6f810aaeba1dbf579942bd047a95",
+      "bytes": 425139
+    }
+  },
+  "scope": "Only the 82-concept corrected r04 editorial increment and 117 accepted bare entries; no dictionary pilot or carrier experiment. Final exact bundled route qualification remains outstanding."
+}

@@ -1,0 +1,17 @@
+{
+  "runtime_promotion": false,
+  "root_acceptance": "Root task explicitly accepts reviewed 82-concept finite cells plus final refinements for isolated qualification only; no production approval.",
+  "inputs": {
+    "everyday-amended-grid.json": "22896dcd604d34a07a7e8abfb7389e74fb71a73c9e9dcf4cb27074f64aaa5b8a",
+    "frequency-amended-grid.json": "2f4b1967a1014265816f7e35d298873dedd73867cebf478aa16050facfb47620",
+    "colloquial-amended-supplement.json": "f9692d15ec6ece0b303708d5550fa0974d5a4f29587429c8152ccfab5cdc13f5",
+    "semantic-controls.json": "a97a26ff6b8b840673b9cbe5e25d6d495bca0e600f153a95334493c81fcbeed7"
+  },
+  "outputs": {
+    "colloquial-amended-supplement.json": "3f667d64d8a9535881291906d53d615fb420b7ba9c3c3d1d7c9334f9901e9abd",
+    "final-amendments.json": "368350517b6cc18d68a70237b11f0f8cf33f6866349c238dce21ea7f0baacc67",
+    "semantic-controls.json": "05ed5a2afb8b3c6c884b42f13eb628c3157c742fdba80ef06b261761f84cd6a6",
+    "everyday-amended-grid.json": "893067ea6e1a69b4dc9ed4bc5d05a292ce1ce0e26a7d393a0ae9e030ef459031",
+    "frequency-amended-grid.json": "b6864bac13eed91ed927882a3a7bdad47b754f0fbd1803438a64dd4955dd9020"
+  }
+}

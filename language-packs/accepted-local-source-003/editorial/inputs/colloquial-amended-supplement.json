@@ -1,0 +1,202 @@
+{
+  "runtime_promotion": false,
+  "provenance": "Original assistant-authored source proposals; no fixture text changed; independent/native qualification pending.",
+  "entries": [
+    {
+      "concept": "today",
+      "language": "ar",
+      "locale": "Egyptian Arabic",
+      "focus": "النهارده",
+      "reading": "en-naharda",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "النهارده",
+          "focus_utf16": [
+            0,
+            8
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Current day; dialect-tag separately from MSA اليوم.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "now",
+      "language": "ar",
+      "locale": "Egyptian Arabic",
+      "focus": "دلوقتي",
+      "reading": "dilwaʾti",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "دلوقتي",
+          "focus_utf16": [
+            0,
+            6
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Present moment in Egyptian chat; not an all-Arabic default.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "tomorrow",
+      "language": "ar",
+      "locale": "Egyptian Arabic",
+      "focus": "بكرة",
+      "reading": "bokra",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "أشوفك بكرة",
+          "focus_utf16": [
+            6,
+            10
+          ],
+          "context_scope": "local_phrase"
+        },
+        {
+          "context": "هرجع بكرة",
+          "focus_utf16": [
+            5,
+            9
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Bare unvowelled بكرة has other lexical readings; future meeting/return contexts select tomorrow.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "later",
+      "language": "ar",
+      "locale": "Egyptian Arabic",
+      "focus": "بعدين",
+      "reading": "baʿdeen",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "أكلمك بعدين",
+          "focus_utf16": [
+            6,
+            11
+          ],
+          "context_scope": "local_phrase"
+        },
+        {
+          "context": "نشوف بعدين",
+          "focus_utf16": [
+            5,
+            10
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Can mean then/afterwards; exact deferred-call/deferred-review contexts select later.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "again",
+      "language": "ar",
+      "locale": "Egyptian Arabic",
+      "focus": "تاني",
+      "reading": "tani",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "جرب تاني",
+          "focus_utf16": [
+            4,
+            8
+          ],
+          "context_scope": "local_phrase"
+        },
+        {
+          "context": "ابعت تاني",
+          "focus_utf16": [
+            5,
+            9
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Bare تاني also means second/another; repeat-action contexts select again.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "later",
+      "language": "es",
+      "locale": "informal general Spanish",
+      "focus": "luego",
+      "reading": "",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "te llamo luego",
+          "focus_utf16": [
+            9,
+            14
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Bare luego can mean then or logical therefore; future calling context selects later.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    },
+    {
+      "concept": "later",
+      "language": "pt",
+      "locale": "Brazilian Portuguese",
+      "focus": "depois",
+      "reading": "",
+      "source_only_permission": false,
+      "source_eligibility": "reviewed_dialect_variant",
+      "target_use": "No new targets proposed; inherit independently reviewed intended concept targets, never copy morphology from this source alias.",
+      "variants": [
+        {
+          "context": "te ligo depois",
+          "focus_utf16": [
+            8,
+            14
+          ],
+          "context_scope": "local_phrase"
+        }
+      ],
+      "note": "Bare depois also means after relative to another event; future calling context selects later.",
+      "source_review": "accept",
+      "target_review": "withhold",
+      "target_reason": "Source alias only; no dialect target proposal."
+    }
+  ],
+  "parent_sha256": "2080691f8ddebc0b47cd1522052cefc26fca350d8acb604392cf35948635fb77",
+  "independent_review": "Finite dialect source-alias review for isolated native tests; inherit only reviewed targets from amended frequency grid.",
+  "review_r01_sha256": "f9692d15ec6ece0b303708d5550fa0974d5a4f29587429c8152ccfab5cdc13f5",
+  "qualification_scope": "Root accepted finite editorial cells for isolated native candidate only; runtime promotion remains false; no case/morphology extension."
+}

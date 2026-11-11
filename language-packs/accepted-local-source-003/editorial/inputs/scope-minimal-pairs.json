@@ -1,0 +1,258 @@
+{
+  "native_executed": false,
+  "cases": [
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Could you call me again tomorrow?",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "call me again tomorrow"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Please ask her again tonight.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "ask her again tonight"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "They want to meet again tomorrow.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "meet again tomorrow"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Please send the photo again.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "send the photo again"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "I had to request the file again.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "request the file again"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "We lost our keys again.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "lost our keys again"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "I forgot my phone again.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "forgot my phone again"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Do not try again.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "try again"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "We can discuss this later.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "discuss this later"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "I will reply later today.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "reply later today"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "Please send the address later tomorrow.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "send the address later tomorrow"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "We should leave later.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "leave later"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "I can pay you back later.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "pay you back later"
+      ]
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "Do not call me later.",
+      "expect_pilot_context_match": true,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": [
+        "call me later"
+      ]
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Then again, we could stay home.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "It costs half as much again.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "There were twice as many again.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "I will try again and again.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "again",
+      "source_language": "en",
+      "original": "Please send the file againish.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "We took a later train.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "He will arrive later than expected.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "She will call later than usual.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "Please choose the later appointment.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "We will meet laterish.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    },
+    {
+      "concept": "later",
+      "source_language": "en",
+      "original": "I will send it later today than planned.",
+      "expect_pilot_context_match": false,
+      "permission_fixture": false,
+      "runtime_permission": false,
+      "structural_matching_contexts": []
+    }
+  ]
+}

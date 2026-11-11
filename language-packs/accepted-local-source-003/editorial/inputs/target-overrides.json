@@ -1,0 +1,28 @@
+{
+  "runtime_promotion": false,
+  "root_accepted": true,
+  "rows": [
+    {
+      "concept_id": "candidate-frequency-r01:again",
+      "target_language": "zh",
+      "source_face_unchanged": "再一次",
+      "target_face": "再次",
+      "reading": "zàicì"
+    },
+    {
+      "concept_id": "candidate-frequency-r01:again",
+      "target_language": "ja",
+      "source_face_unchanged": "もう一度",
+      "target_face": "再び",
+      "reading": "futatabi"
+    },
+    {
+      "concept_id": "candidate-frequency-r01:later",
+      "target_language": "zh",
+      "source_face_unchanged": "稍后",
+      "target_face": "以后",
+      "reading": "yǐhòu"
+    }
+  ],
+  "basis": "Target-only reviewed event repetition and temporal later senses; existing source faces/contexts not renamed."
+}

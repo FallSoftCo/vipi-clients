@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-11T01:23:56.445273+00:00",
+  "owner": "root",
+  "decision": "Authorize canonical data packaging and native default-route activation/qualification for this exact finite reviewed increment",
+  "proposal_manifest_sha256": "4e02d39881640138c553aaea5655df9c68be01d8736e037d3fe534948a14f82d",
+  "accepted_bare_faces": 117,
+  "withheld_bare_faces": 18,
+  "editorial_concepts_proposed": 82,
+  "basis": "Corrected r04 native evidence on both platforms, predecessor bare native controls on both, root independent review of all60 observed additive outputs, exact unchanged retained semantic fields, explicit exclusion of English cheese bare entries.",
+  "limits": [
+    "Prior benchmark reused development data, not population coverage",
+    "Native-human review and acoustic pronunciation not claimed",
+    "Carrier experiment and new machine-dictionary shortlist excluded",
+    "Final exact bundled default-route qualification pending",
+    "Store submission not authorized by this data record alone"
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "runtime_promotion": false,
+  "root_approved": true,
+  "convention": "Ordinary Latin reading with ASCII apostrophe for both ayn and hamza; not scholarly transliteration. Retain macrons/emphatic Latin letters; native no-IPA guard unchanged.",
+  "rows": [
+    {
+      "concept_id": "candidate-everyday-r01:headphones",
+      "face": "سماعات رأس",
+      "r03_reading": "sammāʿāt raʾs",
+      "guard_rejected_characters": [
+        {
+          "character": "ʾ",
+          "codepoint": "U+02BE"
+        },
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "sammā'āt ra's",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:remote_control",
+      "face": "جهاز تحكم عن بعد",
+      "r03_reading": "jihāz taḥakkum ʿan buʿd",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "jihāz taḥakkum 'an bu'd",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:toothpaste",
+      "face": "معجون أسنان",
+      "r03_reading": "maʿjūn asnān",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "ma'jūn asnān",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:birthday_cake",
+      "face": "كعكة عيد ميلاد",
+      "r03_reading": "kaʿkat ʿīd mīlād",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "ka'kat 'īd mīlād",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:mineral_water",
+      "face": "مياه معدنية",
+      "r03_reading": "miyāh maʿdaniyya",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "miyāh ma'daniyya",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:job_interview",
+      "face": "مقابلة عمل",
+      "r03_reading": "muqābalat ʿamal",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "muqābalat 'amal",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:work_meeting",
+      "face": "اجتماع عمل",
+      "r03_reading": "ijtimāʿ ʿamal",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "ijtimā' 'amal",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:weekend",
+      "face": "عطلة نهاية الأسبوع",
+      "r03_reading": "ʿuṭlat nihāyat al-usbūʿ",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "'uṭlat nihāyat al-usbū'",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-everyday-r01:raincoat",
+      "face": "معطف مطر",
+      "r03_reading": "miʿṭaf maṭar",
+      "guard_rejected_characters": [
+        {
+          "character": "ʿ",
+          "codepoint": "U+02BF"
+        }
+      ],
+      "compatible_data_option": "mi'ṭaf maṭar",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    },
+    {
+      "concept_id": "candidate-frequency-r01:slowly",
+      "face": "ببطء",
+      "r03_reading": "bibuṭʾ",
+      "guard_rejected_characters": [
+        {
+          "character": "ʾ",
+          "codepoint": "U+02BE"
+        }
+      ],
+      "compatible_data_option": "bibuṭ'",
+      "tradeoff": "Simplified apostrophe represents both ayn and hamza; preserves an articulation marker but loses their typographic distinction. Not an exact academic transliteration."
+    }
+  ]
+}
