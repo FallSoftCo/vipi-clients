@@ -147,9 +147,14 @@ class Subscriptions:
         # reads. Chat cannot repeat a store call or reset provider backoff.
         now = self.clock()
         cutoff = now - timedelta(seconds=self.settings.purchase_outage_seconds)
+        reviewer = user_id in self.settings.reviewer_user_ids
         async with self.db.sessions() as session:
+            if reviewer:
+                user = await session.get(User, user_id)
+                if user is None or user.deleted or user.suspended:
+                    raise DeliveryError("account_unavailable", 403)
             rows = (await session.execute(select(Entitlement).where(Entitlement.user_id == user_id))).scalars().all()
-        if any(not r.revoked and not r.superseded and r.verified_at and utc(r.verified_at) <= cutoff
+        if not reviewer and any(not r.revoked and not r.superseded and r.verified_at and utc(r.verified_at) <= cutoff
                and utc(r.expires_at) > now for r in rows):
             # Do not turn a store outage into an invitation to buy a second time.
             raise DeliveryError("purchase_verification_unavailable", 503)
@@ -158,6 +163,10 @@ class Subscriptions:
             matches = [r for r in rows if r.product == name and not r.revoked and not r.superseded
                        and r.verified_at and utc(r.verified_at) > cutoff and utc(r.expires_at) > now]
             latest = max(matches, key=lambda r: utc(r.expires_at), default=None)
+            if reviewer:
+                result[name] = {"active": True, "expires_at": None, "trial_ends_at": None,
+                    "access_source": "review_complimentary", "review_access": True}
+                continue
             result[name] = {"active": latest is not None,
                 "expires_at": utc(latest.expires_at).isoformat() if latest else None,
                 "trial_ends_at": utc(latest.trial_ends_at).isoformat() if latest and latest.trial_ends_at and utc(latest.trial_ends_at) > now else None}

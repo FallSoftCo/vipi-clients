@@ -1,0 +1,28 @@
+{
+  "scope": "Offline reviewer-access implementation; no grants/deployment/provider calls",
+  "backend_tests": "22 passed in 12.38s",
+  "apple_model": "8 exact native Swift model decoding/coherence checks passed",
+  "apple_view": "Actual source syntax parse passed; no full app build/visual/runtime proof",
+  "configuration": "VIPI_REVIEWER_USER_IDS defaultempty; max32 canonical nonzero internalUUIDs",
+  "ordinary_plans_payload_unchanged": true,
+  "real_purchase_rows_unchanged_by_complimentary_access": true,
+  "provider_key_required": true,
+  "live_configuration_changed": false,
+  "accounts_created_or_granted": false,
+  "release_rebuilt": false,
+  "signing_or_keychain_action": false,
+  "files": {
+    "backend/vipi/config.py": "21bf118299d2f80fa80eb7454b4441faaf2d4e7e8d18866a1daa2f1793178e15",
+    "backend/vipi/subscriptions.py": "8859cdfe4d8304d55551a274ffee37ec1f56057ec075469df3a22cf7f1b05725",
+    "backend/tests/test_reviewer_access.py": "592f4ef0b220209ef57be5fbf9f799979fcc3a93bf1c6a94b6041db3b8c0900a",
+    "ios/Vipi/Subscriptions.swift": "13e3aafde8e23b15eba377eeb7c0de41382c8b08b07f026ed4676b23ad411c1f",
+    "ios/Vipi/SubscriptionView.swift": "9a202ef41e9bb6ac70a3470718c6948bffb5835f2ec95ea1a6ff96d13eb8287d"
+  },
+  "evidence": {
+    "AppleReviewAccessProbe.swift": "e385f4d333dcccb0dcf26bf14a7b20b422a2613a28f98d5ede12abc2d32a6316",
+    "model.log": "843ab79b611eedb6ff4751b23977e78b65f1b94b49a360eae5b1618002b9d3b2",
+    "backend-tests-r01.log": "6e70dc4dcf58bf8032ef81fdb02af2b6a1a64732ead4c4921877e5bc8ced5db8",
+    "apple-source-binding.json": "b3d5acdc382fbb6240095063103d7fd913db8d59092b380e292a79351d9ecb19",
+    "view-parse.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

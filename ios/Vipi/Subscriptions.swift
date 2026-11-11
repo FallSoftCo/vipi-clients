@@ -17,6 +17,12 @@ struct EntitlementSnapshot: Decodable, Sendable {
         let available: Bool?
         let expires_at: String?
         let trial_ends_at: String?
+        let access_source: String?
+        let review_access: Bool?
+        var isReviewAccess: Bool {
+            active && access_source == "review_complimentary" && review_access == true &&
+                expires_at == nil && trial_ends_at == nil
+        }
     }
     let base: Access
     let bot_mini: Access

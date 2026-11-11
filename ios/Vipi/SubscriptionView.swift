@@ -23,8 +23,14 @@ struct SubscriptionOfferView: View {
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
                 if access?.active == true {
-                    Label("Your \(plan.title) subscription is active", systemImage: "checkmark.circle.fill")
-                        .foregroundStyle(VipiDesign.highlight)
+                    if access?.isReviewAccess == true {
+                        Label("Review access is active", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(VipiDesign.highlight)
+                        Text("No subscription is required for this account.")
+                    } else {
+                        Label("Your \(plan.title) subscription is active", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(VipiDesign.highlight)
+                    }
                     if let end = access?.trial_ends_at, let date = Self.date(end) {
                         Text("Your free trial ends \(date.formatted(date: .long, time: .omitted)).")
                     } else if let end = access?.expires_at, let date = Self.date(end) {
@@ -78,8 +84,10 @@ struct SubscriptionOfferView: View {
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }
-                Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                if access?.isReviewAccess != true {
+                    Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
+                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                }
                 Button("Restore purchases") { Task { await store.restore() } }.disabled(store.busy)
                     .accessibilityIdentifier("subscription-restore")
                 Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
@@ -108,7 +116,13 @@ struct SubscriptionsView: View {
                         LabeledContent(plan.title, value: store.snapshot?.access(plan).active == true ? "Active" : "See plan")
                     }
                 }
-            } footer: { Text("Vipi and Bot mini are separate subscriptions. You choose each one explicitly.") }
+            } footer: {
+                if store.snapshot?.base.isReviewAccess == true && store.snapshot?.bot_mini.isReviewAccess == true {
+                    Text("Review access is active. No subscription is required for this account.")
+                } else {
+                    Text("Vipi and Bot mini are separate subscriptions. You choose each one explicitly.")
+                }
+            }
             Section {
                 Button("Restore purchases") { Task { await store.restore() } }.disabled(store.busy)
                 Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
