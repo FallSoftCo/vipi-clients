@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-11T02:58:44.689576+00:00",
+  "operation": "SecKeychainOpen + SecKeychainGetStatus only",
+  "rows": [
+    {
+      "keychain": "login.keychain-db",
+      "open_osstatus": 0,
+      "get_status_osstatus": 0,
+      "status_bits": 2,
+      "unlocked": false
+    },
+    {
+      "keychain": "pbtv58.keychain-db",
+      "open_osstatus": 0,
+      "get_status_osstatus": 0,
+      "status_bits": 2,
+      "unlocked": false
+    }
+  ],
+  "unlock_signing_or_mutation_attempted": false
+}

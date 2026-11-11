@@ -1,0 +1,7 @@
+{
+  "source_manifest_sha256": "eb8c4b9a168dc6d6a06ca9a95d44ee1251da96474a8092912d4ea2c5aa39abad",
+  "source_revision": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "source_file_count": 1064,
+  "private_receipt_path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/apple-reviewer-integration-r01",
+  "scope": "Full unsigned simulator app build, not signed release/normal startup/UI/provider proof"
+}

@@ -1,0 +1,77 @@
+{
+  "started": "2026-11-11T03:00:20.991630+00:00",
+  "revision": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "state": "unsigned_simulator_app_build_verified",
+  "signed": false,
+  "keychain_modified": false,
+  "signing_hold_preserved": true,
+  "floor_bytes": 1073741824,
+  "additional_budget": 2147483648,
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 10454,
+      "exit": 0,
+      "seconds": 2.012776874937117
+    },
+    {
+      "name": "build",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/reviewer-integration-r01/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build"
+      ],
+      "pid": 10470,
+      "exit": 0,
+      "seconds": 44.21115529187955
+    }
+  ],
+  "free_before": 26585546752,
+  "committed_files_verified": 1064,
+  "min_free": 26582900736,
+  "actual_project_compile_inputs_verified": {
+    "VipiLanguageDetector": 25,
+    "Vipi": 78
+  },
+  "release_archive_created": false,
+  "normal_startup_qualified": false,
+  "provider_calls": 0,
+  "free_after": 26693017600,
+  "app_executable_sha256": "595c4b3e209a90485853dd27b361fb31de13287a5ceac51de2aa6bea351fd316",
+  "debug_dylib_sha256": "24afd8c73008f79ce4807dcfecb4d89bdf4724b75c02592ec363bea7ab1d5ee3",
+  "compiled_review_copy_and_marker": {
+    "Review access is active": true,
+    "No subscription is required for this account.": true,
+    "review_complimentary": true
+  },
+  "index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+  "notice_sha256": "40b375c220742b2c8b95691cbda864e9d9e7cf1fcdda56e61829bae206fd7e62",
+  "keychain_status_receipt_sha256": "60feceda017190e3e7ce4850276f886d8d2343b6e7f40c1e3cb1100e9dbec99f"
+}

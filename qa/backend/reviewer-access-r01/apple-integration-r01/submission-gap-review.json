@@ -1,0 +1,25 @@
+{
+  "scope": "Read-only retained Apple submission evidence and current source; no console/form edits",
+  "signing_dependency": "SecKeychainGetStatus returns2 (locked) for login and pbtv58, OSStatus0; unchanged. No unlock/signing/cert/profile action.",
+  "actionable_without_signing": [
+    {
+      "finding": "STORE_SUBMISSION reviewer notes still instruct explicit subscription purchase flow",
+      "proposed_copy": "Use the supplied review account and test peer. No purchase or trial is required for configured review access. Choose known/immersion languages, inspect the explicit review-access status, and use the normal messaging and consent flows.",
+      "condition": "Final console notes must bind verified credentials, deployed configuration and actual provider availability; do not promise vBot until actual provider qualification."
+    },
+    {
+      "finding": "Current reviewer model/copy was absent from preserved6ceaf unsigned device archive",
+      "action_completed": "Full unsigned simulator app compilation at b144e1b; no new device archive.",
+      "remaining": "Final accepted scope must be built/signed later under explicit authorization; compile is not normal-startup or visual review evidence."
+    }
+  ],
+  "remaining_external_or_separate_gates": [
+    "ASC authentication/organization agreements and final name/copy saving",
+    "Signing/unlocked identity, final signed artifact and upload",
+    "Actual subscription store lifecycle and provider notification qualification",
+    "Real bot provider and full reviewer feature access",
+    "Background provider delivery and final privacy/source/license publication reconciliation",
+    "Normal-startup and final screenshots in submitted build"
+  ],
+  "no_source_scope_change": true
+}
