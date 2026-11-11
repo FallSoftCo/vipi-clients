@@ -1,0 +1,80 @@
+{
+  "started": "2026-11-11T03:44:03.783042+00:00",
+  "revision": "22f6ba0cf0b19e51b5c70448f6a5cab499a0bbcb",
+  "state": "unsigned_archive_verified",
+  "signed": false,
+  "keychain_modified": false,
+  "signing_hold_preserved": true,
+  "floor_bytes": 1073741824,
+  "additional_budget": 2147483648,
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 21809,
+      "exit": 0,
+      "seconds": 2.0080623750109226
+    },
+    {
+      "name": "archive",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "Vipi",
+        "-configuration",
+        "Release",
+        "-sdk",
+        "iphoneos",
+        "-destination",
+        "generic/platform=iOS",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/distribution-archive-r01/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/distribution-archive-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-archivePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/unsigned-release-20261111-r04/Vipi.xcarchive",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/unsigned-release-20261111-r04/archive.xcresult",
+        "WORKOS_CLIENT_ID=client_01M6VYVQQ9GWVNS95DFGABXEW9",
+        "VIPI_PUSH_ENVIRONMENT=production",
+        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGNING_REQUIRED=NO",
+        "CODE_SIGN_IDENTITY=",
+        "CODE_SIGN_STYLE=Manual",
+        "PROVISIONING_PROFILE_SPECIFIER=",
+        "archive"
+      ],
+      "pid": 21824,
+      "exit": 0,
+      "seconds": 134.4504671660252
+    }
+  ],
+  "free_before": 25929531392,
+  "committed_files_verified": 1064,
+  "min_free": 25094815744,
+  "actual_project_compile_inputs_verified": {
+    "VipiLanguageDetector": 25,
+    "Vipi": 78
+  },
+  "application": {
+    "bundle": "co.fallsoft.vipi",
+    "version": "1.0",
+    "build": "1",
+    "main_executable_sha256": "2dd83bf8d6fac1424628dc700dfd44a5275f0e5002cc05debd165004715ac3e2",
+    "privacy_manifests": 13,
+    "signature_directory_present": false,
+    "embedded_profile_present": false
+  },
+  "must_not_upload": true,
+  "free_after": 24848928768
+}

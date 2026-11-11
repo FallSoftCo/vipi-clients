@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-11T03:47:02.503444+00:00",
+  "replacement_closure_sha256": "5373c5ea5609b530b17917d6e3bf19734e70d4b4a79582c210b1c37c25fe5469",
+  "retired_archive": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/unsigned-release-20261110-r03/Vipi.xcarchive",
+  "prior_manifest_sha256": "1b3334fd9a98af9e8fa7a081159c7961851dbae4fe7e469b836ddd3ab3b71e6a",
+  "prior_files_verified": 2936,
+  "prior_bytes": 1061580347,
+  "catalog_index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+  "privacy_manifests_identical": true,
+  "codesign_tasks": 0,
+  "active_archive_consumers": false,
+  "retained": [
+    "all prior source/receipts/manifests/logs",
+    "preserved seven experiments",
+    "new r04 archive",
+    "shared derived cache and unrelated state"
+  ],
+  "state": "superseded_owned_archive_removed",
+  "free_after": 25815146496
+}
